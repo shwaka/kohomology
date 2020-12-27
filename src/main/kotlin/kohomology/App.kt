@@ -27,6 +27,9 @@ object RationalField : Field<Rational> {
     override fun wrap(a: Rational): Scalar<Rational> {
         return a
     }
+    override fun fromInteger(n: Int): Scalar<Rational> {
+        return Rational(n, 1)
+    }
 }
 
 interface Scalar<S> {
@@ -37,6 +40,7 @@ interface Scalar<S> {
 
 interface Field<S> {
     fun wrap(a: S): Scalar<S>
+    fun fromInteger(n: Int): Scalar<S>
 }
 
 fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
@@ -50,6 +54,6 @@ fun main(args: Array<String>) {
     println(Rational(1, 3) + Rational(-2, 6))
 
     val a = Rational(1, 2)
-    val b = Rational(1, 3)
+    val b = RationalField.fromInteger(2)
     println(add(a, b))
 }

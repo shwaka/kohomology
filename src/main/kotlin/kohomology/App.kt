@@ -15,7 +15,8 @@ interface Field<S> {
 }
 
 fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
-    return a.field.wrap(a + b.unwrap())
+    // return a.field.wrap(a + b.unwrap())
+    return a + b
 }
 
 data class Rational(val numerator: Int, val denominator: Int) : Scalar<Rational> {

@@ -45,5 +45,5 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = "kohomology.AppKt"
+    mainClassName = "com.github.shwaka.kohomology.AppKt"
 }

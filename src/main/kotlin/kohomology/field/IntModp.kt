@@ -1,4 +1,4 @@
-package kohomology.field
+package com.github.shwaka.kohomology.field
 
 data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     // 色々とチェックした方が良さそう

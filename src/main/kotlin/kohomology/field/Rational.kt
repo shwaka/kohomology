@@ -1,4 +1,4 @@
-package kohomology.field
+package com.github.shwaka.kohomology.field
 
 data class Rational(val numerator: Int, val denominator: Int) : Scalar<Rational> {
     override val field = RationalField

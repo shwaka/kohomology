@@ -1,11 +1,11 @@
-package kohomology
+package com.github.shwaka.kohomology
 
-import kohomology.field.Scalar
-import kohomology.field.Field
-import kohomology.field.Rational
-import kohomology.field.RationalField
-import kohomology.field.IntModp
-import kohomology.field.Fp
+import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.Rational
+import com.github.shwaka.kohomology.field.RationalField
+import com.github.shwaka.kohomology.field.IntModp
+import com.github.shwaka.kohomology.field.Fp
 
 fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
     // return a.field.wrap(a + b.unwrap())

@@ -1,4 +1,4 @@
-package kohomology.field
+package com.github.shwaka.kohomology.field
 
 interface Scalar<S> {
     operator fun plus(other: S): S

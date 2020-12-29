@@ -5,6 +5,16 @@ interface Scalar<S> {
     operator fun plus(other: Scalar<S>): Scalar<S> {
         return this.field.wrap(this + other.unwrap())
     }
+    operator fun minus(other: S): S {
+        return this + this.field.fromInteger(-1) * other
+    }
+    operator fun minus(other: Scalar<S>): Scalar<S> {
+        return this.field.wrap(this - other.unwrap())
+    }
+    operator fun times(other: S): S
+    operator fun times(other: Scalar<S>): Scalar<S> {
+        return this.field.wrap(this * other.unwrap())
+    }
     fun unwrap(): S
     val field: Field<S>
 }
@@ -19,12 +29,23 @@ fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
     return a + b
 }
 
+fun <S> test(a: Scalar<S>, b: Scalar<S>) {
+    println("------------------------------")
+    println("test: a=${a}, b=${b}")
+    println("a + b = ${a + b}")
+    println("a - b = ${a - b}")
+    println("a * b = ${a * b}")
+}
+
 data class Rational(val numerator: Int, val denominator: Int) : Scalar<Rational> {
     override val field = RationalField
     override operator fun plus(other: Rational): Rational {
         val numerator = this.numerator * other.denominator + other.numerator * this.denominator
         val denominator = this.denominator * other.denominator
         return Rational(numerator, denominator)
+    }
+    override operator fun times(other: Rational): Rational {
+        return Rational(this.numerator * other.numerator, this.denominator * other.denominator)
     }
 
     override fun toString(): String {
@@ -69,6 +90,12 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
         }
         return IntModp(this.value + other.value, this.p)
     }
+    override operator fun times(other: IntModp): IntModp {
+        if (this.p != other.p) {
+            throw Exception("[Error] different characteristic: ${this.p} and ${other.p}")
+        }
+        return IntModp(this.value * other.value, this.p)
+    }
     override fun unwrap(): IntModp {
         return this
     }
@@ -94,10 +121,12 @@ fun main() {
     val a = Rational(1, 2)
     val b = RationalField.fromInteger(2)
     println(add(a, b))
+    test(a, b)
 
     val p = 5
     val c = IntModp(3, p)
     val d = IntModp(1, p)
     println(add(c, d))
     println(add(c, d + Fp(p).fromInteger(1)))
+    test(c, d)
 }

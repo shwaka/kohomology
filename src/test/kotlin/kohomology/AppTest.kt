@@ -3,12 +3,20 @@
  */
 package kohomology
 
-import kotlin.test.Test
-import kotlin.test.assertNotNull
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.describeSpec
+import io.kotest.matchers.shouldBe
 
-class AppTest {
-    @Test fun testAppHasAGreeting() {
-        val classUnderTest = App()
-        assertNotNull(classUnderTest.greeting, "app should have a greeting")
+import kohomology.field.Rational
+import kohomology.field.RationalField
+
+class RationalTest : StringSpec({
+    "1/2 + 1/3 should be 5/6" {
+        val a = Rational(1, 2)
+        val b = Rational(1, 3)
+        (a + b) shouldBe Rational(5, 6)
     }
-}
+    "2/6 should be 1/3" {
+        Rational(2, 6) shouldBe Rational(1, 3)
+    }
+})

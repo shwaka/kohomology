@@ -28,12 +28,16 @@ data class Rational(val numerator: Int, val denominator: Int) : Scalar<Rational>
     }
 
     override fun toString(): String {
-        if (this.numerator == 0) {
-            return "0"
-        } else if (this.denominator == 1) {
-            return this.numerator.toString()
-        } else {
-            return "${this.numerator}/${this.denominator}"
+        return when {
+            this.numerator == 0 -> {
+                "0"
+            }
+            this.denominator == 1 -> {
+                this.numerator.toString()
+            }
+            else -> {
+                "${this.numerator}/${this.denominator}"
+            }
         }
     }
 
@@ -61,7 +65,7 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     }
     override operator fun plus(other: IntModp): IntModp {
         if (this.p != other.p) {
-            throw Error("different characteristic!")
+            throw Exception("[Error] different characteristic: ${this.p} and ${other.p}")
         }
         return IntModp(this.value + other.value, this.p)
     }
@@ -82,7 +86,7 @@ data class Fp(val p: Int) : Field<IntModp> {
     }
 }
 
-fun main(args: Array<String>) {
+fun main() {
     println("Hello world!")
     println(Rational(1, 2) + Rational(1, 3))
     println(Rational(1, 3) + Rational(-2, 6))

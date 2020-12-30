@@ -36,4 +36,3 @@ data class Fp(val p: Int) : Field<IntModp> {
         return IntModp(n, p)
     }
 }
-

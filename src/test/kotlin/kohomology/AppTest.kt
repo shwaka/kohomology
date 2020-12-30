@@ -3,12 +3,9 @@
  */
 package com.github.shwaka.kohomology
 
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.describeSpec
-import io.kotest.matchers.shouldBe
-
 import com.github.shwaka.kohomology.field.Rational
-import com.github.shwaka.kohomology.field.RationalField
+import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.shouldBe
 
 class RationalTest : StringSpec({
     "1/2 + 1/3 should be 5/6" {

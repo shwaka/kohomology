@@ -1,11 +1,10 @@
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.Scalar
-import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.Fp
+import com.github.shwaka.kohomology.field.IntModp
 import com.github.shwaka.kohomology.field.Rational
 import com.github.shwaka.kohomology.field.RationalField
-import com.github.shwaka.kohomology.field.IntModp
-import com.github.shwaka.kohomology.field.Fp
+import com.github.shwaka.kohomology.field.Scalar
 
 fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
     // return a.field.wrap(a + b.unwrap())
@@ -14,13 +13,12 @@ fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
 
 fun <S> test(a: Scalar<S>, b: Scalar<S>) {
     println("------------------------------")
-    println("test: a=${a}, b=${b}")
+    println("test: a=$a, b=$b")
     println("a + b = ${a + b}")
     println("a - b = ${a - b}")
     println("a * b = ${a * b}")
     println("------------------------------")
 }
-
 
 fun main() {
     println("Hello world!")

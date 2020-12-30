@@ -31,7 +31,6 @@ private fun reduce(numerator: Int, denominator: Int): Pair<Int, Int> {
     return Pair(num, den)
 }
 
-
 class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
     private val numerator: Int
     private val denominator: Int

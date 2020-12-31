@@ -20,7 +20,7 @@ class RationalTest : StringSpec({
         Rational(1, -2) shouldBe Rational(-1, 2)
     }
     "0/2 should be 0/1" {
-        Rational(0, 2) shouldBe  Rational(0, 1)
+        Rational(0, 2) shouldBe Rational(0, 1)
     }
     "5/6 * 2/3 should be 5/9" {
         (Rational(5, 6) * Rational(2, 3)) shouldBe Rational(5, 9)

@@ -43,6 +43,7 @@ dependencies {
     testImplementation("io.kotest:kotest-runner-junit5:$version")
     testImplementation("io.kotest:kotest-assertions-core:$version")
     testImplementation("io.kotest:kotest-property:$version")
+    testImplementation("io.kotest:kotest-assertions-compiler:$version")
 
     ktlint("com.pinterest:ktlint:0.40.0")
 }

@@ -5,6 +5,8 @@ package com.github.shwaka.kohomology
 
 import com.github.shwaka.kohomology.field.Rational
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.compilation.shouldCompile
+import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
 
 class RationalTest : StringSpec({
@@ -24,5 +26,23 @@ class RationalTest : StringSpec({
     }
     "5/6 * 2/3 should be 5/9" {
         (Rational(5, 6) * Rational(2, 3)) shouldBe Rational(5, 9)
+    }
+})
+
+class CompileTest : StringSpec({
+    "Rational + Rational should compile" {
+        val codeSnippet = """
+            import com.github.shwaka.kohomology.field.Rational
+            val foo = Rational(0, 1) + Rational(1, 0)
+        """ // compiles, but runtime error
+        codeSnippet.shouldCompile()
+    }
+    "Rational + IntModp should not compile" {
+        val codeSnippet = """
+            import com.github.shwaka.kohomology.field.Rational
+            import com.github.shwaka.kohomology.field.IntModp
+            val foo = Rational(0, 1) + IntModp(0, 7)
+        """
+        codeSnippet.shouldNotCompile()
     }
 })

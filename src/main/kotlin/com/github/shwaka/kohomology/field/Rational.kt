@@ -50,6 +50,12 @@ class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
     override operator fun times(other: Rational): Rational {
         return Rational(this.numerator * other.numerator, this.denominator * other.denominator)
     }
+    override operator fun div(other: Rational): Rational {
+        if (other == Rational(0, 1)) {
+            throw ArithmeticException("division by zero (Rational(0, 1))")
+        }
+        return Rational(this.numerator * other.denominator, this.denominator * other.denominator)
+    }
 
     override fun toString(): String {
         return when {

@@ -20,6 +20,9 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
         }
         return IntModp(this.value * other.value, this.p)
     }
+    override operator fun div(other: IntModp): IntModp {
+        throw NotImplementedError("Not implemented")
+    }
     override fun unwrap(): IntModp {
         return this
     }

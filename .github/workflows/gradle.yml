@@ -23,7 +23,7 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew --exclude-task ktlintMainSourceSetCheck --exclude-task ktlintTestSourceSetCheck --exclude-task ktlintKotlinScriptCheck build
     - name: Test with Gradle
       run: ./gradlew test
     - name: Check with ktlint

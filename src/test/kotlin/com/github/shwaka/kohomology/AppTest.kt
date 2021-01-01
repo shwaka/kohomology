@@ -14,7 +14,17 @@ import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
 
+fun <S> fieldTest(fromInt: (Int) -> Scalar<S>) = stringSpec {
+    "1 + 2 should be 3" {
+        (fromInt(1) + fromInt(2)) shouldBe fromInt(3)
+    }
+    "1 - 1 should be 0" {
+        (fromInt(1) - fromInt(1)) shouldBe fromInt(0)
+    }
+}
+
 class IntRationalTest : StringSpec({
+    include(fieldTest(IntRationalField::fromInteger))
     "1/2 + 1/3 should be 5/6" {
         val a = IntRational(1, 2)
         val b = IntRational(1, 3)
@@ -42,6 +52,11 @@ class BigRationalTest : StringSpec({
     }
 })
 
+class IntModpTest : StringSpec({
+    val fp = Fp(5)
+    include(fieldTest(fp::fromInteger))
+})
+
 class CompileTest : StringSpec({
     "IntRational + IntRational should compile" {
         val codeSnippet = """
@@ -58,22 +73,4 @@ class CompileTest : StringSpec({
         """
         codeSnippet.shouldNotCompile()
     }
-})
-
-fun <S> myReusableTest(fromInteger: (Int) -> Scalar<S>) = stringSpec {
-    "1 + 2 should be 3" {
-        val a = fromInteger(1)
-        val b = fromInteger(2)
-        val c = fromInteger(3)
-        (a + b) shouldBe c
-    }
-}
-
-class IntRationalReusedTest : StringSpec({
-    include(myReusableTest(IntRationalField::fromInteger))
-})
-
-class IntModpReusedTest : StringSpec({
-    val fp = Fp(5)
-    include(myReusableTest(fp::fromInteger))
 })

@@ -31,7 +31,7 @@ private fun reduce(numerator: Int, denominator: Int): Pair<Int, Int> {
     return Pair(num, den)
 }
 
-class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
+class IntRational(numerator: Int, denominator: Int) : Scalar<IntRational> {
     private val numerator: Int
     private val denominator: Int
     init {
@@ -41,20 +41,20 @@ class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
         this.numerator = red.first
         this.denominator = red.second
     }
-    override val field = RationalField
-    override operator fun plus(other: Rational): Rational {
+    override val field = IntRationalField
+    override operator fun plus(other: IntRational): IntRational {
         val numerator = this.numerator * other.denominator + other.numerator * this.denominator
         val denominator = this.denominator * other.denominator
-        return Rational(numerator, denominator)
+        return IntRational(numerator, denominator)
     }
-    override operator fun times(other: Rational): Rational {
-        return Rational(this.numerator * other.numerator, this.denominator * other.denominator)
+    override operator fun times(other: IntRational): IntRational {
+        return IntRational(this.numerator * other.numerator, this.denominator * other.denominator)
     }
-    override operator fun div(other: Rational): Rational {
-        if (other == Rational(0, 1)) {
+    override operator fun div(other: IntRational): IntRational {
+        if (other == IntRational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }
-        return Rational(this.numerator * other.denominator, this.denominator * other.denominator)
+        return IntRational(this.numerator * other.denominator, this.denominator * other.denominator)
     }
 
     override fun toString(): String {
@@ -71,7 +71,7 @@ class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
         }
     }
 
-    override fun unwrap(): Rational {
+    override fun unwrap(): IntRational {
         return this
     }
 
@@ -80,7 +80,7 @@ class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
 
-        other as Rational
+        other as IntRational
 
         if (numerator != other.numerator) return false
         if (denominator != other.denominator) return false
@@ -96,11 +96,11 @@ class Rational(numerator: Int, denominator: Int) : Scalar<Rational> {
     }
 }
 
-object RationalField : Field<Rational> {
-    override fun wrap(a: Rational): Scalar<Rational> {
+object IntRationalField : Field<IntRational> {
+    override fun wrap(a: IntRational): Scalar<IntRational> {
         return a
     }
-    override fun fromInteger(n: Int): Rational {
-        return Rational(n, 1)
+    override fun fromInteger(n: Int): IntRational {
+        return IntRational(n, 1)
     }
 }

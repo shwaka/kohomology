@@ -3,37 +3,48 @@
  */
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.Rational
+import com.github.shwaka.kohomology.field.BigRational
+import com.github.shwaka.kohomology.field.IntRational
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.be
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 
-class RationalTest : StringSpec({
+class IntRationalTest : StringSpec({
     "1/2 + 1/3 should be 5/6" {
-        val a = Rational(1, 2)
-        val b = Rational(1, 3)
-        (a + b) shouldBe Rational(5, 6)
+        val a = IntRational(1, 2)
+        val b = IntRational(1, 3)
+        (a + b) shouldBe IntRational(5, 6)
     }
     "2/6 should be 1/3" {
-        Rational(2, 6) shouldBe Rational(1, 3)
+        IntRational(2, 6) shouldBe IntRational(1, 3)
     }
     "1/(-2) should be (-1)/2" {
-        Rational(1, -2) shouldBe Rational(-1, 2)
+        IntRational(1, -2) shouldBe IntRational(-1, 2)
     }
     "0/2 should be 0/1" {
-        Rational(0, 2) shouldBe Rational(0, 1)
+        IntRational(0, 2) shouldBe IntRational(0, 1)
     }
     "5/6 * 2/3 should be 5/9" {
-        (Rational(5, 6) * Rational(2, 3)) shouldBe Rational(5, 9)
+        (IntRational(5, 6) * IntRational(2, 3)) shouldBe IntRational(5, 9)
+    }
+})
+
+class BigRationalTest : StringSpec({
+    "1/2 + 1/3 should be 5/6" {
+        val a = BigRational(1, 2)
+        val b = BigRational(1, 3)
+        (a + b) shouldBe BigRational(5, 6)
     }
 })
 
 class CompileTest : StringSpec({
-    "Rational + Rational should compile" {
+    "IntRational + IntRational should compile" {
         val codeSnippet = """
-            import com.github.shwaka.kohomology.field.Rational
-            val foo = Rational(0, 1) + Rational(1, 0)
+            import com.github.shwaka.kohomology.field.IntRational
+            val foo = IntRational(0, 1) + IntRational(1, 0)
         """ // compiles, but runtime error
         codeSnippet.shouldCompile()
     }
@@ -41,7 +52,7 @@ class CompileTest : StringSpec({
         val codeSnippet = """
             import com.github.shwaka.kohomology.field.Rational
             import com.github.shwaka.kohomology.field.IntModp
-            val foo = Rational(0, 1) + IntModp(0, 7)
+            val foo = IntRational(0, 1) + IntModp(0, 7)
         """
         codeSnippet.shouldNotCompile()
     }

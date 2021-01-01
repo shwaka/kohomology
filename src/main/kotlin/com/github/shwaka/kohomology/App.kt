@@ -2,8 +2,8 @@ package com.github.shwaka.kohomology
 
 import com.github.shwaka.kohomology.field.Fp
 import com.github.shwaka.kohomology.field.IntModp
-import com.github.shwaka.kohomology.field.Rational
-import com.github.shwaka.kohomology.field.RationalField
+import com.github.shwaka.kohomology.field.IntRational
+import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
 
 fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
@@ -22,11 +22,11 @@ fun <S> test(a: Scalar<S>, b: Scalar<S>) {
 
 fun main() {
     println("Hello world!")
-    println(Rational(1, 2) + Rational(1, 3))
-    println(Rational(1, 3) + Rational(-2, 6))
+    println(IntRational(1, 2) + IntRational(1, 3))
+    println(IntRational(1, 3) + IntRational(-2, 6))
 
-    val a = Rational(1, 2)
-    val b = RationalField.fromInteger(2)
+    val a = IntRational(1, 2)
+    val b = IntRationalField.fromInteger(2)
     println(add(a, b))
     test(a, b)
 

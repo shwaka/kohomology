@@ -25,6 +25,6 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew --exclude-task ktlintMainSourceSetCheck --exclude-task ktlintTestSourceSetCheck --exclude-task ktlintKotlinScriptCheck build
     - name: Test with Gradle
-      run: ./gradlew test
+      run: ./gradlew kotest
     - name: Check with ktlint
       run: ./gradlew ktlintCheck

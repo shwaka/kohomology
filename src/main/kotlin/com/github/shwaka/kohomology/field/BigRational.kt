@@ -30,7 +30,7 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     return Pair(num, den)
 }
 
-class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar<BigRational> {
+class BigRational(numerator: BigInteger, denominator: BigInteger) : RationalScalar<BigRational> {
     private val numerator: BigInteger
     private val denominator: BigInteger
     init {
@@ -93,11 +93,15 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar<BigRa
     }
 }
 
-object BigRationalField : Field<BigRational> {
+object BigRationalField : RationalField<BigRational> {
     override fun wrap(a: BigRational): Scalar<BigRational> {
         return a
     }
     override fun fromInt(n: Int): BigRational {
         return BigRational(n, 1)
+    }
+
+    override fun fromIntPair(numerator: Int, denominator: Int): Scalar<BigRational> {
+        return BigRational(numerator, denominator)
     }
 }

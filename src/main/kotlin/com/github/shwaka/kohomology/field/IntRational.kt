@@ -31,7 +31,7 @@ private fun reduce(numerator: Int, denominator: Int): Pair<Int, Int> {
     return Pair(num, den)
 }
 
-class IntRational(numerator: Int, denominator: Int) : Scalar<IntRational> {
+class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational> {
     private val numerator: Int
     private val denominator: Int
     init {
@@ -96,11 +96,15 @@ class IntRational(numerator: Int, denominator: Int) : Scalar<IntRational> {
     }
 }
 
-object IntRationalField : Field<IntRational> {
+object IntRationalField : RationalField<IntRational> {
     override fun wrap(a: IntRational): Scalar<IntRational> {
         return a
     }
     override fun fromInt(n: Int): IntRational {
         return IntRational(n, 1)
+    }
+
+    override fun fromIntPair(numerator: Int, denominator: Int): Scalar<IntRational> {
+        return IntRational(numerator, denominator)
     }
 }

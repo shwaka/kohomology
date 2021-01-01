@@ -3,12 +3,11 @@
  */
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.BigRational
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Fp
-import com.github.shwaka.kohomology.field.IntRational
 import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.RationalField
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.compilation.shouldCompile
@@ -24,34 +23,34 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     }
 }
 
-class IntRationalTest : StringSpec({
-    include(fieldTest(IntRationalField))
+fun <S> rationalTest(field: RationalField<S>) = stringSpec {
     "1/2 + 1/3 should be 5/6" {
-        val a = IntRational(1, 2)
-        val b = IntRational(1, 3)
-        (a + b) shouldBe IntRational(5, 6)
+        val a = field.fromIntPair(1, 2)
+        val b = field.fromIntPair(1, 3)
+        (a + b) shouldBe field.fromIntPair(5, 6)
     }
     "2/6 should be 1/3" {
-        IntRational(2, 6) shouldBe IntRational(1, 3)
+        field.fromIntPair(2, 6) shouldBe field.fromIntPair(1, 3)
     }
     "1/(-2) should be (-1)/2" {
-        IntRational(1, -2) shouldBe IntRational(-1, 2)
+        field.fromIntPair(1, -2) shouldBe field.fromIntPair(-1, 2)
     }
     "0/2 should be 0/1" {
-        IntRational(0, 2) shouldBe IntRational(0, 1)
+        field.fromIntPair(0, 2) shouldBe field.fromIntPair(0, 1)
     }
     "5/6 * 2/3 should be 5/9" {
-        (IntRational(5, 6) * IntRational(2, 3)) shouldBe IntRational(5, 9)
+        (field.fromIntPair(5, 6) * field.fromIntPair(2, 3)) shouldBe field.fromIntPair(5, 9)
     }
+}
+
+class IntRationalTest : StringSpec({
+    include(fieldTest(IntRationalField))
+    include(rationalTest(IntRationalField))
 })
 
 class BigRationalTest : StringSpec({
     include(fieldTest(BigRationalField))
-    "1/2 + 1/3 should be 5/6" {
-        val a = BigRational(1, 2)
-        val b = BigRational(1, 3)
-        (a + b) shouldBe BigRational(5, 6)
-    }
+    include(rationalTest(BigRationalField))
 })
 
 class IntModpTest : StringSpec({

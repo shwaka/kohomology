@@ -6,7 +6,7 @@ interface Scalar<S> {
         return this.field.wrap(this + other.unwrap())
     }
     operator fun minus(other: S): S {
-        return this + this.field.fromInteger(-1) * other
+        return this + this.field.fromInt(-1) * other
     }
     operator fun minus(other: Scalar<S>): Scalar<S> {
         return this.field.wrap(this - other.unwrap())
@@ -25,5 +25,5 @@ interface Scalar<S> {
 
 interface Field<S> {
     fun wrap(a: S): Scalar<S>
-    fun fromInteger(n: Int): Scalar<S>
+    fun fromInt(n: Int): Scalar<S>
 }

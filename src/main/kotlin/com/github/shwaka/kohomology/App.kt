@@ -26,7 +26,7 @@ fun main() {
     println(IntRational(1, 3) + IntRational(-2, 6))
 
     val a = IntRational(1, 2)
-    val b = IntRationalField.fromInteger(2)
+    val b = IntRationalField.fromInt(2)
     println(add(a, b))
     test(a, b)
 
@@ -34,6 +34,6 @@ fun main() {
     val c = IntModp(3, p)
     val d = IntModp(1, p)
     println(add(c, d))
-    println(add(c, d + Fp(p).fromInteger(1)))
+    println(add(c, d + Fp(p).fromInt(1)))
     test(c, d)
 }

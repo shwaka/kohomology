@@ -4,27 +4,28 @@
 package com.github.shwaka.kohomology
 
 import com.github.shwaka.kohomology.field.BigRational
+import com.github.shwaka.kohomology.field.BigRationalField
+import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Fp
 import com.github.shwaka.kohomology.field.IntRational
 import com.github.shwaka.kohomology.field.IntRationalField
-import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
 
-fun <S> fieldTest(fromInt: (Int) -> Scalar<S>) = stringSpec {
+fun <S> fieldTest(field: Field<S>) = stringSpec {
     "1 + 2 should be 3" {
-        (fromInt(1) + fromInt(2)) shouldBe fromInt(3)
+        (field.fromInt(1) + field.fromInt(2)) shouldBe field.fromInt(3)
     }
     "1 - 1 should be 0" {
-        (fromInt(1) - fromInt(1)) shouldBe fromInt(0)
+        (field.fromInt(1) - field.fromInt(1)) shouldBe field.fromInt(0)
     }
 }
 
 class IntRationalTest : StringSpec({
-    include(fieldTest(IntRationalField::fromInteger))
+    include(fieldTest(IntRationalField))
     "1/2 + 1/3 should be 5/6" {
         val a = IntRational(1, 2)
         val b = IntRational(1, 3)
@@ -45,6 +46,7 @@ class IntRationalTest : StringSpec({
 })
 
 class BigRationalTest : StringSpec({
+    include(fieldTest(BigRationalField))
     "1/2 + 1/3 should be 5/6" {
         val a = BigRational(1, 2)
         val b = BigRational(1, 3)
@@ -54,7 +56,7 @@ class BigRationalTest : StringSpec({
 
 class IntModpTest : StringSpec({
     val fp = Fp(5)
-    include(fieldTest(fp::fromInteger))
+    include(fieldTest(fp))
 })
 
 class CompileTest : StringSpec({

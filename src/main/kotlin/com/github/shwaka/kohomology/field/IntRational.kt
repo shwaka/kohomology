@@ -100,7 +100,7 @@ object IntRationalField : Field<IntRational> {
     override fun wrap(a: IntRational): Scalar<IntRational> {
         return a
     }
-    override fun fromInteger(n: Int): IntRational {
+    override fun fromInt(n: Int): IntRational {
         return IntRational(n, 1)
     }
 }

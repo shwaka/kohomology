@@ -97,7 +97,7 @@ object BigRationalField : Field<BigRational> {
     override fun wrap(a: BigRational): Scalar<BigRational> {
         return a
     }
-    override fun fromInteger(n: Int): BigRational {
+    override fun fromInt(n: Int): BigRational {
         return BigRational(n, 1)
     }
 }

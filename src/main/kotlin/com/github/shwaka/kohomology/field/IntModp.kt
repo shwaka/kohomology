@@ -35,7 +35,7 @@ data class Fp(val p: Int) : Field<IntModp> {
     override fun wrap(a: IntModp): Scalar<IntModp> {
         return a
     }
-    override fun fromInteger(n: Int): IntModp {
+    override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }
 }

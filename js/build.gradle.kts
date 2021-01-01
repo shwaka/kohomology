@@ -14,4 +14,5 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib-js"))
+    implementation(project(":core"))
 }

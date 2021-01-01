@@ -6,10 +6,8 @@ package com.github.shwaka.kohomology
 import com.github.shwaka.kohomology.field.BigRational
 import com.github.shwaka.kohomology.field.IntRational
 import io.kotest.core.spec.style.StringSpec
-import io.kotest.matchers.be
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 
 class IntRationalTest : StringSpec({

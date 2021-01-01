@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.field
 
-import kotlin.Exception
 import com.ionspin.kotlin.bignum.integer.BigInteger
+import kotlin.Exception
 
 private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
     if (a == BigInteger.ZERO || b == BigInteger.ZERO) {

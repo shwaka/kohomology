@@ -29,20 +29,9 @@ dependencies {
 
     implementation("com.ionspin.kotlin:bignum:0.2.3")
 
-    // Use the Kotlin test library.
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-
-    // Use the Kotlin JUnit integration.
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-    // kotest
-    val version = "4.3.2"
-    testImplementation("io.kotest:kotest-runner-junit5:$version")
-    testImplementation("io.kotest:kotest-assertions-core:$version")
-    testImplementation("io.kotest:kotest-property:$version")
-    testImplementation("io.kotest:kotest-assertions-compiler:$version")
-
     ktlint("com.pinterest:ktlint:0.40.0")
+
+    implementation(project(":core"))
 }
 
 buildscript {
@@ -54,3 +43,8 @@ buildscript {
     }
 }
 apply(plugin = "org.jlleitschuh.gradle.ktlint")
+
+application {
+    // Define the main class for the application.
+    mainClassName = "com.github.shwaka.kohomology.AppKt"
+}

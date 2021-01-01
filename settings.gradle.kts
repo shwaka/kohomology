@@ -9,3 +9,4 @@
 
 rootProject.name = "kohomology"
 include("core")
+include("app")

@@ -4,8 +4,12 @@
 package com.github.shwaka.kohomology
 
 import com.github.shwaka.kohomology.field.BigRational
+import com.github.shwaka.kohomology.field.Fp
 import com.github.shwaka.kohomology.field.IntRational
+import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
@@ -54,4 +58,22 @@ class CompileTest : StringSpec({
         """
         codeSnippet.shouldNotCompile()
     }
+})
+
+fun <S> myReusableTest(fromInteger: (Int) -> Scalar<S>) = stringSpec {
+    "1 + 2 should be 3" {
+        val a = fromInteger(1)
+        val b = fromInteger(2)
+        val c = fromInteger(3)
+        (a + b) shouldBe c
+    }
+}
+
+class IntRationalReusedTest : StringSpec({
+    include(myReusableTest(IntRationalField::fromInteger))
+})
+
+class IntModpReusedTest : StringSpec({
+    val fp = Fp(5)
+    include(myReusableTest(fp::fromInteger))
 })

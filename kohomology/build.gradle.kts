@@ -15,6 +15,14 @@ repositories {
 }
 
 kotlin {
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+        /*testRuns["test"].executionTask.configure {
+            useJunit()
+        }*/
+    }
     js(IR) {
         browser()
     }
@@ -29,7 +37,7 @@ kotlin {
                 implementation("com.ionspin.kotlin:bignum:0.2.3")
             }
         }
-        val commonTest by getting {
+        val jvmTest by getting {
             dependencies {
                 // kotest
                 val version = "4.3.2"
@@ -44,6 +52,17 @@ kotlin {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+tasks.named<Test>("jvmTest") {
+    // https://github.com/kotest/kotest/issues/1105
+    useJUnitPlatform()
+    testLogging {
+        showExceptions = true
+        showStandardStreams = true
+        events = setOf(org.gradle.api.tasks.testing.logging.TestLogEvent.FAILED, org.gradle.api.tasks.testing.logging.TestLogEvent.PASSED)
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+    }
 }
 
 val ktlint by configurations.creating

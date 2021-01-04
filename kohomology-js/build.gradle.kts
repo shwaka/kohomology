@@ -15,11 +15,11 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-js"))
-    implementation("")
+    implementation("kohomology:kohomology-js")
 }
 
 kotlin {
-    js(LEGACY) {
+    js(IR) {
         browser {
             binaries.executable()
             webpackTask {

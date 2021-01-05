@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.RationalField
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
@@ -62,6 +63,18 @@ class BigRationalTest : StringSpec({
 class IntModpTest : StringSpec({
     val fp = Fp.get(5)
     include(fieldTest(fp))
+})
+
+class FpTest : StringSpec({
+    "Fp.get should create only one instance for each p" {
+        (Fp.get(3) === Fp.get(3)).shouldBeTrue()
+    }
+    "Fp.get(3) should be equal to another Fp.get(3)" {
+        (Fp.get(3) == Fp.get(3)).shouldBeTrue()
+    }
+    "Fp.get(3) should be different from Fp.get(5)" {
+        (Fp.get(3) != Fp.get(5)).shouldBeTrue()
+    }
 })
 
 class CompileTest : StringSpec({

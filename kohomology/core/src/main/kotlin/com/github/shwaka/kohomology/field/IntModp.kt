@@ -30,7 +30,7 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     }
 }
 
-data class Fp private constructor(val p: Int) : Field<IntModp> {
+class Fp private constructor(val p: Int) : Field<IntModp> {
     companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
         fun get(p: Int): Fp {
@@ -43,6 +43,23 @@ data class Fp private constructor(val p: Int) : Field<IntModp> {
     override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as Fp
+
+        if (this.p != other.p) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return this.p
+    }
+
     override val ZERO
         get() = IntModp(0, this.p)
     override val ONE

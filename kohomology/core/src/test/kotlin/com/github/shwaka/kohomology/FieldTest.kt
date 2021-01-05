@@ -60,7 +60,7 @@ class BigRationalTest : StringSpec({
 })
 
 class IntModpTest : StringSpec({
-    val fp = Fp(5)
+    val fp = Fp.get(5)
     include(fieldTest(fp))
 })
 

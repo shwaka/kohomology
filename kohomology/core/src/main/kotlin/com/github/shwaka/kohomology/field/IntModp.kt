@@ -5,8 +5,7 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     // p > 0
     override val field: Field<IntModp>
     init {
-        // 毎回オブジェクト生成するのは無駄
-        this.field = Fp(this.p)
+        this.field = Fp.get(this.p)
     }
     override operator fun plus(other: IntModp): IntModp {
         if (this.p != other.p) {
@@ -31,13 +30,21 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     }
 }
 
-data class Fp(val p: Int) : Field<IntModp> {
+data class Fp private constructor(val p: Int) : Field<IntModp> {
+    companion object {
+        private val cache: MutableMap<Int, Fp> = mutableMapOf()
+        fun get(p: Int): Fp {
+            return this.cache.getOrPut(p, { Fp(p) })
+        }
+    }
     override fun wrap(a: IntModp): Scalar<IntModp> {
         return a
     }
     override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }
-    override val ZERO = TODO("Not yet implemented")
-    override val ONE = TODO("Not yet implemented")
+    override val ZERO
+        get() = IntModp(0, this.p)
+    override val ONE
+        get() = IntModp(1, this.p)
 }

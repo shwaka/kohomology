@@ -34,6 +34,6 @@ fun main() {
     val c = IntModp(3, p)
     val d = IntModp(1, p)
     println(add(c, d))
-    println(add(c, d + Fp(p).fromInt(1)))
+    println(add(c, d + Fp.get(p).fromInt(1)))
     test(c, d)
 }

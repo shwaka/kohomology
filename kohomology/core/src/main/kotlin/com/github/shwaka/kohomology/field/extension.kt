@@ -13,3 +13,13 @@ fun Int.pow(exponent: Int): Int {
         else -> throw Exception("This can't happen!")
     }
 }
+
+fun Int.isPrime(): Boolean {
+    if (this <= 1) return false
+    var n = 2
+    while (n * n <= this) {
+        if (this % n == 0) return false
+        n++
+    }
+    return true
+}

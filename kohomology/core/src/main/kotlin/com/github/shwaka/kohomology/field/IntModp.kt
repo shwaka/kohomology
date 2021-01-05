@@ -34,7 +34,7 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
         fun get(p: Int): Fp {
-            return this.cache.getOrPut(p, { Fp(p) })
+            return this.cache.getOrPut(p, { if (p.isPrime()) Fp(p) else throw ArithmeticException("$p is not prime") })
         }
     }
     override fun wrap(a: IntModp): Scalar<IntModp> {

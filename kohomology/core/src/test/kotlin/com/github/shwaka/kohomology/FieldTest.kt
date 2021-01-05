@@ -21,6 +21,9 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     "1 - 1 should be 0" {
         (field.fromInt(1) - field.fromInt(1)) shouldBe field.fromInt(0)
     }
+    "0^0 should be 1" {
+        field.fromInt(0).pow(0) shouldBe field.fromInt(1)
+    }
 }
 
 fun <S> rationalTest(field: RationalField<S>) = stringSpec {
@@ -40,6 +43,9 @@ fun <S> rationalTest(field: RationalField<S>) = stringSpec {
     }
     "5/6 * 2/3 should be 5/9" {
         (field.fromIntPair(5, 6) * field.fromIntPair(2, 3)) shouldBe field.fromIntPair(5, 9)
+    }
+    "(1/2)^3 should be 1/8" {
+        field.fromIntPair(1, 2).pow(3) shouldBe field.fromIntPair(1, 8)
     }
 }
 

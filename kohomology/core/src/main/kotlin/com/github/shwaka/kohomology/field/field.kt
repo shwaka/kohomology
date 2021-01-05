@@ -19,6 +19,19 @@ interface Scalar<S> {
     operator fun div(other: Scalar<S>): Scalar<S> {
         return this.field.wrap(this * other.unwrap())
     }
+    fun pow(exponent: Int): Scalar<S> {
+        return when {
+            exponent == 0 -> this.field.fromInt(1)
+            exponent == 1 -> this
+            exponent > 1 -> {
+                val half = this.pow(exponent / 2)
+                val rem = if (exponent % 2 == 1) this else this.field.fromInt(1)
+                half * half * rem
+            }
+            exponent < 0 -> this.field.fromInt(1) / this.pow(-exponent)
+            else -> throw Exception("This can't happen!")
+        }
+    }
     fun unwrap(): S
     val field: Field<S>
 }

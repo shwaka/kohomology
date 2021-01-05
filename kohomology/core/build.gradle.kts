@@ -3,9 +3,7 @@ plugins {
     // id("org.jetbrains.kotlin.jvm") version "1.3.72"
     kotlin("jvm") version "1.4.10"
     id("io.kotest") version "0.2.6"
-
-    // Apply the application plugin to add support for building a CLI application.
-    application
+    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
 }
 
 repositories {
@@ -17,8 +15,6 @@ repositories {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-
-val ktlint by configurations.creating
 
 dependencies {
     // Align versions of all Kotlin components
@@ -41,16 +37,4 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$version")
     testImplementation("io.kotest:kotest-property:$version")
     testImplementation("io.kotest:kotest-assertions-compiler:$version")
-
-    ktlint("com.pinterest:ktlint:0.40.0")
 }
-
-buildscript {
-    repositories {
-        maven("https://plugins.gradle.org/m2/")
-    }
-    dependencies {
-        classpath("org.jlleitschuh.gradle:ktlint-gradle:9.4.1")
-    }
-}
-apply(plugin = "org.jlleitschuh.gradle.ktlint")

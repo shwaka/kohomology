@@ -39,4 +39,6 @@ interface Scalar<S> {
 interface Field<S> {
     fun wrap(a: S): Scalar<S>
     fun fromInt(n: Int): Scalar<S>
+    val ZERO: Scalar<S>
+    val ONE: Scalar<S>
 }

@@ -108,4 +108,7 @@ object IntRationalField : RationalField<IntRational> {
     override fun fromIntPair(numerator: Int, denominator: Int): Scalar<IntRational> {
         return IntRational(numerator, denominator)
     }
+
+    override val ZERO = IntRational(0, 1)
+    override val ONE = IntRational(1, 1)
 }

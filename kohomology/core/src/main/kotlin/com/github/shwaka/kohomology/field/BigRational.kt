@@ -105,4 +105,7 @@ object BigRationalField : RationalField<BigRational> {
     override fun fromIntPair(numerator: Int, denominator: Int): Scalar<BigRational> {
         return BigRational(numerator, denominator)
     }
+
+    override val ZERO = BigRational(BigInteger.ZERO, BigInteger.ONE)
+    override val ONE = BigRational(BigInteger.ONE, BigInteger.ONE)
 }

@@ -38,4 +38,6 @@ data class Fp(val p: Int) : Field<IntModp> {
     override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }
+    override val ZERO = TODO("Not yet implemented")
+    override val ONE = TODO("Not yet implemented")
 }

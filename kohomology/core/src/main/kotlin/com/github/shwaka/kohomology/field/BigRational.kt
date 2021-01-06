@@ -54,7 +54,7 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : RationalScal
         if (other == BigRational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }
-        return BigRational(this.numerator * other.denominator, this.denominator * other.denominator)
+        return BigRational(this.numerator * other.denominator, this.denominator * other.numerator)
     }
 
     override fun toString(): String {

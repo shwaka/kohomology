@@ -17,7 +17,7 @@ interface Scalar<S> {
     }
     operator fun div(other: S): S
     operator fun div(other: Scalar<S>): Scalar<S> {
-        return this.field.wrap(this * other.unwrap())
+        return this.field.wrap(this / other.unwrap())
     }
     fun pow(exponent: Int): Scalar<S> {
         return when {

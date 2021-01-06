@@ -35,7 +35,7 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     "2 / 3 should be equal to 2 * 3^{-1}" {
         val two = field.fromInt(2)
         val three = field.fromInt(3)
-        (two / three) shouldBe (two * (three).inv())
+        (two / three) shouldBe (two * (three.inv()))
     }
 }
 
@@ -56,6 +56,9 @@ fun <S> rationalTest(field: RationalField<S>) = stringSpec {
     }
     "5/6 * 2/3 should be 5/9" {
         (field.fromIntPair(5, 6) * field.fromIntPair(2, 3)) shouldBe field.fromIntPair(5, 9)
+    }
+    "(2/1) / (3/1) should be 2/3" {
+        (field.fromInt(2) / field.fromInt(3)) shouldBe field.fromIntPair(2, 3)
     }
     "(1/2)^3 should be 1/8" {
         field.fromIntPair(1, 2).pow(3) shouldBe field.fromIntPair(1, 8)

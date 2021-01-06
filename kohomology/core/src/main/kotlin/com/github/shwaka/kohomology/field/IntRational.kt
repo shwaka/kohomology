@@ -54,7 +54,7 @@ class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational
         if (other == IntRational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }
-        return IntRational(this.numerator * other.denominator, this.denominator * other.denominator)
+        return IntRational(this.numerator * other.denominator, this.denominator * other.numerator)
     }
 
     override fun toString(): String {

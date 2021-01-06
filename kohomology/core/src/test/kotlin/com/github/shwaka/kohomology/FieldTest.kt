@@ -76,8 +76,11 @@ class BigRationalTest : StringSpec({
 })
 
 class IntModpTest : StringSpec({
-    val fp = Fp.get(5)
-    include(fieldTest(fp))
+    val f5 = Fp.get(5)
+    include(fieldTest(f5))
+    "2^{-1} should be 3 in F_5" {
+        f5.fromInt(2).inv() shouldBe f5.fromInt(3)
+    }
 })
 
 class FpTest : StringSpec({

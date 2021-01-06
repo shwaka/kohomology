@@ -20,7 +20,12 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
         return IntModp(this.value * other.value, this.p)
     }
     override operator fun div(other: IntModp): IntModp {
-        throw NotImplementedError("Not implemented")
+        return this * other.inv()
+    }
+    override fun inv(): IntModp {
+        if (this == IntModp(0, this.p)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
+        // TODO: Int として pow した後に modulo するのは重い
+        return IntModp(this.value.pow(this.p - 2) % this.p, this.p)
     }
     override fun unwrap(): IntModp {
         return this

@@ -1,12 +1,9 @@
 package com.github.shwaka.kohomology.field
 
-data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
-    // 色々とチェックした方が良さそう
-    // p > 0
-    override val field: Field<IntModp>
-    init {
-        this.field = Fp.get(this.p)
-    }
+class IntModp(value: Int, p: Int) : Scalar<IntModp> {
+    val value: Int = value % p
+    val p: Int = p
+    override val field: Field<IntModp> = Fp.get(this.p)
     override operator fun plus(other: IntModp): IntModp {
         if (this.p != other.p) {
             throw Exception("[Error] different characteristic: ${this.p} and ${other.p}")
@@ -32,6 +29,25 @@ data class IntModp(val value: Int, val p: Int) : Scalar<IntModp> {
     }
     override fun toString(): String {
         return "${this.value % this.p} mod ${this.p}"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as IntModp
+
+        if (this.value != other.value) return false
+        if (this.p != other.p) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = this.value
+        result = 31 * result + this.p
+        return result
     }
 }
 

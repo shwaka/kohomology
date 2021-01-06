@@ -32,6 +32,12 @@ interface Scalar<S> {
             else -> throw Exception("This can't happen!")
         }
     }
+    operator fun unaryMinus(): Scalar<S> {
+        return this.field.ZERO - this
+    }
+    fun inv(): Scalar<S> {
+        return this.field.ONE / this
+    }
     fun unwrap(): S
     val field: Field<S>
 }

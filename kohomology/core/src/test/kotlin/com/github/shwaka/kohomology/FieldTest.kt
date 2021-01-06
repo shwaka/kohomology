@@ -26,6 +26,17 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     "0^0 should be 1" {
         field.fromInt(0).pow(0) shouldBe field.fromInt(1)
     }
+    "unaryMinus of 2 should be -2" {
+        (-field.fromInt(2)) shouldBe field.fromInt(-2)
+    }
+    "unaryMinus of -5 should be 5" {
+        (-field.fromInt(-5)) shouldBe field.fromInt(5)
+    }
+    "2 / 3 should be equal to 2 * 3^{-1}" {
+        val two = field.fromInt(2)
+        val three = field.fromInt(3)
+        (two / three) shouldBe (two * (three).inv())
+    }
 }
 
 fun <S> rationalTest(field: RationalField<S>) = stringSpec {

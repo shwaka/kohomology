@@ -11,7 +11,7 @@ class NumericalDenseVector<S>(val values: List<Scalar<S>>) : NumericalVector<S, 
         return NumericalDenseVector(result)
     }
 
-    override fun timesInternal(other: Scalar<S>): NumericalDenseVector<S> {
+    override fun times(other: Scalar<S>): NumericalDenseVector<S> {
         return NumericalDenseVector(this.values.map { it * other })
     }
 

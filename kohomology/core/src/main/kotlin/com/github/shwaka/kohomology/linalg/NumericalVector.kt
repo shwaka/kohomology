@@ -7,10 +7,7 @@ interface NumericalVector<S, V> {
     operator fun plus(other: NumericalVector<S, V>): NumericalVector<S, V> {
         return this.vectorSpace.wrap(this + other.unwrap())
     }
-    fun timesInternal(other: Scalar<S>): V
-    operator fun times(other: Scalar<S>): NumericalVector<S, V> {
-        return this.vectorSpace.wrap(this.timesInternal(other))
-    }
+    operator fun times(other: Scalar<S>): NumericalVector<S, V>
     fun unwrap(): V
     val vectorSpace: NumericalVectorSpace<S, V>
 }

@@ -12,7 +12,7 @@ interface NumericalVector<S, V> {
     val vectorSpace: NumericalVectorSpace<S, V>
 }
 
-fun <S, SS : Scalar<S>, V> SS.timesVector(other: NumericalVector<S, V>): NumericalVector<S, V> {
+fun <S, V> Scalar<S>.timesVector(other: NumericalVector<S, V>): NumericalVector<S, V> {
     return other * this
 }
 

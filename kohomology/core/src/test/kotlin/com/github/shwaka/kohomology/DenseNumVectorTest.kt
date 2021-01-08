@@ -23,7 +23,7 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
         (v * two) shouldBe w
     }
     "multiplying scalar from left should compile" {
-        val fieldName = IntRationalField::class.java.simpleName
+        val fieldName = field::class.java.simpleName
         val code =
             """
                 import com.github.shwaka.kohomology.field.$fieldName

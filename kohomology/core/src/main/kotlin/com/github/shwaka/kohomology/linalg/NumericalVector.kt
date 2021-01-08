@@ -12,10 +12,6 @@ interface NumericalVector<S, V> {
     val vectorSpace: NumericalVectorSpace<S, V>
 }
 
-fun <S, V> Scalar<S>.timesVector(other: NumericalVector<S, V>): NumericalVector<S, V> {
-    return other * this
-}
-
 interface NumericalVectorSpace<S, V> {
     fun wrap(v: V): NumericalVector<S, V>
 }

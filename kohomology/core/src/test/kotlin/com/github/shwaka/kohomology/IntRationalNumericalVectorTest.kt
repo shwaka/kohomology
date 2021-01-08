@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.linalg.NumericalDenseVector
 import com.github.shwaka.kohomology.linalg.times
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.shouldBe
 
 class IntRationalNumericalVectorTest : StringSpec({
@@ -25,5 +26,18 @@ class IntRationalNumericalVectorTest : StringSpec({
         val v = NumericalDenseVector(listOf(one, zero))
         val w = NumericalDenseVector(listOf(two, zero))
         (two * v) shouldBe w
+    }
+    "multiplying scalar from left should compile" {
+        val fieldName = IntRationalField::class.java.simpleName
+        val code =
+            """
+                import com.github.shwaka.kohomology.field.$fieldName
+                import com.github.shwaka.kohomology.linalg.NumericalDenseVector
+                import com.github.shwaka.kohomology.linalg.times
+                val one = $fieldName.ONE
+                val v = NumericalDenseVector(listOf(one, one))
+                val w = one * v
+            """
+        code.shouldCompile()
     }
 })

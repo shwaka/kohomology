@@ -15,6 +15,9 @@ repositories {
 
 tasks.withType<Test> {
     useJUnitPlatform()
+    testLogging {
+        events("skipped", "passed", "failed")  // "started" は消した
+    }
 }
 
 dependencies {

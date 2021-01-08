@@ -1,3 +1,10 @@
+## test
+以下のいずれか
+
+- `./gradlew kotest`
+- `./gradlew test --tests com.github.shwaka.kohomology.IntRationalDenseNumVectorTest`
+- `./gradlew test --tests "*DenseNumVectorTest"`
+
 ## coverage
 ```bash
 cd kohomology

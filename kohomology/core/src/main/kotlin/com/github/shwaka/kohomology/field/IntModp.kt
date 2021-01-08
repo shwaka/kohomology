@@ -86,3 +86,8 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     override val ONE
         get() = IntModp(1, this.p)
 }
+
+val F2 = Fp.get(2)
+val F3 = Fp.get(3)
+val F5 = Fp.get(5)
+val F7 = Fp.get(7)

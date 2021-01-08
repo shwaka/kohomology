@@ -3,11 +3,7 @@
  */
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.BigRationalField
-import com.github.shwaka.kohomology.field.Field
-import com.github.shwaka.kohomology.field.Fp
-import com.github.shwaka.kohomology.field.IntRationalField
-import com.github.shwaka.kohomology.field.RationalField
+import com.github.shwaka.kohomology.field.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -76,13 +72,12 @@ class BigRationalTest : StringSpec({
 })
 
 class IntModpTest : StringSpec({
-    val f5 = Fp.get(5)
-    include(fieldTest(f5))
+    include(fieldTest(F5))
     "(8 mod 5) should be equal to (3 mod 5)" {
-        f5.fromInt(8) shouldBe f5.fromInt(3)
+        F5.fromInt(8) shouldBe F5.fromInt(3)
     }
     "2^{-1} should be 3 in F_5" {
-        f5.fromInt(2).inv() shouldBe f5.fromInt(3)
+        F5.fromInt(2).inv() shouldBe F5.fromInt(3)
     }
 })
 

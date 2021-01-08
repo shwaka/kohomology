@@ -8,7 +8,7 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.shouldBe
 
-fun <S> denseNumVectorTest(field: Field<S>, fieldString: String? = null) = stringSpec {
+fun <S> denseNumVectorTest(field: Field<S>, fieldName: String? = null) = stringSpec {
     val zero = field.ZERO
     val one = field.ONE
     val two = field.fromInt(2)
@@ -23,14 +23,13 @@ fun <S> denseNumVectorTest(field: Field<S>, fieldString: String? = null) = strin
         (v * two) shouldBe w
     }
     "multiplying scalar from left should compile" {
-        val fieldName = field::class.java.simpleName
-        val fieldStringNonNull = fieldString ?: fieldName
+        val fieldNameNonNull = fieldName ?: field::class.java.simpleName
         val code =
             """
-                import com.github.shwaka.kohomology.field.$fieldName
+                import com.github.shwaka.kohomology.field.$fieldNameNonNull
                 import com.github.shwaka.kohomology.linalg.DenseNumVector
                 import com.github.shwaka.kohomology.linalg.times
-                val one = $fieldStringNonNull.ONE
+                val one = $fieldNameNonNull.ONE
                 val v = DenseNumVector(listOf(one, one))
                 val w = one * v
             """
@@ -41,6 +40,7 @@ fun <S> denseNumVectorTest(field: Field<S>, fieldString: String? = null) = strin
 class IntRationalDenseNumVectorTest : StringSpec({
     include(denseNumVectorTest(IntRationalField))
     "2 * (1, 0) should be (2, 0)" {
+        // times の overload は generics ではなく個別定義なので、このテストは denseNumVectorTest に含められない
         val field = IntRationalField
         val zero = field.ZERO
         val one = field.ONE
@@ -56,6 +56,5 @@ class BigRationalDenseNumVectorTest : StringSpec({
 })
 
 class IntModpDenseNumVectorTest : StringSpec({
-    val f7 = Fp.get(7)
-    include(denseNumVectorTest(f7, "Fp.get(7)"))
+    include(denseNumVectorTest(F7, "F7"))
 })

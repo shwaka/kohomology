@@ -8,7 +8,7 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.shouldBe
 
-fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
+fun <S> denseNumVectorTest(field: Field<S>, fieldString: String? = null) = stringSpec {
     val zero = field.ZERO
     val one = field.ONE
     val two = field.fromInt(2)
@@ -24,12 +24,13 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
     }
     "multiplying scalar from left should compile" {
         val fieldName = field::class.java.simpleName
+        val fieldStringNonNull = fieldString ?: fieldName
         val code =
             """
                 import com.github.shwaka.kohomology.field.$fieldName
                 import com.github.shwaka.kohomology.linalg.DenseNumVector
                 import com.github.shwaka.kohomology.linalg.times
-                val one = $fieldName.ONE
+                val one = $fieldStringNonNull.ONE
                 val v = DenseNumVector(listOf(one, one))
                 val w = one * v
             """
@@ -52,4 +53,9 @@ class IntRationalDenseNumVectorTest : StringSpec({
 
 class BigRationalDenseNumVectorTest : StringSpec({
     include(denseNumVectorTest(BigRationalField))
+})
+
+class IntModpDenseNumVectorTest : StringSpec({
+    val f7 = Fp.get(7)
+    include(denseNumVectorTest(f7, "Fp.get(7)"))
 })

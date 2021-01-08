@@ -1,3 +1,11 @@
+## coverage
+```bash
+cd kohomology
+./gradlew test  # 先に test を実行する必要がある
+./gradlew core:jacocoTestReport
+open core/build/reports/jacoco/test/html/index.html
+```
+
 ## multiplatform をやめた理由
 - `kotest` など，JVM 用のライブラリが使えない
     - `jvmTest` 内で実行すれば `kotest` そのものは動いた

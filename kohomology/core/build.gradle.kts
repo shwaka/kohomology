@@ -4,6 +4,7 @@ plugins {
     kotlin("jvm")
     id("io.kotest") version "0.2.6"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
+    jacoco
 }
 
 repositories {
@@ -37,4 +38,11 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$version")
     testImplementation("io.kotest:kotest-property:$version")
     testImplementation("io.kotest:kotest-assertions-compiler:$version")
+}
+
+tasks.jacocoTestReport {
+    reports {
+        html.isEnabled = true
+        // xml.isEnabled = true
+    }
 }

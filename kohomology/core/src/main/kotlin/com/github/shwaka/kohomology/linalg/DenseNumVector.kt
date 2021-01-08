@@ -42,6 +42,11 @@ class DenseNumVector<S>(val values: List<Scalar<S>>) : NumVector<S, DenseNumVect
     override val vectorSpace: NumVectorSpace<S, DenseNumVector<S>> = DenseNumVectorSpace<S>()
 }
 
+// 多分 interface に対して実装するのは無理っぽい (のでここで実装した)
+operator fun <S> Scalar<S>.times(other: DenseNumVector<S>): DenseNumVector<S> {
+    return other * this
+}
+
 class DenseNumVectorSpace<S> : NumVectorSpace<S, DenseNumVector<S>> {
     override fun wrap(v: DenseNumVector<S>): NumVector<S, DenseNumVector<S>> {
         return v

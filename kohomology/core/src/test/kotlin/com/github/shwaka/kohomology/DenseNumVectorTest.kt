@@ -25,6 +25,11 @@ fun <S> denseNumVectorTest(field: Field<S>, fieldName: String? = null) = stringS
         val w = DenseNumVector(listOf(two, zero))
         (v * two) shouldBe w
     }
+    "2 * (1, 0) should be (2, 0)" {
+        val v = DenseNumVector(listOf(one, zero))
+        val w = DenseNumVector(listOf(two, zero))
+        (two * v) shouldBe w
+    }
     "multiplying scalar from left should compile" {
         val fieldNameNonNull = fieldName ?: field::class.java.simpleName
         val code =
@@ -42,16 +47,6 @@ fun <S> denseNumVectorTest(field: Field<S>, fieldName: String? = null) = stringS
 
 class IntRationalDenseNumVectorTest : StringSpec({
     include(denseNumVectorTest(IntRationalField))
-    "2 * (1, 0) should be (2, 0)" {
-        // times の overload は generics ではなく個別定義なので、このテストは denseNumVectorTest に含められない
-        val field = IntRationalField
-        val zero = field.ZERO
-        val one = field.ONE
-        val two = field.fromInt(2)
-        val v = DenseNumVector(listOf(one, zero))
-        val w = DenseNumVector(listOf(two, zero))
-        (two * v) shouldBe w
-    }
 })
 
 class BigRationalDenseNumVectorTest : StringSpec({

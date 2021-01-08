@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.linalg.DenseNumVector
 import com.github.shwaka.kohomology.linalg.times
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
-import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.shouldBe
 
 fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {

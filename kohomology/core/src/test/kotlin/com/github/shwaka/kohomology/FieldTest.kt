@@ -3,7 +3,12 @@
  */
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.*
+import com.github.shwaka.kohomology.field.BigRationalField
+import com.github.shwaka.kohomology.field.F5
+import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.Fp
+import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.RationalField
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec

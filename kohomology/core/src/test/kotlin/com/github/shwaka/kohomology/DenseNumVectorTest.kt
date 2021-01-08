@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.*
+import com.github.shwaka.kohomology.field.BigRationalField
+import com.github.shwaka.kohomology.field.F7
+import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.linalg.DenseNumVector
 import com.github.shwaka.kohomology.linalg.times
 import io.kotest.core.spec.style.StringSpec

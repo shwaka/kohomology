@@ -1,11 +1,12 @@
 import com.github.shwaka.kohomology.field.BigRational
+import com.github.shwaka.kohomology.field.BigRationalField
+import com.github.shwaka.kohomology.linalg.DenseNumVector
+import com.github.shwaka.kohomology.linalg.times
 import kotlinx.browser.document
 
 fun main() {
-    console.log("Hello, ${greet()}")
-    myprint("hoge")
-    myprint("fuga")
     myprint(BigRational(1, 2) + BigRational(1, 3))
+    numVectorTest()
 }
 
 fun myprint(obj: Any) {
@@ -17,4 +18,10 @@ fun myprint(obj: Any) {
     root.appendChild(p)
 }
 
-fun greet() = "world"
+fun numVectorTest() {
+    val zero = BigRationalField.ZERO
+    val one = BigRationalField.ONE
+    val two = BigRationalField.fromInt(2)
+    val v = DenseNumVector(listOf(one, zero))
+    myprint("2 * (1, 0) = ${two * v}")
+}

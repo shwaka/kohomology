@@ -35,6 +35,10 @@ class DenseNumVector<S>(val values: List<Scalar<S>>) : NumVector<S, DenseNumVect
         return values.hashCode()
     }
 
+    override fun toString(): String {
+        return this.values.toString()
+    }
+
     override val vectorSpace: NumVectorSpace<S, DenseNumVector<S>> = DenseNumVectorSpace<S>()
 }
 

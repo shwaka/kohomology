@@ -54,4 +54,7 @@ class DenseNumVectorSpace<S>(override val field: Field<S>) : NumVectorSpace<S, D
     fun get(values: List<Scalar<S>>): DenseNumVector<S> {
         return DenseNumVector(values, this)
     }
+    fun get(vararg values: Scalar<S>): DenseNumVector<S> {
+        return this.get(values.toList())
+    }
 }

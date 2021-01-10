@@ -2,6 +2,8 @@
 以下のいずれか
 
 - `./gradlew kotest`
+- `./gradlew kotest -Dkotest.tags="DenseNumVector"`
+- `./gradlew test -Dkotest.tags="DenseNumVector"`
 - `./gradlew test --tests com.github.shwaka.kohomology.IntRationalDenseNumVectorTest`
 - `./gradlew test --tests "*DenseNumVectorTest"`
 

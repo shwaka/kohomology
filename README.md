@@ -2,10 +2,12 @@
 以下のいずれか
 
 - `./gradlew kotest`
-- `./gradlew kotest -Dkotest.tags="DenseNumVector"`
-- `./gradlew test -Dkotest.tags="DenseNumVector"`
+- `./gradlew kotest -Dkotest.tags='Field & !Compile'`
+- `./gradlew test -Dkotest.tags='Field & !Compile'`
 - `./gradlew test --tests com.github.shwaka.kohomology.IntRationalDenseNumVectorTest`
 - `./gradlew test --tests "*DenseNumVectorTest"`
+
+注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
 
 ## coverage
 ```bash

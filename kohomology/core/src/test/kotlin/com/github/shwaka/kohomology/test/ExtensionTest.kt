@@ -1,13 +1,18 @@
-package com.github.shwaka.kohomology
+package com.github.shwaka.kohomology.test
 
 import com.github.shwaka.kohomology.field.isPrime
 import com.github.shwaka.kohomology.field.pow
+import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
+val extensionTag = NamedTag("Extension")
+
 class IntPowTest : StringSpec({
+    tags(extensionTag)
+
     "3^0 should be 1" {
         3.pow(0) shouldBe 1
     }
@@ -29,6 +34,8 @@ class IntPowTest : StringSpec({
 })
 
 class IsPrimeTest : StringSpec({
+    tags(extensionTag)
+
     "3 should be prime" {
         3.isPrime().shouldBeTrue()
     }

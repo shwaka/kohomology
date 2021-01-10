@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology
+package com.github.shwaka.kohomology.test
 
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F7
@@ -14,8 +14,6 @@ import io.kotest.matchers.shouldBe
 val denseNumVectorTag = NamedTag("DenseNumVector")
 
 fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
-    tags(denseNumVectorTag)
-
     val zero = field.ZERO
     val one = field.ONE
     val two = field.fromInt(2)
@@ -43,9 +41,11 @@ class IntRationalDenseNumVectorTest : StringSpec({
 })
 
 class BigRationalDenseNumVectorTest : StringSpec({
+    tags(denseNumVectorTag)
     include(denseNumVectorTest(BigRationalField))
 })
 
 class IntModpDenseNumVectorTest : StringSpec({
+    tags(denseNumVectorTag)
     include(denseNumVectorTest(F7))
 })

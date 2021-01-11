@@ -7,12 +7,6 @@ plugins {
     jacoco
 }
 
-repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
 tasks.withType<Test> {
     useJUnitPlatform()
     testLogging {
@@ -48,6 +42,16 @@ dependencies {
     testImplementation("io.kotest:kotest-assertions-core:$version")
     testImplementation("io.kotest:kotest-property:$version")
     testImplementation("io.kotest:kotest-assertions-compiler:$version")
+
+    // kococo
+    val kococoVersion = "0.1"
+    val kococoDebug = "com.github.shwaka.kococo:kococo-debug-jvm:$kococoVersion"
+    val kococoRelease = "com.github.shwaka.kococo:kococo-release-jvm:$kococoVersion"
+    if (System.getProperty("kococo.debug") == null) {
+        implementation(kococoRelease)
+    } else {
+        implementation(kococoDebug)
+    }
 }
 
 tasks.jacocoTestReport {

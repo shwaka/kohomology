@@ -9,11 +9,21 @@ version = "1.0-SNAPSHOT"
 repositories {
     jcenter()
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
     implementation("com.ionspin.kotlin:bignum:0.2.3")
     testImplementation(kotlin("test-js"))
+    // kococo
+    val kococoVersion = "0.1"
+    val kococoDebug = "com.github.shwaka.kococo:kococo-debug-js:$kococoVersion"
+    val kococoRelease = "com.github.shwaka.kococo:kococo-release-js:$kococoVersion"
+    if (System.getProperty("kococo.debug") == null) {
+        implementation(kococoRelease)
+    } else {
+        implementation(kococoDebug)
+    }
 }
 
 kotlin {

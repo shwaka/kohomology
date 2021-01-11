@@ -9,12 +9,6 @@ plugins {
     application
 }
 
-repositories {
-    // Use jcenter for resolving dependencies.
-    // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
 tasks.withType<Test> {
     useJUnitPlatform()
 }

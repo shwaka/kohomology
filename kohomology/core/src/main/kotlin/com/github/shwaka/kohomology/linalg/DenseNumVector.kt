@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
-import java.lang.IllegalArgumentException
 
 class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
     override fun plus(other: DenseNumVector<S>): DenseNumVector<S> {

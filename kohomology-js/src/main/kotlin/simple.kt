@@ -19,10 +19,10 @@ fun myprint(obj: Any) {
 }
 
 fun numVectorTest() {
-    val zero = BigRationalField.ZERO
-    val one = BigRationalField.ONE
+    val zero = BigRationalField.zero
+    val one = BigRationalField.one
     val two = BigRationalField.fromInt(2)
-    val vectorSpace = DenseNumVectorSpace(BigRationalField)
+    val vectorSpace = DenseNumVectorSpace(BigRationalField, 2)
     val v = vectorSpace.get(one, zero)
     myprint("2 * (1, 0) = ${two * v}")
 }

@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
+import java.lang.IllegalArgumentException
 
 class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
     override fun plus(other: DenseNumVector<S>): DenseNumVector<S> {
@@ -46,12 +47,15 @@ operator fun <S> Scalar<S>.times(other: DenseNumVector<S>): DenseNumVector<S> {
     return other * this
 }
 
-class DenseNumVectorSpace<S>(override val field: Field<S>) : NumVectorSpace<S, DenseNumVector<S>> {
+class DenseNumVectorSpace<S>(override val field: Field<S>, override val dim: Int) : NumVectorSpace<S, DenseNumVector<S>> {
     // TODO: 各 field に対して cache する
     override fun wrap(v: DenseNumVector<S>): NumVector<S, DenseNumVector<S>> {
         return v
     }
     fun get(values: List<Scalar<S>>): DenseNumVector<S> {
+        if (values.size != this.dim) {
+            throw IllegalArgumentException("The size of vector doesn't equal to the dimension: $values.size != ${this.dim}")
+        }
         return DenseNumVector(values, this)
     }
     fun get(vararg values: Scalar<S>): DenseNumVector<S> {

@@ -28,4 +28,5 @@ interface NumVector<S, V> {
 interface NumVectorSpace<S, V> {
     fun wrap(v: V): NumVector<S, V>
     val field: Field<S>
+    val dim: Int
 }

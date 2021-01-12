@@ -81,9 +81,9 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
         return this.p
     }
 
-    override val ZERO
+    override val zero
         get() = IntModp(0, this.p)
-    override val ONE
+    override val one
         get() = IntModp(1, this.p)
 }
 

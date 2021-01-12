@@ -106,6 +106,6 @@ object BigRationalField : RationalField<BigRational> {
         return BigRational(numerator, denominator)
     }
 
-    override val ZERO = BigRational(BigInteger.ZERO, BigInteger.ONE)
-    override val ONE = BigRational(BigInteger.ONE, BigInteger.ONE)
+    override val zero = BigRational(BigInteger.ZERO, BigInteger.ONE)
+    override val one = BigRational(BigInteger.ONE, BigInteger.ONE)
 }

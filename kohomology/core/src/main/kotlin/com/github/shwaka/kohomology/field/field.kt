@@ -33,10 +33,10 @@ interface Scalar<S> {
         }
     }
     operator fun unaryMinus(): Scalar<S> {
-        return this.field.ZERO - this
+        return this.field.zero - this
     }
     fun inv(): Scalar<S> {
-        return this.field.ONE / this
+        return this.field.one / this
     }
     fun unwrap(): S
     val field: Field<S>
@@ -45,6 +45,6 @@ interface Scalar<S> {
 interface Field<S> {
     fun wrap(a: S): Scalar<S>
     fun fromInt(n: Int): Scalar<S>
-    val ZERO: Scalar<S>
-    val ONE: Scalar<S>
+    val zero: Scalar<S>
+    val one: Scalar<S>
 }

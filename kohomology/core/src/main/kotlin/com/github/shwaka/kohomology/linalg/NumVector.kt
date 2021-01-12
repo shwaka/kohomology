@@ -17,7 +17,7 @@ interface NumVector<S, V> {
     }
 
     operator fun unaryMinus(): NumVector<S, V> {
-        return this * (-this.vectorSpace.field.ONE)
+        return this * (-this.vectorSpace.field.one)
     }
 
     operator fun times(other: Scalar<S>): NumVector<S, V>

@@ -14,8 +14,8 @@ import io.kotest.matchers.shouldBe
 val denseNumVectorTag = NamedTag("DenseNumVector")
 
 fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
-    val zero = field.ZERO
-    val one = field.ONE
+    val zero = field.zero
+    val one = field.one
     val two = field.fromInt(2)
     val vectorSpace = DenseNumVectorSpace(field)
     "(0, 1) + (0, 1) should be (0, 2)" {

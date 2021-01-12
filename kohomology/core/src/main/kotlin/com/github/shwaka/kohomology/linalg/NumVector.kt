@@ -23,6 +23,8 @@ interface NumVector<S, V> {
     operator fun times(other: Scalar<S>): NumVector<S, V>
     fun unwrap(): V
     val vectorSpace: NumVectorSpace<S, V>
+    val dim: Int
+        get() = this.vectorSpace.dim
 }
 
 interface NumVectorSpace<S, V> {

@@ -34,6 +34,10 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
         val w = vectorSpace.get(two, zero)
         (two * v) shouldBe w
     }
+    "(1, 0).dim should be 2" {
+        val v = vectorSpace.get(one, zero)
+        v.dim shouldBe 2
+    }
     "(2-dim vector space).get(0) should throw" {
         shouldThrow<IllegalArgumentException> { vectorSpace.get(zero) }
     }

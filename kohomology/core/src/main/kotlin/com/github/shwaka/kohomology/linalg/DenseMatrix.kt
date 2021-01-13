@@ -11,6 +11,10 @@ class DenseMatrix<S>(
         TODO("Not yet implemented")
     }
 
+    override fun minus(other: DenseMatrix<S>): DenseMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
     override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
         val values = this.values.map { row ->
             row.zip(vector.values)

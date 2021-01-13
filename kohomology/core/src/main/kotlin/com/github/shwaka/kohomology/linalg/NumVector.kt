@@ -28,7 +28,6 @@ interface NumVector<S, V> {
     fun unwrap(): V
     val vectorSpace: NumVectorSpace<S, V>
     val dim: Int
-        get() = this.vectorSpace.dim
 }
 
 operator fun <S, V> Scalar<S>.times(other: NumVector<S, V>): NumVector<S, V> {
@@ -42,5 +41,4 @@ operator fun <S, V> Int.times(other: NumVector<S, V>): NumVector<S, V> {
 interface NumVectorSpace<S, V> {
     fun wrap(v: V): NumVector<S, V>
     val field: Field<S>
-    val dim: Int
 }

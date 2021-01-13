@@ -17,9 +17,9 @@ class DenseMatrix<S>(
                 .map { it.first * it.second }
                 .reduce(Scalar<S>::plus)
         }
-        val dim = this.matrixSpace.rowCount
-        val vectorSpace = DenseNumVectorSpace.from(this.matrixSpace.field, dim)
-        return vectorSpace.get(values)
+        // val dim = this.matrixSpace.rowCount
+        // val vectorSpace = DenseNumVectorSpace.from(this.matrixSpace.field, dim)
+        return vector.vectorSpace.get(values)
     }
 
     override fun unwrap(): DenseMatrix<S> {

@@ -19,9 +19,9 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
-    val vectorSpace = DenseNumVectorSpace.from(field, 2)
+    val vectorSpace = DenseNumVectorSpace.from(field)
     "factory should return the cache if exists" {
-        DenseNumVectorSpace.from(field, 2) shouldBeSameInstanceAs vectorSpace
+        DenseNumVectorSpace.from(field) shouldBeSameInstanceAs vectorSpace
     }
     "(0, 1) + (0, 1) should be (0, 2)" {
         val v = vectorSpace.get(zero, one)
@@ -44,9 +44,9 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
         val v = vectorSpace.get(one, zero)
         v.dim shouldBe 2
     }
-    "(2-dim vector space).get(0) should throw" {
-        shouldThrow<IllegalArgumentException> { vectorSpace.get(zero) }
-    }
+    // "(2-dim vector space).get(0) should throw" {
+    //     shouldThrow<IllegalArgumentException> { vectorSpace.get(zero) }
+    // }
 }
 
 class IntRationalDenseNumVectorTest : StringSpec({

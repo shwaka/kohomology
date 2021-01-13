@@ -39,22 +39,23 @@ class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: D
     override fun toString(): String {
         return this.values.toString()
     }
+
+    override val dim: Int = this.values.size
 }
 
 class DenseNumVectorSpace<S>
-private constructor(override val field: Field<S>, override val dim: Int) : NumVectorSpace<S, DenseNumVector<S>> {
+private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVector<S>> {
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<Any, Any> = mutableMapOf()
-        fun <S> from(field: Field<S>, dim: Int): DenseNumVectorSpace<S> {
-            val key: Pair<Field<S>, Int> = Pair(field, dim)
-            if (this.cache.containsKey(key)) {
+        fun <S> from(field: Field<S>): DenseNumVectorSpace<S> {
+            if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
-                return this.cache[key] as DenseNumVectorSpace<S>
+                return this.cache[field] as DenseNumVectorSpace<S>
             } else {
-                val vectorSpace = DenseNumVectorSpace(field, dim)
-                this.cache[key] = vectorSpace
+                val vectorSpace = DenseNumVectorSpace(field)
+                this.cache[field] = vectorSpace
                 return vectorSpace
             }
         }
@@ -64,9 +65,9 @@ private constructor(override val field: Field<S>, override val dim: Int) : NumVe
         return v
     }
     fun get(values: List<Scalar<S>>): DenseNumVector<S> {
-        if (values.size != this.dim) {
-            throw IllegalArgumentException("The size of vector doesn't equal to the dimension: $values.size != ${this.dim}")
-        }
+        // if (values.size != this.dim) {
+        //     throw IllegalArgumentException("The size of vector doesn't equal to the dimension: $values.size != ${this.dim}")
+        // }
         return DenseNumVector(values, this)
     }
     fun get(vararg values: Scalar<S>): DenseNumVector<S> {

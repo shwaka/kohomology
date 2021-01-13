@@ -18,7 +18,7 @@ fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
     val four = field.fromInt(4)
     "((1, 1), (2, 0)) * (2, -1) should be (1, 4)" {
         val matrixSpace = DenseMatrixSpace(field, 2, 2)
-        val vectorSpace = DenseNumVectorSpace.from(field, 2)
+        val vectorSpace = DenseNumVectorSpace.from(field)
         val m = matrixSpace.get(
             listOf(
                 listOf(one, one),

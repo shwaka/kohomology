@@ -22,7 +22,7 @@ fun numVectorTest() {
     val zero = BigRationalField.zero
     val one = BigRationalField.one
     val two = BigRationalField.fromInt(2)
-    val vectorSpace = DenseNumVectorSpace.from(BigRationalField, 2)
+    val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
     val v = vectorSpace.get(one, zero)
     myprint("2 * (1, 0) = ${two * v}")
 }

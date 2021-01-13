@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Fp
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.RationalField
+import com.github.shwaka.kohomology.field.times
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -35,6 +36,12 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     }
     "unaryMinus of -5 should be 5" {
         (-field.fromInt(-5)) shouldBe field.fromInt(5)
+    }
+    "Int multiplication should work correctly" {
+        val two = field.fromInt(2)
+        val six = field.fromInt(6)
+        (two * 3) shouldBe six
+        (3 * two) shouldBe six
     }
     "2 / 3 should be equal to 2 * 3^{-1}" {
         val two = field.fromInt(2)

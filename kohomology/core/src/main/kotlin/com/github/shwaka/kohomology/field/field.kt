@@ -15,6 +15,9 @@ interface Scalar<S> {
     operator fun times(other: Scalar<S>): Scalar<S> {
         return this.field.wrap(this * other.unwrap())
     }
+    operator fun times(other: Int): Scalar<S> {
+        return this * this.field.fromInt(other)
+    }
     operator fun div(other: S): S
     operator fun div(other: Scalar<S>): Scalar<S> {
         return this.field.wrap(this / other.unwrap())
@@ -40,6 +43,10 @@ interface Scalar<S> {
     }
     fun unwrap(): S
     val field: Field<S>
+}
+
+operator fun <S> Int.times(other: Scalar<S>): Scalar<S> {
+    return other * this
 }
 
 interface Field<S> {

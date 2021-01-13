@@ -32,11 +32,13 @@ fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
         val v = vectorSpace.get(one, zero)
         val w = vectorSpace.get(two, zero)
         (v * two) shouldBe w
+        (v * 2) shouldBe w
     }
     "2 * (1, 0) should be (2, 0)" {
         val v = vectorSpace.get(one, zero)
         val w = vectorSpace.get(two, zero)
         (two * v) shouldBe w
+        (2 * v) shouldBe w
     }
     "(1, 0).dim should be 2" {
         val v = vectorSpace.get(one, zero)

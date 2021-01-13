@@ -41,11 +41,6 @@ class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: D
     }
 }
 
-// 多分 interface に対して実装するのは無理っぽい (のでここで実装した)
-operator fun <S> Scalar<S>.times(other: DenseNumVector<S>): DenseNumVector<S> {
-    return other * this
-}
-
 class DenseNumVectorSpace<S>
 private constructor(override val field: Field<S>, override val dim: Int) : NumVectorSpace<S, DenseNumVector<S>> {
     companion object {

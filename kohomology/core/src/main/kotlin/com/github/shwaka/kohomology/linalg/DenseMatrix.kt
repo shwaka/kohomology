@@ -8,11 +8,17 @@ class DenseMatrix<S>(
     override val matrixSpace: DenseMatrixSpace<S>
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
     override fun plus(other: DenseMatrix<S>): DenseMatrix<S> {
-        TODO("Not yet implemented")
+        if (this.rowCount != other.rowCount || this.colCount != other.colCount) {
+            throw ArithmeticException("Cannot add matrices")
+        }
+        val values = this.values.zip(other.values).map { (rowInThis, rowInOther) ->
+            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
+        }
+        return this.matrixSpace.get(values)
     }
 
     override fun minus(other: DenseMatrix<S>): DenseMatrix<S> {
-        TODO("Not yet implemented")
+        return this + other * (-1)
     }
 
     override fun times(other: DenseMatrix<S>): DenseMatrix<S> {
@@ -33,7 +39,8 @@ class DenseMatrix<S>(
     }
 
     override fun times(scalar: Scalar<S>): DenseMatrix<S> {
-        TODO("Not yet implemented")
+        val values = this.values.map { row -> row.map { elm -> -elm } }
+        return this.matrixSpace.get(values)
     }
 
     override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
@@ -74,8 +81,6 @@ class DenseMatrix<S>(
         get() = this.values.size
     override val rowCount: Int
         get() = this.values[0].size // TODO: this throws an error when colCount = 0
-
-
 }
 
 class DenseMatrixSpace<S>(

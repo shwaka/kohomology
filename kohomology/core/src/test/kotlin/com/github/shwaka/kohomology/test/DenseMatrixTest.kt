@@ -6,10 +6,15 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.list
+import io.kotest.property.checkAll
 
 val denseMatrixTag = NamedTag("DenseMatrix")
 
@@ -59,17 +64,55 @@ fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
+operator fun <T> List<T>.component6() = this[5]
+operator fun <T> List<T>.component7() = this[6]
+operator fun <T> List<T>.component8() = this[7]
+
+fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
+    val min = -100
+    val max = 100
+    val vectorSpace = DenseNumVectorSpace.from(field)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    "Property testing for matrix addition" {
+        checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
+            val (a, b, c, d, e, f, g, h) = elmList.map(field::fromInt)
+            val mat1 = matrixSpace.get(
+                listOf(
+                    listOf(a, b),
+                    listOf(c, d)
+                )
+            )
+            val mat2 = matrixSpace.get(
+                listOf(
+                    listOf(e, f),
+                    listOf(g, h)
+                )
+            )
+            val expected = matrixSpace.get(
+                listOf(
+                    listOf(a + e, b + f),
+                    listOf(c + g, d + h)
+                )
+            )
+            (mat1 + mat2) shouldBe expected
+        }
+    }
+}
+
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
+    include(denseMatrixTestWithGenerators(IntRationalField))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
+    include(denseMatrixTestWithGenerators(BigRationalField))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
+    include(denseMatrixTestWithGenerators(F5))
 })

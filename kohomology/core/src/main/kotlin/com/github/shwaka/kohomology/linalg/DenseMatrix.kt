@@ -19,7 +19,7 @@ class DenseMatrix<S>(
         }
         // val dim = this.matrixSpace.rowCount
         // val vectorSpace = DenseNumVectorSpace.from(this.matrixSpace.field, dim)
-        return vector.vectorSpace.get(values)
+        return this.matrixSpace.vectorSpace.get(values)
     }
 
     override fun unwrap(): DenseMatrix<S> {
@@ -33,8 +33,11 @@ class DenseMatrix<S>(
 }
 
 class DenseMatrixSpace<S>(
-    override val field: Field<S>
+    // override val field: Field<S>,
+    override val vectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
+    override val field: Field<S> = vectorSpace.field
+
     override fun wrap(m: DenseMatrix<S>): Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
         return m
     }

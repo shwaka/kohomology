@@ -26,11 +26,11 @@ class DenseMatrix<S>(
             throw ArithmeticException("Cannot multiply matrices")
         }
         val rowRange = 0 until this.rowCount
-        val internalRange = 0 until this.colCount
+        val sumRange = 0 until this.colCount
         val colRange = 0 until other.colCount
         val values = rowRange.map { i ->
             colRange.map { j ->
-                internalRange
+                sumRange
                     .map { k -> this.values[i][k] * other.values[k][j] }
                     .reduce(Scalar<S>::plus)
             }
@@ -49,8 +49,6 @@ class DenseMatrix<S>(
                 .map { it.first * it.second }
                 .reduce(Scalar<S>::plus)
         }
-        // val dim = this.matrixSpace.rowCount
-        // val vectorSpace = DenseNumVectorSpace.from(this.matrixSpace.field, dim)
         return this.matrixSpace.vectorSpace.get(values)
     }
 
@@ -84,7 +82,6 @@ class DenseMatrix<S>(
 }
 
 class DenseMatrixSpace<S>(
-    // override val field: Field<S>,
     override val vectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field

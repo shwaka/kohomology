@@ -16,7 +16,20 @@ class DenseMatrix<S>(
     }
 
     override fun times(other: DenseMatrix<S>): DenseMatrix<S> {
-        TODO("Not yet implemented")
+        if (this.colCount != other.colCount) {
+            throw ArithmeticException("Cannot multiply matrices")
+        }
+        val rowRange = 0 until this.rowCount
+        val internalRange = 0 until this.colCount
+        val colRange = 0 until other.colCount
+        val values = rowRange.map { i ->
+            colRange.map { j ->
+                internalRange
+                    .map { k -> this.values[i][k] * other.values[k][j] }
+                    .reduce(Scalar<S>::plus)
+            }
+        }
+        return this.matrixSpace.get(values)
     }
 
     override fun times(scalar: Scalar<S>): DenseMatrix<S> {
@@ -38,10 +51,31 @@ class DenseMatrix<S>(
         return this
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as DenseMatrix<*>
+
+        if (this.values != other.values) return false
+        if (this.matrixSpace != other.matrixSpace) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = values.hashCode()
+        result = 31 * result + matrixSpace.hashCode()
+        return result
+    }
+
     override val colCount: Int
-        get() = TODO("Not yet implemented")
+        get() = this.values.size
     override val rowCount: Int
-        get() = TODO("Not yet implemented")
+        get() = this.values[0].size // TODO: this throws an error when colCount = 0
+
+
 }
 
 class DenseMatrixSpace<S>(

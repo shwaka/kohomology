@@ -10,11 +10,11 @@ interface Matrix<S, V, M> {
     operator fun times(other: V): V
     fun unwrap(): M
     val matrixSpace: MatrixSpace<S, V, M>
+    val rowCount: Int
+    val colCount: Int
 }
 
 interface MatrixSpace<S, V, M> {
     fun wrap(m: M): Matrix<S, V, M>
     val field: Field<S>
-    val rowCount: Int
-    val colCount: Int
 }

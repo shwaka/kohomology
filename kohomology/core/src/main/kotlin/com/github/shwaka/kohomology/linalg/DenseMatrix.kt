@@ -25,12 +25,15 @@ class DenseMatrix<S>(
     override fun unwrap(): DenseMatrix<S> {
         return this
     }
+
+    override val colCount: Int
+        get() = TODO("Not yet implemented")
+    override val rowCount: Int
+        get() = TODO("Not yet implemented")
 }
 
 class DenseMatrixSpace<S>(
-    override val field: Field<S>,
-    override val rowCount: Int,
-    override val colCount: Int
+    override val field: Field<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override fun wrap(m: DenseMatrix<S>): Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
         return m

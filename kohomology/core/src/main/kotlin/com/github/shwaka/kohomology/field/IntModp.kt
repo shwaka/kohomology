@@ -81,6 +81,10 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
         return this.p
     }
 
+    override fun toString(): String {
+        return "F_${this.p}"
+    }
+
     override val zero
         get() = IntModp(0, this.p)
     override val one

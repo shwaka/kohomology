@@ -46,8 +46,25 @@ operator fun <S> Scalar<S>.times(other: DenseNumVector<S>): DenseNumVector<S> {
     return other * this
 }
 
-class DenseNumVectorSpace<S>(override val field: Field<S>, override val dim: Int) : NumVectorSpace<S, DenseNumVector<S>> {
-    // TODO: 各 field に対して cache する
+class DenseNumVectorSpace<S>
+private constructor(override val field: Field<S>, override val dim: Int) : NumVectorSpace<S, DenseNumVector<S>> {
+    companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<Any, Any> = mutableMapOf()
+        fun <S> from(field: Field<S>, dim: Int): DenseNumVectorSpace<S> {
+            val key: Pair<Field<S>, Int> = Pair(field, dim)
+            if (this.cache.containsKey(key)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[key] as DenseNumVectorSpace<S>
+            } else {
+                val vectorSpace = DenseNumVectorSpace(field, dim)
+                this.cache[key] = vectorSpace
+                return vectorSpace
+            }
+        }
+    }
+
     override fun wrap(v: DenseNumVector<S>): NumVector<S, DenseNumVector<S>> {
         return v
     }

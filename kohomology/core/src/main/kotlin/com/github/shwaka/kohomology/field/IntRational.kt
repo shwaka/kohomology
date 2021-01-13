@@ -109,6 +109,10 @@ object IntRationalField : RationalField<IntRational> {
         return IntRational(numerator, denominator)
     }
 
+    override fun toString(): String {
+        return "IntRationalField"
+    }
+
     override val zero = IntRational(0, 1)
     override val one = IntRational(1, 1)
 }

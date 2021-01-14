@@ -9,10 +9,42 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.checkAll
 
 val fieldTag = NamedTag("Field")
 
 fun <S> fieldTest(field: Field<S>) = stringSpec {
+    val intMin = -100
+    val intMax = 100
+    val arb = Arb.int(intMin..intMax)
+    "fromInt should be additive" {
+        checkAll(arb, arb) { a, b ->
+            (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
+        }
+    }
+    "field.zero should be the unit of addition" {
+        checkAll(arb) { a ->
+            val zero = field.zero
+            val s = field.fromInt(a)
+            (s + zero) shouldBe s
+            (zero + s) shouldBe s
+        }
+    }
+    "fromInt should be multiplicative" {
+        checkAll(Arb.int(intMin..intMax), Arb.int(intMin..intMax)) { a, b ->
+            (field.fromInt(a) * field.fromInt(b)) shouldBe field.fromInt(a * b)
+        }
+    }
+    "field.one should be the unit of multiplication" {
+        checkAll(arb) { a ->
+            val one = field.one
+            val s = field.fromInt(a)
+            (s * one) shouldBe s
+            (one * s) shouldBe s
+        }
+    }
     "1 + 2 should be 3" {
         (field.fromInt(1) + field.fromInt(2)) shouldBe field.fromInt(3)
     }

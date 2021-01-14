@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.field
 
 class IntModp(value: Int, p: Int) : Scalar<IntModp> {
-    val value: Int = value % p
+    val value: Int = value.positiveRem(p)
     val p: Int = p
     override val field: Field<IntModp> = Fp.get(this.p)
     override operator fun plus(other: IntModp): IntModp {
@@ -22,13 +22,13 @@ class IntModp(value: Int, p: Int) : Scalar<IntModp> {
     override fun inv(): IntModp {
         if (this == IntModp(0, this.p)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(this.value.pow(this.p - 2) % this.p, this.p)
+        return IntModp(this.value.pow(this.p - 2).positiveRem(this.p), this.p)
     }
     override fun unwrap(): IntModp {
         return this
     }
     override fun toString(): String {
-        return "${this.value % this.p} mod ${this.p}"
+        return "${this.value.positiveRem(this.p)} mod ${this.p}"
     }
 
     override fun equals(other: Any?): Boolean {

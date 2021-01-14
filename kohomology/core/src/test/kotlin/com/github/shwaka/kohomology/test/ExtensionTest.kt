@@ -1,12 +1,17 @@
 package com.github.shwaka.kohomology.test
 
 import com.github.shwaka.kohomology.field.isPrime
+import com.github.shwaka.kohomology.field.positiveRem
 import com.github.shwaka.kohomology.field.pow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.data.forAll
+import io.kotest.data.row
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.property.forAll
+import kotlin.math.exp
 
 val extensionTag = NamedTag("Extension")
 
@@ -30,6 +35,25 @@ class IntPowTest : StringSpec({
     }
     "(-2)^3 should be -8" {
         (-2).pow(3) shouldBe (-8)
+    }
+})
+
+class PositiveRemTest : StringSpec({
+    tags(extensionTag)
+
+    "positive remainder" {
+        forAll(
+            row(3, 5, 3),
+            row(-1, 5, 4),
+            row(-6, 5, 4),
+            row(0, 7, 0),
+            row(7, 7, 0),
+            row(-7, 7, 0),
+            row(-3, 7, 4),
+            row(5, 7, 5)
+        ) { a, mod, expected ->
+            a.positiveRem(mod) shouldBe expected
+        }
     }
 })
 

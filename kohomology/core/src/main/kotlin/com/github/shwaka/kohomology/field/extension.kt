@@ -14,6 +14,14 @@ fun Int.pow(exponent: Int): Int {
     }
 }
 
+fun Int.positiveRem(mod: Int): Int {
+    // Kotlin's built-in rem is incorrect (in our context):
+    //   -1 % 5 = -1
+    //   -6 % 5 = -1
+    val rem = this % mod
+    return if (rem >= 0) rem else rem + mod
+}
+
 fun Int.isPrime(): Boolean {
     if (this <= 1) return false
     var n = 2

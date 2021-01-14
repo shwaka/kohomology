@@ -61,7 +61,7 @@ fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
+fun <S> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
     val min = -100
     val max = 100
     val vectorSpace = DenseNumVectorSpace.from(field)
@@ -69,13 +69,13 @@ fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
     val testGenerator = IntMatrixTestGenerator(matrixSpace)
     "Property testing for matrix addition" {
         checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = testGenerator.generateMatricesOfRank2(elmList) { m, n -> m + n }
+            val (mat1, mat2, expected) = testGenerator.generate2Arg(elmList) { m, n -> m + n }
             (mat1 + mat2) shouldBe expected
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = testGenerator.generateMatricesOfRank2(elmList) { m, n -> m - n }
+            val (mat1, mat2, expected) = testGenerator.generate2Arg(elmList) { m, n -> m - n }
             (mat1 - mat2) shouldBe expected
         }
     }
@@ -84,17 +84,17 @@ fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
-    include(denseMatrixTestWithGenerators(IntRationalField))
+    include(denseMatrixTestWithArb(IntRationalField))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
-    include(denseMatrixTestWithGenerators(BigRationalField))
+    include(denseMatrixTestWithArb(BigRationalField))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
-    include(denseMatrixTestWithGenerators(F5))
+    include(denseMatrixTestWithArb(F5))
 })

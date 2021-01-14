@@ -39,6 +39,15 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
         )
         mat1.eliminateOtherRows(1, 1) shouldBe expectedMat
     }
+    "rowEchelonForm" {
+        val expectedMat = listOf(
+            listOf(one, zero),
+            listOf(zero, -one)
+        )
+        val (rowEchelonForm, pivots) = mat1.rowEchelonFrom()
+        rowEchelonForm shouldBe expectedMat
+        pivots shouldBe listOf(0, 1)
+    }
 }
 
 class IntRationalRowEchelonCalculatorTest : StringSpec({

@@ -54,3 +54,31 @@ fun <S : Scalar<S>> List<List<S>>.eliminateOtherRows(rowInd: Int, colInd: Int): 
         }
     }
 }
+
+fun <S : Scalar<S>> List<List<S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
+    for (i in rowIndFrom until this.size) {
+        if (this[i][colInd] != this[i][colInd].field.zero) return i
+    }
+    return null
+}
+
+private fun <S : Scalar<S>> List<List<S>>.rowEchelonFormInternal(
+    currentColInd: Int,
+    pivots: List<Int>
+): Pair<List<List<S>>, List<Int>> {
+    if (currentColInd == this[0].size) {
+        return Pair(this, pivots)
+    }
+    val rowInd: Int? = this.findNonZero(currentColInd, pivots.size)
+    return if (rowInd == null) {
+        this.rowEchelonFormInternal(currentColInd + 1, pivots)
+    } else {
+        val eliminated = this.eliminateOtherRows(rowInd, currentColInd)
+        val newPivots = pivots + listOf(currentColInd)
+        eliminated.rowEchelonFormInternal(currentColInd + 1, newPivots)
+    }
+}
+
+fun <S : Scalar<S>> List<List<S>>.rowEchelonFrom(): Pair<List<List<S>>, List<Int>> {
+    return this.rowEchelonFormInternal(0, listOf())
+}

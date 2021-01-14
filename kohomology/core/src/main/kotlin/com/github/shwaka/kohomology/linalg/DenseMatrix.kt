@@ -99,10 +99,6 @@ class DenseMatrixSpace<S : Scalar<S>>(
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
 
-    override fun wrap(m: DenseMatrix<S>): Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
-        return m
-    }
-
     fun get(values: List<List<S>>): DenseMatrix<S> {
         return DenseMatrix(values, this)
     }

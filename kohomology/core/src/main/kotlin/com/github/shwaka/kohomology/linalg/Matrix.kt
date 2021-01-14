@@ -22,7 +22,6 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
 }
 
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
-    fun wrap(m: M): Matrix<S, V, M>
     val field: Field<S>
     val vectorSpace: NumVectorSpace<S, V>
 }

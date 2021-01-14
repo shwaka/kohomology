@@ -93,4 +93,8 @@ class DenseMatrixSpace<S>(
     fun get(values: List<List<Scalar<S>>>): DenseMatrix<S> {
         return DenseMatrix(values, this)
     }
+
+    fun fromRows(vararg rows: List<Scalar<S>>): DenseMatrix<S> {
+        return DenseMatrix(rows.toList(), this)
+    }
 }

@@ -66,15 +66,16 @@ fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
     val max = 100
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val testGenerator = IntMatrixTestGenerator(matrixSpace)
     "Property testing for matrix addition" {
         checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = generateMatricesOfRank2(field, elmList) { m, n -> m + n }
+            val (mat1, mat2, expected) = testGenerator.generateMatricesOfRank2(elmList) { m, n -> m + n }
             (mat1 + mat2) shouldBe expected
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = generateMatricesOfRank2(field, elmList) { m, n -> m - n }
+            val (mat1, mat2, expected) = testGenerator.generateMatricesOfRank2(elmList) { m, n -> m - n }
             (mat1 - mat2) shouldBe expected
         }
     }

@@ -4,6 +4,8 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 
 class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
+    override val dim: Int = this.values.size
+
     override fun plus(other: DenseNumVector<S>): DenseNumVector<S> {
         val result: MutableList<Scalar<S>> = mutableListOf()
         for (i in this.values.indices) {
@@ -39,8 +41,6 @@ class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: D
     override fun toString(): String {
         return this.values.toString()
     }
-
-    override val dim: Int = this.values.size
 }
 
 class DenseNumVectorSpace<S>

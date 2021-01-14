@@ -7,6 +7,11 @@ class DenseMatrix<S>(
     val values: List<List<Scalar<S>>>,
     override val matrixSpace: DenseMatrixSpace<S>
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
+    override val colCount: Int
+        get() = this.values.size
+    override val rowCount: Int
+        get() = this.values[0].size // TODO: this throws an error when colCount = 0
+
     override fun plus(other: DenseMatrix<S>): DenseMatrix<S> {
         if (this.rowCount != other.rowCount || this.colCount != other.colCount) {
             throw ArithmeticException("Cannot add matrices")
@@ -74,11 +79,6 @@ class DenseMatrix<S>(
         result = 31 * result + matrixSpace.hashCode()
         return result
     }
-
-    override val colCount: Int
-        get() = this.values.size
-    override val rowCount: Int
-        get() = this.values[0].size // TODO: this throws an error when colCount = 0
 }
 
 class DenseMatrixSpace<S>(

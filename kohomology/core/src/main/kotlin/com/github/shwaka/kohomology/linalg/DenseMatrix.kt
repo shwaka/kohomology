@@ -2,9 +2,10 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.util.StringTable
 
 class DenseMatrix<S : Scalar<S>>(
-    val values: List<List<S>>,
+    private val values: List<List<S>>,
     override val matrixSpace: DenseMatrixSpace<S>
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val colCount: Int
@@ -78,6 +79,18 @@ class DenseMatrix<S : Scalar<S>>(
         var result = values.hashCode()
         result = 31 * result + matrixSpace.hashCode()
         return result
+    }
+
+    private fun toStringTable(): StringTable {
+        return StringTable(this.values.map { row -> row.map { it.toString() } })
+    }
+
+    override fun toString(): String {
+        return this.toStringTable().toString()
+    }
+
+    fun toPrettyString(): String {
+        return this.toStringTable().toPrettyString()
     }
 }
 

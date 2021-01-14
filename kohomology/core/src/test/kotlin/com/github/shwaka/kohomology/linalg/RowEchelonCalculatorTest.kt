@@ -19,18 +19,25 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
         listOf(one, one)
     )
     "exchange rows" {
-        val mat2 = listOf(
+        val expectedMat = listOf(
             listOf(one, one),
             listOf(one, two)
         )
-        mat1.exchangeRows(0, 1) shouldBe mat2
+        mat1.exchangeRows(0, 1) shouldBe expectedMat
     }
     "add to another row" {
-        val mat3 = listOf(
+        val expectedMat = listOf(
             listOf(one, two),
             listOf(zero, -one)
         )
-        mat1.addToAnotherRow(0, 1, -one) shouldBe mat3
+        mat1.addToAnotherRow(0, 1, -one) shouldBe expectedMat
+    }
+    "eliminateOtherRows" {
+        val expectedMat = listOf(
+            listOf(-one, zero),
+            listOf(one, one)
+        )
+        mat1.eliminateOtherRows(1, 1) shouldBe expectedMat
     }
 }
 

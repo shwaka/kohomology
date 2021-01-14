@@ -4,11 +4,6 @@ import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
-import com.github.shwaka.kohomology.linalg.DenseMatrix
-import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
-import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
-import com.github.shwaka.kohomology.linalg.MatrixSpace
-import com.github.shwaka.kohomology.linalg.NumVector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec

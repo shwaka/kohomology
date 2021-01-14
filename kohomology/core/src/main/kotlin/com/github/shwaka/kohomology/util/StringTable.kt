@@ -12,7 +12,7 @@ data class Paren(
     val separator: String = " "
 )
 
-private val OnlyBracket = Paren()
+// private val OnlyBracket = Paren()
 private val PrettyParen = Paren(
     upperLeft = "⎡",
     left = "⎥",
@@ -22,7 +22,7 @@ private val PrettyParen = Paren(
     lowerRight = "⎦"
 )
 
-class StringTable(val data: List<List<String>>, val paren: Paren = PrettyParen) {
+class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
     override fun toString(): String {
         val rowStringList = this.data.map { row -> row.toString() }
         val joinedRowStrings = rowStringList.joinToString(this.paren.separator)
@@ -30,10 +30,11 @@ class StringTable(val data: List<List<String>>, val paren: Paren = PrettyParen) 
     }
 
     fun toPrettyString(): String {
-        if (this.data.size == 0) {
+        if (this.data.isEmpty()) {
+            // 下で this.data[0] とするので、ここの分岐は必要
             return "${this.paren.leftOneRow} ${this.paren.rightOneRow}"
         }
-        val colLengthList: List<Int> = (0 until this.data[0].size).map { j ->
+        val colLengthList: List<Int> = (this.data[0].indices).map { j ->
             this.data.map { row -> row[j] }.maxOf { it.length }
         }
         val rowStringList = this.data.map { row ->
@@ -43,15 +44,16 @@ class StringTable(val data: List<List<String>>, val paren: Paren = PrettyParen) 
     }
 
     private fun joinRows(rows: List<String>): String {
-        if (rows.size == 0) {
-            return "${this.paren.leftOneRow} ${this.paren.rightOneRow}"
-        } else if (rows.size == 1) {
-            return "${this.paren.leftOneRow} ${rows[0]} ${this.paren.rightOneRow}"
-        } else {
-            val firstRow = "${this.paren.upperLeft} ${rows[0]} ${this.paren.upperRight}\n"
-            val middleRows = rows.slice(1 until rows.size - 1).map { "${this.paren.left} $it ${this.paren.right}\n" }.joinToString("")
-            val lastRow = "${this.paren.lowerLeft} ${rows[rows.size - 1]} ${this.paren.lowerRight}"
-            return firstRow + middleRows + lastRow
+        return when (rows.size) {
+            0 -> "${this.paren.leftOneRow} ${this.paren.rightOneRow}"
+            1 -> "${this.paren.leftOneRow} ${rows[0]} ${this.paren.rightOneRow}"
+            else -> {
+                val firstRow = "${this.paren.upperLeft} ${rows[0]} ${this.paren.upperRight}\n"
+                val middleRows = rows.slice(1 until rows.size - 1)
+                    .joinToString("") { "${this.paren.left} $it ${this.paren.right}\n" }
+                val lastRow = "${this.paren.lowerLeft} ${rows[rows.size - 1]} ${this.paren.lowerRight}"
+                firstRow + middleRows + lastRow
+            }
         }
     }
 }

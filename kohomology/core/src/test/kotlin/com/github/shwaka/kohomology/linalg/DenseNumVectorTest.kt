@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F7
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -12,7 +13,7 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 val denseNumVectorTag = NamedTag("DenseNumVector")
 
-fun <S> denseNumVectorTest(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)

@@ -6,12 +6,12 @@ import com.github.shwaka.kohomology.field.IntRational
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
 
-fun <S> add(a: Scalar<S>, b: Scalar<S>): Scalar<S> {
+fun <S : Scalar<S>> add(a: S, b: S): S {
     // return a.field.wrap(a + b.unwrap())
     return a + b
 }
 
-fun <S> test(a: Scalar<S>, b: Scalar<S>) {
+fun <S : Scalar<S>> test(a: S, b: S) {
     println("------------------------------")
     println("test: a=$a, b=$b")
     println("a + b = ${a + b}")

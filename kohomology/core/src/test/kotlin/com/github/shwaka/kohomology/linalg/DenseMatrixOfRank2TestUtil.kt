@@ -1,9 +1,10 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.field.Scalar
 import kotlin.IllegalArgumentException
 
 data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {
-    fun <S> toDenseMatrix(matrixSpace: DenseMatrixSpace<S>): DenseMatrix<S> {
+    fun <S : Scalar<S>> toDenseMatrix(matrixSpace: DenseMatrixSpace<S>): DenseMatrix<S> {
         val field = matrixSpace.field
         val (a, b, c, d) = listOf(this.a, this.b, this.c, this.d).map(field::fromInt)
         return matrixSpace.fromRows(
@@ -25,7 +26,7 @@ data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {
     }
 }
 
-class IntMatrixTestGenerator<S>(private val matrixSpace: DenseMatrixSpace<S>) {
+class IntMatrixTestGenerator<S : Scalar<S>>(private val matrixSpace: DenseMatrixSpace<S>) {
     private fun generateIntMatrixList(elmList: List<Int>, numMatrices: Int): List<IntMatrix> {
         if (elmList.size != numMatrices * 4) {
             throw IllegalArgumentException("The length of elmList is not equal to the required number (${numMatrices * 4})")

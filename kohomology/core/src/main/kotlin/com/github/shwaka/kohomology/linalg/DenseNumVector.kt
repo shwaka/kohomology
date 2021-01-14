@@ -3,18 +3,18 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 
-class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
+class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
     override val dim: Int = this.values.size
 
     override fun plus(other: DenseNumVector<S>): DenseNumVector<S> {
-        val result: MutableList<Scalar<S>> = mutableListOf()
+        val result: MutableList<S> = mutableListOf()
         for (i in this.values.indices) {
             result.add(this.values[i] + other.values[i])
         }
         return DenseNumVector(result, this.vectorSpace)
     }
 
-    override fun times(other: Scalar<S>): DenseNumVector<S> {
+    override fun times(other: S): DenseNumVector<S> {
         return DenseNumVector(this.values.map { it * other }, this.vectorSpace)
     }
 
@@ -43,13 +43,13 @@ class DenseNumVector<S>(val values: List<Scalar<S>>, override val vectorSpace: D
     }
 }
 
-class DenseNumVectorSpace<S>
+class DenseNumVectorSpace<S : Scalar<S>>
 private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVector<S>> {
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<Any, Any> = mutableMapOf()
-        fun <S> from(field: Field<S>): DenseNumVectorSpace<S> {
+        fun <S : Scalar<S>> from(field: Field<S>): DenseNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[field] as DenseNumVectorSpace<S>
@@ -64,13 +64,13 @@ private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVe
     override fun wrap(v: DenseNumVector<S>): NumVector<S, DenseNumVector<S>> {
         return v
     }
-    fun get(values: List<Scalar<S>>): DenseNumVector<S> {
+    fun get(values: List<S>): DenseNumVector<S> {
         // if (values.size != this.dim) {
         //     throw IllegalArgumentException("The size of vector doesn't equal to the dimension: $values.size != ${this.dim}")
         // }
         return DenseNumVector(values, this)
     }
-    fun get(vararg values: Scalar<S>): DenseNumVector<S> {
+    fun get(vararg values: S): DenseNumVector<S> {
         return this.get(values.toList())
     }
 }

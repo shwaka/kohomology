@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 
-class DenseMatrix<S>(
-    val values: List<List<Scalar<S>>>,
+class DenseMatrix<S : Scalar<S>>(
+    val values: List<List<S>>,
     override val matrixSpace: DenseMatrixSpace<S>
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val colCount: Int
@@ -43,7 +43,7 @@ class DenseMatrix<S>(
         return this.matrixSpace.get(values)
     }
 
-    override fun times(scalar: Scalar<S>): DenseMatrix<S> {
+    override fun times(scalar: S): DenseMatrix<S> {
         val values = this.values.map { row -> row.map { elm -> -elm } }
         return this.matrixSpace.get(values)
     }
@@ -52,7 +52,7 @@ class DenseMatrix<S>(
         val values = this.values.map { row ->
             row.zip(vector.values)
                 .map { it.first * it.second }
-                .reduce(Scalar<S>::plus)
+                .reduce { a, b -> a + b }
         }
         return this.matrixSpace.vectorSpace.get(values)
     }
@@ -81,7 +81,7 @@ class DenseMatrix<S>(
     }
 }
 
-class DenseMatrixSpace<S>(
+class DenseMatrixSpace<S : Scalar<S>>(
     override val vectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
@@ -90,11 +90,11 @@ class DenseMatrixSpace<S>(
         return m
     }
 
-    fun get(values: List<List<Scalar<S>>>): DenseMatrix<S> {
+    fun get(values: List<List<S>>): DenseMatrix<S> {
         return DenseMatrix(values, this)
     }
 
-    fun fromRows(vararg rows: List<Scalar<S>>): DenseMatrix<S> {
+    fun fromRows(vararg rows: List<S>): DenseMatrix<S> {
         return DenseMatrix(rows.toList(), this)
     }
 }

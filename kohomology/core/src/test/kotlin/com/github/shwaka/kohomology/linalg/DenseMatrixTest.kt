@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -15,7 +16,7 @@ import io.kotest.property.checkAll
 
 val denseMatrixTag = NamedTag("DenseMatrix")
 
-fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
@@ -61,7 +62,7 @@ fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
     val min = -100
     val max = 100
     val vectorSpace = DenseNumVectorSpace.from(field)

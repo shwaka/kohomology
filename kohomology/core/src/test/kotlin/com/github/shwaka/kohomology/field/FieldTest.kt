@@ -15,7 +15,7 @@ import io.kotest.property.checkAll
 
 val fieldTag = NamedTag("Field")
 
-fun <S> fieldTest(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
     val intMin = -100
     val intMax = 100
     val arb = Arb.int(intMin..intMax)
@@ -73,7 +73,7 @@ fun <S> fieldTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S> rationalTest(field: RationalField<S>) = stringSpec {
+fun <S : Scalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
     tags(fieldTag)
 
     "1/2 + 1/3 should be 5/6" {

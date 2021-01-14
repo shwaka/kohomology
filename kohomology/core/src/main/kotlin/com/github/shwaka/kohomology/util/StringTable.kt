@@ -33,7 +33,7 @@ class StringTable(val data: List<List<String>>, val paren: Paren = PrettyParen) 
         if (this.data.size == 0) {
             return "${this.paren.leftOneRow} ${this.paren.rightOneRow}"
         }
-        val colLengthList: List<Int> = (0 until this.data.size).map { j ->
+        val colLengthList: List<Int> = (0 until this.data[0].size).map { j ->
             this.data.map { row -> row[j] }.maxOf { it.length }
         }
         val rowStringList = this.data.map { row ->
@@ -49,7 +49,7 @@ class StringTable(val data: List<List<String>>, val paren: Paren = PrettyParen) 
             return "${this.paren.leftOneRow} ${rows[0]} ${this.paren.rightOneRow}"
         } else {
             val firstRow = "${this.paren.upperLeft} ${rows[0]} ${this.paren.upperRight}\n"
-            val middleRows = rows.slice(1 until rows.size - 1).map { "${this.paren.left} $it ${this.paren.right}\n" }.joinToString()
+            val middleRows = rows.slice(1 until rows.size - 1).map { "${this.paren.left} $it ${this.paren.right}\n" }.joinToString("")
             val lastRow = "${this.paren.lowerLeft} ${rows[rows.size - 1]} ${this.paren.lowerRight}"
             return firstRow + middleRows + lastRow
         }

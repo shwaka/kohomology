@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -59,6 +60,23 @@ fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
             )
         )
         (m * n) shouldBe mn
+    }
+    "toString and toPrettyString should not throw" {
+        shouldNotThrowAny {
+            m.toString()
+            m.toPrettyString()
+            val empty = matrixSpace.fromRows()
+            empty.toString()
+            empty.toPrettyString()
+            val rank3Mat = matrixSpace.fromRows(
+                listOf(one, zero, zero),
+                listOf(zero, one, zero),
+                listOf(zero, one, zero),
+                listOf(zero, zero, one)
+            )
+            rank3Mat.toString()
+            rank3Mat.toPrettyString()
+        }
     }
 }
 

@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Scalar
 
 fun <S : Scalar<S>> List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
-    if (i1 == i2) return this
+    if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
     return this.indices.map { i ->
         when (i) {
             i1 -> this[i2]
@@ -64,21 +64,28 @@ fun <S : Scalar<S>> List<List<S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int
 
 private fun <S : Scalar<S>> List<List<S>>.rowEchelonFormInternal(
     currentColInd: Int,
-    pivots: List<Int>
-): Pair<List<List<S>>, List<Int>> {
+    pivots: List<Int>,
+    exchangeCount: Int
+): Triple<List<List<S>>, List<Int>, Int> {
     if (currentColInd == this[0].size) {
-        return Pair(this, pivots)
+        // 全ての列の処理が終わった場合
+        return Triple(this, pivots, exchangeCount)
     }
     val rowInd: Int? = this.findNonZero(currentColInd, pivots.size)
     return if (rowInd == null) {
-        this.rowEchelonFormInternal(currentColInd + 1, pivots)
+        this.rowEchelonFormInternal(currentColInd + 1, pivots, exchangeCount)
     } else {
-        val eliminated = this.eliminateOtherRows(rowInd, currentColInd).exchangeRows(rowInd, pivots.size)
+        var newMatrix = this.eliminateOtherRows(rowInd, currentColInd)
+        var newExchangeCount = exchangeCount
+        if (rowInd != pivots.size) {
+            newMatrix = newMatrix.exchangeRows(rowInd, pivots.size)
+            newExchangeCount += 1
+        }
         val newPivots = pivots + listOf(currentColInd)
-        eliminated.rowEchelonFormInternal(currentColInd + 1, newPivots)
+        newMatrix.rowEchelonFormInternal(currentColInd + 1, newPivots, newExchangeCount)
     }
 }
 
-fun <S : Scalar<S>> List<List<S>>.rowEchelonFrom(): Pair<List<List<S>>, List<Int>> {
-    return this.rowEchelonFormInternal(0, listOf())
+fun <S : Scalar<S>> List<List<S>>.rowEchelonForm(): Triple<List<List<S>>, List<Int>, Int> {
+    return this.rowEchelonFormInternal(0, listOf(), 0)
 }

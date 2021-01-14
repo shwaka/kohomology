@@ -100,8 +100,14 @@ fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
     }
     "Property testing for unaryMinus of matrix" {
         checkAll(Arb.list(Arb.int(min..max), 4..4)) { elmList ->
-            val (mat, expected) = testGenerator.generate1Arg(elmList) { m -> -m }
+            val (mat: DenseMatrix<S>, expected: DenseMatrix<S>) = testGenerator.generate1Arg(elmList) { m -> -m }
             (-mat) shouldBe expected
+        }
+    }
+    "Property testing for det" {
+        checkAll(Arb.list(Arb.int(min..max), 4..4)) { elmList ->
+            val (mat: DenseMatrix<S>, expected: S) = testGenerator.generate1ArgToInt(elmList) { m -> m.det() }
+            (mat.det()) shouldBe expected
         }
     }
 }

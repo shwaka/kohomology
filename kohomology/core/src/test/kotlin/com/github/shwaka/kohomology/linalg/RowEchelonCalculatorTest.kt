@@ -45,7 +45,7 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
             listOf(one, zero),
             listOf(zero, -one)
         )
-        val (rowEchelonForm, pivots) = mat1.rowEchelonFrom()
+        val (rowEchelonForm, pivots, _) = mat1.rowEchelonForm()
         rowEchelonForm shouldBe expectedMat
         pivots shouldBe listOf(0, 1)
     }
@@ -60,7 +60,7 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
             listOf(zero, one, two),
             listOf(zero, zero, zero)
         )
-        val (rowEchelonForm, pivots) = mat.rowEchelonFrom()
+        val (rowEchelonForm, pivots, _) = mat.rowEchelonForm()
         rowEchelonForm shouldBe expectedMat
         pivots shouldBe listOf(0, 1)
     }

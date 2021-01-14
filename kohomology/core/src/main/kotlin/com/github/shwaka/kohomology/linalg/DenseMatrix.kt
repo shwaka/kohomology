@@ -58,6 +58,15 @@ class DenseMatrix<S : Scalar<S>>(
         return this.matrixSpace.vectorSpace.get(values)
     }
 
+    override fun rowEchelonForm(): Triple<DenseMatrix<S>, List<Int>, Int> {
+        val (rowEchelonForm, pivots, exchangeCount) = this.values.rowEchelonForm()
+        return Triple(this.matrixSpace.get(rowEchelonForm), pivots, exchangeCount)
+    }
+
+    override fun getElm(rowInd: Int, colInd: Int): S {
+        return this.values[rowInd][colInd]
+    }
+
     override fun unwrap(): DenseMatrix<S> {
         return this
     }

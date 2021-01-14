@@ -24,6 +24,10 @@ data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {
     operator fun unaryMinus(): IntMatrix {
         return IntMatrix(-this.a, -this.b, -this.c, -this.d)
     }
+
+    fun det(): Int {
+        return this.a * this.d - this.b * this.c
+    }
 }
 
 class IntMatrixTestGenerator<S : Scalar<S>>(private val matrixSpace: DenseMatrixSpace<S>) {
@@ -36,13 +40,23 @@ class IntMatrixTestGenerator<S : Scalar<S>>(private val matrixSpace: DenseMatrix
         }
     }
 
+    fun generate1ArgToInt(
+        elmList: List<Int>,
+        expect: (intMat: IntMatrix) -> Int
+    ): Pair<DenseMatrix<S>, S> {
+        val (intMat) = this.generateIntMatrixList(elmList, 1)
+        val mat = intMat.toDenseMatrix(this.matrixSpace)
+        val expected: S = this.matrixSpace.field.fromInt(expect(intMat))
+        return Pair(mat, expected)
+    }
+
     fun generate1Arg(
         elmList: List<Int>,
         expect: (intMat: IntMatrix) -> IntMatrix
     ): Pair<DenseMatrix<S>, DenseMatrix<S>> {
         val (intMat) = this.generateIntMatrixList(elmList, 1)
         val mat = intMat.toDenseMatrix(this.matrixSpace)
-        val expected = expect(intMat).toDenseMatrix(this.matrixSpace)
+        val expected: DenseMatrix<S> = expect(intMat).toDenseMatrix(this.matrixSpace)
         return Pair(mat, expected)
     }
 

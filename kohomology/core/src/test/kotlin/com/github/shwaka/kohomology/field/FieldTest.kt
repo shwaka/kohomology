@@ -24,6 +24,9 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
             (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
         }
     }
+    "field.fromInt(0) should be field.zero" {
+        field.fromInt(0) shouldBe field.zero
+    }
     "field.zero should be the unit of addition" {
         checkAll(arb) { a ->
             val zero = field.zero
@@ -33,9 +36,12 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
         }
     }
     "fromInt should be multiplicative" {
-        checkAll(Arb.int(intMin..intMax), Arb.int(intMin..intMax)) { a, b ->
+        checkAll(arb, arb) { a, b ->
             (field.fromInt(a) * field.fromInt(b)) shouldBe field.fromInt(a * b)
         }
+    }
+    "field.fromInt(1) should be field.one" {
+        field.fromInt(1) shouldBe field.one
     }
     "field.one should be the unit of multiplication" {
         checkAll(arb) { a ->
@@ -43,6 +49,22 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
             val s = field.fromInt(a)
             (s * one) shouldBe s
             (one * s) shouldBe s
+        }
+    }
+    "unaryMinus() should give the additive inverse" {
+        checkAll(arb) { a ->
+            val s = field.fromInt(a)
+            (s + (-s)) shouldBe field.zero
+            ((-s) + s) shouldBe field.zero
+        }
+    }
+    "inv() should give the multiplicative inverse" {
+        checkAll(arb) { a ->
+            val s = field.fromInt(a)
+            if (s != field.zero) {
+                (s * (s.inv())) shouldBe field.one
+                ((s.inv()) * s) shouldBe field.one
+            }
         }
     }
     "1 + 2 should be 3" {

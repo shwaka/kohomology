@@ -20,6 +20,10 @@ data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {
     operator fun minus(other: IntMatrix): IntMatrix {
         return IntMatrix(this.a - other.a, this.b - other.b, this.c - other.c, this.d - other.d)
     }
+
+    operator fun unaryMinus(): IntMatrix {
+        return IntMatrix(-this.a, -this.b, -this.c, -this.d)
+    }
 }
 
 class IntMatrixTestGenerator<S>(private val matrixSpace: DenseMatrixSpace<S>) {

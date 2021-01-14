@@ -18,6 +18,9 @@ interface Matrix<S, V : NumVector<S, V>, M> {
     operator fun times(scalar: Int): M {
         return this * this.matrixSpace.field.fromInt(scalar)
     }
+    operator fun unaryMinus(): M {
+        return this * (-1)
+    }
     fun unwrap(): M
     val matrixSpace: MatrixSpace<S, V, M>
     val rowCount: Int

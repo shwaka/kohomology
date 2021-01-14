@@ -79,6 +79,12 @@ fun <S> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
             (mat1 - mat2) shouldBe expected
         }
     }
+    "Property testing for unaryMinus of matrix" {
+        checkAll(Arb.list(Arb.int(min..max), 4..4)) { elmList ->
+            val (mat, expected) = testGenerator.generate1Arg(elmList) { m -> -m }
+            (-mat) shouldBe expected
+        }
+    }
 }
 
 class IntRationalDenseMatrixTest : StringSpec({

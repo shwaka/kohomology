@@ -38,7 +38,6 @@ operator fun <S : Scalar<S>> Int.times(other: S): S {
 }
 
 interface Field<S : Scalar<S>> {
-    fun wrap(a: S): Scalar<S>
     fun fromInt(n: Int): S
     val zero: S
     val one: S

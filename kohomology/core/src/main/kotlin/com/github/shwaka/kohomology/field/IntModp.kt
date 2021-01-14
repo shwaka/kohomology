@@ -58,9 +58,6 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             return this.cache.getOrPut(p, { if (p.isPrime()) Fp(p) else throw ArithmeticException("$p is not prime") })
         }
     }
-    override fun wrap(a: IntModp): Scalar<IntModp> {
-        return a
-    }
     override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }

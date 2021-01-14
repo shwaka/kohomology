@@ -98,9 +98,6 @@ class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational
 }
 
 object IntRationalField : RationalField<IntRational> {
-    override fun wrap(a: IntRational): Scalar<IntRational> {
-        return a
-    }
     override fun fromInt(n: Int): IntRational {
         return IntRational(n, 1)
     }

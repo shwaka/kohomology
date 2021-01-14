@@ -95,9 +95,6 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : RationalScal
 }
 
 object BigRationalField : RationalField<BigRational> {
-    override fun wrap(a: BigRational): Scalar<BigRational> {
-        return a
-    }
     override fun fromInt(n: Int): BigRational {
         return BigRational(n, 1)
     }

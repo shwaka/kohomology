@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Scalar
 
 fun <S : Scalar<S>> List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
-    if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
+    if (i1 == i2) return this
     return this.indices.map { i ->
         when (i) {
             i1 -> this[i2]
@@ -73,7 +73,7 @@ private fun <S : Scalar<S>> List<List<S>>.rowEchelonFormInternal(
     return if (rowInd == null) {
         this.rowEchelonFormInternal(currentColInd + 1, pivots)
     } else {
-        val eliminated = this.eliminateOtherRows(rowInd, currentColInd)
+        val eliminated = this.eliminateOtherRows(rowInd, currentColInd).exchangeRows(rowInd, pivots.size)
         val newPivots = pivots + listOf(currentColInd)
         eliminated.rowEchelonFormInternal(currentColInd + 1, newPivots)
     }

@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.test
+package com.github.shwaka.kohomology
 
 import io.kotest.core.NamedTag
 

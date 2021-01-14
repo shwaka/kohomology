@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.test
+package com.github.shwaka.kohomology.field
 
 import com.github.shwaka.kohomology.field.isPrime
 import com.github.shwaka.kohomology.field.positiveRem

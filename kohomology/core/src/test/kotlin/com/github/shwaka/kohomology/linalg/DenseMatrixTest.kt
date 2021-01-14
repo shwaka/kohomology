@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.test
+package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5

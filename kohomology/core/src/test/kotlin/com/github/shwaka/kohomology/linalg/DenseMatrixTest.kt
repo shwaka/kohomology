@@ -61,37 +61,6 @@ fun <S> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
-operator fun <T> List<T>.component6() = this[5]
-operator fun <T> List<T>.component7() = this[6]
-operator fun <T> List<T>.component8() = this[7]
-
-data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {
-    fun <S> toDenseMatrix(matrixSpace: DenseMatrixSpace<S>): DenseMatrix<S> {
-        val field = matrixSpace.field
-        val (a, b, c, d) = listOf(this.a, this.b, this.c, this.d).map(field::fromInt)
-        return matrixSpace.fromRows(
-            listOf(a, b),
-            listOf(c, d)
-        )
-    }
-}
-
-fun <S> generateMatricesOfRank2(
-    field: Field<S>,
-    elmList: List<Int>,
-    expect: (intMat1: IntMatrix, intMat2: IntMatrix) -> IntMatrix
-): Triple<DenseMatrix<S>, DenseMatrix<S>, DenseMatrix<S>> {
-    val vectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
-    val (a, b, c, d, e, f, g, h) = elmList // .map(field::fromInt)
-    val intMat1 = IntMatrix(a, b, c, d)
-    val intMat2 = IntMatrix(e, f, g, h)
-    val mat1 = intMat1.toDenseMatrix(matrixSpace)
-    val mat2 = intMat2.toDenseMatrix(matrixSpace)
-    val expected = expect(intMat1, intMat2).toDenseMatrix(matrixSpace)
-    return Triple(mat1, mat2, expected)
-}
-
 fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
     val min = -100
     val max = 100
@@ -99,10 +68,14 @@ fun <S> denseMatrixTestWithGenerators(field: Field<S>) = stringSpec {
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     "Property testing for matrix addition" {
         checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = generateMatricesOfRank2(field, elmList) { m, n ->
-                IntMatrix(m.a + n.a, m.b + n.b, m.c + n.c, m.d + n.d)
-            }
+            val (mat1, mat2, expected) = generateMatricesOfRank2(field, elmList) { m, n -> m + n }
             (mat1 + mat2) shouldBe expected
+        }
+    }
+    "Property testing for matrix subtraction" {
+        checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
+            val (mat1, mat2, expected) = generateMatricesOfRank2(field, elmList) { m, n -> m - n }
+            (mat1 - mat2) shouldBe expected
         }
     }
 }

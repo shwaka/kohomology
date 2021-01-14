@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.field.Field
 import kotlin.IllegalArgumentException
 
 data class IntMatrix(val a: Int, val b: Int, val c: Int, val d: Int) {

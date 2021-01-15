@@ -24,3 +24,7 @@ open core/build/reports/jacoco/test/html/index.html
     - しかし [kotest/kotest-gradle-plugin](https://github.com/kotest/kotest-gradle-plugin) は動かないっぽい．
       そもそもこの plugin が(multiplatform 以前の問題として)あんまりメンテナンスされてなさそう．
 - multiplatform はまだ新しい機能なので，代替品が充実してなさそう
+
+## Scalar などの定義について
+`interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてるのが不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．
+[kotlin/Enum.kt at master · JetBrains/kotlin](https://github.com/JetBrains/kotlin/blob/master/core/builtins/native/kotlin/Enum.kt)

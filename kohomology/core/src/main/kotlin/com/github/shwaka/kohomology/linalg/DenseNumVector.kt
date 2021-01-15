@@ -48,7 +48,7 @@ private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVe
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
-        private val cache: MutableMap<Any, Any> = mutableMapOf()
+        private val cache: MutableMap<Field<*>, DenseNumVectorSpace<*>> = mutableMapOf()
         fun <S : Scalar<S>> from(field: Field<S>): DenseNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")

@@ -1,11 +1,12 @@
 ## test
-以下のいずれか
+以下のいずれか．
+[radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を導入したので， `./gradlew kotest` じゃなくて `./gradlew test` でも綺麗に出力される．
 
-- `./gradlew kotest`
-- `./gradlew kotest -Dkotest.tags='Field & !Compile'`
 - `./gradlew test -Dkotest.tags='Field & !Compile'`
 - `./gradlew test --tests com.github.shwaka.kohomology.IntRationalDenseNumVectorTest`
 - `./gradlew test --tests "*DenseNumVectorTest"`
+- `./gradlew kotest`
+- `./gradlew kotest -Dkotest.tags='Field & !Compile'`
 
 注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
 

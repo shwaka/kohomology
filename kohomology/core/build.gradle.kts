@@ -5,6 +5,7 @@ plugins {
     id("io.kotest") version "0.2.6"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
     jacoco
+    id("com.adarshr.test-logger") version "2.1.1"
 }
 
 tasks.withType<Test> {
@@ -59,4 +60,9 @@ tasks.jacocoTestReport {
         html.isEnabled = true
         // xml.isEnabled = true
     }
+}
+
+testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    showCauses = false
 }

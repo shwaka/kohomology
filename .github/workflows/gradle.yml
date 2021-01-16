@@ -6,8 +6,10 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
+    paths: [ 'kohomology/**', 'kohomology-js/**', '.github/workflows/gradle.yml' ]
   pull_request:
     branches: [ main ]
+    paths: [ 'kohomology/**', 'kohomology-js/**', '.github/workflows/gradle.yml' ]
 
 jobs:
   build-jvm:

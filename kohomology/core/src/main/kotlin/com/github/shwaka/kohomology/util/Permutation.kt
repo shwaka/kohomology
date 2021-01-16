@@ -8,7 +8,7 @@ private class EmptyPermutation<T>() : Iterator<Pair<List<T>, Int>> {
 
     override fun next(): Pair<List<T>, Int> {
         hasNext = false
-        return Pair(listOf(), 0)
+        return Pair(listOf(), 1)
     }
 }
 
@@ -29,7 +29,8 @@ private class NonEmptyPermutation<T>(val list: List<T>) : Iterator<Pair<List<T>,
             this.subIterator = getPermutation(list.subList(1, list.size))
         }
         val (subPermutation: List<T>, sign: Int) = this.subIterator.next()
-        return Pair(this.insert(subPermutation, this.zerothTo, this.list[0]), sign + this.zerothTo)
+        val tempSign = if (this.zerothTo % 2 == 0) 1 else -1
+        return Pair(this.insert(subPermutation, this.zerothTo, this.list[0]), sign * tempSign)
     }
 
     private fun insert(list: List<T>, index: Int, elm: T): List<T> {

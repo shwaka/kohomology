@@ -110,6 +110,14 @@ fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
             (mat.det()) shouldBe expected
         }
     }
+    "det and detByPermutations should be the same" {
+        val n = 4
+        val n2 = n * n
+        checkAll(Arb.list(Arb.int(min..max), n2..n2)) { elmList ->
+            val mat: DenseMatrix<S> = matrixSpace.fromFlatList(elmList.map { a -> field.fromInt(a) }, n, n)
+            mat.det() shouldBe mat.detByPermutations()
+        }
+    }
 }
 
 class IntRationalDenseMatrixTest : StringSpec({

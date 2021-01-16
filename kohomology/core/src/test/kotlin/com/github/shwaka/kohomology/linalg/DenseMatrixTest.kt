@@ -132,6 +132,12 @@ fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringS
     }
 }
 
+const val maxValueForDet = 100
+const val matrixSizeForDet = 4
+// 5 でも一応できるけど、
+// - BigRational に対しする test に2秒くらいかかる
+// - LongRational が(乱数次第で)たまに overflow する
+
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
@@ -143,19 +149,19 @@ class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(LongRationalField))
     include(denseMatrixTestWithArb(LongRationalField))
-    include(determinantTest(LongRationalField, 5, 100))
+    include(determinantTest(LongRationalField, matrixSizeForDet, maxValueForDet))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
     include(denseMatrixTestWithArb(BigRationalField))
-    include(determinantTest(BigRationalField, 5, 100))
+    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
     include(denseMatrixTestWithArb(F5))
-    include(determinantTest(F5, 5, 100))
+    include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

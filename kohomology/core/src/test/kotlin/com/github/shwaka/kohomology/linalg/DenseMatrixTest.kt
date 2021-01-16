@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
-import com.github.shwaka.kohomology.field.IntModp
 import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.LongRationalField
 import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
@@ -12,9 +12,11 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
+import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.list
 import io.kotest.property.checkAll
+import io.kotest.property.exhaustive.ints
 
 val denseMatrixTag = NamedTag("DenseMatrix")
 
@@ -119,10 +121,13 @@ fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringS
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     "det and detByPermutations should be the same" {
-        val n2 = n * n
-        checkAll(Arb.list(Arb.int(-max..max), n2..n2)) { elmList ->
-            val mat: DenseMatrix<S> = matrixSpace.fromFlatList(elmList.map { a -> field.fromInt(a) }, n, n)
-            mat.det() shouldBe mat.detByPermutations()
+        // val n2 = n * n
+        checkAll(Exhaustive.ints(1..n)) { k ->
+            val k2 = k * k
+            checkAll(Arb.list(Arb.int(-max..max), k2..k2)) { elmList ->
+                val mat: DenseMatrix<S> = matrixSpace.fromFlatList(elmList.map { a -> field.fromInt(a) }, k, k)
+                mat.det() shouldBe mat.detByPermutations()
+            }
         }
     }
 }
@@ -131,19 +136,26 @@ class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
     include(denseMatrixTestWithArb(IntRationalField))
-    include(determinantTest(IntRationalField, 4, 10))
+    include(determinantTest(IntRationalField, 4, 10)) // これ以上大きくすると det() の計算で overflow する
+})
+
+class LongRationalDenseMatrixTest : StringSpec({
+    tags(denseMatrixTag)
+    include(denseMatrixTest(LongRationalField))
+    include(denseMatrixTestWithArb(LongRationalField))
+    include(determinantTest(LongRationalField, 5, 100))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
     include(denseMatrixTestWithArb(BigRationalField))
-    include(determinantTest(BigRationalField, 4, 100))
+    include(determinantTest(BigRationalField, 5, 100))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
     include(denseMatrixTestWithArb(F5))
-    include(determinantTest(F5, 4, 100))
+    include(determinantTest(F5, 5, 100))
 })

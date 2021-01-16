@@ -4,7 +4,6 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.field.times
 import com.github.shwaka.kohomology.util.StringTable
-import com.github.shwaka.kohomology.util.getPermutation
 
 class DenseMatrix<S : Scalar<S>>(
     private val values: List<List<S>>,
@@ -120,7 +119,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
 
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
         if (list.size != rowCount * colCount) throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
-        val values = (0 until rowCount).map { i -> list.subList( colCount * i, colCount * (i + 1)) }
+        val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
         return this.get(values)
     }
 }

@@ -135,8 +135,8 @@ fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringS
 const val maxValueForDet = 100
 const val matrixSizeForDet = 4
 // 5 でも一応できるけど、
-// - BigRational に対しする test に2秒くらいかかる
-// - LongRational が(乱数次第で)たまに overflow する
+// - BigRational の test に2秒くらいかかる
+// - LongRational の test が(乱数次第で)たまに overflow する
 
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)

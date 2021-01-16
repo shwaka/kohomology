@@ -130,6 +130,13 @@ class IntRationalTest : StringSpec({
     include(rationalTest(IntRationalField))
 })
 
+class LongRationalTest : StringSpec({
+    tags(fieldTag)
+
+    include(fieldTest(LongRationalField))
+    include(rationalTest(LongRationalField))
+})
+
 class BigRationalTest : StringSpec({
     tags(fieldTag)
 

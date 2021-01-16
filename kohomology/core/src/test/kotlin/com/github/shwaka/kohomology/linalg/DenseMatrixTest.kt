@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.IntModp
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -110,12 +111,16 @@ fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
             (mat.det()) shouldBe expected
         }
     }
+}
+
+fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec {
+    if (n < 0) throw IllegalArgumentException("Matrix size n should be non-negative")
+    if (max < 0) throw IllegalArgumentException("max should be non-negative")
+    val vectorSpace = DenseNumVectorSpace.from(field)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
     "det and detByPermutations should be the same" {
-        val n = 4
         val n2 = n * n
-        val minForDet = -10 // 100 にすると IntRational のときにオーバーフローする
-        val maxForDet = 10
-        checkAll(Arb.list(Arb.int(minForDet..maxForDet), n2..n2)) { elmList ->
+        checkAll(Arb.list(Arb.int(-max..max), n2..n2)) { elmList ->
             val mat: DenseMatrix<S> = matrixSpace.fromFlatList(elmList.map { a -> field.fromInt(a) }, n, n)
             mat.det() shouldBe mat.detByPermutations()
         }
@@ -126,16 +131,19 @@ class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
     include(denseMatrixTestWithArb(IntRationalField))
+    include(determinantTest(IntRationalField, 4, 10))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
     include(denseMatrixTestWithArb(BigRationalField))
+    include(determinantTest(BigRationalField, 4, 100))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
     include(denseMatrixTestWithArb(F5))
+    include(determinantTest(F5, 4, 100))
 })

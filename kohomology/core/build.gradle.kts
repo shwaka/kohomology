@@ -65,4 +65,5 @@ tasks.jacocoTestReport {
 testlogger {
     theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
     showCauses = false
+    showStandardStreams = true
 }

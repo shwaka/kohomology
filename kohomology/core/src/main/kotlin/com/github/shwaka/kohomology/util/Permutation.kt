@@ -1,13 +1,13 @@
 package com.github.shwaka.kohomology.util
 
 private class EmptyPermutation<T>() : Iterator<Pair<List<T>, Int>> {
-    var hasNext = true
+    var hasNextElm = true
     override fun hasNext(): Boolean {
-        return hasNext
+        return hasNextElm
     }
 
     override fun next(): Pair<List<T>, Int> {
-        hasNext = false
+        hasNextElm = false
         return Pair(listOf(), 1)
     }
 }

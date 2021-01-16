@@ -73,17 +73,6 @@ class DenseMatrix<S : Scalar<S>>(
         return this
     }
 
-    fun detByPermutations(): S {
-        if (this.rowCount != this.colCount) throw ArithmeticException("Determinant is defined only for square matrices")
-        val n = this.rowCount
-        var result: S = this.matrixSpace.field.zero
-        for ((perm, sign) in getPermutation((0 until n).toList())) {
-            val product: S = (0 until n).zip(perm).map { (i, j) -> this.values[i][j] }.reduce { a, b -> a * b}
-            result += sign * product
-        }
-        return result
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

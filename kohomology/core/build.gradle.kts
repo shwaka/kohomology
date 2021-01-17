@@ -70,8 +70,17 @@ testlogger {
     showStandardStreams = true
 }
 
+fun inWSL(): Boolean {
+    // in WSL:
+    //   os.name:    Linux
+    //   os.version: 4.4.0-18362-Microsoft
+    //   os.arch:    amd64
+    return System.getProperty("os.version").contains("Microsoft")
+}
+
 // val browserCommand = "google-chrome"
 val browserCommand = when {
+    inWSL() -> "wsl-open" // Os.isFamily だと WSL も UNIX 扱いになる
     Os.isFamily(Os.FAMILY_UNIX) -> "xdg-open"
     else -> throw NotImplementedError("browserCommand is not set for the current OS")
 }

@@ -118,7 +118,8 @@ class DenseMatrixSpace<S : Scalar<S>>(
     }
 
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
-        if (list.size != rowCount * colCount) throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
+        if (list.size != rowCount * colCount)
+            throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
         return this.get(values)
     }

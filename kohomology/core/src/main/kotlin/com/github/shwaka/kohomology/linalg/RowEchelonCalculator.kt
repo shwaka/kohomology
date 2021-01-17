@@ -46,7 +46,8 @@ fun <S : Scalar<S>> List<List<S>>.multiplyScalarToRow(to: Int, scalar: S): List<
 }
 
 fun <S : Scalar<S>> List<List<S>>.eliminateOtherRows(rowInd: Int, colInd: Int): List<List<S>> {
-    if (this[rowInd][colInd] == this[0][0].field.zero) throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
+    if (this[rowInd][colInd] == this[0][0].field.zero)
+        throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
     return this.indices.map { i ->
         when (i) {
             rowInd -> this[rowInd]

@@ -19,13 +19,15 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     }
     fun rowEchelonForm(): Triple<M, List<Int>, Int>
     fun det(): S {
-        if (this.rowCount != this.colCount) throw ArithmeticException("Determinant is defined only for square matrices")
+        if (this.rowCount != this.colCount)
+            throw ArithmeticException("Determinant is defined only for square matrices")
         val (rowEchelonMatrix: M, _, exchangeCount: Int) = this.rowEchelonForm()
         val detUpToSign = (0 until this.rowCount).map { i -> rowEchelonMatrix.getElm(i, i) }.reduce { a, b -> a * b }
         return if (exchangeCount % 2 == 0) detUpToSign else (-detUpToSign)
     }
     fun detByPermutations(): S {
-        if (this.rowCount != this.colCount) throw ArithmeticException("Determinant is defined only for square matrices")
+        if (this.rowCount != this.colCount)
+            throw ArithmeticException("Determinant is defined only for square matrices")
         val n = this.rowCount
         var result: S = this.matrixSpace.field.zero
         for ((perm, sign) in getPermutation((0 until n).toList())) {

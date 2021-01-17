@@ -67,3 +67,12 @@ testlogger {
     showCauses = false
     showStandardStreams = true
 }
+
+// val browserCommand = "google-chrome"
+val browserCommand = "xdg-open"
+tasks.register<Exec>("openTestReport") {
+    commandLine(browserCommand, "./build/reports/tests/test/index.html")
+}
+tasks.register<Exec>("openJacocoReport") {
+    commandLine(browserCommand, "./build/reports/jacoco/test/html/index.html")
+}

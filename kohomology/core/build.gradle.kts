@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
     // id("org.jetbrains.kotlin.jvm") version "1.3.72"
@@ -69,7 +71,10 @@ testlogger {
 }
 
 // val browserCommand = "google-chrome"
-val browserCommand = "xdg-open"
+val browserCommand = when {
+    Os.isFamily(Os.FAMILY_UNIX) -> "xdg-open"
+    else -> throw NotImplementedError("browserCommand is not set for the current OS")
+}
 tasks.register<Exec>("openTestReport") {
     commandLine(browserCommand, "./build/reports/tests/test/index.html")
 }

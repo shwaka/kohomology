@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.LongRationalField
 import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.field.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -120,12 +121,11 @@ fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringS
     if (max < 0) throw IllegalArgumentException("max should be non-negative")
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val scalarArb = field.arb(Arb.int(-max..max))
     "det and detByPermutations should be the same" {
-        // val n2 = n * n
         checkAll(Exhaustive.ints(1..n)) { k ->
-            val k2 = k * k
-            checkAll(Arb.list(Arb.int(-max..max), k2..k2)) { elmList ->
-                val mat: DenseMatrix<S> = matrixSpace.fromFlatList(elmList.map { a -> field.fromInt(a) }, k, k)
+            val matrixArb = matrixSpace.arb(scalarArb, k, k)
+            checkAll(matrixArb) { mat ->
                 mat.det() shouldBe mat.detByPermutations()
             }
         }

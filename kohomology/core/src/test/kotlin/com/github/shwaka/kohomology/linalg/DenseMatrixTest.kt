@@ -83,7 +83,7 @@ fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>, max: Int = 100) = stringSpec {
+fun <S : Scalar<S>> denseMatrixOfRank2Test(field: Field<S>, max: Int = 100) = stringSpec {
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     val scalarArb = field.arb(Arb.int(-max..max))
@@ -135,27 +135,27 @@ const val matrixSizeForDet = 4
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
-    include(denseMatrixTestWithArb(IntRationalField, 10))
+    include(denseMatrixOfRank2Test(IntRationalField, 10))
     include(determinantTest(IntRationalField, 3, 5)) // これ以上大きくすると det() の計算で overflow する
 })
 
 class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(LongRationalField))
-    include(denseMatrixTestWithArb(LongRationalField))
+    include(denseMatrixOfRank2Test(LongRationalField))
     include(determinantTest(LongRationalField, matrixSizeForDet, 10))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(BigRationalField))
-    include(denseMatrixTestWithArb(BigRationalField))
+    include(denseMatrixOfRank2Test(BigRationalField))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(F5))
-    include(denseMatrixTestWithArb(F5))
+    include(denseMatrixOfRank2Test(F5))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

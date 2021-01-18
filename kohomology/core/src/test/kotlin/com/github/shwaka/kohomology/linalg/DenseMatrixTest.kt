@@ -16,6 +16,7 @@ import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.list
+import io.kotest.property.arbitrary.next
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.ints
 
@@ -89,29 +90,26 @@ fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
     val max = 100
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
-    val testGenerator = IntMatrixTestGenerator(matrixSpace)
+    val scalarArb = field.arb(Arb.int(min..max))
+    val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
-        checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = testGenerator.generate2Arg(elmList) { m, n -> m + n }
-            (mat1 + mat2) shouldBe expected
+        checkAll(matrixArb, matrixArb) { mat1, mat2 ->
+            DenseMatrixOfRank2(mat1 + mat2) shouldBe (DenseMatrixOfRank2(mat1) + DenseMatrixOfRank2(mat2))
         }
     }
     "Property testing for matrix subtraction" {
-        checkAll(Arb.list(Arb.int(min..max), 8..8)) { elmList ->
-            val (mat1, mat2, expected) = testGenerator.generate2Arg(elmList) { m, n -> m - n }
-            (mat1 - mat2) shouldBe expected
+        checkAll(matrixArb, matrixArb) { mat1, mat2 ->
+            DenseMatrixOfRank2(mat1 - mat2) shouldBe (DenseMatrixOfRank2(mat1) - DenseMatrixOfRank2(mat2))
         }
     }
     "Property testing for unaryMinus of matrix" {
-        checkAll(Arb.list(Arb.int(min..max), 4..4)) { elmList ->
-            val (mat: DenseMatrix<S>, expected: DenseMatrix<S>) = testGenerator.generate1Arg(elmList) { m -> -m }
-            (-mat) shouldBe expected
+        checkAll(matrixArb) { mat ->
+            DenseMatrixOfRank2(-mat) shouldBe (-DenseMatrixOfRank2(mat))
         }
     }
     "Property testing for det" {
-        checkAll(Arb.list(Arb.int(min..max), 4..4)) { elmList ->
-            val (mat: DenseMatrix<S>, expected: S) = testGenerator.generate1ArgToInt(elmList) { m -> m.det() }
-            (mat.det()) shouldBe expected
+        checkAll(matrixArb) { mat ->
+            mat.det() shouldBe DenseMatrixOfRank2(mat).det()
         }
     }
 }

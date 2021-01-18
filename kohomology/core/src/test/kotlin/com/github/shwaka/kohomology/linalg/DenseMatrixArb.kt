@@ -2,8 +2,10 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Scalar
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.list
 import io.kotest.property.arbitrary.map
+import io.kotest.property.arbitrary.next
 
 fun <S : Scalar<S>> DenseMatrixSpace<S>.arb(scalarArb: Arb<S>, rowCount: Int, colCount: Int): Arb<DenseMatrix<S>> {
     val size = rowCount * colCount

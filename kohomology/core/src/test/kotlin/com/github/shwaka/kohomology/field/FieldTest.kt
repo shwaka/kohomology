@@ -111,7 +111,7 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = st
     }
 }
 
-fun <S : Scalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
+fun <S : RationalScalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
     tags(fieldTag)
 
     "1/2 + 1/3 should be 5/6" {

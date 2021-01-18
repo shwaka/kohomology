@@ -83,12 +83,10 @@ fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>) = stringSpec {
-    val min = -100
-    val max = 100
+fun <S : Scalar<S>> denseMatrixTestWithArb(field: Field<S>, max: Int = 100) = stringSpec {
     val vectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
-    val scalarArb = field.arb(Arb.int(min..max))
+    val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
@@ -137,15 +135,15 @@ const val matrixSizeForDet = 4
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(IntRationalField))
-    include(denseMatrixTestWithArb(IntRationalField))
-    include(determinantTest(IntRationalField, 4, 10)) // これ以上大きくすると det() の計算で overflow する
+    include(denseMatrixTestWithArb(IntRationalField, 10))
+    include(determinantTest(IntRationalField, 3, 5)) // これ以上大きくすると det() の計算で overflow する
 })
 
 class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag)
     include(denseMatrixTest(LongRationalField))
     include(denseMatrixTestWithArb(LongRationalField))
-    include(determinantTest(LongRationalField, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(LongRationalField, matrixSizeForDet, 10))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({

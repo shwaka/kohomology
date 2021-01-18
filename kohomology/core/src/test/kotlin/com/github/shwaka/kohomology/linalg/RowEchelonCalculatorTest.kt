@@ -14,7 +14,7 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
-    val four = field.fromInt(4)
+    // val four = field.fromInt(4)
     val mat1 = listOf(
         listOf(one, two),
         listOf(one, one)

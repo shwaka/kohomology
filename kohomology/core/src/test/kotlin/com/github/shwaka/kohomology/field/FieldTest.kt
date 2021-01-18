@@ -15,55 +15,55 @@ import io.kotest.property.checkAll
 
 val fieldTag = NamedTag("Field")
 
-fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
     val intMin = -100
     val intMax = 100
-    val arb = Arb.int(intMin..intMax)
+    val intArb = Arb.int(intMin..intMax)
     "fromInt should be additive" {
-        checkAll(arb, arb) { a, b ->
+        checkAll(intArb, intArb) { a, b ->
             (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
         }
     }
     "field.fromInt(0) should be field.zero" {
         field.fromInt(0) shouldBe field.zero
     }
-    "field.zero should be the unit of addition" {
-        checkAll(arb) { a ->
-            val zero = field.zero
-            val s = field.fromInt(a)
-            (s + zero) shouldBe s
-            (zero + s) shouldBe s
-        }
-    }
     "fromInt should be multiplicative" {
-        checkAll(arb, arb) { a, b ->
+        checkAll(intArb, intArb) { a, b ->
             (field.fromInt(a) * field.fromInt(b)) shouldBe field.fromInt(a * b)
         }
     }
     "field.fromInt(1) should be field.one" {
         field.fromInt(1) shouldBe field.one
     }
+}
+
+fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
+    val arb = field.arb()
+    "field.zero should be the unit of addition" {
+        checkAll(arb) { a ->
+            val zero = field.zero
+            (a + zero) shouldBe a
+            (zero + a) shouldBe a
+        }
+    }
     "field.one should be the unit of multiplication" {
         checkAll(arb) { a ->
             val one = field.one
-            val s = field.fromInt(a)
-            (s * one) shouldBe s
-            (one * s) shouldBe s
+            (a * one) shouldBe a
+            (one * a) shouldBe a
         }
     }
     "unaryMinus() should give the additive inverse" {
         checkAll(arb) { a ->
-            val s = field.fromInt(a)
-            (s + (-s)) shouldBe field.zero
-            ((-s) + s) shouldBe field.zero
+            (a + (-a)) shouldBe field.zero
+            ((-a) + a) shouldBe field.zero
         }
     }
     "inv() should give the multiplicative inverse" {
         checkAll(arb) { a ->
-            val s = field.fromInt(a)
-            if (s != field.zero) {
-                (s * (s.inv())) shouldBe field.one
-                ((s.inv()) * s) shouldBe field.one
+            if (a != field.zero) {
+                (a * (a.inv())) shouldBe field.one
+                ((a.inv()) * a) shouldBe field.one
             }
         }
     }
@@ -126,6 +126,7 @@ fun <S : Scalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
 class IntRationalTest : StringSpec({
     tags(fieldTag)
 
+    include(fromIntTest(IntRationalField))
     include(fieldTest(IntRationalField))
     include(rationalTest(IntRationalField))
 })
@@ -133,6 +134,7 @@ class IntRationalTest : StringSpec({
 class LongRationalTest : StringSpec({
     tags(fieldTag)
 
+    include(fromIntTest(LongRationalField))
     include(fieldTest(LongRationalField))
     include(rationalTest(LongRationalField))
 })
@@ -140,6 +142,7 @@ class LongRationalTest : StringSpec({
 class BigRationalTest : StringSpec({
     tags(fieldTag)
 
+    include(fromIntTest(BigRationalField))
     include(fieldTest(BigRationalField))
     include(rationalTest(BigRationalField))
 })
@@ -147,6 +150,7 @@ class BigRationalTest : StringSpec({
 class IntModpTest : StringSpec({
     tags(fieldTag)
 
+    include(fromIntTest(F5))
     include(fieldTest(F5))
     "(8 mod 5) should be equal to (3 mod 5)" {
         F5.fromInt(8) shouldBe F5.fromInt(3)

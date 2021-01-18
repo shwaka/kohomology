@@ -7,10 +7,10 @@ class DenseMatrixOfRank2<S : Scalar<S>>(private val mat: DenseMatrix<S>) {
         if (mat.rowCount != 2 || mat.colCount != 2)
             throw IllegalArgumentException("mat should be square matrix of rank 2")
     }
-    val a = mat.getElm(0, 0)
-    val b = mat.getElm(0, 1)
-    val c = mat.getElm(1, 0)
-    val d = mat.getElm(1, 1)
+    val a = mat[0, 0]
+    val b = mat[0, 1]
+    val c = mat[1, 0]
+    val d = mat[1, 1]
 
     operator fun plus(other: DenseMatrixOfRank2<S>): DenseMatrixOfRank2<S> {
         val mat = this.mat.matrixSpace.fromRows(

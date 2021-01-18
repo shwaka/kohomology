@@ -64,7 +64,7 @@ class DenseMatrix<S : Scalar<S>>(
         return Triple(this.matrixSpace.get(rowEchelonForm), pivots, exchangeCount)
     }
 
-    override fun getElm(rowInd: Int, colInd: Int): S {
+    override fun get(rowInd: Int, colInd: Int): S {
         return this.values[rowInd][colInd]
     }
 

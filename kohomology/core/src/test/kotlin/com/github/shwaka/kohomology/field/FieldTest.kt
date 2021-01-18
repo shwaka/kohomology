@@ -53,6 +53,21 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
             (one * a) shouldBe a
         }
     }
+    "addition should be associative" {
+        checkAll(arb, arb, arb) { a, b, c ->
+            ((a + b) + c) shouldBe (a + (b + c))
+        }
+    }
+    "multiplication should be associative" {
+        checkAll(arb, arb, arb) { a, b, c ->
+            ((a * b) * c) shouldBe (a * (b * c))
+        }
+    }
+    "multiplication should be distributive w.r.t. addition" {
+        checkAll(arb, arb, arb) { a, b, c ->
+            ((a + b) * c) shouldBe ((a * c) + (b * c))
+        }
+    }
     "unaryMinus() should give the additive inverse" {
         checkAll(arb) { a ->
             (a + (-a)) shouldBe field.zero

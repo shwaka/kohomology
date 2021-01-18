@@ -15,8 +15,6 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.int
-import io.kotest.property.arbitrary.list
-import io.kotest.property.arbitrary.next
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.ints
 

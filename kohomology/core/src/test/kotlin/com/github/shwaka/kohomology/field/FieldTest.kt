@@ -37,8 +37,9 @@ fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar<S>> fieldTest(field: Field<S>) = stringSpec {
-    val arb = field.arb()
+fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = stringSpec {
+    if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
+    val arb = field.arb(Arb.int(-intMax..intMax))
     "field.zero should be the unit of addition" {
         checkAll(arb) { a ->
             val zero = field.zero
@@ -142,7 +143,7 @@ class IntRationalTest : StringSpec({
     tags(fieldTag)
 
     include(fromIntTest(IntRationalField))
-    include(fieldTest(IntRationalField))
+    include(fieldTest(IntRationalField, 100))
     include(rationalTest(IntRationalField))
 })
 
@@ -150,7 +151,7 @@ class LongRationalTest : StringSpec({
     tags(fieldTag)
 
     include(fromIntTest(LongRationalField))
-    include(fieldTest(LongRationalField))
+    include(fieldTest(LongRationalField, 100))
     include(rationalTest(LongRationalField))
 })
 

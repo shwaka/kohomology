@@ -1,10 +1,13 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F7
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.intModpTag
+import com.github.shwaka.kohomology.intRationalTag
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -48,16 +51,16 @@ fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
 }
 
 class IntRationalDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag)
+    tags(denseNumVectorTag, intRationalTag)
     include(denseNumVectorTest(IntRationalField))
 })
 
 class BigRationalDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag)
+    tags(denseNumVectorTag, bigRationalTag)
     include(denseNumVectorTest(BigRationalField))
 })
 
 class IntModpDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag)
+    tags(denseNumVectorTag, intModpTag)
     include(denseNumVectorTest(F7))
 })

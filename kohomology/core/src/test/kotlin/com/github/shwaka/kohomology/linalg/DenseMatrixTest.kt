@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.Field
@@ -7,6 +8,9 @@ import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.LongRationalField
 import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.field.arb
+import com.github.shwaka.kohomology.intModpTag
+import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.longRationalTag
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -133,28 +137,28 @@ const val matrixSizeForDet = 4
 // - LongRational の test が(乱数次第で)たまに overflow する
 
 class IntRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag)
+    tags(denseMatrixTag, intRationalTag)
     include(denseMatrixTest(IntRationalField))
     include(denseMatrixOfRank2Test(IntRationalField, 10))
     include(determinantTest(IntRationalField, 3, 5)) // これ以上大きくすると det() の計算で overflow する
 })
 
 class LongRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag)
+    tags(denseMatrixTag, longRationalTag)
     include(denseMatrixTest(LongRationalField))
     include(denseMatrixOfRank2Test(LongRationalField))
     include(determinantTest(LongRationalField, matrixSizeForDet, 10))
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag)
+    tags(denseMatrixTag, bigRationalTag)
     include(denseMatrixTest(BigRationalField))
     include(denseMatrixOfRank2Test(BigRationalField))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag)
+    tags(denseMatrixTag, intModpTag)
     include(denseMatrixTest(F5))
     include(denseMatrixOfRank2Test(F5))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))

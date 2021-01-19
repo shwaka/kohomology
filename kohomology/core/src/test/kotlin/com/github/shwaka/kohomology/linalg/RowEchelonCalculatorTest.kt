@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.intRationalTag
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -67,6 +68,6 @@ fun <S : Scalar<S>> rowEchelonCalculatorTest(field: Field<S>) = stringSpec {
 }
 
 class IntRationalRowEchelonCalculatorTest : StringSpec({
-    tags(rowEchelonCalculatorTag)
+    tags(rowEchelonCalculatorTag, intRationalTag)
     include(rowEchelonCalculatorTest(IntRationalField))
 })

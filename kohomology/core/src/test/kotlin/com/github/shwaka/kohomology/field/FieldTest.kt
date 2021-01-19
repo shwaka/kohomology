@@ -1,6 +1,11 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.compileTag
+import com.github.shwaka.kohomology.intModpTag
+import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.longRationalTag
+import com.github.shwaka.kohomology.overflowTag
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -142,13 +147,13 @@ fun <S : RationalScalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
 val kococoDebug = (System.getProperty("kococo.debug") != null)
 
 class IntRationalTest : StringSpec({
-    tags(fieldTag)
+    tags(fieldTag, intRationalTag)
 
     include(fromIntTest(IntRationalField))
     include(fieldTest(IntRationalField, 100))
     include(rationalTest(IntRationalField))
 
-    "overflow test for IntRational".config(enabled = kococoDebug) {
+    "overflow test for IntRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
         val a = IntRationalField.fromIntPair(Int.MAX_VALUE, 1)
         val b = IntRationalField.one
         shouldThrow<ArithmeticException> { a + b }
@@ -156,7 +161,7 @@ class IntRationalTest : StringSpec({
 })
 
 class LongRationalTest : StringSpec({
-    tags(fieldTag)
+    tags(fieldTag, longRationalTag)
 
     include(fromIntTest(LongRationalField))
     include(fieldTest(LongRationalField, 100))
@@ -164,7 +169,7 @@ class LongRationalTest : StringSpec({
 })
 
 class BigRationalTest : StringSpec({
-    tags(fieldTag)
+    tags(fieldTag, bigRationalTag)
 
     include(fromIntTest(BigRationalField))
     include(fieldTest(BigRationalField))
@@ -172,7 +177,7 @@ class BigRationalTest : StringSpec({
 })
 
 class IntModpTest : StringSpec({
-    tags(fieldTag)
+    tags(fieldTag, intModpTag)
 
     include(fromIntTest(F5))
     include(fieldTest(F5))
@@ -190,7 +195,7 @@ class IntModpTest : StringSpec({
 })
 
 class FpTest : StringSpec({
-    tags(fieldTag)
+    tags(fieldTag, intModpTag)
 
     "Fp.get should create only one instance for each p" {
         (Fp.get(3) === Fp.get(3)).shouldBeTrue()

@@ -1,11 +1,9 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.overflowTag
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
-
-val overflowTag = NamedTag("Overflow")
 
 class OverflowDetectorTest : StringSpec({
     tags(overflowTag)

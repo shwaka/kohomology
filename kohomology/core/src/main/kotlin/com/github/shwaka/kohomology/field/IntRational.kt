@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kococo.debugOnly
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
@@ -43,6 +44,18 @@ class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational
     }
     override val field = IntRationalField
     override operator fun plus(other: IntRational): IntRational {
+        debugOnly {
+            val num1 = WrappedInt(this.numerator)
+            val den1 = WrappedInt(this.denominator)
+            val num2 = WrappedInt(other.numerator)
+            val den2 = WrappedInt(other.denominator)
+            OverflowDetector.assertNoOverflow(num1, den1, num2, den2) { n1, d1, n2, d2 ->
+                n1 * d2 + n2 * d1
+            }
+            OverflowDetector.assertNoOverflow(num1, den1, num2, den2) { _, d1, _, d2 ->
+                d1 * d2
+            }
+        }
         val numerator = this.numerator * other.denominator + other.numerator * this.denominator
         val denominator = this.denominator * other.denominator
         return IntRational(numerator, denominator)

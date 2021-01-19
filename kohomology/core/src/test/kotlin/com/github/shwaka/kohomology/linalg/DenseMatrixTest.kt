@@ -147,7 +147,7 @@ class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, longRationalTag)
     include(denseMatrixTest(LongRationalField))
     include(denseMatrixOfRank2Test(LongRationalField))
-    include(determinantTest(LongRationalField, matrixSizeForDet, 10))
+    include(determinantTest(LongRationalField, matrixSizeForDet, 7)) // 10 だと overflow する (けど det と detByPermutations は等しい…？)
 })
 
 class BigRationalDenseMatrixTest : StringSpec({

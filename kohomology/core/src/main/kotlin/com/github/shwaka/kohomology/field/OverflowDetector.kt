@@ -39,6 +39,31 @@ class WrappedInt(private val value: Int) : Integer<WrappedInt> {
     }
 }
 
+class WrappedLong(private val value: Long) : Integer<WrappedLong> {
+    override operator fun plus(other: Integer<*>): WrappedLong {
+        other as WrappedLong
+        return WrappedLong(this.value + other.value)
+    }
+
+    override fun minus(other: Integer<*>): WrappedLong {
+        other as WrappedLong
+        return WrappedLong(this.value - other.value)
+    }
+
+    override fun unaryMinus(): WrappedLong {
+        return WrappedLong(-this.value)
+    }
+
+    override fun times(other: Integer<*>): WrappedLong {
+        other as WrappedLong
+        return WrappedLong(this.value * other.value)
+    }
+
+    override fun toWrappedBigInteger(): WrappedBigInteger {
+        return WrappedBigInteger(BigInteger.fromLong(this.value))
+    }
+}
+
 class WrappedBigInteger(val value: BigInteger) : Integer<WrappedBigInteger> {
     override operator fun plus(other: Integer<*>): WrappedBigInteger {
         other as WrappedBigInteger
@@ -133,6 +158,27 @@ class OverflowDetector {
             val w2 = WrappedInt(n2)
             val w3 = WrappedInt(n3)
             val w4 = WrappedInt(n4)
+            assertNoOverflow(w1, w2, w3, w4, operation)
+        }
+
+        fun assertNoOverflow(n1: Long, n2: Long, operation: (m1: Integer<*>, m2: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedLong(n1)
+            val w2 = WrappedLong(n2)
+            assertNoOverflow(w1, w2, operation)
+        }
+
+        fun assertNoOverflow(n1: Long, n2: Long, n3: Long, operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedLong(n1)
+            val w2 = WrappedLong(n2)
+            val w3 = WrappedLong(n3)
+            assertNoOverflow(w1, w2, w3, operation)
+        }
+
+        fun assertNoOverflow(n1: Long, n2: Long, n3: Long, n4: Long, operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>, m4: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedLong(n1)
+            val w2 = WrappedLong(n2)
+            val w3 = WrappedLong(n3)
+            val w4 = WrappedLong(n4)
             assertNoOverflow(w1, w2, w3, w4, operation)
         }
     }

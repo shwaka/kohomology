@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kococo.debugOnly
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
@@ -43,14 +44,34 @@ class LongRational(numerator: Long, denominator: Long) : RationalScalar<LongRati
     }
     override val field = LongRationalField
     override operator fun plus(other: LongRational): LongRational {
+        debugOnly {
+            val num1 = this.numerator
+            val den1 = this.denominator
+            val num2 = other.numerator
+            val den2 = other.denominator
+            OverflowDetector.assertNoOverflow(num1, den1, num2, den2) { n1, d1, n2, d2 ->
+                n1 * d2 + n2 * d1
+            }
+            OverflowDetector.assertNoOverflow(num1, den1, num2, den2) { _, d1, _, d2 ->
+                d1 * d2
+            }
+        }
         val numerator = this.numerator * other.denominator + other.numerator * this.denominator
         val denominator = this.denominator * other.denominator
         return LongRational(numerator, denominator)
     }
     override operator fun times(other: LongRational): LongRational {
+        debugOnly {
+            OverflowDetector.assertNoOverflow(this.numerator, other.numerator) { a, b -> a * b }
+            OverflowDetector.assertNoOverflow(this.denominator, other.denominator) { a, b -> a * b }
+        }
         return LongRational(this.numerator * other.numerator, this.denominator * other.denominator)
     }
     override operator fun div(other: LongRational): LongRational {
+        debugOnly {
+            OverflowDetector.assertNoOverflow(this.numerator, other.denominator) { a, b -> a * b }
+            OverflowDetector.assertNoOverflow(this.denominator, other.numerator) { a, b -> a * b }
+        }
         if (other == LongRational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }

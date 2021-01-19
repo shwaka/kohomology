@@ -154,9 +154,10 @@ class IntRationalTest : StringSpec({
     include(rationalTest(IntRationalField))
 
     "overflow test for IntRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
-        val a = IntRationalField.fromIntPair(Int.MAX_VALUE, 1)
+        val a = IntRationalField.fromInt(Int.MAX_VALUE)
         val b = IntRationalField.one
         shouldThrow<ArithmeticException> { a + b }
+        shouldThrow<ArithmeticException> { a * 2 }
     }
 })
 
@@ -166,6 +167,11 @@ class LongRationalTest : StringSpec({
     include(fromIntTest(LongRationalField))
     include(fieldTest(LongRationalField, 100))
     include(rationalTest(LongRationalField))
+
+    "overflow test for LongRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
+        val a = LongRationalField.fromInt(Int.MAX_VALUE)
+        shouldThrow<ArithmeticException> { a * a * 3 }
+    }
 })
 
 class BigRationalTest : StringSpec({

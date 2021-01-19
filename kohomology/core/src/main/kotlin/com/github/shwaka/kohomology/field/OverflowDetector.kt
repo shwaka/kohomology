@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.field
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
 interface Integer<I : Integer<I>> {
+    // assertNoOverflow では Integer<*> にせざるを得ないので、ここも Integer<*> にせざるを得ない
     operator fun plus(other: Integer<*>): I
     operator fun minus(other: Integer<*>): I
     operator fun unaryMinus(): I

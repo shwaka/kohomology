@@ -74,11 +74,16 @@ class OverflowDetector {
         }
 
         fun <I : Integer<I>> assertNoOverflow(
-            n1: I, n2: I, n3: I,
-            operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>) -> Integer<*>) {
+            n1: I,
+            n2: I,
+            n3: I,
+            operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>) -> Integer<*>
+        ) {
             val originalResult: Integer<*> = operation(n1, n2, n3) // as I
             val bigIntegerResult: Integer<*> = operation(
-                n1.toWrappedBigInteger(), n2.toWrappedBigInteger(), n3.toWrappedBigInteger()
+                n1.toWrappedBigInteger(),
+                n2.toWrappedBigInteger(),
+                n3.toWrappedBigInteger()
             ) // as WrappedBigInteger
             if (originalResult.toBigInteger() != bigIntegerResult.toBigInteger()) {
                 throw ArithmeticException("Overflow!")
@@ -86,11 +91,18 @@ class OverflowDetector {
         }
 
         fun <I : Integer<I>> assertNoOverflow(
-            n1: I, n2: I, n3: I, n4: I,
-            operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>, m4: Integer<*>) -> Integer<*>) {
+            n1: I,
+            n2: I,
+            n3: I,
+            n4: I,
+            operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>, m4: Integer<*>) -> Integer<*>
+        ) {
             val originalResult: Integer<*> = operation(n1, n2, n3, n4) // as I
             val bigIntegerResult: Integer<*> = operation(
-                n1.toWrappedBigInteger(), n2.toWrappedBigInteger(), n3.toWrappedBigInteger(), n4.toWrappedBigInteger()
+                n1.toWrappedBigInteger(),
+                n2.toWrappedBigInteger(),
+                n3.toWrappedBigInteger(),
+                n4.toWrappedBigInteger()
             ) // as WrappedBigInteger
             if (originalResult.toBigInteger() != bigIntegerResult.toBigInteger()) {
                 throw ArithmeticException("Overflow!")

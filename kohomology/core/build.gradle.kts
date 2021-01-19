@@ -19,6 +19,9 @@ tasks.withType<Test> {
         // null を set するとなんかエラーが起きるので、 ?.let を使った
         systemProperties["kotest.tags"] = it
     }
+    System.getProperty("kococo.debug")?.let {
+        systemProperties["kococo.debug"] = it
+    }
     // ↓公式ドキュメント では下のコードが書かれてるけどダメだった
     //   (https://kotest.io/docs/framework/tags.html)
     // systemProperties = System.getProperties().map { it.key.toString() to it.value }.toMap()

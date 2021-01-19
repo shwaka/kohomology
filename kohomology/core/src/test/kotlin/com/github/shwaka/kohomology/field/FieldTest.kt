@@ -139,12 +139,20 @@ fun <S : RationalScalar<S>> rationalTest(field: RationalField<S>) = stringSpec {
     }
 }
 
+val kococoDebug = (System.getProperty("kococo.debug") != null)
+
 class IntRationalTest : StringSpec({
     tags(fieldTag)
 
     include(fromIntTest(IntRationalField))
     include(fieldTest(IntRationalField, 100))
     include(rationalTest(IntRationalField))
+
+    "overflow test for IntRational".config(enabled = kococoDebug) {
+        val a = IntRationalField.fromIntPair(Int.MAX_VALUE, 1)
+        val b = IntRationalField.one
+        shouldThrow<ArithmeticException> { a + b }
+    }
 })
 
 class LongRationalTest : StringSpec({

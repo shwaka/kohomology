@@ -66,11 +66,16 @@ class WrappedBigInteger(val value: BigInteger) : Integer<WrappedBigInteger> {
 
 class OverflowDetector {
     companion object {
+        private fun getMessage(originalResult: Integer<*>, bigIntegerResult: Integer<*>): String {
+            return "[Overflow] Original result (with overflow) is ${originalResult.toBigInteger()}, " +
+                "but the correct result (without overflow) is ${bigIntegerResult.toBigInteger()}"
+        }
+
         fun <I : Integer<I>> assertNoOverflow(n1: I, n2: I, operation: (m1: Integer<*>, m2: Integer<*>) -> Integer<*>) {
             val originalResult: Integer<*> = operation(n1, n2) // as I
             val bigIntegerResult: Integer<*> = operation(n1.toWrappedBigInteger(), n2.toWrappedBigInteger()) // as WrappedBigInteger
             if (originalResult.toBigInteger() != bigIntegerResult.toBigInteger()) {
-                throw ArithmeticException("Overflow!")
+                throw ArithmeticException(this.getMessage(originalResult, bigIntegerResult))
             }
         }
 
@@ -87,7 +92,7 @@ class OverflowDetector {
                 n3.toWrappedBigInteger()
             ) // as WrappedBigInteger
             if (originalResult.toBigInteger() != bigIntegerResult.toBigInteger()) {
-                throw ArithmeticException("Overflow!")
+                throw ArithmeticException(this.getMessage(originalResult, bigIntegerResult))
             }
         }
 
@@ -106,7 +111,7 @@ class OverflowDetector {
                 n4.toWrappedBigInteger()
             ) // as WrappedBigInteger
             if (originalResult.toBigInteger() != bigIntegerResult.toBigInteger()) {
-                throw ArithmeticException("Overflow!")
+                throw ArithmeticException(this.getMessage(originalResult, bigIntegerResult))
             }
         }
     }

@@ -61,9 +61,17 @@ class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational
         return IntRational(numerator, denominator)
     }
     override operator fun times(other: IntRational): IntRational {
+        debugOnly {
+            OverflowDetector.assertNoOverflow(this.numerator, other.numerator) { a, b -> a * b }
+            OverflowDetector.assertNoOverflow(this.denominator, other.denominator) { a, b -> a * b }
+        }
         return IntRational(this.numerator * other.numerator, this.denominator * other.denominator)
     }
     override operator fun div(other: IntRational): IntRational {
+        debugOnly {
+            OverflowDetector.assertNoOverflow(this.numerator, other.denominator) { a, b -> a * b }
+            OverflowDetector.assertNoOverflow(this.denominator, other.numerator) { a, b -> a * b }
+        }
         if (other == IntRational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }

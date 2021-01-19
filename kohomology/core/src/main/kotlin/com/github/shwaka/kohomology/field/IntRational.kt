@@ -45,10 +45,10 @@ class IntRational(numerator: Int, denominator: Int) : RationalScalar<IntRational
     override val field = IntRationalField
     override operator fun plus(other: IntRational): IntRational {
         debugOnly {
-            val num1 = WrappedInt(this.numerator)
-            val den1 = WrappedInt(this.denominator)
-            val num2 = WrappedInt(other.numerator)
-            val den2 = WrappedInt(other.denominator)
+            val num1 = this.numerator
+            val den1 = this.denominator
+            val num2 = other.numerator
+            val den2 = other.denominator
             OverflowDetector.assertNoOverflow(num1, den1, num2, den2) { n1, d1, n2, d2 ->
                 n1 * d2 + n2 * d1
             }

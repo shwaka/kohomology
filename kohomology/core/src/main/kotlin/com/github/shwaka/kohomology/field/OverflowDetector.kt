@@ -114,5 +114,26 @@ class OverflowDetector {
                 throw ArithmeticException(this.getMessage(originalResult, bigIntegerResult))
             }
         }
+
+        fun assertNoOverflow(n1: Int, n2: Int, operation: (m1: Integer<*>, m2: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedInt(n1)
+            val w2 = WrappedInt(n2)
+            assertNoOverflow(w1, w2, operation)
+        }
+
+        fun assertNoOverflow(n1: Int, n2: Int, n3: Int, operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedInt(n1)
+            val w2 = WrappedInt(n2)
+            val w3 = WrappedInt(n3)
+            assertNoOverflow(w1, w2, w3, operation)
+        }
+
+        fun assertNoOverflow(n1: Int, n2: Int, n3: Int, n4: Int, operation: (m1: Integer<*>, m2: Integer<*>, m3: Integer<*>, m4: Integer<*>) -> Integer<*>) {
+            val w1 = WrappedInt(n1)
+            val w2 = WrappedInt(n2)
+            val w3 = WrappedInt(n3)
+            val w4 = WrappedInt(n4)
+            assertNoOverflow(w1, w2, w3, w4, operation)
+        }
     }
 }

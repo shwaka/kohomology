@@ -18,3 +18,7 @@ allprojects {
         maven { setUrl("https://dl.bintray.com/shwaka/maven/") }
     }
 }
+
+tasks.withType<Wrapper> {
+    gradleVersion = "6.6.1"
+}

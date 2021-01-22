@@ -56,9 +56,6 @@ fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
         val w = vectorSpace.getZero(2)
         v shouldNotBe w
     }
-    // "(2-dim vector space).get(0) should throw" {
-    //     shouldThrow<IllegalArgumentException> { vectorSpace.get(zero) }
-    // }
 }
 
 class IntRationalDenseNumVectorTest : StringSpec({

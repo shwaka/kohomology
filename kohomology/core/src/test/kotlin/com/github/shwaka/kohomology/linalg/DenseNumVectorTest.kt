@@ -56,6 +56,11 @@ fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
         val w = vectorSpace.getZero(2)
         v shouldNotBe w
     }
+    "vectorSpace.get() and vectorSpace.getZero(0) should return the same element" {
+        val v = vectorSpace.get()
+        val w = vectorSpace.getZero(0)
+        v shouldBe w
+    }
 }
 
 class IntRationalDenseNumVectorTest : StringSpec({

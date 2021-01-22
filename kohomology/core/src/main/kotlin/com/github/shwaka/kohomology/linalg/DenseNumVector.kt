@@ -70,4 +70,9 @@ private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVe
     fun get(vararg values: S): DenseNumVector<S> {
         return this.get(values.toList())
     }
+
+    override fun getZero(dim: Int): DenseNumVector<S> {
+        val values = List(dim) { _ -> this.field.zero }
+        return this.get(values)
+    }
 }

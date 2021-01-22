@@ -12,6 +12,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 val denseNumVectorTag = NamedTag("DenseNumVector")
@@ -44,6 +45,16 @@ fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
     "(1, 0).dim should be 2" {
         val v = vectorSpace.get(one, zero)
         v.dim shouldBe 2
+    }
+    "vectorSpace.getZero(3) should be (0, 0, 0)" {
+        val v = vectorSpace.getZero(3)
+        val w = vectorSpace.get(zero, zero, zero)
+        v shouldBe w
+    }
+    "(0, 0, 0) should be different from (0, 0)" {
+        val v = vectorSpace.getZero(3)
+        val w = vectorSpace.getZero(2)
+        v shouldNotBe w
     }
     // "(2-dim vector space).get(0) should throw" {
     //     shouldThrow<IllegalArgumentException> { vectorSpace.get(zero) }

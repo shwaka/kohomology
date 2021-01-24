@@ -33,20 +33,20 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
     val three = field.fromInt(3)
     // val four = field.fromInt(4)
     val five = field.fromInt(5)
-    val m = matrixSpace.fromRowList(
+    val m = matrixSpace.fromRows(
         listOf(
             listOf(two, one),
             listOf(zero, -one)
         )
     )
-    val n = matrixSpace.fromRowList(
+    val n = matrixSpace.fromRows(
         listOf(
             listOf(one, one),
             listOf(-two, three)
         )
     )
     "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
-        val expected = matrixSpace.fromRowList(
+        val expected = matrixSpace.fromRows(
             listOf(
                 listOf(three, two),
                 listOf(-two, two)
@@ -55,12 +55,12 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         (m + n) shouldBe expected
     }
     "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
-        val v = vectorSpace.get(two, -one)
-        val expected = vectorSpace.get(three, one)
+        val v = vectorSpace.fromValues(two, -one)
+        val expected = vectorSpace.fromValues(three, one)
         (m * v) shouldBe expected
     }
     "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
-        val mn = matrixSpace.fromRowList(
+        val mn = matrixSpace.fromRows(
             listOf(
                 listOf(zero, five),
                 listOf(two, -three)

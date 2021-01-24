@@ -61,18 +61,18 @@ private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVe
         }
     }
 
-    override fun get(values: List<S>): DenseNumVector<S> {
+    override fun fromValues(values: List<S>): DenseNumVector<S> {
         // if (values.size != this.dim) {
         //     throw IllegalArgumentException("The size of vector doesn't equal to the dimension: $values.size != ${this.dim}")
         // }
         return DenseNumVector(values, this)
     }
-    override fun get(vararg values: S): DenseNumVector<S> {
-        return this.get(values.toList())
+    override fun fromValues(vararg values: S): DenseNumVector<S> {
+        return this.fromValues(values.toList())
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {
         val values = List(dim) { _ -> this.field.zero }
-        return this.get(values)
+        return this.fromValues(values)
     }
 }

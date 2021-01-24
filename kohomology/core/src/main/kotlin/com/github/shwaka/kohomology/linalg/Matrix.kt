@@ -47,7 +47,7 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val field: Field<S>
     val vectorSpace: NumVectorSpace<S, V>
-    fun fromRowList(values: List<List<S>>): M
+    fun fromRows(values: List<List<S>>): M
     fun fromRows(vararg rows: List<S>): M
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 }

@@ -24,7 +24,7 @@ class DenseMatrix<S : Scalar<S>>(
         val values = this.values.zip(other.values).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
         }
-        return this.matrixSpace.fromRowList(values)
+        return this.matrixSpace.fromRows(values)
     }
 
     override fun minus(other: DenseMatrix<S>): DenseMatrix<S> {
@@ -45,12 +45,12 @@ class DenseMatrix<S : Scalar<S>>(
                     .reduce(Scalar<S>::plus)
             }
         }
-        return this.matrixSpace.fromRowList(values)
+        return this.matrixSpace.fromRows(values)
     }
 
     override fun times(scalar: S): DenseMatrix<S> {
         val values = this.values.map { row -> row.map { elm -> -elm } }
-        return this.matrixSpace.fromRowList(values)
+        return this.matrixSpace.fromRows(values)
     }
 
     override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
@@ -59,12 +59,12 @@ class DenseMatrix<S : Scalar<S>>(
                 .map { it.first * it.second }
                 .reduce { a, b -> a + b }
         }
-        return this.matrixSpace.vectorSpace.get(values)
+        return this.matrixSpace.vectorSpace.fromValues(values)
     }
 
     override fun rowEchelonForm(): Triple<DenseMatrix<S>, List<Int>, Int> {
         val (rowEchelonForm, pivots, exchangeCount) = this.values.rowEchelonForm()
-        return Triple(this.matrixSpace.fromRowList(rowEchelonForm), pivots, exchangeCount)
+        return Triple(this.matrixSpace.fromRows(rowEchelonForm), pivots, exchangeCount)
     }
 
     override fun get(rowInd: Int, colInd: Int): S {
@@ -112,7 +112,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
 
-    override fun fromRowList(values: List<List<S>>): DenseMatrix<S> {
+    override fun fromRows(values: List<List<S>>): DenseMatrix<S> {
         return DenseMatrix(values, this)
     }
 

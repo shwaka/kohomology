@@ -69,8 +69,9 @@ tasks.jacocoTestReport {
 
 testlogger {
     theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
-    showCauses = false
+    showCauses = true
     showStandardStreams = true
+    showFullStackTraces = true
 }
 
 fun inWSL(): Boolean {

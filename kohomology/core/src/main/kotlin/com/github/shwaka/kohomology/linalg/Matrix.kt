@@ -66,6 +66,7 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
         return this.fromCols(cols)
     }
     // fun fromVectors(vararg vectors: V): M {
+    //     // This does not work (due to type erasure?)
     //     return this.fromVectors(vectors.toList())
     // }
 

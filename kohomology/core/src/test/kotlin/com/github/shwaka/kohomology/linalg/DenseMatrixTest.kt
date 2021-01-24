@@ -15,6 +15,7 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
@@ -92,6 +93,17 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
             empty.toString()
             empty.toPrettyString()
         }
+    }
+    "fromRows and fromCols should give same matrices" {
+        val rows = listOf(
+            listOf(zero, one),
+            listOf(two, three)
+        )
+        val cols = listOf(
+            listOf(zero, two),
+            listOf(one, three)
+        )
+        (matrixSpace.fromRows(rows) == matrixSpace.fromCols(cols)).shouldBeTrue()
     }
 }
 

@@ -118,6 +118,15 @@ class DenseMatrixSpace<S : Scalar<S>>(
         return DenseMatrix(rows, this)
     }
 
+    override fun fromCols(cols: List<List<S>>): DenseMatrix<S> {
+        if (cols.isEmpty())
+            throw IllegalArgumentException("Column list is empty, which is not supported")
+        val rowCount = cols[0].size
+        val colCount = cols.size
+        val rows = (0 until rowCount).map { i -> (0 until colCount).map { j -> cols[j][i] } }
+        return this.fromRows(rows)
+    }
+
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")

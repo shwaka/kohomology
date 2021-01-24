@@ -53,5 +53,11 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
             throw IllegalArgumentException("Row list is empty, which is not supported")
         return this.fromRows(rows.toList())
     }
+    fun fromCols(cols: List<List<S>>): M
+    fun fromCols(vararg cols: List<S>): M {
+        if (cols.isEmpty())
+            throw IllegalArgumentException("Col list is empty, which is not supported")
+        return this.fromCols(cols.toList())
+    }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 }

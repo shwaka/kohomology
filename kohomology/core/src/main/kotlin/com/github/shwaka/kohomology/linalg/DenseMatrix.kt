@@ -7,12 +7,16 @@ import com.github.shwaka.kohomology.util.StringTable
 
 class DenseMatrix<S : Scalar<S>>(
     private val values: List<List<S>>,
-    override val matrixSpace: DenseMatrixSpace<S>
+    override val matrixSpace: DenseMatrixSpace<S>,
+    rowCount: Int? = null,
+    colCount: Int? = null
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
-    override val colCount: Int
-        get() = this.values.size
-    override val rowCount: Int
-        get() = this.values[0].size // TODO: this throws an error when colCount = 0
+    init {
+        if (colCount == null && values.isEmpty())
+            throw IllegalArgumentException("colCount should be explicitly set when the matrix has no row")
+    }
+    override val rowCount: Int = rowCount ?: this.values.size
+    override val colCount: Int = colCount ?: this.values[0].size
 
     override fun plus(other: DenseMatrix<S>): DenseMatrix<S> {
         if (this.rowCount != other.rowCount || this.colCount != other.colCount) {
@@ -114,6 +118,8 @@ class DenseMatrixSpace<S : Scalar<S>>(
     }
 
     fun fromRows(vararg rows: List<S>): DenseMatrix<S> {
+        if (rows.isEmpty())
+            throw IllegalArgumentException("Row list is empty, which is not supported")
         return DenseMatrix(rows.toList(), this)
     }
 
@@ -121,6 +127,6 @@ class DenseMatrixSpace<S : Scalar<S>>(
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return this.get(values)
+        return DenseMatrix(values, this, rowCount, colCount)
     }
 }

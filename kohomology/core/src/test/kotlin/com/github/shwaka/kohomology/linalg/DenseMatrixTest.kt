@@ -68,21 +68,29 @@ fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
         )
         (m * n) shouldBe mn
     }
-    "toString and toPrettyString should not throw" {
+    "toString and toPrettyString should not throw for square matrix of rank 2" {
         shouldNotThrowAny {
             m.toString()
             m.toPrettyString()
-            val empty = matrixSpace.fromRows()
-            empty.toString()
-            empty.toPrettyString()
-            val rank3Mat = matrixSpace.fromRows(
+        }
+    }
+    "toString and toPrettyString should not throw for square matrix of shape 4x3" {
+        shouldNotThrowAny {
+            val mat = matrixSpace.fromRows(
                 listOf(one, zero, zero),
                 listOf(zero, one, zero),
                 listOf(zero, one, zero),
                 listOf(zero, zero, one)
             )
-            rank3Mat.toString()
-            rank3Mat.toPrettyString()
+            mat.toString()
+            mat.toPrettyString()
+        }
+    }
+    "toString and toPrettyString should not throw for empty matrix" {
+        shouldNotThrowAny {
+            val empty = matrixSpace.fromFlatList(emptyList(), 0, 0)
+            empty.toString()
+            empty.toPrettyString()
         }
     }
 }

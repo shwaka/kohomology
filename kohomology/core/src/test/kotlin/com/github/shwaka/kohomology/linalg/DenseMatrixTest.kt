@@ -105,6 +105,15 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         )
         (matrixSpace.fromRows(rows) == matrixSpace.fromCols(cols)).shouldBeTrue()
     }
+    "fromVectors should work correctly" {
+        val expectedMat = matrixSpace.fromRows(
+            listOf(zero, one),
+            listOf(two, three)
+        )
+        val v = vectorSpace.fromValues(zero, two)
+        val w = vectorSpace.fromValues(one, three)
+        (matrixSpace.fromVectors(listOf(v, w))) shouldBe expectedMat
+    }
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(

@@ -19,6 +19,11 @@ interface NumVector<S : Scalar<S>, V : NumVector<S, V>> {
         return this * this.vectorSpace.field.fromInt(other)
     }
 
+    operator fun get(index: Int): S
+    fun toList(): List<S> {
+        return (0 until this.dim).map { i -> this[i] }
+    }
+
     fun unwrap(): V
     val vectorSpace: NumVectorSpace<S, V>
     val dim: Int

@@ -56,8 +56,18 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     fun fromCols(cols: List<List<S>>): M
     fun fromCols(vararg cols: List<S>): M {
         if (cols.isEmpty())
-            throw IllegalArgumentException("Col list is empty, which is not supported")
+            throw IllegalArgumentException("Column list is empty, which is not supported")
         return this.fromCols(cols.toList())
     }
+    fun fromVectors(vectors: List<V>): M {
+        if (vectors.isEmpty())
+            throw IllegalArgumentException("Vector list is empty, which is not supported")
+        val cols = vectors.map { v -> v.toList() }
+        return this.fromCols(cols)
+    }
+    // fun fromVectors(vararg vectors: V): M {
+    //     return this.fromVectors(vectors.toList())
+    // }
+
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 }

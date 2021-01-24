@@ -22,6 +22,10 @@ class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val vectorSpac
         return this
     }
 
+    override fun get(index: Int): S {
+        return this.values[index]
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

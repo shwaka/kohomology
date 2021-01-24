@@ -95,9 +95,12 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
     }
 }
 
-fun <S : Scalar<S>> denseMatrixOfRank2Test(field: Field<S>, max: Int = 100) = stringSpec {
-    val vectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
+    matrixSpace: MatrixSpace<S, V, M>,
+    max: Int = 100
+) = stringSpec {
+    // val vectorSpace = DenseNumVectorSpace.from(field)
+    val field = matrixSpace.field
     val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
@@ -150,7 +153,7 @@ class IntRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(IntRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
-    include(denseMatrixOfRank2Test(IntRationalField, 10))
+    include(denseMatrixOfRank2Test(matrixSpace, 10))
     include(determinantTest(IntRationalField, 3, 5)) // これ以上大きくすると det() の計算で overflow する
 })
 
@@ -160,7 +163,7 @@ class LongRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(LongRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
-    include(denseMatrixOfRank2Test(LongRationalField))
+    include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // 10 だと overflow する (けど det と detByPermutations は等しい…？)
 })
 
@@ -170,7 +173,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
-    include(denseMatrixOfRank2Test(BigRationalField))
+    include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 })
 
@@ -180,6 +183,6 @@ class IntModpDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(F5)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
-    include(denseMatrixOfRank2Test(F5))
+    include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

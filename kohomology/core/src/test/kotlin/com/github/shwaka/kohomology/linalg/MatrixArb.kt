@@ -14,7 +14,7 @@ private fun <A> myArbList(arb: Arb<A>, n: Int): Arb<List<A>> {
     }
 }
 
-fun <S : Scalar<S>> DenseMatrixSpace<S>.arb(scalarArb: Arb<S>, rowCount: Int, colCount: Int): Arb<DenseMatrix<S>> {
+fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> MatrixSpace<S, V, M>.arb(scalarArb: Arb<S>, rowCount: Int, colCount: Int): Arb<M> {
     val size = rowCount * colCount
     return myArbList(scalarArb, size).map { elmList -> this.fromFlatList(elmList, rowCount, colCount) }
     // return Arb.list(scalarArb, size..size).map { elmList -> this.fromFlatList(elmList, rowCount, colCount) }

@@ -102,22 +102,22 @@ fun <S : Scalar<S>> denseMatrixOfRank2Test(field: Field<S>, max: Int = 100) = st
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            DenseMatrixOfRank2(mat1 + mat2) shouldBe (DenseMatrixOfRank2(mat1) + DenseMatrixOfRank2(mat2))
+            MatrixOfRank2(mat1 + mat2) shouldBe (MatrixOfRank2(mat1) + MatrixOfRank2(mat2))
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            DenseMatrixOfRank2(mat1 - mat2) shouldBe (DenseMatrixOfRank2(mat1) - DenseMatrixOfRank2(mat2))
+            MatrixOfRank2(mat1 - mat2) shouldBe (MatrixOfRank2(mat1) - MatrixOfRank2(mat2))
         }
     }
     "Property testing for unaryMinus of matrix" {
         checkAll(matrixArb) { mat ->
-            DenseMatrixOfRank2(-mat) shouldBe (-DenseMatrixOfRank2(mat))
+            MatrixOfRank2(-mat) shouldBe (-MatrixOfRank2(mat))
         }
     }
     "Property testing for det" {
         checkAll(matrixArb) { mat ->
-            mat.det() shouldBe DenseMatrixOfRank2(mat).det()
+            mat.det() shouldBe MatrixOfRank2(mat).det()
         }
     }
 }

@@ -2,38 +2,38 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Scalar
 
-class DenseMatrixOfRank2<S : Scalar<S>>(private val mat: DenseMatrix<S>) {
+class MatrixOfRank2<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(private val mat: M) {
     init {
         if (mat.rowCount != 2 || mat.colCount != 2)
             throw IllegalArgumentException("mat should be square matrix of rank 2")
     }
-    val a = mat[0, 0]
-    val b = mat[0, 1]
-    val c = mat[1, 0]
-    val d = mat[1, 1]
+    private val a = mat[0, 0]
+    private val b = mat[0, 1]
+    private val c = mat[1, 0]
+    private val d = mat[1, 1]
 
-    operator fun plus(other: DenseMatrixOfRank2<S>): DenseMatrixOfRank2<S> {
+    operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.mat.matrixSpace.fromRows(
             listOf(this.a + other.a, this.b + other.b),
             listOf(this.c + other.c, this.d + other.d)
         )
-        return DenseMatrixOfRank2(mat)
+        return MatrixOfRank2(mat)
     }
 
-    operator fun minus(other: DenseMatrixOfRank2<S>): DenseMatrixOfRank2<S> {
+    operator fun minus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.mat.matrixSpace.fromRows(
             listOf(this.a - other.a, this.b - other.b),
             listOf(this.c - other.c, this.d - other.d)
         )
-        return DenseMatrixOfRank2(mat)
+        return MatrixOfRank2(mat)
     }
 
-    operator fun unaryMinus(): DenseMatrixOfRank2<S> {
+    operator fun unaryMinus(): MatrixOfRank2<S, V, M> {
         val mat = this.mat.matrixSpace.fromRows(
             listOf(-this.a, -this.b),
             listOf(-this.c, -this.d)
         )
-        return DenseMatrixOfRank2(mat)
+        return MatrixOfRank2(mat)
     }
 
     fun det(): S {
@@ -45,7 +45,7 @@ class DenseMatrixOfRank2<S : Scalar<S>>(private val mat: DenseMatrix<S>) {
         if (other == null) return false
         if (this::class != other::class) return false
 
-        other as DenseMatrixOfRank2<*>
+        other as MatrixOfRank2<*, *, *>
 
         if (a != other.a) return false
         if (b != other.b) return false

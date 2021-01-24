@@ -196,6 +196,20 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(matrixTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+
+    "fromVectors should work correctly (use statically selected field)" {
+        val zero = BigRationalField.zero
+        val one = BigRationalField.one
+        val two = BigRationalField.fromInt(2)
+        val three = BigRationalField.fromInt(3)
+        val expectedMat = matrixSpace.fromRows(
+            listOf(zero, one),
+            listOf(two, three)
+        )
+        val v = vectorSpace.fromValues(zero, two)
+        val w = vectorSpace.fromValues(one, three)
+        (matrixSpace.fromVectors(v, w)) shouldBe expectedMat
+    }
 })
 
 class IntModpDenseMatrixTest : StringSpec({

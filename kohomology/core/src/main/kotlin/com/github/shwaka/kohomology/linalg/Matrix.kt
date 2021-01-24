@@ -65,10 +65,10 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
         val cols = vectors.map { v -> v.toList() }
         return this.fromCols(cols)
     }
-    // fun fromVectors(vararg vectors: V): M {
-    //     // This does not work (due to type erasure?)
-    //     return this.fromVectors(vectors.toList())
-    // }
+    fun fromVectors(vararg vectors: V): M {
+        // This does not work (due to type erasure?)
+        return this.fromVectors(vectors.toList())
+    }
 
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 }

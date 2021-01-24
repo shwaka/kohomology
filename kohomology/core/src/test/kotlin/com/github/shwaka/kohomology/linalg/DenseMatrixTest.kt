@@ -24,29 +24,29 @@ import io.kotest.property.exhaustive.ints
 
 val denseMatrixTag = NamedTag("DenseMatrix")
 
-fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
+fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    val field = matrixSpace.field
+    val vectorSpace = matrixSpace.vectorSpace
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
     val three = field.fromInt(3)
     // val four = field.fromInt(4)
     val five = field.fromInt(5)
-    val vectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
-    val m = matrixSpace.get(
+    val m = matrixSpace.fromRowList(
         listOf(
             listOf(two, one),
             listOf(zero, -one)
         )
     )
-    val n = matrixSpace.get(
+    val n = matrixSpace.fromRowList(
         listOf(
             listOf(one, one),
             listOf(-two, three)
         )
     )
     "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
-        val expected = matrixSpace.get(
+        val expected = matrixSpace.fromRowList(
             listOf(
                 listOf(three, two),
                 listOf(-two, two)
@@ -60,7 +60,7 @@ fun <S : Scalar<S>> denseMatrixTest(field: Field<S>) = stringSpec {
         (m * v) shouldBe expected
     }
     "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
-        val mn = matrixSpace.get(
+        val mn = matrixSpace.fromRowList(
             listOf(
                 listOf(zero, five),
                 listOf(two, -three)
@@ -146,28 +146,40 @@ const val matrixSizeForDet = 4
 
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intRationalTag)
-    include(denseMatrixTest(IntRationalField))
+
+    val vectorSpace = DenseNumVectorSpace.from(IntRationalField)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(matrixTest(matrixSpace))
     include(denseMatrixOfRank2Test(IntRationalField, 10))
     include(determinantTest(IntRationalField, 3, 5)) // これ以上大きくすると det() の計算で overflow する
 })
 
 class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, longRationalTag)
-    include(denseMatrixTest(LongRationalField))
+
+    val vectorSpace = DenseNumVectorSpace.from(LongRationalField)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(matrixTest(matrixSpace))
     include(denseMatrixOfRank2Test(LongRationalField))
     include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // 10 だと overflow する (けど det と detByPermutations は等しい…？)
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, bigRationalTag)
-    include(denseMatrixTest(BigRationalField))
+
+    val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(matrixTest(matrixSpace))
     include(denseMatrixOfRank2Test(BigRationalField))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 })
 
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intModpTag)
-    include(denseMatrixTest(F5))
+
+    val vectorSpace = DenseNumVectorSpace.from(F5)
+    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(matrixTest(matrixSpace))
     include(denseMatrixOfRank2Test(F5))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

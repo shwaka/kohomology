@@ -37,6 +37,7 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
         return result
     }
     operator fun get(rowInd: Int, colInd: Int): S
+    fun toPrettyString(): String
     fun unwrap(): M
     val matrixSpace: MatrixSpace<S, V, M>
     val rowCount: Int
@@ -46,4 +47,7 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val field: Field<S>
     val vectorSpace: NumVectorSpace<S, V>
+    fun fromRowList(values: List<List<S>>): M
+    fun fromRows(vararg rows: List<S>): M
+    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 }

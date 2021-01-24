@@ -35,4 +35,6 @@ operator fun <S : Scalar<S>, V : NumVector<S, V>> Int.times(other: V): V {
 interface NumVectorSpace<S : Scalar<S>, V : NumVector<S, V>> {
     val field: Field<S>
     fun getZero(dim: Int): V
+    fun get(values: List<S>): V
+    fun get(vararg values: S): V
 }

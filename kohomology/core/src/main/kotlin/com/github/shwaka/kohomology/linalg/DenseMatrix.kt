@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
-import com.github.shwaka.kohomology.field.times
 import com.github.shwaka.kohomology.util.StringTable
 
 class DenseMatrix<S : Scalar<S>>(
@@ -25,7 +24,7 @@ class DenseMatrix<S : Scalar<S>>(
         val values = this.values.zip(other.values).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
         }
-        return this.matrixSpace.get(values)
+        return this.matrixSpace.fromRowList(values)
     }
 
     override fun minus(other: DenseMatrix<S>): DenseMatrix<S> {
@@ -46,12 +45,12 @@ class DenseMatrix<S : Scalar<S>>(
                     .reduce(Scalar<S>::plus)
             }
         }
-        return this.matrixSpace.get(values)
+        return this.matrixSpace.fromRowList(values)
     }
 
     override fun times(scalar: S): DenseMatrix<S> {
         val values = this.values.map { row -> row.map { elm -> -elm } }
-        return this.matrixSpace.get(values)
+        return this.matrixSpace.fromRowList(values)
     }
 
     override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
@@ -65,7 +64,7 @@ class DenseMatrix<S : Scalar<S>>(
 
     override fun rowEchelonForm(): Triple<DenseMatrix<S>, List<Int>, Int> {
         val (rowEchelonForm, pivots, exchangeCount) = this.values.rowEchelonForm()
-        return Triple(this.matrixSpace.get(rowEchelonForm), pivots, exchangeCount)
+        return Triple(this.matrixSpace.fromRowList(rowEchelonForm), pivots, exchangeCount)
     }
 
     override fun get(rowInd: Int, colInd: Int): S {
@@ -103,7 +102,7 @@ class DenseMatrix<S : Scalar<S>>(
         return this.toStringTable().toString()
     }
 
-    fun toPrettyString(): String {
+    override fun toPrettyString(): String {
         return this.toStringTable().toPrettyString()
     }
 }
@@ -113,17 +112,17 @@ class DenseMatrixSpace<S : Scalar<S>>(
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
 
-    fun get(values: List<List<S>>): DenseMatrix<S> {
+    override fun fromRowList(values: List<List<S>>): DenseMatrix<S> {
         return DenseMatrix(values, this)
     }
 
-    fun fromRows(vararg rows: List<S>): DenseMatrix<S> {
+    override fun fromRows(vararg rows: List<S>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")
         return DenseMatrix(rows.toList(), this)
     }
 
-    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
+    override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }

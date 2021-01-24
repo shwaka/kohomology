@@ -112,14 +112,10 @@ class DenseMatrixSpace<S : Scalar<S>>(
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
 
-    override fun fromRows(values: List<List<S>>): DenseMatrix<S> {
-        return DenseMatrix(values, this)
-    }
-
-    override fun fromRows(vararg rows: List<S>): DenseMatrix<S> {
+    override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")
-        return DenseMatrix(rows.toList(), this)
+        return DenseMatrix(rows, this)
     }
 
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {

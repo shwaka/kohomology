@@ -105,6 +105,11 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         )
         (matrixSpace.fromRows(rows) == matrixSpace.fromCols(cols)).shouldBeTrue()
     }
+    "two variants of fromRows should give same matrices" {
+        val row1 = listOf(zero, one)
+        val row2 = listOf(two, three)
+        (matrixSpace.fromRows(row1, row2) == matrixSpace.fromRows(listOf(row1, row2))).shouldBeTrue()
+    }
     "fromVectors should work correctly" {
         val expectedMat = matrixSpace.fromRows(
             listOf(zero, one),

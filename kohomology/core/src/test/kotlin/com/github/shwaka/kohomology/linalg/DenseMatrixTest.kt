@@ -121,6 +121,18 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
     }
 }
 
+inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    val field = matrixSpace.field
+    val vectorSpace = matrixSpace.vectorSpace
+    val zero = field.zero
+    "fromVectors(vararg) should work with reified type variables" {
+        val v = vectorSpace.fromValues(zero, zero, zero)
+        shouldNotThrowAny {
+            matrixSpace.fromVectors(v, v)
+        }
+    }
+}
+
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
     matrixSpace: MatrixSpace<S, V, M>,
     max: Int = 100
@@ -179,6 +191,7 @@ class IntRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(IntRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace, 10))
     // include(determinantTest(IntRationalField, 3, 5)) // overflow しがちなので除外
 })
@@ -189,6 +202,7 @@ class LongRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(LongRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
     // include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // overflow しがちなので除外
 })
@@ -199,6 +213,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 
@@ -223,6 +238,7 @@ class IntModpDenseMatrixTest : StringSpec({
     val vectorSpace = DenseNumVectorSpace.from(F5)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
     include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

@@ -17,6 +17,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.int
@@ -24,6 +25,14 @@ import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.ints
 
 val denseMatrixTag = NamedTag("DenseMatrix")
+
+fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
+    val vectorSpace = DenseNumVectorSpace.from(field)
+    val matrixSpace = DenseMatrixSpace.from(vectorSpace)
+    "factory should return the cache if exists" {
+        DenseMatrixSpace.from(vectorSpace) shouldBeSameInstanceAs matrixSpace
+    }
+}
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.field
@@ -190,6 +199,7 @@ class IntRationalDenseMatrixTest : StringSpec({
 
     val vectorSpace = DenseNumVectorSpace.from(IntRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(denseMatrixSpaceTest(IntRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace, 10))
@@ -201,6 +211,7 @@ class LongRationalDenseMatrixTest : StringSpec({
 
     val vectorSpace = DenseNumVectorSpace.from(LongRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(denseMatrixSpaceTest(LongRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
@@ -212,6 +223,7 @@ class BigRationalDenseMatrixTest : StringSpec({
 
     val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(denseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))
@@ -237,6 +249,7 @@ class IntModpDenseMatrixTest : StringSpec({
 
     val vectorSpace = DenseNumVectorSpace.from(F5)
     val matrixSpace = DenseMatrixSpace(vectorSpace)
+    include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
     include(denseMatrixOfRank2Test(matrixSpace))

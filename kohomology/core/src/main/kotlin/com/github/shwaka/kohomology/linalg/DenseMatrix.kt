@@ -111,6 +111,21 @@ class DenseMatrixSpace<S : Scalar<S>>(
     override val vectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
     override val field: Field<S> = vectorSpace.field
+    companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<DenseNumVectorSpace<*>, DenseMatrixSpace<*>> = mutableMapOf()
+        fun <S : Scalar<S>> from(vectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
+            if (this.cache.containsKey(vectorSpace)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[vectorSpace] as DenseMatrixSpace<S>
+            } else {
+                val matrixSpace = DenseMatrixSpace(vectorSpace)
+                this.cache[vectorSpace] = matrixSpace
+                return matrixSpace
+            }
+        }
+    }
 
     override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())

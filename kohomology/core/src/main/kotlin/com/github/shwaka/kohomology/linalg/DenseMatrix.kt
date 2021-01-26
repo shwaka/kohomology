@@ -16,11 +16,14 @@ class DenseMatrix<S : Scalar<S>>(
     }
     override val rowCount: Int = rowCount ?: this.values.size
     override val colCount: Int = colCount ?: this.values[0].size
+    init {
+        if (this.values.any { row -> row.size != this.colCount })
+            throw IllegalArgumentException("The length of each row must be equal to colCount")
+    }
 
     override fun plus(other: DenseMatrix<S>): DenseMatrix<S> {
-        if (this.rowCount != other.rowCount || this.colCount != other.colCount) {
-            throw ArithmeticException("Cannot add matrices")
-        }
+        if (this.rowCount != other.rowCount || this.colCount != other.colCount)
+            throw ArithmeticException("Cannot add matrices: different shapes")
         val values = this.values.zip(other.values).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
         }
@@ -32,9 +35,8 @@ class DenseMatrix<S : Scalar<S>>(
     }
 
     override fun times(other: DenseMatrix<S>): DenseMatrix<S> {
-        if (this.colCount != other.colCount) {
-            throw ArithmeticException("Cannot multiply matrices")
-        }
+        if (this.colCount != other.rowCount)
+            throw ArithmeticException("Cannot multiply matrices: this.colCount != other.rowCount")
         val rowRange = 0 until this.rowCount
         val sumRange = 0 until this.colCount
         val colRange = 0 until other.colCount
@@ -54,6 +56,8 @@ class DenseMatrix<S : Scalar<S>>(
     }
 
     override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
+        if (this.colCount != vector.dim)
+            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = this.values.map { row ->
             row.zip(vector.values)
                 .map { it.first * it.second }

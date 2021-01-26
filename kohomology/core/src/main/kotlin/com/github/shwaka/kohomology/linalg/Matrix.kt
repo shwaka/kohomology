@@ -17,13 +17,15 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     operator fun unaryMinus(): M {
         return this * (-1)
     }
-    fun rowEchelonForm(): Triple<M, List<Int>, Int>
+    fun rowEchelonForm(): RowEchelonForm<S, V, M>
     fun det(): S {
         if (this.rowCount != this.colCount)
             throw ArithmeticException("Determinant is defined only for square matrices")
-        val (rowEchelonMatrix: M, _, exchangeCount: Int) = this.rowEchelonForm()
+        val rowEchelonForm = this.rowEchelonForm()
+        val rowEchelonMatrix: M = rowEchelonForm.matrix
+        val sign: Int = rowEchelonForm.sign
         val detUpToSign = (0 until this.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
-        return if (exchangeCount % 2 == 0) detUpToSign else (-detUpToSign)
+        return detUpToSign * sign
     }
     fun detByPermutations(): S {
         if (this.rowCount != this.colCount)
@@ -43,6 +45,12 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val rowCount: Int
     val colCount: Int
 }
+
+data class RowEchelonForm<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+    val matrix: M,
+    val pivots: List<Int>,
+    val sign: Int
+)
 
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val field: Field<S>

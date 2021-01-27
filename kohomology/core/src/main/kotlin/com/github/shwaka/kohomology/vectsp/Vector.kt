@@ -27,6 +27,16 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(private val numVector: V, va
         result = 31 * result + vectorSpace.hashCode()
         return result
     }
+
+    fun toString(basisToString: (B) -> String): String {
+        val coeffList = this.numVector.toList()
+        val basis = this.vectorSpace.basis.map(basisToString)
+        return coeffList.zip(basis).joinToString(separator = " + ") { (coeff, basisElm) -> "$coeff $basisElm" }
+    }
+
+    override fun toString(): String {
+        return this.toString { it.toString() }
+    }
 }
 
 class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(

@@ -68,5 +68,4 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         result = 31 * result + basis.hashCode()
         return result
     }
-
 }

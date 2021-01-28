@@ -73,6 +73,10 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this.fromNumVector(numVector)
     }
 
+    fun fromCoeff(vararg coeff: S): Vector<B, S, V> {
+        return this.fromCoeff(coeff.toList())
+    }
+
     val zero: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 

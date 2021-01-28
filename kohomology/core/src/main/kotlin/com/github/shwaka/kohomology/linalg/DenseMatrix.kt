@@ -63,7 +63,7 @@ class DenseMatrix<S : Scalar<S>>(
                 .map { it.first * it.second }
                 .reduce { a, b -> a + b }
         }
-        return this.matrixSpace.vectorSpace.fromValues(values)
+        return this.matrixSpace.numVectorSpace.fromValues(values)
     }
 
     override val rowEchelonForm: RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> by lazy {
@@ -111,9 +111,9 @@ class DenseMatrix<S : Scalar<S>>(
 }
 
 class DenseMatrixSpace<S : Scalar<S>>(
-    override val vectorSpace: DenseNumVectorSpace<S>
+    override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
-    override val field: Field<S> = vectorSpace.field
+    override val field: Field<S> = numVectorSpace.field
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？

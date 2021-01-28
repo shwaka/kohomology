@@ -11,12 +11,12 @@ interface NumVector<S : Scalar<S>, V : NumVector<S, V>> {
     }
 
     operator fun unaryMinus(): V {
-        return this * (-this.vectorSpace.field.one)
+        return this * (-this.numVectorSpace.field.one)
     }
 
     operator fun times(other: S): V
     operator fun times(other: Int): V {
-        return this * this.vectorSpace.field.fromInt(other)
+        return this * this.numVectorSpace.field.fromInt(other)
     }
 
     operator fun get(index: Int): S
@@ -25,7 +25,7 @@ interface NumVector<S : Scalar<S>, V : NumVector<S, V>> {
     }
 
     fun unwrap(): V
-    val vectorSpace: NumVectorSpace<S, V>
+    val numVectorSpace: NumVectorSpace<S, V>
     val dim: Int
 }
 

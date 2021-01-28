@@ -58,7 +58,7 @@ interface RowEchelonForm<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>
 
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val field: Field<S>
-    val vectorSpace: NumVectorSpace<S, V>
+    val numVectorSpace: NumVectorSpace<S, V>
     fun fromRows(rows: List<List<S>>): M
     fun fromRows(vararg rows: List<S>): M {
         if (rows.isEmpty())

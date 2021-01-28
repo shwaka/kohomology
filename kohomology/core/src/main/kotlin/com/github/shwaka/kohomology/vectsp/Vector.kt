@@ -68,8 +68,8 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return Vector(numVector, this)
     }
 
-    fun fromList(list: List<S>): Vector<B, S, V> {
-        val numVector = this.numVectorSpace.fromValues(list)
+    fun fromCoeff(coeff: List<S>): Vector<B, S, V> {
+        val numVector = this.numVectorSpace.fromValues(coeff)
         return this.fromNumVector(numVector)
     }
 

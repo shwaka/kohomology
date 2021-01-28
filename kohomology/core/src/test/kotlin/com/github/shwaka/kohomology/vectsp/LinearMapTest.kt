@@ -16,7 +16,7 @@ import io.kotest.matchers.shouldBe
 val linearMapTag = NamedTag("LinearMap")
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val vectorSpace = matrixSpace.vectorSpace
+    val vectorSpace = matrixSpace.numVectorSpace
     val field = matrixSpace.field
     val vectorSpace1 = VectorSpace(vectorSpace, 2, listOf("a", "b"))
     val vectorSpace2 = VectorSpace(vectorSpace, 2, listOf("x", "y"))
@@ -29,8 +29,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
             listOf(one, one)
         )
         val f = LinearMap(vectorSpace1, vectorSpace2, matrix)
-        val v = vectorSpace1.fromList(listOf(one, -one))
-        val w = vectorSpace2.fromList(listOf(two, zero))
+        val v = vectorSpace1.fromCoeff(listOf(one, -one))
+        val w = vectorSpace2.fromCoeff(listOf(two, zero))
         f(v) shouldBe w
     }
 }

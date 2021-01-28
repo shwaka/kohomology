@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 
-class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val vectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
+class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val numVectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
     override val dim: Int = this.values.size
 
     override fun plus(other: DenseNumVector<S>): DenseNumVector<S> {
@@ -11,11 +11,11 @@ class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val vectorSpac
         for (i in this.values.indices) {
             result.add(this.values[i] + other.values[i])
         }
-        return DenseNumVector(result, this.vectorSpace)
+        return DenseNumVector(result, this.numVectorSpace)
     }
 
     override fun times(other: S): DenseNumVector<S> {
-        return DenseNumVector(this.values.map { it * other }, this.vectorSpace)
+        return DenseNumVector(this.values.map { it * other }, this.numVectorSpace)
     }
 
     override fun unwrap(): DenseNumVector<S> {

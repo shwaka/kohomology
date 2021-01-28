@@ -27,16 +27,16 @@ import io.kotest.property.exhaustive.ints
 val denseMatrixTag = NamedTag("DenseMatrix")
 
 fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
-    val vectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace.from(vectorSpace)
+    val numVectorSpace = DenseNumVectorSpace.from(field)
+    val matrixSpace = DenseMatrixSpace.from(numVectorSpace)
     "factory should return the cache if exists" {
-        DenseMatrixSpace.from(vectorSpace) shouldBeSameInstanceAs matrixSpace
+        DenseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
     }
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.field
-    val vectorSpace = matrixSpace.vectorSpace
+    val numVectorSpace = matrixSpace.numVectorSpace
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
@@ -65,8 +65,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         (m + n) shouldBe expected
     }
     "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
-        val v = vectorSpace.fromValues(two, -one)
-        val expected = vectorSpace.fromValues(three, one)
+        val v = numVectorSpace.fromValues(two, -one)
+        val expected = numVectorSpace.fromValues(three, one)
         (m * v) shouldBe expected
     }
     "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
@@ -124,8 +124,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
             listOf(zero, one),
             listOf(two, three)
         )
-        val v = vectorSpace.fromValues(zero, two)
-        val w = vectorSpace.fromValues(one, three)
+        val v = numVectorSpace.fromValues(zero, two)
+        val w = numVectorSpace.fromValues(one, three)
         (matrixSpace.fromVectors(listOf(v, w))) shouldBe expectedMat
     }
     "reduced row echelon form of invertible matrix should be the unit matrix" {
@@ -152,7 +152,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
 
 inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.field
-    val vectorSpace = matrixSpace.vectorSpace
+    val vectorSpace = matrixSpace.numVectorSpace
     val zero = field.zero
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)

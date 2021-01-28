@@ -73,6 +73,9 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this.fromNumVector(numVector)
     }
 
+    val zero: Vector<B, S, V>
+        get() = Vector(this.numVectorSpace.getZero(this.dim), this)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

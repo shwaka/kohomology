@@ -33,6 +33,16 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
         val w = vectorSpace2.fromCoeff(listOf(two, zero))
         f(v) shouldBe w
     }
+    "getZero should return the zero map" {
+        val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
+        val v = vectorSpace1.fromCoeff(listOf(one, two))
+        f(v) shouldBe vectorSpace2.zero
+    }
+    "getId should return the identity map" {
+        val f = LinearMap.getId(vectorSpace1, matrixSpace)
+        val v = vectorSpace1.fromCoeff(listOf(one, two))
+        f(v) shouldBe v
+    }
 }
 
 class BigRationalLinearMapTest : StringSpec({

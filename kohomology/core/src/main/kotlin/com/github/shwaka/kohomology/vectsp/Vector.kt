@@ -68,6 +68,11 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return Vector(numVector, this)
     }
 
+    fun fromList(list: List<S>): Vector<B, S, V> {
+        val numVector = this.numVectorSpace.fromValues(list)
+        return this.fromNumVector(numVector)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

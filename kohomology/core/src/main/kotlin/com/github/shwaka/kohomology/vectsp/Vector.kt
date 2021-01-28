@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 
-class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(private val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
+class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     operator fun plus(other: Vector<B, S, V>): Vector<B, S, V> {
         if (this.vectorSpace != other.vectorSpace)
             throw ArithmeticException("Cannot add two vectors in different vector spaces")

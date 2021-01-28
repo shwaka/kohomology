@@ -6,7 +6,27 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 
 class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(private val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     operator fun plus(other: Vector<B, S, V>): Vector<B, S, V> {
+        if (this.vectorSpace != other.vectorSpace)
+            throw ArithmeticException("Cannot add two vectors in different vector spaces")
         return Vector(this.numVector + other.numVector, this.vectorSpace)
+    }
+
+    operator fun minus(other: Vector<B, S, V>): Vector<B, S, V> {
+        if (this.vectorSpace != other.vectorSpace)
+            throw ArithmeticException("Cannot subtract two vectors in different vector spaces")
+        return Vector(this.numVector - other.numVector, this.vectorSpace)
+    }
+
+    operator fun unaryMinus(): Vector<B, S, V> {
+        return Vector(-this.numVector, this.vectorSpace)
+    }
+
+    operator fun times(scalar: S): Vector<B, S, V> {
+        return Vector(this.numVector * scalar, this.vectorSpace)
+    }
+
+    operator fun times(scalar: Int): Vector<B, S, V> {
+        return Vector(this.numVector * scalar, this.vectorSpace)
     }
 
     override fun equals(other: Any?): Boolean {

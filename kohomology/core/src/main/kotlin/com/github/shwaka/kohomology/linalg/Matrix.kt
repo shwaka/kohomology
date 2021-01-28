@@ -40,7 +40,7 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     }
     operator fun get(rowInd: Int, colInd: Int): S
     fun toList(): List<List<S>> {
-        return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j]} }
+        return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j] } }
     }
     fun toPrettyString(): String
     fun unwrap(): M

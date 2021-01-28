@@ -5,6 +5,11 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 
 class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
+    init {
+        if (numVector.dim != vectorSpace.dim)
+            throw IllegalArgumentException("Dimension of the numerical vector does not match the dimension of the vector space")
+    }
+
     operator fun plus(other: Vector<B, S, V>): Vector<B, S, V> {
         if (this.vectorSpace != other.vectorSpace)
             throw ArithmeticException("Cannot add two vectors in different vector spaces")

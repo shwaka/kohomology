@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -24,6 +25,12 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpa
         val v = vectorSpace.fromNumVector(numVector)
         val expected = vectorSpace.fromNumVector(numVectorSpace.fromValues(two, zero, two))
         (v + v) shouldBe expected
+    }
+    "invalid length of values should throw" {
+        val vectorSpace = VectorSpace(numVectorSpace, 3, listOf("a", "b", "c"))
+        shouldThrow<IllegalArgumentException> {
+            vectorSpace.fromCoeff(zero, zero)
+        }
     }
 }
 

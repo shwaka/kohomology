@@ -4,14 +4,24 @@ import com.github.shwaka.kohomology.field.Scalar
 
 class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix<S>) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
     private val data: RowEchelonFormData<S> by lazy { this.originalMatrix.toList().rowEchelonForm() }
+    private val matrixSpace = originalMatrix.matrixSpace
     override val matrix: DenseMatrix<S>
-        get() = originalMatrix.matrixSpace.fromRows(this.data.matrix)
+        get() = this.matrixSpace.fromRows(this.data.matrix)
     override val pivots: List<Int>
         get() = this.data.pivots
     override val sign: Int
         get() = if (this.data.exchangeCount % 2 == 0) 1 else -1
-    override val reducedMatrix: DenseMatrix<S>
-        get() = TODO("Not yet implemented")
+    override val reducedMatrix: DenseMatrix<S> by lazy {
+        val rowCount = this.originalMatrix.rowCount
+        val rank = this.pivots.size
+        val rowEchelonMatrix = this.data.matrix
+        val one = this.matrixSpace.field.one
+        val rawReducedMatrix = (0 until rowCount).map { i ->
+            val a = if (i < rank) rowEchelonMatrix[i][this.pivots[i]] else one
+            rowEchelonMatrix[i] * a.inv()
+        }
+        this.matrixSpace.fromRows(rawReducedMatrix)
+    }
 
     data class RowEchelonFormData<S : Scalar<S>>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
 

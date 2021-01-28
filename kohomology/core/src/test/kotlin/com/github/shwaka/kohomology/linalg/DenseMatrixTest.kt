@@ -128,6 +128,26 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         val w = vectorSpace.fromValues(one, three)
         (matrixSpace.fromVectors(listOf(v, w))) shouldBe expectedMat
     }
+    "reduced row echelon form of invertible matrix should be the unit matrix" {
+        val expectedMat = matrixSpace.fromRows(
+            listOf(one, zero),
+            listOf(zero, one)
+        )
+        m.rowEchelonForm.reducedMatrix shouldBe expectedMat
+    }
+    "reduced row echelon form of non-invertible matrix" {
+        val mat = matrixSpace.fromRows(
+            listOf(zero, zero, one),
+            listOf(-two, -one, zero),
+            listOf(two, one, zero)
+        )
+        val expectedMat = matrixSpace.fromRows(
+            listOf(one, one / two, zero),
+            listOf(zero, zero, one),
+            listOf(zero, zero, zero)
+        )
+        mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
+    }
 }
 
 inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {

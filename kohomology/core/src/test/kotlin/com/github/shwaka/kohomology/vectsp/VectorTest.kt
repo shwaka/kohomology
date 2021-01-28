@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -34,9 +35,30 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpa
     }
 }
 
+fun <S : Scalar<S>, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+    val field = numVectorSpace.field
+    val zero = field.zero
+    val one = field.one
+    data class BasisElm(val name: String) {
+        fun toStringWithParen(): String = "(${this.name})"
+        override fun toString(): String = this.name
+    }
+
+    "custom class for basis" {
+        val x = BasisElm("x")
+        val y = BasisElm("y")
+        val vectorSpace = VectorSpace(numVectorSpace, listOf(x, y))
+        val v = vectorSpace.fromCoeff(one, zero)
+        shouldNotThrowAny {
+            v.toString { it.toStringWithParen() }
+        }
+    }
+}
+
 class BigRationalVectorTest : StringSpec({
     tags(vectorTag, bigRationalTag)
 
     val numVectorSpace = DenseNumVectorSpace.from(BigRationalField)
     include(vectorTest(numVectorSpace))
+    include(vectorSpaceTest(numVectorSpace))
 })

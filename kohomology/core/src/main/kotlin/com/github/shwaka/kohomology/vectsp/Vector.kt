@@ -66,9 +66,10 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
 
 class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    val dim: Int,
     val basis: List<B>
 ) {
+    val dim = basis.size
+
     fun fromNumVector(numVector: V): Vector<B, S, V> {
         return Vector(numVector, this)
     }

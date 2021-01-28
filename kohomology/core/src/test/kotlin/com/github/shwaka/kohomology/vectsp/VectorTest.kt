@@ -20,14 +20,14 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpa
     val one = field.one
     val two = field.fromInt(2)
     "addition of Vector" {
-        val vectorSpace = VectorSpace(numVectorSpace, 3, listOf("a", "b", "c"))
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
         val numVector = numVectorSpace.fromValues(one, zero, one)
         val v = vectorSpace.fromNumVector(numVector)
         val expected = vectorSpace.fromNumVector(numVectorSpace.fromValues(two, zero, two))
         (v + v) shouldBe expected
     }
     "invalid length of values should throw" {
-        val vectorSpace = VectorSpace(numVectorSpace, 3, listOf("a", "b", "c"))
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
         shouldThrow<IllegalArgumentException> {
             vectorSpace.fromCoeff(zero, zero)
         }

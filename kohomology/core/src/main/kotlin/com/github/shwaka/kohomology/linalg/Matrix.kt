@@ -17,11 +17,11 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     operator fun unaryMinus(): M {
         return this * (-1)
     }
-    fun rowEchelonForm(): RowEchelonForm<S, V, M>
+    val rowEchelonForm: RowEchelonForm<S, V, M>
     fun det(): S {
         if (this.rowCount != this.colCount)
             throw ArithmeticException("Determinant is defined only for square matrices")
-        val rowEchelonForm = this.rowEchelonForm()
+        val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
         val sign: Int = rowEchelonForm.sign
         val detUpToSign = (0 until this.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
@@ -39,6 +39,9 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
         return result
     }
     operator fun get(rowInd: Int, colInd: Int): S
+    fun toList(): List<List<S>> {
+        return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j]} }
+    }
     fun toPrettyString(): String
     fun unwrap(): M
     val matrixSpace: MatrixSpace<S, V, M>
@@ -46,11 +49,12 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val colCount: Int
 }
 
-data class RowEchelonForm<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
-    val matrix: M,
-    val pivots: List<Int>,
+interface RowEchelonForm<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
+    val matrix: M
+    val reducedMatrix: M
+    val pivots: List<Int>
     val sign: Int
-)
+}
 
 interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     val field: Field<S>

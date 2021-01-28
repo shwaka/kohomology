@@ -66,10 +66,8 @@ class DenseMatrix<S : Scalar<S>>(
         return this.matrixSpace.vectorSpace.fromValues(values)
     }
 
-    override fun rowEchelonForm(): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
-        val (rowEchelonForm, pivots, exchangeCount) = this.values.rowEchelonForm()
-        val sign = if (exchangeCount % 2 == 0) 1 else -1
-        return RowEchelonForm(this.matrixSpace.fromRows(rowEchelonForm), pivots, sign)
+    override val rowEchelonForm: RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> by lazy {
+        DenseRowEchelonForm(this)
     }
 
     override fun get(rowInd: Int, colInd: Int): S {

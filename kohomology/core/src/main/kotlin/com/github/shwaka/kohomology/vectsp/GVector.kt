@@ -18,6 +18,27 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
         return GVector(this.vector + other.vector, this.deg, this.gVectorSpace)
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as GVector<*, *, *>
+
+        if (vector != other.vector) return false
+        if (deg != other.deg) return false
+        if (gVectorSpace != other.gVectorSpace) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = vector.hashCode()
+        result = 31 * result + deg
+        result = 31 * result + gVectorSpace.hashCode()
+        return result
+    }
 }
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
@@ -35,11 +56,14 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return vectorSpace
     }
 
-    fun fromNumVector(numVector: NumVector<S, V>, deg: Degree): GVector<B, S, V> {
-        TODO("not impl")
+    fun fromNumVector(numVector: V, deg: Degree): GVector<B, S, V> {
+        val vectorSpace = this[deg]
+        val vector = Vector(numVector, vectorSpace)
+        return GVector(vector, deg, this)
     }
 
     fun fromCoeff(coeff: List<S>, deg: Degree): GVector<B, S, V> {
-        TODO("not impl")
+        val numVector = this.numVectorSpace.fromValues(coeff)
+        return this.fromNumVector(numVector, deg)
     }
 }

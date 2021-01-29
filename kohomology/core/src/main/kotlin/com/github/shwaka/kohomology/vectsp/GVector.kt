@@ -4,9 +4,11 @@ import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 
+typealias Degree = Int
+
 class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vector: Vector<B, S, V>,
-    val deg: Int,
+    val deg: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
 ) {
     operator fun plus(other: GVector<B, S, V>): GVector<B, S, V> {
@@ -20,11 +22,11 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getVectorSpace: (Int) -> VectorSpace<B, S, V>
+    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>
 ) {
-    private val cache: MutableMap<Int, VectorSpace<B, S, V>> = mutableMapOf()
+    private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
-    operator fun get(deg: Int): VectorSpace<B, S, V> {
+    operator fun get(deg: Degree): VectorSpace<B, S, V> {
         // if cache exists
         this.cache[deg]?.let { return it }
         // if cache does not exist
@@ -33,11 +35,11 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return vectorSpace
     }
 
-    fun fromNumVector(numVector: NumVector<S, V>, deg: Int): GVector<B, S, V> {
-        return TODO("not impl")
+    fun fromNumVector(numVector: NumVector<S, V>, deg: Degree): GVector<B, S, V> {
+        TODO("not impl")
     }
 
-    fun fromCoeff(coeff: List<S>, deg: Int): GVector<B, S, V> {
-        return TODO("not impl")
+    fun fromCoeff(coeff: List<S>, deg: Degree): GVector<B, S, V> {
+        TODO("not impl")
     }
 }

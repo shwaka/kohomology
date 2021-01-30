@@ -43,7 +43,7 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>
+    private val getBasis: (Degree) -> List<B>
 ) {
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
@@ -51,7 +51,8 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         // if cache exists
         this.cache[deg]?.let { return it }
         // if cache does not exist
-        val vectorSpace = this.getVectorSpace(deg)
+        val basis: List<B> = this.getBasis(deg)
+        val vectorSpace = VectorSpace(this.numVectorSpace, basis)
         this.cache[deg] = vectorSpace
         return vectorSpace
     }

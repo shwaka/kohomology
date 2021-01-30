@@ -20,10 +20,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSp
     val zero = field.zero
     val one = field.one
     val two = field.fromInt(2)
-    val gVectorSpace = GVectorSpace(numVectorSpace) { deg ->
-        val basis = (0 until deg).map { "v$it" }
-        VectorSpace(numVectorSpace, basis)
-    }
+    val gVectorSpace = GVectorSpace(numVectorSpace) { deg -> (0 until deg).map { "v$it" } }
     "addition test" {
         val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
         val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
@@ -38,10 +35,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVec
     // val one = field.one
 
     "get() should return the cache if exists" {
-        val gVectorSpace = GVectorSpace(numVectorSpace) { deg ->
-            val basis = (0 until deg).map { "v$it" }
-            VectorSpace(numVectorSpace, basis)
-        }
+        val gVectorSpace = GVectorSpace(numVectorSpace) { deg -> (0 until deg).map { "v$it" } }
         val vectorSpace1 = gVectorSpace[1]
         gVectorSpace[1] shouldBeSameInstanceAs vectorSpace1
     }

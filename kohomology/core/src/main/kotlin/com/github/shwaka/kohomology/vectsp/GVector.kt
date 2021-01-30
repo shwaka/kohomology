@@ -6,11 +6,15 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 
 typealias Degree = Int
 
+sealed class GVectorOrZero<B, S : Scalar<S>, V : NumVector<S, V>>
+
+class ZeroGVector<B, S : Scalar<S>, V : NumVector<S, V>> : GVectorOrZero<B, S, V>()
+
 class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vector: Vector<B, S, V>,
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
-) {
+) : GVectorOrZero<B, S, V>() {
     operator fun plus(other: GVector<B, S, V>): GVector<B, S, V> {
         if (this.gVectorSpace != other.gVectorSpace)
             throw ArithmeticException("Cannot add two graded vectors in different graded vector spaces")
@@ -57,10 +61,14 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return vectorSpace
     }
 
+    fun fromVector(vector: Vector<B, S, V>, degree: Degree): GVector<B, S, V> {
+        return GVector(vector, degree, this)
+    }
+
     fun fromNumVector(numVector: V, degree: Degree): GVector<B, S, V> {
         val vectorSpace = this[degree]
         val vector = Vector(numVector, vectorSpace)
-        return GVector(vector, degree, this)
+        return this.fromVector(vector, degree)
     }
 
     fun fromCoeff(coeff: List<S>, degree: Degree): GVector<B, S, V> {
@@ -70,7 +78,19 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
 
     fun getBasis(degree: Degree): List<GVector<B, S, V>> {
         return this[degree].getBasis().map { vector ->
-            GVector(vector, degree, this)
+            this.fromVector(vector, degree)
+        }
+    }
+
+    fun getZero(degree: Degree): GVector<B, S, V> {
+        val vector = this[degree].zero
+        return this.fromVector(vector, degree)
+    }
+
+    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, S, V>, degree: Degree): GVector<B, S, V> {
+        return when (gVectorOrZero) {
+            is ZeroGVector -> this.getZero(degree)
+            is GVector -> gVectorOrZero
         }
     }
 }

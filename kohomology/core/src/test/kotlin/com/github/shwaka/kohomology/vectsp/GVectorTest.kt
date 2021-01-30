@@ -46,6 +46,19 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVec
         val v2 = gVectorSpace.fromCoeff(listOf(zero, zero, one), 3)
         gVectorSpace.getBasis(3) shouldBe listOf(v0, v1, v2)
     }
+
+    "convertToGVector converts ZeroGVector to the correct zero vector" {
+        val zeroGVector = ZeroGVector<String, S, V>()
+        val degree = 3
+        val expected = gVectorSpace.getZero(degree)
+        gVectorSpace.convertToGVector(zeroGVector, degree) shouldBe expected
+    }
+
+    "convertToGVector converts GVector to itself" {
+        val degree = 3
+        val v = gVectorSpace.getBasis(degree).reduce { x, y -> x + y }
+        gVectorSpace.convertToGVector(v, degree) shouldBe v
+    }
 }
 
 class BigRationalGVectorSpaceTest : StringSpec({

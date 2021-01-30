@@ -8,15 +8,15 @@ typealias Degree = Int
 
 class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vector: Vector<B, S, V>,
-    val deg: Degree,
+    val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
 ) {
     operator fun plus(other: GVector<B, S, V>): GVector<B, S, V> {
         if (this.gVectorSpace != other.gVectorSpace)
             throw ArithmeticException("Cannot add two graded vectors in different graded vector spaces")
-        if (this.deg != other.deg)
+        if (this.degree != other.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        return GVector(this.vector + other.vector, this.deg, this.gVectorSpace)
+        return GVector(this.vector + other.vector, this.degree, this.gVectorSpace)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -27,7 +27,7 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
         other as GVector<*, *, *>
 
         if (vector != other.vector) return false
-        if (deg != other.deg) return false
+        if (degree != other.degree) return false
         if (gVectorSpace != other.gVectorSpace) return false
 
         return true
@@ -35,7 +35,7 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
 
     override fun hashCode(): Int {
         var result = vector.hashCode()
-        result = 31 * result + deg
+        result = 31 * result + degree
         result = 31 * result + gVectorSpace.hashCode()
         return result
     }
@@ -47,30 +47,30 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
 ) {
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
-    operator fun get(deg: Degree): VectorSpace<B, S, V> {
+    operator fun get(degree: Degree): VectorSpace<B, S, V> {
         // if cache exists
-        this.cache[deg]?.let { return it }
+        this.cache[degree]?.let { return it }
         // if cache does not exist
-        val basisNames: List<B> = this.getBasisNames(deg)
+        val basisNames: List<B> = this.getBasisNames(degree)
         val vectorSpace = VectorSpace(this.numVectorSpace, basisNames)
-        this.cache[deg] = vectorSpace
+        this.cache[degree] = vectorSpace
         return vectorSpace
     }
 
-    fun fromNumVector(numVector: V, deg: Degree): GVector<B, S, V> {
-        val vectorSpace = this[deg]
+    fun fromNumVector(numVector: V, degree: Degree): GVector<B, S, V> {
+        val vectorSpace = this[degree]
         val vector = Vector(numVector, vectorSpace)
-        return GVector(vector, deg, this)
+        return GVector(vector, degree, this)
     }
 
-    fun fromCoeff(coeff: List<S>, deg: Degree): GVector<B, S, V> {
+    fun fromCoeff(coeff: List<S>, degree: Degree): GVector<B, S, V> {
         val numVector = this.numVectorSpace.fromValues(coeff)
-        return this.fromNumVector(numVector, deg)
+        return this.fromNumVector(numVector, degree)
     }
 
-    fun getBasis(deg: Degree): List<GVector<B, S, V>> {
-        return this[deg].getBasis().map { vector ->
-            GVector(vector, deg, this)
+    fun getBasis(degree: Degree): List<GVector<B, S, V>> {
+        return this[degree].getBasis().map { vector ->
+            GVector(vector, degree, this)
         }
     }
 }

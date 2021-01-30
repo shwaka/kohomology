@@ -55,7 +55,7 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
 
     fun toString(basisToString: (B) -> String): String {
         val coeffList = this.numVector.toList()
-        val basis = this.vectorSpace.basis.map(basisToString)
+        val basis = this.vectorSpace.basisNames.map(basisToString)
         return coeffList.zip(basis).joinToString(separator = " + ") { (coeff, basisElm) -> "$coeff $basisElm" }
     }
 
@@ -66,9 +66,9 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
 
 class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    val basis: List<B>
+    val basisNames: List<B>
 ) {
-    val dim = basis.size
+    val dim = basisNames.size
 
     fun fromNumVector(numVector: V): Vector<B, S, V> {
         return Vector(numVector, this)
@@ -86,6 +86,15 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val zero: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
+    fun getBasis(): List<Vector<B, S, V>> {
+        val zero = this.numVectorSpace.field.zero
+        val one = this.numVectorSpace.field.one
+        return (0 until this.dim).map { i ->
+            val coeff = (0 until this.dim).map { j -> if (i == j) one else zero }
+            this.fromCoeff(coeff)
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -95,7 +104,7 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
 
         if (numVectorSpace != other.numVectorSpace) return false
         if (dim != other.dim) return false
-        if (basis != other.basis) return false
+        if (basisNames != other.basisNames) return false
 
         return true
     }
@@ -103,7 +112,7 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     override fun hashCode(): Int {
         var result = numVectorSpace.hashCode()
         result = 31 * result + dim
-        result = 31 * result + basis.hashCode()
+        result = 31 * result + basisNames.hashCode()
         return result
     }
 }

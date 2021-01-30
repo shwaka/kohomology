@@ -39,6 +39,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVect
     val field = numVectorSpace.field
     val zero = field.zero
     val one = field.one
+
     data class BasisElm(val name: String) {
         fun toStringWithParen(): String = "(${this.name})"
         override fun toString(): String = this.name
@@ -52,6 +53,13 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVect
         shouldNotThrowAny {
             v.toString { it.toStringWithParen() }
         }
+    }
+
+    "getBasis should return the correct basis" {
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val v = vectorSpace.fromCoeff(one, zero)
+        val w = vectorSpace.fromCoeff(zero, one)
+        vectorSpace.getBasis() shouldBe listOf(v, w)
     }
 }
 

@@ -43,7 +43,7 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getBasis: (Degree) -> List<B>
+    private val getBasisNames: (Degree) -> List<B>
 ) {
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
@@ -51,8 +51,8 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         // if cache exists
         this.cache[deg]?.let { return it }
         // if cache does not exist
-        val basis: List<B> = this.getBasis(deg)
-        val vectorSpace = VectorSpace(this.numVectorSpace, basis)
+        val basisNames: List<B> = this.getBasisNames(deg)
+        val vectorSpace = VectorSpace(this.numVectorSpace, basisNames)
         this.cache[deg] = vectorSpace
         return vectorSpace
     }
@@ -66,5 +66,11 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     fun fromCoeff(coeff: List<S>, deg: Degree): GVector<B, S, V> {
         val numVector = this.numVectorSpace.fromValues(coeff)
         return this.fromNumVector(numVector, deg)
+    }
+
+    fun getBasis(deg: Degree): List<GVector<B, S, V>> {
+        return this[deg].getBasis().map { vector ->
+            GVector(vector, deg, this)
+        }
     }
 }

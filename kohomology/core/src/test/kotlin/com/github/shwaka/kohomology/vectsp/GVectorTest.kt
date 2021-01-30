@@ -30,14 +30,21 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSp
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    // val field = numVectorSpace.field
-    // val zero = field.zero
-    // val one = field.one
+    val field = numVectorSpace.field
+    val zero = field.zero
+    val one = field.one
+    val gVectorSpace = GVectorSpace(numVectorSpace) { deg -> (0 until deg).map { "v$it" } }
 
     "get() should return the cache if exists" {
-        val gVectorSpace = GVectorSpace(numVectorSpace) { deg -> (0 until deg).map { "v$it" } }
         val vectorSpace1 = gVectorSpace[1]
         gVectorSpace[1] shouldBeSameInstanceAs vectorSpace1
+    }
+
+    "getBasis(deg) should return the correct basis" {
+        val v0 = gVectorSpace.fromCoeff(listOf(one, zero, zero), 3)
+        val v1 = gVectorSpace.fromCoeff(listOf(zero, one, zero), 3)
+        val v2 = gVectorSpace.fromCoeff(listOf(zero, zero, one), 3)
+        gVectorSpace.getBasis(3) shouldBe listOf(v0, v1, v2)
     }
 }
 

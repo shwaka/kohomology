@@ -9,7 +9,7 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
     operator fun plus(other: M): M
     operator fun minus(other: M): M
     operator fun times(other: M): M
-    operator fun times(vector: V): V
+    operator fun times(numVector: V): V
     operator fun times(scalar: S): M
     operator fun times(scalar: Int): M {
         return this * this.matrixSpace.field.fromInt(scalar)

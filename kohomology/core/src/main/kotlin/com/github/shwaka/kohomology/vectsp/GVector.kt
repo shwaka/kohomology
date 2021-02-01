@@ -20,7 +20,27 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
             throw ArithmeticException("Cannot add two graded vectors in different graded vector spaces")
         if (this.degree != other.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        return GVector(this.vector + other.vector, this.degree, this.gVectorSpace)
+        return this.gVectorSpace.fromVector(this.vector + other.vector, this.degree)
+    }
+
+    operator fun minus(other: GVector<B, S, V>): GVector<B, S, V> {
+        if (this.gVectorSpace != other.gVectorSpace)
+            throw ArithmeticException("Cannot subtract two graded vectors in different graded vector spaces")
+        if (this.degree != other.degree)
+            throw ArithmeticException("Cannot subtract two graded vectors of different degrees")
+        return this.gVectorSpace.fromVector(this.vector + other.vector, this.degree)
+    }
+
+    operator fun unaryMinus(): GVector<B, S, V> {
+        return this.gVectorSpace.fromVector(-this.vector, this.degree)
+    }
+
+    operator fun times(scalar: S): GVector<B, S, V> {
+        return this.gVectorSpace.fromVector(this.vector * scalar, this.degree)
+    }
+
+    operator fun times(scalar: Int): GVector<B, S, V> {
+        return this.gVectorSpace.fromVector(this.vector * scalar, this.degree)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -49,6 +69,7 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     private val getBasisNames: (Degree) -> List<B>
 ) {
+    val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
     operator fun get(degree: Degree): VectorSpace<B, S, V> {

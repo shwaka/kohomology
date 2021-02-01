@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
+import com.github.shwaka.kohomology.linalg.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -47,6 +48,6 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
 
 class BigRationalLinearMapTest : StringSpec({
     tags(linearMapTag, bigRationalTag)
-    val matrixSpace = DenseMatrixSpace(DenseNumVectorSpace.from(BigRationalField))
+    val matrixSpace = DenseMatrixSpaceOverBigRational
     include(linearMapTest(matrixSpace))
 })

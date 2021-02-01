@@ -152,3 +152,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
         return DenseMatrix(values, this, rowCount, colCount)
     }
 }
+
+val DenseMatrixSpaceOverIntRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverIntRational)
+val DenseMatrixSpaceOverLongRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverLongRational)
+val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)

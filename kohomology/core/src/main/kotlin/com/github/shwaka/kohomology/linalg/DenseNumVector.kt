@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.Field
+import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.field.LongRationalField
 import com.github.shwaka.kohomology.field.Scalar
 
 class DenseNumVector<S : Scalar<S>>(val values: List<S>, override val numVectorSpace: DenseNumVectorSpace<S>) : NumVector<S, DenseNumVector<S>> {
@@ -80,3 +83,7 @@ private constructor(override val field: Field<S>) : NumVectorSpace<S, DenseNumVe
         return this.fromValues(values)
     }
 }
+
+val DenseNumVectorSpaceOverIntRational = DenseNumVectorSpace.from(IntRationalField)
+val DenseNumVectorSpaceOverLongRational = DenseNumVectorSpace.from(LongRationalField)
+val DenseNumVectorSpaceOverBigRational = DenseNumVectorSpace.from(BigRationalField)

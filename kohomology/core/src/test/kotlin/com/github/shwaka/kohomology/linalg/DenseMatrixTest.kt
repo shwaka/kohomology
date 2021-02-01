@@ -217,8 +217,7 @@ const val matrixSizeForDet = 4
 class IntRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intRationalTag)
 
-    val vectorSpace = DenseNumVectorSpace.from(IntRationalField)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val matrixSpace = DenseMatrixSpaceOverIntRational
     include(denseMatrixSpaceTest(IntRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
@@ -229,8 +228,7 @@ class IntRationalDenseMatrixTest : StringSpec({
 class LongRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, longRationalTag)
 
-    val vectorSpace = DenseNumVectorSpace.from(LongRationalField)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val matrixSpace = DenseMatrixSpaceOverLongRational
     include(denseMatrixSpaceTest(LongRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
@@ -241,8 +239,7 @@ class LongRationalDenseMatrixTest : StringSpec({
 class BigRationalDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, bigRationalTag)
 
-    val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val matrixSpace = DenseMatrixSpaceOverBigRational
     include(denseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
@@ -250,6 +247,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 
     "fromVectors should work correctly (use statically selected field)" {
+        val vectorSpace = DenseNumVectorSpaceOverBigRational
         val zero = BigRationalField.zero
         val one = BigRationalField.one
         val two = BigRationalField.fromInt(2)

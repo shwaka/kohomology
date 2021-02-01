@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
+import com.github.shwaka.kohomology.linalg.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -66,7 +67,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVect
 class BigRationalVectorTest : StringSpec({
     tags(vectorTag, bigRationalTag)
 
-    val numVectorSpace = DenseNumVectorSpace.from(BigRationalField)
+    val numVectorSpace = DenseNumVectorSpaceOverBigRational
     include(vectorTest(numVectorSpace))
     include(vectorSpaceTest(numVectorSpace))
 })

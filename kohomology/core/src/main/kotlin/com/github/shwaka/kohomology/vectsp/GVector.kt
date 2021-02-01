@@ -63,6 +63,10 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
         result = 31 * result + gVectorSpace.hashCode()
         return result
     }
+
+    override fun toString(): String = this.vector.toString()
+
+    fun toString(basisToString: (B) -> String): String = this.vector.toString(basisToString)
 }
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(

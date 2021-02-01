@@ -195,8 +195,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2
 fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec {
     if (n < 0) throw IllegalArgumentException("Matrix size n should be non-negative")
     if (max < 0) throw IllegalArgumentException("max should be non-negative")
-    val vectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val numVectorSpace = DenseNumVectorSpace.from(field)
+    val matrixSpace = DenseMatrixSpace(numVectorSpace)
     val scalarArb = field.arb(Arb.int(-max..max))
     "det and detByPermutations should be the same" {
         checkAll(Exhaustive.ints(1..n)) { k ->
@@ -247,7 +247,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
 
     "fromVectors should work correctly (use statically selected field)" {
-        val vectorSpace = DenseNumVectorSpaceOverBigRational
+        val numVectorSpace = DenseNumVectorSpaceOverBigRational
         val zero = BigRationalField.zero
         val one = BigRationalField.one
         val two = BigRationalField.fromInt(2)
@@ -256,8 +256,8 @@ class BigRationalDenseMatrixTest : StringSpec({
             listOf(zero, one),
             listOf(two, three)
         )
-        val v = vectorSpace.fromValues(zero, two)
-        val w = vectorSpace.fromValues(one, three)
+        val v = numVectorSpace.fromValues(zero, two)
+        val w = numVectorSpace.fromValues(one, three)
         (matrixSpace.fromVectors(v, w)) shouldBe expectedMat
     }
 })
@@ -265,8 +265,8 @@ class BigRationalDenseMatrixTest : StringSpec({
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intModpTag)
 
-    val vectorSpace = DenseNumVectorSpace.from(F5)
-    val matrixSpace = DenseMatrixSpace(vectorSpace)
+    val numVectorSpace = DenseNumVectorSpace.from(F5)
+    val matrixSpace = DenseMatrixSpace(numVectorSpace)
     include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))

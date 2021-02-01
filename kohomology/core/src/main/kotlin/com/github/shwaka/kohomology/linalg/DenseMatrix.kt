@@ -55,11 +55,11 @@ class DenseMatrix<S : Scalar<S>>(
         return this.matrixSpace.fromRows(values)
     }
 
-    override fun times(vector: DenseNumVector<S>): DenseNumVector<S> {
-        if (this.colCount != vector.dim)
+    override fun times(numVector: DenseNumVector<S>): DenseNumVector<S> {
+        if (this.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = this.values.map { row ->
-            row.zip(vector.values)
+            row.zip(numVector.values)
                 .map { it.first * it.second }
                 .reduce { a, b -> a + b }
         }

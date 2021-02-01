@@ -126,7 +126,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
         )
         val v = numVectorSpace.fromValues(zero, two)
         val w = numVectorSpace.fromValues(one, three)
-        (matrixSpace.fromVectors(listOf(v, w))) shouldBe expectedMat
+        (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
     }
     "reduced row echelon form of invertible matrix should be the unit matrix" {
         val expectedMat = matrixSpace.fromRows(
@@ -157,7 +157,7 @@ inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> mat
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
-            matrixSpace.fromVectors(v, v)
+            matrixSpace.fromNumVectors(v, v)
         }
     }
 }
@@ -258,7 +258,7 @@ class BigRationalDenseMatrixTest : StringSpec({
         )
         val v = numVectorSpace.fromValues(zero, two)
         val w = numVectorSpace.fromValues(one, three)
-        (matrixSpace.fromVectors(v, w)) shouldBe expectedMat
+        (matrixSpace.fromNumVectors(v, w)) shouldBe expectedMat
     }
 })
 

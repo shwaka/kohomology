@@ -71,15 +71,15 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
             throw IllegalArgumentException("Column list is empty, which is not supported")
         return this.fromCols(cols.toList())
     }
-    fun fromVectors(vectors: List<V>): M {
-        if (vectors.isEmpty())
+    fun fromNumVectors(numVectors: List<V>): M {
+        if (numVectors.isEmpty())
             throw IllegalArgumentException("Vector list is empty, which is not supported")
-        val cols = vectors.map { v -> v.toList() }
+        val cols = numVectors.map { v -> v.toList() }
         return this.fromCols(cols)
     }
-    fun fromVectors(vararg vectors: V): M {
+    fun fromNumVectors(vararg numVectors: V): M {
         // This does not work (due to type erasure?)
-        return this.fromVectors(vectors.toList())
+        return this.fromNumVectors(numVectors.toList())
     }
 
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M

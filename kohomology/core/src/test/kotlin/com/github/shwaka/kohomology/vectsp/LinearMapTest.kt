@@ -26,7 +26,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
             listOf(two, zero),
             listOf(one, one)
         )
-        val f = LinearMap(vectorSpace1, vectorSpace2, matrix)
+        val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrix)
         val v = vectorSpace1.fromCoeff(one, -one)
         val w = vectorSpace2.fromCoeff(two, zero)
         f(v) shouldBe w
@@ -46,7 +46,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
         val w = vectorSpace2.fromCoeff(two, zero)
         val matrix = matrixSpace.fromNumVectors(listOf(v, w).map { it.toNumVector() })
         val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
-        val expected = LinearMap(vectorSpace1, vectorSpace2, matrix)
+        val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrix)
         f shouldBe expected
     }
 }

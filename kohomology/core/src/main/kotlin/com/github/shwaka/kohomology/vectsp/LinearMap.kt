@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 
-class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
     val source: VectorSpace<B0, S, V>,
     val target: VectorSpace<B1, S, V>,
     val matrix: M
@@ -58,6 +58,14 @@ class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B, B, S, V, M> {
             return LinearMap(source, source, matrixSpace.getId(source.dim))
+        }
+
+        fun <B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> fromMatrix(
+            source: VectorSpace<B0, S, V>,
+            target: VectorSpace<B1, S, V>,
+            matrix: M
+        ): LinearMap<B0, B1, S, V, M> {
+            return LinearMap(source, target, matrix)
         }
 
         fun <B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(

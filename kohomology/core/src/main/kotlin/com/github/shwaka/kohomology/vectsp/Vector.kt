@@ -34,6 +34,10 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
         return Vector(this.numVector * scalar, this.vectorSpace)
     }
 
+    fun toNumVector(): V {
+        return this.numVector
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

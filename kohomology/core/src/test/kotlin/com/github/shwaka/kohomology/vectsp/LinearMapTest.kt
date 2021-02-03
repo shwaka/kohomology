@@ -41,6 +41,14 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
         val v = vectorSpace1.fromCoeff(one, two)
         f(v) shouldBe v
     }
+    "fromVectors test" {
+        val v = vectorSpace2.fromCoeff(one, -one)
+        val w = vectorSpace2.fromCoeff(two, zero)
+        val matrix = matrixSpace.fromNumVectors(listOf(v, w).map { it.toNumVector() })
+        val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
+        val expected = LinearMap(vectorSpace1, vectorSpace2, matrix)
+        f shouldBe expected
+    }
 }
 
 class BigRationalLinearMapTest : StringSpec({

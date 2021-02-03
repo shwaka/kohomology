@@ -19,21 +19,21 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> gLinearMapTest(mat
     val field = matrixSpace.field
     val zero = field.zero
     val one = field.one
-
-    "graded linear map test" {
-        val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1) { degree ->
-            val rows = (0 until (degree + 1)).map { i ->
-                (0 until degree).map { j ->
-                    when (i) {
-                        j -> one
-                        j + 1 -> one
-                        else -> zero
-                    }
+    val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1) { degree ->
+        val rows = (0 until (degree + 1)).map { i ->
+            (0 until degree).map { j ->
+                when (i) {
+                    j -> one
+                    j + 1 -> one
+                    else -> zero
                 }
             }
-            val matrix = matrixSpace.fromRows(rows)
-            LinearMap(gVectorSpace[degree], gVectorSpace[degree + 1], matrix)
         }
+        val matrix = matrixSpace.fromRows(rows)
+        LinearMap(gVectorSpace[degree], gVectorSpace[degree + 1], matrix)
+    }
+
+    "graded linear map test" {
         val (v0, v1) = gVectorSpace.getBasis(2)
         val (w0, w1, w2) = gVectorSpace.getBasis(3)
         gLinearMap(v0) shouldBe (w0 + w1)

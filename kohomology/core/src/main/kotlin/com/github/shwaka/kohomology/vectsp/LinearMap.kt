@@ -23,6 +23,27 @@ class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>
         return Vector(this.matrix * vector.numVector, this.target)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as LinearMap<*, *, *, *, *>
+
+        if (source != other.source) return false
+        if (target != other.target) return false
+        if (matrix != other.matrix) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = source.hashCode()
+        result = 31 * result + target.hashCode()
+        result = 31 * result + matrix.hashCode()
+        return result
+    }
+
     companion object {
         fun <B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> getZero(
             source: VectorSpace<B0, S, V>,
@@ -37,6 +58,23 @@ class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B, B, S, V, M> {
             return LinearMap(source, source, matrixSpace.getId(source.dim))
+        }
+
+        fun <B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(
+            source: VectorSpace<B0, S, V>,
+            target: VectorSpace<B1, S, V>,
+            matrixSpace: MatrixSpace<S, V, M>,
+            vectors: List<Vector<B1, S, V>>
+        ): LinearMap<B0, B1, S, V, M> {
+            if (vectors.size != source.dim)
+                throw IllegalArgumentException("The number of vectors must be the same as the dimension of the source vector space")
+            for (vector in vectors) {
+                if (vector.vectorSpace != target)
+                    throw IllegalArgumentException("The vector space for each vector must be the same as the target vector space")
+            }
+            val numVectors = vectors.map { it.toNumVector() }
+            val matrix = matrixSpace.fromNumVectors(numVectors)
+            return LinearMap(source, target, matrix)
         }
     }
 }

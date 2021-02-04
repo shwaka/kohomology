@@ -38,6 +38,10 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
         return this.numVector
     }
 
+    fun coeffOf(basisName: B): S {
+        return this.numVector[this.vectorSpace.indexOf(basisName)]
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -98,6 +102,13 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
             val coeff = (0 until this.dim).map { j -> if (i == j) one else zero }
             this.fromCoeff(coeff)
         }
+    }
+
+    fun indexOf(basisName: B): Int {
+        val index = this.basisNames.indexOf(basisName)
+        if (index == -1)
+            throw Exception("${basisName} is not a name of basis element of this vector space")
+        return index
     }
 
     override fun equals(other: Any?): Boolean {

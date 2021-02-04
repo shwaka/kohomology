@@ -41,4 +41,12 @@ class TensorProduct<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
         }
         return this.vectorSpace.fromCoeff(coeffList)
     }
+
+    infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
+        return this@TensorProduct.tensorProductOf(this, other)
+    }
+
+    fun withContext(block: TensorProduct<B1, B2, S, V>.() -> Unit) {
+        block()
+    }
 }

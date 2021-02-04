@@ -35,6 +35,13 @@ fun <S : Scalar<S>, V : NumVector<S, V>> tensorProductTest(numVectorSpace: NumVe
         val expected = 2 * v1w1 - v1w2 + 6 * v2w1 - 3 * v2w2
         tensorProduct.tensorProductOf(v1 + 3 * v2, 2 * w1 - w2) shouldBe expected
     }
+    "context test" {
+        tensorProduct.withContext {
+            (v1 tensor w1) shouldBe v1w1
+            ((v1 + 3 * v2) tensor (2 * w1 - w2)) shouldBe
+                ((2 * v1 tensor w1) - (v1 tensor w2) + (6 * v2 tensor w1) - (3 * v2 tensor w2))
+        }
+    }
 }
 
 class TensorProductTest : StringSpec({

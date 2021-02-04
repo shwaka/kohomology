@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 
 data class BasisPair<B1, B2>(val first: B1, val second: B2) {
     private fun stringPairToString(s1: String, s2: String): String {
-        return "(${s1}, ${s2})"
+        return "($s1, $s2)"
     }
     override fun toString(): String {
         return this.stringPairToString(this.first.toString(), this.second.toString())

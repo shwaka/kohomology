@@ -115,7 +115,7 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     fun indexOf(basisName: B): Int {
         val index = this.basisNames.indexOf(basisName)
         if (index == -1)
-            throw Exception("${basisName} is not a name of basis element of this vector space")
+            throw Exception("$basisName is not a name of basis element of this vector space")
         return index
     }
 

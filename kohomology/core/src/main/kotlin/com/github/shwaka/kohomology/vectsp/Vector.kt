@@ -72,6 +72,14 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 }
 
+operator fun <B, S : Scalar<S>, V : NumVector<S, V>> Int.times(vector: Vector<B, S, V>): Vector<B, S, V> {
+    return vector * this
+}
+
+operator fun <B, S : Scalar<S>, V : NumVector<S, V>> S.times(vector: Vector<B, S, V>): Vector<B, S, V> {
+    return vector * this
+}
+
 class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>

@@ -32,8 +32,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>> tensorProductTest(numVectorSpace: NumVe
         tensorProduct.vectorSpace.getBasis() shouldBe listOf(v1w1, v1w2, v1w3, v2w1, v2w2, v2w3)
     }
     "Tensor product of two vectors" {
-        val expected = v1w1 * 2 - v1w2 + v2w1 * 6 - v2w2 * 3
-        tensorProduct.tensorProductOf(v1 + v2 * 3, w1 * 2 - w2) shouldBe expected
+        val expected = 2 * v1w1 - v1w2 + 6 * v2w1 - 3 * v2w2
+        tensorProduct.tensorProductOf(v1 + 3 * v2, 2 * w1 - w2) shouldBe expected
     }
 }
 

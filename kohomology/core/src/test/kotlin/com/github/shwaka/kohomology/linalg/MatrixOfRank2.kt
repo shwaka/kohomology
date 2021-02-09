@@ -3,14 +3,17 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.field.Scalar
 
 class MatrixOfRank2<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(private val mat: M) {
+    private val matrixSpace = mat.matrixSpace
     init {
-        if (mat.rowCount != 2 || mat.colCount != 2)
-            throw IllegalArgumentException("mat should be square matrix of rank 2")
+        this.matrixSpace.withContext {
+            if (mat.rowCount != 2 || mat.colCount != 2)
+                throw IllegalArgumentException("mat should be square matrix of rank 2")
+        }
     }
-    private val a = mat[0, 0]
-    private val b = mat[0, 1]
-    private val c = mat[1, 0]
-    private val d = mat[1, 1]
+    private val a = this.matrixSpace.withContext { mat[0, 0] }
+    private val b = this.matrixSpace.withContext { mat[0, 1] }
+    private val c = this.matrixSpace.withContext { mat[1, 0] }
+    private val d = this.matrixSpace.withContext { mat[1, 1] }
 
     operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.mat.matrixSpace.fromRows(

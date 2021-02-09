@@ -4,136 +4,122 @@ import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.util.StringTable
 
-class DenseMatrix<S : Scalar<S>>(
-    private val values: List<List<S>>,
+data class DenseMatrix<S : Scalar<S>>(
     override val matrixSpace: DenseMatrixSpace<S>,
-    rowCount: Int? = null,
-    colCount: Int? = null
+    val values: List<List<S>>,
+    override val rowCount: Int,
+    override val colCount: Int
 ) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
-    init {
-        if (colCount == null && values.isEmpty())
-            throw IllegalArgumentException("colCount should be explicitly set when the matrix has no row")
-    }
-    override val rowCount: Int = rowCount ?: this.values.size
-    override val colCount: Int = colCount ?: this.values[0].size
     init {
         if (this.values.any { row -> row.size != this.colCount })
             throw IllegalArgumentException("The length of each row must be equal to colCount")
     }
-
-    override fun plus(other: DenseMatrix<S>): DenseMatrix<S> {
-        if (this.rowCount != other.rowCount || this.colCount != other.colCount)
-            throw ArithmeticException("Cannot add matrices: different shapes")
-        val values = this.values.zip(other.values).map { (rowInThis, rowInOther) ->
-            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
-        }
-        return this.matrixSpace.fromRows(values)
-    }
-
-    override fun minus(other: DenseMatrix<S>): DenseMatrix<S> {
-        return this + other * (-1)
-    }
-
-    override fun times(other: DenseMatrix<S>): DenseMatrix<S> {
-        if (this.colCount != other.rowCount)
-            throw ArithmeticException("Cannot multiply matrices: this.colCount != other.rowCount")
-        val rowRange = 0 until this.rowCount
-        val sumRange = 0 until this.colCount
-        val colRange = 0 until other.colCount
-        val values = rowRange.map { i ->
-            colRange.map { j ->
-                sumRange
-                    .map { k -> this.values[i][k] * other.values[k][j] }
-                    .reduce(Scalar<S>::plus)
-            }
-        }
-        return this.matrixSpace.fromRows(values)
-    }
-
-    override fun times(scalar: S): DenseMatrix<S> {
-        val values = this.values.map { row -> row.map { elm -> -elm } }
-        return this.matrixSpace.fromRows(values)
-    }
-
-    override fun times(numVector: DenseNumVector<S>): DenseNumVector<S> {
-        if (this.colCount != numVector.dim)
-            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
-        val values = this.values.map { row ->
-            row.zip(numVector.values)
-                .map { it.first * it.second }
-                .reduce { a, b -> a + b }
-        }
-        return this.matrixSpace.numVectorSpace.fromValues(values)
-    }
-
-    override val rowEchelonForm: RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> by lazy {
-        DenseRowEchelonForm(this)
-    }
-
-    override fun get(rowInd: Int, colInd: Int): S {
-        return this.values[rowInd][colInd]
-    }
-
-    override fun unwrap(): DenseMatrix<S> {
-        return this
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (this::class != other::class) return false
-
-        other as DenseMatrix<*>
-
-        if (this.values != other.values) return false
-        if (this.matrixSpace != other.matrixSpace) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = values.hashCode()
-        result = 31 * result + matrixSpace.hashCode()
-        return result
-    }
-
     private fun toStringTable(): StringTable {
         return StringTable(this.values.map { row -> row.map { it.toString() } })
     }
 
-    override fun toString(): String {
-        return this.toStringTable().toString()
-    }
-
     override fun toPrettyString(): String {
         return this.toStringTable().toPrettyString()
+    }
+
+    override fun toString(): String {
+        return this.toStringTable().toString()
     }
 }
 
 class DenseMatrixSpace<S : Scalar<S>>(
     override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
-    override val field: Field<S> = numVectorSpace.field
+
+    class DenseMatrixContext<S : Scalar<S>>(
+        override val field: Field<S>,
+        private val numVectorSpace: DenseNumVectorSpace<S>,
+        private val matrixSpace: DenseMatrixSpace<S>
+    ) : MatrixOperations<S, DenseNumVector<S>, DenseMatrix<S>> by matrixSpace,
+        MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>>
+
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<DenseNumVectorSpace<*>, DenseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar<S>> from(vectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
-            if (this.cache.containsKey(vectorSpace)) {
+        fun <S : Scalar<S>> from(numVectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
+            if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
-                return this.cache[vectorSpace] as DenseMatrixSpace<S>
+                return this.cache[numVectorSpace] as DenseMatrixSpace<S>
             } else {
-                val matrixSpace = DenseMatrixSpace(vectorSpace)
-                this.cache[vectorSpace] = matrixSpace
+                val matrixSpace = DenseMatrixSpace(numVectorSpace)
+                this.cache[numVectorSpace] = matrixSpace
                 return matrixSpace
             }
         }
     }
 
+    override val matrixContext: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> =
+        DenseMatrixContext(this.numVectorSpace.field, this.numVectorSpace, this)
+
+    override val field: Field<S> = this.numVectorSpace.field
+
+    override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
+        return this.withContext {
+            if (first.rowCount != second.rowCount || first.colCount != second.colCount)
+                throw ArithmeticException("Cannot add matrices: different shapes")
+            val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
+                rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
+            }
+            this@DenseMatrixSpace.fromRows(values)
+        }
+    }
+
+    override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
+        return this.withContext {
+            first + (-1) * second
+        }
+    }
+
+    override fun multiply(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
+        return this.withContext {
+            if (first.colCount != second.rowCount)
+                throw ArithmeticException("Cannot multiply matrices: this.colCount != other.rowCount")
+            val rowRange = 0 until first.rowCount
+            val sumRange = 0 until first.colCount
+            val colRange = 0 until second.colCount
+            val values = rowRange.map { i ->
+                colRange.map { j ->
+                    sumRange
+                        .map { k -> first.values[i][k] * second.values[k][j] }
+                        .reduce(Scalar<S>::plus)
+                }
+            }
+            this@DenseMatrixSpace.fromRows(values)
+        }
+    }
+
+    override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
+        val values = matrix.values.map { row -> row.map { elm -> -elm } }
+        return this@DenseMatrixSpace.fromRows(values)
+    }
+
+    override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
+        return this.withContext {
+            if (matrix.colCount != numVector.dim)
+                throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
+            val values = matrix.values.map { row ->
+                row.zip(numVector.values)
+                    .map { it.first * it.second }
+                    .reduce { a, b -> a + b }
+            }
+            this@DenseMatrixSpace.numVectorSpace.fromValues(values)
+        }
+    }
+
+    override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
+        return DenseRowEchelonForm(matrix)
+    }
+
     override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")
-        return DenseMatrix(rows, this)
+        return DenseMatrix(this, rows, rows.size, rows[0].size)
     }
 
     override fun fromCols(cols: List<List<S>>): DenseMatrix<S> {
@@ -149,7 +135,11 @@ class DenseMatrixSpace<S : Scalar<S>>(
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return DenseMatrix(values, this, rowCount, colCount)
+        return DenseMatrix(this, values, rowCount, colCount)
+    }
+
+    override fun getElement(matrix: DenseMatrix<S>, rowInd: Int, colInd: Int): S {
+        return matrix.values[rowInd][colInd]
     }
 }
 

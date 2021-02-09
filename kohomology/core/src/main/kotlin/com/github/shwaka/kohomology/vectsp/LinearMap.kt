@@ -10,6 +10,7 @@ class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>
     val target: VectorSpace<B1, S, V>,
     val matrix: M
 ) {
+    private val matrixSpace = this.matrix.matrixSpace
     init {
         if (this.matrix.colCount != this.source.dim)
             throw IllegalArgumentException("The number of columns of the representing matrix does not match the dimension of the source vector space")
@@ -20,7 +21,9 @@ class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>
     operator fun invoke(vector: Vector<B0, S, V>): Vector<B1, S, V> {
         if (vector.vectorSpace != this.source)
             throw IllegalArgumentException("Invalid vector is given as an argument for a linear map")
-        return Vector(this.matrix * vector.numVector, this.target)
+        return this.matrixSpace.withContext {
+            Vector(this@LinearMap.matrix * vector.numVector, this@LinearMap.target)
+        }
     }
 
     override fun equals(other: Any?): Boolean {

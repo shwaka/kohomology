@@ -60,14 +60,12 @@ class DenseMatrixSpace<S : Scalar<S>>(
     override val field: Field<S> = this.numVectorSpace.field
 
     override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
-        return this.withContext {
-            if (first.rowCount != second.rowCount || first.colCount != second.colCount)
-                throw ArithmeticException("Cannot add matrices: different shapes")
-            val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
-                rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
-            }
-            this@DenseMatrixSpace.fromRows(values)
+        if (first.rowCount != second.rowCount || first.colCount != second.colCount)
+            throw ArithmeticException("Cannot add matrices: different shapes")
+        val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
+            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
         }
+        return this.fromRows(values)
     }
 
     override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
@@ -77,39 +75,35 @@ class DenseMatrixSpace<S : Scalar<S>>(
     }
 
     override fun multiply(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
-        return this.withContext {
-            if (first.colCount != second.rowCount)
-                throw ArithmeticException("Cannot multiply matrices: this.colCount != other.rowCount")
-            val rowRange = 0 until first.rowCount
-            val sumRange = 0 until first.colCount
-            val colRange = 0 until second.colCount
-            val values = rowRange.map { i ->
-                colRange.map { j ->
-                    sumRange
-                        .map { k -> first.values[i][k] * second.values[k][j] }
-                        .reduce(Scalar<S>::plus)
-                }
+        if (first.colCount != second.rowCount)
+            throw ArithmeticException("Cannot multiply matrices: this.colCount != other.rowCount")
+        val rowRange = 0 until first.rowCount
+        val sumRange = 0 until first.colCount
+        val colRange = 0 until second.colCount
+        val values = rowRange.map { i ->
+            colRange.map { j ->
+                sumRange
+                    .map { k -> first.values[i][k] * second.values[k][j] }
+                    .reduce(Scalar<S>::plus)
             }
-            this@DenseMatrixSpace.fromRows(values)
         }
+        return this.fromRows(values)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
         val values = matrix.values.map { row -> row.map { elm -> -elm } }
-        return this@DenseMatrixSpace.fromRows(values)
+        return this.fromRows(values)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
-        return this.withContext {
-            if (matrix.colCount != numVector.dim)
-                throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
-            val values = matrix.values.map { row ->
-                row.zip(numVector.values)
-                    .map { it.first * it.second }
-                    .reduce { a, b -> a + b }
-            }
-            this@DenseMatrixSpace.numVectorSpace.fromValues(values)
+        if (matrix.colCount != numVector.dim)
+            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
+        val values = matrix.values.map { row ->
+            row.zip(numVector.values)
+                .map { it.first * it.second }
+                .reduce { a, b -> a + b }
         }
+        return this.numVectorSpace.fromValues(values)
     }
 
     override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {

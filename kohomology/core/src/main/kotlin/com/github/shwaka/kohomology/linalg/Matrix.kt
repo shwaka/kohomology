@@ -23,7 +23,9 @@ interface MatrixOperations<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, 
     fun getElement(matrix: M, rowInd: Int, colInd: Int): S
 }
 
-interface MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> : MatrixOperations<S, V, M> {
+class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+    private val operations: MatrixOperations<S, V, M>
+) : MatrixOperations<S, V, M> by operations {
     operator fun M.plus(other: M): M = this@MatrixContext.add(this, other)
     operator fun M.minus(other: M): M = this@MatrixContext.subtract(this, other)
     operator fun M.times(other: M): M = this@MatrixContext.multiply(this, other)

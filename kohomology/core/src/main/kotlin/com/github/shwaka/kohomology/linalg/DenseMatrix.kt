@@ -31,12 +31,12 @@ class DenseMatrixSpace<S : Scalar<S>>(
     override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
 
-    class DenseMatrixContext<S : Scalar<S>>(
-        override val field: Field<S>,
-        private val numVectorSpace: DenseNumVectorSpace<S>,
-        private val matrixSpace: DenseMatrixSpace<S>
-    ) : MatrixOperations<S, DenseNumVector<S>, DenseMatrix<S>> by matrixSpace,
-        MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>>
+    // class DenseMatrixContext<S : Scalar<S>>(
+    //     override val field: Field<S>,
+    //     private val numVectorSpace: DenseNumVectorSpace<S>,
+    //     private val matrixSpace: DenseMatrixSpace<S>
+    // ) : MatrixOperations<S, DenseNumVector<S>, DenseMatrix<S>> by matrixSpace,
+    //     MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>>
 
     companion object {
         // TODO: cache まわりの型が割とやばい
@@ -54,8 +54,10 @@ class DenseMatrixSpace<S : Scalar<S>>(
         }
     }
 
-    override val matrixContext: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> =
-        DenseMatrixContext(this.numVectorSpace.field, this.numVectorSpace, this)
+    // override val matrixContext: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> =
+    //     DenseMatrixContext(this.numVectorSpace.field, this.numVectorSpace, this)
+
+    override val matrixContext = MatrixContext(this)
 
     override val field: Field<S> = this.numVectorSpace.field
 

@@ -87,7 +87,7 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> :
     fun fromNumVectors(numVectors: List<V>): M {
         if (numVectors.isEmpty())
             throw IllegalArgumentException("Vector list is empty, which is not supported")
-        val cols = numVectors.map { v -> v.toList() }
+        val cols = this.numVectorSpace.withContext { numVectors.map { v -> v.toList() } }
         return this.fromCols(cols)
     }
 

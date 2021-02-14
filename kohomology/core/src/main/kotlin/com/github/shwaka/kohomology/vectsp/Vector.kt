@@ -13,25 +13,35 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     operator fun plus(other: Vector<B, S, V>): Vector<B, S, V> {
         if (this.vectorSpace != other.vectorSpace)
             throw ArithmeticException("Cannot add two vectors in different vector spaces")
-        return Vector(this.numVector + other.numVector, this.vectorSpace)
+        return this.vectorSpace.numVectorSpace.withContext {
+            Vector(this@Vector.numVector + other.numVector, this@Vector.vectorSpace)
+        }
     }
 
     operator fun minus(other: Vector<B, S, V>): Vector<B, S, V> {
         if (this.vectorSpace != other.vectorSpace)
             throw ArithmeticException("Cannot subtract two vectors in different vector spaces")
-        return Vector(this.numVector - other.numVector, this.vectorSpace)
+        return this.vectorSpace.numVectorSpace.withContext {
+            Vector(this@Vector.numVector - other.numVector, this@Vector.vectorSpace)
+        }
     }
 
     operator fun unaryMinus(): Vector<B, S, V> {
-        return Vector(-this.numVector, this.vectorSpace)
+        return this.vectorSpace.numVectorSpace.withContext {
+            Vector(-this@Vector.numVector, this@Vector.vectorSpace)
+        }
     }
 
     operator fun times(scalar: S): Vector<B, S, V> {
-        return Vector(this.numVector * scalar, this.vectorSpace)
+        return this.vectorSpace.numVectorSpace.withContext{
+            Vector(this@Vector.numVector * scalar, this@Vector.vectorSpace)
+        }
     }
 
     operator fun times(scalar: Int): Vector<B, S, V> {
-        return Vector(this.numVector * scalar, this.vectorSpace)
+        return this.vectorSpace.numVectorSpace.withContext {
+            Vector(this@Vector.numVector * scalar, this@Vector.vectorSpace)
+        }
     }
 
     fun toNumVector(): V {
@@ -39,7 +49,9 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 
     fun coeffOf(basisName: B): S {
-        return this.numVector[this.vectorSpace.indexOf(basisName)]
+        return this.vectorSpace.numVectorSpace.withContext {
+            this@Vector.numVector[this@Vector.vectorSpace.indexOf(basisName)]
+        }
     }
 
     override fun equals(other: Any?): Boolean {
@@ -62,7 +74,9 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 
     fun toString(basisToString: (B) -> String): String {
-        val coeffList = this.numVector.toList()
+        val coeffList = this.vectorSpace.numVectorSpace.withContext {
+            this@Vector.numVector.toList()
+        }
         val basis = this.vectorSpace.basisNames.map(basisToString)
         return coeffList.zip(basis).joinToString(separator = " + ") { (coeff, basisElm) -> "$coeff $basisElm" }
     }

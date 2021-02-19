@@ -65,7 +65,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
             throw ArithmeticException("Cannot add matrices: different shapes")
         val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
-            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> elmInThis + elmInOther }
+            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.withContext { elmInThis + elmInOther } }
         }
         return this.fromRows(values)
     }
@@ -85,15 +85,15 @@ class DenseMatrixSpace<S : Scalar<S>>(
         val values = rowRange.map { i ->
             colRange.map { j ->
                 sumRange
-                    .map { k -> first.values[i][k] * second.values[k][j] }
-                    .reduce(Scalar<S>::plus)
+                    .map { k -> this.field.withContext { first.values[i][k] * second.values[k][j] } }
+                    .reduce(this.field::add)
             }
         }
         return this.fromRows(values)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
-        val values = matrix.values.map { row -> row.map { elm -> -elm } }
+        val values = matrix.values.map { row -> row.map { elm -> this.field.withContext { -elm } } }
         return this.fromRows(values)
     }
 
@@ -102,8 +102,8 @@ class DenseMatrixSpace<S : Scalar<S>>(
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = matrix.values.map { row ->
             row.zip(numVector.values)
-                .map { it.first * it.second }
-                .reduce { a, b -> a + b }
+                .map { this.field.withContext { it.first * it.second } }
+                .reduce { a, b -> this.field.withContext { a + b } }
         }
         return this.numVectorSpace.fromValues(values)
     }

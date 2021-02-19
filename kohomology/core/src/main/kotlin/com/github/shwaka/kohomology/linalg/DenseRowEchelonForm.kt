@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.field.Scalar
 class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix<S>) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
     private val matrixSpace = originalMatrix.matrixSpace
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.withContext { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
+    private val field = originalMatrix.matrixSpace.field
     override val matrix: DenseMatrix<S>
         get() = this.matrixSpace.fromRows(this.data.matrix)
     override val pivots: List<Int>
@@ -18,7 +19,9 @@ class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix
         val one = this.matrixSpace.field.one
         val rawReducedMatrix = (0 until rowCount).map { i ->
             val a = if (i < rank) rowEchelonMatrix[i][this.pivots[i]] else one
-            rowEchelonMatrix[i] * a.inv()
+            this.field.withContext {
+                rowEchelonMatrix[i] * a.inv()
+            }
         }
         this.matrixSpace.fromRows(rawReducedMatrix)
     }

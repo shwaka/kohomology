@@ -39,8 +39,10 @@ class DenseNumVectorSpace<S : Scalar<S>>(
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot add numVectors of different dim")
         val result: MutableList<S> = mutableListOf()
-        for (i in a.values.indices) {
-            result.add(a.values[i] + b.values[i])
+        this.field.withContext {
+            for (i in a.values.indices) {
+                result.add(a.values[i] + b.values[i])
+            }
         }
         return DenseNumVector(result, a.numVectorSpace)
     }
@@ -49,14 +51,17 @@ class DenseNumVectorSpace<S : Scalar<S>>(
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot subtract numVectors of different dim")
         val result: MutableList<S> = mutableListOf()
-        for (i in a.values.indices) {
-            result.add(a.values[i] - b.values[i])
+        this.field.withContext {
+            for (i in a.values.indices) {
+                result.add(a.values[i] - b.values[i])
+            }
         }
         return DenseNumVector(result, a.numVectorSpace)
     }
 
     override fun multiply(scalar: S, numVector: DenseNumVector<S>): DenseNumVector<S> {
-        return DenseNumVector(numVector.values.map { it * scalar }, numVector.numVectorSpace)
+        val values: List<S> = this.field.withContext { numVector.values.map { it * scalar } }
+        return DenseNumVector(values, numVector.numVectorSpace)
     }
 
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {

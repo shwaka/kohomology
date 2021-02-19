@@ -3,30 +3,9 @@ package com.github.shwaka.kohomology.field
 class IntModp(value: Int, p: Int) : Scalar<IntModp> {
     val value: Int = value.positiveRem(p)
     val p: Int = p
+
     override val field: Field<IntModp> = Fp.get(this.p)
-    override operator fun plus(other: IntModp): IntModp {
-        if (this.p != other.p) {
-            throw Exception("[Error] different characteristic: ${this.p} and ${other.p}")
-        }
-        return IntModp(this.value + other.value, this.p)
-    }
-    override operator fun times(other: IntModp): IntModp {
-        if (this.p != other.p) {
-            throw Exception("[Error] different characteristic: ${this.p} and ${other.p}")
-        }
-        return IntModp(this.value * other.value, this.p)
-    }
-    override operator fun div(other: IntModp): IntModp {
-        return this * other.inv()
-    }
-    override fun inv(): IntModp {
-        if (this == IntModp(0, this.p)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
-        // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(this.value.pow(this.p - 2).positiveRem(this.p), this.p)
-    }
-    override fun unwrap(): IntModp {
-        return this
-    }
+
     override fun toString(): String {
         return "${this.value.positiveRem(this.p)} mod ${this.p}"
     }
@@ -51,6 +30,12 @@ class IntModp(value: Int, p: Int) : Scalar<IntModp> {
     }
 }
 
+class OldIntModp(value: Int, p: Int) : Scalar<IntModp> {
+    val value: Int = value.positiveRem(p)
+    val p: Int = p
+    override val field: Field<IntModp> = Fp.get(this.p)
+}
+
 class Fp private constructor(val p: Int) : Field<IntModp> {
     companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
@@ -58,6 +43,49 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             return this.cache.getOrPut(p, { if (p.isPrime()) Fp(p) else throw ArithmeticException("$p is not prime") })
         }
     }
+
+    override val scalarContext: ScalarContext<IntModp> = ScalarContext(this)
+
+    override val zero
+        get() = IntModp(0, this.p)
+    override val one
+        get() = IntModp(1, this.p)
+
+    override fun add(a: IntModp, b: IntModp): IntModp {
+        if (a.p != b.p) {
+            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
+        }
+        return IntModp(a.value + b.value, this.p)
+    }
+
+    override fun subtract(a: IntModp, b: IntModp): IntModp {
+        if (a.p != b.p) {
+            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
+        }
+        return IntModp(a.value - b.value, this.p)
+    }
+
+    override fun multiply(a: IntModp, b: IntModp): IntModp {
+        if (a.p != b.p) {
+            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
+        }
+        return IntModp(a.value * b.value, this.p)
+    }
+
+    override fun divide(a: IntModp, b: IntModp): IntModp {
+        if (a.p != b.p) {
+            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
+        }
+        val bInv = this.invModp(b)
+        return IntModp(a.value * bInv.value, this.p)
+    }
+
+    private fun invModp(a: IntModp): IntModp {
+        if (a == IntModp(0, a.p)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
+        // TODO: Int として pow した後に modulo するのは重い
+        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this.p)
+    }
+
     override fun fromInt(n: Int): IntModp {
         return IntModp(n, p)
     }
@@ -81,11 +109,6 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     override fun toString(): String {
         return "F_${this.p}"
     }
-
-    override val zero
-        get() = IntModp(0, this.p)
-    override val one
-        get() = IntModp(1, this.p)
 }
 
 val F2 = Fp.get(2)

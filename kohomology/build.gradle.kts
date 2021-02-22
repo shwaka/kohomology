@@ -14,8 +14,7 @@ allprojects {
     }
     repositories {
         jcenter()
-        mavenLocal()
-        maven { setUrl("https://dl.bintray.com/shwaka/maven/") }
+        maven(url = "https://shwaka.github.io/maven/")
     }
 }
 

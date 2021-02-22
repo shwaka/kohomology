@@ -10,7 +10,7 @@ repositories {
     jcenter()
     mavenCentral()
     // mavenLocal()
-    maven { setUrl("https://dl.bintray.com/shwaka/maven/") }
+    maven(url = "https://shwaka.github.io/maven/")
 }
 
 dependencies {
@@ -18,14 +18,14 @@ dependencies {
     testImplementation(kotlin("test-js"))
     // kococo
     // js だとうまく使えないっぽいので comment out して、直接書いた
-    // val kococoVersion = "0.1"
-    // val kococoDebug = "com.github.shwaka.kococo:kococo-debug-js:$kococoVersion"
-    // val kococoRelease = "com.github.shwaka.kococo:kococo-release-js:$kococoVersion"
-    // if (System.getProperty("kococo.debug") == null) {
-    //     implementation(kococoRelease)
-    // } else {
-    //     implementation(kococoDebug)
-    // }
+    val kococoVersion = "0.1"
+    val kococoDebug = "com.github.shwaka.kococo:kococo-debug-js:$kococoVersion"
+    val kococoRelease = "com.github.shwaka.kococo:kococo-release-js:$kococoVersion"
+    if (System.getProperty("kococo.debug") == null) {
+        implementation(kococoRelease)
+    } else {
+        implementation(kococoDebug)
+    }
 }
 
 kotlin {

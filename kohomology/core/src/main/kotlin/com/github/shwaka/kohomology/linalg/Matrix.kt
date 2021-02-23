@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.field.ScalarOperations
 import com.github.shwaka.kohomology.util.getPermutation
 
 interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
@@ -23,8 +24,10 @@ interface MatrixOperations<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, 
 }
 
 class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
-    private val operations: MatrixOperations<S, V, M>
-) : MatrixOperations<S, V, M> by operations {
+    scalarOperations: ScalarOperations<S>,
+    numVectorOperations: NumVectorOperations<S, V>,
+    private val matrixOperations: MatrixOperations<S, V, M>
+) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), MatrixOperations<S, V, M> by matrixOperations {
     operator fun M.plus(other: M): M = this@MatrixContext.add(this, other)
     operator fun M.minus(other: M): M = this@MatrixContext.subtract(this, other)
     operator fun M.times(other: M): M = this@MatrixContext.multiply(this, other)

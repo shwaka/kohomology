@@ -33,7 +33,7 @@ class DenseNumVectorSpace<S : Scalar<S>>(
         }
     }
 
-    override val numVectorContext = NumVectorContext(this)
+    override val numVectorContext = NumVectorContext(this.field, this)
 
     override fun add(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
         if (a.dim != b.dim)

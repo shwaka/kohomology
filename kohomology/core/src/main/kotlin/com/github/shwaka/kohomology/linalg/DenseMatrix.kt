@@ -57,9 +57,9 @@ class DenseMatrixSpace<S : Scalar<S>>(
     // override val matrixContext: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> =
     //     DenseMatrixContext(this.numVectorSpace.field, this.numVectorSpace, this)
 
-    override val matrixContext = MatrixContext(this)
-
     override val field: Field<S> = this.numVectorSpace.field
+
+    override val matrixContext = MatrixContext(this.field, this.numVectorSpace, this)
 
     override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)

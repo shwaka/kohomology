@@ -13,7 +13,7 @@ interface ScalarOperations<S : Scalar<S>> {
     fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
 }
 
-class ScalarContext<S : Scalar<S>>(
+open class ScalarContext<S : Scalar<S>>(
     private val scalarOperations: ScalarOperations<S>
 ) : ScalarOperations<S> by scalarOperations {
     operator fun S.plus(other: S): S = this@ScalarContext.add(this, other)

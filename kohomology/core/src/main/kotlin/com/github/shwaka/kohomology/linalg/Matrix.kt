@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Scalar
-import com.github.shwaka.kohomology.field.times
 import com.github.shwaka.kohomology.util.getPermutation
 
 interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
@@ -39,14 +38,17 @@ class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
         get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!
 
     operator fun M.get(rowInd: Int, colInd: Int): S = this@MatrixContext.getElement(this, rowInd, colInd)
+
     fun M.det(): S {
         if (this.rowCount != this.colCount)
             throw ArithmeticException("Determinant is defined only for square matrices")
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
         val sign: Int = rowEchelonForm.sign
-        val detUpToSign = (0 until this.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
-        return detUpToSign * sign
+        return this@MatrixContext.field.withContext {
+            val detUpToSign = (0 until this@det.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
+            detUpToSign * sign
+        }
     }
 
     fun M.detByPermutations(): S {
@@ -54,9 +56,11 @@ class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
             throw ArithmeticException("Determinant is defined only for square matrices")
         val n = this.rowCount
         var result: S = this@MatrixContext.field.zero
-        for ((perm, sign) in getPermutation((0 until n).toList())) {
-            val product: S = (0 until n).zip(perm).map { (i, j) -> this[i, j] }.reduce { a, b -> a * b }
-            result += sign * product
+        this@MatrixContext.field.withContext {
+            for ((perm, sign) in getPermutation((0 until n).toList())) {
+                val product: S = (0 until n).zip(perm).map { (i, j) -> this@detByPermutations[i, j] }.reduce { a, b -> a * b }
+                result += sign * product
+            }
         }
         return result
     }

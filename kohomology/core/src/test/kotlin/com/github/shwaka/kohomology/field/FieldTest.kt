@@ -236,16 +236,18 @@ class CompileTest : StringSpec({
         val codeSnippet =
             """
             import com.github.shwaka.kohomology.field.IntRational
-            val foo = IntRational(0, 1) + IntRational(1, 0)
+            import com.github.shwaka.kohomology.field.IntRationalField
+            val foo = IntRationalField.withContext { IntRational(0, 1) + IntRational(1, 0) }
             """ // compiles, but runtime error
         codeSnippet.shouldCompile()
     }
     "Rational + IntModp should not compile" {
         val codeSnippet =
             """
-            import com.github.shwaka.kohomology.field.Rational
+            import com.github.shwaka.kohomology.field.IntRational
+            import com.github.shwaka.kohomology.field.IntRationalField
             import com.github.shwaka.kohomology.field.IntModp
-            val foo = IntRational(0, 1) + IntModp(0, 7)
+            val foo = IntRationalField.withContext { IntRational(0, 1) + IntModp(0, 7) }
             """
         codeSnippet.shouldNotCompile()
     }

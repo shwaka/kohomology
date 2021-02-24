@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
+import com.github.shwaka.kohomology.linalg.Scalar
 
 class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {

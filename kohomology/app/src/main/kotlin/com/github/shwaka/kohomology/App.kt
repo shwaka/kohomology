@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.field.Fp
 import com.github.shwaka.kohomology.field.IntRational
 import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 
 fun <S : Scalar<S>> add(field: Field<S>, a: S, b: S): S {

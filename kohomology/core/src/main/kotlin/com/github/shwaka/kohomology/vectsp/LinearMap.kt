@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
 
 class LinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
     val source: VectorSpace<B0, S, V>,

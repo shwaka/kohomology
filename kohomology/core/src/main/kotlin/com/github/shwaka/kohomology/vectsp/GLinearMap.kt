@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
 
 class GLinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
     val source: GVectorSpace<B0, S, V>,

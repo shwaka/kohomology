@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
 
 data class BasisPair<B1, B2>(val first: B1, val second: B2) {
     private fun stringPairToString(s1: String, s2: String): String {

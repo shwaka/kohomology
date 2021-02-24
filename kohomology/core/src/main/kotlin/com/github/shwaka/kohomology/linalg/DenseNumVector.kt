@@ -79,7 +79,3 @@ class DenseNumVectorSpace<S : Scalar<S>>(
         return this.fromValues(values)
     }
 }
-
-val DenseNumVectorSpaceOverIntRational = DenseNumVectorSpace.from(IntRationalField)
-val DenseNumVectorSpaceOverLongRational = DenseNumVectorSpace.from(LongRationalField)
-val DenseNumVectorSpaceOverBigRational = DenseNumVectorSpace.from(BigRationalField)

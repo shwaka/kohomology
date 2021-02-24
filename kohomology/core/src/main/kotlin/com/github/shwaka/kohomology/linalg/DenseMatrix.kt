@@ -136,7 +136,3 @@ class DenseMatrixSpace<S : Scalar<S>>(
         return matrix.values[rowInd][colInd]
     }
 }
-
-val DenseMatrixSpaceOverIntRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverIntRational)
-val DenseMatrixSpaceOverLongRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverLongRational)
-val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)

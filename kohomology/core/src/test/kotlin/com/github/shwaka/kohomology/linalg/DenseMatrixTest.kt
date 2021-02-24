@@ -2,6 +2,10 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
+import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverIntRational
+import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverLongRational
+import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.LongRationalField

@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import io.kotest.assertions.throwables.shouldNotThrowAny

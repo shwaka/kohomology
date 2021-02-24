@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
+import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
@@ -123,3 +125,6 @@ object BigRationalField : Field<BigRational> {
         return "BigRationalField"
     }
 }
+
+val DenseNumVectorSpaceOverBigRational = DenseNumVectorSpace.from(BigRationalField)
+val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)

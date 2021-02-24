@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.field
 
 import com.github.shwaka.kococo.debugOnly
+import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
+import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
@@ -155,3 +157,6 @@ object LongRationalField : Field<LongRational> {
         return "LongRationalField"
     }
 }
+
+val DenseNumVectorSpaceOverLongRational = DenseNumVectorSpace.from(LongRationalField)
+val DenseMatrixSpaceOverLongRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverLongRational)

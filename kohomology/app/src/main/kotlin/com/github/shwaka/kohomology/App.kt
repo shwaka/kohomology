@@ -37,11 +37,13 @@ fun main() {
 
     val p = 5
     val field = Fp.get(p)
-    val c = IntModp(3, p)
-    val d = IntModp(1, p)
-    println(add(field, c, d))
     field.withContext {
-        println(add(field, c, d + field.fromInt(1)))
+        val c = three
+        val d = one
+        println(add(field, c, d))
+        field.withContext {
+            println(add(field, c, d + one))
+        }
+        test(field, c, d)
     }
-    test(field, c, d)
 }

@@ -1,10 +1,8 @@
 package com.github.shwaka.kohomology.field
 
-class IntModp(value: Int, p: Int) : Scalar<IntModp> {
-    val value: Int = value.positiveRem(p)
-    val p: Int = p
-
-    override val field: Field<IntModp> = Fp.get(this.p)
+class IntModp(value: Int, override val field: Fp) : Scalar<IntModp> {
+    val value: Int = value.positiveRem(field.p)
+    val p: Int = field.p
 
     override fun toString(): String {
         return "${this.value.positiveRem(this.p)} mod ${this.p}"
@@ -45,21 +43,21 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
         if (a.p != b.p) {
             throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
         }
-        return IntModp(a.value + b.value, this.p)
+        return IntModp(a.value + b.value, this)
     }
 
     override fun subtract(a: IntModp, b: IntModp): IntModp {
         if (a.p != b.p) {
             throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
         }
-        return IntModp(a.value - b.value, this.p)
+        return IntModp(a.value - b.value, this)
     }
 
     override fun multiply(a: IntModp, b: IntModp): IntModp {
         if (a.p != b.p) {
             throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
         }
-        return IntModp(a.value * b.value, this.p)
+        return IntModp(a.value * b.value, this)
     }
 
     override fun divide(a: IntModp, b: IntModp): IntModp {
@@ -67,17 +65,17 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
         }
         val bInv = this.invModp(b)
-        return IntModp(a.value * bInv.value, this.p)
+        return IntModp(a.value * bInv.value, this)
     }
 
     private fun invModp(a: IntModp): IntModp {
-        if (a == IntModp(0, a.p)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
+        if (a == IntModp(0, this)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this.p)
+        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this)
     }
 
     override fun fromInt(n: Int): IntModp {
-        return IntModp(n, p)
+        return IntModp(n, this)
     }
 
     override fun equals(other: Any?): Boolean {

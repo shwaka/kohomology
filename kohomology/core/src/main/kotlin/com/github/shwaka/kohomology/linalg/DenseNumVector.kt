@@ -1,10 +1,8 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.field.BigRationalField
-import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.LongRationalField
-import com.github.shwaka.kohomology.field.Scalar
 
 data class DenseNumVector<S : Scalar<S>>(
     val values: List<S>,

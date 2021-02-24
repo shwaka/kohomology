@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.bind
 import io.kotest.property.arbitrary.int

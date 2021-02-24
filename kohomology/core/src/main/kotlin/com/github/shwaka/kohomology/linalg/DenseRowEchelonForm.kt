@@ -1,8 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.field.Field
-import com.github.shwaka.kohomology.field.Scalar
-
 class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix<S>) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
     private val matrixSpace = originalMatrix.matrixSpace
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.withContext { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }

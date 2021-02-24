@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.field.Field
-import com.github.shwaka.kohomology.field.Scalar
 import com.github.shwaka.kohomology.util.StringTable
 
 data class DenseMatrix<S : Scalar<S>>(

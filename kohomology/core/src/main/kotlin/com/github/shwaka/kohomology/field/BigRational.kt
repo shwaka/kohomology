@@ -1,5 +1,8 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import kotlin.Exception
 

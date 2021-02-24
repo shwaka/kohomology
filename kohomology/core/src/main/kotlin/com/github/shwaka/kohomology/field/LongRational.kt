@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology.field
 
 import com.github.shwaka.kococo.debugOnly
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarContext
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign

@@ -1,5 +1,9 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarContext
+
 class IntModp(value: Int, override val field: Fp) : Scalar<IntModp> {
     val value: Int = value.positiveRem(field.p)
     val p: Int = field.p

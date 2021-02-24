@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.field
+package com.github.shwaka.kohomology.linalg
 
 interface Scalar<S : Scalar<S>> {
     val field: Field<S>

@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.field.Scalar
-import com.github.shwaka.kohomology.field.ScalarOperations
 import com.github.shwaka.kohomology.util.getPermutation
 
 interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {

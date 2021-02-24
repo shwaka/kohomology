@@ -4,6 +4,8 @@ import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.compileTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
 import io.kotest.assertions.throwables.shouldThrow

@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.field.Scalar
-
 class MatrixOfRank2<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(private val mat: M) {
     private val matrixSpace = mat.matrixSpace
     init {

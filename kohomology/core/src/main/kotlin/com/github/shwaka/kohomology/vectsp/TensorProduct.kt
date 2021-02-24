@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.NumVector
 
 data class BasisPair<B1, B2>(val first: B1, val second: B2) {

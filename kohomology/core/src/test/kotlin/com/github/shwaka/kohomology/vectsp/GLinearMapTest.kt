@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.field.Scalar
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

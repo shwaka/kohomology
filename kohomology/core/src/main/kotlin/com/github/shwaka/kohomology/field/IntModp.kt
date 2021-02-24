@@ -29,13 +29,6 @@ class IntModp(value: Int, p: Int) : Scalar<IntModp> {
         return result
     }
 }
-
-class OldIntModp(value: Int, p: Int) : Scalar<IntModp> {
-    val value: Int = value.positiveRem(p)
-    val p: Int = p
-    override val field: Field<IntModp> = Fp.get(this.p)
-}
-
 class Fp private constructor(val p: Int) : Field<IntModp> {
     companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
@@ -45,6 +38,8 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     }
 
     override val scalarContext: ScalarContext<IntModp> = ScalarContext(this)
+
+    override val field = this
 
     override val zero
         get() = IntModp(0, this.p)

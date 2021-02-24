@@ -81,6 +81,7 @@ class LongRational(numerator: Long, denominator: Long) : Scalar<LongRational> {
 }
 
 object LongRationalField : Field<LongRational> {
+    override val field = this
     override val zero = LongRational(0, 1)
     override val one = LongRational(1, 1)
 

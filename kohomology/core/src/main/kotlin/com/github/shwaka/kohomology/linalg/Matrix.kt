@@ -13,7 +13,6 @@ interface Matrix<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
 }
 
 interface MatrixOperations<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> {
-    val field: Field<S>
     fun add(first: M, second: M): M
     fun subtract(first: M, second: M): M
     fun multiply(first: M, second: M): M
@@ -106,7 +105,8 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> :
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {
-        val rows = List(rowCount) { _ -> List(colCount) { _ -> this.field.zero } }
+        val field = this.withContext { field }
+        val rows = List(rowCount) { _ -> List(colCount) { _ -> field.zero } }
         return this.fromRows(rows)
     }
 
@@ -115,12 +115,13 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> :
     }
 
     fun getId(dim: Int): M {
+        val field = this.withContext { field }
         val rows = List(dim) { i ->
             List(dim) { j ->
                 if (i == j)
-                    this.field.one
+                    field.one
                 else
-                    this.field.zero
+                    field.zero
             }
         }
         return this.fromRows(rows)

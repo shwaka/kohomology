@@ -35,14 +35,7 @@ fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.withContext { field }
     val numVectorSpace = matrixSpace.numVectorSpace
-    val zero = field.zero
-    val one = field.one
-    val two = field.fromInt(2)
-    val three = field.fromInt(3)
-    // val four = field.fromInt(4)
-    val five = field.fromInt(5)
     matrixSpace.withContext {
         val m = matrixSpace.fromRows(
             listOf(
@@ -156,7 +149,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
 inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.withContext { field }
     val vectorSpace = matrixSpace.numVectorSpace
-    val zero = field.zero
+    val zero = field.withContext { zero }
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
@@ -261,8 +254,8 @@ class BigRationalDenseMatrixTest : StringSpec({
 
     "fromVectors should work correctly (use statically selected field)" {
         val numVectorSpace = DenseNumVectorSpaceOverBigRational
-        val zero = BigRationalField.zero
-        val one = BigRationalField.one
+        val zero = BigRationalField.withContext { zero }
+        val one = BigRationalField.withContext { one }
         val two = BigRationalField.fromInt(2)
         val three = BigRationalField.fromInt(3)
         val expectedMat = matrixSpace.fromRows(

@@ -57,7 +57,7 @@ class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
         if (this.rowCount != this.colCount)
             throw ArithmeticException("Determinant is defined only for square matrices")
         val n = this.rowCount
-        var result: S = this@MatrixContext.field.zero
+        var result: S = zero
         this@MatrixContext.field.withContext {
             for ((perm, sign) in getPermutation((0 until n).toList())) {
                 val product: S = (0 until n).zip(perm).map { (i, j) -> this@detByPermutations[i, j] }.reduce { a, b -> a * b }
@@ -105,8 +105,8 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> :
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {
-        val field = this.withContext { field }
-        val rows = List(rowCount) { _ -> List(colCount) { _ -> field.zero } }
+        val zero = this.withContext { zero }
+        val rows = List(rowCount) { _ -> List(colCount) { _ -> zero } }
         return this.fromRows(rows)
     }
 
@@ -115,13 +115,14 @@ interface MatrixSpace<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> :
     }
 
     fun getId(dim: Int): M {
-        val field = this.withContext { field }
+        val zero = this.withContext { zero }
+        val one = this.withContext { one }
         val rows = List(dim) { i ->
             List(dim) { j ->
                 if (i == j)
-                    field.one
+                    one
                 else
-                    field.zero
+                    zero
             }
         }
         return this.fromRows(rows)

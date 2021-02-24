@@ -77,7 +77,7 @@ class DenseNumVectorSpace<S : Scalar<S>>(
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {
-        val values = List(dim) { _ -> this.field.zero }
+        val values = List(dim) { this.field.withContext { zero } }
         return this.fromValues(values)
     }
 }

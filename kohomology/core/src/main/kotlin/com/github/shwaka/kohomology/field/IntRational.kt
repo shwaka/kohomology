@@ -82,8 +82,6 @@ class IntRational(numerator: Int, denominator: Int) : Scalar<IntRational> {
 
 object IntRationalField : Field<IntRational> {
     override val field = this
-    override val zero = IntRational(0, 1)
-    override val one = IntRational(1, 1)
 
     override val scalarContext: ScalarContext<IntRational> = ScalarContext(this)
 

@@ -18,8 +18,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
     val field = matrixSpace.withContext { field }
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
-    val zero = field.zero
-    val one = field.one
+    val zero = field.withContext { zero }
+    val one = field.withContext { one }
     val two = field.fromInt(2)
     matrixSpace.withContext {
         "linear map test" {

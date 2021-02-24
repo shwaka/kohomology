@@ -31,7 +31,7 @@ fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
             }
         }
         "field.fromInt(0) should be field.zero" {
-            field.fromInt(0) shouldBe field.zero
+            field.fromInt(0) shouldBe zero
         }
         "fromInt should be multiplicative" {
             checkAll(intArb, intArb) { a, b ->
@@ -39,7 +39,7 @@ fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
             }
         }
         "field.fromInt(1) should be field.one" {
-            field.fromInt(1) shouldBe field.one
+            field.fromInt(1) shouldBe one
         }
     }
 }
@@ -50,14 +50,14 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = st
     field.withContext {
         "field.zero should be the unit of addition" {
             checkAll(arb) { a ->
-                val zero = field.zero
+                val zero = zero
                 (a + zero) shouldBe a
                 (zero + a) shouldBe a
             }
         }
         "field.one should be the unit of multiplication" {
             checkAll(arb) { a ->
-                val one = field.one
+                val one = one
                 (a * one) shouldBe a
                 (one * a) shouldBe a
             }
@@ -79,15 +79,15 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = st
         }
         "unaryMinus() should give the additive inverse" {
             checkAll(arb) { a ->
-                (a + (-a)) shouldBe field.zero
-                ((-a) + a) shouldBe field.zero
+                (a + (-a)) shouldBe zero
+                ((-a) + a) shouldBe zero
             }
         }
         "inv() should give the multiplicative inverse" {
             checkAll(arb) { a ->
-                if (a != field.zero) {
-                    (a * (a.inv())) shouldBe field.one
-                    ((a.inv()) * a) shouldBe field.one
+                if (a != zero) {
+                    (a * (a.inv())) shouldBe one
+                    ((a.inv()) * a) shouldBe one
                 }
             }
         }
@@ -160,9 +160,9 @@ class IntRationalTest : StringSpec({
     include(rationalTest(IntRationalField))
 
     "overflow test for IntRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
-        val a = IntRationalField.fromInt(Int.MAX_VALUE)
-        val b = IntRationalField.one
         IntRationalField.withContext {
+            val a = Int.MAX_VALUE.toScalar()
+            val b = one
             shouldThrow<ArithmeticException> { a + b }
             shouldThrow<ArithmeticException> { a * 2 }
         }

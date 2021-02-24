@@ -41,11 +41,6 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
 
     override val field = this
 
-    override val zero
-        get() = IntModp(0, this.p)
-    override val one
-        get() = IntModp(1, this.p)
-
     override fun add(a: IntModp, b: IntModp): IntModp {
         if (a.p != b.p) {
             throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")

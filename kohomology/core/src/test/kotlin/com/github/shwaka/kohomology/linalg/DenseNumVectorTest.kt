@@ -18,9 +18,6 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 val denseNumVectorTag = NamedTag("DenseNumVector")
 
 fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
-    val zero = field.zero
-    val one = field.one
-    val two = field.fromInt(2)
     val numVectorSpace = DenseNumVectorSpace.from(field)
     numVectorSpace.withContext {
         "factory should return the cache if exists" {

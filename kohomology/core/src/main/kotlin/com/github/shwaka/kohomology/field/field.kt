@@ -41,12 +41,13 @@ open class ScalarContext<S : Scalar<S>>(
         }
     }
     fun Int.toScalar(): S = this@ScalarContext.fromInt(this)
-    val zero: S = 0.toScalar()
-    val one: S = 1.toScalar()
-    val two: S = 2.toScalar()
-    val three: S = 3.toScalar()
-    val four: S = 4.toScalar()
-    val five: S = 5.toScalar()
+    // use "by lazy" in order to prevent infinite recursion in IntModp
+    val zero: S by lazy { 0.toScalar() }
+    val one: S by lazy { 1.toScalar() }
+    val two: S by lazy { 2.toScalar() }
+    val three: S by lazy { 3.toScalar() }
+    val four: S by lazy { 4.toScalar() }
+    val five: S by lazy { 5.toScalar() }
 }
 
 interface Field<S : Scalar<S>> : ScalarOperations<S> {

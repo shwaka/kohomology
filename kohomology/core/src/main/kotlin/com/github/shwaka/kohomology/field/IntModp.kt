@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
+import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
@@ -104,6 +106,17 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
 }
 
 val F2 = Fp.get(2)
+val DenseNumVectorSpaceOverF2 = DenseNumVectorSpace.from(F2)
+val DenseMatrixSpaceOverF2 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF2)
+
 val F3 = Fp.get(3)
+val DenseNumVectorSpaceOverF3 = DenseNumVectorSpace.from(F3)
+val DenseMatrixSpaceOverF3 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF3)
+
 val F5 = Fp.get(5)
+val DenseNumVectorSpaceOverF5 = DenseNumVectorSpace.from(F5)
+val DenseMatrixSpaceOverF5 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF5)
+
 val F7 = Fp.get(7)
+val DenseNumVectorSpaceOverF7 = DenseNumVectorSpace.from(F7)
+val DenseMatrixSpaceOverF7 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF7)

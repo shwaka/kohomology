@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverLongRational
 import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
@@ -273,8 +274,7 @@ class BigRationalDenseMatrixTest : StringSpec({
 class IntModpDenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intModpTag)
 
-    val numVectorSpace = DenseNumVectorSpace.from(F5)
-    val matrixSpace = DenseMatrixSpace(numVectorSpace)
+    val matrixSpace = DenseMatrixSpaceOverF5
     include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))

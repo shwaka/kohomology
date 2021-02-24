@@ -1,11 +1,12 @@
 import com.github.shwaka.kohomology.field.BigRational
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
-import com.github.shwaka.kohomology.linalg.times
 import kotlinx.browser.document
 
 fun main() {
-    myprint(BigRational(1, 2) + BigRational(1, 3))
+    BigRationalField.withContext {
+        myprint(BigRational(1, 2) + BigRational(1, 3))
+    }
     numVectorTest()
 }
 
@@ -19,10 +20,9 @@ fun myprint(obj: Any) {
 }
 
 fun numVectorTest() {
-    val zero = BigRationalField.zero
-    val one = BigRationalField.one
-    val two = BigRationalField.fromInt(2)
     val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
-    val v = vectorSpace.fromValues(one, zero)
-    myprint("2 * (1, 0) = ${two * v}")
+    vectorSpace.withContext {
+        val v = vectorSpace.fromValues(one, zero)
+        myprint("2 * (1, 0) = ${two * v}")
+    }
 }

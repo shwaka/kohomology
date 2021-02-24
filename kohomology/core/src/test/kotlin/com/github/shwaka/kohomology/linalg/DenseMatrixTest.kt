@@ -35,125 +35,121 @@ fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.field
     val numVectorSpace = matrixSpace.numVectorSpace
-    val zero = field.zero
-    val one = field.one
-    val two = field.fromInt(2)
-    val three = field.fromInt(3)
-    // val four = field.fromInt(4)
-    val five = field.fromInt(5)
-    val m = matrixSpace.fromRows(
-        listOf(
-            listOf(two, one),
-            listOf(zero, -one)
-        )
-    )
-    val n = matrixSpace.fromRows(
-        listOf(
-            listOf(one, one),
-            listOf(-two, three)
-        )
-    )
-    "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
-        val expected = matrixSpace.fromRows(
+    matrixSpace.withContext {
+        val m = matrixSpace.fromRows(
             listOf(
-                listOf(three, two),
-                listOf(-two, two)
+                listOf(two, one),
+                listOf(zero, -one)
             )
         )
-        (m + n) shouldBe expected
-    }
-    "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
-        val v = numVectorSpace.fromValues(two, -one)
-        val expected = numVectorSpace.fromValues(three, one)
-        (m * v) shouldBe expected
-    }
-    "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
-        val mn = matrixSpace.fromRows(
+        val n = matrixSpace.fromRows(
             listOf(
-                listOf(zero, five),
-                listOf(two, -three)
+                listOf(one, one),
+                listOf(-two, three)
             )
         )
-        (m * n) shouldBe mn
-    }
-    "toString and toPrettyString should not throw for square matrix of rank 2" {
-        shouldNotThrowAny {
-            m.toString()
-            m.toPrettyString()
+
+        "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
+            val expected = matrixSpace.fromRows(
+                listOf(
+                    listOf(three, two),
+                    listOf(-two, two)
+                )
+            )
+            (m + n) shouldBe expected
         }
-    }
-    "toString and toPrettyString should not throw for square matrix of shape 4x3" {
-        shouldNotThrowAny {
+        "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
+            val v = numVectorSpace.fromValues(two, -one)
+            val expected = numVectorSpace.fromValues(three, one)
+            (m * v) shouldBe expected
+        }
+        "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
+            val mn = matrixSpace.fromRows(
+                listOf(
+                    listOf(zero, five),
+                    listOf(two, -three)
+                )
+            )
+            (m * n) shouldBe mn
+        }
+        "toString and toPrettyString should not throw for square matrix of rank 2" {
+            shouldNotThrowAny {
+                m.toString()
+                m.toPrettyString()
+            }
+        }
+        "toString and toPrettyString should not throw for square matrix of shape 4x3" {
+            shouldNotThrowAny {
+                val mat = matrixSpace.fromRows(
+                    listOf(one, zero, zero),
+                    listOf(zero, one, zero),
+                    listOf(zero, one, zero),
+                    listOf(zero, zero, one)
+                )
+                mat.toString()
+                mat.toPrettyString()
+            }
+        }
+        "toString and toPrettyString should not throw for empty matrix" {
+            shouldNotThrowAny {
+                val empty = matrixSpace.fromFlatList(emptyList(), 0, 0)
+                empty.toString()
+                empty.toPrettyString()
+            }
+        }
+        "fromRows and fromCols should give same matrices" {
+            val rows = listOf(
+                listOf(zero, one),
+                listOf(two, three)
+            )
+            val cols = listOf(
+                listOf(zero, two),
+                listOf(one, three)
+            )
+            (matrixSpace.fromRows(rows) == matrixSpace.fromCols(cols)).shouldBeTrue()
+        }
+        "two variants of fromRows should give same matrices" {
+            val row1 = listOf(zero, one)
+            val row2 = listOf(two, three)
+            (matrixSpace.fromRows(row1, row2) == matrixSpace.fromRows(listOf(row1, row2))).shouldBeTrue()
+        }
+        "fromVectors should work correctly" {
+            val expectedMat = matrixSpace.fromRows(
+                listOf(zero, one),
+                listOf(two, three)
+            )
+            val v = numVectorSpace.fromValues(zero, two)
+            val w = numVectorSpace.fromValues(one, three)
+            (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
+        }
+        "reduced row echelon form of invertible matrix should be the unit matrix" {
+            val expectedMat = matrixSpace.fromRows(
+                listOf(one, zero),
+                listOf(zero, one)
+            )
+            m.rowEchelonForm.reducedMatrix shouldBe expectedMat
+        }
+        "reduced row echelon form of non-invertible matrix" {
             val mat = matrixSpace.fromRows(
-                listOf(one, zero, zero),
-                listOf(zero, one, zero),
-                listOf(zero, one, zero),
-                listOf(zero, zero, one)
+                listOf(zero, zero, one),
+                listOf(-two, -one, zero),
+                listOf(two, one, zero)
             )
-            mat.toString()
-            mat.toPrettyString()
+            val expectedMat = matrixSpace.fromRows(
+                listOf(one, one / two, zero),
+                listOf(zero, zero, one),
+                listOf(zero, zero, zero)
+            )
+            mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
-    }
-    "toString and toPrettyString should not throw for empty matrix" {
-        shouldNotThrowAny {
-            val empty = matrixSpace.fromFlatList(emptyList(), 0, 0)
-            empty.toString()
-            empty.toPrettyString()
-        }
-    }
-    "fromRows and fromCols should give same matrices" {
-        val rows = listOf(
-            listOf(zero, one),
-            listOf(two, three)
-        )
-        val cols = listOf(
-            listOf(zero, two),
-            listOf(one, three)
-        )
-        (matrixSpace.fromRows(rows) == matrixSpace.fromCols(cols)).shouldBeTrue()
-    }
-    "two variants of fromRows should give same matrices" {
-        val row1 = listOf(zero, one)
-        val row2 = listOf(two, three)
-        (matrixSpace.fromRows(row1, row2) == matrixSpace.fromRows(listOf(row1, row2))).shouldBeTrue()
-    }
-    "fromVectors should work correctly" {
-        val expectedMat = matrixSpace.fromRows(
-            listOf(zero, one),
-            listOf(two, three)
-        )
-        val v = numVectorSpace.fromValues(zero, two)
-        val w = numVectorSpace.fromValues(one, three)
-        (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
-    }
-    "reduced row echelon form of invertible matrix should be the unit matrix" {
-        val expectedMat = matrixSpace.fromRows(
-            listOf(one, zero),
-            listOf(zero, one)
-        )
-        m.rowEchelonForm.reducedMatrix shouldBe expectedMat
-    }
-    "reduced row echelon form of non-invertible matrix" {
-        val mat = matrixSpace.fromRows(
-            listOf(zero, zero, one),
-            listOf(-two, -one, zero),
-            listOf(two, one, zero)
-        )
-        val expectedMat = matrixSpace.fromRows(
-            listOf(one, one / two, zero),
-            listOf(zero, zero, one),
-            listOf(zero, zero, zero)
-        )
-        mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
     }
 }
 
 inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.field
+    val field = matrixSpace.withContext { field }
     val vectorSpace = matrixSpace.numVectorSpace
-    val zero = field.zero
+    val zero = field.withContext { zero }
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
@@ -167,27 +163,35 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2
     max: Int = 100
 ) = stringSpec {
     // val vectorSpace = DenseNumVectorSpace.from(field)
-    val field = matrixSpace.field
+    val field = matrixSpace.withContext { field }
     val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            MatrixOfRank2(mat1 + mat2) shouldBe (MatrixOfRank2(mat1) + MatrixOfRank2(mat2))
+            matrixSpace.withContext {
+                MatrixOfRank2(mat1 + mat2) shouldBe (MatrixOfRank2(mat1) + MatrixOfRank2(mat2))
+            }
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            MatrixOfRank2(mat1 - mat2) shouldBe (MatrixOfRank2(mat1) - MatrixOfRank2(mat2))
+            matrixSpace.withContext {
+                MatrixOfRank2(mat1 - mat2) shouldBe (MatrixOfRank2(mat1) - MatrixOfRank2(mat2))
+            }
         }
     }
     "Property testing for unaryMinus of matrix" {
         checkAll(matrixArb) { mat ->
-            MatrixOfRank2(-mat) shouldBe (-MatrixOfRank2(mat))
+            matrixSpace.withContext {
+                MatrixOfRank2(-mat) shouldBe (-MatrixOfRank2(mat))
+            }
         }
     }
     "Property testing for det" {
         checkAll(matrixArb) { mat ->
-            mat.det() shouldBe MatrixOfRank2(mat).det()
+            matrixSpace.withContext {
+                mat.det() shouldBe MatrixOfRank2(mat).det()
+            }
         }
     }
 }
@@ -202,7 +206,9 @@ fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringS
         checkAll(Exhaustive.ints(1..n)) { k ->
             val matrixArb = matrixSpace.arb(scalarArb, k, k)
             checkAll(matrixArb) { mat ->
-                mat.det() shouldBe mat.detByPermutations()
+                matrixSpace.withContext {
+                    mat.det() shouldBe mat.detByPermutations()
+                }
             }
         }
     }
@@ -248,8 +254,8 @@ class BigRationalDenseMatrixTest : StringSpec({
 
     "fromVectors should work correctly (use statically selected field)" {
         val numVectorSpace = DenseNumVectorSpaceOverBigRational
-        val zero = BigRationalField.zero
-        val one = BigRationalField.one
+        val zero = BigRationalField.withContext { zero }
+        val one = BigRationalField.withContext { one }
         val two = BigRationalField.fromInt(2)
         val three = BigRationalField.fromInt(3)
         val expectedMat = matrixSpace.fromRows(

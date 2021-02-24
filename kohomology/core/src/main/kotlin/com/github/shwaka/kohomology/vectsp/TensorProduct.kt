@@ -37,7 +37,9 @@ class TensorProduct<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
         val coeffList = this.vectorSpace.basisNames.map { (basis1, basis2) ->
             val coeff1 = vector1.coeffOf(basis1)
             val coeff2 = vector2.coeffOf(basis2)
-            coeff1 * coeff2
+            this.vectorSpace.field.withContext {
+                coeff1 * coeff2
+            }
         }
         return this.vectorSpace.fromCoeff(coeffList)
     }

@@ -33,7 +33,7 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 
     operator fun times(scalar: S): Vector<B, S, V> {
-        return this.vectorSpace.numVectorSpace.withContext{
+        return this.vectorSpace.numVectorSpace.withContext {
             Vector(this@Vector.numVector * scalar, this@Vector.vectorSpace)
         }
     }

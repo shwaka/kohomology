@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology
 
 import com.github.shwaka.kohomology.field.Field
 import com.github.shwaka.kohomology.field.Fp
-import com.github.shwaka.kohomology.field.IntModp
 import com.github.shwaka.kohomology.field.IntRational
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.Scalar

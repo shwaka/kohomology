@@ -16,31 +16,43 @@ class MatrixOfRank2<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(pri
     private val d = this.matrixSpace.withContext { mat[1, 1] }
 
     operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
-        val mat = this.mat.matrixSpace.fromRows(
-            listOf(this.a + other.a, this.b + other.b),
-            listOf(this.c + other.c, this.d + other.d)
-        )
+        val mat = this.matrixSpace.withContext {
+            val self = this@MatrixOfRank2
+            self.matrixSpace.fromRows(
+                listOf(self.a + other.a, self.b + other.b),
+                listOf(self.c + other.c, self.d + other.d)
+            )
+        }
         return MatrixOfRank2(mat)
     }
 
     operator fun minus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
-        val mat = this.mat.matrixSpace.fromRows(
-            listOf(this.a - other.a, this.b - other.b),
-            listOf(this.c - other.c, this.d - other.d)
-        )
+        val mat = this.matrixSpace.withContext {
+            val self = this@MatrixOfRank2
+            self.mat.matrixSpace.fromRows(
+                listOf(self.a - other.a, self.b - other.b),
+                listOf(self.c - other.c, self.d - other.d)
+            )
+        }
         return MatrixOfRank2(mat)
     }
 
     operator fun unaryMinus(): MatrixOfRank2<S, V, M> {
-        val mat = this.mat.matrixSpace.fromRows(
-            listOf(-this.a, -this.b),
-            listOf(-this.c, -this.d)
-        )
+        val mat = this.matrixSpace.withContext {
+            val self = this@MatrixOfRank2
+            self.mat.matrixSpace.fromRows(
+                listOf(-self.a, -self.b),
+                listOf(-self.c, -self.d)
+            )
+        }
         return MatrixOfRank2(mat)
     }
 
     fun det(): S {
-        return this.a * this.d - this.b * this.c
+        return this.matrixSpace.withContext {
+            val self = this@MatrixOfRank2
+            self.a * self.d - self.b * self.c
+        }
     }
 
     override fun equals(other: Any?): Boolean {

@@ -21,28 +21,30 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpa
     val two = field.fromInt(2)
     val four = field.fromInt(4)
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-    "addition of Vector" {
-        val numVector = numVectorSpace.fromValues(one, zero, one)
-        val v = vectorSpace.fromNumVector(numVector)
-        val expected = vectorSpace.fromNumVector(numVectorSpace.fromValues(two, zero, two))
-        (v + v) shouldBe expected
-    }
-    "invalid length of values should throw" {
-        shouldThrow<IllegalArgumentException> {
-            vectorSpace.fromCoeff(zero, zero)
+    vectorSpace.numVectorSpace.withContext {
+        "addition of Vector" {
+            val numVector = numVectorSpace.fromValues(one, zero, one)
+            val v = vectorSpace.fromNumVector(numVector)
+            val expected = vectorSpace.fromNumVector(numVectorSpace.fromValues(two, zero, two))
+            (v + v) shouldBe expected
         }
-    }
-    "multiplication of scalar" {
-        val v = vectorSpace.fromCoeff(zero, two, -one)
-        val expected = vectorSpace.fromCoeff(zero, four, -two)
-        (v * 2) shouldBe expected
-        (v * two) shouldBe expected
-    }
-    "multiplication of scalar with extension functions" {
-        val v = vectorSpace.fromCoeff(zero, two, -one)
-        val expected = vectorSpace.fromCoeff(zero, four, -two)
-        (2 * v) shouldBe expected
-        (two * v) shouldBe expected
+        "invalid length of values should throw" {
+            shouldThrow<IllegalArgumentException> {
+                vectorSpace.fromCoeff(zero, zero)
+            }
+        }
+        "multiplication of scalar" {
+            val v = vectorSpace.fromCoeff(zero, two, -one)
+            val expected = vectorSpace.fromCoeff(zero, four, -two)
+            (v * 2) shouldBe expected
+            (v * two) shouldBe expected
+        }
+        "multiplication of scalar with extension functions" {
+            val v = vectorSpace.fromCoeff(zero, two, -one)
+            val expected = vectorSpace.fromCoeff(zero, four, -two)
+            (2 * v) shouldBe expected
+            (two * v) shouldBe expected
+        }
     }
 }
 

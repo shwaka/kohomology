@@ -35,7 +35,7 @@ fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.field
+    val field = matrixSpace.withContext { field }
     val numVectorSpace = matrixSpace.numVectorSpace
     val zero = field.zero
     val one = field.one
@@ -43,19 +43,20 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
     val three = field.fromInt(3)
     // val four = field.fromInt(4)
     val five = field.fromInt(5)
-    val m = matrixSpace.fromRows(
-        listOf(
-            listOf(two, one),
-            listOf(zero, -one)
-        )
-    )
-    val n = matrixSpace.fromRows(
-        listOf(
-            listOf(one, one),
-            listOf(-two, three)
-        )
-    )
     matrixSpace.withContext {
+        val m = matrixSpace.fromRows(
+            listOf(
+                listOf(two, one),
+                listOf(zero, -one)
+            )
+        )
+        val n = matrixSpace.fromRows(
+            listOf(
+                listOf(one, one),
+                listOf(-two, three)
+            )
+        )
+
         "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
             val expected = matrixSpace.fromRows(
                 listOf(
@@ -153,7 +154,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
 }
 
 inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.field
+    val field = matrixSpace.withContext { field }
     val vectorSpace = matrixSpace.numVectorSpace
     val zero = field.zero
     "fromVectors(vararg) should work with reified type variables" {
@@ -169,7 +170,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2
     max: Int = 100
 ) = stringSpec {
     // val vectorSpace = DenseNumVectorSpace.from(field)
-    val field = matrixSpace.field
+    val field = matrixSpace.withContext { field }
     val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {

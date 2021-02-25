@@ -20,7 +20,9 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
             throw ArithmeticException("Cannot add two graded vectors in different graded vector spaces")
         if (this.degree != other.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        return this.gVectorSpace.fromVector(this.vector + other.vector, this.degree)
+        return this.vector.vectorSpace.withContext {
+            this@GVector.gVectorSpace.fromVector(this@GVector.vector + other.vector, this@GVector.degree)
+        }
     }
 
     operator fun minus(other: GVector<B, S, V>): GVector<B, S, V> {
@@ -28,19 +30,27 @@ class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
             throw ArithmeticException("Cannot subtract two graded vectors in different graded vector spaces")
         if (this.degree != other.degree)
             throw ArithmeticException("Cannot subtract two graded vectors of different degrees")
-        return this.gVectorSpace.fromVector(this.vector + other.vector, this.degree)
+        return this.vector.vectorSpace.withContext {
+            this@GVector.gVectorSpace.fromVector(this@GVector.vector + other.vector, this@GVector.degree)
+        }
     }
 
     operator fun unaryMinus(): GVector<B, S, V> {
-        return this.gVectorSpace.fromVector(-this.vector, this.degree)
+        return this.vector.vectorSpace.withContext {
+            this@GVector.gVectorSpace.fromVector(-this@GVector.vector, this@GVector.degree)
+        }
     }
 
     operator fun times(scalar: S): GVector<B, S, V> {
-        return this.gVectorSpace.fromVector(this.vector * scalar, this.degree)
+        return this.vector.vectorSpace.withContext {
+            this@GVector.gVectorSpace.fromVector(this@GVector.vector * scalar, this@GVector.degree)
+        }
     }
 
     operator fun times(scalar: Int): GVector<B, S, V> {
-        return this.gVectorSpace.fromVector(this.vector * scalar, this.degree)
+        return this.vector.vectorSpace.withContext {
+            this@GVector.gVectorSpace.fromVector(this@GVector.vector * scalar, this@GVector.degree)
+        }
     }
 
     override fun equals(other: Any?): Boolean {

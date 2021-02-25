@@ -16,7 +16,7 @@ val vectorTag = NamedTag("Vector")
 
 fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-    vectorSpace.numVectorSpace.withContext {
+    vectorSpace.withContext {
         "addition of Vector" {
             val numVector = numVectorSpace.fromValues(one, zero, one)
             val v = vectorSpace.fromNumVector(numVector)

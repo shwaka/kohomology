@@ -1,47 +1,16 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorContext
+import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarOperations
 
 class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
         if (numVector.dim != vectorSpace.dim)
             throw IllegalArgumentException("Dimension of the numerical vector does not match the dimension of the vector space")
-    }
-
-    operator fun plus(other: Vector<B, S, V>): Vector<B, S, V> {
-        if (this.vectorSpace != other.vectorSpace)
-            throw ArithmeticException("Cannot add two vectors in different vector spaces")
-        return this.vectorSpace.numVectorSpace.withContext {
-            Vector(this@Vector.numVector + other.numVector, this@Vector.vectorSpace)
-        }
-    }
-
-    operator fun minus(other: Vector<B, S, V>): Vector<B, S, V> {
-        if (this.vectorSpace != other.vectorSpace)
-            throw ArithmeticException("Cannot subtract two vectors in different vector spaces")
-        return this.vectorSpace.numVectorSpace.withContext {
-            Vector(this@Vector.numVector - other.numVector, this@Vector.vectorSpace)
-        }
-    }
-
-    operator fun unaryMinus(): Vector<B, S, V> {
-        return this.vectorSpace.numVectorSpace.withContext {
-            Vector(-this@Vector.numVector, this@Vector.vectorSpace)
-        }
-    }
-
-    operator fun times(scalar: S): Vector<B, S, V> {
-        return this.vectorSpace.numVectorSpace.withContext {
-            Vector(this@Vector.numVector * scalar, this@Vector.vectorSpace)
-        }
-    }
-
-    operator fun times(scalar: Int): Vector<B, S, V> {
-        return this.vectorSpace.numVectorSpace.withContext {
-            Vector(this@Vector.numVector * scalar, this@Vector.vectorSpace)
-        }
     }
 
     fun toNumVector(): V {
@@ -86,20 +55,57 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 }
 
-operator fun <B, S : Scalar<S>, V : NumVector<S, V>> Int.times(vector: Vector<B, S, V>): Vector<B, S, V> {
-    return vector * this
+interface VectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
+    fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
+    fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
+    fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
 }
 
-operator fun <B, S : Scalar<S>, V : NumVector<S, V>> S.times(vector: Vector<B, S, V>): Vector<B, S, V> {
-    return vector * this
+class VectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+    scalarOperations: ScalarOperations<S>,
+    numVectorOperations: NumVectorOperations<S, V>,
+    vectorOperations: VectorOperations<B, S, V>
+) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), VectorOperations<B, S, V> by vectorOperations {
+    operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
+    operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
+    operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
+    operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
+    operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
+    operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
+    operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
 }
 
 class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>
-) {
+) : VectorOperations<B, S, V> {
     val dim = basisNames.size
     val field = this.numVectorSpace.field
+
+    private val vectorContext = VectorContext(numVectorSpace.field, numVectorSpace, this)
+    fun <T> withContext(block: VectorContext<B, S, V>.() -> T) = this.vectorContext.block()
+
+    override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+        if (a.vectorSpace != b.vectorSpace)
+            throw ArithmeticException("Cannot add two vectors in different vector spaces")
+        return numVectorSpace.withContext {
+            Vector(a.numVector + b.numVector, a.vectorSpace)
+        }
+    }
+
+    override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+        if (a.vectorSpace != b.vectorSpace)
+            throw ArithmeticException("Cannot add two vectors in different vector spaces")
+        return this.numVectorSpace.withContext {
+            Vector(a.numVector - b.numVector, a.vectorSpace)
+        }
+    }
+
+    override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
+        return this.numVectorSpace.withContext {
+            Vector(vector.numVector * scalar, vector.vectorSpace)
+        }
+    }
 
     fun fromNumVector(numVector: V): Vector<B, S, V> {
         return Vector(numVector, this)

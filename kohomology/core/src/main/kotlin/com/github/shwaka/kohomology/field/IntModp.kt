@@ -46,36 +46,41 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     override val field = this
 
     override fun add(a: IntModp, b: IntModp): IntModp {
-        if (a.p != b.p) {
-            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
-        }
+        if (a.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
+        if (b.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
         return IntModp(a.value + b.value, this)
     }
 
     override fun subtract(a: IntModp, b: IntModp): IntModp {
-        if (a.p != b.p) {
-            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
-        }
+        if (a.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
+        if (b.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
         return IntModp(a.value - b.value, this)
     }
 
     override fun multiply(a: IntModp, b: IntModp): IntModp {
-        if (a.p != b.p) {
-            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
-        }
+        if (a.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
+        if (b.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
         return IntModp(a.value * b.value, this)
     }
 
     override fun divide(a: IntModp, b: IntModp): IntModp {
-        if (a.p != b.p) {
-            throw Exception("[Error] different characteristic: ${a.p} and ${b.p}")
-        }
+        if (a.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
+        if (b.p != this.p)
+            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
         val bInv = this.invModp(b)
         return IntModp(a.value * bInv.value, this)
     }
 
     private fun invModp(a: IntModp): IntModp {
-        if (a == IntModp(0, this)) throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
+        if (a == IntModp(0, this))
+            throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
         // TODO: Int として pow した後に modulo するのは重い
         return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this)
     }

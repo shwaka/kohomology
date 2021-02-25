@@ -203,13 +203,30 @@ class IntModpTest : StringSpec({
         F5.fromInt(8) shouldBe F5.fromInt(3)
     }
     "(-1 mod 5) should be equal to (4 mod 5)" {
-        println((-1) % 5)
-        println((-6) % 5)
         F5.fromInt(-1) shouldBe F5.fromInt(4)
     }
     "2^{-1} should be 3 in F_5" {
         F5.withContext {
-            F5.fromInt(2).inv() shouldBe F5.fromInt(3)
+            two.inv() shouldBe three
+        }
+    }
+    "1 + 2 should be 3 (mod 5)" {
+        F5.withContext {
+            (one + two) shouldBe three
+        }
+    }
+    "3 + 4 should be 2 (mod 5)" {
+        F5.withContext {
+            (three + four) shouldBe two
+        }
+    }
+    "addition of different characteristic should throw ArithmeticException" {
+        val twoMod7 = F7.withContext { two }
+        val threeMod7 = F7.withContext { three }
+        shouldThrow<ArithmeticException> {
+            F5.withContext {
+                twoMod7 + threeMod7
+            }
         }
     }
 })

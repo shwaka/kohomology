@@ -3,33 +3,33 @@ package com.github.shwaka.kohomology.vectsp
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-data class BasisPair<B1, B2>(val first: B1, val second: B2) {
+data class BasisPair<B>(val first: B, val second: B) {
     private fun stringPairToString(s1: String, s2: String): String {
         return "($s1, $s2)"
     }
     override fun toString(): String {
         return this.stringPairToString(this.first.toString(), this.second.toString())
     }
-    fun toString(firstBasisToString: (B1) -> String, secondBasisToString: (B2) -> String): String {
-        return this.stringPairToString(firstBasisToString(this.first), secondBasisToString(this.second))
+    fun toString(basisToString: (B) -> String): String {
+        return this.stringPairToString(basisToString(this.first), basisToString(this.second))
     }
 }
 
-class TensorProduct<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
-    val vectorSpace1: VectorSpace<B1, S, V>,
-    val vectorSpace2: VectorSpace<B2, S, V>
+class TensorProduct<B, S : Scalar<S>, V : NumVector<S, V>>(
+    val vectorSpace1: VectorSpace<B, S, V>,
+    val vectorSpace2: VectorSpace<B, S, V>
 ) {
-    val vectorSpace: VectorSpace<BasisPair<B1, B2>, S, V>
+    val vectorSpace: VectorSpace<BasisPair<B>, S, V>
     init {
         if (vectorSpace1.numVectorSpace != vectorSpace2.numVectorSpace)
             throw IllegalArgumentException("Tensor product of two vector spaces with different numerical vector spaces cannot be defined")
-        val basisNames: List<BasisPair<B1, B2>> = vectorSpace1.basisNames.flatMap { b1 ->
+        val basisNames: List<BasisPair<B>> = vectorSpace1.basisNames.flatMap { b1 ->
             vectorSpace2.basisNames.map { b2 -> BasisPair(b1, b2) }
         }
         this.vectorSpace = VectorSpace(vectorSpace1.numVectorSpace, basisNames)
     }
 
-    fun tensorProductOf(vector1: Vector<B1, S, V>, vector2: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
+    fun tensorProductOf(vector1: Vector<B, S, V>, vector2: Vector<B, S, V>): Vector<BasisPair<B>, S, V> {
         if (vector1.vectorSpace != this.vectorSpace1)
             throw IllegalArgumentException("The first vector is not an element of the first vector space")
         if (vector2.vectorSpace != this.vectorSpace2)
@@ -44,11 +44,11 @@ class TensorProduct<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
         return this.vectorSpace.fromCoeff(coeffList)
     }
 
-    infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
+    infix fun Vector<B, S, V>.tensor(other: Vector<B, S, V>): Vector<BasisPair<B>, S, V> {
         return this@TensorProduct.tensorProductOf(this, other)
     }
 
-    fun withContext(block: TensorProduct<B1, B2, S, V>.() -> Unit) {
-        block()
+    fun withContext(block: TensorProduct<B, S, V>.() -> Unit) {
+        this.block()
     }
 }

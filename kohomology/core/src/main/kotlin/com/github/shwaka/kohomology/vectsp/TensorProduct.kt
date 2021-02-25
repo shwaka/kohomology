@@ -79,7 +79,7 @@ class TensorProduct<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vectorSpace2: VectorSpace<B, S, V>
 ) {
     val vectorSpace: VectorSpace<BasisPair<B>, S, V>
-    private val context = TensorProductContext(this)
+    private val context by lazy { TensorProductContext(this) } // 直接代入するとなぜか Null Pointer Exception が起きる
 
     init {
         if (vectorSpace1.numVectorSpace != vectorSpace2.numVectorSpace)

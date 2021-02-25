@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.Scalar
 
 data class BasisPair<B>(val first: B, val second: B) {
@@ -15,11 +16,71 @@ data class BasisPair<B>(val first: B, val second: B) {
     }
 }
 
+class TensorProductContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+    private val tensorProduct: TensorProduct<B, S, V>
+) : NumVectorContext<S, V>(tensorProduct.vectorSpace.field, tensorProduct.vectorSpace.numVectorSpace) {
+    operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> {
+        val vectorSpace = this@TensorProductContext.tensorProduct.vectorSpace
+        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
+        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
+        return if (this.vectorSpace == vectorSpace && other.vectorSpace == vectorSpace) {
+            vectorSpace.withContext { this@plus + other }
+        } else if (this.vectorSpace == vectorSpace1 && other.vectorSpace == vectorSpace1) {
+            vectorSpace1.withContext { this@plus + other }
+        } else if (this.vectorSpace == vectorSpace2 && other.vectorSpace == vectorSpace2) {
+            vectorSpace2.withContext { this@plus + other }
+        } else {
+            throw ArithmeticException("The vector spaces ${this.vectorSpace} and ${other.vectorSpace} do not match the context")
+        }
+    }
+
+    operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> {
+        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
+        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
+        return if (this.vectorSpace == vectorSpace && other.vectorSpace == vectorSpace) {
+            vectorSpace.withContext { this@minus + other }
+        } else if (this.vectorSpace == vectorSpace1 && other.vectorSpace == vectorSpace1) {
+            vectorSpace1.withContext { this@minus + other }
+        } else if (this.vectorSpace == vectorSpace2 && other.vectorSpace == vectorSpace2) {
+            vectorSpace2.withContext { this@minus + other }
+        } else {
+            throw ArithmeticException("The vector spaces ${this.vectorSpace} and ${other.vectorSpace} do not match the context")
+        }
+    }
+
+    operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> {
+        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
+        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
+        if (scalar.field != this@TensorProductContext.field)
+            throw ArithmeticException("The field ${scalar.field} does not match the context")
+        return if (this.vectorSpace == vectorSpace) {
+            vectorSpace.withContext { this@times * scalar }
+        } else if (this.vectorSpace == vectorSpace1) {
+            vectorSpace1.withContext { this@times * scalar }
+        } else if (this.vectorSpace == vectorSpace2) {
+            vectorSpace2.withContext { this@times * scalar }
+        } else {
+            throw ArithmeticException("The vector space ${this.vectorSpace} does not match the context")
+        }
+    }
+    operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = vector * this
+    operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this * scalar.toScalar()
+    operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = vector * this.toScalar()
+
+    operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = this * (-1)
+
+    infix fun Vector<B, S, V>.tensor(other: Vector<B, S, V>): Vector<BasisPair<B>, S, V> {
+        return this@TensorProductContext.tensorProduct.tensorProductOf(this, other)
+    }
+}
+
 class TensorProduct<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vectorSpace1: VectorSpace<B, S, V>,
     val vectorSpace2: VectorSpace<B, S, V>
 ) {
     val vectorSpace: VectorSpace<BasisPair<B>, S, V>
+    private val context = TensorProductContext(this)
+
     init {
         if (vectorSpace1.numVectorSpace != vectorSpace2.numVectorSpace)
             throw IllegalArgumentException("Tensor product of two vector spaces with different numerical vector spaces cannot be defined")
@@ -44,11 +105,5 @@ class TensorProduct<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this.vectorSpace.fromCoeff(coeffList)
     }
 
-    infix fun Vector<B, S, V>.tensor(other: Vector<B, S, V>): Vector<BasisPair<B>, S, V> {
-        return this@TensorProduct.tensorProductOf(this, other)
-    }
-
-    fun withContext(block: TensorProduct<B, S, V>.() -> Unit) {
-        this.block()
-    }
+    fun <T> withContext(block: TensorProductContext<B, S, V>.() -> T): T = this.context.block()
 }

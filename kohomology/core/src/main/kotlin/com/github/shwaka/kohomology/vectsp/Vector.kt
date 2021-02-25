@@ -86,22 +86,30 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     fun <T> withContext(block: VectorContext<B, S, V>.() -> T) = this.vectorContext.block()
 
     override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
-        if (a.vectorSpace != b.vectorSpace)
-            throw ArithmeticException("Cannot add two vectors in different vector spaces")
+        if (a.vectorSpace != this)
+            throw ArithmeticException("The vector space ${a.vectorSpace} containing $a does not match the context ($this)")
+        if (b.vectorSpace != this)
+            throw ArithmeticException("The vector space ${b.vectorSpace} containing $b does not match the context ($this)")
         return numVectorSpace.withContext {
-            Vector(a.numVector + b.numVector, a.vectorSpace)
+            Vector(a.numVector + b.numVector, this@VectorSpace)
         }
     }
 
     override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
-        if (a.vectorSpace != b.vectorSpace)
-            throw ArithmeticException("Cannot add two vectors in different vector spaces")
+        if (a.vectorSpace != this)
+            throw ArithmeticException("The vector space ${a.vectorSpace} containing $a does not match the context ($this)")
+        if (b.vectorSpace != this)
+            throw ArithmeticException("The vector space ${b.vectorSpace} containing $b does not match the context ($this)")
         return this.numVectorSpace.withContext {
-            Vector(a.numVector - b.numVector, a.vectorSpace)
+            Vector(a.numVector - b.numVector, this@VectorSpace)
         }
     }
 
     override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
+        if (scalar.field != this.field)
+            throw ArithmeticException("The field ${scalar.field} containing $scalar does not match the context (${this.field})")
+        if (vector.vectorSpace != this)
+            throw ArithmeticException("The vector space ${vector.vectorSpace} containing $vector does not match the context ($this)")
         return this.numVectorSpace.withContext {
             Vector(vector.numVector * scalar, vector.vectorSpace)
         }

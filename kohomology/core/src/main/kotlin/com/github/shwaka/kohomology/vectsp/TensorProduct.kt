@@ -19,16 +19,23 @@ data class BasisPair<B>(val first: B, val second: B) {
 class TensorProductContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     private val tensorProduct: TensorProduct<B, S, V>
 ) : NumVectorContext<S, V>(tensorProduct.vectorSpace.field, tensorProduct.vectorSpace.numVectorSpace) {
-    operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> {
+    @Suppress("UNCHECKED_CAST")
+    operator fun <X> Vector<X, S, V>.plus(other: Vector<X, S, V>): Vector<X, S, V> {
         val vectorSpace = this@TensorProductContext.tensorProduct.vectorSpace
         val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
         val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
         return if (this.vectorSpace == vectorSpace && other.vectorSpace == vectorSpace) {
-            vectorSpace.withContext { this@plus + other }
+            this as Vector<BasisPair<B>, S, V>
+            other as Vector<BasisPair<B>, S, V>
+            vectorSpace.withContext { this@plus + other } as Vector<X, S, V>
         } else if (this.vectorSpace == vectorSpace1 && other.vectorSpace == vectorSpace1) {
-            vectorSpace1.withContext { this@plus + other }
+            this as Vector<B, S, V>
+            other as Vector<B, S, V>
+            vectorSpace1.withContext { this@plus + other } as Vector<X, S, V>
         } else if (this.vectorSpace == vectorSpace2 && other.vectorSpace == vectorSpace2) {
-            vectorSpace2.withContext { this@plus + other }
+            this as Vector<B, S, V>
+            other as Vector<B, S, V>
+            vectorSpace2.withContext { this@plus + other } as Vector<X, S, V>
         } else {
             throw ArithmeticException("The vector spaces ${this.vectorSpace} and ${other.vectorSpace} do not match the context")
         }

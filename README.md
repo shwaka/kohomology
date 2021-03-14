@@ -1,14 +1,19 @@
 ## test
 以下のいずれか．
-[radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を導入したので， `./gradlew kotest` じゃなくて `./gradlew test` でも綺麗に出力される．
+test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を利用している．
 
 - `./gradlew test -Dkotest.tags='Field & !Compile'`
 - `./gradlew test --tests com.github.shwaka.kohomology.IntRationalDenseNumVectorTest`
 - `./gradlew test --tests "*DenseNumVectorTest"`
+
+注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
+
+### kotest (古い情報)
 - `./gradlew kotest`
 - `./gradlew kotest -Dkotest.tags='Field & !Compile'`
 
-注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
+[kotest-gradle-plugin](https://github.com/kotest/kotest-gradle-plugin) を使っていた時代のもの．
+gradle-test-logger-plugin の方がメンテナンス状況が良さそうなので以降した．
 
 ## coverage
 ```bash

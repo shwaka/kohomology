@@ -41,9 +41,8 @@ fun <S : Scalar<S>, V : NumVector<S, V>> tensorProductTest(numVectorSpace: NumVe
     "context test" {
         tensorProduct.withContext {
             (v1 tensor w1) shouldBe v1w1
-            // TODO: 面倒なのでとりあえずコメントアウト
-            // ((v1 + 3 * v2) tensor (2 * w1 - w2)) shouldBe
-            //     ((2 * v1 tensor w1) - (v1 tensor w2) + (6 * v2 tensor w1) - (3 * v2 tensor w2))
+            ((v1 + 3 * v2) tensor (2 * w1 - w2)) shouldBe
+                ((2 * v1 tensor w1) - (v1 tensor w2) + (6 * v2 tensor w1) - (3 * v2 tensor w2))
         }
     }
 }

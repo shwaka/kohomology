@@ -169,3 +169,17 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return result
     }
 }
+
+class ManyVectorContext<S : Scalar<S>, V : NumVector<S, V>>(
+    val vectorSpaceList: List<VectorSpace<*, S, V>>
+) {
+    fun <X> add(vector1: Vector<X, S, V>, vector2: Vector<X, S, V>): Vector<X, S, V> {
+        for (vectorSpace in this.vectorSpaceList) {
+            if (vectorSpace == vector1.vectorSpace) {
+                vectorSpace as VectorSpace<X, S, V>
+                return vectorSpace.add(vector1, vector2)
+            }
+        }
+        throw IllegalArgumentException("does not match any of the vector spaces")
+    }
+}

@@ -157,6 +157,15 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
             )
             mat.transpose() shouldBe expectedMat
         }
+        "inner product of (1, 2) and (3, 4) w.r.t ((-1, 0), (-2, 2)) should be 1" {
+            val mat = matrixSpace.fromRows(
+                listOf(-one, zero),
+                listOf(-two, two)
+            )
+            val v = numVectorSpace.fromValues(one, two)
+            val w = numVectorSpace.fromValues(three, four)
+            mat.innerProduct(v, w) shouldBe one
+        }
     }
 }
 

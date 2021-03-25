@@ -146,6 +146,16 @@ class DenseMatrixSpace<S : Scalar<S>>(
         )
     }
 
+    override fun computeInnerProduct(
+        matrix: DenseMatrix<S>,
+        numVector1: DenseNumVector<S>,
+        numVector2: DenseNumVector<S>
+    ): S {
+        return this.withContext {
+            numVector1 dot (matrix * numVector2)
+        }
+    }
+
     override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")

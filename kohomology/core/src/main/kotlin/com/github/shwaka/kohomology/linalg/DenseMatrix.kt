@@ -130,6 +130,22 @@ class DenseMatrixSpace<S : Scalar<S>>(
         return DenseRowEchelonForm(matrix)
     }
 
+    override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {
+        val rowCount = matrix.colCount
+        val colCount = matrix.rowCount
+        val values: List<List<S>> = matrix.matrixSpace.withContext {
+            (0 until rowCount).map { i ->
+                (0 until colCount).map { j -> matrix[j, i] }
+            }
+        }
+        return DenseMatrix(
+            matrix.matrixSpace,
+            rowCount = rowCount,
+            colCount = colCount,
+            values = values
+        )
+    }
+
     override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")

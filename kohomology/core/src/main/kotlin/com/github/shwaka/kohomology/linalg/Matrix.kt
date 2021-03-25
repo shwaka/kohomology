@@ -16,6 +16,7 @@ interface MatrixOperations<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, 
     fun multiply(matrix: M, numVector: V): V
     fun multiply(matrix: M, scalar: S): M
     fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
+    fun computeTranspose(matrix: M): M
     fun getElement(matrix: M, rowInd: Int, colInd: Int): S
 }
 
@@ -62,6 +63,10 @@ class MatrixContext<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
             }
         }
         return result
+    }
+
+    fun M.transpose(): M {
+        return this@MatrixContext.computeTranspose(this)
     }
 
     fun M.toList(): List<List<S>> {

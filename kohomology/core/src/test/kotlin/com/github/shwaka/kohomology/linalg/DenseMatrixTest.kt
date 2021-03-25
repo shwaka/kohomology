@@ -146,6 +146,17 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
             )
             mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
+        "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
+            val mat = matrixSpace.fromRows(
+                listOf(one, two),
+                listOf(three, four)
+            )
+            val expectedMat = matrixSpace.fromRows(
+                listOf(one, three),
+                listOf(two, four)
+            )
+            mat.transpose() shouldBe expectedMat
+        }
     }
 }
 

@@ -23,7 +23,6 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> multilinearMapTest
     val (x, y) = sourceVectorSpace1.getBasis()
     val (a, b) = targetVectorSpace.getBasis()
     targetVectorSpace.withContext {
-        val zeroVector = 0 * a // TODO: import from Vector.kt
         "multilinear map test" {
             val vectors = listOf(
                 listOf(a, b - a), // v*x, v*y

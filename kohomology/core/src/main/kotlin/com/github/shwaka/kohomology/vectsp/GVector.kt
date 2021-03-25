@@ -118,7 +118,7 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     }
 
     fun getZero(degree: Degree): GVector<B, S, V> {
-        val vector = this[degree].zero
+        val vector = this[degree].zeroVector
         return this.fromVector(vector, degree)
     }
 

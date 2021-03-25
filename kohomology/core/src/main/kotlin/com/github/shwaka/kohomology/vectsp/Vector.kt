@@ -59,6 +59,7 @@ interface VectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
     fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
+    val zeroVector: Vector<B, S, V>
 }
 
 class VectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
@@ -128,7 +129,7 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this.fromCoeff(coeff.toList())
     }
 
-    val zero: Vector<B, S, V>
+    override val zeroVector: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
     fun getBasis(): List<Vector<B, S, V>> {

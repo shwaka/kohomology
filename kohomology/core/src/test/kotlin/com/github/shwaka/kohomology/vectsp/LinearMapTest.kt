@@ -31,7 +31,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> linearMapTest(matr
         "getZero should return the zero map" {
             val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
             val v = vectorSpace1.fromCoeff(one, two)
-            f(v) shouldBe vectorSpace2.zero
+            f(v) shouldBe vectorSpace2.zeroVector
         }
         "getId should return the identity map" {
             val f = LinearMap.getId(vectorSpace1, matrixSpace)

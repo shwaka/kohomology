@@ -74,6 +74,18 @@ class DenseNumVectorSpace<S : Scalar<S>>(
         return numVector.values[ind]
     }
 
+    override fun innerProduct(numVector1: DenseNumVector<S>, numVector2: DenseNumVector<S>): S {
+        if (numVector1.numVectorSpace != this)
+            throw IllegalArgumentException("The numVector $numVector1 does not match the context")
+        if (numVector2.numVectorSpace != this)
+            throw IllegalArgumentException("The numVector $numVector2 does not match the context")
+        if (numVector1.dim != numVector2.dim)
+            throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")
+        return this.withContext {
+            numVector1.values.zip(numVector2.values).map { (a, b) -> a * b }.reduce { acc, x -> acc + x }
+        }
+    }
+
     override fun fromValues(values: List<S>): DenseNumVector<S> {
         return DenseNumVector(values, this)
     }

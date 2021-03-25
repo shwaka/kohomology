@@ -57,6 +57,11 @@ fun <S : Scalar<S>> denseNumVectorTest(field: Field<S>) = stringSpec {
             val w = numVectorSpace.getZero(0)
             v shouldBe w
         }
+        "(1,2) dot (-1, 3) should be 5" {
+            val v = numVectorSpace.fromValues(one, two)
+            val w = numVectorSpace.fromValues(-one, three)
+            (v dot w) shouldBe five
+        }
     }
 }
 

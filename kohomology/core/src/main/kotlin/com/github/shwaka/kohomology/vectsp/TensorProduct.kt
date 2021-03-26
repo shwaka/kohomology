@@ -18,71 +18,13 @@ data class BasisPair<B1, B2>(val first: B1, val second: B2) {
 
 class TensorProductContext<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
     private val tensorProduct: TensorProduct<B1, B2, S, V>
-) : NumVectorContext<S, V>(tensorProduct.vectorSpace.field, tensorProduct.vectorSpace.numVectorSpace) {
-    @Suppress("UNCHECKED_CAST")
-    operator fun <X> Vector<X, S, V>.plus(other: Vector<X, S, V>): Vector<X, S, V> {
-        val vectorSpace = this@TensorProductContext.tensorProduct.vectorSpace
-        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
-        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
-        return if (this.vectorSpace == vectorSpace && other.vectorSpace == vectorSpace) {
-            this as Vector<BasisPair<B1, B2>, S, V>
-            other as Vector<BasisPair<B1, B2>, S, V>
-            vectorSpace.withContext { this@plus + other } as Vector<X, S, V>
-        } else if (this.vectorSpace == vectorSpace1 && other.vectorSpace == vectorSpace1) {
-            this as Vector<B1, S, V>
-            other as Vector<B1, S, V>
-            vectorSpace1.withContext { this@plus + other } as Vector<X, S, V>
-        } else if (this.vectorSpace == vectorSpace2 && other.vectorSpace == vectorSpace2) {
-            this as Vector<B2, S, V>
-            other as Vector<B2, S, V>
-            vectorSpace2.withContext { this@plus + other } as Vector<X, S, V>
-        } else {
-            throw ArithmeticException("The vector spaces ${this.vectorSpace} and ${other.vectorSpace} do not match the context")
-        }
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    operator fun <X> Vector<X, S, V>.minus(other: Vector<X, S, V>): Vector<X, S, V> {
-        val vectorSpace = this@TensorProductContext.tensorProduct.vectorSpace
-        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
-        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
-        return if (this.vectorSpace == vectorSpace && other.vectorSpace == vectorSpace) {
-            this as Vector<BasisPair<B1, B2>, S, V>
-            other as Vector<BasisPair<B1, B2>, S, V>
-            vectorSpace.withContext { this@minus - other } as Vector<X, S, V>
-        } else if (this.vectorSpace == vectorSpace1 && other.vectorSpace == vectorSpace1) {
-            this as Vector<B1, S, V>
-            other as Vector<B1, S, V>
-            vectorSpace1.withContext { this@minus - other } as Vector<X, S, V>
-        } else if (this.vectorSpace == vectorSpace2 && other.vectorSpace == vectorSpace2) {
-            this as Vector<B2, S, V>
-            other as Vector<B2, S, V>
-            vectorSpace2.withContext { this@minus - other } as Vector<X, S, V>
-        } else {
-            throw ArithmeticException("The vector spaces ${this.vectorSpace} and ${other.vectorSpace} do not match the context")
-        }
-    }
-
-    operator fun <X> Vector<X, S, V>.times(scalar: S): Vector<X, S, V> {
-        val vectorSpace1 = this@TensorProductContext.tensorProduct.vectorSpace1
-        val vectorSpace2 = this@TensorProductContext.tensorProduct.vectorSpace2
-        if (scalar.field != this@TensorProductContext.field)
-            throw ArithmeticException("The field ${scalar.field} does not match the context")
-        return if (this.vectorSpace == vectorSpace) {
-            vectorSpace.withContext { this@times * scalar }
-        } else if (this.vectorSpace == vectorSpace1) {
-            vectorSpace1.withContext { this@times * scalar }
-        } else if (this.vectorSpace == vectorSpace2) {
-            vectorSpace2.withContext { this@times * scalar }
-        } else {
-            throw ArithmeticException("The vector space ${this.vectorSpace} does not match the context")
-        }
-    }
-    operator fun <X> S.times(vector: Vector<X, S, V>): Vector<X, S, V> = vector * this
-    operator fun <X> Vector<X, S, V>.times(scalar: Int): Vector<X, S, V> = this * scalar.toScalar()
-    operator fun <X> Int.times(vector: Vector<X, S, V>): Vector<X, S, V> = vector * this.toScalar()
-
-    operator fun <X> Vector<X, S, V>.unaryMinus(): Vector<X, S, V> = this * (-1)
+) : MultipleVectorContext<S, V>(
+    tensorProduct.vectorSpace.numVectorSpace,
+    listOf(
+        tensorProduct.vectorSpace,
+        tensorProduct.vectorSpace1,
+        tensorProduct.vectorSpace2,
+    )) {
 
     infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
         return this@TensorProductContext.tensorProduct.tensorProductOf(this, other)

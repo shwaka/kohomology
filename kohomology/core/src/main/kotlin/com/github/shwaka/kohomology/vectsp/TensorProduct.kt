@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.Scalar
 
 data class BasisPair<B1, B2>(val first: B1, val second: B2) {
@@ -24,7 +23,8 @@ class TensorProductContext<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
         tensorProduct.vectorSpace,
         tensorProduct.vectorSpace1,
         tensorProduct.vectorSpace2,
-    )) {
+    )
+) {
 
     infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
         return this@TensorProductContext.tensorProduct.tensorProductOf(this, other)

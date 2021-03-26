@@ -18,24 +18,23 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> multilinearMapTest
     val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
     val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
     val targetVectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
+    val context = MultipleVectorContext(numVectorSpace, listOf(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace))
 
     val (v, w) = sourceVectorSpace0.getBasis()
     val (x, y) = sourceVectorSpace1.getBasis()
     val (a, b) = targetVectorSpace.getBasis()
-    targetVectorSpace.withContext {
+    context.run {
         "multilinear map test" {
             val vectors = listOf(
                 listOf(a, b - a), // v*x, v*y
-                listOf(2 * a + b, zeroVector) // w*x, w*y
+                listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y
             )
             val f = MultilinearMap.fromVectors(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace, matrixSpace, vectors)
             f(v, x) shouldBe a
             f(v, y) shouldBe (b - a)
             f(w, x) shouldBe (2 * a + b)
-            f(w, y) shouldBe zeroVector
-            val vw = sourceVectorSpace0.withContext { v + w }
-            val xy = sourceVectorSpace1.withContext { x + y }
-            f(vw, xy) shouldBe (2 * (a + b))
+            f(w, y) shouldBe targetVectorSpace.zeroVector
+            f(v + w, x + y) shouldBe (2 * (a + b))
         }
     }
 }

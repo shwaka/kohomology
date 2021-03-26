@@ -10,7 +10,7 @@ sealed class GVectorOrZero<B, S : Scalar<S>, V : NumVector<S, V>>
 
 class ZeroGVector<B, S : Scalar<S>, V : NumVector<S, V>> : GVectorOrZero<B, S, V>()
 
-class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     val vector: Vector<B, S, V>,
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>

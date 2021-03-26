@@ -52,14 +52,12 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = st
     field.withContext {
         "field.zero should be the unit of addition" {
             checkAll(arb) { a ->
-                val zero = zero
                 (a + zero) shouldBe a
                 (zero + a) shouldBe a
             }
         }
         "field.one should be the unit of multiplication" {
             checkAll(arb) { a ->
-                val one = one
                 (a * one) shouldBe a
                 (one * a) shouldBe a
             }

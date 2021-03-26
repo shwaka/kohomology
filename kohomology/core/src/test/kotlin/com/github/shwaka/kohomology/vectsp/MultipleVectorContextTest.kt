@@ -17,25 +17,25 @@ fun <S : Scalar<S>, V : NumVector<S, V>> multipleVectorContextTest(numVectorSpac
     "two vector spaces with the same basis class" {
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
         val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
-        val context = MultipleVectorContext(listOf(vectorSpace1, vectorSpace2))
+        val context = MultipleVectorContext(numVectorSpace, listOf(vectorSpace1, vectorSpace2))
 
         val (a, b) = vectorSpace1.getBasis()
         val (x, y) = vectorSpace2.getBasis()
 
-        context.add(a, b) shouldBe vectorSpace1.add(a, b)
-        context.add(x, y) shouldBe vectorSpace2.add(x, y)
+        context.run { a + b } shouldBe vectorSpace1.withContext { a + b }
+        context.run { x + y } shouldBe vectorSpace2.withContext { x + y }
     }
 
     "two vector spaces with different basis classes" {
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
         val vectorSpace2 = VectorSpace(numVectorSpace, listOf(MyBasis("x"), MyBasis("y")))
-        val context = MultipleVectorContext(listOf(vectorSpace1, vectorSpace2))
+        val context = MultipleVectorContext(numVectorSpace, listOf(vectorSpace1, vectorSpace2))
 
         val (a, b) = vectorSpace1.getBasis()
         val (x, y) = vectorSpace2.getBasis()
 
-        context.add(a, b) shouldBe vectorSpace1.add(a, b)
-        context.add(x, y) shouldBe vectorSpace2.add(x, y)
+        context.run { a + b } shouldBe vectorSpace1.withContext { a + b }
+        context.run { x + y } shouldBe vectorSpace2.withContext { x + y }
     }
 }
 

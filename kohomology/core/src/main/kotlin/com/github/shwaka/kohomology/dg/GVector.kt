@@ -65,7 +65,7 @@ class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
 }
 
-class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     private val getBasisNames: (Degree) -> List<B>
 ) : GVectorOperations<B, S, V> {

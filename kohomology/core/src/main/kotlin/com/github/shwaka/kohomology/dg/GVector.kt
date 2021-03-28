@@ -51,7 +51,7 @@ interface GVectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
     val zeroGVector: ZeroGVector<B, S, V>
 }
 
-class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,

@@ -43,9 +43,16 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> gBilinearMapTest(m
         "graded bilinear map test" {
             val u: GVector<String, S, V> = gVectorSpace.getBasis(0)[0]
             val v: GVector<String, S, V> = gVectorSpace.getBasis(1)[0]
+            val z2: GVector<String, S, V> = gVectorSpace.getZero(2)
+            val z3: GVector<String, S, V> = gVectorSpace.getZero(3)
             gBilinearMap(u, u) shouldBe u
             gBilinearMap(u, v) shouldBe v
             gBilinearMap(v, u) shouldBe v
+            gBilinearMap(v, v) shouldBe gVectorSpace.getZero(2)
+            gBilinearMap(z2, v) shouldBe z3
+            gBilinearMap(v, z2) shouldBe z3
+            gBilinearMap(z3, u) shouldBe z3
+            gBilinearMap(u, z3) shouldBe z3
         }
     }
 }

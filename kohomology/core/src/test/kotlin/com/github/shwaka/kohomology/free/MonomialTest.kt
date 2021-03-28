@@ -43,6 +43,14 @@ class MonomialTest : StringSpec({
         val y = Monomial(indeterminateList, listOf(0, 1, 0))
         val z = Monomial(indeterminateList, listOf(0, 0, 1))
         val xy = Monomial(indeterminateList, listOf(1, 1, 0))
+        val xz = Monomial(indeterminateList, listOf(1, 0, 1))
+        val yz = Monomial(indeterminateList, listOf(0, 1, 1))
+        val xyz = Monomial(indeterminateList, listOf(1, 1, 1))
+        val yzz = Monomial(indeterminateList, listOf(0, 1, 2))
         (x * y) shouldBe Pair(xy, 1)
+        (xy * xz) shouldBe null
+        (xz * y) shouldBe Pair(xyz, 1)
+        (y * xz) shouldBe Pair(xyz, -1)
+        (z * yz) shouldBe Pair(yzz, 1)
     }
 })

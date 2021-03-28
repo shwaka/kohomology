@@ -45,6 +45,29 @@ data class Monomial<B>(
         return if (firstIncreased.totalDegree() <= maxDegree) firstIncreased else null
     }
 
+    operator fun times(other: Monomial<B>): Pair<Monomial<B>, Int>? {
+        if (this.indeterminateList != other.indeterminateList)
+            throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
+        val size = this.indeterminateList.size
+        val exponentList = this.exponentList.zip(other.exponentList).map { (p, q) -> p + q }
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree % 2 == 1) and (exponentList[i] >= 2))
+                return null
+        }
+        var sign = 1
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree % 2 == 1) and (this.exponentList[i] == 1)) {
+                for (j in 0 until i) {
+                    if ((other.indeterminateList[j].degree % 2 == 1) and (other.exponentList[j] == 1)) {
+                        sign = -sign
+                    }
+                }
+            }
+        }
+        val monomial = Monomial(this.indeterminateList, exponentList)
+        return Pair(monomial, sign)
+    }
+
     companion object {
         fun <B> listAll(generators: List<Indeterminate<B>>, degree: Degree): List<Monomial<B>> {
             val exponents = List(generators.size) { 0 }

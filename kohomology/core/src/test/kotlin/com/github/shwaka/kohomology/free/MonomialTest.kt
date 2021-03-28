@@ -32,4 +32,17 @@ class MonomialTest : StringSpec({
             Monomial.listAll(indeterminateList, degree).size shouldBe 1
         }
     }
+
+    "multiplication test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("y", 1),
+            Indeterminate("z", 2),
+        )
+        val x = Monomial(indeterminateList, listOf(1, 0, 0))
+        val y = Monomial(indeterminateList, listOf(0, 1, 0))
+        val z = Monomial(indeterminateList, listOf(0, 0, 1))
+        val xy = Monomial(indeterminateList, listOf(1, 1, 0))
+        (x * y) shouldBe Pair(xy, 1)
+    }
 })

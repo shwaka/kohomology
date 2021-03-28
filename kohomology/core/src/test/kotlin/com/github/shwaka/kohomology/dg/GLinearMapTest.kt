@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

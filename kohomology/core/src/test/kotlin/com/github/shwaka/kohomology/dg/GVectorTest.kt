@@ -5,14 +5,14 @@ import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.vectsp.GVectorSpace
+import com.github.shwaka.kohomology.vectsp.ZeroGVector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
-import com.github.shwaka.kohomology.vectsp.GVectorSpace
-import com.github.shwaka.kohomology.vectsp.ZeroGVector
 
 val gVectorTag = NamedTag("GVector")
 

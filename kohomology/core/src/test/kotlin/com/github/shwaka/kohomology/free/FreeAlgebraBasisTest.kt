@@ -18,4 +18,14 @@ class FreeAlgebraBasisTest : StringSpec({
             FreeAlgebraBasis.computeBasis(generators, degree).size shouldBe size
         }
     }
+
+    "polynomial algebra tensor exterior algebra" {
+        val generators = listOf(
+            FreeAlgebraGenerator("x", 1),
+            FreeAlgebraGenerator("y", 2),
+        )
+        for (degree in listOf(0, 1, 2, 3, 4)) {
+            FreeAlgebraBasis.computeBasis(generators, degree).size shouldBe 1
+        }
+    }
 })

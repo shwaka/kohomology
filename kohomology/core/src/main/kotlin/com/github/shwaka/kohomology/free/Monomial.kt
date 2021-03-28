@@ -2,7 +2,11 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.vectsp.Degree
 
-data class Indeterminate<B>(val name: B, val degree: Degree)
+data class Indeterminate<B>(val name: B, val degree: Degree) {
+    override fun toString(): String {
+        return this.name.toString()
+    }
+}
 
 data class Monomial<B>(
     val indeterminateList: List<Indeterminate<B>>,
@@ -66,6 +70,16 @@ data class Monomial<B>(
         }
         val monomial = Monomial(this.indeterminateList, exponentList)
         return Pair(monomial, sign)
+    }
+
+    override fun toString(): String {
+        return this.indeterminateList.zip(this.exponentList).joinToString("") { (indeterminate, exponent) ->
+            when (exponent) {
+                0 -> ""
+                1 -> indeterminate.toString()
+                else -> "$indeterminate^$exponent"
+            }
+        }
     }
 
     companion object {

@@ -45,9 +45,9 @@ open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
 }
 
 interface GVectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
-    fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
-    fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
-    fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
+    fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V>
     val zeroGVector: ZeroGVector<B, S, V>
 }
 
@@ -56,13 +56,13 @@ class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
 ) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), GVectorOperations<B, S, V> by gVectorOperations {
-    operator fun GVectorOrZero<B, S, V>.plus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.add(this, other)
-    operator fun GVectorOrZero<B, S, V>.minus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.subtract(this, other)
-    operator fun GVectorOrZero<B, S, V>.times(scalar: S): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar, this)
-    operator fun S.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this, gVector)
-    operator fun GVectorOrZero<B, S, V>.times(scalar: Int): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
-    operator fun Int.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
-    operator fun GVectorOrZero<B, S, V>.unaryMinus(): GVectorOrZero<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
+    operator fun GVector<B, S, V>.plus(other: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.add(this, other)
+    operator fun GVector<B, S, V>.minus(other: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.subtract(this, other)
+    operator fun GVector<B, S, V>.times(scalar: S): GVector<B, S, V> = this@GVectorContext.multiply(scalar, this)
+    operator fun S.times(gVector: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.multiply(this, gVector)
+    operator fun GVector<B, S, V>.times(scalar: Int): GVector<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
+    operator fun Int.times(gVector: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
+    operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
 }
 
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
@@ -118,11 +118,7 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         }
     }
 
-    override fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
-        if (a !is GVector) // a is ZeroGVector だと smart cast が働かない
-            return b
-        if (b !is GVector) // b is ZeroGVector だと smart cast が働かない
-            return a
+    override fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         if (a.gVectorSpace != this)
             throw ArithmeticException("The gVector $a does not match the context")
         if (b.gVectorSpace != this)
@@ -135,16 +131,7 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this@GVectorSpace.fromVector(vector, a.degree)
     }
 
-    override fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
-        if (a !is GVector) // a is ZeroGVector だと smart cast が働かない
-            return when (b) {
-                is ZeroGVector -> b
-                is GVector -> b.vector.vectorSpace.withContext {
-                    b.gVectorSpace.fromVector(-b.vector, b.degree)
-                }
-            }
-        if (b !is GVector) // b is ZeroGVector だと smart cast が働かない
-            return a
+    override fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         if (a.gVectorSpace != this)
             throw ArithmeticException("The gVector $a does not match the context")
         if (b.gVectorSpace != this)
@@ -157,16 +144,11 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
         return this@GVectorSpace.fromVector(vector, a.degree)
     }
 
-    override fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
-        return when (gVector) {
-            is ZeroGVector -> gVector
-            is GVector -> {
-                if (gVector.gVectorSpace != this)
-                    throw ArithmeticException("The gVector $gVector does not match the context")
-                val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
-                this.fromVector(vector, gVector.degree)
-            }
-        }
+    override fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V> {
+        if (gVector.gVectorSpace != this)
+            throw ArithmeticException("The gVector $gVector does not match the context")
+        val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
+        return this.fromVector(vector, gVector.degree)
     }
 
     override val zeroGVector: ZeroGVector<B, S, V> = ZeroGVector()

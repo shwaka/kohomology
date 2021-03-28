@@ -46,7 +46,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> gLinearMapTest(mat
             val (w0, w1, w2) = gVectorSpace.getBasis(3)
             gLinearMap(v0) shouldBe (w0 + w1)
             gLinearMap(v1) shouldBe (w1 + w2)
-            // gLinearMap(v0 + v1) shouldBe (w0 + w1 * 2 + w2)
+            gLinearMap(v0 + v1) shouldBe (w0 + w1 * 2 + w2)
         }
     }
 }

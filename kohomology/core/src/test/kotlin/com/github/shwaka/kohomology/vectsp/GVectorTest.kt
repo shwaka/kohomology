@@ -55,8 +55,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVec
 
         "convertToGVector converts GVector to itself" {
             val degree = 3
-            // val v = gVectorSpace.getBasis(degree).reduce { x, y -> x + y }
-            val v = gVectorSpace.getBasis(degree)[0]
+            val v = gVectorSpace.getBasis(degree).reduce { x, y -> x + y }
             gVectorSpace.convertToGVector(v, degree) shouldBe v
         }
     }

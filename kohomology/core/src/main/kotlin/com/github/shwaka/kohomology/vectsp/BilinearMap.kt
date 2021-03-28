@@ -29,36 +29,36 @@ class MatrixSequence<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
     }
 }
 
-class BilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
-    val source0: VectorSpace<B0, S, V>,
-    val source1: VectorSpace<B1, S, V>,
-    val target: VectorSpace<B2, S, V>,
+class BilinearMap<BS1, BS2, BT, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
+    val source1: VectorSpace<BS1, S, V>,
+    val source2: VectorSpace<BS2, S, V>,
+    val target: VectorSpace<BT, S, V>,
     private val matrixSequence: MatrixSequence<S, V, M>,
 ) {
     init {
-        if (matrixSequence.rowCount != source0.dim)
+        if (matrixSequence.rowCount != source1.dim)
             throw IllegalArgumentException("The rowCount of the matrix list does not match the dim of the first source vector space")
-        if (matrixSequence.colCount != source1.dim)
+        if (matrixSequence.colCount != source2.dim)
             throw IllegalArgumentException("The rowCount of the matrix list does not match the dim of the second source vector space")
         if (matrixSequence.size != target.dim)
             throw IllegalArgumentException("The size of the matrix list does not match the dim of the target vector space")
     }
 
-    operator fun invoke(vector1: Vector<B0, S, V>, vector2: Vector<B1, S, V>): Vector<B2, S, V> {
+    operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {
         val numVector: V = this.matrixSequence.multiply(vector1.numVector, vector2.numVector)
         return target.fromNumVector(numVector)
     }
 
     companion object {
-        fun <B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(
-            source0: VectorSpace<B0, S, V>,
-            source1: VectorSpace<B1, S, V>,
-            target: VectorSpace<B2, S, V>,
+        fun <BS1, BS2, BT, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(
+            source1: VectorSpace<BS1, S, V>,
+            source2: VectorSpace<BS2, S, V>,
+            target: VectorSpace<BT, S, V>,
             matrixSpace: MatrixSpace<S, V, M>,
-            vectors: List<List<Vector<B2, S, V>>>,
-        ): BilinearMap<B0, B1, B2, S, V, M> {
-            val rowCount = source0.dim
-            val colCount = source1.dim
+            vectors: List<List<Vector<BT, S, V>>>,
+        ): BilinearMap<BS1, BS2, BT, S, V, M> {
+            val rowCount = source1.dim
+            val colCount = source2.dim
             val matrixList: List<M> = (0 until target.dim).map { k ->
                 val rows: List<List<S>> = matrixSpace.withContext {
                     (0 until rowCount).map { i ->
@@ -70,7 +70,7 @@ class BilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, 
                 matrixSpace.fromRows(rows)
             }
             val matrixSequence = MatrixSequence(matrixSpace, matrixList, rowCount, colCount)
-            return BilinearMap(source0, source1, target, matrixSequence)
+            return BilinearMap(source1, source2, target, matrixSequence)
         }
     }
 }

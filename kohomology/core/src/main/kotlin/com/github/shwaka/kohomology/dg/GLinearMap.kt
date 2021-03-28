@@ -8,13 +8,13 @@ import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorSpace
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
-class GLinearMap<B0, B1, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
-    val source: GVectorSpace<B0, S, V>,
-    val target: GVectorSpace<B1, S, V>,
+class GLinearMap<BS, BT, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+    val source: GVectorSpace<BS, S, V>,
+    val target: GVectorSpace<BT, S, V>,
     val degree: Degree,
-    val getLinearMap: (Degree) -> LinearMap<B0, B1, S, V, M>
+    val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
 ) {
-    operator fun invoke(gVector: GVector<B0, S, V>): GVector<B1, S, V> {
+    operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
         if (gVector.gVectorSpace != this.source)
             throw IllegalArgumentException("Invalid graded vector is given as an argument for a graded linear map")
         val linearMap = this.getLinearMap(gVector.degree)

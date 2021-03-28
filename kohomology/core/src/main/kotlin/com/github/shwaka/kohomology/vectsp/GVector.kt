@@ -1,8 +1,11 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorContext
+import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarOperations
 
 typealias Degree = Int
 
@@ -15,44 +18,6 @@ open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
 ) : GVectorOrZero<B, S, V>() {
-    operator fun plus(other: GVector<B, S, V>): GVector<B, S, V> {
-        if (this.gVectorSpace != other.gVectorSpace)
-            throw ArithmeticException("Cannot add two graded vectors in different graded vector spaces")
-        if (this.degree != other.degree)
-            throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        return this.vector.vectorSpace.withContext {
-            this@GVector.gVectorSpace.fromVector(this@GVector.vector + other.vector, this@GVector.degree)
-        }
-    }
-
-    operator fun minus(other: GVector<B, S, V>): GVector<B, S, V> {
-        if (this.gVectorSpace != other.gVectorSpace)
-            throw ArithmeticException("Cannot subtract two graded vectors in different graded vector spaces")
-        if (this.degree != other.degree)
-            throw ArithmeticException("Cannot subtract two graded vectors of different degrees")
-        return this.vector.vectorSpace.withContext {
-            this@GVector.gVectorSpace.fromVector(this@GVector.vector + other.vector, this@GVector.degree)
-        }
-    }
-
-    operator fun unaryMinus(): GVector<B, S, V> {
-        return this.vector.vectorSpace.withContext {
-            this@GVector.gVectorSpace.fromVector(-this@GVector.vector, this@GVector.degree)
-        }
-    }
-
-    operator fun times(scalar: S): GVector<B, S, V> {
-        return this.vector.vectorSpace.withContext {
-            this@GVector.gVectorSpace.fromVector(this@GVector.vector * scalar, this@GVector.degree)
-        }
-    }
-
-    operator fun times(scalar: Int): GVector<B, S, V> {
-        return this.vector.vectorSpace.withContext {
-            this@GVector.gVectorSpace.fromVector(this@GVector.vector * scalar, this@GVector.degree)
-        }
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -79,12 +44,36 @@ open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     fun toString(basisToString: (B) -> String): String = this.vector.toString(basisToString)
 }
 
+interface GVectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
+    fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
+    fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
+    fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
+    val zeroGVector: ZeroGVector<B, S, V>
+}
+
+class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+    scalarOperations: ScalarOperations<S>,
+    numVectorOperations: NumVectorOperations<S, V>,
+    gVectorOperations: GVectorOperations<B, S, V>,
+) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), GVectorOperations<B, S, V> by gVectorOperations {
+    operator fun GVectorOrZero<B, S, V>.plus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.add(this, other)
+    operator fun GVectorOrZero<B, S, V>.minus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.subtract(this, other)
+    operator fun GVectorOrZero<B, S, V>.times(scalar: S): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar, this)
+    operator fun S.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this, gVector)
+    operator fun GVectorOrZero<B, S, V>.times(scalar: Int): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
+    operator fun Int.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
+    operator fun GVectorOrZero<B, S, V>.unaryMinus(): GVectorOrZero<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
+}
+
 class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     private val getBasisNames: (Degree) -> List<B>
-) {
+) : GVectorOperations<B, S, V> {
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
+
+    private val gVectorContext = GVectorContext(numVectorSpace.field, numVectorSpace, this)
+    fun <T> withContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
 
     operator fun get(degree: Degree): VectorSpace<B, S, V> {
         // if cache exists
@@ -128,4 +117,57 @@ class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
             is GVector -> gVectorOrZero
         }
     }
+
+    override fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        if (a !is GVector) // a is ZeroGVector だと smart cast が働かない
+            return b
+        if (b !is GVector) // b is ZeroGVector だと smart cast が働かない
+            return a
+        if (a.gVectorSpace != this)
+            throw ArithmeticException("The gVector $a does not match the context")
+        if (b.gVectorSpace != this)
+            throw ArithmeticException("The gVector $b does not match the context")
+        if (a.degree != b.degree)
+            throw ArithmeticException("Cannot add two graded vectors of different degrees")
+        val vector = a.vector.vectorSpace.withContext {
+            a.vector + b.vector
+        }
+        return this@GVectorSpace.fromVector(vector, a.degree)
+    }
+
+    override fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        if (a !is GVector) // a is ZeroGVector だと smart cast が働かない
+            return when (b) {
+                is ZeroGVector -> b
+                is GVector -> b.vector.vectorSpace.withContext {
+                    b.gVectorSpace.fromVector(-b.vector, b.degree)
+                }
+            }
+        if (b !is GVector) // b is ZeroGVector だと smart cast が働かない
+            return a
+        if (a.gVectorSpace != this)
+            throw ArithmeticException("The gVector $a does not match the context")
+        if (b.gVectorSpace != this)
+            throw ArithmeticException("The gVector $b does not match the context")
+        if (a.degree != b.degree)
+            throw ArithmeticException("Cannot add two graded vectors of different degrees")
+        val vector = a.vector.vectorSpace.withContext {
+            a.vector - b.vector
+        }
+        return this@GVectorSpace.fromVector(vector, a.degree)
+    }
+
+    override fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        return when (gVector) {
+            is ZeroGVector -> gVector
+            is GVector -> {
+                if (gVector.gVectorSpace != this)
+                    throw ArithmeticException("The gVector $gVector does not match the context")
+                val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
+                this.fromVector(vector, gVector.degree)
+            }
+        }
+    }
+
+    override val zeroGVector: ZeroGVector<B, S, V> = ZeroGVector()
 }

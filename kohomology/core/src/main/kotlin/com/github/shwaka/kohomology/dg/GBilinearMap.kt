@@ -12,8 +12,8 @@ class GBilinearMap<BS1, BS2, BT, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<
     val source1: GVectorSpace<BS1, S, V>,
     val source2: GVectorSpace<BS2, S, V>,
     val target: GVectorSpace<BT, S, V>,
+    val degree: Degree,
     private val getBilinearMap: (Degree, Degree) -> BilinearMap<BS1, BS2, BT, S, V, M>,
-    val degree: Degree = 0,
 ) {
     operator fun invoke(gVector1: GVector<BS1, S, V>, gVector2: GVector<BS2, S, V>): GVector<BT, S, V> {
         if (gVector1.gVectorSpace != this.source1)

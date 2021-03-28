@@ -47,6 +47,8 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
             this@Vector.numVector.toList()
         }
         val basis = this.vectorSpace.basisNames.map(basisToString)
+        if (basis.isEmpty())
+            return "0"
         return coeffList.zip(basis).joinToString(separator = " + ") { (coeff, basisElm) -> "$coeff $basisElm" }
     }
 

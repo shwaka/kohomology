@@ -29,7 +29,7 @@ class MatrixSequence<S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
     }
 }
 
-class MultilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
+class BilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
     val source0: VectorSpace<B0, S, V>,
     val source1: VectorSpace<B1, S, V>,
     val target: VectorSpace<B2, S, V>,
@@ -56,7 +56,7 @@ class MultilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<
             target: VectorSpace<B2, S, V>,
             matrixSpace: MatrixSpace<S, V, M>,
             vectors: List<List<Vector<B2, S, V>>>,
-        ): MultilinearMap<B0, B1, B2, S, V, M> {
+        ): BilinearMap<B0, B1, B2, S, V, M> {
             val rowCount = source0.dim
             val colCount = source1.dim
             val matrixList: List<M> = (0 until target.dim).map { k ->
@@ -70,7 +70,7 @@ class MultilinearMap<B0, B1, B2, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<
                 matrixSpace.fromRows(rows)
             }
             val matrixSequence = MatrixSequence(matrixSpace, matrixList, rowCount, colCount)
-            return MultilinearMap(source0, source1, target, matrixSequence)
+            return BilinearMap(source0, source1, target, matrixSequence)
         }
     }
 }

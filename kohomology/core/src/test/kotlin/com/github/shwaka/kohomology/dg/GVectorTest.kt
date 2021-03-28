@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.vectsp
+package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
@@ -11,6 +11,8 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
+import com.github.shwaka.kohomology.vectsp.GVectorSpace
+import com.github.shwaka.kohomology.vectsp.ZeroGVector
 
 val gVectorTag = NamedTag("GVector")
 

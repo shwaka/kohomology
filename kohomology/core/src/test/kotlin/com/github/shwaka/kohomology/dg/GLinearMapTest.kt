@@ -1,11 +1,14 @@
-package com.github.shwaka.kohomology.vectsp
+package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.vectsp.GVectorSpace
+import com.github.shwaka.kohomology.vectsp.LinearMap
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec

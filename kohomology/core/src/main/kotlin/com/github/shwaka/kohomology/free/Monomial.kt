@@ -83,9 +83,9 @@ data class Monomial<I>(
     }
 
     companion object {
-        fun <I> listAll(generators: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {
-            val exponents = List(generators.size) { 0 }
-            var monomial: Monomial<I>? = Monomial(generators, exponents)
+        fun <I> listAll(indeterminateList: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {
+            val exponentList = List(indeterminateList.size) { 0 }
+            var monomial: Monomial<I>? = Monomial(indeterminateList, exponentList)
             val monomialList: MutableList<Monomial<I>> = mutableListOf()
             while (monomial != null) {
                 if (monomial.totalDegree() == degree)

@@ -2,14 +2,14 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.vectsp.Degree
 
-data class Indeterminate<B>(val name: B, val degree: Degree) {
+data class Indeterminate<I>(val name: I, val degree: Degree) {
     override fun toString(): String {
         return this.name.toString()
     }
 }
 
-data class Monomial<B>(
-    val indeterminateList: List<Indeterminate<B>>,
+data class Monomial<I>(
+    val indeterminateList: List<Indeterminate<I>>,
     val exponentList: List<Int>,
 ) {
     init {
@@ -23,13 +23,13 @@ data class Monomial<B>(
             .reduce { a, b -> a + b }
     }
 
-    private fun drop(): Monomial<B> {
+    private fun drop(): Monomial<I> {
         if (this.indeterminateList.isEmpty())
             throw Exception("This can't happen!")
         return Monomial(this.indeterminateList.drop(1), this.exponentList.drop(1))
     }
 
-    private fun getNextMonomial(maxDegree: Degree): Monomial<B>? {
+    private fun getNextMonomial(maxDegree: Degree): Monomial<I>? {
         if (this.indeterminateList.isEmpty())
             return null
         this.increaseFirstExponent(maxDegree)?.let { return it }
@@ -40,7 +40,7 @@ data class Monomial<B>(
         return null
     }
 
-    private fun increaseFirstExponent(maxDegree: Degree): Monomial<B>? {
+    private fun increaseFirstExponent(maxDegree: Degree): Monomial<I>? {
         // 奇数次の場合
         if ((this.indeterminateList.first().degree % 2 == 1) and (this.exponentList.first() == 1))
             return null
@@ -49,7 +49,7 @@ data class Monomial<B>(
         return if (firstIncreased.totalDegree() <= maxDegree) firstIncreased else null
     }
 
-    operator fun times(other: Monomial<B>): Pair<Monomial<B>, Int>? {
+    operator fun times(other: Monomial<I>): Pair<Monomial<I>, Int>? {
         if (this.indeterminateList != other.indeterminateList)
             throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
         val size = this.indeterminateList.size
@@ -83,10 +83,10 @@ data class Monomial<B>(
     }
 
     companion object {
-        fun <B> listAll(generators: List<Indeterminate<B>>, degree: Degree): List<Monomial<B>> {
+        fun <I> listAll(generators: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {
             val exponents = List(generators.size) { 0 }
-            var monomial: Monomial<B>? = Monomial(generators, exponents)
-            val monomialList: MutableList<Monomial<B>> = mutableListOf()
+            var monomial: Monomial<I>? = Monomial(generators, exponents)
+            val monomialList: MutableList<Monomial<I>> = mutableListOf()
             while (monomial != null) {
                 if (monomial.totalDegree() == degree)
                     monomialList.add(monomial)

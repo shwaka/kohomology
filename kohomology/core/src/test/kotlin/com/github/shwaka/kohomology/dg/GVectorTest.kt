@@ -21,7 +21,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSp
     val zero = field.withContext { zero }
     val one = field.withContext { one }
     val two = field.fromInt(2)
-    val gVectorSpace = GVectorSpace(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
+    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
     gVectorSpace.withContext {
         "addition test" {
             val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
@@ -33,7 +33,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSp
 }
 
 fun <S : Scalar<S>, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    val gVectorSpace = GVectorSpace(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
+    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
 
     gVectorSpace.withContext {
         "get() should return the cache if exists" {

@@ -67,7 +67,7 @@ open class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
 
 open class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getBasisNames: (Degree) -> List<B>
+    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>
 ) : GVectorOperations<B, S, V> {
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
@@ -75,12 +75,27 @@ open class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     private val gVectorContext = GVectorContext(numVectorSpace.field, numVectorSpace, this)
     fun <T> withContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
 
+    // constructor(
+    //     numVectorSpace: NumVectorSpace<S, V>,
+    //     getBasisNames: (Degree) -> List<B>,
+    // ) : this(numVectorSpace, { degree -> VectorSpace(numVectorSpace, getBasisNames(degree)) })
+
+    // companion object {
+    //     fun <B, S : Scalar<S>, V : NumVector<S, V>> fromBasisNames(
+    //         numVectorSpace: NumVectorSpace<S, V>,
+    //         getBasisNames: (Degree) -> List<B>,
+    //     ): GVectorSpace<B, S, V> {
+    //         return GVectorSpace<B, S, V>(numVectorSpace) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
+    //     }
+    // }
+
     operator fun get(degree: Degree): VectorSpace<B, S, V> {
         // if cache exists
         this.cache[degree]?.let { return it }
         // if cache does not exist
-        val basisNames: List<B> = this.getBasisNames(degree)
-        val vectorSpace = VectorSpace(this.numVectorSpace, basisNames)
+        // val basisNames: List<B> = this.getBasisNames(degree)
+        // val vectorSpace = VectorSpace(this.numVectorSpace, basisNames)
+        val vectorSpace = this.getVectorSpace(degree)
         this.cache[degree] = vectorSpace
         return vectorSpace
     }

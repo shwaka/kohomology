@@ -105,8 +105,8 @@ class DenseMatrixSpace<S : Scalar<S>>(
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
         if (matrix.matrixSpace != this)
             throw ArithmeticException("The DenseMatrixSpace ${matrix.matrixSpace} for $matrix does not match the context ($this)")
-        if (scalar.field != this.field)
-            throw ArithmeticException("The field ${scalar.field} for $scalar does not match the context (${this.field})")
+        if (scalar !in this.field)
+            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
         val values = matrix.values.map { row -> row.map { elm -> this.field.withContext { -elm } } }
         return this.fromRows(values)
     }

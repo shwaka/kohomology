@@ -64,8 +64,8 @@ class DenseNumVectorSpace<S : Scalar<S>>(
     override fun multiply(scalar: S, numVector: DenseNumVector<S>): DenseNumVector<S> {
         if (numVector.numVectorSpace != this)
             throw ArithmeticException("The DenseNumVectorSpace ${numVector.numVectorSpace} containing $numVector does not match the context ($this)")
-        if (scalar.field != this.field)
-            throw ArithmeticException("The field ${scalar.field} containing $scalar does not match the context (field = ${this.field})")
+        if (scalar !in this.field)
+            throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
         val values: List<S> = this.field.withContext { numVector.values.map { it * scalar } }
         return DenseNumVector(values, numVector.numVectorSpace)
     }

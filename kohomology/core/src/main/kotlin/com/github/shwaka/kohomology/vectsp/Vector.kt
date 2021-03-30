@@ -109,8 +109,8 @@ class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
     }
 
     override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
-        if (scalar.field != this.field)
-            throw ArithmeticException("The field ${scalar.field} containing $scalar does not match the context (${this.field})")
+        if (scalar !in this.field)
+            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
         if (vector.vectorSpace != this)
             throw ArithmeticException("The vector space ${vector.vectorSpace} containing $vector does not match the context ($this)")
         return this.numVectorSpace.withContext {

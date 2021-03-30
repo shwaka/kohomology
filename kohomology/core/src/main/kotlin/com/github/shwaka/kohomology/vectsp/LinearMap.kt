@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-class LinearMap<B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
+class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> private constructor(
     val source: VectorSpace<B0, S, V>,
     val target: VectorSpace<B1, S, V>,
     val matrix: M
@@ -48,7 +48,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> pr
     }
 
     companion object {
-        fun <B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> getZero(
+        fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> getZero(
             source: VectorSpace<B0, S, V>,
             target: VectorSpace<B1, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
@@ -56,14 +56,14 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> pr
             return LinearMap(source, target, matrixSpace.getZero(source.dim, target.dim))
         }
 
-        fun <B, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> getId(
+        fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> getId(
             source: VectorSpace<B, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B, B, S, V, M> {
             return LinearMap(source, source, matrixSpace.getId(source.dim))
         }
 
-        fun <B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> fromMatrix(
+        fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> fromMatrix(
             source: VectorSpace<B0, S, V>,
             target: VectorSpace<B1, S, V>,
             matrix: M
@@ -71,7 +71,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> pr
             return LinearMap(source, target, matrix)
         }
 
-        fun <B0, B1, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(
+        fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> fromVectors(
             source: VectorSpace<B0, S, V>,
             target: VectorSpace<B1, S, V>,
             matrixSpace: MatrixSpace<S, V, M>,

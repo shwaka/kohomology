@@ -12,7 +12,7 @@ import io.kotest.matchers.shouldBe
 
 val tensorProductTag = NamedTag("TensorProduct")
 
-fun <S : Scalar, V : NumVector<S, V>> tensorProductTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("v1", "v2"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("w1", "w2", "w3"))
     val tensorProduct = TensorProduct(vectorSpace1, vectorSpace2)

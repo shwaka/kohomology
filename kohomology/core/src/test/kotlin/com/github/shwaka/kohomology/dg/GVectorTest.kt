@@ -16,7 +16,7 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 val gVectorTag = NamedTag("GVector")
 
-fun <S : Scalar, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val field = numVectorSpace.field
     val zero = field.withContext { zero }
     val one = field.withContext { one }
@@ -32,7 +32,7 @@ fun <S : Scalar, V : NumVector<S, V>> gVectorTest(numVectorSpace: NumVectorSpace
     }
 }
 
-fun <S : Scalar, V : NumVector<S, V>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val gVectorSpace = GVectorSpace(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
 
     gVectorSpace.withContext {

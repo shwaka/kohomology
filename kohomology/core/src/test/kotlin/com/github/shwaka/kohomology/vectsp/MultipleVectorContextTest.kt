@@ -13,7 +13,7 @@ val multipleVectorContextTag = NamedTag("MultipleVectorContext")
 
 data class MyBasis(val name: String)
 
-fun <S : Scalar, V : NumVector<S, V>> multipleVectorContextTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     "two vector spaces with the same basis class" {
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
         val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))

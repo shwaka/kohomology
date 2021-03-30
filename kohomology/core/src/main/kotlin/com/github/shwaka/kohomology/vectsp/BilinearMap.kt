@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
 // TODO: make sparse
-class MatrixSequence<S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val matrixList: List<M>,
     val rowCount: Int,
@@ -29,7 +29,7 @@ class MatrixSequence<S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>>(
     }
 }
 
-class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> private constructor(
+class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> private constructor(
     val source1: VectorSpace<BS1, S, V>,
     val source2: VectorSpace<BS2, S, V>,
     val target: VectorSpace<BT, S, V>,
@@ -50,7 +50,7 @@ class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V
     }
 
     companion object {
-        fun <BS1, BS2, BT, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> fromVectors(
+        fun <BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> fromVectors(
             source1: VectorSpace<BS1, S, V>,
             source2: VectorSpace<BS2, S, V>,
             target: VectorSpace<BT, S, V>,

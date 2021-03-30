@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 
-open class MultipleVectorContext<S : Scalar, V : NumVector<S, V>>(
+open class MultipleVectorContext<S : Scalar, V : NumVector<S>>(
     numVectorSpace: NumVectorSpace<S, V>,
     private val vectorSpaceList: List<VectorSpace<*, S, V>>
 ) : NumVectorContext<S, V>(numVectorSpace.field, numVectorSpace) {

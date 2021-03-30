@@ -37,7 +37,7 @@ fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     matrixSpace.withContext {
         val m = matrixSpace.fromRows(
@@ -169,7 +169,7 @@ fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpac
     }
 }
 
-inline fun <S : Scalar, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.withContext { field }
     val vectorSpace = matrixSpace.numVectorSpace
     val zero = field.withContext { zero }
@@ -181,7 +181,7 @@ inline fun <S : Scalar, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrix
     }
 }
 
-fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
     matrixSpace: MatrixSpace<S, V, M>,
     max: Int = 100
 ) = stringSpec {

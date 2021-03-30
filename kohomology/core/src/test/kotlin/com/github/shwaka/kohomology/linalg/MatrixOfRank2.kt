@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-class MatrixOfRank2<S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>>(private val mat: M) {
+class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(private val mat: M) {
     private val matrixSpace = mat.matrixSpace
     init {
         this.matrixSpace.withContext {

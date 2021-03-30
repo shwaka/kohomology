@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 data class DenseNumVector<S : Scalar>(
     val values: List<S>,
     override val field: Field<S>,
-) : NumVector<S, DenseNumVector<S>> {
+) : NumVector<S> {
     override val dim: Int
         get() = this.values.size
 }

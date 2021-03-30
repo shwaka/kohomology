@@ -1,11 +1,11 @@
 package com.github.shwaka.kohomology.linalg
 
-interface NumVector<S : Scalar, V : NumVector<S, V>> {
+interface NumVector<S : Scalar> {
     val field: Field<S>
     val dim: Int
 }
 
-interface NumVectorOperations<S : Scalar, V : NumVector<S, V>> {
+interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
     operator fun contains(numVector: V): Boolean
     fun add(a: V, b: V): V
     fun subtract(a: V, b: V): V
@@ -14,7 +14,7 @@ interface NumVectorOperations<S : Scalar, V : NumVector<S, V>> {
     fun innerProduct(numVector1: V, numVector2: V): S
 }
 
-open class NumVectorContext<S : Scalar, V : NumVector<S, V>>(
+open class NumVectorContext<S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     private val numVectorOperations: NumVectorOperations<S, V>
 ) : ScalarContext<S>(scalarOperations), NumVectorOperations<S, V> by numVectorOperations {
@@ -32,7 +32,7 @@ open class NumVectorContext<S : Scalar, V : NumVector<S, V>>(
     }
 }
 
-interface NumVectorSpace<S : Scalar, V : NumVector<S, V>> : NumVectorOperations<S, V> {
+interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, V> {
     val field: Field<S>
     val numVectorContext: NumVectorContext<S, V>
     fun <T> withContext(block: NumVectorContext<S, V>.() -> T) = this.numVectorContext.block()

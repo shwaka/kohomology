@@ -47,8 +47,6 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar<BigRa
     }
     constructor(numerator: Int, denominator: Int) : this(BigInteger(numerator), BigInteger(denominator))
 
-    override val field = BigRationalField
-
     override fun toString(): String {
         return when {
             this.numerator == BigInteger.ZERO -> {

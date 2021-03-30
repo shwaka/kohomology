@@ -6,9 +6,8 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 
-class IntModp(value: Int, override val field: Fp) : Scalar<IntModp> {
-    val value: Int = value.positiveRem(field.p)
-    val p: Int = field.p
+class IntModp(value: Int, val p: Int) : Scalar<IntModp> {
+    val value: Int = value.positiveRem(p)
 
     override fun toString(): String {
         return "${this.value.positiveRem(this.p)} mod ${this.p}"
@@ -54,7 +53,7 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
         if (b.p != this.p)
             throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value + b.value, this)
+        return IntModp(a.value + b.value, this.p)
     }
 
     override fun subtract(a: IntModp, b: IntModp): IntModp {
@@ -62,7 +61,7 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
         if (b.p != this.p)
             throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value - b.value, this)
+        return IntModp(a.value - b.value, this.p)
     }
 
     override fun multiply(a: IntModp, b: IntModp): IntModp {
@@ -70,7 +69,7 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
             throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
         if (b.p != this.p)
             throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value * b.value, this)
+        return IntModp(a.value * b.value, this.p)
     }
 
     override fun divide(a: IntModp, b: IntModp): IntModp {
@@ -79,18 +78,18 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
         if (b.p != this.p)
             throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
         val bInv = this.invModp(b)
-        return IntModp(a.value * bInv.value, this)
+        return IntModp(a.value * bInv.value, this.p)
     }
 
     private fun invModp(a: IntModp): IntModp {
-        if (a == IntModp(0, this))
+        if (a == IntModp(0, this.p))
             throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this)
+        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this.p)
     }
 
     override fun fromInt(n: Int): IntModp {
-        return IntModp(n, this)
+        return IntModp(n, this.p)
     }
 
     override fun equals(other: Any?): Boolean {

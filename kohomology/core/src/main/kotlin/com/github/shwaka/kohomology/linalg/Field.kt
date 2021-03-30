@@ -1,8 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-interface Scalar<S : Scalar<S>> {
-    val field: Field<S>
-}
+interface Scalar<S : Scalar<S>>
 
 interface ScalarOperations<S : Scalar<S>> {
     val field: Field<S>

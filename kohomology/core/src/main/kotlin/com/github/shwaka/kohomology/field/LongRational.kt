@@ -47,7 +47,6 @@ class LongRational(numerator: Long, denominator: Long) : Scalar<LongRational> {
         this.numerator = red.first
         this.denominator = red.second
     }
-    override val field = LongRationalField
 
     override fun toString(): String {
         return when {

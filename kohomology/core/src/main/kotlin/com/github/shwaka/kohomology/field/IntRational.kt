@@ -47,7 +47,6 @@ class IntRational(numerator: Int, denominator: Int) : Scalar<IntRational> {
         this.numerator = red.first
         this.denominator = red.second
     }
-    override val field = IntRationalField
 
     override fun toString(): String {
         return when {

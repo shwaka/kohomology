@@ -127,7 +127,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
     }
 
     override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
-        return DenseRowEchelonForm(matrix)
+        return DenseRowEchelonForm(this, matrix)
     }
 
     override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {

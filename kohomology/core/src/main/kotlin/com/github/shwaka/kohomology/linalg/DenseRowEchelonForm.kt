@@ -1,9 +1,11 @@
 package com.github.shwaka.kohomology.linalg
 
-class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix<S>) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
-    private val matrixSpace = originalMatrix.matrixSpace
+class DenseRowEchelonForm<S : Scalar<S>>(
+    private val matrixSpace: DenseMatrixSpace<S>,
+    private val originalMatrix: DenseMatrix<S>
+) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.withContext { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
-    private val field: Field<S> = originalMatrix.matrixSpace.field
+    private val field: Field<S> = matrixSpace.field
     override val matrix: DenseMatrix<S>
         get() = this.matrixSpace.fromRows(this.data.matrix)
     override val pivots: List<Int>
@@ -104,7 +106,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix
     // }
 
     private fun List<List<S>>.eliminateOtherRows(rowInd: Int, colInd: Int): List<List<S>> {
-        if (this[rowInd][colInd] == this[0][0].field.withContext { zero })
+        if (this[rowInd][colInd] == this@DenseRowEchelonForm.field.withContext { zero })
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
         val scalarMatrix: List<List<S>> = this
         return this@DenseRowEchelonForm.field.withContext {
@@ -119,7 +121,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(private val originalMatrix: DenseMatrix
 
     private fun List<List<S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
         for (i in rowIndFrom until this.size) {
-            if (this[i][colInd] != this[i][colInd].field.withContext { zero })
+            if (this[i][colInd] != this@DenseRowEchelonForm.field.withContext { zero })
                 return i
         }
         return null

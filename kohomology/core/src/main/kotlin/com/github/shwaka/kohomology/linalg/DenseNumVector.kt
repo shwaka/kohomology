@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 data class DenseNumVector<S : Scalar>(
     val values: List<S>,
-    override val numVectorSpace: NumVectorSpace<S, DenseNumVector<S>>
+    override val field: Field<S>,
 ) : NumVector<S, DenseNumVector<S>> {
     override val dim: Int
         get() = this.values.size
@@ -30,7 +30,7 @@ class DenseNumVectorSpace<S : Scalar>(
     override val numVectorContext = NumVectorContext(this.field, this)
 
     override fun contains(numVector: DenseNumVector<S>): Boolean {
-        TODO("Not yet implemented")
+        return numVector.field == this.field
     }
 
     override fun add(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
@@ -46,7 +46,7 @@ class DenseNumVectorSpace<S : Scalar>(
                 result.add(a.values[i] + b.values[i])
             }
         }
-        return DenseNumVector(result, this)
+        return DenseNumVector(result, this.field)
     }
 
     override fun subtract(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
@@ -62,7 +62,7 @@ class DenseNumVectorSpace<S : Scalar>(
                 result.add(a.values[i] - b.values[i])
             }
         }
-        return DenseNumVector(result, this)
+        return DenseNumVector(result, this.field)
     }
 
     override fun multiply(scalar: S, numVector: DenseNumVector<S>): DenseNumVector<S> {
@@ -71,7 +71,7 @@ class DenseNumVectorSpace<S : Scalar>(
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
         val values: List<S> = this.field.withContext { numVector.values.map { it * scalar } }
-        return DenseNumVector(values, this)
+        return DenseNumVector(values, this.field)
     }
 
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {
@@ -91,7 +91,7 @@ class DenseNumVectorSpace<S : Scalar>(
     }
 
     override fun fromValues(values: List<S>): DenseNumVector<S> {
-        return DenseNumVector(values, this)
+        return DenseNumVector(values, this.field)
     }
 
     override fun fromValues(vararg values: S): DenseNumVector<S> {

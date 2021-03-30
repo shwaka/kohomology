@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
 interface NumVector<S : Scalar, V : NumVector<S, V>> {
-    val numVectorSpace: NumVectorSpace<S, V>
+    val field: Field<S>
     val dim: Int
 }
 

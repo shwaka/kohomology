@@ -67,7 +67,7 @@ open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
 
 open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getBasisNames: (Degree) -> List<B>
+    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>
 ) : GVectorOperations<B, S, V> {
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
@@ -79,8 +79,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
         // if cache exists
         this.cache[degree]?.let { return it }
         // if cache does not exist
-        val basisNames: List<B> = this.getBasisNames(degree)
-        val vectorSpace = VectorSpace(this.numVectorSpace, basisNames)
+        val vectorSpace = this.getVectorSpace(degree)
         this.cache[degree] = vectorSpace
         return vectorSpace
     }

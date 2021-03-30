@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorContext
 import com.github.shwaka.kohomology.vectsp.GVectorOperations
 import com.github.shwaka.kohomology.vectsp.GVectorSpace
+import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
@@ -29,9 +30,9 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
 class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    getBasisNames: (Degree) -> List<B>,
+    getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
     private val multiplication: GBilinearMap<B, B, B, S, V, M>
-) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getBasisNames), GAlgebraOperations<B, S, V, M> {
+) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     private val gAlgebraContext = GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     override fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         return this.multiplication(a, b)

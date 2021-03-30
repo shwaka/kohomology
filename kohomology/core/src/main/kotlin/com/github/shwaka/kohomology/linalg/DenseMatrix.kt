@@ -59,11 +59,15 @@ class DenseMatrixSpace<S : Scalar>(
 
     override val matrixContext = MatrixContext(this.field, this.numVectorSpace, this)
 
+    override fun contains(matrix: DenseMatrix<S>): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
-        if (first.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${first.matrixSpace} for $first does not match the context ($this)")
-        if (second.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${second.matrixSpace} for $second does not match the context ($this)")
+        if (first !in this)
+            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
             throw ArithmeticException("Cannot add matrices: different shapes")
         val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
@@ -73,20 +77,20 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
-        if (first.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${first.matrixSpace} for $first does not match the context ($this)")
-        if (second.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${second.matrixSpace} for $second does not match the context ($this)")
+        if (first !in this)
+            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
         return this.withContext {
             first + (-1) * second
         }
     }
 
     override fun multiply(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
-        if (first.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${first.matrixSpace} for $first does not match the context ($this)")
-        if (second.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${second.matrixSpace} for $second does not match the context ($this)")
+        if (first !in this)
+            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
         if (first.colCount != second.rowCount)
             throw ArithmeticException("Cannot multiply matrices: first.colCount != second.rowCount")
         val rowRange = 0 until first.rowCount
@@ -112,8 +116,8 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
-        if (matrix.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${matrix.matrixSpace} for $matrix does not match the context ($this)")
+        if (matrix !in this)
+            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
         if (numVector !in this.numVectorSpace)
             throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
@@ -133,13 +137,13 @@ class DenseMatrixSpace<S : Scalar>(
     override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {
         val rowCount = matrix.colCount
         val colCount = matrix.rowCount
-        val values: List<List<S>> = matrix.matrixSpace.withContext {
+        val values: List<List<S>> = this.withContext {
             (0 until rowCount).map { i ->
                 (0 until colCount).map { j -> matrix[j, i] }
             }
         }
         return DenseMatrix(
-            matrix.matrixSpace,
+            this,
             rowCount = rowCount,
             colCount = colCount,
             values = values

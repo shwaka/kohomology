@@ -13,7 +13,7 @@ import io.kotest.matchers.shouldBe
 
 val multilinearMapTag = NamedTag("MultilinearMap")
 
-fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
     val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))

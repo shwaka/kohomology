@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 
-class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
+class Vector<B, S : Scalar, V : NumVector<S, V>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
         if (numVector.dim != vectorSpace.dim)
             throw IllegalArgumentException("Dimension of the numerical vector does not match the dimension of the vector space")
@@ -57,14 +57,14 @@ class Vector<B, S : Scalar<S>, V : NumVector<S, V>>(val numVector: V, val vector
     }
 }
 
-interface VectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
+interface VectorOperations<B, S : Scalar, V : NumVector<S, V>> {
     fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
     val zeroVector: Vector<B, S, V>
 }
 
-class VectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+class VectorContext<B, S : Scalar, V : NumVector<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     vectorOperations: VectorOperations<B, S, V>
@@ -78,7 +78,7 @@ class VectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
 }
 
-class VectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
+class VectorSpace<B, S : Scalar, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>
 ) : VectorOperations<B, S, V> {

@@ -22,7 +22,7 @@ import io.kotest.property.checkAll
 
 val fieldTag = NamedTag("Field")
 
-fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
     val intMin = -100
     val intMax = 100
     val intArb = Arb.int(intMin..intMax)
@@ -46,7 +46,7 @@ fun <S : Scalar<S>> fromIntTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = stringSpec {
+fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = stringSpec {
     if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
     val arb = field.arb(Arb.int(-intMax..intMax))
     field.withContext {
@@ -120,7 +120,7 @@ fun <S : Scalar<S>> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = st
     }
 }
 
-fun <S : Scalar<S>> rationalTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> rationalTest(field: Field<S>) = stringSpec {
     tags(fieldTag)
 
     field.withContext {

@@ -6,12 +6,12 @@ import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 
-fun <S : Scalar<S>> add(field: Field<S>, a: S, b: S): S {
+fun <S : Scalar> add(field: Field<S>, a: S, b: S): S {
     // return a.field.wrap(a + b.unwrap())
     return field.withContext { a + b }
 }
 
-fun <S : Scalar<S>> test(field: Field<S>, a: S, b: S) {
+fun <S : Scalar> test(field: Field<S>, a: S, b: S) {
     field.withContext {
         println("------------------------------")
         println("test: a=$a, b=$b")

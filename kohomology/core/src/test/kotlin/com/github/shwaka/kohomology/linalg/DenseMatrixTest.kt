@@ -29,7 +29,7 @@ import io.kotest.property.exhaustive.ints
 
 val denseMatrixTag = NamedTag("DenseMatrix")
 
-fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
     val numVectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace.from(numVectorSpace)
     "factory should return the cache if exists" {
@@ -37,7 +37,7 @@ fun <S : Scalar<S>> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     matrixSpace.withContext {
         val m = matrixSpace.fromRows(
@@ -169,7 +169,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> matrixTest(matrixS
     }
 }
 
-inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+inline fun <S : Scalar, reified V : NumVector<S, V>, M : Matrix<S, V, M>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.withContext { field }
     val vectorSpace = matrixSpace.numVectorSpace
     val zero = field.withContext { zero }
@@ -181,7 +181,7 @@ inline fun <S : Scalar<S>, reified V : NumVector<S, V>, M : Matrix<S, V, M>> mat
     }
 }
 
-fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
+fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
     matrixSpace: MatrixSpace<S, V, M>,
     max: Int = 100
 ) = stringSpec {
@@ -219,7 +219,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> denseMatrixOfRank2
     }
 }
 
-fun <S : Scalar<S>> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec {
+fun <S : Scalar> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec {
     if (n < 0) throw IllegalArgumentException("Matrix size n should be non-negative")
     if (max < 0) throw IllegalArgumentException("max should be non-negative")
     val numVectorSpace = DenseNumVectorSpace.from(field)

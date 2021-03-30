@@ -35,7 +35,7 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     return Pair(num, den)
 }
 
-class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar<BigRational> {
+class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
     val numerator: BigInteger
     val denominator: BigInteger
     init {

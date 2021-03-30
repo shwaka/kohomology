@@ -14,7 +14,7 @@ import io.kotest.matchers.shouldBe
 
 val vectorTag = NamedTag("Vector")
 
-fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
     vectorSpace.withContext {
         "addition of Vector" {
@@ -43,7 +43,7 @@ fun <S : Scalar<S>, V : NumVector<S, V>> vectorTest(numVectorSpace: NumVectorSpa
     }
 }
 
-fun <S : Scalar<S>, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S, V>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     data class BasisElm(val name: String) {
         fun toStringWithParen(): String = "(${this.name})"
         override fun toString(): String = this.name

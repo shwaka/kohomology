@@ -37,7 +37,7 @@ private fun reduce(numerator: Long, denominator: Long): Pair<Long, Long> {
     return Pair(num, den)
 }
 
-class LongRational(numerator: Long, denominator: Long) : Scalar<LongRational> {
+class LongRational(numerator: Long, denominator: Long) : Scalar {
     val numerator: Long
     val denominator: Long
     init {

@@ -15,7 +15,7 @@ data class BasisPair<B1, B2>(val first: B1, val second: B2) {
     }
 }
 
-class TensorProductContext<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
+class TensorProductContext<B1, B2, S : Scalar, V : NumVector<S, V>>(
     private val tensorProduct: TensorProduct<B1, B2, S, V>
 ) : MultipleVectorContext<S, V>(
     tensorProduct.vectorSpace.numVectorSpace,
@@ -31,7 +31,7 @@ class TensorProductContext<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
     }
 }
 
-class TensorProduct<B1, B2, S : Scalar<S>, V : NumVector<S, V>>(
+class TensorProduct<B1, B2, S : Scalar, V : NumVector<S, V>>(
     val vectorSpace1: VectorSpace<B1, S, V>,
     val vectorSpace2: VectorSpace<B2, S, V>
 ) {

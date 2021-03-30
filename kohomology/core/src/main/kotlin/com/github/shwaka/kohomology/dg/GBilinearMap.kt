@@ -8,7 +8,7 @@ import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorSpace
 
-class GBilinearMap<BS1, BS2, BT, S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>>(
+class GBilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>>(
     val source1: GVectorSpace<BS1, S, V>,
     val source2: GVectorSpace<BS2, S, V>,
     val target: GVectorSpace<BT, S, V>,

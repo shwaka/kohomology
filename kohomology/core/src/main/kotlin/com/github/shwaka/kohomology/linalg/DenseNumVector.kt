@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-data class DenseNumVector<S : Scalar<S>>(
+data class DenseNumVector<S : Scalar>(
     val values: List<S>,
     override val numVectorSpace: NumVectorSpace<S, DenseNumVector<S>>
 ) : NumVector<S, DenseNumVector<S>> {
@@ -8,14 +8,14 @@ data class DenseNumVector<S : Scalar<S>>(
         get() = this.values.size
 }
 
-class DenseNumVectorSpace<S : Scalar<S>>(
+class DenseNumVectorSpace<S : Scalar>(
     override val field: Field<S>
 ) : NumVectorSpace<S, DenseNumVector<S>> {
     companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<Field<*>, DenseNumVectorSpace<*>> = mutableMapOf()
-        fun <S : Scalar<S>> from(field: Field<S>): DenseNumVectorSpace<S> {
+        fun <S : Scalar> from(field: Field<S>): DenseNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[field] as DenseNumVectorSpace<S>

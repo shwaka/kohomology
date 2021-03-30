@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 
-class IntModp(value: Int, val p: Int) : Scalar<IntModp> {
+class IntModp(value: Int, val p: Int) : Scalar {
     val value: Int = value.positiveRem(p)
 
     override fun toString(): String {

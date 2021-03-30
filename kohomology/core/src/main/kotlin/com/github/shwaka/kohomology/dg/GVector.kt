@@ -9,11 +9,11 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 
 typealias Degree = Int
 
-sealed class GVectorOrZero<B, S : Scalar<S>, V : NumVector<S, V>>
+sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S, V>>
 
-class ZeroGVector<B, S : Scalar<S>, V : NumVector<S, V>> : GVectorOrZero<B, S, V>()
+class ZeroGVector<B, S : Scalar, V : NumVector<S, V>> : GVectorOrZero<B, S, V>()
 
-open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVector<B, S : Scalar, V : NumVector<S, V>>(
     val vector: Vector<B, S, V>,
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
@@ -44,14 +44,14 @@ open class GVector<B, S : Scalar<S>, V : NumVector<S, V>>(
     fun toString(basisToString: (B) -> String): String = this.vector.toString(basisToString)
 }
 
-interface GVectorOperations<B, S : Scalar<S>, V : NumVector<S, V>> {
+interface GVectorOperations<B, S : Scalar, V : NumVector<S, V>> {
     fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V>
     val zeroGVector: ZeroGVector<B, S, V>
 }
 
-open class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVectorContext<B, S : Scalar, V : NumVector<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -65,7 +65,7 @@ open class GVectorContext<B, S : Scalar<S>, V : NumVector<S, V>>(
     operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
 }
 
-open class GVectorSpace<B, S : Scalar<S>, V : NumVector<S, V>>(
+open class GVectorSpace<B, S : Scalar, V : NumVector<S, V>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     private val getBasisNames: (Degree) -> List<B>
 ) : GVectorOperations<B, S, V> {

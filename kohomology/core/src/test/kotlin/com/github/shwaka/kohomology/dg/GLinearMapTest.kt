@@ -15,7 +15,7 @@ import io.kotest.matchers.shouldBe
 
 val gLinearMapTag = NamedTag("GLinearMap")
 
-fun <S : Scalar<S>, V : NumVector<S, V>, M : Matrix<S, V, M>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S, V>, M : Matrix<S, V, M>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val gVectorSpace = GVectorSpace(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
     // val field = matrixSpace.field

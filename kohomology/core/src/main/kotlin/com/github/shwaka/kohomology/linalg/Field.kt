@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.linalg
 
-interface Scalar<S : Scalar<S>>
+interface Scalar
 
-interface ScalarOperations<S : Scalar<S>> {
+interface ScalarOperations<S : Scalar> {
     val field: Field<S>
     operator fun contains(scalar: S): Boolean
     fun add(a: S, b: S): S
@@ -13,7 +13,7 @@ interface ScalarOperations<S : Scalar<S>> {
     fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
 }
 
-open class ScalarContext<S : Scalar<S>>(
+open class ScalarContext<S : Scalar>(
     private val scalarOperations: ScalarOperations<S>
 ) : ScalarOperations<S> by scalarOperations {
     operator fun S.plus(other: S): S = this@ScalarContext.add(this, other)
@@ -48,7 +48,7 @@ open class ScalarContext<S : Scalar<S>>(
     val five: S = 5.toScalar()
 }
 
-interface Field<S : Scalar<S>> : ScalarOperations<S> {
+interface Field<S : Scalar> : ScalarOperations<S> {
     val scalarContext: ScalarContext<S>
     fun <T> withContext(block: ScalarContext<S>.() -> T) = this.scalarContext.block()
 }

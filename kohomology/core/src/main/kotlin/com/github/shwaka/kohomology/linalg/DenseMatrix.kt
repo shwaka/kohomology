@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.StringTable
 
-data class DenseMatrix<S : Scalar<S>>(
+data class DenseMatrix<S : Scalar>(
     override val matrixSpace: DenseMatrixSpace<S>,
     val values: List<List<S>>,
     override val rowCount: Int,
@@ -25,11 +25,11 @@ data class DenseMatrix<S : Scalar<S>>(
     }
 }
 
-class DenseMatrixSpace<S : Scalar<S>>(
+class DenseMatrixSpace<S : Scalar>(
     override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
 
-    // class DenseMatrixContext<S : Scalar<S>>(
+    // class DenseMatrixContext<S : Scalar>(
     //     override val field: Field<S>,
     //     private val numVectorSpace: DenseNumVectorSpace<S>,
     //     private val matrixSpace: DenseMatrixSpace<S>
@@ -40,7 +40,7 @@ class DenseMatrixSpace<S : Scalar<S>>(
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<DenseNumVectorSpace<*>, DenseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar<S>> from(numVectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
+        fun <S : Scalar> from(numVectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
             if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DenseMatrixSpace<S>

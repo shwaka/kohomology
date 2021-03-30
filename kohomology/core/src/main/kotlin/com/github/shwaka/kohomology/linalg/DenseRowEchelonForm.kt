@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-class DenseRowEchelonForm<S : Scalar<S>>(
+class DenseRowEchelonForm<S : Scalar>(
     private val matrixSpace: DenseMatrixSpace<S>,
     private val originalMatrix: DenseMatrix<S>
 ) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
@@ -26,7 +26,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(
         this.matrixSpace.fromRows(rawReducedMatrix)
     }
 
-    data class RowEchelonFormData<S : Scalar<S>>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
+    data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
 
     private fun List<List<S>>.rowEchelonForm(): RowEchelonFormData<S> {
         return this.rowEchelonFormInternal(0, listOf(), 0)
@@ -56,7 +56,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(
         }
     }
 
-    private fun <S : Scalar<S>> List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
+    private fun <S : Scalar> List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
         if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
         return this.indices.map { i ->
             when (i) {
@@ -85,7 +85,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(
         }
     }
 
-    // private fun <S : Scalar<S>> List<List<S>>.addToAnotherRow(from: Int, to: Int, scalar: S): List<List<S>> {
+    // private fun <S : Scalar> List<List<S>>.addToAnotherRow(from: Int, to: Int, scalar: S): List<List<S>> {
     //     if (from == to) throw IllegalArgumentException("Row numbers must be distinct")
     //     return this.indices.map { i ->
     //         when (i) {
@@ -95,7 +95,7 @@ class DenseRowEchelonForm<S : Scalar<S>>(
     //     }
     // }
 
-    // private fun <S : Scalar<S>> List<List<S>>.multiplyScalarToRow(to: Int, scalar: S): List<List<S>> {
+    // private fun <S : Scalar> List<List<S>>.multiplyScalarToRow(to: Int, scalar: S): List<List<S>> {
     //     if (scalar == scalar.field.zero) throw IllegalArgumentException("scalar must be non-zero")
     //     return this.indices.map { i ->
     //         when (i) {

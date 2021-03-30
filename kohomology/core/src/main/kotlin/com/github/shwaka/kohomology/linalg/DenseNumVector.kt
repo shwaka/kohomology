@@ -34,10 +34,10 @@ class DenseNumVectorSpace<S : Scalar>(
     }
 
     override fun add(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
-        if (a.numVectorSpace != this)
-            throw ArithmeticException("The DenseNumVectorSpace ${a.numVectorSpace} containing $a does not match the context ($this)")
-        if (b.numVectorSpace != this)
-            throw ArithmeticException("The DenseNumVectorSpace ${b.numVectorSpace} containing $b does not match the context ($this)")
+        if (a !in this)
+            throw ArithmeticException("The denseNumVector $a does not match the context ($this)")
+        if (b !in this)
+            throw ArithmeticException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot add numVectors of different dim")
         val result: MutableList<S> = mutableListOf()

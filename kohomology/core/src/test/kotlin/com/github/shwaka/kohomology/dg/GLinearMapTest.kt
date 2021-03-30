@@ -17,7 +17,7 @@ val gLinearMapTag = NamedTag("GLinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
-    val gVectorSpace = GVectorSpace(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
+    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
     // val field = matrixSpace.field
     // val zero = field.zero
     // val one = field.one

@@ -75,6 +75,15 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     private val gVectorContext = GVectorContext(numVectorSpace.field, numVectorSpace, this)
     fun <T> withContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
 
+    companion object {
+        fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
+            numVectorSpace: NumVectorSpace<S, V>,
+            getBasisNames: (Degree) -> List<B>,
+        ): GVectorSpace<B, S, V> {
+            return GVectorSpace<B, S, V>(numVectorSpace) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree))}
+        }
+    }
+
     operator fun get(degree: Degree): VectorSpace<B, S, V> {
         // if cache exists
         this.cache[degree]?.let { return it }

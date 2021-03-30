@@ -17,7 +17,7 @@ import io.kotest.matchers.shouldBe
 
 val gBilinearMapTag = NamedTag("GBilinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     // 1つの元で生成される外積代数
     val numVectorSpace = matrixSpace.numVectorSpace
     val gVectorSpace = GVectorSpace(numVectorSpace) { degree ->

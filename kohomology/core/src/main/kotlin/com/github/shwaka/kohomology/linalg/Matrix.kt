@@ -2,14 +2,14 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.getPermutation
 
-interface Matrix<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> {
+interface Matrix<S : Scalar, V : NumVector<S>> {
     val numVectorSpace: NumVectorSpace<S, V>
     val rowCount: Int
     val colCount: Int
     fun toPrettyString(): String
 }
 
-interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> {
+interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     operator fun contains(matrix: M): Boolean
     fun add(first: M, second: M): M
     fun subtract(first: M, second: M): M
@@ -22,7 +22,7 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> {
     fun getElement(matrix: M, rowInd: Int, colInd: Int): S
 }
 
-class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(
+class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     private val matrixOperations: MatrixOperations<S, V, M>
@@ -80,7 +80,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(
     }
 }
 
-interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> : MatrixOperations<S, V, M> {
+interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {
     val matrixContext: MatrixContext<S, V, M>
     fun <T> withContext(block: MatrixContext<S, V, M>.() -> T) = this.matrixContext.block()
     val numVectorSpace: NumVectorSpace<S, V>
@@ -137,7 +137,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> : Matri
     }
 }
 
-interface RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> {
+interface RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val matrix: M
     val reducedMatrix: M
     val pivots: List<Int>

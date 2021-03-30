@@ -13,7 +13,7 @@ import io.kotest.matchers.shouldBe
 
 val linearMapTag = NamedTag("LinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))

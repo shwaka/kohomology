@@ -7,7 +7,7 @@ data class DenseMatrix<S : Scalar>(
     val values: List<List<S>>,
     override val rowCount: Int,
     override val colCount: Int
-) : Matrix<S, DenseNumVector<S>, DenseMatrix<S>> {
+) : Matrix<S, DenseNumVector<S>> {
     init {
         if (this.values.any { row -> row.size != this.colCount })
             throw IllegalArgumentException("The length of each row must be equal to colCount")

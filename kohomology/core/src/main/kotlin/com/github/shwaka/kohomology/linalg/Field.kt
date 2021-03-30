@@ -6,6 +6,7 @@ interface Scalar<S : Scalar<S>> {
 
 interface ScalarOperations<S : Scalar<S>> {
     val field: Field<S>
+    operator fun contains(scalar: S): Boolean
     fun add(a: S, b: S): S
     fun subtract(a: S, b: S): S
     fun multiply(a: S, b: S): S

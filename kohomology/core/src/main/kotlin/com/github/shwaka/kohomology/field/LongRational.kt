@@ -90,6 +90,10 @@ object LongRationalField : Field<LongRational> {
 
     override val scalarContext: ScalarContext<LongRational> = ScalarContext(this)
 
+    override fun contains(scalar: LongRational): Boolean {
+        return true // Type information is sufficient
+    }
+
     override fun add(a: LongRational, b: LongRational): LongRational {
         debugOnly {
             val num1 = a.numerator

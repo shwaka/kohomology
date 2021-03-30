@@ -45,6 +45,10 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
 
     override val field = this
 
+    override fun contains(scalar: IntModp): Boolean {
+        return this.p == scalar.p
+    }
+
     override fun add(a: IntModp, b: IntModp): IntModp {
         if (a.p != this.p)
             throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")

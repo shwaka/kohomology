@@ -90,6 +90,10 @@ object BigRationalField : Field<BigRational> {
 
     override val scalarContext: ScalarContext<BigRational> = ScalarContext(this)
 
+    override fun contains(scalar: BigRational): Boolean {
+        return true // Type information is sufficient
+    }
+
     override fun add(a: BigRational, b: BigRational): BigRational {
         val numerator = a.numerator * b.denominator + b.numerator * a.denominator
         val denominator = a.denominator * b.denominator

@@ -90,6 +90,10 @@ object IntRationalField : Field<IntRational> {
 
     override val scalarContext: ScalarContext<IntRational> = ScalarContext(this)
 
+    override fun contains(scalar: IntRational): Boolean {
+        return true // Type information is sufficient
+    }
+
     override fun add(a: IntRational, b: IntRational): IntRational {
         debugOnly {
             val num1 = a.numerator

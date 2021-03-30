@@ -114,8 +114,8 @@ class DenseMatrixSpace<S : Scalar>(
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
         if (matrix.matrixSpace != this)
             throw ArithmeticException("The DenseMatrixSpace ${matrix.matrixSpace} for $matrix does not match the context ($this)")
-        if (numVector.numVectorSpace != this.numVectorSpace)
-            throw ArithmeticException("The DenseNumVectorSpace ${numVector.numVectorSpace} for $numVector does not match the context (${this.numVectorSpace})")
+        if (numVector !in this.numVectorSpace)
+            throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = matrix.values.map { row ->

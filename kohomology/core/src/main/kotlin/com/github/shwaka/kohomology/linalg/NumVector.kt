@@ -6,6 +6,7 @@ interface NumVector<S : Scalar, V : NumVector<S, V>> {
 }
 
 interface NumVectorOperations<S : Scalar, V : NumVector<S, V>> {
+    operator fun contains(numVector: V): Boolean
     fun add(a: V, b: V): V
     fun subtract(a: V, b: V): V
     fun multiply(scalar: S, numVector: V): V

@@ -29,6 +29,10 @@ class DenseNumVectorSpace<S : Scalar>(
 
     override val numVectorContext = NumVectorContext(this.field, this)
 
+    override fun contains(numVector: DenseNumVector<S>): Boolean {
+        TODO("Not yet implemented")
+    }
+
     override fun add(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
         if (a.numVectorSpace != this)
             throw ArithmeticException("The DenseNumVectorSpace ${a.numVectorSpace} containing $a does not match the context ($this)")
@@ -42,14 +46,14 @@ class DenseNumVectorSpace<S : Scalar>(
                 result.add(a.values[i] + b.values[i])
             }
         }
-        return DenseNumVector(result, a.numVectorSpace)
+        return DenseNumVector(result, this)
     }
 
     override fun subtract(a: DenseNumVector<S>, b: DenseNumVector<S>): DenseNumVector<S> {
-        if (a.numVectorSpace != this)
-            throw ArithmeticException("The DenseNumVectorSpace ${a.numVectorSpace} containing $a does not match the context ($this)")
-        if (b.numVectorSpace != this)
-            throw ArithmeticException("The DenseNumVectorSpace ${b.numVectorSpace} containing $b does not match the context ($this)")
+        if (a !in this)
+            throw ArithmeticException("The denseNumVector $a does not match the context ($this)")
+        if (b !in this)
+            throw ArithmeticException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot subtract numVectors of different dim")
         val result: MutableList<S> = mutableListOf()
@@ -58,16 +62,16 @@ class DenseNumVectorSpace<S : Scalar>(
                 result.add(a.values[i] - b.values[i])
             }
         }
-        return DenseNumVector(result, a.numVectorSpace)
+        return DenseNumVector(result, this)
     }
 
     override fun multiply(scalar: S, numVector: DenseNumVector<S>): DenseNumVector<S> {
-        if (numVector.numVectorSpace != this)
-            throw ArithmeticException("The DenseNumVectorSpace ${numVector.numVectorSpace} containing $numVector does not match the context ($this)")
+        if (numVector !in this)
+            throw ArithmeticException("The denseNumVector $numVector does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
         val values: List<S> = this.field.withContext { numVector.values.map { it * scalar } }
-        return DenseNumVector(values, numVector.numVectorSpace)
+        return DenseNumVector(values, this)
     }
 
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {
@@ -75,9 +79,9 @@ class DenseNumVectorSpace<S : Scalar>(
     }
 
     override fun innerProduct(numVector1: DenseNumVector<S>, numVector2: DenseNumVector<S>): S {
-        if (numVector1.numVectorSpace != this)
+        if (numVector1 !in this)
             throw IllegalArgumentException("The numVector $numVector1 does not match the context")
-        if (numVector2.numVectorSpace != this)
+        if (numVector2 !in this)
             throw IllegalArgumentException("The numVector $numVector2 does not match the context")
         if (numVector1.dim != numVector2.dim)
             throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")

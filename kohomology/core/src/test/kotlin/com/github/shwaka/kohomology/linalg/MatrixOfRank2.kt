@@ -1,7 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
-class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(private val mat: M) {
-    private val matrixSpace = mat.matrixSpace
+class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(
+    private val matrixSpace: MatrixSpace<S, V, M>,
+    private val mat: M
+) {
     init {
         this.matrixSpace.withContext {
             if (mat.rowCount != 2 || mat.colCount != 2)
@@ -21,29 +23,29 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>>(private v
                 listOf(self.c + other.c, self.d + other.d)
             )
         }
-        return MatrixOfRank2(mat)
+        return MatrixOfRank2(this.matrixSpace, mat)
     }
 
     operator fun minus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.withContext {
             val self = this@MatrixOfRank2
-            self.mat.matrixSpace.fromRows(
+            self.matrixSpace.fromRows(
                 listOf(self.a - other.a, self.b - other.b),
                 listOf(self.c - other.c, self.d - other.d)
             )
         }
-        return MatrixOfRank2(mat)
+        return MatrixOfRank2(this.matrixSpace, mat)
     }
 
     operator fun unaryMinus(): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.withContext {
             val self = this@MatrixOfRank2
-            self.mat.matrixSpace.fromRows(
+            self.matrixSpace.fromRows(
                 listOf(-self.a, -self.b),
                 listOf(-self.c, -self.d)
             )
         }
-        return MatrixOfRank2(mat)
+        return MatrixOfRank2(this.matrixSpace, mat)
     }
 
     fun det(): S {

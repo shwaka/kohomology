@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.util.getPermutation
 
 interface Matrix<S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> {
-    val matrixSpace: MatrixSpace<S, V, M>
+    val numVectorSpace: NumVectorSpace<S, V>
     val rowCount: Int
     val colCount: Int
     fun toPrettyString(): String

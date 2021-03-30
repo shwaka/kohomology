@@ -192,28 +192,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> denseMatrixOfRank2Test(
     "Property testing for matrix addition" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
             matrixSpace.withContext {
-                MatrixOfRank2(mat1 + mat2) shouldBe (MatrixOfRank2(mat1) + MatrixOfRank2(mat2))
+                MatrixOfRank2(matrixSpace, mat1 + mat2) shouldBe (MatrixOfRank2(matrixSpace, mat1) + MatrixOfRank2(matrixSpace, mat2))
             }
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
             matrixSpace.withContext {
-                MatrixOfRank2(mat1 - mat2) shouldBe (MatrixOfRank2(mat1) - MatrixOfRank2(mat2))
+                MatrixOfRank2(matrixSpace, mat1 - mat2) shouldBe (MatrixOfRank2(matrixSpace, mat1) - MatrixOfRank2(matrixSpace, mat2))
             }
         }
     }
     "Property testing for unaryMinus of matrix" {
         checkAll(matrixArb) { mat ->
             matrixSpace.withContext {
-                MatrixOfRank2(-mat) shouldBe (-MatrixOfRank2(mat))
+                MatrixOfRank2(matrixSpace, -mat) shouldBe (-MatrixOfRank2(matrixSpace, mat))
             }
         }
     }
     "Property testing for det" {
         checkAll(matrixArb) { mat ->
             matrixSpace.withContext {
-                mat.det() shouldBe MatrixOfRank2(mat).det()
+                mat.det() shouldBe MatrixOfRank2(matrixSpace, mat).det()
             }
         }
     }

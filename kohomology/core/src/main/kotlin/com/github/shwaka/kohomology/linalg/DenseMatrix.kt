@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.util.StringTable
 
 data class DenseMatrix<S : Scalar>(
-    override val matrixSpace: DenseMatrixSpace<S>,
+    override val numVectorSpace: DenseNumVectorSpace<S>,
     val values: List<List<S>>,
     override val rowCount: Int,
     override val colCount: Int
@@ -60,7 +60,7 @@ class DenseMatrixSpace<S : Scalar>(
     override val matrixContext = MatrixContext(this.field, this.numVectorSpace, this)
 
     override fun contains(matrix: DenseMatrix<S>): Boolean {
-        TODO("Not yet implemented")
+        return matrix.numVectorSpace == this.numVectorSpace
     }
 
     override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
@@ -107,8 +107,8 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
-        if (matrix.matrixSpace != this)
-            throw ArithmeticException("The DenseMatrixSpace ${matrix.matrixSpace} for $matrix does not match the context ($this)")
+        if (matrix !in this)
+            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
         val values = matrix.values.map { row -> row.map { elm -> this.field.withContext { -elm } } }
@@ -143,7 +143,7 @@ class DenseMatrixSpace<S : Scalar>(
             }
         }
         return DenseMatrix(
-            this,
+            this.numVectorSpace,
             rowCount = rowCount,
             colCount = colCount,
             values = values
@@ -163,7 +163,7 @@ class DenseMatrixSpace<S : Scalar>(
     override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
         if (rows.isEmpty())
             throw IllegalArgumentException("Row list is empty, which is not supported")
-        return DenseMatrix(this, rows, rows.size, rows[0].size)
+        return DenseMatrix(this.numVectorSpace, rows, rows.size, rows[0].size)
     }
 
     override fun fromCols(cols: List<List<S>>): DenseMatrix<S> {
@@ -179,7 +179,7 @@ class DenseMatrixSpace<S : Scalar>(
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return DenseMatrix(this, values, rowCount, colCount)
+        return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
     }
 
     override fun getElement(matrix: DenseMatrix<S>, rowInd: Int, colInd: Int): S {

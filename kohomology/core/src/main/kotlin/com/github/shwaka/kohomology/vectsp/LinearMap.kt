@@ -6,11 +6,11 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
 class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> private constructor(
+    private val matrixSpace: MatrixSpace<S, V, M>,
     val source: VectorSpace<B0, S, V>,
     val target: VectorSpace<B1, S, V>,
     val matrix: M
 ) {
-    private val matrixSpace = this.matrix.matrixSpace
     init {
         if (this.matrix.colCount != this.source.dim)
             throw IllegalArgumentException("The number of columns of the representing matrix does not match the dimension of the source vector space")
@@ -53,22 +53,23 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> priva
             target: VectorSpace<B1, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B0, B1, S, V, M> {
-            return LinearMap(source, target, matrixSpace.getZero(source.dim, target.dim))
+            return LinearMap(matrixSpace, source, target, matrixSpace.getZero(source.dim, target.dim))
         }
 
         fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> getId(
             source: VectorSpace<B, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B, B, S, V, M> {
-            return LinearMap(source, source, matrixSpace.getId(source.dim))
+            return LinearMap(matrixSpace, source, source, matrixSpace.getId(source.dim))
         }
 
         fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> fromMatrix(
             source: VectorSpace<B0, S, V>,
             target: VectorSpace<B1, S, V>,
+            matrixSpace: MatrixSpace<S, V, M>,
             matrix: M
         ): LinearMap<B0, B1, S, V, M> {
-            return LinearMap(source, target, matrix)
+            return LinearMap(matrixSpace, source, target, matrix)
         }
 
         fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> fromVectors(
@@ -85,7 +86,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V, M>> priva
             }
             val numVectors = vectors.map { it.toNumVector() }
             val matrix = matrixSpace.fromNumVectors(numVectors)
-            return LinearMap(source, target, matrix)
+            return LinearMap(matrixSpace, source, target, matrix)
         }
     }
 }

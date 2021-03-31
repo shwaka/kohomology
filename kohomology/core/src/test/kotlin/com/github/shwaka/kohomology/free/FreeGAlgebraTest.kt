@@ -118,7 +118,7 @@ class FreeGAlgebraTest : StringSpec({
         freeGAlgebra.withGAlgebraContext {
             val (x, y) = freeGAlgebra.generatorList
             val dx = freeGAlgebra.getZero(3)
-            val dy =  x * x
+            val dy = x * x
             val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
             d(x).isZero().shouldBeTrue()
             d(x.pow(4)).isZero().shouldBeTrue()

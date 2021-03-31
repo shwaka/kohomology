@@ -94,8 +94,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
             val derivedSeparatedMonomial = Monomial(this.indeterminateList, derivedSeparatedExponentList)
             val derivedSeparatedGVector = this.withGAlgebraContext {
                 separation.separatedExponent *
-                        this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.totalDegree()) *
-                        valueList[separation.index]
+                    this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.totalDegree()) *
+                    valueList[separation.index]
             }
             val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.totalDegree())
             this.withGAlgebraContext {

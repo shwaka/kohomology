@@ -1,0 +1,8 @@
+#! /bin/bash
+
+for d in kohomology kohomology-js; do
+    (
+        cd $d
+        ./gradlew ktlintCheck
+    )
+done

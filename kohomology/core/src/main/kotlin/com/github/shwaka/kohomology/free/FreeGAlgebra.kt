@@ -13,10 +13,10 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>,
-    val generatorList: List<Indeterminate<I>>,
+    val indeterminateList: List<Indeterminate<I>>,
 ) {
     private fun getBasisNames(degree: Degree): List<Monomial<I>> {
-        return Monomial.listAll(this.generatorList, degree)
+        return Monomial.listAll(this.indeterminateList, degree)
     }
 
     fun getVectorSpace(degree: Degree): VectorSpace<Monomial<I>, S, V> {
@@ -45,7 +45,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
     val matrixSpace: MatrixSpace<S, V, M>,
     factory: FreeGAlgebraFactory<I, S, V, M>
 ) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
-    val indeterminateList: List<Indeterminate<I>> = factory.generatorList
+    val indeterminateList: List<Indeterminate<I>> = factory.indeterminateList
     val generatorList: List<GVector<Monomial<I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.indeterminateList, indeterminate)
@@ -55,9 +55,9 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
     companion object {
         operator fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            generatorList: List<Indeterminate<I>>,
+            indeterminateList: List<Indeterminate<I>>,
         ): FreeGAlgebra<I, S, V, M> {
-            val factory = FreeGAlgebraFactory(matrixSpace, generatorList)
+            val factory = FreeGAlgebraFactory(matrixSpace, indeterminateList)
             return FreeGAlgebra(matrixSpace, factory)
         }
     }

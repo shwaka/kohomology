@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.GVector
+import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -36,12 +37,14 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
         }
         return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, values)
     }
+
+    val unitVector: Vector<Monomial<I>, S, V> = this.getVectorSpace(0).getBasis()[0]
 }
 
 class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     val matrixSpace: MatrixSpace<S, V, M>,
     factory: FreeGAlgebraFactory<I, S, V, M>
-) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication) {
+) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
     val indeterminateList: List<Indeterminate<I>> = factory.generatorList
     val generatorList: List<GVector<Monomial<I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->

@@ -12,10 +12,12 @@ import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorContext
 import com.github.shwaka.kohomology.vectsp.GVectorOperations
 import com.github.shwaka.kohomology.vectsp.GVectorSpace
+import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    val unit: GVector<B, S, V>
 }
 
 class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -28,16 +30,14 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         return this@GAlgebraContext.multiply(this, other)
     }
     fun GVector<B, S, V>.pow(exponent: Int): GVector<B, S, V> {
+        val unit = this@GAlgebraContext.unit
         return when {
-            exponent == 0 -> TODO("return the unit")
+            exponent == 0 -> unit
             exponent == 1 -> this
             exponent > 1 -> {
                 val half = this.pow(exponent / 2)
-                // TODO: use 'rem' as in Field (this requires the unit)
-                if (exponent % 2 == 1)
-                    half * half * this
-                else
-                    half * half
+                val rem = if (exponent % 2 == 1) this else unit
+                half * half * rem
             }
             exponent < 0 -> throw ArithmeticException("Negative power in an algebra is not defined")
             else -> throw Exception("This can't happen!")
@@ -48,10 +48,13 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
-    getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>
+    getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>,
+    unitVector: Vector<B, S, V>
 ) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     private val gAlgebraContext = GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     fun <T> withGAlgebraContext(block: GAlgebraContext<B, S, V, M>.() -> T): T = this.gAlgebraContext.block()
+
+    override val unit: GVector<B, S, V> = this.fromVector(unitVector, 0)
 
     private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
         GBilinearMap(this, this, this, 0) { p, q -> getMultiplication(p, q) }

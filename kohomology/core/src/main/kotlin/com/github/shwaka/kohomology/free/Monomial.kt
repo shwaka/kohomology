@@ -65,7 +65,7 @@ private class PositiveIndeterminateList<I>(
         return monomial.totalDegree() <= degreeLimit
     }
 
-    override fun drop(): IndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
+    override fun drop(): PositiveIndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
 }
 
 private class NegativeIndeterminateList<I>(
@@ -84,7 +84,7 @@ private class NegativeIndeterminateList<I>(
         return monomial.totalDegree() >= degreeLimit
     }
 
-    override fun drop(): IndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
+    override fun drop(): NegativeIndeterminateList<I> = NegativeIndeterminateList(this.rawList.drop(1))
 }
 
 class Monomial<I> private constructor(

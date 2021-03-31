@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -33,6 +34,28 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 0)
         )
         shouldThrow<IllegalArgumentException> {
+            Monomial.listAll(indeterminateList, 0)
+        }
+    }
+
+    "positive degrees should be allowed" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("x", 2),
+            Indeterminate("x", 3),
+        )
+        shouldNotThrowAny {
+            Monomial.listAll(indeterminateList, 0)
+        }
+    }
+
+    "negative degrees should be allowed" {
+        val indeterminateList = listOf(
+            Indeterminate("x", -1),
+            Indeterminate("x", -2),
+            Indeterminate("x", -3),
+        )
+        shouldNotThrowAny {
             Monomial.listAll(indeterminateList, 0)
         }
     }

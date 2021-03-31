@@ -24,6 +24,12 @@ class IndeterminateList<I>(
     fun <T> zip(list: List<T>): List<Pair<Indeterminate<I>, T>> = this.rawList.zip(list)
     operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
 
+    fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
+        if (monomial.indeterminateList != this)
+            throw IllegalArgumentException("indeterminate list is different")
+        return monomial.totalDegree() <= degreeLimit
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -49,7 +55,7 @@ class Monomial<I> private constructor(
         if (this.indeterminateList.size != this.exponentList.size)
             throw Exception("Invalid size of the exponent list")
     }
-    
+
     constructor(
         indeterminateList: List<Indeterminate<I>>,
         exponentList: List<Int>
@@ -84,7 +90,7 @@ class Monomial<I> private constructor(
             return null
         val newExponents = listOf(this.exponentList.first() + 1) + this.exponentList.drop(1)
         val firstIncreased = Monomial(this.indeterminateList, newExponents)
-        return if (firstIncreased.totalDegree() <= maxDegree) firstIncreased else null
+        return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
     }
 
     operator fun times(other: Monomial<I>): Pair<Monomial<I>, Int>? {

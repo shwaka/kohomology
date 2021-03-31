@@ -36,6 +36,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeGAlgebraTest(matrixSpac
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.withGAlgebraContext {
             (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
+            (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
         }
     }
 }

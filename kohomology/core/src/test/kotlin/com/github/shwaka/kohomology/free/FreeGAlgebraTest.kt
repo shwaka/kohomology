@@ -29,20 +29,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     )
     val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
     val lengthGen = exhaustive((0..maxPolynomialLength).toList())
-    "[deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+    "[polynomial, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
         checkAll(lengthGen) { i ->
             val degree = generatorDegree * i
             freeGAlgebra[degree].dim shouldBe (i + 1)
         }
     }
-    "[deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
+    "[polynomial, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
         val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
         checkAll(lengthGen, additionalDegreeGen) { i, j ->
             val degree = generatorDegree * i + j
             freeGAlgebra[degree].dim shouldBe 0
         }
     }
-    "[deg=$generatorDegree] check multiplication ($generatorDegree)" {
+    "[polynomial, deg=$generatorDegree] check multiplication" {
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.withGAlgebraContext {
             (x + y).pow(0) shouldBe freeGAlgebra.unit
@@ -53,10 +53,49 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = stringSpec {
+    if (generatorDegree % 2 == 0)
+        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
+    val generatorList = listOf(
+        Indeterminate("x", generatorDegree),
+        Indeterminate("y", generatorDegree),
+    )
+    val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+    val multipleDegreeGen = exhaustive(listOf(
+        Pair(0, 1), Pair(generatorDegree, 2), Pair(2 * generatorDegree, 1), Pair(3 * generatorDegree, 0)
+    ))
+    "[exterior, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+        checkAll(multipleDegreeGen) { (degree, expectedDim) ->
+            freeGAlgebra[degree].dim shouldBe expectedDim
+        }
+    }
+    "[exterior, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
+        val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
+        checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
+            val degree = multipleDegree + additionalDegree
+            freeGAlgebra[degree].dim shouldBe 0
+        }
+    }
+    "[exterior, deg=$generatorDegree] check multiplication" {
+        val (x, y) = freeGAlgebra.generatorList
+        freeGAlgebra.withGAlgebraContext {
+            (x + y).pow(0) shouldBe freeGAlgebra.unit
+            (x + y).pow(1) shouldBe (x + y)
+            (y * x) shouldBe (-x * y)
+            // (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
+            // (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
+        }
+    }
+}
+
 class FreeGAlgebraTest : StringSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
     include(polynomialTest(DenseMatrixSpaceOverBigRational, 2))
     include(polynomialTest(DenseMatrixSpaceOverBigRational, 4))
     include(polynomialTest(DenseMatrixSpaceOverBigRational, -2))
+
+    include(exteriorTest(DenseMatrixSpaceOverBigRational, 1))
+    include(exteriorTest(DenseMatrixSpaceOverBigRational, 3))
+    include(exteriorTest(DenseMatrixSpaceOverBigRational, -3))
 })

@@ -12,6 +12,7 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
+import io.kotest.property.exhaustive.map
 import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
@@ -28,17 +29,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
         Indeterminate("y", generatorDegree),
     )
     val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-    val lengthGen = exhaustive((0..maxPolynomialLength).toList())
+    // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
+    val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
     "[polynomial, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
-        checkAll(lengthGen) { i ->
-            val degree = generatorDegree * i
-            freeGAlgebra[degree].dim shouldBe (i + 1)
+        checkAll(multipleDegreeGen) { (degree, expectedDim) ->
+            freeGAlgebra[degree].dim shouldBe expectedDim
         }
     }
     "[polynomial, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
         val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
-        checkAll(lengthGen, additionalDegreeGen) { i, j ->
-            val degree = generatorDegree * i + j
+        checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
+            val degree = multipleDegree + additionalDegree
             freeGAlgebra[degree].dim shouldBe 0
         }
     }

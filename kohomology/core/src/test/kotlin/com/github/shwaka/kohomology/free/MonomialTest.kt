@@ -1,12 +1,33 @@
 package com.github.shwaka.kohomology.free
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.negativeInts
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
 val monomialTestTag = NamedTag("Monomial")
+
+class IndeterminateTest : StringSpec({
+    tags(monomialTestTag)
+
+    "negative degrees are not allowed" {
+        checkAll(Arb.negativeInts()) { degree ->
+            shouldThrow<IllegalArgumentException> {
+                Indeterminate("x", degree)
+            }
+        }
+    }
+
+    "degree 0 is not allowed" {
+        shouldThrow<IllegalArgumentException> {
+            Indeterminate("x", 0)
+        }
+    }
+})
 
 class MonomialTest : StringSpec({
     tags(monomialTestTag)

@@ -3,6 +3,11 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.vectsp.Degree
 
 data class Indeterminate<I>(val name: I, val degree: Degree) {
+    init {
+        if (this.degree <= 0)
+            throw IllegalArgumentException("The degree of an indeterminate must be positive")
+    }
+
     override fun toString(): String {
         return this.name.toString()
     }

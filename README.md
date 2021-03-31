@@ -8,6 +8,8 @@ test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/rada
 
 注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
 
+test report は `./gradlew openTestReport` で表示できる．
+
 ### kotest (古い情報)
 - `./gradlew kotest`
 - `./gradlew kotest -Dkotest.tags='Field & !Compile'`
@@ -20,7 +22,8 @@ gradle-test-logger-plugin の方がメンテナンス状況が良さそうなの
 cd kohomology
 ./gradlew test  # 先に test を実行する必要がある
 ./gradlew core:jacocoTestReport
-open core/build/reports/jacoco/test/html/index.html
+./gradlew openJacocoReport
+# ↑open core/build/reports/jacoco/test/html/index.html と同じ
 ```
 
 ## multiplatform をやめた理由

@@ -3,32 +3,23 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.vectsp.Degree
 
 data class Indeterminate<I>(val name: I, val degree: Degree) {
-    init {
-        if (this.degree <= 0)
-            throw IllegalArgumentException("The degree of an indeterminate must be positive")
-    }
-
     override fun toString(): String {
         return this.name.toString()
     }
 }
 
-class IndeterminateList<I>(
-    private val rawList: List<Indeterminate<I>>
+private sealed class IndeterminateList<I>(
+    protected val rawList: List<Indeterminate<I>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
     fun first(): Indeterminate<I> = this.rawList.first()
-    fun drop(): IndeterminateList<I> = IndeterminateList(this.rawList.drop(1))
+    abstract fun drop(): IndeterminateList<I>
     val size: Int
         get() = this.rawList.size
     fun <T> zip(list: List<T>): List<Pair<Indeterminate<I>, T>> = this.rawList.zip(list)
     operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
 
-    fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
-        if (monomial.indeterminateList != this)
-            throw IllegalArgumentException("indeterminate list is different")
-        return monomial.totalDegree() <= degreeLimit
-    }
+    abstract fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -45,10 +36,33 @@ class IndeterminateList<I>(
     override fun hashCode(): Int {
         return rawList.hashCode()
     }
+
+    companion object {
+        fun <I> from(indeterminateList: List<Indeterminate<I>>): IndeterminateList<I> {
+            return PositiveIndeterminateList(indeterminateList)
+        }
+    }
+}
+
+private class PositiveIndeterminateList<I>(
+    rawList: List<Indeterminate<I>>
+) : IndeterminateList<I>(rawList) {
+    init {
+        for (indeterminate in rawList) {
+            if (indeterminate.degree <= 0)
+                throw IllegalArgumentException("The degree of an indeterminate in PositiveIndeterminateList must be positive")
+        }
+    }
+
+    override fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
+        return monomial.totalDegree() <= degreeLimit
+    }
+
+    override fun drop(): IndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
 }
 
 class Monomial<I> private constructor(
-    val indeterminateList: IndeterminateList<I>,
+    private val indeterminateList: IndeterminateList<I>,
     val exponentList: List<Int>,
 ) {
     init {
@@ -59,7 +73,7 @@ class Monomial<I> private constructor(
     constructor(
         indeterminateList: List<Indeterminate<I>>,
         exponentList: List<Int>
-    ) : this(IndeterminateList(indeterminateList), exponentList)
+    ) : this(IndeterminateList.from(indeterminateList), exponentList)
 
     fun totalDegree(): Int {
         return this.indeterminateList.zip(this.exponentList)

@@ -5,32 +5,35 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.negativeInts
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
 val monomialTestTag = NamedTag("Monomial")
 
-class IndeterminateTest : StringSpec({
+class MonomialTest : StringSpec({
     tags(monomialTestTag)
 
     "negative degrees are not allowed" {
-        checkAll(Arb.negativeInts()) { degree ->
+        checkAll(Arb.negativeInts(), Arb.int()) { indeterminateDegree, degreeForListAll ->
+            val indeterminateList = listOf(
+                Indeterminate("x", indeterminateDegree)
+            )
             shouldThrow<IllegalArgumentException> {
-                Indeterminate("x", degree)
+                Monomial.listAll(indeterminateList, degreeForListAll)
             }
         }
     }
 
     "degree 0 is not allowed" {
-        shouldThrow<IllegalArgumentException> {
+        val indeterminateList = listOf(
             Indeterminate("x", 0)
+        )
+        shouldThrow<IllegalArgumentException> {
+            Monomial.listAll(indeterminateList, 0)
         }
     }
-})
-
-class MonomialTest : StringSpec({
-    tags(monomialTestTag)
 
     "two generators of even degrees" {
         val indeterminateList = listOf(

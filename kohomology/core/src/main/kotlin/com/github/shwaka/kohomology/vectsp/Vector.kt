@@ -127,13 +127,32 @@ class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         return Vector(numVector, this)
     }
 
-    fun fromCoeff(coeff: List<S>): Vector<B, S, V> {
-        val numVector = this.numVectorSpace.fromValues(coeff)
+    fun fromCoeff(coeffList: List<S>): Vector<B, S, V> {
+        val numVector = this.numVectorSpace.fromValues(coeffList)
         return this.fromNumVector(numVector)
     }
 
     fun fromCoeff(vararg coeff: S): Vector<B, S, V> {
         return this.fromCoeff(coeff.toList())
+    }
+
+    fun fromBasisName(basisName: B): Vector<B, S, V> {
+        val index = this.indexOf(basisName)
+        val coeffList: List<S> = this.field.withContext {
+            (0 until this@VectorSpace.dim).map { i ->
+                if (i == index) one else zero
+            }
+        }
+        return this.fromCoeff(coeffList)
+    }
+
+    fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {
+        return this.withContext { this@VectorSpace.fromBasisName(basisName) * coeff }
+    }
+
+    fun fromBasisName(basisName: B, coeff: Int): Vector<B, S, V> {
+        val coeffScalar = this.withContext { coeff.toScalar() }
+        return this.fromBasisName(basisName, coeffScalar)
     }
 
     override val zeroVector: Vector<B, S, V>

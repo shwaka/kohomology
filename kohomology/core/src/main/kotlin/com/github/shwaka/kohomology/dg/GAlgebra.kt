@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorContext
@@ -31,9 +32,12 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
-    private val multiplication: GBilinearMap<B, B, B, S, V, M>
+    getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>
 ) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     private val gAlgebraContext = GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
+    private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
+        GBilinearMap(this, this, this, 0) { p, q -> getMultiplication(p, q) }
+    }
     override fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         return this.multiplication(a, b)
     }

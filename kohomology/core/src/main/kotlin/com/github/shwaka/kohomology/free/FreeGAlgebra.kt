@@ -1,11 +1,11 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
-import com.github.shwaka.kohomology.dg.GBilinearMap
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
@@ -21,15 +21,26 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
         return VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
     }
 
-    val multiplication: GBilinearMap<Monomial<I>, Monomial<I>, Monomial<I>, S, V, M> by lazy {
-        TODO("not implemented")
+    fun getMultiplication(p: Degree, q: Degree): BilinearMap<Monomial<I>, Monomial<I>, Monomial<I>, S, V, M> {
+        val source1 = this.getVectorSpace(p)
+        val source2 = this.getVectorSpace(q)
+        val target = this.getVectorSpace(p + q)
+        val values = source1.basisNames.map { monomial1 ->
+            source2.basisNames.map { monomial2 ->
+                (monomial1 * monomial2)?.let {
+                    val (monomial: Monomial<I>, sign: Int) = it
+                    target.fromBasisName(monomial, sign)
+                } ?: target.zeroVector
+            }
+        }
+        return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, values)
     }
 }
 
 class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     val matrixSpace: MatrixSpace<S, V, M>,
     factory: FreeGAlgebraFactory<I, S, V, M>
-) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory.multiplication) {
+) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication) {
     val generatorList: List<Indeterminate<I>> = factory.generatorList
 
     companion object {

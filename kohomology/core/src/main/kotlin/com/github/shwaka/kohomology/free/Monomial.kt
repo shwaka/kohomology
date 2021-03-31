@@ -185,7 +185,6 @@ class Monomial<I> private constructor(
         return result
     }
 
-
     companion object {
         fun <I> listAll(indeterminateList: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {
             val exponentList = List(indeterminateList.size) { 0 }

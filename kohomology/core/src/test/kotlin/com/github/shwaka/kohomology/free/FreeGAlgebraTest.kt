@@ -62,9 +62,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
         Indeterminate("y", generatorDegree),
     )
     val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-    val multipleDegreeGen = exhaustive(listOf(
-        Pair(0, 1), Pair(generatorDegree, 2), Pair(2 * generatorDegree, 1), Pair(3 * generatorDegree, 0)
-    ))
+    val multipleDegreeGen = exhaustive(
+        listOf(
+            Pair(0, 1),
+            Pair(generatorDegree, 2),
+            Pair(2 * generatorDegree, 1),
+            Pair(3 * generatorDegree, 0)
+        )
+    )
     "[exterior, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
         checkAll(multipleDegreeGen) { (degree, expectedDim) ->
             freeGAlgebra[degree].dim shouldBe expectedDim

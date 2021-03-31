@@ -35,6 +35,8 @@ open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>
 ) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     private val gAlgebraContext = GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
+    fun <T> withGAlgebraContext(block: GAlgebraContext<B, S, V, M>.() -> T): T = this.gAlgebraContext.block()
+
     private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
         GBilinearMap(this, this, this, 0) { p, q -> getMultiplication(p, q) }
     }

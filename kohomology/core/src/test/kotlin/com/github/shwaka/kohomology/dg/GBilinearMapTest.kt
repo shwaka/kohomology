@@ -39,7 +39,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
             else -> BilinearMap.fromVectors(gVectorSpace[p], gVectorSpace[q], gVectorSpace[p + q], matrixSpace, emptyList())
         }
     }
-    gVectorSpace.withContext {
+    gVectorSpace.withGVectorContext {
         "graded bilinear map test" {
             val u: GVector<String, S, V> = gVectorSpace.getBasis(0)[0]
             val v: GVector<String, S, V> = gVectorSpace.getBasis(1)[0]

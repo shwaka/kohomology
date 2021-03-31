@@ -94,5 +94,13 @@ data class Monomial<I>(
             }
             return monomialList
         }
+
+        fun <I> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
+            val index = indeterminateList.indexOf(indeterminate)
+            if (index == -1)
+                throw IllegalArgumentException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
+            val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
+            return Monomial(indeterminateList, exponentList)
+        }
     }
 }

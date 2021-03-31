@@ -74,7 +74,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
     private val gVectorContext = GVectorContext(numVectorSpace.field, numVectorSpace, this)
-    fun <T> withContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
+    fun <T> withGVectorContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
 
     companion object {
         fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
@@ -107,6 +107,20 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     fun fromCoeff(coeff: List<S>, degree: Degree): GVector<B, S, V> {
         val numVector = this.numVectorSpace.fromValues(coeff)
         return this.fromNumVector(numVector, degree)
+    }
+
+    fun fromBasisName(basisName: B, degree: Degree): GVector<B, S, V> {
+        val vector = this[degree].fromBasisName(basisName)
+        return this.fromVector(vector, degree)
+    }
+
+    fun fromBasisName(basisName: B, degree: Degree, coeff: S): GVector<B, S, V> {
+        return this.withGVectorContext { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
+    }
+
+    fun fromBasisName(basisName: B, degree: Degree, coeff: Int): GVector<B, S, V> {
+        val coeffScalar = this.withGVectorContext { coeff.toScalar() }
+        return this.fromBasisName(basisName, degree, coeffScalar)
     }
 
     fun getBasis(degree: Degree): List<GVector<B, S, V>> {

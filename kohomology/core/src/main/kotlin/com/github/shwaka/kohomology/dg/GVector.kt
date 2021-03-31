@@ -9,15 +9,23 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 
 typealias Degree = Int
 
-sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>>
+sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>> {
+    abstract fun isZero(): Boolean
+}
 
-class ZeroGVector<B, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>()
+class ZeroGVector<B, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>() {
+    override fun isZero() = true
+}
 
 open class GVector<B, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>,
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
 ) : GVectorOrZero<B, S, V>() {
+    override fun isZero(): Boolean {
+        return this.vector.isZero()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

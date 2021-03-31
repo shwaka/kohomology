@@ -10,6 +10,8 @@ import com.github.shwaka.kohomology.vectsp.ZeroGVector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -28,6 +30,14 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
             val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
             (v + v) shouldBe expected
             (v + v) shouldNotBe v
+        }
+        "(0, 0).isZero() should be true" {
+            val v = gVectorSpace.fromCoeff(listOf(zero, zero), 2)
+            v.isZero().shouldBeTrue()
+        }
+        "(0, 1).isZero() should be false" {
+            val v = gVectorSpace.fromCoeff(listOf(zero, one), 2)
+            v.isZero().shouldBeFalse()
         }
     }
 }

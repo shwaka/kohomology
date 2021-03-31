@@ -6,6 +6,10 @@ data class DenseNumVector<S : Scalar>(
 ) : NumVector<S> {
     override val dim: Int
         get() = this.values.size
+
+    override fun isZero(): Boolean {
+        return this.field.withContext { this@DenseNumVector.values.all { it == zero } }
+    }
 }
 
 class DenseNumVectorSpace<S : Scalar>(

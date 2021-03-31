@@ -9,6 +9,8 @@ import com.github.shwaka.kohomology.intRationalTag
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -61,6 +63,14 @@ fun <S : Scalar> denseNumVectorTest(field: Field<S>) = stringSpec {
             val v = numVectorSpace.fromValues(one, two)
             val w = numVectorSpace.fromValues(-one, three)
             (v dot w) shouldBe five
+        }
+        "(0, 0, 0).isZero() should be true" {
+            val v = numVectorSpace.fromValues(zero, zero, zero)
+            v.isZero().shouldBeTrue()
+        }
+        "(0, 1, 0).isZero() should be false" {
+            val v = numVectorSpace.fromValues(zero, one, zero)
+            v.isZero().shouldBeFalse()
         }
     }
 }

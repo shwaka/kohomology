@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.linalg
 interface NumVector<S : Scalar> {
     val field: Field<S>
     val dim: Int
+    fun isZero(): Boolean
 }
 
 interface NumVectorOperations<S : Scalar, V : NumVector<S>> {

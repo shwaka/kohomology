@@ -9,6 +9,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
@@ -91,8 +93,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             (x + y).pow(0) shouldBe freeGAlgebra.unit
             (x + y).pow(1) shouldBe (x + y)
             (y * x) shouldBe (-x * y)
-            // (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
-            // (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
+            (x + y).pow(2).isZero().shouldBeTrue()
         }
     }
 }

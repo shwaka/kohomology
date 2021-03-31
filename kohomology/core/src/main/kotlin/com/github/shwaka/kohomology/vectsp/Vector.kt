@@ -23,6 +23,10 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
         }
     }
 
+    fun isZero(): Boolean {
+        return this.numVector.isZero()
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

@@ -1,6 +1,8 @@
 #! /bin/bash
 
-for d in kohomology kohomology-js; do
+# directories="kohomology kohomology-js"
+directories="kohomology"
+for d in $directories; do
     (
         cd $d
         ./gradlew ktlintCheck

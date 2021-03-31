@@ -12,27 +12,37 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
+import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeGAlgebraTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = stringSpec {
+    if (generatorDegree == 0)
+        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be non-zero")
+    if (generatorDegree % 2 == 1)
+        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be even")
+    if (maxPolynomialLength <= 0)
+        throw IllegalArgumentException("Invalid test parameter: maxPolynomialLength must be positive")
     val generatorList = listOf(
-        Indeterminate("x", 2),
-        Indeterminate("y", 2),
+        Indeterminate("x", generatorDegree),
+        Indeterminate("y", generatorDegree),
     )
     val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-    "check dimensions" {
-        val gen = exhaustive(listOf(0, 1, 2, 3, 4, 5, 6))
-        checkAll(gen) { i ->
-            val degree = 2 * i
+    val lengthGen = exhaustive((0..maxPolynomialLength).toList())
+    "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+        checkAll(lengthGen) { i ->
+            val degree = generatorDegree * i
             freeGAlgebra[degree].dim shouldBe (i + 1)
         }
-        checkAll(gen) { i ->
-            val degree = 2 * i + 1
+    }
+    "freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
+        val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
+        checkAll(lengthGen, additionalDegreeGen) { i, j ->
+            val degree = generatorDegree * i + j
             freeGAlgebra[degree].dim shouldBe 0
         }
     }
-    "check multiplication" {
+    "check multiplication ($generatorDegree)" {
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.withGAlgebraContext {
             (x + y).pow(0) shouldBe freeGAlgebra.unit
@@ -46,5 +56,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeGAlgebraTest(matrixSpac
 class FreeGAlgebraTest : StringSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
-    include(freeGAlgebraTest(DenseMatrixSpaceOverBigRational))
+    include(polynomialTest(DenseMatrixSpaceOverBigRational, 2))
+    include(polynomialTest(DenseMatrixSpaceOverBigRational, 4))
+    include(polynomialTest(DenseMatrixSpaceOverBigRational, -2))
 })

@@ -39,7 +39,12 @@ private sealed class IndeterminateList<I>(
 
     companion object {
         fun <I> from(indeterminateList: List<Indeterminate<I>>): IndeterminateList<I> {
-            return PositiveIndeterminateList(indeterminateList)
+            return when {
+                indeterminateList.any { it.degree == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
+                indeterminateList.all { it.degree > 0 } -> PositiveIndeterminateList(indeterminateList)
+                indeterminateList.all { it.degree < 0 } -> NegativeIndeterminateList(indeterminateList)
+                else -> throw IllegalArgumentException("Cannot consider a list of indeterminate containing both positive and negative degrees")
+            }
         }
     }
 }
@@ -55,7 +60,28 @@ private class PositiveIndeterminateList<I>(
     }
 
     override fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
+        // monomial.indeterminateList == this を確認しなくて良い？
+        // private にしちゃったから困ってる
         return monomial.totalDegree() <= degreeLimit
+    }
+
+    override fun drop(): IndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
+}
+
+private class NegativeIndeterminateList<I>(
+    rawList: List<Indeterminate<I>>
+) : IndeterminateList<I>(rawList) {
+    init {
+        for (indeterminate in rawList) {
+            if (indeterminate.degree >= 0)
+                throw IllegalArgumentException("The degree of an indeterminate in NegativeIndeterminateList must be negative")
+        }
+    }
+
+    override fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
+        // monomial.indeterminateList == this を確認しなくて良い？
+        // private にしちゃったから困ってる
+        return monomial.totalDegree() >= degreeLimit
     }
 
     override fun drop(): IndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))

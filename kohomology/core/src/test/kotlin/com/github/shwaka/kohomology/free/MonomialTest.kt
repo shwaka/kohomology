@@ -7,6 +7,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.negativeInts
+import io.kotest.property.arbitrary.positiveInts
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
@@ -15,10 +16,11 @@ val monomialTestTag = NamedTag("Monomial")
 class MonomialTest : StringSpec({
     tags(monomialTestTag)
 
-    "negative degrees are not allowed" {
-        checkAll(Arb.negativeInts(), Arb.int()) { indeterminateDegree, degreeForListAll ->
+    "indeterminate list with mixed degrees is not allowed" {
+        checkAll(Arb.positiveInts(), Arb.negativeInts(), Arb.int()) { positiveDegree, negativeDegree, degreeForListAll ->
             val indeterminateList = listOf(
-                Indeterminate("x", indeterminateDegree)
+                Indeterminate("x", positiveDegree),
+                Indeterminate("y", negativeDegree)
             )
             shouldThrow<IllegalArgumentException> {
                 Monomial.listAll(indeterminateList, degreeForListAll)

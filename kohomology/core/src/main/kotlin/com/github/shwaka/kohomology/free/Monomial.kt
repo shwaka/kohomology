@@ -13,14 +13,47 @@ data class Indeterminate<I>(val name: I, val degree: Degree) {
     }
 }
 
-data class Monomial<I>(
-    val indeterminateList: List<Indeterminate<I>>,
+class IndeterminateList<I>(
+    private val rawList: List<Indeterminate<I>>
+) {
+    fun isEmpty(): Boolean = this.rawList.isEmpty()
+    fun first(): Indeterminate<I> = this.rawList.first()
+    fun drop(): IndeterminateList<I> = IndeterminateList(this.rawList.drop(1))
+    val size: Int
+        get() = this.rawList.size
+    fun <T> zip(list: List<T>): List<Pair<Indeterminate<I>, T>> = this.rawList.zip(list)
+    operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as IndeterminateList<*>
+
+        if (rawList != other.rawList) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return rawList.hashCode()
+    }
+}
+
+class Monomial<I> private constructor(
+    val indeterminateList: IndeterminateList<I>,
     val exponentList: List<Int>,
 ) {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw Exception("Invalid size of the exponent list")
     }
+    
+    constructor(
+        indeterminateList: List<Indeterminate<I>>,
+        exponentList: List<Int>
+    ) : this(IndeterminateList(indeterminateList), exponentList)
 
     fun totalDegree(): Int {
         return this.indeterminateList.zip(this.exponentList)
@@ -31,7 +64,7 @@ data class Monomial<I>(
     private fun drop(): Monomial<I> {
         if (this.indeterminateList.isEmpty())
             throw Exception("This can't happen!")
-        return Monomial(this.indeterminateList.drop(1), this.exponentList.drop(1))
+        return Monomial(this.indeterminateList.drop(), this.exponentList.drop(1))
     }
 
     private fun getNextMonomial(maxDegree: Degree): Monomial<I>? {
@@ -86,6 +119,26 @@ data class Monomial<I>(
             }
         }
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+
+        other as Monomial<*>
+
+        if (indeterminateList != other.indeterminateList) return false
+        if (exponentList != other.exponentList) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = indeterminateList.hashCode()
+        result = 31 * result + exponentList.hashCode()
+        return result
+    }
+
 
     companion object {
         fun <I> listAll(indeterminateList: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {

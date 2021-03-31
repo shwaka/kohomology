@@ -29,20 +29,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     )
     val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
     val lengthGen = exhaustive((0..maxPolynomialLength).toList())
-    "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+    "[deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
         checkAll(lengthGen) { i ->
             val degree = generatorDegree * i
             freeGAlgebra[degree].dim shouldBe (i + 1)
         }
     }
-    "freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
+    "[deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
         val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
         checkAll(lengthGen, additionalDegreeGen) { i, j ->
             val degree = generatorDegree * i + j
             freeGAlgebra[degree].dim shouldBe 0
         }
     }
-    "check multiplication ($generatorDegree)" {
+    "[deg=$generatorDegree] check multiplication ($generatorDegree)" {
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.withGAlgebraContext {
             (x + y).pow(0) shouldBe freeGAlgebra.unit

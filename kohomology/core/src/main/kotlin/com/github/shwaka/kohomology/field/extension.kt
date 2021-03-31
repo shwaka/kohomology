@@ -22,6 +22,17 @@ fun Int.positiveRem(mod: Int): Int {
     return if (rem >= 0) rem else rem + mod
 }
 
+fun Int.isEven(): Boolean {
+    return this % 2 == 0
+}
+
+fun Int.isOdd(): Boolean {
+    // We cannot use 'this % 2 == 1' since:
+    // -1 % 2 = -1
+    // -2 % 2 = 0
+    return this % 2 != 0
+}
+
 fun Int.isPrime(): Boolean {
     if (this <= 1) return false
     var n = 2

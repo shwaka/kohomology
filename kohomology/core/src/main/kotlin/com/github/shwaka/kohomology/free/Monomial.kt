@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.field.isOdd
 import com.github.shwaka.kohomology.vectsp.Degree
 
 data class Indeterminate<I>(val name: I, val degree: Degree) {
@@ -126,7 +127,7 @@ class Monomial<I> private constructor(
 
     private fun increaseFirstExponent(maxDegree: Degree): Monomial<I>? {
         // 奇数次の場合
-        if ((this.indeterminateList.first().degree % 2 == 1) and (this.exponentList.first() == 1))
+        if ((this.indeterminateList.first().degree.isOdd()) and (this.exponentList.first() == 1))
             return null
         val newExponents = listOf(this.exponentList.first() + 1) + this.exponentList.drop(1)
         val firstIncreased = Monomial(this.indeterminateList, newExponents)
@@ -139,14 +140,14 @@ class Monomial<I> private constructor(
         val size = this.indeterminateList.size
         val exponentList = this.exponentList.zip(other.exponentList).map { (p, q) -> p + q }
         for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree % 2 == 1) and (exponentList[i] >= 2))
+            if ((this.indeterminateList[i].degree.isOdd()) and (exponentList[i] >= 2))
                 return null
         }
         var sign = 1
         for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree % 2 == 1) and (this.exponentList[i] == 1)) {
+            if ((this.indeterminateList[i].degree.isOdd()) and (this.exponentList[i] == 1)) {
                 for (j in 0 until i) {
-                    if ((other.indeterminateList[j].degree % 2 == 1) and (other.exponentList[j] == 1)) {
+                    if ((other.indeterminateList[j].degree.isOdd()) and (other.exponentList[j] == 1)) {
                         sign = -sign
                     }
                 }

@@ -100,11 +100,31 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
 class FreeGAlgebraTest : StringSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
-    include(polynomialTest(DenseMatrixSpaceOverBigRational, 2))
-    include(polynomialTest(DenseMatrixSpaceOverBigRational, 4))
-    include(polynomialTest(DenseMatrixSpaceOverBigRational, -2))
+    val matrixSpace = DenseMatrixSpaceOverBigRational
+    include(polynomialTest(matrixSpace, 2))
+    include(polynomialTest(matrixSpace, 4))
+    include(polynomialTest(matrixSpace, -2))
 
-    include(exteriorTest(DenseMatrixSpaceOverBigRational, 1))
-    include(exteriorTest(DenseMatrixSpaceOverBigRational, 3))
-    include(exteriorTest(DenseMatrixSpaceOverBigRational, -3))
+    include(exteriorTest(matrixSpace, 1))
+    include(exteriorTest(matrixSpace, 3))
+    include(exteriorTest(matrixSpace, -3))
+
+    "derivation test" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        freeGAlgebra.withGAlgebraContext {
+            val (x, y) = freeGAlgebra.generatorList
+            val dx = freeGAlgebra.getZero(3)
+            val dy =  x * x
+            val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
+            d(x).isZero().shouldBeTrue()
+            d(x.pow(4)).isZero().shouldBeTrue()
+            d(y) shouldBe (x * x)
+            d(x * y) shouldBe (x.pow(3))
+            d(x.pow(3) * y) shouldBe (x.pow(5))
+        }
+    }
 })

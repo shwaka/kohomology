@@ -157,6 +157,27 @@ class Monomial<I> private constructor(
         return Pair(monomial, sign)
     }
 
+    private fun separate(index: Int): MonomialSeparation<I>? {
+        val separatedExponent = this.exponentList[index]
+        if (separatedExponent == 0)
+            return null
+        val remainingExponentList = this.exponentList.mapIndexed { i, exponent ->
+            if (i == index) 0 else exponent
+        }
+        val remainingMonomial = Monomial(this.indeterminateList, remainingExponentList)
+        val separatedIndeterminate = this.indeterminateList[index]
+        val separatedExponentList = this.exponentList.mapIndexed { i, exponent ->
+            if (i == index) exponent else 0
+        }
+        val (_, sign) = Monomial(this.indeterminateList, separatedExponentList) * remainingMonomial ?: throw Exception("This can't happen!")
+        return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
+    }
+
+    fun allSeparations(): List<MonomialSeparation<I>> {
+        // TODO: List じゃなくて Iterator の方が良い？
+        return (0 until this.indeterminateList.size).mapNotNull { i -> this.separate(i) }
+    }
+
     override fun toString(): String {
         return this.indeterminateList.zip(this.exponentList).joinToString("") { (indeterminate, exponent) ->
             when (exponent) {
@@ -206,5 +227,18 @@ class Monomial<I> private constructor(
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
             return Monomial(indeterminateList, exponentList)
         }
+    }
+}
+
+data class MonomialSeparation<I>(
+    val remainingMonomial: Monomial<I>,
+    val separatedIndeterminate: Indeterminate<I>,
+    val separatedExponent: Int,
+    val sign: Int,
+    val index: Int,
+) {
+    init {
+        if (separatedExponent <= 0)
+            throw Exception("separatedExponent must be positive")
     }
 }

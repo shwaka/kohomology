@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
+import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -8,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.GVector
+import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
@@ -59,6 +61,48 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
         ): FreeGAlgebra<I, S, V, M> {
             val factory = FreeGAlgebraFactory(matrixSpace, indeterminateList)
             return FreeGAlgebra(matrixSpace, factory)
+        }
+    }
+
+    fun getDerivation(valueList: List<GVector<Monomial<I>, S, V>>, degree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
+        // TODO: check length and degrees of valueList
+        return GLinearMap(this, this, degree) { k ->
+            val source = this[k]
+            val target = this[k + degree]
+            val valueListForDegree: List<Vector<Monomial<I>, S, V>> = source.basisNames.map { monomial: Monomial<I> ->
+                val gVectorValue = this.getDerivationValue(valueList, monomial)
+                gVectorValue.vector
+            }
+            LinearMap.fromVectors(source, target, this.matrixSpace, valueListForDegree)
+        }
+    }
+
+    private fun getDerivationValue(
+        valueList: List<GVector<Monomial<I>, S, V>>,
+        // degree: Degree,
+        monomial: Monomial<I>
+    ): GVector<Monomial<I>, S, V> {
+        // val sourceDegree = monomial.totalDegree()
+        // val targetDegree = sourceDegree + degree
+        return monomial.allSeparations().map { separation ->
+            val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->
+                if (i == separation.index)
+                    separation.separatedExponent - 1
+                else
+                    0
+            }
+            val derivedSeparatedMonomial = Monomial(this.indeterminateList, derivedSeparatedExponentList)
+            val derivedSeparatedGVector = this.withGAlgebraContext {
+                separation.separatedExponent *
+                        this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.totalDegree()) *
+                        valueList[separation.index]
+            }
+            val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.totalDegree())
+            this.withGAlgebraContext {
+                derivedSeparatedGVector * remainingGVector
+            }
+        }.reduce { a, b ->
+            this.withGVectorContext { a + b }
         }
     }
 }

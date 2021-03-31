@@ -27,6 +27,22 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun GVector<B, S, V>.times(other: GVector<B, S, V>): GVector<B, S, V> {
         return this@GAlgebraContext.multiply(this, other)
     }
+    fun GVector<B, S, V>.pow(exponent: Int): GVector<B, S, V> {
+        return when {
+            exponent == 0 -> TODO("return the unit")
+            exponent == 1 -> this
+            exponent > 1 -> {
+                val half = this.pow(exponent / 2)
+                // TODO: use 'rem' as in Field (this requires the unit)
+                if (exponent % 2 == 1)
+                    half * half * this
+                else
+                    half * half
+            }
+            exponent < 0 -> throw ArithmeticException("Negative power in an algebra is not defined")
+            else -> throw Exception("This can't happen!")
+        }
+    }
 }
 
 open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

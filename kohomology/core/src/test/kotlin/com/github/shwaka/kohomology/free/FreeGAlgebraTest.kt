@@ -35,7 +35,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeGAlgebraTest(matrixSpac
     "check multiplication" {
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.withGAlgebraContext {
-            ((x + y) * (x + y)) shouldBe (x * x + 2 * x * y + y * y)
+            (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
         }
     }
 }

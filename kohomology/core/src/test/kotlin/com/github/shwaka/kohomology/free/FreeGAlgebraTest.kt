@@ -71,10 +71,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
         }
     }
     "[exterior, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
-        val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
-        checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
-            val degree = multipleDegree + additionalDegree
-            freeGAlgebra[degree].dim shouldBe 0
+        if (generatorDegree.absoluteValue >= 2) {
+            // exhaustive の中身が empty list だとエラーを吐く
+            val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
+            checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
+                val degree = multipleDegree + additionalDegree
+                freeGAlgebra[degree].dim shouldBe 0
+            }
         }
     }
     "[exterior, deg=$generatorDegree] check multiplication" {

@@ -72,6 +72,17 @@ class MonomialTest : StringSpec({
         }
     }
 
+    "two generators of odd degrees" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("y", 1),
+        )
+        val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 2), Pair(2, 1), Pair(3, 0), Pair(4, 0)))
+        checkAll(gen) { (degree, size) ->
+            Monomial.listAll(indeterminateList, degree).size shouldBe size
+        }
+    }
+
     "polynomial algebra tensor exterior algebra" {
         val indeterminateList = listOf(
             Indeterminate("x", 1),

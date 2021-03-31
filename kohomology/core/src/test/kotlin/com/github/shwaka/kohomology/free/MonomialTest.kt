@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
@@ -79,6 +80,26 @@ class MonomialTest : StringSpec({
         val gen = exhaustive(listOf(0, 1, 2, 3, 4))
         checkAll(gen) { degree ->
             Monomial.listAll(indeterminateList, degree).size shouldBe 1
+        }
+    }
+
+    "listAll should return the empty list for a negative degree if the generators are positive" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("y", 2),
+        )
+        checkAll(Arb.negativeInts()) { degree ->
+            Monomial.listAll(indeterminateList, degree).isEmpty().shouldBeTrue()
+        }
+    }
+
+    "listAll should return the empty list for a positive degree if the generators are negative" {
+        val indeterminateList = listOf(
+            Indeterminate("x", -1),
+            Indeterminate("y", -2),
+        )
+        checkAll(Arb.positiveInts()) { degree ->
+            Monomial.listAll(indeterminateList, degree).isEmpty().shouldBeTrue()
         }
     }
 

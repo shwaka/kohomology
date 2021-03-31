@@ -45,6 +45,7 @@ open class GVector<B, S : Scalar, V : NumVector<S>>(
 }
 
 interface GVectorOperations<B, S : Scalar, V : NumVector<S>> {
+    operator fun contains(gVector: GVector<B, S, V>): Boolean
     fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V>
@@ -126,10 +127,14 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
         }
     }
 
+    override fun contains(gVector: GVector<B, S, V>): Boolean {
+        return gVector.gVectorSpace == this
+    }
+
     override fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
-        if (a.gVectorSpace != this)
+        if (a !in this)
             throw ArithmeticException("The gVector $a does not match the context")
-        if (b.gVectorSpace != this)
+        if (b !in this)
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
@@ -140,9 +145,9 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     override fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
-        if (a.gVectorSpace != this)
+        if (a !in this)
             throw ArithmeticException("The gVector $a does not match the context")
-        if (b.gVectorSpace != this)
+        if (b !in this)
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
@@ -153,7 +158,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     override fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V> {
-        if (gVector.gVectorSpace != this)
+        if (gVector !in this)
             throw ArithmeticException("The gVector $gVector does not match the context")
         val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
         return this.fromVector(vector, gVector.degree)

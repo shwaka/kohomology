@@ -58,6 +58,7 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
 }
 
 interface VectorOperations<B, S : Scalar, V : NumVector<S>> {
+    operator fun contains(vector: Vector<B, S, V>): Boolean
     fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
@@ -88,21 +89,25 @@ class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     private val vectorContext = VectorContext(numVectorSpace.field, numVectorSpace, this)
     fun <T> withContext(block: VectorContext<B, S, V>.() -> T) = this.vectorContext.block()
 
+    override fun contains(vector: Vector<B, S, V>): Boolean {
+        return vector.vectorSpace == this
+    }
+
     override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
-        if (a.vectorSpace != this)
-            throw ArithmeticException("The vector space ${a.vectorSpace} containing $a does not match the context ($this)")
-        if (b.vectorSpace != this)
-            throw ArithmeticException("The vector space ${b.vectorSpace} containing $b does not match the context ($this)")
+        if (a !in this)
+            throw ArithmeticException("The vector $a is not contained in the vector space $this")
+        if (b !in this)
+            throw ArithmeticException("The vector $b is not contained in the vector space $this")
         return numVectorSpace.withContext {
             Vector(a.numVector + b.numVector, this@VectorSpace)
         }
     }
 
     override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
-        if (a.vectorSpace != this)
-            throw ArithmeticException("The vector space ${a.vectorSpace} containing $a does not match the context ($this)")
-        if (b.vectorSpace != this)
-            throw ArithmeticException("The vector space ${b.vectorSpace} containing $b does not match the context ($this)")
+        if (a !in this)
+            throw ArithmeticException("The vector $a is not contained in the vector space $this")
+        if (b !in this)
+            throw ArithmeticException("The vector $b is not contained in the vector space $this")
         return this.numVectorSpace.withContext {
             Vector(a.numVector - b.numVector, this@VectorSpace)
         }
@@ -111,8 +116,8 @@ class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
-        if (vector.vectorSpace != this)
-            throw ArithmeticException("The vector space ${vector.vectorSpace} containing $vector does not match the context ($this)")
+        if (vector !in this)
+            throw ArithmeticException("The vector $vector is not contained in the vector space $this")
         return this.numVectorSpace.withContext {
             Vector(vector.numVector * scalar, vector.vectorSpace)
         }

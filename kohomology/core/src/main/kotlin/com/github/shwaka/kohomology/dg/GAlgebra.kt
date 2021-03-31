@@ -28,7 +28,7 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 }
 
-class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
     private val multiplication: GBilinearMap<B, B, B, S, V, M>

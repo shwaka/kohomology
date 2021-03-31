@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.field.isOdd
+import com.github.shwaka.kohomology.util.isOdd
 import com.github.shwaka.kohomology.vectsp.Degree
 
 data class Indeterminate<I>(val name: I, val degree: Degree) {

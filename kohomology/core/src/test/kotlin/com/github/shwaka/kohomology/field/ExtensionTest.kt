@@ -1,5 +1,8 @@
 package com.github.shwaka.kohomology.field
 
+import com.github.shwaka.kohomology.util.isPrime
+import com.github.shwaka.kohomology.util.positiveRem
+import com.github.shwaka.kohomology.util.pow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.data.forAll
@@ -7,7 +10,6 @@ import io.kotest.data.row
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
-import io.kotest.property.forAll
 
 val extensionTag = NamedTag("Extension")
 

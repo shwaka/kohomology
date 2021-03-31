@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.field
+package com.github.shwaka.kohomology.util
 
 fun Int.pow(exponent: Int): Int {
     return when {

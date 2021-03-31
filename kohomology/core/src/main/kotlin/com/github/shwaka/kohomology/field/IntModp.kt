@@ -5,6 +5,9 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
+import com.github.shwaka.kohomology.util.isPrime
+import com.github.shwaka.kohomology.util.positiveRem
+import com.github.shwaka.kohomology.util.pow
 
 class IntModp(value: Int, val p: Int) : Scalar {
     val value: Int = value.positiveRem(p)

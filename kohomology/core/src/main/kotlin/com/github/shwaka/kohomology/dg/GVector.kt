@@ -80,7 +80,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
             numVectorSpace: NumVectorSpace<S, V>,
             getBasisNames: (Degree) -> List<B>,
         ): GVectorSpace<B, S, V> {
-            return GVectorSpace<B, S, V>(numVectorSpace) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree))}
+            return GVectorSpace<B, S, V>(numVectorSpace) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
         }
     }
 

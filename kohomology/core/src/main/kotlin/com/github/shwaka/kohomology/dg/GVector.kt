@@ -81,7 +81,9 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
 
-    private val gVectorContext = GVectorContext(numVectorSpace.field, numVectorSpace, this)
+    // use 'lazy' to avoid the following warning:
+    //   Leaking 'this' in constructor of non-final class GAlgebra
+    private val gVectorContext by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
     fun <T> withGVectorContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
 
     companion object {

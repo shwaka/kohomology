@@ -36,9 +36,9 @@ package field {
    ' Scalar <|-- BigRational
    '/
 
-  class BigRationalField
-  class DenseNumVectorSpaceOverBigRational
-  class DenseMatrixSpaceOverBigRational
+  class BigRationalField << (O, PaleGreen) >>
+  class DenseNumVectorSpaceOverBigRational << (O, PaleGreen) >>
+  class DenseMatrixSpaceOverBigRational << (O, PaleGreen) >>
 
   Field <|-- BigRationalField
   DenseNumVectorSpace <|-- DenseNumVectorSpaceOverBigRational
@@ -50,22 +50,41 @@ package field {
 
 package vectsp {
   class VectorSpace
+  class LinearMap
 
   NumVectorSpace *-down- VectorSpace
   MatrixSpace -down[hidden]- VectorSpace
+  VectorSpace *-right- LinearMap
+  MatrixSpace *-down- LinearMap
 }
 
 package dg {
   class GVectorSpace
   class GAlgebra
-
   VectorSpace *-- GVectorSpace
   GVectorSpace <|-- GAlgebra
+
+  class DGVectorSpace
+  class DGAlgebra
+  DGVectorSpace <|-- DGAlgebra
+
+  GVectorSpace *-right- DGVectorSpace
+  GAlgebra *-right- DGAlgebra
+
+  LinearMap *-- DGVectorSpace
+  LinearMap *-- GAlgebra
+  /'
+   ' LinearMap *-- DGAlgebra
+   '/
 }
 
 package free {
   class FreeGAlgebra
+  class FreeDGAlgebra
 
   GAlgebra <|-- FreeGAlgebra
+  DGAlgebra <|-- FreeDGAlgebra
+
+  FreeGAlgebra *-right- FreeDGAlgebra
 }
 @enduml

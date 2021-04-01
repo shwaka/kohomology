@@ -97,7 +97,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
 
     fun getZero(rowCount: Int, colCount: Int): M {
         val zero = this.withContext { zero }
-        val rows = List(rowCount) { _ -> List(colCount) { _ -> zero } }
+        val rows = List(rowCount) { List(colCount) { zero } }
         return this.fromRows(rows)
     }
 

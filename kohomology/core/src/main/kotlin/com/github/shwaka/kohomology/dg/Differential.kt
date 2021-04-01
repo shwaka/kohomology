@@ -30,8 +30,7 @@ class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gAlgebraOperations: GAlgebraOperations<B, S, V, M>,
     dgVectorSpaceOperations: DGVectorSpaceOperations<B, S, V, M>
 ) : GAlgebraContext<B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
-    DGVectorSpaceOperations<B, S, V, M> by dgVectorSpaceOperations
-{
+    DGVectorSpaceOperations<B, S, V, M> by dgVectorSpaceOperations {
     fun d(gVector: GVector<B, S, V>): GVector<B, S, V> {
         return this.differential(gVector)
     }

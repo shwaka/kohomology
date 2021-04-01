@@ -182,7 +182,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             val w = numVectorSpace.fromValues(three, four)
             mat.innerProduct(v, w) shouldBe one
         }
-        "kernel of ((1, 1), (2, 2)) should be of dimension one" {
+        "kernel of zero matrix should have the standard basis" {
+            val dim = 5
+            val mat = matrixSpace.getZero(dim)
+            val expected = (0 until 5).map { numVectorSpace.getOneAtIndex(it, 5) }
+            mat.computeKernelBasis() shouldBe expected
+        }
+        "compute kernel of ((1, 1), (2, 2))" {
             val mat = matrixSpace.fromRows(
                 listOf(
                     listOf(one, one),
@@ -192,6 +198,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             val kernelBasis = mat.computeKernelBasis()
             kernelBasis.size shouldBe 1
             (mat * kernelBasis[0]).isZero().shouldBeTrue()
+        }
+        "compute kernel of ((1, 2, 3), (0, 0, 0), (0, 0, 0))" {
+            val mat = matrixSpace.fromRows(
+                listOf(
+                    listOf(one, two, three),
+                    listOf(zero, zero, zero),
+                    listOf(zero, zero, zero),
+                )
+            )
+            val kernelBasis = mat.computeKernelBasis()
+            kernelBasis.size shouldBe 2
+            for (v in kernelBasis) {
+                (mat * v).isZero().shouldBeTrue()
+            }
         }
     }
 }

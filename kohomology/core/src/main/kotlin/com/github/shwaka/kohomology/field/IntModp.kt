@@ -9,11 +9,11 @@ import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
 
-class IntModp(value: Int, val p: Int) : Scalar {
-    val value: Int = value.positiveRem(p)
+class IntModp(value: Int, val characteristic: Int) : Scalar {
+    val value: Int = value.positiveRem(characteristic)
 
     override fun toString(): String {
-        return "${this.value.positiveRem(this.p)} mod ${this.p}"
+        return "${this.value.positiveRem(this.characteristic)} mod ${this.characteristic}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -24,18 +24,18 @@ class IntModp(value: Int, val p: Int) : Scalar {
         other as IntModp
 
         if (this.value != other.value) return false
-        if (this.p != other.p) return false
+        if (this.characteristic != other.characteristic) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = this.value
-        result = 31 * result + this.p
+        result = 31 * result + this.characteristic
         return result
     }
 }
-class Fp private constructor(val p: Int) : Field<IntModp> {
+class Fp private constructor(override val characteristic: Int) : Field<IntModp> {
     companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
         fun get(p: Int): Fp {
@@ -46,54 +46,53 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     override val scalarContext: ScalarContext<IntModp> = ScalarContext(this)
 
     override val field = this
-    override val characteristic = p
 
     override fun contains(scalar: IntModp): Boolean {
-        return this.p == scalar.p
+        return this.characteristic == scalar.characteristic
     }
 
     override fun add(a: IntModp, b: IntModp): IntModp {
-        if (a.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
-        if (b.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value + b.value, this.p)
+        if (a.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
+        if (b.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
+        return IntModp(a.value + b.value, this.characteristic)
     }
 
     override fun subtract(a: IntModp, b: IntModp): IntModp {
-        if (a.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
-        if (b.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value - b.value, this.p)
+        if (a.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
+        if (b.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
+        return IntModp(a.value - b.value, this.characteristic)
     }
 
     override fun multiply(a: IntModp, b: IntModp): IntModp {
-        if (a.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
-        if (b.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
-        return IntModp(a.value * b.value, this.p)
+        if (a.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
+        if (b.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
+        return IntModp(a.value * b.value, this.characteristic)
     }
 
     override fun divide(a: IntModp, b: IntModp): IntModp {
-        if (a.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${a.p} for $a does not match the context (p=${this.p})")
-        if (b.p != this.p)
-            throw ArithmeticException("[Error] the characteristic ${b.p} for $b does not match the context (p=${this.p})")
+        if (a.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
+        if (b.characteristic != this.characteristic)
+            throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
         val bInv = this.invModp(b)
-        return IntModp(a.value * bInv.value, this.p)
+        return IntModp(a.value * bInv.value, this.characteristic)
     }
 
     private fun invModp(a: IntModp): IntModp {
-        if (a == IntModp(0, this.p))
-            throw ArithmeticException("division by zero (IntModp(0, ${this.p}))")
+        if (a == IntModp(0, this.characteristic))
+            throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(a.value.pow(this.p - 2).positiveRem(this.p), this.p)
+        return IntModp(a.value.pow(this.characteristic - 2).positiveRem(this.characteristic), this.characteristic)
     }
 
     override fun fromInt(n: Int): IntModp {
-        return IntModp(n, this.p)
+        return IntModp(n, this.characteristic)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -103,17 +102,17 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
 
         other as Fp
 
-        if (this.p != other.p) return false
+        if (this.characteristic != other.characteristic) return false
 
         return true
     }
 
     override fun hashCode(): Int {
-        return this.p
+        return this.characteristic
     }
 
     override fun toString(): String {
-        return "F_${this.p}"
+        return "F_${this.characteristic}"
     }
 }
 

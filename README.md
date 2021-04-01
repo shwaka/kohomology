@@ -1,5 +1,5 @@
 ## overview
-[classes](uml/packages.png)
+![classes](uml/packages.png)
 
 ## test
 以下のいずれか．

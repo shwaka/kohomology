@@ -109,7 +109,7 @@ class FreeGAlgebraTest : StringSpec({
     include(exteriorTest(matrixSpace, 3))
     include(exteriorTest(matrixSpace, -3))
 
-    "derivation test" {
+    "derivation test (2-dim sphere)" {
         val generatorList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
@@ -125,6 +125,27 @@ class FreeGAlgebraTest : StringSpec({
             d(y) shouldBe (x * x)
             d(x * y) shouldBe (x.pow(3))
             d(x.pow(3) * y) shouldBe (x.pow(5))
+        }
+    }
+
+    "derivation test (contractible)" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        @Suppress("UnnecessaryVariable")
+        freeGAlgebra.withGAlgebraContext {
+            val (x, y) = freeGAlgebra.generatorList
+            val dx = y
+            val dy = freeGAlgebra.getZero(4)
+            val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
+            d(y).isZero().shouldBeTrue()
+            d(x) shouldBe y
+            d(x.pow(2)) shouldBe (2 * x * y)
+            d(x.pow(5)) shouldBe (5 * x.pow(4) * y)
+            d(x * y).isZero().shouldBeTrue()
+            d(x.pow(3) * y).isZero().shouldBeTrue()
         }
     }
 })

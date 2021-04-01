@@ -92,11 +92,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             (start until limit).map { k ->
                 var numVector = this.numVectorSpace.getOneAtIndex(k, dim)
                 for (q in p downTo 0) {
-                    val coeff = matrix[q, k]
-                    val coeffFromPivots = (p downTo (q + 1))
-                        .map { l -> numVector[l] * matrix[q, l] }
-                        .fold(zero) { a, b -> a + b }
-                    numVector -= this.numVectorSpace.getOneAtIndex(pivots[q], dim) * (coeff + coeffFromPivots)
+                    numVector -= this.numVectorSpace.getOneAtIndex(pivots[q], dim) * matrix[q, k]
                 }
                 numVector
             }

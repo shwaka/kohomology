@@ -17,11 +17,14 @@ class DenseRowEchelonForm<S : Scalar>(
         val rank = this.pivots.size
         val rowEchelonMatrix = this.data.matrix
         val one = this.matrixSpace.field.withContext { one }
-        val rawReducedMatrix = (0 until rowCount).map { i ->
+        var rawReducedMatrix = (0 until rowCount).map { i ->
             val a = if (i < rank) rowEchelonMatrix[i][this.pivots[i]] else one
             this.field.withContext {
                 rowEchelonMatrix[i] * a.inv()
             }
+        }
+        for (i in 0 until rank) {
+            rawReducedMatrix = rawReducedMatrix.eliminateOtherRows(i, this.pivots[i])
         }
         this.matrixSpace.fromRows(rawReducedMatrix)
     }

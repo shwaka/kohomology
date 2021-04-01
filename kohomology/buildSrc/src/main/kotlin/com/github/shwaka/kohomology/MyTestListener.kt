@@ -17,7 +17,7 @@ import org.gradle.api.tasks.testing.TestResult
 
 data class FailedTest(
     val className: String?,
-    val name: String
+    val name: String?
 ) {
     fun format(): String {
         return "[${this.shortClassName}] ${this.name}"
@@ -42,7 +42,7 @@ object MyTestListener : TestListener {
     override fun beforeTest(testDescriptor: TestDescriptor?) = Unit
     override fun afterTest(testDescriptor: TestDescriptor?, result: TestResult?) {
         if (result?.resultType == TestResult.ResultType.FAILURE) {
-            val failedTest = FailedTest(testDescriptor!!.className, testDescriptor.name)
+            val failedTest = FailedTest(testDescriptor?.className, testDescriptor?.name)
             this.failedTests.add(failedTest)
         }
     }

@@ -1,4 +1,5 @@
 import org.apache.tools.ant.taskdefs.condition.Os
+import kotlin.collections.mutableListOf
 
 plugins {
     // Apply the Kotlin JVM plugin to add support for Kotlin.
@@ -9,6 +10,9 @@ plugins {
     jacoco
     id("com.adarshr.test-logger") version "2.1.1"
 }
+
+val failedTests: MutableList<String> by extra(mutableListOf())
+// 使うときは val failedTests: MutableList<String> by project らしい？
 
 tasks.withType<Test> {
     useJUnitPlatform()
@@ -25,6 +29,26 @@ tasks.withType<Test> {
     // ↓公式ドキュメント では下のコードが書かれてるけどダメだった
     //   (https://kotest.io/docs/framework/tags.html)
     // systemProperties = System.getProperties().map { it.key.toString() to it.value }.toMap()
+
+    // https://github.com/radarsh/gradle-test-logger-plugin/issues/145
+    addTestListener(object : TestListener {
+        override fun beforeSuite(suite: TestDescriptor?) = Unit
+        override fun afterSuite(suite: TestDescriptor?, result: TestResult?) = Unit
+        override fun beforeTest(testDescriptor: TestDescriptor?) = Unit
+        override fun afterTest(testDescriptor: TestDescriptor?, result: TestResult?) {
+            if (result?.resultType == TestResult.ResultType.FAILURE) {
+                failedTests.add(testDescriptor!!.className + "\n  " + testDescriptor.name)
+            }
+        }
+    })
+}
+
+// 上の addTestListener を参照
+gradle.buildFinished {
+    if (failedTests.isNotEmpty()) {
+        logger.error("==== FAILED TESTS ====")
+        failedTests.forEach { logger.error(it) }
+    }
 }
 
 dependencies {

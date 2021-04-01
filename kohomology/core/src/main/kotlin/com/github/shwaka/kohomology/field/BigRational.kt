@@ -85,6 +85,7 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
 
 object BigRationalField : Field<BigRational> {
     override val field = this
+    override val characteristic = 0
 
     override val scalarContext: ScalarContext<BigRational> = ScalarContext(this)
 

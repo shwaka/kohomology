@@ -46,6 +46,7 @@ class Fp private constructor(val p: Int) : Field<IntModp> {
     override val scalarContext: ScalarContext<IntModp> = ScalarContext(this)
 
     override val field = this
+    override val characteristic = p
 
     override fun contains(scalar: IntModp): Boolean {
         return this.p == scalar.p

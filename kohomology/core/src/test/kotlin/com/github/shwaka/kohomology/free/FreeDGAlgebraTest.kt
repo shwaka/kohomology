@@ -29,6 +29,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         }
         val (x, y) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.withDGAlgebraContext {
+            d(unit).isZero().shouldBeTrue()
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe x.pow(2)
         }

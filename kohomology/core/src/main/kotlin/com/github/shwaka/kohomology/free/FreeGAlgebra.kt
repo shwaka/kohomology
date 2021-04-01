@@ -86,7 +86,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
             val source = this[k]
             val target = this[k + derivationDegree]
             val valueListForDegree: List<Vector<Monomial<I>, S, V>> = source.basisNames.map { monomial: Monomial<I> ->
-                val gVectorValue = this.getDerivationValue(gVectorValueList, monomial)
+                val gVectorValue = this.getDerivationValue(gVectorValueList, monomial, k + derivationDegree)
                 gVectorValue.vector
             }
             LinearMap.fromVectors(source, target, this.matrixSpace, valueListForDegree)
@@ -95,7 +95,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
 
     private fun getDerivationValue(
         valueList: List<GVector<Monomial<I>, S, V>>,
-        monomial: Monomial<I>
+        monomial: Monomial<I>,
+        valueDegree: Degree
     ): GVector<Monomial<I>, S, V> {
         return monomial.allSeparations().map { separation ->
             val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->
@@ -114,8 +115,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
             this.withGAlgebraContext {
                 derivedSeparatedGVector * remainingGVector
             }
-        }.reduce { a, b ->
-            this.withGVectorContext { a + b }
+        }.fold(this.getZero(valueDegree)) { acc, gVector ->
+            this.withGVectorContext { acc + gVector }
         }
     }
 }

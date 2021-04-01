@@ -103,7 +103,7 @@ class DenseMatrixSpace<S : Scalar>(
                         .map { k -> first.values[i][k] * second.values[k][j] }
                         .fold(zero) { a, b -> a + b }
                 }
-                
+
             }
         }
         return this.fromRows(values)

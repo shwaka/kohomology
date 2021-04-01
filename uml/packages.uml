@@ -1,0 +1,71 @@
+@startuml
+skinparam dpi 300
+hide members
+
+package linalg {
+  /'
+   ' interface Scalar
+   ' interface NumVector
+   ' interface Matrix
+   ' class DenseNumVector
+   ' class DenseMatrix
+   '
+   ' Scalar *-- NumVector
+   ' NumVector *-- Matrix
+   ' DenseNumVector *-down- DenseMatrix
+   ' NumVector <|-right- DenseNumVector
+   ' Matrix <|-- DenseMatrix
+   '/
+
+  interface Field
+  interface NumVectorSpace
+  interface MatrixSpace
+  class DenseNumVectorSpace
+  class DenseMatrixSpace
+
+  Field *-- NumVectorSpace
+  NumVectorSpace *-down- MatrixSpace
+  DenseNumVectorSpace *-down- DenseMatrixSpace
+  NumVectorSpace <|-right- DenseNumVectorSpace
+  MatrixSpace <|-right- DenseMatrixSpace
+}
+
+package field {
+  /'
+   ' class BigRational
+   ' Scalar <|-- BigRational
+   '/
+
+  class BigRationalField
+  class DenseNumVectorSpaceOverBigRational
+  class DenseMatrixSpaceOverBigRational
+
+  Field <|-- BigRationalField
+  DenseNumVectorSpace <|-- DenseNumVectorSpaceOverBigRational
+  DenseMatrixSpace <|-- DenseMatrixSpaceOverBigRational
+
+  BigRationalField *-down- DenseNumVectorSpaceOverBigRational
+  DenseNumVectorSpaceOverBigRational *-down- DenseMatrixSpaceOverBigRational
+}
+
+package vectsp {
+  class VectorSpace
+
+  NumVectorSpace *-down- VectorSpace
+  MatrixSpace -down[hidden]- VectorSpace
+}
+
+package dg {
+  class GVectorSpace
+  class GAlgebra
+
+  VectorSpace *-- GVectorSpace
+  GVectorSpace <|-- GAlgebra
+}
+
+package free {
+  class FreeGAlgebra
+
+  GAlgebra <|-- FreeGAlgebra
+}
+@enduml

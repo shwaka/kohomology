@@ -13,13 +13,6 @@ test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/rada
 
 test report は `./gradlew openTestReport` で表示できる．
 
-### kotest (古い情報)
-- `./gradlew kotest`
-- `./gradlew kotest -Dkotest.tags='Field & !Compile'`
-
-[kotest-gradle-plugin](https://github.com/kotest/kotest-gradle-plugin) を使っていた時代のもの．
-gradle-test-logger-plugin の方がメンテナンス状況が良さそうなので以降した．
-
 ## coverage
 ```bash
 cd kohomology

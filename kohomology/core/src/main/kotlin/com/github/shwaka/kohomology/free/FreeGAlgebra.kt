@@ -66,7 +66,18 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
     }
 
     fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
-        // TODO: check length and degrees of valueList
+        if (valueList.size != this.indeterminateList.size)
+            throw IllegalArgumentException("Invalid size of the list of values of a derivation")
+        this.indeterminateList.zip(valueList).map { (indeterminate, value) ->
+            if (value is GVector) {
+                if (value.degree != indeterminate.degree + derivationDegree)
+                    throw IllegalArgumentException(
+                        "Illegal degree: the degree of the value of $indeterminate must be " +
+                            "${indeterminate.degree} + $derivationDegree = ${indeterminate.degree + derivationDegree}, " +
+                            "but ${value.degree} was given"
+                    )
+            }
+        }
         val gVectorValueList = valueList.mapIndexed() { i, gVectorOrZero ->
             val valueDegree = this.indeterminateList[i].degree + derivationDegree
             this.convertToGVector(gVectorOrZero, valueDegree)

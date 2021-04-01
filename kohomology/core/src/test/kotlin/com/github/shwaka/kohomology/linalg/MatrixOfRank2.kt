@@ -19,8 +19,10 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val mat = this.matrixSpace.withContext {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
-                listOf(self.a + other.a, self.b + other.b),
-                listOf(self.c + other.c, self.d + other.d)
+                listOf(
+                    listOf(self.a + other.a, self.b + other.b),
+                    listOf(self.c + other.c, self.d + other.d)
+                )
             )
         }
         return MatrixOfRank2(this.matrixSpace, mat)
@@ -30,8 +32,10 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val mat = this.matrixSpace.withContext {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
-                listOf(self.a - other.a, self.b - other.b),
-                listOf(self.c - other.c, self.d - other.d)
+                listOf(
+                    listOf(self.a - other.a, self.b - other.b),
+                    listOf(self.c - other.c, self.d - other.d)
+                )
             )
         }
         return MatrixOfRank2(this.matrixSpace, mat)
@@ -41,8 +45,10 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val mat = this.matrixSpace.withContext {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
-                listOf(-self.a, -self.b),
-                listOf(-self.c, -self.d)
+                listOf(
+                    listOf(-self.a, -self.b),
+                    listOf(-self.c, -self.d)
+                )
             )
         }
         return MatrixOfRank2(this.matrixSpace, mat)

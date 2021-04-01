@@ -85,10 +85,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
         "toString and toPrettyString should not throw for square matrix of shape 4x3" {
             shouldNotThrowAny {
                 val mat = matrixSpace.fromRows(
-                    listOf(one, zero, zero),
-                    listOf(zero, one, zero),
-                    listOf(zero, one, zero),
-                    listOf(zero, zero, one)
+                    listOf(
+                        listOf(one, zero, zero),
+                        listOf(zero, one, zero),
+                        listOf(zero, one, zero),
+                        listOf(zero, zero, one)
+                    )
                 )
                 mat.toString()
                 mat.toPrettyString()
@@ -115,12 +117,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
         "two variants of fromRows should give same matrices" {
             val row1 = listOf(zero, one)
             val row2 = listOf(two, three)
-            (matrixSpace.fromRows(row1, row2) == matrixSpace.fromRows(listOf(row1, row2))).shouldBeTrue()
+            (matrixSpace.fromRows(listOf(row1, row2)) == matrixSpace.fromRows(listOf(row1, row2))).shouldBeTrue()
         }
         "fromVectors should work correctly" {
             val expectedMat = matrixSpace.fromRows(
-                listOf(zero, one),
-                listOf(two, three)
+                listOf(
+                    listOf(zero, one),
+                    listOf(two, three)
+                )
             )
             val v = numVectorSpace.fromValues(zero, two)
             val w = numVectorSpace.fromValues(one, three)
@@ -128,39 +132,51 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
         }
         "reduced row echelon form of invertible matrix should be the unit matrix" {
             val expectedMat = matrixSpace.fromRows(
-                listOf(one, zero),
-                listOf(zero, one)
+                listOf(
+                    listOf(one, zero),
+                    listOf(zero, one)
+                )
             )
             m.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
         "reduced row echelon form of non-invertible matrix" {
             val mat = matrixSpace.fromRows(
-                listOf(zero, zero, one),
-                listOf(-two, -one, zero),
-                listOf(two, one, zero)
+                listOf(
+                    listOf(zero, zero, one),
+                    listOf(-two, -one, zero),
+                    listOf(two, one, zero)
+                )
             )
             val expectedMat = matrixSpace.fromRows(
-                listOf(one, one / two, zero),
-                listOf(zero, zero, one),
-                listOf(zero, zero, zero)
+                listOf(
+                    listOf(one, one / two, zero),
+                    listOf(zero, zero, one),
+                    listOf(zero, zero, zero)
+                )
             )
             mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
         "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
             val mat = matrixSpace.fromRows(
-                listOf(one, two),
-                listOf(three, four)
+                listOf(
+                    listOf(one, two),
+                    listOf(three, four)
+                )
             )
             val expectedMat = matrixSpace.fromRows(
-                listOf(one, three),
-                listOf(two, four)
+                listOf(
+                    listOf(one, three),
+                    listOf(two, four)
+                )
             )
             mat.transpose() shouldBe expectedMat
         }
         "inner product of (1, 2) and (3, 4) w.r.t ((-1, 0), (-2, 2)) should be 1" {
             val mat = matrixSpace.fromRows(
-                listOf(-one, zero),
-                listOf(-two, two)
+                listOf(
+                    listOf(-one, zero),
+                    listOf(-two, two)
+                )
             )
             val v = numVectorSpace.fromValues(one, two)
             val w = numVectorSpace.fromValues(three, four)
@@ -176,7 +192,7 @@ inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVe
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
-            matrixSpace.fromNumVectors(v, v)
+            matrixSpace.fromNumVectors(listOf(v, v))
         }
     }
 }
@@ -282,12 +298,14 @@ class BigRationalDenseMatrixTest : StringSpec({
         val two = BigRationalField.fromInt(2)
         val three = BigRationalField.fromInt(3)
         val expectedMat = matrixSpace.fromRows(
-            listOf(zero, one),
-            listOf(two, three)
+            listOf(
+                listOf(zero, one),
+                listOf(two, three)
+            )
         )
         val v = numVectorSpace.fromValues(zero, two)
         val w = numVectorSpace.fromValues(one, three)
-        (matrixSpace.fromNumVectors(v, w)) shouldBe expectedMat
+        (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
     }
 })
 

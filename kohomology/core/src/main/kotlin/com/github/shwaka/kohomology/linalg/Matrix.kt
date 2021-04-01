@@ -85,31 +85,13 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     fun <T> withContext(block: MatrixContext<S, V, M>.() -> T) = this.matrixContext.block()
     val numVectorSpace: NumVectorSpace<S, V>
     fun fromRows(rows: List<List<S>>): M
-    fun fromRows(vararg rows: List<S>): M {
-        if (rows.isEmpty())
-            throw IllegalArgumentException("Row list is empty, which is not supported")
-        return this.fromRows(rows.toList())
-    }
-
     fun fromCols(cols: List<List<S>>): M
-    fun fromCols(vararg cols: List<S>): M {
-        if (cols.isEmpty())
-            throw IllegalArgumentException("Column list is empty, which is not supported")
-        return this.fromCols(cols.toList())
-    }
-
     fun fromNumVectors(numVectors: List<V>): M {
         if (numVectors.isEmpty())
             throw IllegalArgumentException("Vector list is empty, which is not supported")
         val cols = this.numVectorSpace.withContext { numVectors.map { v -> v.toList() } }
         return this.fromCols(cols)
     }
-
-    fun fromNumVectors(vararg numVectors: V): M {
-        // This does not work (due to type erasure?)
-        return this.fromNumVectors(numVectors.toList())
-    }
-
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {

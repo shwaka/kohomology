@@ -20,8 +20,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
     matrixSpace.withContext {
         "linear map test" {
             val matrix = matrixSpace.fromRows(
-                listOf(two, zero),
-                listOf(one, one)
+                listOf(
+                    listOf(two, zero),
+                    listOf(one, one)
+                )
             )
             val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
             val v = vectorSpace1.fromCoeff(one, -one)

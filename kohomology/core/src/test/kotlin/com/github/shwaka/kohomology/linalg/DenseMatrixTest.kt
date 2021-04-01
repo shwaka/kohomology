@@ -3,10 +3,12 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.field.BigRationalField
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.field.DenseMatrixSpaceOverLongRational
 import com.github.shwaka.kohomology.field.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.field.F2
 import com.github.shwaka.kohomology.field.F5
 import com.github.shwaka.kohomology.field.IntRationalField
 import com.github.shwaka.kohomology.field.LongRationalField
@@ -130,14 +132,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             val w = numVectorSpace.fromValues(one, three)
             (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
         }
-        "reduced row echelon form of invertible matrix should be the unit matrix" {
-            val expectedMat = matrixSpace.fromRows(
+        "reduced row echelon form of an invertible matrix should be the unit matrix" {
+            // m = ((2, 1), (0, -1)) is NOT invertible in F2
+            val mat = matrixSpace.fromRows(
                 listOf(
-                    listOf(one, zero),
-                    listOf(zero, one)
+                    listOf(two, one),
+                    listOf(one, -one)
                 )
             )
-            m.rowEchelonForm.reducedMatrix shouldBe expectedMat
+            val expectedMat = matrixSpace.getId(2)
+            mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
         "reduced row echelon form of non-invertible matrix" {
             val mat = matrixSpace.fromRows(
@@ -147,13 +151,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     listOf(two, one, zero)
                 )
             )
-            val expectedMat = matrixSpace.fromRows(
-                listOf(
-                    listOf(one, one / two, zero),
-                    listOf(zero, zero, one),
-                    listOf(zero, zero, zero)
+            val expectedMat = if (field.characteristic == 2) {
+                matrixSpace.fromRows(
+                    listOf(
+                        listOf(zero, one, zero),
+                        listOf(zero, zero, one),
+                        listOf(zero, zero, zero)
+                    )
                 )
-            )
+            } else {
+                matrixSpace.fromRows(
+                    listOf(
+                        listOf(one, one / two, zero),
+                        listOf(zero, zero, one),
+                        listOf(zero, zero, zero)
+                    )
+                )
+            }
             mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }
         "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
@@ -211,6 +225,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             kernelBasis.size shouldBe 2
             for (v in kernelBasis) {
                 (mat * v).isZero().shouldBeTrue()
+            }
+        }
+        "compute kernel of ((1, 1), (1, 3))" {
+            val mat = matrixSpace.fromRows(
+                listOf(
+                    listOf(one, one),
+                    listOf(one, three),
+                )
+            )
+            val kernelBasis = mat.computeKernelBasis()
+            if (matrixSpace.field.characteristic == 2) {
+                kernelBasis.size shouldBe 1
+                (mat * kernelBasis[0]).isZero().shouldBeTrue()
+            } else {
+                kernelBasis.size shouldBe 0
             }
         }
     }
@@ -340,7 +369,18 @@ class BigRationalDenseMatrixTest : StringSpec({
     }
 })
 
-class IntModpDenseMatrixTest : StringSpec({
+class IntMod2DenseMatrixTest : StringSpec({
+    tags(denseMatrixTag, intModpTag)
+
+    val matrixSpace = DenseMatrixSpaceOverF2
+    include(denseMatrixSpaceTest(F2))
+    include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
+    include(denseMatrixOfRank2Test(matrixSpace))
+    include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
+})
+
+class IntMod5DenseMatrixTest : StringSpec({
     tags(denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF5

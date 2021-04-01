@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Degree
 import com.github.shwaka.kohomology.vectsp.GVector
+import com.github.shwaka.kohomology.vectsp.GVectorOrZero
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
@@ -64,13 +65,17 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
         }
     }
 
-    fun getDerivation(valueList: List<GVector<Monomial<I>, S, V>>, degree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
+    fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
         // TODO: check length and degrees of valueList
-        return GLinearMap(this, this, degree) { k ->
+        val gVectorValueList = valueList.mapIndexed() { i, gVectorOrZero ->
+            val valueDegree = this.indeterminateList[i].degree + derivationDegree
+            this.convertToGVector(gVectorOrZero, valueDegree)
+        }
+        return GLinearMap(this, this, derivationDegree) { k ->
             val source = this[k]
-            val target = this[k + degree]
+            val target = this[k + derivationDegree]
             val valueListForDegree: List<Vector<Monomial<I>, S, V>> = source.basisNames.map { monomial: Monomial<I> ->
-                val gVectorValue = this.getDerivationValue(valueList, monomial)
+                val gVectorValue = this.getDerivationValue(gVectorValueList, monomial)
                 gVectorValue.vector
             }
             LinearMap.fromVectors(source, target, this.matrixSpace, valueListForDegree)

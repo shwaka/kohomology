@@ -117,7 +117,7 @@ class FreeGAlgebraTest : StringSpec({
         val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
         freeGAlgebra.withGAlgebraContext {
             val (x, y) = freeGAlgebra.generatorList
-            val dx = freeGAlgebra.getZero(3)
+            val dx = zeroGVector
             val dy = x * x
             val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
             d(x).isZero().shouldBeTrue()
@@ -138,7 +138,7 @@ class FreeGAlgebraTest : StringSpec({
         freeGAlgebra.withGAlgebraContext {
             val (x, y) = freeGAlgebra.generatorList
             val dx = y
-            val dy = freeGAlgebra.getZero(4)
+            val dy = zeroGVector
             val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
             d(y).isZero().shouldBeTrue()
             d(x) shouldBe y

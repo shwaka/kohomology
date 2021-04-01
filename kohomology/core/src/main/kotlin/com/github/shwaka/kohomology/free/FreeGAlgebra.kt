@@ -45,7 +45,7 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
 }
 
 class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    val matrixSpace: MatrixSpace<S, V, M>,
+    matrixSpace: MatrixSpace<S, V, M>,
     factory: FreeGAlgebraFactory<I, S, V, M>
 ) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
     val indeterminateList: List<Indeterminate<I>> = factory.indeterminateList

@@ -20,7 +20,7 @@ interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     val unit: GVector<B, S, V>
 }
 
-class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -46,7 +46,7 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 }
 
 open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    matrixSpace: MatrixSpace<S, V, M>,
+    val matrixSpace: MatrixSpace<S, V, M>,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
     getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>

@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val linearMapTag = NamedTag("LinearMap")
@@ -51,8 +52,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    val numVectorSpace = matrixSpace.numVectorSpace
+    val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
+    val (a, b) = vectorSpace.getBasis()
+    val zeroVectorSpace = VectorSpace<String, S, V>(numVectorSpace, listOf())
+    val zeroVector = zeroVectorSpace.zeroVector
+    matrixSpace.withContext {
+        "linear map to zero" {
+            val f = LinearMap.fromVectors(vectorSpace, zeroVectorSpace, matrixSpace, listOf(zeroVector, zeroVector))
+            f(a).isZero().shouldBeTrue()
+            f(b).isZero().shouldBeTrue()
+        }
+        "linear map from zero" {
+            val g = LinearMap.fromVectors(zeroVectorSpace, vectorSpace, matrixSpace, listOf())
+            g(zeroVector).isZero().shouldBeTrue()
+        }
+    }
+}
+
 class BigRationalLinearMapTest : StringSpec({
     tags(linearMapTag, bigRationalTag)
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(linearMapTest(matrixSpace))
+    include(linearMapEdgeCaseTest(matrixSpace))
 })

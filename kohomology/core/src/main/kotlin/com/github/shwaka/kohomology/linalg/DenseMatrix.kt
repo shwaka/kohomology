@@ -98,9 +98,12 @@ class DenseMatrixSpace<S : Scalar>(
         val colRange = 0 until second.colCount
         val values = rowRange.map { i ->
             colRange.map { j ->
-                sumRange
-                    .map { k -> this.field.withContext { first.values[i][k] * second.values[k][j] } }
-                    .reduce(this.field::add)
+                this.field.withContext {
+                    sumRange
+                        .map { k -> first.values[i][k] * second.values[k][j] }
+                        .fold(zero) { a, b -> a + b }
+                }
+                
             }
         }
         return this.fromRows(values)
@@ -123,9 +126,11 @@ class DenseMatrixSpace<S : Scalar>(
         if (matrix.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = matrix.values.map { row ->
-            row.zip(numVector.values)
-                .map { this.field.withContext { it.first * it.second } }
-                .reduce { a, b -> this.field.withContext { a + b } }
+            this.field.withContext {
+                row.zip(numVector.values)
+                    .map { it.first * it.second }
+                    .fold(zero) { a, b -> a + b }
+            }
         }
         return this.numVectorSpace.fromValues(values)
     }
@@ -160,19 +165,25 @@ class DenseMatrixSpace<S : Scalar>(
         }
     }
 
-    override fun fromRows(rows: List<List<S>>): DenseMatrix<S> {
-        if (rows.isEmpty())
-            throw IllegalArgumentException("Row list is empty, which is not supported")
-        return DenseMatrix(this.numVectorSpace, rows, rows.size, rows[0].size)
+    override fun fromRows(rows: List<List<S>>, colCount: Int?): DenseMatrix<S> {
+        val rowCount = rows.size
+        val colCountNonNull: Int = when {
+            rows.isNotEmpty() -> rows[0].size
+            colCount != null -> colCount
+            else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
+        }
+        return DenseMatrix(this.numVectorSpace, rows, rowCount, colCountNonNull)
     }
 
-    override fun fromCols(cols: List<List<S>>): DenseMatrix<S> {
-        if (cols.isEmpty())
-            throw IllegalArgumentException("Column list is empty, which is not supported")
-        val rowCount = cols[0].size
+    override fun fromCols(cols: List<List<S>>, rowCount: Int?): DenseMatrix<S> {
+        val rowCountNonNull: Int = when {
+            cols.isNotEmpty() -> cols[0].size
+            rowCount != null -> rowCount
+            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
+        }
         val colCount = cols.size
-        val rows = (0 until rowCount).map { i -> (0 until colCount).map { j -> cols[j][i] } }
-        return this.fromRows(rows)
+        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
+        return this.fromRows(rows, colCount)
     }
 
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {

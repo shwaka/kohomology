@@ -84,13 +84,13 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val matrixContext: MatrixContext<S, V, M>
     fun <T> withContext(block: MatrixContext<S, V, M>.() -> T) = this.matrixContext.block()
     val numVectorSpace: NumVectorSpace<S, V>
-    fun fromRows(rows: List<List<S>>): M
-    fun fromCols(cols: List<List<S>>): M
-    fun fromNumVectors(numVectors: List<V>): M {
-        if (numVectors.isEmpty())
-            throw IllegalArgumentException("Vector list is empty, which is not supported")
+    fun fromRows(rows: List<List<S>>, colCount: Int? = null): M
+    fun fromCols(cols: List<List<S>>, rowCount: Int? = null): M
+    fun fromNumVectors(numVectors: List<V>, dim: Int? = null): M {
+        if (numVectors.isEmpty() and (dim == null))
+            throw IllegalArgumentException("Vector list is empty and dim is not specified")
         val cols = this.numVectorSpace.withContext { numVectors.map { v -> v.toList() } }
-        return this.fromCols(cols)
+        return this.fromCols(cols, dim)
     }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 

@@ -6,6 +6,7 @@ interface Matrix<S : Scalar, V : NumVector<S>> {
     val numVectorSpace: NumVectorSpace<S, V>
     val rowCount: Int
     val colCount: Int
+    operator fun get(rowInd: Int, colInd: Int): S
     fun toPrettyString(): String
 }
 
@@ -19,7 +20,6 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
     fun computeTranspose(matrix: M): M
     fun computeInnerProduct(matrix: M, numVector1: V, numVector2: V): S
-    fun getElement(matrix: M, rowInd: Int, colInd: Int): S
 }
 
 class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -38,8 +38,6 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun M.unaryMinus(): M = this * (-1)
     val M.rowEchelonForm: RowEchelonForm<S, V, M>
         get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!
-
-    operator fun M.get(rowInd: Int, colInd: Int): S = this@MatrixContext.getElement(this, rowInd, colInd)
 
     fun M.det(): S {
         if (this.rowCount != this.colCount)

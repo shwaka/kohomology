@@ -23,6 +23,10 @@ data class DenseMatrix<S : Scalar>(
     override fun toString(): String {
         return this.toStringTable().toString()
     }
+
+    override operator fun get(rowInd: Int, colInd: Int): S {
+        return this.values[rowInd][colInd]
+    }
 }
 
 class DenseMatrixSpace<S : Scalar>(
@@ -141,10 +145,8 @@ class DenseMatrixSpace<S : Scalar>(
     override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {
         val rowCount = matrix.colCount
         val colCount = matrix.rowCount
-        val values: List<List<S>> = this.withContext {
-            (0 until rowCount).map { i ->
-                (0 until colCount).map { j -> matrix[j, i] }
-            }
+        val values: List<List<S>> = (0 until rowCount).map { i ->
+            (0 until colCount).map { j -> matrix[j, i] }
         }
         return DenseMatrix(
             this.numVectorSpace,
@@ -190,9 +192,5 @@ class DenseMatrixSpace<S : Scalar>(
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
         return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
-    }
-
-    override fun getElement(matrix: DenseMatrix<S>, rowInd: Int, colInd: Int): S {
-        return matrix.values[rowInd][colInd]
     }
 }

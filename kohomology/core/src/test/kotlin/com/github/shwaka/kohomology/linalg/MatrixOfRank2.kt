@@ -10,10 +10,10 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                 throw IllegalArgumentException("mat should be square matrix of rank 2")
         }
     }
-    private val a = this.matrixSpace.withContext { mat[0, 0] }
-    private val b = this.matrixSpace.withContext { mat[0, 1] }
-    private val c = this.matrixSpace.withContext { mat[1, 0] }
-    private val d = this.matrixSpace.withContext { mat[1, 1] }
+    private val a = mat[0, 0]
+    private val b = mat[0, 1]
+    private val c = mat[1, 0]
+    private val d = mat[1, 1]
 
     operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.withContext {

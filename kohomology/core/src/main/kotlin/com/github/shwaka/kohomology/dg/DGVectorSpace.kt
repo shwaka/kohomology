@@ -32,7 +32,7 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val differential: GLinearMap<B, B, S, V, M>
 ) : DGVectorOperations<B, S, V, M> {
     private val dgVectorContext by lazy {
-        DGVectorContext(this.gVectorSpace.numVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
+        DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
     }
     fun <T> withDGVectorContext(block: DGVectorContext<B, S, V, M>.() -> T): T = this.dgVectorContext.block()
 

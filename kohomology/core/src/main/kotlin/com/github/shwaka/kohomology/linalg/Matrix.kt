@@ -84,6 +84,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val matrixContext: MatrixContext<S, V, M>
     fun <T> withContext(block: MatrixContext<S, V, M>.() -> T) = this.matrixContext.block()
     val numVectorSpace: NumVectorSpace<S, V>
+    val field: Field<S>
     fun fromRows(rows: List<List<S>>, colCount: Int? = null): M
     fun fromCols(cols: List<List<S>>, rowCount: Int? = null): M
     fun fromNumVectors(numVectors: List<V>, dim: Int? = null): M {

@@ -26,7 +26,7 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     differential: GLinearMap<B, B, S, V, M>,
 ) : DGVectorSpace<B, S, V, M>(gAlgebra, differential) {
     private val dgAlgebraContext by lazy {
-        DGAlgebraContext(this.gAlgebra.matrixSpace.numVectorSpace.field, this.gAlgebra.matrixSpace.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
+        DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
     fun <T> withDGAlgebraContext(block: DGAlgebraContext<B, S, V, M>.() -> T): T = this.dgAlgebraContext.block()
 

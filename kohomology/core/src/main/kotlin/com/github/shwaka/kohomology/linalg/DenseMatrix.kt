@@ -55,7 +55,7 @@ class DenseMatrixSpace<S : Scalar>(
     // override val matrixContext: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> =
     //     DenseMatrixContext(this.numVectorSpace.field, this.numVectorSpace, this)
 
-    val field: Field<S> = this.numVectorSpace.field
+    override val field: Field<S> = this.numVectorSpace.field
 
     override val matrixContext = MatrixContext(this.field, this.numVectorSpace, this)
 

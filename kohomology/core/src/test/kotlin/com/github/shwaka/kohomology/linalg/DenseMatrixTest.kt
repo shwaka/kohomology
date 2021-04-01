@@ -182,6 +182,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             val w = numVectorSpace.fromValues(three, four)
             mat.innerProduct(v, w) shouldBe one
         }
+        "kernel of ((1, 1), (2, 2)) should be of dimension one" {
+            val mat = matrixSpace.fromRows(
+                listOf(
+                    listOf(one, one),
+                    listOf(two, two)
+                )
+            )
+            val kernelBasis = mat.computeKernelBasis()
+            kernelBasis.size shouldBe 1
+            (mat * kernelBasis[0]).isZero().shouldBeTrue()
+        }
     }
 }
 

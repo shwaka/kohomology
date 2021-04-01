@@ -76,6 +76,33 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     fun M.toList(): List<List<S>> {
         return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j] } }
     }
+
+    fun M.computeKernelBasis(): List<V> {
+        val rowEchelonForm = this.rowEchelonForm // TODO: cache できてないので、とりあえず local 変数に代入して誤魔化す
+        val dim = this.colCount
+        val pivots = rowEchelonForm.pivots
+        val firstNonZeroIndex: Int = if (pivots.isEmpty()) this.colCount else pivots[0]
+        val trivialVectors: List<V> = (0 until firstNonZeroIndex).map { i ->
+            this.numVectorSpace.getOneAtIndex(i, dim)
+        }
+        val matrix = rowEchelonForm.reducedMatrix
+        val vectorsForPivots: List<V> = pivots.indices.map { p ->
+            val start = pivots[p] + 1
+            val limit = if (p + 1 < pivots.size) pivots[p + 1] else dim
+            (start until limit).map { k ->
+                var numVector = this.numVectorSpace.getOneAtIndex(k, dim)
+                for (q in p downTo 0) {
+                    val coeff = matrix[q, k]
+                    val coeffFromPivots = (p downTo (q + 1))
+                        .map { l -> numVector[l] * matrix[q, l] }
+                        .fold(zero) { a, b -> a + b }
+                    numVector -= this.numVectorSpace.getOneAtIndex(pivots[q], dim) * (coeff + coeffFromPivots)
+                }
+                numVector
+            }
+        }.flatten()
+        return trivialVectors + vectorsForPivots
+    }
 }
 
 interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {

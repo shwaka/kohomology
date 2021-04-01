@@ -40,4 +40,10 @@ interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, 
     fun getZero(dim: Int): V
     fun fromValues(values: List<S>): V
     fun fromValues(vararg values: S): V
+    fun getOneAtIndex(index: Int, dim: Int): V {
+        val values = this.field.withContext {
+            (0 until dim).map { if (it == index) one else zero }
+        }
+        return this.fromValues(values)
+    }
 }

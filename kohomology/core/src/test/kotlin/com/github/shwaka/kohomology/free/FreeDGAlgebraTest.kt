@@ -65,6 +65,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             }
             freeDGAlgebra.cohomology()[n].dim shouldBe expectedDim
         }
+        freeDGAlgebra.withDGAlgebraContext {
+            val bClass = b.cohomologyClass()
+            val someClass = (a * y - b * x).cohomologyClass()
+            val topClass = (a * b * y - b.pow(2) * x).cohomologyClass()
+            freeDGAlgebra.cohomology().withGAlgebraContext {
+                (bClass * someClass) shouldBe topClass
+            }
+        }
     }
 }
 

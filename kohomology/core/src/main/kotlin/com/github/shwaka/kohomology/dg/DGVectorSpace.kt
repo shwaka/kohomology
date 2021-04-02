@@ -17,6 +17,7 @@ import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 interface DGVectorOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val differential: GLinearMap<B, B, S, V, M>
     fun cohomology(): GVectorSpace<SubQuotBasis<B, S, V>, S, V>
+    fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V>
 }
 
 class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -28,6 +29,9 @@ class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     DGVectorOperations<B, S, V, M> by dgVectorOperations {
     fun d(gVector: GVector<B, S, V>): GVector<B, S, V> {
         return this.differential(gVector)
+    }
+    fun GVector<B, S, V>.cohomologyClass(): GVector<SubQuotBasis<B, S, V>, S, V> {
+        return this@DGVectorContext.cohomologyClassOf(this)
     }
 }
 
@@ -58,5 +62,12 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             this.matrixSpace.numVectorSpace,
             this::getCohomologyVectorSpace
         )
+    }
+
+    override fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V> {
+        val vector = gVector.vector
+        val cohomology = this.getCohomologyVectorSpace(gVector.degree)
+        val cohomologyClass = cohomology.projection(vector)
+        return this.cohomology().fromVector(cohomologyClass, gVector.degree)
     }
 }

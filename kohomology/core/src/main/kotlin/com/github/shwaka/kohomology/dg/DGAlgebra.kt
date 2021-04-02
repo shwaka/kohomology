@@ -25,6 +25,9 @@ class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     fun d(gVector: GVector<B, S, V>): GVector<B, S, V> {
         return this.differential(gVector)
     }
+    fun GVector<B, S, V>.cohomologyClass(): GVector<SubQuotBasis<B, S, V>, S, V> {
+        return this@DGAlgebraContext.cohomologyClassOf(this)
+    }
 }
 
 open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

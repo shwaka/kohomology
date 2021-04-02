@@ -48,7 +48,7 @@ fun cohomologyTest() {
         myprint(d(x * y * z))
     }
     for (n in 0 until 12) {
-        val basis = freeDGAlgebra.cohomology()[n].getBasis()
+        val basis = freeDGAlgebra.cohomology[n].getBasis()
         myprint("H^$n = Q$basis")
     }
 }

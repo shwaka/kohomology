@@ -30,8 +30,8 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         // TODO: check that generators are in totalVectorSpace
         // TODO: check that quotientGenerator is contained in subspaceGenerator
         val joinedMatrix: M = matrixSpace.withContext {
-            val quotientMatrix = matrixSpace.fromVectors(quotientGenerator)
-            val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator)
+            val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
+            val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)
             val id = matrixSpace.getId(totalVectorSpace.dim)
             listOf(quotientMatrix, subspaceMatrix, id).join()
         }
@@ -58,15 +58,18 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         this.sectionMatrix = matrixSpace.fromVectors(
             basisIndices.map { index ->
                 subspaceGenerator[index - quotientGenerator.size]
-            }
+            },
+            this.totalVectorSpace.dim
         )
     }
 
     companion object {
         fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.fromVectors(
-            vectors: List<Vector<B, S, V>>
+            vectors: List<Vector<B, S, V>>,
+            dim: Int? = null
         ) : M {
-            return this.fromNumVectors(vectors.map { it.toNumVector() })
+            val numVectorList = vectors.map { it.toNumVector() }
+            return this.fromNumVectors(numVectorList, dim)
         }
     }
 }

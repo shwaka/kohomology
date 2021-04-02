@@ -33,7 +33,7 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
     fun <T> withDGAlgebraContext(block: DGAlgebraContext<B, S, V, M>.() -> T): T = this.dgAlgebraContext.block()
 
-    override fun cohomology(): GAlgebra<SubQuotBasis<B, S, V>, S, V, M> {
-        TODO("not implemented")
-    }
+    // override fun cohomology(): GAlgebra<SubQuotBasis<B, S, V>, S, V, M> {
+    //     TODO("not implemented")
+    // }
 }

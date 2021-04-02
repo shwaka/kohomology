@@ -149,7 +149,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
                     zero
             }
         }
-        return this.fromRows(rows)
+        return this.fromRows(rows, colCount = dim)
     }
 }
 

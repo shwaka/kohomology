@@ -33,6 +33,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe x.pow(2)
         }
+        for (n in 0 until (sphereDim * 3)) {
+            val expectedDim = when (n) {
+                0, sphereDim -> 1
+                else -> 0
+            }
+            freeDGAlgebra.cohomology()[n].dim shouldBe expectedDim
+        }
     }
 }
 

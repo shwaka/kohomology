@@ -26,7 +26,7 @@ class DenseRowEchelonForm<S : Scalar>(
         for (i in 0 until rank) {
             rawReducedMatrix = rawReducedMatrix.eliminateOtherRows(i, this.pivots[i])
         }
-        this.matrixSpace.fromRows(rawReducedMatrix)
+        this.matrixSpace.fromRows(rawReducedMatrix, colCount = this.originalMatrix.colCount)
     }
 
     data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
@@ -40,6 +40,10 @@ class DenseRowEchelonForm<S : Scalar>(
         pivots: List<Int>,
         exchangeCount: Int
     ): RowEchelonFormData<S> {
+        if (this.isEmpty()) {
+            // 0 行の行列だった場合
+            return RowEchelonFormData(this, emptyList(), 0)
+        }
         if (currentColInd == this[0].size) {
             // 全ての列の処理が終わった場合
             return RowEchelonFormData(this, pivots, exchangeCount)

@@ -211,11 +211,11 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun computeRowSlice(matrix: DenseMatrix<S>, rowRange: IntRange): DenseMatrix<S> {
         val values = matrix.values.slice(rowRange)
-        return this.fromRows(values)
+        return this.fromRows(values, colCount = matrix.colCount)
     }
 
     override fun computeColSlice(matrix: DenseMatrix<S>, colRange: IntRange): DenseMatrix<S> {
         val values = matrix.values.map { row -> row.slice(colRange)}
-        return this.fromRows(values)
+        return this.fromRows(values, colCount = colRange.count())
     }
 }

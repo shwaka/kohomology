@@ -83,7 +83,7 @@ class VectorContext<B, S : Scalar, V : NumVector<S>>(
     operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
 }
 
-class VectorSpace<B, S : Scalar, V : NumVector<S>>(
+open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>
 ) : VectorOperations<B, S, V> {

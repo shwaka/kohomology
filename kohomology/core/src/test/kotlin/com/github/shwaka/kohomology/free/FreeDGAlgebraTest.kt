@@ -52,9 +52,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
             listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
         }
-        // for (n in 0 until 12) {
-        //     println(freeDGAlgebra.cohomology()[n].getBasis())
-        // }
+        val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.withDGAlgebraContext {
+            println(d(x * y))
+        }
+        for (n in 0 until 12) {
+            println(freeDGAlgebra.cohomology()[n].getBasis())
+        }
     }
 }
 

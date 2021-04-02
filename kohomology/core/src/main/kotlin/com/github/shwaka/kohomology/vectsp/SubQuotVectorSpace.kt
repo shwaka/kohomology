@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kococo.debugOnly
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -27,8 +28,22 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val sectionMatrix: M
 
     init {
-        // TODO: check that generators are in totalVectorSpace
-        // TODO: check that quotientGenerator is contained in subspaceGenerator
+        // check that generators are in totalVectorSpace
+        for (vector in subspaceGenerator + quotientGenerator)
+            if (vector !in totalVectorSpace)
+                throw IllegalArgumentException("The vector $vector is not contained in the vector space $totalVectorSpace")
+        debugOnly {
+            // check that quotientGenerator is contained in subspaceGenerator
+            val pivots = matrixSpace.withContext {
+                val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
+                val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)
+                val matrixForCheck = listOf(subspaceMatrix, quotientMatrix).join()
+                matrixForCheck.rowEchelonForm.pivots
+            }
+            // 'and' だと短絡評価しないっぽい…？
+            if (pivots.isNotEmpty() && (pivots.last() >= subspaceGenerator.size))
+                throw IllegalArgumentException("The generator for the quotient is not contained in the subspace")
+        }
         val joinedMatrix: M = matrixSpace.withContext {
             val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
             val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)

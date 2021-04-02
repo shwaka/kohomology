@@ -1,10 +1,10 @@
 package com.github.shwaka.kohomology
 
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.Fp
 import com.github.shwaka.kohomology.specific.IntRational
 import com.github.shwaka.kohomology.specific.IntRationalField
-import com.github.shwaka.kohomology.linalg.Field
-import com.github.shwaka.kohomology.linalg.Scalar
 
 fun <S : Scalar> add(field: Field<S>, a: S, b: S): S {
     // return a.field.wrap(a + b.unwrap())

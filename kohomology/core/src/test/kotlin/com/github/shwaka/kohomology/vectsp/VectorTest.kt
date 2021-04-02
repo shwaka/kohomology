@@ -1,10 +1,10 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag

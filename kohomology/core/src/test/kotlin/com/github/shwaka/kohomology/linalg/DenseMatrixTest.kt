@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.intModpTag
+import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.specific.BigRationalField
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
@@ -13,9 +16,6 @@ import com.github.shwaka.kohomology.specific.F5
 import com.github.shwaka.kohomology.specific.IntRationalField
 import com.github.shwaka.kohomology.specific.LongRationalField
 import com.github.shwaka.kohomology.specific.arb
-import com.github.shwaka.kohomology.intModpTag
-import com.github.shwaka.kohomology.intRationalTag
-import com.github.shwaka.kohomology.longRationalTag
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec

@@ -8,6 +8,16 @@ interface Matrix<S : Scalar, V : NumVector<S>> {
     val colCount: Int
     operator fun get(rowInd: Int, colInd: Int): S
     fun toPrettyString(): String
+
+    fun toList(): List<List<S>> {
+        return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j] } }
+    }
+
+    fun toNumVectorList(): List<V> {
+        return (0 until this.colCount).map { j ->
+            this.numVectorSpace.fromValues((0 until this.rowCount).map { i -> this[i, j] })
+        }
+    }
 }
 
 interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -77,10 +87,6 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     fun M.innerProduct(numVector1: V, numVector2: V): S {
         return this@MatrixContext.computeInnerProduct(this, numVector1, numVector2)
-    }
-
-    fun M.toList(): List<List<S>> {
-        return (0 until this.rowCount).map { i -> (0 until this.colCount).map { j -> this[i, j] } }
     }
 
     fun M.computeKernelBasis(): List<V> {

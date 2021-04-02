@@ -24,7 +24,7 @@ private class FreeDGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
 
 class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: FreeDGAlgebraFactory<I, S, V, M>
-) : DGAlgebra<Monomial<I>, S, V, M>(factory.freeGAlgebra, factory.differential) {
+) : DGAlgebra<Monomial<I>, S, V, M>(factory.freeGAlgebra, factory.differential, factory.matrixSpace) {
     override val gAlgebra: FreeGAlgebra<I, S, V, M> = factory.freeGAlgebra
 
     companion object {

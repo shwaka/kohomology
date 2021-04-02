@@ -47,6 +47,16 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private 
         return result
     }
 
+    fun kernelBasis(): List<Vector<B0, S, V>> {
+        val numVectorList = this.matrixSpace.withContext { this@LinearMap.matrix.computeKernelBasis() }
+        return numVectorList.map { this.source.fromNumVector(it) }
+    }
+
+    fun imageGenerator(): List<Vector<B1, S, V>> {
+        val numVectorList = this.matrix.toNumVectorList()
+        return numVectorList.map { this.target.fromNumVector(it) }
+    }
+
     companion object {
         fun <B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
             source: VectorSpace<B0, S, V>,

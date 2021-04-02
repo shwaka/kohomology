@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.GVector
 import com.github.shwaka.kohomology.vectsp.GVectorOperations
-import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,

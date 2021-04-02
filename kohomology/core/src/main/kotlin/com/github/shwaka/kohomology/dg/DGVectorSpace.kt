@@ -47,7 +47,8 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val kernelBasis = this.differential.getLinearMap(degree).kernelBasis()
             val imageGenerator = this.differential.getLinearMap(degree - 1).imageGenerator()
             SubQuotVectorSpace(
-                this.matrixSpace, this.gVectorSpace[degree],
+                this.matrixSpace,
+                this.gVectorSpace[degree],
                 subspaceGenerator = kernelBasis,
                 quotientGenerator = imageGenerator,
             )

@@ -215,7 +215,7 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun computeColSlice(matrix: DenseMatrix<S>, colRange: IntRange): DenseMatrix<S> {
-        val values = matrix.values.map { row -> row.slice(colRange)}
+        val values = matrix.values.map { row -> row.slice(colRange) }
         return this.fromRows(values, colCount = colRange.count())
     }
 }

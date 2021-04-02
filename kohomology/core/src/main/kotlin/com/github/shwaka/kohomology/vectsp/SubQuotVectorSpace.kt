@@ -82,7 +82,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.fromVectors(
             vectors: List<Vector<B, S, V>>,
             dim: Int? = null
-        ) : M {
+        ): M {
             val numVectorList = vectors.map { it.toNumVector() }
             return this.fromNumVectors(numVectorList, dim)
         }
@@ -117,7 +117,8 @@ class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> priv
             quotientGenerator: List<Vector<B, S, V>>,
         ): SubQuotVectorSpace<B, S, V, M> {
             val factory = SubQuotFactory(
-                matrixSpace, totalVectorSpace,
+                matrixSpace,
+                totalVectorSpace,
                 subspaceGenerator = subspaceGenerator,
                 quotientGenerator = quotientGenerator
             )

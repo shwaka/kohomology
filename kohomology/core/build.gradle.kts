@@ -1,4 +1,3 @@
-import com.github.shwaka.kohomology.MyTestListener
 import org.apache.tools.ant.taskdefs.condition.Os
 
 plugins {
@@ -10,6 +9,8 @@ plugins {
     jacoco
     id("com.adarshr.test-logger") version "2.1.1"
 }
+
+apply<com.github.shwaka.kohomology.MyPlugin>()
 
 tasks.withType<Test> {
     useJUnitPlatform()
@@ -26,17 +27,6 @@ tasks.withType<Test> {
     // ↓公式ドキュメント では下のコードが書かれてるけどダメだった
     //   (https://kotest.io/docs/framework/tags.html)
     // systemProperties = System.getProperties().map { it.key.toString() to it.value }.toMap()
-
-    // https://github.com/radarsh/gradle-test-logger-plugin/issues/145
-    addTestListener(MyTestListener)
-}
-
-// 上の addTestListener を参照
-gradle.buildStarted {
-    MyTestListener.initialize()
-}
-gradle.buildFinished {
-    MyTestListener.printSummary(logger)
 }
 
 dependencies {

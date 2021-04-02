@@ -1,22 +1,30 @@
 package com.github.shwaka.kohomology
 
+import org.gradle.api.Plugin
+import org.gradle.api.Project
 import org.gradle.api.logging.Logger
+import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.TestDescriptor
 import org.gradle.api.tasks.testing.TestListener
 import org.gradle.api.tasks.testing.TestResult
+import org.gradle.kotlin.dsl.withType
 
 // based on https://github.com/radarsh/gradle-test-logger-plugin/issues/145
 
 // [usage]
-// tasks.withType<Test> {
-//     addTestListener(MyTestListener)
-// }
-// gradle.buildStarted {
-//     MyTestListener.initialize()
-// }
-// gradle.buildFinished {
-//     MyTestListener.printSummary(logger)
-// }
+// apply<com.github.shwaka.kohomology.MyPlugin>()
+
+class MyPlugin : Plugin<Project> {
+    override fun apply(project: Project) {
+        project.tasks.withType<Test> {
+            addTestListener(MyTestListener)
+        }
+        MyTestListener.initialize()
+        project.gradle.buildFinished {
+            MyTestListener.printSummary(project.logger)
+        }
+    }
+}
 
 data class FailedTest(
     val className: String?,

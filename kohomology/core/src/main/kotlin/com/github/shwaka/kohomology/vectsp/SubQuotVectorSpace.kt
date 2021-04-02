@@ -22,6 +22,9 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 ) {
     val numVectorSpace = matrixSpace.numVectorSpace
     val basisNames: List<SubQuotBasis<B, S, V>>
+    val transformationMatrix: M
+    val projectionMatrix: M
+    val sectionMatrix: M
 
     init {
         // TODO: check that generators are in totalVectorSpace
@@ -39,9 +42,24 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val subQuotDim: Int = rowEchelonForm.pivots.filter {
             (quotientGenerator.size <= it) and (it < quotientGenerator.size + subspaceGenerator.size)
         }.size
+
         val basisIndices: List<Int> = rowEchelonForm.pivots.slice(quotientDim until (quotientDim + subQuotDim))
         this.basisNames = basisIndices.map { index -> subspaceGenerator[index - quotientGenerator.size] }
             .map { vector -> SubQuotBasis(vector) }
+
+        this.transformationMatrix = matrixSpace.withContext {
+            val size = rowEchelonForm.reducedMatrix.colCount
+            val dim = totalVectorSpace.dim
+            rowEchelonForm.reducedMatrix.colSlice((size - dim) until size)
+        }
+        this.projectionMatrix = matrixSpace.withContext {
+            this@SubQuotFactory.transformationMatrix.rowSlice(quotientDim until (quotientDim + subQuotDim))
+        }
+        this.sectionMatrix = matrixSpace.fromVectors(
+            basisIndices.map { index ->
+                subspaceGenerator[index - quotientGenerator.size]
+            }
+        )
     }
 
     companion object {
@@ -54,8 +72,25 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 }
 
 class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    factory: SubQuotFactory<B, S, V, M>
+    private val factory: SubQuotFactory<B, S, V, M>
 ) : VectorSpace<SubQuotBasis<B, S, V>, S, V>(factory.numVectorSpace, factory.basisNames) {
+    val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+        LinearMap.fromMatrix(
+            source = this.factory.totalVectorSpace,
+            target = this,
+            matrixSpace = this.factory.matrixSpace,
+            matrix = this.factory.projectionMatrix,
+        )
+    }
+    val section: LinearMap<SubQuotBasis<B, S, V>, B, S, V, M> by lazy {
+        LinearMap.fromMatrix(
+            source = this,
+            target = this.factory.totalVectorSpace,
+            matrixSpace = this.factory.matrixSpace,
+            matrix = this.factory.sectionMatrix,
+        )
+    }
+
     companion object {
         operator fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,

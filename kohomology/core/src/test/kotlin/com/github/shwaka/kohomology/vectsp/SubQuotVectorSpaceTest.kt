@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val subQuotVectorSpaceTag = NamedTag("SubQuotVectorSpace")
@@ -28,6 +29,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
         )
         "sub quotient space test" {
             subQuotVectorSpace.dim shouldBe 1
+            val x = subQuotVectorSpace.getBasis()[0]
+            val sect = subQuotVectorSpace.section
+            val proj = subQuotVectorSpace.projection
+            // section(x) shouldBe (u + v) // depends on the choice
+            proj(sect(x)) shouldBe x
+            proj(u + 2 * v + w).isZero().shouldBeTrue()
+            (proj(u - w) == proj(2 * (u + v))).shouldBeTrue()
         }
     }
 }

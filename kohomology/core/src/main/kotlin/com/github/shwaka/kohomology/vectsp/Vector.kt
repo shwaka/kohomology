@@ -100,7 +100,11 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     val dim = basisNames.size
     val field = this.numVectorSpace.field
 
-    private val vectorContext = VectorContext(numVectorSpace.field, numVectorSpace, this)
+    // use 'lazy' to avoid the following warning:
+    //   Leaking 'this' in constructor of non-final class GAlgebra
+    private val vectorContext by lazy {
+        VectorContext(numVectorSpace.field, numVectorSpace, this)
+    }
     fun <T> withContext(block: VectorContext<B, S, V>.() -> T) = this.vectorContext.block()
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

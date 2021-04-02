@@ -2,11 +2,13 @@ package com.github.shwaka.kohomology
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.logging.Logger
+import org.gradle.api.internal.GradleInternal
 import org.gradle.api.tasks.testing.Test
 import org.gradle.api.tasks.testing.TestDescriptor
 import org.gradle.api.tasks.testing.TestListener
 import org.gradle.api.tasks.testing.TestResult
+import org.gradle.internal.logging.text.StyledTextOutput
+import org.gradle.internal.logging.text.StyledTextOutputFactory
 import org.gradle.kotlin.dsl.withType
 
 // based on https://github.com/radarsh/gradle-test-logger-plugin/issues/145
@@ -23,7 +25,8 @@ class MyPlugin : Plugin<Project> {
         }
 
         project.gradle.buildFinished {
-            this@MyPlugin.myTestListener.printSummary(project.logger)
+            // this@MyPlugin.myTestListener.printSummary(project.logger)
+            this@MyPlugin.myTestListener.printSummary(project.gradle as GradleInternal)
         }
     }
 }
@@ -32,19 +35,15 @@ data class FailedTest(
     val className: String,
     val name: String
 ) {
-    fun format(): String {
-        return "[${this.shortClassName}] ${this.name}"
-    }
-
-    private val shortClassName: String
-        get() {
-            val splitClassName: List<String> = this.className.split(".")
-            return if (splitClassName.isNotEmpty()) {
-                splitClassName.last()
-            } else {
-                "null"
-            }
-        }
+    // private val shortClassName: String
+    //     get() {
+    //         val splitClassName: List<String> = this.className.split(".")
+    //         return if (splitClassName.isNotEmpty()) {
+    //             splitClassName.last()
+    //         } else {
+    //             "null"
+    //         }
+    //     }
 }
 
 class MyTestListener : TestListener {
@@ -67,13 +66,15 @@ class MyTestListener : TestListener {
         }
     }
 
-    fun printSummary(logger: Logger) {
+    fun printSummary(gradleInternal: GradleInternal) {
+        // colorize output: https://stackoverflow.com/questions/14516693/gradle-color-output
         if (this.failedTests.isNotEmpty()) {
-            logger.error("==== FAILED TESTS ====")
-            for ( (className, failedTestList) in this.failedTests) {
-                println(className)
+            val out = gradleInternal.services.get(StyledTextOutputFactory::class.java).create("an-output")
+            out.style(StyledTextOutput.Style.FailureHeader).text("==== FAILED TESTS ====").println()
+            for ((className, failedTestList) in this.failedTests) {
+                out.style(StyledTextOutput.Style.FailureHeader).text(className).println()
                 for (failedTest in failedTestList) {
-                    println("  ${failedTest.name}")
+                    out.style(StyledTextOutput.Style.Failure).text("  ${failedTest.name}").println()
                 }
             }
         }

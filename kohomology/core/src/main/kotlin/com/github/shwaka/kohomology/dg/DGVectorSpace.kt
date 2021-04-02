@@ -13,7 +13,6 @@ import com.github.shwaka.kohomology.vectsp.GVectorOperations
 import com.github.shwaka.kohomology.vectsp.GVectorSpace
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
-import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 interface DGVectorOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val differential: GLinearMap<B, B, S, V, M>
@@ -42,20 +41,22 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
     fun <T> withDGVectorContext(block: DGVectorContext<B, S, V, M>.() -> T): T = this.dgVectorContext.block()
 
+    protected fun getCohomologyVectorSpace(degree: Degree): SubQuotVectorSpace<B, S, V, M> {
+        // TODO: cache!!
+        val kernelBasis = this.differential.getLinearMap(degree).kernelBasis()
+        val imageGenerator = this.differential.getLinearMap(degree - 1).imageGenerator()
+        return SubQuotVectorSpace(
+            this.matrixSpace,
+            this.gVectorSpace[degree],
+            subspaceGenerator = kernelBasis,
+            quotientGenerator = imageGenerator,
+        )
+    }
+
     override fun cohomology(): GVectorSpace<SubQuotBasis<B, S, V>, S, V> {
-        val getVectorSpace: (Degree) -> VectorSpace<SubQuotBasis<B, S, V>, S, V> = { degree ->
-            val kernelBasis = this.differential.getLinearMap(degree).kernelBasis()
-            val imageGenerator = this.differential.getLinearMap(degree - 1).imageGenerator()
-            SubQuotVectorSpace(
-                this.matrixSpace,
-                this.gVectorSpace[degree],
-                subspaceGenerator = kernelBasis,
-                quotientGenerator = imageGenerator,
-            )
-        }
         return GVectorSpace(
             this.matrixSpace.numVectorSpace,
-            getVectorSpace
+            this::getCohomologyVectorSpace
         )
     }
 }

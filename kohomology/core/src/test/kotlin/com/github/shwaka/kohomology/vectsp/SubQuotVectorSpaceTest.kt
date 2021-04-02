@@ -20,13 +20,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
     val (u, v, w) = vectorSpace.getBasis()
     vectorSpace.withContext {
         val subspaceGenerator = listOf(u + v, v + w)
-        val quotientGenerator = listOf(u + v + w)
+        val quotientGenerator = listOf(u + 2 * v + w)
         val subQuotVectorSpace = SubQuotVectorSpace(
-            matrixSpace, vectorSpace, subspaceGenerator, quotientGenerator
+            matrixSpace, vectorSpace,
+            subspaceGenerator = subspaceGenerator,
+            quotientGenerator = quotientGenerator
         )
         "sub quotient space test" {
             subQuotVectorSpace.dim shouldBe 1
-            println(subQuotVectorSpace.basisNames)
         }
     }
 }

@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.vectsp
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 
@@ -64,7 +63,11 @@ class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> priv
             subspaceGenerator: List<Vector<B, S, V>>,
             quotientGenerator: List<Vector<B, S, V>>,
         ): SubQuotVectorSpace<B, S, V, M> {
-            val factory = SubQuotFactory(matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator)
+            val factory = SubQuotFactory(
+                matrixSpace, totalVectorSpace,
+                subspaceGenerator = subspaceGenerator,
+                quotientGenerator = quotientGenerator
+            )
             return SubQuotVectorSpace(factory)
         }
     }

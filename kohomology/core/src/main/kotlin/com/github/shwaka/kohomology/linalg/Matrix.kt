@@ -20,6 +20,7 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
     fun computeTranspose(matrix: M): M
     fun computeInnerProduct(matrix: M, numVector1: V, numVector2: V): S
+    fun joinMatrices(matrixList: List<M>): M
 }
 
 class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -38,6 +39,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun M.unaryMinus(): M = this * (-1)
     val M.rowEchelonForm: RowEchelonForm<S, V, M>
         get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!
+    fun List<M>.join(): M = this@MatrixContext.joinMatrices(this)
 
     fun M.det(): S {
         if (this.rowCount != this.colCount)

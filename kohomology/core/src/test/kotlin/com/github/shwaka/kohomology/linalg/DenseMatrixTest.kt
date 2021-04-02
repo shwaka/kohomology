@@ -242,6 +242,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 kernelBasis.size shouldBe 0
             }
         }
+        "join of ((1, 2), (3, 4)) and ((-1, -2), (-3, -4)) should be ((1, 2, -1, -2), (3, 4, -3, -4))" {
+            val mat1 = matrixSpace.fromRows(
+                listOf(
+                    listOf(one, two),
+                    listOf(three, four),
+                )
+            )
+            val mat2 = -mat1
+            val expected = matrixSpace.fromRows(
+                listOf(
+                    listOf(one, two, -one, -two),
+                    listOf(three, four, -three, -four),
+                )
+            )
+            listOf(mat1, mat2).join() shouldBe expected
+        }
     }
 }
 

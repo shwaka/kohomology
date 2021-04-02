@@ -193,4 +193,19 @@ class DenseMatrixSpace<S : Scalar>(
         val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
         return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
     }
+
+    private fun joinMatrices(matrix1: DenseMatrix<S>, matrix2: DenseMatrix<S>): DenseMatrix<S> {
+        if (matrix1.rowCount != matrix2.rowCount)
+            throw IllegalArgumentException("Cannot join two matrices of different row counts")
+        val values = matrix1.values.zip(matrix2.values).map { (row1: List<S>, row2: List<S>) -> row1 + row2 }
+        val rowCount = matrix1.rowCount
+        val colCount = matrix1.colCount + matrix2.colCount
+        return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
+    }
+
+    override fun joinMatrices(matrixList: List<DenseMatrix<S>>): DenseMatrix<S> {
+        if (matrixList.isEmpty())
+            throw IllegalArgumentException("Empty list of matrices cannot be reduced")
+        return matrixList.reduce { matrix1, matrix2 -> this.joinMatrices(matrix1, matrix2) }
+    }
 }

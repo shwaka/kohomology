@@ -49,8 +49,8 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                 cohomOfDegP.section(vector1)
             }
         val basisLift2: List<Vector<B, S, V>> =
-            cohomOfDegP.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
-                cohomOfDegP.section(vector2)
+            cohomOfDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
+                cohomOfDegQ.section(vector2)
             }
         val values: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
             basisLift1.map { vector1: Vector<B, S, V> ->

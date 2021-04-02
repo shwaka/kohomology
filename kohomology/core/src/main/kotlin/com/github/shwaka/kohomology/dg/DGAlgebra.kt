@@ -69,10 +69,10 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         )
     }
 
-    override fun cohomology(): GAlgebra<SubQuotBasis<B, S, V>, S, V, M> {
+    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
-        return GAlgebra(
+        GAlgebra(
             matrixSpace,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,

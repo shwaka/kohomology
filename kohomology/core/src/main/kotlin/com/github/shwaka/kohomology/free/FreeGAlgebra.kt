@@ -113,7 +113,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
             }
             val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.totalDegree())
             this.withGAlgebraContext {
-                derivedSeparatedGVector * remainingGVector
+                derivedSeparatedGVector * remainingGVector * separation.sign
             }
         }.fold(this.getZero(valueDegree)) { acc, gVector ->
             this.withGVectorContext { acc + gVector }

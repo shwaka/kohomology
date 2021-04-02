@@ -54,10 +54,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         }
         val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.withDGAlgebraContext {
-            println(d(x * y))
+            d(x * y) shouldBe (a.pow(2) * y - a * b * x)
+            d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
         }
         for (n in 0 until 12) {
-            println(freeDGAlgebra.cohomology()[n].getBasis())
+            val expectedDim = when (n) {
+                0, 7 -> 1
+                2, 5 -> 2
+                else -> 0
+            }
+            freeDGAlgebra.cohomology()[n].dim shouldBe expectedDim
         }
     }
 }

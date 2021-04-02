@@ -30,7 +30,7 @@ package linalg {
   MatrixSpace <|-right- DenseMatrixSpace
 }
 
-package field {
+package specific {
   /'
    ' class BigRational
    ' Scalar <|-- BigRational

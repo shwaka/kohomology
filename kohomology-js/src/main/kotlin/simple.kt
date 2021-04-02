@@ -17,7 +17,7 @@ fun myprint(obj: Any) {
     val text = obj.toString()
     println("[myprint] $text")
     val root = document.getElementById("root") ?: throw Exception("root not found!")
-    val p = document.createElement("p")
+    val p = document.createElement("pre")
     p.textContent = text
     root.appendChild(p)
 }
@@ -47,8 +47,10 @@ fun cohomologyTest() {
         myprint(d(x * y))
         myprint(d(x * y * z))
     }
+    val cohomologyStringList = mutableListOf<String>()
     for (n in 0 until 12) {
         val basis = freeDGAlgebra.cohomology[n].getBasis()
-        myprint("H^$n = Q$basis")
+        cohomologyStringList.add("H^$n = Q$basis")
     }
+    myprint(cohomologyStringList.joinToString("\n"))
 }

@@ -1,4 +1,10 @@
-#root p {
-  border: 1px solid gray;
+#root pre {
+  border-bottom: 1px solid gray;
   font-family: monospace;
+  padding: 5px 10px 5px;
+  margin: 3px 3px 3px;
+}
+
+#root {
+  border: 1px solid gray;
 }

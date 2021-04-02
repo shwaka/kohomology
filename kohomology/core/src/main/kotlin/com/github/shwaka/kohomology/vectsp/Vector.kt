@@ -212,4 +212,9 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         result = 31 * result + basisNames.hashCode()
         return result
     }
+
+    override fun toString(): String {
+        val basisNamesString = this.basisNames.joinToString(", ") { it.toString() }
+        return "VectorSpace($basisNamesString)"
+    }
 }

@@ -41,6 +41,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             freeDGAlgebra.cohomology()[n].dim shouldBe expectedDim
         }
     }
+    "model in FHT Section 12 (a) Example 7 (p.147)" {
+        val indeterminateList = listOf(
+            Indeterminate("a", 2),
+            Indeterminate("b", 2),
+            Indeterminate("x", 3),
+            Indeterminate("y", 3),
+            Indeterminate("z", 3),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
+            listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
+        }
+        // for (n in 0 until 12) {
+        //     println(freeDGAlgebra.cohomology()[n].getBasis())
+        // }
+    }
 }
 
 class FreeDGAlgebraTest : StringSpec({

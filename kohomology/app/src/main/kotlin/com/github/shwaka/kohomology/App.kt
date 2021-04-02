@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology
 
-import com.github.shwaka.kohomology.field.Fp
-import com.github.shwaka.kohomology.field.IntRational
-import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.specific.Fp
+import com.github.shwaka.kohomology.specific.IntRational
+import com.github.shwaka.kohomology.specific.IntRationalField
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 

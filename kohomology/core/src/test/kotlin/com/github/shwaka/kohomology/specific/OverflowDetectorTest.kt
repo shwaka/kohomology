@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.field
+package com.github.shwaka.kohomology.specific
 
 import com.github.shwaka.kohomology.overflowTag
 import io.kotest.assertions.throwables.shouldNotThrowAny

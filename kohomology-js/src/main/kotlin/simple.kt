@@ -1,11 +1,10 @@
-import com.github.shwaka.kohomology.field.BigRational
-import com.github.shwaka.kohomology.field.BigRationalField
-import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
+import com.github.shwaka.kohomology.specific.BigRationalField
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import kotlinx.browser.document
 
 fun main() {
     BigRationalField.withContext {
-        myprint(BigRational(1, 2) + BigRational(1, 3))
+        myprint(one / two + one / three)
     }
     numVectorTest()
 }
@@ -20,7 +19,7 @@ fun myprint(obj: Any) {
 }
 
 fun numVectorTest() {
-    val vectorSpace = DenseNumVectorSpace.from(BigRationalField)
+    val vectorSpace = DenseNumVectorSpaceOverBigRational
     vectorSpace.withContext {
         val v = vectorSpace.fromValues(one, zero)
         myprint("2 * (1, 0) = ${two * v}")

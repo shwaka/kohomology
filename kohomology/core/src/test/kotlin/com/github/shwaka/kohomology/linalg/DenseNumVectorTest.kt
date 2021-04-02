@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.field.BigRationalField
-import com.github.shwaka.kohomology.field.F7
-import com.github.shwaka.kohomology.field.IntRationalField
+import com.github.shwaka.kohomology.specific.BigRationalField
+import com.github.shwaka.kohomology.specific.F7
+import com.github.shwaka.kohomology.specific.IntRationalField
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import io.kotest.core.NamedTag

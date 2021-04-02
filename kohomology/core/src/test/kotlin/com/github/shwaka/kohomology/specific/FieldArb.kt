@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.field
+package com.github.shwaka.kohomology.specific
 
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar

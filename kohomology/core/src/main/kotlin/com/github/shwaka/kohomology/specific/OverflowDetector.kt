@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.field
+package com.github.shwaka.kohomology.specific
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 

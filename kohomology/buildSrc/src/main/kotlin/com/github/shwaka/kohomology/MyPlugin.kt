@@ -15,13 +15,15 @@ import org.gradle.kotlin.dsl.withType
 // apply<com.github.shwaka.kohomology.MyPlugin>()
 
 class MyPlugin : Plugin<Project> {
+    private val myTestListener = MyTestListener()
+
     override fun apply(project: Project) {
         project.tasks.withType<Test> {
-            addTestListener(MyTestListener)
+            addTestListener(this@MyPlugin.myTestListener)
         }
-        MyTestListener.initialize()
+
         project.gradle.buildFinished {
-            MyTestListener.printSummary(project.logger)
+            this@MyPlugin.myTestListener.printSummary(project.logger)
         }
     }
 }
@@ -45,7 +47,10 @@ data class FailedTest(
         }
 }
 
-object MyTestListener : TestListener {
+class MyTestListener : TestListener {
+    // class ではなく object にすると、gradle の実行毎に object が再生成されず、
+    // そのまま再利用されてしまうっぽい。
+    // class にして自分で constructor を呼ぶなら大丈夫。
     private val failedTests: MutableList<FailedTest> = mutableListOf()
 
     override fun beforeSuite(suite: TestDescriptor?) = Unit
@@ -56,13 +61,6 @@ object MyTestListener : TestListener {
             val failedTest = FailedTest(testDescriptor?.className, testDescriptor?.name)
             this.failedTests.add(failedTest)
         }
-    }
-
-    fun initialize() {
-        // gradle の実行毎に object が再生成されるわけではなくて，
-        // そのまま再利用されてしまうようなので，
-        // テストを走らせる前に手動で初期化する必要があるっぽい…？
-        this.failedTests.clear()
     }
 
     fun printSummary(logger: Logger) {

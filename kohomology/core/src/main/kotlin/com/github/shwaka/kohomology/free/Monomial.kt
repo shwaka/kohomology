@@ -185,7 +185,7 @@ class Monomial<I> private constructor(
                 1 -> indeterminate.toString()
                 else -> "$indeterminate^$exponent"
             }
-        }
+        }.let { if (it.isEmpty()) "1" else it }
     }
 
     override fun equals(other: Any?): Boolean {

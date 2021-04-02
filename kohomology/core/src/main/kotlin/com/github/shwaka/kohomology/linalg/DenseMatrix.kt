@@ -208,4 +208,14 @@ class DenseMatrixSpace<S : Scalar>(
             throw IllegalArgumentException("Empty list of matrices cannot be reduced")
         return matrixList.reduce { matrix1, matrix2 -> this.joinMatrices(matrix1, matrix2) }
     }
+
+    override fun computeRowSlice(matrix: DenseMatrix<S>, rowRange: IntRange): DenseMatrix<S> {
+        val values = matrix.values.slice(rowRange)
+        return this.fromRows(values)
+    }
+
+    override fun computeColSlice(matrix: DenseMatrix<S>, colRange: IntRange): DenseMatrix<S> {
+        val values = matrix.values.map { row -> row.slice(colRange)}
+        return this.fromRows(values)
+    }
 }

@@ -21,6 +21,8 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun computeTranspose(matrix: M): M
     fun computeInnerProduct(matrix: M, numVector1: V, numVector2: V): S
     fun joinMatrices(matrixList: List<M>): M
+    fun computeRowSlice(matrix: M, rowRange: IntRange): M
+    fun computeColSlice(matrix: M, colRange: IntRange): M
 }
 
 class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -39,6 +41,8 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun M.unaryMinus(): M = this * (-1)
     val M.rowEchelonForm: RowEchelonForm<S, V, M>
         get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!
+    fun M.rowSlice(rowRange: IntRange): M = this@MatrixContext.computeRowSlice(this, rowRange)
+    fun M.colSlice(colRange: IntRange): M = this@MatrixContext.computeColSlice(this, colRange)
     fun List<M>.join(): M = this@MatrixContext.joinMatrices(this)
 
     fun M.det(): S {

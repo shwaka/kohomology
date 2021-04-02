@@ -258,6 +258,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             )
             listOf(mat1, mat2).join() shouldBe expected
         }
+        "test rowSlice and colSlice" {
+            val intRange = 1..2
+            val matrix = matrixSpace.fromRows(
+                (0 until 4).map { row ->
+                    (0 until 4).map { col -> (row * 4 + col).toScalar() }
+                }
+            )
+            val expectedRowSlice = matrixSpace.fromRows(
+                listOf(
+                    listOf(4, 5, 6, 7).map { it.toScalar() },
+                    listOf(8, 9, 10, 11).map { it.toScalar() },
+                )
+            )
+            val expectedColSlice = matrixSpace.fromRows(
+                listOf(
+                    listOf(1, 2).map { it.toScalar() },
+                    listOf(5, 6).map { it.toScalar() },
+                    listOf(9, 10).map { it.toScalar() },
+                    listOf(13, 14).map { it.toScalar() },
+                )
+            )
+            matrix.rowSlice(intRange) shouldBe expectedRowSlice
+            matrix.colSlice(intRange) shouldBe expectedColSlice
+        }
     }
 }
 

@@ -11,6 +11,9 @@ import org.gradle.api.tasks.testing.TestResult
 // tasks.withType<Test> {
 //     addTestListener(MyTestListener)
 // }
+// gradle.buildStarted {
+//     MyTestListener.initialize()
+// }
 // gradle.buildFinished {
 //     MyTestListener.printSummary(logger)
 // }
@@ -45,6 +48,13 @@ object MyTestListener : TestListener {
             val failedTest = FailedTest(testDescriptor?.className, testDescriptor?.name)
             this.failedTests.add(failedTest)
         }
+    }
+
+    fun initialize() {
+        // gradle の実行毎に object が再生成されるわけではなくて，
+        // そのまま再利用されてしまうようなので，
+        // テストを走らせる前に手動で初期化する必要があるっぽい…？
+        this.failedTests.clear()
     }
 
     fun printSummary(logger: Logger) {

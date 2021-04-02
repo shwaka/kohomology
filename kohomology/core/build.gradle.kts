@@ -32,6 +32,9 @@ tasks.withType<Test> {
 }
 
 // 上の addTestListener を参照
+gradle.buildStarted {
+    MyTestListener.initialize()
+}
 gradle.buildFinished {
     MyTestListener.printSummary(logger)
 }

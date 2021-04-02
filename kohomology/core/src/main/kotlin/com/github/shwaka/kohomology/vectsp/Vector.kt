@@ -51,9 +51,19 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
             this@Vector.numVector.toList()
         }
         val basis = this.vectorSpace.basisNames.map(basisToString)
-        if (basis.isEmpty())
-            return "0"
-        return coeffList.zip(basis).joinToString(separator = " + ") { (coeff, basisElm) -> "$coeff $basisElm" }
+        return this.numVector.field.withContext {
+            val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff != zero }
+            if (basisWithCoeff.isEmpty()) {
+                "0"
+            } else {
+                basisWithCoeff.joinToString(separator = " + ") { (coeff, basisElm) ->
+                    if (coeff == one)
+                        basisElm
+                    else
+                        "$coeff $basisElm"
+                }
+            }
+        }
     }
 
     override fun toString(): String {

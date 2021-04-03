@@ -6,10 +6,9 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
-
-typealias Degree = Int
 
 sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>> {
     abstract fun isZero(): Boolean

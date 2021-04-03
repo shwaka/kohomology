@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
 class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

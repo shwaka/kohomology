@@ -7,7 +7,6 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.negativeInts
 import io.kotest.property.arbitrary.positiveInts
 import io.kotest.property.checkAll

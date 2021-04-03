@@ -2,15 +2,15 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GLinearMap
+import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.util.Degree
-import com.github.shwaka.kohomology.dg.GVector
-import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace

@@ -3,12 +3,12 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GLinearMap
+import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.dg.GVector
-import com.github.shwaka.kohomology.dg.GVectorOrZero
 
 private class FreeDGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,

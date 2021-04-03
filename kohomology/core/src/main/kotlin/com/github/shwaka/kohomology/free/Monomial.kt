@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.util.isOdd
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.isOdd
 
 data class Indeterminate<I>(val name: I, val degree: Degree) {
     override fun toString(): String {

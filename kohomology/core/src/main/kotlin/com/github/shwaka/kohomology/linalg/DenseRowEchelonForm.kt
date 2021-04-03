@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.util.Sign
+
 class DenseRowEchelonForm<S : Scalar>(
     private val matrixSpace: DenseMatrixSpace<S>,
     private val originalMatrix: DenseMatrix<S>
@@ -10,7 +12,7 @@ class DenseRowEchelonForm<S : Scalar>(
         get() = this.matrixSpace.fromRows(this.data.matrix)
     override val pivots: List<Int>
         get() = this.data.pivots
-    override val sign: Int
+    override val sign: Sign
         get() = if (this.data.exchangeCount % 2 == 0) 1 else -1
     override val reducedMatrix: DenseMatrix<S> by lazy {
         val rowCount = this.originalMatrix.rowCount

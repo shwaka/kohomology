@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
@@ -33,7 +34,7 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
         val values = source1.basisNames.map { monomial1 ->
             source2.basisNames.map { monomial2 ->
                 (monomial1 * monomial2)?.let {
-                    val (monomial: Monomial<I>, sign: Int) = it
+                    val (monomial: Monomial<I>, sign: Sign) = it
                     target.fromBasisName(monomial, sign)
                 } ?: target.zeroVector
             }

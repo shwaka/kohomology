@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.getPermutation
 
 interface Matrix<S : Scalar, V : NumVector<S>> {
@@ -60,7 +61,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             throw ArithmeticException("Determinant is defined only for square matrices")
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
-        val sign: Int = rowEchelonForm.sign
+        val sign: Sign = rowEchelonForm.sign
         return this@MatrixContext.field.withContext {
             val detUpToSign = (0 until this@det.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
             detUpToSign * sign
@@ -157,5 +158,5 @@ interface RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val matrix: M
     val reducedMatrix: M
     val pivots: List<Int>
-    val sign: Int
+    val sign: Sign
 }

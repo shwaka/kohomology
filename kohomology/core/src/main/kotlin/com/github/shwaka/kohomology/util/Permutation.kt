@@ -28,7 +28,7 @@ private class NonEmptyPermutation<T>(val list: List<T>) : Iterator<Pair<List<T>,
             this.zerothTo += 1
             this.subIterator = getPermutation(list.subList(1, list.size))
         }
-        val (subPermutation: List<T>, sign: Int) = this.subIterator.next()
+        val (subPermutation: List<T>, sign: Sign) = this.subIterator.next()
         val tempSign = if (this.zerothTo % 2 == 0) 1 else -1
         return Pair(this.insert(subPermutation, this.zerothTo, this.list[0]), sign * tempSign)
     }

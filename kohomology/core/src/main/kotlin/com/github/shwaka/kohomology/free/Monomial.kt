@@ -64,7 +64,7 @@ private class PositiveIndeterminateList<I>(
     override fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
-        return monomial.totalDegree() <= degreeLimit
+        return monomial.degree <= degreeLimit
     }
 
     override fun drop(): PositiveIndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
@@ -83,7 +83,7 @@ private class NegativeIndeterminateList<I>(
     override fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
-        return monomial.totalDegree() >= degreeLimit
+        return monomial.degree >= degreeLimit
     }
 
     override fun drop(): NegativeIndeterminateList<I> = NegativeIndeterminateList(this.rawList.drop(1))
@@ -92,7 +92,7 @@ private class NegativeIndeterminateList<I>(
 class Monomial<I> private constructor(
     private val indeterminateList: IndeterminateList<I>,
     val exponentList: List<Int>,
-) {
+) : MonoidElement {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw Exception("Invalid size of the exponent list")
@@ -103,8 +103,8 @@ class Monomial<I> private constructor(
         exponentList: List<Int>
     ) : this(IndeterminateList.from(indeterminateList), exponentList)
 
-    fun totalDegree(): Int {
-        return this.indeterminateList.zip(this.exponentList)
+    override val degree: Int by lazy {
+        this.indeterminateList.zip(this.exponentList)
             .map { (generator, exponent) -> generator.degree * exponent }
             .reduce { a, b -> a + b }
     }
@@ -115,7 +115,7 @@ class Monomial<I> private constructor(
         return Monomial(this.indeterminateList.drop(), this.exponentList.drop(1))
     }
 
-    private fun getNextMonomial(maxDegree: Degree): Monomial<I>? {
+    fun getNextMonomial(maxDegree: Degree): Monomial<I>? {
         if (this.indeterminateList.isEmpty())
             return null
         this.increaseFirstExponent(maxDegree)?.let { return it }
@@ -133,50 +133,6 @@ class Monomial<I> private constructor(
         val newExponents = listOf(this.exponentList.first() + 1) + this.exponentList.drop(1)
         val firstIncreased = Monomial(this.indeterminateList, newExponents)
         return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
-    }
-
-    operator fun times(other: Monomial<I>): Pair<Monomial<I>, Int>? {
-        if (this.indeterminateList != other.indeterminateList)
-            throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
-        val size = this.indeterminateList.size
-        val exponentList = this.exponentList.zip(other.exponentList).map { (p, q) -> p + q }
-        for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree.isOdd()) and (exponentList[i] >= 2))
-                return null
-        }
-        var sign = 1
-        for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree.isOdd()) and (this.exponentList[i] == 1)) {
-                for (j in 0 until i) {
-                    if ((other.indeterminateList[j].degree.isOdd()) and (other.exponentList[j] == 1)) {
-                        sign = -sign
-                    }
-                }
-            }
-        }
-        val monomial = Monomial(this.indeterminateList, exponentList)
-        return Pair(monomial, sign)
-    }
-
-    private fun separate(index: Int): MonomialSeparation<I>? {
-        val separatedExponent = this.exponentList[index]
-        if (separatedExponent == 0)
-            return null
-        val remainingExponentList = this.exponentList.mapIndexed { i, exponent ->
-            if (i == index) 0 else exponent
-        }
-        val remainingMonomial = Monomial(this.indeterminateList, remainingExponentList)
-        val separatedIndeterminate = this.indeterminateList[index]
-        val separatedExponentList = this.exponentList.mapIndexed { i, exponent ->
-            if (i == index) exponent else 0
-        }
-        val (_, sign) = Monomial(this.indeterminateList, separatedExponentList) * remainingMonomial ?: throw Exception("This can't happen!")
-        return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
-    }
-
-    fun allSeparations(): List<MonomialSeparation<I>> {
-        // TODO: List じゃなくて Iterator の方が良い？
-        return (0 until this.indeterminateList.size).mapNotNull { i -> this.separate(i) }
     }
 
     override fun toString(): String {
@@ -209,18 +165,6 @@ class Monomial<I> private constructor(
     }
 
     companion object {
-        fun <I> listAll(indeterminateList: List<Indeterminate<I>>, degree: Degree): List<Monomial<I>> {
-            val exponentList = List(indeterminateList.size) { 0 }
-            var monomial: Monomial<I>? = Monomial(indeterminateList, exponentList)
-            val monomialList: MutableList<Monomial<I>> = mutableListOf()
-            while (monomial != null) {
-                if (monomial.totalDegree() == degree)
-                    monomialList.add(monomial)
-                monomial = monomial.getNextMonomial(degree)
-            }
-            return monomialList
-        }
-
         fun <I> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
             val index = indeterminateList.indexOf(indeterminate)
             if (index == -1)
@@ -228,6 +172,84 @@ class Monomial<I> private constructor(
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
             return Monomial(indeterminateList, exponentList)
         }
+    }
+}
+
+class FreeMonoid<I> (
+    val indeterminateList: List<Indeterminate<I>>
+) : Monoid<Monomial<I>> {
+    // constructor(
+    //     indeterminateList: List<Indeterminate<I>>,
+    // ) : this(IndeterminateList.from(indeterminateList))
+
+    override val unit: Monomial<I> = Monomial(this.indeterminateList, List(this.indeterminateList.size) { 0 })
+
+    override fun multiply(
+        monoidElement1: Monomial<I>,
+        monoidElement2: Monomial<I>
+    ): MaybeZero<Pair<Monomial<I>, Sign>> {
+        // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
+        //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
+        val size = this.indeterminateList.size
+        val exponentList = monoidElement1.exponentList
+            .zip(monoidElement2.exponentList)
+            .map { (p, q) -> p + q }
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree.isOdd()) and (exponentList[i] >= 2))
+                return Zero()
+        }
+        var sign = 1
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree.isOdd()) and (monoidElement1.exponentList[i] == 1)) {
+                for (j in 0 until i) {
+                    if ((this.indeterminateList[j].degree.isOdd()) and (monoidElement2.exponentList[j] == 1)) {
+                        sign = -sign
+                    }
+                }
+            }
+        }
+        val monomial = Monomial(this.indeterminateList, exponentList)
+        return NonZero(Pair(monomial, sign))
+    }
+
+    override fun listAll(degree: Degree): List<Monomial<I>> {
+        val exponentList = List(this.indeterminateList.size) { 0 }
+        var monomial: Monomial<I>? = Monomial(this.indeterminateList, exponentList)
+        val monomialList: MutableList<Monomial<I>> = mutableListOf()
+        while (monomial != null) {
+            if (monomial.degree == degree)
+                monomialList.add(monomial)
+            monomial = monomial.getNextMonomial(degree)
+        }
+        return monomialList
+    }
+
+    private fun separate(monomial: Monomial<I>, index: Int): MonomialSeparation<I>? {
+        val separatedExponent = monomial.exponentList[index]
+        if (separatedExponent == 0)
+            return null
+        val remainingExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+            if (i == index) 0 else exponent
+        }
+        val remainingMonomial = Monomial(this.indeterminateList, remainingExponentList)
+        val separatedIndeterminate = this.indeterminateList[index]
+        val separatedExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+            if (i == index) exponent else 0
+        }
+        val multipliedMonomialOrZero = this.multiply(
+            Monomial(this.indeterminateList, separatedExponentList),
+            remainingMonomial
+        )
+        val (_, sign) = when (multipliedMonomialOrZero) {
+            is NonZero -> multipliedMonomialOrZero.value
+            is Zero -> throw Exception("This can't happen!")
+        }
+        return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
+    }
+
+    fun allSeparations(monomial: Monomial<I>): List<MonomialSeparation<I>> {
+        // TODO: List じゃなくて Iterator の方が良い？
+        return this.indeterminateList.indices.mapNotNull { i -> this.separate(monomial, i) }
     }
 }
 

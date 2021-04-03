@@ -11,9 +11,9 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-private class MonoidGAlgebraFactory<E : MonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>,
-    val monoid: Monoid<E>,
+    val monoid: Mon,
 ) {
     private fun getBasisNames(degree: Degree): List<E> {
         return this.monoid.listAll(degree)
@@ -46,17 +46,14 @@ private class MonoidGAlgebraFactory<E : MonoidElement, S : Scalar, V : NumVector
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
-open class MonoidGAlgebra<E : MonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+open class MonoidGAlgebra<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     matrixSpace: MatrixSpace<S, V, M>,
-    factory: MonoidGAlgebraFactory<E, S, V, M>,
+    factory: MonoidGAlgebraFactory<E, Mon, S, V, M>,
 ) : GAlgebra<E, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
-    companion object {
-        operator fun <E : MonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            monoid: Monoid<E>,
-        ): MonoidGAlgebra<E, S, V, M> {
-            val factory = MonoidGAlgebraFactory(matrixSpace, monoid)
-            return MonoidGAlgebra(matrixSpace, factory)
-        }
-    }
+    val monoid: Mon = factory.monoid
+
+    constructor(matrixSpace: MatrixSpace<S, V, M>, monoid: Mon) : this(
+        matrixSpace,
+        MonoidGAlgebraFactory(matrixSpace, monoid)
+    )
 }

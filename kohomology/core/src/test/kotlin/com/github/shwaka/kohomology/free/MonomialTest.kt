@@ -19,13 +19,13 @@ class MonomialTest : StringSpec({
     tags(monomialTestTag)
 
     "indeterminate list with mixed degrees is not allowed" {
-        checkAll(Arb.positiveInts(), Arb.negativeInts(), Arb.int()) { positiveDegree, negativeDegree, degreeForListAll ->
+        checkAll(Arb.positiveInts(), Arb.negativeInts()) { positiveDegree, negativeDegree ->
             val indeterminateList = listOf(
                 Indeterminate("x", positiveDegree),
                 Indeterminate("y", negativeDegree)
             )
             shouldThrow<IllegalArgumentException> {
-                Monomial.listAll(indeterminateList, degreeForListAll)
+                FreeMonoid(indeterminateList)
             }
         }
     }
@@ -35,7 +35,7 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 0)
         )
         shouldThrow<IllegalArgumentException> {
-            Monomial.listAll(indeterminateList, 0)
+            FreeMonoid(indeterminateList)
         }
     }
 
@@ -45,8 +45,9 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 2),
             Indeterminate("x", 3),
         )
+        val monoid = FreeMonoid(indeterminateList)
         shouldNotThrowAny {
-            Monomial.listAll(indeterminateList, 0)
+            monoid.listAll(0)
         }
     }
 
@@ -56,8 +57,9 @@ class MonomialTest : StringSpec({
             Indeterminate("x", -2),
             Indeterminate("x", -3),
         )
+        val monoid = FreeMonoid(indeterminateList)
         shouldNotThrowAny {
-            Monomial.listAll(indeterminateList, 0)
+            monoid.listAll(0)
         }
     }
 
@@ -66,9 +68,10 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 2),
             Indeterminate("y", 2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 0), Pair(2, 2), Pair(3, 0), Pair(4, 3)))
         checkAll(gen) { (degree, size) ->
-            Monomial.listAll(indeterminateList, degree).size shouldBe size
+            monoid.listAll(degree).size shouldBe size
         }
     }
 
@@ -77,9 +80,10 @@ class MonomialTest : StringSpec({
             Indeterminate("x", -2),
             Indeterminate("y", -2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 0), Pair(-2, 2), Pair(-3, 0), Pair(-4, 3)))
         checkAll(gen) { (degree, size) ->
-            Monomial.listAll(indeterminateList, degree).size shouldBe size
+            monoid.listAll(degree).size shouldBe size
         }
     }
 
@@ -88,9 +92,10 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 1),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 2), Pair(2, 1), Pair(3, 0), Pair(4, 0)))
         checkAll(gen) { (degree, size) ->
-            Monomial.listAll(indeterminateList, degree).size shouldBe size
+            monoid.listAll(degree).size shouldBe size
         }
     }
 
@@ -99,9 +104,10 @@ class MonomialTest : StringSpec({
             Indeterminate("x", -1),
             Indeterminate("y", -1),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 2), Pair(-2, 1), Pair(-3, 0), Pair(-4, 0)))
         checkAll(gen) { (degree, size) ->
-            Monomial.listAll(indeterminateList, degree).size shouldBe size
+            monoid.listAll(degree).size shouldBe size
         }
     }
 
@@ -110,9 +116,10 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(0, 1, 2, 3, 4))
         checkAll(gen) { degree ->
-            Monomial.listAll(indeterminateList, degree).size shouldBe 1
+            monoid.listAll(degree).size shouldBe 1
         }
     }
 
@@ -121,8 +128,9 @@ class MonomialTest : StringSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         checkAll(Arb.negativeInts()) { degree ->
-            Monomial.listAll(indeterminateList, degree).isEmpty().shouldBeTrue()
+            monoid.listAll(degree).isEmpty().shouldBeTrue()
         }
     }
 
@@ -131,8 +139,9 @@ class MonomialTest : StringSpec({
             Indeterminate("x", -1),
             Indeterminate("y", -2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         checkAll(Arb.positiveInts()) { degree ->
-            Monomial.listAll(indeterminateList, degree).isEmpty().shouldBeTrue()
+            monoid.listAll(degree).isEmpty().shouldBeTrue()
         }
     }
 
@@ -142,6 +151,7 @@ class MonomialTest : StringSpec({
             Indeterminate("y", 1),
             Indeterminate("z", 2),
         )
+        val monoid = FreeMonoid(indeterminateList)
         val x = Monomial(indeterminateList, listOf(1, 0, 0))
         val y = Monomial(indeterminateList, listOf(0, 1, 0))
         val z = Monomial(indeterminateList, listOf(0, 0, 1))
@@ -150,10 +160,10 @@ class MonomialTest : StringSpec({
         val yz = Monomial(indeterminateList, listOf(0, 1, 1))
         val xyz = Monomial(indeterminateList, listOf(1, 1, 1))
         val yzz = Monomial(indeterminateList, listOf(0, 1, 2))
-        (x * y) shouldBe Pair(xy, 1)
-        (xy * xz) shouldBe null
-        (xz * y) shouldBe Pair(xyz, 1)
-        (y * xz) shouldBe Pair(xyz, -1)
-        (z * yz) shouldBe Pair(yzz, 1)
+        monoid.multiply(x, y) shouldBe NonZero(Pair(xy, 1))
+        monoid.multiply(xy, xz) shouldBe Zero()
+        monoid.multiply(xz, y) shouldBe NonZero(Pair(xyz, 1))
+        monoid.multiply(y, xz) shouldBe NonZero(Pair(xyz, -1))
+        monoid.multiply(z, yz) shouldBe NonZero(Pair(yzz, 1))
     }
 })

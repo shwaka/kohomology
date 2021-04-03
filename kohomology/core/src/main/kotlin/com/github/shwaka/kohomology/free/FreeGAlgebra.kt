@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -19,8 +18,10 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
     private val matrixSpace: MatrixSpace<S, V, M>,
     val indeterminateList: List<Indeterminate<I>>,
 ) {
+    val monoid = FreeMonoid(indeterminateList)
+
     private fun getBasisNames(degree: Degree): List<Monomial<I>> {
-        return Monomial.listAll(this.indeterminateList, degree)
+        return this.monoid.listAll(degree)
     }
 
     fun getVectorSpace(degree: Degree): VectorSpace<Monomial<I>, S, V> {
@@ -33,10 +34,15 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
         val target = this.getVectorSpace(p + q)
         val values = source1.basisNames.map { monomial1 ->
             source2.basisNames.map { monomial2 ->
-                (monomial1 * monomial2)?.let {
-                    val (monomial: Monomial<I>, sign: Sign) = it
-                    target.fromBasisName(monomial, sign)
-                } ?: target.zeroVector
+                this.monoid.multiply(monomial1, monomial2).let { monomialOrZero ->
+                    when (monomialOrZero) {
+                        is Zero -> target.zeroVector
+                        is NonZero -> {
+                            val (monomial: Monomial<I>, sign: Sign) = monomialOrZero.value
+                            target.fromBasisName(monomial, sign)
+                        }
+                    }
+                }
             }
         }
         return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, values)
@@ -45,26 +51,15 @@ private class FreeGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S,
     val unitVector: Vector<Monomial<I>, S, V> = this.getVectorSpace(0).getBasis()[0]
 }
 
-class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    factory: FreeGAlgebraFactory<I, S, V, M>
-) : GAlgebra<Monomial<I>, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
-    val indeterminateList: List<Indeterminate<I>> = factory.indeterminateList
+    val indeterminateList: List<Indeterminate<I>>,
+) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(matrixSpace, FreeMonoid(indeterminateList)) {
     val generatorList: List<GVector<Monomial<I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.indeterminateList, indeterminate)
             this.fromBasisName(monomial, indeterminate.degree)
         }
-
-    companion object {
-        operator fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            indeterminateList: List<Indeterminate<I>>,
-        ): FreeGAlgebra<I, S, V, M> {
-            val factory = FreeGAlgebraFactory(matrixSpace, indeterminateList)
-            return FreeGAlgebra(matrixSpace, factory)
-        }
-    }
 
     fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
@@ -99,7 +94,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
         monomial: Monomial<I>,
         valueDegree: Degree
     ): GVector<Monomial<I>, S, V> {
-        return monomial.allSeparations().map { separation ->
+        return this.monoid.allSeparations(monomial).map { separation ->
             val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->
                 if (i == separation.index)
                     separation.separatedExponent - 1
@@ -109,10 +104,10 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private co
             val derivedSeparatedMonomial = Monomial(this.indeterminateList, derivedSeparatedExponentList)
             val derivedSeparatedGVector = this.withGAlgebraContext {
                 separation.separatedExponent *
-                    this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.totalDegree()) *
+                    this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *
                     valueList[separation.index]
             }
-            val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.totalDegree())
+            val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.degree)
             this.withGAlgebraContext {
                 derivedSeparatedGVector * remainingGVector * separation.sign
             }

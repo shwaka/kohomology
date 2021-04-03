@@ -4,9 +4,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.Degree
-import com.github.shwaka.kohomology.vectsp.GVector
-import com.github.shwaka.kohomology.vectsp.GVectorSpace
 
 class GBilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source1: GVectorSpace<BS1, S, V>,

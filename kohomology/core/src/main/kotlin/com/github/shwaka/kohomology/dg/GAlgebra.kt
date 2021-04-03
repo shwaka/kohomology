@@ -7,11 +7,6 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.Degree
-import com.github.shwaka.kohomology.vectsp.GVector
-import com.github.shwaka.kohomology.vectsp.GVectorContext
-import com.github.shwaka.kohomology.vectsp.GVectorOperations
-import com.github.shwaka.kohomology.vectsp.GVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 

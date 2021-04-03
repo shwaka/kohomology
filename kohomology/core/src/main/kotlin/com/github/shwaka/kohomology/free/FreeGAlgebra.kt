@@ -7,9 +7,9 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.Degree
-import com.github.shwaka.kohomology.vectsp.GVector
-import com.github.shwaka.kohomology.vectsp.GVectorOrZero
+import com.github.shwaka.kohomology.dg.Degree
+import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace

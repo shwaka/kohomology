@@ -1,46 +1,31 @@
-import com.github.shwaka.kohomology.linalg.Field
-import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.Fp
-import com.github.shwaka.kohomology.specific.IntRational
-import com.github.shwaka.kohomology.specific.IntRationalField
-
-fun <S : Scalar> add(field: Field<S>, a: S, b: S): S {
-    // return a.field.wrap(a + b.unwrap())
-    return field.withContext { a + b }
-}
-
-fun <S : Scalar> test(field: Field<S>, a: S, b: S) {
-    field.withContext {
-        println("------------------------------")
-        println("test: a=$a, b=$b")
-        println("a + b = ${a + b}")
-        println("a - b = ${a - b}")
-        println("a * b = ${a * b}")
-        println("------------------------------")
-    }
-}
+import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.Indeterminate
+import com.github.shwaka.kohomology.model.freeLoopSpace
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 
 fun main() {
-    println("Hello world!")
-    IntRationalField.withContext {
-        println(IntRational(1, 2) + IntRational(1, 3))
-        println(IntRational(1, 3) + IntRational(-2, 6))
+    val sphereDim = 4
+    val indeterminateList = listOf(
+        Indeterminate("x", sphereDim),
+        Indeterminate("y", sphereDim * 2 - 1)
+    )
+    val matrixSpace = DenseMatrixSpaceOverBigRational
+    val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+        listOf(zeroGVector, x.pow(2))
+    }
+    val freeLoopSpace = freeLoopSpace(sphere)
+    val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+
+    for (degree in 0 until 20) {
+        val basis = freeLoopSpace.cohomology[degree].getBasis()
+        println("H^$degree = Q$basis")
     }
 
-    val a = IntRational(1, 2)
-    val b = IntRationalField.fromInt(2)
-    println(add(IntRationalField, a, b))
-    test(IntRationalField, a, b)
-
-    val p = 5
-    val field = Fp.get(p)
-    field.withContext {
-        val c = three
-        val d = one
-        println(add(field, c, d))
-        field.withContext {
-            println(add(field, c, d + one))
-        }
-        test(field, c, d)
+    freeLoopSpace.withDGAlgebraContext {
+        println(d(sy))
+        val n = 3
+        val alpha = x.pow(2) * sx * sy.pow(n) // = d(y * sx * sy.pow(n))
+        val classOfAlpha = freeLoopSpace.cohomologyClassOf(alpha)
+        println("[alpha] = $classOfAlpha")
     }
 }

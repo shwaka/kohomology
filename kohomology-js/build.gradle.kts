@@ -18,7 +18,6 @@ dependencies {
     implementation("com.github.shwaka.kohomology:kohomology:0.0")
     testImplementation(kotlin("test-js"))
     // kococo
-    // js だとうまく使えないっぽいので comment out して、直接書いた
     val kococoVersion = "0.1"
     val kococoDebug = "com.github.shwaka.kococo:kococo-debug-js:$kococoVersion"
     val kococoRelease = "com.github.shwaka.kococo:kococo-release-js:$kococoVersion"

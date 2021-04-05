@@ -10,31 +10,23 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-private class FreeDGAlgebraFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val matrixSpace: MatrixSpace<S, V, M>,
-    val indeterminateList: List<Indeterminate<I>>,
-    val getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
-) {
-    val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(this.matrixSpace, this.indeterminateList)
-    val differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
-        valueList = freeGAlgebra.withGAlgebraContext { getDifferentialValueList(freeGAlgebra.generatorList) },
-        derivationDegree = 1
-    )
-}
-
-class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    factory: FreeDGAlgebraFactory<I, S, V, M>
-) : DGAlgebra<Monomial<I>, S, V, M>(factory.freeGAlgebra, factory.differential, factory.matrixSpace) {
-    override val gAlgebra: FreeGAlgebra<I, S, V, M> = factory.freeGAlgebra
-
+class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
+    override val gAlgebra: FreeGAlgebra<I, S, V, M>,
+    differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M>,
+    matrixSpace: MatrixSpace<S, V, M>
+) : DGAlgebra<Monomial<I>, S, V, M>(gAlgebra, differential, matrixSpace) {
     companion object {
         operator fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<I>>,
             getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
         ): FreeDGAlgebra<I, S, V, M> {
-            val factory = FreeDGAlgebraFactory(matrixSpace, indeterminateList, getDifferentialValueList)
-            return FreeDGAlgebra(factory)
+            val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
+            val differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
+                valueList = freeGAlgebra.withGAlgebraContext { getDifferentialValueList(freeGAlgebra.generatorList) },
+                derivationDegree = 1
+            )
+            return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)
         }
     }
 }

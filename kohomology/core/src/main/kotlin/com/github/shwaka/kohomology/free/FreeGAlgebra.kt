@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -74,8 +75,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                     )
             }
         }
-        val gVectorValueList = valueList.mapIndexed { i, gVectorOrZero ->
-            val valueDegree = this.indeterminateList[i].degree + derivationDegree
+        val gVectorValueList = valueList.mapIndexed { index, gVectorOrZero ->
+            val valueDegree = this.indeterminateList[index].degree + derivationDegree
             this.convertToGVector(gVectorOrZero, valueDegree)
         }
         return GLinearMap(this, this, derivationDegree) { k ->
@@ -113,6 +114,50 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             }
         }.fold(this.getZero(valueDegree)) { acc, gVector ->
             this.withGVectorContext { acc + gVector }
+        }
+    }
+
+    fun <B> getAlgebraMap(
+        target: GAlgebra<B, S, V, M>,
+        valueList: List<GVectorOrZero<B, S, V>>,
+    ): GLinearMap<Monomial<I>, B, S, V, M> {
+        if (valueList.size != this.indeterminateList.size)
+            throw IllegalArgumentException("Invalid size of the list of values of an algebra map")
+        this.indeterminateList.zip(valueList).map { (indeterminate, value) ->
+            if (value is GVector) {
+                if (value.degree != indeterminate.degree)
+                    throw IllegalArgumentException(
+                        "Illegal degree: the degree of the value of $indeterminate must be ${indeterminate.degree}" +
+                            "but ${value.degree} was given"
+                    )
+            }
+        }
+        val gVectorValueList = valueList.mapIndexed { index, gVectorOrZero ->
+            val valueDegree = this.indeterminateList[index].degree
+            target.convertToGVector(gVectorOrZero, valueDegree)
+        }
+        return GLinearMap(this, target, 0) { k ->
+            val sourceVectorSpace = this[k]
+            val targetVectorSpace = target[k]
+            val valueListForDegree: List<Vector<B, S, V>> = sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
+                val gVectorValue = this.getAlgebraMapValue(target, gVectorValueList, monomial)
+                gVectorValue.vector
+            }
+            LinearMap.fromVectors(sourceVectorSpace, targetVectorSpace, this.matrixSpace, valueListForDegree)
+        }
+    }
+
+    private fun <B> getAlgebraMapValue(
+        target: GAlgebra<B, S, V, M>,
+        valueList: List<GVector<B, S, V>>,
+        monomial: Monomial<I>
+    ): GVector<B, S, V> {
+        return target.withGAlgebraContext {
+            monomial.exponentList.mapIndexed { index, exponent ->
+                valueList[index].pow(exponent)
+            }.fold(this.unit) { acc, gVector ->
+                acc * gVector
+            }
         }
     }
 }

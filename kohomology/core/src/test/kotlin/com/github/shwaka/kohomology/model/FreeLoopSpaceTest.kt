@@ -43,9 +43,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
         }
         "[dim=$sphereDim] check cohomology" {
             for (degree in 0 until sphereDim * 5) {
-                var expectedDim = 0
-                if (degree % sphereDim == 0) expectedDim += 1
-                if ((degree + 1) % sphereDim == 0) expectedDim += 1
+                val expectedDim = when {
+                    degree == 0 -> 1
+                    ((degree % (sphereDim - 1) == 0) && ((degree / (sphereDim - 1)) % 2 == 1)) -> 1
+                    (((degree - 1) % (sphereDim - 1) == 0) && (((degree - 1) / (sphereDim - 1)) % 2 == 1)) -> 1
+                    else -> 0
+                }
                 freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
             }
         }

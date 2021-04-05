@@ -30,7 +30,8 @@ private fun gcdInternal(a: BigInteger, b: BigInteger): BigInteger {
 private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInteger, BigInteger> {
     if (numerator == BigInteger.ZERO) return Pair(BigInteger.ZERO, BigInteger.ONE)
     val g = gcd(numerator, denominator)
-    val num = numerator * denominator.sign.toInt() / g
+    denominator.signum()
+    val num = numerator * denominator.signum().toInt() / g
     val den = denominator.abs() / g
     return Pair(num, den)
 }

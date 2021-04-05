@@ -22,7 +22,7 @@ dependencies {
     // Use the Kotlin JDK 8 standard library.
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation("com.ionspin.kotlin:bignum:0.2.3")
+    implementation("com.ionspin.kotlin:bignum:0.2.8")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")

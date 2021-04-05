@@ -10,6 +10,7 @@ plugins {
     id("java-library") // necessary for jacoco
     jacoco
     id("com.adarshr.test-logger") version "2.1.1"
+    `maven-publish`
 }
 
 apply<com.github.shwaka.kohomology.MyPlugin>()

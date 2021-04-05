@@ -71,23 +71,22 @@ kotlin {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
                 // Use the Kotlin test library.
-                implementation("org.jetbrains.kotlin:kotlin-test")
+                // implementation("org.jetbrains.kotlin:kotlin-test")
 
                 // Use the Kotlin JUnit integration.
-                implementation("org.jetbrains.kotlin:kotlin-test-junit")
-
-                // kotest
-                val version = "4.3.2"
-                implementation("io.kotest:kotest-runner-junit5:$version")
-                implementation("io.kotest:kotest-assertions-core:$version")
-                implementation("io.kotest:kotest-property:$version")
-                implementation("io.kotest:kotest-assertions-compiler:$version")
+                // implementation("org.jetbrains.kotlin:kotlin-test-junit")
             }
         }
         val jvmMain by getting
         val jvmTest by getting {
             dependencies {
                 implementation(kotlin("test-junit"))
+                // kotest
+                val version = "4.3.2"
+                implementation("io.kotest:kotest-runner-junit5:$version")
+                implementation("io.kotest:kotest-assertions-core:$version")
+                implementation("io.kotest:kotest-property:$version")
+                implementation("io.kotest:kotest-assertions-compiler:$version")
             }
         }
         val jsMain by getting

@@ -62,4 +62,11 @@ open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         return this.multiplication(a, b)
     }
+
+    fun isBasis(
+        gVectorList: List<GVector<B, S, V>>,
+        degree: Degree,
+    ): Boolean {
+        return this.isBasis(gVectorList, degree, this.matrixSpace)
+    }
 }

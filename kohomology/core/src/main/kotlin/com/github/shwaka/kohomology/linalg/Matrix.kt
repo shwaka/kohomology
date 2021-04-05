@@ -82,6 +82,13 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         return result
     }
 
+    fun M.isInvertible(): Boolean {
+        if (this.rowCount != this.colCount)
+            throw IllegalArgumentException("Invertibility of non-square matrix is not defined")
+        val pivots: List<Int> = this.rowEchelonForm.pivots
+        return pivots.size == this.rowCount
+    }
+
     fun M.transpose(): M {
         return this@MatrixContext.computeTranspose(this)
     }

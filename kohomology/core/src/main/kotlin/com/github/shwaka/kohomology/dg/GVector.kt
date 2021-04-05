@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
@@ -190,4 +192,18 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     override val zeroGVector: ZeroGVector<B, S, V> = ZeroGVector()
+
+    fun <M : Matrix<S, V>> isBasis(
+        gVectorList: List<GVector<B, S, V>>,
+        degree: Degree,
+        matrixSpace: MatrixSpace<S, V, M>
+    ): Boolean {
+        for (gVector in gVectorList) {
+            if (gVector.degree != degree)
+                throw IllegalArgumentException("The degree of $gVector is not equal to the given degree $degree")
+        }
+        val vectorSpace = this[degree]
+        val vectorList = gVectorList.map { it.vector }
+        return vectorSpace.isBasis(vectorList, matrixSpace)
+    }
 }

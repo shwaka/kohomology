@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
@@ -190,6 +192,16 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         if (index == -1)
             throw Exception("$basisName is not a name of basis element of this vector space")
         return index
+    }
+
+    fun <M : Matrix<S, V>> isBasis(
+        vectorList: List<Vector<B, S, V>>,
+        matrixSpace: MatrixSpace<S, V, M>
+    ): Boolean {
+        return matrixSpace.withContext {
+            matrixSpace.fromNumVectors(vectorList.map { it.numVector }, this@VectorSpace.dim)
+                .isInvertible()
+        }
     }
 
     override fun equals(other: Any?): Boolean {

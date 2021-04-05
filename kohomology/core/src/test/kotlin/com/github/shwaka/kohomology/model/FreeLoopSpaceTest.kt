@@ -41,6 +41,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             d(sx).isZero().shouldBeTrue()
             d(sy) shouldBe (-2 * x * sx)
         }
+        "[dim=$sphereDim] check cohomology" {
+            for (degree in 0 until sphereDim * 5) {
+                var expectedDim = 0
+                if (degree % sphereDim == 0) expectedDim += 1
+                if ((degree + 1) % sphereDim == 0) expectedDim += 1
+                freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
+            }
+        }
     }
 }
 
@@ -48,4 +56,5 @@ class FreeDGAlgebraTest : StringSpec({
     tags(freeLoopSpaceTag, bigRationalTag)
 
     include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))
+    include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 4))
 })

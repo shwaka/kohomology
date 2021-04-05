@@ -1,9 +1,13 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
+group = "com.github.shwaka.kohomology"
+version = "0.0"
+
 plugins {
-    kotlin("jvm") version "1.4.10"
+    kotlin("multiplatform") version "1.4.31"
     id("io.kotest") version "0.2.6"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
+    id("java-library") // necessary for jacoco
     jacoco
     id("com.adarshr.test-logger") version "2.1.1"
 }
@@ -15,36 +19,85 @@ repositories {
     maven(url = "https://shwaka.github.io/maven/")
 }
 
-dependencies {
-    // Align versions of all Kotlin components
-    implementation(platform("org.jetbrains.kotlin:kotlin-bom"))
+kotlin {
+    jvm {
+        compilations.all {
+            kotlinOptions.jvmTarget = "1.8"
+        }
+        testRuns["test"].executionTask.configure {
+            useJUnit()
+        }
+    }
+    js(BOTH) {
+        browser {
+            testTask {
+                useKarma {
+                    useChromeHeadless()
+                    webpackConfig.cssSupport.enabled = true
+                }
+            }
+        }
+    }
+    val hostOs = System.getProperty("os.name")
+    val isMingwX64 = hostOs.startsWith("Windows")
+    val nativeTarget = when {
+        hostOs == "Mac OS X" -> macosX64("native")
+        hostOs == "Linux" -> linuxX64("native")
+        isMingwX64 -> mingwX64("native")
+        else -> throw GradleException("Host OS is not supported in Kotlin/Native.")
+    }
 
-    // Use the Kotlin JDK 8 standard library.
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    sourceSets {
+        val commonMain by getting {
+            dependencies {
+                // Use the Kotlin JDK 8 standard library.
+                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-    implementation("com.ionspin.kotlin:bignum:0.2.8")
+                implementation("com.ionspin.kotlin:bignum:0.2.8")
 
-    // Use the Kotlin test library.
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
+                // kococo
+                val kococoVersion = "0.1"
+                val kococoDebug = "com.github.shwaka.kococo:kococo-debug:$kococoVersion"
+                val kococoRelease = "com.github.shwaka.kococo:kococo-release:$kococoVersion"
+                if (System.getProperty("kococo.debug") == null) {
+                    implementation(kococoRelease)
+                } else {
+                    implementation(kococoDebug)
+                }
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test-common"))
+                implementation(kotlin("test-annotations-common"))
+                // Use the Kotlin test library.
+                implementation("org.jetbrains.kotlin:kotlin-test")
 
-    // Use the Kotlin JUnit integration.
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+                // Use the Kotlin JUnit integration.
+                implementation("org.jetbrains.kotlin:kotlin-test-junit")
 
-    // kotest
-    val version = "4.3.2"
-    testImplementation("io.kotest:kotest-runner-junit5:$version")
-    testImplementation("io.kotest:kotest-assertions-core:$version")
-    testImplementation("io.kotest:kotest-property:$version")
-    testImplementation("io.kotest:kotest-assertions-compiler:$version")
-
-    // kococo
-    val kococoVersion = "0.1"
-    val kococoDebug = "com.github.shwaka.kococo:kococo-debug-jvm:$kococoVersion"
-    val kococoRelease = "com.github.shwaka.kococo:kococo-release-jvm:$kococoVersion"
-    if (System.getProperty("kococo.debug") == null) {
-        implementation(kococoRelease)
-    } else {
-        implementation(kococoDebug)
+                // kotest
+                val version = "4.3.2"
+                implementation("io.kotest:kotest-runner-junit5:$version")
+                implementation("io.kotest:kotest-assertions-core:$version")
+                implementation("io.kotest:kotest-property:$version")
+                implementation("io.kotest:kotest-assertions-compiler:$version")
+            }
+        }
+        val jvmMain by getting
+        val jvmTest by getting {
+            dependencies {
+                implementation(kotlin("test-junit"))
+            }
+        }
+        val jsMain by getting
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test-js"))
+            }
+        }
+        val nativeMain by getting
+        val nativeTest by getting
     }
 }
 

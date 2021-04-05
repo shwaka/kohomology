@@ -6,10 +6,10 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-js/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'kohomology-js/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-js/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'kohomology-js/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
 
 jobs:
   build-jvm:
@@ -34,9 +34,9 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Compile with Gradle
-        run: ./gradlew compileKotlin
+        run: ./gradlew compileKotlinJvm
       - name: Test with Gradle
-        run: ./gradlew test -Dkococo.debug
+        run: ./gradlew jvmTest -Dkococo.debug
       - name: Check with ktlint
         run: ./gradlew ktlintCheck
   build-js:

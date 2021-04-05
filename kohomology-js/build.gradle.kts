@@ -1,5 +1,5 @@
 plugins {
-    kotlin("js") version "1.4.10"
+    kotlin("js") version "1.4.31"
     id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
 }
 
@@ -15,9 +15,9 @@ repositories {
 
 dependencies {
     implementation("com.ionspin.kotlin:bignum:0.2.3")
+    implementation("com.github.shwaka.kohomology:kohomology:0.0")
     testImplementation(kotlin("test-js"))
     // kococo
-    // js だとうまく使えないっぽいので comment out して、直接書いた
     val kococoVersion = "0.1"
     val kococoDebug = "com.github.shwaka.kococo:kococo-debug-js:$kococoVersion"
     val kococoRelease = "com.github.shwaka.kococo:kococo-release-js:$kococoVersion"

@@ -156,10 +156,9 @@ class FreeGAlgebraTest : StringSpec({
             Indeterminate("y", 3),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-        @Suppress("UnnecessaryVariable")
         freeGAlgebra.withGAlgebraContext {
             val (x, y) = freeGAlgebra.generatorList
-            val dx = y
+            @Suppress("UnnecessaryVariable") val dx = y
             val dy = zeroGVector
             val d = freeGAlgebra.getDerivation(listOf(dx, dy), 1)
             d(y).isZero().shouldBeTrue()

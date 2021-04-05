@@ -53,6 +53,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
         }
     }
+    "[polynomial, deg=$generatorDegree] check algebra map" {
+        val (x, y) = freeGAlgebra.generatorList
+        freeGAlgebra.withGAlgebraContext {
+            val valueList = listOf(x + y, x - y)
+            val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
+            f(x) shouldBe (x + y)
+            f(y) shouldBe (x - y)
+            f(x + y) shouldBe (2 * x)
+            f(x * y) shouldBe (x.pow(2) - y.pow(2))
+        }
+    }
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = stringSpec {
@@ -93,6 +104,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             (x + y).pow(1) shouldBe (x + y)
             (y * x) shouldBe (-x * y)
             (x + y).pow(2).isZero().shouldBeTrue()
+        }
+    }
+    "[exterior, deg=$generatorDegree] check algebra map" {
+        val (x, y) = freeGAlgebra.generatorList
+        freeGAlgebra.withGAlgebraContext {
+            val valueList = listOf(x + y, y)
+            val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
+            f(x) shouldBe (x + y)
+            f(y) shouldBe y
+            f(x + y) shouldBe (x + 2 * y)
+            f(x * y) shouldBe (x * y)
         }
     }
 }

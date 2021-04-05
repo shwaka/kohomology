@@ -15,6 +15,7 @@ repositories {
 
 dependencies {
     implementation("com.ionspin.kotlin:bignum:0.2.3")
+    implementation("com.github.shwaka.kohomology:kohomology:0.0")
     testImplementation(kotlin("test-js"))
     // kococo
     // js だとうまく使えないっぽいので comment out して、直接書いた

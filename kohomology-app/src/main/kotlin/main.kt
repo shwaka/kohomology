@@ -10,7 +10,7 @@ fun main() {
         Indeterminate("y", sphereDim * 2 - 1)
     )
     val matrixSpace = DenseMatrixSpaceOverBigRational
-    val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+    val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
         listOf(zeroGVector, x.pow(2))
     }
     val freeLoopSpace = freeLoopSpace(sphere)

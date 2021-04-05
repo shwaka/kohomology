@@ -198,6 +198,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         vectorList: List<Vector<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>
     ): Boolean {
+        if (vectorList.size != this.dim) return false
         return matrixSpace.withContext {
             matrixSpace.fromNumVectors(vectorList.map { it.numVector }, this@VectorSpace.dim)
                 .isInvertible()

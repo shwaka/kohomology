@@ -1,15 +1,20 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val vectorTag = NamedTag("Vector")
@@ -69,10 +74,47 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    val numVectorSpace = matrixSpace.numVectorSpace
+    val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+    val (v, w) = vectorSpace.getBasis()
+    vectorSpace.withContext {
+        "isBasis should return true for a correct basis" {
+            vectorSpace.isBasis(listOf(v, w), matrixSpace).shouldBeTrue()
+            vectorSpace.isBasis(listOf(v - w, -2 * v + w), matrixSpace).shouldBeTrue()
+        }
+        "isBasis should return false for non-basis" {
+            vectorSpace.isBasis(listOf(), matrixSpace).shouldBeFalse()
+            vectorSpace.isBasis(listOf(v), matrixSpace).shouldBeFalse()
+            vectorSpace.isBasis(listOf(v, v), matrixSpace).shouldBeFalse()
+            vectorSpace.isBasis(listOf(v, w, v + w), matrixSpace).shouldBeFalse()
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    val numVectorSpace = matrixSpace.numVectorSpace
+    val vectorSpace = VectorSpace(numVectorSpace, listOf<String>())
+    vectorSpace.withContext {
+        "empty list should be a basis of the zero vector space" {
+            vectorSpace.isBasis(listOf(), matrixSpace).shouldBeTrue()
+        }
+        "non-empty list should not be a basis of the zero vector space" {
+            val zeroVector = vectorSpace.zeroVector
+            vectorSpace.isBasis(listOf(zeroVector), matrixSpace).shouldBeFalse()
+            vectorSpace.isBasis(listOf(zeroVector, zeroVector), matrixSpace).shouldBeFalse()
+        }
+    }
+}
+
 class BigRationalVectorTest : StringSpec({
     tags(vectorTag, bigRationalTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverBigRational
     include(vectorTest(numVectorSpace))
     include(vectorSpaceTest(numVectorSpace))
+
+    val matrixSpace = DenseMatrixSpaceOverBigRational
+    include(isBasisTest(matrixSpace))
+    include(isBasisForZeroTest(matrixSpace))
 })

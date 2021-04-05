@@ -129,6 +129,15 @@ tasks.jacocoTestReport {
         html.isEnabled = true
         // xml.isEnabled = true
     }
+
+    // https://stackoverflow.com/questions/59802396/kotlin-multiplatform-coverage
+    val coverageSourceDirs = arrayOf("src/commonMain", "src/jvmMain")
+    val classFiles = File("$buildDir/classes/kotlin/jvm/").walkBottomUp().toSet()
+
+    classDirectories.setFrom(classFiles)
+    sourceDirectories.setFrom(files(coverageSourceDirs))
+
+    executionData.setFrom(files("$buildDir/jacoco/jvmTest.exec"))
 }
 
 testlogger {
@@ -153,7 +162,7 @@ val browserCommand = when {
     else -> throw NotImplementedError("browserCommand is not set for the current OS")
 }
 tasks.register<Exec>("openTestReport") {
-    commandLine(browserCommand, "./build/reports/tests/test/index.html")
+    commandLine(browserCommand, "./build/reports/tests/jvmTest/index.html")
 }
 tasks.register<Exec>("openJacocoReport") {
     commandLine(browserCommand, "./build/reports/jacoco/test/html/index.html")

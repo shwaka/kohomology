@@ -65,7 +65,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw IllegalArgumentException("Invalid size of the list of values of a derivation")
-        this.indeterminateList.zip(valueList).map { (indeterminate, value) ->
+        for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
                 if (value.degree != indeterminate.degree + derivationDegree)
                     throw IllegalArgumentException(
@@ -123,7 +123,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     ): GLinearMap<Monomial<I>, B, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw IllegalArgumentException("Invalid size of the list of values of an algebra map")
-        this.indeterminateList.zip(valueList).map { (indeterminate, value) ->
+        for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
                 if (value.degree != indeterminate.degree)
                     throw IllegalArgumentException(

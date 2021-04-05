@@ -89,8 +89,11 @@ class DenseNumVectorSpace<S : Scalar>(
             throw IllegalArgumentException("The numVector $numVector2 does not match the context")
         if (numVector1.dim != numVector2.dim)
             throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")
+        val zero = this.field.withContext { zero }
         return this.withContext {
-            numVector1.values.zip(numVector2.values).map { (a, b) -> a * b }.reduce { acc, x -> acc + x }
+            numVector1.values.zip(numVector2.values)
+                .map { (a, b) -> a * b }
+                .fold(zero) { acc, x -> acc + x }
         }
     }
 

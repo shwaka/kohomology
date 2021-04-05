@@ -67,7 +67,7 @@ class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
                         }
                     }
                 }
-                matrixSpace.fromRows(rows)
+                matrixSpace.fromRows(rows, colCount)
             }
             val matrixSequence = MatrixSequence(matrixSpace, matrixList, rowCount, colCount)
             return BilinearMap(source1, source2, target, matrixSequence)

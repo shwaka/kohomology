@@ -52,6 +52,25 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
             }
         }
+        "[dim=$sphereDim] check basis of cohomology" {
+            for (n in 0 until 5) {
+                val basis = listOf(freeLoopSpace.cohomologyClassOf(sx * sy.pow(n)))
+                val degree = (2 * n + 1) * (sphereDim - 1)
+                freeLoopSpace.cohomology.isBasis(basis, degree).shouldBeTrue()
+            }
+            for (n in 0 until 5) {
+                val basis = listOf(
+                    freeLoopSpace.cohomologyClassOf(
+                        if (n == 0)
+                            x
+                        else
+                            2 * n * y * sx * sy.pow(n - 1) + x * sy.pow(n)
+                    )
+                )
+                val degree = (2 * n + 1) * (sphereDim - 1) + 1
+                freeLoopSpace.cohomology.isBasis(basis, degree).shouldBeTrue()
+            }
+        }
     }
 }
 

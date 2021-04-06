@@ -5,7 +5,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val mat: M
 ) {
     init {
-        this.matrixSpace.withContext {
+        this.matrixSpace.context.run {
             if (mat.rowCount != 2 || mat.colCount != 2)
                 throw IllegalArgumentException("mat should be square matrix of rank 2")
         }
@@ -16,7 +16,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val d = mat[1, 1]
 
     operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
-        val mat = this.matrixSpace.withContext {
+        val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
                 listOf(
@@ -29,7 +29,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     operator fun minus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
-        val mat = this.matrixSpace.withContext {
+        val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
                 listOf(
@@ -42,7 +42,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     operator fun unaryMinus(): MatrixOfRank2<S, V, M> {
-        val mat = this.matrixSpace.withContext {
+        val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
             self.matrixSpace.fromRows(
                 listOf(
@@ -55,7 +55,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     fun det(): S {
-        return this.matrixSpace.withContext {
+        return this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
             self.a * self.d - self.b * self.c
         }

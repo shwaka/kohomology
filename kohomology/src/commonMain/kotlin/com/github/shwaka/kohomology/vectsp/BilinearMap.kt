@@ -22,7 +22,7 @@ class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
     }
     fun multiply(numVector1: V, numVector2: V): V {
-        val values = this.matrixSpace.withContext {
+        val values = this.matrixSpace.context.run {
             matrixList.map { matrix -> matrix.innerProduct(numVector1, numVector2) }
         }
         return matrixSpace.numVectorSpace.fromValues(values)
@@ -60,7 +60,7 @@ class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
             val rowCount = source1.dim
             val colCount = source2.dim
             val matrixList: List<M> = (0 until target.dim).map { k ->
-                val rows: List<List<S>> = matrixSpace.withContext {
+                val rows: List<List<S>> = matrixSpace.context.run {
                     (0 until rowCount).map { i ->
                         (0 until colCount).map { j ->
                             vectors[i][j].numVector[k]

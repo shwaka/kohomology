@@ -43,7 +43,7 @@ class Fp private constructor(override val characteristic: Int) : Field<IntModp> 
         }
     }
 
-    override val scalarContext: ScalarContext<IntModp> = ScalarContext(this)
+    override val context: ScalarContext<IntModp> = ScalarContext(this)
 
     override val field = this
 

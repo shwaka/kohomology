@@ -21,7 +21,7 @@ val vectorTag = NamedTag("Vector")
 
 fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-    vectorSpace.withContext {
+    vectorSpace.context.run {
         "addition of Vector" {
             val numVector = numVectorSpace.fromValues(one, zero, one)
             val v = vectorSpace.fromNumVector(numVector)
@@ -54,7 +54,7 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
         override fun toString(): String = this.name
     }
 
-    numVectorSpace.withContext {
+    numVectorSpace.context.run {
         "custom class for basis" {
             val x = BasisElm("x")
             val y = BasisElm("y")
@@ -78,7 +78,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: Ma
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
     val (v, w) = vectorSpace.getBasis()
-    vectorSpace.withContext {
+    vectorSpace.context.run {
         "isBasis should return true for a correct basis" {
             vectorSpace.isBasis(listOf(v, w), matrixSpace).shouldBeTrue()
             vectorSpace.isBasis(listOf(v - w, -2 * v + w), matrixSpace).shouldBeTrue()
@@ -95,7 +95,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: Ma
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf<String>())
-    vectorSpace.withContext {
+    vectorSpace.context.run {
         "empty list should be a basis of the zero vector space" {
             vectorSpace.isBasis(listOf(), matrixSpace).shouldBeTrue()
         }

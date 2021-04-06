@@ -32,14 +32,14 @@ fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSp
         tensorProduct.vectorSpace.getBasis() shouldBe listOf(v1w1, v1w2, v1w3, v2w1, v2w2, v2w3)
     }
     "Tensor product of two vectors" {
-        val expected = tensorProduct.vectorSpace.withContext { 2 * v1w1 - v1w2 + 6 * v2w1 - 3 * v2w2 }
+        val expected = tensorProduct.vectorSpace.context.run { 2 * v1w1 - v1w2 + 6 * v2w1 - 3 * v2w2 }
         tensorProduct.tensorProductOf(
-            vectorSpace1.withContext { v1 + 3 * v2 },
-            vectorSpace2.withContext { 2 * w1 - w2 }
+            vectorSpace1.context.run { v1 + 3 * v2 },
+            vectorSpace2.context.run { 2 * w1 - w2 }
         ) shouldBe expected
     }
     "context test" {
-        tensorProduct.withContext {
+        tensorProduct.context.run {
             (v1 tensor w1) shouldBe v1w1
             ((v1 + 3 * v2) tensor (2 * w1 - w2)) shouldBe
                 ((2 * v1 tensor w1) - (v1 tensor w2) + (6 * v2 tensor w1) - (3 * v2 tensor w2))

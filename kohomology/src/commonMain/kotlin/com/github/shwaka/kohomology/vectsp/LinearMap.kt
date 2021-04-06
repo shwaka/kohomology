@@ -21,7 +21,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private 
     operator fun invoke(vector: Vector<B0, S, V>): Vector<B1, S, V> {
         if (vector.vectorSpace != this.source)
             throw IllegalArgumentException("Invalid vector is given as an argument for a linear map")
-        return this.matrixSpace.withContext {
+        return this.matrixSpace.context.run {
             Vector(this@LinearMap.matrix * vector.numVector, this@LinearMap.target)
         }
     }
@@ -48,7 +48,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private 
     }
 
     fun kernelBasis(): List<Vector<B0, S, V>> {
-        val numVectorList = this.matrixSpace.withContext { this@LinearMap.matrix.computeKernelBasis() }
+        val numVectorList = this.matrixSpace.context.run { this@LinearMap.matrix.computeKernelBasis() }
         return numVectorList.map { this.source.fromNumVector(it) }
     }
 

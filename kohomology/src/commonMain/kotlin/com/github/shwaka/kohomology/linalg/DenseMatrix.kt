@@ -61,7 +61,7 @@ class DenseMatrixSpace<S : Scalar>(
 
     override val field: Field<S> = this.numVectorSpace.field
 
-    override val matrixContext = MatrixContext(this.field, this.numVectorSpace, this)
+    override val context = MatrixContext(this.field, this.numVectorSpace, this)
 
     override fun contains(matrix: DenseMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace
@@ -75,7 +75,7 @@ class DenseMatrixSpace<S : Scalar>(
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
             throw ArithmeticException("Cannot add matrices: different shapes")
         val values = first.values.zip(second.values).map { (rowInThis, rowInOther) ->
-            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.withContext { elmInThis + elmInOther } }
+            rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.context.run { elmInThis + elmInOther } }
         }
         return this.fromRows(values)
     }
@@ -85,7 +85,7 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
         if (second !in this)
             throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
-        return this.withContext {
+        return this.context.run {
             first + (-1) * second
         }
     }
@@ -102,7 +102,7 @@ class DenseMatrixSpace<S : Scalar>(
         val colRange = 0 until second.colCount
         val values = rowRange.map { i ->
             colRange.map { j ->
-                this.field.withContext {
+                this.field.context.run {
                     sumRange
                         .map { k -> first.values[i][k] * second.values[k][j] }
                         .fold(zero) { a, b -> a + b }
@@ -117,7 +117,7 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
-        val values = matrix.values.map { row -> row.map { elm -> this.field.withContext { -elm } } }
+        val values = matrix.values.map { row -> row.map { elm -> this.field.context.run { -elm } } }
         return this.fromRows(values)
     }
 
@@ -129,7 +129,7 @@ class DenseMatrixSpace<S : Scalar>(
         if (matrix.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val values = matrix.values.map { row ->
-            this.field.withContext {
+            this.field.context.run {
                 row.zip(numVector.values)
                     .map { it.first * it.second }
                     .fold(zero) { a, b -> a + b }
@@ -161,7 +161,7 @@ class DenseMatrixSpace<S : Scalar>(
         numVector1: DenseNumVector<S>,
         numVector2: DenseNumVector<S>
     ): S {
-        return this.withContext {
+        return this.context.run {
             numVector1 dot (matrix * numVector2)
         }
     }

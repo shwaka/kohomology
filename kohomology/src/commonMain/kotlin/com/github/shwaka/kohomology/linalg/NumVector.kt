@@ -35,13 +35,12 @@ open class NumVectorContext<S : Scalar, V : NumVector<S>>(
 
 interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, V> {
     val field: Field<S>
-    val numVectorContext: NumVectorContext<S, V>
-    fun <T> withContext(block: NumVectorContext<S, V>.() -> T) = this.numVectorContext.block()
+    val context: NumVectorContext<S, V>
     fun getZero(dim: Int): V
     fun fromValues(values: List<S>): V
     fun fromValues(vararg values: S): V
     fun getOneAtIndex(index: Int, dim: Int): V {
-        val values = this.field.withContext {
+        val values = this.field.context.run {
             (0 until dim).map { if (it == index) one else zero }
         }
         return this.fromValues(values)

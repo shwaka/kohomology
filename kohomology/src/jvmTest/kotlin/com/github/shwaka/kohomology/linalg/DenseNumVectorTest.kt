@@ -19,7 +19,7 @@ val denseNumVectorTag = NamedTag("DenseNumVector")
 
 fun <S : Scalar> denseNumVectorTest(field: Field<S>) = stringSpec {
     val numVectorSpace = DenseNumVectorSpace.from(field)
-    numVectorSpace.withContext {
+    numVectorSpace.context.run {
         "factory should return the cache if exists" {
             DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
         }

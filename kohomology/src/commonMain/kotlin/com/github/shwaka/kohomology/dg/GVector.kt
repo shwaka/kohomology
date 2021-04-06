@@ -164,7 +164,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        val vector = a.vector.vectorSpace.withContext {
+        val vector = a.vector.vectorSpace.context.run {
             a.vector + b.vector
         }
         return this@GVectorSpace.fromVector(vector, a.degree)
@@ -177,7 +177,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        val vector = a.vector.vectorSpace.withContext {
+        val vector = a.vector.vectorSpace.context.run {
             a.vector - b.vector
         }
         return this@GVectorSpace.fromVector(vector, a.degree)
@@ -186,7 +186,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     override fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V> {
         if (gVector !in this)
             throw ArithmeticException("The gVector $gVector does not match the context")
-        val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
+        val vector = gVector.vector.vectorSpace.context.run { scalar * gVector.vector }
         return this.fromVector(vector, gVector.degree)
     }
 

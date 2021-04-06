@@ -34,7 +34,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                 throw IllegalArgumentException("The vector $vector is not contained in the vector space $totalVectorSpace")
         debugOnly {
             // check that quotientGenerator is contained in subspaceGenerator
-            val pivots = matrixSpace.withContext {
+            val pivots = matrixSpace.context.run {
                 val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
                 val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)
                 val matrixForCheck = listOf(subspaceMatrix, quotientMatrix).join()
@@ -44,13 +44,13 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             if (pivots.isNotEmpty() && (pivots.last() >= subspaceGenerator.size))
                 throw IllegalArgumentException("The generator for the quotient is not contained in the subspace")
         }
-        val joinedMatrix: M = matrixSpace.withContext {
+        val joinedMatrix: M = matrixSpace.context.run {
             val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
             val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)
             val id = matrixSpace.getId(totalVectorSpace.dim)
             listOf(quotientMatrix, subspaceMatrix, id).join()
         }
-        val rowEchelonForm: RowEchelonForm<S, V, M> = matrixSpace.withContext {
+        val rowEchelonForm: RowEchelonForm<S, V, M> = matrixSpace.context.run {
             joinedMatrix.rowEchelonForm
         }
         val quotientDim: Int = rowEchelonForm.pivots.filter { it < quotientGenerator.size }.size
@@ -62,12 +62,12 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         this.basisNames = basisIndices.map { index -> subspaceGenerator[index - quotientGenerator.size] }
             .map { vector -> SubQuotBasis(vector) }
 
-        this.transformationMatrix = matrixSpace.withContext {
+        this.transformationMatrix = matrixSpace.context.run {
             val size = rowEchelonForm.reducedMatrix.colCount
             val dim = totalVectorSpace.dim
             rowEchelonForm.reducedMatrix.colSlice((size - dim) until size)
         }
-        this.projectionMatrix = matrixSpace.withContext {
+        this.projectionMatrix = matrixSpace.context.run {
             this@SubQuotFactory.transformationMatrix.rowSlice(quotientDim until (quotientDim + subQuotDim))
         }
         this.sectionMatrix = matrixSpace.fromVectors(

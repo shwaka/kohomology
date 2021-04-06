@@ -8,16 +8,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
-import com.github.shwaka.kohomology.util.list.component10
-import com.github.shwaka.kohomology.util.list.component11
-import com.github.shwaka.kohomology.util.list.component12
-import com.github.shwaka.kohomology.util.list.component13
-import com.github.shwaka.kohomology.util.list.component14
-import com.github.shwaka.kohomology.util.list.component15
-import com.github.shwaka.kohomology.util.list.component6
-import com.github.shwaka.kohomology.util.list.component7
-import com.github.shwaka.kohomology.util.list.component8
-import com.github.shwaka.kohomology.util.list.component9
+import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag

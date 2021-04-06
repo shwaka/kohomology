@@ -20,7 +20,7 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpace(
     val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
     val suspension = run {
         val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
-            loopSpaceGAlgebra.context.run { zeroGVector }
+            loopSpaceGAlgebra.zeroGVector
         }
         loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
     }

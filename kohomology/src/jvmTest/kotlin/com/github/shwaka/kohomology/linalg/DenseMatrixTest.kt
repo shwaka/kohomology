@@ -288,7 +288,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
 inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val field = matrixSpace.context.run { field }
     val vectorSpace = matrixSpace.numVectorSpace
-    val zero = field.context.run { zero }
+    val zero = field.zero
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
@@ -393,8 +393,8 @@ class BigRationalDenseMatrixTest : StringSpec({
 
     "fromVectors should work correctly (use statically selected field)" {
         val numVectorSpace = DenseNumVectorSpaceOverBigRational
-        val zero = BigRationalField.context.run { zero }
-        val one = BigRationalField.context.run { one }
+        val zero = BigRationalField.zero
+        val one = BigRationalField.one
         val two = BigRationalField.fromInt(2)
         val three = BigRationalField.fromInt(3)
         val expectedMat = matrixSpace.fromRows(

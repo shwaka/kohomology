@@ -27,7 +27,7 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpace(
         val suspensionValueList = pathSpaceGeneratorList.takeLast(n) +
             pathSpaceGeneratorList.takeLast(n) +
             List(n) {
-                pathSpaceGAlgebra.context.run { zeroGVector }
+                pathSpaceGAlgebra.zeroGVector
             }
         pathSpaceGAlgebra.getDerivation(suspensionValueList, -1)
     }

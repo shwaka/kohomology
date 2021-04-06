@@ -178,8 +178,8 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
     fun getBasis(): List<Vector<B, S, V>> {
-        val zero = this.field.context.run { zero }
-        val one = this.field.context.run { one }
+        val zero = this.field.zero
+        val one = this.field.one
         return (0 until this.dim).map { i ->
             val coeff = (0 until this.dim).map { j -> if (i == j) one else zero }
             this.fromCoeff(coeff)

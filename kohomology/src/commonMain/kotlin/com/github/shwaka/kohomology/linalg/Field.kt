@@ -51,4 +51,8 @@ open class ScalarContext<S : Scalar>(
 
 interface Field<S : Scalar> : ScalarOperations<S> {
     val context: ScalarContext<S>
+    val zero: S
+        get() = this.context.zero
+    val one: S
+        get() = this.context.one
 }

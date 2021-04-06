@@ -8,7 +8,7 @@ data class DenseNumVector<S : Scalar>(
         get() = this.values.size
 
     override fun isZero(): Boolean {
-        return this.field.context.run { this@DenseNumVector.values.all { it == zero } }
+        return this.values.all { it == this.field.zero }
     }
 }
 
@@ -89,7 +89,7 @@ class DenseNumVectorSpace<S : Scalar>(
             throw IllegalArgumentException("The numVector $numVector2 does not match the context")
         if (numVector1.dim != numVector2.dim)
             throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")
-        val zero = this.field.context.run { zero }
+        val zero = this.field.zero
         return this.context.run {
             numVector1.values.zip(numVector2.values)
                 .map { (a, b) -> a * b }
@@ -106,7 +106,7 @@ class DenseNumVectorSpace<S : Scalar>(
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {
-        val values = List(dim) { this.field.context.run { zero } }
+        val values = List(dim) { this.field.zero }
         return this.fromValues(values)
     }
 }

@@ -17,10 +17,6 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 val gVectorTag = NamedTag("GVector")
 
 fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    val field = numVectorSpace.field
-    val zero = field.context.run { zero }
-    val one = field.context.run { one }
-    val two = field.fromInt(2)
     val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace) { degree -> (0 until degree).map { "v$it" } }
     gVectorSpace.context.run {
         "addition test" {

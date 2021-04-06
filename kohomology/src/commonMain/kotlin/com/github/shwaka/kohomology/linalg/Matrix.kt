@@ -136,7 +136,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {
-        val zero = this.context.run { zero }
+        val zero = this.field.zero
         val rows = List(rowCount) { List(colCount) { zero } }
         return this.fromRows(rows)
     }
@@ -146,8 +146,8 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     }
 
     fun getId(dim: Int): M {
-        val zero = this.context.run { zero }
-        val one = this.context.run { one }
+        val zero = this.field.zero
+        val one = this.field.one
         val rows = List(dim) { i ->
             List(dim) { j ->
                 if (i == j)

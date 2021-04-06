@@ -6,10 +6,10 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-js/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'kohomology-browser/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-js/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'kohomology-browser/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
 
 jobs:
   build-jvm:
@@ -44,7 +44,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: kohomology-js
+        working-directory: kohomology-browser
 
     steps:
       - uses: actions/checkout@v2

@@ -16,7 +16,7 @@ interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     val unit: GVector<B, S, V>
 }
 
-open class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,

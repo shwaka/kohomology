@@ -16,7 +16,7 @@ interface DGVectorOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V>
 }
 
-class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,

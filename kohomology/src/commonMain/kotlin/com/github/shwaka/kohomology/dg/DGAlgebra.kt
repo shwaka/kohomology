@@ -18,13 +18,16 @@ class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorOperations: GVectorOperations<B, S, V>,
     gAlgebraOperations: GAlgebraOperations<B, S, V, M>,
     dgVectorOperations: DGVectorOperations<B, S, V, M>
-) : GAlgebraContext<B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
-    DGVectorOperations<B, S, V, M> by dgVectorOperations {
-    fun d(gVector: GVector<B, S, V>): GVector<B, S, V> {
-        return this.differential(gVector)
+) : DGVectorContext<B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
+    GAlgebraOperations<B, S, V, M> by gAlgebraOperations {
+    private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations)
+
+    operator fun GVector<B, S, V>.times(other: GVector<B, S, V>): GVector<B, S, V> {
+        return this@DGAlgebraContext.gAlgebraContext.run { this@times * other }
     }
-    fun GVector<B, S, V>.cohomologyClass(): GVector<SubQuotBasis<B, S, V>, S, V> {
-        return this@DGAlgebraContext.cohomologyClassOf(this)
+
+    fun GVector<B, S, V>.pow(exponent: Int): GVector<B, S, V> {
+        return this@DGAlgebraContext.gAlgebraContext.run { this@pow.pow(exponent) }
     }
 }
 

@@ -62,6 +62,10 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
                 (one * a) shouldBe a
             }
         }
+        "field.characteristic should be zero in the field" {
+            val p: S = field.characteristic.toScalar()
+            p shouldBe zero
+        }
         "addition should be associative" {
             checkAll(arb, arb, arb) { a, b, c ->
                 ((a + b) + c) shouldBe (a + (b + c))

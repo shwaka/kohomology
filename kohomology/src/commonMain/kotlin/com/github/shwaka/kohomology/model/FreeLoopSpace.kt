@@ -44,9 +44,9 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpace(
     )
     val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
     val differentialValueList = baseSpaceGeneratorList.map { v ->
-        freeDGAlgebra.withDGAlgebraContext { inclusion(d(v)) }
+        freeDGAlgebra.context.run { inclusion(d(v)) }
     } + baseSpaceGeneratorList.map { v ->
-        val dv = freeDGAlgebra.withDGAlgebraContext { d(v) }
+        val dv = freeDGAlgebra.context.run { d(v) }
         loopSpaceGAlgebra.withGAlgebraContext { -suspension(inclusion(dv)) }
     }
     val differential = loopSpaceGAlgebra.getDerivation(differentialValueList, 1)

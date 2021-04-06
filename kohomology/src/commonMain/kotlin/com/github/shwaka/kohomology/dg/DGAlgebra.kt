@@ -36,10 +36,9 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     differential: GLinearMap<B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorSpace<B, S, V, M>(gAlgebra, differential, matrixSpace) {
-    private val dgAlgebraContext by lazy {
+    override val context by lazy {
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
-    fun <T> withDGAlgebraContext(block: DGAlgebraContext<B, S, V, M>.() -> T): T = this.dgAlgebraContext.block()
 
     private fun getCohomologyMultiplication(p: Degree, q: Degree): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)

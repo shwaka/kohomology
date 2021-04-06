@@ -42,7 +42,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
         }
         val basis: List<GVector<SimpleMonoidElement<String>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
-        gAlgebra.withGAlgebraContext {
+        gAlgebra.context.run {
             for (i in 0..n) {
                 for (j in 0..n) {
                     if (i + j <= n) {

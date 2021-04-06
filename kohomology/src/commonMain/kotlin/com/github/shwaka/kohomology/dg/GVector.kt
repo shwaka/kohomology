@@ -86,8 +86,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    private val gVectorContext by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
-    fun <T> withGVectorContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
+    open val context by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
 
     companion object {
         fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
@@ -128,11 +127,11 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     fun fromBasisName(basisName: B, degree: Degree, coeff: S): GVector<B, S, V> {
-        return this.withGVectorContext { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
+        return this.context.run { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
     }
 
     fun fromBasisName(basisName: B, degree: Degree, coeff: Int): GVector<B, S, V> {
-        val coeffScalar = this.withGVectorContext { coeff.toScalar() }
+        val coeffScalar = this.context.run { coeff.toScalar() }
         return this.fromBasisName(basisName, degree, coeffScalar)
     }
 

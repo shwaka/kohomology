@@ -69,7 +69,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             val bClass = b.cohomologyClass()
             val someClass = (a * y - b * x).cohomologyClass()
             val topClass = (a * b * y - b.pow(2) * x).cohomologyClass()
-            freeDGAlgebra.cohomology.withGAlgebraContext {
+            freeDGAlgebra.cohomology.context.run {
                 (bClass * someClass) shouldBe topClass
             }
         }

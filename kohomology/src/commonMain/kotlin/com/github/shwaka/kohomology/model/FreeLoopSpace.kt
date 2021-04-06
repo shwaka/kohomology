@@ -35,7 +35,7 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpace(
     val loopSpaceGAlgebra = FreeGAlgebra(matrixSpace, loopSpaceIndeterminateList)
     val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
     val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
-        loopSpaceGAlgebra.withGVectorContext { zeroGVector }
+        loopSpaceGAlgebra.context.run { zeroGVector }
     }
     val suspension = loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
     val inclusion = freeDGAlgebra.gAlgebra.getAlgebraMap(
@@ -47,7 +47,7 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpace(
         freeDGAlgebra.context.run { inclusion(d(v)) }
     } + baseSpaceGeneratorList.map { v ->
         val dv = freeDGAlgebra.context.run { d(v) }
-        loopSpaceGAlgebra.withGAlgebraContext { -suspension(inclusion(dv)) }
+        loopSpaceGAlgebra.context.run { -suspension(inclusion(dv)) }
     }
     val differential = loopSpaceGAlgebra.getDerivation(differentialValueList, 1)
     return FreeDGAlgebra(loopSpaceGAlgebra, differential, matrixSpace)

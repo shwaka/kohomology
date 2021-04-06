@@ -41,7 +41,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
         // LinearMap(gVectorSpace[degree], gVectorSpace[degree + 1], matrix)
     }
 
-    gVectorSpace.withGVectorContext {
+    gVectorSpace.context.run {
         "graded linear map test" {
             val (v0, v1) = gVectorSpace.getBasis(2)
             val (w0, w1, w2) = gVectorSpace.getBasis(3)

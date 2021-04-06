@@ -28,26 +28,34 @@ fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpace(
     freeDGAlgebra: FreeDGAlgebra<I, S, V, M>,
 ): FreeDGAlgebra<ShiftedName<I>, S, V, M> {
     val n = freeDGAlgebra.gAlgebra.indeterminateList.size
-    val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
-        list.map { it.shift(0) } + list.map { it.shift(1) }
-    }
     val matrixSpace = freeDGAlgebra.matrixSpace
-    val loopSpaceGAlgebra = FreeGAlgebra(matrixSpace, loopSpaceIndeterminateList)
-    val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
-    val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
-        loopSpaceGAlgebra.context.run { zeroGVector }
+    val loopSpaceGAlgebra = run {
+        val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
+            list.map { it.shift(0) } + list.map { it.shift(1) }
+        }
+        FreeGAlgebra(matrixSpace, loopSpaceIndeterminateList)
     }
-    val suspension = loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
+    val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
+    val suspension = run {
+        val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
+            loopSpaceGAlgebra.context.run { zeroGVector }
+        }
+        loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
+    }
     val inclusion = freeDGAlgebra.gAlgebra.getAlgebraMap(
         loopSpaceGAlgebra,
         loopSpaceGeneratorList.take(n)
     )
-    val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
-    val differentialValueList = baseSpaceGeneratorList.map { v ->
-        freeDGAlgebra.context.run { inclusion(d(v)) }
-    } + baseSpaceGeneratorList.map { v ->
-        val dv = freeDGAlgebra.context.run { d(v) }
-        loopSpaceGAlgebra.context.run { -suspension(inclusion(dv)) }
+    val differentialValueList = run {
+        val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
+        val valueList1 = baseSpaceGeneratorList.map { v ->
+            freeDGAlgebra.context.run { inclusion(d(v)) }
+        }
+        val valueList2 = baseSpaceGeneratorList.map { v ->
+            val dv = freeDGAlgebra.context.run { d(v) }
+            loopSpaceGAlgebra.context.run { -suspension(inclusion(dv)) }
+        }
+        valueList1 + valueList2
     }
     val differential = loopSpaceGAlgebra.getDerivation(differentialValueList, 1)
     return FreeDGAlgebra(loopSpaceGAlgebra, differential, matrixSpace)

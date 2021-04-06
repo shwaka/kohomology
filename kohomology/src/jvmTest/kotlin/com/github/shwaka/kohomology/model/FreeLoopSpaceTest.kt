@@ -74,7 +74,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     }
 }
 
-class FreeDGAlgebraTest : StringSpec({
+class FreeLoopSpaceTest : StringSpec({
     tags(freeLoopSpaceTag, bigRationalTag)
 
     include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))

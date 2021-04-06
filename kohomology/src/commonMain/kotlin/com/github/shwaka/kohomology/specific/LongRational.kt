@@ -88,7 +88,7 @@ object LongRationalField : Field<LongRational> {
     override val field = this
     override val characteristic = 0
 
-    override val scalarContext: ScalarContext<LongRational> = ScalarContext(this)
+    override val context: ScalarContext<LongRational> = ScalarContext(this)
 
     override fun contains(scalar: LongRational): Boolean {
         return true // Type information is sufficient

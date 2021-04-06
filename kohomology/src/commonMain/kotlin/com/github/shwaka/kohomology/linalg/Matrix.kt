@@ -62,7 +62,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
         val sign: Sign = rowEchelonForm.sign
-        return this@MatrixContext.field.withContext {
+        return this@MatrixContext.field.context.run {
             val detUpToSign = (0 until this@det.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
             detUpToSign * sign
         }
@@ -73,7 +73,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             throw ArithmeticException("Determinant is defined only for square matrices")
         val n = this.rowCount
         var result: S = zero
-        this@MatrixContext.field.withContext {
+        this@MatrixContext.field.context.run {
             for ((perm, sign) in getPermutation((0 until n).toList())) {
                 val product: S = (0 until n).zip(perm).map { (i, j) -> this@detByPermutations[i, j] }.reduce { a, b -> a * b }
                 result += sign * product
@@ -122,8 +122,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 }
 
 interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {
-    val matrixContext: MatrixContext<S, V, M>
-    fun <T> withContext(block: MatrixContext<S, V, M>.() -> T) = this.matrixContext.block()
+    val context: MatrixContext<S, V, M>
     val numVectorSpace: NumVectorSpace<S, V>
     val field: Field<S>
     fun fromRows(rows: List<List<S>>, colCount: Int? = null): M
@@ -131,13 +130,13 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     fun fromNumVectors(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() and (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val cols = this.numVectorSpace.withContext { numVectors.map { v -> v.toList() } }
+        val cols = this.numVectorSpace.context.run { numVectors.map { v -> v.toList() } }
         return this.fromCols(cols, dim)
     }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {
-        val zero = this.withContext { zero }
+        val zero = this.context.run { zero }
         val rows = List(rowCount) { List(colCount) { zero } }
         return this.fromRows(rows)
     }
@@ -147,8 +146,8 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     }
 
     fun getId(dim: Int): M {
-        val zero = this.withContext { zero }
-        val one = this.withContext { one }
+        val zero = this.context.run { zero }
+        val one = this.context.run { one }
         val rows = List(dim) { i ->
             List(dim) { j ->
                 if (i == j)

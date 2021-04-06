@@ -34,7 +34,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     val freeLoopSpace = freeLoopSpace(sphere)
     val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
 
-    freeLoopSpace.withDGAlgebraContext {
+    freeLoopSpace.context.run {
         "[dim=$sphereDim] check differential" {
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe (x * x)

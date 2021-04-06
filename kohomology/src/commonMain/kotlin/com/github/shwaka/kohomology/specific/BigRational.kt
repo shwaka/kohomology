@@ -88,7 +88,7 @@ object BigRationalField : Field<BigRational> {
     override val field = this
     override val characteristic = 0
 
-    override val scalarContext: ScalarContext<BigRational> = ScalarContext(this)
+    override val context: ScalarContext<BigRational> = ScalarContext(this)
 
     override fun contains(scalar: BigRational): Boolean {
         return true // Type information is sufficient

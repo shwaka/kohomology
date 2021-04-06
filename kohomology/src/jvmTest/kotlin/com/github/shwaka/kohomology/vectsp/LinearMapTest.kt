@@ -18,7 +18,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
-    matrixSpace.withContext {
+    matrixSpace.context.run {
         "linear map test" {
             val matrix = matrixSpace.fromRows(
                 listOf(
@@ -58,7 +58,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matri
     val (a, b) = vectorSpace.getBasis()
     val zeroVectorSpace = VectorSpace<String, S, V>(numVectorSpace, listOf())
     val zeroVector = zeroVectorSpace.zeroVector
-    matrixSpace.withContext {
+    matrixSpace.context.run {
         "linear map to zero" {
             val f = LinearMap.fromVectors(vectorSpace, zeroVectorSpace, matrixSpace, listOf(zeroVector, zeroVector))
             f(a).isZero().shouldBeTrue()

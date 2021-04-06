@@ -16,7 +16,7 @@ interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     val unit: GVector<B, S, V>
 }
 
-open class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -49,10 +49,9 @@ open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 ) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    private val gAlgebraContext by lazy {
+    override val context by lazy {
         GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     }
-    fun <T> withGAlgebraContext(block: GAlgebraContext<B, S, V, M>.() -> T): T = this.gAlgebraContext.block()
 
     override val unit: GVector<B, S, V> = this.fromVector(unitVector, 0)
 

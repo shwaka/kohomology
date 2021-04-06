@@ -22,8 +22,8 @@ fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: Num
         val (a, b) = vectorSpace1.getBasis()
         val (x, y) = vectorSpace2.getBasis()
 
-        context.run { a + b } shouldBe vectorSpace1.withContext { a + b }
-        context.run { x + y } shouldBe vectorSpace2.withContext { x + y }
+        context.run { a + b } shouldBe vectorSpace1.context.run { a + b }
+        context.run { x + y } shouldBe vectorSpace2.context.run { x + y }
     }
 
     "two vector spaces with different basis classes" {
@@ -34,8 +34,8 @@ fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: Num
         val (a, b) = vectorSpace1.getBasis()
         val (x, y) = vectorSpace2.getBasis()
 
-        context.run { a + b } shouldBe vectorSpace1.withContext { a + b }
-        context.run { x + y } shouldBe vectorSpace2.withContext { x + y }
+        context.run { a + b } shouldBe vectorSpace1.context.run { a + b }
+        context.run { x + y } shouldBe vectorSpace2.context.run { x + y }
     }
 }
 

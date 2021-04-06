@@ -41,7 +41,7 @@ fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
-    matrixSpace.withContext {
+    matrixSpace.context.run {
         val m = matrixSpace.fromRows(
             listOf(
                 listOf(two, one),
@@ -286,9 +286,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
 }
 
 inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.withContext { field }
+    val field = matrixSpace.context.run { field }
     val vectorSpace = matrixSpace.numVectorSpace
-    val zero = field.withContext { zero }
+    val zero = field.context.run { zero }
     "fromVectors(vararg) should work with reified type variables" {
         val v = vectorSpace.fromValues(zero, zero, zero)
         shouldNotThrowAny {
@@ -302,33 +302,33 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> denseMatrixOfRank2Test(
     max: Int = 100
 ) = stringSpec {
     // val vectorSpace = DenseNumVectorSpace.from(field)
-    val field = matrixSpace.withContext { field }
+    val field = matrixSpace.context.run { field }
     val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
     "Property testing for matrix addition" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            matrixSpace.withContext {
+            matrixSpace.context.run {
                 MatrixOfRank2(matrixSpace, mat1 + mat2) shouldBe (MatrixOfRank2(matrixSpace, mat1) + MatrixOfRank2(matrixSpace, mat2))
             }
         }
     }
     "Property testing for matrix subtraction" {
         checkAll(matrixArb, matrixArb) { mat1, mat2 ->
-            matrixSpace.withContext {
+            matrixSpace.context.run {
                 MatrixOfRank2(matrixSpace, mat1 - mat2) shouldBe (MatrixOfRank2(matrixSpace, mat1) - MatrixOfRank2(matrixSpace, mat2))
             }
         }
     }
     "Property testing for unaryMinus of matrix" {
         checkAll(matrixArb) { mat ->
-            matrixSpace.withContext {
+            matrixSpace.context.run {
                 MatrixOfRank2(matrixSpace, -mat) shouldBe (-MatrixOfRank2(matrixSpace, mat))
             }
         }
     }
     "Property testing for det" {
         checkAll(matrixArb) { mat ->
-            matrixSpace.withContext {
+            matrixSpace.context.run {
                 mat.det() shouldBe MatrixOfRank2(matrixSpace, mat).det()
             }
         }
@@ -345,7 +345,7 @@ fun <S : Scalar> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec
         checkAll(Exhaustive.ints(1..n)) { k ->
             val matrixArb = matrixSpace.arb(scalarArb, k, k)
             checkAll(matrixArb) { mat ->
-                matrixSpace.withContext {
+                matrixSpace.context.run {
                     mat.det() shouldBe mat.detByPermutations()
                 }
             }
@@ -393,8 +393,8 @@ class BigRationalDenseMatrixTest : StringSpec({
 
     "fromVectors should work correctly (use statically selected field)" {
         val numVectorSpace = DenseNumVectorSpaceOverBigRational
-        val zero = BigRationalField.withContext { zero }
-        val one = BigRationalField.withContext { one }
+        val zero = BigRationalField.context.run { zero }
+        val one = BigRationalField.context.run { one }
         val two = BigRationalField.fromInt(2)
         val three = BigRationalField.fromInt(3)
         val expectedMat = matrixSpace.fromRows(

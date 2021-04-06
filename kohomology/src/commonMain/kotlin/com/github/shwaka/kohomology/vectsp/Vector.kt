@@ -20,7 +20,7 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
     }
 
     fun coeffOf(basisName: B): S {
-        return this.vectorSpace.numVectorSpace.withContext {
+        return this.vectorSpace.numVectorSpace.context.run {
             this@Vector.numVector[this@Vector.vectorSpace.indexOf(basisName)]
         }
     }
@@ -49,11 +49,11 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
     }
 
     fun toString(basisToString: (B) -> String): String {
-        val coeffList = this.vectorSpace.numVectorSpace.withContext {
+        val coeffList = this.vectorSpace.numVectorSpace.context.run {
             this@Vector.numVector.toList()
         }
         val basis = this.vectorSpace.basisNames.map(basisToString)
-        return this.numVector.field.withContext {
+        return this.numVector.field.context.run {
             val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff != zero }
             if (basisWithCoeff.isEmpty()) {
                 "0"
@@ -104,10 +104,9 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    private val vectorContext by lazy {
+    val context by lazy {
         VectorContext(numVectorSpace.field, numVectorSpace, this)
     }
-    fun <T> withContext(block: VectorContext<B, S, V>.() -> T) = this.vectorContext.block()
 
     override fun contains(vector: Vector<B, S, V>): Boolean {
         return vector.vectorSpace == this
@@ -118,7 +117,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The vector $a is not contained in the vector space $this")
         if (b !in this)
             throw ArithmeticException("The vector $b is not contained in the vector space $this")
-        return numVectorSpace.withContext {
+        return numVectorSpace.context.run {
             Vector(a.numVector + b.numVector, this@VectorSpace)
         }
     }
@@ -128,7 +127,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The vector $a is not contained in the vector space $this")
         if (b !in this)
             throw ArithmeticException("The vector $b is not contained in the vector space $this")
-        return this.numVectorSpace.withContext {
+        return this.numVectorSpace.context.run {
             Vector(a.numVector - b.numVector, this@VectorSpace)
         }
     }
@@ -138,7 +137,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
         if (vector !in this)
             throw ArithmeticException("The vector $vector is not contained in the vector space $this")
-        return this.numVectorSpace.withContext {
+        return this.numVectorSpace.context.run {
             Vector(vector.numVector * scalar, vector.vectorSpace)
         }
     }
@@ -158,7 +157,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
 
     fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
-        val coeffList: List<S> = this.field.withContext {
+        val coeffList: List<S> = this.field.context.run {
             (0 until this@VectorSpace.dim).map { i ->
                 if (i == index) one else zero
             }
@@ -167,11 +166,11 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {
-        return this.withContext { this@VectorSpace.fromBasisName(basisName) * coeff }
+        return this.context.run { this@VectorSpace.fromBasisName(basisName) * coeff }
     }
 
     fun fromBasisName(basisName: B, coeff: Int): Vector<B, S, V> {
-        val coeffScalar = this.withContext { coeff.toScalar() }
+        val coeffScalar = this.context.run { coeff.toScalar() }
         return this.fromBasisName(basisName, coeffScalar)
     }
 
@@ -179,8 +178,8 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
     fun getBasis(): List<Vector<B, S, V>> {
-        val zero = this.field.withContext { zero }
-        val one = this.field.withContext { one }
+        val zero = this.field.context.run { zero }
+        val one = this.field.context.run { one }
         return (0 until this.dim).map { i ->
             val coeff = (0 until this.dim).map { j -> if (i == j) one else zero }
             this.fromCoeff(coeff)
@@ -199,7 +198,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
         matrixSpace: MatrixSpace<S, V, M>
     ): Boolean {
         if (vectorList.size != this.dim) return false
-        return matrixSpace.withContext {
+        return matrixSpace.context.run {
             matrixSpace.fromNumVectors(vectorList.map { it.numVector }, this@VectorSpace.dim)
                 .isInvertible()
         }

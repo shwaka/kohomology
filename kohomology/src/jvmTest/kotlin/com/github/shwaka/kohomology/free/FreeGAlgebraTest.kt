@@ -46,7 +46,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     }
     "[polynomial, deg=$generatorDegree] check multiplication" {
         val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             (x + y).pow(0) shouldBe freeGAlgebra.unit
             (x + y).pow(1) shouldBe (x + y)
             (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
@@ -55,7 +55,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     }
     "[polynomial, deg=$generatorDegree] check algebra map" {
         val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             val valueList = listOf(x + y, x - y)
             val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
             f(x) shouldBe (x + y)
@@ -99,7 +99,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     }
     "[exterior, deg=$generatorDegree] check multiplication" {
         val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             (x + y).pow(0) shouldBe freeGAlgebra.unit
             (x + y).pow(1) shouldBe (x + y)
             (y * x) shouldBe (-x * y)
@@ -108,7 +108,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     }
     "[exterior, deg=$generatorDegree] check algebra map" {
         val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             val valueList = listOf(x + y, y)
             val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
             f(x) shouldBe (x + y)
@@ -137,7 +137,7 @@ class FreeGAlgebraTest : StringSpec({
             Indeterminate("y", 3),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             val (x, y) = freeGAlgebra.generatorList
             val dx = zeroGVector
             val dy = x * x
@@ -156,7 +156,7 @@ class FreeGAlgebraTest : StringSpec({
             Indeterminate("y", 3),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-        freeGAlgebra.withGAlgebraContext {
+        freeGAlgebra.context.run {
             val (x, y) = freeGAlgebra.generatorList
             @Suppress("UnnecessaryVariable") val dx = y
             val dy = zeroGVector

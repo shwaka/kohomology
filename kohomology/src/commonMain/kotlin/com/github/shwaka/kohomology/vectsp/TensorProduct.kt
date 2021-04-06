@@ -36,7 +36,7 @@ class TensorProduct<B1, B2, S : Scalar, V : NumVector<S>>(
     val vectorSpace2: VectorSpace<B2, S, V>
 ) {
     val vectorSpace: VectorSpace<BasisPair<B1, B2>, S, V>
-    private val context by lazy { TensorProductContext(this) } // 直接代入するとなぜか Null Pointer Exception が起きる
+    val context by lazy { TensorProductContext(this) } // 直接代入するとなぜか Null Pointer Exception が起きる
 
     init {
         if (vectorSpace1.numVectorSpace != vectorSpace2.numVectorSpace)
@@ -55,12 +55,10 @@ class TensorProduct<B1, B2, S : Scalar, V : NumVector<S>>(
         val coeffList = this.vectorSpace.basisNames.map { (basis1, basis2) ->
             val coeff1 = vector1.coeffOf(basis1)
             val coeff2 = vector2.coeffOf(basis2)
-            this.vectorSpace.field.withContext {
+            this.vectorSpace.field.context.run {
                 coeff1 * coeff2
             }
         }
         return this.vectorSpace.fromCoeff(coeffList)
     }
-
-    fun <T> withContext(block: TensorProductContext<B1, B2, S, V>.() -> T): T = this.context.block()
 }

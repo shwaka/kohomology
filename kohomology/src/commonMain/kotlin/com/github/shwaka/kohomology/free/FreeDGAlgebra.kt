@@ -23,7 +23,7 @@ class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
         ): FreeDGAlgebra<I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
             val differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
-                valueList = freeGAlgebra.withGAlgebraContext { getDifferentialValueList(freeGAlgebra.generatorList) },
+                valueList = freeGAlgebra.context.run { getDifferentialValueList(freeGAlgebra.generatorList) },
                 derivationDegree = 1
             )
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)

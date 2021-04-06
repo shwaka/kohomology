@@ -26,7 +26,7 @@ fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
     val intMin = -100
     val intMax = 100
     val intArb = Arb.int(intMin..intMax)
-    field.withContext {
+    field.context.run {
         "fromInt should be additive" {
             checkAll(intArb, intArb) { a, b ->
                 (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
@@ -49,7 +49,7 @@ fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
 fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = stringSpec {
     if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
     val arb = field.arb(Arb.int(-intMax..intMax))
-    field.withContext {
+    field.context.run {
         "field.zero should be the unit of addition" {
             checkAll(arb) { a ->
                 (a + zero) shouldBe a
@@ -123,7 +123,7 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
 fun <S : Scalar> rationalTest(field: Field<S>) = stringSpec {
     tags(fieldTag)
 
-    field.withContext {
+    field.context.run {
         "1/2 + 1/3 should be 5/6" {
             val a = field.fromIntPair(1, 2)
             val b = field.fromIntPair(1, 3)
@@ -160,7 +160,7 @@ class IntRationalTest : StringSpec({
     include(rationalTest(IntRationalField))
 
     "overflow test for IntRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
-        IntRationalField.withContext {
+        IntRationalField.context.run {
             val a = Int.MAX_VALUE.toScalar()
             val b = one
             shouldThrow<ArithmeticException> { a + b }
@@ -178,7 +178,7 @@ class LongRationalTest : StringSpec({
 
     "overflow test for LongRational".config(enabled = kococoDebug, tags = setOf(overflowTag)) {
         val a = LongRationalField.fromInt(Int.MAX_VALUE)
-        LongRationalField.withContext {
+        LongRationalField.context.run {
             shouldThrow<ArithmeticException> { a * a * 3 }
         }
     }
@@ -204,25 +204,25 @@ class IntModpTest : StringSpec({
         F5.fromInt(-1) shouldBe F5.fromInt(4)
     }
     "2^{-1} should be 3 in F_5" {
-        F5.withContext {
+        F5.context.run {
             two.inv() shouldBe three
         }
     }
     "1 + 2 should be 3 (mod 5)" {
-        F5.withContext {
+        F5.context.run {
             (one + two) shouldBe three
         }
     }
     "3 + 4 should be 2 (mod 5)" {
-        F5.withContext {
+        F5.context.run {
             (three + four) shouldBe two
         }
     }
     "addition of different characteristic should throw ArithmeticException" {
-        val twoMod7 = F7.withContext { two }
-        val threeMod7 = F7.withContext { three }
+        val twoMod7 = F7.context.run { two }
+        val threeMod7 = F7.context.run { three }
         shouldThrow<ArithmeticException> {
-            F5.withContext {
+            F5.context.run {
                 twoMod7 + threeMod7
             }
         }
@@ -254,7 +254,7 @@ class CompileTest : StringSpec({
             """
             import com.github.shwaka.kohomology.specific.IntRational
             import com.github.shwaka.kohomology.specific.IntRationalField
-            val foo = IntRationalField.withContext { IntRational(0, 1) + IntRational(1, 0) }
+            val foo = IntRationalField.context.run { IntRational(0, 1) + IntRational(1, 0) }
             """ // compiles, but runtime error
         codeSnippet.shouldCompile()
     }
@@ -264,7 +264,7 @@ class CompileTest : StringSpec({
             import com.github.shwaka.kohomology.specific.IntRational
             import com.github.shwaka.kohomology.specific.IntRationalField
             import com.github.shwaka.kohomology.specific.IntModp
-            val foo = IntRationalField.withContext { IntRational(0, 1) + IntModp(0, 7) }
+            val foo = IntRationalField.context.run { IntRational(0, 1) + IntModp(0, 7) }
             """
         codeSnippet.shouldNotCompile()
     }

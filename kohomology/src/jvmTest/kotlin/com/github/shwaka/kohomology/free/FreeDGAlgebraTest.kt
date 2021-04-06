@@ -28,7 +28,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             listOf(zeroGVector, x.pow(2))
         }
         val (x, y) = freeDGAlgebra.gAlgebra.generatorList
-        freeDGAlgebra.withDGAlgebraContext {
+        freeDGAlgebra.context.run {
             d(unit).isZero().shouldBeTrue()
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe x.pow(2)
@@ -53,7 +53,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
         }
         val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
-        freeDGAlgebra.withDGAlgebraContext {
+        freeDGAlgebra.context.run {
             d(x * y) shouldBe (a.pow(2) * y - a * b * x)
             d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
         }
@@ -65,11 +65,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             }
             freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
         }
-        freeDGAlgebra.withDGAlgebraContext {
+        freeDGAlgebra.context.run {
             val bClass = b.cohomologyClass()
             val someClass = (a * y - b * x).cohomologyClass()
             val topClass = (a * b * y - b.pow(2) * x).cohomologyClass()
-            freeDGAlgebra.cohomology.withGAlgebraContext {
+            freeDGAlgebra.cohomology.context.run {
                 (bClass * someClass) shouldBe topClass
             }
         }

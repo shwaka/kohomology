@@ -103,17 +103,17 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                     0
             }
             val derivedSeparatedMonomial = Monomial(this.indeterminateList, derivedSeparatedExponentList)
-            val derivedSeparatedGVector = this.withGAlgebraContext {
+            val derivedSeparatedGVector = this.context.run {
                 separation.separatedExponent *
                     this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *
                     valueList[separation.index]
             }
             val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.degree)
-            this.withGAlgebraContext {
+            this.context.run {
                 derivedSeparatedGVector * remainingGVector * separation.sign
             }
         }.fold(this.getZero(valueDegree)) { acc, gVector ->
-            this.withGVectorContext { acc + gVector }
+            this.context.run { acc + gVector }
         }
     }
 
@@ -152,7 +152,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         valueList: List<GVector<B, S, V>>,
         monomial: Monomial<I>
     ): GVector<B, S, V> {
-        return target.withGAlgebraContext {
+        return target.context.run {
             monomial.exponentList.mapIndexed { index, exponent ->
                 valueList[index].pow(exponent)
             }.fold(this.unit) { acc, gVector ->

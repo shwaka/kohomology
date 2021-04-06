@@ -8,7 +8,7 @@ import io.kotest.property.arbitrary.int
 
 fun <S : Scalar> Field<S>.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE)): Arb<S> {
     return Arb.bind(intArb, intArb) { n, m ->
-        this.withContext {
+        this.context.run {
             val a = n.toScalar()
             val b = m.toScalar()
             if (b == zero) a else a / b

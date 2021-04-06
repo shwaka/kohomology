@@ -16,7 +16,7 @@ interface DGVectorOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V>
 }
 
-class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -36,10 +36,9 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val differential: GLinearMap<B, B, S, V, M>,
     val matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorOperations<B, S, V, M> {
-    private val dgVectorContext by lazy {
+    open val context by lazy {
         DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
     }
-    fun <T> withDGVectorContext(block: DGVectorContext<B, S, V, M>.() -> T): T = this.dgVectorContext.block()
 
     protected fun getCohomologyVectorSpace(degree: Degree): SubQuotVectorSpace<B, S, V, M> {
         // TODO: cache!!

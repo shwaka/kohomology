@@ -50,6 +50,5 @@ open class ScalarContext<S : Scalar>(
 }
 
 interface Field<S : Scalar> : ScalarOperations<S> {
-    val scalarContext: ScalarContext<S>
-    fun <T> withContext(block: ScalarContext<S>.() -> T) = this.scalarContext.block()
+    val context: ScalarContext<S>
 }

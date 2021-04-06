@@ -19,7 +19,7 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
     val (u, v, w) = vectorSpace.getBasis()
-    vectorSpace.withContext {
+    vectorSpace.context.run {
         val subspaceGenerator = listOf(u + v, v + w)
         val quotientGenerator = listOf(u + 2 * v + w)
         val subQuotVectorSpace = SubQuotVectorSpace(

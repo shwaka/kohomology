@@ -86,8 +86,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    private val gVectorContext by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
-    fun <T> withGVectorContext(block: GVectorContext<B, S, V>.() -> T) = this.gVectorContext.block()
+    open val context by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
 
     companion object {
         fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
@@ -128,11 +127,11 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     fun fromBasisName(basisName: B, degree: Degree, coeff: S): GVector<B, S, V> {
-        return this.withGVectorContext { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
+        return this.context.run { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
     }
 
     fun fromBasisName(basisName: B, degree: Degree, coeff: Int): GVector<B, S, V> {
-        val coeffScalar = this.withGVectorContext { coeff.toScalar() }
+        val coeffScalar = this.context.run { coeff.toScalar() }
         return this.fromBasisName(basisName, degree, coeffScalar)
     }
 
@@ -165,7 +164,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        val vector = a.vector.vectorSpace.withContext {
+        val vector = a.vector.vectorSpace.context.run {
             a.vector + b.vector
         }
         return this@GVectorSpace.fromVector(vector, a.degree)
@@ -178,7 +177,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
             throw ArithmeticException("The gVector $b does not match the context")
         if (a.degree != b.degree)
             throw ArithmeticException("Cannot add two graded vectors of different degrees")
-        val vector = a.vector.vectorSpace.withContext {
+        val vector = a.vector.vectorSpace.context.run {
             a.vector - b.vector
         }
         return this@GVectorSpace.fromVector(vector, a.degree)
@@ -187,7 +186,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     override fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V> {
         if (gVector !in this)
             throw ArithmeticException("The gVector $gVector does not match the context")
-        val vector = gVector.vector.vectorSpace.withContext { scalar * gVector.vector }
+        val vector = gVector.vector.vectorSpace.context.run { scalar * gVector.vector }
         return this.fromVector(vector, gVector.degree)
     }
 

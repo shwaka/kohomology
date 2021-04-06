@@ -6,7 +6,7 @@ class DenseRowEchelonForm<S : Scalar>(
     private val matrixSpace: DenseMatrixSpace<S>,
     private val originalMatrix: DenseMatrix<S>
 ) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
-    private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.withContext { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
+    private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.context.run { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
     private val field: Field<S> = matrixSpace.field
     override val matrix: DenseMatrix<S>
         get() = this.matrixSpace.fromRows(this.data.matrix)
@@ -18,10 +18,10 @@ class DenseRowEchelonForm<S : Scalar>(
         val rowCount = this.originalMatrix.rowCount
         val rank = this.pivots.size
         val rowEchelonMatrix = this.data.matrix
-        val one = this.matrixSpace.field.withContext { one }
+        val one = this.matrixSpace.field.context.run { one }
         var rawReducedMatrix = (0 until rowCount).map { i ->
             val a = if (i < rank) rowEchelonMatrix[i][this.pivots[i]] else one
-            this.field.withContext {
+            this.field.context.run {
                 rowEchelonMatrix[i] * a.inv()
             }
         }
@@ -77,19 +77,19 @@ class DenseRowEchelonForm<S : Scalar>(
     }
 
     private operator fun List<S>.plus(other: List<S>): List<S> {
-        return this@DenseRowEchelonForm.field.withContext {
+        return this@DenseRowEchelonForm.field.context.run {
             this@plus.zip(other).map { (a, b) -> a + b }
         }
     }
 
     private operator fun List<S>.minus(other: List<S>): List<S> {
-        return this@DenseRowEchelonForm.field.withContext {
+        return this@DenseRowEchelonForm.field.context.run {
             this@minus.zip(other).map { (a, b) -> a - b }
         }
     }
 
     private operator fun List<S>.times(other: S): List<S> {
-        return this@DenseRowEchelonForm.field.withContext {
+        return this@DenseRowEchelonForm.field.context.run {
             this@times.map { a -> a * other }
         }
     }
@@ -115,10 +115,10 @@ class DenseRowEchelonForm<S : Scalar>(
     // }
 
     private fun List<List<S>>.eliminateOtherRows(rowInd: Int, colInd: Int): List<List<S>> {
-        if (this[rowInd][colInd] == this@DenseRowEchelonForm.field.withContext { zero })
+        if (this[rowInd][colInd] == this@DenseRowEchelonForm.field.context.run { zero })
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
         val scalarMatrix: List<List<S>> = this
-        return this@DenseRowEchelonForm.field.withContext {
+        return this@DenseRowEchelonForm.field.context.run {
             scalarMatrix.indices.map { i ->
                 when (i) {
                     rowInd -> scalarMatrix[rowInd]
@@ -130,7 +130,7 @@ class DenseRowEchelonForm<S : Scalar>(
 
     private fun List<List<S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
         for (i in rowIndFrom until this.size) {
-            if (this[i][colInd] != this@DenseRowEchelonForm.field.withContext { zero })
+            if (this[i][colInd] != this@DenseRowEchelonForm.field.context.run { zero })
                 return i
         }
         return null

@@ -88,7 +88,7 @@ object IntRationalField : Field<IntRational> {
     override val field = this
     override val characteristic = 0
 
-    override val scalarContext: ScalarContext<IntRational> = ScalarContext(this)
+    override val context: ScalarContext<IntRational> = ScalarContext(this)
 
     override fun contains(scalar: IntRational): Boolean {
         return true // Type information is sufficient

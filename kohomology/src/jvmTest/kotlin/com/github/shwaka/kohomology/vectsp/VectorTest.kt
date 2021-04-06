@@ -8,6 +8,16 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.util.list.component10
+import com.github.shwaka.kohomology.util.list.component11
+import com.github.shwaka.kohomology.util.list.component12
+import com.github.shwaka.kohomology.util.list.component13
+import com.github.shwaka.kohomology.util.list.component14
+import com.github.shwaka.kohomology.util.list.component15
+import com.github.shwaka.kohomology.util.list.component6
+import com.github.shwaka.kohomology.util.list.component7
+import com.github.shwaka.kohomology.util.list.component8
+import com.github.shwaka.kohomology.util.list.component9
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -74,6 +84,17 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
     }
 }
 
+@Suppress("UNUSED_VARIABLE")
+fun <S : Scalar, V : NumVector<S>> manyBasisTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+    "destructuring declaration should work for basis with many elements" {
+        val basisNames = (1..15).map { "v$it" }
+        val vectorSpace = VectorSpace(numVectorSpace, basisNames)
+        shouldNotThrowAny {
+            val (v1, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15) = vectorSpace.getBasis()
+        }
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
@@ -113,6 +134,7 @@ class BigRationalVectorTest : StringSpec({
     val numVectorSpace = DenseNumVectorSpaceOverBigRational
     include(vectorTest(numVectorSpace))
     include(vectorSpaceTest(numVectorSpace))
+    include(manyBasisTest(numVectorSpace))
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(isBasisTest(matrixSpace))

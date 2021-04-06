@@ -18,6 +18,9 @@ sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>> {
 
 class ZeroGVector<B, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>() {
     override fun isZero() = true
+    override fun toString(): String {
+        return "0"
+    }
 }
 
 open class GVector<B, S : Scalar, V : NumVector<S>>(

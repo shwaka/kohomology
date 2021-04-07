@@ -40,6 +40,10 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private 
         return true
     }
 
+    fun isIsomorphism(): Boolean {
+        return this.matrixSpace.context.run { this@LinearMap.matrix.isInvertible() }
+    }
+
     override fun hashCode(): Int {
         var result = source.hashCode()
         result = 31 * result + target.hashCode()

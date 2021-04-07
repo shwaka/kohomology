@@ -14,6 +14,7 @@ interface DGVectorOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     val differential: GLinearMap<B, B, S, V, M>
     val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, S, V>
     fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V>
+    fun cocycleRepresentativeOf(gVector: GVector<SubQuotBasis<B, S, V>, S, V>): GVector<B, S, V>
 }
 
 open class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -28,6 +29,9 @@ open class DGVectorContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
     fun GVector<B, S, V>.cohomologyClass(): GVector<SubQuotBasis<B, S, V>, S, V> {
         return this@DGVectorContext.cohomologyClassOf(this)
+    }
+    fun GVector<SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<B, S, V> {
+        return this@DGVectorContext.cocycleRepresentativeOf(this)
     }
 }
 
@@ -66,5 +70,12 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             throw IllegalArgumentException("$gVector is not a cocycle")
         val cohomologyClass = cohomologyOfTheDegree.projection(vector)
         return this.cohomology.fromVector(cohomologyClass, gVector.degree)
+    }
+
+    override fun cocycleRepresentativeOf(gVector: GVector<SubQuotBasis<B, S, V>, S, V>): GVector<B, S, V> {
+        val vector = gVector.vector
+        val cohomologyOfTheDegree = this.getCohomologyVectorSpace(gVector.degree)
+        val cocycle = cohomologyOfTheDegree.section(vector)
+        return this.gVectorSpace.fromVector(cocycle, gVector.degree)
     }
 }

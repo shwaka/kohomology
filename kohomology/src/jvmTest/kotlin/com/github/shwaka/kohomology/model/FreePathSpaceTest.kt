@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-im
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val freePathSpaceTag = NamedTag("FreePathSpace")
@@ -38,6 +39,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
         freePathSpace.context.run {
             d(sx) shouldBe (x2 - x1)
             d(sy) shouldBe (y2 - y1 - (x2 + x1) * sx)
+        }
+    }
+    "[dim=$sphereDim] check that inclusions are isomorphism on cohomology" {
+        val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
+        val cohomologyInclusion2 = freePathSpace.inclusion2.inducedMapOnCohomology()
+        for (degree in 0 until sphereDim * 5) {
+            cohomologyInclusion1.getLinearMap(degree).isIsomorphism().shouldBeTrue()
+            cohomologyInclusion2.getLinearMap(degree).isIsomorphism().shouldBeTrue()
         }
     }
 }

@@ -6,10 +6,10 @@ name: Java CI with Gradle
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-browser/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', '.github/workflows/gradle.yml' ]
   pull_request:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'kohomology-browser/**', 'kohomology-app/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', '.github/workflows/gradle.yml' ]
 
 jobs:
   build-jvm:
@@ -37,29 +37,5 @@ jobs:
         run: ./gradlew compileKotlinJvm
       - name: Test with Gradle
         run: ./gradlew jvmTest -Dkococo.debug
-      - name: Check with ktlint
-        run: ./gradlew ktlintCheck
-  build-js:
-    runs-on: ubuntu-latest
-
-    defaults:
-      run:
-        working-directory: kohomology-browser
-
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/cache@v1
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-js-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle-js-
-      - name: Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Compile with Gradle
-        run: ./gradlew compileKotlin
       - name: Check with ktlint
         run: ./gradlew ktlintCheck

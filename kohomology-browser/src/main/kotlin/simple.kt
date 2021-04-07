@@ -4,13 +4,20 @@ import com.github.shwaka.kohomology.specific.BigRationalField
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import kotlinx.browser.document
+import kotlinx.browser.window
 
 fun main() {
     BigRationalField.withContext {
         myprint(one / two + one / three)
     }
     numVectorTest()
-    cohomologyTest()
+    // 上の結果をすぐに反映するため
+    window.setTimeout(
+        timeout = 50,
+        handler = {
+            cohomologyTest()
+        }
+    )
 }
 
 fun myprint(obj: Any) {

@@ -18,7 +18,7 @@ val gBilinearMapTag = NamedTag("GBilinearMap")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     // 1つの元で生成される外積代数
     val numVectorSpace = matrixSpace.numVectorSpace
-    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace) { degree ->
+    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace, "span<u, v>") { degree ->
         when (degree) {
             0 -> listOf("u") // unit
             1 -> listOf("v")

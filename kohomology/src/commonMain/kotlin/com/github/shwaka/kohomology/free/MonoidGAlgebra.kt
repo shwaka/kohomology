@@ -12,8 +12,9 @@ import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val matrixSpace: MatrixSpace<S, V, M>,
+    val matrixSpace: MatrixSpace<S, V, M>,
     val monoid: Mon,
+    val name: String,
 ) {
     private fun getBasisNames(degree: Degree): List<E> {
         return this.monoid.listAll(degree)
@@ -47,13 +48,17 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
 }
 
 open class MonoidGAlgebra<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    matrixSpace: MatrixSpace<S, V, M>,
     factory: MonoidGAlgebraFactory<E, Mon, S, V, M>,
-) : GAlgebra<E, S, V, M>(matrixSpace, factory::getVectorSpace, factory::getMultiplication, factory.unitVector) {
+) : GAlgebra<E, S, V, M>(
+    factory.matrixSpace,
+    factory.name,
+    factory::getVectorSpace,
+    factory::getMultiplication,
+    factory.unitVector
+) {
     val monoid: Mon = factory.monoid
 
-    constructor(matrixSpace: MatrixSpace<S, V, M>, monoid: Mon) : this(
-        matrixSpace,
-        MonoidGAlgebraFactory(matrixSpace, monoid)
+    constructor(matrixSpace: MatrixSpace<S, V, M>, monoid: Mon, name: String) : this(
+        MonoidGAlgebraFactory(matrixSpace, monoid, name),
     )
 }

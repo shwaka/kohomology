@@ -12,8 +12,12 @@ import com.github.shwaka.kohomology.util.Degree
 
 class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    val indeterminateList: List<Indeterminate<I>>,
-) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(matrixSpace, FreeMonoid(indeterminateList)) {
+    val indeterminateList: List<Indeterminate<I>>
+) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(
+    matrixSpace,
+    FreeMonoid(indeterminateList),
+    FreeGAlgebra.getName(indeterminateList)
+) {
     val generatorList: List<GVector<Monomial<I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.indeterminateList, indeterminate)
@@ -113,6 +117,13 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             }.fold(this.unit) { acc, gVector ->
                 acc * gVector
             }
+        }
+    }
+
+    companion object {
+        private fun <I> getName(indeterminateList: List<Indeterminate<I>>): String {
+            val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
+            return "Λ($indeterminateString)"
         }
     }
 }

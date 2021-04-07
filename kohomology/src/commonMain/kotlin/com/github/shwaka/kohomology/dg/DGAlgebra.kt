@@ -74,6 +74,7 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         GAlgebra(
             matrixSpace,
+            this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,
             cohomologyUnit,

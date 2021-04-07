@@ -43,10 +43,11 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
 open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
+    name: String,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
     val getMultiplication: (Degree, Degree) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>
-) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, getVectorSpace), GAlgebraOperations<B, S, V, M> {
+) : GVectorSpace<B, S, V>(matrixSpace.numVectorSpace, name, getVectorSpace), GAlgebraOperations<B, S, V, M> {
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
     override val context by lazy {

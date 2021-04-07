@@ -82,7 +82,8 @@ open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
 
 open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>
+    val name: String,
+    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<B, S, V> {
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
@@ -94,9 +95,10 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     companion object {
         fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
+            name: String,
             getBasisNames: (Degree) -> List<B>,
         ): GVectorSpace<B, S, V> {
-            return GVectorSpace<B, S, V>(numVectorSpace) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
+            return GVectorSpace<B, S, V>(numVectorSpace, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
         }
     }
 
@@ -207,5 +209,9 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
         val vectorSpace = this[degree]
         val vectorList = gVectorList.map { it.vector }
         return vectorSpace.isBasis(vectorList, matrixSpace)
+    }
+
+    override fun toString(): String {
+        return this.name
     }
 }

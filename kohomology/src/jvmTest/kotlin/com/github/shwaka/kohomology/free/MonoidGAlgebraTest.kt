@@ -35,7 +35,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                 }
             }
         val monoid = MonoidFromList(elements, multiplicationTable)
-        val gAlgebra = MonoidGAlgebra(matrixSpace, monoid)
+        val gAlgebra = MonoidGAlgebra(matrixSpace, monoid, "M")
         for (degree in 0..(3 * n)) {
             val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
             gAlgebra[degree].dim shouldBe expectedDim

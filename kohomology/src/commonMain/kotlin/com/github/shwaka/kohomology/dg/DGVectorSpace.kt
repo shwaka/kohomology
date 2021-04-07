@@ -56,9 +56,12 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         )
     }
 
+    protected val cohomologyName = "H(${this.gVectorSpace.name})"
+
     override val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, S, V> by lazy {
         GVectorSpace(
             this.matrixSpace.numVectorSpace,
+            this.cohomologyName,
             this::getCohomologyVectorSpace
         )
     }
@@ -77,5 +80,10 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cohomologyClass.degree)
         val cocycle = cohomologyOfTheDegree.section(vector)
         return this.gVectorSpace.fromVector(cocycle, cohomologyClass.degree)
+    }
+
+    override fun toString(): String {
+        val name = this.gVectorSpace.name
+        return "($name, d)"
     }
 }

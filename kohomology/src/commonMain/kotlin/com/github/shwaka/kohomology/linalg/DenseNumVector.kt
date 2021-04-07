@@ -101,10 +101,6 @@ class DenseNumVectorSpace<S : Scalar>(
         return DenseNumVector(values, this.field)
     }
 
-    override fun fromValues(vararg values: S): DenseNumVector<S> {
-        return this.fromValues(values.toList())
-    }
-
     override fun getZero(dim: Int): DenseNumVector<S> {
         val values = List(dim) { this.field.zero }
         return this.fromValues(values)

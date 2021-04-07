@@ -65,8 +65,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             (m + n) shouldBe expected
         }
         "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
-            val v = numVectorSpace.fromValues(two, -one)
-            val expected = numVectorSpace.fromValues(three, one)
+            val v = numVectorSpace.fromValues(listOf(two, -one))
+            val expected = numVectorSpace.fromValues(listOf(three, one))
             (m * v) shouldBe expected
         }
         "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
@@ -128,8 +128,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     listOf(two, three)
                 )
             )
-            val v = numVectorSpace.fromValues(zero, two)
-            val w = numVectorSpace.fromValues(one, three)
+            val v = numVectorSpace.fromValues(listOf(zero, two))
+            val w = numVectorSpace.fromValues(listOf(one, three))
             (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
         }
         "reduced row echelon form of an invertible matrix should be the unit matrix" {
@@ -192,8 +192,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     listOf(-two, two)
                 )
             )
-            val v = numVectorSpace.fromValues(one, two)
-            val w = numVectorSpace.fromValues(three, four)
+            val v = numVectorSpace.fromValues(listOf(one, two))
+            val w = numVectorSpace.fromValues(listOf(three, four))
             mat.innerProduct(v, w) shouldBe one
         }
         "kernel of zero matrix should have the standard basis" {
@@ -290,7 +290,7 @@ inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVe
     val vectorSpace = matrixSpace.numVectorSpace
     val zero = field.zero
     "fromVectors(vararg) should work with reified type variables" {
-        val v = vectorSpace.fromValues(zero, zero, zero)
+        val v = vectorSpace.fromValues(listOf(zero, zero, zero))
         shouldNotThrowAny {
             matrixSpace.fromNumVectors(listOf(v, v))
         }
@@ -403,8 +403,8 @@ class BigRationalDenseMatrixTest : StringSpec({
                 listOf(two, three)
             )
         )
-        val v = numVectorSpace.fromValues(zero, two)
-        val w = numVectorSpace.fromValues(one, three)
+        val v = numVectorSpace.fromValues(listOf(zero, two))
+        val w = numVectorSpace.fromValues(listOf(one, three))
         (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
     }
 })

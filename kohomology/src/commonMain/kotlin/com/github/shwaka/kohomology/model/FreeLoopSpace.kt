@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.dg.GAlgebra
+import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
 private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    freeDGAlgebra: FreeDGAlgebra<I, S, V, M>
+    val freeDGAlgebra: FreeDGAlgebra<I, S, V, M>
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val loopSpaceGAlgebra: FreeGAlgebra<CopiedName<I>, S, V, M> = run {
@@ -21,7 +21,7 @@ private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
     }
     val differential: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
-    val inclusion: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraInclusion: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
@@ -31,18 +31,18 @@ private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
             }
             loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.inclusion = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion = freeDGAlgebra.gAlgebra.getAlgebraMap(
             loopSpaceGAlgebra,
             loopSpaceGeneratorList.take(n)
         )
         val differentialValueList = run {
             val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
             val valueList1 = baseSpaceGeneratorList.map { v ->
-                freeDGAlgebra.context.run { inclusion(d(v)) }
+                freeDGAlgebra.context.run { gAlgebraInclusion(d(v)) }
             }
             val valueList2 = baseSpaceGeneratorList.map { v ->
                 val dv = freeDGAlgebra.context.run { d(v) }
-                loopSpaceGAlgebra.context.run { -suspension(inclusion(dv)) }
+                loopSpaceGAlgebra.context.run { -suspension(gAlgebraInclusion(dv)) }
             }
             valueList1 + valueList2
         }
@@ -56,6 +56,11 @@ class FreeLoopSpace<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private c
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> =
         this.factory.suspension
-    val inclusion: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> =
-        this.factory.inclusion
+    val inclusion: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGLinearMap(
+            source = this.factory.freeDGAlgebra,
+            target = this,
+            gLinearMap = this.factory.gAlgebraInclusion
+        )
+    }
 }

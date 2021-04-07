@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -10,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
 private class FreePathSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    freeDGAlgebra: FreeDGAlgebra<I, S, V, M>
+    val freeDGAlgebra: FreeDGAlgebra<I, S, V, M>
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val pathSpaceGAlgebra: FreeGAlgebra<CopiedName<I>, S, V, M> = run {
@@ -23,8 +24,8 @@ private class FreePathSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
     }
     val differential: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
-    val inclusion1: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
-    val inclusion2: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraInclusion1: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraInclusion2: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val pathSpaceGeneratorList = this.pathSpaceGAlgebra.generatorList
@@ -36,21 +37,21 @@ private class FreePathSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
                 }
             this.pathSpaceGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.inclusion1 = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion1 = freeDGAlgebra.gAlgebra.getAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.take(n)
         )
-        this.inclusion2 = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion2 = freeDGAlgebra.gAlgebra.getAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.slice(n until 2 * n)
         )
         var differentialValueList = run {
             val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
             val valueList1 = baseSpaceGeneratorList.map { v ->
-                freeDGAlgebra.context.run { this@FreePathSpaceFactory.inclusion1(d(v)) }
+                freeDGAlgebra.context.run { this@FreePathSpaceFactory.gAlgebraInclusion1(d(v)) }
             }
             val valueList2 = baseSpaceGeneratorList.map { v ->
-                freeDGAlgebra.context.run { this@FreePathSpaceFactory.inclusion2(d(v)) }
+                freeDGAlgebra.context.run { this@FreePathSpaceFactory.gAlgebraInclusion2(d(v)) }
             }
             val valueList3 = List(n) { this.pathSpaceGAlgebra.zeroGVector }
             valueList1 + valueList2 + valueList3
@@ -96,8 +97,18 @@ class FreePathSpace<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private c
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> =
         this.factory.suspension
-    val inclusion1: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> =
-        this.factory.inclusion1
-    val inclusion2: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> =
-        this.factory.inclusion2
+    val inclusion1: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGLinearMap(
+            source = this.factory.freeDGAlgebra,
+            target = this,
+            gLinearMap = this.factory.gAlgebraInclusion1
+        )
+    }
+    val inclusion2: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGLinearMap(
+            source = this.factory.freeDGAlgebra,
+            target = this,
+            gLinearMap = this.factory.gAlgebraInclusion2
+        )
+    }
 }

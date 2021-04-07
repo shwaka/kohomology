@@ -128,7 +128,7 @@ class Monomial<I> private constructor(
 
     private fun increaseFirstExponent(maxDegree: Degree): Monomial<I>? {
         // 奇数次の場合
-        if ((this.indeterminateList.first().degree.isOdd()) and (this.exponentList.first() == 1))
+        if ((this.indeterminateList.first().degree.isOdd()) && (this.exponentList.first() == 1))
             return null
         val newExponents = listOf(this.exponentList.first() + 1) + this.exponentList.drop(1)
         val firstIncreased = Monomial(this.indeterminateList, newExponents)
@@ -195,14 +195,14 @@ class FreeMonoid<I> (
             .zip(monoidElement2.exponentList)
             .map { (p, q) -> p + q }
         for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree.isOdd()) and (exponentList[i] >= 2))
+            if ((this.indeterminateList[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()
         }
         var sign = 1
         for (i in 0 until size) {
-            if ((this.indeterminateList[i].degree.isOdd()) and (monoidElement1.exponentList[i] == 1)) {
+            if ((this.indeterminateList[i].degree.isOdd()) && (monoidElement1.exponentList[i] == 1)) {
                 for (j in 0 until i) {
-                    if ((this.indeterminateList[j].degree.isOdd()) and (monoidElement2.exponentList[j] == 1)) {
+                    if ((this.indeterminateList[j].degree.isOdd()) && (monoidElement2.exponentList[j] == 1)) {
                         sign = -sign
                     }
                 }

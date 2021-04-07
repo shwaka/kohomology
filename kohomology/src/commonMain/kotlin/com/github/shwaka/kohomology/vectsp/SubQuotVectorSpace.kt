@@ -57,7 +57,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
         this.quotientDim = rowEchelonForm.pivots.filter { it < quotientGenerator.size }.size
         this.subQuotDim = rowEchelonForm.pivots.filter {
-            (quotientGenerator.size <= it) and (it < quotientGenerator.size + subspaceGenerator.size)
+            (quotientGenerator.size <= it) && (it < quotientGenerator.size + subspaceGenerator.size)
         }.size
 
         val basisIndices: List<Int> = rowEchelonForm.pivots.slice(quotientDim until (quotientDim + subQuotDim))

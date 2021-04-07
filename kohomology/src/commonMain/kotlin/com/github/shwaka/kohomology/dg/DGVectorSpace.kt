@@ -62,6 +62,8 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override fun cohomologyClassOf(gVector: GVector<B, S, V>): GVector<SubQuotBasis<B, S, V>, S, V> {
         val vector = gVector.vector
         val cohomologyOfTheDegree = this.getCohomologyVectorSpace(gVector.degree)
+        if (!cohomologyOfTheDegree.subspaceContains(vector))
+            throw IllegalArgumentException("$gVector is not a cocycle")
         val cohomologyClass = cohomologyOfTheDegree.projection(vector)
         return this.cohomology.fromVector(cohomologyClass, gVector.degree)
     }

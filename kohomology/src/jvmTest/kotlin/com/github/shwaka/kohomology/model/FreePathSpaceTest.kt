@@ -31,7 +31,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
     val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
-    val freePathSpace = freePathSpace(sphere)
+    val freePathSpace = FreePathSpace(sphere)
     val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
 
     "[dim=$sphereDim] check differential" {

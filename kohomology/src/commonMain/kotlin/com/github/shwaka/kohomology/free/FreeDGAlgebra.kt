@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
+open class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<I, S, V, M>,
     differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>

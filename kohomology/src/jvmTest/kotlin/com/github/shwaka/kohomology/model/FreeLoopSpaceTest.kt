@@ -31,7 +31,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
-    val freeLoopSpace = freeLoopSpace(sphere)
+    val freeLoopSpace = FreeLoopSpace(sphere)
     val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
 
     freeLoopSpace.context.run {

@@ -34,7 +34,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             d(unit).isZero().shouldBeTrue()
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe x.pow(2)
-
         }
         "[sphere of dim $sphereDim] check cohomology" {
             for (n in 0 until (sphereDim * 3)) {

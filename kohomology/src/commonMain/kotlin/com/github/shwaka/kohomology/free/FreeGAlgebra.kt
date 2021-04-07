@@ -11,7 +11,6 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
@@ -79,14 +78,12 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val valueDegree = this.indeterminateList[index].degree + derivationDegree
             this.convertToGVector(gVectorOrZero, valueDegree)
         }
-        return GLinearMap(this, this, derivationDegree) { k ->
-            val source = this[k]
-            val target = this[k + derivationDegree]
-            val valueListForDegree: List<Vector<Monomial<I>, S, V>> = source.basisNames.map { monomial: Monomial<I> ->
-                val gVectorValue = this.getDerivationValue(gVectorValueList, monomial, k + derivationDegree)
-                gVectorValue.vector
+        return GLinearMap.fromGVectors(this, this, derivationDegree, this.matrixSpace) { k ->
+            val sourceVectorSpace = this[k]
+            // val targetVectorSpace = this[k + derivationDegree]
+            sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
+                this.getDerivationValue(gVectorValueList, monomial, k + derivationDegree)
             }
-            LinearMap.fromVectors(source, target, this.matrixSpace, valueListForDegree)
         }
     }
 
@@ -136,14 +133,13 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val valueDegree = this.indeterminateList[index].degree
             target.convertToGVector(gVectorOrZero, valueDegree)
         }
-        return GLinearMap(this, target, 0) { k ->
+        return GLinearMap.fromGVectors(this, target, 0, this.matrixSpace) { k ->
             val sourceVectorSpace = this[k]
             val targetVectorSpace = target[k]
-            val valueListForDegree: List<Vector<B, S, V>> = sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
+            sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
                 val gVectorValue = this.getAlgebraMapValue(target, gVectorValueList, monomial)
-                gVectorValue.vector
+                gVectorValue
             }
-            LinearMap.fromVectors(sourceVectorSpace, targetVectorSpace, this.matrixSpace, valueListForDegree)
         }
     }
 

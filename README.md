@@ -1,6 +1,11 @@
 ## overview
 ![classes](uml/packages.png)
 
+## Usage
+See
+- tests in [kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology](kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology)
+- sample applications in [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app)
+
 ## test
 以下のいずれか．
 test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を利用している．
@@ -16,7 +21,7 @@ test report は `./gradlew openTestReport` で表示できる．
 ## coverage
 ```bash
 cd kohomology
-./gradlew jvmTeset  # 先に test を実行する必要がある
+./gradlew jvmTest  # 先に test を実行する必要がある
 ./gradlew jacocoTestReport
 ./gradlew openJacocoReport
 # ↑open build/reports/jacoco/test/html/index.html と同じ

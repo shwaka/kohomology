@@ -4,20 +4,22 @@ import com.github.shwaka.kohomology.specific.BigRationalField
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import kotlinx.browser.document
-import kotlinx.browser.window
+import kotlinx.coroutines.*
 
 fun main() {
-    BigRationalField.withContext {
-        myprint(one / two + one / three)
-    }
-    numVectorTest()
-    // 上の結果をすぐに反映するため
-    window.setTimeout(
-        timeout = 50,
-        handler = {
-            cohomologyTest()
+    GlobalScope.launch {
+        val foo = BigRationalField.withContext {
+            one / two + one / three
         }
-    )
+        susprint(foo)
+        numVectorTest()
+        cohomologyTest()
+    }
+}
+
+suspend fun susprint(obj: Any) {
+    myprint(obj)
+    delay(10)
 }
 
 fun myprint(obj: Any) {
@@ -29,15 +31,16 @@ fun myprint(obj: Any) {
     root.appendChild(p)
 }
 
-fun numVectorTest() {
+suspend fun numVectorTest() {
     val vectorSpace = DenseNumVectorSpaceOverBigRational
-    vectorSpace.withContext {
+    val result = vectorSpace.withContext {
         val v = vectorSpace.fromValues(one, zero)
-        myprint("2 * (1, 0) = ${two * v}")
+        "2 * (1, 0) = ${two * v}"
     }
+    susprint(result)
 }
 
-fun cohomologyTest() {
+suspend fun cohomologyTest() {
     val matrixSpace = DenseMatrixSpaceOverBigRational
     val indeterminateList = listOf(
         Indeterminate("a", 2),
@@ -59,5 +62,5 @@ fun cohomologyTest() {
         val basis = freeDGAlgebra.cohomology[n].getBasis()
         cohomologyStringList.add("H^$n = Q$basis")
     }
-    myprint(cohomologyStringList.joinToString("\n"))
+    susprint(cohomologyStringList.joinToString("\n"))
 }

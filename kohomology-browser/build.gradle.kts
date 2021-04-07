@@ -26,6 +26,7 @@ dependencies {
     } else {
         implementation(kococoDebug)
     }
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core-js:1.4.3")
 }
 
 kotlin {

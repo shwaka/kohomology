@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
@@ -37,6 +38,13 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
             proj(sect(x)) shouldBe x
             proj(u + 2 * v + w).isZero().shouldBeTrue()
             (proj(u - w) == proj(2 * (u + v))).shouldBeTrue()
+        }
+        "subspaceContains should work" {
+            subQuotVectorSpace.subspaceContains(u + v).shouldBeTrue()
+            subQuotVectorSpace.subspaceContains(v + w).shouldBeTrue()
+            subQuotVectorSpace.subspaceContains(-u - 2 * v - w).shouldBeTrue()
+            subQuotVectorSpace.subspaceContains(u).shouldBeFalse()
+            subQuotVectorSpace.subspaceContains(zeroVector).shouldBeTrue()
         }
     }
 }

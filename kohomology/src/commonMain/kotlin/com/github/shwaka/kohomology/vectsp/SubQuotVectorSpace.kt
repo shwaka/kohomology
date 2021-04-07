@@ -26,6 +26,8 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val transformationMatrix: M
     val projectionMatrix: M
     val sectionMatrix: M
+    val quotientDim: Int
+    val subQuotDim: Int
 
     init {
         // check that generators are in totalVectorSpace
@@ -53,8 +55,8 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val rowEchelonForm: RowEchelonForm<S, V, M> = matrixSpace.context.run {
             joinedMatrix.rowEchelonForm
         }
-        val quotientDim: Int = rowEchelonForm.pivots.filter { it < quotientGenerator.size }.size
-        val subQuotDim: Int = rowEchelonForm.pivots.filter {
+        this.quotientDim = rowEchelonForm.pivots.filter { it < quotientGenerator.size }.size
+        this.subQuotDim = rowEchelonForm.pivots.filter {
             (quotientGenerator.size <= it) and (it < quotientGenerator.size + subspaceGenerator.size)
         }.size
 
@@ -76,6 +78,15 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             },
             this.totalVectorSpace.dim
         )
+    }
+
+    fun subspaceContains(vector: Vector<B, S, V>): Boolean {
+        return this.matrixSpace.context.run {
+            val numVector = this@SubQuotFactory.transformationMatrix * vector.numVector
+            val start = this@SubQuotFactory.quotientDim + this@SubQuotFactory.subQuotDim
+            val limit = this@SubQuotFactory.totalVectorSpace.dim
+            (start until limit).all { numVector[it] == zero }
+        }
     }
 
     companion object {
@@ -107,6 +118,10 @@ class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> priv
             matrixSpace = this.factory.matrixSpace,
             matrix = this.factory.sectionMatrix,
         )
+    }
+
+    fun subspaceContains(vector: Vector<B, S, V>): Boolean {
+        return this.factory.subspaceContains(vector)
     }
 
     companion object {

@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
+import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -50,6 +51,14 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
     if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
     val arb = field.arb(Arb.int(-intMax..intMax))
     field.context.run {
+        "field.characteristic should be zero or a prime" {
+            val p: Int = field.characteristic
+            ((p == 0) || p.isPrime()).shouldBeTrue()
+        }
+        "field.characteristic should be zero in the field" {
+            val p: S = field.characteristic.toScalar()
+            p shouldBe zero
+        }
         "field.zero should be the unit of addition" {
             checkAll(arb) { a ->
                 (a + zero) shouldBe a
@@ -61,10 +70,6 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
                 (a * one) shouldBe a
                 (one * a) shouldBe a
             }
-        }
-        "field.characteristic should be zero in the field" {
-            val p: S = field.characteristic.toScalar()
-            p shouldBe zero
         }
         "addition should be associative" {
             checkAll(arb, arb, arb) { a, b, c ->

@@ -88,7 +88,6 @@ private class FreePathSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
         val zeroGVector = pathSpaceGAlgebra.zeroGVector
         return currentValueList.take(2 * n + index) + listOf(value) + List(n - index - 1) { zeroGVector }
     }
-
 }
 
 class FreePathSpace<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(

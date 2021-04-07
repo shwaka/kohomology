@@ -52,7 +52,7 @@ private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
 
 class FreeLoopSpace<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<I, S, V, M>
-): FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> =
         this.factory.suspension

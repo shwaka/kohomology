@@ -14,7 +14,7 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val gLinearMap: GLinearMap<BS, BT, S, V, M>,
 ) {
     val degree = this.gLinearMap.degree
-    val matrixSpace = this.source.matrixSpace
+    val matrixSpace = this.gLinearMap.matrixSpace
     init {
         if (this.source.gVectorSpace != gLinearMap.source)
             throw IllegalArgumentException("The source DGVectorSpace does not match to the source GVectorSpace of GLinearMap")
@@ -47,9 +47,10 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             source: DGVectorSpace<BS, S, V, M>,
             target: DGVectorSpace<BT, S, V, M>,
             degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
             getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
         ): DGLinearMap<BS, BT, S, V, M> {
-            val gLinearMap = GLinearMap(source.gVectorSpace, target.gVectorSpace, degree, getLinearMap)
+            val gLinearMap = GLinearMap(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, getLinearMap)
             return DGLinearMap(source, target, gLinearMap)
         }
 

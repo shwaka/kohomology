@@ -65,6 +65,8 @@ kotlin {
                 } else {
                     implementation(kococoDebug)
                 }
+
+                implementation("io.github.microutils:kotlin-logging:2.0.6")
             }
         }
         val commonTest by getting {
@@ -88,6 +90,9 @@ kotlin {
                 implementation("io.kotest:kotest-assertions-core:$version")
                 implementation("io.kotest:kotest-property:$version")
                 implementation("io.kotest:kotest-assertions-compiler:$version")
+                // logger
+                // implementation("org.slf4j:slf4j-simple:1.7.26")
+                implementation("ch.qos.logback:logback-classic:1.2.3")
             }
         }
         val jsMain by getting
@@ -122,6 +127,10 @@ tasks.withType<Test> {
     // ↓公式ドキュメント では下のコードが書かれてるけどダメだった
     //   (https://kotest.io/docs/framework/tags.html)
     // systemProperties = System.getProperties().map { it.key.toString() to it.value }.toMap()
+    System.getProperty("logLevel")?.let {
+        // see resources/logback.xml
+        systemProperties["com.github.shwaka.kohomology.logLevel"] = it
+    }
 }
 
 tasks.jacocoTestReport {

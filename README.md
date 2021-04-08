@@ -16,7 +16,8 @@ test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/rada
 
 注意: `!` を含む場合は zsh に解釈されるのを防ぐために，double quote ではなく single quote を使う必要がある．
 
-test report は `./gradlew openTestReport` で表示できる．
+- test report は `./gradlew openTestReport` で表示できる．
+- log level は `-DlogLevel=DEBUG` などで指定できる．
 
 ## coverage
 ```bash

@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import mu.KotlinLogging
 
 class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
@@ -106,6 +107,12 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     //   Leaking 'this' in constructor of non-final class GAlgebra
     val context by lazy {
         VectorContext(numVectorSpace.field, numVectorSpace, this)
+    }
+
+    private val logger = KotlinLogging.logger {}
+
+    init {
+        logger.debug { "$this is created" }
     }
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

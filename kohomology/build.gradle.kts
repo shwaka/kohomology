@@ -1,7 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
-version = "0.0"
+version = "0.1"
 
 plugins {
     kotlin("multiplatform") version "1.4.31"
@@ -179,4 +179,13 @@ tasks.register<Exec>("openJacocoReport") {
 
 tasks.withType<Wrapper> {
     gradleVersion = "6.6.1"
+}
+
+publishing {
+    repositories {
+        maven {
+            url = uri("../../maven/repository")
+            name = "MyMaven"
+        }
+    }
 }

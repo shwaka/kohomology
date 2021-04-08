@@ -11,7 +11,7 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: GVectorSpace<BS, S, V>,
     val target: GVectorSpace<BT, S, V>,
     val degree: Degree,
-    val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
+    private val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
 ) {
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
         if (gVector.gVectorSpace != this.source)
@@ -22,6 +22,10 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val newVector = linearMap(gVector.vector)
         val newDegree = gVector.degree + this.degree
         return this.target.fromVector(newVector, newDegree)
+    }
+
+    operator fun get(degree: Degree): LinearMap<BS, BT, S, V, M> {
+        return this.getLinearMap(degree)
     }
 
     companion object {

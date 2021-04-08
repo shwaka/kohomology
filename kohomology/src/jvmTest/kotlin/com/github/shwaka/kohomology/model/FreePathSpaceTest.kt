@@ -45,8 +45,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
         val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
         val cohomologyInclusion2 = freePathSpace.inclusion2.inducedMapOnCohomology()
         for (degree in 0 until sphereDim * 5) {
-            cohomologyInclusion1.getLinearMap(degree).isIsomorphism().shouldBeTrue()
-            cohomologyInclusion2.getLinearMap(degree).isIsomorphism().shouldBeTrue()
+            cohomologyInclusion1[degree].isIsomorphism().shouldBeTrue()
+            cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
         }
     }
 }
@@ -79,8 +79,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
         val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
         val cohomologyInclusion2 = freePathSpace.inclusion2.inducedMapOnCohomology()
         for (degree in 0 until 2 * n + 4) {
-            cohomologyInclusion1.getLinearMap(degree).isIsomorphism().shouldBeTrue()
-            cohomologyInclusion2.getLinearMap(degree).isIsomorphism().shouldBeTrue()
+            cohomologyInclusion1[degree].isIsomorphism().shouldBeTrue()
+            cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
         }
     }
 }

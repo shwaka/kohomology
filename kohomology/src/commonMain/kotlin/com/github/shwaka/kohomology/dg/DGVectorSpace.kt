@@ -46,8 +46,8 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     protected fun getCohomologyVectorSpace(degree: Degree): SubQuotVectorSpace<B, S, V, M> {
         // TODO: cache!!
-        val kernelBasis = this.differential.getLinearMap(degree).kernelBasis()
-        val imageGenerator = this.differential.getLinearMap(degree - 1).imageGenerator()
+        val kernelBasis = this.differential[degree].kernelBasis()
+        val imageGenerator = this.differential[degree - 1].imageGenerator()
         return SubQuotVectorSpace(
             this.matrixSpace,
             this.gVectorSpace[degree],

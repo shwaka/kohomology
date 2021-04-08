@@ -1,4 +1,4 @@
-## overview
+## Overview
 ![classes](uml/packages.png)
 
 ## Usage
@@ -6,7 +6,7 @@ See
 - tests in [kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology](kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology)
 - sample applications in [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app)
 
-## test
+## Test
 以下のいずれか．
 test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を利用している．
 
@@ -19,13 +19,34 @@ test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/rada
 - test report は `./gradlew openTestReport` で表示できる．
 - log level は `-DlogLevel=DEBUG` などで指定できる．
 
-## coverage
+## Coverage
 ```bash
 cd kohomology
 ./gradlew jvmTest  # 先に test を実行する必要がある
 ./gradlew jacocoTestReport
 ./gradlew openJacocoReport
 # ↑open build/reports/jacoco/test/html/index.html と同じ
+```
+
+## Publish
+Put the `repository` directory at the following place.
+You can change the place by editing `build.gradle.kts`.
+
+```
+./
+├── maven/
+│  └── repository/
+|     └── com/github/shwaka/kohomology/
+└── kohomology/
+   └── kohomology/
+      ├── gradlew
+      ├── build.gradle.kts
+      └── src/
+```
+
+```bash
+cd kohomology/kohomology
+./gradlew publishAllPublicationsToMyMavenRepository
 ```
 
 ## Scalar などの定義について

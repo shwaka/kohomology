@@ -49,8 +49,9 @@ cd kohomology/kohomology
 ./gradlew publishAllPublicationsToMyMavenRepository
 ```
 
-## Scalar などの定義について
-`interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてるのが不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．
+## Recursive generics
+当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
+ちゃんと安定して動作するのか不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．
 [kotlin/Enum.kt at master · JetBrains/kotlin](https://github.com/JetBrains/kotlin/blob/master/core/builtins/native/kotlin/Enum.kt)
 
 参考になりそうなリンクたちを列挙しておく．
@@ -58,3 +59,16 @@ cd kohomology/kohomology
 - [Self Types - Language Design - Kotlin Discussions](https://discuss.kotlinlang.org/t/self-types/371/21)
 - [Self Types with Java's Generics - SitePoint](https://www.sitepoint.com/self-types-with-javas-generics/)
 - [Emulating self types in Kotlin. DIY solution for missing language… | by Jerzy Chałupski | Medium](https://medium.com/@jerzy.chalupski/emulating-self-types-in-kotlin-d64fe8ea2e62)
+
+## Version of java
+native 向けにコンパイルしようとしたら，以下のエラーが出た．
+依存関係のダウンロードをする際に，証明書関係で失敗しているっぽい．
+使用する java のバージョンを変えたらうまくいった．
+
+- `10.0.2-open`: NG
+- `10.0.2-zulu`: OK
+
+```
+Downloading native dependencies (LLVM, sysroot etc). This is a one-time action performed only on the first run of the compiler.
+Cannot download a dependency: javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
+```

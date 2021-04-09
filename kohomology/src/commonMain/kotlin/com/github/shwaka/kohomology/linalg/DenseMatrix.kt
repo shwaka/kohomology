@@ -8,6 +8,13 @@ data class DenseMatrix<S : Scalar>(
     override val rowCount: Int,
     override val colCount: Int
 ) : Matrix<S, DenseNumVector<S>> {
+    var rowEchelonForm: DenseRowEchelonForm<S>? = null
+        set(value) {
+            if (field != null)
+                throw Exception("Cannot assign rowEchelonForm twice")
+            field = value
+        }
+
     init {
         if (this.values.any { row -> row.size != this.colCount })
             throw IllegalArgumentException("The length of each row must be equal to colCount")
@@ -139,7 +146,10 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
-        return DenseRowEchelonForm(this, matrix)
+        matrix.rowEchelonForm?.let { return it }
+        val rowEchelonForm = DenseRowEchelonForm(this, matrix)
+        matrix.rowEchelonForm = rowEchelonForm
+        return rowEchelonForm
     }
 
     override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {

@@ -1,7 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
-version = "0.1"
+version = "0.2-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform") version "1.4.31"
@@ -186,6 +186,10 @@ publishing {
         maven {
             url = uri("../../maven/repository")
             name = "MyMaven"
+        }
+        maven {
+            url = uri("../benchmark/repository")
+            name = "Benchmark"
         }
     }
 }

@@ -251,6 +251,11 @@ class FreeMonoid<I> (
         // TODO: List じゃなくて Iterator の方が良い？
         return this.indeterminateList.indices.mapNotNull { i -> this.separate(monomial, i) }
     }
+
+    override fun toString(): String {
+        val indeterminateListString = this.indeterminateList.joinToString(", ") { it.toString() }
+        return "FreeMonoid($indeterminateListString)"
+    }
 }
 
 data class MonomialSeparation<I>(

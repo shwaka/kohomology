@@ -15,7 +15,7 @@ configure<org.jetbrains.kotlin.allopen.gradle.AllOpenExtension> {
 benchmark {
     configurations {
         named("main") {
-            iterations = 1
+            iterations = 3
             warmups = 0
             mode = "AverageTime"
         }

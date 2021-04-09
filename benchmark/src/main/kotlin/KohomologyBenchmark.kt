@@ -45,7 +45,7 @@ class KohomologyBenchmark {
 
         val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
         var result = ""
-        for (degree in 0 until 30) {
+        for (degree in 0 until 35) {
             result += cohomologyInclusion1[degree].isIsomorphism().toString()
         }
         return result

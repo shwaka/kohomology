@@ -10,18 +10,31 @@ import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import mu.KotlinLogging
 
 private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val monoid: Mon,
     val name: String,
 ) {
+    private val cache: MutableMap<Degree, VectorSpace<E, S, V>> = mutableMapOf()
+    private val logger = KotlinLogging.logger {}
+
     private fun getBasisNames(degree: Degree): List<E> {
         return this.monoid.listAll(degree)
     }
 
     fun getVectorSpace(degree: Degree): VectorSpace<E, S, V> {
-        return VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
+        this.cache[degree]?.let {
+            // if cache exists
+            this.logger.debug { "cache found for ${this.monoid}[$degree]" }
+            return it
+        }
+        // if cache does not exist
+        this.logger.debug { "cache not found for ${this.monoid}[$degree], create new instance" }
+        val vectorSpace = VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
+        this.cache[degree] = vectorSpace
+        return vectorSpace
     }
 
     fun getMultiplication(p: Degree, q: Degree): BilinearMap<E, E, E, S, V, M> {

@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import mu.KotlinLogging
 
 sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>> {
     abstract fun isZero(): Boolean
@@ -87,6 +88,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
 ) : GVectorOperations<B, S, V> {
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
+    private val logger = KotlinLogging.logger {}
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
@@ -103,9 +105,13 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     operator fun get(degree: Degree): VectorSpace<B, S, V> {
-        // if cache exists
-        this.cache[degree]?.let { return it }
+        this.cache[degree]?.let {
+            // if cache exists
+            this.logger.debug { "cache found for $this[$degree]" }
+            return it
+        }
         // if cache does not exist
+        this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val vectorSpace = this.getVectorSpace(degree)
         this.cache[degree] = vectorSpace
         return vectorSpace

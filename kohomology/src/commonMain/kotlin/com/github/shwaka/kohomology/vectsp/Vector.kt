@@ -112,7 +112,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     private val logger = KotlinLogging.logger {}
 
     init {
-        logger.debug { "$this is created" }
+        this.logger.debug { "$this is created" }
     }
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

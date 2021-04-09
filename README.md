@@ -49,6 +49,14 @@ cd kohomology/kohomology
 ./gradlew publishAllPublicationsToMyMavenRepository
 ```
 
+## Benchmark
+```bash
+cd kohomology/kohomology
+./gradlew publishAllPublicationsToBenchmarkRepository
+cd ../benchmark
+./gradlew benchmark
+```
+
 ## Recursive generics
 当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
 ちゃんと安定して動作するのか不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．

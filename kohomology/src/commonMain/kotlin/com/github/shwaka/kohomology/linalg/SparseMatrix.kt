@@ -154,7 +154,7 @@ class SparseMatrixSpace<S : Scalar>(
             else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
         }
         val zero = this.field.zero
-        val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull() { rowInd, row ->
+        val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull { rowInd, row ->
             val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm == zero) null else Pair(colInd, elm) }.toMap()
             if (newRow.isEmpty())
                 null
@@ -165,22 +165,57 @@ class SparseMatrixSpace<S : Scalar>(
     }
 
     override fun fromCols(cols: List<List<S>>, rowCount: Int?): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCountNonNull: Int = when {
+            cols.isNotEmpty() -> cols[0].size
+            rowCount != null -> rowCount
+            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
+        }
+        val colCount = cols.size
+        val rowList = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
+        return this.fromRows(rowList, colCount)
+
     }
 
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (list.size != rowCount * colCount)
+            throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
+        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
+        return this.fromRows(rowList, colCount)
+    }
+
+    private fun joinMatrices(matrix1: SparseMatrix<S>, matrix2: SparseMatrix<S>): SparseMatrix<S> {
+        if (matrix1.rowCount != matrix2.rowCount)
+            throw IllegalArgumentException("Cannot join two matrices of different row counts")
+        val rowMap: MutableMap<Int, Map<Int, S>> = matrix1.rowMap.toMutableMap()
+        for ((rowInd2, row2) in matrix2.rowMap) {
+            val row1 = matrix1.rowMap.getOrElse(rowInd2) { mapOf() }
+            val newRow = row1 + row2.mapKeys { (colInd, _) -> colInd + matrix1.colCount }
+            rowMap[rowInd2] = newRow
+        }
+        val rowCount = matrix1.rowCount
+        val colCount = matrix1.colCount + matrix2.colCount
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun joinMatrices(matrixList: List<SparseMatrix<S>>): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (matrixList.isEmpty())
+            throw IllegalArgumentException("Empty list of matrices cannot be reduced")
+        return matrixList.reduce { matrix1, matrix2 -> this.joinMatrices(matrix1, matrix2) }
     }
 
     override fun computeRowSlice(matrix: SparseMatrix<S>, rowRange: IntRange): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = rowRange.count()
+        val colCount = matrix.colCount
+        val rowMap = matrix.rowMap.filterKeys { rowInd -> rowInd in rowRange }
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun computeColSlice(matrix: SparseMatrix<S>, colRange: IntRange): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = matrix.rowCount
+        val colCount = colRange.count()
+        val rowMap = matrix.rowMap.mapValues { (_, row) ->
+            row.filterKeys { colInd -> colInd in colRange }
+        }.filterValues { row -> row.isNotEmpty() }
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 }

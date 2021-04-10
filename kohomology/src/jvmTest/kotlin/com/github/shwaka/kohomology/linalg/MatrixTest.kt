@@ -10,11 +10,12 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.F2
 import com.github.shwaka.kohomology.specific.F5
 import com.github.shwaka.kohomology.specific.IntRationalField
 import com.github.shwaka.kohomology.specific.LongRationalField
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
@@ -29,13 +30,23 @@ import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.ints
 
+val matrixTag = NamedTag("Matrix")
 val denseMatrixTag = NamedTag("DenseMatrix")
+val sparseMatrixTag = NamedTag("SparseMatrix")
 
 fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
     val numVectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace.from(numVectorSpace)
     "factory should return the cache if exists" {
         DenseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
+    }
+}
+
+fun <S : Scalar> sparseMatrixSpaceTest(field: Field<S>) = stringSpec {
+    val numVectorSpace = SparseNumVectorSpace.from(field)
+    val matrixSpace = SparseMatrixSpace.from(numVectorSpace)
+    "factory should return the cache if exists" {
+        SparseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
     }
 }
 
@@ -306,7 +317,7 @@ inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVe
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> denseMatrixOfRank2Test(
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixOfRank2Test(
     matrixSpace: MatrixSpace<S, V, M>,
     max: Int = 100
 ) = stringSpec {
@@ -369,73 +380,78 @@ const val matrixSizeForDet = 4
 // - LongRational の test が(乱数次第で)たまに overflow する
 
 class IntRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag, intRationalTag)
+    tags(matrixTag, denseMatrixTag, intRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverIntRational
     include(denseMatrixSpaceTest(IntRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
-    include(denseMatrixOfRank2Test(matrixSpace, 10))
+    include(matrixOfRank2Test(matrixSpace, 10))
     // include(determinantTest(IntRationalField, 3, 5)) // overflow しがちなので除外
 })
 
 class LongRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag, longRationalTag)
+    tags(matrixTag, denseMatrixTag, longRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverLongRational
     include(denseMatrixSpaceTest(LongRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
-    include(denseMatrixOfRank2Test(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
     // include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // overflow しがちなので除外
 })
 
 class BigRationalDenseMatrixTest : StringSpec({
-    tags(denseMatrixTag, bigRationalTag)
+    tags(matrixTag, denseMatrixTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(denseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
-    include(denseMatrixOfRank2Test(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
-
-    "fromVectors should work correctly (use statically selected field)" {
-        val numVectorSpace = DenseNumVectorSpaceOverBigRational
-        val zero = BigRationalField.zero
-        val one = BigRationalField.one
-        val two = BigRationalField.fromInt(2)
-        val three = BigRationalField.fromInt(3)
-        val expectedMat = matrixSpace.fromRows(
-            listOf(
-                listOf(zero, one),
-                listOf(two, three)
-            )
-        )
-        val v = numVectorSpace.fromValues(listOf(zero, two))
-        val w = numVectorSpace.fromValues(listOf(one, three))
-        (matrixSpace.fromNumVectors(listOf(v, w))) shouldBe expectedMat
-    }
 })
 
 class IntMod2DenseMatrixTest : StringSpec({
-    tags(denseMatrixTag, intModpTag)
+    tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF2
     include(denseMatrixSpaceTest(F2))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
-    include(denseMatrixOfRank2Test(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
 })
 
 class IntMod5DenseMatrixTest : StringSpec({
-    tags(denseMatrixTag, intModpTag)
+    tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF5
     include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixFromVectorTest(matrixSpace))
-    include(denseMatrixOfRank2Test(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
+})
+
+class BigRationalSparseMatrixTest : StringSpec({
+    tags(matrixTag, sparseMatrixTag, bigRationalTag)
+
+    val matrixSpace = SparseMatrixSpaceOverBigRational
+    include(sparseMatrixSpaceTest(BigRationalField))
+    include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+})
+
+class IntMod2SparseMatrixTest : StringSpec({
+    tags(matrixTag, sparseMatrixTag, intModpTag)
+
+    val matrixSpace = SparseMatrixSpaceOverF2
+    include(sparseMatrixSpaceTest(F2))
+    include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
 })

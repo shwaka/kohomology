@@ -22,6 +22,20 @@ val numVectorTag = NamedTag("NumVector")
 val denseNumVectorTag = NamedTag("DenseNumVector")
 val sparseNumVectorTag = NamedTag("SparseNumVector")
 
+fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = stringSpec {
+    "factory should return the cache if exists" {
+        val field = numVectorSpace.field
+        DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
+    }
+}
+
+fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = stringSpec {
+    "factory should return the cache if exists" {
+        val field = numVectorSpace.field
+        SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     numVectorSpace.context.run {
         "(0, 1) + (0, 1) should be (0, 2)" {
@@ -76,48 +90,38 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
     }
 }
 
-fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = stringSpec {
-    "factory should return the cache if exists" {
-        val field = numVectorSpace.field
-        DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
-    }
-    include(numVectorTest(numVectorSpace))
-}
-
-fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = stringSpec {
-    "factory should return the cache if exists" {
-        val field = numVectorSpace.field
-        SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
-    }
-    include(numVectorTest(numVectorSpace))
-}
-
 class IntRationalDenseNumVectorTest : StringSpec({
     tags(numVectorTag, denseNumVectorTag, intRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverIntRational))
+    include(numVectorTest(DenseNumVectorSpaceOverIntRational))
 })
 
 class BigRationalDenseNumVectorTest : StringSpec({
     tags(numVectorTag, denseNumVectorTag, bigRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverBigRational))
+    include(numVectorTest(DenseNumVectorSpaceOverBigRational))
 })
 
 class IntModpDenseNumVectorTest : StringSpec({
     tags(numVectorTag, denseNumVectorTag, intModpTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverF7))
+    include(numVectorTest(DenseNumVectorSpaceOverF7))
 })
 
 class IntRationalSparseNumVectorTest : StringSpec({
     tags(numVectorTag, sparseNumVectorTag, intRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverIntRational))
+    include(numVectorTest(SparseNumVectorSpaceOverIntRational))
 })
 
 class BigRationalSparseNumVectorTest : StringSpec({
     tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverBigRational))
+    include(numVectorTest(SparseNumVectorSpaceOverBigRational))
 })
 
 class IntModpSparseNumVectorTest : StringSpec({
     tags(numVectorTag, sparseNumVectorTag, intModpTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverF7))
+    include(numVectorTest(SparseNumVectorSpaceOverF7))
 })

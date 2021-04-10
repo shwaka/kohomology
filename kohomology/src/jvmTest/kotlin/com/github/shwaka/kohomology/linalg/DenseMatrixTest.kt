@@ -64,6 +64,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             )
             (m + n) shouldBe expected
         }
+        "((2, 1), (0, -1)) * -2 should be ((-4, -2), (0, 2))" {
+            val expected = matrixSpace.fromRows(
+                listOf(
+                    listOf(-four, -two),
+                    listOf(zero, two)
+                )
+            )
+            (m * (-two)) shouldBe expected
+        }
         "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
             val v = numVectorSpace.fromValues(listOf(two, -one))
             val expected = numVectorSpace.fromValues(listOf(three, one))

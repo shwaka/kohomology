@@ -124,7 +124,7 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
-        val values = matrix.values.map { row -> row.map { elm -> this.field.context.run { -elm } } }
+        val values = matrix.values.map { row -> row.map { elm -> this.field.context.run { elm * scalar } } }
         return this.fromRows(values)
     }
 

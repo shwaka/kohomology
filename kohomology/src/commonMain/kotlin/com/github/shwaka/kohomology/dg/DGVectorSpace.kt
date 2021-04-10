@@ -51,11 +51,11 @@ open class DGVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     protected fun getCohomologyVectorSpace(degree: Degree): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
-            this.logger.debug { "cache found for H^$degree(${this.gVectorSpace})"}
+            this.logger.debug { "cache found for H^$degree(${this.gVectorSpace})" }
             return it
         }
         // if cache does not exist
-        this.logger.debug { "cache not found for H^$degree(${this.gVectorSpace}), compute it"}
+        this.logger.debug { "cache not found for H^$degree(${this.gVectorSpace}), compute it" }
         val kernelBasis = this.differential[degree].kernelBasis()
         val imageGenerator = this.differential[degree - 1].imageGenerator()
         val subQuotVectorSpace = SubQuotVectorSpace(

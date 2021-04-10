@@ -33,11 +33,11 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun get(degree: Degree): LinearMap<BS, BT, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
-            this.logger.debug { "cache found for $this[$degree]"}
+            this.logger.debug { "cache found for $this[$degree]" }
             return it
         }
         // if cache does not exist
-        this.logger.debug { "cache not found for $this[$degree], create new instance"}
+        this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val linearMap = this.getLinearMap(degree)
         this.cache[degree] = linearMap
         return linearMap

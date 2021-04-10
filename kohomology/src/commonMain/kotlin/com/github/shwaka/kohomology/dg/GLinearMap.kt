@@ -43,6 +43,10 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         return linearMap
     }
 
+    override fun toString(): String {
+        return this.name
+    }
+
     companion object {
         fun <BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<BS, S, V>,

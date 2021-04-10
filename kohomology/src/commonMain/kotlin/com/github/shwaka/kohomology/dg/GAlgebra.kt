@@ -57,7 +57,8 @@ open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val unit: GVector<B, S, V> = this.fromVector(unitVector, 0)
 
     private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
-        GBilinearMap(this, this, this, 0) { p, q -> getMultiplication(p, q) }
+        val bilinearMapName = "Multiplication(${this.name})"
+        GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
     }
     override fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         return this.multiplication(a, b)

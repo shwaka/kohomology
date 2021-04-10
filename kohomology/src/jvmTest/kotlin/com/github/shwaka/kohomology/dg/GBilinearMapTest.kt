@@ -25,7 +25,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
             else -> emptyList()
         }
     }
-    val gBilinearMap = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0) { p, q ->
+    val gBilinearMap = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, "f") { p, q ->
         val u: Vector<String, S, V> = gVectorSpace[0].getBasis()[0]
         val v: Vector<String, S, V> = gVectorSpace[1].getBasis()[0]
         val z2: Vector<String, S, V> = gVectorSpace[2].zeroVector

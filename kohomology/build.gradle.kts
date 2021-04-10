@@ -142,7 +142,7 @@ tasks.jacocoTestReport {
 
     // https://stackoverflow.com/questions/59802396/kotlin-multiplatform-coverage
     val coverageSourceDirs = arrayOf("src/commonMain/kotlin", "src/jvmMain/kotlin")
-    val classFiles = File("$buildDir/classes/kotlin/jvm/").walkBottomUp().toSet()
+    val classFiles = File("$buildDir/classes/kotlin/jvm/main").walkBottomUp().toSet()
 
     classDirectories.setFrom(classFiles)
     sourceDirectories.setFrom(files(coverageSourceDirs))

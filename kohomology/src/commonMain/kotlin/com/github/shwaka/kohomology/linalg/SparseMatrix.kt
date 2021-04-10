@@ -117,15 +117,59 @@ class SparseMatrixSpace<S : Scalar>(
     }
 
     override fun multiply(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (first !in this)
+            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+        if (first.colCount != second.rowCount)
+            throw ArithmeticException("Cannot multiply matrices: first.colCount != second.rowCount")
+        val rowMap = this.field.context.run {
+            first.rowMap.mapValues { (_, row1) ->
+                val newRow: MutableMap<Int, S> = mutableMapOf()
+                for ((sumInd, elm1) in row1) {
+                    second.rowMap[sumInd]?.let { row2 ->
+                        for ((colInd, elm2) in row2) {
+                            newRow[colInd] = newRow.getOrElse(colInd) { zero } + elm1 * elm2
+                        }
+                    }
+                }
+                newRow.filterValues { it != zero }
+            }
+        }
+        return SparseMatrix(this.numVectorSpace, rowMap, first.rowCount, second.colCount)
     }
 
     override fun multiply(matrix: SparseMatrix<S>, scalar: S): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (matrix !in this)
+            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
+        if (scalar !in this.field)
+            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
+        val rowMap = this.field.context.run {
+            matrix.rowMap.mapValues { (_, row) ->
+                row.mapValues { (_, elm) -> elm * scalar }
+            }
+        }
+        return SparseMatrix(this.numVectorSpace, rowMap, matrix.rowCount, matrix.colCount)
     }
 
     override fun multiply(matrix: SparseMatrix<S>, numVector: SparseNumVector<S>): SparseNumVector<S> {
-        TODO("Not yet implemented")
+        if (matrix !in this)
+            throw ArithmeticException("The sparseMatrix $matrix does not match the context ($this)")
+        if (numVector !in this.numVectorSpace)
+            throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
+        if (matrix.colCount != numVector.dim)
+            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
+        val values = this.field.context.run {
+            matrix.rowMap.mapValues { (_, row) ->
+                row.map { (colInd, elm) ->
+                    when (val it = numVector.values[colInd]) {
+                        null, zero -> null
+                        else -> elm * it
+                    }
+                }.filterNotNull().fold(zero) { a, b -> a + b }
+            }
+        }
+        return SparseNumVector(values, this.field, numVector.dim)
     }
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
@@ -133,7 +177,16 @@ class SparseMatrixSpace<S : Scalar>(
     }
 
     override fun computeTranspose(matrix: SparseMatrix<S>): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = matrix.colCount
+        val colCount = matrix.rowCount
+        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
+        for ((rowInd, row) in matrix.rowMap) {
+            for ((colInd, elm) in row) {
+                val newRow = rowMap.getOrPut(colInd) { mutableMapOf() }
+                newRow[rowInd] = elm
+            }
+        }
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun computeInnerProduct(

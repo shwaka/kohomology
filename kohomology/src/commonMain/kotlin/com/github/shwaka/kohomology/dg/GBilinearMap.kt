@@ -21,11 +21,11 @@ class GBilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
     operator fun get(p: Degree, q: Degree): BilinearMap<BS1, BS2, BT, S, V, M> {
         this.cache[Pair(p, q)]?.let {
             // if cache exists
-            this.logger.debug { "cache found for $this[$p, $q]"}
+            this.logger.debug { "cache found for $this[$p, $q]" }
             return it
         }
         // if cache does not exists
-        this.logger.debug { "cache not found for $this[$p, $q], create new instance"}
+        this.logger.debug { "cache not found for $this[$p, $q], create new instance" }
         val bilinearMap = this.getBilinearMap(p, q)
         this.cache[Pair(p, q)] = bilinearMap
         return bilinearMap

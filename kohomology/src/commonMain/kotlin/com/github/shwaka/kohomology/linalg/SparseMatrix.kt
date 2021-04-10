@@ -162,7 +162,6 @@ class SparseMatrixSpace<S : Scalar>(
                 Pair(rowInd, newRow)
         }.toMap()
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCountNonNull)
-
     }
 
     override fun fromCols(cols: List<List<S>>, rowCount: Int?): SparseMatrix<S> {

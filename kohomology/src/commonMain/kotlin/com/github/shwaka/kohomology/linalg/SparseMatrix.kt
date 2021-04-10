@@ -1,8 +1,10 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.util.StringTable
+
 data class SparseMatrix<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>,
-    val values: Map<Int, Map<Int, S>>,
+    val rowMap: Map<Int, Map<Int, S>>,
     override val rowCount: Int,
     override val colCount: Int,
 ) : Matrix<S, SparseNumVector<S>> {
@@ -10,16 +12,28 @@ data class SparseMatrix<S : Scalar>(
         // TODO: check that each index is smaller than rowCount or colCount
     }
 
+    private fun toStringTable(): StringTable {
+        val valueList = (0 until this.rowCount).map { rowInd ->
+            (0 until this.colCount).map { colInd ->
+                this[rowInd, colInd].toString()
+            }
+        }
+        return StringTable(valueList)
+    }
+
     override fun toPrettyString(): String {
-        TODO("Not yet implemented")
+        return this.toStringTable().toPrettyString()
     }
 
     override fun toString(): String {
-        return super.toString()
+        return this.toStringTable().toString()
     }
 
     override fun get(rowInd: Int, colInd: Int): S {
-        TODO("Not yet implemented")
+        this.rowMap[rowInd]?.let { row ->
+            row[colInd]?.let { return it }
+        }
+        return this.numVectorSpace.field.zero
     }
 }
 
@@ -51,11 +65,55 @@ class SparseMatrixSpace<S : Scalar>(
     }
 
     override fun add(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (first !in this)
+            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+        if (first.rowCount != second.rowCount || first.colCount != second.colCount)
+            throw ArithmeticException("Cannot add matrices: different shapes")
+        val newRowMap: MutableMap<Int, MutableMap<Int, S>> = first.rowMap.mapValues { (_, row) -> row.toMutableMap() }.toMutableMap()
+        this.field.context.run {
+            for ((rowInd, row) in second.rowMap) {
+                val newRow = newRowMap.getOrPut(rowInd) { mutableMapOf() }
+                for ((colInd, elm) in row) {
+                    when (val temp: S? = newRow[colInd]) {
+                        null -> newRow[colInd] = elm
+                        else -> newRow[colInd] = temp + elm
+                    }
+                    if (newRow[colInd] == null)
+                        newRow.remove(colInd)
+                }
+                if (newRow.isEmpty())
+                    newRowMap.remove(rowInd)
+            }
+        }
+        return SparseMatrix(this.numVectorSpace, newRowMap, first.rowCount, first.colCount)
     }
 
     override fun subtract(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        if (first !in this)
+            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+        if (second !in this)
+            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+        if (first.rowCount != second.rowCount || first.colCount != second.colCount)
+            throw ArithmeticException("Cannot add matrices: different shapes")
+        val newRowMap: MutableMap<Int, MutableMap<Int, S>> = first.rowMap.mapValues { (_, row) -> row.toMutableMap() }.toMutableMap()
+        this.field.context.run {
+            for ((rowInd, row) in second.rowMap) {
+                val newRow = newRowMap.getOrPut(rowInd) { mutableMapOf() }
+                for ((colInd, elm) in row) {
+                    when (val temp: S? = newRow[colInd]) {
+                        null -> newRow[colInd] = -elm
+                        else -> newRow[colInd] = temp - elm
+                    }
+                    if (newRow[colInd] == null)
+                        newRow.remove(colInd)
+                }
+                if (newRow.isEmpty())
+                    newRowMap.remove(rowInd)
+            }
+        }
+        return SparseMatrix(this.numVectorSpace, newRowMap, first.rowCount, first.colCount)
     }
 
     override fun multiply(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
@@ -83,11 +141,28 @@ class SparseMatrixSpace<S : Scalar>(
         numVector1: SparseNumVector<S>,
         numVector2: SparseNumVector<S>
     ): S {
-        TODO("Not yet implemented")
+        return this.context.run {
+            numVector1 dot (matrix * numVector2)
+        }
     }
 
     override fun fromRows(rows: List<List<S>>, colCount: Int?): SparseMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = rows.size
+        val colCountNonNull: Int = when {
+            rows.isNotEmpty() -> rows[0].size
+            colCount != null -> colCount
+            else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
+        }
+        val zero = this.field.zero
+        val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull() { rowInd, row ->
+            val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm == zero) null else Pair(colInd, elm) }.toMap()
+            if (newRow.isEmpty())
+                null
+            else
+                Pair(rowInd, newRow)
+        }.toMap()
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCountNonNull)
+
     }
 
     override fun fromCols(cols: List<List<S>>, rowCount: Int?): SparseMatrix<S> {

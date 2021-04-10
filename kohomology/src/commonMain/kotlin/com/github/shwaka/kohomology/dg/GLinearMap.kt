@@ -12,6 +12,7 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val target: GVectorSpace<BT, S, V>,
     val degree: Degree,
     val matrixSpace: MatrixSpace<S, V, M>,
+    val name: String,
     private val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
 ) {
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
@@ -35,6 +36,7 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             target: GVectorSpace<BT, S, V>,
             degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
             getGVectors: (Degree) -> List<GVector<BT, S, V>>
         ): GLinearMap<BS, BT, S, V, M> {
             val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M> = { k ->
@@ -50,7 +52,7 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                 val valueList = gVectorValueList.map { it.vector }
                 LinearMap.fromVectors(sourceVectorSpace, targetVectorSpace, matrixSpace, valueList)
             }
-            return GLinearMap(source, target, degree, matrixSpace, getLinearMap)
+            return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
     }
 }

@@ -41,7 +41,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val valueDegree = this.indeterminateList[index].degree + derivationDegree
             this.convertToGVector(gVectorOrZero, valueDegree)
         }
-        return GLinearMap.fromGVectors(this, this, derivationDegree, this.matrixSpace) { k ->
+        val name = "Derivation(${valueList.joinToString(", ") { it.toString() }})"
+        return GLinearMap.fromGVectors(this, this, derivationDegree, this.matrixSpace, name) { k ->
             val sourceVectorSpace = this[k]
             // val targetVectorSpace = this[k + derivationDegree]
             sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
@@ -96,7 +97,8 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val valueDegree = this.indeterminateList[index].degree
             target.convertToGVector(gVectorOrZero, valueDegree)
         }
-        return GLinearMap.fromGVectors(this, target, 0, this.matrixSpace) { k ->
+        val name = "AlgebraMap(${valueList.joinToString(", ") { it.toString() }})"
+        return GLinearMap.fromGVectors(this, target, 0, this.matrixSpace, name) { k ->
             val sourceVectorSpace = this[k]
             // val targetVectorSpace = target[k]
             sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->

@@ -22,7 +22,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
     // val field = matrixSpace.field
     // val zero = field.zero
     // val one = field.one
-    val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace) { degree ->
+    val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace, "f") { degree ->
         val targetBasis = gVectorSpace[degree + 1].getBasis()
         val valueList = (0 until degree).map { i ->
             gVectorSpace[degree + 1].context.run {

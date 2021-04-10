@@ -33,11 +33,13 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
                 this.target.cohomologyClassOf(this.gLinearMap(cocycle))
             }
         }
+        val newName = "H^*(${this.gLinearMap.name})"
         return GLinearMap.fromGVectors(
             this.source.cohomology,
             this.target.cohomology,
             this.degree,
             this.matrixSpace,
+            newName,
             getGVectors
         )
     }
@@ -48,9 +50,10 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             target: DGVectorSpace<BT, S, V, M>,
             degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
             getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
         ): DGLinearMap<BS, BT, S, V, M> {
-            val gLinearMap = GLinearMap(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, getLinearMap)
+            val gLinearMap = GLinearMap(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, name, getLinearMap)
             return DGLinearMap(source, target, gLinearMap)
         }
 
@@ -59,9 +62,10 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             target: DGVectorSpace<BT, S, V, M>,
             degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
             getGVectors: (Degree) -> List<GVector<BT, S, V>>
         ): DGLinearMap<BS, BT, S, V, M> {
-            val gLinearMap = GLinearMap.fromGVectors(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, getGVectors)
+            val gLinearMap = GLinearMap.fromGVectors(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, name, getGVectors)
             return DGLinearMap(source, target, gLinearMap)
         }
     }

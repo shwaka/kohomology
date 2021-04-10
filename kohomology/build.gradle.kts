@@ -6,7 +6,7 @@ version = "0.2-SNAPSHOT"
 plugins {
     kotlin("multiplatform") version "1.4.31"
     id("io.kotest") version "0.2.6"
-    id("org.jlleitschuh.gradle.ktlint") version "9.4.1"
+    id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("java-library") // necessary for jacoco
     jacoco
     id("com.adarshr.test-logger") version "2.1.1"

@@ -3,9 +3,12 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
-import com.github.shwaka.kohomology.specific.BigRationalField
-import com.github.shwaka.kohomology.specific.F7
-import com.github.shwaka.kohomology.specific.IntRationalField
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -15,14 +18,12 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 
+val numVectorTag = NamedTag("NumVector")
 val denseNumVectorTag = NamedTag("DenseNumVector")
+val sparseNumVectorTag = NamedTag("SparseNumVector")
 
-fun <S : Scalar> denseNumVectorTest(field: Field<S>) = stringSpec {
-    val numVectorSpace = DenseNumVectorSpace.from(field)
+fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     numVectorSpace.context.run {
-        "factory should return the cache if exists" {
-            DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
-        }
         "(0, 1) + (0, 1) should be (0, 2)" {
             val v = numVectorSpace.fromValues(listOf(zero, one))
             val w = numVectorSpace.fromValues(listOf(zero, two))
@@ -75,17 +76,48 @@ fun <S : Scalar> denseNumVectorTest(field: Field<S>) = stringSpec {
     }
 }
 
+fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = stringSpec {
+    "factory should return the cache if exists" {
+        val field = numVectorSpace.field
+        DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
+    }
+    include(numVectorTest(numVectorSpace))
+}
+
+fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = stringSpec {
+    "factory should return the cache if exists" {
+        val field = numVectorSpace.field
+        SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
+    }
+    include(numVectorTest(numVectorSpace))
+}
+
 class IntRationalDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag, intRationalTag)
-    include(denseNumVectorTest(IntRationalField))
+    tags(numVectorTag, denseNumVectorTag, intRationalTag)
+    include(denseNumVectorTest(DenseNumVectorSpaceOverIntRational))
 })
 
 class BigRationalDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag, bigRationalTag)
-    include(denseNumVectorTest(BigRationalField))
+    tags(numVectorTag, denseNumVectorTag, bigRationalTag)
+    include(denseNumVectorTest(DenseNumVectorSpaceOverBigRational))
 })
 
 class IntModpDenseNumVectorTest : StringSpec({
-    tags(denseNumVectorTag, intModpTag)
-    include(denseNumVectorTest(F7))
+    tags(numVectorTag, denseNumVectorTag, intModpTag)
+    include(denseNumVectorTest(DenseNumVectorSpaceOverF7))
+})
+
+class IntRationalSparseNumVectorTest : StringSpec({
+    tags(numVectorTag, sparseNumVectorTag, intRationalTag)
+    include(sparseNumVectorTest(SparseNumVectorSpaceOverIntRational))
+})
+
+class BigRationalSparseNumVectorTest : StringSpec({
+    tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
+    include(sparseNumVectorTest(SparseNumVectorSpaceOverBigRational))
+})
+
+class IntModpSparseNumVectorTest : StringSpec({
+    tags(numVectorTag, sparseNumVectorTag, intModpTag)
+    include(sparseNumVectorTest(SparseNumVectorSpaceOverF7))
 })

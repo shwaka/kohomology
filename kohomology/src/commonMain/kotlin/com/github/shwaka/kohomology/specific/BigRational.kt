@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
+import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.ionspin.kotlin.bignum.integer.BigInteger
 import kotlin.Exception
 
@@ -132,3 +133,5 @@ object BigRationalField : Field<BigRational> {
 
 val DenseNumVectorSpaceOverBigRational = DenseNumVectorSpace.from(BigRationalField)
 val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)
+
+val SparseNumVectorSpaceOverBigRational = SparseNumVectorSpace.from(BigRationalField)

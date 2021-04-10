@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
+import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
@@ -164,3 +165,5 @@ object IntRationalField : Field<IntRational> {
 
 val DenseNumVectorSpaceOverIntRational = DenseNumVectorSpace.from(IntRationalField)
 val DenseMatrixSpaceOverIntRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverIntRational)
+
+val SparseNumVectorSpaceOverIntRational = SparseNumVectorSpace.from(IntRationalField)

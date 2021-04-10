@@ -66,7 +66,7 @@ kotlin {
                     implementation(kococoDebug)
                 }
 
-                implementation("com.github.shwaka.counter:simple-counter:0.1")
+                implementation("com.github.shwaka.counter:simple-counter:0.2")
                 implementation("io.github.microutils:kotlin-logging:2.0.6")
             }
         }

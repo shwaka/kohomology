@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import mu.KotlinLogging
 
 class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: GVectorSpace<BS, S, V>,
@@ -15,6 +16,9 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val name: String,
     private val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
 ) {
+    private val cache: MutableMap<Degree, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
+    private val logger = KotlinLogging.logger {}
+
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
         if (gVector.gVectorSpace != this.source)
             throw IllegalArgumentException("Invalid graded vector is given as an argument for a graded linear map")
@@ -27,7 +31,16 @@ class GLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     operator fun get(degree: Degree): LinearMap<BS, BT, S, V, M> {
-        return this.getLinearMap(degree)
+        this.cache[degree]?.let {
+            // if cache exists
+            this.logger.debug { "cache found for $this[$degree]"}
+            return it
+        }
+        // if cache does not exist
+        this.logger.debug { "cache not found for $this[$degree], create new instance"}
+        val linearMap = this.getLinearMap(degree)
+        this.cache[degree] = linearMap
+        return linearMap
     }
 
     companion object {

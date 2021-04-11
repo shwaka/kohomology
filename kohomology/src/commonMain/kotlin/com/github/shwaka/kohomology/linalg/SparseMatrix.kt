@@ -169,7 +169,7 @@ class SparseMatrixSpace<S : Scalar>(
                 }.filterNotNull().fold(zero) { a, b -> a + b }
             }
         }
-        return SparseNumVector(values, this.field, numVector.dim)
+        return SparseNumVector(values, this.field, matrix.rowCount)
     }
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {

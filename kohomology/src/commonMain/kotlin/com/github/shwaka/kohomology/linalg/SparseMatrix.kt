@@ -240,26 +240,8 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCountNonNull)
     }
 
-    override fun fromColList(cols: List<List<S>>, rowCount: Int?): SparseMatrix<S> {
-        val rowCountNonNull: Int = when {
-            cols.isNotEmpty() -> cols[0].size
-            rowCount != null -> rowCount
-            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
-        }
-        val colCount = cols.size
-        val rowList = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
-        return this.fromRowList(rowList, colCount)
-    }
-
     fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SparseMatrix<S> {
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
-    }
-
-    override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): SparseMatrix<S> {
-        if (list.size != rowCount * colCount)
-            throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
-        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return this.fromRowList(rowList, colCount)
     }
 
     private fun joinMatrices(matrix1: SparseMatrix<S>, matrix2: SparseMatrix<S>): SparseMatrix<S> {

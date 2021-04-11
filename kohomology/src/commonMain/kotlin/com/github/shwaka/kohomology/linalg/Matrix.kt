@@ -125,14 +125,28 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val numVectorSpace: NumVectorSpace<S, V>
     val field: Field<S>
     fun fromRowList(rows: List<List<S>>, colCount: Int? = null): M
-    fun fromColList(cols: List<List<S>>, rowCount: Int? = null): M
+    fun fromColList(cols: List<List<S>>, rowCount: Int? = null): M {
+        val rowCountNonNull: Int = when {
+            cols.isNotEmpty() -> cols[0].size
+            rowCount != null -> rowCount
+            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
+        }
+        val colCount = cols.size
+        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
+        return this.fromRowList(rows, colCount)
+    }
     fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
         val cols = this.numVectorSpace.context.run { numVectors.map { v -> v.toList() } }
         return this.fromColList(cols, dim)
     }
-    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
+    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
+        if (list.size != rowCount * colCount)
+            throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
+        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
+        return this.fromRowList(rowList, colCount)
+    }
 
     fun getZero(rowCount: Int, colCount: Int): M {
         val zero = this.field.zero

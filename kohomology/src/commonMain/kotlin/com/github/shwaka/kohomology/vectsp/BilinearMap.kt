@@ -22,10 +22,10 @@ class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
     }
     fun multiply(numVector1: V, numVector2: V): V {
-        val values = this.matrixSpace.context.run {
+        val valueList = this.matrixSpace.context.run {
             matrixList.map { matrix -> matrix.innerProduct(numVector1, numVector2) }
         }
-        return matrixSpace.numVectorSpace.fromValues(values)
+        return matrixSpace.numVectorSpace.fromValues(valueList)
     }
 }
 

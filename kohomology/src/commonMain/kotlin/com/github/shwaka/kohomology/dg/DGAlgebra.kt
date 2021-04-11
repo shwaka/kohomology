@@ -52,7 +52,7 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             cohomOfDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegQ.section(vector2)
             }
-        val values: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
+        val valueList: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
             basisLift1.map { vector1: Vector<B, S, V> ->
                 basisLift2.map { vector2: Vector<B, S, V> ->
                     cohomOfDegPPlusQ.projection(
@@ -65,7 +65,7 @@ open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             cohomOfDegQ,
             cohomOfDegPPlusQ,
             this.matrixSpace,
-            values
+            valueList
         )
     }
 

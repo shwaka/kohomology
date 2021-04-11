@@ -5,13 +5,13 @@ class SparseNumVector<S : Scalar>(
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    val values: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
+    val valueList: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
     override fun isZero(): Boolean {
-        return this.values.all { (_, value) -> value.isZero() }
+        return this.valueList.all { (_, value) -> value.isZero() }
     }
 
     override fun toString(): String {
-        return "SparseNumVector(values=$values, field=$field, dim=$dim)"
+        return "SparseNumVector(valueList=$valueList, field=$field, dim=$dim)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -20,7 +20,7 @@ class SparseNumVector<S : Scalar>(
 
         other as SparseNumVector<*>
 
-        if (values != other.values) return false
+        if (valueList != other.valueList) return false
         if (field != other.field) return false
         if (dim != other.dim) return false
 
@@ -28,7 +28,7 @@ class SparseNumVector<S : Scalar>(
     }
 
     override fun hashCode(): Int {
-        var result = values.hashCode()
+        var result = valueList.hashCode()
         result = 31 * result + field.hashCode()
         result = 31 * result + dim
         return result
@@ -67,16 +67,16 @@ class SparseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot add numVectors of different dim")
-        val values: MutableMap<Int, S> = a.values.toMutableMap()
+        val valueList: MutableMap<Int, S> = a.valueList.toMutableMap()
         this.field.context.run {
-            for ((i, value) in b.values) {
-                when (val valueFromA: S? = values[i]) {
-                    null -> values[i] = value
-                    else -> values[i] = valueFromA + value
+            for ((i, value) in b.valueList) {
+                when (val valueFromA: S? = valueList[i]) {
+                    null -> valueList[i] = value
+                    else -> valueList[i] = valueFromA + value
                 }
             }
         }
-        return SparseNumVector(values, this.field, a.dim)
+        return SparseNumVector(valueList, this.field, a.dim)
     }
 
     override fun subtract(a: SparseNumVector<S>, b: SparseNumVector<S>): SparseNumVector<S> {
@@ -86,16 +86,16 @@ class SparseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw IllegalArgumentException("Cannot add numVectors of different dim")
-        val values: MutableMap<Int, S> = a.values.toMutableMap()
+        val valueList: MutableMap<Int, S> = a.valueList.toMutableMap()
         this.field.context.run {
-            for ((i, value) in b.values) {
-                when (val valueFromA: S? = values[i]) {
-                    null -> values[i] = -value
-                    else -> values[i] = valueFromA - value
+            for ((i, value) in b.valueList) {
+                when (val valueFromA: S? = valueList[i]) {
+                    null -> valueList[i] = -value
+                    else -> valueList[i] = valueFromA - value
                 }
             }
         }
-        return SparseNumVector(values, this.field, a.dim)
+        return SparseNumVector(valueList, this.field, a.dim)
     }
 
     override fun multiply(scalar: S, numVector: SparseNumVector<S>): SparseNumVector<S> {
@@ -105,7 +105,7 @@ class SparseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
         if (scalar.isZero()) return SparseNumVector(mapOf(), this.field, numVector.dim)
         val values = this.field.context.run {
-            numVector.values.mapValues { (_, value) ->
+            numVector.valueList.mapValues { (_, value) ->
                 scalar * value
             }
         }
@@ -113,7 +113,7 @@ class SparseNumVectorSpace<S : Scalar>(
     }
 
     override fun getElement(numVector: SparseNumVector<S>, ind: Int): S {
-        numVector.values[ind]?.let { return it }
+        numVector.valueList[ind]?.let { return it }
         return this.field.zero
     }
 
@@ -125,11 +125,11 @@ class SparseNumVectorSpace<S : Scalar>(
         if (numVector1.dim != numVector2.dim)
             throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")
         val zero = this.field.zero
-        val indices = numVector1.values.keys.intersect(numVector2.values.keys)
+        val indices = numVector1.valueList.keys.intersect(numVector2.valueList.keys)
         return this.field.context.run {
             indices.map { i ->
                 // we know that both 'values' contain the key 'i'
-                numVector1.values[i]!! * numVector2.values[i]!!
+                numVector1.valueList[i]!! * numVector2.valueList[i]!!
             }.fold(zero) { acc, x -> acc + x }
         }
     }

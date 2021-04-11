@@ -74,8 +74,8 @@ class DenseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The denseNumVector $numVector does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
-        val values: List<S> = this.field.context.run { numVector.valueList.map { it * scalar } }
-        return DenseNumVector(values, this.field)
+        val valueList: List<S> = this.field.context.run { numVector.valueList.map { it * scalar } }
+        return DenseNumVector(valueList, this.field)
     }
 
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {
@@ -102,7 +102,7 @@ class DenseNumVectorSpace<S : Scalar>(
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {
-        val values = List(dim) { this.field.zero }
-        return this.fromValues(values)
+        val valueList = List(dim) { this.field.zero }
+        return this.fromValues(valueList)
     }
 }

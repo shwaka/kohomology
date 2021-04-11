@@ -41,7 +41,7 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
         val target = this.getVectorSpace(p + q)
-        val values = source1.basisNames.map { monoidElement1 ->
+        val valueList = source1.basisNames.map { monoidElement1 ->
             source2.basisNames.map { monoidElement2 ->
                 this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
                     when (maybeZero) {
@@ -54,7 +54,7 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
                 }
             }
         }
-        return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, values)
+        return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, valueList)
     }
 
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)

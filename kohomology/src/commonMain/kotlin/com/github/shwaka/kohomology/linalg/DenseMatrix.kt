@@ -81,10 +81,10 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
             throw ArithmeticException("Cannot add matrices: different shapes")
-        val values = first.rowList.zip(second.rowList).map { (rowInThis, rowInOther) ->
+        val rowList = first.rowList.zip(second.rowList).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.context.run { elmInThis + elmInOther } }
         }
-        return this.fromRows(values)
+        return this.fromRows(rowList)
     }
 
     override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
@@ -107,7 +107,7 @@ class DenseMatrixSpace<S : Scalar>(
         val rowRange = 0 until first.rowCount
         val sumRange = 0 until first.colCount
         val colRange = 0 until second.colCount
-        val values = rowRange.map { i ->
+        val rowList = rowRange.map { i ->
             colRange.map { j ->
                 this.field.context.run {
                     sumRange
@@ -116,7 +116,7 @@ class DenseMatrixSpace<S : Scalar>(
                 }
             }
         }
-        return this.fromRows(values)
+        return this.fromRows(rowList)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
@@ -124,8 +124,8 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
-        val values = matrix.rowList.map { row -> row.map { elm -> this.field.context.run { elm * scalar } } }
-        return this.fromRows(values)
+        val rowList = matrix.rowList.map { row -> row.map { elm -> this.field.context.run { elm * scalar } } }
+        return this.fromRows(rowList)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
@@ -135,14 +135,14 @@ class DenseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
-        val values = matrix.rowList.map { row ->
+        val valueList = matrix.rowList.map { row ->
             this.field.context.run {
                 row.zip(numVector.valueList)
                     .map { it.first * it.second }
                     .fold(zero) { a, b -> a + b }
             }
         }
-        return this.numVectorSpace.fromValues(values)
+        return this.numVectorSpace.fromValues(valueList)
     }
 
     override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
@@ -155,14 +155,14 @@ class DenseMatrixSpace<S : Scalar>(
     override fun computeTranspose(matrix: DenseMatrix<S>): DenseMatrix<S> {
         val rowCount = matrix.colCount
         val colCount = matrix.rowCount
-        val values: List<List<S>> = (0 until rowCount).map { i ->
+        val rowList: List<List<S>> = (0 until rowCount).map { i ->
             (0 until colCount).map { j -> matrix[j, i] }
         }
         return DenseMatrix(
             this.numVectorSpace,
             rowCount = rowCount,
             colCount = colCount,
-            rowList = values
+            rowList = rowList
         )
     }
 
@@ -200,17 +200,17 @@ class DenseMatrixSpace<S : Scalar>(
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
         if (list.size != rowCount * colCount)
             throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
-        val values = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
+        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
+        return DenseMatrix(this.numVectorSpace, rowList, rowCount, colCount)
     }
 
     private fun joinMatrices(matrix1: DenseMatrix<S>, matrix2: DenseMatrix<S>): DenseMatrix<S> {
         if (matrix1.rowCount != matrix2.rowCount)
             throw IllegalArgumentException("Cannot join two matrices of different row counts")
-        val values = matrix1.rowList.zip(matrix2.rowList).map { (row1: List<S>, row2: List<S>) -> row1 + row2 }
+        val rowList = matrix1.rowList.zip(matrix2.rowList).map { (row1: List<S>, row2: List<S>) -> row1 + row2 }
         val rowCount = matrix1.rowCount
         val colCount = matrix1.colCount + matrix2.colCount
-        return DenseMatrix(this.numVectorSpace, values, rowCount, colCount)
+        return DenseMatrix(this.numVectorSpace, rowList, rowCount, colCount)
     }
 
     override fun joinMatrices(matrixList: List<DenseMatrix<S>>): DenseMatrix<S> {
@@ -220,12 +220,12 @@ class DenseMatrixSpace<S : Scalar>(
     }
 
     override fun computeRowSlice(matrix: DenseMatrix<S>, rowRange: IntRange): DenseMatrix<S> {
-        val values = matrix.rowList.slice(rowRange)
-        return this.fromRows(values, colCount = matrix.colCount)
+        val rowList = matrix.rowList.slice(rowRange)
+        return this.fromRows(rowList, colCount = matrix.colCount)
     }
 
     override fun computeColSlice(matrix: DenseMatrix<S>, colRange: IntRange): DenseMatrix<S> {
-        val values = matrix.rowList.map { row -> row.slice(colRange) }
-        return this.fromRows(values, colCount = colRange.count())
+        val rowList = matrix.rowList.map { row -> row.slice(colRange) }
+        return this.fromRows(rowList, colCount = colRange.count())
     }
 }

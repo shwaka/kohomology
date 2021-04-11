@@ -190,17 +190,17 @@ class SparseMatrixSpace<S : Scalar>(
             throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
             throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
-        val values = this.field.context.run {
+        val valueMap = this.field.context.run {
             matrix.rowMap.mapValues { (_, row) ->
                 row.map { (colInd, elm) ->
-                    when (val it = numVector.values[colInd]) {
+                    when (val it = numVector.valueList[colInd]) {
                         null, zero -> null
                         else -> elm * it
                     }
                 }.filterNotNull().fold(zero) { a, b -> a + b }
             }
         }
-        return SparseNumVector(values, this.field, matrix.rowCount)
+        return SparseNumVector(valueMap, this.field, matrix.rowCount)
     }
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {

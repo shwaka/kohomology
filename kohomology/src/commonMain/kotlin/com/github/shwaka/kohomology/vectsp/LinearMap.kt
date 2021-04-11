@@ -99,7 +99,7 @@ class LinearMap<B0, B1, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private 
                     throw IllegalArgumentException("The vector space for each vector must be the same as the target vector space")
             }
             val numVectors = vectors.map { it.toNumVector() }
-            val matrix = matrixSpace.fromNumVectors(numVectors, target.dim)
+            val matrix = matrixSpace.fromNumVectorList(numVectors, target.dim)
             return LinearMap(matrixSpace, source, target, matrix)
         }
     }

@@ -18,7 +18,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun plus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
-            self.matrixSpace.fromRows(
+            self.matrixSpace.fromRowList(
                 listOf(
                     listOf(self.a + other.a, self.b + other.b),
                     listOf(self.c + other.c, self.d + other.d)
@@ -31,7 +31,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun minus(other: MatrixOfRank2<S, V, M>): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
-            self.matrixSpace.fromRows(
+            self.matrixSpace.fromRowList(
                 listOf(
                     listOf(self.a - other.a, self.b - other.b),
                     listOf(self.c - other.c, self.d - other.d)
@@ -44,7 +44,7 @@ class MatrixOfRank2<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     operator fun unaryMinus(): MatrixOfRank2<S, V, M> {
         val mat = this.matrixSpace.context.run {
             val self = this@MatrixOfRank2
-            self.matrixSpace.fromRows(
+            self.matrixSpace.fromRowList(
                 listOf(
                     listOf(-self.a, -self.b),
                     listOf(-self.c, -self.d)

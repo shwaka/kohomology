@@ -20,7 +20,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
     matrixSpace.context.run {
         "linear map test" {
-            val matrix = matrixSpace.fromRows(
+            val matrix = matrixSpace.fromRowList(
                 listOf(
                     listOf(two, zero),
                     listOf(one, one)
@@ -44,7 +44,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
         "fromVectors test" {
             val v = vectorSpace2.fromCoeff(one, -one)
             val w = vectorSpace2.fromCoeff(two, zero)
-            val matrix = matrixSpace.fromNumVectors(listOf(v, w).map { it.toNumVector() })
+            val matrix = matrixSpace.fromNumVectorList(listOf(v, w).map { it.toNumVector() })
             val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
             val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
             f shouldBe expected

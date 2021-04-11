@@ -154,7 +154,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     fun fromCoeff(coeffList: List<S>): Vector<B, S, V> {
-        val numVector = this.numVectorSpace.fromValues(coeffList)
+        val numVector = this.numVectorSpace.fromValueList(coeffList)
         return this.fromNumVector(numVector)
     }
 
@@ -206,7 +206,7 @@ open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     ): Boolean {
         if (vectorList.size != this.dim) return false
         return matrixSpace.context.run {
-            matrixSpace.fromNumVectors(vectorList.map { it.numVector }, this@VectorSpace.dim)
+            matrixSpace.fromNumVectorList(vectorList.map { it.numVector }, this@VectorSpace.dim)
                 .isInvertible()
         }
     }

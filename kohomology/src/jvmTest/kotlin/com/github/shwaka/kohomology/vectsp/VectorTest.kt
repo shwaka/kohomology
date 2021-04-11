@@ -24,9 +24,9 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
     vectorSpace.context.run {
         "addition of Vector" {
-            val numVector = numVectorSpace.fromValues(listOf(one, zero, one))
+            val numVector = numVectorSpace.fromValueList(listOf(one, zero, one))
             val v = vectorSpace.fromNumVector(numVector)
-            val expected = vectorSpace.fromNumVector(numVectorSpace.fromValues(listOf(two, zero, two)))
+            val expected = vectorSpace.fromNumVector(numVectorSpace.fromValueList(listOf(two, zero, two)))
             (v + v) shouldBe expected
         }
         "invalid length of values should throw" {

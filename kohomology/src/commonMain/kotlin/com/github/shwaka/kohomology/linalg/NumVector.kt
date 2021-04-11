@@ -37,11 +37,11 @@ interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, 
     val field: Field<S>
     val context: NumVectorContext<S, V>
     fun getZero(dim: Int): V
-    fun fromValues(values: List<S>): V
+    fun fromValueList(values: List<S>): V
     fun getOneAtIndex(index: Int, dim: Int): V {
         val valueList = this.field.context.run {
             (0 until dim).map { if (it == index) one else zero }
         }
-        return this.fromValues(valueList)
+        return this.fromValueList(valueList)
     }
 }

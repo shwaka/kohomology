@@ -84,7 +84,7 @@ class DenseMatrixSpace<S : Scalar>(
         val rowList = first.rowList.zip(second.rowList).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.context.run { elmInThis + elmInOther } }
         }
-        return this.fromRows(rowList)
+        return this.fromRowList(rowList)
     }
 
     override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
@@ -116,7 +116,7 @@ class DenseMatrixSpace<S : Scalar>(
                 }
             }
         }
-        return this.fromRows(rowList)
+        return this.fromRowList(rowList)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
@@ -125,7 +125,7 @@ class DenseMatrixSpace<S : Scalar>(
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
         val rowList = matrix.rowList.map { row -> row.map { elm -> this.field.context.run { elm * scalar } } }
-        return this.fromRows(rowList)
+        return this.fromRowList(rowList)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
@@ -142,7 +142,7 @@ class DenseMatrixSpace<S : Scalar>(
                     .fold(zero) { a, b -> a + b }
             }
         }
-        return this.numVectorSpace.fromValues(valueList)
+        return this.numVectorSpace.fromValueList(valueList)
     }
 
     override fun computeRowEchelonForm(matrix: DenseMatrix<S>): RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
@@ -176,7 +176,7 @@ class DenseMatrixSpace<S : Scalar>(
         }
     }
 
-    override fun fromRows(rows: List<List<S>>, colCount: Int?): DenseMatrix<S> {
+    override fun fromRowList(rows: List<List<S>>, colCount: Int?): DenseMatrix<S> {
         val rowCount = rows.size
         val colCountNonNull: Int = when {
             rows.isNotEmpty() -> rows[0].size
@@ -186,7 +186,7 @@ class DenseMatrixSpace<S : Scalar>(
         return DenseMatrix(this.numVectorSpace, rows, rowCount, colCountNonNull)
     }
 
-    override fun fromCols(cols: List<List<S>>, rowCount: Int?): DenseMatrix<S> {
+    override fun fromColList(cols: List<List<S>>, rowCount: Int?): DenseMatrix<S> {
         val rowCountNonNull: Int = when {
             cols.isNotEmpty() -> cols[0].size
             rowCount != null -> rowCount
@@ -194,7 +194,7 @@ class DenseMatrixSpace<S : Scalar>(
         }
         val colCount = cols.size
         val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
-        return this.fromRows(rows, colCount)
+        return this.fromRowList(rows, colCount)
     }
 
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): DenseMatrix<S> {
@@ -221,11 +221,11 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun computeRowSlice(matrix: DenseMatrix<S>, rowRange: IntRange): DenseMatrix<S> {
         val rowList = matrix.rowList.slice(rowRange)
-        return this.fromRows(rowList, colCount = matrix.colCount)
+        return this.fromRowList(rowList, colCount = matrix.colCount)
     }
 
     override fun computeColSlice(matrix: DenseMatrix<S>, colRange: IntRange): DenseMatrix<S> {
         val rowList = matrix.rowList.map { row -> row.slice(colRange) }
-        return this.fromRows(rowList, colCount = colRange.count())
+        return this.fromRowList(rowList, colCount = colRange.count())
     }
 }

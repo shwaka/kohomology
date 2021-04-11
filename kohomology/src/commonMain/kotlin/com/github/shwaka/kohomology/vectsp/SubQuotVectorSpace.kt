@@ -95,7 +95,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             dim: Int? = null
         ): M {
             val numVectorList = vectors.map { it.toNumVector() }
-            return this.fromNumVectors(numVectorList, dim)
+            return this.fromNumVectorList(numVectorList, dim)
         }
     }
 }

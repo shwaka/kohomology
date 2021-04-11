@@ -16,7 +16,7 @@ interface Matrix<S : Scalar, V : NumVector<S>> {
 
     fun toNumVectorList(): List<V> {
         return (0 until this.colCount).map { j ->
-            this.numVectorSpace.fromValues((0 until this.rowCount).map { i -> this[i, j] })
+            this.numVectorSpace.fromValueList((0 until this.rowCount).map { i -> this[i, j] })
         }
     }
 }
@@ -125,20 +125,20 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val context: MatrixContext<S, V, M>
     val numVectorSpace: NumVectorSpace<S, V>
     val field: Field<S>
-    fun fromRows(rows: List<List<S>>, colCount: Int? = null): M
-    fun fromCols(cols: List<List<S>>, rowCount: Int? = null): M
-    fun fromNumVectors(numVectors: List<V>, dim: Int? = null): M {
+    fun fromRowList(rows: List<List<S>>, colCount: Int? = null): M
+    fun fromColList(cols: List<List<S>>, rowCount: Int? = null): M
+    fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
         val cols = this.numVectorSpace.context.run { numVectors.map { v -> v.toList() } }
-        return this.fromCols(cols, dim)
+        return this.fromColList(cols, dim)
     }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M
 
     fun getZero(rowCount: Int, colCount: Int): M {
         val zero = this.field.zero
         val rows = List(rowCount) { List(colCount) { zero } }
-        return this.fromRows(rows)
+        return this.fromRowList(rows)
     }
 
     fun getZero(dim: Int): M {
@@ -156,7 +156,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
                     zero
             }
         }
-        return this.fromRows(rows, colCount = dim)
+        return this.fromRowList(rows, colCount = dim)
     }
 }
 

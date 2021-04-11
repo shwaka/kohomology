@@ -128,7 +128,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     }
 
     fun fromCoeff(coeff: List<S>, degree: Degree): GVector<B, S, V> {
-        val numVector = this.numVectorSpace.fromValues(coeff)
+        val numVector = this.numVectorSpace.fromValueList(coeff)
         return this.fromNumVector(numVector, degree)
     }
 

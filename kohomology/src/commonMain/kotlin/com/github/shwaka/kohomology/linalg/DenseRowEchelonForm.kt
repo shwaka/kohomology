@@ -9,7 +9,7 @@ class DenseRowEchelonForm<S : Scalar>(
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.context.run { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
     private val field: Field<S> = matrixSpace.field
     override val matrix: DenseMatrix<S>
-        get() = this.matrixSpace.fromRows(this.data.matrix)
+        get() = this.matrixSpace.fromRowList(this.data.matrix)
     override val pivots: List<Int>
         get() = this.data.pivots
     override val sign: Sign
@@ -28,7 +28,7 @@ class DenseRowEchelonForm<S : Scalar>(
         for (i in 0 until rank) {
             rawReducedMatrix = rawReducedMatrix.eliminateOtherRows(i, this.pivots[i])
         }
-        this.matrixSpace.fromRows(rawReducedMatrix, colCount = this.originalMatrix.colCount)
+        this.matrixSpace.fromRowList(rawReducedMatrix, colCount = this.originalMatrix.colCount)
     }
 
     data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)

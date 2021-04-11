@@ -97,12 +97,12 @@ class DenseNumVectorSpace<S : Scalar>(
         }
     }
 
-    override fun fromValues(values: List<S>): DenseNumVector<S> {
+    override fun fromValueList(values: List<S>): DenseNumVector<S> {
         return DenseNumVector(values, this.field)
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {
         val valueList = List(dim) { this.field.zero }
-        return this.fromValues(valueList)
+        return this.fromValueList(valueList)
     }
 }

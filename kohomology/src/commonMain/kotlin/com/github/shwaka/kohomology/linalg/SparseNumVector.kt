@@ -103,6 +103,7 @@ class SparseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The denseNumVector $numVector does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
+        if (scalar.isZero()) return SparseNumVector(mapOf(), this.field, numVector.dim)
         val values = this.field.context.run {
             numVector.values.mapValues { (_, value) ->
                 scalar * value

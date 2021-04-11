@@ -54,6 +54,19 @@ class LongRational(numerator: Long, denominator: Long) : Scalar {
         return this.numerator == 0L
     }
 
+    override fun isPrintedPositively(): Boolean {
+        return this.numerator >= 0
+    }
+
+    override fun toStringWithoutSign(): String {
+        val numeratorAbs = this.numerator.absoluteValue
+        return when {
+            this.numerator == 0L -> "0"
+            this.denominator == 1L -> numeratorAbs.toString()
+            else -> "${numeratorAbs}/${this.denominator}"
+        }
+    }
+
     override fun toString(): String {
         return when {
             this.numerator == 0L -> {

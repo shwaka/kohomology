@@ -18,6 +18,10 @@ class IntModp(value: Int, val characteristic: Int) : Scalar {
         return this.value == 0
     }
 
+    override fun isPrintedPositively(): Boolean = true
+
+    override fun toStringWithoutSign(): String = this.toString()
+
     override fun toString(): String {
         return "${this.value.positiveRem(this.characteristic)} mod ${this.characteristic}"
     }

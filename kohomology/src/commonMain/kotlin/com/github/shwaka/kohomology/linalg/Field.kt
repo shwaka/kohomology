@@ -3,6 +3,8 @@ package com.github.shwaka.kohomology.linalg
 interface Scalar {
     fun isZero(): Boolean
     fun isNotZero(): Boolean = !this.isZero()
+    fun isPrintedPositively(): Boolean
+    fun toStringWithoutSign(): String
 }
 
 interface ScalarOperations<S : Scalar> {

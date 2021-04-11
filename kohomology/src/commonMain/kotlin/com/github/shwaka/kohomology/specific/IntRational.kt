@@ -54,17 +54,24 @@ class IntRational(numerator: Int, denominator: Int) : Scalar {
         return this.numerator == 0
     }
 
+    override fun isPrintedPositively(): Boolean {
+        return this.numerator >= 0
+    }
+
+    override fun toStringWithoutSign(): String {
+        val numeratorAbs = this.numerator.absoluteValue
+        return when {
+            this.numerator == 0 -> "0"
+            this.denominator == 1 -> numeratorAbs.toString()
+            else -> "${numeratorAbs}/${this.denominator}"
+        }
+    }
+
     override fun toString(): String {
         return when {
-            this.numerator == 0 -> {
-                "0"
-            }
-            this.denominator == 1 -> {
-                this.numerator.toString()
-            }
-            else -> {
-                "${this.numerator}/${this.denominator}"
-            }
+            this.numerator == 0 -> "0"
+            this.denominator == 1 -> this.numerator.toString()
+            else -> "${this.numerator}/${this.denominator}"
         }
     }
 

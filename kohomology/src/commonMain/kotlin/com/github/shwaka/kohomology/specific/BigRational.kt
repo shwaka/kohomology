@@ -54,17 +54,24 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
         return this.numerator.isZero()
     }
 
+    override fun isPrintedPositively(): Boolean {
+        return this.numerator.isPositive || this.numerator.isZero()
+    }
+
+    override fun toStringWithoutSign(): String {
+        val numeratorAbs = this.numerator.abs()
+        return when {
+            this.numerator == BigInteger.ZERO -> "0"
+            this.denominator == BigInteger.ONE -> numeratorAbs.toString()
+            else -> "${numeratorAbs}/${this.denominator}"
+        }
+    }
+
     override fun toString(): String {
         return when {
-            this.numerator == BigInteger.ZERO -> {
-                "0"
-            }
-            this.denominator == BigInteger.ONE -> {
-                this.numerator.toString()
-            }
-            else -> {
-                "${this.numerator}/${this.denominator}"
-            }
+            this.numerator == BigInteger.ZERO -> "0"
+            this.denominator == BigInteger.ONE -> this.numerator.toString()
+            else -> "${this.numerator}/${this.denominator}"
         }
     }
 

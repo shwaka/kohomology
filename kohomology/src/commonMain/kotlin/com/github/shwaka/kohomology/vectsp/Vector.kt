@@ -59,12 +59,22 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
             if (basisWithCoeff.isEmpty()) {
                 "0"
             } else {
-                basisWithCoeff.joinToString(separator = " + ") { (coeff, basisElm) ->
-                    if (coeff == one)
-                        basisElm
-                    else
-                        "$coeff $basisElm"
+                var result = ""
+                basisWithCoeff[0].let { (coeff, basisElm) ->
+                    result += when (coeff) {
+                        one -> basisElm
+                        else -> "$coeff $basisElm"
+                    }
                 }
+                result += basisWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
+                    val sign = if (coeff.isPrintedPositively()) "+" else "-"
+                    val str = when (coeff) {
+                        one -> basisElm
+                        else -> "${coeff.toStringWithoutSign()} $basisElm"
+                    }
+                    " $sign $str"
+                }
+                result
             }
         }
     }

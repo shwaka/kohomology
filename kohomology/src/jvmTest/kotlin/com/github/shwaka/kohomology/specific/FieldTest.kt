@@ -94,7 +94,7 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
         }
         "inv() should give the multiplicative inverse" {
             checkAll(arb) { a ->
-                if (a != zero) {
+                if (a.isNotZero()) {
                     (a * (a.inv())) shouldBe one
                     ((a.inv()) * a) shouldBe one
                 }

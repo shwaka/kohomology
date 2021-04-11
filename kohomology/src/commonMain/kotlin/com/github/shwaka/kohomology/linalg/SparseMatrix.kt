@@ -9,7 +9,7 @@ class SparseMatrix<S : Scalar>(
     override val colCount: Int,
 ) : Matrix<S, SparseNumVector<S>> {
     val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
-        row.filterValues { it != this.numVectorSpace.field.zero }
+        row.filterValues { it.isNotZero() }
     }.filterValues { it.isNotEmpty() }
     var rowEchelonForm: SparseRowEchelonForm<S>? = null
         set(value) {
@@ -164,7 +164,7 @@ class SparseMatrixSpace<S : Scalar>(
                         }
                     }
                 }
-                newRow.filterValues { it != zero }
+                newRow.filterValues { it.isNotZero() }
             }
         }
         return SparseMatrix(this.numVectorSpace, rowMap, first.rowCount, second.colCount)

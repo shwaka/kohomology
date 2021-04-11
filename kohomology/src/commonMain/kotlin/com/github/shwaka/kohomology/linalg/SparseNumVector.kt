@@ -5,7 +5,7 @@ class SparseNumVector<S : Scalar>(
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    val values: Map<Int, S> = values.filterValues { it != field.zero }
+    val values: Map<Int, S> = values.filterValues { it.isNotZero() }
     override fun isZero(): Boolean {
         return this.values.all { (_, value) -> value.isZero() }
     }
@@ -136,7 +136,7 @@ class SparseNumVectorSpace<S : Scalar>(
     override fun fromValues(values: List<S>): SparseNumVector<S> {
         val valuesMap: MutableMap<Int, S> = mutableMapOf()
         for ((i, value) in values.withIndex()) {
-            if (value != this.field.zero)
+            if (value.isNotZero())
                 valuesMap[i] = value
         }
         return SparseNumVector(valuesMap, this.field, values.size)

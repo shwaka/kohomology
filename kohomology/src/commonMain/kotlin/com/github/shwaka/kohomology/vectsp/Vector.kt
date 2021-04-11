@@ -55,7 +55,7 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
         }
         val basis = this.vectorSpace.basisNames.map(basisToString)
         return this.numVector.field.context.run {
-            val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff != zero }
+            val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff.isNotZero() }
             if (basisWithCoeff.isEmpty()) {
                 "0"
             } else {

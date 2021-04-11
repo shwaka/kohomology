@@ -130,7 +130,7 @@ class DenseRowEchelonForm<S : Scalar>(
 
     private fun List<List<S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
         for (i in rowIndFrom until this.size) {
-            if (this[i][colInd] != this@DenseRowEchelonForm.field.zero)
+            if (this[i][colInd].isNotZero())
                 return i
         }
         return null

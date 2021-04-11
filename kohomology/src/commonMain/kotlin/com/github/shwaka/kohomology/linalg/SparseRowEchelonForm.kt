@@ -94,7 +94,7 @@ class SparseRowEchelonForm<S : Scalar>(
                 }
             }
         }
-        return newMap.filterValues { it != this@SparseRowEchelonForm.field.zero }
+        return newMap.filterValues { it.isNotZero() }
     }
 
     private operator fun Map<Int, S>.times(scalar: S): Map<Int, S> {
@@ -126,7 +126,7 @@ class SparseRowEchelonForm<S : Scalar>(
         for (i in this.keys.filter { it >= rowIndFrom }) {
             this[i]?.let { row ->
                 row[colInd]?.let { elm ->
-                    if (elm != this@SparseRowEchelonForm.field.zero)
+                    if (elm.isNotZero())
                         return i
                 }
             }

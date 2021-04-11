@@ -2,12 +2,15 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.StringTable
 
-data class SparseMatrix<S : Scalar>(
+class SparseMatrix<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>,
-    val rowMap: Map<Int, Map<Int, S>>,
+    rowMap: Map<Int, Map<Int, S>>,
     override val rowCount: Int,
     override val colCount: Int,
 ) : Matrix<S, SparseNumVector<S>> {
+    val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
+        row.filterValues { it != this.numVectorSpace.field.zero }
+    }.filterValues { it.isNotEmpty() }
     var rowEchelonForm: SparseRowEchelonForm<S>? = null
         set(value) {
             if (field != null)
@@ -41,6 +44,30 @@ data class SparseMatrix<S : Scalar>(
         }
         return this.numVectorSpace.field.zero
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as SparseMatrix<*>
+
+        if (numVectorSpace != other.numVectorSpace) return false
+        if (rowCount != other.rowCount) return false
+        if (colCount != other.colCount) return false
+        if (rowMap != other.rowMap) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = numVectorSpace.hashCode()
+        result = 31 * result + rowCount
+        result = 31 * result + colCount
+        result = 31 * result + rowMap.hashCode()
+        return result
+    }
+
+
 }
 
 class SparseMatrixSpace<S : Scalar>(

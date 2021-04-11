@@ -11,11 +11,14 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
 import com.github.shwaka.kohomology.specific.F2
+import com.github.shwaka.kohomology.specific.F3
 import com.github.shwaka.kohomology.specific.F5
 import com.github.shwaka.kohomology.specific.IntRationalField
 import com.github.shwaka.kohomology.specific.LongRationalField
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
@@ -479,4 +482,26 @@ class IntMod2SparseMatrixTest : StringSpec({
     include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
+})
+
+class IntMod3SparseMatrixTest : StringSpec({
+    tags(matrixTag, sparseMatrixTag, intModpTag)
+
+    val matrixSpace = SparseMatrixSpaceOverF3
+    include(sparseMatrixSpaceTest(F3))
+    include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(F3, matrixSizeForDet, maxValueForDet))
+})
+
+class IntMod5SparseMatrixTest : StringSpec({
+    tags(matrixTag, sparseMatrixTag, intModpTag)
+
+    val matrixSpace = SparseMatrixSpaceOverF5
+    include(sparseMatrixSpaceTest(F5))
+    include(matrixTest(matrixSpace))
+    include(matrixFromVectorTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
 })

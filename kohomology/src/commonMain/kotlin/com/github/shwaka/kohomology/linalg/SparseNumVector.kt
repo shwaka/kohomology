@@ -1,12 +1,37 @@
 package com.github.shwaka.kohomology.linalg
 
-data class SparseNumVector<S : Scalar>(
-    val values: Map<Int, S>,
+class SparseNumVector<S : Scalar>(
+    values: Map<Int, S>,
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
+    val values: Map<Int, S> = values.filterValues { it != field.zero }
     override fun isZero(): Boolean {
         return this.values.all { (_, value) -> value == this.field.zero }
+    }
+
+    override fun toString(): String {
+        return "SparseNumVector(values=$values, field=$field, dim=$dim)"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as SparseNumVector<*>
+
+        if (values != other.values) return false
+        if (field != other.field) return false
+        if (dim != other.dim) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = values.hashCode()
+        result = 31 * result + field.hashCode()
+        result = 31 * result + dim
+        return result
     }
 }
 

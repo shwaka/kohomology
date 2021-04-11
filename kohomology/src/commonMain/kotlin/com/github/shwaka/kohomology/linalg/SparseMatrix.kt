@@ -244,7 +244,7 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
-    private fun joinMatrices(matrix1: SparseMatrix<S>, matrix2: SparseMatrix<S>): SparseMatrix<S> {
+    override fun joinMatrices(matrix1: SparseMatrix<S>, matrix2: SparseMatrix<S>): SparseMatrix<S> {
         if (matrix1.rowCount != matrix2.rowCount)
             throw IllegalArgumentException("Cannot join two matrices of different row counts")
         val rowMap: MutableMap<Int, Map<Int, S>> = matrix1.rowMap.toMutableMap()
@@ -256,12 +256,6 @@ class SparseMatrixSpace<S : Scalar>(
         val rowCount = matrix1.rowCount
         val colCount = matrix1.colCount + matrix2.colCount
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
-    }
-
-    override fun joinMatrices(matrixList: List<SparseMatrix<S>>): SparseMatrix<S> {
-        if (matrixList.isEmpty())
-            throw IllegalArgumentException("Empty list of matrices cannot be reduced")
-        return matrixList.reduce { matrix1, matrix2 -> this.joinMatrices(matrix1, matrix2) }
     }
 
     override fun computeRowSlice(matrix: SparseMatrix<S>, rowRange: IntRange): SparseMatrix<S> {

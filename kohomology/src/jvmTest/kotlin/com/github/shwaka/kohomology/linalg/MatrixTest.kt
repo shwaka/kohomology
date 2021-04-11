@@ -89,6 +89,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             val expected = numVectorSpace.fromValues(listOf(three, one))
             (m * v) shouldBe expected
         }
+        "((2, 1), (0, -1), (-2, 1)) * (2, -1) should be (3, 1, -5)" {
+            val mat = matrixSpace.fromRows(
+                listOf(
+                    listOf(two, one),
+                    listOf(zero, -one),
+                    listOf(-two, one),
+                )
+            )
+            val v = numVectorSpace.fromValues(listOf(two, -one))
+            val expected = numVectorSpace.fromValues(listOf(three, one, -five))
+            (mat * v) shouldBe expected
+        }
         "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
             val mn = matrixSpace.fromRows(
                 listOf(
@@ -97,6 +109,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 )
             )
             (m * n) shouldBe mn
+        }
+        "((2, 1)) * ((1, 1), (-2, 3)) should be ((0, 5))" {
+            val mat = matrixSpace.fromRows(
+                listOf(
+                    listOf(two, one),
+                )
+            )
+            val expected = matrixSpace.fromRows(
+                listOf(
+                    listOf(zero, five),
+                )
+            )
+            (mat * n) shouldBe expected
         }
         "toString and toPrettyString should not throw for square matrix of rank 2" {
             shouldNotThrowAny {

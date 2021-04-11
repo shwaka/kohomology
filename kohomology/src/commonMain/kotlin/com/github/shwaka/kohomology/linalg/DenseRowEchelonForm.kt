@@ -76,12 +76,6 @@ class DenseRowEchelonForm<S : Scalar>(
         }
     }
 
-    private operator fun List<S>.plus(other: List<S>): List<S> {
-        return this@DenseRowEchelonForm.field.context.run {
-            this@plus.zip(other).map { (a, b) -> a + b }
-        }
-    }
-
     private operator fun List<S>.minus(other: List<S>): List<S> {
         return this@DenseRowEchelonForm.field.context.run {
             this@minus.zip(other).map { (a, b) -> a - b }

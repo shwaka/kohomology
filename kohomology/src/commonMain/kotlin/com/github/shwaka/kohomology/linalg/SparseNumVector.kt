@@ -103,7 +103,7 @@ class SparseNumVectorSpace<S : Scalar>(
         return this.field.context.run {
             indices.map { i ->
                 // we know that both 'values' contain the key 'i'
-                numVector1.values[i]!! + numVector2.values[i]!!
+                numVector1.values[i]!! * numVector2.values[i]!!
             }.fold(zero) { acc, x -> acc + x }
         }
     }

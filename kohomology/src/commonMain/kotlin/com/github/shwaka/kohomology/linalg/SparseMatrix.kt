@@ -260,6 +260,7 @@ class SparseMatrixSpace<S : Scalar>(
         val rowCount = rowRange.count()
         val colCount = matrix.colCount
         val rowMap = matrix.rowMap.filterKeys { rowInd -> rowInd in rowRange }
+            .mapKeys { (rowInd, _) -> rowInd - rowRange.first }
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
@@ -268,6 +269,7 @@ class SparseMatrixSpace<S : Scalar>(
         val colCount = colRange.count()
         val rowMap = matrix.rowMap.mapValues { (_, row) ->
             row.filterKeys { colInd -> colInd in colRange }
+                .mapKeys { (colInd, _) -> colInd - colRange.first }
         }.filterValues { row -> row.isNotEmpty() }
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }

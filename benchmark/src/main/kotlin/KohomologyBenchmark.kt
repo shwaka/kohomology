@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.model.FreePathSpace
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import org.openjdk.jmh.annotations.Benchmark
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
@@ -18,7 +18,7 @@ class KohomologyBenchmark {
             Indeterminate("x", sphereDim),
             Indeterminate("y", sphereDim * 2 - 1)
         )
-        val matrixSpace = DenseMatrixSpaceOverBigRational
+        val matrixSpace = SparseMatrixSpaceOverBigRational
         val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
@@ -38,7 +38,7 @@ class KohomologyBenchmark {
             Indeterminate("c", 2),
             Indeterminate("x", 2 * n + 1)
         )
-        val sphere = FreeDGAlgebra(DenseMatrixSpaceOverBigRational, indeterminateList) { (c, _) ->
+        val sphere = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, indeterminateList) { (c, _) ->
             listOf(zeroGVector, c.pow(n + 1))
         }
         val freePathSpace = FreePathSpace(sphere)

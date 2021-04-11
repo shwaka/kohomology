@@ -182,12 +182,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
         }
         "reduced row echelon form of an invertible matrix should be the unit matrix" {
             // m = ((2, 1), (0, -1)) is NOT invertible in F2
-            val mat = matrixSpace.fromRows(
-                listOf(
-                    listOf(two, one),
-                    listOf(one, -one)
+            val mat = if (matrixSpace.field.characteristic != 3) {
+                matrixSpace.fromRows(
+                    listOf(
+                        listOf(two, one),
+                        listOf(one, -one)
+                    )
                 )
-            )
+            } else {
+                // The above matrix is NOT invertible in F3
+                matrixSpace.fromRows(
+                    listOf(
+                        listOf(two, one),
+                        listOf(one, one)
+                    )
+                )
+            }
             val expectedMat = matrixSpace.getId(2)
             mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
         }

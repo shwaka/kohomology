@@ -65,7 +65,7 @@ class DenseRowEchelonForm<S : Scalar>(
         }
     }
 
-    private fun <S : Scalar> List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
+    private fun List<List<S>>.exchangeRows(i1: Int, i2: Int): List<List<S>> {
         if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
         return this.indices.map { i ->
             when (i) {

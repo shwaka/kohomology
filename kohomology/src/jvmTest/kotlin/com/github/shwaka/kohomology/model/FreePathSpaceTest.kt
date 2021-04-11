@@ -61,10 +61,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
         Indeterminate("c", 2),
         Indeterminate("x", 2 * n + 1)
     )
-    val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (c, _) ->
+    val cpn = FreeDGAlgebra(matrixSpace, indeterminateList) { (c, _) ->
         listOf(zeroGVector, c.pow(n + 1))
     }
-    val freePathSpace = FreePathSpace(sphere)
+    val freePathSpace = FreePathSpace(cpn)
     val (c1, x1, c2, x2, sc, sx) = freePathSpace.gAlgebra.generatorList
 
     "[CP^$n] check differential" {

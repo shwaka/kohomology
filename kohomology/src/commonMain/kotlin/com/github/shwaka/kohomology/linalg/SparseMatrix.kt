@@ -240,7 +240,6 @@ class SparseMatrixSpace<S : Scalar>(
             colCount != null -> colCount
             else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
         }
-        val zero = this.field.zero
         val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull { rowInd, row ->
             val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm.isZero()) null else Pair(colInd, elm) }.toMap()
             if (newRow.isEmpty())

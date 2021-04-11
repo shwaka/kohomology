@@ -1,14 +1,14 @@
 package com.github.shwaka.kohomology.linalg
 
 data class DenseNumVector<S : Scalar>(
-    val values: List<S>,
+    val valueList: List<S>,
     override val field: Field<S>,
 ) : NumVector<S> {
     override val dim: Int
-        get() = this.values.size
+        get() = this.valueList.size
 
     override fun isZero(): Boolean {
-        return this.values.all { it.isZero() }
+        return this.valueList.all { it.isZero() }
     }
 }
 
@@ -46,8 +46,8 @@ class DenseNumVectorSpace<S : Scalar>(
             throw IllegalArgumentException("Cannot add numVectors of different dim")
         val result: MutableList<S> = mutableListOf()
         this.field.context.run {
-            for (i in a.values.indices) {
-                result.add(a.values[i] + b.values[i])
+            for (i in a.valueList.indices) {
+                result.add(a.valueList[i] + b.valueList[i])
             }
         }
         return DenseNumVector(result, this.field)
@@ -62,8 +62,8 @@ class DenseNumVectorSpace<S : Scalar>(
             throw IllegalArgumentException("Cannot subtract numVectors of different dim")
         val result: MutableList<S> = mutableListOf()
         this.field.context.run {
-            for (i in a.values.indices) {
-                result.add(a.values[i] - b.values[i])
+            for (i in a.valueList.indices) {
+                result.add(a.valueList[i] - b.valueList[i])
             }
         }
         return DenseNumVector(result, this.field)
@@ -74,12 +74,12 @@ class DenseNumVectorSpace<S : Scalar>(
             throw ArithmeticException("The denseNumVector $numVector does not match the context ($this)")
         if (scalar !in this.field)
             throw ArithmeticException("The scalar $scalar does not match the context (field = ${this.field})")
-        val values: List<S> = this.field.context.run { numVector.values.map { it * scalar } }
+        val values: List<S> = this.field.context.run { numVector.valueList.map { it * scalar } }
         return DenseNumVector(values, this.field)
     }
 
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {
-        return numVector.values[ind]
+        return numVector.valueList[ind]
     }
 
     override fun innerProduct(numVector1: DenseNumVector<S>, numVector2: DenseNumVector<S>): S {
@@ -91,7 +91,7 @@ class DenseNumVectorSpace<S : Scalar>(
             throw IllegalArgumentException("Cannot take the inner product of two numVectors with different length")
         val zero = this.field.zero
         return this.context.run {
-            numVector1.values.zip(numVector2.values)
+            numVector1.valueList.zip(numVector2.valueList)
                 .map { (a, b) -> a * b }
                 .fold(zero) { acc, x -> acc + x }
         }

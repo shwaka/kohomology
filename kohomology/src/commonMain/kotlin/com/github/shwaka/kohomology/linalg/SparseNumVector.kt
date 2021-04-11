@@ -1,11 +1,11 @@
 package com.github.shwaka.kohomology.linalg
 
 class SparseNumVector<S : Scalar>(
-    values: Map<Int, S>,
+    valueMap: Map<Int, S>,
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    val values: Map<Int, S> = values.filterValues { it.isNotZero() }
+    val values: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
     override fun isZero(): Boolean {
         return this.values.all { (_, value) -> value.isZero() }
     }

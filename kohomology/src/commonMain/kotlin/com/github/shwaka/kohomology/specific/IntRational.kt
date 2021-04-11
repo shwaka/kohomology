@@ -63,7 +63,7 @@ class IntRational(numerator: Int, denominator: Int) : Scalar {
         return when {
             this.numerator == 0 -> "0"
             this.denominator == 1 -> numeratorAbs.toString()
-            else -> "${numeratorAbs}/${this.denominator}"
+            else -> "$numeratorAbs/${this.denominator}"
         }
     }
 

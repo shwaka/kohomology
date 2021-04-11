@@ -63,7 +63,7 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
         return when {
             this.numerator == BigInteger.ZERO -> "0"
             this.denominator == BigInteger.ONE -> numeratorAbs.toString()
-            else -> "${numeratorAbs}/${this.denominator}"
+            else -> "$numeratorAbs/${this.denominator}"
         }
     }
 

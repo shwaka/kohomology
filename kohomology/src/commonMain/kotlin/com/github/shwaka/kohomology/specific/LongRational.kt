@@ -63,7 +63,7 @@ class LongRational(numerator: Long, denominator: Long) : Scalar {
         return when {
             this.numerator == 0L -> "0"
             this.denominator == 1L -> numeratorAbs.toString()
-            else -> "${numeratorAbs}/${this.denominator}"
+            else -> "$numeratorAbs/${this.denominator}"
         }
     }
 

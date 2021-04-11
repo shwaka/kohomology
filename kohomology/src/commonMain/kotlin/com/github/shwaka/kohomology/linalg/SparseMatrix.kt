@@ -66,8 +66,6 @@ class SparseMatrix<S : Scalar>(
         result = 31 * result + rowMap.hashCode()
         return result
     }
-
-
 }
 
 class SparseMatrixSpace<S : Scalar>(

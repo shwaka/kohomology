@@ -223,16 +223,6 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
-    override fun computeInnerProduct(
-        matrix: SparseMatrix<S>,
-        numVector1: SparseNumVector<S>,
-        numVector2: SparseNumVector<S>
-    ): S {
-        return this.context.run {
-            numVector1 dot (matrix * numVector2)
-        }
-    }
-
     override fun fromRowList(rows: List<List<S>>, colCount: Int?): SparseMatrix<S> {
         val rowCount = rows.size
         val colCountNonNull: Int = when {

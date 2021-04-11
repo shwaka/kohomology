@@ -30,7 +30,6 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(matrix: M, scalar: S): M
     fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
     fun computeTranspose(matrix: M): M
-    fun computeInnerProduct(matrix: M, numVector1: V, numVector2: V): S
     fun joinMatrices(matrixList: List<M>): M
     fun computeRowSlice(matrix: M, rowRange: IntRange): M
     fun computeColSlice(matrix: M, colRange: IntRange): M
@@ -94,7 +93,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     fun M.innerProduct(numVector1: V, numVector2: V): S {
-        return this@MatrixContext.computeInnerProduct(this, numVector1, numVector2)
+        return numVector1 dot (this * numVector2)
     }
 
     fun M.computeKernelBasis(): List<V> {

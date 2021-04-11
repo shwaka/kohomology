@@ -166,16 +166,6 @@ class DenseMatrixSpace<S : Scalar>(
         )
     }
 
-    override fun computeInnerProduct(
-        matrix: DenseMatrix<S>,
-        numVector1: DenseNumVector<S>,
-        numVector2: DenseNumVector<S>
-    ): S {
-        return this.context.run {
-            numVector1 dot (matrix * numVector2)
-        }
-    }
-
     override fun fromRowList(rows: List<List<S>>, colCount: Int?): DenseMatrix<S> {
         val rowCount = rows.size
         val colCountNonNull: Int = when {

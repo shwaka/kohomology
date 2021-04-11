@@ -51,7 +51,6 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
 
 fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     data class BasisElm(val name: String) {
-        fun toStringWithParen(): String = "(${this.name})"
         override fun toString(): String = this.name
     }
 
@@ -62,7 +61,7 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
             val vectorSpace = VectorSpace(numVectorSpace, listOf(x, y))
             val v = vectorSpace.fromCoeff(one, zero)
             shouldNotThrowAny {
-                v.toString { it.toStringWithParen() }
+                v.toString()
             }
         }
 

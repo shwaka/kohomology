@@ -49,12 +49,22 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
         return result
     }
 
-    fun toString(basisToString: (B) -> String): String {
-        val coeffList = this.vectorSpace.numVectorSpace.context.run {
-            this@Vector.numVector.toList()
+    override fun toString(): String {
+        return this.vectorSpace.printer.stringify(this)
+    }
+}
+
+interface VectorPrinter<B, S : Scalar, V : NumVector<S>> {
+    fun stringify(vector: Vector<B, S, V>): String
+}
+
+class DefaultVectorPrinter<B, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
+    private fun stringify(vector: Vector<B, S, V>, basisToString: (B) -> String): String {
+        val coeffList = vector.vectorSpace.numVectorSpace.context.run {
+            vector.numVector.toList()
         }
-        val basis = this.vectorSpace.basisNames.map(basisToString)
-        return this.numVector.field.context.run {
+        val basis = vector.vectorSpace.basisNames.map(basisToString)
+        return vector.numVector.field.context.run {
             val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff.isNotZero() }
             if (basisWithCoeff.isEmpty()) {
                 "0"
@@ -79,8 +89,8 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
         }
     }
 
-    override fun toString(): String {
-        return this.toString { it.toString() }
+    override fun stringify(vector: Vector<B, S, V>): String {
+        return this.stringify(vector) { it.toString() }
     }
 }
 
@@ -108,7 +118,8 @@ class VectorContext<B, S : Scalar, V : NumVector<S>>(
 
 open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    val basisNames: List<B>
+    val basisNames: List<B>,
+    var printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
 ) : VectorOperations<B, S, V> {
     val dim = basisNames.size
     val field = this.numVectorSpace.field

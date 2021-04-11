@@ -9,7 +9,9 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
 import com.github.shwaka.kohomology.vectsp.Vector
+import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
 
@@ -55,8 +57,6 @@ open class GVector<B, S : Scalar, V : NumVector<S>>(
     }
 
     override fun toString(): String = this.vector.toString()
-
-    fun toString(basisToString: (B) -> String): String = this.vector.toString(basisToString)
 }
 
 interface GVectorOperations<B, S : Scalar, V : NumVector<S>> {
@@ -84,11 +84,24 @@ open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
 open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val name: String,
+    printer: VectorPrinter<B, S, V>,
     private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<B, S, V> {
+    constructor(
+        numVectorSpace: NumVectorSpace<S, V>,
+        name: String,
+        getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
+    ) : this(numVectorSpace, name, DefaultVectorPrinter(), getVectorSpace)
+
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
+    var printer: VectorPrinter<B, S, V> = printer
+        set(value) {
+            field = value
+            for (vectorSpace in this.cache.values)
+                vectorSpace.printer = value
+        }
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
@@ -113,6 +126,7 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
         // if cache does not exist
         this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val vectorSpace = this.getVectorSpace(degree)
+        vectorSpace.printer = this.printer
         this.cache[degree] = vectorSpace
         return vectorSpace
     }

@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
-interface Scalar
+interface Scalar {
+    fun isZero(): Boolean
+    fun isNotZero(): Boolean = !this.isZero()
+}
 
 interface ScalarOperations<S : Scalar> {
     val field: Field<S>

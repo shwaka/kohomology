@@ -8,7 +8,7 @@ data class DenseNumVector<S : Scalar>(
         get() = this.values.size
 
     override fun isZero(): Boolean {
-        return this.values.all { it == this.field.zero }
+        return this.values.all { it.isZero() }
     }
 }
 

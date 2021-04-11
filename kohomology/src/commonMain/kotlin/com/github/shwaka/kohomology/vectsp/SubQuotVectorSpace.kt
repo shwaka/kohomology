@@ -85,7 +85,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             val numVector = this@SubQuotFactory.transformationMatrix * vector.numVector
             val start = this@SubQuotFactory.quotientDim + this@SubQuotFactory.subQuotDim
             val limit = this@SubQuotFactory.totalVectorSpace.dim
-            (start until limit).all { numVector[it] == zero }
+            (start until limit).all { numVector[it].isZero() }
         }
     }
 

@@ -14,6 +14,10 @@ import com.github.shwaka.kohomology.util.pow
 class IntModp(value: Int, val characteristic: Int) : Scalar {
     val value: Int = value.positiveRem(characteristic)
 
+    override fun isZero(): Boolean {
+        return this.value == 0
+    }
+
     override fun toString(): String {
         return "${this.value.positiveRem(this.characteristic)} mod ${this.characteristic}"
     }

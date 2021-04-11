@@ -50,6 +50,10 @@ class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
     }
     constructor(numerator: Int, denominator: Int) : this(BigInteger(numerator), BigInteger(denominator))
 
+    override fun isZero(): Boolean {
+        return this.numerator.isZero()
+    }
+
     override fun toString(): String {
         return when {
             this.numerator == BigInteger.ZERO -> {

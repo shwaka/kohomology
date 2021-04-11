@@ -242,7 +242,7 @@ class SparseMatrixSpace<S : Scalar>(
         }
         val zero = this.field.zero
         val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull { rowInd, row ->
-            val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm == zero) null else Pair(colInd, elm) }.toMap()
+            val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm.isZero()) null else Pair(colInd, elm) }.toMap()
             if (newRow.isEmpty())
                 null
             else

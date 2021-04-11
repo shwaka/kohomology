@@ -7,7 +7,7 @@ class SparseNumVector<S : Scalar>(
 ) : NumVector<S> {
     val values: Map<Int, S> = values.filterValues { it != field.zero }
     override fun isZero(): Boolean {
-        return this.values.all { (_, value) -> value == this.field.zero }
+        return this.values.all { (_, value) -> value.isZero() }
     }
 
     override fun toString(): String {

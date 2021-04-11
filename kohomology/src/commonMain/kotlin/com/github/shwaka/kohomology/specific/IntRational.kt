@@ -50,6 +50,10 @@ class IntRational(numerator: Int, denominator: Int) : Scalar {
         this.denominator = red.second
     }
 
+    override fun isZero(): Boolean {
+        return this.numerator == 0
+    }
+
     override fun toString(): String {
         return when {
             this.numerator == 0 -> {

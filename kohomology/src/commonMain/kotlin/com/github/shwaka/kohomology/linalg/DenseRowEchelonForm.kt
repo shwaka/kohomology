@@ -115,7 +115,7 @@ class DenseRowEchelonForm<S : Scalar>(
     // }
 
     private fun List<List<S>>.eliminateOtherRows(rowInd: Int, colInd: Int): List<List<S>> {
-        if (this[rowInd][colInd] == this@DenseRowEchelonForm.field.zero)
+        if (this[rowInd][colInd].isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
         val scalarMatrix: List<List<S>> = this
         return this@DenseRowEchelonForm.field.context.run {

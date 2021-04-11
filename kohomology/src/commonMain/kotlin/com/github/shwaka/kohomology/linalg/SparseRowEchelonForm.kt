@@ -98,7 +98,7 @@ class SparseRowEchelonForm<S : Scalar>(
     }
 
     private operator fun Map<Int, S>.times(scalar: S): Map<Int, S> {
-        if (scalar == this@SparseRowEchelonForm.field.zero)
+        if (scalar.isZero())
             return mapOf()
         return this@SparseRowEchelonForm.field.context.run {
             this@times.mapValues { (_, value) -> value * scalar }
@@ -109,7 +109,7 @@ class SparseRowEchelonForm<S : Scalar>(
         val mainRow = this[rowInd]
             ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
         val elm: S? = mainRow[colInd]
-        if (elm == null || elm == this@SparseRowEchelonForm.field.zero)
+        if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
         val zero = this@SparseRowEchelonForm.field.zero
         return this@SparseRowEchelonForm.field.context.run {

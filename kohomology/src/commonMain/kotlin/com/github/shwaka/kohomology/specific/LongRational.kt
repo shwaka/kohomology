@@ -50,6 +50,10 @@ class LongRational(numerator: Long, denominator: Long) : Scalar {
         this.denominator = red.second
     }
 
+    override fun isZero(): Boolean {
+        return this.numerator == 0L
+    }
+
     override fun toString(): String {
         return when {
             this.numerator == 0L -> {

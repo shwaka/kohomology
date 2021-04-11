@@ -8,6 +8,12 @@ data class SparseMatrix<S : Scalar>(
     override val rowCount: Int,
     override val colCount: Int,
 ) : Matrix<S, SparseNumVector<S>> {
+    var rowEchelonForm: SparseRowEchelonForm<S>? = null
+        set(value) {
+            if (field != null)
+                throw Exception("Cannot assign rowEchelonForm twice")
+            field = value
+        }
     init {
         // TODO: check that each index is smaller than rowCount or colCount
     }
@@ -173,7 +179,10 @@ class SparseMatrixSpace<S : Scalar>(
     }
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
-        TODO("Not yet implemented")
+        matrix.rowEchelonForm?.let { return it }
+        val rowEchelonForm = SparseRowEchelonForm(this, matrix)
+        matrix.rowEchelonForm = rowEchelonForm
+        return rowEchelonForm
     }
 
     override fun computeTranspose(matrix: SparseMatrix<S>): SparseMatrix<S> {
@@ -226,7 +235,10 @@ class SparseMatrixSpace<S : Scalar>(
         val colCount = cols.size
         val rowList = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
         return this.fromRows(rowList, colCount)
+    }
 
+    fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SparseMatrix<S> {
+        return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): SparseMatrix<S> {

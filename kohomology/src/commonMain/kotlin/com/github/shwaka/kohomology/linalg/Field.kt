@@ -5,6 +5,8 @@ interface Scalar {
     fun isNotZero(): Boolean = !this.isZero()
     fun isPrintedPositively(): Boolean
     fun toStringWithoutSign(): String
+    fun toTex(): String = this.toString()
+    fun toTexWithoutSign(): String = this.toStringWithoutSign()
 }
 
 interface ScalarOperations<S : Scalar> {

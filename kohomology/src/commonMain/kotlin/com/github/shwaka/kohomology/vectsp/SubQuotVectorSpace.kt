@@ -7,15 +7,15 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 
-data class SubQuotBasis<B, S : Scalar, V : NumVector<S>>(
+data class SubQuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>
-) {
+) : BasisName {
     override fun toString(): String {
         return "[${this.vector}]"
     }
 }
 
-private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val totalVectorSpace: VectorSpace<B, S, V>,
     val subspaceGenerator: List<Vector<B, S, V>>,
@@ -90,7 +90,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     companion object {
-        fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.fromVectors(
+        fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.fromVectors(
             vectors: List<Vector<B, S, V>>,
             dim: Int? = null
         ): M {
@@ -100,7 +100,7 @@ private class SubQuotFactory<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 }
 
-class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: SubQuotFactory<B, S, V, M>
 ) : VectorSpace<SubQuotBasis<B, S, V>, S, V>(factory.numVectorSpace, factory.basisNames) {
     val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
@@ -125,7 +125,7 @@ class SubQuotVectorSpace<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> priv
     }
 
     companion object {
-        operator fun <B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             totalVectorSpace: VectorSpace<B, S, V>,
             subspaceGenerator: List<Vector<B, S, V>>,

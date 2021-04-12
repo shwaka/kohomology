@@ -10,7 +10,10 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import mu.KotlinLogging
 
-class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
+interface BasisName
+data class StringBasisName(val name: String) : BasisName
+
+class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
         if (numVector.dim != vectorSpace.dim)
             throw IllegalArgumentException("Dimension of the numerical vector does not match the dimension of the vector space")
@@ -54,11 +57,11 @@ class Vector<B, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace:
     }
 }
 
-interface VectorPrinter<B, S : Scalar, V : NumVector<S>> {
+interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
     fun stringify(vector: Vector<B, S, V>): String
 }
 
-class DefaultVectorPrinter<B, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
+class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
     private fun stringify(vector: Vector<B, S, V>, basisToString: (B) -> String): String {
         val coeffList = vector.vectorSpace.numVectorSpace.context.run {
             vector.numVector.toList()
@@ -94,7 +97,7 @@ class DefaultVectorPrinter<B, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S
     }
 }
 
-interface VectorOperations<B, S : Scalar, V : NumVector<S>> {
+interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(vector: Vector<B, S, V>): Boolean
     fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
     fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
@@ -102,7 +105,7 @@ interface VectorOperations<B, S : Scalar, V : NumVector<S>> {
     val zeroVector: Vector<B, S, V>
 }
 
-class VectorContext<B, S : Scalar, V : NumVector<S>>(
+class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     vectorOperations: VectorOperations<B, S, V>
@@ -116,11 +119,21 @@ class VectorContext<B, S : Scalar, V : NumVector<S>>(
     operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
 }
 
-open class VectorSpace<B, S : Scalar, V : NumVector<S>>(
+open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
     var printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
 ) : VectorOperations<B, S, V> {
+    companion object {
+        operator fun <S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            basisNames: List<String>,
+            printer: VectorPrinter<StringBasisName, S, V> = DefaultVectorPrinter()
+        ): VectorSpace<StringBasisName, S, V> {
+            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, printer)
+        }
+    }
+
     val dim = basisNames.size
     val field = this.numVectorSpace.field
 

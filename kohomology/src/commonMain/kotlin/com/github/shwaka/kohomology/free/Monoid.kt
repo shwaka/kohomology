@@ -2,8 +2,9 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.vectsp.BasisName
 
-interface MonoidElement {
+interface MonoidElement : BasisName {
     val degree: Degree
 }
 

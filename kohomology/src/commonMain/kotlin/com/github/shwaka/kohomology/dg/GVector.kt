@@ -9,24 +9,26 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
 
-sealed class GVectorOrZero<B, S : Scalar, V : NumVector<S>> {
+sealed class GVectorOrZero<B : BasisName, S : Scalar, V : NumVector<S>> {
     abstract fun isZero(): Boolean
 }
 
-class ZeroGVector<B, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>() {
+class ZeroGVector<B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>() {
     override fun isZero() = true
     override fun toString(): String {
         return "0"
     }
 }
 
-open class GVector<B, S : Scalar, V : NumVector<S>>(
+open class GVector<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>,
     val degree: Degree,
     val gVectorSpace: GVectorSpace<B, S, V>
@@ -59,7 +61,7 @@ open class GVector<B, S : Scalar, V : NumVector<S>>(
     override fun toString(): String = this.gVectorSpace.printer.stringify(this.vector)
 }
 
-interface GVectorOperations<B, S : Scalar, V : NumVector<S>> {
+interface GVectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(gVector: GVector<B, S, V>): Boolean
     fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
@@ -67,7 +69,7 @@ interface GVectorOperations<B, S : Scalar, V : NumVector<S>> {
     val zeroGVector: ZeroGVector<B, S, V>
 }
 
-open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
+open class GVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -81,7 +83,7 @@ open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
     operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
 }
 
-open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
+open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
@@ -102,12 +104,24 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     open val context by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
 
     companion object {
-        fun <B, S : Scalar, V : NumVector<S>> fromBasisNames(
+        fun <B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
             getBasisNames: (Degree) -> List<B>,
         ): GVectorSpace<B, S, V> {
             return GVectorSpace<B, S, V>(numVectorSpace, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
+        }
+
+        fun <S : Scalar, V : NumVector<S>> fromStringBasisNames(
+            numVectorSpace: NumVectorSpace<S, V>,
+            name: String,
+            getBasisNames: (Degree) -> List<String>,
+        ): GVectorSpace<StringBasisName, S, V> {
+            // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
+            return GVectorSpace<StringBasisName, S, V>(numVectorSpace, name) { degree ->
+                val basisNames = getBasisNames(degree).map { StringBasisName(it) }
+                VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
+            }
         }
     }
 

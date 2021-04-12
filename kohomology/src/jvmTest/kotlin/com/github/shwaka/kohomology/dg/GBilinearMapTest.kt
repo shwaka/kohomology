@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -18,7 +19,7 @@ val gBilinearMapTag = NamedTag("GBilinearMap")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     // 1つの元で生成される外積代数
     val numVectorSpace = matrixSpace.numVectorSpace
-    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace, "span<u, v>") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "span<u, v>") { degree ->
         when (degree) {
             0 -> listOf("u") // unit
             1 -> listOf("v")
@@ -26,9 +27,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
         }
     }
     val gBilinearMap = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, "f") { p, q ->
-        val u: Vector<String, S, V> = gVectorSpace[0].getBasis()[0]
-        val v: Vector<String, S, V> = gVectorSpace[1].getBasis()[0]
-        val z2: Vector<String, S, V> = gVectorSpace[2].zeroVector
+        val u: Vector<StringBasisName, S, V> = gVectorSpace[0].getBasis()[0]
+        val v: Vector<StringBasisName, S, V> = gVectorSpace[1].getBasis()[0]
+        val z2: Vector<StringBasisName, S, V> = gVectorSpace[2].zeroVector
         when (Pair(p, q)) {
             Pair(0, 0) -> BilinearMap.fromVectors(gVectorSpace[0], gVectorSpace[0], gVectorSpace[0], matrixSpace, listOf(listOf(u)))
             Pair(1, 0) -> BilinearMap.fromVectors(gVectorSpace[1], gVectorSpace[0], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
@@ -39,10 +40,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
     }
     gVectorSpace.context.run {
         "graded bilinear map test" {
-            val u: GVector<String, S, V> = gVectorSpace.getBasis(0)[0]
-            val v: GVector<String, S, V> = gVectorSpace.getBasis(1)[0]
-            val z2: GVector<String, S, V> = gVectorSpace.getZero(2)
-            val z3: GVector<String, S, V> = gVectorSpace.getZero(3)
+            val u: GVector<StringBasisName, S, V> = gVectorSpace.getBasis(0)[0]
+            val v: GVector<StringBasisName, S, V> = gVectorSpace.getBasis(1)[0]
+            val z2: GVector<StringBasisName, S, V> = gVectorSpace.getZero(2)
+            val z3: GVector<StringBasisName, S, V> = gVectorSpace.getZero(3)
             gBilinearMap(u, u) shouldBe u
             gBilinearMap(u, v) shouldBe v
             gBilinearMap(v, u) shouldBe v

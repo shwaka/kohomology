@@ -5,10 +5,11 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
-class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: DGVectorSpace<BS, S, V, M>,
     val target: DGVectorSpace<BT, S, V, M>,
     val gLinearMap: GLinearMap<BS, BT, S, V, M>,
@@ -45,7 +46,7 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     companion object {
-        operator fun <BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        operator fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGVectorSpace<BS, S, V, M>,
             target: DGVectorSpace<BT, S, V, M>,
             degree: Degree,
@@ -57,7 +58,7 @@ class DGLinearMap<BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             return DGLinearMap(source, target, gLinearMap)
         }
 
-        fun <BS, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: DGVectorSpace<BS, S, V, M>,
             target: DGVectorSpace<BT, S, V, M>,
             degree: Degree,

@@ -11,7 +11,7 @@ import io.kotest.matchers.shouldBe
 
 val multipleVectorContextTag = NamedTag("MultipleVectorContext")
 
-data class MyBasis(val name: String)
+data class MyBasis(val name: String) : BasisName
 
 fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     "two vector spaces with the same basis class" {

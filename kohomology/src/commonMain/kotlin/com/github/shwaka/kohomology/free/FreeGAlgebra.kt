@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.BasisName
 
 class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -78,7 +79,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
     }
 
-    fun <B> getAlgebraMap(
+    fun <B : BasisName> getAlgebraMap(
         target: GAlgebra<B, S, V, M>,
         valueList: List<GVectorOrZero<B, S, V>>,
     ): GLinearMap<Monomial<I>, B, S, V, M> {
@@ -108,7 +109,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
     }
 
-    private fun <B> getAlgebraMapValue(
+    private fun <B : BasisName> getAlgebraMapValue(
         target: GAlgebra<B, S, V, M>,
         valueList: List<GVector<B, S, V>>,
         monomial: Monomial<I>

@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.vectsp
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-data class BasisPair<B1, B2>(val first: B1, val second: B2) {
+data class BasisPair<B1, B2>(val first: B1, val second: B2) : BasisName {
     private fun stringPairToString(s1: String, s2: String): String {
         return "($s1, $s2)"
     }
@@ -15,7 +15,7 @@ data class BasisPair<B1, B2>(val first: B1, val second: B2) {
     }
 }
 
-class TensorProductContext<B1, B2, S : Scalar, V : NumVector<S>>(
+class TensorProductContext<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
     private val tensorProduct: TensorProduct<B1, B2, S, V>
 ) : MultipleVectorContext<S, V>(
     tensorProduct.vectorSpace.numVectorSpace,
@@ -31,7 +31,7 @@ class TensorProductContext<B1, B2, S : Scalar, V : NumVector<S>>(
     }
 }
 
-class TensorProduct<B1, B2, S : Scalar, V : NumVector<S>>(
+class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
     val vectorSpace1: VectorSpace<B1, S, V>,
     val vectorSpace2: VectorSpace<B2, S, V>
 ) {

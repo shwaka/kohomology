@@ -7,12 +7,13 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class DGAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -31,7 +32,7 @@ class DGAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 }
 
-open class DGAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     open val gAlgebra: GAlgebra<B, S, V, M>,
     differential: GLinearMap<B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>

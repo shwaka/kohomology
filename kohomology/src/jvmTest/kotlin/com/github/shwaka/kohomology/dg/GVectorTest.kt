@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -17,7 +18,7 @@ import io.kotest.matchers.types.shouldBeSameInstanceAs
 val gVectorTag = NamedTag("GVector")
 
 fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace, "V") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
     gVectorSpace.context.run {
@@ -39,7 +40,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
 }
 
 fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    val gVectorSpace = GVectorSpace.fromBasisNames(numVectorSpace, "V") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
 
@@ -57,7 +58,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
         }
 
         "convertToGVector converts ZeroGVector to the correct zero vector" {
-            val zeroGVector = ZeroGVector<String, S, V>()
+            val zeroGVector = ZeroGVector<StringBasisName, S, V>()
             val degree = 3
             val expected = gVectorSpace.getZero(degree)
             gVectorSpace.convertToGVector(zeroGVector, degree) shouldBe expected

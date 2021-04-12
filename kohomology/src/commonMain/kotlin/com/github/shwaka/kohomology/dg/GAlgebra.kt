@@ -7,18 +7,19 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-interface GAlgebraOperations<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+interface GAlgebraOperations<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     val unit: GVector<B, S, V>
 }
 
-class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class GAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
@@ -43,7 +44,7 @@ class GAlgebraContext<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 }
 
-open class GAlgebra<B, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getVectorSpace: (Degree) -> VectorSpace<B, S, V>,

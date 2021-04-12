@@ -29,7 +29,7 @@ class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 }
 
-class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+class BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     val source1: VectorSpace<BS1, S, V>,
     val source2: VectorSpace<BS2, S, V>,
     val target: VectorSpace<BT, S, V>,
@@ -50,7 +50,7 @@ class BilinearMap<BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     }
 
     companion object {
-        fun <BS1, BS2, BT, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromVectors(
+        fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromVectors(
             source1: VectorSpace<BS1, S, V>,
             source2: VectorSpace<BS2, S, V>,
             target: VectorSpace<BT, S, V>,

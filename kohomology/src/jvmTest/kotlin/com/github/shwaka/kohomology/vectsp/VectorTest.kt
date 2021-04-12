@@ -50,7 +50,7 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
 }
 
 fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
-    data class BasisElm(val name: String) {
+    data class BasisElm(val name: String) : BasisName{
         override fun toString(): String = this.name
     }
 

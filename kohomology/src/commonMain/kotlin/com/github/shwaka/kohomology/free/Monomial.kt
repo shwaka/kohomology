@@ -41,6 +41,9 @@ data class Indeterminate<I : IndeterminateName>(val name: I, val degree: Degree)
     override fun toString(): String {
         return this.name.toString()
     }
+    fun toTex(): String {
+        return this.name.toTex()
+    }
 }
 
 private sealed class IndeterminateList<I : IndeterminateName>(
@@ -174,6 +177,16 @@ class Monomial<I : IndeterminateName> private constructor(
                 0 -> ""
                 1 -> indeterminate.toString()
                 else -> "$indeterminate^$exponent"
+            }
+        }.let { if (it.isEmpty()) "1" else it }
+    }
+
+    override fun toTex(): String {
+        return this.indeterminateList.zip(this.exponentList).joinToString("") { (indeterminate, exponent) ->
+            when (exponent) {
+                0 -> ""
+                1 -> indeterminate.toTex()
+                else -> "$indeterminate^{$exponent}"
             }
         }.let { if (it.isEmpty()) "1" else it }
     }

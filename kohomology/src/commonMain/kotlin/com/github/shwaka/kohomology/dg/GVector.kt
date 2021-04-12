@@ -56,7 +56,7 @@ open class GVector<B, S : Scalar, V : NumVector<S>>(
         return result
     }
 
-    override fun toString(): String = this.vector.toString()
+    override fun toString(): String = this.gVectorSpace.printer.stringify(this.vector)
 }
 
 interface GVectorOperations<B, S : Scalar, V : NumVector<S>> {
@@ -84,7 +84,7 @@ open class GVectorContext<B, S : Scalar, V : NumVector<S>>(
 open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val name: String,
-    printer: VectorPrinter<B, S, V>,
+    var printer: VectorPrinter<B, S, V>,
     private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<B, S, V> {
     constructor(
@@ -96,12 +96,6 @@ open class GVectorSpace<B, S : Scalar, V : NumVector<S>>(
     val field = this.numVectorSpace.field
     private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
-    var printer: VectorPrinter<B, S, V> = printer
-        set(value) {
-            field = value
-            for (vectorSpace in this.cache.values)
-                vectorSpace.printer = value
-        }
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra

@@ -1,4 +1,5 @@
 [![Java CI with Gradle](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml/badge.svg)](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml)
+[![codecov](https://codecov.io/gh/shwaka/kohomology/branch/main/graph/badge.svg?token=kTXiaOtBj1)](https://codecov.io/gh/shwaka/kohomology)
 ![GitHub](https://img.shields.io/github/license/shwaka/kohomology)
 
 ## Overview

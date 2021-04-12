@@ -41,7 +41,7 @@ jobs:
         run: ./gradlew jacocoTestReport
       - name: Upload to codecov
         env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # "token not required for public repositories" らしい…？
         run: bash <(curl -s https://codecov.io/bash)
       - name: Check with ktlint
         run: ./gradlew ktlintCheck

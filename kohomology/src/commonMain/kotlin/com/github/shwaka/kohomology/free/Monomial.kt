@@ -186,7 +186,7 @@ class Monomial<I : IndeterminateName> private constructor(
             when (exponent) {
                 0 -> ""
                 1 -> indeterminate.toTex()
-                else -> "$indeterminate^{$exponent}"
+                else -> "${indeterminate.toTex()}^{$exponent}"
             }
         }.let { if (it.isEmpty()) "1" else it }
     }

@@ -99,16 +99,17 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : Vector
             } else {
                 var result = ""
                 basisWithCoeff[0].let { (coeff, basisElm) ->
-                    result += when (coeff) {
-                        one -> basisElm
-                        else -> "$coeff $basisElm"
+                    result += when (val coeffStr = coeff.toString()) {
+                        "1" -> basisElm
+                        "-1" -> "- $basisElm"
+                        else -> "$coeffStr $basisElm"
                     }
                 }
                 result += basisWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
-                    val str = when (coeff) {
-                        one -> basisElm
-                        else -> "${coeff.toStringWithoutSign()} $basisElm"
+                    val str = when (val coeffStr = coeff.toStringWithoutSign()) {
+                        "1" -> basisElm
+                        else -> "$coeffStr $basisElm"
                     }
                     " $sign $str"
                 }

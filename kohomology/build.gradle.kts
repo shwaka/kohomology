@@ -137,7 +137,7 @@ tasks.withType<Test> {
 tasks.jacocoTestReport {
     reports {
         html.isEnabled = true
-        // xml.isEnabled = true
+        xml.isEnabled = true // for codecov.io
     }
 
     // https://stackoverflow.com/questions/59802396/kotlin-multiplatform-coverage

@@ -37,5 +37,11 @@ jobs:
         run: ./gradlew compileKotlinJvm
       - name: Test with Gradle
         run: ./gradlew jvmTest -Dkococo.debug
+      - name: Jacoco Test Report
+        run: ./gradlew jacocoTestReport
+      - name: Upload to codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: bash <(curl -s https://codecov.io/bash)
       - name: Check with ktlint
         run: ./gradlew ktlintCheck

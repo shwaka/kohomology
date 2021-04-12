@@ -24,7 +24,7 @@ data class CopiedName<I : IndeterminateName>(val name: I, val shift: Degree, val
         }
         // The brace surrounding ${this.name} is necessary to avoid "double subscript"
         //   when this.name contains a subscript
-        return "$shiftString{${this.name}}$indexString"
+        return "$shiftString{${this.name.toTex()}}$indexString"
     }
 }
 

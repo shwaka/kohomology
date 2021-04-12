@@ -4,12 +4,13 @@ import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
+import com.github.shwaka.kohomology.free.IndeterminateName
 import com.github.shwaka.kohomology.free.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class FreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val freeDGAlgebra: FreeDGAlgebra<I, S, V, M>
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
@@ -50,7 +51,7 @@ private class FreeLoopSpaceFactory<I, S : Scalar, V : NumVector<S>, M : Matrix<S
     }
 }
 
-class FreeLoopSpace<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+class FreeLoopSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<I, S, V, M>
 ) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))

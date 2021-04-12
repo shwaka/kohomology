@@ -4,13 +4,46 @@ import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isOdd
 
-data class Indeterminate<I>(val name: I, val degree: Degree) {
+interface IndeterminateName {
+    fun toTex(): String = this.toString()
+}
+class StringIndeterminateName(val name: String, tex: String? = null) : IndeterminateName {
+    val tex: String = tex ?: name
+
+    override fun toString(): String = this.name
+    override fun toTex(): String = this.tex
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as StringIndeterminateName
+
+        if (name != other.name) return false
+        if (tex != other.tex) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + tex.hashCode()
+        return result
+    }
+}
+
+data class Indeterminate<I : IndeterminateName>(val name: I, val degree: Degree) {
+    companion object {
+        operator fun invoke(name: String, degree: Degree): Indeterminate<StringIndeterminateName> {
+            return Indeterminate(StringIndeterminateName(name), degree)
+        }
+    }
     override fun toString(): String {
         return this.name.toString()
     }
 }
 
-private sealed class IndeterminateList<I>(
+private sealed class IndeterminateList<I : IndeterminateName>(
     protected val rawList: List<Indeterminate<I>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
@@ -40,7 +73,7 @@ private sealed class IndeterminateList<I>(
     }
 
     companion object {
-        fun <I> from(indeterminateList: List<Indeterminate<I>>): IndeterminateList<I> {
+        fun <I : IndeterminateName> from(indeterminateList: List<Indeterminate<I>>): IndeterminateList<I> {
             return when {
                 indeterminateList.any { it.degree == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
                 indeterminateList.all { it.degree > 0 } -> PositiveIndeterminateList(indeterminateList)
@@ -51,7 +84,7 @@ private sealed class IndeterminateList<I>(
     }
 }
 
-private class PositiveIndeterminateList<I>(
+private class PositiveIndeterminateList<I : IndeterminateName>(
     rawList: List<Indeterminate<I>>
 ) : IndeterminateList<I>(rawList) {
     init {
@@ -70,7 +103,7 @@ private class PositiveIndeterminateList<I>(
     override fun drop(): PositiveIndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
 }
 
-private class NegativeIndeterminateList<I>(
+private class NegativeIndeterminateList<I : IndeterminateName>(
     rawList: List<Indeterminate<I>>
 ) : IndeterminateList<I>(rawList) {
     init {
@@ -89,7 +122,7 @@ private class NegativeIndeterminateList<I>(
     override fun drop(): NegativeIndeterminateList<I> = NegativeIndeterminateList(this.rawList.drop(1))
 }
 
-class Monomial<I> private constructor(
+class Monomial<I : IndeterminateName> private constructor(
     private val indeterminateList: IndeterminateList<I>,
     val exponentList: List<Int>,
 ) : MonoidElement {
@@ -165,7 +198,7 @@ class Monomial<I> private constructor(
     }
 
     companion object {
-        fun <I> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
+        fun <I : IndeterminateName> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
             val index = indeterminateList.indexOf(indeterminate)
             if (index == -1)
                 throw IllegalArgumentException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
@@ -175,7 +208,7 @@ class Monomial<I> private constructor(
     }
 }
 
-class FreeMonoid<I> (
+class FreeMonoid<I : IndeterminateName> (
     val indeterminateList: List<Indeterminate<I>>
 ) : Monoid<Monomial<I>> {
     // constructor(
@@ -258,7 +291,7 @@ class FreeMonoid<I> (
     }
 }
 
-data class MonomialSeparation<I>(
+data class MonomialSeparation<I : IndeterminateName>(
     val remainingMonomial: Monomial<I>,
     val separatedIndeterminate: Indeterminate<I>,
     val separatedExponent: Int,

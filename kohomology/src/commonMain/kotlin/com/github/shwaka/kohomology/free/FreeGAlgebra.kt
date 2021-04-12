@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     val indeterminateList: List<Indeterminate<I>>
 ) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(
@@ -124,7 +124,7 @@ class FreeGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     companion object {
-        private fun <I> getName(indeterminateList: List<Indeterminate<I>>): String {
+        private fun <I : IndeterminateName> getName(indeterminateList: List<Indeterminate<I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
         }

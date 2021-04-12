@@ -10,13 +10,13 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-open class FreeDGAlgebra<I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
+open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<I, S, V, M>,
     differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGAlgebra<Monomial<I>, S, V, M>(gAlgebra, differential, matrixSpace) {
     companion object {
-        operator fun <I, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<I>>,
             getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>

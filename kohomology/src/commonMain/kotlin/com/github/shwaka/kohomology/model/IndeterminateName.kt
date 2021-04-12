@@ -1,9 +1,10 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.free.Indeterminate
+import com.github.shwaka.kohomology.free.IndeterminateName
 import com.github.shwaka.kohomology.util.Degree
 
-data class CopiedName<I>(val name: I, val shift: Degree, val index: Int? = null) {
+data class CopiedName<I : IndeterminateName>(val name: I, val shift: Degree, val index: Int? = null) : IndeterminateName {
     override fun toString(): String {
         val indexString: String = this.index?.toString() ?: ""
         val shiftString = when (this.shift) {
@@ -15,7 +16,7 @@ data class CopiedName<I>(val name: I, val shift: Degree, val index: Int? = null)
     }
 }
 
-fun <I> Indeterminate<I>.copy(
+fun <I : IndeterminateName> Indeterminate<I>.copy(
     shift: Degree,
     index: Int? = null
 ): Indeterminate<CopiedName<I>> {

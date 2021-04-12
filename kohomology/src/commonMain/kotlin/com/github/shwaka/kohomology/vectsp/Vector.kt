@@ -13,11 +13,11 @@ import mu.KotlinLogging
 interface BasisName {
     fun toTex(): String = this.toString()
 }
-class StringBasisName(val name: String, texCode: String? = null) : BasisName {
-    val texCode: String = texCode ?: name
+class StringBasisName(val name: String, tex: String? = null) : BasisName {
+    val tex: String = tex ?: name
 
     override fun toString(): String = this.name
-    override fun toTex(): String = this.texCode
+    override fun toTex(): String = this.tex
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -26,14 +26,14 @@ class StringBasisName(val name: String, texCode: String? = null) : BasisName {
         other as StringBasisName
 
         if (name != other.name) return false
-        if (texCode != other.texCode) return false
+        if (tex != other.tex) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = name.hashCode()
-        result = 31 * result + texCode.hashCode()
+        result = 31 * result + tex.hashCode()
         return result
     }
 }

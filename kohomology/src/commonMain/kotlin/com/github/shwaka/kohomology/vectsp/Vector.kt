@@ -10,8 +10,33 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import mu.KotlinLogging
 
-interface BasisName
-data class StringBasisName(val name: String) : BasisName
+interface BasisName {
+    fun toTex(): String = this.toString()
+}
+class StringBasisName(val name: String, texCode: String? = null) : BasisName {
+    val texCode: String = texCode ?: name
+
+    override fun toString(): String = this.name
+    override fun toTex(): String = this.texCode
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as StringBasisName
+
+        if (name != other.name) return false
+        if (texCode != other.texCode) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + texCode.hashCode()
+        return result
+    }
+}
 
 class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
@@ -62,7 +87,7 @@ interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
 }
 
 class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
-    private fun stringify(vector: Vector<B, S, V>, basisToString: (B) -> String): String {
+    fun stringify(vector: Vector<B, S, V>, basisToString: (B) -> String): String {
         val coeffList = vector.vectorSpace.numVectorSpace.context.run {
             vector.numVector.toList()
         }
@@ -94,6 +119,13 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : Vector
 
     override fun stringify(vector: Vector<B, S, V>): String {
         return this.stringify(vector) { it.toString() }
+    }
+}
+
+class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
+    private val defaultVectorPrinter = DefaultVectorPrinter<B, S, V>()
+    override fun stringify(vector: Vector<B, S, V>): String {
+        return this.defaultVectorPrinter.stringify(vector) { it.toTex() }
     }
 }
 

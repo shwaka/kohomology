@@ -10,6 +10,7 @@ on:
   pull_request:
     branches: [ main ]
     paths: [ 'kohomology/**', '.github/workflows/gradle.yml' ]
+  workflow_dispatch:
 
 jobs:
   build-jvm:

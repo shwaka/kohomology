@@ -1,4 +1,5 @@
 [![Java CI with Gradle](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml/badge.svg)](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml)
+![GitHub](https://img.shields.io/github/license/shwaka/kohomology)
 
 ## Overview
 ![classes](uml/packages.png)

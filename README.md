@@ -3,13 +3,11 @@
 [![codecov](https://codecov.io/gh/shwaka/kohomology/branch/main/graph/badge.svg?token=kTXiaOtBj1)](https://codecov.io/gh/shwaka/kohomology)
 [![license](https://img.shields.io/github/license/shwaka/kohomology)](https://github.com/shwaka/kohomology/blob/main/LICENSE)
 
-`kohomology` is a kotlin library to compute the cohomology of a cochain complex. The main target is a Sullivan algebra (in rational homotopy theory).
+`kohomology` is a [Kotlin](https://kotlinlang.org/) library to compute the cohomology of a cochain complex. The main target is a Sullivan algebra (in [Rational homotopy theory - Wikipedia](https://en.wikipedia.org/wiki/Rational_homotopy_theory)).
 
 - This library is a [kotlin multiplatform](https://kotlinlang.org/docs/multiplatform.html) project. So it can be compiled for JVM and browser. (See [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app))
+- This library also supports fields of positive characteristic. (But fewer implementation of concrete cochain complexes)
 - The name "*ko*homology" is obtained by combining "cohomology" and "kotlin".
-
-## Overview
-![classes](uml/packages.png)
 
 ## Usage
 This library is published at the maven repository [shwaka/maven](https://github.com/shwaka/maven).
@@ -47,6 +45,9 @@ for (degree in 0 until 25) {
 
 See tests in [kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology](kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology) for more examples.
 You can find complete examples in [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app).
+
+## Overview of classes and interfaces
+![classes](uml/packages.png)
 
 ## Test
 以下のいずれか．
@@ -99,7 +100,8 @@ cd ../benchmark
 ./gradlew benchmark
 ```
 
-## Recursive generics
+## Memo
+### Recursive generics
 当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
 ちゃんと安定して動作するのか不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．
 [kotlin/Enum.kt at master · JetBrains/kotlin](https://github.com/JetBrains/kotlin/blob/master/core/builtins/native/kotlin/Enum.kt)
@@ -110,7 +112,7 @@ cd ../benchmark
 - [Self Types with Java's Generics - SitePoint](https://www.sitepoint.com/self-types-with-javas-generics/)
 - [Emulating self types in Kotlin. DIY solution for missing language… | by Jerzy Chałupski | Medium](https://medium.com/@jerzy.chalupski/emulating-self-types-in-kotlin-d64fe8ea2e62)
 
-## Version of java
+### Version of java
 native 向けにコンパイルしようとしたら，以下のエラーが出た．
 依存関係のダウンロードをする際に，証明書関係で失敗しているっぽい．
 使用する java のバージョンを変えたらうまくいった．

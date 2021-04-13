@@ -85,7 +85,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         valueList: List<GVectorOrZero<B, S, V>>,
     ): GLinearMap<Monomial<I>, B, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
-            throw IllegalArgumentException("Invalid size of the list of values of an algebra map")
+            throw InvalidSizeException("Invalid size of the list of values of an algebra map")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
                 if (value.degree != indeterminate.degree)

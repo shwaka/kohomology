@@ -1,11 +1,13 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -119,18 +121,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     }
 }
 
-class FreeGAlgebraTest : StringSpec({
-    tags(freeGAlgebraTag, bigRationalTag)
-
-    val matrixSpace = DenseMatrixSpaceOverBigRational
-    include(polynomialTest(matrixSpace, 2))
-    include(polynomialTest(matrixSpace, 4))
-    include(polynomialTest(matrixSpace, -2))
-
-    include(exteriorTest(matrixSpace, 1))
-    include(exteriorTest(matrixSpace, 3))
-    include(exteriorTest(matrixSpace, -3))
-
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     "derivation test (2-dim sphere)" {
         val generatorList = listOf(
             Indeterminate("x", 2),
@@ -169,4 +160,77 @@ class FreeGAlgebraTest : StringSpec({
             d(x.pow(3) * y).isZero().shouldBeTrue()
         }
     }
+
+    "getDerivation should throw IllegalArgumentException when an element of invalid degree is given" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        freeGAlgebra.context.run {
+            val (x, _) = freeGAlgebra.generatorList
+            shouldThrow<IllegalArgumentException> {
+                freeGAlgebra.getDerivation(listOf(zeroGVector, x), 1)
+            }
+        }
+    }
+
+    "getDerivation should throw InvalidSizeException when a list of invalid size is given" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        freeGAlgebra.context.run {
+            shouldThrow<InvalidSizeException> {
+                freeGAlgebra.getDerivation(listOf(zeroGVector), 1)
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    "getAlgebraMap should throw IllegalArgumentException when an element of invalid degree is given" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        freeGAlgebra.context.run {
+            val (x, _) = freeGAlgebra.generatorList
+            shouldThrow<IllegalArgumentException> {
+                freeGAlgebra.getAlgebraMap(freeGAlgebra, listOf(x, x.pow(2)))
+            }
+        }
+    }
+
+    "getAlgebraMap should throw InvalidSizeException when a list of invalid size is given" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        freeGAlgebra.context.run {
+            shouldThrow<InvalidSizeException> {
+                freeGAlgebra.getAlgebraMap(freeGAlgebra, listOf(zeroGVector))
+            }
+        }
+    }
+
+}
+
+class FreeGAlgebraTest : StringSpec({
+    tags(freeGAlgebraTag, bigRationalTag)
+
+    val matrixSpace = DenseMatrixSpaceOverBigRational
+    include(polynomialTest(matrixSpace, 2))
+    include(polynomialTest(matrixSpace, 4))
+    include(polynomialTest(matrixSpace, -2))
+
+    include(exteriorTest(matrixSpace, 1))
+    include(exteriorTest(matrixSpace, 3))
+    include(exteriorTest(matrixSpace, -3))
+
+    include(derivationTest(matrixSpace))
+    include(algebraMapTest(matrixSpace))
 })

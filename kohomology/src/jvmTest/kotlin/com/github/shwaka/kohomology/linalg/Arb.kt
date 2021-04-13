@@ -18,3 +18,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.arb(sc
     return myArbList(scalarArb, size).map { elmList -> this.fromFlatList(elmList, rowCount, colCount) }
     // return Arb.list(scalarArb, size..size).map { elmList -> this.fromFlatList(elmList, rowCount, colCount) }
 }
+
+fun <S : Scalar, V : NumVector<S>> NumVectorSpace<S, V>.arb(scalarArb: Arb<S>, dim: Int): Arb<V> {
+    return myArbList(scalarArb, dim).map { valueList -> this.fromValueList(valueList) }
+}

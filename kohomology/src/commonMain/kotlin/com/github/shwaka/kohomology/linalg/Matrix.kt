@@ -124,6 +124,25 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }.flatten()
         return trivialVectors + vectorsForPivots
     }
+
+    fun M.findPreimage(numVector: V): V {
+        if (this.rowCount != numVector.dim)
+            throw InvalidSizeException("Cannot consider preimage since numVector.dim != matrix.colCount")
+        if (numVector.isZero())
+            return this.numVectorSpace.getZero(this.colCount)
+        val pivots = this.rowEchelonForm.pivots
+        val reducedTransformation = this.rowEchelonForm.reducedTransformation
+        val transformedNumVector = reducedTransformation * numVector
+        if ((pivots.size until this.rowCount).any { transformedNumVector[it] != zero })
+            throw NoSuchElementException(
+                "Cannot find preimage: the given numVector is not contained in the image"
+            )
+        val valueMap = pivots.mapIndexed { index, pivot ->
+            val value = transformedNumVector[index]
+            Pair(pivot, value)
+        }.toMap()
+        return this.numVectorSpace.fromValueMap(valueMap, this.colCount)
+    }
 }
 
 interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {

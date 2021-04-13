@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.longRationalTag
@@ -379,6 +380,35 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             matrix.rowSlice(intRange) shouldBe expectedRowSlice
             matrix.colSlice(intRange) shouldBe expectedColSlice
         }
+        "findPreimage(zero) should return zero" {
+            val mat = matrixSpace.fromRowList(
+                listOf(
+                    listOf(one, two, three),
+                    listOf(-one, four, zero),
+                )
+            )
+            val zero2 = numVectorSpace.getZero(2)
+            val zero3 = numVectorSpace.getZero(3)
+            mat.findPreimage(zero2) shouldBe zero3
+        }
+        "findPreimage should throw InvalidSizeException when a numVector of wrong size is given" {
+            val zero3 = numVectorSpace.getZero(3)
+            shouldThrow<InvalidSizeException> {
+                m.findPreimage(zero3)
+            }
+        }
+        "findPreimage should throw NoSuchElementException for numVector not in the image" {
+            val mat = matrixSpace.fromRowList(
+                listOf(
+                    listOf(two, -two),
+                    listOf(one, -one)
+                )
+            )
+            val numVector = numVectorSpace.fromValueList(listOf(one, one))
+            shouldThrow<NoSuchElementException> {
+                mat.findPreimage(numVector)
+            }
+        }
     }
 }
 
@@ -409,6 +439,27 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
                 val reducedRowEchelonForm: M = mat.rowEchelonForm.reducedMatrix
                 val reducedTransformation: M = mat.rowEchelonForm.reducedTransformation
                 (reducedTransformation * mat) shouldBe reducedRowEchelonForm
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findPreimageGenTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dimSource: Int,
+    dimTarget: Int,
+    max: Int = 100,
+) = stringSpec {
+    val field = matrixSpace.field
+    val scalarArb = field.arb(Arb.int(-max..max))
+    val numVectorArb = matrixSpace.numVectorSpace.arb(scalarArb, dimSource)
+    val matrixArb = matrixSpace.arb(scalarArb, rowCount = dimTarget, colCount = dimSource)
+    "[$dimSource, $dimTarget] findPreimage should return an element of preimage" {
+        checkAll(numVectorArb, matrixArb) { sourceNumVector, matrix ->
+            matrixSpace.context.run {
+                val targetNumVector = matrix * sourceNumVector
+                val preimageNumVector = matrix.findPreimage(targetNumVector)
+                (matrix * preimageNumVector) shouldBe targetNumVector
             }
         }
     }
@@ -513,6 +564,8 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class IntMod2DenseMatrixTest : StringSpec({
@@ -526,6 +579,8 @@ class IntMod2DenseMatrixTest : StringSpec({
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class IntMod5DenseMatrixTest : StringSpec({
@@ -539,6 +594,8 @@ class IntMod5DenseMatrixTest : StringSpec({
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class BigRationalSparseMatrixTest : StringSpec({
@@ -552,6 +609,8 @@ class BigRationalSparseMatrixTest : StringSpec({
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class IntMod2SparseMatrixTest : StringSpec({
@@ -565,6 +624,8 @@ class IntMod2SparseMatrixTest : StringSpec({
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class IntMod3SparseMatrixTest : StringSpec({
@@ -578,6 +639,8 @@ class IntMod3SparseMatrixTest : StringSpec({
     include(determinantTest(F3, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
 class IntMod5SparseMatrixTest : StringSpec({
@@ -591,4 +654,6 @@ class IntMod5SparseMatrixTest : StringSpec({
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
 })

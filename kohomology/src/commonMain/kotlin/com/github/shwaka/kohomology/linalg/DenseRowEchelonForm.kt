@@ -3,9 +3,9 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.util.Sign
 
 class DenseRowEchelonForm<S : Scalar>(
-    private val matrixSpace: DenseMatrixSpace<S>,
-    private val originalMatrix: DenseMatrix<S>
-) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>> {
+    matrixSpace: DenseMatrixSpace<S>,
+    originalMatrix: DenseMatrix<S>
+) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>>(matrixSpace, originalMatrix) {
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.context.run { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
     private val field: Field<S> = matrixSpace.field
     override val matrix: DenseMatrix<S>

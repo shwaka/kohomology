@@ -190,9 +190,12 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     }
 }
 
-interface RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    val matrix: M
-    val reducedMatrix: M
-    val pivots: List<Int>
-    val sign: Sign
+abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    protected val matrixSpace: MatrixSpace<S, V, M>,
+    protected val originalMatrix: M,
+) {
+    abstract val matrix: M
+    abstract val reducedMatrix: M
+    abstract val pivots: List<Int>
+    abstract val sign: Sign
 }

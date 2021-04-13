@@ -3,9 +3,9 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.util.Sign
 
 class SparseRowEchelonForm<S : Scalar>(
-    private val matrixSpace: SparseMatrixSpace<S>,
-    private val originalMatrix: SparseMatrix<S>
-) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
+    matrixSpace: SparseMatrixSpace<S>,
+    originalMatrix: SparseMatrix<S>
+) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
     private val data: RowEchelonFormData<S> by lazy {

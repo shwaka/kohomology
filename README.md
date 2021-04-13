@@ -32,7 +32,7 @@ val indeterminateList = listOf(
 )
 val matrixSpace = SparseMatrixSpaceOverBigRational
 val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
-    listOf(zeroGVector, x.pow(2))
+    listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
 }
 
 for (degree in 0 until 10) {
@@ -44,6 +44,7 @@ val freeLoopSpace = FreeLoopSpace(sphere)
 val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
 
 freeLoopSpace.context.run {
+    // Operations in a DGA can be applied within 'context.run'
     println("dsy = ${d(sy)} = ${-2 * x * sx}")
 }
 

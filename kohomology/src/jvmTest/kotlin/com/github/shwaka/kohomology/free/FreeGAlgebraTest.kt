@@ -216,7 +216,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
             }
         }
     }
-
 }
 
 class FreeGAlgebraTest : StringSpec({

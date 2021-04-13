@@ -20,7 +20,14 @@ class SparseMatrix<S : Scalar>(
             field = value
         }
     init {
-        // TODO: check that each index is smaller than rowCount or colCount
+        for ((rowInd, row) in this.rowMap) {
+            if (rowInd >= this.rowCount)
+                throw IllegalArgumentException("The index $rowInd is larger than the rowCount (= ${this.rowCount}) for the matrix")
+            for ((colInd, _) in row) {
+                if (colInd >= this.colCount)
+                    throw IllegalArgumentException("The index $colInd is larger than the colCount (= ${this.colCount}) for the matrix")
+            }
+        }
     }
 
     private fun toStringTable(): StringTable {
@@ -44,7 +51,12 @@ class SparseMatrix<S : Scalar>(
         this.rowMap[rowInd]?.let { row ->
             row[colInd]?.let { return it }
         }
+        if ((rowInd >= this.rowCount) || (colInd >= this.colCount))
+            throw IndexOutOfBoundsException(
+                "Given index ($rowInd, $colInd) is not contained in the size (${this.rowCount}, ${this.colCount})"
+            )
         return this.numVectorSpace.field.zero
+
     }
 
     override fun equals(other: Any?): Boolean {

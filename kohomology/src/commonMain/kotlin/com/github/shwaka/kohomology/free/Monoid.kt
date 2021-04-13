@@ -54,11 +54,11 @@ class MonoidFromList<T>(
     ): MaybeZero<Pair<SimpleMonoidElement<T>, Sign>> {
         val index1: Int = this.elements.indexOf(monoidElement1).also {
             if (it == -1)
-                throw IllegalArgumentException("$monoidElement1 is not found in the list 'elements'")
+                throw NoSuchElementException("$monoidElement1 is not found in the list 'elements'")
         }
         val index2: Int = this.elements.indexOf(monoidElement2).also {
             if (it == -1)
-                throw IllegalArgumentException("$monoidElement2 is not found in the list 'elements'")
+                throw NoSuchElementException("$monoidElement2 is not found in the list 'elements'")
         }
         return this.multiplicationTable[index1][index2]
     }

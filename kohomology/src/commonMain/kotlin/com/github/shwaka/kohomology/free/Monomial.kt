@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isOdd
@@ -131,7 +132,7 @@ class Monomial<I : IndeterminateName> private constructor(
 ) : MonoidElement {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
-            throw Exception("Invalid size of the exponent list")
+            throw InvalidSizeException("Invalid size of the exponent list")
     }
 
     constructor(
@@ -222,7 +223,7 @@ class Monomial<I : IndeterminateName> private constructor(
         fun <I : IndeterminateName> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
             val index = indeterminateList.indexOf(indeterminate)
             if (index == -1)
-                throw IllegalArgumentException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
+                throw NoSuchElementException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
             return Monomial(indeterminateList, exponentList)
         }

@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -27,7 +28,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
 
     fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): GLinearMap<Monomial<I>, Monomial<I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
-            throw IllegalArgumentException("Invalid size of the list of values of a derivation")
+            throw InvalidSizeException("Invalid size of the list of values of a derivation")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
                 if (value.degree != indeterminate.degree + derivationDegree)

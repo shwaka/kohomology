@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -34,9 +35,9 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar,
 
     operator fun invoke(gVector1: GVector<BS1, S, V>, gVector2: GVector<BS2, S, V>): GVector<BT, S, V> {
         if (gVector1.gVectorSpace != this.source1)
-            throw IllegalArgumentException("Invalid graded vector is given as an argument for a graded bilinear map")
+            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
         if (gVector2.gVectorSpace != this.source2)
-            throw IllegalArgumentException("Invalid graded vector is given as an argument for a graded bilinear map")
+            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
         val bilinearMap = this[gVector1.degree, gVector2.degree]
         if (gVector1.vector.vectorSpace != bilinearMap.source1)
             throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")

@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -22,7 +24,7 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
 
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
         if (gVector.gVectorSpace != this.source)
-            throw IllegalArgumentException("Invalid graded vector is given as an argument for a graded linear map")
+            throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
         val linearMap = this.getLinearMap(gVector.degree)
         if (gVector.vector.vectorSpace != linearMap.source)
             throw Exception("Graded linear map contains a bug: getLinearMap returns incorrect linear map")
@@ -62,11 +64,11 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
                 val targetVectorSpace = target[k + degree]
                 val gVectorValueList = getGVectors(k)
                 if (gVectorValueList.any { it !in target })
-                    throw IllegalArgumentException("The value list contains an element not contained in $target")
+                    throw IllegalContextException("The value list contains an element not contained in $target")
                 if (gVectorValueList.any { it.degree != k + degree })
                     throw IllegalArgumentException("The value list contains an element with wrong degree")
                 if (sourceVectorSpace.basisNames.size != gVectorValueList.size)
-                    throw IllegalArgumentException("The value list has incompatible size")
+                    throw InvalidSizeException("The value list has incompatible size")
                 val valueList = gVectorValueList.map { it.vector }
                 LinearMap.fromVectors(sourceVectorSpace, targetVectorSpace, matrixSpace, valueList)
             }

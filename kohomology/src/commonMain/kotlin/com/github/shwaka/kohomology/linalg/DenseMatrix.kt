@@ -168,14 +168,28 @@ class DenseMatrixSpace<S : Scalar>(
         )
     }
 
-    override fun fromRowList(rows: List<List<S>>, colCount: Int?): DenseMatrix<S> {
-        val rowCount = rows.size
+    override fun fromRowList(rowList: List<List<S>>, colCount: Int?): DenseMatrix<S> {
+        val rowCount = rowList.size
         val colCountNonNull: Int = when {
-            rows.isNotEmpty() -> rows[0].size
+            rowList.isNotEmpty() -> rowList[0].size
             colCount != null -> colCount
             else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
         }
-        return DenseMatrix(this.numVectorSpace, rows, rowCount, colCountNonNull)
+        return DenseMatrix(this.numVectorSpace, rowList, rowCount, colCountNonNull)
+    }
+
+    override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): DenseMatrix<S> {
+        val rowList = (0 until rowCount).map { rowInd ->
+            val row = rowMap[rowInd]
+            if (row == null) {
+                List(colCount) { this.field.zero }
+            } else {
+                (0 until colCount).map { colInd ->
+                    row[colInd] ?: this.field.zero
+                }
+            }
+        }
+        return this.fromRowList(rowList, colCount)
     }
 
     override fun joinMatrices(matrix1: DenseMatrix<S>, matrix2: DenseMatrix<S>): DenseMatrix<S> {

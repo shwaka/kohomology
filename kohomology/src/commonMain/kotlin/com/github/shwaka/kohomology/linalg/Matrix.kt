@@ -130,16 +130,27 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val context: MatrixContext<S, V, M>
     val numVectorSpace: NumVectorSpace<S, V>
     val field: Field<S>
-    fun fromRowList(rows: List<List<S>>, colCount: Int? = null): M
-    fun fromColList(cols: List<List<S>>, rowCount: Int? = null): M {
+    fun fromRowList(rowList: List<List<S>>, colCount: Int? = null): M
+    fun fromColList(colList: List<List<S>>, rowCount: Int? = null): M {
         val rowCountNonNull: Int = when {
-            cols.isNotEmpty() -> cols[0].size
+            colList.isNotEmpty() -> colList[0].size
             rowCount != null -> rowCount
             else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
         }
-        val colCount = cols.size
-        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> cols[j][i] } }
+        val colCount = colList.size
+        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> colList[j][i] } }
         return this.fromRowList(rows, colCount)
+    }
+    fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M
+    fun fromColMap(colMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
+        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
+        for ((colInd, col) in colMap) {
+            for ((rowInd, elm) in col) {
+                val row = rowMap.getOrPut(rowInd) { mutableMapOf() }
+                row[colInd] = elm
+            }
+        }
+        return this.fromRowMap(rowMap, rowCount, colCount)
     }
     fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() && (dim == null))

@@ -242,14 +242,14 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
-    override fun fromRowList(rows: List<List<S>>, colCount: Int?): SparseMatrix<S> {
-        val rowCount = rows.size
+    override fun fromRowList(rowList: List<List<S>>, colCount: Int?): SparseMatrix<S> {
+        val rowCount = rowList.size
         val colCountNonNull: Int = when {
-            rows.isNotEmpty() -> rows[0].size
+            rowList.isNotEmpty() -> rowList[0].size
             colCount != null -> colCount
             else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
         }
-        val rowMap: Map<Int, Map<Int, S>> = rows.mapIndexedNotNull { rowInd, row ->
+        val rowMap: Map<Int, Map<Int, S>> = rowList.mapIndexedNotNull { rowInd, row ->
             val newRow = row.mapIndexedNotNull { colInd, elm -> if (elm.isZero()) null else Pair(colInd, elm) }.toMap()
             if (newRow.isEmpty())
                 null
@@ -259,7 +259,7 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCountNonNull)
     }
 
-    fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SparseMatrix<S> {
+    override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SparseMatrix<S> {
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 

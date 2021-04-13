@@ -177,21 +177,36 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 empty.toPrettyString()
             }
         }
-        "fromRows and fromCols should give same matrices" {
-            val rows = listOf(
+        "fromRowList and fromColList should give same matrices" {
+            val rowList = listOf(
                 listOf(zero, one),
                 listOf(two, three)
             )
-            val cols = listOf(
+            val colList = listOf(
                 listOf(zero, two),
                 listOf(one, three)
             )
-            (matrixSpace.fromRowList(rows) == matrixSpace.fromColList(cols)).shouldBeTrue()
+            (matrixSpace.fromRowList(rowList) == matrixSpace.fromColList(colList)).shouldBeTrue()
         }
-        "two variants of fromRows should give same matrices" {
-            val row1 = listOf(zero, one)
-            val row2 = listOf(two, three)
-            (matrixSpace.fromRowList(listOf(row1, row2)) == matrixSpace.fromRowList(listOf(row1, row2))).shouldBeTrue()
+        "fromRowMap should return the same matrix as fromRowList" {
+            val rowList = listOf(
+                listOf(zero, one),
+                listOf(zero, zero),
+            )
+            val rowMap = mapOf(
+                0 to mapOf(1 to one)
+            )
+            matrixSpace.fromRowMap(rowMap, 2, 2) shouldBe matrixSpace.fromRowList(rowList)
+        }
+        "fromColMap should return the same matrix as fromColList" {
+            val colList = listOf(
+                listOf(zero, one),
+                listOf(zero, zero),
+            )
+            val colMap = mapOf(
+                0 to mapOf(1 to one)
+            )
+            matrixSpace.fromRowMap(colMap, 2, 2) shouldBe matrixSpace.fromRowList(colList)
         }
         "fromVectors should work correctly" {
             val expectedMat = matrixSpace.fromRowList(

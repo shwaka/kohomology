@@ -137,13 +137,17 @@ class SparseNumVectorSpace<S : Scalar>(
         }
     }
 
-    override fun fromValueList(values: List<S>): SparseNumVector<S> {
-        val valuesMap: MutableMap<Int, S> = mutableMapOf()
-        for ((i, value) in values.withIndex()) {
+    override fun fromValueList(valueList: List<S>): SparseNumVector<S> {
+        val valueMap: MutableMap<Int, S> = mutableMapOf()
+        for ((i, value) in valueList.withIndex()) {
             if (value.isNotZero())
-                valuesMap[i] = value
+                valueMap[i] = value
         }
-        return SparseNumVector(valuesMap, this.field, values.size)
+        return SparseNumVector(valueMap, this.field, valueList.size)
+    }
+
+    override fun fromValueMap(valueMap: Map<Int, S>, dim: Int): SparseNumVector<S> {
+        return SparseNumVector(valueMap, this.field, dim)
     }
 
     override fun getZero(dim: Int): SparseNumVector<S> {

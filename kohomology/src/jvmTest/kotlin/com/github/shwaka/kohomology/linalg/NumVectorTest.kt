@@ -94,6 +94,11 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val v = numVectorSpace.fromValueList(listOf(zero, one, zero))
             v.isZero().shouldBeFalse()
         }
+        "fromValueMap should return the same numVector as fromValueList" {
+            val v1 = numVectorSpace.fromValueMap(mapOf(1 to one, 2 to two), 4)
+            val v2 = numVectorSpace.fromValueList(listOf(zero, one, two, zero))
+            v1 shouldBe v2
+        }
     }
 }
 

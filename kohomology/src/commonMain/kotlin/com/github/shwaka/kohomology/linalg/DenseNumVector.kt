@@ -100,8 +100,15 @@ class DenseNumVectorSpace<S : Scalar>(
         }
     }
 
-    override fun fromValueList(values: List<S>): DenseNumVector<S> {
-        return DenseNumVector(values, this.field)
+    override fun fromValueList(valueList: List<S>): DenseNumVector<S> {
+        return DenseNumVector(valueList, this.field)
+    }
+
+    override fun fromValueMap(valueMap: Map<Int, S>, dim: Int): DenseNumVector<S> {
+        val valueList = (0 until dim).map { i ->
+            valueMap[i] ?: this.field.zero
+        }
+        return DenseNumVector(valueList, this.field)
     }
 
     override fun getZero(dim: Int): DenseNumVector<S> {

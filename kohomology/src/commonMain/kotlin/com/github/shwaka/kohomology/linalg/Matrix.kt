@@ -210,4 +210,31 @@ abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     protected abstract fun computeReducedRowEchelonForm(): M
     protected abstract fun computePivots(): List<Int>
     protected abstract fun computeSign(): Sign
+
+    private val augmentedOriginalMatrix: M by lazy {
+        val rowCount = this.originalMatrix.rowCount
+        this.matrixSpace.context.run {
+            listOf(
+                this@RowEchelonForm.originalMatrix,
+                this@RowEchelonForm.matrixSpace.getId(rowCount)
+            ).join()
+        }
+    }
+
+    val transformation: M by lazy {
+        val originalColCount = this.originalMatrix.colCount
+        val augmentedColCount = this.augmentedOriginalMatrix.colCount
+        this.matrixSpace.context.run {
+            this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.matrix
+                .colSlice(originalColCount until augmentedColCount)
+        }
+    }
+    val reducedTransformation: M by lazy {
+        val originalColCount = this.originalMatrix.colCount
+        val augmentedColCount = this.augmentedOriginalMatrix.colCount
+        this.matrixSpace.context.run {
+            this@RowEchelonForm.augmentedOriginalMatrix.rowEchelonForm.reducedMatrix
+                .colSlice(originalColCount until augmentedColCount)
+        }
+    }
 }

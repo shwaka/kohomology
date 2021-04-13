@@ -18,12 +18,19 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 
 val vectorTag = NamedTag("Vector")
 
 fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
     vectorSpace.context.run {
+        "Vectors with same coefficients should return the same hashCode" {
+            val v1 = vectorSpace.fromCoeff(listOf(zero, one, two))
+            val v2 = vectorSpace.fromCoeff(listOf(zero, one, two))
+            v1 shouldNotBeSameInstanceAs v2
+            v1.hashCode() shouldBe v2.hashCode()
+        }
         "addition of Vector" {
             val numVector = numVectorSpace.fromValueList(listOf(one, zero, one))
             val v = vectorSpace.fromNumVector(numVector)

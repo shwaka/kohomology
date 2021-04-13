@@ -17,6 +17,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 
 val numVectorTag = NamedTag("NumVector")
 val denseNumVectorTag = NamedTag("DenseNumVector")
@@ -38,6 +39,12 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
 
 fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
     numVectorSpace.context.run {
+        "numVectors with same values should have the same hashCode" {
+            val v1 = numVectorSpace.fromValueList(listOf(one, two))
+            val v2 = numVectorSpace.fromValueList(listOf(one, two))
+            v1 shouldNotBeSameInstanceAs v2
+            v1.hashCode() shouldBe v2.hashCode()
+        }
         "(0, 1) + (0, 1) should be (0, 2)" {
             val v = numVectorSpace.fromValueList(listOf(zero, one))
             val w = numVectorSpace.fromValueList(listOf(zero, two))

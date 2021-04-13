@@ -28,6 +28,7 @@ import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import io.kotest.property.Arb
 import io.kotest.property.Exhaustive
 import io.kotest.property.arbitrary.int
@@ -70,6 +71,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             )
         )
 
+        "Matrices with same elements should return the same hashCode" {
+            val m2 = matrixSpace.fromRowList(
+                listOf(
+                    listOf(two, one),
+                    listOf(zero, -one)
+                )
+            )
+            m shouldNotBeSameInstanceAs m2
+            m.hashCode() shouldBe m2.hashCode()
+        }
         "index access should throw the matrix elements" {
             m[0, 0] shouldBe two
             m[1, 1] shouldBe -one

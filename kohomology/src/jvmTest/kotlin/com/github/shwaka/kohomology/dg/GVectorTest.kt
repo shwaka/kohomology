@@ -14,6 +14,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 
 val gVectorTag = NamedTag("GVector")
 
@@ -22,6 +23,12 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
         (0 until degree).map { "v$it" }
     }
     gVectorSpace.context.run {
+        "GVectors with the same coefficients should have the same hashCode" {
+            val v1 = gVectorSpace.fromCoeff(listOf(one, two), 2)
+            val v2 = gVectorSpace.fromCoeff(listOf(one, two), 2)
+            v1 shouldNotBeSameInstanceAs v2
+            v1.hashCode() shouldBe v2.hashCode()
+        }
         "addition test" {
             val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
             val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)

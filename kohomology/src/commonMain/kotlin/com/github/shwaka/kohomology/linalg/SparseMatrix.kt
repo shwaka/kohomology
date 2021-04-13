@@ -62,7 +62,6 @@ class SparseMatrix<S : Scalar>(
                 "Given index ($rowInd, $colInd) is not contained in the size (${this.rowCount}, ${this.colCount})"
             )
         return this.numVectorSpace.field.zero
-
     }
 
     override fun equals(other: Any?): Boolean {

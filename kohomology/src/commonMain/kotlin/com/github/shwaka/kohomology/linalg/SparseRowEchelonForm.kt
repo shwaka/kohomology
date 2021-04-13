@@ -12,13 +12,19 @@ class SparseRowEchelonForm<S : Scalar>(
         this@SparseRowEchelonForm.originalMatrix.rowMap.rowEchelonForm()
     }
     val field = matrixSpace.field
-    override val matrix: SparseMatrix<S>
-        get() = this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
-    override val pivots: List<Int>
-        get() = this.data.pivots
-    override val sign: Sign
-        get() = if (this.data.exchangeCount % 2 == 0) 1 else -1
-    override val reducedMatrix: SparseMatrix<S> by lazy {
+    override fun computeRowEchelonForm(): SparseMatrix<S> {
+        return this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
+    }
+
+    override fun computePivots(): List<Int> {
+        return this.data.pivots
+    }
+
+    override fun computeSign(): Sign {
+        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+    }
+
+    override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
         val rank = this.pivots.size
         val rowEchelonRowMap = this.data.rowMap
         var reducedRowMap = rowEchelonRowMap.mapValues { (i, row) ->
@@ -30,7 +36,7 @@ class SparseRowEchelonForm<S : Scalar>(
         for (i in 0 until rank) {
             reducedRowMap = reducedRowMap.eliminateOtherRows(i, this.pivots[i])
         }
-        this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
+        return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
     }
 
     data class RowEchelonFormData<S : Scalar>(

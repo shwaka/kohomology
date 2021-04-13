@@ -8,13 +8,19 @@ class DenseRowEchelonForm<S : Scalar>(
 ) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>>(matrixSpace, originalMatrix) {
     private val data: RowEchelonFormData<S> by lazy { this.matrixSpace.context.run { this@DenseRowEchelonForm.originalMatrix.toList().rowEchelonForm() } }
     private val field: Field<S> = matrixSpace.field
-    override val matrix: DenseMatrix<S>
-        get() = this.matrixSpace.fromRowList(this.data.matrix)
-    override val pivots: List<Int>
-        get() = this.data.pivots
-    override val sign: Sign
-        get() = if (this.data.exchangeCount % 2 == 0) 1 else -1
-    override val reducedMatrix: DenseMatrix<S> by lazy {
+    override fun computeRowEchelonForm(): DenseMatrix<S> {
+        return this.matrixSpace.fromRowList(this.data.matrix)
+    }
+
+    override fun computePivots(): List<Int> {
+        return this.data.pivots
+    }
+
+    override fun computeSign(): Sign {
+        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+    }
+
+    override fun computeReducedRowEchelonForm(): DenseMatrix<S> {
         val rowCount = this.originalMatrix.rowCount
         val rank = this.pivots.size
         val rowEchelonMatrix = this.data.matrix
@@ -28,7 +34,7 @@ class DenseRowEchelonForm<S : Scalar>(
         for (i in 0 until rank) {
             rawReducedMatrix = rawReducedMatrix.eliminateOtherRows(i, this.pivots[i])
         }
-        this.matrixSpace.fromRowList(rawReducedMatrix, colCount = this.originalMatrix.colCount)
+        return this.matrixSpace.fromRowList(rawReducedMatrix, colCount = this.originalMatrix.colCount)
     }
 
     data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)

@@ -194,8 +194,20 @@ abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     protected val matrixSpace: MatrixSpace<S, V, M>,
     protected val originalMatrix: M,
 ) {
-    abstract val matrix: M
-    abstract val reducedMatrix: M
-    abstract val pivots: List<Int>
-    abstract val sign: Sign
+    val matrix: M by lazy {
+        this.computeRowEchelonForm()
+    }
+    val reducedMatrix: M by lazy {
+        this.computeReducedRowEchelonForm()
+    }
+    val pivots: List<Int> by lazy {
+        this.computePivots()
+    }
+    val sign: Sign by lazy {
+        this.computeSign()
+    }
+    protected abstract fun computeRowEchelonForm(): M
+    protected abstract fun computeReducedRowEchelonForm(): M
+    protected abstract fun computePivots(): List<Int>
+    protected abstract fun computeSign(): Sign
 }

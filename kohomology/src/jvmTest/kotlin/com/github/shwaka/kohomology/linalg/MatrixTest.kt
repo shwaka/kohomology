@@ -21,6 +21,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -69,6 +70,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             )
         )
 
+        "index access should throw the matrix elements" {
+            m[0, 0] shouldBe two
+            m[1, 1] shouldBe -one
+        }
+        "invalid index access should throw an IndexOutOfBoundsException" {
+            shouldThrow<IndexOutOfBoundsException> { m[2, 0] }
+            shouldThrow<IndexOutOfBoundsException> { m[0, 2] }
+            shouldThrow<IndexOutOfBoundsException> { m[2, 2] }
+            shouldThrow<IndexOutOfBoundsException> { m[-1, 0] }
+            shouldThrow<IndexOutOfBoundsException> { m[0, -1] }
+            shouldThrow<IndexOutOfBoundsException> { m[-1, -1] }
+        }
         "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
             val expected = matrixSpace.fromRowList(
                 listOf(

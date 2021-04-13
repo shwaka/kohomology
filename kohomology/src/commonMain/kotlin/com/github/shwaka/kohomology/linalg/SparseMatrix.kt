@@ -21,11 +21,15 @@ class SparseMatrix<S : Scalar>(
         }
     init {
         for ((rowInd, row) in this.rowMap) {
+            if (rowInd < 0)
+                throw IllegalArgumentException("The row index $rowInd cannot be negative")
             if (rowInd >= this.rowCount)
-                throw IllegalArgumentException("The index $rowInd is larger than the rowCount (= ${this.rowCount}) for the matrix")
+                throw IllegalArgumentException("The row index $rowInd cannot be larger than the rowCount (= ${this.rowCount}) for the matrix")
             for ((colInd, _) in row) {
+                if (colInd < 0)
+                    throw IllegalArgumentException("The col index $colInd cannot be negative")
                 if (colInd >= this.colCount)
-                    throw IllegalArgumentException("The index $colInd is larger than the colCount (= ${this.colCount}) for the matrix")
+                    throw IllegalArgumentException("The col index $colInd cannot be larger than the colCount (= ${this.colCount}) for the matrix")
             }
         }
     }
@@ -51,6 +55,8 @@ class SparseMatrix<S : Scalar>(
         this.rowMap[rowInd]?.let { row ->
             row[colInd]?.let { return it }
         }
+        if ((rowInd < 0) || (colInd < 0))
+            throw IndexOutOfBoundsException("Index for matrix cannot be negative")
         if ((rowInd >= this.rowCount) || (colInd >= this.colCount))
             throw IndexOutOfBoundsException(
                 "Given index ($rowInd, $colInd) is not contained in the size (${this.rowCount}, ${this.colCount})"

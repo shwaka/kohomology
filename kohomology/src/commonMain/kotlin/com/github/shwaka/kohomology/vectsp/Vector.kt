@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -41,7 +43,7 @@ class StringBasisName(val name: String, tex: String? = null) : BasisName {
 class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
     init {
         if (numVector.dim != vectorSpace.dim)
-            throw IllegalArgumentException("Dimension of the numerical vector does not match the dimension of the vector space")
+            throw InvalidSizeException("Dimension of the numerical vector does not match the dimension of the vector space")
     }
 
     fun toNumVector(): V {
@@ -194,9 +196,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
-            throw ArithmeticException("The vector $a is not contained in the vector space $this")
+            throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
-            throw ArithmeticException("The vector $b is not contained in the vector space $this")
+            throw IllegalContextException("The vector $b is not contained in the vector space $this")
         return numVectorSpace.context.run {
             Vector(a.numVector + b.numVector, this@VectorSpace)
         }
@@ -204,9 +206,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
-            throw ArithmeticException("The vector $a is not contained in the vector space $this")
+            throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
-            throw ArithmeticException("The vector $b is not contained in the vector space $this")
+            throw IllegalContextException("The vector $b is not contained in the vector space $this")
         return this.numVectorSpace.context.run {
             Vector(a.numVector - b.numVector, this@VectorSpace)
         }
@@ -214,9 +216,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
         if (scalar !in this.field)
-            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
+            throw IllegalContextException("The scalar $scalar does not match the context (${this.field})")
         if (vector !in this)
-            throw ArithmeticException("The vector $vector is not contained in the vector space $this")
+            throw IllegalContextException("The vector $vector is not contained in the vector space $this")
         return this.numVectorSpace.context.run {
             Vector(vector.numVector * scalar, vector.vectorSpace)
         }
@@ -269,7 +271,7 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     fun indexOf(basisName: B): Int {
         val index = this.basisNames.indexOf(basisName)
         if (index == -1)
-            throw Exception("$basisName is not a name of basis element of this vector space")
+            throw NoSuchElementException("$basisName is not a name of basis element of this vector space")
         return index
     }
 

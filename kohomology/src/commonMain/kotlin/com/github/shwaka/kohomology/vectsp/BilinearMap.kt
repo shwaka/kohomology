@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -16,9 +17,9 @@ class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     init {
         for (matrix in this.matrixList) {
             if (matrix.rowCount != this.rowCount)
-                throw IllegalArgumentException("invalid matrix size")
+                throw InvalidSizeException("invalid matrix size")
             if (matrix.colCount != this.colCount)
-                throw IllegalArgumentException("invalid matrix size")
+                throw InvalidSizeException("invalid matrix size")
         }
     }
     fun multiply(numVector1: V, numVector2: V): V {
@@ -37,11 +38,11 @@ class BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, 
 ) {
     init {
         if (matrixSequence.rowCount != source1.dim)
-            throw IllegalArgumentException("The rowCount of the matrix list does not match the dim of the first source vector space")
+            throw InvalidSizeException("The rowCount of the matrix list does not match the dim of the first source vector space")
         if (matrixSequence.colCount != source2.dim)
-            throw IllegalArgumentException("The rowCount of the matrix list does not match the dim of the second source vector space")
+            throw InvalidSizeException("The rowCount of the matrix list does not match the dim of the second source vector space")
         if (matrixSequence.size != target.dim)
-            throw IllegalArgumentException("The size of the matrix list does not match the dim of the target vector space")
+            throw InvalidSizeException("The size of the matrix list does not match the dim of the target vector space")
     }
 
     operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {

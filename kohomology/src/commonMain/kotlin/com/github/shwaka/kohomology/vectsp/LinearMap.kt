@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -13,9 +14,9 @@ class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M 
 ) {
     init {
         if (this.matrix.colCount != this.source.dim)
-            throw IllegalArgumentException("The number of columns of the representing matrix does not match the dimension of the source vector space")
+            throw InvalidSizeException("The number of columns of the representing matrix does not match the dimension of the source vector space")
         if (this.matrix.rowCount != this.target.dim)
-            throw IllegalArgumentException("The number of rows of the representing matrix does not match the dimension of the target vector space")
+            throw InvalidSizeException("The number of rows of the representing matrix does not match the dimension of the target vector space")
     }
 
     operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
@@ -93,7 +94,7 @@ class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M 
             vectors: List<Vector<BT, S, V>>
         ): LinearMap<BS, BT, S, V, M> {
             if (vectors.size != source.dim)
-                throw IllegalArgumentException("The number of vectors must be the same as the dimension of the source vector space")
+                throw InvalidSizeException("The number of vectors must be the same as the dimension of the source vector space")
             for (vector in vectors) {
                 if (vector.vectorSpace != target)
                     throw IllegalArgumentException("The vector space for each vector must be the same as the target vector space")

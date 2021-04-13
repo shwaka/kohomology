@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.StringTable
 
 data class DenseMatrix<S : Scalar>(
@@ -11,13 +13,13 @@ data class DenseMatrix<S : Scalar>(
     var rowEchelonForm: DenseRowEchelonForm<S>? = null
         set(value) {
             if (field != null)
-                throw Exception("Cannot assign rowEchelonForm twice")
+                throw IllegalStateException("Cannot assign rowEchelonForm twice")
             field = value
         }
 
     init {
         if (this.rowList.any { row -> row.size != this.colCount })
-            throw IllegalArgumentException("The length of each row must be equal to colCount")
+            throw InvalidSizeException("The length of each row must be equal to colCount")
     }
     private fun toStringTable(): StringTable {
         return StringTable(this.rowList.map { row -> row.map { it.toString() } })
@@ -76,11 +78,11 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun add(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $second does not match the context ($this)")
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
-            throw ArithmeticException("Cannot add matrices: different shapes")
+            throw InvalidSizeException("Cannot add matrices: different shapes")
         val rowList = first.rowList.zip(second.rowList).map { (rowInThis, rowInOther) ->
             rowInThis.zip(rowInOther).map { (elmInThis, elmInOther) -> this.field.context.run { elmInThis + elmInOther } }
         }
@@ -89,9 +91,9 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun subtract(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $second does not match the context ($this)")
         return this.context.run {
             first + (-1) * second
         }
@@ -99,11 +101,11 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun multiply(first: DenseMatrix<S>, second: DenseMatrix<S>): DenseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The denseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The denseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $second does not match the context ($this)")
         if (first.colCount != second.rowCount)
-            throw ArithmeticException("Cannot multiply matrices: first.colCount != second.rowCount")
+            throw InvalidSizeException("Cannot multiply matrices: first.colCount != second.rowCount")
         val rowRange = 0 until first.rowCount
         val sumRange = 0 until first.colCount
         val colRange = 0 until second.colCount
@@ -121,20 +123,20 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {
         if (matrix !in this)
-            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
-            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
+            throw IllegalContextException("The scalar $scalar does not match the context (${this.field})")
         val rowList = matrix.rowList.map { row -> row.map { elm -> this.field.context.run { elm * scalar } } }
         return this.fromRowList(rowList)
     }
 
     override fun multiply(matrix: DenseMatrix<S>, numVector: DenseNumVector<S>): DenseNumVector<S> {
         if (matrix !in this)
-            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $matrix does not match the context ($this)")
         if (numVector !in this.numVectorSpace)
-            throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
+            throw IllegalContextException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
-            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
+            throw InvalidSizeException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val valueList = matrix.rowList.map { row ->
             this.field.context.run {
                 row.zip(numVector.valueList)
@@ -178,7 +180,7 @@ class DenseMatrixSpace<S : Scalar>(
 
     override fun joinMatrices(matrix1: DenseMatrix<S>, matrix2: DenseMatrix<S>): DenseMatrix<S> {
         if (matrix1.rowCount != matrix2.rowCount)
-            throw IllegalArgumentException("Cannot join two matrices of different row counts")
+            throw InvalidSizeException("Cannot join two matrices of different row counts")
         val rowList = matrix1.rowList.zip(matrix2.rowList).map { (row1: List<S>, row2: List<S>) -> row1 + row2 }
         val rowCount = matrix1.rowCount
         val colCount = matrix1.colCount + matrix2.colCount

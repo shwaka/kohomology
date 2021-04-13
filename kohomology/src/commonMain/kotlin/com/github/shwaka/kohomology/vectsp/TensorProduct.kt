@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
@@ -49,9 +50,9 @@ class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>
 
     fun tensorProductOf(vector1: Vector<B1, S, V>, vector2: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
         if (vector1.vectorSpace != this.vectorSpace1)
-            throw IllegalArgumentException("The first vector is not an element of the first vector space")
+            throw IllegalContextException("The first vector is not an element of the first vector space")
         if (vector2.vectorSpace != this.vectorSpace2)
-            throw IllegalArgumentException("The second vector is not an element of the second vector space")
+            throw IllegalContextException("The second vector is not an element of the second vector space")
         val coeffList = this.vectorSpace.basisNames.map { (basis1, basis2) ->
             val coeff1 = vector1.coeffOf(basis1)
             val coeff2 = vector2.coeffOf(basis2)

@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.StringTable
 
 class SparseMatrix<S : Scalar>(
@@ -14,7 +16,7 @@ class SparseMatrix<S : Scalar>(
     var rowEchelonForm: SparseRowEchelonForm<S>? = null
         set(value) {
             if (field != null)
-                throw Exception("Cannot assign rowEchelonForm twice")
+                throw IllegalStateException("Cannot assign rowEchelonForm twice")
             field = value
         }
     init {
@@ -97,11 +99,11 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun add(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $second does not match the context ($this)")
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
-            throw ArithmeticException("Cannot add matrices: different shapes")
+            throw InvalidSizeException("Cannot add matrices: different shapes")
         val newRowMap: MutableMap<Int, MutableMap<Int, S>> = first.rowMap.mapValues { (_, row) -> row.toMutableMap() }.toMutableMap()
         this.field.context.run {
             for ((rowInd, row) in second.rowMap) {
@@ -123,11 +125,11 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun subtract(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $second does not match the context ($this)")
         if (first.rowCount != second.rowCount || first.colCount != second.colCount)
-            throw ArithmeticException("Cannot add matrices: different shapes")
+            throw InvalidSizeException("Cannot add matrices: different shapes")
         val newRowMap: MutableMap<Int, MutableMap<Int, S>> = first.rowMap.mapValues { (_, row) -> row.toMutableMap() }.toMutableMap()
         this.field.context.run {
             for ((rowInd, row) in second.rowMap) {
@@ -149,11 +151,11 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun multiply(first: SparseMatrix<S>, second: SparseMatrix<S>): SparseMatrix<S> {
         if (first !in this)
-            throw ArithmeticException("The sparseMatrix $first does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $first does not match the context ($this)")
         if (second !in this)
-            throw ArithmeticException("The sparseMatrix $second does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $second does not match the context ($this)")
         if (first.colCount != second.rowCount)
-            throw ArithmeticException("Cannot multiply matrices: first.colCount != second.rowCount")
+            throw InvalidSizeException("Cannot multiply matrices: first.colCount != second.rowCount")
         val rowMap = this.field.context.run {
             first.rowMap.mapValues { (_, row1) ->
                 val newRow: MutableMap<Int, S> = mutableMapOf()
@@ -172,9 +174,9 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun multiply(matrix: SparseMatrix<S>, scalar: S): SparseMatrix<S> {
         if (matrix !in this)
-            throw ArithmeticException("The denseMatrix $matrix does not match the context ($this)")
+            throw IllegalContextException("The denseMatrix $matrix does not match the context ($this)")
         if (scalar !in this.field)
-            throw ArithmeticException("The scalar $scalar does not match the context (${this.field})")
+            throw IllegalContextException("The scalar $scalar does not match the context (${this.field})")
         val rowMap = this.field.context.run {
             matrix.rowMap.mapValues { (_, row) ->
                 row.mapValues { (_, elm) -> elm * scalar }
@@ -185,11 +187,11 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun multiply(matrix: SparseMatrix<S>, numVector: SparseNumVector<S>): SparseNumVector<S> {
         if (matrix !in this)
-            throw ArithmeticException("The sparseMatrix $matrix does not match the context ($this)")
+            throw IllegalContextException("The sparseMatrix $matrix does not match the context ($this)")
         if (numVector !in this.numVectorSpace)
-            throw ArithmeticException("The numVector $numVector does not match the context (${this.numVectorSpace})")
+            throw IllegalContextException("The numVector $numVector does not match the context (${this.numVectorSpace})")
         if (matrix.colCount != numVector.dim)
-            throw ArithmeticException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
+            throw InvalidSizeException("Cannot multiply matrix and vector: matrix.colCount != vector.dim")
         val valueMap = this.field.context.run {
             matrix.rowMap.mapValues { (_, row) ->
                 row.map { (colInd, elm) ->
@@ -246,7 +248,7 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun joinMatrices(matrix1: SparseMatrix<S>, matrix2: SparseMatrix<S>): SparseMatrix<S> {
         if (matrix1.rowCount != matrix2.rowCount)
-            throw IllegalArgumentException("Cannot join two matrices of different row counts")
+            throw InvalidSizeException("Cannot join two matrices of different row counts")
         val rowMap: MutableMap<Int, Map<Int, S>> = matrix1.rowMap.toMutableMap()
         for ((rowInd2, row2) in matrix2.rowMap) {
             val row1 = matrix1.rowMap.getOrElse(rowInd2) { mapOf() }

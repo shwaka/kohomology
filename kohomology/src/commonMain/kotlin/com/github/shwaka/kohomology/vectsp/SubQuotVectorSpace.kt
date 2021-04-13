@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kococo.debugOnly
+import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -33,7 +34,7 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
         // check that generators are in totalVectorSpace
         for (vector in subspaceGenerator + quotientGenerator)
             if (vector !in totalVectorSpace)
-                throw IllegalArgumentException("The vector $vector is not contained in the vector space $totalVectorSpace")
+                throw IllegalContextException("The vector $vector is not contained in the vector space $totalVectorSpace")
         debugOnly {
             // check that quotientGenerator is contained in subspaceGenerator
             val pivots = matrixSpace.context.run {

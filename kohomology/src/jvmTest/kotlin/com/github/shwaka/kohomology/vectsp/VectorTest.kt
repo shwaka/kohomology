@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -30,7 +31,7 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
             (v + v) shouldBe expected
         }
         "invalid length of values should throw" {
-            shouldThrow<IllegalArgumentException> {
+            shouldThrow<InvalidSizeException> {
                 vectorSpace.fromCoeff(zero, zero)
             }
         }

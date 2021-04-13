@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.getPermutation
 
@@ -62,7 +63,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     fun M.det(): S {
         if (this.rowCount != this.colCount)
-            throw ArithmeticException("Determinant is defined only for square matrices")
+            throw InvalidSizeException("Determinant is defined only for square matrices")
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
         val sign: Sign = rowEchelonForm.sign
@@ -74,7 +75,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     fun M.detByPermutations(): S {
         if (this.rowCount != this.colCount)
-            throw ArithmeticException("Determinant is defined only for square matrices")
+            throw InvalidSizeException("Determinant is defined only for square matrices")
         val n = this.rowCount
         var result: S = zero
         this@MatrixContext.field.context.run {
@@ -88,7 +89,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     fun M.isInvertible(): Boolean {
         if (this.rowCount != this.colCount)
-            throw IllegalArgumentException("Invertibility of non-square matrix is not defined")
+            throw InvalidSizeException("Invertibility of non-square matrix is not defined")
         val pivots: List<Int> = this.rowEchelonForm.pivots
         return pivots.size == this.rowCount
     }
@@ -148,7 +149,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
         if (list.size != rowCount * colCount)
-            throw IllegalArgumentException("The size of the list should be equal to rowCount * colCount")
+            throw InvalidSizeException("The size of the list should be equal to rowCount * colCount")
         val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
         return this.fromRowList(rowList, colCount)
     }

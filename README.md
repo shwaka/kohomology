@@ -34,12 +34,22 @@ val matrixSpace = SparseMatrixSpaceOverBigRational
 val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
     listOf(zeroGVector, x.pow(2))
 }
+
+for (degree in 0 until 10) {
+    val basis = sphere.cohomology[degree].getBasis()
+    println("H^$degree(S^$sphereDim) = Q$basis")
+}
+
 val freeLoopSpace = FreeLoopSpace(sphere)
 val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
 
+freeLoopSpace.context.run {
+    println("dsy = ${d(sy)} = ${-2 * x * sx}")
+}
+
 for (degree in 0 until 25) {
     val basis = freeLoopSpace.cohomology[degree].getBasis()
-    println("H^$degree = Q$basis")
+    println("H^$degree(LS^$sphereDim) = Q$basis")
 }
 ```
 

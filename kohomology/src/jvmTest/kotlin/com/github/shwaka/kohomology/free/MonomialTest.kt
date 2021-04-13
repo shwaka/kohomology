@@ -165,4 +165,17 @@ class MonomialTest : StringSpec({
         monoid.multiply(y, xz) shouldBe NonZero(Pair(xyz, -1))
         monoid.multiply(z, yz) shouldBe NonZero(Pair(yzz, 1))
     }
+
+    "toString() and toTex() test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 2),
+        )
+        val unit = Monomial(indeterminateList, listOf(0, 0))
+        unit.toString() shouldBe "1"
+        unit.toTex() shouldBe "1"
+        val xy2 = Monomial(indeterminateList, listOf(1, 2))
+        xy2.toString() shouldBe "xy^2"
+        xy2.toTex() shouldBe "xy^{2}"
+    }
 })

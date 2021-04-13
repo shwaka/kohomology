@@ -172,23 +172,31 @@ class Monomial<I : IndeterminateName> private constructor(
     }
 
     override fun toString(): String {
-        return this.indeterminateList.zip(this.exponentList).joinToString("") { (indeterminate, exponent) ->
+        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList)
+            .filter { (_, exponent) -> exponent != 0 }
+        if (indeterminateAndExponentList.isEmpty())
+            return "1"
+        return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
             when (exponent) {
-                0 -> ""
+                0 -> throw Exception("This can't happen!")
                 1 -> indeterminate.toString()
                 else -> "$indeterminate^$exponent"
             }
-        }.let { if (it.isEmpty()) "1" else it }
+        }
     }
 
     override fun toTex(): String {
-        return this.indeterminateList.zip(this.exponentList).joinToString("") { (indeterminate, exponent) ->
+        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList)
+            .filter { (_, exponent) -> exponent != 0 }
+        if (indeterminateAndExponentList.isEmpty())
+            return "1"
+        return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
             when (exponent) {
-                0 -> ""
+                0 -> throw Exception("This can't happen!")
                 1 -> indeterminate.toTex()
                 else -> "${indeterminate.toTex()}^{$exponent}"
             }
-        }.let { if (it.isEmpty()) "1" else it }
+        }
     }
 
     override fun equals(other: Any?): Boolean {

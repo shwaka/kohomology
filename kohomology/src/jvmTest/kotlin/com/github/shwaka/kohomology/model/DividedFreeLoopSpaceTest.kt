@@ -41,8 +41,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
         dividedFreeLoopSpace.context.run {
             d(x1).isZero().shouldBeTrue()
             d(y1) shouldBe (x1 * x1)
-            // d(sx1).isZero().shouldBeTrue()
-            // d(sy1) shouldBe (-2 * x1 * sx1)
             d(sx1) shouldBe (x2 - x1)
             d(sy1) shouldBe (y2 - y1 - x1 * sx1 - x2 * sx1)
             d(sx2) shouldBe (x2 - x1)

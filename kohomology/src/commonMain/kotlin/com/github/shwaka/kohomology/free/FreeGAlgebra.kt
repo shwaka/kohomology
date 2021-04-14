@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
+import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -11,7 +12,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.LinearMap
 
 class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -129,29 +129,6 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         private fun <I : IndeterminateName> getName(indeterminateList: List<Indeterminate<I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
-        }
-    }
-}
-
-class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    source: GAlgebra<BS, S, V, M>,
-    target: GAlgebra<BT, S, V, M>,
-    degree: Degree,
-    matrixSpace: MatrixSpace<S, V, M>,
-    name: String,
-    getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
-) : GLinearMap<BS, BT, S, V, M>(source, target, degree, matrixSpace, name, getLinearMap) {
-    companion object {
-        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
-            source: GAlgebra<BS, S, V, M>,
-            target: GAlgebra<BT, S, V, M>,
-            degree: Degree,
-            matrixSpace: MatrixSpace<S, V, M>,
-            name: String,
-            getGVectors: (Degree) -> List<GVector<BT, S, V>>
-        ): GAlgebraMap<BS, BT, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
-            return GAlgebraMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
     }
 }

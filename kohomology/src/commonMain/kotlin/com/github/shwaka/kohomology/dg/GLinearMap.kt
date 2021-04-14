@@ -23,7 +23,7 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
     private val logger = KotlinLogging.logger {}
 
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
-        if (gVector.gVectorSpace != this.source)
+        if (gVector !in this.source)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
         val linearMap = this.getLinearMap(gVector.degree)
         if (gVector.vector.vectorSpace != linearMap.source)
@@ -44,6 +44,15 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
         val linearMap = this.getLinearMap(degree)
         this.cache[degree] = linearMap
         return linearMap
+    }
+
+    fun findPreimage(gVector: GVector<BT, S, V>): GVector<BS, S, V>? {
+        if (gVector !in this.target)
+            throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
+        val sourceDegree = gVector.degree - this.degree
+        return this[sourceDegree].findPreimage(gVector.vector)?.let { vector ->
+            this.source.fromVector(vector, sourceDegree)
+        }
     }
 
     override fun toString(): String {

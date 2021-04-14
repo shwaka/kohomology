@@ -20,11 +20,12 @@ class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M 
     }
 
     operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
-        if (vector.vectorSpace != this.source)
+        if (vector !in this.source)
             throw IllegalArgumentException("Invalid vector is given as an argument for a linear map")
-        return this.matrixSpace.context.run {
-            Vector(this@LinearMap.matrix * vector.numVector, this@LinearMap.target)
+        val numVector = this.matrixSpace.context.run {
+            this@LinearMap.matrix * vector.numVector
         }
+        return this@LinearMap.target.fromNumVector(numVector)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -60,6 +61,16 @@ class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M 
     fun imageGenerator(): List<Vector<BT, S, V>> {
         val numVectorList = this.matrix.toNumVectorList()
         return numVectorList.map { this.target.fromNumVector(it) }
+    }
+
+    fun findPreimage(vector: Vector<BT, S, V>): Vector<BS, S, V>? {
+        if (vector !in this.target)
+            throw IllegalArgumentException("Invalid vector is given: $vector is not an element of ${this.target}")
+        return this.matrixSpace.context.run {
+            this@LinearMap.matrix.findPreimage(vector.numVector)
+        }?.let { numVector ->
+            this.source.fromNumVector(numVector)
+        }
     }
 
     companion object {

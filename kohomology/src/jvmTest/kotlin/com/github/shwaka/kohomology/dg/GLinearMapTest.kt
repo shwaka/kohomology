@@ -7,22 +7,23 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 val gLinearMapTag = NamedTag("GLinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
+        // V[n] = span{v0, v1,..., v{n-1}}
         (0 until degree).map { "v$it" }
     }
-    // val field = matrixSpace.field
-    // val zero = field.zero
-    // val one = field.one
     val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace, "f") { degree ->
+        // vi -> vi + v{i+1}
         val targetBasis = gVectorSpace[degree + 1].getBasis()
         val valueList = (0 until degree).map { i ->
             gVectorSpace[degree + 1].context.run {
@@ -30,17 +31,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             }
         }
         LinearMap.fromVectors(gVectorSpace[degree], gVectorSpace[degree + 1], matrixSpace, valueList)
-        // val rows = (0 until (degree + 1)).map { i ->
-        //     (0 until degree).map { j ->
-        //         when (i) {
-        //             j -> one
-        //             j + 1 -> one
-        //             else -> zero
-        //         }
-        //     }
-        // }
-        // val matrix = matrixSpace.fromRows(rows)
-        // LinearMap(gVectorSpace[degree], gVectorSpace[degree + 1], matrix)
     }
 
     gVectorSpace.context.run {
@@ -50,6 +40,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             gLinearMap(v0) shouldBe (w0 + w1)
             gLinearMap(v1) shouldBe (w1 + w2)
             gLinearMap(v0 + v1) shouldBe (w0 + w1 * 2 + w2)
+        }
+        "findPreimage should return an element of preimage" {
+            val (w0, w1, w2) = gVectorSpace.getBasis(3)
+            val image = w0 + w1 * 2 + w2
+            val preimage = gLinearMap.findPreimage(image)
+            preimage shouldNotBe null
+            preimage as GVector<StringBasisName, S, V>
+            gLinearMap(preimage) shouldBe image
+        }
+        "findPreimage should return null for gVector not in the image" {
+            val (w0, w1, w2) = gVectorSpace.getBasis(3)
+            val nonImage = w0 + w1 + w2
+            val preimage = gLinearMap.findPreimage(nonImage)
+            preimage shouldBe null
         }
     }
 }

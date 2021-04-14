@@ -100,22 +100,20 @@ open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<
 class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<BS, S, V, M>,
     target: GAlgebra<BT, S, V, M>,
-    degree: Degree,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
-) : GLinearMap<BS, BT, S, V, M>(source, target, degree, matrixSpace, name, getLinearMap) {
+) : GLinearMap<BS, BT, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
     companion object {
         fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<BS, S, V, M>,
             target: GAlgebra<BT, S, V, M>,
-            degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             getGVectors: (Degree) -> List<GVector<BT, S, V>>
         ): GAlgebraMap<BS, BT, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
-            return GAlgebraMap(source, target, degree, matrixSpace, name, getLinearMap)
+            val getLinearMap = GLinearMap.createGetLinearMap(source, target, 0, matrixSpace, getGVectors)
+            return GAlgebraMap(source, target, matrixSpace, name, getLinearMap)
         }
     }
 }

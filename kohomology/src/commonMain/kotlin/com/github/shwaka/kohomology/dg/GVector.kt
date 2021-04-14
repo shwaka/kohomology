@@ -241,6 +241,12 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return vectorSpace.isBasis(vectorList, matrixSpace)
     }
 
+    fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<B, B, S, V, M> {
+        return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
+            this[degree].getId(matrixSpace)
+        }
+    }
+
     override fun toString(): String {
         return this.name
     }

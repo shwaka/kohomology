@@ -81,4 +81,9 @@ open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, 
             cohomologyUnit,
         )
     }
+
+    fun getId(): DGAlgebraMap<B, B, S, V, M> {
+        val gAlgebraMap = this.gAlgebra.getId()
+        return DGAlgebraMap(this, this, gAlgebraMap)
+    }
 }

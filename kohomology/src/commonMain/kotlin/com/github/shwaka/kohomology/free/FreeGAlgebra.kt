@@ -101,7 +101,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
             target.convertToGVector(gVectorOrZero, valueDegree)
         }
         val name = "AlgebraMap(${valueList.joinToString(", ") { it.toString() }})"
-        return GAlgebraMap.fromGVectors(this, target, 0, this.matrixSpace, name) { k ->
+        return GAlgebraMap.fromGVectors(this, target, this.matrixSpace, name) { k ->
             val sourceVectorSpace = this[k]
             // val targetVectorSpace = target[k]
             sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->

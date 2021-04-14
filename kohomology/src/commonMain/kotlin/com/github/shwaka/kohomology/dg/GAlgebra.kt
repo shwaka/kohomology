@@ -74,4 +74,10 @@ open class GAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V
     ): Boolean {
         return this.isBasis(gVectorList, degree, this.matrixSpace)
     }
+
+    fun getId(): GAlgebraMap<B, B, S, V, M> {
+        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
+            this[degree].getId(this.matrixSpace)
+        }
+    }
 }

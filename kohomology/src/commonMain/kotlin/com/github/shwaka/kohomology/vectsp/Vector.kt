@@ -286,6 +286,10 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
+    fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
+        return LinearMap.getId(this, matrixSpace)
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

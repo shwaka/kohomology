@@ -127,24 +127,22 @@ class DGAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>,
         operator fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGAlgebra<BS, S, V, M>,
             target: DGAlgebra<BT, S, V, M>,
-            degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
         ): DGAlgebraMap<BS, BT, S, V, M> {
-            val gLinearMap = GAlgebraMap(source.gAlgebra, target.gAlgebra, degree, matrixSpace, name, getLinearMap)
+            val gLinearMap = GAlgebraMap(source.gAlgebra, target.gAlgebra, matrixSpace, name, getLinearMap)
             return DGAlgebraMap(source, target, gLinearMap)
         }
 
         fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: DGAlgebra<BS, S, V, M>,
             target: DGAlgebra<BT, S, V, M>,
-            degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             getGVectors: (Degree) -> List<GVector<BT, S, V>>
         ): DGAlgebraMap<BS, BT, S, V, M> {
-            val gLinearMap = GAlgebraMap.fromGVectors(source.gAlgebra, target.gAlgebra, degree, matrixSpace, name, getGVectors)
+            val gLinearMap = GAlgebraMap.fromGVectors(source.gAlgebra, target.gAlgebra, matrixSpace, name, getGVectors)
             return DGAlgebraMap(source, target, gLinearMap)
         }
     }

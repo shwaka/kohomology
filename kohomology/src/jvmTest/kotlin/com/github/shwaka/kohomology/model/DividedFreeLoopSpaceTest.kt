@@ -65,7 +65,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
     "[dim=$sphereDim] find section" {
         val projection = dividedFreeLoopSpace.projection1
         val section = freeLoopSpace.findSection(projection)
+        val d1 = freeLoopSpace.differential
+        val d2 = dividedFreeLoopSpace.differential
         for (v in listOf(x, y, sx, sy)) {
+            section(d1(v)) shouldBe d2(section(v))
             projection(section(v)) shouldBe v
         }
     }

@@ -10,18 +10,24 @@ import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 open class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val source: DGVectorSpace<BS, S, V, M>,
-    val target: DGVectorSpace<BT, S, V, M>,
-    val gLinearMap: GLinearMap<BS, BT, S, V, M>,
+    source: DGVectorSpace<BS, S, V, M>,
+    target: DGVectorSpace<BT, S, V, M>,
+    gLinearMap: GLinearMap<BS, BT, S, V, M>,
 ) {
-    val degree = this.gLinearMap.degree
-    val matrixSpace = this.gLinearMap.matrixSpace
     init {
-        if (this.source.gVectorSpace != gLinearMap.source)
+        if (source.gVectorSpace != gLinearMap.source)
             throw IllegalArgumentException("The source DGVectorSpace does not match to the source GVectorSpace of GLinearMap")
-        if (this.target.gVectorSpace != gLinearMap.target)
+        if (target.gVectorSpace != gLinearMap.target)
             throw IllegalArgumentException("The target DGVectorSpace does not match to the target GVectorSpace of GLinearMap")
     }
+
+    // We cannot move these declarations to the primary constructor
+    // If we move them, get the warning "accessing non-final property in constructor"
+    open val source: DGVectorSpace<BS, S, V, M> = source
+    open val target: DGVectorSpace<BT, S, V, M> = target
+    open val gLinearMap: GLinearMap<BS, BT, S, V, M> = gLinearMap
+    val degree = gLinearMap.degree
+    val matrixSpace = gLinearMap.matrixSpace
 
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
         return this.gLinearMap(gVector)
@@ -113,9 +119,9 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
 }
 
 class DGAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    source: DGAlgebra<BS, S, V, M>,
-    target: DGAlgebra<BT, S, V, M>,
-    gLinearMap: GAlgebraMap<BS, BT, S, V, M>,
+    override val source: DGAlgebra<BS, S, V, M>,
+    override val target: DGAlgebra<BT, S, V, M>,
+    override val gLinearMap: GAlgebraMap<BS, BT, S, V, M>,
 ) : DGLinearMap<BS, BT, S, V, M>(source, target, gLinearMap) {
     companion object {
         operator fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

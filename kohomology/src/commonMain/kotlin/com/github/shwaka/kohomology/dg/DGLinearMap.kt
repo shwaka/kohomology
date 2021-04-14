@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
-class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: DGVectorSpace<BS, S, V, M>,
     val target: DGVectorSpace<BT, S, V, M>,
     val gLinearMap: GLinearMap<BS, BT, S, V, M>,
@@ -108,6 +108,38 @@ class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
         ): DGLinearMap<BS, BT, S, V, M> {
             val gLinearMap = GLinearMap.fromGVectors(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, name, getGVectors)
             return DGLinearMap(source, target, gLinearMap)
+        }
+    }
+}
+
+class DGAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    source: DGAlgebra<BS, S, V, M>,
+    target: DGAlgebra<BT, S, V, M>,
+    gLinearMap: GAlgebraMap<BS, BT, S, V, M>,
+) : DGLinearMap<BS, BT, S, V, M>(source, target, gLinearMap) {
+    companion object {
+        operator fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: DGAlgebra<BS, S, V, M>,
+            target: DGAlgebra<BT, S, V, M>,
+            degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
+        ): DGAlgebraMap<BS, BT, S, V, M> {
+            val gLinearMap = GAlgebraMap(source.gAlgebra, target.gAlgebra, degree, matrixSpace, name, getLinearMap)
+            return DGAlgebraMap(source, target, gLinearMap)
+        }
+
+        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: DGAlgebra<BS, S, V, M>,
+            target: DGAlgebra<BT, S, V, M>,
+            degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (Degree) -> List<GVector<BT, S, V>>
+        ): DGAlgebraMap<BS, BT, S, V, M> {
+            val gLinearMap = GAlgebraMap.fromGVectors(source.gAlgebra, target.gAlgebra, degree, matrixSpace, name, getGVectors)
+            return DGAlgebraMap(source, target, gLinearMap)
         }
     }
 }

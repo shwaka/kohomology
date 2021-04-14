@@ -59,7 +59,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
             val valueList = listOf(x + y, x - y)
-            val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
+            val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
             f(x) shouldBe (x + y)
             f(y) shouldBe (x - y)
             f(x + y) shouldBe (2 * x)
@@ -112,7 +112,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
             val valueList = listOf(x + y, y)
-            val f = freeGAlgebra.getAlgebraMap(freeGAlgebra, valueList)
+            val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
             f(x) shouldBe (x + y)
             f(y) shouldBe y
             f(x + y) shouldBe (x + 2 * y)
@@ -199,7 +199,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
         freeGAlgebra.context.run {
             val (x, _) = freeGAlgebra.generatorList
             shouldThrow<IllegalArgumentException> {
-                freeGAlgebra.getAlgebraMap(freeGAlgebra, listOf(x, x.pow(2)))
+                freeGAlgebra.getGAlgebraMap(freeGAlgebra, listOf(x, x.pow(2)))
             }
         }
     }
@@ -212,7 +212,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
         val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
         freeGAlgebra.context.run {
             shouldThrow<InvalidSizeException> {
-                freeGAlgebra.getAlgebraMap(freeGAlgebra, listOf(zeroGVector))
+                freeGAlgebra.getGAlgebraMap(freeGAlgebra, listOf(zeroGVector))
             }
         }
     }

@@ -32,7 +32,7 @@ private class FreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
             }
             loopSpaceGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.gAlgebraInclusion = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion = freeDGAlgebra.gAlgebra.getGAlgebraMap(
             loopSpaceGAlgebra,
             loopSpaceGeneratorList.take(n)
         )

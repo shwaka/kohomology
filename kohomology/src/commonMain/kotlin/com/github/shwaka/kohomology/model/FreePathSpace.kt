@@ -39,18 +39,18 @@ private class FreePathSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
                 }
             this.pathSpaceGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.gAlgebraInclusion1 = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion1 = freeDGAlgebra.gAlgebra.getGAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.take(n)
         )
-        this.gAlgebraInclusion2 = freeDGAlgebra.gAlgebra.getAlgebraMap(
+        this.gAlgebraInclusion2 = freeDGAlgebra.gAlgebra.getGAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.slice(n until 2 * n)
         )
         this.gAlgebraProjection = run {
             val gAlgebraGeneratorList = freeDGAlgebra.gAlgebra.generatorList.take(n)
             val zeroGVector = freeDGAlgebra.gAlgebra.zeroGVector
-            pathSpaceGAlgebra.getAlgebraMap(
+            pathSpaceGAlgebra.getGAlgebraMap(
                 freeDGAlgebra.gAlgebra,
                 gAlgebraGeneratorList + gAlgebraGeneratorList + List(n) { zeroGVector }
             )

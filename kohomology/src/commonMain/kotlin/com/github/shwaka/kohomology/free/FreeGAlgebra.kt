@@ -81,7 +81,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         }
     }
 
-    fun <B : BasisName> getAlgebraMap(
+    fun <B : BasisName> getGAlgebraMap(
         target: GAlgebra<B, S, V, M>,
         valueList: List<GVectorOrZero<B, S, V>>,
     ): GAlgebraMap<Monomial<I>, B, S, V, M> {

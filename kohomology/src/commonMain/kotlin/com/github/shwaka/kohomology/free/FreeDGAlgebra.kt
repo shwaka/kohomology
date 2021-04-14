@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
+import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
@@ -9,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.vectsp.BasisName
 
 open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<I, S, V, M>,
@@ -28,5 +30,13 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
             )
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)
         }
+    }
+
+    fun <B : BasisName> getDGAlgebraMap(
+        target: DGAlgebra<B, S, V, M>,
+        valueList: List<GVectorOrZero<B, S, V>>,
+    ): DGAlgebraMap<Monomial<I>, B, S, V, M> {
+        val gAlgebraMap = this.gAlgebra.getGAlgebraMap(target.gAlgebra, valueList)
+        return DGAlgebraMap(this, target, gAlgebraMap)
     }
 }

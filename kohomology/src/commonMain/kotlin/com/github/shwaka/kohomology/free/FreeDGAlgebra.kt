@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
+import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
@@ -14,7 +15,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 
 open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<I, S, V, M>,
-    differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M>,
+    differential: Derivation<Monomial<I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGAlgebra<Monomial<I>, S, V, M>(gAlgebra, differential, matrixSpace) {
     companion object {
@@ -24,7 +25,7 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
             getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
         ): FreeDGAlgebra<I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
-            val differential: GLinearMap<Monomial<I>, Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
+            val differential: Derivation<Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
                 valueList = freeGAlgebra.context.run { getDifferentialValueList(freeGAlgebra.generatorList) },
                 derivationDegree = 1
             )

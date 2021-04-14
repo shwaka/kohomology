@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
+import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -24,7 +25,7 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V :
         FreeGAlgebra(this.matrixSpace, dividedLoopSpaceIndeterminateList)
     }
     val pathSpaceDGAlgebra: FreeDGAlgebra<CopiedName<I>, S, V, M> = FreePathSpace(freeDGAlgebra)
-    val differential: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
+    val differential: Derivation<Monomial<CopiedName<I>>, S, V, M>
     val pathGAlgebraInclusion1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val pathGAlgebraInclusion2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
 

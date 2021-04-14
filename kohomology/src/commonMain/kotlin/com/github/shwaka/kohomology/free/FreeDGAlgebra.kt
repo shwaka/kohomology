@@ -64,4 +64,13 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
         }
         return this.getDGAlgebraMap(liftTarget, liftValueList)
     }
+
+    fun <B : BasisName> findSection(
+        surjectiveQuasiIsomorphism: DGAlgebraMap<B, Monomial<I>, S, V, M>,
+    ) : DGAlgebraMap<Monomial<I>, B, S, V, M> {
+        return this.findLift(
+            underlyingMap = this.getId(),
+            surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism
+        )
+    }
 }

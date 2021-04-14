@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.LinearMap
 
 class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -83,7 +84,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
     fun <B : BasisName> getAlgebraMap(
         target: GAlgebra<B, S, V, M>,
         valueList: List<GVectorOrZero<B, S, V>>,
-    ): GLinearMap<Monomial<I>, B, S, V, M> {
+    ): GAlgebraMap<Monomial<I>, B, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw InvalidSizeException("Invalid size of the list of values of an algebra map")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
@@ -100,7 +101,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
             target.convertToGVector(gVectorOrZero, valueDegree)
         }
         val name = "AlgebraMap(${valueList.joinToString(", ") { it.toString() }})"
-        return GLinearMap.fromGVectors(this, target, 0, this.matrixSpace, name) { k ->
+        return GAlgebraMap.fromGVectors(this, target, 0, this.matrixSpace, name) { k ->
             val sourceVectorSpace = this[k]
             // val targetVectorSpace = target[k]
             sourceVectorSpace.basisNames.map { monomial: Monomial<I> ->
@@ -128,6 +129,29 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         private fun <I : IndeterminateName> getName(indeterminateList: List<Indeterminate<I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
+        }
+    }
+}
+
+class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    source: GAlgebra<BS, S, V, M>,
+    target: GAlgebra<BT, S, V, M>,
+    degree: Degree,
+    matrixSpace: MatrixSpace<S, V, M>,
+    name: String,
+    getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
+) : GLinearMap<BS, BT, S, V, M>(source, target, degree, matrixSpace, name, getLinearMap) {
+    companion object {
+        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: GAlgebra<BS, S, V, M>,
+            target: GAlgebra<BT, S, V, M>,
+            degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (Degree) -> List<GVector<BT, S, V>>
+        ): GAlgebraMap<BS, BT, S, V, M> {
+            val getLinearMap = GLinearMap.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
+            return GAlgebraMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
     }
 }

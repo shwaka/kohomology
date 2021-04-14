@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import mu.KotlinLogging
 
-class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: GVectorSpace<BS, S, V>,
     val target: GVectorSpace<BT, S, V>,
     val degree: Degree,
@@ -60,15 +60,14 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
     }
 
     companion object {
-        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<BS, S, V>,
             target: GVectorSpace<BT, S, V>,
             degree: Degree,
             matrixSpace: MatrixSpace<S, V, M>,
-            name: String,
             getGVectors: (Degree) -> List<GVector<BT, S, V>>
-        ): GLinearMap<BS, BT, S, V, M> {
-            val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M> = { k ->
+        ): (Degree) -> LinearMap<BS, BT, S, V, M> {
+            return { k ->
                 val sourceVectorSpace = source[k]
                 val targetVectorSpace = target[k + degree]
                 val gVectorValueList = getGVectors(k)
@@ -81,6 +80,17 @@ class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M
                 val valueList = gVectorValueList.map { it.vector }
                 LinearMap.fromVectors(sourceVectorSpace, targetVectorSpace, matrixSpace, valueList)
             }
+        }
+
+        fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: GVectorSpace<BS, S, V>,
+            target: GVectorSpace<BT, S, V>,
+            degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (Degree) -> List<GVector<BT, S, V>>
+        ): GLinearMap<BS, BT, S, V, M> {
+            val getLinearMap = this.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
             return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
     }

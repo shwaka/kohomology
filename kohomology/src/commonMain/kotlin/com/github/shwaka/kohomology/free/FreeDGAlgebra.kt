@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
-import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVector
@@ -41,10 +40,10 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
         return DGAlgebraMap(this, target, gAlgebraMap)
     }
 
-    fun <BS: BasisName, BT : BasisName> findLift(
+    fun <BS : BasisName, BT : BasisName> findLift(
         underlyingMap: DGAlgebraMap<Monomial<I>, BT, S, V, M>,
         surjectiveQuasiIsomorphism: DGAlgebraMap<BS, BT, S, V, M>,
-    ) : DGAlgebraMap<Monomial<I>, BS, S, V, M>{
+    ): DGAlgebraMap<Monomial<I>, BS, S, V, M> {
         if (underlyingMap.source != this)
             throw IllegalArgumentException("Invalid diagram: ${underlyingMap.source} != $this")
         if (underlyingMap.target != surjectiveQuasiIsomorphism.target)
@@ -67,7 +66,7 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
 
     fun <B : BasisName> findSection(
         surjectiveQuasiIsomorphism: DGAlgebraMap<B, Monomial<I>, S, V, M>,
-    ) : DGAlgebraMap<Monomial<I>, B, S, V, M> {
+    ): DGAlgebraMap<Monomial<I>, B, S, V, M> {
         return this.findLift(
             underlyingMap = this.getId(),
             surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism

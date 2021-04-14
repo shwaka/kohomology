@@ -96,7 +96,6 @@ open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<
     }
 }
 
-
 class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<BS, S, V, M>,
     target: GAlgebra<BT, S, V, M>,

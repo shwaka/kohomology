@@ -8,10 +8,10 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
-import io.kotest.core.spec.style.stringSpec
-import com.github.shwaka.kohomology.util.list.*
+import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 

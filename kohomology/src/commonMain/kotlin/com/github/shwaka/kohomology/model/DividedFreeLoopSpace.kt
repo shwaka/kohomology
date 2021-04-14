@@ -50,7 +50,6 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V :
         )
     }
 
-
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val pathSpaceDGAlgebra = this.pathSpaceDGAlgebra

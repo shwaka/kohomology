@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
-import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVectorOrZero

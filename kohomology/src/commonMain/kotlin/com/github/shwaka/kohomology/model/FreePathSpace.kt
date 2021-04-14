@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVectorOrZero
-import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.IndeterminateName

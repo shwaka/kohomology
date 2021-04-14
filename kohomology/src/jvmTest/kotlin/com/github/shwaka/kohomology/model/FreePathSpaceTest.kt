@@ -49,6 +49,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
             cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
         }
     }
+    "[S^$sphereDim] check that projection is isomorphism on cohomology" {
+        val cohomologyProjection = freePathSpace.projection.inducedMapOnCohomology()
+        for (degree in 0 until sphereDim * 5) {
+            cohomologyProjection[degree].isIsomorphism().shouldBeTrue()
+        }
+    }
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
@@ -81,6 +87,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
         for (degree in 0 until 2 * n + 4) {
             cohomologyInclusion1[degree].isIsomorphism().shouldBeTrue()
             cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
+        }
+    }
+    "[CP^$n] check that projection is isomorphism on cohomology" {
+        val cohomologyProjection = freePathSpace.projection.inducedMapOnCohomology()
+        for (degree in 0 until 2 * n + 4) {
+            cohomologyProjection[degree].isIsomorphism().shouldBeTrue()
         }
     }
 }

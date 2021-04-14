@@ -116,3 +116,24 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
         }
     }
 }
+
+class Derivation<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    source: GAlgebra<B, S, V, M>,
+    degree: Degree,
+    matrixSpace: MatrixSpace<S, V, M>,
+    name: String,
+    getLinearMap: (Degree) -> LinearMap<B, B, S, V, M>
+) : GLinearMap<B, B, S, V, M>(source, source, degree, matrixSpace, name, getLinearMap) {
+    companion object {
+        fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: GAlgebra<B, S, V, M>,
+            degree: Degree,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (Degree) -> List<GVector<B, S, V>>
+        ): Derivation<B, S, V, M> {
+            val getLinearMap = GLinearMap.createGetLinearMap(source, source, degree, matrixSpace, getGVectors)
+            return Derivation(source, degree, matrixSpace, name, getLinearMap)
+        }
+    }
+}

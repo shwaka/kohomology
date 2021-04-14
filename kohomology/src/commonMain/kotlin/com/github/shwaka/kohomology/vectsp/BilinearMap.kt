@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 // TODO: make sparse
 class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
-    val matrixList: List<M>,
+    private val matrixList: List<M>,
     val rowCount: Int,
     val colCount: Int,
 ) {

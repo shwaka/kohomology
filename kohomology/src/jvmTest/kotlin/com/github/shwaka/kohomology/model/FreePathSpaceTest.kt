@@ -70,6 +70,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
     val cpn = FreeDGAlgebra(matrixSpace, indeterminateList) { (c, _) ->
         listOf(zeroGVector, c.pow(n + 1))
     }
+    val (c, _) = cpn.gAlgebra.generatorList
     val freePathSpace = FreePathSpace(cpn)
     val (c1, x1, c2, x2, sc, sx) = freePathSpace.gAlgebra.generatorList
 
@@ -94,6 +95,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
         for (degree in 0 until 2 * n + 4) {
             cohomologyProjection[degree].isIsomorphism().shouldBeTrue()
         }
+    }
+    "[CP^$n] find cocycle lift" {
+        val cocycle = cpn.context.run {
+            c.pow(n)
+        }
+        val lift = freePathSpace.projection.findCocycleLift(cocycle)
+        freePathSpace.context.run {
+            d(lift).isZero().shouldBeTrue()
+        }
+        freePathSpace.projection(lift) shouldBe cocycle
     }
 }
 

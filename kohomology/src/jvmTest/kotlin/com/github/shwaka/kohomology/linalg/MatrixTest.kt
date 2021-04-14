@@ -411,18 +411,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
     }
 }
 
-inline fun <S : Scalar, reified V : NumVector<S>, M : Matrix<S, V>> matrixFromVectorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    val field = matrixSpace.context.run { field }
-    val vectorSpace = matrixSpace.numVectorSpace
-    val zero = field.zero
-    "fromVectors(vararg) should work with reified type variables" {
-        val v = vectorSpace.fromValueList(listOf(zero, zero, zero))
-        shouldNotThrowAny {
-            matrixSpace.fromNumVectorList(listOf(v, v))
-        }
-    }
-}
-
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
     matrixSpace: MatrixSpace<S, V, M>,
     rowCount: Int,
@@ -534,7 +522,6 @@ class IntRationalDenseMatrixTest : StringSpec({
     val matrixSpace = DenseMatrixSpaceOverIntRational
     include(denseMatrixSpaceTest(IntRationalField))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace, 10))
     // include(determinantTest(IntRationalField, 3, 5)) // overflow しがちなので除外
     // include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -547,7 +534,6 @@ class LongRationalDenseMatrixTest : StringSpec({
     val matrixSpace = DenseMatrixSpaceOverLongRational
     include(denseMatrixSpaceTest(LongRationalField))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     // include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // overflow しがちなので除外
     // include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -560,7 +546,6 @@ class BigRationalDenseMatrixTest : StringSpec({
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(denseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -575,7 +560,6 @@ class IntMod2DenseMatrixTest : StringSpec({
     val matrixSpace = DenseMatrixSpaceOverF2
     include(denseMatrixSpaceTest(F2))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -590,7 +574,6 @@ class IntMod5DenseMatrixTest : StringSpec({
     val matrixSpace = DenseMatrixSpaceOverF5
     include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -605,7 +588,6 @@ class BigRationalSparseMatrixTest : StringSpec({
     val matrixSpace = SparseMatrixSpaceOverBigRational
     include(sparseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -620,7 +602,6 @@ class IntMod2SparseMatrixTest : StringSpec({
     val matrixSpace = SparseMatrixSpaceOverF2
     include(sparseMatrixSpaceTest(F2))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -635,7 +616,6 @@ class IntMod3SparseMatrixTest : StringSpec({
     val matrixSpace = SparseMatrixSpaceOverF3
     include(sparseMatrixSpaceTest(F3))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F3, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
@@ -650,7 +630,6 @@ class IntMod5SparseMatrixTest : StringSpec({
     val matrixSpace = SparseMatrixSpaceOverF5
     include(sparseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
-    include(matrixFromVectorTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))

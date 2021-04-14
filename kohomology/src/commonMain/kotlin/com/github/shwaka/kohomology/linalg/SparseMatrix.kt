@@ -34,6 +34,10 @@ class SparseMatrix<S : Scalar>(
         }
     }
 
+    override fun isZero(): Boolean {
+        return this.rowMap.isEmpty()
+    }
+
     private fun toStringTable(): StringTable {
         val valueList = (0 until this.rowCount).map { rowInd ->
             (0 until this.colCount).map { colInd ->

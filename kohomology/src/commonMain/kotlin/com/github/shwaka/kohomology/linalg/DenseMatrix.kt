@@ -36,6 +36,10 @@ data class DenseMatrix<S : Scalar>(
     override operator fun get(rowInd: Int, colInd: Int): S {
         return this.rowList[rowInd][colInd]
     }
+
+    override fun isZero(): Boolean {
+        return this.rowList.all { row -> row.all { it.isZero() } }
+    }
 }
 
 class DenseMatrixSpace<S : Scalar>(

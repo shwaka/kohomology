@@ -20,6 +20,9 @@ interface Matrix<S : Scalar, V : NumVector<S>> {
             this.numVectorSpace.fromValueList((0 until this.rowCount).map { i -> this[i, j] })
         }
     }
+
+    fun isZero(): Boolean
+    fun isNotZero(): Boolean = !this.isZero()
 }
 
 interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {

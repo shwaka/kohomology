@@ -26,6 +26,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -151,6 +152,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 )
             )
             (mat * n) shouldBe expected
+        }
+        "((2, 1), (0, -1)).isZero() should be false" {
+            m.isZero().shouldBeFalse()
+            m.isNotZero().shouldBeTrue()
+        }
+        "((0, 0), (0, 0)).izZero() should be true" {
+            val mat = matrixSpace.fromRowList(
+                listOf(
+                    listOf(zero, zero),
+                    listOf(zero, zero),
+                )
+            )
+            mat.isZero().shouldBeTrue()
+            mat.isNotZero().shouldBeFalse()
         }
         "toString and toPrettyString should not throw for square matrix of rank 2" {
             shouldNotThrowAny {

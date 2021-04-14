@@ -28,6 +28,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import io.kotest.property.Arb
@@ -397,7 +398,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 m.findPreimage(zero3)
             }
         }
-        "findPreimage should throw NoSuchElementException for numVector not in the image" {
+        "findPreimage should return null for numVector not in the image" {
             val mat = matrixSpace.fromRowList(
                 listOf(
                     listOf(two, -two),
@@ -405,9 +406,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 )
             )
             val numVector = numVectorSpace.fromValueList(listOf(one, one))
-            shouldThrow<NoSuchElementException> {
-                mat.findPreimage(numVector)
-            }
+            mat.findPreimage(numVector) shouldBe null
         }
     }
 }
@@ -459,6 +458,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findPreimageGenTest(
             matrixSpace.context.run {
                 val targetNumVector = matrix * sourceNumVector
                 val preimageNumVector = matrix.findPreimage(targetNumVector)
+                preimageNumVector shouldNotBe null
+                preimageNumVector as V
                 (matrix * preimageNumVector) shouldBe targetNumVector
             }
         }

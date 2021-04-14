@@ -28,7 +28,7 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V :
     val pathGAlgebraInclusion1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val pathGAlgebraInclusion2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
 
-    val loopSpaceDGAlgebra: FreeDGAlgebra<CopiedName<I>, S, V, M> by lazy { FreePathSpace(freeDGAlgebra) }
+    val loopSpaceDGAlgebra: FreeDGAlgebra<CopiedName<I>, S, V, M> by lazy { FreeLoopSpace(freeDGAlgebra) }
     val gAlgebraProjection1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
@@ -80,6 +80,7 @@ class DividedFreeLoopSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, 
     private val factory: DividedFreeLoopSpaceFactory<I, S, V, M>
 ) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.dividedLoopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
+    val freeLoopSpace = this.factory.loopSpaceDGAlgebra
     val projection1: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,

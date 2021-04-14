@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGLinearMap
+import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
@@ -22,7 +24,7 @@ private class FreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
     }
     val differential: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraInclusion: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraInclusion: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
@@ -57,8 +59,8 @@ class FreeLoopSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Mat
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> =
         this.factory.suspension
-    val inclusion: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
-        DGLinearMap(
+    val inclusion: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion

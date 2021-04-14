@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGLinearMap
+import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -25,9 +27,9 @@ private class FreePathSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
     }
     val differential: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraInclusion1: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraInclusion2: GLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraProjection: GLinearMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M>
+    val gAlgebraInclusion1: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraInclusion2: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
+    val gAlgebraProjection: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val pathSpaceGeneratorList = this.pathSpaceGAlgebra.generatorList
@@ -106,22 +108,22 @@ class FreePathSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Mat
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
     val suspension: GLinearMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> =
         this.factory.suspension
-    val inclusion1: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
-        DGLinearMap(
+    val inclusion1: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion1
         )
     }
-    val inclusion2: DGLinearMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
-        DGLinearMap(
+    val inclusion2: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+        DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion2
         )
     }
-    val projection: DGLinearMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M> by lazy {
-        DGLinearMap(
+    val projection: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M> by lazy {
+        DGAlgebraMap(
             source = this,
             target = this.factory.freeDGAlgebra,
             gLinearMap = this.factory.gAlgebraProjection

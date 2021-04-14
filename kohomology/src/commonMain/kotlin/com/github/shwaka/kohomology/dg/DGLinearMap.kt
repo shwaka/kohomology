@@ -45,6 +45,46 @@ class DGLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
         )
     }
 
+    fun findCocycleLift(targetCocycle: GVector<BT, S, V>): GVector<BS, S, V> {
+        val degree = targetCocycle.degree
+        if (this.target.differential(targetCocycle).isNotZero())
+            throw IllegalArgumentException("$targetCocycle is not a cocycle")
+        val targetClass = this.target.cohomologyClassOf(targetCocycle)
+        val sourceClass = this.inducedMapOnCohomology().findPreimage(targetClass)
+            ?: throw UnsupportedOperationException("H^$degree($this) is not surjective")
+        val sourceCocycle = this.source.cocycleRepresentativeOf(sourceClass)
+        val coboundary = this.target.context.run {
+            this@DGLinearMap.gLinearMap(sourceCocycle) - targetCocycle
+        }
+        val targetDifference = this.target.differential.findPreimage(coboundary)
+            ?: throw Exception("This can't happen!")
+        val sourceDifference = this.gLinearMap.findPreimage(targetDifference)
+            ?: throw UnsupportedOperationException("$this[${degree - 1}] is not surjective")
+        return this.source.context.run {
+            sourceCocycle - d(sourceDifference)
+        }
+    }
+
+    fun findLift(targetCochain: GVector<BT, S, V>, sourceCoboundary: GVector<BS, S, V>): GVector<BS, S, V> {
+        if (sourceCoboundary.degree != targetCochain.degree + 1)
+            throw IllegalArgumentException("deg($sourceCoboundary) should be equal to deg($targetCochain) + 1")
+        if (this.source.differential(sourceCoboundary).isNotZero())
+            throw IllegalArgumentException("$sourceCoboundary is not a cocycle")
+        if (this.gLinearMap(sourceCoboundary) != this.target.differential(targetCochain))
+            throw IllegalArgumentException(
+                "$sourceCoboundary and $targetCochain are not compatible: the image of $sourceCoboundary must be equal to d($targetCochain)"
+            )
+        val sourceCochain = this.source.differential.findPreimage(sourceCoboundary)
+            ?: throw Exception("This can't happen!")
+        val targetCocycle = this.target.context.run {
+            targetCochain - this@DGLinearMap.gLinearMap(sourceCochain)
+        }
+        val sourceCocycle = this.findCocycleLift(targetCocycle)
+        return this.source.context.run {
+            sourceCochain + sourceCocycle
+        }
+    }
+
     companion object {
         operator fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGVectorSpace<BS, S, V, M>,

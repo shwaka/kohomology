@@ -20,6 +20,7 @@ import mu.KotlinLogging
 
 sealed class GVectorOrZero<B : BasisName, S : Scalar, V : NumVector<S>> {
     abstract fun isZero(): Boolean
+    fun isNotZero(): Boolean = !this.isZero()
 }
 
 class ZeroGVector<B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, S, V>() {

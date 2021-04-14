@@ -6,16 +6,29 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-// TODO: make sparse
 class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
-    private val matrixList: List<M>,
+    matrixMap: Map<Int, M>,
+    val size: Int,
     val rowCount: Int,
     val colCount: Int,
 ) {
-    val size: Int = this.matrixList.size
+    private val matrixMap: Map<Int, M> = matrixMap.filterValues { it.isNotZero() }
+    constructor(
+        matrixSpace: MatrixSpace<S, V, M>,
+        matrixList: List<M>,
+        rowCount: Int,
+        colCount: Int,
+    ) : this(
+        matrixSpace,
+        matrixList.mapIndexed { index, matrix -> Pair(index, matrix) }.toMap(),
+        matrixList.size,
+        rowCount,
+        colCount
+    )
+
     init {
-        for (matrix in this.matrixList) {
+        for (matrix in this.matrixMap.values) {
             if (matrix.rowCount != this.rowCount)
                 throw InvalidSizeException("invalid matrix size")
             if (matrix.colCount != this.colCount)
@@ -23,10 +36,10 @@ class MatrixSequence<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }
     }
     fun multiply(numVector1: V, numVector2: V): V {
-        val valueList = this.matrixSpace.context.run {
-            matrixList.map { matrix -> matrix.innerProduct(numVector1, numVector2) }
+        val valueMap = this.matrixSpace.context.run {
+            matrixMap.mapValues { (_, matrix) -> matrix.innerProduct(numVector1, numVector2) }
         }
-        return matrixSpace.numVectorSpace.fromValueList(valueList)
+        return matrixSpace.numVectorSpace.fromValueMap(valueMap, this.size)
     }
 }
 

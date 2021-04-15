@@ -88,9 +88,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> modelTest(matrixSpace: Matr
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    "generator must be sorted along a Sullivan filtration" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        shouldThrow<IllegalArgumentException> {
+            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _, _, _) ->
+                listOf(y, x.pow(2))
+            }
+        }
+    }
+}
+
 class FreeDGAlgebraTest : StringSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
     include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
     include(modelTest(DenseMatrixSpaceOverBigRational))
+    include(errorTest(DenseMatrixSpaceOverBigRational))
 })

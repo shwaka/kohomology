@@ -24,8 +24,21 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
             getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
         ): FreeDGAlgebra<I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
+            val valueList= freeGAlgebra.context.run {
+                getDifferentialValueList(freeGAlgebra.generatorList)
+            }
+            for (i in valueList.indices) {
+                val value = valueList[i]
+                if (value !is GVector)
+                    continue
+                if ((i until valueList.size).any { k -> freeGAlgebra.containsIndeterminate(k, value) }) {
+                    throw IllegalArgumentException(
+                        "The generator list of a FreeDGAlgebra should be sorted along a Sullivan filtration"
+                    )
+                }
+            }
             val differential: Derivation<Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
-                valueList = freeGAlgebra.context.run { getDifferentialValueList(freeGAlgebra.generatorList) },
+                valueList = valueList,
                 derivationDegree = 1
             )
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)

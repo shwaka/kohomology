@@ -172,6 +172,10 @@ class Monomial<I : IndeterminateName> private constructor(
         return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
     }
 
+    fun containsIndeterminate(indeterminateIndex: Int): Boolean {
+        return this.exponentList[indeterminateIndex] > 0
+    }
+
     override fun toString(): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList)
             .filter { (_, exponent) -> exponent != 0 }

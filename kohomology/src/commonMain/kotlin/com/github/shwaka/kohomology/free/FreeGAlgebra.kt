@@ -125,6 +125,12 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         }
     }
 
+    fun containsIndeterminate(indeterminateIndex: Int, element: GVector<Monomial<I>, S, V>): Boolean {
+        return element.vector.toMap().any { (monomial, _) ->
+            monomial.containsIndeterminate(indeterminateIndex)
+        }
+    }
+
     companion object {
         private fun <I : IndeterminateName> getName(indeterminateList: List<Indeterminate<I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }

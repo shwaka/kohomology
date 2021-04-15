@@ -11,6 +11,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.checkAll
@@ -65,6 +66,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             f(x + y) shouldBe (2 * x)
             f(x * y) shouldBe (x.pow(2) - y.pow(2))
         }
+    }
+    "[polynomial, deg=$generatorDegree] containsIndeterminate test" {
+        val (x, y) = freeGAlgebra.generatorList
+        freeGAlgebra.containsIndeterminate(0, x).shouldBeTrue()
+        freeGAlgebra.containsIndeterminate(1, x).shouldBeFalse()
+        freeGAlgebra.containsIndeterminate(0, y).shouldBeFalse()
+        freeGAlgebra.containsIndeterminate(1, y).shouldBeTrue()
+        val xy = freeGAlgebra.context.run {
+            x * y
+        }
+        freeGAlgebra.containsIndeterminate(0, xy).shouldBeTrue()
+        freeGAlgebra.containsIndeterminate(1, xy).shouldBeTrue()
     }
 }
 

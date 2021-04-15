@@ -14,6 +14,7 @@ import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -98,6 +99,15 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val v1 = numVectorSpace.fromValueMap(mapOf(1 to one, 2 to two), 4)
             val v2 = numVectorSpace.fromValueList(listOf(zero, one, two, zero))
             v1 shouldBe v2
+        }
+        "(0, 1, 2).toList() should be [0, 1, 2]" {
+            val v = numVectorSpace.fromValueList(listOf(zero, one, two))
+            v.toList() shouldBe listOf(zero, one, two)
+        }
+        "(0, 1, 2).toMap() should be {1: 1, 2: 2}" {
+            val v = numVectorSpace.fromValueList(listOf(zero, one, two))
+            v.toMap() shouldBe mapOf(1 to one, 2 to two)
+            v.toMap()[0].shouldBeNull()
         }
     }
 }

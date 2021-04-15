@@ -8,13 +8,13 @@ class SparseNumVector<S : Scalar>(
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    val valueList: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
+    val valueMap: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
     override fun isZero(): Boolean {
-        return this.valueList.all { (_, value) -> value.isZero() }
+        return this.valueMap.all { (_, value) -> value.isZero() }
     }
 
     override fun toString(): String {
-        return "SparseNumVector(valueList=$valueList, field=$field, dim=$dim)"
+        return "SparseNumVector(valueList=$valueMap, field=$field, dim=$dim)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -23,7 +23,7 @@ class SparseNumVector<S : Scalar>(
 
         other as SparseNumVector<*>
 
-        if (valueList != other.valueList) return false
+        if (valueMap != other.valueMap) return false
         if (field != other.field) return false
         if (dim != other.dim) return false
 
@@ -31,10 +31,18 @@ class SparseNumVector<S : Scalar>(
     }
 
     override fun hashCode(): Int {
-        var result = valueList.hashCode()
+        var result = valueMap.hashCode()
         result = 31 * result + field.hashCode()
         result = 31 * result + dim
         return result
+    }
+
+    override fun toList(): List<S> {
+        return (0 until this.dim).map { index -> this.valueMap[index] ?: this.field.zero }
+    }
+
+    override fun toMap(): Map<Int, S> {
+        return this.valueMap
     }
 }
 
@@ -70,9 +78,9 @@ class SparseNumVectorSpace<S : Scalar>(
             throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
-        val valueList: MutableMap<Int, S> = a.valueList.toMutableMap()
+        val valueList: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
-            for ((i, value) in b.valueList) {
+            for ((i, value) in b.valueMap) {
                 when (val valueFromA: S? = valueList[i]) {
                     null -> valueList[i] = value
                     else -> valueList[i] = valueFromA + value
@@ -89,9 +97,9 @@ class SparseNumVectorSpace<S : Scalar>(
             throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
-        val valueList: MutableMap<Int, S> = a.valueList.toMutableMap()
+        val valueList: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
-            for ((i, value) in b.valueList) {
+            for ((i, value) in b.valueMap) {
                 when (val valueFromA: S? = valueList[i]) {
                     null -> valueList[i] = -value
                     else -> valueList[i] = valueFromA - value
@@ -108,7 +116,7 @@ class SparseNumVectorSpace<S : Scalar>(
             throw IllegalContextException("The scalar $scalar does not match the context (field = ${this.field})")
         if (scalar.isZero()) return SparseNumVector(mapOf(), this.field, numVector.dim)
         val values = this.field.context.run {
-            numVector.valueList.mapValues { (_, value) ->
+            numVector.valueMap.mapValues { (_, value) ->
                 scalar * value
             }
         }
@@ -116,7 +124,7 @@ class SparseNumVectorSpace<S : Scalar>(
     }
 
     override fun getElement(numVector: SparseNumVector<S>, ind: Int): S {
-        numVector.valueList[ind]?.let { return it }
+        numVector.valueMap[ind]?.let { return it }
         return this.field.zero
     }
 
@@ -128,11 +136,11 @@ class SparseNumVectorSpace<S : Scalar>(
         if (numVector1.dim != numVector2.dim)
             throw InvalidSizeException("Cannot take the inner product of two numVectors with different length")
         val zero = this.field.zero
-        val indices = numVector1.valueList.keys.intersect(numVector2.valueList.keys)
+        val indices = numVector1.valueMap.keys.intersect(numVector2.valueMap.keys)
         return this.field.context.run {
             indices.map { i ->
                 // we know that both 'values' contain the key 'i'
-                numVector1.valueList[i]!! * numVector2.valueList[i]!!
+                numVector1.valueMap[i]!! * numVector2.valueMap[i]!!
             }.fold(zero) { acc, x -> acc + x }
         }
     }

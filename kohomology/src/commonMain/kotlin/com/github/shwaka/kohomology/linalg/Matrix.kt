@@ -175,7 +175,7 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val cols = this.numVectorSpace.context.run { numVectors.map { v -> v.toList() } }
+        val cols = numVectors.map { v -> v.toList() }
         return this.fromColList(cols, dim)
     }
     fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {

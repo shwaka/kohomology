@@ -216,7 +216,7 @@ class SparseMatrixSpace<S : Scalar>(
         val valueMap = this.field.context.run {
             matrix.rowMap.mapValues { (_, row) ->
                 row.map { (colInd, elm) ->
-                    when (val it = numVector.valueList[colInd]) {
+                    when (val it = numVector.valueMap[colInd]) {
                         null, zero -> null
                         else -> elm * it
                     }

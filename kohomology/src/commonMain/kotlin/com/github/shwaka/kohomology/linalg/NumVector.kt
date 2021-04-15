@@ -4,6 +4,8 @@ interface NumVector<S : Scalar> {
     val field: Field<S>
     val dim: Int
     fun isZero(): Boolean
+    fun toList(): List<S>
+    fun toMap(): Map<Int, S>
 }
 
 interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
@@ -28,9 +30,6 @@ open class NumVectorContext<S : Scalar, V : NumVector<S>>(
     infix fun V.dot(other: V): S = this@NumVectorContext.innerProduct(this, other)
     operator fun V.unaryMinus(): V = this * (-1)
     operator fun V.get(ind: Int): S = this@NumVectorContext.getElement(this, ind)
-    fun V.toList(): List<S> {
-        return (0 until this.dim).map { i -> this[i] }
-    }
 }
 
 interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, V> {

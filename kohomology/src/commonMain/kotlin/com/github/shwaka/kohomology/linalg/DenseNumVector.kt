@@ -13,6 +13,16 @@ data class DenseNumVector<S : Scalar>(
     override fun isZero(): Boolean {
         return this.valueList.all { it.isZero() }
     }
+
+    override fun toList(): List<S> {
+        return this.valueList
+    }
+
+    override fun toMap(): Map<Int, S> {
+        return this.valueList.mapIndexedNotNull { index, value ->
+            if (value.isNotZero()) Pair(index, value) else null
+        }.toMap()
+    }
 }
 
 class DenseNumVectorSpace<S : Scalar>(

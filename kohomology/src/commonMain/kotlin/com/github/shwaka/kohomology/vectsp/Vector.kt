@@ -90,9 +90,7 @@ interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
 
 class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
     fun stringify(vector: Vector<B, S, V>, coeffToString: (S) -> String, coeffToStringWithoutSign: (S) -> String, basisToString: (B) -> String): String {
-        val coeffList = vector.vectorSpace.numVectorSpace.context.run {
-            vector.numVector.toList()
-        }
+        val coeffList = vector.numVector.toList()
         val basis = vector.vectorSpace.basisNames.map(basisToString)
         return vector.numVector.field.context.run {
             val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff.isNotZero() }

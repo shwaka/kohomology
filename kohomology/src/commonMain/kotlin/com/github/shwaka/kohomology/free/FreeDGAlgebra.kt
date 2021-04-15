@@ -24,7 +24,7 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
             getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
         ): FreeDGAlgebra<I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
-            val valueList= freeGAlgebra.context.run {
+            val valueList = freeGAlgebra.context.run {
                 getDifferentialValueList(freeGAlgebra.generatorList)
             }
             for (i in valueList.indices) {

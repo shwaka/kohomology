@@ -60,6 +60,12 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
         return this.numVector.isZero()
     }
 
+    fun toMap(): Map<B, S> {
+        return this.numVector.toMap().mapKeys { (index, _) ->
+            this.vectorSpace.basisNames[index]
+        }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

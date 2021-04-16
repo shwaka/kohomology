@@ -30,7 +30,7 @@ class DecomposedSparseRowEchelonForm<S : Scalar>(
         val blockList: List<Map<Int, Map<Int, S>>> = unionFind.groups().map { rowIndicesInBlock ->
             rowIndicesInBlock.map { rowInd -> Pair(rowInd, rowMap[rowInd]!!) }.toMap()
         }
-        val dataList = blockList.map { block -> this.calculator.rowEchelonForm(block, this.colCount)}
+        val dataList = blockList.map { block -> this.calculator.rowEchelonForm(block, this.colCount) }
         TODO("implementing")
     }
 

@@ -2,52 +2,29 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.Sign
 
-class SparseRowEchelonForm<S : Scalar>(
-    matrixSpace: SparseMatrixSpace<S>,
-    originalMatrix: SparseMatrix<S>
-) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
-    private val rowCount = originalMatrix.rowCount
-    private val colCount = originalMatrix.colCount
-    private val data: RowEchelonFormData<S> by lazy {
-        this@SparseRowEchelonForm.originalMatrix.rowMap.rowEchelonForm()
-    }
-    val field = matrixSpace.field
-    override fun computeRowEchelonForm(): SparseMatrix<S> {
-        return this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
+internal data class RowEchelonFormData<S : Scalar>(
+    val rowMap: Map<Int, Map<Int, S>>,
+    val pivots: List<Int>,
+    val exchangeCount: Int
+)
+
+internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Field<S>) {
+    fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): RowEchelonFormData<S> {
+        return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
     }
 
-    override fun computePivots(): List<Int> {
-        return this.data.pivots
-    }
-
-    override fun computeSign(): Sign {
-        return if (this.data.exchangeCount % 2 == 0) 1 else -1
-    }
-
-    override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
-        val rank = this.pivots.size
-        val rowEchelonRowMap = this.data.rowMap
+    fun reduce(rowEchelonRowMap: Map<Int, Map<Int, S>>, pivots: List<Int>): Map<Int, Map<Int, S>> {
+        val rank = pivots.size
         var reducedRowMap = rowEchelonRowMap.mapValues { (i, row) ->
-            val elm: S = row[this.pivots[i]] ?: throw Exception("This can't happen!")
+            val elm: S = row[pivots[i]] ?: throw Exception("This can't happen!")
             this.field.context.run {
                 row * elm.inv()
             }
         }
         for (i in 0 until rank) {
-            reducedRowMap = reducedRowMap.eliminateOtherRows(i, this.pivots[i])
+            reducedRowMap = reducedRowMap.eliminateOtherRows(i, pivots[i])
         }
-        return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
-    }
-
-    data class RowEchelonFormData<S : Scalar>(
-        val rowMap: Map<Int, Map<Int, S>>,
-        val pivots: List<Int>,
-        val exchangeCount: Int
-    )
-
-    private fun Map<Int, Map<Int, S>>.rowEchelonForm(): RowEchelonFormData<S> {
-        val colCount = this@SparseRowEchelonForm.colCount
-        return this.rowEchelonFormInternal(0, listOf(), 0, colCount)
+        return reducedRowMap
     }
 
     private fun Map<Int, Map<Int, S>>.rowEchelonFormInternal(
@@ -92,7 +69,7 @@ class SparseRowEchelonForm<S : Scalar>(
 
     private operator fun Map<Int, S>.minus(other: Map<Int, S>): Map<Int, S> {
         val newMap: MutableMap<Int, S> = this.toMutableMap()
-        this@SparseRowEchelonForm.field.context.run {
+        this@SparseRowEchelonFormCalculator.field.context.run {
             for ((i, value) in other) {
                 when (val valueFromThis: S? = newMap[i]) {
                     null -> newMap[i] = -value
@@ -106,7 +83,7 @@ class SparseRowEchelonForm<S : Scalar>(
     private operator fun Map<Int, S>.times(scalar: S): Map<Int, S> {
         if (scalar.isZero())
             return mapOf()
-        return this@SparseRowEchelonForm.field.context.run {
+        return this@SparseRowEchelonFormCalculator.field.context.run {
             this@times.mapValues { (_, value) -> value * scalar }
         }
     }
@@ -117,8 +94,8 @@ class SparseRowEchelonForm<S : Scalar>(
         val elm: S? = mainRow[colInd]
         if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
-        val zero = this@SparseRowEchelonForm.field.zero
-        return this@SparseRowEchelonForm.field.context.run {
+        val zero = this@SparseRowEchelonFormCalculator.field.zero
+        return this@SparseRowEchelonFormCalculator.field.context.run {
             this@eliminateOtherRows.mapValues { (i, row) ->
                 when (i) {
                     rowInd -> row
@@ -138,5 +115,34 @@ class SparseRowEchelonForm<S : Scalar>(
             }
         }
         return null
+    }
+}
+
+class SparseRowEchelonForm<S : Scalar>(
+    matrixSpace: SparseMatrixSpace<S>,
+    originalMatrix: SparseMatrix<S>
+) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
+    private val rowCount = originalMatrix.rowCount
+    private val colCount = originalMatrix.colCount
+    private val field = matrixSpace.field
+    private val calculator = SparseRowEchelonFormCalculator(field)
+    private val data: RowEchelonFormData<S> by lazy {
+        this.calculator.rowEchelonForm(this@SparseRowEchelonForm.originalMatrix.rowMap, this.colCount)
+    }
+    override fun computeRowEchelonForm(): SparseMatrix<S> {
+        return this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
+    }
+
+    override fun computePivots(): List<Int> {
+        return this.data.pivots
+    }
+
+    override fun computeSign(): Sign {
+        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+    }
+
+    override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
+        val reducedRowMap = this.calculator.reduce(this.data.rowMap, this.data.pivots)
+        return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
     }
 }

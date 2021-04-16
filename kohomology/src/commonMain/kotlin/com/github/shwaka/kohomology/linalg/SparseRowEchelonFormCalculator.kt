@@ -1,13 +1,13 @@
 package com.github.shwaka.kohomology.linalg
 
-internal data class RowEchelonFormData<S : Scalar>(
+internal data class SparseRowEchelonFormData<S : Scalar>(
     val rowMap: Map<Int, Map<Int, S>>,
     val pivots: List<Int>,
     val exchangeCount: Int
 )
 
 internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Field<S>) {
-    fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): RowEchelonFormData<S> {
+    fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
         return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
     }
 
@@ -30,14 +30,14 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
         pivots: List<Int>,
         exchangeCount: Int,
         colCount: Int
-    ): RowEchelonFormData<S> {
+    ): SparseRowEchelonFormData<S> {
         if (this.isEmpty()) {
             // 0 行の行列だった場合
-            return RowEchelonFormData(this, emptyList(), 0)
+            return SparseRowEchelonFormData(this, emptyList(), 0)
         }
         if (currentColInd == colCount) {
             // 全ての列の処理が終わった場合
-            return RowEchelonFormData(this, pivots, exchangeCount)
+            return SparseRowEchelonFormData(this, pivots, exchangeCount)
         }
         val rowInd: Int? = this.findNonZero(currentColInd, pivots.size)
         return if (rowInd == null) {

@@ -189,8 +189,8 @@ publishing {
             name = "MyMaven"
         }
         maven {
-            url = uri("../benchmark/repository")
-            name = "Benchmark"
+            url = uri("../repository")
+            name = "Temporary"
         }
     }
 }

@@ -4,7 +4,7 @@ set -eu
 
 (
     cd ../kohomology
-    ./gradlew publishAllPublicationsToBenchmarkRepository
+    ./gradlew publishAllPublicationsToTemporaryRepository
 )
 
 ./gradlew benchmark

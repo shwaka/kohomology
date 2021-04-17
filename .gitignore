@@ -17,3 +17,6 @@ gradle-app.setting
 build
 
 .idea/
+
+# my temporary repository
+repository/

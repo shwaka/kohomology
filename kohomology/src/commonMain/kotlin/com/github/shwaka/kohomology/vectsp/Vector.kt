@@ -194,6 +194,11 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         this.logger.debug { "$this is created" }
     }
 
+    private val basisNameToIndex: Map<B, Int> by lazy {
+        // cache for indexOf(basisName)
+        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
     override fun contains(vector: Vector<B, S, V>): Boolean {
         return vector.vectorSpace == this
     }
@@ -273,10 +278,8 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     fun indexOf(basisName: B): Int {
-        val index = this.basisNames.indexOf(basisName)
-        if (index == -1)
-            throw NoSuchElementException("$basisName is not a name of basis element of this vector space")
-        return index
+        return basisNameToIndex[basisName]
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of this vector space")
     }
 
     fun <M : Matrix<S, V>> isBasis(

@@ -499,20 +499,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixOfRank2Test(
             }
         }
     }
-    "Property testing for det" {
-        checkAll(matrixArb) { mat ->
-            matrixSpace.context.run {
-                mat.det() shouldBe MatrixOfRank2(matrixSpace, mat).det()
-            }
-        }
-    }
 }
 
-fun <S : Scalar> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> determinantTest(matrixSpace: MatrixSpace<S, V, M>, n: Int, max: Int) = stringSpec {
     if (n < 0) throw IllegalArgumentException("Matrix size n should be non-negative")
     if (max < 0) throw IllegalArgumentException("max should be non-negative")
-    val numVectorSpace = DenseNumVectorSpace.from(field)
-    val matrixSpace = DenseMatrixSpace(numVectorSpace)
+    val field = matrixSpace.field
     val scalarArb = field.arb(Arb.int(-max..max))
     "det and detByPermutations should be the same" {
         checkAll(Exhaustive.ints(1..n)) { k ->
@@ -521,6 +513,14 @@ fun <S : Scalar> determinantTest(field: Field<S>, n: Int, max: Int) = stringSpec
                 matrixSpace.context.run {
                     mat.det() shouldBe mat.detByPermutations()
                 }
+            }
+        }
+    }
+    "determinant of matrices of rank 2 should be ad-bc" {
+        val matrixArb = matrixSpace.arb(scalarArb, 2, 2)
+        checkAll(matrixArb) { mat ->
+            matrixSpace.context.run {
+                mat.det() shouldBe MatrixOfRank2(matrixSpace, mat).det()
             }
         }
     }
@@ -563,7 +563,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(denseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -577,7 +577,7 @@ class IntMod2DenseMatrixTest : StringSpec({
     include(denseMatrixSpaceTest(F2))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -591,7 +591,7 @@ class IntMod5DenseMatrixTest : StringSpec({
     include(denseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -605,7 +605,7 @@ class BigRationalSparseMatrixTest : StringSpec({
     include(sparseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -616,10 +616,10 @@ class BigRationalDecomposedSparseMatrixTest : StringSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
-    include(sparseMatrixSpaceTest(BigRationalField))
+    // include(sparseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+    // include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet)) // sign is not implemented
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -633,7 +633,7 @@ class IntMod2SparseMatrixTest : StringSpec({
     include(sparseMatrixSpaceTest(F2))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(F2, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -647,7 +647,7 @@ class IntMod3SparseMatrixTest : StringSpec({
     include(sparseMatrixSpaceTest(F3))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(F3, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
@@ -661,7 +661,7 @@ class IntMod5SparseMatrixTest : StringSpec({
     include(sparseMatrixSpaceTest(F5))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
-    include(determinantTest(F5, matrixSizeForDet, maxValueForDet))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))

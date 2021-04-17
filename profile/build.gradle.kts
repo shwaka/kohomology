@@ -20,6 +20,7 @@ dependencies {
     testImplementation(kotlin("test-junit"))
     implementation("org.slf4j:slf4j-nop:1.7.30")
     implementation("com.github.shwaka.kohomology:kohomology:0.4-SNAPSHOT")
+    implementation("com.github.shwaka.counter:simple-counter:0.2")
 }
 
 tasks.test {

@@ -20,6 +20,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -601,6 +602,20 @@ class BigRationalSparseMatrixTest : StringSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
+    include(sparseMatrixSpaceTest(BigRationalField))
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(BigRationalField, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
+class BigRationalDecomposedSparseMatrixTest : StringSpec({
+    tags(matrixTag, sparseMatrixTag, bigRationalTag)
+
+    val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
     include(sparseMatrixSpaceTest(BigRationalField))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))

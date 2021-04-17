@@ -13,7 +13,7 @@ class SparseMatrix<S : Scalar>(
     val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
         row.filterValues { it.isNotZero() }
     }.filterValues { it.isNotEmpty() }
-    var rowEchelonForm: DecomposedSparseRowEchelonForm<S>? = null
+    var rowEchelonForm: RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>? = null
         set(value) {
             if (field != null)
                 throw IllegalStateException("Cannot assign rowEchelonForm twice")
@@ -91,28 +91,18 @@ class SparseMatrix<S : Scalar>(
     }
 }
 
-class SparseMatrixSpace<S : Scalar>(
+abstract class AbstractSparseMatrixSpace<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>
 ) : MatrixSpace<S, SparseNumVector<S>, SparseMatrix<S>> {
-    companion object {
-        // TODO: cache まわりの型が割とやばい
-        // generic type に対する cache ってどうすれば良いだろう？
-        private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
-            if (this.cache.containsKey(numVectorSpace)) {
-                @Suppress("UNCHECKED_CAST")
-                return this.cache[numVectorSpace] as SparseMatrixSpace<S>
-            } else {
-                val matrixSpace = SparseMatrixSpace(numVectorSpace)
-                this.cache[numVectorSpace] = matrixSpace
-                return matrixSpace
-            }
-        }
+    override val field: Field<S> by lazy {
+        // Use 'by lazy' to avoid warning 'Accessing non-final property in constructor'
+        numVectorSpace.field
     }
 
-    override val field: Field<S> = this.numVectorSpace.field
-
-    override val context = MatrixContext(this.field, this.numVectorSpace, this)
+    override val context by lazy {
+        // Use 'by lazy' to avoid warning 'Accessing non-final property in constructor'
+        MatrixContext(this.field, this.numVectorSpace, this)
+    }
 
     override fun contains(matrix: SparseMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace
@@ -226,13 +216,6 @@ class SparseMatrixSpace<S : Scalar>(
         return SparseNumVector(valueMap, this.field, matrix.rowCount)
     }
 
-    override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
-        matrix.rowEchelonForm?.let { return it }
-        val rowEchelonForm = DecomposedSparseRowEchelonForm(this, matrix)
-        matrix.rowEchelonForm = rowEchelonForm
-        return rowEchelonForm
-    }
-
     override fun computeTranspose(matrix: SparseMatrix<S>): SparseMatrix<S> {
         val rowCount = matrix.colCount
         val colCount = matrix.rowCount
@@ -297,5 +280,59 @@ class SparseMatrixSpace<S : Scalar>(
                 .mapKeys { (colInd, _) -> colInd - colRange.first }
         }.filterValues { row -> row.isNotEmpty() }
         return SparseMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
+    }
+}
+
+class SparseMatrixSpace<S : Scalar>(
+    numVectorSpace: SparseNumVectorSpace<S>
+) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
+    companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
+        fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
+            if (this.cache.containsKey(numVectorSpace)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[numVectorSpace] as SparseMatrixSpace<S>
+            } else {
+                val matrixSpace = SparseMatrixSpace(numVectorSpace)
+                this.cache[numVectorSpace] = matrixSpace
+                return matrixSpace
+            }
+        }
+    }
+
+    override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
+        matrix.rowEchelonForm?.let { return it }
+        val rowEchelonForm = SparseRowEchelonForm(this, matrix)
+        matrix.rowEchelonForm = rowEchelonForm
+        return rowEchelonForm
+    }
+}
+
+class DecomposedSparseMatrixSpace<S : Scalar>(
+    numVectorSpace: SparseNumVectorSpace<S>
+) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
+    companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<SparseNumVectorSpace<*>, DecomposedSparseMatrixSpace<*>> = mutableMapOf()
+        fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): DecomposedSparseMatrixSpace<S> {
+            if (this.cache.containsKey(numVectorSpace)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[numVectorSpace] as DecomposedSparseMatrixSpace<S>
+            } else {
+                val matrixSpace = DecomposedSparseMatrixSpace(numVectorSpace)
+                this.cache[numVectorSpace] = matrixSpace
+                return matrixSpace
+            }
+        }
+    }
+
+    override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
+        matrix.rowEchelonForm?.let { return it }
+        val rowEchelonForm = DecomposedSparseRowEchelonForm(this, matrix)
+        matrix.rowEchelonForm = rowEchelonForm
+        return rowEchelonForm
     }
 }

@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.util.Sign
 
 class SparseRowEchelonForm<S : Scalar>(
-    matrixSpace: SparseMatrixSpace<S>,
+    matrixSpace: AbstractSparseMatrixSpace<S>,
     originalMatrix: SparseMatrix<S>
 ) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount

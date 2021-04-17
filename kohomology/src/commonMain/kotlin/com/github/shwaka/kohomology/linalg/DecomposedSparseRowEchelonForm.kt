@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
 
 class DecomposedSparseRowEchelonForm<S : Scalar>(
-    matrixSpace: SparseMatrixSpace<S>,
+    matrixSpace: AbstractSparseMatrixSpace<S>,
     originalMatrix: SparseMatrix<S>
 ) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount

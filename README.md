@@ -111,6 +111,15 @@ cd ../benchmark
 ./gradlew benchmark
 ```
 
+## Profiling
+1. `sudo sysctl kernel.perf_event_paranoid=1`
+2. Open two terminals, say (A) and (B)
+3. Download [jvm-profiling-tools/async-profiler](https://github.com/jvm-profiling-tools/async-profiler).
+4. Change the current directory of (A) to the extracted one from async-profiler
+5. Run `cd kohomology/profile; ./gradlew run` in (B)
+6. Run `./profiler.sh -d 10 -f profile.html $(jps | grep MainKt | awk '{print $1}')` in (A)
+7. Press `ENTER` in (B)
+
 ## Memo
 ### Recursive generics
 当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．

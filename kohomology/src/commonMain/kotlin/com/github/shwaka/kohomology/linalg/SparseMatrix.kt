@@ -13,7 +13,7 @@ class SparseMatrix<S : Scalar>(
     val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
         row.filterValues { it.isNotZero() }
     }.filterValues { it.isNotEmpty() }
-    var rowEchelonForm: SparseRowEchelonForm<S>? = null
+    var rowEchelonForm: DecomposedSparseRowEchelonForm<S>? = null
         set(value) {
             if (field != null)
                 throw IllegalStateException("Cannot assign rowEchelonForm twice")
@@ -228,7 +228,7 @@ class SparseMatrixSpace<S : Scalar>(
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {
         matrix.rowEchelonForm?.let { return it }
-        val rowEchelonForm = SparseRowEchelonForm(this, matrix)
+        val rowEchelonForm = DecomposedSparseRowEchelonForm(this, matrix)
         matrix.rowEchelonForm = rowEchelonForm
         return rowEchelonForm
     }

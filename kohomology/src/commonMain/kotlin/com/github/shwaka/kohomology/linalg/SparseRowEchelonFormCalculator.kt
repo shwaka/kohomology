@@ -8,7 +8,18 @@ internal data class SparseRowEchelonFormData<S : Scalar>(
 
 internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Field<S>) {
     fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
-        return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
+        // val nonZeroColList: List<Int> = matrix.values.fold(emptySet<Int>()) { acc, row ->
+        //     acc.union(row.keys)
+        // }.toList().sorted()
+        val nonZeroColList: List<Int> = matrix.values.fold(emptyList<Int>()) { acc, row ->
+            acc + row.keys
+        }.sorted().distinct()
+        return matrix.rowEchelonFormInternal(
+            currentColIndInNonZero = 0,
+            pivots = listOf(),
+            exchangeCount = 0,
+            nonZeroColList = nonZeroColList
+        )
     }
 
     fun reduce(rowEchelonRowMap: Map<Int, Map<Int, S>>, pivots: List<Int>): Map<Int, Map<Int, S>> {
@@ -26,22 +37,23 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
     }
 
     private fun Map<Int, Map<Int, S>>.rowEchelonFormInternal(
-        currentColInd: Int,
+        currentColIndInNonZero: Int,
         pivots: List<Int>,
         exchangeCount: Int,
-        colCount: Int
+        nonZeroColList: List<Int>
     ): SparseRowEchelonFormData<S> {
         if (this.isEmpty()) {
             // 0 行の行列だった場合
             return SparseRowEchelonFormData(this, emptyList(), 0)
         }
-        if (currentColInd == colCount) {
+        if (currentColIndInNonZero == nonZeroColList.size) {
             // 全ての列の処理が終わった場合
             return SparseRowEchelonFormData(this, pivots, exchangeCount)
         }
+        val currentColInd = nonZeroColList[currentColIndInNonZero]
         val rowInd: Int? = this.findNonZero(currentColInd, pivots.size)
         return if (rowInd == null) {
-            this.rowEchelonFormInternal(currentColInd + 1, pivots, exchangeCount, colCount)
+            this.rowEchelonFormInternal(currentColIndInNonZero + 1, pivots, exchangeCount, nonZeroColList)
         } else {
             var newRowMap = this.eliminateOtherRows(rowInd, currentColInd)
             var newExchangeCount = exchangeCount
@@ -50,7 +62,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
                 newExchangeCount += 1
             }
             val newPivots = pivots + listOf(currentColInd)
-            newRowMap.rowEchelonFormInternal(currentColInd + 1, newPivots, newExchangeCount, colCount)
+            newRowMap.rowEchelonFormInternal(currentColIndInNonZero + 1, newPivots, newExchangeCount, nonZeroColList)
         }
     }
 

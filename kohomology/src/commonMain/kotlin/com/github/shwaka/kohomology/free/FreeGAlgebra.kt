@@ -126,7 +126,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
     }
 
     fun containsIndeterminate(indeterminateIndex: Int, element: GVector<Monomial<I>, S, V>): Boolean {
-        return element.vector.toMap().any { (monomial, _) ->
+        return element.vector.toBasisMap().any { (monomial, _) ->
             monomial.containsIndeterminate(indeterminateIndex)
         }
     }

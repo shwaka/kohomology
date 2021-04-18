@@ -60,7 +60,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
         return this.numVector.isZero()
     }
 
-    fun toMap(): Map<B, S> {
+    fun toBasisMap(): Map<B, S> {
         return this.numVector.toMap().mapKeys { (index, _) ->
             this.vectorSpace.basisNames[index]
         }

@@ -14,7 +14,7 @@ class SparseNumVector<S : Scalar>(
     }
 
     override fun toString(): String {
-        return "SparseNumVector(valueList=$valueMap, field=$field, dim=$dim)"
+        return "SparseNumVector(valueMap=$valueMap, field=$field, dim=$dim)"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -78,16 +78,16 @@ class SparseNumVectorSpace<S : Scalar>(
             throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
-        val valueList: MutableMap<Int, S> = a.valueMap.toMutableMap()
+        val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
             for ((i, value) in b.valueMap) {
-                when (val valueFromA: S? = valueList[i]) {
-                    null -> valueList[i] = value
-                    else -> valueList[i] = valueFromA + value
+                when (val valueFromA: S? = valueMap[i]) {
+                    null -> valueMap[i] = value
+                    else -> valueMap[i] = valueFromA + value
                 }
             }
         }
-        return SparseNumVector(valueList, this.field, a.dim)
+        return SparseNumVector(valueMap, this.field, a.dim)
     }
 
     override fun subtract(a: SparseNumVector<S>, b: SparseNumVector<S>): SparseNumVector<S> {
@@ -97,16 +97,16 @@ class SparseNumVectorSpace<S : Scalar>(
             throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
-        val valueList: MutableMap<Int, S> = a.valueMap.toMutableMap()
+        val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
             for ((i, value) in b.valueMap) {
-                when (val valueFromA: S? = valueList[i]) {
-                    null -> valueList[i] = -value
-                    else -> valueList[i] = valueFromA - value
+                when (val valueFromA: S? = valueMap[i]) {
+                    null -> valueMap[i] = -value
+                    else -> valueMap[i] = valueFromA - value
                 }
             }
         }
-        return SparseNumVector(valueList, this.field, a.dim)
+        return SparseNumVector(valueMap, this.field, a.dim)
     }
 
     override fun multiply(scalar: S, numVector: SparseNumVector<S>): SparseNumVector<S> {
@@ -115,12 +115,12 @@ class SparseNumVectorSpace<S : Scalar>(
         if (scalar !in this.field)
             throw IllegalContextException("The scalar $scalar does not match the context (field = ${this.field})")
         if (scalar.isZero()) return SparseNumVector(mapOf(), this.field, numVector.dim)
-        val values = this.field.context.run {
+        val valueMap = this.field.context.run {
             numVector.valueMap.mapValues { (_, value) ->
                 scalar * value
             }
         }
-        return SparseNumVector(values, this.field, numVector.dim)
+        return SparseNumVector(valueMap, this.field, numVector.dim)
     }
 
     override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {

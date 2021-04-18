@@ -17,6 +17,7 @@ interface ScalarOperations<S : Scalar> {
     fun subtract(a: S, b: S): S
     fun multiply(a: S, b: S): S
     fun divide(a: S, b: S): S
+    fun unaryMinusOf(scalar: S): S = this.multiply(scalar, this.fromInt(-1))
     fun fromInt(n: Int): S
     fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
 }
@@ -29,7 +30,7 @@ open class ScalarContext<S : Scalar>(
     operator fun S.times(other: S): S = this@ScalarContext.multiply(this, other)
     operator fun S.times(other: Int): S = this@ScalarContext.multiply(this, this@ScalarContext.fromInt(other))
     operator fun Int.times(other: S): S = this@ScalarContext.multiply(this@ScalarContext.fromInt(this), other)
-    operator fun S.unaryMinus(): S = this@ScalarContext.multiply(this, this@ScalarContext.fromInt(-1))
+    operator fun S.unaryMinus(): S = this@ScalarContext.unaryMinusOf(this)
     operator fun S.div(other: S): S = this@ScalarContext.divide(this, other)
     operator fun S.div(other: Int): S = this@ScalarContext.divide(this, this@ScalarContext.fromInt(other))
     operator fun Int.div(other: S): S = this@ScalarContext.divide(this@ScalarContext.fromInt(this), other)

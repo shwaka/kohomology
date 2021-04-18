@@ -147,6 +147,10 @@ object BigRationalField : Field<BigRational> {
         return BigRational(a.numerator * b.denominator, a.denominator * b.numerator)
     }
 
+    override fun unaryMinusOf(scalar: BigRational): BigRational {
+        return BigRational(-scalar.numerator, scalar.denominator)
+    }
+
     override fun fromInt(n: Int): BigRational {
         return BigRational(n, 1)
     }

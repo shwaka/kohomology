@@ -94,6 +94,10 @@ class Fp private constructor(override val characteristic: Int) : Field<IntModp> 
         return IntModp(a.value * bInv.value, this.characteristic)
     }
 
+    override fun unaryMinusOf(scalar: IntModp): IntModp {
+        return IntModp(-scalar.value, this.characteristic)
+    }
+
     private fun invModp(a: IntModp): IntModp {
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")

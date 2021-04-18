@@ -52,11 +52,13 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
         }
 
         internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): BigRational {
+            // If the pair numerator and denominator is already reduced (and denominator > 0)
             return BigRational(numerator, denominator)
         }
 
         internal fun fromReduced(numerator: Int, denominator: Int): BigRational {
-            return BigRational.fromReduced(BigInteger(numerator), BigInteger(denominator))
+            // If the pair numerator and denominator is already reduced (and denominator > 0)
+            return BigRational(BigInteger(numerator), BigInteger(denominator))
         }
     }
 

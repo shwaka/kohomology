@@ -3,12 +3,30 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 
-class SparseNumVector<S : Scalar>(
-    valueMap: Map<Int, S>,
+class SparseNumVector<S : Scalar> private constructor(
+    val valueMap: Map<Int, S>,
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    val valueMap: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
+    companion object {
+        operator fun <S : Scalar> invoke(
+            valueMap: Map<Int, S>,
+            field: Field<S>,
+            dim: Int,
+        ): SparseNumVector<S> {
+            val filteredValueMap: Map<Int, S> = valueMap.filterValues { it.isNotZero() }
+            return SparseNumVector(filteredValueMap, field, dim)
+        }
+
+        internal fun <S : Scalar> fromReduced(
+            valueMap: Map<Int, S>,
+            field: Field<S>,
+            dim: Int,
+        ): SparseNumVector<S> {
+            // If valueMap does not contain any zero in its values
+            return SparseNumVector(valueMap, field, dim)
+        }
+    }
     override fun isZero(): Boolean {
         return this.valueMap.all { (_, value) -> value.isZero() }
     }
@@ -120,7 +138,7 @@ class SparseNumVectorSpace<S : Scalar>(
                 scalar * value
             }
         }
-        return SparseNumVector(valueMap, this.field, numVector.dim)
+        return SparseNumVector.fromReduced(valueMap, this.field, numVector.dim)
     }
 
     override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {
@@ -129,7 +147,7 @@ class SparseNumVectorSpace<S : Scalar>(
         val valueMap = this.field.context.run {
             numVector.valueMap.mapValues { (_, value) -> -value }
         }
-        return SparseNumVector(valueMap, this.field, numVector.dim)
+        return SparseNumVector.fromReduced(valueMap, this.field, numVector.dim)
     }
 
     override fun getElement(numVector: SparseNumVector<S>, ind: Int): S {
@@ -165,6 +183,11 @@ class SparseNumVectorSpace<S : Scalar>(
 
     override fun fromValueMap(valueMap: Map<Int, S>, dim: Int): SparseNumVector<S> {
         return SparseNumVector(valueMap, this.field, dim)
+    }
+
+    override fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): SparseNumVector<S> {
+        // If valueMap does not contain any zero in its values
+        return SparseNumVector.fromReduced(valueMap, this.field, dim)
     }
 
     override fun getZero(dim: Int): SparseNumVector<S> {

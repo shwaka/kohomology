@@ -39,6 +39,7 @@ interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, 
     fun getZero(dim: Int): V
     fun fromValueList(valueList: List<S>): V
     fun fromValueMap(valueMap: Map<Int, S>, dim: Int): V
+    fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): V = this.fromValueMap(valueMap, dim)
     fun getOneAtIndex(index: Int, dim: Int): V {
         val valueList = this.field.context.run {
             (0 until dim).map { if (it == index) one else zero }

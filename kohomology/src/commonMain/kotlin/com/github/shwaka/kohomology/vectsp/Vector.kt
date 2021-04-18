@@ -250,7 +250,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
         val coeffMap: Map<Int, S> = mapOf(index to this.field.one)
-        return this.fromCoeffMap(coeffMap)
+        // directly call fromReducedValueMap since coeffMap is reduced (contains no zero)
+        val numVector = this.numVectorSpace.fromReducedValueMap(coeffMap, this.dim)
+        return this.fromNumVector(numVector)
     }
 
     fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {

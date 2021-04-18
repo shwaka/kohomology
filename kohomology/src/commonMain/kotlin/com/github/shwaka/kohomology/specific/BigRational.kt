@@ -33,7 +33,7 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     if (numerator == BigInteger.ZERO) return Pair(BigInteger.ZERO, BigInteger.ONE)
     val g = gcd(numerator, denominator)
     denominator.signum()
-    val num = numerator * denominator.signum().toInt() / g
+    val num = numerator * denominator.signum() / g
     val den = denominator.abs() / g
     return Pair(num, den)
 }

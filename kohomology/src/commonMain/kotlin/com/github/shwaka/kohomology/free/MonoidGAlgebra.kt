@@ -48,7 +48,12 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
                         is Zero -> target.zeroVector
                         is NonZero -> {
                             val (monoidElement: E, sign: Sign) = maybeZero.value
-                            target.fromBasisName(monoidElement, sign)
+                            val vectorWithoutSign = target.fromBasisName(monoidElement)
+                            when (sign) {
+                                1 -> vectorWithoutSign
+                                -1 -> target.context.run { -vectorWithoutSign }
+                                else -> throw Exception("This can't happen!")
+                            }
                         }
                     }
                 }

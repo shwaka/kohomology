@@ -123,6 +123,15 @@ class SparseNumVectorSpace<S : Scalar>(
         return SparseNumVector(values, this.field, numVector.dim)
     }
 
+    override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {
+        if (numVector !in this)
+            throw IllegalContextException("The denseNumVector $numVector does not match the context ($this)")
+        val valueMap = this.field.context.run {
+            numVector.valueMap.mapValues { (_, value) -> -value }
+        }
+        return SparseNumVector(valueMap, this.field, numVector.dim)
+    }
+
     override fun getElement(numVector: SparseNumVector<S>, ind: Int): S {
         numVector.valueMap[ind]?.let { return it }
         return this.field.zero

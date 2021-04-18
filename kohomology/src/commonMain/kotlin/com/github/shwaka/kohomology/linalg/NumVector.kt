@@ -13,6 +13,7 @@ interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
     fun add(a: V, b: V): V
     fun subtract(a: V, b: V): V
     fun multiply(scalar: S, numVector: V): V
+    fun unaryMinusOf(numVector: V): V
     fun getElement(numVector: V, ind: Int): S
     fun innerProduct(numVector1: V, numVector2: V): S
 }
@@ -28,7 +29,7 @@ open class NumVectorContext<S : Scalar, V : NumVector<S>>(
     operator fun V.times(scalar: Int): V = this * fromInt(scalar)
     operator fun Int.times(numVector: V): V = numVector * this
     infix fun V.dot(other: V): S = this@NumVectorContext.innerProduct(this, other)
-    operator fun V.unaryMinus(): V = this * (-1)
+    operator fun V.unaryMinus(): V = this@NumVectorContext.unaryMinusOf(this)
     operator fun V.get(ind: Int): S = this@NumVectorContext.getElement(this, ind)
 }
 

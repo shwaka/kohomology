@@ -91,6 +91,13 @@ class DenseNumVectorSpace<S : Scalar>(
         return DenseNumVector(valueList, this.field)
     }
 
+    override fun unaryMinusOf(numVector: DenseNumVector<S>): DenseNumVector<S> {
+        if (numVector !in this)
+            throw IllegalContextException("The denseNumVector $numVector does not match the context ($this)")
+        val valueList: List<S> = this.field.context.run { numVector.valueList.map { -it } }
+        return DenseNumVector(valueList, this.field)
+    }
+
     override fun getElement(numVector: DenseNumVector<S>, ind: Int): S {
         return numVector.valueList[ind]
     }

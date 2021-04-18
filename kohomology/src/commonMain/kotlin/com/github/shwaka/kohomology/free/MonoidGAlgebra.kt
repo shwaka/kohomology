@@ -54,7 +54,7 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
                 }
             }
         }
-        return BilinearMap.fromVectors(source1, source2, target, this.matrixSpace, valueList)
+        return BilinearMap(source1, source2, target, this.matrixSpace, valueList)
     }
 
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)

@@ -61,7 +61,7 @@ open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, 
                     )
                 }
             }
-        return BilinearMap.fromVectors(
+        return BilinearMap(
             cohomOfDegP,
             cohomOfDegQ,
             cohomOfDegPPlusQ,

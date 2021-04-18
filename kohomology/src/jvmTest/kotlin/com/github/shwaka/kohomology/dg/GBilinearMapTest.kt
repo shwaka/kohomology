@@ -31,11 +31,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
         val v: Vector<StringBasisName, S, V> = gVectorSpace[1].getBasis()[0]
         val z2: Vector<StringBasisName, S, V> = gVectorSpace[2].zeroVector
         when (Pair(p, q)) {
-            Pair(0, 0) -> BilinearMap.fromVectors(gVectorSpace[0], gVectorSpace[0], gVectorSpace[0], matrixSpace, listOf(listOf(u)))
-            Pair(1, 0) -> BilinearMap.fromVectors(gVectorSpace[1], gVectorSpace[0], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
-            Pair(0, 1) -> BilinearMap.fromVectors(gVectorSpace[0], gVectorSpace[1], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
-            Pair(1, 1) -> BilinearMap.fromVectors(gVectorSpace[1], gVectorSpace[1], gVectorSpace[2], matrixSpace, listOf(listOf(z2)))
-            else -> BilinearMap.fromVectors(gVectorSpace[p], gVectorSpace[q], gVectorSpace[p + q], matrixSpace, emptyList())
+            Pair(0, 0) -> BilinearMap(gVectorSpace[0], gVectorSpace[0], gVectorSpace[0], matrixSpace, listOf(listOf(u)))
+            Pair(1, 0) -> BilinearMap(gVectorSpace[1], gVectorSpace[0], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
+            Pair(0, 1) -> BilinearMap(gVectorSpace[0], gVectorSpace[1], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
+            Pair(1, 1) -> BilinearMap(gVectorSpace[1], gVectorSpace[1], gVectorSpace[2], matrixSpace, listOf(listOf(z2)))
+            else -> BilinearMap(gVectorSpace[p], gVectorSpace[q], gVectorSpace[p + q], matrixSpace, emptyList())
         }
     }
     gVectorSpace.context.run {

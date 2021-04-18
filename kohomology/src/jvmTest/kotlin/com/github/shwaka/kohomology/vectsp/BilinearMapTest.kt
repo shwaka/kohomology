@@ -29,7 +29,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
                 listOf(a, b - a), // v*x, v*y
                 listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y
             )
-            val f = BilinearMap.fromVectors(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace, matrixSpace, vectors)
+            val f = BilinearMap(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace, matrixSpace, vectors)
             f(v, x) shouldBe a
             f(v, y) shouldBe (b - a)
             f(w, x) shouldBe (2 * a + b)

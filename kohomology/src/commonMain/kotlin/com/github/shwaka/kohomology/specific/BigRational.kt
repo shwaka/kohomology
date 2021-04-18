@@ -38,17 +38,27 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     return Pair(num, den)
 }
 
-class BigRational(numerator: BigInteger, denominator: BigInteger) : Scalar {
-    val numerator: BigInteger
-    val denominator: BigInteger
-    init {
-        // 約分 と denominator > 0
-        // 生成時に毎回やるのは無駄な気もする
-        val red = reduce(numerator, denominator)
-        this.numerator = red.first
-        this.denominator = red.second
+class BigRational private constructor(val numerator: BigInteger, val denominator: BigInteger) : Scalar {
+    companion object {
+        operator fun invoke(numerator: BigInteger, denominator: BigInteger): BigRational {
+            // 約分 と denominator > 0
+            val red = reduce(numerator, denominator)
+            return BigRational(red.first, red.second)
+        }
+
+        operator fun invoke(numerator: Int, denominator: Int): BigRational {
+            // ↓明示的に invoke にしないと、 private constructor が呼ばれてしまうかも？
+            return BigRational.invoke(BigInteger(numerator), BigInteger(denominator))
+        }
+
+        internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): BigRational {
+            return BigRational(numerator, denominator)
+        }
+
+        internal fun fromReduced(numerator: Int, denominator: Int): BigRational {
+            return BigRational.fromReduced(BigInteger(numerator), BigInteger(denominator))
+        }
     }
-    constructor(numerator: Int, denominator: Int) : this(BigInteger(numerator), BigInteger(denominator))
 
     override fun isZero(): Boolean {
         return this.numerator.isZero()
@@ -148,11 +158,11 @@ object BigRationalField : Field<BigRational> {
     }
 
     override fun unaryMinusOf(scalar: BigRational): BigRational {
-        return BigRational(-scalar.numerator, scalar.denominator)
+        return BigRational.fromReduced(-scalar.numerator, scalar.denominator)
     }
 
     override fun fromInt(n: Int): BigRational {
-        return BigRational(n, 1)
+        return BigRational.fromReduced(n, 1)
     }
 
     override fun fromIntPair(numerator: Int, denominator: Int): BigRational {

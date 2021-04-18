@@ -237,19 +237,20 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return Vector(numVector, this)
     }
 
-    fun fromCoeff(coeffList: List<S>): Vector<B, S, V> {
+    fun fromCoeffList(coeffList: List<S>): Vector<B, S, V> {
         val numVector = this.numVectorSpace.fromValueList(coeffList)
+        return this.fromNumVector(numVector)
+    }
+
+    fun fromCoeffMap(coeffMap: Map<Int, S>): Vector<B, S, V> {
+        val numVector = this.numVectorSpace.fromValueMap(coeffMap, this.dim)
         return this.fromNumVector(numVector)
     }
 
     fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
-        val coeffList: List<S> = this.field.context.run {
-            (0 until this@VectorSpace.dim).map { i ->
-                if (i == index) one else zero
-            }
-        }
-        return this.fromCoeff(coeffList)
+        val coeffMap: Map<Int, S> = mapOf(index to this.field.one)
+        return this.fromCoeffMap(coeffMap)
     }
 
     fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {
@@ -269,7 +270,7 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         val one = this.field.one
         return (0 until this.dim).map { i ->
             val coeff = (0 until this.dim).map { j -> if (i == j) one else zero }
-            this.fromCoeff(coeff)
+            this.fromCoeffList(coeff)
         }
     }
 

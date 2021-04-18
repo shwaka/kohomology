@@ -60,6 +60,6 @@ class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>
                 coeff1 * coeff2
             }
         }
-        return this.vectorSpace.fromCoeff(coeffList)
+        return this.vectorSpace.fromCoeffList(coeffList)
     }
 }

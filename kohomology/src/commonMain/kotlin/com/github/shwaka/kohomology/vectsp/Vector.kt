@@ -94,10 +94,17 @@ interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
     fun stringify(vector: Vector<B, S, V>): String
 }
 
-class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
+class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
+    private val beforeSign: String = " ",
+    private val afterSign: String = " ",
+    private val afterCoeff: String = " ",
+) : VectorPrinter<B, S, V> {
     fun stringify(vector: Vector<B, S, V>, coeffToString: (S) -> String, coeffToStringWithoutSign: (S) -> String, basisToString: (B) -> String): String {
         val coeffList = vector.numVector.toList()
         val basis = vector.vectorSpace.basisNames.map(basisToString)
+        val beforeSign = this.beforeSign
+        val afterSign = this.afterSign
+        val afterCoeff = this.afterCoeff
         return vector.numVector.field.context.run {
             val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff.isNotZero() }
             if (basisWithCoeff.isEmpty()) {
@@ -107,17 +114,17 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : Vector
                 basisWithCoeff[0].let { (coeff, basisElm) ->
                     result += when (val coeffStr = coeffToString(coeff)) {
                         "1" -> basisElm
-                        "-1" -> "- $basisElm"
-                        else -> "$coeffStr $basisElm"
+                        "-1" -> "-$afterSign$basisElm"
+                        else -> "$coeffStr$afterCoeff$basisElm"
                     }
                 }
                 result += basisWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
                     val str = when (val coeffStr = coeffToStringWithoutSign(coeff)) {
                         "1" -> basisElm
-                        else -> "$coeffStr $basisElm"
+                        else -> "$coeffStr$afterCoeff$basisElm"
                     }
-                    " $sign $str"
+                    "$beforeSign$sign$afterSign$str"
                 }
                 result
             }
@@ -132,8 +139,12 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : Vector
     }
 }
 
-class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> : VectorPrinter<B, S, V> {
-    private val defaultVectorPrinter = DefaultVectorPrinter<B, S, V>()
+class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
+    private val beforeSign: String = " ",
+    private val afterSign: String = " ",
+    private val afterCoeff: String = " ",
+) : VectorPrinter<B, S, V> {
+    private val defaultVectorPrinter = DefaultVectorPrinter<B, S, V>(this.beforeSign, this.afterSign, this.afterCoeff)
     override fun stringify(vector: Vector<B, S, V>): String {
         val coeffToString: (S) -> String = { it.toTex() }
         val coeffToStringWithoutSign: (S) -> String = { it.toTexWithoutSign() }

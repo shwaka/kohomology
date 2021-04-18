@@ -242,10 +242,6 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return this.fromNumVector(numVector)
     }
 
-    fun fromCoeff(vararg coeff: S): Vector<B, S, V> {
-        return this.fromCoeff(coeff.toList())
-    }
-
     fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
         val coeffList: List<S> = this.field.context.run {

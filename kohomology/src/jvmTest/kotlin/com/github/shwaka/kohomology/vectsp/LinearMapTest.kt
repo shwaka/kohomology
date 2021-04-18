@@ -27,23 +27,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 )
             )
             val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
-            val v = vectorSpace1.fromCoeff(one, -one)
-            val w = vectorSpace2.fromCoeff(two, zero)
+            val v = vectorSpace1.fromCoeff(listOf(one, -one))
+            val w = vectorSpace2.fromCoeff(listOf(two, zero))
             f(v) shouldBe w
         }
         "getZero should return the zero map" {
             val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
-            val v = vectorSpace1.fromCoeff(one, two)
+            val v = vectorSpace1.fromCoeff(listOf(one, two))
             f(v) shouldBe vectorSpace2.zeroVector
         }
         "getId should return the identity map" {
             val f = LinearMap.getId(vectorSpace1, matrixSpace)
-            val v = vectorSpace1.fromCoeff(one, two)
+            val v = vectorSpace1.fromCoeff(listOf(one, two))
             f(v) shouldBe v
         }
         "fromVectors test" {
-            val v = vectorSpace2.fromCoeff(one, -one)
-            val w = vectorSpace2.fromCoeff(two, zero)
+            val v = vectorSpace2.fromCoeff(listOf(one, -one))
+            val w = vectorSpace2.fromCoeff(listOf(two, zero))
             val matrix = matrixSpace.fromNumVectorList(listOf(v, w).map { it.toNumVector() })
             val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
             val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)

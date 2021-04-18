@@ -39,18 +39,18 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
         }
         "invalid length of values should throw" {
             shouldThrow<InvalidSizeException> {
-                vectorSpace.fromCoeff(zero, zero)
+                vectorSpace.fromCoeff(listOf(zero, zero))
             }
         }
         "multiplication of scalar" {
-            val v = vectorSpace.fromCoeff(zero, two, -one)
-            val expected = vectorSpace.fromCoeff(zero, four, -two)
+            val v = vectorSpace.fromCoeff(listOf(zero, two, -one))
+            val expected = vectorSpace.fromCoeff(listOf(zero, four, -two))
             (v * 2) shouldBe expected
             (v * two) shouldBe expected
         }
         "multiplication of scalar with extension functions" {
-            val v = vectorSpace.fromCoeff(zero, two, -one)
-            val expected = vectorSpace.fromCoeff(zero, four, -two)
+            val v = vectorSpace.fromCoeff(listOf(zero, two, -one))
+            val expected = vectorSpace.fromCoeff(listOf(zero, four, -two))
             (2 * v) shouldBe expected
             (two * v) shouldBe expected
         }
@@ -67,7 +67,7 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
             val x = BasisElm("x")
             val y = BasisElm("y")
             val vectorSpace = VectorSpace(numVectorSpace, listOf(x, y))
-            val v = vectorSpace.fromCoeff(one, zero)
+            val v = vectorSpace.fromCoeff(listOf(one, zero))
             shouldNotThrowAny {
                 v.toString()
             }
@@ -75,8 +75,8 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
 
         "getBasis should return the correct basis" {
             val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
-            val v = vectorSpace.fromCoeff(one, zero)
-            val w = vectorSpace.fromCoeff(zero, one)
+            val v = vectorSpace.fromCoeff(listOf(one, zero))
+            val w = vectorSpace.fromCoeff(listOf(zero, one))
             vectorSpace.getBasis() shouldBe listOf(v, w)
         }
     }

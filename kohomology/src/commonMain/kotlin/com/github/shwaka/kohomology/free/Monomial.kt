@@ -128,20 +128,30 @@ private class NegativeIndeterminateList<I : IndeterminateName>(
 
 class Monomial<I : IndeterminateName> private constructor(
     private val indeterminateList: IndeterminateList<I>,
-    val exponentList: List<Int>,
+    val exponentList: IntArray,
 ) : MonoidElement {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw InvalidSizeException("Invalid size of the exponent list")
     }
 
+    private constructor(
+        indeterminateList: IndeterminateList<I>,
+        exponentList: List<Int>
+    ) : this(indeterminateList, exponentList.toIntArray())
+
+    constructor(
+        indeterminateList: List<Indeterminate<I>>,
+        exponentList: IntArray
+    ) : this(IndeterminateList.from(indeterminateList), exponentList)
+
     constructor(
         indeterminateList: List<Indeterminate<I>>,
         exponentList: List<Int>
-    ) : this(IndeterminateList.from(indeterminateList), exponentList)
+    ) : this(IndeterminateList.from(indeterminateList), exponentList.toIntArray())
 
     override val degree: Int by lazy {
-        this.indeterminateList.zip(this.exponentList)
+        this.indeterminateList.zip(this.exponentList.toList())
             .map { (generator, exponent) -> generator.degree * exponent }
             .reduce { a, b -> a + b }
     }
@@ -157,7 +167,7 @@ class Monomial<I : IndeterminateName> private constructor(
             return null
         this.increaseFirstExponent(maxDegree)?.let { return it }
         this.drop().getNextMonomial(maxDegree)?.let {
-            val newExponents = listOf(0) + it.exponentList
+            val newExponents = intArrayOf(0) + it.exponentList
             return Monomial(this.indeterminateList, newExponents)
         }
         return null
@@ -177,7 +187,7 @@ class Monomial<I : IndeterminateName> private constructor(
     }
 
     override fun toString(): String {
-        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList)
+        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
             return "1"
@@ -191,7 +201,7 @@ class Monomial<I : IndeterminateName> private constructor(
     }
 
     override fun toTex(): String {
-        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList)
+        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
             return "1"
@@ -212,14 +222,14 @@ class Monomial<I : IndeterminateName> private constructor(
         other as Monomial<*>
 
         if (indeterminateList != other.indeterminateList) return false
-        if (exponentList != other.exponentList) return false
+        if (!exponentList.contentEquals(other.exponentList)) return false
 
         return true
     }
 
     override fun hashCode(): Int {
         var result = indeterminateList.hashCode()
-        result = 31 * result + exponentList.hashCode()
+        result = 31 * result + exponentList.contentHashCode()
         return result
     }
 
@@ -253,7 +263,7 @@ class FreeMonoid<I : IndeterminateName> (
         // val exponentList = monoidElement1.exponentList
         //     .zip(monoidElement2.exponentList)
         //     .map { (p, q) -> p + q }
-        val exponentList = this.addExponentLists(monoidElement1.exponentList, monoidElement2.exponentList)
+        val exponentList = this.addExponentLists(monoidElement1.exponentList.toList(), monoidElement2.exponentList.toList())
         for (i in 0 until size) {
             if ((this.indeterminateList[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()

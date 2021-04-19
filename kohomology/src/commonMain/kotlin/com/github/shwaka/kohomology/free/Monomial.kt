@@ -56,6 +56,9 @@ private sealed class IndeterminateList<I : IndeterminateName>(
     val size: Int
         get() = this.rawList.size
     fun <T> zip(list: List<T>): List<Pair<Indeterminate<I>, T>> = this.rawList.zip(list)
+    fun mapIndexedIntArray(transform: (Int, Indeterminate<I>) -> Int): IntArray {
+        return IntArray(this.size) { transform(it, this.rawList[it]) }
+    }
     operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
 
     abstract fun checkDegree(monomial: Monomial<I>, degreeLimit: Degree): Boolean
@@ -151,9 +154,12 @@ class Monomial<I : IndeterminateName> private constructor(
     ) : this(IndeterminateList.from(indeterminateList), exponentList.toIntArray())
 
     override val degree: Int by lazy {
-        this.indeterminateList.zip(this.exponentList.toList())
-            .map { (generator, exponent) -> generator.degree * exponent }
-            .reduce { a, b -> a + b }
+        // this.indeterminateList.zip(this.exponentList.toList())
+        //     .map { (generator, exponent) -> generator.degree * exponent }
+        //     .reduce { a, b -> a + b }
+        this.indeterminateList.mapIndexedIntArray { i, indeterminate ->
+            indeterminate.degree * this.exponentList[i]
+        }.reduce { a, b -> a + b }
     }
 
     private fun drop(): Monomial<I> {
@@ -263,7 +269,7 @@ class FreeMonoid<I : IndeterminateName> (
         // val exponentList = monoidElement1.exponentList
         //     .zip(monoidElement2.exponentList)
         //     .map { (p, q) -> p + q }
-        val exponentList = this.addExponentLists(monoidElement1.exponentList.toList(), monoidElement2.exponentList.toList())
+        val exponentList = this.addExponentLists(monoidElement1.exponentList, monoidElement2.exponentList)
         for (i in 0 until size) {
             if ((this.indeterminateList[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()
@@ -282,10 +288,11 @@ class FreeMonoid<I : IndeterminateName> (
         return NonZero(Pair(monomial, sign))
     }
 
-    private fun addExponentLists(exponentList1: List<Int>, exponentList2: List<Int>): List<Int> {
+    private fun addExponentLists(exponentList1: IntArray, exponentList2: IntArray): IntArray {
         // return exponentList1.zip(exponentList2).map { (p, q) -> p + q }
         // return exponentList1.indices.map { i -> exponentList1[i] + exponentList2[i] }
-        return exponentList1.mapIndexed { index, exponent -> exponent + exponentList2[index] }
+        // return exponentList1.mapIndexed { index, exponent -> exponent + exponentList2[index] }
+        return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
     }
 
     override fun listAll(degree: Degree): List<Monomial<I>> {

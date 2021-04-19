@@ -138,11 +138,6 @@ class Monomial<I : IndeterminateName> private constructor(
             throw InvalidSizeException("Invalid size of the exponent list")
     }
 
-    private constructor(
-        indeterminateList: IndeterminateList<I>,
-        exponentList: List<Int>
-    ) : this(indeterminateList, exponentList.toIntArray())
-
     constructor(
         indeterminateList: List<Indeterminate<I>>,
         exponentList: IntArray
@@ -165,7 +160,10 @@ class Monomial<I : IndeterminateName> private constructor(
     private fun drop(): Monomial<I> {
         if (this.indeterminateList.isEmpty())
             throw Exception("This can't happen!")
-        return Monomial(this.indeterminateList.drop(), this.exponentList.drop(1))
+        return Monomial(
+            this.indeterminateList.drop(),
+            this.exponentList.sliceArray(1 until this.indeterminateList.size)
+        )
     }
 
     fun getNextMonomial(maxDegree: Degree): Monomial<I>? {
@@ -183,7 +181,7 @@ class Monomial<I : IndeterminateName> private constructor(
         // 奇数次の場合
         if ((this.indeterminateList.first().degree.isOdd()) && (this.exponentList.first() == 1))
             return null
-        val newExponents = listOf(this.exponentList.first() + 1) + this.exponentList.drop(1)
+        val newExponents = intArrayOf(this.exponentList.first() + 1) + this.exponentList.sliceArray(1 until this.indeterminateList.size)
         val firstIncreased = Monomial(this.indeterminateList, newExponents)
         return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
     }

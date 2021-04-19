@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
+import com.github.shwaka.kohomology.util.pmap
 
 class DecomposedSparseRowEchelonForm<S : Scalar>(
     matrixSpace: AbstractSparseMatrixSpace<S>,
@@ -34,7 +35,7 @@ class DecomposedSparseRowEchelonForm<S : Scalar>(
                 Pair(rowInd, row)
             }.toMap()
         }
-        val dataList = blockList.map { block -> this.calculator.rowEchelonForm(block, this.colCount) }
+        val dataList = blockList.pmap { block -> this.calculator.rowEchelonForm(block, this.colCount) }
         val pivots = dataList.fold(emptyList<Int>()) { acc, data ->
             acc + data.pivots
         }.sorted()

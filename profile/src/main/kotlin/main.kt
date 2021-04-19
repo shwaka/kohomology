@@ -22,7 +22,7 @@ fun cohomologyOfFreeLoopSpace(): String {
     val freeLoopSpace = FreeLoopSpace(sphere)
 
     var result = ""
-    for (degree in 0 until 100) {
+    for (degree in 0 until 150) {
         result += freeLoopSpace.cohomology[degree].toString() + "\n"
     }
     return result

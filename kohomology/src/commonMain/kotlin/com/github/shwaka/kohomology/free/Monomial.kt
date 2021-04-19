@@ -250,9 +250,10 @@ class FreeMonoid<I : IndeterminateName> (
         // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
         //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
         val size = this.indeterminateList.size
-        val exponentList = monoidElement1.exponentList
-            .zip(monoidElement2.exponentList)
-            .map { (p, q) -> p + q }
+        // val exponentList = monoidElement1.exponentList
+        //     .zip(monoidElement2.exponentList)
+        //     .map { (p, q) -> p + q }
+        val exponentList = this.addExponentLists(monoidElement1.exponentList, monoidElement2.exponentList)
         for (i in 0 until size) {
             if ((this.indeterminateList[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()
@@ -269,6 +270,12 @@ class FreeMonoid<I : IndeterminateName> (
         }
         val monomial = Monomial(this.indeterminateList, exponentList)
         return NonZero(Pair(monomial, sign))
+    }
+
+    private fun addExponentLists(exponentList1: List<Int>, exponentList2: List<Int>): List<Int> {
+        // return exponentList1.zip(exponentList2).map { (p, q) -> p + q }
+        // return exponentList1.indices.map { i -> exponentList1[i] + exponentList2[i] }
+        return exponentList1.mapIndexed { index, exponent -> exponent + exponentList2[index] }
     }
 
     override fun listAll(degree: Degree): List<Monomial<I>> {

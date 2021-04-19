@@ -194,3 +194,13 @@ publishing {
         }
     }
 }
+
+tasks.register("kc") {
+    // alias
+    dependsOn("ktlintCheck")
+}
+
+tasks.register("kf") {
+    // alias
+    dependsOn("ktlintFormat")
+}

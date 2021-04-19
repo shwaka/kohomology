@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.specific
 
+import com.github.shwaka.kohomology.linalg.DecomposedSparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
@@ -181,3 +182,4 @@ val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceO
 
 val SparseNumVectorSpaceOverBigRational = SparseNumVectorSpace.from(BigRationalField)
 val SparseMatrixSpaceOverBigRational = SparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
+val DecomposedSparseMatrixSpaceOverBigRational = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)

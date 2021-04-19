@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -35,13 +36,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         throw IllegalArgumentException("The dimension of a sphere must be positive")
     if (sphereDim % 2 == 1)
         throw IllegalArgumentException("The dimension of a sphere must be even in this test")
-    val indeterminateList = listOf(
-        Indeterminate("x", sphereDim),
-        Indeterminate("y", sphereDim * 2 - 1)
-    )
-    val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
-        listOf(zeroGVector, x.pow(2))
-    }
+    val freeDGAlgebra = sphere(matrixSpace, sphereDim)
     val (x, y) = freeDGAlgebra.gAlgebra.generatorList
     freeDGAlgebra.context.run {
         "[sphere of dim $sphereDim] check differential" {

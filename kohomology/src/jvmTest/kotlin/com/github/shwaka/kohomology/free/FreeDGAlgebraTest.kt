@@ -28,7 +28,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace:
             algebraMap(unit) shouldBe unit
         }
     }
-
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = stringSpec {

@@ -68,6 +68,7 @@ kotlin {
 
                 implementation("com.github.shwaka.counter:simple-counter:0.2")
                 implementation("io.github.microutils:kotlin-logging:2.0.6")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
             }
         }
         val commonTest by getting {

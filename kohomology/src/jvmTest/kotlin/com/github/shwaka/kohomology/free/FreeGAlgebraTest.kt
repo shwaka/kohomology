@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
@@ -20,6 +21,16 @@ import io.kotest.property.exhaustive.map
 import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    "GAlgebra should work well even when the list of generator is empty" {
+        val generatorList = listOf<Indeterminate<StringIndeterminateName>>()
+        val freeGAlgebra = shouldNotThrowAny {
+            FreeGAlgebra(matrixSpace, generatorList)
+        }
+        freeGAlgebra[0].dim shouldBe 1
+    }
+}
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = stringSpec {
     if (generatorDegree == 0)
@@ -235,6 +246,9 @@ class FreeGAlgebraTest : StringSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
+
+    include(noGeneratorTest(matrixSpace))
+
     include(polynomialTest(matrixSpace, 2))
     include(polynomialTest(matrixSpace, 4))
     include(polynomialTest(matrixSpace, -2))

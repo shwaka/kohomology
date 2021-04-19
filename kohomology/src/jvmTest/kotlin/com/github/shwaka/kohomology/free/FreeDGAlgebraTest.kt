@@ -16,6 +16,21 @@ import io.kotest.matchers.shouldBe
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    "DGAlgebra should work well even when the list of generator is empty" {
+        val indeterminateList = listOf<Indeterminate<StringIndeterminateName>>()
+        val freeDGAlgebra = shouldNotThrowAny {
+            FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
+        }
+        val algebraMap = freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, emptyList())
+        freeDGAlgebra.context.run {
+            d(unit).isZero().shouldBeTrue()
+            algebraMap(unit) shouldBe unit
+        }
+    }
+
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = stringSpec {
     if (sphereDim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
@@ -105,6 +120,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: Matr
 class FreeDGAlgebraTest : StringSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
+    include(pointModelTest(DenseMatrixSpaceOverBigRational))
     include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
     include(modelTest(DenseMatrixSpaceOverBigRational))
     include(errorTest(DenseMatrixSpaceOverBigRational))

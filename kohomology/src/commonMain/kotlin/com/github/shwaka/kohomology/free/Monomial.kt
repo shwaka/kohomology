@@ -154,7 +154,7 @@ class Monomial<I : IndeterminateName> private constructor(
         //     .reduce { a, b -> a + b }
         this.indeterminateList.mapIndexedIntArray { i, indeterminate ->
             indeterminate.degree * this.exponentList[i]
-        }.reduce { a, b -> a + b }
+        }.fold(0) { acc, b -> acc + b }
     }
 
     private fun drop(): Monomial<I> {

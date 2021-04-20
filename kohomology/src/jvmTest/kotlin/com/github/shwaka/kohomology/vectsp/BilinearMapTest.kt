@@ -11,7 +11,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
-val multilinearMapTag = NamedTag("MultilinearMap")
+val bilinearMapTag = NamedTag("BilinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "bilinear map test" {
@@ -40,7 +40,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
 }
 
 class BigRationalBilinearMapTest : FreeSpec({
-    tags(multilinearMapTag, bigRationalTag)
+    tags(bilinearMapTag, bigRationalTag)
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(bilinearMapTest(matrixSpace))
 })

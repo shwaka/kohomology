@@ -1,8 +1,7 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.free.FreeDGAlgebra
-import com.github.shwaka.kohomology.free.Indeterminate
+import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -22,17 +21,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
     sphereDim: Int
 ) = freeSpec {
     "[dim=$sphereDim]" - {
-        if (sphereDim <= 0)
-            throw IllegalArgumentException("The dimension of a sphere must be positive")
         if (sphereDim % 2 == 1)
             throw IllegalArgumentException("The dimension of a sphere must be even in this test")
-        val indeterminateList = listOf(
-            Indeterminate("x", sphereDim),
-            Indeterminate("y", sphereDim * 2 - 1)
-        )
-        val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
-            listOf(zeroGVector, x.pow(2))
-        }
+        val sphere = sphere(matrixSpace, sphereDim)
         val dividedFreeLoopSpace = DividedFreeLoopSpace(sphere)
         val (x1, y1, x2, y2, sx1, sy1, sx2, sy2) = dividedFreeLoopSpace.gAlgebra.generatorList
         val freeLoopSpace = dividedFreeLoopSpace.freeLoopSpace

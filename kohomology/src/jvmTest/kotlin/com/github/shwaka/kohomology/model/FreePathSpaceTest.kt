@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.example.complexProjectiveSpace
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -64,15 +65,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
     n: Int
 ) = freeSpec {
     "[CP^$n]" - {
-        if (n <= 0)
-            throw IllegalArgumentException("The complex dimension n of CP^n must be positive")
-        val indeterminateList = listOf(
-            Indeterminate("c", 2),
-            Indeterminate("x", 2 * n + 1)
-        )
-        val cpn = FreeDGAlgebra(matrixSpace, indeterminateList) { (c, _) ->
-            listOf(zeroGVector, c.pow(n + 1))
-        }
+        val cpn = complexProjectiveSpace(matrixSpace, n)
         val (c, _) = cpn.gAlgebra.generatorList
         val freePathSpace = FreePathSpace(cpn)
         val (c1, x1, c2, x2, sc, sx) = freePathSpace.gAlgebra.generatorList

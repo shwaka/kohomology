@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -78,18 +79,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> modelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4Test(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "model in FHT Section 12 (a) Example 7 (p.147)" {
-        val indeterminateList = listOf(
-            Indeterminate("a", 2),
-            Indeterminate("b", 2),
-            Indeterminate("x", 3),
-            Indeterminate("y", 3),
-            Indeterminate("z", 3),
-        )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
-            listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
-        }
+        val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
         val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
             d(x * y) shouldBe (a.pow(2) * y - a * b * x)
@@ -134,6 +126,6 @@ class FreeDGAlgebraTest : FreeSpec({
     include(invalidModelTest(DenseMatrixSpaceOverBigRational))
     include(pointModelTest(DenseMatrixSpaceOverBigRational))
     include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
-    include(modelTest(DenseMatrixSpaceOverBigRational))
+    include(pullbackOfHopfFibrationOverS4Test(DenseMatrixSpaceOverBigRational))
     include(errorTest(DenseMatrixSpaceOverBigRational))
 })

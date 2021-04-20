@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.specific
 
+import com.github.shwaka.kococo.debugOnly
 import com.github.shwaka.kohomology.linalg.DecomposedSparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
@@ -13,7 +14,7 @@ import kotlin.Exception
 
 private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
     if (a == BigInteger.ZERO || b == BigInteger.ZERO) {
-        throw Exception("gcd not defined for 0")
+        throw ArithmeticException("gcd not defined for 0")
     }
     val aAbs = a.abs()
     val bAbs = b.abs()
@@ -54,12 +55,33 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
 
         internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): BigRational {
             // If the pair numerator and denominator is already reduced (and denominator > 0)
+            debugOnly {
+                this.assertReduced(numerator, denominator)
+            }
             return BigRational(numerator, denominator)
         }
 
         internal fun fromReduced(numerator: Int, denominator: Int): BigRational {
             // If the pair numerator and denominator is already reduced (and denominator > 0)
+            debugOnly {
+                this.assertReduced(BigInteger(numerator), BigInteger(denominator))
+            }
             return BigRational(BigInteger(numerator), BigInteger(denominator))
+        }
+
+        private fun assertReduced(numerator: BigInteger, denominator: BigInteger) {
+            if (denominator.isZero())
+                throw IllegalArgumentException("denominator is zero")
+            if (denominator.isNegative)
+                throw IllegalArgumentException("denominator is negative")
+            if (numerator.isZero()) {
+                if (denominator != BigInteger.ONE)
+                    throw IllegalArgumentException("numerator is zero, but denominator is not one")
+            } else {
+                val gcd = gcd(numerator, denominator)
+                if (gcd != BigInteger.ONE)
+                    throw IllegalArgumentException("not reduced")
+            }
         }
     }
 

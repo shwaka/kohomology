@@ -199,6 +199,18 @@ class BigRationalTest : StringSpec({
     include(fromIntTest(BigRationalField))
     include(fieldTest(BigRationalField))
     include(rationalTest(BigRationalField))
+
+    "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
+        shouldThrow<IllegalArgumentException> {
+            BigRational.fromReduced(1, -1)
+        }
+        shouldThrow<IllegalArgumentException> {
+            BigRational.fromReduced(6, 2)
+        }
+        shouldThrow<IllegalArgumentException> {
+            BigRational.fromReduced(0, 2)
+        }
+    }
 })
 
 class IntModpTest : StringSpec({

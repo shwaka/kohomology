@@ -9,7 +9,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("java-library") // necessary for jacoco
     jacoco
-    id("com.adarshr.test-logger") version "2.1.1"
+    id("com.adarshr.test-logger") version "3.0.0"
     `maven-publish`
 }
 

@@ -17,8 +17,23 @@ import io.kotest.matchers.shouldBe
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+    "FreeDGAlgebra should throw IllegalArgumentException when d^2 != 0" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 3),
+            Indeterminate("y", 2),
+            Indeterminate("z", 1),
+        )
+        shouldThrow<IllegalArgumentException> {
+            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
+                listOf(zeroGVector, x, y)
+            }
+        }
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
-    "DGAlgebra should work well even when the list of generator is empty" {
+    "FreeDGAlgebra should work well even when the list of generator is empty" {
         val indeterminateList = listOf<Indeterminate<StringIndeterminateName>>()
         val freeDGAlgebra = shouldNotThrowAny {
             FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
@@ -114,6 +129,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: Matr
 class FreeDGAlgebraTest : StringSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
+    include(invalidModelTest(DenseMatrixSpaceOverBigRational))
     include(pointModelTest(DenseMatrixSpaceOverBigRational))
     include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
     include(modelTest(DenseMatrixSpaceOverBigRational))

@@ -27,6 +27,10 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
             val valueList = freeGAlgebra.context.run {
                 getDifferentialValueList(freeGAlgebra.generatorList)
             }
+            val differential: Derivation<Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
+                valueList = valueList,
+                derivationDegree = 1
+            )
             for (i in valueList.indices) {
                 val value = valueList[i]
                 if (value !is GVector)
@@ -36,11 +40,13 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
                         "The generator list of a FreeDGAlgebra should be sorted along a Sullivan filtration"
                     )
                 }
+                val dValue = differential(value)
+                if (dValue.isNotZero())
+                    throw IllegalArgumentException(
+                        "d(${indeterminateList[i]}) must be a cocycle, " +
+                            "but your input is $value with d(d(${indeterminateList[i]})) = d($value) = $dValue (!= 0)"
+                    )
             }
-            val differential: Derivation<Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
-                valueList = valueList,
-                derivationDegree = 1
-            )
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)
         }
     }

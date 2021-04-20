@@ -33,114 +33,118 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = freeSpec {
-    if (generatorDegree == 0)
-        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be non-zero")
-    if (generatorDegree % 2 == 1)
-        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be even")
-    if (maxPolynomialLength <= 0)
-        throw IllegalArgumentException("Invalid test parameter: maxPolynomialLength must be positive")
-    val generatorList = listOf(
-        Indeterminate("x", generatorDegree),
-        Indeterminate("y", generatorDegree),
-    )
-    val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-    // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
-    val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
-    "[polynomial, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
-        checkAll(multipleDegreeGen) { (degree, expectedDim) ->
-            freeGAlgebra[degree].dim shouldBe expectedDim
-        }
-    }
-    "[polynomial, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
-        val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
-        checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
-            val degree = multipleDegree + additionalDegree
-            freeGAlgebra[degree].dim shouldBe 0
-        }
-    }
-    "[polynomial, deg=$generatorDegree] check multiplication" {
-        val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.context.run {
-            (x + y).pow(0) shouldBe freeGAlgebra.unit
-            (x + y).pow(1) shouldBe (x + y)
-            (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
-            (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
-        }
-    }
-    "[polynomial, deg=$generatorDegree] check algebra map" {
-        val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.context.run {
-            val valueList = listOf(x + y, x - y)
-            val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
-            f(x) shouldBe (x + y)
-            f(y) shouldBe (x - y)
-            f(x + y) shouldBe (2 * x)
-            f(x * y) shouldBe (x.pow(2) - y.pow(2))
-        }
-    }
-    "[polynomial, deg=$generatorDegree] containsIndeterminate test" {
-        val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.containsIndeterminate(0, x).shouldBeTrue()
-        freeGAlgebra.containsIndeterminate(1, x).shouldBeFalse()
-        freeGAlgebra.containsIndeterminate(0, y).shouldBeFalse()
-        freeGAlgebra.containsIndeterminate(1, y).shouldBeTrue()
-        val xy = freeGAlgebra.context.run {
-            x * y
-        }
-        freeGAlgebra.containsIndeterminate(0, xy).shouldBeTrue()
-        freeGAlgebra.containsIndeterminate(1, xy).shouldBeTrue()
-    }
-}
-
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = freeSpec {
-    if (generatorDegree % 2 == 0)
-        throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
-    val generatorList = listOf(
-        Indeterminate("x", generatorDegree),
-        Indeterminate("y", generatorDegree),
-    )
-    val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
-    val multipleDegreeGen = exhaustive(
-        listOf(
-            Pair(0, 1),
-            Pair(generatorDegree, 2),
-            Pair(2 * generatorDegree, 1),
-            Pair(3 * generatorDegree, 0)
+    "[polynomial, deg=$generatorDegree]" - {
+        if (generatorDegree == 0)
+            throw IllegalArgumentException("Invalid test parameter: generatorDegree must be non-zero")
+        if (generatorDegree % 2 == 1)
+            throw IllegalArgumentException("Invalid test parameter: generatorDegree must be even")
+        if (maxPolynomialLength <= 0)
+            throw IllegalArgumentException("Invalid test parameter: maxPolynomialLength must be positive")
+        val generatorList = listOf(
+            Indeterminate("x", generatorDegree),
+            Indeterminate("y", generatorDegree),
         )
-    )
-    "[exterior, deg=$generatorDegree] freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
-        checkAll(multipleDegreeGen) { (degree, expectedDim) ->
-            freeGAlgebra[degree].dim shouldBe expectedDim
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
+        val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
+        "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+            checkAll(multipleDegreeGen) { (degree, expectedDim) ->
+                freeGAlgebra[degree].dim shouldBe expectedDim
+            }
         }
-    }
-    "[exterior, deg=$generatorDegree] freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
-        if (generatorDegree.absoluteValue >= 2) {
-            // exhaustive の中身が empty list だとエラーを吐く
+        "freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
             val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
             checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
                 val degree = multipleDegree + additionalDegree
                 freeGAlgebra[degree].dim shouldBe 0
             }
         }
-    }
-    "[exterior, deg=$generatorDegree] check multiplication" {
-        val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.context.run {
-            (x + y).pow(0) shouldBe freeGAlgebra.unit
-            (x + y).pow(1) shouldBe (x + y)
-            (y * x) shouldBe (-x * y)
-            (x + y).pow(2).isZero().shouldBeTrue()
+        "check multiplication" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                (x + y).pow(0) shouldBe freeGAlgebra.unit
+                (x + y).pow(1) shouldBe (x + y)
+                (x + y).pow(2) shouldBe (x.pow(2) + 2 * x * y + y.pow(2))
+                (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
+            }
+        }
+        "check algebra map" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                val valueList = listOf(x + y, x - y)
+                val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
+                f(x) shouldBe (x + y)
+                f(y) shouldBe (x - y)
+                f(x + y) shouldBe (2 * x)
+                f(x * y) shouldBe (x.pow(2) - y.pow(2))
+            }
+        }
+        "containsIndeterminate test" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.containsIndeterminate(0, x).shouldBeTrue()
+            freeGAlgebra.containsIndeterminate(1, x).shouldBeFalse()
+            freeGAlgebra.containsIndeterminate(0, y).shouldBeFalse()
+            freeGAlgebra.containsIndeterminate(1, y).shouldBeTrue()
+            val xy = freeGAlgebra.context.run {
+                x * y
+            }
+            freeGAlgebra.containsIndeterminate(0, xy).shouldBeTrue()
+            freeGAlgebra.containsIndeterminate(1, xy).shouldBeTrue()
         }
     }
-    "[exterior, deg=$generatorDegree] check algebra map" {
-        val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.context.run {
-            val valueList = listOf(x + y, y)
-            val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
-            f(x) shouldBe (x + y)
-            f(y) shouldBe y
-            f(x + y) shouldBe (x + 2 * y)
-            f(x * y) shouldBe (x * y)
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = freeSpec {
+    "[exterior, deg=$generatorDegree]" - {
+        if (generatorDegree % 2 == 0)
+            throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
+        val generatorList = listOf(
+            Indeterminate("x", generatorDegree),
+            Indeterminate("y", generatorDegree),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val multipleDegreeGen = exhaustive(
+            listOf(
+                Pair(0, 1),
+                Pair(generatorDegree, 2),
+                Pair(2 * generatorDegree, 1),
+                Pair(3 * generatorDegree, 0)
+            )
+        )
+        "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
+            checkAll(multipleDegreeGen) { (degree, expectedDim) ->
+                freeGAlgebra[degree].dim shouldBe expectedDim
+            }
+        }
+        "freeGAlgebra should have dimension zero for degrees which are not multiple of $generatorDegree" {
+            if (generatorDegree.absoluteValue >= 2) {
+                // exhaustive の中身が empty list だとエラーを吐く
+                val additionalDegreeGen = exhaustive((1 until generatorDegree.absoluteValue).toList())
+                checkAll(multipleDegreeGen, additionalDegreeGen) { (multipleDegree, _), additionalDegree ->
+                    val degree = multipleDegree + additionalDegree
+                    freeGAlgebra[degree].dim shouldBe 0
+                }
+            }
+        }
+        "check multiplication" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                (x + y).pow(0) shouldBe freeGAlgebra.unit
+                (x + y).pow(1) shouldBe (x + y)
+                (y * x) shouldBe (-x * y)
+                (x + y).pow(2).isZero().shouldBeTrue()
+            }
+        }
+        "check algebra map" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                val valueList = listOf(x + y, y)
+                val f = freeGAlgebra.getGAlgebraMap(freeGAlgebra, valueList)
+                f(x) shouldBe (x + y)
+                f(y) shouldBe y
+                f(x + y) shouldBe (x + 2 * y)
+                f(x * y) shouldBe (x * y)
+            }
         }
     }
 }

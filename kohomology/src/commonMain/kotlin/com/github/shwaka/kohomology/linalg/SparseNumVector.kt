@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kococo.debugOnly
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 
@@ -187,7 +188,15 @@ class SparseNumVectorSpace<S : Scalar>(
 
     override fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): SparseNumVector<S> {
         // If valueMap does not contain any zero in its values
+        debugOnly {
+            this.assertReduced(valueMap)
+        }
         return SparseNumVector.fromReduced(valueMap, this.field, dim)
+    }
+
+    private fun assertReduced(valueMap: Map<Int, S>) {
+        if (valueMap.values.any { it.isZero() })
+            throw IllegalArgumentException("valueMap is not reduced (contains zero as a value)")
     }
 
     override fun getZero(dim: Int): SparseNumVector<S> {

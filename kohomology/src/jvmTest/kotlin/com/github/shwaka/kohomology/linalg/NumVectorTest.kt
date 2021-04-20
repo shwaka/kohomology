@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.core.spec.style.stringSpec
@@ -24,6 +25,8 @@ val numVectorTag = NamedTag("NumVector")
 val denseNumVectorTag = NamedTag("DenseNumVector")
 val sparseNumVectorTag = NamedTag("SparseNumVector")
 
+val kococoDebug = (System.getProperty("kococo.debug") != null)
+
 fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = stringSpec {
     "factory should return the cache if exists" {
         val field = numVectorSpace.field
@@ -35,6 +38,19 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
     "factory should return the cache if exists" {
         val field = numVectorSpace.field
         SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
+    }
+
+    "fromReducedValueMap should throw".config(enabled = kococoDebug) {
+        numVectorSpace.field.context.run {
+            val valueMap: Map<Int, S> = mapOf(
+                1 to one,
+                3 to -two,
+                4 to zero,
+            )
+            shouldThrow<IllegalArgumentException> {
+                numVectorSpace.fromReducedValueMap(valueMap, 7)
+            }
+        }
     }
 }
 

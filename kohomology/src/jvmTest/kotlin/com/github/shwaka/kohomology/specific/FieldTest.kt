@@ -23,6 +23,8 @@ import io.kotest.property.checkAll
 
 val fieldTag = NamedTag("Field")
 
+val kococoDebug = (System.getProperty("kococo.debug") != null)
+
 fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
     val intMin = -100
     val intMax = 100
@@ -158,8 +160,6 @@ fun <S : Scalar> rationalTest(field: Field<S>) = stringSpec {
         }
     }
 }
-
-val kococoDebug = (System.getProperty("kococo.debug") != null)
 
 class IntRationalTest : StringSpec({
     tags(fieldTag, intRationalTag)

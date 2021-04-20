@@ -47,8 +47,34 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace:
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
+    "[sphere of odd dim $sphereDim]" - {
+        if (sphereDim <= 0)
+            throw IllegalArgumentException("The dimension of a sphere must be positive")
+        if (sphereDim % 2 == 0)
+            throw IllegalArgumentException("The dimension of a sphere must be odd in this test")
+        val freeDGAlgebra = sphere(matrixSpace, sphereDim)
+        val (x) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            "check differential" {
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+            }
+            "check cohomology" {
+                for (n in 0 until (sphereDim * 3)) {
+                    val expectedDim = when (n) {
+                        0, sphereDim -> 1
+                        else -> 0
+                    }
+                    freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
+                }
+            }
+        }
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
-    "[sphere of dim $sphereDim]" - {
+    "[sphere of even dim $sphereDim]" - {
         if (sphereDim <= 0)
             throw IllegalArgumentException("The dimension of a sphere must be positive")
         if (sphereDim % 2 == 1)
@@ -125,6 +151,7 @@ class FreeDGAlgebraTest : FreeSpec({
 
     include(invalidModelTest(DenseMatrixSpaceOverBigRational))
     include(pointModelTest(DenseMatrixSpaceOverBigRational))
+    include(oddSphereModelTest(DenseMatrixSpaceOverBigRational, 3))
     include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
     include(pullbackOfHopfFibrationOverS4Test(DenseMatrixSpaceOverBigRational))
     include(errorTest(DenseMatrixSpaceOverBigRational))

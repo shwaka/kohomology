@@ -14,10 +14,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphere(
 ): FreeDGAlgebra<StringIndeterminateName, S, V, M> {
     if (dim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
-    if (dim % 2 == 1)
-        TODO("Odd dimensional sphere is not yet implemented")
+    return if (dim % 2 == 1)
+        oddSphere(matrixSpace, dim)
     else
-        return evenSphere(matrixSpace, dim)
+        evenSphere(matrixSpace, dim)
+}
+
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphere(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dim: Int
+): FreeDGAlgebra<StringIndeterminateName, S, V, M> {
+    if (dim % 2 == 0)
+        throw Exception("This can't happen!")
+    val indeterminateList = listOf(
+        Indeterminate("x", dim),
+    )
+    return FreeDGAlgebra(matrixSpace, indeterminateList) {
+        listOf(zeroGVector)
+    }
 }
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(

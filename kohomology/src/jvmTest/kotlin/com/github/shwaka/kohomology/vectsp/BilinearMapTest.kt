@@ -14,17 +14,17 @@ import io.kotest.matchers.shouldBe
 val multilinearMapTag = NamedTag("MultilinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val numVectorSpace = matrixSpace.numVectorSpace
-    val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
-    val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
-    val targetVectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
-    val context = MultipleVectorContext(numVectorSpace, listOf(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace))
+    "bilinear map test" {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
+        val targetVectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
+        val context = MultipleVectorContext(numVectorSpace, listOf(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace))
 
-    val (v, w) = sourceVectorSpace0.getBasis()
-    val (x, y) = sourceVectorSpace1.getBasis()
-    val (a, b) = targetVectorSpace.getBasis()
-    context.run {
-        "bilinear map test" {
+        val (v, w) = sourceVectorSpace0.getBasis()
+        val (x, y) = sourceVectorSpace1.getBasis()
+        val (a, b) = targetVectorSpace.getBasis()
+        context.run {
             val vectors = listOf(
                 listOf(a, b - a), // v*x, v*y
                 listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y

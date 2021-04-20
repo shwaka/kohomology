@@ -25,8 +25,8 @@ import com.github.shwaka.kohomology.specific.arb
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -43,7 +43,7 @@ val matrixTag = NamedTag("Matrix")
 val denseMatrixTag = NamedTag("DenseMatrix")
 val sparseMatrixTag = NamedTag("SparseMatrix")
 
-fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = freeSpec {
     val numVectorSpace = DenseNumVectorSpace.from(field)
     val matrixSpace = DenseMatrixSpace.from(numVectorSpace)
     "factory should return the cache if exists" {
@@ -51,7 +51,7 @@ fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar> sparseMatrixSpaceTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> sparseMatrixSpaceTest(field: Field<S>) = freeSpec {
     val numVectorSpace = SparseNumVectorSpace.from(field)
     val matrixSpace = SparseMatrixSpace.from(numVectorSpace)
     "factory should return the cache if exists" {
@@ -59,7 +59,7 @@ fun <S : Scalar> sparseMatrixSpaceTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     matrixSpace.context.run {
         val m = matrixSpace.fromRowList(
@@ -432,7 +432,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
     rowCount: Int,
     colCount: Int,
     max: Int = 100,
-) = stringSpec {
+) = freeSpec {
     val field = matrixSpace.field
     val scalarArb = field.arb(Arb.int(-max..max))
     val matrixArb = matrixSpace.arb(scalarArb, rowCount, colCount)
@@ -452,7 +452,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findPreimageGenTest(
     dimSource: Int,
     dimTarget: Int,
     max: Int = 100,
-) = stringSpec {
+) = freeSpec {
     val field = matrixSpace.field
     val scalarArb = field.arb(Arb.int(-max..max))
     val numVectorArb = matrixSpace.numVectorSpace.arb(scalarArb, dimSource)
@@ -473,7 +473,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findPreimageGenTest(
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixOfRank2Test(
     matrixSpace: MatrixSpace<S, V, M>,
     max: Int = 100
-) = stringSpec {
+) = freeSpec {
     // val vectorSpace = DenseNumVectorSpace.from(field)
     val field = matrixSpace.field
     val scalarArb = field.arb(Arb.int(-max..max))
@@ -501,7 +501,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixOfRank2Test(
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> determinantTest(matrixSpace: MatrixSpace<S, V, M>, n: Int, max: Int) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> determinantTest(matrixSpace: MatrixSpace<S, V, M>, n: Int, max: Int) = freeSpec {
     if (n < 0) throw IllegalArgumentException("Matrix size n should be non-negative")
     if (max < 0) throw IllegalArgumentException("max should be non-negative")
     val field = matrixSpace.field
@@ -532,7 +532,7 @@ const val matrixSizeForDet = 4
 // - BigRational の test に2秒くらいかかる
 // - LongRational の test が(乱数次第で)たまに overflow する
 
-class IntRationalDenseMatrixTest : StringSpec({
+class IntRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverIntRational
@@ -544,7 +544,7 @@ class IntRationalDenseMatrixTest : StringSpec({
     // include(rowEchelonFormGenTest(matrixSpace, 4, 3))
 })
 
-class LongRationalDenseMatrixTest : StringSpec({
+class LongRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, longRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverLongRational
@@ -556,7 +556,7 @@ class LongRationalDenseMatrixTest : StringSpec({
     // include(rowEchelonFormGenTest(matrixSpace, 4, 3))
 })
 
-class BigRationalDenseMatrixTest : StringSpec({
+class BigRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
@@ -570,7 +570,7 @@ class BigRationalDenseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class IntMod2DenseMatrixTest : StringSpec({
+class IntMod2DenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF2
@@ -584,7 +584,7 @@ class IntMod2DenseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class IntMod5DenseMatrixTest : StringSpec({
+class IntMod5DenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF5
@@ -598,7 +598,7 @@ class IntMod5DenseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class BigRationalSparseMatrixTest : StringSpec({
+class BigRationalSparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
@@ -612,7 +612,7 @@ class BigRationalSparseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class BigRationalDecomposedSparseMatrixTest : StringSpec({
+class BigRationalDecomposedSparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
@@ -626,7 +626,7 @@ class BigRationalDecomposedSparseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class IntMod2SparseMatrixTest : StringSpec({
+class IntMod2SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF2
@@ -640,7 +640,7 @@ class IntMod2SparseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class IntMod3SparseMatrixTest : StringSpec({
+class IntMod3SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF3
@@ -654,7 +654,7 @@ class IntMod3SparseMatrixTest : StringSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class IntMod5SparseMatrixTest : StringSpec({
+class IntMod5SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF5

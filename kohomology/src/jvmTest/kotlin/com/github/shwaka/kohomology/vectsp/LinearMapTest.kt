@@ -7,14 +7,14 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val linearMapTag = NamedTag("LinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
@@ -52,7 +52,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
     val (a, b) = vectorSpace.getBasis()
@@ -72,7 +72,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matri
     }
 }
 
-class BigRationalLinearMapTest : StringSpec({
+class BigRationalLinearMapTest : FreeSpec({
     tags(linearMapTag, bigRationalTag)
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(linearMapTest(matrixSpace))

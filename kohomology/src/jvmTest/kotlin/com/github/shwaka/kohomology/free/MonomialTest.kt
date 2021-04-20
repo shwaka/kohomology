@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.free
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
@@ -14,7 +14,7 @@ import io.kotest.property.exhaustive.exhaustive
 
 val monomialTestTag = NamedTag("Monomial")
 
-class MonomialTest : StringSpec({
+class MonomialTest : FreeSpec({
     tags(monomialTestTag)
 
     "indeterminate list with mixed degrees is not allowed" {

@@ -1,12 +1,12 @@
 package com.github.shwaka.kohomology.util
 
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
 val permutationTag = NamedTag("Permutation")
 
-class PermutationTest : StringSpec({
+class PermutationTest : FreeSpec({
     tags(permutationTag)
     "Permutations of [1, 2,..., n] should have length n!" {
         for (n in 0..5) {

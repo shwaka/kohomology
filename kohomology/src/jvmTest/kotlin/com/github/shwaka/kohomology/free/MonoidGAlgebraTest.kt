@@ -9,8 +9,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.Sign
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
@@ -19,7 +19,7 @@ val monoidGAlgebraTag = NamedTag("MonoidGAlgebra")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
     matrixSpace: MatrixSpace<S, V, M>,
     n: Int
-) = stringSpec {
+) = freeSpec {
     if (n < 0)
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
     "complex projective space of complex dimension $n" {
@@ -56,7 +56,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
     }
 }
 
-class MonoidGAlgebraTest : StringSpec({
+class MonoidGAlgebraTest : FreeSpec({
     tags(monoidGAlgebraTag, bigRationalTag)
 
     include(complexProjectiveSpaceTest(DenseMatrixSpaceOverBigRational, 5))

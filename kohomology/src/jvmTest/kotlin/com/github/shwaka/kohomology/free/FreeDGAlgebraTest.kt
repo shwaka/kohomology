@@ -10,14 +10,14 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should throw IllegalArgumentException when d^2 != 0" {
         val indeterminateList = listOf(
             Indeterminate("x", 3),
@@ -32,7 +32,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpac
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should work well even when the list of generator is empty" {
         val indeterminateList = listOf<Indeterminate<StringIndeterminateName>>()
         val freeDGAlgebra = shouldNotThrowAny {
@@ -46,7 +46,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
     if (sphereDim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
     if (sphereDim % 2 == 1)
@@ -76,7 +76,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> modelTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> modelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "model in FHT Section 12 (a) Example 7 (p.147)" {
         val indeterminateList = listOf(
             Indeterminate("a", 2),
@@ -112,7 +112,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> modelTest(matrixSpace: Matr
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "generator must be sorted along a Sullivan filtration" {
         val indeterminateList = listOf(
             Indeterminate("x", 2),
@@ -126,7 +126,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: Matr
     }
 }
 
-class FreeDGAlgebraTest : StringSpec({
+class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
     include(invalidModelTest(DenseMatrixSpaceOverBigRational))

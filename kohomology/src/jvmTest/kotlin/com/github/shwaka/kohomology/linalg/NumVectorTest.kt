@@ -11,8 +11,8 @@ import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
@@ -27,14 +27,14 @@ val sparseNumVectorTag = NamedTag("SparseNumVector")
 
 val kococoDebug = (System.getProperty("kococo.debug") != null)
 
-fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = stringSpec {
+fun <S : Scalar> denseNumVectorTest(numVectorSpace: DenseNumVectorSpace<S>) = freeSpec {
     "factory should return the cache if exists" {
         val field = numVectorSpace.field
         DenseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
     }
 }
 
-fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = stringSpec {
+fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = freeSpec {
     "factory should return the cache if exists" {
         val field = numVectorSpace.field
         SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
@@ -54,7 +54,7 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
     }
 }
 
-fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     numVectorSpace.context.run {
         "numVectors with same values should have the same hashCode" {
             val v1 = numVectorSpace.fromValueList(listOf(one, two))
@@ -128,37 +128,37 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
     }
 }
 
-class IntRationalDenseNumVectorTest : StringSpec({
+class IntRationalDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, intRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverIntRational))
     include(numVectorTest(DenseNumVectorSpaceOverIntRational))
 })
 
-class BigRationalDenseNumVectorTest : StringSpec({
+class BigRationalDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, bigRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverBigRational))
     include(numVectorTest(DenseNumVectorSpaceOverBigRational))
 })
 
-class IntModpDenseNumVectorTest : StringSpec({
+class IntModpDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, intModpTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverF7))
     include(numVectorTest(DenseNumVectorSpaceOverF7))
 })
 
-class IntRationalSparseNumVectorTest : StringSpec({
+class IntRationalSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, intRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverIntRational))
     include(numVectorTest(SparseNumVectorSpaceOverIntRational))
 })
 
-class BigRationalSparseNumVectorTest : StringSpec({
+class BigRationalSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverBigRational))
     include(numVectorTest(SparseNumVectorSpaceOverBigRational))
 })
 
-class IntModpSparseNumVectorTest : StringSpec({
+class IntModpSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, intModpTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverF7))
     include(numVectorTest(SparseNumVectorSpaceOverF7))

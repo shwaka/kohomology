@@ -6,13 +6,13 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
 val tensorProductTag = NamedTag("TensorProduct")
 
-fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     val vectorSpace1 = VectorSpace(numVectorSpace, listOf("v1", "v2"))
     val vectorSpace2 = VectorSpace(numVectorSpace, listOf("w1", "w2", "w3"))
     val tensorProduct = TensorProduct(vectorSpace1, vectorSpace2)
@@ -47,7 +47,7 @@ fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSp
     }
 }
 
-class TensorProductTest : StringSpec({
+class TensorProductTest : FreeSpec({
     tags(tensorProductTag, bigRationalTag)
     include(tensorProductTest(DenseNumVectorSpaceOverBigRational))
 })

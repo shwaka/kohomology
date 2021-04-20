@@ -10,8 +10,8 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -22,7 +22,7 @@ import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "GAlgebra should work well even when the list of generator is empty" {
         val generatorList = listOf<Indeterminate<StringIndeterminateName>>()
         val freeGAlgebra = shouldNotThrowAny {
@@ -32,7 +32,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = freeSpec {
     if (generatorDegree == 0)
         throw IllegalArgumentException("Invalid test parameter: generatorDegree must be non-zero")
     if (generatorDegree % 2 == 1)
@@ -92,7 +92,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = freeSpec {
     if (generatorDegree % 2 == 0)
         throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
     val generatorList = listOf(
@@ -145,7 +145,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "derivation test (2-dim sphere)" {
         val generatorList = listOf(
             Indeterminate("x", 2),
@@ -213,7 +213,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "getAlgebraMap should throw IllegalArgumentException when an element of invalid degree is given" {
         val generatorList = listOf(
             Indeterminate("x", 2),
@@ -242,7 +242,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
     }
 }
 
-class FreeGAlgebraTest : StringSpec({
+class FreeGAlgebraTest : FreeSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational

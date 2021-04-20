@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 import io.kotest.data.forAll
 import io.kotest.data.row
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -13,7 +13,7 @@ import io.kotest.matchers.shouldBe
 
 val extensionTag = NamedTag("Extension")
 
-class IntPowTest : StringSpec({
+class IntPowTest : FreeSpec({
     tags(extensionTag)
 
     "3^0 should be 1" {
@@ -36,7 +36,7 @@ class IntPowTest : StringSpec({
     }
 })
 
-class PositiveRemTest : StringSpec({
+class PositiveRemTest : FreeSpec({
     tags(extensionTag)
 
     "positive remainder" {
@@ -55,7 +55,7 @@ class PositiveRemTest : StringSpec({
     }
 })
 
-class IsPrimeTest : StringSpec({
+class IsPrimeTest : FreeSpec({
     tags(extensionTag)
 
     "3 should be prime" {

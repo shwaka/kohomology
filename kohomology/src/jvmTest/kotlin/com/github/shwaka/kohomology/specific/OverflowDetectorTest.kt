@@ -3,9 +3,9 @@ package com.github.shwaka.kohomology.specific
 import com.github.shwaka.kohomology.overflowTag
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.core.spec.style.StringSpec
+import io.kotest.core.spec.style.FreeSpec
 
-class OverflowDetectorTest : StringSpec({
+class OverflowDetectorTest : FreeSpec({
     tags(overflowTag)
 
     "Int.MAX_VALUE + 1 should cause overflow for Int" {

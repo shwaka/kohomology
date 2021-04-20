@@ -7,13 +7,13 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
 val multilinearMapTag = NamedTag("MultilinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
     val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
@@ -39,7 +39,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
     }
 }
 
-class BigRationalBilinearMapTest : StringSpec({
+class BigRationalBilinearMapTest : FreeSpec({
     tags(multilinearMapTag, bigRationalTag)
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(bilinearMapTest(matrixSpace))

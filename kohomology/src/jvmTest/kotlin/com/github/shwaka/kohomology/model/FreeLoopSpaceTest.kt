@@ -9,8 +9,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import mu.KotlinLogging
@@ -20,7 +20,7 @@ val freeLoopSpaceTag = NamedTag("FreeLoopSpace")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTest(
     matrixSpace: MatrixSpace<S, V, M>,
     sphereDim: Int
-) = stringSpec {
+) = freeSpec {
     val logger = KotlinLogging.logger {}
     if (sphereDim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
@@ -78,7 +78,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     }
 }
 
-class FreeLoopSpaceTest : StringSpec({
+class FreeLoopSpaceTest : FreeSpec({
     tags(freeLoopSpaceTag, bigRationalTag)
 
     include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))

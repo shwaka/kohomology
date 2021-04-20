@@ -7,8 +7,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -16,7 +16,7 @@ import io.kotest.matchers.shouldBe
 val subQuotVectorSpaceTag = NamedTag("SubQuotVectorSpace")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
     val (u, v, w) = vectorSpace.getBasis()
@@ -49,7 +49,7 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
     }
 }
 
-class SubQuotVectorSpaceTest : StringSpec({
+class SubQuotVectorSpaceTest : FreeSpec({
     tags(subQuotVectorSpaceTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational

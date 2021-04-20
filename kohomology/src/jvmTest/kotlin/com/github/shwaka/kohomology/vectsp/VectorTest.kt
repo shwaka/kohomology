@@ -13,8 +13,8 @@ import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-im
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -22,7 +22,7 @@ import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 
 val vectorTag = NamedTag("Vector")
 
-fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
     vectorSpace.context.run {
         "Vectors with same coefficients should return the same hashCode" {
@@ -57,7 +57,7 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
     }
 }
 
-fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     data class BasisElm(val name: String) : BasisName {
         override fun toString(): String = this.name
     }
@@ -83,7 +83,7 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
 }
 
 @Suppress("UNUSED_VARIABLE")
-fun <S : Scalar, V : NumVector<S>> manyBasisTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> manyBasisTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     "destructuring declaration should work for basis with many elements" {
         val basisNames = (1..15).map { "v$it" }
         val vectorSpace = VectorSpace(numVectorSpace, basisNames)
@@ -93,7 +93,7 @@ fun <S : Scalar, V : NumVector<S>> manyBasisTest(numVectorSpace: NumVectorSpace<
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
     val (v, w) = vectorSpace.getBasis()
@@ -111,7 +111,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: Ma
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val vectorSpace = VectorSpace(numVectorSpace, listOf<String>())
     vectorSpace.context.run {
@@ -126,7 +126,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSp
     }
 }
 
-class BigRationalVectorTest : StringSpec({
+class BigRationalVectorTest : FreeSpec({
     tags(vectorTag, bigRationalTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverBigRational

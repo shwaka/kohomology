@@ -5,15 +5,15 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
 val multipleVectorContextTag = NamedTag("MultipleVectorContext")
 
 data class MyBasis(val name: String) : BasisName
 
-fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     "two vector spaces with the same basis class" {
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
         val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
@@ -39,7 +39,7 @@ fun <S : Scalar, V : NumVector<S>> multipleVectorContextTest(numVectorSpace: Num
     }
 }
 
-class BigRationalMultipleVectorContextTest : StringSpec({
+class BigRationalMultipleVectorContextTest : FreeSpec({
     tags(multipleVectorContextTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverBigRational

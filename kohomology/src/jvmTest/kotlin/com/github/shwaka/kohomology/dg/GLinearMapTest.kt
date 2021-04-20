@@ -9,14 +9,14 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
 val gLinearMapTag = NamedTag("GLinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
     val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
         // V[n] = span{v0, v1,..., v{n-1}}
@@ -58,7 +58,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
     }
 }
 
-class BigRationalGLinearMapTest : StringSpec({
+class BigRationalGLinearMapTest : FreeSpec({
     tags(gLinearMapTag, bigRationalTag)
 
     include(gLinearMapTest(DenseMatrixSpaceOverBigRational))

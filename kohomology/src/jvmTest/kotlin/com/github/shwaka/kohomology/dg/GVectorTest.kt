@@ -7,8 +7,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -18,7 +18,7 @@ import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 
 val gVectorTag = NamedTag("GVector")
 
-fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
@@ -46,7 +46,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
     }
 }
 
-fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
@@ -79,7 +79,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
     }
 }
 
-class BigRationalGVectorSpaceTest : StringSpec({
+class BigRationalGVectorSpaceTest : FreeSpec({
     tags(gVectorTag, bigRationalTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverBigRational

@@ -10,8 +10,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
@@ -20,7 +20,7 @@ val freePathSpaceTag = NamedTag("FreePathSpace")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTest(
     matrixSpace: MatrixSpace<S, V, M>,
     sphereDim: Int
-) = stringSpec {
+) = freeSpec {
     if (sphereDim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
     if (sphereDim % 2 == 1)
@@ -60,7 +60,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
     matrixSpace: MatrixSpace<S, V, M>,
     n: Int
-) = stringSpec {
+) = freeSpec {
     if (n <= 0)
         throw IllegalArgumentException("The complex dimension n of CP^n must be positive")
     val indeterminateList = listOf(
@@ -108,7 +108,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
     }
 }
 
-class FreePathSpaceTest : StringSpec({
+class FreePathSpaceTest : FreeSpec({
     tags(freePathSpaceTag, bigRationalTag)
 
     include(freePathSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))

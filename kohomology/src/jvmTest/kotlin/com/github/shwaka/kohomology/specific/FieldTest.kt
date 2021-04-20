@@ -11,8 +11,8 @@ import com.github.shwaka.kohomology.overflowTag
 import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
@@ -25,7 +25,7 @@ val fieldTag = NamedTag("Field")
 
 val kococoDebug = (System.getProperty("kococo.debug") != null)
 
-fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> fromIntTest(field: Field<S>) = freeSpec {
     val intMin = -100
     val intMax = 100
     val intArb = Arb.int(intMin..intMax)
@@ -49,7 +49,7 @@ fun <S : Scalar> fromIntTest(field: Field<S>) = stringSpec {
     }
 }
 
-fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = stringSpec {
+fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeSpec {
     if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
     val arb = field.arb(Arb.int(-intMax..intMax))
     field.context.run {
@@ -131,7 +131,7 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = strin
     }
 }
 
-fun <S : Scalar> rationalTest(field: Field<S>) = stringSpec {
+fun <S : Scalar> rationalTest(field: Field<S>) = freeSpec {
     tags(fieldTag)
 
     field.context.run {
@@ -161,7 +161,7 @@ fun <S : Scalar> rationalTest(field: Field<S>) = stringSpec {
     }
 }
 
-class IntRationalTest : StringSpec({
+class IntRationalTest : FreeSpec({
     tags(fieldTag, intRationalTag)
 
     include(fromIntTest(IntRationalField))
@@ -178,7 +178,7 @@ class IntRationalTest : StringSpec({
     }
 })
 
-class LongRationalTest : StringSpec({
+class LongRationalTest : FreeSpec({
     tags(fieldTag, longRationalTag)
 
     include(fromIntTest(LongRationalField))
@@ -193,7 +193,7 @@ class LongRationalTest : StringSpec({
     }
 })
 
-class BigRationalTest : StringSpec({
+class BigRationalTest : FreeSpec({
     tags(fieldTag, bigRationalTag)
 
     include(fromIntTest(BigRationalField))
@@ -213,7 +213,7 @@ class BigRationalTest : StringSpec({
     }
 })
 
-class IntModpTest : StringSpec({
+class IntModpTest : FreeSpec({
     tags(fieldTag, intModpTag)
 
     include(fromIntTest(F5))
@@ -250,7 +250,7 @@ class IntModpTest : StringSpec({
     }
 })
 
-class FpTest : StringSpec({
+class FpTest : FreeSpec({
     tags(fieldTag, intModpTag)
 
     "Fp.get should create only one instance for each p" {
@@ -267,7 +267,7 @@ class FpTest : StringSpec({
     }
 })
 
-class CompileTest : StringSpec({
+class CompileTest : FreeSpec({
     tags(fieldTag, compileTag)
 
     "IntRational + IntRational should compile" {

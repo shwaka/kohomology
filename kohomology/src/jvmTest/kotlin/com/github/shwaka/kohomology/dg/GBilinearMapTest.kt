@@ -10,13 +10,13 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import io.kotest.core.NamedTag
-import io.kotest.core.spec.style.StringSpec
-import io.kotest.core.spec.style.stringSpec
+import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
 val gBilinearMapTag = NamedTag("GBilinearMap")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = stringSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     // 1つの元で生成される外積代数
     val numVectorSpace = matrixSpace.numVectorSpace
     val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "span<u, v>") { degree ->
@@ -56,7 +56,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
     }
 }
 
-class BigRationalGBilinearMapTest : StringSpec({
+class BigRationalGBilinearMapTest : FreeSpec({
     tags(gBilinearMapTag, bigRationalTag)
 
     include(gBilinearMapTest(DenseMatrixSpaceOverBigRational))

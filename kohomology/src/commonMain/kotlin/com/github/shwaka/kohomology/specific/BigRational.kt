@@ -10,7 +10,6 @@ import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.ionspin.kotlin.bignum.integer.BigInteger
-import kotlin.Exception
 
 private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
     if (a == BigInteger.ZERO || b == BigInteger.ZERO) {

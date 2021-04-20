@@ -24,7 +24,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
     val (x, y) = sourceVectorSpace1.getBasis()
     val (a, b) = targetVectorSpace.getBasis()
     context.run {
-        "multilinear map test" {
+        "bilinear map test" {
             val vectors = listOf(
                 listOf(a, b - a), // v*x, v*y
                 listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y

@@ -47,31 +47,33 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace:
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
-    if (sphereDim <= 0)
-        throw IllegalArgumentException("The dimension of a sphere must be positive")
-    if (sphereDim % 2 == 1)
-        throw IllegalArgumentException("The dimension of a sphere must be even in this test")
-    val freeDGAlgebra = sphere(matrixSpace, sphereDim)
-    val (x, y) = freeDGAlgebra.gAlgebra.generatorList
-    freeDGAlgebra.context.run {
-        "[sphere of dim $sphereDim] check differential" {
-            d(unit).isZero().shouldBeTrue()
-            d(x).isZero().shouldBeTrue()
-            d(y) shouldBe x.pow(2)
-        }
-        "[sphere of dim $sphereDim] check cohomology" {
-            for (n in 0 until (sphereDim * 3)) {
-                val expectedDim = when (n) {
-                    0, sphereDim -> 1
-                    else -> 0
-                }
-                freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
+    "[sphere of dim $sphereDim]" - {
+        if (sphereDim <= 0)
+            throw IllegalArgumentException("The dimension of a sphere must be positive")
+        if (sphereDim % 2 == 1)
+            throw IllegalArgumentException("The dimension of a sphere must be even in this test")
+        val freeDGAlgebra = sphere(matrixSpace, sphereDim)
+        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            "check differential" {
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+                d(y) shouldBe x.pow(2)
             }
-        }
-        "[sphere of dim $sphereDim] check cocycle" {
-            shouldNotThrowAny { cohomologyClassOf(x) }
-            shouldNotThrowAny { cohomologyClassOf(x.pow(2)) }
-            shouldThrow<IllegalArgumentException> { cohomologyClassOf(y) }
+            "check cohomology" {
+                for (n in 0 until (sphereDim * 3)) {
+                    val expectedDim = when (n) {
+                        0, sphereDim -> 1
+                        else -> 0
+                    }
+                    freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
+                }
+            }
+            "check cocycle" {
+                shouldNotThrowAny { cohomologyClassOf(x) }
+                shouldNotThrowAny { cohomologyClassOf(x.pow(2)) }
+                shouldThrow<IllegalArgumentException> { cohomologyClassOf(y) }
+            }
         }
     }
 }

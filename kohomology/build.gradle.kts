@@ -9,7 +9,7 @@ plugins {
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("java-library") // necessary for jacoco
     jacoco
-    id("com.adarshr.test-logger") version "3.0.0"
+    id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
 }
 
@@ -153,9 +153,10 @@ tasks.jacocoTestReport {
 
 testlogger {
     theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
-    showCauses = true
+    showCauses = false
     showStandardStreams = true
     showFullStackTraces = true
+    filterFullStackTraces = "io\\.kotest.*"
 }
 
 fun inWSL(): Boolean {

@@ -8,3 +8,11 @@
  */
 
 rootProject.name = "kohomology"
+
+pluginManagement {
+    repositories {
+        // mavenLocal()
+        maven(url = "https://shwaka.github.io/maven/")
+        gradlePluginPortal()
+    }
+}

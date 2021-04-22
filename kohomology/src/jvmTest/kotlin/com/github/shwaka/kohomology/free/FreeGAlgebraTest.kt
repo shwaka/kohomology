@@ -257,7 +257,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
             freeGAlgebra.parse("x * y") shouldBe (x * y)
-            freeGAlgebra.parse("x*x - x*y -x*y + y*y") shouldBe (x - y).pow(2)
+            freeGAlgebra.parse("2 * x") shouldBe (2 * x)
+            freeGAlgebra.parse("x*x - 2*x*y + y*y") shouldBe (x - y).pow(2)
             freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
         }
     }

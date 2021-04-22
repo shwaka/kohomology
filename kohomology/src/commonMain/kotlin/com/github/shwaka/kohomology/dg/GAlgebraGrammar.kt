@@ -20,15 +20,12 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     private val gAlgebra: GAlgebra<B, S, V, M>,
     private val generators: List<Pair<String, GVector<B, S, V>>>
 ) : Grammar<GVectorOrZero<B, S, V>>() {
-    val gen by regexToken(
-        run {
-            "(" + this.generators.joinToString("|") { it.first } + ")"
-        }
-    )
+    val gen by regexToken("(" + this.generators.joinToString("|") { it.first } + ")")
+    val int by regexToken("\\d+")
     val lpar by literalToken("(")
     val rpar by literalToken(")")
     val mul by literalToken("*")
-    // val pow by literalToken("^")
+    val pow by literalToken("^")
     // val div by literalToken("/")
     val minus by literalToken("-")
     val plus by literalToken("+")
@@ -38,16 +35,29 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
         this@GAlgebraGrammar.generators.find { it.first == text }?.second
             ?: throw Exception("This can't happen!")
     }
-    val term: Parser<GVectorOrZero<B, S, V>> by genParser or (
+    val intParser: Parser<Int> by int use { text.toInt() }
+    val minusParser: Parser<GVectorOrZero<B, S, V>> by (
         skip(minus) and parser(::term) map {
             when (it) {
                 is ZeroGVector -> it
                 is GVector -> this.gAlgebra.context.run { -it }
             }
         }
-        ) or (skip(lpar) and parser(::rootParser) and skip(rpar))
-
-    val mulChain by leftAssociative(term, mul) { a, _, b ->
+        )
+    val term: Parser<GVectorOrZero<B, S, V>> by genParser or minusParser or
+        (skip(lpar) and parser(::rootParser) and skip(rpar))
+    val powered: Parser<GVectorOrZero<B, S, V>> by (
+        term and skip(pow) and intParser map { (gVector, n) ->
+            if (n == 0)
+                this.gAlgebra.unit
+            else
+                when (gVector) {
+                    is ZeroGVector -> gVector
+                    is GVector -> this.gAlgebra.context.run { gVector.pow(n) }
+                }
+        }
+        ) or term
+    val mulChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(powered, mul) { a, _, b ->
         when (a) {
             is ZeroGVector -> a
             is GVector -> when (b) {
@@ -56,7 +66,7 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
             }
         }
     }
-    val subSumChain by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
+    val subSumChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
         when (b) {
             is ZeroGVector -> a
             is GVector -> this.gAlgebra.context.run {

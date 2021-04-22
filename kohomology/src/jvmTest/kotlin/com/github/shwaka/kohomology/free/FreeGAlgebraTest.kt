@@ -21,6 +21,7 @@ import io.kotest.property.exhaustive.map
 import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
+val parseTag = NamedTag("Parse")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "GAlgebra should work well even when the list of generator is empty" {
@@ -247,7 +248,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "parse test" {
+    "parse test".config(tags = setOf(parseTag)) {
         val generatorList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 2),
@@ -257,6 +258,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         freeGAlgebra.context.run {
             freeGAlgebra.parse("x * y") shouldBe (x * y)
             freeGAlgebra.parse("x*x - x*y -x*y + y*y") shouldBe (x - y).pow(2)
+            freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
         }
     }
 }

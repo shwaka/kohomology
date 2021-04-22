@@ -20,9 +20,11 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     private val gAlgebra: GAlgebra<B, S, V, M>,
     private val generators: List<Pair<String, GVector<B, S, V>>>
 ) : Grammar<GVectorOrZero<B, S, V>>() {
-    val gen by regexToken(run {
-        "(" + this.generators.joinToString("|") { it.first } + ")"
-    })
+    val gen by regexToken(
+        run {
+            "(" + this.generators.joinToString("|") { it.first } + ")"
+        }
+    )
     val lpar by literalToken("(")
     val rpar by literalToken(")")
     val mul by literalToken("*")
@@ -36,14 +38,14 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
         this@GAlgebraGrammar.generators.find { it.first == text }?.second
             ?: throw Exception("This can't happen!")
     }
-    val term: Parser<GVectorOrZero<B, S, V>> by genParser or
-        (skip(minus) and parser(::term) map {
+    val term: Parser<GVectorOrZero<B, S, V>> by genParser or (
+        skip(minus) and parser(::term) map {
             when (it) {
                 is ZeroGVector -> it
                 is GVector -> this.gAlgebra.context.run { -it }
             }
-        }) or
-        (skip(lpar) and parser(::rootParser) and skip(rpar))
+        }
+        ) or (skip(lpar) and parser(::rootParser) and skip(rpar))
 
     val mulChain by leftAssociative(term, mul) { a, _, b ->
         when (a) {

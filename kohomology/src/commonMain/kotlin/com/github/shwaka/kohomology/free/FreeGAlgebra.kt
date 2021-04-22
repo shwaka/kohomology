@@ -131,6 +131,13 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         }
     }
 
+    fun parse(text: String): GVectorOrZero<Monomial<I>, S, V> {
+        val generators = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
+            Pair(indeterminate.name.toString(), generator)
+        }
+        return this.parse(generators, text)
+    }
+
     companion object {
         private fun <I : IndeterminateName> getName(indeterminateList: List<Indeterminate<I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }

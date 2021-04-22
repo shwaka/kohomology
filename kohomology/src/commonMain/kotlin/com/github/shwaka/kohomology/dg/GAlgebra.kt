@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -79,5 +80,10 @@ open class GAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
             this[degree].getId(this.matrixSpace)
         }
+    }
+
+    fun parse(generators: List<Pair<String, GVector<B, S, V>>>, text: String): GVectorOrZero<B, S, V> {
+        val grammar = GAlgebraGrammar(this, generators)
+        return grammar.parseToEnd(text)
     }
 }

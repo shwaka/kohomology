@@ -246,6 +246,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
     }
 }
 
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "parse test" {
+        val generatorList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 2),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val (x, y) = freeGAlgebra.generatorList
+        freeGAlgebra.context.run {
+            freeGAlgebra.parse("x * y") shouldBe (x * y)
+            freeGAlgebra.parse("x*x - x*y -x*y + y*y") shouldBe (x - y).pow(2)
+        }
+    }
+}
+
 class FreeGAlgebraTest : FreeSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
@@ -263,4 +279,6 @@ class FreeGAlgebraTest : FreeSpec({
 
     include(derivationTest(matrixSpace))
     include(algebraMapTest(matrixSpace))
+
+    include(parseTest(matrixSpace))
 })

@@ -57,14 +57,21 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
                 }
         }
         ) or termParser
-    val scalarMulParser: Parser<GVectorOrZero<B, S, V>> by powerParser or (
+    val scalarMulParser: Parser<GVectorOrZero<B, S, V>> by (
         intParser and skip(mul) and powerParser map { (n, gVector) ->
             when (gVector) {
                 is ZeroGVector -> gVector
                 is GVector -> this.gAlgebra.context.run { n * gVector }
             }
         }
-        )
+        ) or (
+        powerParser and skip(mul) and intParser map { (gVector, n) ->
+            when (gVector) {
+                is ZeroGVector -> gVector
+                is GVector -> this.gAlgebra.context.run { n * gVector }
+            }
+        }
+        ) or powerParser
     val mulChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->
         when (a) {
             is ZeroGVector -> a

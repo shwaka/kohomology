@@ -120,6 +120,9 @@ cd ../benchmark
 6. Run `./profiler.sh -d 20 -f profile.html -I 'MainKt.*' -o flamegraph --minwidth 1.0 $(jps | grep MainKt | awk '{print $1}')` in (A)
 7. Press `ENTER` in (B)
 
+## Generate documentation
+`./gradlew dokkaHtml`
+
 ## Memo
 ### Recursive generics
 当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．

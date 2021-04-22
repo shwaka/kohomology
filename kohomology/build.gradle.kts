@@ -11,6 +11,7 @@ plugins {
     jacoco
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
+    id("org.jetbrains.dokka") version "1.4.32"
 }
 
 apply<com.github.shwaka.kohomology.MyPlugin>()
@@ -18,6 +19,12 @@ apply<com.github.shwaka.kohomology.MyPlugin>()
 repositories {
     jcenter()
     maven(url = "https://shwaka.github.io/maven/")
+    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") {
+        // for dokka
+        content {
+            includeGroup("org.jetbrains.kotlinx")
+        }
+    }
 }
 
 kotlin {

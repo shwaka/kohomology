@@ -25,9 +25,9 @@ val parseTag = NamedTag("Parse")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "GAlgebra should work well even when the list of generator is empty" {
-        val generatorList = listOf<Indeterminate<StringIndeterminateName>>()
+        val indeterminateList = listOf<Indeterminate<StringIndeterminateName>>()
         val freeGAlgebra = shouldNotThrowAny {
-            FreeGAlgebra(matrixSpace, generatorList)
+            FreeGAlgebra(matrixSpace, indeterminateList)
         }
         freeGAlgebra[0].dim shouldBe 1
     }
@@ -41,11 +41,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             throw IllegalArgumentException("Invalid test parameter: generatorDegree must be even")
         if (maxPolynomialLength <= 0)
             throw IllegalArgumentException("Invalid test parameter: maxPolynomialLength must be positive")
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", generatorDegree),
             Indeterminate("y", generatorDegree),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
         val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
         "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {
@@ -99,11 +99,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     "[exterior, deg=$generatorDegree]" - {
         if (generatorDegree % 2 == 0)
             throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", generatorDegree),
             Indeterminate("y", generatorDegree),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val multipleDegreeGen = exhaustive(
             listOf(
                 Pair(0, 1),
@@ -152,11 +152,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "derivation test (2-dim sphere)" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             val (x, y) = freeGAlgebra.generatorList
             val dx = zeroGVector
@@ -171,11 +171,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
     }
 
     "derivation test (contractible)" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             val (x, y) = freeGAlgebra.generatorList
             @Suppress("UnnecessaryVariable") val dx = y
@@ -191,11 +191,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
     }
 
     "getDerivation should throw IllegalArgumentException when an element of invalid degree is given" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             val (x, _) = freeGAlgebra.generatorList
             shouldThrow<IllegalArgumentException> {
@@ -205,11 +205,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
     }
 
     "getDerivation should throw InvalidSizeException when a list of invalid size is given" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             shouldThrow<InvalidSizeException> {
                 freeGAlgebra.getDerivation(listOf(zeroGVector), 1)
@@ -220,11 +220,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "getAlgebraMap should throw IllegalArgumentException when an element of invalid degree is given" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             val (x, _) = freeGAlgebra.generatorList
             shouldThrow<IllegalArgumentException> {
@@ -234,11 +234,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
     }
 
     "getAlgebraMap should throw InvalidSizeException when a list of invalid size is given" {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
             shouldThrow<InvalidSizeException> {
                 freeGAlgebra.getGAlgebraMap(freeGAlgebra, listOf(zeroGVector))
@@ -249,11 +249,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "parse test".config(tags = setOf(parseTag)) {
-        val generatorList = listOf(
+        val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 2),
         )
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, generatorList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
             freeGAlgebra.parse("x * y") shouldBe (x * y)

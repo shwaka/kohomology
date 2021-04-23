@@ -113,6 +113,12 @@ open class GVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     operator fun Int.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = gVector * this
 
     operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
+    operator fun GVectorOrZero<B, S, V>.unaryMinus(): GVectorOrZero<B, S, V> {
+        return when (this) {
+            is ZeroGVector -> this@GVectorContext.zeroGVector
+            is GVector -> -this
+        }
+    }
 }
 
 open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(

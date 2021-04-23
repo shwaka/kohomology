@@ -37,12 +37,7 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     }
     val intParser: Parser<Int> by int use { text.toInt() }
     val minusParser: Parser<GVectorOrZero<B, S, V>> by (
-        skip(minus) and parser(::termParser) map {
-            when (it) {
-                is ZeroGVector -> it
-                is GVector -> this.gAlgebra.context.run { -it }
-            }
-        }
+        skip(minus) and parser(::termParser) map { this.gAlgebra.context.run { -it } }
         )
     val termParser: Parser<GVectorOrZero<B, S, V>> by genParser or minusParser or
         (skip(lpar) and parser(::rootParser) and skip(rpar))

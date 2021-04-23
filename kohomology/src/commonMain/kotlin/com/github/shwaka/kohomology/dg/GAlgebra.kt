@@ -14,7 +14,6 @@ import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
-import kotlin.math.exp
 
 interface GAlgebraOperations<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>

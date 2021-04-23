@@ -158,6 +158,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
         freeDGAlgebra.context.run {
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe (x.pow(2))
+            parse("2 * x^2") shouldBe (2 * x.pow(2))
         }
         for (degree in 0 until 10) {
             val expectedDim = when (degree) {

@@ -1,17 +1,32 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
+import com.github.shwaka.kohomology.dg.DGAlgebraContext
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
+import com.github.shwaka.kohomology.dg.DGVectorOperations
 import com.github.shwaka.kohomology.dg.Derivation
-import com.github.shwaka.kohomology.dg.GAlgebraContext
+import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
+
+class FreeDGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    scalarOperations: ScalarOperations<S>,
+    numVectorOperations: NumVectorOperations<S, V>,
+    gVectorOperations: GVectorOperations<Monomial<I>, S, V>,
+    gAlgebraOperations: GAlgebraOperations<Monomial<I>, S, V, M>,
+    dgVectorOperations: DGVectorOperations<Monomial<I>, S, V, M>,
+    freeGAlgebraOperations: FreeGAlgebraOperations<I, S, V, M>
+) : DGAlgebraContext<Monomial<I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
+    FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
 
 data class GeneratorOfFreeDGA(val name: String, val degree: Degree, val differentialValue: String)
 
@@ -20,6 +35,10 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     differential: Derivation<Monomial<I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGAlgebra<Monomial<I>, S, V, M>(gAlgebra, differential, matrixSpace) {
+    override val context by lazy {
+        FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
+    }
+
     companion object {
         operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,

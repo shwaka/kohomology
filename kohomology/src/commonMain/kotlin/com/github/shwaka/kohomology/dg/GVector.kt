@@ -66,7 +66,9 @@ open class GVector<B : BasisName, S : Scalar, V : NumVector<S>>(
 interface GVectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(gVector: GVector<B, S, V>): Boolean
     fun add(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
     fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
     fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V>
     val zeroGVector: ZeroGVector<B, S, V>
 }
@@ -77,7 +79,9 @@ open class GVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     gVectorOperations: GVectorOperations<B, S, V>,
 ) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), GVectorOperations<B, S, V> by gVectorOperations {
     operator fun GVector<B, S, V>.plus(other: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.add(this, other)
+    operator fun GVectorOrZero<B, S, V>.plus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.add(this, other)
     operator fun GVector<B, S, V>.minus(other: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.subtract(this, other)
+    operator fun GVectorOrZero<B, S, V>.minus(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.subtract(this, other)
     operator fun GVector<B, S, V>.times(scalar: S): GVector<B, S, V> = this@GVectorContext.multiply(scalar, this)
     operator fun S.times(gVector: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.multiply(this, gVector)
     operator fun GVector<B, S, V>.times(scalar: Int): GVector<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
@@ -205,6 +209,16 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return this@GVectorSpace.fromVector(vector, a.degree)
     }
 
+    override fun add(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        return when (b) {
+            is ZeroGVector -> a
+            is GVector -> when (a) {
+                is ZeroGVector -> b
+                is GVector -> this.add(a, b)
+            }
+        }
+    }
+
     override fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         if (a !in this)
             throw IllegalContextException("The gVector $a does not match the context")
@@ -216,6 +230,16 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
             a.vector - b.vector
         }
         return this@GVectorSpace.fromVector(vector, a.degree)
+    }
+
+    override fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        return when (b) {
+            is ZeroGVector -> a
+            is GVector -> when (a) {
+                is ZeroGVector -> this.multiply(this.field.fromInt(-1), b)
+                is GVector -> this.subtract(a, b)
+            }
+        }
     }
 
     override fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V> {

@@ -82,15 +82,23 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
         }
     }
     val subSumChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
-        when (b) {
-            is ZeroGVector -> a
-            is GVector -> this.gAlgebra.context.run {
-                when (a) {
-                    is ZeroGVector -> if (op == plus) b else -b
-                    is GVector -> if (op == plus) a + b else a - b
-                }
+        this.gAlgebra.context.run {
+            when (op) {
+                plus -> a + b
+                minus -> a - b
+                else -> throw Exception("This can't happen!")
             }
         }
+        //
+        // when (b) {
+        //     is ZeroGVector -> a
+        //     is GVector -> this.gAlgebra.context.run {
+        //         when (a) {
+        //             is ZeroGVector -> if (op == plus) b else -b
+        //             is GVector -> if (op == plus) a + b else a - b
+        //         }
+        //     }
+        // }
     }
 
     override val rootParser: Parser<GVectorOrZero<B, S, V>> by subSumChain

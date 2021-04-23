@@ -14,9 +14,11 @@ import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import kotlin.math.exp
 
 interface GAlgebraOperations<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
+    fun multiply(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
     val unit: GVector<B, S, V>
 }
 
@@ -27,6 +29,9 @@ class GAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     gAlgebraOperations: GAlgebraOperations<B, S, V, M>,
 ) : GVectorContext<B, S, V>(scalarOperations, numVectorOperations, gVectorOperations), GAlgebraOperations<B, S, V, M> by gAlgebraOperations {
     operator fun GVector<B, S, V>.times(other: GVector<B, S, V>): GVector<B, S, V> {
+        return this@GAlgebraContext.multiply(this, other)
+    }
+    operator fun GVectorOrZero<B, S, V>.times(other: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
         return this@GAlgebraContext.multiply(this, other)
     }
     fun GVector<B, S, V>.pow(exponent: Int): GVector<B, S, V> {
@@ -41,6 +46,17 @@ class GAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
             }
             exponent < 0 -> throw ArithmeticException("Negative power in an algebra is not defined")
             else -> throw Exception("This can't happen!")
+        }
+    }
+    fun GVectorOrZero<B, S, V>.pow(exponent: Int): GVectorOrZero<B, S, V> {
+        return when (this) {
+            is GVector -> this.pow(exponent)
+            is ZeroGVector -> when {
+                exponent == 0 -> this@GAlgebraContext.unit
+                exponent > 0 -> this@GAlgebraContext.zeroGVector
+                exponent < 0 -> throw ArithmeticException("Negative power in an algebra is not defined")
+                else -> throw Exception("This can't happen!")
+            }
         }
     }
 }
@@ -67,6 +83,16 @@ open class GAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V
     }
     override fun multiply(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V> {
         return this.multiplication(a, b)
+    }
+
+    override fun multiply(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        return when (a) {
+            is ZeroGVector -> this.zeroGVector
+            is GVector -> when (b) {
+                is ZeroGVector -> this.zeroGVector
+                is GVector -> this.multiply(a, b)
+            }
+        }
     }
 
     fun isBasis(

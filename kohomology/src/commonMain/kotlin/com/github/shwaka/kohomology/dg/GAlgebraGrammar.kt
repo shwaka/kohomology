@@ -48,38 +48,20 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
         (skip(lpar) and parser(::rootParser) and skip(rpar))
     val powerParser: Parser<GVectorOrZero<B, S, V>> by (
         termParser and skip(pow) and intParser map { (gVector, n) ->
-            if (n == 0)
-                this.gAlgebra.unit
-            else
-                when (gVector) {
-                    is ZeroGVector -> gVector
-                    is GVector -> this.gAlgebra.context.run { gVector.pow(n) }
-                }
+            this.gAlgebra.context.run { gVector.pow(n) }
         }
         ) or termParser
     val scalarMulParser: Parser<GVectorOrZero<B, S, V>> by (
         intParser and skip(mul) and powerParser map { (n, gVector) ->
-            when (gVector) {
-                is ZeroGVector -> gVector
-                is GVector -> this.gAlgebra.context.run { n * gVector }
-            }
+            this.gAlgebra.context.run { n * gVector }
         }
         ) or (
         powerParser and skip(mul) and intParser map { (gVector, n) ->
-            when (gVector) {
-                is ZeroGVector -> gVector
-                is GVector -> this.gAlgebra.context.run { n * gVector }
-            }
+            this.gAlgebra.context.run { n * gVector }
         }
         ) or powerParser
     val mulChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->
-        when (a) {
-            is ZeroGVector -> a
-            is GVector -> when (b) {
-                is ZeroGVector -> b
-                is GVector -> this.gAlgebra.context.run { a * b }
-            }
-        }
+        this.gAlgebra.context.run { a * b }
     }
     val subSumChain: Parser<GVectorOrZero<B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
         this.gAlgebra.context.run {
@@ -89,16 +71,6 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
                 else -> throw Exception("This can't happen!")
             }
         }
-        //
-        // when (b) {
-        //     is ZeroGVector -> a
-        //     is GVector -> this.gAlgebra.context.run {
-        //         when (a) {
-        //             is ZeroGVector -> if (op == plus) b else -b
-        //             is GVector -> if (op == plus) a + b else a - b
-        //         }
-        //     }
-        // }
     }
 
     override val rootParser: Parser<GVectorOrZero<B, S, V>> by subSumChain

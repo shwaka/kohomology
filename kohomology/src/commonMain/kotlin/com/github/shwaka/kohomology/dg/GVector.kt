@@ -70,6 +70,7 @@ interface GVectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     fun subtract(a: GVector<B, S, V>, b: GVector<B, S, V>): GVector<B, S, V>
     fun subtract(a: GVectorOrZero<B, S, V>, b: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
     fun multiply(scalar: S, gVector: GVector<B, S, V>): GVector<B, S, V>
+    fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V>
     val zeroGVector: ZeroGVector<B, S, V>
 }
 
@@ -86,6 +87,10 @@ open class GVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     operator fun S.times(gVector: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.multiply(this, gVector)
     operator fun GVector<B, S, V>.times(scalar: Int): GVector<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
     operator fun Int.times(gVector: GVector<B, S, V>): GVector<B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
+    operator fun GVectorOrZero<B, S, V>.times(scalar: S): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar, this)
+    operator fun S.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this, gVector)
+    operator fun GVectorOrZero<B, S, V>.times(scalar: Int): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
+    operator fun Int.times(gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
     operator fun GVector<B, S, V>.unaryMinus(): GVector<B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
 }
 
@@ -247,6 +252,13 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
             throw IllegalContextException("The gVector $gVector does not match the context")
         val vector = gVector.vector.vectorSpace.context.run { scalar * gVector.vector }
         return this.fromVector(vector, gVector.degree)
+    }
+
+    override fun multiply(scalar: S, gVector: GVectorOrZero<B, S, V>): GVectorOrZero<B, S, V> {
+        return when (gVector) {
+            is ZeroGVector -> this.zeroGVector
+            is GVector -> this.multiply(scalar, gVector)
+        }
     }
 
     override val zeroGVector: ZeroGVector<B, S, V> = ZeroGVector()

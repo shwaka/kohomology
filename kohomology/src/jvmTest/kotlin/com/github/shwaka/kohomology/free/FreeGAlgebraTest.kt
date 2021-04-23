@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -21,7 +22,6 @@ import io.kotest.property.exhaustive.map
 import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
-val parseTag = NamedTag("Parse")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "GAlgebra should work well even when the list of generator is empty" {

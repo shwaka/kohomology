@@ -2,25 +2,43 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebra
+import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GAlgebraMap
+import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
+
+interface FreeGAlgebraOperations<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    fun parse(text: String): GVectorOrZero<Monomial<I>, S, V>
+}
+
+class FreeGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    scalarOperations: ScalarOperations<S>,
+    numVectorOperations: NumVectorOperations<S, V>,
+    gVectorOperations: GVectorOperations<Monomial<I>, S, V>,
+    gAlgebraOperations: GAlgebraOperations<Monomial<I>, S, V, M>,
+    freeGAlgebraOperations: FreeGAlgebraOperations<I, S, V, M>
+) : GAlgebraContext<Monomial<I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
+    FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
 
 class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     val indeterminateList: List<Indeterminate<I>>
-) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(
-    matrixSpace,
-    FreeMonoid(indeterminateList),
-    FreeGAlgebra.getName(indeterminateList)
-) {
+) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(matrixSpace, FreeMonoid(indeterminateList), FreeGAlgebra.getName(indeterminateList)),
+    FreeGAlgebraOperations<I, S, V, M> {
+    override val context: FreeGAlgebraContext<I, S, V, M> by lazy {
+        FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
+    }
     val generatorList: List<GVector<Monomial<I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.indeterminateList, indeterminate)
@@ -131,7 +149,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
         }
     }
 
-    fun parse(text: String): GVectorOrZero<Monomial<I>, S, V> {
+    override fun parse(text: String): GVectorOrZero<Monomial<I>, S, V> {
         val generators = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
             Pair(indeterminate.name.toString(), generator)
         }

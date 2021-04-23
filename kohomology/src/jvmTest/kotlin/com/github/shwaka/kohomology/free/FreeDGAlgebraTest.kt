@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -146,13 +147,37 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: Matr
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "construct DGA by parsing string".config(tags = setOf(parseTag)) {
+        val generatorList = listOf(
+            GeneratorOfFreeDGA("x", 2, "zero"),
+            GeneratorOfFreeDGA("y", 3, "x^2"),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList)
+        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            d(x).isZero().shouldBeTrue()
+            d(y) shouldBe (x.pow(2))
+        }
+        for (degree in 0 until 10) {
+            val expectedDim = when (degree) {
+                0, 2 -> 1
+                else -> 0
+            }
+            freeDGAlgebra.cohomology[degree].dim shouldBe expectedDim
+        }
+    }
+}
+
 class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
-    include(invalidModelTest(DenseMatrixSpaceOverBigRational))
-    include(pointModelTest(DenseMatrixSpaceOverBigRational))
-    include(oddSphereModelTest(DenseMatrixSpaceOverBigRational, 3))
-    include(evenSphereModelTest(DenseMatrixSpaceOverBigRational, 2))
-    include(pullbackOfHopfFibrationOverS4Test(DenseMatrixSpaceOverBigRational))
-    include(errorTest(DenseMatrixSpaceOverBigRational))
+    val matrixSpace = DenseMatrixSpaceOverBigRational
+    include(invalidModelTest(matrixSpace))
+    include(pointModelTest(matrixSpace))
+    include(oddSphereModelTest(matrixSpace, 3))
+    include(evenSphereModelTest(matrixSpace, 2))
+    include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
+    include(errorTest(matrixSpace))
+    include(parseDifferentialValueTest(matrixSpace))
 })

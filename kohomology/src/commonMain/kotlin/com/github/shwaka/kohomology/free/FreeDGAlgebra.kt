@@ -10,7 +10,10 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.Degree
 import com.github.shwaka.kohomology.vectsp.BasisName
+
+data class GeneratorOfFreeDGA(val name: String, val degree: Degree, val differentialValue: String)
 
 open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<I, S, V, M>,
@@ -21,7 +24,7 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
         operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<I>>,
-            getDifferentialValueList: GAlgebraContext<Monomial<I>, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
+            getDifferentialValueList: FreeGAlgebraContext<I, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
         ): FreeDGAlgebra<I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<I, S, V, M> = FreeGAlgebra(matrixSpace, indeterminateList)
             val valueList = freeGAlgebra.context.run {
@@ -48,6 +51,17 @@ open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
                     )
             }
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)
+        }
+
+        operator fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            generatorList: List<GeneratorOfFreeDGA>
+        ): FreeDGAlgebra<StringIndeterminateName, S, V, M> {
+            val indeterminateList = generatorList.map { Indeterminate(it.name, it.degree) }
+            val getDifferentialValueList: FreeGAlgebraContext<StringIndeterminateName, S, V, M>.(List<GVector<Monomial<StringIndeterminateName>, S, V>>) -> List<GVectorOrZero<Monomial<StringIndeterminateName>, S, V>> = {
+                generatorList.map { parse(it.differentialValue) }
+            }
+            return FreeDGAlgebra.invoke(matrixSpace, indeterminateList, getDifferentialValueList)
         }
     }
 

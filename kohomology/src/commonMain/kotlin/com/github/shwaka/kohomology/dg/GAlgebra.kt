@@ -21,12 +21,13 @@ interface GAlgebraOperations<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
     val unit: GVector<B, S, V>
 }
 
-class GAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, S, V>,
     gAlgebraOperations: GAlgebraOperations<B, S, V, M>,
-) : GVectorContext<B, S, V>(scalarOperations, numVectorOperations, gVectorOperations), GAlgebraOperations<B, S, V, M> by gAlgebraOperations {
+) : GVectorContext<B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
+    GAlgebraOperations<B, S, V, M> by gAlgebraOperations {
     operator fun GVector<B, S, V>.times(other: GVector<B, S, V>): GVector<B, S, V> {
         return this@GAlgebraContext.multiply(this, other)
     }

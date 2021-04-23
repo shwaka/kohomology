@@ -9,3 +9,5 @@ val intRationalTag = NamedTag("IntRational")
 val longRationalTag = NamedTag("LongRational")
 val bigRationalTag = NamedTag("BigRational")
 val intModpTag = NamedTag("IntModp")
+
+val parseTag = NamedTag("Parse")

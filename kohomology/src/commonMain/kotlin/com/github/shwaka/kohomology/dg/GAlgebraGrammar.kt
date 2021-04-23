@@ -20,6 +20,7 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     private val gAlgebra: GAlgebra<B, S, V, M>,
     private val generators: List<Pair<String, GVector<B, S, V>>>
 ) : Grammar<GVectorOrZero<B, S, V>>() {
+    val zero by literalToken("zero")
     val gen by regexToken("(" + this.generators.joinToString("|") { it.first } + ")")
     val int by regexToken("\\d+")
     val lpar by literalToken("(")
@@ -31,10 +32,12 @@ class GAlgebraGrammar<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S,
     val plus by literalToken("+")
     val ws by regexToken("\\s*", ignore = true)
 
-    val genParser: Parser<GVectorOrZero<B, S, V>> by gen use {
-        this@GAlgebraGrammar.generators.find { it.first == text }?.second
-            ?: throw Exception("This can't happen!")
-    }
+    val genParser: Parser<GVectorOrZero<B, S, V>> by (
+        gen use {
+            this@GAlgebraGrammar.generators.find { it.first == text }?.second
+                ?: throw Exception("This can't happen!")
+        }
+        ) or (zero use { this@GAlgebraGrammar.gAlgebra.zeroGVector })
     val intParser: Parser<Int> by int use { text.toInt() }
     val minusParser: Parser<GVectorOrZero<B, S, V>> by (
         skip(minus) and parser(::termParser) map { this.gAlgebra.context.run { -it } }

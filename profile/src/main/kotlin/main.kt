@@ -1,3 +1,4 @@
+import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
@@ -19,7 +20,7 @@ fun main() {
 
 interface ProfiledScript {
     val description: String
-    fun setup(){}
+    fun setup() {}
     fun main(): String
 }
 
@@ -27,14 +28,8 @@ object CohomologyOfFreeLoopSpace : ProfiledScript {
     override val description = "cohomology of free loop space of 2-sphere"
     override fun main(): String {
         val sphereDim = 2
-        val indeterminateList = listOf(
-            Indeterminate("x", sphereDim),
-            Indeterminate("y", sphereDim * 2 - 1)
-        )
         val matrixSpace = SparseMatrixSpaceOverBigRational
-        val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
-            listOf(zeroGVector, x.pow(2))
-        }
+        val sphere = sphere(matrixSpace, sphereDim)
         val freeLoopSpace = FreeLoopSpace(sphere)
 
         var result = ""

@@ -1,11 +1,17 @@
+import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
-import com.github.shwaka.kohomology.free.FreeDGAlgebra
-import com.github.shwaka.kohomology.free.Indeterminate
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
+import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 
 fun main() {
-    val scriptList: List<ProfiledScript> = listOf(CohomologyOfFreeLoopSpace)
+    val scriptList: List<ProfiledScript> = listOf(
+        CohomologyOfFreeLoopSpace,
+        ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational)
+    )
     println("Select script to profile: (default = 0)")
     scriptList.mapIndexed { index, script ->
         println("$index: ${script.description}")
@@ -37,5 +43,29 @@ object CohomologyOfFreeLoopSpace : ProfiledScript {
             result += freeLoopSpace.cohomology[degree].toString() + "\n"
         }
         return result
+    }
+}
+
+class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val matrixSpace: MatrixSpace<S, V, M>
+) : ProfiledScript {
+    override val description: String = "compute row echelon form"
+
+    private var matrix: M? = null
+
+    override fun setup() {
+        // val sphereDim = 2
+        // val freeDGAlgebra = sphere(this.matrixSpace, sphereDim)
+        val freeDGAlgebra = pullbackOfHopfFibrationOverS4(this.matrixSpace)
+        val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
+        val degree = 15
+        this.matrix = freeLoopSpace.differential[degree].matrix
+    }
+
+    override fun main(): String {
+        return this.matrixSpace.context.run {
+            println(this@ComputeRowEchelonForm.matrix?.let { "${it.rowCount}, ${it.colCount}" })
+            this@ComputeRowEchelonForm.matrix?.rowEchelonForm?.reducedMatrix.toString()
+        }
     }
 }

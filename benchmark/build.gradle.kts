@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 // import org.jetbrains.kotlin.allopen.gradle.*
 
 plugins {
-    kotlin("jvm") version "1.4.32"
+    kotlin("jvm") version "1.5.0"
     kotlin("plugin.allopen") version "1.4.0"
     id("org.jetbrains.kotlinx.benchmark") version "0.3.0"
 }

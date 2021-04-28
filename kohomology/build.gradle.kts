@@ -4,7 +4,7 @@ group = "com.github.shwaka.kohomology"
 version = "0.5-SNAPSHOT"
 
 plugins {
-    kotlin("multiplatform") version "1.5.0"
+    kotlin("multiplatform") version "1.4.31"
     id("io.kotest") version "0.2.6"
     id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
     id("java-library") // necessary for jacoco

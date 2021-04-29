@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraContext
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
@@ -18,26 +20,26 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-class FreeDGAlgebraContext<I : IndeterminateName, D:Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class FreeDGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<Monomial<I>, D,S, V>,
-    gAlgebraOperations: GAlgebraOperations<Monomial<I>, D,S, V, M>,
-    dgVectorOperations: DGVectorOperations<Monomial<I>, D,S, V, M>,
-    freeGAlgebraOperations: FreeGAlgebraOperations<I, D,S, V, M>
-) : DGAlgebraContext<Monomial<I>, D,S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
-    FreeGAlgebraOperations<I,D, S, V, M> by freeGAlgebraOperations
+    gVectorOperations: GVectorOperations<Monomial<I>, IntDegree,S, V>,
+    gAlgebraOperations: GAlgebraOperations<Monomial<I>, IntDegree,S, V, M>,
+    dgVectorOperations: DGVectorOperations<Monomial<I>, IntDegree,S, V, M>,
+    freeGAlgebraOperations: FreeGAlgebraOperations<I, S, V, M>
+) : DGAlgebraContext<Monomial<I>, IntDegree,S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
+    FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
 
 data class GeneratorOfFreeDGA(val name: String, val degree: IntDeg, val differentialValue: String)
 
-typealias GetDifferentialValueList<I,D, S, V, M> =
-    FreeGAlgebraContext<I, D,S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, D,S, V>>
+typealias GetDifferentialValueList<I, S, V, M> =
+    FreeGAlgebraContext<I, S, V, M>.(List<GVector<Monomial<I>, IntDegree, S, V>>) -> List<GVectorOrZero<Monomial<I>, IntDegree,S, V>>
 
-open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
-    override val gAlgebra: FreeGAlgebra<I, D,S, V, M>,
-    differential: Derivation<Monomial<I>, D,S, V, M>,
+open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
+    override val gAlgebra: FreeGAlgebra<I, S, V, M>,
+    differential: Derivation<Monomial<I>, IntDegree,S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGAlgebra<Monomial<I>, D,S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGAlgebra<Monomial<I>, IntDegree,S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context by lazy {
         FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }
@@ -52,7 +54,7 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
             val valueList = freeGAlgebra.context.run {
                 getDifferentialValueList(freeGAlgebra.generatorList)
             }
-            val differential: Derivation<Monomial<I>, S, V, M> = freeGAlgebra.getDerivation(
+            val differential: Derivation<Monomial<I>, IntDegree, S, V, M> = freeGAlgebra.getDerivation(
                 valueList = valueList,
                 derivationDegree = 1
             )
@@ -88,17 +90,17 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
     }
 
     fun <B : BasisName> getDGAlgebraMap(
-        target: DGAlgebra<B, S, V, M>,
-        valueList: List<GVectorOrZero<B, S, V>>,
-    ): DGAlgebraMap<Monomial<I>, B, S, V, M> {
+        target: DGAlgebra<B, IntDegree, S, V, M>,
+        valueList: List<GVectorOrZero<B, IntDegree, S, V>>,
+    ): DGAlgebraMap<Monomial<I>, B,IntDegree, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getGAlgebraMap(target.gAlgebra, valueList)
         return DGAlgebraMap(this, target, gAlgebraMap)
     }
 
     fun <BS : BasisName, BT : BasisName> findLift(
-        underlyingMap: DGAlgebraMap<Monomial<I>, BT, S, V, M>,
-        surjectiveQuasiIsomorphism: DGAlgebraMap<BS, BT, S, V, M>,
-    ): DGAlgebraMap<Monomial<I>, BS, S, V, M> {
+        underlyingMap: DGAlgebraMap<Monomial<I>, BT, IntDegree, S, V, M>,
+        surjectiveQuasiIsomorphism: DGAlgebraMap<BS, BT, IntDegree, S, V, M>,
+    ): DGAlgebraMap<Monomial<I>, BS, IntDegree, S, V, M> {
         if (underlyingMap.source != this)
             throw IllegalArgumentException("Invalid diagram: ${underlyingMap.source} != $this")
         if (underlyingMap.target != surjectiveQuasiIsomorphism.target)
@@ -106,7 +108,7 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
         val n = this.gAlgebra.generatorList.size
         val liftTarget = surjectiveQuasiIsomorphism.source
         val zeroGVector = liftTarget.context.run { zeroGVector }
-        val liftValueList: MutableList<GVectorOrZero<BS, S, V>> = MutableList(n) { zeroGVector }
+        val liftValueList: MutableList<GVectorOrZero<BS, IntDegree, S, V>> = MutableList(n) { zeroGVector }
         for (i in 0 until n) {
             val currentLift = this.getDGAlgebraMap(liftTarget, liftValueList)
             val vi = this.gAlgebra.generatorList[i]
@@ -120,8 +122,8 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
     }
 
     fun <B : BasisName> findSection(
-        surjectiveQuasiIsomorphism: DGAlgebraMap<B, Monomial<I>, S, V, M>,
-    ): DGAlgebraMap<Monomial<I>, B, S, V, M> {
+        surjectiveQuasiIsomorphism: DGAlgebraMap<B, Monomial<I>, IntDegree, S, V, M>,
+    ): DGAlgebraMap<Monomial<I>, B, IntDegree, S, V, M> {
         return this.findLift(
             underlyingMap = this.getId(),
             surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism

@@ -48,4 +48,8 @@ object IntDegreeMonoid : DegreeMonoid<IntDegree> {
     override fun subtract(degree1: IntDegree, degree2: IntDegree): IntDegree {
         return IntDegree(degree1.value - degree2.value)
     }
+
+    override fun multiply(degree: IntDegree, n: Int): IntDegree {
+        return IntDegree(degree.value * n)
+    }
 }

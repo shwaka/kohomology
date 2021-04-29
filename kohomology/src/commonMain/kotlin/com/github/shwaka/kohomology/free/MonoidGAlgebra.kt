@@ -16,6 +16,7 @@ import mu.KotlinLogging
 
 private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
+    val degreeMonoid: DegreeMonoid<D>,
     val monoid: Mon,
     val name: String,
 ) {
@@ -39,10 +40,12 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         return vectorSpace
     }
 
+    fun getVectorSpace(degree: Int): VectorSpace<E, S, V> = this.getVectorSpace(this.degreeMonoid.fromInt(degree))
+
     fun getMultiplication(p: D, q: D): BilinearMap<E, E, E, S, V, M> {
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
-        val target = this.getVectorSpace(p + q)
+        val target = this.getVectorSpace(this.degreeMonoid.context.run { p + q })
         val valueList = source1.basisNames.map { monoidElement1 ->
             source2.basisNames.map { monoidElement2 ->
                 this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
@@ -71,6 +74,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : GAlgebra<E, D, S, V, M>(
     factory.matrixSpace,
+    factory.degreeMonoid,
     factory.name,
     factory::getVectorSpace,
     factory::getMultiplication,
@@ -78,7 +82,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
 ) {
     val monoid: Mon = factory.monoid
 
-    constructor(matrixSpace: MatrixSpace<S, V, M>, monoid: Mon, name: String) : this(
-        MonoidGAlgebraFactory(matrixSpace, monoid, name),
+    constructor(matrixSpace: MatrixSpace<S, V, M>, degreeMonoid: DegreeMonoid<D>, monoid: Mon, name: String) : this(
+        MonoidGAlgebraFactory(matrixSpace, degreeMonoid, monoid, name),
     )
 }

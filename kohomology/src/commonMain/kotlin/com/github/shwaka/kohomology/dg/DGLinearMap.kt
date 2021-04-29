@@ -4,15 +4,14 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    source: DGVectorSpace<BS,D, S, V, M>,
-    target: DGVectorSpace<BT,D, S, V, M>,
-    gLinearMap: GLinearMap<BS, BT,D, S, V, M>,
+    source: DGVectorSpace<BS, D, S, V, M>,
+    target: DGVectorSpace<BT, D, S, V, M>,
+    gLinearMap: GLinearMap<BS, BT, D, S, V, M>,
 ) {
     init {
         if (source.gVectorSpace != gLinearMap.source)
@@ -23,18 +22,18 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
 
     // We cannot move these declarations to the primary constructor
     // If we move them, get the warning "accessing non-final property in constructor"
-    open val source: DGVectorSpace<BS,D, S, V, M> = source
-    open val target: DGVectorSpace<BT,D, S, V, M> = target
+    open val source: DGVectorSpace<BS, D, S, V, M> = source
+    open val target: DGVectorSpace<BT, D, S, V, M> = target
     open val gLinearMap: GLinearMap<BS, BT, D, S, V, M> = gLinearMap
     val degree = gLinearMap.degree
     val matrixSpace = gLinearMap.matrixSpace
 
-    operator fun invoke(gVector: GVector<BS,D, S, V>): GVector<BT,D, S, V> {
+    operator fun invoke(gVector: GVector<BS, D, S, V>): GVector<BT, D, S, V> {
         return this.gLinearMap(gVector)
     }
 
-    fun inducedMapOnCohomology(): GLinearMap<SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>,D, S, V, M> {
-        val getGVectors: (D) -> List<GVector<SubQuotBasis<BT, S, V>, D,S, V>> = { k ->
+    fun inducedMapOnCohomology(): GLinearMap<SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, D, S, V, M> {
+        val getGVectors: (D) -> List<GVector<SubQuotBasis<BT, S, V>, D, S, V>> = { k ->
             this.source.cohomology.getBasis(k).map { cohomologyClass ->
                 val cocycle = this.source.cocycleRepresentativeOf(cohomologyClass)
                 this.target.cohomologyClassOf(this.gLinearMap(cocycle))
@@ -51,7 +50,7 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
         )
     }
 
-    fun findCocycleLift(targetCocycle: GVector<BT,D, S, V>): GVector<BS,D, S, V> {
+    fun findCocycleLift(targetCocycle: GVector<BT, D, S, V>): GVector<BS, D, S, V> {
         val degree = targetCocycle.degree
         if (this.target.differential(targetCocycle).isNotZero())
             throw IllegalArgumentException("$targetCocycle is not a cocycle")
@@ -71,7 +70,7 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
         }
     }
 
-    fun findLift(targetCochain: GVector<BT,D, S, V>, sourceCoboundary: GVector<BS,D, S, V>): GVector<BS,D, S, V> {
+    fun findLift(targetCochain: GVector<BT, D, S, V>, sourceCoboundary: GVector<BS, D, S, V>): GVector<BS, D, S, V> {
         if (sourceCoboundary.degree != this.gLinearMap.degreeMonoid.context.run { targetCochain.degree + 1 })
             throw IllegalArgumentException("deg($sourceCoboundary) should be equal to deg($targetCochain) + 1")
         if (this.source.differential(sourceCoboundary).isNotZero())
@@ -93,25 +92,25 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
 
     companion object {
         operator fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            source: DGVectorSpace<BS, D,S, V, M>,
-            target: DGVectorSpace<BT, D,S, V, M>,
+            source: DGVectorSpace<BS, D, S, V, M>,
+            target: DGVectorSpace<BT, D, S, V, M>,
             degree: D,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-        ): DGLinearMap<BS, BT, D,S, V, M> {
+        ): DGLinearMap<BS, BT, D, S, V, M> {
             val gLinearMap = GLinearMap(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, name, getLinearMap)
             return DGLinearMap(source, target, gLinearMap)
         }
 
         fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
-            source: DGVectorSpace<BS, D,S, V, M>,
-            target: DGVectorSpace<BT, D,S, V, M>,
+            source: DGVectorSpace<BS, D, S, V, M>,
+            target: DGVectorSpace<BT, D, S, V, M>,
             degree: D,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
-            getGVectors: (D) -> List<GVector<BT,D, S, V>>
-        ): DGLinearMap<BS, BT,D, S, V, M> {
+            getGVectors: (D) -> List<GVector<BT, D, S, V>>
+        ): DGLinearMap<BS, BT, D, S, V, M> {
             val gLinearMap = GLinearMap.fromGVectors(source.gVectorSpace, target.gVectorSpace, degree, matrixSpace, name, getGVectors)
             return DGLinearMap(source, target, gLinearMap)
         }
@@ -119,29 +118,29 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
 }
 
 class DGAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    override val source: DGAlgebra<BS, D,S, V, M>,
-    override val target: DGAlgebra<BT, D,S, V, M>,
-    override val gLinearMap: GAlgebraMap<BS, BT,D, S, V, M>,
-) : DGLinearMap<BS, BT,D, S, V, M>(source, target, gLinearMap) {
+    override val source: DGAlgebra<BS, D, S, V, M>,
+    override val target: DGAlgebra<BT, D, S, V, M>,
+    override val gLinearMap: GAlgebraMap<BS, BT, D, S, V, M>,
+) : DGLinearMap<BS, BT, D, S, V, M>(source, target, gLinearMap) {
     companion object {
         operator fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            source: DGAlgebra<BS, D,S, V, M>,
-            target: DGAlgebra<BT, D,S, V, M>,
+            source: DGAlgebra<BS, D, S, V, M>,
+            target: DGAlgebra<BT, D, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-        ): DGAlgebraMap<BS, BT, D,S, V, M> {
+        ): DGAlgebraMap<BS, BT, D, S, V, M> {
             val gLinearMap = GAlgebraMap(source.gAlgebra, target.gAlgebra, matrixSpace, name, getLinearMap)
             return DGAlgebraMap(source, target, gLinearMap)
         }
 
         fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
-            source: DGAlgebra<BS, D,S, V, M>,
-            target: DGAlgebra<BT, D,S, V, M>,
+            source: DGAlgebra<BS, D, S, V, M>,
+            target: DGAlgebra<BT, D, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
-            getGVectors: (D) -> List<GVector<BT,D, S, V>>
-        ): DGAlgebraMap<BS, BT, D,S, V, M> {
+            getGVectors: (D) -> List<GVector<BT, D, S, V>>
+        ): DGAlgebraMap<BS, BT, D, S, V, M> {
             val gLinearMap = GAlgebraMap.fromGVectors(source.gAlgebra, target.gAlgebra, matrixSpace, name, getGVectors)
             return DGAlgebraMap(source, target, gLinearMap)
         }

@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
+import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.IndeterminateName
@@ -57,7 +57,7 @@ class FreeLoopSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Mat
     private val factory: FreeLoopSpaceFactory<I, S, V, M>
 ) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
-    val suspension: Derivation<Monomial<CopiedName<I>>, IntDegree,S, V, M> =
+    val suspension: Derivation<Monomial<CopiedName<I>>, IntDegree, S, V, M> =
         this.factory.suspension
     val inclusion: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, IntDegree, S, V, M> by lazy {
         DGAlgebraMap(

@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
@@ -33,10 +32,10 @@ open class DGAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector
 }
 
 open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    open val gAlgebra: GAlgebra<B, D,S, V, M>,
-    differential: GLinearMap<B, B,D, S, V, M>,
+    open val gAlgebra: GAlgebra<B, D, S, V, M>,
+    differential: GLinearMap<B, B, D, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorSpace<B,D, S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGVectorSpace<B, D, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context by lazy {
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
@@ -70,7 +69,7 @@ open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M 
         )
     }
 
-    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>,D, S, V, M> by lazy {
+    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         GAlgebra(
@@ -83,7 +82,7 @@ open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M 
         )
     }
 
-    fun getId(): DGAlgebraMap<B, B, D,S, V, M> {
+    fun getId(): DGAlgebraMap<B, B, D, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getId()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }

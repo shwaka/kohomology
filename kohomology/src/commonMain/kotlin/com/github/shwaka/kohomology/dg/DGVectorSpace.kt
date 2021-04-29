@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
@@ -15,7 +14,7 @@ import mu.KotlinLogging
 interface DGVectorOperations<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val differential: GLinearMap<B, B, D, S, V, M>
     val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, D, S, V>
-    fun cohomologyClassOf(cocycle: GVector<B,D, S, V>): GVector<SubQuotBasis<B, S, V>, D, S, V>
+    fun cohomologyClassOf(cocycle: GVector<B, D, S, V>): GVector<SubQuotBasis<B, S, V>, D, S, V>
     fun cocycleRepresentativeOf(cohomologyClass: GVector<SubQuotBasis<B, S, V>, D, S, V>): GVector<B, D, S, V>
 }
 

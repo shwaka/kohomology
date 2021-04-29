@@ -1,9 +1,8 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.Degree
 import com.github.shwaka.kohomology.dg.DegreeMonoid
-import com.github.shwaka.kohomology.util.IntDeg
+import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
@@ -39,7 +38,7 @@ data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: 
         return this.name.toString()
     }
     companion object {
-        operator fun <T> invoke(name: T, degree: Int) : SimpleMonoidElement<T, IntDegree> {
+        operator fun <T> invoke(name: T, degree: Int): SimpleMonoidElement<T, IntDegree> {
             return SimpleMonoidElement(name, IntDegree(degree))
         }
     }

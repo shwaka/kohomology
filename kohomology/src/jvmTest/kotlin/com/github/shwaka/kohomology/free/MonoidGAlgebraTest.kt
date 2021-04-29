@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -24,7 +26,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
     "complex projective space of complex dimension $n" {
         val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
-        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String>, Sign>>>> =
+        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, IntDegree>, Sign>>>> =
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
@@ -34,13 +36,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, multiplicationTable)
-        val gAlgebra = MonoidGAlgebra(matrixSpace, monoid, "M")
+        val monoid = MonoidFromList(elements, IntDegreeMonoid, multiplicationTable)
+        val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeMonoid, monoid, "M")
         for (degree in 0..(3 * n)) {
             val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
             gAlgebra[degree].dim shouldBe expectedDim
         }
-        val basis: List<GVector<SimpleMonoidElement<String>, S, V>> =
+        val basis: List<GVector<SimpleMonoidElement<String, IntDegree>, IntDegree, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
         gAlgebra.context.run {
             for (i in 0..n) {

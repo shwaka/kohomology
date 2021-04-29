@@ -18,19 +18,20 @@ val gLinearMapTag = NamedTag("GLinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
-    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
         // V[n] = span{v0, v1,..., v{n-1}}
         (0 until degree).map { "v$it" }
     }
     val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace, "f") { degree ->
         // vi -> vi + v{i+1}
-        val targetBasis = gVectorSpace[degree + 1].getBasis()
-        val valueList = (0 until degree).map { i ->
-            gVectorSpace[degree + 1].context.run {
+        val n = degree.toInt()
+        val targetBasis = gVectorSpace[n + 1].getBasis()
+        val valueList = (0 until n).map { i ->
+            gVectorSpace[n + 1].context.run {
                 targetBasis[i] + targetBasis[i + 1]
             }
         }
-        LinearMap.fromVectors(gVectorSpace[degree], gVectorSpace[degree + 1], matrixSpace, valueList)
+        LinearMap.fromVectors(gVectorSpace[n], gVectorSpace[n + 1], matrixSpace, valueList)
     }
 
     gVectorSpace.context.run {
@@ -46,7 +47,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             val image = w0 + w1 * 2 + w2
             val preimage = gLinearMap.findPreimage(image)
             preimage shouldNotBe null
-            preimage as GVector<StringBasisName, S, V>
+            preimage as GVector<StringBasisName, IntDegree, S, V>
             gLinearMap(preimage) shouldBe image
         }
         "findPreimage should return null for gVector not in the image" {

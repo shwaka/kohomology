@@ -1,11 +1,11 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 interface MonoidElement : BasisName {
-    val degree: Degree
+    val degree: IntDeg
 }
 
 sealed class MaybeZero<T>
@@ -26,10 +26,10 @@ data class NonZero<T>(val value: T) : MaybeZero<T>()
 interface Monoid<E : MonoidElement> {
     val unit: E
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
-    fun listAll(degree: Degree): List<E>
+    fun listAll(degree: IntDeg): List<E>
 }
 
-data class SimpleMonoidElement<T>(val name: T, override val degree: Degree) : MonoidElement {
+data class SimpleMonoidElement<T>(val name: T, override val degree: IntDeg) : MonoidElement {
     override fun toString(): String {
         return this.name.toString()
     }
@@ -63,7 +63,7 @@ class MonoidFromList<T>(
         return this.multiplicationTable[index1][index2]
     }
 
-    override fun listAll(degree: Degree): List<SimpleMonoidElement<T>> {
+    override fun listAll(degree: IntDeg): List<SimpleMonoidElement<T>> {
         return this.elements.filter { it.degree == degree }
     }
 }

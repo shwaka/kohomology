@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
@@ -42,14 +42,14 @@ open class DGVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     override val differential: GLinearMap<B, B, S, V, M>,
     val matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorOperations<B, S, V, M> {
-    private val cache: MutableMap<Degree, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
+    private val cache: MutableMap<IntDeg, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
     open val context by lazy {
         DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
     }
 
-    protected fun getCohomologyVectorSpace(degree: Degree): SubQuotVectorSpace<B, S, V, M> {
+    protected fun getCohomologyVectorSpace(degree: IntDeg): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for H^$degree(${this.gVectorSpace})" }

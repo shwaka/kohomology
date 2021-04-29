@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import mu.KotlinLogging
@@ -14,12 +14,12 @@ import mu.KotlinLogging
 open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: GVectorSpace<BS, S, V>,
     val target: GVectorSpace<BT, S, V>,
-    val degree: Degree,
+    val degree: IntDeg,
     val matrixSpace: MatrixSpace<S, V, M>,
     val name: String,
-    private val getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
+    private val getLinearMap: (IntDeg) -> LinearMap<BS, BT, S, V, M>
 ) {
-    private val cache: MutableMap<Degree, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
+    private val cache: MutableMap<IntDeg, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
     operator fun invoke(gVector: GVector<BS, S, V>): GVector<BT, S, V> {
@@ -33,7 +33,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<
         return this.target.fromVector(newVector, newDegree)
     }
 
-    operator fun get(degree: Degree): LinearMap<BS, BT, S, V, M> {
+    operator fun get(degree: IntDeg): LinearMap<BS, BT, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for $this[$degree]" }
@@ -63,10 +63,10 @@ open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<
         fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<BS, S, V>,
             target: GVectorSpace<BT, S, V>,
-            degree: Degree,
+            degree: IntDeg,
             matrixSpace: MatrixSpace<S, V, M>,
-            getGVectors: (Degree) -> List<GVector<BT, S, V>>
-        ): (Degree) -> LinearMap<BS, BT, S, V, M> {
+            getGVectors: (IntDeg) -> List<GVector<BT, S, V>>
+        ): (IntDeg) -> LinearMap<BS, BT, S, V, M> {
             return { k ->
                 val sourceVectorSpace = source[k]
                 val targetVectorSpace = target[k + degree]
@@ -85,10 +85,10 @@ open class GLinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<
         fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<BS, S, V>,
             target: GVectorSpace<BT, S, V>,
-            degree: Degree,
+            degree: IntDeg,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
-            getGVectors: (Degree) -> List<GVector<BT, S, V>>
+            getGVectors: (IntDeg) -> List<GVector<BT, S, V>>
         ): GLinearMap<BS, BT, S, V, M> {
             val getLinearMap = this.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
             return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
@@ -101,7 +101,7 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
     target: GAlgebra<BT, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
-    getLinearMap: (Degree) -> LinearMap<BS, BT, S, V, M>
+    getLinearMap: (IntDeg) -> LinearMap<BS, BT, S, V, M>
 ) : GLinearMap<BS, BT, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
     companion object {
         fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
@@ -109,7 +109,7 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
             target: GAlgebra<BT, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
-            getGVectors: (Degree) -> List<GVector<BT, S, V>>
+            getGVectors: (IntDeg) -> List<GVector<BT, S, V>>
         ): GAlgebraMap<BS, BT, S, V, M> {
             val getLinearMap = GLinearMap.createGetLinearMap(source, target, 0, matrixSpace, getGVectors)
             return GAlgebraMap(source, target, matrixSpace, name, getLinearMap)
@@ -119,18 +119,18 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, 
 
 class Derivation<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<B, S, V, M>,
-    degree: Degree,
+    degree: IntDeg,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
-    getLinearMap: (Degree) -> LinearMap<B, B, S, V, M>
+    getLinearMap: (IntDeg) -> LinearMap<B, B, S, V, M>
 ) : GLinearMap<B, B, S, V, M>(source, source, degree, matrixSpace, name, getLinearMap) {
     companion object {
         fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<B, S, V, M>,
-            degree: Degree,
+            degree: IntDeg,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
-            getGVectors: (Degree) -> List<GVector<B, S, V>>
+            getGVectors: (IntDeg) -> List<GVector<B, S, V>>
         ): Derivation<B, S, V, M> {
             val getLinearMap = GLinearMap.createGetLinearMap(source, source, degree, matrixSpace, getGVectors)
             return Derivation(source, degree, matrixSpace, name, getLinearMap)

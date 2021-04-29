@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import mu.KotlinLogging
@@ -13,14 +13,14 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar,
     val source1: GVectorSpace<BS1, S, V>,
     val source2: GVectorSpace<BS2, S, V>,
     val target: GVectorSpace<BT, S, V>,
-    val degree: Degree,
+    val degree: IntDeg,
     val name: String,
-    private val getBilinearMap: (Degree, Degree) -> BilinearMap<BS1, BS2, BT, S, V, M>,
+    private val getBilinearMap: (IntDeg, IntDeg) -> BilinearMap<BS1, BS2, BT, S, V, M>,
 ) {
-    private val cache: MutableMap<Pair<Degree, Degree>, BilinearMap<BS1, BS2, BT, S, V, M>> = mutableMapOf()
+    private val cache: MutableMap<Pair<IntDeg, IntDeg>, BilinearMap<BS1, BS2, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
-    operator fun get(p: Degree, q: Degree): BilinearMap<BS1, BS2, BT, S, V, M> {
+    operator fun get(p: IntDeg, q: IntDeg): BilinearMap<BS1, BS2, BT, S, V, M> {
         this.cache[Pair(p, q)]?.let {
             // if cache exists
             this.logger.debug { "cache found for $this[$p, $q]" }

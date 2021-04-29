@@ -15,7 +15,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 interface FreeGAlgebraOperations<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -45,7 +45,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
             this.fromBasisName(monomial, indeterminate.degree)
         }
 
-    fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: Degree): Derivation<Monomial<I>, S, V, M> {
+    fun getDerivation(valueList: List<GVectorOrZero<Monomial<I>, S, V>>, derivationDegree: IntDeg): Derivation<Monomial<I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw InvalidSizeException("Invalid size of the list of values of a derivation")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
@@ -75,7 +75,7 @@ class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matr
     private fun getDerivationValue(
         valueList: List<GVector<Monomial<I>, S, V>>,
         monomial: Monomial<I>,
-        valueDegree: Degree
+        valueDegree: IntDeg
     ): GVector<Monomial<I>, S, V> {
         return this.monoid.allSeparations(monomial).map { separation ->
             val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->

@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
@@ -17,14 +17,14 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
     val monoid: Mon,
     val name: String,
 ) {
-    private val cache: MutableMap<Degree, VectorSpace<E, S, V>> = mutableMapOf()
+    private val cache: MutableMap<IntDeg, VectorSpace<E, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
-    private fun getBasisNames(degree: Degree): List<E> {
+    private fun getBasisNames(degree: IntDeg): List<E> {
         return this.monoid.listAll(degree)
     }
 
-    fun getVectorSpace(degree: Degree): VectorSpace<E, S, V> {
+    fun getVectorSpace(degree: IntDeg): VectorSpace<E, S, V> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for ${this.monoid}[$degree]" }
@@ -37,7 +37,7 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
         return vectorSpace
     }
 
-    fun getMultiplication(p: Degree, q: Degree): BilinearMap<E, E, E, S, V, M> {
+    fun getMultiplication(p: IntDeg, q: IntDeg): BilinearMap<E, E, E, S, V, M> {
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
         val target = this.getVectorSpace(p + q)

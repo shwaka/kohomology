@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
@@ -41,7 +41,7 @@ open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, 
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
 
-    private fun getCohomologyMultiplication(p: Degree, q: Degree): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    private fun getCohomologyMultiplication(p: IntDeg, q: IntDeg): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
         val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(p + q)

@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.Degree
+import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
 import com.github.shwaka.kohomology.vectsp.StringBasisName
@@ -32,7 +32,7 @@ class ZeroGVector<B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<B
 
 open class GVector<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>,
-    val degree: Degree,
+    val degree: IntDeg,
     val gVectorSpace: GVectorSpace<B, S, V>
 ) : GVectorOrZero<B, S, V>() {
     override fun isZero(): Boolean {
@@ -125,16 +125,16 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
-    private val getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
+    private val getVectorSpace: (IntDeg) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<B, S, V> {
     constructor(
         numVectorSpace: NumVectorSpace<S, V>,
         name: String,
-        getVectorSpace: (Degree) -> VectorSpace<B, S, V>,
+        getVectorSpace: (IntDeg) -> VectorSpace<B, S, V>,
     ) : this(numVectorSpace, name, DefaultVectorPrinter(), getVectorSpace)
 
     val field = this.numVectorSpace.field
-    private val cache: MutableMap<Degree, VectorSpace<B, S, V>> = mutableMapOf()
+    private val cache: MutableMap<IntDeg, VectorSpace<B, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
     // use 'lazy' to avoid the following warning:
@@ -145,7 +145,7 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         fun <B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
-            getBasisNames: (Degree) -> List<B>,
+            getBasisNames: (IntDeg) -> List<B>,
         ): GVectorSpace<B, S, V> {
             return GVectorSpace<B, S, V>(numVectorSpace, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
         }
@@ -153,7 +153,7 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         fun <S : Scalar, V : NumVector<S>> fromStringBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
-            getBasisNames: (Degree) -> List<String>,
+            getBasisNames: (IntDeg) -> List<String>,
         ): GVectorSpace<StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
             return GVectorSpace<StringBasisName, S, V>(numVectorSpace, name) { degree ->
@@ -163,7 +163,7 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    operator fun get(degree: Degree): VectorSpace<B, S, V> {
+    operator fun get(degree: IntDeg): VectorSpace<B, S, V> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for $this[$degree]" }
@@ -177,47 +177,47 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return vectorSpace
     }
 
-    fun fromVector(vector: Vector<B, S, V>, degree: Degree): GVector<B, S, V> {
+    fun fromVector(vector: Vector<B, S, V>, degree: IntDeg): GVector<B, S, V> {
         return GVector(vector, degree, this)
     }
 
-    fun fromNumVector(numVector: V, degree: Degree): GVector<B, S, V> {
+    fun fromNumVector(numVector: V, degree: IntDeg): GVector<B, S, V> {
         val vectorSpace = this[degree]
         val vector = Vector(numVector, vectorSpace)
         return this.fromVector(vector, degree)
     }
 
-    fun fromCoeff(coeff: List<S>, degree: Degree): GVector<B, S, V> {
+    fun fromCoeff(coeff: List<S>, degree: IntDeg): GVector<B, S, V> {
         val numVector = this.numVectorSpace.fromValueList(coeff)
         return this.fromNumVector(numVector, degree)
     }
 
-    fun fromBasisName(basisName: B, degree: Degree): GVector<B, S, V> {
+    fun fromBasisName(basisName: B, degree: IntDeg): GVector<B, S, V> {
         val vector = this[degree].fromBasisName(basisName)
         return this.fromVector(vector, degree)
     }
 
-    fun fromBasisName(basisName: B, degree: Degree, coeff: S): GVector<B, S, V> {
+    fun fromBasisName(basisName: B, degree: IntDeg, coeff: S): GVector<B, S, V> {
         return this.context.run { this@GVectorSpace.fromBasisName(basisName, degree) * coeff }
     }
 
-    fun fromBasisName(basisName: B, degree: Degree, coeff: Int): GVector<B, S, V> {
+    fun fromBasisName(basisName: B, degree: IntDeg, coeff: Int): GVector<B, S, V> {
         val coeffScalar = this.context.run { coeff.toScalar() }
         return this.fromBasisName(basisName, degree, coeffScalar)
     }
 
-    fun getBasis(degree: Degree): List<GVector<B, S, V>> {
+    fun getBasis(degree: IntDeg): List<GVector<B, S, V>> {
         return this[degree].getBasis().map { vector ->
             this.fromVector(vector, degree)
         }
     }
 
-    fun getZero(degree: Degree): GVector<B, S, V> {
+    fun getZero(degree: IntDeg): GVector<B, S, V> {
         val vector = this[degree].zeroVector
         return this.fromVector(vector, degree)
     }
 
-    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, S, V>, degree: Degree): GVector<B, S, V> {
+    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, S, V>, degree: IntDeg): GVector<B, S, V> {
         return when (gVectorOrZero) {
             is ZeroGVector -> this.getZero(degree)
             is GVector -> gVectorOrZero
@@ -265,7 +265,7 @@ open class GVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     fun <M : Matrix<S, V>> isBasis(
         gVectorList: List<GVector<B, S, V>>,
-        degree: Degree,
+        degree: IntDeg,
         matrixSpace: MatrixSpace<S, V, M>
     ): Boolean {
         for (gVector in gVectorList) {

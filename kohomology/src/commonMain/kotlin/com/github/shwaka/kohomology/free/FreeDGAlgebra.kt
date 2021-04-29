@@ -16,7 +16,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.IntDeg
+import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 class FreeDGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -29,7 +29,7 @@ class FreeDGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, 
 ) : DGAlgebraContext<Monomial<I>, IntDegree, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
     FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
 
-data class GeneratorOfFreeDGA(val name: String, val degree: IntDeg, val differentialValue: String)
+data class GeneratorOfFreeDGA(val name: String, val degree: IntAsDegree, val differentialValue: String)
 
 typealias GetDifferentialValueList<I, S, V, M> =
     FreeGAlgebraContext<I, S, V, M>.(List<GVector<Monomial<I>, IntDegree, S, V>>) -> List<GVectorOrZero<Monomial<I>, IntDegree, S, V>>

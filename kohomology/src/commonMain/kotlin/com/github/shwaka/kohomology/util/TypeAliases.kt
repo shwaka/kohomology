@@ -1,4 +1,4 @@
 package com.github.shwaka.kohomology.util
 
-typealias IntDeg = Int
+typealias IntAsDegree = Int
 typealias Sign = Int

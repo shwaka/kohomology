@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.util.IntDeg
+import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isOdd
 
@@ -35,9 +35,9 @@ class StringIndeterminateName(val name: String, tex: String? = null) : Indetermi
     }
 }
 
-data class Indeterminate<I : IndeterminateName>(val name: I, val degree: IntDeg) {
+data class Indeterminate<I : IndeterminateName>(val name: I, val degree: IntAsDegree) {
     companion object {
-        operator fun invoke(name: String, degree: IntDeg): Indeterminate<StringIndeterminateName> {
+        operator fun invoke(name: String, degree: IntAsDegree): Indeterminate<StringIndeterminateName> {
             return Indeterminate(StringIndeterminateName(name), degree)
         }
     }
@@ -63,7 +63,7 @@ private sealed class IndeterminateList<I : IndeterminateName>(
     }
     operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
 
-    abstract fun checkDegree(monomial: Monomial<I>, degreeLimit: IntDeg): Boolean
+    abstract fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -103,7 +103,7 @@ private class PositiveIndeterminateList<I : IndeterminateName>(
         }
     }
 
-    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntDeg): Boolean {
+    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
         return monomial.degree.toInt() <= degreeLimit
@@ -122,7 +122,7 @@ private class NegativeIndeterminateList<I : IndeterminateName>(
         }
     }
 
-    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntDeg): Boolean {
+    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
         return monomial.degree.toInt() >= degreeLimit
@@ -169,7 +169,7 @@ class Monomial<I : IndeterminateName> private constructor(
         )
     }
 
-    fun getNextMonomial(maxDegree: IntDeg): Monomial<I>? {
+    fun getNextMonomial(maxDegree: IntAsDegree): Monomial<I>? {
         if (this.indeterminateList.isEmpty())
             return null
         this.increaseFirstExponent(maxDegree)?.let { return it }
@@ -180,7 +180,7 @@ class Monomial<I : IndeterminateName> private constructor(
         return null
     }
 
-    private fun increaseFirstExponent(maxDegree: IntDeg): Monomial<I>? {
+    private fun increaseFirstExponent(maxDegree: IntAsDegree): Monomial<I>? {
         // 奇数次の場合
         if ((this.indeterminateList.first().degree.isOdd()) && (this.exponentList.first() == 1))
             return null

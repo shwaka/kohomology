@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.Degree
 import com.github.shwaka.kohomology.dg.DegreeMonoid
 import com.github.shwaka.kohomology.util.IntDeg
@@ -30,11 +31,17 @@ interface Monoid<D : Degree, E : MonoidElement<D>> {
     val degreeMonoid: DegreeMonoid<D>
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
     fun listAll(degree: D): List<E>
+    fun listAll(degree: Int): List<E> = this.listAll(this.degreeMonoid.fromInt(degree))
 }
 
 data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
     override fun toString(): String {
         return this.name.toString()
+    }
+    companion object {
+        operator fun <T> invoke(name: T, degree: Int) : SimpleMonoidElement<T, IntDegree> {
+            return SimpleMonoidElement(name, IntDegree(degree))
+        }
     }
 }
 
@@ -46,7 +53,7 @@ class MonoidFromList<T, D : Degree>(
     init {
         if (this.elements.isEmpty())
             throw IllegalArgumentException("'elements' must be non-empty list")
-        if (this.elements[0].degree.isZero())
+        if (this.elements[0].degree.isNotZero())
             throw IllegalArgumentException("The first element of the list 'elements' should be the unit (degree 0)")
     }
 

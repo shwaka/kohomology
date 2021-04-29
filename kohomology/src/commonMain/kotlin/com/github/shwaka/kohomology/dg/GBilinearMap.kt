@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -29,6 +31,21 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
         name: String,
         getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
     ) : this(source1, source2, target, source1.degreeMonoid.fromInt(degree), name, getBilinearMap)
+
+    companion object {
+        fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withIntDegree(
+            source1: GVectorSpace<BS1, IntDegree,S, V>,
+            source2: GVectorSpace<BS2, IntDegree,S, V>,
+            target: GVectorSpace<BT, IntDegree,S, V>,
+            degree: Int,
+            name: String,
+            getBilinearMap: (Int, Int) -> BilinearMap<BS1, BS2, BT, S, V, M>,
+        ) : GBilinearMap<BS1, BS2, BT, IntDegree, S, V, M> {
+            return GBilinearMap(source1, source2, target, IntDegree(degree), name) { p, q ->
+                getBilinearMap(p.toInt(), q.toInt())
+            }
+        }
+    }
 
     operator fun get(p: D, q: D): BilinearMap<BS1, BS2, BT, S, V, M> {
         this.cache[Pair(p, q)]?.let {

@@ -19,7 +19,7 @@ import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 val gVectorTag = NamedTag("GVector")
 
 fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
-    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
     gVectorSpace.context.run {
@@ -47,7 +47,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
 }
 
 fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
-    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "V") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
         (0 until degree).map { "v$it" }
     }
 
@@ -65,7 +65,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
         }
 
         "convertToGVector converts ZeroGVector to the correct zero vector" {
-            val zeroGVector = ZeroGVector<StringBasisName, S, V>()
+            val zeroGVector = ZeroGVector<StringBasisName, IntDegree, S, V>()
             val degree = 3
             val expected = gVectorSpace.getZero(degree)
             gVectorSpace.convertToGVector(zeroGVector, degree) shouldBe expected

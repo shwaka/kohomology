@@ -56,6 +56,10 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
         return linearMap
     }
 
+    operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
+        return this.get(this.degreeMonoid.fromInt(degree))
+    }
+
     fun findPreimage(gVector: GVector<BT, D, S, V>): GVector<BS, D, S, V>? {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")

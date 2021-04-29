@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -19,14 +21,14 @@ val gBilinearMapTag = NamedTag("GBilinearMap")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     // 1つの元で生成される外積代数
     val numVectorSpace = matrixSpace.numVectorSpace
-    val gVectorSpace = GVectorSpace.fromStringBasisNames(numVectorSpace, "span<u, v>") { degree ->
+    val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "span<u, v>") { degree ->
         when (degree) {
             0 -> listOf("u") // unit
             1 -> listOf("v")
             else -> emptyList()
         }
     }
-    val gBilinearMap = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, "f") { p, q ->
+    val gBilinearMap = GBilinearMap.withIntDegree(gVectorSpace, gVectorSpace, gVectorSpace, 0, "f") { p, q ->
         val u: Vector<StringBasisName, S, V> = gVectorSpace[0].getBasis()[0]
         val v: Vector<StringBasisName, S, V> = gVectorSpace[1].getBasis()[0]
         val z2: Vector<StringBasisName, S, V> = gVectorSpace[2].zeroVector
@@ -40,10 +42,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
     }
     gVectorSpace.context.run {
         "graded bilinear map test" {
-            val u: GVector<StringBasisName, S, V> = gVectorSpace.getBasis(0)[0]
-            val v: GVector<StringBasisName, S, V> = gVectorSpace.getBasis(1)[0]
-            val z2: GVector<StringBasisName, S, V> = gVectorSpace.getZero(2)
-            val z3: GVector<StringBasisName, S, V> = gVectorSpace.getZero(3)
+            val u: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getBasis(0)[0]
+            val v: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getBasis(1)[0]
+            val z2: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getZero(2)
+            val z3: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getZero(3)
             gBilinearMap(u, u) shouldBe u
             gBilinearMap(u, v) shouldBe v
             gBilinearMap(v, u) shouldBe v

@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -165,6 +167,18 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
         }
+
+        fun <S : Scalar, V : NumVector<S>> fromStringBasisNamesWithIntDegree(
+            numVectorSpace: NumVectorSpace<S, V>,
+            name: String,
+            getBasisNames: (Int) -> List<String>,
+        ): GVectorSpace<StringBasisName, IntDegree, S, V> {
+            // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
+            return GVectorSpace<StringBasisName, IntDegree, S, V>(numVectorSpace, IntDegreeMonoid, name) { degree ->
+                val basisNames = getBasisNames(degree.toInt()).map { StringBasisName(it) }
+                VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
+            }
+        }
     }
 
     operator fun get(degree: D): VectorSpace<B, S, V> {
@@ -290,6 +304,14 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
         val vectorSpace = this[degree]
         val vectorList = gVectorList.map { it.vector }
         return vectorSpace.isBasis(vectorList, matrixSpace)
+    }
+
+    fun <M : Matrix<S, V>> isBasis(
+        gVectorList: List<GVector<B, D, S, V>>,
+        degree: Int,
+        matrixSpace: MatrixSpace<S, V, M>
+    ): Boolean {
+        return this.isBasis(gVectorList, this.degreeMonoid.fromInt(degree), matrixSpace)
     }
 
     fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<B, B, D, S, V, M> {

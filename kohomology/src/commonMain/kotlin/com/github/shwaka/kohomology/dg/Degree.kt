@@ -15,6 +15,8 @@ interface DegreeMonoid<D : Degree> {
     val context: DegreeContext<D>
     fun fromInt(n: Int): D
     fun add(degree1: D, degree2: D): D
+    val zero: D
+        get() = this.fromInt(0)
 }
 
 data class IntDegree(val value: Int) : Degree {

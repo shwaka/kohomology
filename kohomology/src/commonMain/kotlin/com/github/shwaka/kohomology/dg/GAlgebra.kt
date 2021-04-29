@@ -76,7 +76,7 @@ open class GAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M :
         GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     }
 
-    override val unit: GVector<B, D, S, V> = this.fromVector(unitVector, this.degreeMonoid.zero)
+    override val unit: GVector<B, D, S, V> = this.fromVector(unitVector, 0)
 
     private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
         val bilinearMapName = "Multiplication(${this.name})"

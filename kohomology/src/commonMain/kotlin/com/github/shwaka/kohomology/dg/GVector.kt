@@ -228,6 +228,17 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
         }
     }
 
+    operator fun get(degree: Int): VectorSpace<B, S, V> = this[this.degreeMonoid.fromInt(degree)]
+    fun fromVector(vector: Vector<B, S, V>, degree: Int): GVector<B, D, S, V> = this.fromVector(vector, this.degreeMonoid.fromInt(degree))
+    fun fromNumVector(numVector: V, degree: Int): GVector<B, D, S, V> = this.fromNumVector(numVector, this.degreeMonoid.fromInt(degree))
+    fun fromCoeff(coeff: List<S>, degree: Int): GVector<B, D, S, V> = this.fromCoeff(coeff, this.degreeMonoid.fromInt(degree))
+    fun fromBasisName(basisName: B, degree: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree))
+    fun fromBasisName(basisName: B, degree: Int, coeff: S): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree), coeff)
+    fun fromBasisName(basisName: B, degree: Int, coeff: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree), coeff)
+    fun getBasis(degree: Int): List<GVector<B, D, S, V>> = this.getBasis(this.degreeMonoid.fromInt(degree))
+    fun getZero(degree: Int): GVector<B, D, S, V> = this.getZero(this.degreeMonoid.fromInt(degree))
+    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, D, S, V>, degree: Int): GVector<B, D, S, V> = this.convertToGVector(gVectorOrZero, this.degreeMonoid.fromInt(degree))
+
     override fun contains(gVector: GVector<B, D, S, V>): Boolean {
         return gVector.gVectorSpace == this
     }
@@ -281,7 +292,7 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
         return vectorSpace.isBasis(vectorList, matrixSpace)
     }
 
-    fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<B, B, S, V, M> {
+    fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<B, B, D, S, V, M> {
         return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
             this[degree].getId(matrixSpace)
         }

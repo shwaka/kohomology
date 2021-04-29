@@ -23,6 +23,15 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
     private val logger = KotlinLogging.logger {}
     val degreeMonoid = source.degreeMonoid
 
+    constructor(
+        source: GVectorSpace<BS, D, S, V>,
+        target: GVectorSpace<BT, D, S, V>,
+        degree: Int,
+        matrixSpace: MatrixSpace<S, V, M>,
+        name: String,
+        getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
+    ) : this(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, name, getLinearMap)
+
     operator fun invoke(gVector: GVector<BS, D, S, V>): GVector<BT, D, S, V> {
         if (gVector !in this.source)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
@@ -84,6 +93,16 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             }
         }
 
+        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+            source: GVectorSpace<BS, D, S, V>,
+            target: GVectorSpace<BT, D, S, V>,
+            degree: Int,
+            matrixSpace: MatrixSpace<S, V, M>,
+            getGVectors: (D) -> List<GVector<BT, D, S, V>>
+        ): (D) -> LinearMap<BS, BT, S, V, M> {
+            return this.createGetLinearMap(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, getGVectors)
+        }
+
         fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<BS, D, S, V>,
             target: GVectorSpace<BT, D, S, V>,
@@ -94,6 +113,17 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
         ): GLinearMap<BS, BT, D, S, V, M> {
             val getLinearMap = this.createGetLinearMap(source, target, degree, matrixSpace, getGVectors)
             return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
+        }
+
+        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: GVectorSpace<BS, D, S, V>,
+            target: GVectorSpace<BT, D, S, V>,
+            degree: Int,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (D) -> List<GVector<BT, D, S, V>>
+        ): GLinearMap<BS, BT, D, S, V, M> {
+            return this.fromGVectors(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, name, getGVectors)
         }
     }
 }

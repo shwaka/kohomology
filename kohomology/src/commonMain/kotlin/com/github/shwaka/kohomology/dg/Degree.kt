@@ -4,6 +4,8 @@ interface Degree {
     fun toInt(): Int
     fun isZero(): Boolean = this.toInt() == 0
     fun isNotZero(): Boolean = this.toInt() != 0
+    fun isEven(): Boolean
+    fun isOdd(): Boolean = !this.isEven()
 }
 
 class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by monoid {
@@ -30,6 +32,9 @@ interface DegreeMonoid<D : Degree> {
 
 data class IntDegree(val value: Int) : Degree {
     override fun toInt(): Int = this.value
+    override fun isEven(): Boolean {
+        return (this.value % 2 == 0)
+    }
 }
 
 object IntDegreeMonoid : DegreeMonoid<IntDegree> {

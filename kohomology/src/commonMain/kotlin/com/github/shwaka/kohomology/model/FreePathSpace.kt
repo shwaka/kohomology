@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
@@ -24,11 +25,11 @@ private class FreePathSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
         }
         FreeGAlgebra(this.matrixSpace, pathSpaceIndeterminateList)
     }
-    val differential: Derivation<Monomial<CopiedName<I>>, S, V, M>
-    val suspension: Derivation<Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraInclusion1: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraInclusion2: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M>
-    val gAlgebraProjection: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M>
+    val differential: Derivation<Monomial<CopiedName<I>>, IntDegree,S, V, M>
+    val suspension: Derivation<Monomial<CopiedName<I>>, IntDegree,S, V, M>
+    val gAlgebraInclusion1: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, IntDegree,S, V, M>
+    val gAlgebraInclusion2: GAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, IntDegree,S, V, M>
+    val gAlgebraProjection: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, IntDegree,S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val pathSpaceGeneratorList = this.pathSpaceGAlgebra.generatorList
@@ -73,9 +74,9 @@ private class FreePathSpaceFactory<I : IndeterminateName, S : Scalar, V : NumVec
     }
 
     private fun getNextValueList(
-        currentValueList: List<GVectorOrZero<Monomial<CopiedName<I>>, S, V>>,
+        currentValueList: List<GVectorOrZero<Monomial<CopiedName<I>>, IntDegree,S, V>>,
         index: Int
-    ): List<GVectorOrZero<Monomial<CopiedName<I>>, S, V>> {
+    ): List<GVectorOrZero<Monomial<CopiedName<I>>, IntDegree,S, V>> {
         val n = pathSpaceGAlgebra.indeterminateList.size / 3
         if (index < 0 || index >= n)
             throw Exception("This can't happen! (illegal index)")
@@ -105,23 +106,23 @@ class FreePathSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Mat
     private val factory: FreePathSpaceFactory<I, S, V, M>
 ) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
-    val suspension: Derivation<Monomial<CopiedName<I>>, S, V, M> =
+    val suspension: Derivation<Monomial<CopiedName<I>>, IntDegree,S, V, M> =
         this.factory.suspension
-    val inclusion1: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val inclusion1: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, IntDegree,S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion1
         )
     }
-    val inclusion2: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val inclusion2: DGAlgebraMap<Monomial<I>, Monomial<CopiedName<I>>, IntDegree,S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion2
         )
     }
-    val projection: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, S, V, M> by lazy {
+    val projection: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<I>, IntDegree,S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.freeDGAlgebra,

@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.IntDegree
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
@@ -24,12 +25,12 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V :
         FreeGAlgebra(this.matrixSpace, dividedLoopSpaceIndeterminateList)
     }
     val pathSpaceDGAlgebra: FreeDGAlgebra<CopiedName<I>, S, V, M> = FreePathSpace(freeDGAlgebra)
-    val differential: Derivation<Monomial<CopiedName<I>>, S, V, M>
-    val pathGAlgebraInclusion1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
-    val pathGAlgebraInclusion2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M>
+    val differential: Derivation<Monomial<CopiedName<I>>, IntDegree, S, V, M>
+    val pathGAlgebraInclusion1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M>
+    val pathGAlgebraInclusion2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M>
 
     val loopSpaceDGAlgebra: FreeDGAlgebra<CopiedName<I>, S, V, M> by lazy { FreeLoopSpace(freeDGAlgebra) }
-    val gAlgebraProjection1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val gAlgebraProjection1: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M> by lazy {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
         val zeroGVector = this.loopSpaceDGAlgebra.context.run { zeroGVector }
@@ -39,7 +40,7 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, S : Scalar, V :
                 loopSpaceGeneratorList.takeLast(n) + List(n) { zeroGVector }
         )
     }
-    val gAlgebraProjection2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val gAlgebraProjection2: GAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M> by lazy {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
         val zeroGVector = this.loopSpaceDGAlgebra.context.run { zeroGVector }
@@ -80,14 +81,14 @@ class DividedFreeLoopSpace<I : IndeterminateName, S : Scalar, V : NumVector<S>, 
 ) : FreeDGAlgebra<CopiedName<I>, S, V, M>(factory.dividedLoopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
     val freeLoopSpace = this.factory.loopSpaceDGAlgebra
-    val projection1: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val projection1: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.loopSpaceDGAlgebra,
             gLinearMap = this.factory.gAlgebraProjection1
         )
     }
-    val projection2: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, S, V, M> by lazy {
+    val projection2: DGAlgebraMap<Monomial<CopiedName<I>>, Monomial<CopiedName<I>>, IntDegree, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.loopSpaceDGAlgebra,

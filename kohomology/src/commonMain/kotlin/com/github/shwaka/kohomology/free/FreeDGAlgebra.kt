@@ -18,26 +18,26 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-class FreeDGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class FreeDGAlgebraContext<I : IndeterminateName, D:Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<Monomial<I>, S, V>,
-    gAlgebraOperations: GAlgebraOperations<Monomial<I>, S, V, M>,
-    dgVectorOperations: DGVectorOperations<Monomial<I>, S, V, M>,
-    freeGAlgebraOperations: FreeGAlgebraOperations<I, S, V, M>
-) : DGAlgebraContext<Monomial<I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
-    FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
+    gVectorOperations: GVectorOperations<Monomial<I>, D,S, V>,
+    gAlgebraOperations: GAlgebraOperations<Monomial<I>, D,S, V, M>,
+    dgVectorOperations: DGVectorOperations<Monomial<I>, D,S, V, M>,
+    freeGAlgebraOperations: FreeGAlgebraOperations<I, D,S, V, M>
+) : DGAlgebraContext<Monomial<I>, D,S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
+    FreeGAlgebraOperations<I,D, S, V, M> by freeGAlgebraOperations
 
 data class GeneratorOfFreeDGA(val name: String, val degree: IntDeg, val differentialValue: String)
 
-typealias GetDifferentialValueList<I, S, V, M> =
-    FreeGAlgebraContext<I, S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, S, V>>
+typealias GetDifferentialValueList<I,D, S, V, M> =
+    FreeGAlgebraContext<I, D,S, V, M>.(List<GVector<Monomial<I>, S, V>>) -> List<GVectorOrZero<Monomial<I>, D,S, V>>
 
-open class FreeDGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
-    override val gAlgebra: FreeGAlgebra<I, S, V, M>,
-    differential: Derivation<Monomial<I>, S, V, M>,
+open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
+    override val gAlgebra: FreeGAlgebra<I, D,S, V, M>,
+    differential: Derivation<Monomial<I>, D,S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGAlgebra<Monomial<I>, S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGAlgebra<Monomial<I>, D,S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context by lazy {
         FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }

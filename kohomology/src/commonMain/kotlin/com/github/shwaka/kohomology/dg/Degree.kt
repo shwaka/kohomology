@@ -14,6 +14,8 @@ class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by mo
     operator fun D.minus(other: D): D = this@DegreeContext.subtract(this, other)
     operator fun Int.minus(other: D): D = this@DegreeContext.subtract(this.toDegree(), other)
     operator fun D.minus(other: Int): D = this@DegreeContext.subtract(this, other.toDegree())
+    operator fun D.times(n: Int): D = this@DegreeContext.multiply(this, n)
+    operator fun Int.times(degree: D): D = this@DegreeContext.multiply(degree, this)
 }
 
 interface DegreeMonoid<D : Degree> {
@@ -21,6 +23,7 @@ interface DegreeMonoid<D : Degree> {
     fun fromInt(n: Int): D
     fun add(degree1: D, degree2: D): D
     fun subtract(degree1: D, degree2: D): D
+    fun multiply(degree: D, n: Int): D
     val zero: D
         get() = this.fromInt(0)
 }

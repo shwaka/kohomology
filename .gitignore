@@ -20,3 +20,6 @@ build
 
 # my temporary repository
 repository/
+
+# java_pid????.hprof, which is generated when compilation failed due to OutOfMemoryError
+*.hprof

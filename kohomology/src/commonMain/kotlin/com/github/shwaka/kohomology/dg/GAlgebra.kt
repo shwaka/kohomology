@@ -66,7 +66,7 @@ open class GAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M :
     degreeMonoid: DegreeMonoid<D>,
     name: String,
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    val getMultiplication: (IntDeg, IntDeg) -> BilinearMap<B, B, B, S, V, M>,
+    val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
     printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
 ) : GVectorSpace<B, D, S, V>(matrixSpace.numVectorSpace, degreeMonoid, name, printer, getVectorSpace), GAlgebraOperations<B, D, S, V, M> {
@@ -78,7 +78,7 @@ open class GAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M :
 
     override val unit: GVector<B, D, S, V> = this.fromVector(unitVector, 0)
 
-    private val multiplication: GBilinearMap<B, B, B, S, V, M> by lazy {
+    private val multiplication: GBilinearMap<B, B, B, D, S, V, M> by lazy {
         val bilinearMapName = "Multiplication(${this.name})"
         GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
     }

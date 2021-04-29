@@ -13,38 +13,38 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-open class DGAlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<B, S, V>,
-    gAlgebraOperations: GAlgebraOperations<B, S, V, M>,
-    dgVectorOperations: DGVectorOperations<B, S, V, M>
-) : DGVectorContext<B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
-    GAlgebraOperations<B, S, V, M> by gAlgebraOperations {
+    gVectorOperations: GVectorOperations<B, D, S, V>,
+    gAlgebraOperations: GAlgebraOperations<B, D, S, V, M>,
+    dgVectorOperations: DGVectorOperations<B, D, S, V, M>
+) : DGVectorContext<B, D, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
+    GAlgebraOperations<B, D, S, V, M> by gAlgebraOperations {
     private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations)
 
-    operator fun GVector<B, S, V>.times(other: GVector<B, S, V>): GVector<B, S, V> {
+    operator fun GVector<B, D, S, V>.times(other: GVector<B, D, S, V>): GVector<B, D, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@times * other }
     }
 
-    fun GVector<B, S, V>.pow(exponent: Int): GVector<B, S, V> {
+    fun GVector<B, D, S, V>.pow(exponent: Int): GVector<B, D, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@pow.pow(exponent) }
     }
 }
 
-open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    open val gAlgebra: GAlgebra<B, S, V, M>,
-    differential: GLinearMap<B, B, S, V, M>,
+open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    open val gAlgebra: GAlgebra<B, D,S, V, M>,
+    differential: GLinearMap<B, B,D, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorSpace<B, S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGVectorSpace<B,D, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context by lazy {
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
 
-    private fun getCohomologyMultiplication(p: IntDeg, q: IntDeg): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
-        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(p + q)
+        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.gAlgebra.degreeMonoid.context.run { p + q })
         val basisLift1: List<Vector<B, S, V>> =
             cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegP.section(vector1)
@@ -70,11 +70,12 @@ open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, 
         )
     }
 
-    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>, S, V, M> by lazy {
+    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>,D, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         GAlgebra(
             matrixSpace,
+            this.gAlgebra.degreeMonoid,
             this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,
@@ -82,7 +83,7 @@ open class DGAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, 
         )
     }
 
-    fun getId(): DGAlgebraMap<B, B, S, V, M> {
+    fun getId(): DGAlgebraMap<B, B, D,S, V, M> {
         val gAlgebraMap = this.gAlgebra.getId()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }

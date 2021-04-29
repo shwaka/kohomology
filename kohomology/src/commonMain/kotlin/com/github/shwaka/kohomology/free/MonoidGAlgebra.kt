@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.Degree
+import com.github.shwaka.kohomology.dg.DegreeMonoid
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -12,19 +14,19 @@ import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
 
-private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val monoid: Mon,
     val name: String,
 ) {
-    private val cache: MutableMap<IntDeg, VectorSpace<E, S, V>> = mutableMapOf()
+    private val cache: MutableMap<D, VectorSpace<E, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
-    private fun getBasisNames(degree: IntDeg): List<E> {
+    private fun getBasisNames(degree: D): List<E> {
         return this.monoid.listAll(degree)
     }
 
-    fun getVectorSpace(degree: IntDeg): VectorSpace<E, S, V> {
+    fun getVectorSpace(degree: D): VectorSpace<E, S, V> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for ${this.monoid}[$degree]" }
@@ -37,7 +39,7 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
         return vectorSpace
     }
 
-    fun getMultiplication(p: IntDeg, q: IntDeg): BilinearMap<E, E, E, S, V, M> {
+    fun getMultiplication(p: D, q: D): BilinearMap<E, E, E, S, V, M> {
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
         val target = this.getVectorSpace(p + q)
@@ -65,9 +67,9 @@ private class MonoidGAlgebraFactory<E : MonoidElement, Mon : Monoid<E>, S : Scal
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
-open class MonoidGAlgebra<E : MonoidElement, Mon : Monoid<E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    factory: MonoidGAlgebraFactory<E, Mon, S, V, M>,
-) : GAlgebra<E, S, V, M>(
+open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+    factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
+) : GAlgebra<E, D, S, V, M>(
     factory.matrixSpace,
     factory.name,
     factory::getVectorSpace,

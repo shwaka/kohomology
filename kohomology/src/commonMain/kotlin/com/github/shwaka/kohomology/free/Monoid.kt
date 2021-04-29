@@ -1,11 +1,13 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.Degree
+import com.github.shwaka.kohomology.dg.DegreeMonoid
 import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-interface MonoidElement : BasisName {
-    val degree: IntDeg
+interface MonoidElement<D : Degree> : BasisName {
+    val degree: D
 }
 
 sealed class MaybeZero<T>
@@ -23,35 +25,37 @@ class Zero<T> : MaybeZero<T>() {
 }
 data class NonZero<T>(val value: T) : MaybeZero<T>()
 
-interface Monoid<E : MonoidElement> {
+interface Monoid<D : Degree, E : MonoidElement<D>> {
     val unit: E
+    val degreeMonoid: DegreeMonoid<D>
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
-    fun listAll(degree: IntDeg): List<E>
+    fun listAll(degree: D): List<E>
 }
 
-data class SimpleMonoidElement<T>(val name: T, override val degree: IntDeg) : MonoidElement {
+data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
     override fun toString(): String {
         return this.name.toString()
     }
 }
 
-class MonoidFromList<T>(
-    val elements: List<SimpleMonoidElement<T>>,
-    val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T>, Sign>>>>
-) : Monoid<SimpleMonoidElement<T>> {
+class MonoidFromList<T, D : Degree>(
+    val elements: List<SimpleMonoidElement<T, D>>,
+    override val degreeMonoid: DegreeMonoid<D>,
+    val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>>>>
+) : Monoid<D, SimpleMonoidElement<T, D>> {
     init {
         if (this.elements.isEmpty())
             throw IllegalArgumentException("'elements' must be non-empty list")
-        if (this.elements[0].degree != 0)
+        if (this.elements[0].degree.isZero())
             throw IllegalArgumentException("The first element of the list 'elements' should be the unit (degree 0)")
     }
 
     override val unit = this.elements[0]
 
     override fun multiply(
-        monoidElement1: SimpleMonoidElement<T>,
-        monoidElement2: SimpleMonoidElement<T>
-    ): MaybeZero<Pair<SimpleMonoidElement<T>, Sign>> {
+        monoidElement1: SimpleMonoidElement<T, D>,
+        monoidElement2: SimpleMonoidElement<T, D>
+    ): MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>> {
         val index1: Int = this.elements.indexOf(monoidElement1).also {
             if (it == -1)
                 throw NoSuchElementException("$monoidElement1 is not found in the list 'elements'")
@@ -63,7 +67,7 @@ class MonoidFromList<T>(
         return this.multiplicationTable[index1][index2]
     }
 
-    override fun listAll(degree: IntDeg): List<SimpleMonoidElement<T>> {
+    override fun listAll(degree: D): List<SimpleMonoidElement<T, D>> {
         return this.elements.filter { it.degree == degree }
     }
 }

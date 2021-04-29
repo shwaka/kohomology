@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.dg
 
 interface Degree {
     fun toInt(): Int
+    fun isZero(): Boolean = this.toInt() == 0
+    fun isNotZero(): Boolean = this.toInt() != 0
 }
 
 class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by monoid {

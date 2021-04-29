@@ -18,11 +18,11 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntDeg
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-interface FreeGAlgebraOperations<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+interface FreeGAlgebraOperations<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun parse(text: String): GVectorOrZero<Monomial<I>, S, V>
 }
 
-class FreeGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class FreeGAlgebraContext<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<Monomial<I>, S, V>,
@@ -31,7 +31,7 @@ class FreeGAlgebraContext<I : IndeterminateName, S : Scalar, V : NumVector<S>, M
 ) : GAlgebraContext<Monomial<I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
     FreeGAlgebraOperations<I, S, V, M> by freeGAlgebraOperations
 
-class FreeGAlgebra<I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     val indeterminateList: List<Indeterminate<I>>
 ) : MonoidGAlgebra<Monomial<I>, FreeMonoid<I>, S, V, M>(matrixSpace, FreeMonoid(indeterminateList), FreeGAlgebra.getName(indeterminateList)),

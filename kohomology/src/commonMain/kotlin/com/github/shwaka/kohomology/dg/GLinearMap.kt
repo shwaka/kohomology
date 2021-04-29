@@ -59,7 +59,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
     fun findPreimage(gVector: GVector<BT, D, S, V>): GVector<BS, D, S, V>? {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
-        val sourceDegree = gVector.degree - this.degree
+        val sourceDegree = this.degreeMonoid.context.run { gVector.degree - this@GLinearMap.degree }
         return this[sourceDegree].findPreimage(gVector.vector)?.let { vector ->
             this.source.fromVector(vector, sourceDegree)
         }

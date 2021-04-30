@@ -67,4 +67,10 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size}, but ${coeffList.size} was given")
         return LinearDegree(this, constantTerm, coeffList.toIntArray())
     }
+
+    fun fromList(coeffList: List<Int>): LinearDegree {
+        if (coeffList.size != this.indeterminateList.size + 1)
+            throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size + 1}, but ${coeffList.size} was given")
+        return LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
+    }
 }

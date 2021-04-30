@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector

@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
-import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.dg
+package com.github.shwaka.kohomology.dg.degree
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.util.isEven

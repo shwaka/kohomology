@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.dg.Degree
-import com.github.shwaka.kohomology.dg.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsDegree
 

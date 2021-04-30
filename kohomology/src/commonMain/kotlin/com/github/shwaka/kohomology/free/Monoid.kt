@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.dg.Degree
-import com.github.shwaka.kohomology.dg.DegreeMonoid
-import com.github.shwaka.kohomology.dg.IntDegree
+import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 

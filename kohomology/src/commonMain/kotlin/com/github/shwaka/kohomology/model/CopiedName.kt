@@ -3,9 +3,7 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
 import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
-import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.IndeterminateName
-import com.github.shwaka.kohomology.util.IntAsDegree
 
 data class CopiedName<I : IndeterminateName, D : Degree>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
     override fun toString(): String {

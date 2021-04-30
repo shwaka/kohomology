@@ -37,7 +37,6 @@ data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val d
             return GeneratorOfFreeDGA(name, IntDegree(degree), differentialValue)
         }
     }
-
 }
 
 typealias GetDifferentialValueList<I, D, S, V, M> =

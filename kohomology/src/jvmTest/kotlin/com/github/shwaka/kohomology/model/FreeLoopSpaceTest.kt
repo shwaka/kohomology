@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
-import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

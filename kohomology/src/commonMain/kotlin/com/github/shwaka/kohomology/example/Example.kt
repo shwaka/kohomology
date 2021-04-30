@@ -1,10 +1,8 @@
 package com.github.shwaka.kohomology.example
 
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
-import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

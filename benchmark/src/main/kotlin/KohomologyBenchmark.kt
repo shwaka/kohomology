@@ -1,7 +1,7 @@
 package test
 
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
-import com.github.shwaka.kohomology.free.Indeterminate
+import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.model.FreePathSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
@@ -15,8 +15,8 @@ class KohomologyBenchmark {
     fun cohomologyOfFreeLoopSpace(): String {
         val sphereDim = 2
         val indeterminateList = listOf(
-            Indeterminate("x", sphereDim),
-            Indeterminate("y", sphereDim * 2 - 1)
+            GeneralizedIndeterminate("x", sphereDim),
+            GeneralizedIndeterminate("y", sphereDim * 2 - 1)
         )
         val matrixSpace = SparseMatrixSpaceOverBigRational
         val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
@@ -35,8 +35,8 @@ class KohomologyBenchmark {
     fun isomorphismToCohomologyOfFreePathSpace(): String {
         val n = 5
         val indeterminateList = listOf(
-            Indeterminate("c", 2),
-            Indeterminate("x", 2 * n + 1)
+            GeneralizedIndeterminate("c", 2),
+            GeneralizedIndeterminate("x", 2 * n + 1)
         )
         val sphere = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, indeterminateList) { (c, _) ->
             listOf(zeroGVector, c.pow(n + 1))

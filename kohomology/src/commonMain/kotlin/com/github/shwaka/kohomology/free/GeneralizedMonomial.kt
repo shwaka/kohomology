@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsDegree
+import com.github.shwaka.kohomology.util.Sign
 
 data class GeneralizedIndeterminate<I : IndeterminateName, D : Degree>(val name: I, val degree: D) {
     companion object {
@@ -226,5 +227,110 @@ class GeneralizedMonomial<I : IndeterminateName, D : Degree> private constructor
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
             return Monomial(indeterminateList, exponentList)
         }
+    }
+}
+
+class GeneralizedFreeMonoid<I : IndeterminateName, D : Degree> (
+    override val degreeMonoid: DegreeMonoid<D>,
+    val indeterminateList: List<GeneralizedIndeterminate<I, D>>
+) : Monoid<D, GeneralizedMonomial<I, D>> {
+    // constructor(
+    //     indeterminateList: List<Indeterminate<I>>,
+    // ) : this(IndeterminateList.from(indeterminateList))
+
+    override val unit: GeneralizedMonomial<I, D> = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, List(this.indeterminateList.size) { 0 })
+
+    override fun multiply(
+        monoidElement1: GeneralizedMonomial<I, D>,
+        monoidElement2: GeneralizedMonomial<I, D>
+    ): MaybeZero<Pair<GeneralizedMonomial<I, D>, Sign>> {
+        // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
+        //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
+        val size = this.indeterminateList.size
+        // val exponentList = monoidElement1.exponentList
+        //     .zip(monoidElement2.exponentList)
+        //     .map { (p, q) -> p + q }
+        val exponentList = this.addExponentLists(monoidElement1.exponentList, monoidElement2.exponentList)
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree.isOdd()) && (exponentList[i] >= 2))
+                return Zero()
+        }
+        var sign = 1
+        for (i in 0 until size) {
+            if ((this.indeterminateList[i].degree.isOdd()) && (monoidElement1.exponentList[i] == 1)) {
+                for (j in 0 until i) {
+                    if ((this.indeterminateList[j].degree.isOdd()) && (monoidElement2.exponentList[j] == 1)) {
+                        sign = -sign
+                    }
+                }
+            }
+        }
+        val monomial = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, exponentList)
+        return NonZero(Pair(monomial, sign))
+    }
+
+    private fun addExponentLists(exponentList1: IntArray, exponentList2: IntArray): IntArray {
+        // return exponentList1.zip(exponentList2).map { (p, q) -> p + q }
+        // return exponentList1.indices.map { i -> exponentList1[i] + exponentList2[i] }
+        // return exponentList1.mapIndexed { index, exponent -> exponent + exponentList2[index] }
+        return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
+    }
+
+    override fun listAll(degree: D): List<GeneralizedMonomial<I, D>> {
+        val exponentList = List(this.indeterminateList.size) { 0 }
+        var monomial: GeneralizedMonomial<I, D>? = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, exponentList)
+        val monomialList: MutableList<GeneralizedMonomial<I, D>> = mutableListOf()
+        while (monomial != null) {
+            if (monomial.degree == degree)
+                monomialList.add(monomial)
+            monomial = monomial.getNextMonomial(degree.toInt())
+        }
+        return monomialList
+    }
+
+    private fun separate(monomial: GeneralizedMonomial<I, D>, index: Int): GeneralizedMonomialSeparation<I, D>? {
+        val separatedExponent = monomial.exponentList[index]
+        if (separatedExponent == 0)
+            return null
+        val remainingExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+            if (i == index) 0 else exponent
+        }
+        val remainingMonomial = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, remainingExponentList)
+        val separatedIndeterminate = this.indeterminateList[index]
+        val separatedExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+            if (i == index) exponent else 0
+        }
+        val multipliedMonomialOrZero = this.multiply(
+            GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, separatedExponentList),
+            remainingMonomial
+        )
+        val (_, sign) = when (multipliedMonomialOrZero) {
+            is NonZero -> multipliedMonomialOrZero.value
+            is Zero -> throw Exception("This can't happen!")
+        }
+        return GeneralizedMonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
+    }
+
+    fun allSeparations(monomial: GeneralizedMonomial<I, D>): List<GeneralizedMonomialSeparation<I, D>> {
+        // TODO: List じゃなくて Iterator の方が良い？
+        return this.indeterminateList.indices.mapNotNull { i -> this.separate(monomial, i) }
+    }
+
+    override fun toString(): String {
+        val indeterminateListString = this.indeterminateList.joinToString(", ") { it.toString() }
+        return "FreeMonoid($indeterminateListString)"
+    }
+}
+
+data class GeneralizedMonomialSeparation<I : IndeterminateName, D : Degree>(
+    val remainingMonomial: GeneralizedMonomial<I, D>,
+    val separatedIndeterminate: GeneralizedIndeterminate<I, D>,
+    val separatedExponent: Int,
+    val sign: Sign,
+    val index: Int,
+) {
+    init {
+        if (separatedExponent <= 0)
+            throw Exception("separatedExponent must be positive")
     }
 }

@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.example.complexProjectiveSpace
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -28,8 +29,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
         if (sphereDim % 2 == 1)
             throw IllegalArgumentException("The dimension of a sphere must be even in this test")
         val indeterminateList = listOf(
-            Indeterminate("x", sphereDim),
-            Indeterminate("y", sphereDim * 2 - 1)
+            GeneralizedIndeterminate("x", sphereDim),
+            GeneralizedIndeterminate("y", sphereDim * 2 - 1)
         )
         val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))

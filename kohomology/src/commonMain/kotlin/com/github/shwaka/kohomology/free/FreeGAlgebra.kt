@@ -10,6 +10,8 @@ import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -175,6 +177,13 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
         private fun <I : IndeterminateName, D : Degree> getName(indeterminateList: List<GeneralizedIndeterminate<I, D>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
+        }
+
+        operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            indeterminateList: List<GeneralizedIndeterminate<I, IntDegree>>
+        ): FreeGAlgebra<I, IntDegree, S, V, M> {
+            return FreeGAlgebra(matrixSpace, IntDegreeMonoid, indeterminateList)
         }
     }
 }

@@ -31,7 +31,14 @@ class FreeDGAlgebraContext<I : IndeterminateName, D : Degree, S : Scalar, V : Nu
 ) : DGAlgebraContext<GeneralizedMonomial<I, D>, D, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
     FreeGAlgebraOperations<I, D, S, V, M> by freeGAlgebraOperations
 
-data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val differentialValue: String)
+data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val differentialValue: String) {
+    companion object {
+        operator fun invoke(name: String, degree: Int, differentialValue: String): GeneratorOfFreeDGA<IntDegree> {
+            return GeneratorOfFreeDGA(name, IntDegree(degree), differentialValue)
+        }
+    }
+
+}
 
 typealias GetDifferentialValueList<I, D, S, V, M> =
     FreeGAlgebraContext<I, D, S, V, M>.(List<GVector<GeneralizedMonomial<I, D>, D, S, V>>) -> List<GVectorOrZero<GeneralizedMonomial<I, D>, D, S, V>>

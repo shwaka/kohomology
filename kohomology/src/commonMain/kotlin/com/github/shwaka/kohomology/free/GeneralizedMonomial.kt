@@ -220,12 +220,16 @@ class GeneralizedMonomial<I : IndeterminateName, D : Degree> private constructor
     }
 
     companion object {
-        fun <I : IndeterminateName> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
+        fun <I : IndeterminateName, D : Degree> fromIndeterminate(
+            degreeMonoid: DegreeMonoid<D>,
+            indeterminateList: List<GeneralizedIndeterminate<I, D>>,
+            indeterminate: GeneralizedIndeterminate<I, D>
+        ): GeneralizedMonomial<I, D> {
             val index = indeterminateList.indexOf(indeterminate)
             if (index == -1)
                 throw NoSuchElementException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
-            return Monomial(indeterminateList, exponentList)
+            return GeneralizedMonomial(degreeMonoid, indeterminateList, exponentList)
         }
     }
 }

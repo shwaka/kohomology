@@ -79,6 +79,14 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
             return FreeDGAlgebra(freeGAlgebra, differential, matrixSpace)
         }
 
+        operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            indeterminateList: List<GeneralizedIndeterminate<I, IntDegree>>,
+            getDifferentialValueList: GetDifferentialValueList<I, IntDegree, S, V, M>
+        ): FreeDGAlgebra<I, IntDegree, S, V, M> {
+            return FreeDGAlgebra.invoke(matrixSpace, IntDegreeMonoid, indeterminateList, getDifferentialValueList)
+        }
+
         operator fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             degreeMonoid: DegreeMonoid<D>,

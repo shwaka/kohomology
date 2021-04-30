@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.Sign
@@ -10,6 +12,9 @@ data class GeneralizedIndeterminate<I : IndeterminateName, D : Degree>(val name:
     companion object {
         operator fun <D : Degree> invoke(name: String, degree: D): GeneralizedIndeterminate<StringIndeterminateName, D> {
             return GeneralizedIndeterminate(StringIndeterminateName(name), degree)
+        }
+        operator fun invoke(name: String, degree: Int): GeneralizedIndeterminate<StringIndeterminateName, IntDegree> {
+            return GeneralizedIndeterminate(StringIndeterminateName(name), IntDegree(degree))
         }
     }
     override fun toString(): String {

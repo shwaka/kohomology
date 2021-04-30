@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.util.isOdd
 
 data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
-data class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val coeffList: IntArray) : Degree {
+class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val coeffList: IntArray) : Degree {
     override fun toInt(): Int {
         return this.constantTerm + this.coeffList.indices.map {
             this.coeffList[it] * this.monoid.indeterminateList[it].defaultValue
@@ -25,6 +25,26 @@ data class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, v
             }
         }
         return this.constantTerm.isEven()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as LinearDegree
+
+        if (monoid != other.monoid) return false
+        if (constantTerm != other.constantTerm) return false
+        if (!coeffList.contentEquals(other.coeffList)) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = monoid.hashCode()
+        result = 31 * result + constantTerm
+        result = 31 * result + coeffList.contentHashCode()
+        return result
     }
 }
 

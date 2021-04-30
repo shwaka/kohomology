@@ -49,6 +49,20 @@ class LinearDegreeTest : FreeSpec({
             }
         }
 
+        "(1) - (2N) should be (1 - 2N)" {
+            val n = degreeMonoid.fromList(listOf(0, 1))
+            degreeMonoid.context.run {
+                (1 - 2 * n) shouldBe degreeMonoid.fromList(listOf(1, -2))
+            }
+        }
+
+        "(2N) - (1) should be (-1 + 2N)" {
+            val n = degreeMonoid.fromList(listOf(0, 1))
+            degreeMonoid.context.run {
+                (2 * n - 1) shouldBe degreeMonoid.fromList(listOf(-1, 2))
+            }
+        }
+
         "(1 + 2N).toString() should be \"1 + 2N\"" {
             val degree = degreeMonoid.fromList(listOf(1, 2))
             degree.toString() shouldBe "1 + 2N"

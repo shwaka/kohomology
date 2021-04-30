@@ -90,7 +90,7 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
         if (degree2.monoid != this)
             throw IllegalContextException("$degree2 is not an element of $this")
         val coeffList = degree1.coeffList.indices.map { degree1.coeffList[it] - degree2.coeffList[it] }
-        return this.fromCoefficients(degree1.constantTerm + degree2.constantTerm, coeffList)
+        return this.fromCoefficients(degree1.constantTerm - degree2.constantTerm, coeffList)
     }
 
     override fun multiply(degree: LinearDegree, n: Int): LinearDegree {

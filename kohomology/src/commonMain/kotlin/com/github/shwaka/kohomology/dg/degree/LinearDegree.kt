@@ -72,7 +72,7 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
     }
 
     override fun fromInt(n: Int): LinearDegree {
-        return LinearDegree(this, n, intArrayOf())
+        return LinearDegree(this, n, IntArray(this.indeterminateList.size) { 0 })
     }
 
     override fun add(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {

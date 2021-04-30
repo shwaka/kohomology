@@ -5,6 +5,14 @@ data class IntDegree(val value: Int) : Degree {
     override fun isEven(): Boolean {
         return (this.value % 2 == 0)
     }
+
+    override fun isZero(): Boolean {
+        return this.value == 0
+    }
+
+    override fun isOne(): Boolean {
+        return this.value == 1
+    }
 }
 
 object IntDegreeMonoid : DegreeMonoid<IntDegree> {

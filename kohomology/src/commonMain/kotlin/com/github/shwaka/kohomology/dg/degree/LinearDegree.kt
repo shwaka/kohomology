@@ -27,6 +27,14 @@ class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val co
         return this.constantTerm.isEven()
     }
 
+    override fun isZero(): Boolean {
+        return (this.constantTerm == 0) && this.coeffList.all { it == 0 }
+    }
+
+    override fun isOne(): Boolean {
+        return (this.constantTerm == 1) && this.coeffList.all { it == 0 }
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || this::class != other::class) return false

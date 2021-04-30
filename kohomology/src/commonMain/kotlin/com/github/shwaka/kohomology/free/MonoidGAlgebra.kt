@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
-import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

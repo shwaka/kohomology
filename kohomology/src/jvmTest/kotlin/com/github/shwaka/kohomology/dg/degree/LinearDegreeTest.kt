@@ -39,5 +39,10 @@ class LinearDegreeTest : FreeSpec({
             val expected = degreeMonoid.fromList(listOf(3, 5))
             degreeMonoid.context.run { degree1 + degree2 } shouldBe expected
         }
+
+        "(1 + 2N).toString() should be \"1 + 2N\"" {
+            val degree = degreeMonoid.fromList(listOf(1, 2))
+            degree.toString() shouldBe "1 + 2N"
+        }
     }
 })

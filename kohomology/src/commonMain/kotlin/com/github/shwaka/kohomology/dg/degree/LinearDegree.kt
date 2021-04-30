@@ -46,6 +46,16 @@ class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val co
         result = 31 * result + coeffList.contentHashCode()
         return result
     }
+
+    override fun toString(): String {
+        return if (this.coeffList.isEmpty()) {
+            this.constantTerm.toString()
+        } else {
+            "${this.constantTerm} + " + this.coeffList.indices.joinToString(" + ") {
+                "${this.coeffList[it]}${this.monoid.indeterminateList[it].name}"
+            }
+        }
+    }
 }
 
 data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) : DegreeMonoid<LinearDegree> {

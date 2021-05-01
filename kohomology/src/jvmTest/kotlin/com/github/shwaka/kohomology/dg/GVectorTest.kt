@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar

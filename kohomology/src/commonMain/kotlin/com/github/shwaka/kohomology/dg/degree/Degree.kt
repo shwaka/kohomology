@@ -1,9 +1,12 @@
-package com.github.shwaka.kohomology.dg
+package com.github.shwaka.kohomology.dg.degree
 
 interface Degree {
     fun toInt(): Int
-    fun isZero(): Boolean = this.toInt() == 0
+    fun isZero(): Boolean
+    fun isOne(): Boolean
     fun isNotZero(): Boolean = this.toInt() != 0
+    fun isEven(): Boolean
+    fun isOdd(): Boolean = !this.isEven()
 }
 
 class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by monoid {
@@ -26,30 +29,4 @@ interface DegreeMonoid<D : Degree> {
     fun multiply(degree: D, n: Int): D
     val zero: D
         get() = this.fromInt(0)
-}
-
-data class IntDegree(val value: Int) : Degree {
-    override fun toInt(): Int = this.value
-}
-
-object IntDegreeMonoid : DegreeMonoid<IntDegree> {
-    override val context: DegreeContext<IntDegree> by lazy {
-        DegreeContext(this)
-    }
-
-    override fun fromInt(n: Int): IntDegree {
-        return IntDegree(n)
-    }
-
-    override fun add(degree1: IntDegree, degree2: IntDegree): IntDegree {
-        return IntDegree(degree1.value + degree2.value)
-    }
-
-    override fun subtract(degree1: IntDegree, degree2: IntDegree): IntDegree {
-        return IntDegree(degree1.value - degree2.value)
-    }
-
-    override fun multiply(degree: IntDegree, n: Int): IntDegree {
-        return IntDegree(degree.value * n)
-    }
 }

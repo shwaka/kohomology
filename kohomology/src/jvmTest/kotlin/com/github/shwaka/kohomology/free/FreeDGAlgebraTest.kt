@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -22,9 +23,9 @@ val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should throw IllegalArgumentException when d^2 != 0" {
         val indeterminateList = listOf(
-            Indeterminate("x", 3),
-            Indeterminate("y", 2),
-            Indeterminate("z", 1),
+            GeneralizedIndeterminate("x", 3),
+            GeneralizedIndeterminate("y", 2),
+            GeneralizedIndeterminate("z", 1),
         )
         shouldThrow<IllegalArgumentException> {
             FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
@@ -36,7 +37,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpac
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should work well even when the list of generator is empty" {
-        val indeterminateList = listOf<Indeterminate<StringIndeterminateName>>()
+        val indeterminateList = listOf<GeneralizedIndeterminate<StringIndeterminateName, IntDegree>>()
         val freeDGAlgebra = shouldNotThrowAny {
             FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
         }
@@ -136,8 +137,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "generator must be sorted along a Sullivan filtration" {
         val indeterminateList = listOf(
-            Indeterminate("x", 2),
-            Indeterminate("y", 3),
+            GeneralizedIndeterminate("x", 2),
+            GeneralizedIndeterminate("y", 3),
         )
         shouldThrow<IllegalArgumentException> {
             FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _, _, _) ->

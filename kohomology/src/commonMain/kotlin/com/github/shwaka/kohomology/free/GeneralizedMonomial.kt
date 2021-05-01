@@ -1,44 +1,19 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.Sign
-import com.github.shwaka.kohomology.util.isOdd
 
-interface IndeterminateName {
-    fun toTex(): String = this.toString()
-}
-class StringIndeterminateName(val name: String, tex: String? = null) : IndeterminateName {
-    val tex: String = tex ?: name
-
-    override fun toString(): String = this.name
-    override fun toTex(): String = this.tex
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as StringIndeterminateName
-
-        if (name != other.name) return false
-        if (tex != other.tex) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        var result = name.hashCode()
-        result = 31 * result + tex.hashCode()
-        return result
-    }
-}
-
-data class Indeterminate<I : IndeterminateName>(val name: I, val degree: IntAsDegree) {
+data class GeneralizedIndeterminate<I : IndeterminateName, D : Degree>(val name: I, val degree: D) {
     companion object {
-        operator fun invoke(name: String, degree: IntAsDegree): Indeterminate<StringIndeterminateName> {
-            return Indeterminate(StringIndeterminateName(name), degree)
+        operator fun <D : Degree> invoke(name: String, degree: D): GeneralizedIndeterminate<StringIndeterminateName, D> {
+            return GeneralizedIndeterminate(StringIndeterminateName(name), degree)
+        }
+        operator fun invoke(name: String, degree: Int): GeneralizedIndeterminate<StringIndeterminateName, IntDegree> {
+            return GeneralizedIndeterminate(StringIndeterminateName(name), IntDegree(degree))
         }
     }
     override fun toString(): String {
@@ -49,28 +24,31 @@ data class Indeterminate<I : IndeterminateName>(val name: I, val degree: IntAsDe
     }
 }
 
-private sealed class IndeterminateList<I : IndeterminateName>(
-    protected val rawList: List<Indeterminate<I>>
+private sealed class GeneralizedIndeterminateList<I : IndeterminateName, D : Degree>(
+    protected val rawList: List<GeneralizedIndeterminate<I, D>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
-    fun first(): Indeterminate<I> = this.rawList.first()
-    abstract fun drop(): IndeterminateList<I>
+    fun first(): GeneralizedIndeterminate<I, D> = this.rawList.first()
+    abstract fun drop(): GeneralizedIndeterminateList<I, D>
     val size: Int
         get() = this.rawList.size
-    fun <T> zip(list: List<T>): List<Pair<Indeterminate<I>, T>> = this.rawList.zip(list)
-    fun mapIndexedIntArray(transform: (Int, Indeterminate<I>) -> Int): IntArray {
+    fun <T> zip(list: List<T>): List<Pair<GeneralizedIndeterminate<I, D>, T>> = this.rawList.zip(list)
+    fun mapIndexedIntArray(transform: (Int, GeneralizedIndeterminate<I, D>) -> Int): IntArray {
         return IntArray(this.size) { transform(it, this.rawList[it]) }
     }
-    operator fun get(index: Int): Indeterminate<I> = this.rawList[index]
+    fun <T> mapIndexed(transform: (Int, GeneralizedIndeterminate<I, D>) -> T): List<T> {
+        return List(this.size) { transform(it, this.rawList[it]) }
+    }
+    operator fun get(index: Int): GeneralizedIndeterminate<I, D> = this.rawList[index]
 
-    abstract fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean
+    abstract fun checkDegree(monomial: GeneralizedMonomial<I, D>, degreeLimit: IntAsDegree): Boolean
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
         if (this::class != other::class) return false
 
-        other as IndeterminateList<*>
+        other as GeneralizedIndeterminateList<*, *>
 
         if (rawList != other.rawList) return false
 
@@ -82,110 +60,115 @@ private sealed class IndeterminateList<I : IndeterminateName>(
     }
 
     companion object {
-        fun <I : IndeterminateName> from(indeterminateList: List<Indeterminate<I>>): IndeterminateList<I> {
+        fun <I : IndeterminateName, D : Degree> from(indeterminateList: List<GeneralizedIndeterminate<I, D>>): GeneralizedIndeterminateList<I, D> {
             return when {
-                indeterminateList.any { it.degree == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
-                indeterminateList.all { it.degree > 0 } -> PositiveIndeterminateList(indeterminateList)
-                indeterminateList.all { it.degree < 0 } -> NegativeIndeterminateList(indeterminateList)
+                indeterminateList.any { it.degree.toInt() == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
+                indeterminateList.all { it.degree.toInt() > 0 } -> GeneralizedPositiveIndeterminateList(indeterminateList)
+                indeterminateList.all { it.degree.toInt() < 0 } -> GeneralizedNegativeIndeterminateList(indeterminateList)
                 else -> throw IllegalArgumentException("Cannot consider a list of indeterminate containing both positive and negative degrees")
             }
         }
     }
 }
 
-private class PositiveIndeterminateList<I : IndeterminateName>(
-    rawList: List<Indeterminate<I>>
-) : IndeterminateList<I>(rawList) {
+private class GeneralizedPositiveIndeterminateList<I : IndeterminateName, D : Degree>(
+    rawList: List<GeneralizedIndeterminate<I, D>>
+) : GeneralizedIndeterminateList<I, D>(rawList) {
     init {
         for (indeterminate in rawList) {
-            if (indeterminate.degree <= 0)
+            if (indeterminate.degree.toInt() <= 0)
                 throw IllegalArgumentException("The degree of an indeterminate in PositiveIndeterminateList must be positive")
         }
     }
 
-    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean {
+    override fun checkDegree(monomial: GeneralizedMonomial<I, D>, degreeLimit: IntAsDegree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
         return monomial.degree.toInt() <= degreeLimit
     }
 
-    override fun drop(): PositiveIndeterminateList<I> = PositiveIndeterminateList(this.rawList.drop(1))
+    override fun drop(): GeneralizedPositiveIndeterminateList<I, D> = GeneralizedPositiveIndeterminateList(this.rawList.drop(1))
 }
 
-private class NegativeIndeterminateList<I : IndeterminateName>(
-    rawList: List<Indeterminate<I>>
-) : IndeterminateList<I>(rawList) {
+private class GeneralizedNegativeIndeterminateList<I : IndeterminateName, D : Degree>(
+    rawList: List<GeneralizedIndeterminate<I, D>>
+) : GeneralizedIndeterminateList<I, D>(rawList) {
     init {
         for (indeterminate in rawList) {
-            if (indeterminate.degree >= 0)
+            if (indeterminate.degree.toInt() >= 0)
                 throw IllegalArgumentException("The degree of an indeterminate in NegativeIndeterminateList must be negative")
         }
     }
 
-    override fun checkDegree(monomial: Monomial<I>, degreeLimit: IntAsDegree): Boolean {
+    override fun checkDegree(monomial: GeneralizedMonomial<I, D>, degreeLimit: IntAsDegree): Boolean {
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
         return monomial.degree.toInt() >= degreeLimit
     }
 
-    override fun drop(): NegativeIndeterminateList<I> = NegativeIndeterminateList(this.rawList.drop(1))
+    override fun drop(): GeneralizedNegativeIndeterminateList<I, D> = GeneralizedNegativeIndeterminateList(this.rawList.drop(1))
 }
 
-class Monomial<I : IndeterminateName> private constructor(
-    private val indeterminateList: IndeterminateList<I>,
+class GeneralizedMonomial<I : IndeterminateName, D : Degree> private constructor(
+    val degreeMonoid: DegreeMonoid<D>,
+    private val indeterminateList: GeneralizedIndeterminateList<I, D>,
     val exponentList: IntArray,
-) : MonoidElement<IntDegree> {
+) : MonoidElement<D> {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw InvalidSizeException("Invalid size of the exponent list")
     }
 
     constructor(
-        indeterminateList: List<Indeterminate<I>>,
+        degreeMonoid: DegreeMonoid<D>,
+        indeterminateList: List<GeneralizedIndeterminate<I, D>>,
         exponentList: IntArray
-    ) : this(IndeterminateList.from(indeterminateList), exponentList)
+    ) : this(degreeMonoid, GeneralizedIndeterminateList.from(indeterminateList), exponentList)
 
     constructor(
-        indeterminateList: List<Indeterminate<I>>,
+        degreeMonoid: DegreeMonoid<D>,
+        indeterminateList: List<GeneralizedIndeterminate<I, D>>,
         exponentList: List<Int>
-    ) : this(IndeterminateList.from(indeterminateList), exponentList.toIntArray())
+    ) : this(degreeMonoid, GeneralizedIndeterminateList.from(indeterminateList), exponentList.toIntArray())
 
-    override val degree: IntDegree by lazy {
+    override val degree: D by lazy {
         // this.indeterminateList.zip(this.exponentList.toList())
         //     .map { (generator, exponent) -> generator.degree * exponent }
         //     .reduce { a, b -> a + b }
-        val degree = this.indeterminateList.mapIndexedIntArray { i, indeterminate ->
-            indeterminate.degree * this.exponentList[i]
-        }.fold(0) { acc, b -> acc + b }
-        IntDegree(degree)
+        this.degreeMonoid.context.run {
+            this@GeneralizedMonomial.indeterminateList.mapIndexed { i, indeterminate ->
+                indeterminate.degree * this@GeneralizedMonomial.exponentList[i]
+            }.fold(zero) { acc, b -> acc + b }
+        }
     }
 
-    private fun drop(): Monomial<I> {
+    private fun drop(): GeneralizedMonomial<I, D> {
         if (this.indeterminateList.isEmpty())
             throw Exception("This can't happen!")
-        return Monomial(
+        return GeneralizedMonomial(
+            this.degreeMonoid,
             this.indeterminateList.drop(),
             this.exponentList.sliceArray(1 until this.indeterminateList.size)
         )
     }
 
-    fun getNextMonomial(maxDegree: IntAsDegree): Monomial<I>? {
+    fun getNextMonomial(maxDegree: IntAsDegree): GeneralizedMonomial<I, D>? {
         if (this.indeterminateList.isEmpty())
             return null
         this.increaseFirstExponent(maxDegree)?.let { return it }
         this.drop().getNextMonomial(maxDegree)?.let {
             val newExponents = intArrayOf(0) + it.exponentList
-            return Monomial(this.indeterminateList, newExponents)
+            return GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, newExponents)
         }
         return null
     }
 
-    private fun increaseFirstExponent(maxDegree: IntAsDegree): Monomial<I>? {
+    private fun increaseFirstExponent(maxDegree: IntAsDegree): GeneralizedMonomial<I, D>? {
         // 奇数次の場合
         if ((this.indeterminateList.first().degree.isOdd()) && (this.exponentList.first() == 1))
             return null
         val newExponents = intArrayOf(this.exponentList.first() + 1) + this.exponentList.sliceArray(1 until this.indeterminateList.size)
-        val firstIncreased = Monomial(this.indeterminateList, newExponents)
+        val firstIncreased = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, newExponents)
         return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
     }
 
@@ -226,7 +209,7 @@ class Monomial<I : IndeterminateName> private constructor(
         if (other == null) return false
         if (this::class != other::class) return false
 
-        other as Monomial<*>
+        other as GeneralizedMonomial<*, *>
 
         if (indeterminateList != other.indeterminateList) return false
         if (!exponentList.contentEquals(other.exponentList)) return false
@@ -241,30 +224,34 @@ class Monomial<I : IndeterminateName> private constructor(
     }
 
     companion object {
-        fun <I : IndeterminateName> fromIndeterminate(indeterminateList: List<Indeterminate<I>>, indeterminate: Indeterminate<I>): Monomial<I> {
+        fun <I : IndeterminateName, D : Degree> fromIndeterminate(
+            degreeMonoid: DegreeMonoid<D>,
+            indeterminateList: List<GeneralizedIndeterminate<I, D>>,
+            indeterminate: GeneralizedIndeterminate<I, D>
+        ): GeneralizedMonomial<I, D> {
             val index = indeterminateList.indexOf(indeterminate)
             if (index == -1)
                 throw NoSuchElementException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
             val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
-            return Monomial(indeterminateList, exponentList)
+            return GeneralizedMonomial(degreeMonoid, indeterminateList, exponentList)
         }
     }
 }
 
-class FreeMonoid<I : IndeterminateName> (
-    val indeterminateList: List<Indeterminate<I>>
-) : Monoid<IntDegree, Monomial<I>> {
+class GeneralizedFreeMonoid<I : IndeterminateName, D : Degree> (
+    override val degreeMonoid: DegreeMonoid<D>,
+    val indeterminateList: List<GeneralizedIndeterminate<I, D>>
+) : Monoid<D, GeneralizedMonomial<I, D>> {
     // constructor(
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
 
-    override val unit: Monomial<I> = Monomial(this.indeterminateList, List(this.indeterminateList.size) { 0 })
-    override val degreeMonoid = IntDegreeMonoid
+    override val unit: GeneralizedMonomial<I, D> = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, List(this.indeterminateList.size) { 0 })
 
     override fun multiply(
-        monoidElement1: Monomial<I>,
-        monoidElement2: Monomial<I>
-    ): MaybeZero<Pair<Monomial<I>, Sign>> {
+        monoidElement1: GeneralizedMonomial<I, D>,
+        monoidElement2: GeneralizedMonomial<I, D>
+    ): MaybeZero<Pair<GeneralizedMonomial<I, D>, Sign>> {
         // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
         //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
         val size = this.indeterminateList.size
@@ -286,7 +273,7 @@ class FreeMonoid<I : IndeterminateName> (
                 }
             }
         }
-        val monomial = Monomial(this.indeterminateList, exponentList)
+        val monomial = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, exponentList)
         return NonZero(Pair(monomial, sign))
     }
 
@@ -297,10 +284,10 @@ class FreeMonoid<I : IndeterminateName> (
         return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
     }
 
-    override fun listAll(degree: IntDegree): List<Monomial<I>> {
+    override fun listAll(degree: D): List<GeneralizedMonomial<I, D>> {
         val exponentList = List(this.indeterminateList.size) { 0 }
-        var monomial: Monomial<I>? = Monomial(this.indeterminateList, exponentList)
-        val monomialList: MutableList<Monomial<I>> = mutableListOf()
+        var monomial: GeneralizedMonomial<I, D>? = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, exponentList)
+        val monomialList: MutableList<GeneralizedMonomial<I, D>> = mutableListOf()
         while (monomial != null) {
             if (monomial.degree == degree)
                 monomialList.add(monomial)
@@ -309,30 +296,30 @@ class FreeMonoid<I : IndeterminateName> (
         return monomialList
     }
 
-    private fun separate(monomial: Monomial<I>, index: Int): MonomialSeparation<I>? {
+    private fun separate(monomial: GeneralizedMonomial<I, D>, index: Int): GeneralizedMonomialSeparation<I, D>? {
         val separatedExponent = monomial.exponentList[index]
         if (separatedExponent == 0)
             return null
         val remainingExponentList = monomial.exponentList.mapIndexed { i, exponent ->
             if (i == index) 0 else exponent
         }
-        val remainingMonomial = Monomial(this.indeterminateList, remainingExponentList)
+        val remainingMonomial = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, remainingExponentList)
         val separatedIndeterminate = this.indeterminateList[index]
         val separatedExponentList = monomial.exponentList.mapIndexed { i, exponent ->
             if (i == index) exponent else 0
         }
         val multipliedMonomialOrZero = this.multiply(
-            Monomial(this.indeterminateList, separatedExponentList),
+            GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, separatedExponentList),
             remainingMonomial
         )
         val (_, sign) = when (multipliedMonomialOrZero) {
             is NonZero -> multipliedMonomialOrZero.value
             is Zero -> throw Exception("This can't happen!")
         }
-        return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
+        return GeneralizedMonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
     }
 
-    fun allSeparations(monomial: Monomial<I>): List<MonomialSeparation<I>> {
+    fun allSeparations(monomial: GeneralizedMonomial<I, D>): List<GeneralizedMonomialSeparation<I, D>> {
         // TODO: List じゃなくて Iterator の方が良い？
         return this.indeterminateList.indices.mapNotNull { i -> this.separate(monomial, i) }
     }
@@ -343,9 +330,9 @@ class FreeMonoid<I : IndeterminateName> (
     }
 }
 
-data class MonomialSeparation<I : IndeterminateName>(
-    val remainingMonomial: Monomial<I>,
-    val separatedIndeterminate: Indeterminate<I>,
+data class GeneralizedMonomialSeparation<I : IndeterminateName, D : Degree>(
+    val remainingMonomial: GeneralizedMonomial<I, D>,
+    val separatedIndeterminate: GeneralizedIndeterminate<I, D>,
     val separatedExponent: Int,
     val sign: Sign,
     val index: Int,

@@ -2,8 +2,8 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.GVector
-import com.github.shwaka.kohomology.dg.IntDegree
-import com.github.shwaka.kohomology.dg.IntDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

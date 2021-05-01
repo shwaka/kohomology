@@ -71,6 +71,12 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
         DegreeContext(this)
     }
 
+    val generatorList: List<LinearDegree>
+        get() = this.indeterminateList.indices.map { i ->
+            val coeffList = List(this.indeterminateList.size) { j -> if (i == j) 1 else 0 }
+            this.fromCoefficients(0, coeffList)
+        }
+
     override fun fromInt(n: Int): LinearDegree {
         return LinearDegree(this, n, IntArray(this.indeterminateList.size) { 0 })
     }

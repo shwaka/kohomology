@@ -39,7 +39,7 @@ class KohomologyBenchmark {
             DegreeIndeterminate("n", 1),
         )
         val degreeMonoid = LinearDegreeMonoid(degreeIndeterminateList)
-        val n = degreeMonoid.fromList(listOf(1, 0))
+        val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(
                 GeneralizedIndeterminate("x", 2 * n),

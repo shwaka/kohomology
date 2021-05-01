@@ -107,7 +107,7 @@ cd kohomology/kohomology
 ```bash
 cd kohomology/kohomology
 ./gradlew publishAllPublicationsToBenchmarkRepository
-cd ../benchmark
+cd ../profile
 ./gradlew benchmark
 ```
 

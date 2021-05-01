@@ -15,7 +15,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 
 fun main() {
     val executableList: List<Executable> = listOf(
-        CohomologyOfFreeLoopSpace,
+        CohomologyOfFreeLoopSpace(150),
         CohomologyOfFreeLoopSpaceWithLinearDegree,
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational)
     )
@@ -49,7 +49,7 @@ abstract class Executable {
     }
 }
 
-object CohomologyOfFreeLoopSpace : Executable() {
+class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
     override val description = "cohomology of free loop space of 2-sphere"
     override fun mainFun(): String {
         val sphereDim = 2
@@ -58,7 +58,7 @@ object CohomologyOfFreeLoopSpace : Executable() {
         val freeLoopSpace = FreeLoopSpace(sphere)
 
         var result = ""
-        for (degree in 0 until 150) {
+        for (degree in 0 until this.degreeLimit) {
             result += freeLoopSpace.cohomology[degree].toString() + "\n"
         }
         return result

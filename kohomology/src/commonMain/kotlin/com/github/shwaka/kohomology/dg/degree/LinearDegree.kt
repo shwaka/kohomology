@@ -86,8 +86,8 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.monoid != this)
             throw IllegalContextException("$degree2 is not an element of $this")
-        val coeffList = degree1.coeffList.indices.map { degree1.coeffList[it] + degree2.coeffList[it] }
-        return this.fromCoefficients(degree1.constantTerm + degree2.constantTerm, coeffList)
+        val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] + degree2.coeffList[it] }
+        return LinearDegree(this, degree1.constantTerm + degree2.constantTerm, coeffList)
     }
 
     override fun subtract(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {
@@ -95,15 +95,15 @@ data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) 
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.monoid != this)
             throw IllegalContextException("$degree2 is not an element of $this")
-        val coeffList = degree1.coeffList.indices.map { degree1.coeffList[it] - degree2.coeffList[it] }
-        return this.fromCoefficients(degree1.constantTerm - degree2.constantTerm, coeffList)
+        val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] - degree2.coeffList[it] }
+        return LinearDegree(this, degree1.constantTerm - degree2.constantTerm, coeffList)
     }
 
     override fun multiply(degree: LinearDegree, n: Int): LinearDegree {
         if (degree.monoid != this)
             throw IllegalContextException("$degree is not an element of $this")
-        val coeffList = degree.coeffList.indices.map { degree.coeffList[it] * n }
-        return this.fromCoefficients(degree.constantTerm * n, coeffList)
+        val coeffList = IntArray(degree.coeffList.size) { degree.coeffList[it] * n }
+        return LinearDegree(this, degree.constantTerm * n, coeffList)
     }
 
     fun fromCoefficients(constantTerm: Int, coeffList: List<Int>): LinearDegree {

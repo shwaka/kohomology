@@ -16,7 +16,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 fun main() {
     val executableList: List<Executable> = listOf(
         CohomologyOfFreeLoopSpace(150),
-        CohomologyOfFreeLoopSpaceWithLinearDegree,
+        CohomologyOfFreeLoopSpaceWithLinearDegree(150, 200),
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational)
     )
     println("Select script to profile: (default = 0)")
@@ -65,7 +65,10 @@ class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
     }
 }
 
-object CohomologyOfFreeLoopSpaceWithLinearDegree : Executable() {
+class CohomologyOfFreeLoopSpaceWithLinearDegree(
+    val degreeLimitForConstantTerm: Int,
+    val degreeLimitForLinearTerm: Int
+) : Executable() {
     override val description: String = "cohomology of free loop space of 2n-sphere (with LinearDegree)"
     override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
@@ -85,16 +88,15 @@ object CohomologyOfFreeLoopSpaceWithLinearDegree : Executable() {
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
         var result = ""
-        for (degree in 0 until 150) {
+        for (degree in 0 until this.degreeLimitForConstantTerm) {
             result += freeLoopSpace.cohomology[degree].toString() + "\n"
         }
-        val limit = 200
         degreeMonoid.context.run {
-            for (i in 1 until limit) {
+            for (i in 1 until this@CohomologyOfFreeLoopSpaceWithLinearDegree.degreeLimitForLinearTerm) {
                 val degree = i * (2 * n - 1)
                 result += freeLoopSpace.cohomology[degree].toString() + "\n"
             }
-            for (i in 0 until limit) {
+            for (i in 0 until this@CohomologyOfFreeLoopSpaceWithLinearDegree.degreeLimitForConstantTerm) {
                 val degree = 2 * n + i * (2 * n - 1)
                 result += freeLoopSpace.cohomology[degree].toString() + "\n"
             }

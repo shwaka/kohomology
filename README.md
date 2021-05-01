@@ -117,7 +117,7 @@ cd ../profile
 3. Download [jvm-profiling-tools/async-profiler](https://github.com/jvm-profiling-tools/async-profiler).
 4. Change the current directory of (A) to the extracted one from async-profiler
 5. Run `cd kohomology/profile; ./gradlew run` in (B)
-6. Run `./profiler.sh -d 60 -f profile.html -I '*ProfileKt*' -o flamegraph --minwidth 1.0 $(jps | grep ProfileKt | awk '{print $1}')` in (A)
+6. Run `./profiler.sh -d 60 -f profile.html -I '*KohomologyProfileKt*' -o flamegraph --minwidth 1.0 $(jps | grep KohomologyProfileKt | awk '{print $1}')` in (A)
 7. Press `ENTER` in (B)
 
 ## Generate documentation

@@ -30,6 +30,7 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
         val freeLoopSpace = FreeLoopSpace(sphere)
         freeLoopSpace.cohomology[0].dim shouldBe 1
         for (degree in 1 until 20) {
+            freeLoopSpace.gAlgebra[degree].dim shouldBe 0
             freeLoopSpace.cohomology[degree].dim shouldBe 0
         }
         degreeMonoid.context.run {

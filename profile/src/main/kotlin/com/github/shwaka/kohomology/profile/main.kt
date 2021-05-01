@@ -1,3 +1,5 @@
+package com.github.shwaka.kohomology.profile
+
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.LinearDegreeMonoid
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4

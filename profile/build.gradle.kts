@@ -32,7 +32,7 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClassName = "MainKt"
+    mainClassName = "com.github.shwaka.kohomology.profile.MainKt"
 }
 
 tasks.withType<JavaExec> {

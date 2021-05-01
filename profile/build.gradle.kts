@@ -39,7 +39,7 @@ tasks.withType<Wrapper> {
 }
 
 application {
-    mainClassName = "com.github.shwaka.kohomology.profile.MainKt"
+    mainClassName = "com.github.shwaka.kohomology.profile.ProfileKt"
 }
 
 tasks.withType<JavaExec> {

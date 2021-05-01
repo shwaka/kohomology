@@ -14,33 +14,44 @@ import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 
 fun main() {
-    val scriptList: List<ProfiledScript> = listOf(
+    val executableList: List<Executable> = listOf(
         CohomologyOfFreeLoopSpace,
         CohomologyOfFreeLoopSpaceWithLinearDegree,
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational)
     )
     println("Select script to profile: (default = 0)")
-    scriptList.mapIndexed { index, script ->
+    executableList.mapIndexed { index, script ->
         println("$index: ${script.description}")
     }
     val index: Int = readLine()?.toIntOrNull() ?: 0
-    val script = scriptList[index]
-    println("Selected $index: ${script.description}")
-    script.setup()
+    val executable = executableList[index]
+    println("Selected $index: ${executable.description}")
+    executable.setup()
     print("Press ENTER to continue!!!")
     readLine()
-    script.main()
+    executable.main()
 }
 
-interface ProfiledScript {
-    val description: String
-    fun setup() {}
-    fun main(): String
+abstract class Executable {
+    abstract val description: String
+    protected open fun setupFun() {}
+    var setupFinished = false
+    fun setup() {
+        if (this.setupFinished)
+            return
+        this.setupFun()
+        this.setupFinished = true
+    }
+    protected abstract fun mainFun(): String
+    fun main(): String {
+        this.setup()
+        return this.mainFun()
+    }
 }
 
-object CohomologyOfFreeLoopSpace : ProfiledScript {
+object CohomologyOfFreeLoopSpace : Executable() {
     override val description = "cohomology of free loop space of 2-sphere"
-    override fun main(): String {
+    override fun mainFun(): String {
         val sphereDim = 2
         val matrixSpace = SparseMatrixSpaceOverBigRational
         val sphere = sphere(matrixSpace, sphereDim)
@@ -54,9 +65,9 @@ object CohomologyOfFreeLoopSpace : ProfiledScript {
     }
 }
 
-object CohomologyOfFreeLoopSpaceWithLinearDegree : ProfiledScript {
+object CohomologyOfFreeLoopSpaceWithLinearDegree : Executable() {
     override val description: String = "cohomology of free loop space of 2n-sphere (with LinearDegree)"
-    override fun main(): String {
+    override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
@@ -94,12 +105,12 @@ object CohomologyOfFreeLoopSpaceWithLinearDegree : ProfiledScript {
 
 class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>
-) : ProfiledScript {
+) : Executable() {
     override val description: String = "compute row echelon form"
 
     private var matrix: M? = null
 
-    override fun setup() {
+    override fun setupFun() {
         // val sphereDim = 2
         // val freeDGAlgebra = sphere(this.matrixSpace, sphereDim)
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(this.matrixSpace)
@@ -108,7 +119,7 @@ class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         this.matrix = freeLoopSpace.differential[degree].matrix
     }
 
-    override fun main(): String {
+    override fun mainFun(): String {
         return this.matrixSpace.context.run {
             println(this@ComputeRowEchelonForm.matrix?.let { "${it.rowCount}, ${it.colCount}" })
             this@ComputeRowEchelonForm.matrix?.rowEchelonForm?.reducedMatrix.toString()

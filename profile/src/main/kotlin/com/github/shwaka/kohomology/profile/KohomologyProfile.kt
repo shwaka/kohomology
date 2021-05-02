@@ -16,7 +16,7 @@ fun main() {
     val executable = executableList[index]
     println("Selected $index: ${executable.description}")
     executable.setup()
-    print("Press ENTER to continue!!!")
+    // print("Press ENTER to continue!!!") // index 選択の際に待てるのでそれで十分
     readLine()
     executable.main()
 }

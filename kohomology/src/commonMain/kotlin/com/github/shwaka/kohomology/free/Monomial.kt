@@ -316,6 +316,8 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
         return this.listAllInternal(degree, 0)
     }
 
+    val cache: MutableMap<Pair<D, Int>, List<Monomial<I, D>>> = mutableMapOf()
+
     private fun listAllInternal(degree: D, index: Int): List<Monomial<I, D>> {
         if (index < 0 || index > this.indeterminateList.size)
             throw Exception("This can't happen! (illegal index: $index)")
@@ -325,6 +327,8 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
             else
                 emptyList()
         }
+        val cacheKey = Pair(degree, index)
+        this.cache[cacheKey]?.let { return it }
         // Since 0 <= index < this.indeterminateList.size,
         // we have 0 < this.indeterminateList.size
         val newDegree = this.degreeMonoid.context.run { degree - this@FreeMonoid.indeterminateList[index].degree }
@@ -333,7 +337,9 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
                 .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
         } else emptyList()
         val listWithZeroAtIndex = this.listAllInternal(degree, index + 1)
-        return listWithNonZeroAtIndex + listWithZeroAtIndex
+        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
+        this.cache[cacheKey] = result
+        return result
     }
 
     private fun separate(monomial: Monomial<I, D>, index: Int): MonomialSeparation<I, D>? {

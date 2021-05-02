@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.dg.degree
 interface Degree {
     fun toInt(): Int
     fun isZero(): Boolean
+    fun isNotZero(): Boolean = !this.isZero()
     fun isOne(): Boolean
-    fun isNotZero(): Boolean = this.toInt() != 0
     fun isEven(): Boolean
     fun isOdd(): Boolean = !this.isEven()
 }

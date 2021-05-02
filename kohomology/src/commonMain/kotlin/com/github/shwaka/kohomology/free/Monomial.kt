@@ -71,6 +71,7 @@ private sealed class IndeterminateList<I : IndeterminateName, D : Degree>(
     operator fun get(index: Int): Indeterminate<I, D> = this.rawList[index]
 
     abstract fun checkDegree(monomial: Monomial<I, D>, degreeLimit: IntAsDegree): Boolean
+    abstract fun isAllowedDegree(degree: D): Boolean
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -116,6 +117,10 @@ private class PositiveIndeterminateList<I : IndeterminateName, D : Degree>(
         return monomial.degree.toInt() <= degreeLimit
     }
 
+    override fun isAllowedDegree(degree: D): Boolean {
+        return degree.toInt() >= 0
+    }
+
     override fun drop(): PositiveIndeterminateList<I, D> = PositiveIndeterminateList(this.rawList.drop(1))
 }
 
@@ -133,6 +138,10 @@ private class NegativeIndeterminateList<I : IndeterminateName, D : Degree>(
         // monomial.indeterminateList == this を確認しなくて良い？
         // private にしちゃったから困ってる
         return monomial.degree.toInt() >= degreeLimit
+    }
+
+    override fun isAllowedDegree(degree: D): Boolean {
+        return degree.toInt() <= 0
     }
 
     override fun drop(): NegativeIndeterminateList<I, D> = NegativeIndeterminateList(this.rawList.drop(1))
@@ -220,6 +229,17 @@ class Monomial<I : IndeterminateName, D : Degree> private constructor(
         val newExponents = intArrayOf(this.exponentList.first() + 1) + this.exponentList.sliceArray(1 until this.indeterminateList.size)
         val firstIncreased = Monomial(this.degreeMonoid, this.indeterminateList, newExponents)
         return if (this.indeterminateList.checkDegree(firstIncreased, maxDegree)) firstIncreased else null
+    }
+
+    internal fun increaseExponentAtIndex(index: Int): Monomial<I, D>? {
+        // 奇数次の場合
+        if ((this.indeterminateList[index].degree.isOdd()) && (this.exponentList[index] == 1))
+            return null
+        // val newExponents = intArrayOf(this.exponentList.first() + 1) + this.exponentList.sliceArray(1 until this.indeterminateList.size)
+        val newExponents = IntArray(this.indeterminateList.size) {
+            if (it == index) this.exponentList[it] + 1 else this.exponentList[it]
+        }
+        return Monomial(this.degreeMonoid, this.indeterminateList, newExponents)
     }
 
     fun containsIndeterminate(indeterminateIndex: Int): Boolean {
@@ -328,7 +348,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
         return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
     }
 
-    override fun listAll(degree: D): List<Monomial<I, D>> {
+    fun listAllOld(degree: D): List<Monomial<I, D>> {
         val exponentList = List(this.indeterminateList.size) { 0 }
         var monomial: Monomial<I, D>? = Monomial(this.degreeMonoid, this.indeterminateList, exponentList)
         val monomialList: MutableList<Monomial<I, D>> = mutableListOf()
@@ -338,6 +358,34 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
             monomial = monomial.getNextMonomial(degree.toInt())
         }
         return monomialList
+    }
+
+    override fun listAll(degree: D): List<Monomial<I, D>> {
+        val indeterminateList = IndeterminateList.from(this.indeterminateList)
+        if (!indeterminateList.isAllowedDegree(degree))
+            return emptyList()
+        return this.listAllInternal(degree, 0)
+    }
+
+    private fun listAllInternal(degree: D, index: Int): List<Monomial<I, D>> {
+        if (index < 0 || index > this.indeterminateList.size)
+            throw Exception("This can't happen! (illegal index: $index)")
+        if (index == this.indeterminateList.size) {
+            return if (degree.isZero())
+                listOf(this.unit)
+            else
+                emptyList()
+        }
+        // Since 0 <= index < this.indeterminateList.size,
+        // we have 0 < this.indeterminateList.size
+        val newDegree = this.degreeMonoid.context.run { degree - this@FreeMonoid.indeterminateList[index].degree }
+        val indeterminateList = IndeterminateList.from(this.indeterminateList)
+        val listWithNonZeroAtIndex = if (indeterminateList.isAllowedDegree(newDegree)) {
+            this.listAllInternal(newDegree, index)
+                .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
+        } else emptyList()
+        val listWithZeroAtIndex = this.listAllInternal(degree, index + 1)
+        return listWithNonZeroAtIndex + listWithZeroAtIndex
     }
 
     private fun separate(monomial: Monomial<I, D>, index: Int): MonomialSeparation<I, D>? {

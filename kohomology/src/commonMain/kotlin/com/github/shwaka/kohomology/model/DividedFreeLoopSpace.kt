@@ -18,7 +18,7 @@ private class DividedFreeLoopSpaceFactory<I : IndeterminateName, D : Degree, S :
     // Λ(V⊕V⊕sV⊕sV)
     val matrixSpace = freeDGAlgebra.matrixSpace
     val dividedLoopSpaceGAlgebra: FreeGAlgebra<CopiedName<I, D>, D, S, V, M> = run {
-        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeMonoid
+        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
         val dividedLoopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
             val zero = degreeMonoid.zero
             val one = degreeMonoid.fromInt(1)

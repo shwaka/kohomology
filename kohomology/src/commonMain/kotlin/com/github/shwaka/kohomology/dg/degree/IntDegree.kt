@@ -15,7 +15,7 @@ data class IntDegree(val value: Int) : Degree {
     }
 }
 
-object IntDegreeMonoid : DegreeMonoid<IntDegree> {
+object IntDegreeGroup : DegreeGroup<IntDegree> {
     override val context: DegreeContext<IntDegree> by lazy {
         DegreeContext(this)
     }

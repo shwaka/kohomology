@@ -18,7 +18,7 @@ private class FreePathSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val pathSpaceGAlgebra: FreeGAlgebra<CopiedName<I, D>, D, S, V, M> = run {
-        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeMonoid
+        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
         val zero = degreeMonoid.zero
         val one = degreeMonoid.fromInt(1)
         val pathSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->

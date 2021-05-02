@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -36,8 +36,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, IntDegreeMonoid, multiplicationTable)
-        val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeMonoid, monoid, "M")
+        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable)
+        val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeGroup, monoid, "M")
         for (degree in 0..(3 * n)) {
             val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
             gAlgebra[degree].dim shouldBe expectedDim

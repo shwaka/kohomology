@@ -21,7 +21,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
 ) {
     private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
-    val degreeMonoid = source.degreeMonoid
+    val degreeMonoid = source.degreeGroup
 
     constructor(
         source: GVectorSpace<BS, D, S, V>,
@@ -30,7 +30,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
         matrixSpace: MatrixSpace<S, V, M>,
         name: String,
         getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-    ) : this(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, name, getLinearMap)
+    ) : this(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getLinearMap)
 
     operator fun invoke(gVector: GVector<BS, D, S, V>): GVector<BT, D, S, V> {
         if (gVector !in this.source)
@@ -82,7 +82,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             getGVectors: (D) -> List<GVector<BT, D, S, V>>
         ): (D) -> LinearMap<BS, BT, S, V, M> {
             return { k ->
-                val l = source.degreeMonoid.context.run { k + degree }
+                val l = source.degreeGroup.context.run { k + degree }
                 val sourceVectorSpace = source[k]
                 val targetVectorSpace = target[l]
                 val gVectorValueList = getGVectors(k)
@@ -104,7 +104,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             matrixSpace: MatrixSpace<S, V, M>,
             getGVectors: (D) -> List<GVector<BT, D, S, V>>
         ): (D) -> LinearMap<BS, BT, S, V, M> {
-            return this.createGetLinearMap(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, getGVectors)
+            return this.createGetLinearMap(source, target, source.degreeGroup.fromInt(degree), matrixSpace, getGVectors)
         }
 
         fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
@@ -127,7 +127,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             name: String,
             getGVectors: (D) -> List<GVector<BT, D, S, V>>
         ): GLinearMap<BS, BT, D, S, V, M> {
-            return this.fromGVectors(source, target, source.degreeMonoid.fromInt(degree), matrixSpace, name, getGVectors)
+            return this.fromGVectors(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getGVectors)
         }
     }
 }

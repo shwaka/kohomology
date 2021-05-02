@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -126,17 +126,17 @@ open class GVectorContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S
 
 open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    val degreeMonoid: DegreeMonoid<D>,
+    val degreeGroup: DegreeGroup<D>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<B, D, S, V> {
     constructor(
         numVectorSpace: NumVectorSpace<S, V>,
-        degreeMonoid: DegreeMonoid<D>,
+        degreeGroup: DegreeGroup<D>,
         name: String,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeMonoid, name, DefaultVectorPrinter(), getVectorSpace)
+    ) : this(numVectorSpace, degreeGroup, name, DefaultVectorPrinter(), getVectorSpace)
 
     val field = this.numVectorSpace.field
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
@@ -149,21 +149,21 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
     companion object {
         fun <B : BasisName, D : Degree, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
-            degreeMonoid: DegreeMonoid<D>,
+            degreeGroup: DegreeGroup<D>,
             name: String,
             getBasisNames: (D) -> List<B>,
         ): GVectorSpace<B, D, S, V> {
-            return GVectorSpace<B, D, S, V>(numVectorSpace, degreeMonoid, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
+            return GVectorSpace<B, D, S, V>(numVectorSpace, degreeGroup, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
         }
 
         fun <D : Degree, S : Scalar, V : NumVector<S>> fromStringBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
-            degreeMonoid: DegreeMonoid<D>,
+            degreeGroup: DegreeGroup<D>,
             name: String,
             getBasisNames: (D) -> List<String>,
         ): GVectorSpace<StringBasisName, D, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<StringBasisName, D, S, V>(numVectorSpace, degreeMonoid, name) { degree ->
+            return GVectorSpace<StringBasisName, D, S, V>(numVectorSpace, degreeGroup, name) { degree ->
                 val basisNames = getBasisNames(degree).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
@@ -175,7 +175,7 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
             getBasisNames: (Int) -> List<String>,
         ): GVectorSpace<StringBasisName, IntDegree, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<StringBasisName, IntDegree, S, V>(numVectorSpace, IntDegreeMonoid, name) { degree ->
+            return GVectorSpace<StringBasisName, IntDegree, S, V>(numVectorSpace, IntDegreeGroup, name) { degree ->
                 val basisNames = getBasisNames(degree.toInt()).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
@@ -243,16 +243,16 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
         }
     }
 
-    operator fun get(degree: Int): VectorSpace<B, S, V> = this[this.degreeMonoid.fromInt(degree)]
-    fun fromVector(vector: Vector<B, S, V>, degree: Int): GVector<B, D, S, V> = this.fromVector(vector, this.degreeMonoid.fromInt(degree))
-    fun fromNumVector(numVector: V, degree: Int): GVector<B, D, S, V> = this.fromNumVector(numVector, this.degreeMonoid.fromInt(degree))
-    fun fromCoeff(coeff: List<S>, degree: Int): GVector<B, D, S, V> = this.fromCoeff(coeff, this.degreeMonoid.fromInt(degree))
-    fun fromBasisName(basisName: B, degree: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree))
-    fun fromBasisName(basisName: B, degree: Int, coeff: S): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree), coeff)
-    fun fromBasisName(basisName: B, degree: Int, coeff: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeMonoid.fromInt(degree), coeff)
-    fun getBasis(degree: Int): List<GVector<B, D, S, V>> = this.getBasis(this.degreeMonoid.fromInt(degree))
-    fun getZero(degree: Int): GVector<B, D, S, V> = this.getZero(this.degreeMonoid.fromInt(degree))
-    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, D, S, V>, degree: Int): GVector<B, D, S, V> = this.convertToGVector(gVectorOrZero, this.degreeMonoid.fromInt(degree))
+    operator fun get(degree: Int): VectorSpace<B, S, V> = this[this.degreeGroup.fromInt(degree)]
+    fun fromVector(vector: Vector<B, S, V>, degree: Int): GVector<B, D, S, V> = this.fromVector(vector, this.degreeGroup.fromInt(degree))
+    fun fromNumVector(numVector: V, degree: Int): GVector<B, D, S, V> = this.fromNumVector(numVector, this.degreeGroup.fromInt(degree))
+    fun fromCoeff(coeff: List<S>, degree: Int): GVector<B, D, S, V> = this.fromCoeff(coeff, this.degreeGroup.fromInt(degree))
+    fun fromBasisName(basisName: B, degree: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree))
+    fun fromBasisName(basisName: B, degree: Int, coeff: S): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree), coeff)
+    fun fromBasisName(basisName: B, degree: Int, coeff: Int): GVector<B, D, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree), coeff)
+    fun getBasis(degree: Int): List<GVector<B, D, S, V>> = this.getBasis(this.degreeGroup.fromInt(degree))
+    fun getZero(degree: Int): GVector<B, D, S, V> = this.getZero(this.degreeGroup.fromInt(degree))
+    fun convertToGVector(gVectorOrZero: GVectorOrZero<B, D, S, V>, degree: Int): GVector<B, D, S, V> = this.convertToGVector(gVectorOrZero, this.degreeGroup.fromInt(degree))
 
     override fun contains(gVector: GVector<B, D, S, V>): Boolean {
         return gVector.gVectorSpace == this
@@ -312,7 +312,7 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
         degree: Int,
         matrixSpace: MatrixSpace<S, V, M>
     ): Boolean {
-        return this.isBasis(gVectorList, this.degreeMonoid.fromInt(degree), matrixSpace)
+        return this.isBasis(gVectorList, this.degreeGroup.fromInt(degree), matrixSpace)
     }
 
     fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<B, B, D, S, V, M> {

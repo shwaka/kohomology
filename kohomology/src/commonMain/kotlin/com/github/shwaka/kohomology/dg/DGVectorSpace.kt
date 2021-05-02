@@ -58,7 +58,7 @@ open class DGVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>
         // if cache does not exist
         this.logger.debug { "cache not found for H^$degree(${this.gVectorSpace}), compute it" }
         val kernelBasis = this.differential[degree].kernelBasis()
-        val previousDegree = this.gVectorSpace.degreeMonoid.context.run { degree - 1 }
+        val previousDegree = this.gVectorSpace.degreeGroup.context.run { degree - 1 }
         val imageGenerator = this.differential[previousDegree].imageGenerator()
         val subQuotVectorSpace = SubQuotVectorSpace(
             this.matrixSpace,
@@ -70,7 +70,7 @@ open class DGVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>
         return subQuotVectorSpace
     }
     fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
-        return this.getCohomologyVectorSpace(this.gVectorSpace.degreeMonoid.fromInt(degree))
+        return this.getCohomologyVectorSpace(this.gVectorSpace.degreeGroup.fromInt(degree))
     }
 
     protected val cohomologyName = "H(${this.gVectorSpace.name})"
@@ -78,7 +78,7 @@ open class DGVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>
     override val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, D, S, V> by lazy {
         GVectorSpace(
             this.matrixSpace.numVectorSpace,
-            this.gVectorSpace.degreeMonoid,
+            this.gVectorSpace.degreeGroup,
             this.cohomologyName,
             this::getCohomologyVectorSpace
         )

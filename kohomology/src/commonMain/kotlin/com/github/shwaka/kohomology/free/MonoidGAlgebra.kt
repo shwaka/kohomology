@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -15,7 +15,7 @@ import mu.KotlinLogging
 
 private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
-    val degreeMonoid: DegreeMonoid<D>,
+    val degreeGroup: DegreeGroup<D>,
     val monoid: Mon,
     val name: String,
 ) {
@@ -39,12 +39,12 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         return vectorSpace
     }
 
-    fun getVectorSpace(degree: Int): VectorSpace<E, S, V> = this.getVectorSpace(this.degreeMonoid.fromInt(degree))
+    fun getVectorSpace(degree: Int): VectorSpace<E, S, V> = this.getVectorSpace(this.degreeGroup.fromInt(degree))
 
     fun getMultiplication(p: D, q: D): BilinearMap<E, E, E, S, V, M> {
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
-        val target = this.getVectorSpace(this.degreeMonoid.context.run { p + q })
+        val target = this.getVectorSpace(this.degreeGroup.context.run { p + q })
         val valueList = source1.basisNames.map { monoidElement1 ->
             source2.basisNames.map { monoidElement2 ->
                 this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
@@ -73,7 +73,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : GAlgebra<E, D, S, V, M>(
     factory.matrixSpace,
-    factory.degreeMonoid,
+    factory.degreeGroup,
     factory.name,
     factory::getVectorSpace,
     factory::getMultiplication,
@@ -81,7 +81,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
 ) {
     val monoid: Mon = factory.monoid
 
-    constructor(matrixSpace: MatrixSpace<S, V, M>, degreeMonoid: DegreeMonoid<D>, monoid: Mon, name: String) : this(
-        MonoidGAlgebraFactory(matrixSpace, degreeMonoid, monoid, name),
+    constructor(matrixSpace: MatrixSpace<S, V, M>, degreeGroup: DegreeGroup<D>, monoid: Mon, name: String) : this(
+        MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name),
     )
 }

@@ -10,9 +10,9 @@ import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -54,11 +54,11 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
     companion object {
         operator fun <I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeMonoid: DegreeMonoid<D>,
+            degreeGroup: DegreeGroup<D>,
             indeterminateList: List<Indeterminate<I, D>>,
             getDifferentialValueList: GetDifferentialValueList<I, D, S, V, M>
         ): FreeDGAlgebra<I, D, S, V, M> {
-            val freeGAlgebra: FreeGAlgebra<I, D, S, V, M> = FreeGAlgebra(matrixSpace, degreeMonoid, indeterminateList)
+            val freeGAlgebra: FreeGAlgebra<I, D, S, V, M> = FreeGAlgebra(matrixSpace, degreeGroup, indeterminateList)
             val valueList = freeGAlgebra.context.run {
                 getDifferentialValueList(freeGAlgebra.generatorList)
             }
@@ -90,26 +90,26 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
             indeterminateList: List<Indeterminate<I, IntDegree>>,
             getDifferentialValueList: GetDifferentialValueList<I, IntDegree, S, V, M>
         ): FreeDGAlgebra<I, IntDegree, S, V, M> {
-            return FreeDGAlgebra.invoke(matrixSpace, IntDegreeMonoid, indeterminateList, getDifferentialValueList)
+            return FreeDGAlgebra.invoke(matrixSpace, IntDegreeGroup, indeterminateList, getDifferentialValueList)
         }
 
         operator fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeMonoid: DegreeMonoid<D>,
+            degreeGroup: DegreeGroup<D>,
             generatorList: List<GeneratorOfFreeDGA<D>>
         ): FreeDGAlgebra<StringIndeterminateName, D, S, V, M> {
             val indeterminateList = generatorList.map { Indeterminate(it.name, it.degree) }
             val getDifferentialValueList: GetDifferentialValueList<StringIndeterminateName, D, S, V, M> = {
                 generatorList.map { parse(it.differentialValue) }
             }
-            return FreeDGAlgebra.invoke(matrixSpace, degreeMonoid, indeterminateList, getDifferentialValueList)
+            return FreeDGAlgebra.invoke(matrixSpace, degreeGroup, indeterminateList, getDifferentialValueList)
         }
 
         operator fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             generatorList: List<GeneratorOfFreeDGA<IntDegree>>
         ): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
-            return FreeDGAlgebra.invoke(matrixSpace, IntDegreeMonoid, generatorList)
+            return FreeDGAlgebra.invoke(matrixSpace, IntDegreeGroup, generatorList)
         }
     }
 

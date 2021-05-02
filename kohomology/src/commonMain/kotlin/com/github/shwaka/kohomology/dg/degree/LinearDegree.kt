@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.util.isOdd
 
 data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
-class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val coeffList: IntArray) : Degree {
+class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
     override fun toInt(): Int {
         return this.constantTerm + this.coeffList.indices.map {
             this.coeffList[it] * this.monoid.indeterminateList[it].defaultValue
@@ -66,7 +66,7 @@ class LinearDegree(val monoid: LinearDegreeMonoid, val constantTerm: Int, val co
     }
 }
 
-data class LinearDegreeMonoid(val indeterminateList: List<DegreeIndeterminate>) : DegreeMonoid<LinearDegree> {
+data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : DegreeGroup<LinearDegree> {
     override val context: DegreeContext<LinearDegree> by lazy {
         DegreeContext(this)
     }

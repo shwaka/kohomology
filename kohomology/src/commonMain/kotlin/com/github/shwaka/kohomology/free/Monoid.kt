@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -27,10 +27,10 @@ data class NonZero<T>(val value: T) : MaybeZero<T>()
 
 interface Monoid<D : Degree, E : MonoidElement<D>> {
     val unit: E
-    val degreeMonoid: DegreeMonoid<D>
+    val degreeGroup: DegreeGroup<D>
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
     fun listAll(degree: D): List<E>
-    fun listAll(degree: Int): List<E> = this.listAll(this.degreeMonoid.fromInt(degree))
+    fun listAll(degree: Int): List<E> = this.listAll(this.degreeGroup.fromInt(degree))
 }
 
 data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
@@ -46,7 +46,7 @@ data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: 
 
 class MonoidFromList<T, D : Degree>(
     val elements: List<SimpleMonoidElement<T, D>>,
-    override val degreeMonoid: DegreeMonoid<D>,
+    override val degreeGroup: DegreeGroup<D>,
     val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>>>>
 ) : Monoid<D, SimpleMonoidElement<T, D>> {
     init {

@@ -9,7 +9,7 @@ interface Degree {
     fun isOdd(): Boolean = !this.isEven()
 }
 
-class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by monoid {
+class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by group {
     fun Int.toDegree(): D = this@DegreeContext.fromInt(this)
     operator fun D.plus(other: D): D = this@DegreeContext.add(this, other)
     operator fun Int.plus(other: D): D = this@DegreeContext.add(this.toDegree(), other)
@@ -21,7 +21,7 @@ class DegreeContext<D : Degree>(monoid: DegreeMonoid<D>) : DegreeMonoid<D> by mo
     operator fun Int.times(degree: D): D = this@DegreeContext.multiply(degree, this)
 }
 
-interface DegreeMonoid<D : Degree> {
+interface DegreeGroup<D : Degree> {
     val context: DegreeContext<D>
     fun fromInt(n: Int): D
     fun add(degree1: D, degree2: D): D

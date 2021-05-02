@@ -16,7 +16,7 @@ class LinearDegreeTest : FreeSpec({
         val indeterminateList = listOf(
             DegreeIndeterminate("N", 1),
         )
-        val degreeMonoid = LinearDegreeMonoid(indeterminateList)
+        val degreeMonoid = LinearDegreeGroup(indeterminateList)
 
         "parity test" {
             degreeMonoid.fromList(listOf(1, 2)).let {

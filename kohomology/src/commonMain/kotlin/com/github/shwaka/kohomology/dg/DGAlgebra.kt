@@ -44,7 +44,7 @@ open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M 
     private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
-        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.gAlgebra.degreeMonoid.context.run { p + q })
+        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.gAlgebra.degreeGroup.context.run { p + q })
         val basisLift1: List<Vector<B, S, V>> =
             cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegP.section(vector1)
@@ -75,7 +75,7 @@ open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M 
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         GAlgebra(
             matrixSpace,
-            this.gAlgebra.degreeMonoid,
+            this.gAlgebra.degreeGroup,
             this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,

@@ -20,7 +20,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
 ) {
     private val cache: MutableMap<Pair<D, D>, BilinearMap<BS1, BS2, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
-    val degreeMonoid = source1.degreeMonoid
+    val degreeMonoid = source1.degreeGroup
 
     constructor(
         source1: GVectorSpace<BS1, D, S, V>,
@@ -29,7 +29,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
         degree: Int,
         name: String,
         getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
-    ) : this(source1, source2, target, source1.degreeMonoid.fromInt(degree), name, getBilinearMap)
+    ) : this(source1, source2, target, source1.degreeGroup.fromInt(degree), name, getBilinearMap)
 
     companion object {
         fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withIntDegree(

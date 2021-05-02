@@ -17,7 +17,7 @@ private class FreeLoopSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val loopSpaceGAlgebra: FreeGAlgebra<CopiedName<I, D>, D, S, V, M> = run {
-        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeMonoid
+        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeMonoid, degreeMonoid.zero) } + list.map { it.copy(degreeMonoid, degreeMonoid.fromInt(1)) }
         }

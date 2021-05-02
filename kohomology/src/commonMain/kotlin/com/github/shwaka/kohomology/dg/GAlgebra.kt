@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -64,13 +64,13 @@ open class GAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<
 
 open class GAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
-    degreeMonoid: DegreeMonoid<D>,
+    degreeGroup: DegreeGroup<D>,
     name: String,
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
     val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
     printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
-) : GVectorSpace<B, D, S, V>(matrixSpace.numVectorSpace, degreeMonoid, name, printer, getVectorSpace), GAlgebraOperations<B, D, S, V, M> {
+) : GVectorSpace<B, D, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, getVectorSpace), GAlgebraOperations<B, D, S, V, M> {
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
     override val context by lazy {

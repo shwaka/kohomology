@@ -9,9 +9,9 @@ import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -37,16 +37,16 @@ class FreeGAlgebraContext<I : IndeterminateName, D : Degree, S : Scalar, V : Num
 
 class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    degreeMonoid: DegreeMonoid<D>,
+    degreeGroup: DegreeGroup<D>,
     val indeterminateList: List<Indeterminate<I, D>>
-) : MonoidGAlgebra<D, Monomial<I, D>, FreeMonoid<I, D>, S, V, M>(matrixSpace, degreeMonoid, FreeMonoid(degreeMonoid, indeterminateList), FreeGAlgebra.getName(indeterminateList)),
+) : MonoidGAlgebra<D, Monomial<I, D>, FreeMonoid<I, D>, S, V, M>(matrixSpace, degreeGroup, FreeMonoid(degreeGroup, indeterminateList), FreeGAlgebra.getName(indeterminateList)),
     FreeGAlgebraOperations<I, D, S, V, M> {
     override val context: FreeGAlgebraContext<I, D, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
     }
     val generatorList: List<GVector<Monomial<I, D>, D, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
-            val monomial = Monomial.fromIndeterminate(this.degreeMonoid, this.indeterminateList, indeterminate)
+            val monomial = Monomial.fromIndeterminate(this.degreeGroup, this.indeterminateList, indeterminate)
             this.fromBasisName(monomial, indeterminate.degree)
         }
 
@@ -55,7 +55,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
             throw InvalidSizeException("Invalid size of the list of values of a derivation")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
-                val expectedValueDegree = this.degreeMonoid.context.run {
+                val expectedValueDegree = this.degreeGroup.context.run {
                     indeterminate.degree + derivationDegree
                 }
                 if (value.degree != expectedValueDegree)
@@ -67,7 +67,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
             }
         }
         val gVectorValueList = valueList.mapIndexed { index, gVectorOrZero ->
-            val valueDegree = this.degreeMonoid.context.run {
+            val valueDegree = this.degreeGroup.context.run {
                 this@FreeGAlgebra.indeterminateList[index].degree + derivationDegree
             }
             this.convertToGVector(gVectorOrZero, valueDegree)
@@ -76,7 +76,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
         return Derivation.fromGVectors(this, derivationDegree, this.matrixSpace, name) { k ->
             val sourceVectorSpace = this[k]
             // val targetVectorSpace = this[k + derivationDegree]
-            val targetDegree = this.degreeMonoid.context.run {
+            val targetDegree = this.degreeGroup.context.run {
                 k + derivationDegree
             }
             sourceVectorSpace.basisNames.map { monomial: Monomial<I, D> ->
@@ -86,7 +86,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
     }
 
     fun getDerivation(valueList: List<GVectorOrZero<Monomial<I, D>, D, S, V>>, derivationDegree: IntAsDegree): Derivation<Monomial<I, D>, D, S, V, M> {
-        return this.getDerivation(valueList, this.degreeMonoid.fromInt(derivationDegree))
+        return this.getDerivation(valueList, this.degreeGroup.fromInt(derivationDegree))
     }
 
     private fun getDerivationValue(
@@ -101,7 +101,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
                 else
                     0
             }
-            val derivedSeparatedMonomial = Monomial(this.degreeMonoid, this.indeterminateList, derivedSeparatedExponentList)
+            val derivedSeparatedMonomial = Monomial(this.degreeGroup, this.indeterminateList, derivedSeparatedExponentList)
             val derivedSeparatedGVector = this.context.run {
                 separation.separatedExponent *
                     this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *
@@ -183,7 +183,7 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<I, IntDegree>>
         ): FreeGAlgebra<I, IntDegree, S, V, M> {
-            return FreeGAlgebra(matrixSpace, IntDegreeMonoid, indeterminateList)
+            return FreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
         }
     }
 }

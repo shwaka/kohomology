@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.IndeterminateName
 
@@ -30,10 +30,10 @@ data class CopiedName<I : IndeterminateName, D : Degree>(val name: I, val shift:
 }
 
 fun <I : IndeterminateName, D : Degree> Indeterminate<I, D>.copy(
-    degreeMonoid: DegreeMonoid<D>,
+    degreeGroup: DegreeGroup<D>,
     shift: D,
     index: Int? = null
 ): Indeterminate<CopiedName<I, D>, D> {
-    val newDegree = degreeMonoid.context.run { this@copy.degree - shift }
+    val newDegree = degreeGroup.context.run { this@copy.degree - shift }
     return Indeterminate(CopiedName(this.name, shift, index), newDegree)
 }

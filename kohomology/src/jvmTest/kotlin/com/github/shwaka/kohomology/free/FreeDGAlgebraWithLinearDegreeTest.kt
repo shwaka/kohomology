@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
-import com.github.shwaka.kohomology.dg.degree.LinearDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.LinearDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.degreeTag
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
@@ -15,7 +15,7 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
-        val degreeMonoid = LinearDegreeMonoid(degreeIndeterminateList)
+        val degreeMonoid = LinearDegreeGroup(degreeIndeterminateList)
         val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(

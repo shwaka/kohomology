@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.LinearDegreeMonoid
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
-import com.github.shwaka.kohomology.free.GeneralizedIndeterminate
+import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -60,8 +60,8 @@ class CohomologyOfFreeLoopSpaceWithLinearDegree(
         val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(
-                GeneralizedIndeterminate("x", 2 * n),
-                GeneralizedIndeterminate("y", 4 * n - 1)
+                Indeterminate("x", 2 * n),
+                Indeterminate("y", 4 * n - 1)
             )
         }
         val matrixSpace = SparseMatrixSpaceOverBigRational
@@ -91,8 +91,8 @@ class IsomorphismToCohomologyOfFreePathSpace(val n: Int, val degreeLimit: Int) :
     override val description: String = "cohomology of the free path space of CP^n"
     override fun mainFun(): String {
         val indeterminateList = listOf(
-            GeneralizedIndeterminate("c", 2),
-            GeneralizedIndeterminate("x", 2 * this.n + 1)
+            Indeterminate("c", 2),
+            Indeterminate("x", 2 * this.n + 1)
         )
         val sphere = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, indeterminateList) { (c, _) ->
             listOf(zeroGVector, c.pow(this@IsomorphismToCohomologyOfFreePathSpace.n + 1))

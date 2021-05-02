@@ -3,9 +3,38 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMonoid
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeMonoid
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.Sign
+
+interface IndeterminateName {
+    fun toTex(): String = this.toString()
+}
+class StringIndeterminateName(val name: String, tex: String? = null) : IndeterminateName {
+    val tex: String = tex ?: name
+
+    override fun toString(): String = this.name
+    override fun toTex(): String = this.tex
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as StringIndeterminateName
+
+        if (name != other.name) return false
+        if (tex != other.tex) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + tex.hashCode()
+        return result
+    }
+}
 
 data class GeneralizedIndeterminate<I : IndeterminateName, D : Degree>(val name: I, val degree: D) {
     companion object {
@@ -131,6 +160,27 @@ class GeneralizedMonomial<I : IndeterminateName, D : Degree> private constructor
         exponentList: List<Int>
     ) : this(degreeMonoid, GeneralizedIndeterminateList.from(indeterminateList), exponentList.toIntArray())
 
+    companion object {
+        operator fun <I : IndeterminateName> invoke(
+            indeterminateList: List<GeneralizedIndeterminate<I, IntDegree>>,
+            exponentList: List<Int>
+        ): GeneralizedMonomial<I, IntDegree> {
+            return GeneralizedMonomial(IntDegreeMonoid, GeneralizedIndeterminateList.from(indeterminateList), exponentList.toIntArray())
+        }
+
+        fun <I : IndeterminateName, D : Degree> fromIndeterminate(
+            degreeMonoid: DegreeMonoid<D>,
+            indeterminateList: List<GeneralizedIndeterminate<I, D>>,
+            indeterminate: GeneralizedIndeterminate<I, D>
+        ): GeneralizedMonomial<I, D> {
+            val index = indeterminateList.indexOf(indeterminate)
+            if (index == -1)
+                throw NoSuchElementException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
+            val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
+            return GeneralizedMonomial(degreeMonoid, indeterminateList, exponentList)
+        }
+    }
+
     override val degree: D by lazy {
         // this.indeterminateList.zip(this.exponentList.toList())
         //     .map { (generator, exponent) -> generator.degree * exponent }
@@ -222,20 +272,6 @@ class GeneralizedMonomial<I : IndeterminateName, D : Degree> private constructor
         result = 31 * result + exponentList.contentHashCode()
         return result
     }
-
-    companion object {
-        fun <I : IndeterminateName, D : Degree> fromIndeterminate(
-            degreeMonoid: DegreeMonoid<D>,
-            indeterminateList: List<GeneralizedIndeterminate<I, D>>,
-            indeterminate: GeneralizedIndeterminate<I, D>
-        ): GeneralizedMonomial<I, D> {
-            val index = indeterminateList.indexOf(indeterminate)
-            if (index == -1)
-                throw NoSuchElementException("Indeterminate $indeterminate is not contained in the indeterminate list $indeterminateList")
-            val exponentList = indeterminateList.map { if (it == indeterminate) 1 else 0 }
-            return GeneralizedMonomial(degreeMonoid, indeterminateList, exponentList)
-        }
-    }
 }
 
 class GeneralizedFreeMonoid<I : IndeterminateName, D : Degree> (
@@ -245,6 +281,14 @@ class GeneralizedFreeMonoid<I : IndeterminateName, D : Degree> (
     // constructor(
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
+
+    companion object {
+        operator fun <I : IndeterminateName> invoke(
+            indeterminateList: List<GeneralizedIndeterminate<I, IntDegree>>
+        ): Monoid<IntDegree, GeneralizedMonomial<I, IntDegree>> {
+            return GeneralizedFreeMonoid(IntDegreeMonoid, indeterminateList)
+        }
+    }
 
     override val unit: GeneralizedMonomial<I, D> = GeneralizedMonomial(this.degreeMonoid, this.indeterminateList, List(this.indeterminateList.size) { 0 })
 

@@ -53,7 +53,7 @@ data class Indeterminate<I : IndeterminateName, D : Degree>(val name: I, val deg
     }
 }
 
-private sealed class IndeterminateList<I : IndeterminateName, D : Degree>(
+internal sealed class IndeterminateList<I : IndeterminateName, D : Degree>(
     protected val rawList: List<Indeterminate<I, D>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
@@ -69,6 +69,10 @@ private sealed class IndeterminateList<I : IndeterminateName, D : Degree>(
         return List(this.size) { transform(it, this.rawList[it]) }
     }
     operator fun get(index: Int): Indeterminate<I, D> = this.rawList[index]
+    val indices: IntRange = this.rawList.indices
+    fun joinToString(separator: CharSequence, transform: ((Indeterminate<I, D>) -> String)? = null): String {
+        return this.rawList.joinToString(separator = separator, transform = transform)
+    }
 
     abstract fun checkDegree(monomial: Monomial<I, D>, degreeLimit: IntAsDegree): Boolean
     abstract fun isAllowedDegree(degree: D): Boolean
@@ -101,7 +105,7 @@ private sealed class IndeterminateList<I : IndeterminateName, D : Degree>(
     }
 }
 
-private class PositiveIndeterminateList<I : IndeterminateName, D : Degree>(
+internal class PositiveIndeterminateList<I : IndeterminateName, D : Degree>(
     rawList: List<Indeterminate<I, D>>
 ) : IndeterminateList<I, D>(rawList) {
     init {
@@ -124,7 +128,7 @@ private class PositiveIndeterminateList<I : IndeterminateName, D : Degree>(
     override fun drop(): PositiveIndeterminateList<I, D> = PositiveIndeterminateList(this.rawList.drop(1))
 }
 
-private class NegativeIndeterminateList<I : IndeterminateName, D : Degree>(
+internal class NegativeIndeterminateList<I : IndeterminateName, D : Degree>(
     rawList: List<Indeterminate<I, D>>
 ) : IndeterminateList<I, D>(rawList) {
     init {
@@ -147,7 +151,7 @@ private class NegativeIndeterminateList<I : IndeterminateName, D : Degree>(
     override fun drop(): NegativeIndeterminateList<I, D> = NegativeIndeterminateList(this.rawList.drop(1))
 }
 
-class Monomial<I : IndeterminateName, D : Degree> private constructor(
+class Monomial<I : IndeterminateName, D : Degree> internal constructor(
     val degreeMonoid: DegreeMonoid<D>,
     private val indeterminateList: IndeterminateList<I, D>,
     val exponentList: IntArray,
@@ -296,11 +300,12 @@ class Monomial<I : IndeterminateName, D : Degree> private constructor(
 
 class FreeMonoid<I : IndeterminateName, D : Degree> (
     override val degreeMonoid: DegreeMonoid<D>,
-    val indeterminateList: List<Indeterminate<I, D>>
+    indeterminateList: List<Indeterminate<I, D>>
 ) : Monoid<D, Monomial<I, D>> {
     // constructor(
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
+    private val indeterminateList = IndeterminateList.from(indeterminateList)
 
     companion object {
         operator fun <I : IndeterminateName> invoke(
@@ -310,7 +315,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
         }
     }
 
-    override val unit: Monomial<I, D> = Monomial(this.degreeMonoid, this.indeterminateList, List(this.indeterminateList.size) { 0 })
+    override val unit: Monomial<I, D> = Monomial(this.degreeMonoid, this.indeterminateList, IntArray(this.indeterminateList.size) { 0 })
 
     override fun multiply(
         monoidElement1: Monomial<I, D>,
@@ -349,7 +354,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
     }
 
     fun listAllOld(degree: D): List<Monomial<I, D>> {
-        val exponentList = List(this.indeterminateList.size) { 0 }
+        val exponentList = IntArray(this.indeterminateList.size) { 0 }
         var monomial: Monomial<I, D>? = Monomial(this.degreeMonoid, this.indeterminateList, exponentList)
         val monomialList: MutableList<Monomial<I, D>> = mutableListOf()
         while (monomial != null) {
@@ -361,8 +366,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
     }
 
     override fun listAll(degree: D): List<Monomial<I, D>> {
-        val indeterminateList = IndeterminateList.from(this.indeterminateList)
-        if (!indeterminateList.isAllowedDegree(degree))
+        if (!this.indeterminateList.isAllowedDegree(degree))
             return emptyList()
         return this.listAllInternal(degree, 0)
     }
@@ -379,8 +383,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
         // Since 0 <= index < this.indeterminateList.size,
         // we have 0 < this.indeterminateList.size
         val newDegree = this.degreeMonoid.context.run { degree - this@FreeMonoid.indeterminateList[index].degree }
-        val indeterminateList = IndeterminateList.from(this.indeterminateList)
-        val listWithNonZeroAtIndex = if (indeterminateList.isAllowedDegree(newDegree)) {
+        val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
             this.listAllInternal(newDegree, index)
                 .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
         } else emptyList()
@@ -392,13 +395,19 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
         val separatedExponent = monomial.exponentList[index]
         if (separatedExponent == 0)
             return null
-        val remainingExponentList = monomial.exponentList.mapIndexed { i, exponent ->
-            if (i == index) 0 else exponent
+        // val remainingExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+        //     if (i == index) 0 else exponent
+        // }
+        val remainingExponentList = IntArray(monomial.exponentList.size) {
+            if (it == index) 0 else monomial.exponentList[it]
         }
         val remainingMonomial = Monomial(this.degreeMonoid, this.indeterminateList, remainingExponentList)
         val separatedIndeterminate = this.indeterminateList[index]
-        val separatedExponentList = monomial.exponentList.mapIndexed { i, exponent ->
-            if (i == index) exponent else 0
+        // val separatedExponentList = monomial.exponentList.mapIndexed { i, exponent ->
+        //     if (i == index) exponent else 0
+        // }
+        val separatedExponentList = IntArray(monomial.exponentList.size) {
+            if (it == index) monomial.exponentList[it] else 0
         }
         val multipliedMonomialOrZero = this.multiply(
             Monomial(this.degreeMonoid, this.indeterminateList, separatedExponentList),
@@ -417,7 +426,7 @@ class FreeMonoid<I : IndeterminateName, D : Degree> (
     }
 
     override fun toString(): String {
-        val indeterminateListString = this.indeterminateList.joinToString(", ") { it.toString() }
+        val indeterminateListString = this.indeterminateList.joinToString(", ")
         return "FreeMonoid($indeterminateListString)"
     }
 }

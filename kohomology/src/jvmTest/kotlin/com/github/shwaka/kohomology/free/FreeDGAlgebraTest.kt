@@ -23,9 +23,9 @@ val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should throw IllegalArgumentException when d^2 != 0" {
         val indeterminateList = listOf(
-            GeneralizedIndeterminate("x", 3),
-            GeneralizedIndeterminate("y", 2),
-            GeneralizedIndeterminate("z", 1),
+            Indeterminate("x", 3),
+            Indeterminate("y", 2),
+            Indeterminate("z", 1),
         )
         shouldThrow<IllegalArgumentException> {
             FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
@@ -37,7 +37,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpac
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeDGAlgebra should work well even when the list of generator is empty" {
-        val indeterminateList = listOf<GeneralizedIndeterminate<StringIndeterminateName, IntDegree>>()
+        val indeterminateList = listOf<Indeterminate<StringIndeterminateName, IntDegree>>()
         val freeDGAlgebra = shouldNotThrowAny {
             FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
         }
@@ -137,8 +137,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "generator must be sorted along a Sullivan filtration" {
         val indeterminateList = listOf(
-            GeneralizedIndeterminate("x", 2),
-            GeneralizedIndeterminate("y", 3),
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
         )
         shouldThrow<IllegalArgumentException> {
             FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _, _, _) ->

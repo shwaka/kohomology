@@ -19,8 +19,8 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
         val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(
-                GeneralizedIndeterminate("x", 2 * n),
-                GeneralizedIndeterminate("y", 4 * n - 1)
+                Indeterminate("x", 2 * n),
+                Indeterminate("y", 4 * n - 1)
             )
         }
         val matrixSpace = SparseMatrixSpaceOverBigRational

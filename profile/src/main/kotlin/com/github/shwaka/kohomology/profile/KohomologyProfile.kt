@@ -6,7 +6,8 @@ fun main() {
     val executableList: List<Executable> = listOf(
         CohomologyOfFreeLoopSpace(150),
         CohomologyOfFreeLoopSpaceWithLinearDegree(150, 200),
-        ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational)
+        IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
+        ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational),
     )
     println("Select script to profile: (default = 0)")
     executableList.mapIndexed { index, script ->

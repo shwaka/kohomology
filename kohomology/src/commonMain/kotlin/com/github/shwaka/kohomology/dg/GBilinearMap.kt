@@ -41,7 +41,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
             getBilinearMap: (Int, Int) -> BilinearMap<BS1, BS2, BT, S, V, M>,
         ): GBilinearMap<BS1, BS2, BT, IntDegree, S, V, M> {
             return GBilinearMap(source1, source2, target, IntDegree(degree), name) { p, q ->
-                getBilinearMap(p.toInt(), q.toInt())
+                getBilinearMap(p.value, q.value)
             }
         }
     }

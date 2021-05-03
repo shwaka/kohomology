@@ -11,7 +11,6 @@ import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix

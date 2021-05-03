@@ -16,27 +16,27 @@ import com.github.shwaka.kohomology.vectsp.Vector
 open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<B, D, S, V>,
-    gAlgebraOperations: GAlgebraOperations<B, D, S, V, M>,
-    dgVectorOperations: DGVectorOperations<B, D, S, V, M>
-) : DGVectorContext<B, D, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
-    GAlgebraOperations<B, D, S, V, M> by gAlgebraOperations {
+    gVectorOperations: GVectorOperations<D, B, S, V>,
+    gAlgebraOperations: GAlgebraOperations<D, B, S, V, M>,
+    dgVectorOperations: DGVectorOperations<D, B, S, V, M>
+) : DGVectorContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
+    GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
     private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations)
 
-    operator fun GVector<B, D, S, V>.times(other: GVector<B, D, S, V>): GVector<B, D, S, V> {
+    operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@times * other }
     }
 
-    fun GVector<B, D, S, V>.pow(exponent: Int): GVector<B, D, S, V> {
+    fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@pow.pow(exponent) }
     }
 }
 
 open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    open val gAlgebra: GAlgebra<B, D, S, V, M>,
-    differential: GLinearMap<B, B, D, S, V, M>,
+    open val gAlgebra: GAlgebra<D, B, S, V, M>,
+    differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorSpace<B, D, S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGVectorSpace<D, B, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context by lazy {
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
@@ -70,7 +70,7 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
         )
     }
 
-    override val cohomology: GAlgebra<SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
+    override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         GAlgebra(
@@ -83,7 +83,7 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
         )
     }
 
-    fun getId(): DGAlgebraMap<B, B, D, S, V, M> {
+    fun getId(): DGAlgebraMap<D, B, B, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getId()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }

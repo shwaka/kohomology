@@ -117,8 +117,8 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
     }
 
     fun <B : BasisName> getGAlgebraMap(
-        target: GAlgebra<B, D, S, V, M>,
-        valueList: List<GVectorOrZero<B, D, S, V>>,
+        target: GAlgebra<D, B, S, V, M>,
+        valueList: List<GVectorOrZero<D, B, S, V>>,
     ): GAlgebraMap<Monomial<I, D>, B, D, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw InvalidSizeException("Invalid size of the list of values of an algebra map")
@@ -147,10 +147,10 @@ class FreeGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<
     }
 
     private fun <B : BasisName> getAlgebraMapValue(
-        target: GAlgebra<B, D, S, V, M>,
-        valueList: List<GVector<B, D, S, V>>,
+        target: GAlgebra<D, B, S, V, M>,
+        valueList: List<GVector<D, B, S, V>>,
         monomial: Monomial<I, D>
-    ): GVector<B, D, S, V> {
+    ): GVector<D, B, S, V> {
         return target.context.run {
             monomial.exponentList.mapIndexed { index, exponent ->
                 valueList[index].pow(exponent)

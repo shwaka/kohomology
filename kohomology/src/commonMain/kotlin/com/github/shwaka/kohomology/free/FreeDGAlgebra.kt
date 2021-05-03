@@ -114,8 +114,8 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
     }
 
     fun <B : BasisName> getDGAlgebraMap(
-        target: DGAlgebra<B, D, S, V, M>,
-        valueList: List<GVectorOrZero<B, D, S, V>>,
+        target: DGAlgebra<D, B, S, V, M>,
+        valueList: List<GVectorOrZero<D, B, S, V>>,
     ): DGAlgebraMap<Monomial<I, D>, B, D, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getGAlgebraMap(target.gAlgebra, valueList)
         return DGAlgebraMap(this, target, gAlgebraMap)
@@ -123,7 +123,7 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
 
     fun <BS : BasisName, BT : BasisName> findLift(
         underlyingMap: DGAlgebraMap<Monomial<I, D>, BT, D, S, V, M>,
-        surjectiveQuasiIsomorphism: DGAlgebraMap<BS, BT, D, S, V, M>,
+        surjectiveQuasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
     ): DGAlgebraMap<Monomial<I, D>, BS, D, S, V, M> {
         if (underlyingMap.source != this)
             throw IllegalArgumentException("Invalid diagram: ${underlyingMap.source} != $this")
@@ -132,7 +132,7 @@ open class FreeDGAlgebra<I : IndeterminateName, D : Degree, S : Scalar, V : NumV
         val n = this.gAlgebra.generatorList.size
         val liftTarget = surjectiveQuasiIsomorphism.source
         val zeroGVector = liftTarget.context.run { zeroGVector }
-        val liftValueList: MutableList<GVectorOrZero<BS, D, S, V>> = MutableList(n) { zeroGVector }
+        val liftValueList: MutableList<GVectorOrZero<D, BS, S, V>> = MutableList(n) { zeroGVector }
         for (i in 0 until n) {
             val currentLift = this.getDGAlgebraMap(liftTarget, liftValueList)
             val vi = this.gAlgebra.generatorList[i]

@@ -17,25 +17,25 @@ import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 interface GAlgebraOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    fun multiply(a: GVector<B, D, S, V>, b: GVector<B, D, S, V>): GVector<B, D, S, V>
-    fun multiply(a: GVectorOrZero<B, D, S, V>, b: GVectorOrZero<B, D, S, V>): GVectorOrZero<B, D, S, V>
-    val unit: GVector<B, D, S, V>
+    fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
+    fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V>
+    val unit: GVector<D, B, S, V>
 }
 
 open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<B, D, S, V>,
-    gAlgebraOperations: GAlgebraOperations<B, D, S, V, M>,
-) : GVectorContext<B, D, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
-    GAlgebraOperations<B, D, S, V, M> by gAlgebraOperations {
-    operator fun GVector<B, D, S, V>.times(other: GVector<B, D, S, V>): GVector<B, D, S, V> {
+    gVectorOperations: GVectorOperations<D, B, S, V>,
+    gAlgebraOperations: GAlgebraOperations<D, B, S, V, M>,
+) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
+    GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
+    operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this@GAlgebraContext.multiply(this, other)
     }
-    operator fun GVectorOrZero<B, D, S, V>.times(other: GVectorOrZero<B, D, S, V>): GVectorOrZero<B, D, S, V> {
+    operator fun GVectorOrZero<D, B, S, V>.times(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return this@GAlgebraContext.multiply(this, other)
     }
-    fun GVector<B, D, S, V>.pow(exponent: Int): GVector<B, D, S, V> {
+    fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
         val unit = this@GAlgebraContext.unit
         return when {
             exponent == 0 -> unit
@@ -49,7 +49,7 @@ open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             else -> throw Exception("This can't happen!")
         }
     }
-    fun GVectorOrZero<B, D, S, V>.pow(exponent: Int): GVectorOrZero<B, D, S, V> {
+    fun GVectorOrZero<D, B, S, V>.pow(exponent: Int): GVectorOrZero<D, B, S, V> {
         return when (this) {
             is GVector -> this.pow(exponent)
             is ZeroGVector -> when {
@@ -70,24 +70,24 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
     printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
-) : GVectorSpace<B, D, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, getVectorSpace), GAlgebraOperations<B, D, S, V, M> {
+) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
     override val context by lazy {
         GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     }
 
-    override val unit: GVector<B, D, S, V> = this.fromVector(unitVector, 0)
+    override val unit: GVector<D, B, S, V> = this.fromVector(unitVector, 0)
 
     private val multiplication: GBilinearMap<B, B, B, D, S, V, M> by lazy {
         val bilinearMapName = "Multiplication(${this.name})"
         GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
     }
-    override fun multiply(a: GVector<B, D, S, V>, b: GVector<B, D, S, V>): GVector<B, D, S, V> {
+    override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this.multiplication(a, b)
     }
 
-    override fun multiply(a: GVectorOrZero<B, D, S, V>, b: GVectorOrZero<B, D, S, V>): GVectorOrZero<B, D, S, V> {
+    override fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return when (a) {
             is ZeroGVector -> this.zeroGVector
             is GVector -> when (b) {
@@ -98,26 +98,26 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     }
 
     fun isBasis(
-        gVectorList: List<GVector<B, D, S, V>>,
+        gVectorList: List<GVector<D, B, S, V>>,
         degree: D,
     ): Boolean {
         return this.isBasis(gVectorList, degree, this.matrixSpace)
     }
 
     fun isBasis(
-        gVectorList: List<GVector<B, D, S, V>>,
+        gVectorList: List<GVector<D, B, S, V>>,
         degree: Int,
     ): Boolean {
         return this.isBasis(gVectorList, degree, this.matrixSpace)
     }
 
-    fun getId(): GAlgebraMap<B, B, D, S, V, M> {
+    fun getId(): GAlgebraMap<D, B, B, S, V, M> {
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
             this[degree].getId(this.matrixSpace)
         }
     }
 
-    fun parse(generators: List<Pair<String, GVector<B, D, S, V>>>, text: String): GVectorOrZero<B, D, S, V> {
+    fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
         return grammar.parseToEnd(text)
     }

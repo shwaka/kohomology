@@ -13,35 +13,35 @@ import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import mu.KotlinLogging
 
 interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    val differential: GLinearMap<B, B, D, S, V, M>
-    val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, D, S, V>
-    fun cohomologyClassOf(cocycle: GVector<B, D, S, V>): GVector<SubQuotBasis<B, S, V>, D, S, V>
-    fun cocycleRepresentativeOf(cohomologyClass: GVector<SubQuotBasis<B, S, V>, D, S, V>): GVector<B, D, S, V>
+    val differential: GLinearMap<D, B, B, S, V, M>
+    val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
+    fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
+    fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
 }
 
 open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<B, D, S, V>,
-    dgVectorOperations: DGVectorOperations<B, D, S, V, M>
-) : GVectorContext<B, D, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
-    DGVectorOperations<B, D, S, V, M> by dgVectorOperations {
-    fun d(gVector: GVector<B, D, S, V>): GVector<B, D, S, V> {
+    gVectorOperations: GVectorOperations<D, B, S, V>,
+    dgVectorOperations: DGVectorOperations<D, B, S, V, M>
+) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
+    DGVectorOperations<D, B, S, V, M> by dgVectorOperations {
+    fun d(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this.differential(gVector)
     }
-    fun GVector<B, D, S, V>.cohomologyClass(): GVector<SubQuotBasis<B, S, V>, D, S, V> {
+    fun GVector<D, B, S, V>.cohomologyClass(): GVector<D, SubQuotBasis<B, S, V>, S, V> {
         return this@DGVectorContext.cohomologyClassOf(this)
     }
-    fun GVector<SubQuotBasis<B, S, V>, D, S, V>.cocycleRepresentative(): GVector<B, D, S, V> {
+    fun GVector<D, SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<D, B, S, V> {
         return this@DGVectorContext.cocycleRepresentativeOf(this)
     }
 }
 
 open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val gVectorSpace: GVectorSpace<B, D, S, V>,
-    override val differential: GLinearMap<B, B, D, S, V, M>,
+    val gVectorSpace: GVectorSpace<D, B, S, V>,
+    override val differential: GLinearMap<D, B, B, S, V, M>,
     val matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorOperations<B, D, S, V, M> {
+) : DGVectorOperations<D, B, S, V, M> {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
@@ -75,7 +75,7 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
 
     protected val cohomologyName = "H(${this.gVectorSpace.name})"
 
-    override val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, D, S, V> by lazy {
+    override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
         GVectorSpace(
             this.matrixSpace.numVectorSpace,
             this.gVectorSpace.degreeGroup,
@@ -84,7 +84,7 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         )
     }
 
-    override fun cohomologyClassOf(cocycle: GVector<B, D, S, V>): GVector<SubQuotBasis<B, S, V>, D, S, V> {
+    override fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
         val vector = cocycle.vector
         val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cocycle.degree)
         if (!cohomologyOfTheDegree.subspaceContains(vector))
@@ -93,7 +93,7 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         return this.cohomology.fromVector(cohomologyClass, cocycle.degree)
     }
 
-    override fun cocycleRepresentativeOf(cohomologyClass: GVector<SubQuotBasis<B, S, V>, D, S, V>): GVector<B, D, S, V> {
+    override fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
         val vector = cohomologyClass.vector
         val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cohomologyClass.degree)
         val cocycle = cohomologyOfTheDegree.section(vector)

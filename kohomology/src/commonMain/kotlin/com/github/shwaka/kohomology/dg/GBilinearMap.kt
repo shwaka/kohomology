@@ -11,9 +11,9 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import mu.KotlinLogging
 
 class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val source1: GVectorSpace<BS1, D, S, V>,
-    val source2: GVectorSpace<BS2, D, S, V>,
-    val target: GVectorSpace<BT, D, S, V>,
+    val source1: GVectorSpace<D, BS1, S, V>,
+    val source2: GVectorSpace<D, BS2, S, V>,
+    val target: GVectorSpace<D, BT, S, V>,
     val degree: D,
     val name: String,
     private val getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
@@ -23,9 +23,9 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
     val degreeMonoid = source1.degreeGroup
 
     constructor(
-        source1: GVectorSpace<BS1, D, S, V>,
-        source2: GVectorSpace<BS2, D, S, V>,
-        target: GVectorSpace<BT, D, S, V>,
+        source1: GVectorSpace<D, BS1, S, V>,
+        source2: GVectorSpace<D, BS2, S, V>,
+        target: GVectorSpace<D, BT, S, V>,
         degree: Int,
         name: String,
         getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
@@ -59,7 +59,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
         return bilinearMap
     }
 
-    operator fun invoke(gVector1: GVector<BS1, D, S, V>, gVector2: GVector<BS2, D, S, V>): GVector<BT, D, S, V> {
+    operator fun invoke(gVector1: GVector<D, BS1, S, V>, gVector2: GVector<D, BS2, S, V>): GVector<D, BT, S, V> {
         if (gVector1.gVectorSpace != this.source1)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
         if (gVector2.gVectorSpace != this.source2)

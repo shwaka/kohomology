@@ -38,16 +38,16 @@ class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 
 class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    override val degreeGroup: AugmentedDegreeGroup<D>,
+    val augmentedDegreeGroup: AugmentedDegreeGroup<D>,
     val indeterminateList: List<Indeterminate<D, I>>
-) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(matrixSpace, degreeGroup, FreeMonoid(degreeGroup, indeterminateList), FreeGAlgebra.getName(indeterminateList)),
+) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(matrixSpace, augmentedDegreeGroup, FreeMonoid(augmentedDegreeGroup, indeterminateList), FreeGAlgebra.getName(indeterminateList)),
     FreeGAlgebraOperations<D, I, S, V, M> {
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
     }
     val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
-            val monomial = Monomial.fromIndeterminate(this.degreeGroup, this.indeterminateList, indeterminate)
+            val monomial = Monomial.fromIndeterminate(this.augmentedDegreeGroup, this.indeterminateList, indeterminate)
             this.fromBasisName(monomial, indeterminate.degree)
         }
 
@@ -102,7 +102,7 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
                 else
                     0
             }
-            val derivedSeparatedMonomial = Monomial(this.degreeGroup, this.indeterminateList, derivedSeparatedExponentList)
+            val derivedSeparatedMonomial = Monomial(this.augmentedDegreeGroup, this.indeterminateList, derivedSeparatedExponentList)
             val derivedSeparatedGVector = this.context.run {
                 separation.separatedExponent *
                     this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *

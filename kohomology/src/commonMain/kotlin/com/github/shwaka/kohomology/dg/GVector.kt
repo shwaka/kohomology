@@ -126,7 +126,7 @@ open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
 
 open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
-    open val degreeGroup: DegreeGroup<D>,
+    val degreeGroup: DegreeGroup<D>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,

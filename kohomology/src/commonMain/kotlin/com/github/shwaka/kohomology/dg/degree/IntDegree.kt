@@ -14,9 +14,9 @@ data class IntDegree(val value: Int) : Degree {
     }
 }
 
-object IntDegreeGroup : DegreeGroup<IntDegree> {
-    override val context: DegreeContext<IntDegree> by lazy {
-        DegreeContext(this)
+object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
+    override val context: AugmentedDegreeContext<IntDegree> by lazy {
+        AugmentedDegreeContext(this)
     }
 
     override fun fromInt(n: Int): IntDegree {

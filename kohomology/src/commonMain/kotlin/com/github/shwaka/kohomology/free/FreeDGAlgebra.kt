@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -54,7 +55,7 @@ open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
     companion object {
         operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeGroup: DegreeGroup<D>,
+            degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,
             getDifferentialValueList: GetDifferentialValueList<D, I, S, V, M>
         ): FreeDGAlgebra<D, I, S, V, M> {
@@ -95,7 +96,7 @@ open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
 
         operator fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeGroup: DegreeGroup<D>,
+            degreeGroup: AugmentedDegreeGroup<D>,
             generatorList: List<GeneratorOfFreeDGA<D>>
         ): FreeDGAlgebra<D, StringIndeterminateName, S, V, M> {
             val indeterminateList = generatorList.map { Indeterminate(it.name, it.degree) }

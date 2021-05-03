@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -37,7 +38,7 @@ class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 
 class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
+    override val degreeGroup: AugmentedDegreeGroup<D>,
     val indeterminateList: List<Indeterminate<D, I>>
 ) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(matrixSpace, degreeGroup, FreeMonoid(degreeGroup, indeterminateList), FreeGAlgebra.getName(indeterminateList)),
     FreeGAlgebraOperations<D, I, S, V, M> {

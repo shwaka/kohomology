@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -53,7 +54,7 @@ data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val deg
 }
 
 internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
-    protected val degreeGroup: DegreeGroup<D>,
+    protected val degreeGroup: AugmentedDegreeGroup<D>,
     protected val rawList: List<Indeterminate<D, I>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
@@ -93,7 +94,7 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
     }
 
     companion object {
-        fun <D : Degree, I : IndeterminateName> from(degreeGroup: DegreeGroup<D>, indeterminateList: List<Indeterminate<D, I>>): IndeterminateList<D, I> {
+        fun <D : Degree, I : IndeterminateName> from(degreeGroup: AugmentedDegreeGroup<D>, indeterminateList: List<Indeterminate<D, I>>): IndeterminateList<D, I> {
             return degreeGroup.context.run {
                 when {
                     indeterminateList.any { it.degree.toInt() == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
@@ -107,7 +108,7 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
 }
 
 internal class PositiveIndeterminateList<D : Degree, I : IndeterminateName>(
-    degreeGroup: DegreeGroup<D>,
+    degreeGroup: AugmentedDegreeGroup<D>,
     rawList: List<Indeterminate<D, I>>
 ) : IndeterminateList<D, I>(degreeGroup, rawList) {
     init {
@@ -129,7 +130,7 @@ internal class PositiveIndeterminateList<D : Degree, I : IndeterminateName>(
 }
 
 internal class NegativeIndeterminateList<D : Degree, I : IndeterminateName>(
-    degreeGroup: DegreeGroup<D>,
+    degreeGroup: AugmentedDegreeGroup<D>,
     rawList: List<Indeterminate<D, I>>
 ) : IndeterminateList<D, I>(degreeGroup, rawList) {
     init {
@@ -151,7 +152,7 @@ internal class NegativeIndeterminateList<D : Degree, I : IndeterminateName>(
 }
 
 class Monomial<D : Degree, I : IndeterminateName> internal constructor(
-    val degreeGroup: DegreeGroup<D>,
+    val degreeGroup: AugmentedDegreeGroup<D>,
     private val indeterminateList: IndeterminateList<D, I>,
     val exponentList: IntArray,
 ) : MonoidElement<D> {
@@ -161,13 +162,13 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     }
 
     constructor(
-        degreeGroup: DegreeGroup<D>,
+        degreeGroup: AugmentedDegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: IntArray
     ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList)
 
     constructor(
-        degreeGroup: DegreeGroup<D>,
+        degreeGroup: AugmentedDegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: List<Int>
     ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList.toIntArray())
@@ -181,7 +182,7 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
 
         fun <D : Degree, I : IndeterminateName> fromIndeterminate(
-            degreeGroup: DegreeGroup<D>,
+            degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,
             indeterminate: Indeterminate<D, I>
         ): Monomial<D, I> {
@@ -268,7 +269,7 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
 }
 
 class FreeMonoid<D : Degree, I : IndeterminateName> (
-    override val degreeGroup: DegreeGroup<D>,
+    override val degreeGroup: AugmentedDegreeGroup<D>,
     indeterminateList: List<Indeterminate<D, I>>
 ) : Monoid<D, Monomial<D, I>> {
     // constructor(

@@ -60,9 +60,9 @@ class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coe
     }
 }
 
-data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : DegreeGroup<LinearDegree> {
-    override val context: DegreeContext<LinearDegree> by lazy {
-        DegreeContext(this)
+data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<LinearDegree> {
+    override val context: AugmentedDegreeContext<LinearDegree> by lazy {
+        AugmentedDegreeContext(this)
     }
 
     val generatorList: List<LinearDegree>

@@ -71,13 +71,17 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     unitVector: Vector<B, S, V>,
     printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
 ) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
-    // use 'lazy' to avoid the following warning:
-    //   Leaking 'this' in constructor of non-final class GAlgebra
     override val context by lazy {
+        // use 'lazy' to avoid the following warning:
+        //   Leaking 'this' in constructor of non-final class GAlgebra
         GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
     }
 
-    override val unit: GVector<D, B, S, V> = this.fromVector(unitVector, 0)
+    override val unit: GVector<D, B, S, V> by lazy {
+        // use 'lazy' to avoid NullPointerException concerning
+        // 'open val degreeGroup: DegreeGroup<D>' in GVectorSpace
+        this.fromVector(unitVector, 0)
+    }
 
     private val multiplication: GBilinearMap<B, B, B, D, S, V, M> by lazy {
         val bilinearMapName = "Multiplication(${this.name})"

@@ -16,55 +16,55 @@ class LinearDegreeTest : FreeSpec({
         val indeterminateList = listOf(
             DegreeIndeterminate("N", 1),
         )
-        val degreeMonoid = LinearDegreeGroup(indeterminateList)
+        val degreeGroup = LinearDegreeGroup(indeterminateList)
 
         "parity test" {
-            degreeMonoid.fromList(listOf(1, 2)).let {
+            degreeGroup.fromList(listOf(1, 2)).let {
                 it.isOdd().shouldBeTrue()
                 it.isEven().shouldBeFalse()
             }
-            degreeMonoid.fromList(listOf(0, 4)).let {
+            degreeGroup.fromList(listOf(0, 4)).let {
                 it.isOdd().shouldBeFalse()
                 it.isEven().shouldBeTrue()
             }
-            degreeMonoid.fromList(listOf(1, 1)).let {
+            degreeGroup.fromList(listOf(1, 1)).let {
                 shouldThrow<ArithmeticException> { it.isEven() }
                 shouldThrow<ArithmeticException> { it.isOdd() }
             }
         }
 
         "(1 + 2N) + (2 + 3N) should be (3 + 5N)" {
-            val degree1 = degreeMonoid.fromList(listOf(1, 2))
-            val degree2 = degreeMonoid.fromList(listOf(2, 3))
-            val expected = degreeMonoid.fromList(listOf(3, 5))
-            degreeMonoid.context.run {
+            val degree1 = degreeGroup.fromList(listOf(1, 2))
+            val degree2 = degreeGroup.fromList(listOf(2, 3))
+            val expected = degreeGroup.fromList(listOf(3, 5))
+            degreeGroup.context.run {
                 (degree1 + degree2) shouldBe expected
             }
         }
 
         "(1) + (2N) should be (1 + 2N)" {
-            val n = degreeMonoid.fromList(listOf(0, 1))
-            degreeMonoid.context.run {
-                (1 + 2 * n) shouldBe degreeMonoid.fromList(listOf(1, 2))
+            val n = degreeGroup.fromList(listOf(0, 1))
+            degreeGroup.context.run {
+                (1 + 2 * n) shouldBe degreeGroup.fromList(listOf(1, 2))
             }
         }
 
         "(1) - (2N) should be (1 - 2N)" {
-            val n = degreeMonoid.fromList(listOf(0, 1))
-            degreeMonoid.context.run {
-                (1 - 2 * n) shouldBe degreeMonoid.fromList(listOf(1, -2))
+            val n = degreeGroup.fromList(listOf(0, 1))
+            degreeGroup.context.run {
+                (1 - 2 * n) shouldBe degreeGroup.fromList(listOf(1, -2))
             }
         }
 
         "(2N) - (1) should be (-1 + 2N)" {
-            val n = degreeMonoid.fromList(listOf(0, 1))
-            degreeMonoid.context.run {
-                (2 * n - 1) shouldBe degreeMonoid.fromList(listOf(-1, 2))
+            val n = degreeGroup.fromList(listOf(0, 1))
+            degreeGroup.context.run {
+                (2 * n - 1) shouldBe degreeGroup.fromList(listOf(-1, 2))
             }
         }
 
         "(1 + 2N).toString() should be \"1 + 2N\"" {
-            val degree = degreeMonoid.fromList(listOf(1, 2))
+            val degree = degreeGroup.fromList(listOf(1, 2))
             degree.toString() shouldBe "1 + 2N"
         }
     }

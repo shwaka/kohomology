@@ -20,7 +20,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
 ) {
     private val cache: MutableMap<Pair<D, D>, BilinearMap<BS1, BS2, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
-    val degreeMonoid = source1.degreeGroup
+    val degreeGroup = source1.degreeGroup
 
     constructor(
         source1: GVectorSpace<D, BS1, S, V>,
@@ -70,7 +70,7 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
         if (gVector2.vector.vectorSpace != bilinearMap.source2)
             throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")
         val newVector = bilinearMap(gVector1.vector, gVector2.vector)
-        val newDegree = this.degreeMonoid.context.run {
+        val newDegree = this.degreeGroup.context.run {
             gVector1.degree + gVector2.degree + this@GBilinearMap.degree
         }
         return this.target.fromVector(newVector, newDegree)

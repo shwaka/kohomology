@@ -18,15 +18,15 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val pathSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
-        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
-        val zero = degreeMonoid.zero
-        val one = degreeMonoid.fromInt(1)
+        val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
+        val zero = degreeGroup.zero
+        val one = degreeGroup.fromInt(1)
         val pathSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
-            list.map { it.copy(degreeMonoid, shift = zero, index = 1) } +
-                list.map { it.copy(degreeMonoid, shift = zero, index = 2) } +
-                list.map { it.copy(degreeMonoid, shift = one) }
+            list.map { it.copy(degreeGroup, shift = zero, index = 1) } +
+                list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
+                list.map { it.copy(degreeGroup, shift = one) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeMonoid, pathSpaceIndeterminateList)
+        FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList)
     }
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

@@ -65,14 +65,14 @@ open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V
         val targetDifference = this.target.differential.findPreimage(coboundary)
             ?: throw Exception("This can't happen!")
         val sourceDifference = this.gLinearMap.findPreimage(targetDifference)
-            ?: throw UnsupportedOperationException("$this[${this.gLinearMap.degreeMonoid.context.run { degree - 1 }}] is not surjective")
+            ?: throw UnsupportedOperationException("$this[${this.gLinearMap.degreeGroup.context.run { degree - 1 }}] is not surjective")
         return this.source.context.run {
             sourceCocycle - d(sourceDifference)
         }
     }
 
     fun findLift(targetCochain: GVector<D, BT, S, V>, sourceCoboundary: GVector<D, BS, S, V>): GVector<D, BS, S, V> {
-        if (sourceCoboundary.degree != this.gLinearMap.degreeMonoid.context.run { targetCochain.degree + 1 })
+        if (sourceCoboundary.degree != this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 })
             throw IllegalArgumentException("deg($sourceCoboundary) should be equal to deg($targetCochain) + 1")
         if (this.source.differential(sourceCoboundary).isNotZero())
             throw IllegalArgumentException("$sourceCoboundary is not a cocycle")

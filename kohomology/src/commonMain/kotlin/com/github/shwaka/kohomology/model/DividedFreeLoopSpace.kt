@@ -18,14 +18,14 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
     // Λ(V⊕V⊕sV⊕sV)
     val matrixSpace = freeDGAlgebra.matrixSpace
     val dividedLoopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
-        val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
+        val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
         val dividedLoopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
-            val zero = degreeMonoid.zero
-            val one = degreeMonoid.fromInt(1)
-            list.map { it.copy(degreeMonoid, shift = zero, index = 1) } + list.map { it.copy(degreeMonoid, shift = zero, index = 2) } +
-                list.map { it.copy(degreeMonoid, shift = one, index = 1) } + list.map { it.copy(degreeMonoid, shift = one, index = 2) }
+            val zero = degreeGroup.zero
+            val one = degreeGroup.fromInt(1)
+            list.map { it.copy(degreeGroup, shift = zero, index = 1) } + list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
+                list.map { it.copy(degreeGroup, shift = one, index = 1) } + list.map { it.copy(degreeGroup, shift = one, index = 2) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeMonoid, dividedLoopSpaceIndeterminateList)
+        FreeGAlgebra(this.matrixSpace, degreeGroup, dividedLoopSpaceIndeterminateList)
     }
     val pathSpaceDGAlgebra: FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> = FreePathSpace(freeDGAlgebra)
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

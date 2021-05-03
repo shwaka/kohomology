@@ -27,7 +27,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
     }
 
-    val degreeMonoid = source.degreeGroup
+    val degreeGroup = source.degreeGroup
 
     constructor(
         source: GVectorSpace<D, BS, S, V>,
@@ -45,7 +45,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         if (gVector.vector.vectorSpace != linearMap.source)
             throw Exception("Graded linear map contains a bug: getLinearMap returns incorrect linear map")
         val newVector = linearMap(gVector.vector)
-        val newDegree = this.degreeMonoid.context.run { gVector.degree + this@GLinearMap.degree }
+        val newDegree = this.degreeGroup.context.run { gVector.degree + this@GLinearMap.degree }
         return this.target.fromVector(newVector, newDegree)
     }
 
@@ -63,13 +63,13 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
     }
 
     operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
-        return this.get(this.degreeMonoid.fromInt(degree))
+        return this.get(this.degreeGroup.fromInt(degree))
     }
 
     fun findPreimage(gVector: GVector<D, BT, S, V>): GVector<D, BS, S, V>? {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
-        val sourceDegree = this.degreeMonoid.context.run { gVector.degree - this@GLinearMap.degree }
+        val sourceDegree = this.degreeGroup.context.run { gVector.degree - this@GLinearMap.degree }
         return this[sourceDegree].findPreimage(gVector.vector)?.let { vector ->
             this.source.fromVector(vector, sourceDegree)
         }

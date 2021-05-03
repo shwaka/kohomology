@@ -15,16 +15,16 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
-        val degreeMonoid = LinearDegreeGroup(degreeIndeterminateList)
-        val (n) = degreeMonoid.generatorList
-        val indeterminateList = degreeMonoid.context.run {
+        val degreeGroup = LinearDegreeGroup(degreeIndeterminateList)
+        val (n) = degreeGroup.generatorList
+        val indeterminateList = degreeGroup.context.run {
             listOf(
                 Indeterminate("x", 2 * n),
                 Indeterminate("y", 4 * n - 1)
             )
         }
         val matrixSpace = SparseMatrixSpaceOverBigRational
-        val sphere = FreeDGAlgebra(matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
@@ -33,7 +33,7 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
             freeLoopSpace.gAlgebra[degree].dim shouldBe 0
             freeLoopSpace.cohomology[degree].dim shouldBe 0
         }
-        degreeMonoid.context.run {
+        degreeGroup.context.run {
             for (i in 1 until 10) {
                 val degree = i * (2 * n - 1)
                 val expectedDim = if (i.isEven()) 0 else 1

@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
-import com.github.shwaka.kohomology.dg.degree.LinearDegreeMonoid
+import com.github.shwaka.kohomology.dg.degree.LinearDegreeGroup
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -56,7 +56,7 @@ class CohomologyOfFreeLoopSpaceWithLinearDegree(
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
-        val degreeMonoid = LinearDegreeMonoid(degreeIndeterminateList)
+        val degreeMonoid = LinearDegreeGroup(degreeIndeterminateList)
         val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(

@@ -21,19 +21,19 @@ import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
 
-sealed class GVectorOrZero<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>> {
+sealed class GVectorOrZero<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
     abstract fun isZero(): Boolean
     fun isNotZero(): Boolean = !this.isZero()
 }
 
-class ZeroGVector<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, D, S, V>() {
+class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<B, D, S, V>() {
     override fun isZero() = true
     override fun toString(): String {
         return "0"
     }
 }
 
-open class GVector<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>(
+open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>,
     val degree: D,
     val gVectorSpace: GVectorSpace<B, D, S, V>
@@ -66,7 +66,7 @@ open class GVector<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>(
     override fun toString(): String = this.gVectorSpace.printer.stringify(this.vector)
 }
 
-interface GVectorOperations<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>> {
+interface GVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(gVector: GVector<B, D, S, V>): Boolean
     fun add(a: GVector<B, D, S, V>, b: GVector<B, D, S, V>): GVector<B, D, S, V>
     fun subtract(a: GVector<B, D, S, V>, b: GVector<B, D, S, V>): GVector<B, D, S, V>
@@ -74,7 +74,7 @@ interface GVectorOperations<B : BasisName, D : Degree, S : Scalar, V : NumVector
     val zeroGVector: ZeroGVector<B, D, S, V>
 }
 
-open class GVectorContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>(
+open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, D, S, V>,
@@ -124,7 +124,7 @@ open class GVectorContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S
     }
 }
 
-open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>(
+open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val degreeGroup: DegreeGroup<D>,
     val name: String,
@@ -147,7 +147,7 @@ open class GVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>>
     open val context by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
 
     companion object {
-        fun <B : BasisName, D : Degree, S : Scalar, V : NumVector<S>> fromBasisNames(
+        fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,

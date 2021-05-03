@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
-open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: DGVectorSpace<BS, D, S, V, M>,
     target: DGVectorSpace<BT, D, S, V, M>,
     gLinearMap: GLinearMap<BS, BT, D, S, V, M>,
@@ -92,7 +92,7 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
     }
 
     companion object {
-        operator fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGVectorSpace<BS, D, S, V, M>,
             target: DGVectorSpace<BT, D, S, V, M>,
             degree: D,
@@ -104,7 +104,7 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
             return DGLinearMap(source, target, gLinearMap)
         }
 
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: DGVectorSpace<BS, D, S, V, M>,
             target: DGVectorSpace<BT, D, S, V, M>,
             degree: D,
@@ -118,13 +118,13 @@ open class DGLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V
     }
 }
 
-class DGAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class DGAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: DGAlgebra<BS, D, S, V, M>,
     override val target: DGAlgebra<BT, D, S, V, M>,
     override val gLinearMap: GAlgebraMap<BS, BT, D, S, V, M>,
 ) : DGLinearMap<BS, BT, D, S, V, M>(source, target, gLinearMap) {
     companion object {
-        operator fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGAlgebra<BS, D, S, V, M>,
             target: DGAlgebra<BT, D, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
@@ -135,7 +135,7 @@ class DGAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : N
             return DGAlgebraMap(source, target, gLinearMap)
         }
 
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: DGAlgebra<BS, D, S, V, M>,
             target: DGAlgebra<BT, D, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,

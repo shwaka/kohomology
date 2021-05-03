@@ -13,7 +13,7 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-open class DGAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, D, S, V>,
@@ -32,7 +32,7 @@ open class DGAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector
     }
 }
 
-open class DGAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     open val gAlgebra: GAlgebra<B, D, S, V, M>,
     differential: GLinearMap<B, B, D, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>

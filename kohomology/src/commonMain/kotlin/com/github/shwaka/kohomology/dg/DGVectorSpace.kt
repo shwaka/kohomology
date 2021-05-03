@@ -12,14 +12,14 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import mu.KotlinLogging
 
-interface DGVectorOperations<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     val differential: GLinearMap<B, B, D, S, V, M>
     val cohomology: GVectorSpace<SubQuotBasis<B, S, V>, D, S, V>
     fun cohomologyClassOf(cocycle: GVector<B, D, S, V>): GVector<SubQuotBasis<B, S, V>, D, S, V>
     fun cocycleRepresentativeOf(cohomologyClass: GVector<SubQuotBasis<B, S, V>, D, S, V>): GVector<B, D, S, V>
 }
 
-open class DGVectorContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, D, S, V>,
@@ -37,7 +37,7 @@ open class DGVectorContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<
     }
 }
 
-open class DGVectorSpace<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val gVectorSpace: GVectorSpace<B, D, S, V>,
     override val differential: GLinearMap<B, B, D, S, V, M>,
     val matrixSpace: MatrixSpace<S, V, M>

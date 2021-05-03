@@ -16,13 +16,13 @@ import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-interface GAlgebraOperations<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+interface GAlgebraOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun multiply(a: GVector<B, D, S, V>, b: GVector<B, D, S, V>): GVector<B, D, S, V>
     fun multiply(a: GVectorOrZero<B, D, S, V>, b: GVectorOrZero<B, D, S, V>): GVectorOrZero<B, D, S, V>
     val unit: GVector<B, D, S, V>
 }
 
-open class GAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<B, D, S, V>,
@@ -62,7 +62,7 @@ open class GAlgebraContext<B : BasisName, D : Degree, S : Scalar, V : NumVector<
     }
 }
 
-open class GAlgebra<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,

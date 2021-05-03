@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import mu.KotlinLogging
 
-open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val source: GVectorSpace<BS, D, S, V>,
     val target: GVectorSpace<BT, D, S, V>,
     val degree: D,
@@ -74,7 +74,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
     }
 
     companion object {
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<BS, D, S, V>,
             target: GVectorSpace<BT, D, S, V>,
             degree: D,
@@ -97,7 +97,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             }
         }
 
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<BS, D, S, V>,
             target: GVectorSpace<BT, D, S, V>,
             degree: Int,
@@ -107,7 +107,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             return this.createGetLinearMap(source, target, source.degreeGroup.fromInt(degree), matrixSpace, getGVectors)
         }
 
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<BS, D, S, V>,
             target: GVectorSpace<BT, D, S, V>,
             degree: D,
@@ -119,7 +119,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
             return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
 
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<BS, D, S, V>,
             target: GVectorSpace<BT, D, S, V>,
             degree: Int,
@@ -132,7 +132,7 @@ open class GLinearMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V 
     }
 }
 
-class GAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<BS, D, S, V, M>,
     target: GAlgebra<BT, D, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,
@@ -140,7 +140,7 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : Nu
     getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) : GLinearMap<BS, BT, D, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
     companion object {
-        fun <BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<BS, D, S, V, M>,
             target: GAlgebra<BT, D, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
@@ -153,7 +153,7 @@ class GAlgebraMap<BS : BasisName, BT : BasisName, D : Degree, S : Scalar, V : Nu
     }
 }
 
-class Derivation<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+class Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<B, D, S, V, M>,
     degree: D,
     matrixSpace: MatrixSpace<S, V, M>,
@@ -161,7 +161,7 @@ class Derivation<B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Ma
     getLinearMap: (D) -> LinearMap<B, B, S, V, M>
 ) : GLinearMap<B, B, D, S, V, M>(source, source, degree, matrixSpace, name, getLinearMap) {
     companion object {
-        fun <B : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<B, D, S, V, M>,
             degree: D,
             matrixSpace: MatrixSpace<S, V, M>,

@@ -7,12 +7,6 @@ import com.github.shwaka.kohomology.util.isOdd
 data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
 class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
-    override fun toInt(): Int {
-        return this.constantTerm + this.coeffList.indices.map {
-            this.coeffList[it] * this.monoid.indeterminateList[it].defaultValue
-        }.sum()
-    }
-
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->
             if (oddIndices.isNotEmpty()) {
@@ -79,6 +73,12 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
 
     override fun fromInt(n: Int): LinearDegree {
         return LinearDegree(this, n, IntArray(this.indeterminateList.size) { 0 })
+    }
+
+    override fun augmentation(degree: LinearDegree): Int {
+        return degree.constantTerm + degree.coeffList.indices.map {
+            degree.coeffList[it] * this.indeterminateList[it].defaultValue
+        }.sum()
     }
 
     override fun add(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {

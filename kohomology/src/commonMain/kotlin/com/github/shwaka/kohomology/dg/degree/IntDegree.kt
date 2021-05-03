@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
 data class IntDegree(val value: Int) : Degree {
-    override fun toInt(): Int = this.value
     override fun isEven(): Boolean {
         return (this.value % 2 == 0)
     }
@@ -22,6 +21,10 @@ object IntDegreeGroup : DegreeGroup<IntDegree> {
 
     override fun fromInt(n: Int): IntDegree {
         return IntDegree(n)
+    }
+
+    override fun augmentation(degree: IntDegree): Int {
+        return degree.value
     }
 
     override fun add(degree1: IntDegree, degree2: IntDegree): IntDegree {

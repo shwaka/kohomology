@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
 interface Degree {
-    fun toInt(): Int
     fun isZero(): Boolean
     fun isNotZero(): Boolean = !this.isZero()
     fun isOne(): Boolean
@@ -11,6 +10,7 @@ interface Degree {
 
 class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by group {
     fun Int.toDegree(): D = this@DegreeContext.fromInt(this)
+    fun D.toInt(): Int = this@DegreeContext.augmentation(this)
     operator fun D.plus(other: D): D = this@DegreeContext.add(this, other)
     operator fun Int.plus(other: D): D = this@DegreeContext.add(this.toDegree(), other)
     operator fun D.plus(other: Int): D = this@DegreeContext.add(this, other.toDegree())
@@ -24,6 +24,7 @@ class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by group
 interface DegreeGroup<D : Degree> {
     val context: DegreeContext<D>
     fun fromInt(n: Int): D
+    fun augmentation(degree: D): Int
     fun add(degree1: D, degree2: D): D
     fun subtract(degree1: D, degree2: D): D
     fun multiply(degree: D, n: Int): D

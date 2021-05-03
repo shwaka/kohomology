@@ -53,6 +53,7 @@ data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val deg
 }
 
 internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
+    protected val degreeGroup: DegreeGroup<D>,
     protected val rawList: List<Indeterminate<D, I>>
 ) {
     fun isEmpty(): Boolean = this.rawList.isEmpty()
@@ -92,49 +93,61 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
     }
 
     companion object {
-        fun <D : Degree, I : IndeterminateName> from(indeterminateList: List<Indeterminate<D, I>>): IndeterminateList<D, I> {
-            return when {
-                indeterminateList.any { it.degree.toInt() == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
-                indeterminateList.all { it.degree.toInt() > 0 } -> PositiveIndeterminateList(indeterminateList)
-                indeterminateList.all { it.degree.toInt() < 0 } -> NegativeIndeterminateList(indeterminateList)
-                else -> throw IllegalArgumentException("Cannot consider a list of indeterminate containing both positive and negative degrees")
+        fun <D : Degree, I : IndeterminateName> from(degreeGroup: DegreeGroup<D>, indeterminateList: List<Indeterminate<D, I>>): IndeterminateList<D, I> {
+            return degreeGroup.context.run {
+                when {
+                    indeterminateList.any { it.degree.toInt() == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
+                    indeterminateList.all { it.degree.toInt() > 0 } -> PositiveIndeterminateList(degreeGroup, indeterminateList)
+                    indeterminateList.all { it.degree.toInt() < 0 } -> NegativeIndeterminateList(degreeGroup, indeterminateList)
+                    else -> throw IllegalArgumentException("Cannot consider a list of indeterminate containing both positive and negative degrees")
+                }
             }
         }
     }
 }
 
 internal class PositiveIndeterminateList<D : Degree, I : IndeterminateName>(
+    degreeGroup: DegreeGroup<D>,
     rawList: List<Indeterminate<D, I>>
-) : IndeterminateList<D, I>(rawList) {
+) : IndeterminateList<D, I>(degreeGroup, rawList) {
     init {
-        for (indeterminate in rawList) {
-            if (indeterminate.degree.toInt() <= 0)
-                throw IllegalArgumentException("The degree of an indeterminate in PositiveIndeterminateList must be positive")
+        this.degreeGroup.context.run {
+            for (indeterminate in rawList) {
+                if (indeterminate.degree.toInt() <= 0)
+                    throw IllegalArgumentException("The degree of an indeterminate in PositiveIndeterminateList must be positive")
+            }
         }
     }
 
     override fun isAllowedDegree(degree: D): Boolean {
-        return degree.toInt() >= 0
+        return this.degreeGroup.context.run {
+            degree.toInt() >= 0
+        }
     }
 
-    override fun drop(): PositiveIndeterminateList<D, I> = PositiveIndeterminateList(this.rawList.drop(1))
+    override fun drop(): PositiveIndeterminateList<D, I> = PositiveIndeterminateList(this.degreeGroup, this.rawList.drop(1))
 }
 
 internal class NegativeIndeterminateList<D : Degree, I : IndeterminateName>(
+    degreeGroup: DegreeGroup<D>,
     rawList: List<Indeterminate<D, I>>
-) : IndeterminateList<D, I>(rawList) {
+) : IndeterminateList<D, I>(degreeGroup, rawList) {
     init {
-        for (indeterminate in rawList) {
-            if (indeterminate.degree.toInt() >= 0)
-                throw IllegalArgumentException("The degree of an indeterminate in NegativeIndeterminateList must be negative")
+        this.degreeGroup.context.run {
+            for (indeterminate in rawList) {
+                if (indeterminate.degree.toInt() >= 0)
+                    throw IllegalArgumentException("The degree of an indeterminate in NegativeIndeterminateList must be negative")
+            }
         }
     }
 
     override fun isAllowedDegree(degree: D): Boolean {
-        return degree.toInt() <= 0
+        return this.degreeGroup.context.run {
+            degree.toInt() <= 0
+        }
     }
 
-    override fun drop(): NegativeIndeterminateList<D, I> = NegativeIndeterminateList(this.rawList.drop(1))
+    override fun drop(): NegativeIndeterminateList<D, I> = NegativeIndeterminateList(this.degreeGroup, this.rawList.drop(1))
 }
 
 class Monomial<D : Degree, I : IndeterminateName> internal constructor(
@@ -151,20 +164,20 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         degreeGroup: DegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: IntArray
-    ) : this(degreeGroup, IndeterminateList.from(indeterminateList), exponentList)
+    ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList)
 
     constructor(
         degreeGroup: DegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: List<Int>
-    ) : this(degreeGroup, IndeterminateList.from(indeterminateList), exponentList.toIntArray())
+    ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList.toIntArray())
 
     companion object {
         operator fun <I : IndeterminateName> invoke(
             indeterminateList: List<Indeterminate<IntDegree, I>>,
             exponentList: List<Int>
         ): Monomial<IntDegree, I> {
-            return Monomial(IntDegreeGroup, IndeterminateList.from(indeterminateList), exponentList.toIntArray())
+            return Monomial(IntDegreeGroup, IndeterminateList.from(IntDegreeGroup, indeterminateList), exponentList.toIntArray())
         }
 
         fun <D : Degree, I : IndeterminateName> fromIndeterminate(
@@ -261,7 +274,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     // constructor(
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
-    private val indeterminateList = IndeterminateList.from(indeterminateList)
+    private val indeterminateList = IndeterminateList.from(degreeGroup, indeterminateList)
 
     companion object {
         operator fun <I : IndeterminateName> invoke(

@@ -28,11 +28,11 @@ private class FreePathSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar
         }
         FreeGAlgebra(this.matrixSpace, degreeMonoid, pathSpaceIndeterminateList)
     }
-    val differential: Derivation<Monomial<CopiedName<I, D>, D>, D, S, V, M>
-    val suspension: Derivation<Monomial<CopiedName<I, D>, D>, D, S, V, M>
-    val gAlgebraInclusion1: GAlgebraMap<Monomial<I, D>, Monomial<CopiedName<I, D>, D>, D, S, V, M>
-    val gAlgebraInclusion2: GAlgebraMap<Monomial<I, D>, Monomial<CopiedName<I, D>, D>, D, S, V, M>
-    val gAlgebraProjection: GAlgebraMap<Monomial<CopiedName<I, D>, D>, Monomial<I, D>, D, S, V, M>
+    val differential: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M>
+    val suspension: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M>
+    val gAlgebraInclusion1: GAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M>
+    val gAlgebraInclusion2: GAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M>
+    val gAlgebraProjection: GAlgebraMap<D, Monomial<CopiedName<I, D>, D>, Monomial<I, D>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val pathSpaceGeneratorList = this.pathSpaceGAlgebra.generatorList
@@ -77,9 +77,9 @@ private class FreePathSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar
     }
 
     private fun getNextValueList(
-        currentValueList: List<GVectorOrZero<Monomial<CopiedName<I, D>, D>, D, S, V>>,
+        currentValueList: List<GVectorOrZero<D, Monomial<CopiedName<I, D>, D>, S, V>>,
         index: Int
-    ): List<GVectorOrZero<Monomial<CopiedName<I, D>, D>, D, S, V>> {
+    ): List<GVectorOrZero<D, Monomial<CopiedName<I, D>, D>, S, V>> {
         val n = pathSpaceGAlgebra.indeterminateList.size / 3
         if (index < 0 || index >= n)
             throw Exception("This can't happen! (illegal index)")
@@ -109,23 +109,23 @@ class FreePathSpace<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector
     private val factory: FreePathSpaceFactory<I, D, S, V, M>
 ) : FreeDGAlgebra<CopiedName<I, D>, D, S, V, M>(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     constructor(freeDGAlgebra: FreeDGAlgebra<I, D, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
-    val suspension: Derivation<Monomial<CopiedName<I, D>, D>, D, S, V, M> =
+    val suspension: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M> =
         this.factory.suspension
-    val inclusion1: DGAlgebraMap<Monomial<I, D>, Monomial<CopiedName<I, D>, D>, D, S, V, M> by lazy {
+    val inclusion1: DGAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion1
         )
     }
-    val inclusion2: DGAlgebraMap<Monomial<I, D>, Monomial<CopiedName<I, D>, D>, D, S, V, M> by lazy {
+    val inclusion2: DGAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion2
         )
     }
-    val projection: DGAlgebraMap<Monomial<CopiedName<I, D>, D>, Monomial<I, D>, D, S, V, M> by lazy {
+    val projection: DGAlgebraMap<D, Monomial<CopiedName<I, D>, D>, Monomial<I, D>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.freeDGAlgebra,

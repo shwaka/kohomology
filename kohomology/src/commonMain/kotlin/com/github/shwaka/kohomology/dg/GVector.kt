@@ -161,9 +161,9 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
             degreeGroup: DegreeGroup<D>,
             name: String,
             getBasisNames: (D) -> List<String>,
-        ): GVectorSpace<StringBasisName, D, S, V> {
+        ): GVectorSpace<D, StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<StringBasisName, D, S, V>(numVectorSpace, degreeGroup, name) { degree ->
+            return GVectorSpace<D, StringBasisName, S, V>(numVectorSpace, degreeGroup, name) { degree ->
                 val basisNames = getBasisNames(degree).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
@@ -173,9 +173,9 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
             getBasisNames: (Int) -> List<String>,
-        ): GVectorSpace<StringBasisName, IntDegree, S, V> {
+        ): GVectorSpace<IntDegree, StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<StringBasisName, IntDegree, S, V>(numVectorSpace, IntDegreeGroup, name) { degree ->
+            return GVectorSpace<IntDegree, StringBasisName, S, V>(numVectorSpace, IntDegreeGroup, name) { degree ->
                 val basisNames = getBasisNames(degree.toInt()).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }

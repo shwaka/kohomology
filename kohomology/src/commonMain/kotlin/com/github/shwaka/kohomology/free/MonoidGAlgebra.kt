@@ -71,7 +71,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
 
 open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
-) : GAlgebra<E, D, S, V, M>(
+) : GAlgebra<D, E, S, V, M>(
     factory.matrixSpace,
     factory.degreeGroup,
     factory.name,

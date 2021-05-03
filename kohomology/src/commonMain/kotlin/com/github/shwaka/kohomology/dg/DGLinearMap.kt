@@ -33,8 +33,8 @@ open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V
         return this.gLinearMap(gVector)
     }
 
-    fun inducedMapOnCohomology(): GLinearMap<SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, D, S, V, M> {
-        val getGVectors: (D) -> List<GVector<SubQuotBasis<BT, S, V>, D, S, V>> = { k ->
+    fun inducedMapOnCohomology(): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        val getGVectors: (D) -> List<GVector<D, SubQuotBasis<BT, S, V>, S, V>> = { k ->
             this.source.cohomology.getBasis(k).map { cohomologyClass ->
                 val cocycle = this.source.cocycleRepresentativeOf(cohomologyClass)
                 this.target.cohomologyClassOf(this.gLinearMap(cocycle))

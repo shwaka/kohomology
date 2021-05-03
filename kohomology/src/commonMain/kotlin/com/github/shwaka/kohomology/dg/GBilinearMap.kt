@@ -33,9 +33,9 @@ class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree,
 
     companion object {
         fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withIntDegree(
-            source1: GVectorSpace<BS1, IntDegree, S, V>,
-            source2: GVectorSpace<BS2, IntDegree, S, V>,
-            target: GVectorSpace<BT, IntDegree, S, V>,
+            source1: GVectorSpace<IntDegree, BS1, S, V>,
+            source2: GVectorSpace<IntDegree, BS2, S, V>,
+            target: GVectorSpace<IntDegree, BT, S, V>,
             degree: Int,
             name: String,
             getBilinearMap: (Int, Int) -> BilinearMap<BS1, BS2, BT, S, V, M>,

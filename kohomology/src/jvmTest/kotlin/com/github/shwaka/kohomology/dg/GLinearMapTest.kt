@@ -25,7 +25,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
     }
     val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace, "f") { degree ->
         // vi -> vi + v{i+1}
-        val n = degree.toInt()
+        val n = degree.value
         val targetBasis = gVectorSpace[n + 1].getBasis()
         val valueList = (0 until n).map { i ->
             gVectorSpace[n + 1].context.run {

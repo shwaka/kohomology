@@ -176,7 +176,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         ): GVectorSpace<IntDegree, StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
             return GVectorSpace<IntDegree, StringBasisName, S, V>(numVectorSpace, IntDegreeGroup, name) { degree ->
-                val basisNames = getBasisNames(degree.toInt()).map { StringBasisName(it) }
+                val basisNames = getBasisNames(degree.value).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
         }

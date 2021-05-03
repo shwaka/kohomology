@@ -48,7 +48,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             val image = w0 + w1 * 2 + w2
             val preimage = gLinearMap.findPreimage(image)
             preimage shouldNotBe null
-            preimage as GVector<StringBasisName, IntDegree, S, V>
+            preimage as GVector<IntDegree, StringBasisName, S, V>
             gLinearMap(preimage) shouldBe image
         }
         "findPreimage should return null for gVector not in the image" {

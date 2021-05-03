@@ -41,10 +41,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
     }
     gVectorSpace.context.run {
         "graded bilinear map test" {
-            val u: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getBasis(0)[0]
-            val v: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getBasis(1)[0]
-            val z2: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getZero(2)
-            val z3: GVector<StringBasisName, IntDegree, S, V> = gVectorSpace.getZero(3)
+            val u: GVector<IntDegree, StringBasisName, S, V> = gVectorSpace.getBasis(0)[0]
+            val v: GVector<IntDegree, StringBasisName, S, V> = gVectorSpace.getBasis(1)[0]
+            val z2: GVector<IntDegree, StringBasisName, S, V> = gVectorSpace.getZero(2)
+            val z3: GVector<IntDegree, StringBasisName, S, V> = gVectorSpace.getZero(3)
             gBilinearMap(u, u) shouldBe u
             gBilinearMap(u, v) shouldBe v
             gBilinearMap(v, u) shouldBe v

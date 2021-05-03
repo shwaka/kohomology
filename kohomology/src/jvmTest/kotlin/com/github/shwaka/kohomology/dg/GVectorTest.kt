@@ -66,7 +66,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
         }
 
         "convertToGVector converts ZeroGVector to the correct zero vector" {
-            val zeroGVector = ZeroGVector<StringBasisName, IntDegree, S, V>()
+            val zeroGVector = ZeroGVector<IntDegree, StringBasisName, S, V>()
             val degree = 3
             val expected = gVectorSpace.getZero(degree)
             gVectorSpace.convertToGVector(zeroGVector, degree) shouldBe expected

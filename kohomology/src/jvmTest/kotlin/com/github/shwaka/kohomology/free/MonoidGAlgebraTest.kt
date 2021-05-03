@@ -42,7 +42,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
             val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
             gAlgebra[degree].dim shouldBe expectedDim
         }
-        val basis: List<GVector<SimpleMonoidElement<String, IntDegree>, IntDegree, S, V>> =
+        val basis: List<GVector<IntDegree, SimpleMonoidElement<String, IntDegree>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
         gAlgebra.context.run {
             for (i in 0..n) {

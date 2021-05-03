@@ -21,6 +21,12 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
 ) {
     private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
+
+    init {
+        if (source.degreeGroup != target.degreeGroup)
+            throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
+    }
+
     val degreeMonoid = source.degreeGroup
 
     constructor(
@@ -81,6 +87,8 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             matrixSpace: MatrixSpace<S, V, M>,
             getGVectors: (D) -> List<GVector<D, BT, S, V>>
         ): (D) -> LinearMap<BS, BT, S, V, M> {
+            if (source.degreeGroup != target.degreeGroup)
+                throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
             return { k ->
                 val l = source.degreeGroup.context.run { k + degree }
                 val sourceVectorSpace = source[k]

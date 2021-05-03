@@ -12,7 +12,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphere(
     matrixSpace: MatrixSpace<S, V, M>,
     dim: Int
-): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
+): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     if (dim <= 0)
         throw IllegalArgumentException("The dimension of a sphere must be positive")
     return if (dim % 2 == 1)
@@ -24,7 +24,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphere(
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphere(
     matrixSpace: MatrixSpace<S, V, M>,
     dim: Int
-): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
+): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     if (dim % 2 == 0)
         throw Exception("This can't happen!")
     val indeterminateList = listOf(
@@ -38,7 +38,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphere(
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(
     matrixSpace: MatrixSpace<S, V, M>,
     dim: Int
-): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
+): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     if (dim % 2 == 1)
         throw Exception("This can't happen!")
     val indeterminateList = listOf(
@@ -53,7 +53,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
     matrixSpace: MatrixSpace<S, V, M>,
     n: Int
-): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
+): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     if (n <= 0)
         throw IllegalArgumentException("The complex dimension n of CP^n must be positive")
     val indeterminateList = listOf(
@@ -67,7 +67,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4(
     matrixSpace: MatrixSpace<S, V, M>,
-): FreeDGAlgebra<StringIndeterminateName, IntDegree, S, V, M> {
+): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     val indeterminateList = listOf(
         Indeterminate("a", 2),
         Indeterminate("b", 2),

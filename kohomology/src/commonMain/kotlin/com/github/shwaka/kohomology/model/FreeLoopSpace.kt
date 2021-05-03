@@ -12,20 +12,20 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-private class FreeLoopSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val freeDGAlgebra: FreeDGAlgebra<I, D, S, V, M>
+private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
-    val loopSpaceGAlgebra: FreeGAlgebra<CopiedName<I, D>, D, S, V, M> = run {
+    val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeMonoid = this.freeDGAlgebra.gAlgebra.degreeGroup
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeMonoid, degreeMonoid.zero) } + list.map { it.copy(degreeMonoid, degreeMonoid.fromInt(1)) }
         }
         FreeGAlgebra(this.matrixSpace, degreeMonoid, loopSpaceIndeterminateList)
     }
-    val differential: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M>
-    val suspension: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M>
-    val gAlgebraInclusion: GAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M>
+    val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
+    val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
+    val gAlgebraInclusion: GAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M>
     init {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
@@ -54,13 +54,13 @@ private class FreeLoopSpaceFactory<I : IndeterminateName, D : Degree, S : Scalar
     }
 }
 
-class FreeLoopSpace<I : IndeterminateName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    private val factory: FreeLoopSpaceFactory<I, D, S, V, M>
-) : FreeDGAlgebra<CopiedName<I, D>, D, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
-    constructor(freeDGAlgebra: FreeDGAlgebra<I, D, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
-    val suspension: Derivation<D, Monomial<CopiedName<I, D>, D>, S, V, M> =
+class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+    private val factory: FreeLoopSpaceFactory<D, I, S, V, M>
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+    constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
+    val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
-    val inclusion: DGAlgebraMap<D, Monomial<I, D>, Monomial<CopiedName<I, D>, D>, S, V, M> by lazy {
+    val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,

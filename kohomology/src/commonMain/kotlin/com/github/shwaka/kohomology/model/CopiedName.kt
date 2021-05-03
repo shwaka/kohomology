@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.IndeterminateName
 
-data class CopiedName<I : IndeterminateName, D : Degree>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
+data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
     override fun toString(): String {
         val indexString: String = this.index?.toString() ?: ""
         val shiftString = when {
@@ -29,11 +29,11 @@ data class CopiedName<I : IndeterminateName, D : Degree>(val name: I, val shift:
     }
 }
 
-fun <I : IndeterminateName, D : Degree> Indeterminate<I, D>.copy(
+fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
     degreeGroup: DegreeGroup<D>,
     shift: D,
     index: Int? = null
-): Indeterminate<CopiedName<I, D>, D> {
+): Indeterminate<D, CopiedName<D, I>> {
     val newDegree = degreeGroup.context.run { this@copy.degree - shift }
     return Indeterminate(CopiedName(this.name, shift, index), newDegree)
 }

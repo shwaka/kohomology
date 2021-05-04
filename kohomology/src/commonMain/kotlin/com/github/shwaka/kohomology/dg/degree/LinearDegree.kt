@@ -6,12 +6,12 @@ import com.github.shwaka.kohomology.util.isOdd
 
 data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
-class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
+class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->
             if (oddIndices.isNotEmpty()) {
                 val oddIndeterminateString = oddIndices.joinToString(", ") {
-                    this.monoid.indeterminateList[it].toString()
+                    this.group.indeterminateList[it].toString()
                 }
                 throw ArithmeticException(
                     "Cannot determine the parity of $this, since the coefficients of $oddIndeterminateString are odd"
@@ -35,7 +35,7 @@ class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coe
 
         other as LinearDegree
 
-        if (monoid != other.monoid) return false
+        if (group != other.group) return false
         if (constantTerm != other.constantTerm) return false
         if (!coeffList.contentEquals(other.coeffList)) return false
 
@@ -43,7 +43,7 @@ class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coe
     }
 
     override fun hashCode(): Int {
-        var result = monoid.hashCode()
+        var result = group.hashCode()
         result = 31 * result + constantTerm
         result = 31 * result + coeffList.contentHashCode()
         return result
@@ -54,7 +54,7 @@ class LinearDegree(val monoid: LinearDegreeGroup, val constantTerm: Int, val coe
             this.constantTerm.toString()
         } else {
             "${this.constantTerm} + " + this.coeffList.indices.joinToString(" + ") {
-                "${this.coeffList[it]}${this.monoid.indeterminateList[it].name}"
+                "${this.coeffList[it]}${this.group.indeterminateList[it].name}"
             }
         }
     }
@@ -82,25 +82,25 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
     }
 
     override fun add(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {
-        if (degree1.monoid != this)
+        if (degree1.group != this)
             throw IllegalContextException("$degree1 is not an element of $this")
-        if (degree2.monoid != this)
+        if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
         val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] + degree2.coeffList[it] }
         return LinearDegree(this, degree1.constantTerm + degree2.constantTerm, coeffList)
     }
 
     override fun subtract(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {
-        if (degree1.monoid != this)
+        if (degree1.group != this)
             throw IllegalContextException("$degree1 is not an element of $this")
-        if (degree2.monoid != this)
+        if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
         val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] - degree2.coeffList[it] }
         return LinearDegree(this, degree1.constantTerm - degree2.constantTerm, coeffList)
     }
 
     override fun multiply(degree: LinearDegree, n: Int): LinearDegree {
-        if (degree.monoid != this)
+        if (degree.group != this)
             throw IllegalContextException("$degree is not an element of $this")
         val coeffList = IntArray(degree.coeffList.size) { degree.coeffList[it] * n }
         return LinearDegree(this, degree.constantTerm * n, coeffList)

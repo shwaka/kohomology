@@ -1,23 +1,35 @@
 package com.github.shwaka.kohomology.dg.degree
 
+import com.github.shwaka.kohomology.myArbList
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.arbitrary.map
 
 val degreeTag = NamedTag("Degree")
+
+fun LinearDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE)): Arb<LinearDegree> {
+    return myArbList(intArb, this.indeterminateList.size + 1).map { coeffList ->
+        LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
+    }
+}
 
 class LinearDegreeTest : FreeSpec({
     tags(degreeTag)
 
-    "tests for LinearDegree" - {
-        val indeterminateList = listOf(
-            DegreeIndeterminate("N", 1),
-        )
-        val degreeGroup = LinearDegreeGroup(indeterminateList)
+    val indeterminateList = listOf(
+        DegreeIndeterminate("N", 1),
+    )
+    val degreeGroup = LinearDegreeGroup(indeterminateList)
 
+    include(degreeTest(degreeGroup, degreeGroup.arb()))
+
+    "tests for LinearDegree" - {
         "parity test" {
             degreeGroup.fromList(listOf(1, 2)).let {
                 it.isOdd().shouldBeTrue()

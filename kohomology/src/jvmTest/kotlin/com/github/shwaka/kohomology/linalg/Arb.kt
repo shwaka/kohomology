@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.myArbList
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.map
-import com.github.shwaka.kohomology.myArbList
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> MatrixSpace<S, V, M>.arb(scalarArb: Arb<S>, rowCount: Int, colCount: Int): Arb<M> {
     val size = rowCount * colCount

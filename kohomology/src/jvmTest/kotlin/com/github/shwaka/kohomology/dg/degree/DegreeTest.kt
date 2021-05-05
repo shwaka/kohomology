@@ -46,6 +46,15 @@ suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
                         a shouldBe zero
                 }
             }
+            if (degreeGroup is AugmentedDegreeGroup) {
+                // The existing context is not smart-casted
+                "augmentation() should be a group homomorphism" {
+                    checkAll(degreeArb, degreeArb) { a, b ->
+                        degreeGroup.augmentation(a + b) shouldBe
+                            (degreeGroup.augmentation(a) + degreeGroup.augmentation(b))
+                    }
+                }
+            }
         }
     }
 }

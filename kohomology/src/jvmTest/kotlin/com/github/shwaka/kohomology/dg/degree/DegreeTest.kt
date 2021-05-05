@@ -1,11 +1,14 @@
 package com.github.shwaka.kohomology.dg.degree
 
+import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
+
+val degreeTag = NamedTag("Degree")
 
 suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
     degreeGroup: DegreeGroup<D>,

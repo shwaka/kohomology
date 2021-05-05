@@ -1,5 +1,11 @@
 package com.github.shwaka.kohomology.dg.degree
 
+/**
+ * Represents degrees in graded objects.
+ *
+ * Operations are implemented in [DegreeGroup].
+ * See [IntDegree] and [LinearDegree] for examples.
+ */
 interface Degree {
     fun isZero(): Boolean
     fun isNotZero(): Boolean = !this.isZero()
@@ -28,10 +34,23 @@ class AugmentedDegreeContext<D : Degree>(group: AugmentedDegreeGroup<D>) :
     fun D.toInt(): Int = this@AugmentedDegreeContext.augmentation(this)
 }
 
+/**
+ * Represents a group used for degrees.
+ */
 interface DegreeGroup<D : Degree> {
     val context: DegreeContext<D>
     fun fromInt(n: Int): D
+
+    /** Adds two degrees. */
     fun add(degree1: D, degree2: D): D
+
+    /**
+     * Subtracts a degree from another degree.
+     *
+     * Compared with addition, there are few places where this method is used, but necessary in
+     * [com.github.shwaka.kohomology.dg.GLinearMap.findPreimage] and
+     * [com.github.shwaka.kohomology.free.FreeMonoid.listAll].
+     */
     fun subtract(degree1: D, degree2: D): D
     fun multiply(degree: D, n: Int): D
     val zero: D

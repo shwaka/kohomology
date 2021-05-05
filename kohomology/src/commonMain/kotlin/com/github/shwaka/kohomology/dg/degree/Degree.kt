@@ -39,6 +39,10 @@ class AugmentedDegreeContext<D : Degree>(group: AugmentedDegreeGroup<D>) :
  */
 interface DegreeGroup<D : Degree> {
     val context: DegreeContext<D>
+
+    /**
+     * A group homomorphism from Z to a [DegreeGroup].
+     */
     fun fromInt(n: Int): D
 
     /** Adds two degrees. */
@@ -47,11 +51,13 @@ interface DegreeGroup<D : Degree> {
     /**
      * Subtracts a degree from another degree.
      *
-     * Compared with addition, there are few places where this method is used, but necessary in
+     * Compared with addition, this method is used in fewer places, but necessary in
      * [com.github.shwaka.kohomology.dg.GLinearMap.findPreimage] and
      * [com.github.shwaka.kohomology.free.FreeMonoid.listAll].
      */
     fun subtract(degree1: D, degree2: D): D
+
+    /** Multiplies an integer to a degree. */
     fun multiply(degree: D, n: Int): D
     val zero: D
         get() = this.fromInt(0)
@@ -61,6 +67,10 @@ interface AugmentedDegreeGroupOperations<D : Degree> {
     fun augmentation(degree: D): Int
 }
 
+/**
+ * Represents a group used for degrees in free objects (polynomial and exterior algebras).
+ */
 interface AugmentedDegreeGroup<D : Degree> : DegreeGroup<D>, AugmentedDegreeGroupOperations<D> {
+    /** An augmentation homomorphism to Z. */
     override val context: AugmentedDegreeContext<D>
 }

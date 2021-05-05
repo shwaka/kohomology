@@ -12,5 +12,7 @@ fun IntDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE))
 class IntDegreeTest : FreeSpec({
     tags(degreeTag)
 
-    include(degreeTest(IntDegreeGroup, IntDegreeGroup.arb()))
+    "IntDegreeTest" - {
+        degreeTestTemplate(IntDegreeGroup, IntDegreeGroup.arb())
+    }
 })

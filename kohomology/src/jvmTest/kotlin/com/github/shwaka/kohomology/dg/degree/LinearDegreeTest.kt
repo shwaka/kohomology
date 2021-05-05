@@ -22,14 +22,14 @@ fun LinearDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALU
 class LinearDegreeTest : FreeSpec({
     tags(degreeTag)
 
-    val indeterminateList = listOf(
-        DegreeIndeterminate("N", 1),
-    )
-    val degreeGroup = LinearDegreeGroup(indeterminateList)
-
-    include(degreeTest(degreeGroup, degreeGroup.arb()))
-
     "tests for LinearDegree" - {
+        val indeterminateList = listOf(
+            DegreeIndeterminate("N", 1),
+        )
+        val degreeGroup = LinearDegreeGroup(indeterminateList)
+
+        degreeTestTemplate(degreeGroup, degreeGroup.arb())
+
         "parity test" {
             degreeGroup.fromList(listOf(1, 2)).let {
                 it.isOdd().shouldBeTrue()

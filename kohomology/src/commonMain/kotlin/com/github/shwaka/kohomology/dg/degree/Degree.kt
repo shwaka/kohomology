@@ -14,8 +14,6 @@ interface Degree {
     fun isOdd(): Boolean = !this.isEven()
 }
 
-interface DegreeOperations<D : Degree>
-
 open class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by group {
     fun Int.toDegree(): D = this@DegreeContext.fromInt(this)
     operator fun D.plus(other: D): D = this@DegreeContext.add(this, other)

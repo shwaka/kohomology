@@ -23,36 +23,38 @@ import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 val vectorTag = NamedTag("Vector")
 
 fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
-    val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-    vectorSpace.context.run {
-        "Vectors with same coefficients should return the same hashCode" {
-            val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))
-            val v2 = vectorSpace.fromCoeffList(listOf(zero, one, two))
-            v1 shouldNotBeSameInstanceAs v2
-            v1.hashCode() shouldBe v2.hashCode()
-        }
-        "addition of Vector" {
-            val numVector = numVectorSpace.fromValueList(listOf(one, zero, one))
-            val v = vectorSpace.fromNumVector(numVector)
-            val expected = vectorSpace.fromNumVector(numVectorSpace.fromValueList(listOf(two, zero, two)))
-            (v + v) shouldBe expected
-        }
-        "invalid length of values should throw" {
-            shouldThrow<InvalidSizeException> {
-                vectorSpace.fromCoeffList(listOf(zero, zero))
+    "vector test" - {
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+        vectorSpace.context.run {
+            "Vectors with same coefficients should return the same hashCode" {
+                val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))
+                val v2 = vectorSpace.fromCoeffList(listOf(zero, one, two))
+                v1 shouldNotBeSameInstanceAs v2
+                v1.hashCode() shouldBe v2.hashCode()
             }
-        }
-        "multiplication of scalar" {
-            val v = vectorSpace.fromCoeffList(listOf(zero, two, -one))
-            val expected = vectorSpace.fromCoeffList(listOf(zero, four, -two))
-            (v * 2) shouldBe expected
-            (v * two) shouldBe expected
-        }
-        "multiplication of scalar with extension functions" {
-            val v = vectorSpace.fromCoeffList(listOf(zero, two, -one))
-            val expected = vectorSpace.fromCoeffList(listOf(zero, four, -two))
-            (2 * v) shouldBe expected
-            (two * v) shouldBe expected
+            "addition of Vector" {
+                val numVector = numVectorSpace.fromValueList(listOf(one, zero, one))
+                val v = vectorSpace.fromNumVector(numVector)
+                val expected = vectorSpace.fromNumVector(numVectorSpace.fromValueList(listOf(two, zero, two)))
+                (v + v) shouldBe expected
+            }
+            "invalid length of values should throw" {
+                shouldThrow<InvalidSizeException> {
+                    vectorSpace.fromCoeffList(listOf(zero, zero))
+                }
+            }
+            "multiplication of scalar" {
+                val v = vectorSpace.fromCoeffList(listOf(zero, two, -one))
+                val expected = vectorSpace.fromCoeffList(listOf(zero, four, -two))
+                (v * 2) shouldBe expected
+                (v * two) shouldBe expected
+            }
+            "multiplication of scalar with extension functions" {
+                val v = vectorSpace.fromCoeffList(listOf(zero, two, -one))
+                val expected = vectorSpace.fromCoeffList(listOf(zero, four, -two))
+                (2 * v) shouldBe expected
+                (two * v) shouldBe expected
+            }
         }
     }
 }
@@ -62,22 +64,24 @@ fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpac
         override fun toString(): String = this.name
     }
 
-    numVectorSpace.context.run {
-        "custom class for basis" {
-            val x = BasisElm("x")
-            val y = BasisElm("y")
-            val vectorSpace = VectorSpace(numVectorSpace, listOf(x, y))
-            val v = vectorSpace.fromCoeffList(listOf(one, zero))
-            shouldNotThrowAny {
-                v.toString()
+    "test for vector space with custom class for basis" - {
+        numVectorSpace.context.run {
+            "custom class for basis" {
+                val x = BasisElm("x")
+                val y = BasisElm("y")
+                val vectorSpace = VectorSpace(numVectorSpace, listOf(x, y))
+                val v = vectorSpace.fromCoeffList(listOf(one, zero))
+                shouldNotThrowAny {
+                    v.toString()
+                }
             }
-        }
 
-        "getBasis should return the correct basis" {
-            val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
-            val v = vectorSpace.fromCoeffList(listOf(one, zero))
-            val w = vectorSpace.fromCoeffList(listOf(zero, one))
-            vectorSpace.getBasis() shouldBe listOf(v, w)
+            "getBasis should return the correct basis" {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+                val v = vectorSpace.fromCoeffList(listOf(one, zero))
+                val w = vectorSpace.fromCoeffList(listOf(zero, one))
+                vectorSpace.getBasis() shouldBe listOf(v, w)
+            }
         }
     }
 }
@@ -94,34 +98,38 @@ fun <S : Scalar, V : NumVector<S>> manyBasisTest(numVectorSpace: NumVectorSpace<
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val numVectorSpace = matrixSpace.numVectorSpace
-    val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
-    val (v, w) = vectorSpace.getBasis()
-    vectorSpace.context.run {
-        "isBasis should return true for a correct basis" {
-            vectorSpace.isBasis(listOf(v, w), matrixSpace).shouldBeTrue()
-            vectorSpace.isBasis(listOf(v - w, -2 * v + w), matrixSpace).shouldBeTrue()
-        }
-        "isBasis should return false for non-basis" {
-            vectorSpace.isBasis(listOf(), matrixSpace).shouldBeFalse()
-            vectorSpace.isBasis(listOf(v), matrixSpace).shouldBeFalse()
-            vectorSpace.isBasis(listOf(v, v), matrixSpace).shouldBeFalse()
-            vectorSpace.isBasis(listOf(v, w, v + w), matrixSpace).shouldBeFalse()
+    "isBasis test" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val (v, w) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            "isBasis should return true for a correct basis" {
+                vectorSpace.isBasis(listOf(v, w), matrixSpace).shouldBeTrue()
+                vectorSpace.isBasis(listOf(v - w, -2 * v + w), matrixSpace).shouldBeTrue()
+            }
+            "isBasis should return false for non-basis" {
+                vectorSpace.isBasis(listOf(), matrixSpace).shouldBeFalse()
+                vectorSpace.isBasis(listOf(v), matrixSpace).shouldBeFalse()
+                vectorSpace.isBasis(listOf(v, v), matrixSpace).shouldBeFalse()
+                vectorSpace.isBasis(listOf(v, w, v + w), matrixSpace).shouldBeFalse()
+            }
         }
     }
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val numVectorSpace = matrixSpace.numVectorSpace
-    val vectorSpace = VectorSpace(numVectorSpace, listOf<String>())
-    vectorSpace.context.run {
-        "empty list should be a basis of the zero vector space" {
-            vectorSpace.isBasis(listOf(), matrixSpace).shouldBeTrue()
-        }
-        "non-empty list should not be a basis of the zero vector space" {
-            val zeroVector = vectorSpace.zeroVector
-            vectorSpace.isBasis(listOf(zeroVector), matrixSpace).shouldBeFalse()
-            vectorSpace.isBasis(listOf(zeroVector, zeroVector), matrixSpace).shouldBeFalse()
+    "isBasis test concerning 0-dim vector space" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf<String>())
+        vectorSpace.context.run {
+            "empty list should be a basis of the zero vector space" {
+                vectorSpace.isBasis(listOf(), matrixSpace).shouldBeTrue()
+            }
+            "non-empty list should not be a basis of the zero vector space" {
+                val zeroVector = vectorSpace.zeroVector
+                vectorSpace.isBasis(listOf(zeroVector), matrixSpace).shouldBeFalse()
+                vectorSpace.isBasis(listOf(zeroVector, zeroVector), matrixSpace).shouldBeFalse()
+            }
         }
     }
 }

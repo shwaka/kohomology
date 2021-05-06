@@ -15,59 +15,63 @@ import io.kotest.matchers.shouldBe
 val linearMapTag = NamedTag("LinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val numVectorSpace = matrixSpace.numVectorSpace
-    val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
-    val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
-    matrixSpace.context.run {
-        "linear map test" {
-            val matrix = matrixSpace.fromRowList(
-                listOf(
-                    listOf(two, zero),
-                    listOf(one, one)
+    "linear map test" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
+        val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
+        matrixSpace.context.run {
+            "check value" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(two, zero),
+                        listOf(one, one)
+                    )
                 )
-            )
-            val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
-            val v = vectorSpace1.fromCoeffList(listOf(one, -one))
-            val w = vectorSpace2.fromCoeffList(listOf(two, zero))
-            f(v) shouldBe w
-        }
-        "getZero should return the zero map" {
-            val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
-            val v = vectorSpace1.fromCoeffList(listOf(one, two))
-            f(v) shouldBe vectorSpace2.zeroVector
-        }
-        "getId should return the identity map" {
-            val f = LinearMap.getId(vectorSpace1, matrixSpace)
-            val v = vectorSpace1.fromCoeffList(listOf(one, two))
-            f(v) shouldBe v
-        }
-        "fromVectors test" {
-            val v = vectorSpace2.fromCoeffList(listOf(one, -one))
-            val w = vectorSpace2.fromCoeffList(listOf(two, zero))
-            val matrix = matrixSpace.fromNumVectorList(listOf(v, w).map { it.toNumVector() })
-            val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
-            val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
-            f shouldBe expected
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                val v = vectorSpace1.fromCoeffList(listOf(one, -one))
+                val w = vectorSpace2.fromCoeffList(listOf(two, zero))
+                f(v) shouldBe w
+            }
+            "getZero should return the zero map" {
+                val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
+                val v = vectorSpace1.fromCoeffList(listOf(one, two))
+                f(v) shouldBe vectorSpace2.zeroVector
+            }
+            "getId should return the identity map" {
+                val f = LinearMap.getId(vectorSpace1, matrixSpace)
+                val v = vectorSpace1.fromCoeffList(listOf(one, two))
+                f(v) shouldBe v
+            }
+            "fromVectors test" {
+                val v = vectorSpace2.fromCoeffList(listOf(one, -one))
+                val w = vectorSpace2.fromCoeffList(listOf(two, zero))
+                val matrix = matrixSpace.fromNumVectorList(listOf(v, w).map { it.toNumVector() })
+                val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
+                val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                f shouldBe expected
+            }
         }
     }
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val numVectorSpace = matrixSpace.numVectorSpace
-    val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
-    val (a, b) = vectorSpace.getBasis()
-    // val zeroVectorSpace = VectorSpace<StringBasisName, S, V>(numVectorSpace, listOf())
-    val zeroVectorSpace = VectorSpace(numVectorSpace, listOf())
-    val zeroVector = zeroVectorSpace.zeroVector
-    matrixSpace.context.run {
-        "linear map to zero" {
-            val f = LinearMap.fromVectors(vectorSpace, zeroVectorSpace, matrixSpace, listOf(zeroVector, zeroVector))
-            f(a).isZero().shouldBeTrue()
-            f(b).isZero().shouldBeTrue()
-        }
-        "linear map from zero" {
-            val g = LinearMap.fromVectors(zeroVectorSpace, vectorSpace, matrixSpace, listOf())
-            g(zeroVector).isZero().shouldBeTrue()
+    "linear map test concerning 0-dim vector space" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
+        val (a, b) = vectorSpace.getBasis()
+        // val zeroVectorSpace = VectorSpace<StringBasisName, S, V>(numVectorSpace, listOf())
+        val zeroVectorSpace = VectorSpace(numVectorSpace, listOf())
+        val zeroVector = zeroVectorSpace.zeroVector
+        matrixSpace.context.run {
+            "linear map to zero" {
+                val f = LinearMap.fromVectors(vectorSpace, zeroVectorSpace, matrixSpace, listOf(zeroVector, zeroVector))
+                f(a).isZero().shouldBeTrue()
+                f(b).isZero().shouldBeTrue()
+            }
+            "linear map from zero" {
+                val g = LinearMap.fromVectors(zeroVectorSpace, vectorSpace, matrixSpace, listOf())
+                g(zeroVector).isZero().shouldBeTrue()
+            }
         }
     }
 }

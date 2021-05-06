@@ -20,29 +20,31 @@ import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 val gVectorTag = NamedTag("GVector")
 
 fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
-    val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
-        (0 until degree).map { "v$it" }
-    }
-    gVectorSpace.context.run {
-        "GVectors with the same coefficients should have the same hashCode" {
-            val v1 = gVectorSpace.fromCoeff(listOf(one, two), 2)
-            val v2 = gVectorSpace.fromCoeff(listOf(one, two), 2)
-            v1 shouldNotBeSameInstanceAs v2
-            v1.hashCode() shouldBe v2.hashCode()
+    "graded vector test" - {
+        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
+            (0 until degree).map { "v$it" }
         }
-        "addition test" {
-            val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
-            val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
-            (v + v) shouldBe expected
-            (v + v) shouldNotBe v
-        }
-        "(0, 0).isZero() should be true" {
-            val v = gVectorSpace.fromCoeff(listOf(zero, zero), 2)
-            v.isZero().shouldBeTrue()
-        }
-        "(0, 1).isZero() should be false" {
-            val v = gVectorSpace.fromCoeff(listOf(zero, one), 2)
-            v.isZero().shouldBeFalse()
+        gVectorSpace.context.run {
+            "GVectors with the same coefficients should have the same hashCode" {
+                val v1 = gVectorSpace.fromCoeff(listOf(one, two), 2)
+                val v2 = gVectorSpace.fromCoeff(listOf(one, two), 2)
+                v1 shouldNotBeSameInstanceAs v2
+                v1.hashCode() shouldBe v2.hashCode()
+            }
+            "addition test" {
+                val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
+                val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
+                (v + v) shouldBe expected
+                (v + v) shouldNotBe v
+            }
+            "(0, 0).isZero() should be true" {
+                val v = gVectorSpace.fromCoeff(listOf(zero, zero), 2)
+                v.isZero().shouldBeTrue()
+            }
+            "(0, 1).isZero() should be false" {
+                val v = gVectorSpace.fromCoeff(listOf(zero, one), 2)
+                v.isZero().shouldBeFalse()
+            }
         }
     }
 }

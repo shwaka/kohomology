@@ -48,7 +48,6 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subQuotVectorSpace.subspaceContains(zeroVector).shouldBeTrue()
             }
         }
-
     }
 }
 

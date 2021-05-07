@@ -100,9 +100,9 @@ class SparseNumVectorSpace<S : Scalar>(
         val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
             for ((i, value) in b.valueMap) {
-                when (val valueFromA: S? = valueMap[i]) {
-                    null -> valueMap[i] = value
-                    else -> valueMap[i] = valueFromA + value
+                valueMap[i] = when (val valueFromA: S? = valueMap[i]) {
+                    null -> value
+                    else -> valueFromA + value
                 }
             }
         }
@@ -119,9 +119,9 @@ class SparseNumVectorSpace<S : Scalar>(
         val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
         this.field.context.run {
             for ((i, value) in b.valueMap) {
-                when (val valueFromA: S? = valueMap[i]) {
-                    null -> valueMap[i] = -value
-                    else -> valueMap[i] = valueFromA - value
+                valueMap[i] = when (val valueFromA: S? = valueMap[i]) {
+                    null -> -value
+                    else -> valueFromA - value
                 }
             }
         }

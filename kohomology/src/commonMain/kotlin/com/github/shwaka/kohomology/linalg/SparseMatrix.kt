@@ -120,15 +120,11 @@ abstract class AbstractSparseMatrixSpace<S : Scalar>(
             for ((rowInd, row) in second.rowMap) {
                 val newRow = newRowMap.getOrPut(rowInd) { mutableMapOf() }
                 for ((colInd, elm) in row) {
-                    when (val temp: S? = newRow[colInd]) {
-                        null -> newRow[colInd] = elm
-                        else -> newRow[colInd] = temp + elm
+                    newRow[colInd] = when (val temp: S? = newRow[colInd]) {
+                        null -> elm
+                        else -> temp + elm
                     }
-                    if (newRow[colInd] == null)
-                        newRow.remove(colInd)
                 }
-                if (newRow.isEmpty())
-                    newRowMap.remove(rowInd)
             }
         }
         return SparseMatrix(this.numVectorSpace, newRowMap, first.rowCount, first.colCount)
@@ -146,15 +142,11 @@ abstract class AbstractSparseMatrixSpace<S : Scalar>(
             for ((rowInd, row) in second.rowMap) {
                 val newRow = newRowMap.getOrPut(rowInd) { mutableMapOf() }
                 for ((colInd, elm) in row) {
-                    when (val temp: S? = newRow[colInd]) {
-                        null -> newRow[colInd] = -elm
-                        else -> newRow[colInd] = temp - elm
+                    newRow[colInd] = when (val temp: S? = newRow[colInd]) {
+                        null -> -elm
+                        else -> temp - elm
                     }
-                    if (newRow[colInd] == null)
-                        newRow.remove(colInd)
                 }
-                if (newRow.isEmpty())
-                    newRowMap.remove(rowInd)
             }
         }
         return SparseMatrix(this.numVectorSpace, newRowMap, first.rowCount, first.colCount)

@@ -40,7 +40,7 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
         SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
     }
 
-    "fromReducedValueMap should throw".config(enabled = kococoDebug) {
+    "fromReducedValueMap should throw if zero is explicitly given and debug mode is enabled".config(enabled = kococoDebug) {
         numVectorSpace.field.context.run {
             val valueMap: Map<Int, S> = mapOf(
                 1 to one,
@@ -50,6 +50,14 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
             shouldThrow<IllegalArgumentException> {
                 numVectorSpace.fromReducedValueMap(valueMap, 7)
             }
+        }
+    }
+
+    numVectorSpace.context.run {
+        "valueMap for the vector (0, 0, 0) should be empty" {
+            val v = numVectorSpace.fromValueList(listOf(zero, zero, zero))
+            v.valueMap.size shouldBe 0
+            v.dim shouldBe 3
         }
     }
 }
@@ -66,6 +74,15 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val v = numVectorSpace.fromValueList(listOf(zero, one))
             val w = numVectorSpace.fromValueList(listOf(zero, two))
             (v + v) shouldBe w
+        }
+        "(2, 0) + (-2, 0) should be (0, 0)" {
+            val v = numVectorSpace.fromValueList(listOf(two, zero))
+            val w = numVectorSpace.fromValueList(listOf(-two, zero))
+            (v + w) shouldBe numVectorSpace.getZero(2)
+        }
+        "(-1, 0) - (-1, 0) should be (0, 0)" {
+            val v = numVectorSpace.fromValueList(listOf(-one, zero))
+            (v - v) shouldBe numVectorSpace.getZero(2)
         }
         "(1, 0) * 2 should be (2, 0)" {
             val v = numVectorSpace.fromValueList(listOf(one, zero))

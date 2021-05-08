@@ -43,20 +43,18 @@ val matrixTag = NamedTag("Matrix")
 val denseMatrixTag = NamedTag("DenseMatrix")
 val sparseMatrixTag = NamedTag("SparseMatrix")
 
-fun <S : Scalar> denseMatrixSpaceTest(field: Field<S>) = freeSpec {
+fun <S : Scalar> denseMatrixSpaceTest(matrixSpace: DenseMatrixSpace<S>) = freeSpec {
     "dense matrix space test" - {
-        val numVectorSpace = DenseNumVectorSpace.from(field)
-        val matrixSpace = DenseMatrixSpace.from(numVectorSpace)
+        val numVectorSpace = matrixSpace.numVectorSpace
         "factory should return the cache if exists" {
             DenseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
         }
     }
 }
 
-fun <S : Scalar> sparseMatrixSpaceTest(field: Field<S>) = freeSpec {
+fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = freeSpec {
     "sparse matrix space test" - {
-        val numVectorSpace = SparseNumVectorSpace.from(field)
-        val matrixSpace = SparseMatrixSpace.from(numVectorSpace)
+        val numVectorSpace = matrixSpace.numVectorSpace
         "factory should return the cache if exists" {
             SparseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
         }
@@ -550,7 +548,7 @@ class IntRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverIntRational
-    include(denseMatrixSpaceTest(IntRationalField))
+    include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace, 10))
     // include(determinantTest(IntRationalField, 3, 5)) // overflow しがちなので除外
@@ -562,7 +560,7 @@ class LongRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, longRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverLongRational
-    include(denseMatrixSpaceTest(LongRationalField))
+    include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     // include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // overflow しがちなので除外
@@ -574,7 +572,7 @@ class BigRationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, bigRationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
-    include(denseMatrixSpaceTest(BigRationalField))
+    include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -588,7 +586,7 @@ class IntMod2DenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF2
-    include(denseMatrixSpaceTest(F2))
+    include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -602,7 +600,7 @@ class IntMod5DenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, intModpTag)
 
     val matrixSpace = DenseMatrixSpaceOverF5
-    include(denseMatrixSpaceTest(F5))
+    include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -616,7 +614,7 @@ class BigRationalSparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
-    include(sparseMatrixSpaceTest(BigRationalField))
+    include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -644,7 +642,7 @@ class IntMod2SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF2
-    include(sparseMatrixSpaceTest(F2))
+    include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -658,7 +656,7 @@ class IntMod3SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF3
-    include(sparseMatrixSpaceTest(F3))
+    include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
@@ -672,7 +670,7 @@ class IntMod5SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 
     val matrixSpace = SparseMatrixSpaceOverF5
-    include(sparseMatrixSpaceTest(F5))
+    include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))

@@ -15,6 +15,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -56,7 +57,7 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
     numVectorSpace.context.run {
         "valueMap for the vector (0, 0, 0) should be empty" {
             val v = numVectorSpace.fromValueList(listOf(zero, zero, zero))
-            v.valueMap.size shouldBe 0
+            v.valueMap.shouldBeEmpty()
             v.dim shouldBe 3
         }
 
@@ -66,15 +67,15 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
             v.dim shouldBe 3
         }
 
-        "valueMap for (1, 0) + (-1, 0) should have length 0" {
+        "valueMap for (1, 0) + (-1, 0) should be empty" {
             val v = numVectorSpace.fromValueList(listOf(one, zero))
             val w = numVectorSpace.fromValueList(listOf(-one, zero))
-            (v + w).valueMap.size shouldBe 0
+            (v + w).valueMap.shouldBeEmpty()
         }
 
-        "valueMap for (2, 1) * 0 should have length 0" {
+        "valueMap for (2, 1) * 0 should be empty" {
             val v = numVectorSpace.fromValueList(listOf(two, one))
-            (v * zero).valueMap.size shouldBe 0
+            (v * zero).valueMap.shouldBeEmpty()
         }
     }
 }

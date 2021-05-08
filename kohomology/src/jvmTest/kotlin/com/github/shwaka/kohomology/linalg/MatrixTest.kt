@@ -29,6 +29,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
@@ -57,6 +58,58 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
         val numVectorSpace = matrixSpace.numVectorSpace
         "factory should return the cache if exists" {
             SparseMatrixSpace.from(numVectorSpace) shouldBeSameInstanceAs matrixSpace
+        }
+    }
+
+    matrixSpace.context.run {
+        "rowMap for ((0, 0, 0), (0, 0, 0)) should be empty" {
+            val m = matrixSpace.fromRowList(
+                listOf(
+                    listOf(zero, zero, zero),
+                    listOf(zero, zero, zero),
+                )
+            )
+            m.rowMap.shouldBeEmpty()
+            m.rowCount shouldBe 2
+            m.colCount shouldBe 3
+        }
+
+        "rowMap for ((1, 0), (0, 0)) should have size 1" {
+            val m = matrixSpace.fromRowList(
+                listOf(
+                    listOf(one, zero),
+                    listOf(zero, zero)
+                )
+            )
+            m.rowMap.size shouldBe 1
+            m.rowCount shouldBe 2
+            m.colCount shouldBe 2
+        }
+
+        "rowMap for ((1, 0), (0, 2)) + ((-1, 0), (0, -2)) should be empty" {
+            val m = matrixSpace.fromRowList(
+                listOf(
+                    listOf(one, zero),
+                    listOf(zero, two)
+                )
+            )
+            val n = matrixSpace.fromRowList(
+                listOf(
+                    listOf(-one, zero),
+                    listOf(zero, -two)
+                )
+            )
+            (m + n).rowMap.shouldBeEmpty()
+        }
+
+        "rowMap for ((1, 2), (3, 4)) * 0 should be empty" {
+            val m = matrixSpace.fromRowList(
+                listOf(
+                    listOf(one, two),
+                    listOf(three, four)
+                )
+            )
+            (m * zero).rowMap.shouldBeEmpty()
         }
     }
 }

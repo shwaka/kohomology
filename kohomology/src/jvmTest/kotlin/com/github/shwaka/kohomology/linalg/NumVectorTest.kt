@@ -127,8 +127,8 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val w = numVectorSpace.getZero(2)
             v shouldNotBe w
         }
-        "vectorSpace.get() and vectorSpace.getZero(0) should return the same element" {
-            val v = numVectorSpace.fromValueList(listOf())
+        "vectorSpace.fromValueList(emptyList()) and vectorSpace.getZero(0) should return the same element" {
+            val v = numVectorSpace.fromValueList(emptyList())
             val w = numVectorSpace.getZero(0)
             v shouldBe w
         }
@@ -158,6 +158,12 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val v = numVectorSpace.fromValueList(listOf(zero, one, two))
             v.toMap() shouldBe mapOf(1 to one, 2 to two)
             v.toMap()[0].shouldBeNull()
+        }
+        "test index access" {
+            val v = numVectorSpace.fromValueList(listOf(zero, one, -two))
+            v[0] shouldBe zero
+            v[1] shouldBe one
+            v[2] shouldBe (-two)
         }
     }
 }

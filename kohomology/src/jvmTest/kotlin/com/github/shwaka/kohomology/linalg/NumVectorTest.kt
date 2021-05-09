@@ -41,7 +41,7 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
         SparseNumVectorSpace.from(field) shouldBeSameInstanceAs numVectorSpace
     }
 
-    "fromReducedValueMap should throw (if zero is explicitly given and debug mode is enabled)".config(enabled = kococoDebug) {
+    "fromReducedValueMap should throw if zero is explicitly given (and if debug mode is enabled)".config(enabled = kococoDebug) {
         numVectorSpace.field.context.run {
             val valueMap: Map<Int, S> = mapOf(
                 1 to one,

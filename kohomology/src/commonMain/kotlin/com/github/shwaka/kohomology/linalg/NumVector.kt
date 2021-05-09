@@ -17,6 +17,9 @@ interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
     fun unaryMinusOf(numVector: V): V
     fun getElement(numVector: V, ind: Int): S
     fun innerProduct(numVector1: V, numVector2: V): S
+    fun fromValueList(valueList: List<S>): V
+    fun fromValueMap(valueMap: Map<Int, S>, dim: Int): V
+    fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): V = this.fromValueMap(valueMap, dim)
 }
 
 open class NumVectorContext<S : Scalar, V : NumVector<S>>(
@@ -32,15 +35,14 @@ open class NumVectorContext<S : Scalar, V : NumVector<S>>(
     infix fun V.dot(other: V): S = this@NumVectorContext.innerProduct(this, other)
     operator fun V.unaryMinus(): V = this@NumVectorContext.unaryMinusOf(this)
     operator fun V.get(ind: Int): S = this@NumVectorContext.getElement(this, ind)
+    fun List<S>.toNumVector(): V = this@NumVectorContext.fromValueList(this)
+    fun Map<Int, S>.toNumVector(dim: Int): V = this@NumVectorContext.fromValueMap(this, dim)
 }
 
 interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, V> {
     val field: Field<S>
     val context: NumVectorContext<S, V>
     fun getZero(dim: Int): V
-    fun fromValueList(valueList: List<S>): V
-    fun fromValueMap(valueMap: Map<Int, S>, dim: Int): V
-    fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): V = this.fromValueMap(valueMap, dim)
     fun getOneAtIndex(index: Int, dim: Int): V {
         val valueList = this.field.context.run {
             (0 until dim).map { if (it == index) one else zero }

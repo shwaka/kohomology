@@ -167,7 +167,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             }
             "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
                 val v = numVectorSpace.fromValueList(listOf(two, -one))
-                val expected = numVectorSpace.fromValueList(listOf(three, one))
+                val expected = listOf(three, one).toNumVector()
                 (m * v) shouldBe expected
             }
             "((2, 1), (0, -1), (-2, 1)) * (2, -1) should be (3, 1, -5)" {
@@ -283,8 +283,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                         listOf(two, three)
                     )
                 )
-                val v = numVectorSpace.fromValueList(listOf(zero, two))
-                val w = numVectorSpace.fromValueList(listOf(one, three))
+                val v = listOf(zero, two).toNumVector()
+                val w = listOf(one, three).toNumVector()
                 (matrixSpace.fromNumVectorList(listOf(v, w))) shouldBe expectedMat
             }
             "reduced row echelon form of an invertible matrix should be the unit matrix" {
@@ -357,8 +357,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                         listOf(-two, two)
                     )
                 )
-                val v = numVectorSpace.fromValueList(listOf(one, two))
-                val w = numVectorSpace.fromValueList(listOf(three, four))
+                val v = listOf(one, two).toNumVector()
+                val w = listOf(three, four).toNumVector()
                 mat.innerProduct(v, w) shouldBe one
             }
             "kernel of zero matrix should have the standard basis" {
@@ -471,7 +471,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                         listOf(one, -one)
                     )
                 )
-                val numVector = numVectorSpace.fromValueList(listOf(one, one))
+                val numVector = listOf(one, one).toNumVector()
                 mat.findPreimage(numVector) shouldBe null
             }
         }

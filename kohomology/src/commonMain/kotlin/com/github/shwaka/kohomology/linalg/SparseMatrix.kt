@@ -103,6 +103,7 @@ abstract class AbstractSparseMatrixSpace<S : Scalar>(
         // Use 'by lazy' to avoid warning 'Accessing non-final property in constructor'
         MatrixContext(this.field, this.numVectorSpace, this)
     }
+    override val matrixSpace: MatrixSpace<S, SparseNumVector<S>, SparseMatrix<S>> = this
 
     override fun contains(matrix: SparseMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace

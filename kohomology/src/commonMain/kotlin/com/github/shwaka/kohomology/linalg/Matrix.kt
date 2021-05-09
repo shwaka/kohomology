@@ -26,6 +26,7 @@ interface Matrix<S : Scalar, V : NumVector<S>> {
 }
 
 interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    val matrixSpace: MatrixSpace<S, V, M>
     operator fun contains(matrix: M): Boolean
     fun add(first: M, second: M): M
     fun subtract(first: M, second: M): M

@@ -9,6 +9,7 @@ interface NumVector<S : Scalar> {
 }
 
 interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
+    val numVectorSpace: NumVectorSpace<S, V>
     operator fun contains(numVector: V): Boolean
     fun add(a: V, b: V): V
     fun subtract(a: V, b: V): V

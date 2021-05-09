@@ -85,6 +85,7 @@ class SparseNumVectorSpace<S : Scalar>(
     }
 
     override val context = NumVectorContext(this.field, this)
+    override val numVectorSpace: NumVectorSpace<S, SparseNumVector<S>> = this
 
     override fun contains(numVector: SparseNumVector<S>): Boolean {
         return numVector.field == this.field

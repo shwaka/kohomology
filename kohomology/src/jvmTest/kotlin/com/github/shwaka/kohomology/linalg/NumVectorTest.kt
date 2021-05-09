@@ -146,8 +146,8 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val v = listOf(zero, one, zero).toNumVector()
             v.isZero().shouldBeFalse()
         }
-        "fromValueMap should return the same numVector as fromValueList" {
-            val v1 = numVectorSpace.fromValueMap(mapOf(1 to one, 2 to two), 4)
+        "Map.toNumVector() should return the same numVector as List.toNumVector()" {
+            val v1 = mapOf(1 to one, 2 to two).toNumVector(4)
             val v2 = listOf(zero, one, two, zero).toNumVector()
             v1 shouldBe v2
         }

@@ -57,52 +57,42 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
 
     matrixSpace.context.run {
         "rowMap for ((0, 0, 0), (0, 0, 0)) should be empty" {
-            val m = matrixSpace.fromRowList(
-                listOf(
-                    listOf(zero, zero, zero),
-                    listOf(zero, zero, zero),
-                )
-            )
+            val m = listOf(
+                listOf(zero, zero, zero),
+                listOf(zero, zero, zero),
+            ).toMatrix()
             m.rowMap.shouldBeEmpty()
             m.rowCount shouldBe 2
             m.colCount shouldBe 3
         }
 
         "rowMap for ((1, 0), (0, 0)) should have size 1" {
-            val m = matrixSpace.fromRowList(
-                listOf(
-                    listOf(one, zero),
-                    listOf(zero, zero)
-                )
-            )
+            val m = listOf(
+                listOf(one, zero),
+                listOf(zero, zero)
+            ).toMatrix()
             m.rowMap.size shouldBe 1
             m.rowCount shouldBe 2
             m.colCount shouldBe 2
         }
 
         "rowMap for ((1, 0), (0, 2)) + ((-1, 0), (0, -2)) should be empty" {
-            val m = matrixSpace.fromRowList(
-                listOf(
-                    listOf(one, zero),
-                    listOf(zero, two)
-                )
-            )
-            val n = matrixSpace.fromRowList(
-                listOf(
-                    listOf(-one, zero),
-                    listOf(zero, -two)
-                )
-            )
+            val m = listOf(
+                listOf(one, zero),
+                listOf(zero, two)
+            ).toMatrix()
+            val n = listOf(
+                listOf(-one, zero),
+                listOf(zero, -two)
+            ).toMatrix()
             (m + n).rowMap.shouldBeEmpty()
         }
 
         "rowMap for ((1, 2), (3, 4)) * 0 should be empty" {
-            val m = matrixSpace.fromRowList(
-                listOf(
+            val m = listOf(
                     listOf(one, two),
                     listOf(three, four)
-                )
-            )
+                ).toMatrix()
             (m * zero).rowMap.shouldBeEmpty()
         }
     }
@@ -112,26 +102,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
     "matrix test" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         matrixSpace.context.run {
-            val m = matrixSpace.fromRowList(
-                listOf(
+            val m = listOf(
                     listOf(two, one),
                     listOf(zero, -one)
-                )
-            )
-            val n = matrixSpace.fromRowList(
-                listOf(
+                ).toMatrix()
+            val n = listOf(
                     listOf(one, one),
                     listOf(-two, three)
-                )
-            )
+                ).toMatrix()
 
             "Matrices with same elements should return the same hashCode" {
-                val m2 = matrixSpace.fromRowList(
-                    listOf(
+                val m2 = listOf(
                         listOf(two, one),
                         listOf(zero, -one)
-                    )
-                )
+                ).toMatrix()
                 m shouldNotBeSameInstanceAs m2
                 m.hashCode() shouldBe m2.hashCode()
             }
@@ -157,12 +141,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 (m + n) shouldBe expected
             }
             "((2, 1), (0, -1)) * -2 should be ((-4, -2), (0, 2))" {
-                val expected = matrixSpace.fromRowList(
-                    listOf(
+                val expected = listOf(
                         listOf(-four, -two),
                         listOf(zero, two)
-                    )
-                )
+                ).toMatrix()
                 (m * (-two)) shouldBe expected
             }
             "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
@@ -171,37 +153,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 (m * v) shouldBe expected
             }
             "((2, 1), (0, -1), (-2, 1)) * (2, -1) should be (3, 1, -5)" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(two, one),
                         listOf(zero, -one),
                         listOf(-two, one),
-                    )
-                )
+                ).toMatrix()
                 val v = listOf(two, -one).toNumVector()
                 val expected = listOf(three, one, -five).toNumVector()
                 (mat * v) shouldBe expected
             }
             "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {
-                val mn = matrixSpace.fromRowList(
-                    listOf(
+                val mn = listOf(
                         listOf(zero, five),
                         listOf(two, -three)
-                    )
-                )
+                    ).toMatrix()
                 (m * n) shouldBe mn
             }
             "((2, 1)) * ((1, 1), (-2, 3)) should be ((0, 5))" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(two, one),
-                    )
-                )
-                val expected = matrixSpace.fromRowList(
-                    listOf(
+                    ).toMatrix()
+                val expected = listOf(
                         listOf(zero, five),
-                    )
-                )
+                    ).toMatrix()
                 (mat * n) shouldBe expected
             }
             "((2, 1), (0, -1)).isZero() should be false" {
@@ -209,12 +183,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 m.isNotZero().shouldBeTrue()
             }
             "((0, 0), (0, 0)).izZero() should be true" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(zero, zero),
                         listOf(zero, zero),
-                    )
-                )
+                    ).toMatrix()
                 mat.isZero().shouldBeTrue()
                 mat.isNotZero().shouldBeFalse()
             }
@@ -226,14 +198,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             }
             "toString and toPrettyString should not throw for square matrix of shape 4x3" {
                 shouldNotThrowAny {
-                    val mat = matrixSpace.fromRowList(
-                        listOf(
+                    val mat = listOf(
                             listOf(one, zero, zero),
                             listOf(zero, one, zero),
                             listOf(zero, one, zero),
                             listOf(zero, zero, one)
-                        )
-                    )
+                    ).toMatrix()
                     mat.toString()
                     mat.toPrettyString()
                 }
@@ -277,12 +247,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 matrixSpace.fromRowMap(colMap, 2, 2) shouldBe matrixSpace.fromRowList(colList)
             }
             "fromVectors should work correctly" {
-                val expectedMat = matrixSpace.fromRowList(
-                    listOf(
+                val expectedMat = listOf(
                         listOf(zero, one),
                         listOf(two, three)
-                    )
-                )
+                ).toMatrix()
                 val v = listOf(zero, two).toNumVector()
                 val w = listOf(one, three).toNumVector()
                 (matrixSpace.fromNumVectorList(listOf(v, w))) shouldBe expectedMat
@@ -290,73 +258,57 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             "reduced row echelon form of an invertible matrix should be the unit matrix" {
                 // m = ((2, 1), (0, -1)) is NOT invertible in F2
                 val mat = if (matrixSpace.field.characteristic != 3) {
-                    matrixSpace.fromRowList(
                         listOf(
                             listOf(two, one),
                             listOf(one, -one)
-                        )
-                    )
+                    ).toMatrix()
                 } else {
                     // The above matrix is NOT invertible in F3
-                    matrixSpace.fromRowList(
                         listOf(
                             listOf(two, one),
                             listOf(one, one)
-                        )
-                    )
+                        ).toMatrix()
                 }
                 val expectedMat = matrixSpace.getId(2)
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
             }
             "reduced row echelon form of non-invertible matrix" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(zero, zero, one),
                         listOf(-two, -one, zero),
                         listOf(two, one, zero)
-                    )
-                )
+                ).toMatrix()
                 val expectedMat = if (field.characteristic == 2) {
-                    matrixSpace.fromRowList(
                         listOf(
                             listOf(zero, one, zero),
                             listOf(zero, zero, one),
                             listOf(zero, zero, zero)
-                        )
-                    )
+                    ).toMatrix()
                 } else {
-                    matrixSpace.fromRowList(
                         listOf(
                             listOf(one, one / two, zero),
                             listOf(zero, zero, one),
                             listOf(zero, zero, zero)
-                        )
-                    )
+                    ).toMatrix()
                 }
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
             }
             "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(one, two),
                         listOf(three, four)
-                    )
-                )
-                val expectedMat = matrixSpace.fromRowList(
-                    listOf(
+                ).toMatrix()
+                val expectedMat = listOf(
                         listOf(one, three),
                         listOf(two, four)
-                    )
-                )
+                ).toMatrix()
                 mat.transpose() shouldBe expectedMat
             }
             "inner product of (1, 2) and (3, 4) w.r.t ((-1, 0), (-2, 2)) should be 1" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(-one, zero),
                         listOf(-two, two)
-                    )
-                )
+                ).toMatrix()
                 val v = listOf(one, two).toNumVector()
                 val w = listOf(three, four).toNumVector()
                 mat.innerProduct(v, w) shouldBe one
@@ -368,24 +320,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 mat.computeKernelBasis() shouldBe expected
             }
             "compute kernel of ((1, 1), (2, 2))" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(one, one),
                         listOf(two, two)
-                    )
-                )
+                ).toMatrix()
                 val kernelBasis = mat.computeKernelBasis()
                 kernelBasis.size shouldBe 1
                 (mat * kernelBasis[0]).isZero().shouldBeTrue()
             }
             "compute kernel of ((1, 2, 3), (0, 0, 0), (0, 0, 0))" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(one, two, three),
                         listOf(zero, zero, zero),
                         listOf(zero, zero, zero),
-                    )
-                )
+                ).toMatrix()
                 val kernelBasis = mat.computeKernelBasis()
                 kernelBasis.size shouldBe 2
                 for (v in kernelBasis) {
@@ -393,12 +341,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
             }
             "compute kernel of ((1, 1), (1, 3))" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(one, one),
                         listOf(one, three),
-                    )
-                )
+                    ).toMatrix()
                 val kernelBasis = mat.computeKernelBasis()
                 if (matrixSpace.field.characteristic == 2) {
                     kernelBasis.size shouldBe 1
@@ -408,52 +354,40 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
             }
             "join of ((1, 2), (3, 4)) and ((-1, -2), (-3, -4)) should be ((1, 2, -1, -2), (3, 4, -3, -4))" {
-                val mat1 = matrixSpace.fromRowList(
-                    listOf(
+                val mat1 = listOf(
                         listOf(one, two),
                         listOf(three, four),
-                    )
-                )
+                ).toMatrix()
                 val mat2 = -mat1
-                val expected = matrixSpace.fromRowList(
-                    listOf(
+                val expected = listOf(
                         listOf(one, two, -one, -two),
                         listOf(three, four, -three, -four),
-                    )
-                )
+                    ).toMatrix()
                 listOf(mat1, mat2).join() shouldBe expected
             }
             "test rowSlice and colSlice" {
                 val intRange = 1..2
-                val matrix = matrixSpace.fromRowList(
-                    (0 until 4).map { row ->
+                val matrix = (0 until 4).map { row ->
                         (0 until 4).map { col -> (row * 4 + col).toScalar() }
-                    }
-                )
-                val expectedRowSlice = matrixSpace.fromRowList(
-                    listOf(
+                    }.toMatrix()
+                val expectedRowSlice = listOf(
                         listOf(4, 5, 6, 7).map { it.toScalar() },
                         listOf(8, 9, 10, 11).map { it.toScalar() },
-                    )
-                )
-                val expectedColSlice = matrixSpace.fromRowList(
-                    listOf(
+                    ).toMatrix()
+                val expectedColSlice = listOf(
                         listOf(1, 2).map { it.toScalar() },
                         listOf(5, 6).map { it.toScalar() },
                         listOf(9, 10).map { it.toScalar() },
                         listOf(13, 14).map { it.toScalar() },
-                    )
-                )
+                    ).toMatrix()
                 matrix.rowSlice(intRange) shouldBe expectedRowSlice
                 matrix.colSlice(intRange) shouldBe expectedColSlice
             }
             "findPreimage(zero) should return zero" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(one, two, three),
                         listOf(-one, four, zero),
-                    )
-                )
+                ).toMatrix()
                 val zero2 = numVectorSpace.getZero(2)
                 val zero3 = numVectorSpace.getZero(3)
                 mat.findPreimage(zero2) shouldBe zero3
@@ -465,12 +399,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
             }
             "findPreimage should return null for numVector not in the image" {
-                val mat = matrixSpace.fromRowList(
-                    listOf(
+                val mat = listOf(
                         listOf(two, -two),
                         listOf(one, -one)
-                    )
-                )
+                ).toMatrix()
                 val numVector = listOf(one, one).toNumVector()
                 mat.findPreimage(numVector) shouldBe null
             }

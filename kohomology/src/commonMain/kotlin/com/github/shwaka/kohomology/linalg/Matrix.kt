@@ -182,7 +182,7 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 
     fun List<List<S>>.toMatrix(colCount: Int? = null): M = this@MatrixContext.fromRowList(this, colCount)
     fun Map<Int, Map<Int, S>>.toMatrix(rowCount: Int, colCount: Int) = this@MatrixContext.fromRowMap(this, rowCount, colCount)
-    fun List<V>.toMatrix(dim: Int? = null) = this@MatrixContext.fromNumVectorList(this, dim)
+    // fun List<V>.toMatrix(dim: Int? = null) = this@MatrixContext.fromNumVectorList(this, dim) // Platform declaration clash
     fun List<S>.toMatrix(rowCount: Int, colCount: Int) = this@MatrixContext.fromFlatList(this, rowCount, colCount)
 }
 

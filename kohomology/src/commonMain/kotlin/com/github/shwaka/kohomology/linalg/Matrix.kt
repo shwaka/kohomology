@@ -38,6 +38,40 @@ interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun joinMatrices(matrix1: M, matrix2: M): M
     fun computeRowSlice(matrix: M, rowRange: IntRange): M
     fun computeColSlice(matrix: M, colRange: IntRange): M
+    fun fromRowList(rowList: List<List<S>>, colCount: Int? = null): M
+    fun fromColList(colList: List<List<S>>, rowCount: Int? = null): M {
+        val rowCountNonNull: Int = when {
+            colList.isNotEmpty() -> colList[0].size
+            rowCount != null -> rowCount
+            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
+        }
+        val colCount = colList.size
+        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> colList[j][i] } }
+        return this.fromRowList(rows, colCount)
+    }
+    fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M
+    fun fromColMap(colMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
+        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
+        for ((colInd, col) in colMap) {
+            for ((rowInd, elm) in col) {
+                val row = rowMap.getOrPut(rowInd) { mutableMapOf() }
+                row[colInd] = elm
+            }
+        }
+        return this.fromRowMap(rowMap, rowCount, colCount)
+    }
+    fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
+        if (numVectors.isEmpty() && (dim == null))
+            throw IllegalArgumentException("Vector list is empty and dim is not specified")
+        val cols = numVectors.map { v -> v.toList() }
+        return this.fromColList(cols, dim)
+    }
+    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
+        if (list.size != rowCount * colCount)
+            throw InvalidSizeException("The size of the list should be equal to rowCount * colCount")
+        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
+        return this.fromRowList(rowList, colCount)
+    }
 }
 
 class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -145,46 +179,17 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         }.toMap()
         return this.numVectorSpace.fromValueMap(valueMap, this.colCount)
     }
+
+    fun List<List<S>>.toMatrix(colCount: Int? = null): M = this@MatrixContext.fromRowList(this, colCount)
+    fun Map<Int, Map<Int, S>>.toMatrix(rowCount: Int, colCount: Int) = this@MatrixContext.fromRowMap(this, rowCount, colCount)
+    fun List<V>.toMatrix(dim: Int? = null) = this@MatrixContext.fromNumVectorList(this, dim)
+    fun List<S>.toMatrix(rowCount: Int, colCount: Int) = this@MatrixContext.fromFlatList(this, rowCount, colCount)
 }
 
 interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {
     val context: MatrixContext<S, V, M>
     val numVectorSpace: NumVectorSpace<S, V>
     val field: Field<S>
-    fun fromRowList(rowList: List<List<S>>, colCount: Int? = null): M
-    fun fromColList(colList: List<List<S>>, rowCount: Int? = null): M {
-        val rowCountNonNull: Int = when {
-            colList.isNotEmpty() -> colList[0].size
-            rowCount != null -> rowCount
-            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
-        }
-        val colCount = colList.size
-        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> colList[j][i] } }
-        return this.fromRowList(rows, colCount)
-    }
-    fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M
-    fun fromColMap(colMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
-        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
-        for ((colInd, col) in colMap) {
-            for ((rowInd, elm) in col) {
-                val row = rowMap.getOrPut(rowInd) { mutableMapOf() }
-                row[colInd] = elm
-            }
-        }
-        return this.fromRowMap(rowMap, rowCount, colCount)
-    }
-    fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
-        if (numVectors.isEmpty() && (dim == null))
-            throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val cols = numVectors.map { v -> v.toList() }
-        return this.fromColList(cols, dim)
-    }
-    fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
-        if (list.size != rowCount * colCount)
-            throw InvalidSizeException("The size of the list should be equal to rowCount * colCount")
-        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return this.fromRowList(rowList, colCount)
-    }
 
     fun getZero(rowCount: Int, colCount: Int): M {
         val zero = this.field.zero

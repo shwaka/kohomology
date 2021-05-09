@@ -132,12 +132,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 shouldThrow<IndexOutOfBoundsException> { m[-1, -1] }
             }
             "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
-                val expected = matrixSpace.fromRowList(
-                    listOf(
-                        listOf(three, two),
-                        listOf(-two, two)
-                    )
-                )
+                val expected = listOf(
+                    listOf(three, two),
+                    listOf(-two, two)
+                ).toMatrix()
                 (m + n) shouldBe expected
             }
             "((2, 1), (0, -1)) * -2 should be ((-4, -2), (0, 2))" {
@@ -235,6 +233,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     0 to mapOf(1 to one)
                 )
                 matrixSpace.fromRowMap(rowMap, 2, 2) shouldBe matrixSpace.fromRowList(rowList)
+                rowMap.toMatrix(2, 2) shouldBe matrixSpace.fromRowList(rowList)
             }
             "fromColMap should return the same matrix as fromColList" {
                 val colList = listOf(
@@ -245,6 +244,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     0 to mapOf(1 to one)
                 )
                 matrixSpace.fromRowMap(colMap, 2, 2) shouldBe matrixSpace.fromRowList(colList)
+            }
+            "fromFlatList should return the same matrix as fromRowList" {
+                val rowList = listOf(
+                    listOf(one, two),
+                    listOf(three, four),
+                )
+                val flatList = listOf(one, two, three, four)
+                matrixSpace.fromFlatList(flatList, 2, 2) shouldBe matrixSpace.fromRowList(rowList)
+                flatList.toMatrix(2, 2) shouldBe matrixSpace.fromRowList(rowList)
             }
             "fromVectors should work correctly" {
                 val expectedMat = listOf(

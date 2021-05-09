@@ -243,7 +243,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 val colMap = mapOf(
                     0 to mapOf(1 to one)
                 )
-                matrixSpace.fromRowMap(colMap, 2, 2) shouldBe matrixSpace.fromRowList(colList)
+                matrixSpace.fromColMap(colMap, 2, 2) shouldBe matrixSpace.fromColList(colList)
             }
             "fromFlatList should return the same matrix as fromRowList" {
                 val rowList = listOf(

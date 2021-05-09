@@ -69,7 +69,7 @@ fun <S : Scalar> sparseNumVectorTest(numVectorSpace: SparseNumVectorSpace<S>) = 
 
         "valueMap for (1, 0) + (-1, 0) should be empty" {
             val v = listOf(one, zero).toNumVector()
-            val w = numVectorSpace.fromValueList(listOf(-one, zero))
+            val w = listOf(-one, zero).toNumVector()
             (v + w).valueMap.shouldBeEmpty()
         }
 
@@ -95,11 +95,11 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
         }
         "(2, 0) + (-2, 0) should be (0, 0)" {
             val v = listOf(two, zero).toNumVector()
-            val w = numVectorSpace.fromValueList(listOf(-two, zero))
+            val w = listOf(-two, zero).toNumVector()
             (v + w) shouldBe numVectorSpace.getZero(2)
         }
         "(-1, 0) - (-1, 0) should be (0, 0)" {
-            val v = numVectorSpace.fromValueList(listOf(-one, zero))
+            val v = listOf(-one, zero).toNumVector()
             (v - v) shouldBe numVectorSpace.getZero(2)
         }
         "(1, 0) * 2 should be (2, 0)" {
@@ -135,7 +135,7 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
         }
         "(1,2) dot (-1, 3) should be 5" {
             val v = listOf(one, two).toNumVector()
-            val w = numVectorSpace.fromValueList(listOf(-one, three))
+            val w = listOf(-one, three).toNumVector()
             (v dot w) shouldBe five
         }
         "(0, 0, 0).isZero() should be true" {
@@ -161,7 +161,7 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             v.toMap()[0].shouldBeNull()
         }
         "test index access" {
-            val v = numVectorSpace.fromValueList(listOf(zero, one, -two))
+            val v = listOf(zero, one, -two).toNumVector()
             v[0] shouldBe zero
             v[1] shouldBe one
             v[2] shouldBe (-two)

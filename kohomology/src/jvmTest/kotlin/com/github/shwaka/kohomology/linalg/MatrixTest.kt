@@ -166,7 +166,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 (m * (-two)) shouldBe expected
             }
             "((2, 1), (0, -1)) * (2, -1) should be (3, 1)" {
-                val v = numVectorSpace.fromValueList(listOf(two, -one))
+                val v = listOf(two, -one).toNumVector()
                 val expected = listOf(three, one).toNumVector()
                 (m * v) shouldBe expected
             }
@@ -178,8 +178,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                         listOf(-two, one),
                     )
                 )
-                val v = numVectorSpace.fromValueList(listOf(two, -one))
-                val expected = numVectorSpace.fromValueList(listOf(three, one, -five))
+                val v = listOf(two, -one).toNumVector()
+                val expected = listOf(three, one, -five).toNumVector()
                 (mat * v) shouldBe expected
             }
             "((2, 1), (0, -1)) * ((1, 1), (-2, 3)) should be ((0, 5), (2, -3))" {

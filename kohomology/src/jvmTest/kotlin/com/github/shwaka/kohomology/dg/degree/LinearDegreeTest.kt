@@ -83,6 +83,11 @@ class LinearDegreeTest : FreeSpec({
                 degree.toString() shouldBe "3"
             }
 
+            "(2 + 1N).toString() should be \"2 + N\"" {
+                val degree = degreeGroup.fromList(listOf(2, 1))
+                degree.toString() shouldBe "2 + N"
+            }
+
             "(0 + 4N).toString() should be \"4N\"" {
                 val degree = degreeGroup.fromList(listOf(0, 4))
                 degree.toString() shouldBe "4N"

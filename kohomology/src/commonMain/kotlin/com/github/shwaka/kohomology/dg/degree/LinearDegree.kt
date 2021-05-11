@@ -59,11 +59,11 @@ class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coef
             emptyList()
         }
         val stringListForCoeff = this.coeffList.indices.mapNotNull {
-            val coeff = this.coeffList[it]
-            if (coeff != 0)
-                "$coeff${this.group.indeterminateList[it].name}"
-            else
-                null
+            when (val coeff = this.coeffList[it]) {
+                0 -> null
+                1 -> this.group.indeterminateList[it].name
+                else -> "$coeff${this.group.indeterminateList[it].name}"
+            }
         }
         val stringList = stringListForConstantTerm + stringListForCoeff
         return if (stringList.isEmpty()) {

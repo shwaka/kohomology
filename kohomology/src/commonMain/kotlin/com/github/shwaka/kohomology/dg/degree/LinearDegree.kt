@@ -50,12 +50,26 @@ class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coef
     }
 
     override fun toString(): String {
-        return if (this.coeffList.isEmpty()) {
-            this.constantTerm.toString()
+        if (this.coeffList.isEmpty()) {
+            return this.constantTerm.toString()
+        }
+        val stringListForConstantTerm = if (this.constantTerm != 0) {
+            listOf("${this.constantTerm}")
         } else {
-            "${this.constantTerm} + " + this.coeffList.indices.joinToString(" + ") {
-                "${this.coeffList[it]}${this.group.indeterminateList[it].name}"
-            }
+            emptyList()
+        }
+        val stringListForCoeff = this.coeffList.indices.mapNotNull {
+            val coeff = this.coeffList[it]
+            if (coeff != 0)
+                "$coeff${this.group.indeterminateList[it].name}"
+            else
+                null
+        }
+        val stringList = stringListForConstantTerm + stringListForCoeff
+        return if (stringList.isEmpty()) {
+            "0"
+        } else {
+            stringList.joinToString(" + ")
         }
     }
 }

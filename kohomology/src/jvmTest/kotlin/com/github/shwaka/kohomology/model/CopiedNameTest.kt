@@ -24,11 +24,11 @@ class CopiedNameTest : FreeSpec({
         val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
         val (sx) = vectorSpace.getBasis()
         "sx.toString() should be \"s{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = false" {
-            vectorSpace.printer = TexVectorPrinterForCopiedName<IntDegree, StringIndeterminateName, BigRational, SparseNumVector<BigRational>>(useBar = false)
+            vectorSpace.printer = TexVectorPrinterForCopiedName(useBar = false)
             sx.toString() shouldBe "s{x}"
         }
         "sx.toString() should be \"\\bar{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = true" {
-            vectorSpace.printer = TexVectorPrinterForCopiedName<IntDegree, StringIndeterminateName, BigRational, SparseNumVector<BigRational>>(useBar = true)
+            vectorSpace.printer = TexVectorPrinterForCopiedName(useBar = true)
             sx.toString() shouldBe "\\bar{x}"
         }
     }

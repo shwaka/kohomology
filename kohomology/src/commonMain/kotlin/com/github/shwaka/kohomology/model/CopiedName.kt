@@ -6,14 +6,14 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.IndeterminateName
-import kotlin.native.concurrent.ThreadLocal
+import com.github.shwaka.kohomology.free.Monomial
+import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
+import com.github.shwaka.kohomology.vectsp.Vector
+import com.github.shwaka.kohomology.vectsp.VectorPrinter
 
 data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
-    // Variable in singleton without @ThreadLocal can't be changed after initialization
-    @ThreadLocal
-    companion object {
-        var useBar: Boolean = false
-    }
     override fun toString(): String {
         val indexString: String = this.index?.toString() ?: ""
         val shiftString = when {
@@ -25,10 +25,14 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
     }
 
     override fun toTex(): String {
+        return this.toTex(false)
+    }
+
+    fun toTex(useBar: Boolean): String {
         val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
         val shiftString = when {
             this.shift.isZero() -> ""
-            this.shift.isOne() -> if (CopiedName.useBar) "\\bar" else "s"
+            this.shift.isOne() -> if (useBar) "\\bar" else "s"
             else -> "s^{${this.shift}}"
         }
         // The brace surrounding ${this.name} is necessary to avoid "double subscript"
@@ -51,4 +55,23 @@ fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
     index: Int? = null
 ): Indeterminate<IntDegree, CopiedName<IntDegree, I>> {
     return this.copy(IntDegreeGroup, IntDegree(shift), index)
+}
+
+private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
+
+class TexVectorPrinterForCopiedName<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>>(
+    private val useBar: Boolean = false,
+    private val beforeSign: String = " ",
+    private val afterSign: String = " ",
+    private val afterCoeff: String = " ",
+) : VectorPrinter<MonomialOnCopiedName<D, I>, S, V> {
+    private val defaultVectorPrinter = DefaultVectorPrinter<MonomialOnCopiedName<D, I>, S, V>(this.beforeSign, this.afterSign, this.afterCoeff)
+    override fun stringify(vector: Vector<MonomialOnCopiedName<D, I>, S, V>): String {
+        val coeffToString: (S) -> String = { it.toTex() }
+        val coeffToStringWithoutSign: (S) -> String = { it.toTexWithoutSign() }
+        val basisToString: (MonomialOnCopiedName<D, I>) -> String = { monomial ->
+            monomial.toTex { copiedName -> copiedName.toTex(this.useBar) }
+        }
+        return this.defaultVectorPrinter.stringify(vector, coeffToString, coeffToStringWithoutSign, basisToString)
+    }
 }

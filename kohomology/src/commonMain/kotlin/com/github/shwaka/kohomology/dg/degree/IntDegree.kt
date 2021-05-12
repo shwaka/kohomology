@@ -12,6 +12,10 @@ data class IntDegree(val value: Int) : Degree {
     override fun isOne(): Boolean {
         return this.value == 1
     }
+
+    override fun toString(): String {
+        return this.value.toString()
+    }
 }
 
 object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {

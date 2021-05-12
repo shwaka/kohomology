@@ -1,11 +1,7 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.Monomial
-import com.github.shwaka.kohomology.free.StringIndeterminateName
-import com.github.shwaka.kohomology.linalg.SparseNumVector
-import com.github.shwaka.kohomology.specific.BigRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag

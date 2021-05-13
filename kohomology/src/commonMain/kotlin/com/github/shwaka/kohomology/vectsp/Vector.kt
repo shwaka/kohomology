@@ -99,26 +99,40 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
     private val afterSign: String = " ",
     private val afterCoeff: String = " ",
 ) : VectorPrinter<B, S, V> {
-    fun stringify(vector: Vector<B, S, V>, coeffToString: (S) -> String, coeffToStringWithoutSign: (S) -> String, basisToString: (B) -> String): String {
-        val coeffList = vector.numVector.toList()
-        val basis = vector.vectorSpace.basisNames.map(basisToString)
+    fun stringify(
+        vector: Vector<B, S, V>,
+        coeffToString: (S) -> String,
+        coeffToStringWithoutSign: (S) -> String,
+        basisToString: (B) -> String,
+        basisComparator: Comparator<B>? = null,
+    ): String {
+        val basisStringWithCoeff = run {
+            val coeffList = vector.numVector.toList()
+            // val basis = vector.vectorSpace.basisNames.map(basisToString)
+            val basisWithCoeff = coeffList.zip(vector.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
+            val sortedBasisWithCoeff = if (basisComparator == null) {
+                basisWithCoeff
+            } else {
+                basisWithCoeff.sortedWith(compareBy(basisComparator) { it.second })
+            }
+            sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, basisToString(basisName)) }
+        }
         val beforeSign = this.beforeSign
         val afterSign = this.afterSign
         val afterCoeff = this.afterCoeff
         return vector.numVector.field.context.run {
-            val basisWithCoeff = coeffList.zip(basis).filter { (coeff, _) -> coeff.isNotZero() }
-            if (basisWithCoeff.isEmpty()) {
+            if (basisStringWithCoeff.isEmpty()) {
                 "0"
             } else {
                 var result = ""
-                basisWithCoeff[0].let { (coeff, basisElm) ->
+                basisStringWithCoeff[0].let { (coeff, basisElm) ->
                     result += when (val coeffStr = coeffToString(coeff)) {
                         "1" -> basisElm
                         "-1" -> "-$afterSign$basisElm"
                         else -> "$coeffStr$afterCoeff$basisElm"
                     }
                 }
-                result += basisWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
+                result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
                     val str = when (val coeffStr = coeffToStringWithoutSign(coeff)) {
                         "1" -> basisElm

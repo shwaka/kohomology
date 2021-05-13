@@ -62,6 +62,7 @@ class TexVectorPrinterForCopiedName<D : Degree, I : IndeterminateName, S : Scala
     beforeSign: String = " ",
     afterSign: String = " ",
     afterCoeff: String = " ",
+    basisComparator: Comparator<MonomialOnCopiedName<D, I>>? = null,
 ) : DefaultVectorPrinter<MonomialOnCopiedName<D, I>, S, V>(
     beforeSign = beforeSign,
     afterSign = afterSign,
@@ -70,5 +71,6 @@ class TexVectorPrinterForCopiedName<D : Degree, I : IndeterminateName, S : Scala
     coeffToStringWithoutSign = { it.toTexWithoutSign() },
     basisToString = { monomial ->
         monomial.toTex { copiedName -> copiedName.toTex(useBar) }
-    }
+    },
+    basisComparator = basisComparator
 )

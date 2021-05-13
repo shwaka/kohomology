@@ -62,27 +62,41 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
 fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     "printer test" - {
         numVectorSpace.context.run {
-            "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
+            "default" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                val v = vectorSpace.fromCoeffList(listOf(two, three, four))
-                v.toString() shouldBe "2 a + 3 b + 4 c"
+                "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                    v.toString() shouldBe "2 a + 3 b + 4 c"
+                }
+                "(0a + 3b + 4c).toString() should be \"3 b + 4 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, three, four))
+                    v.toString() shouldBe "3 b + 4 c"
+                }
+                "(2a + (-3)b + 4c).toString() should be \"2 a - 3 b + 4 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, -three, four))
+                    v.toString() shouldBe "2 a - 3 b + 4 c"
+                }
+                "((-2)a + 3b + 4c).toString() should be \"-2 a + 3 b + 4 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(-two, three, four))
+                    v.toString() shouldBe "-2 a + 3 b + 4 c"
+                }
+                "(a + (1/2)b + (-1/3)c).toString() should be \"a + 1/2 b - 1/3 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
+                    v.toString() shouldBe "a + 1/2 b - 1/3 c"
+                }
             }
-            "(0a + 3b + 4c).toString() should be \"3 b + 4 c\"" {
+            "TexVectorPrinter" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                val v = vectorSpace.fromCoeffList(listOf(zero, three, four))
-                v.toString() shouldBe "3 b + 4 c"
+                vectorSpace.printer = TexVectorPrinter()
+                "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                    v.toString() shouldBe "2 a + 3 b + 4 c"
+                }
+                "(a + (1/2)b + (-1/3)c).toString() should be \"a + 1/2 b - 1/3 c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
+                    v.toString() shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
+                }
             }
-            "(2a + (-3)b + 4c).toString() should be \"2 a - 3 b + 4 c\"" {
-                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                val v = vectorSpace.fromCoeffList(listOf(two, -three, four))
-                v.toString() shouldBe "2 a - 3 b + 4 c"
-            }
-            "((-2)a + 3b + 4c).toString() should be \"-2 a + 3 b + 4 c\"" {
-                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                val v = vectorSpace.fromCoeffList(listOf(-two, three, four))
-                v.toString() shouldBe "-2 a + 3 b + 4 c"
-            }
-
         }
     }
 }

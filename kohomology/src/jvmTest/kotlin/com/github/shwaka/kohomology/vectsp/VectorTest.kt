@@ -84,6 +84,10 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
                     v.toString() shouldBe "a + 1/2 b - 1/3 c"
                 }
+                "(0a + 0b + 0c).toString() should be \"0\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
+                    v.toString() shouldBe "0"
+                }
             }
             "TexVectorPrinter" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
@@ -95,6 +99,10 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 "(a + (1/2)b + (-1/3)c).toString() should be \"a + 1/2 b - 1/3 c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
                     v.toString() shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
+                }
+                "(0a + 0b + 0c).toString() should be \"0\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
+                    v.toString() shouldBe "0"
                 }
             }
             "printer with comparator" - {
@@ -109,6 +117,10 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 "(0y + 3x + 4z).toString() should be \"3 x + 4 z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, three, four))
                     v.toString() shouldBe "3 x + 4 z"
+                }
+                "(0y + 0x + 0z).toString() should be \"0\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
+                    v.toString() shouldBe "0"
                 }
             }
         }

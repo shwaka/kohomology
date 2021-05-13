@@ -59,6 +59,34 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
     }
 }
 
+fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
+    "printer test" - {
+        numVectorSpace.context.run {
+            "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+                val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                v.toString() shouldBe "2 a + 3 b + 4 c"
+            }
+            "(0a + 3b + 4c).toString() should be \"3 b + 4 c\"" {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+                val v = vectorSpace.fromCoeffList(listOf(zero, three, four))
+                v.toString() shouldBe "3 b + 4 c"
+            }
+            "(2a + (-3)b + 4c).toString() should be \"2 a - 3 b + 4 c\"" {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+                val v = vectorSpace.fromCoeffList(listOf(two, -three, four))
+                v.toString() shouldBe "2 a - 3 b + 4 c"
+            }
+            "((-2)a + 3b + 4c).toString() should be \"-2 a + 3 b + 4 c\"" {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+                val v = vectorSpace.fromCoeffList(listOf(-two, three, four))
+                v.toString() shouldBe "-2 a + 3 b + 4 c"
+            }
+
+        }
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>> vectorSpaceTest(numVectorSpace: NumVectorSpace<S, V>) = freeSpec {
     data class BasisElm(val name: String) : BasisName {
         override fun toString(): String = this.name
@@ -141,6 +169,7 @@ class BigRationalVectorTest : FreeSpec({
     include(vectorTest(numVectorSpace))
     include(vectorSpaceTest(numVectorSpace))
     include(manyBasisTest(numVectorSpace))
+    include(printerTest(numVectorSpace))
 
     val matrixSpace = DenseMatrixSpaceOverBigRational
     include(isBasisTest(matrixSpace))

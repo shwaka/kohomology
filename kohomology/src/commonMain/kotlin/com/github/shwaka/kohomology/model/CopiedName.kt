@@ -60,18 +60,17 @@ fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
 class TexVectorPrinterForCopiedName<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>>(
-    private val useBar: Boolean = false,
-    private val beforeSign: String = " ",
-    private val afterSign: String = " ",
-    private val afterCoeff: String = " ",
-) : VectorPrinter<MonomialOnCopiedName<D, I>, S, V> {
-    private val defaultVectorPrinter = DefaultVectorPrinter<MonomialOnCopiedName<D, I>, S, V>(this.beforeSign, this.afterSign, this.afterCoeff)
-    override fun stringify(vector: Vector<MonomialOnCopiedName<D, I>, S, V>): String {
-        val coeffToString: (S) -> String = { it.toTex() }
-        val coeffToStringWithoutSign: (S) -> String = { it.toTexWithoutSign() }
-        val basisToString: (MonomialOnCopiedName<D, I>) -> String = { monomial ->
-            monomial.toTex { copiedName -> copiedName.toTex(this.useBar) }
-        }
-        return this.defaultVectorPrinter.stringify(vector, coeffToString, coeffToStringWithoutSign, basisToString)
+    useBar: Boolean = false,
+    beforeSign: String = " ",
+    afterSign: String = " ",
+    afterCoeff: String = " ",
+) : DefaultVectorPrinter<MonomialOnCopiedName<D, I>, S, V>(
+    beforeSign = beforeSign,
+    afterSign = afterSign,
+    afterCoeff = afterCoeff,
+    coeffToString = { it.toTex() },
+    coeffToStringWithoutSign = { it.toTexWithoutSign() },
+    basisToString = { monomial ->
+        monomial.toTex { copiedName -> copiedName.toTex(useBar) }
     }
-}
+)

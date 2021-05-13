@@ -94,17 +94,17 @@ interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
     fun stringify(vector: Vector<B, S, V>): String
 }
 
-class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
+open class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
     private val beforeSign: String = " ",
     private val afterSign: String = " ",
     private val afterCoeff: String = " ",
+    private val coeffToString: (S) -> String = { it.toString() },
+    private val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
+    private val basisToString: (B) -> String = { it.toString() },
+    private val basisComparator: Comparator<B>? = null,
 ) : VectorPrinter<B, S, V> {
-    fun stringify(
+    override fun stringify(
         vector: Vector<B, S, V>,
-        coeffToString: (S) -> String,
-        coeffToStringWithoutSign: (S) -> String,
-        basisToString: (B) -> String,
-        basisComparator: Comparator<B>? = null,
     ): String {
         val basisStringWithCoeff = run {
             val coeffList = vector.numVector.toList()
@@ -144,28 +144,20 @@ class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
             }
         }
     }
-
-    override fun stringify(vector: Vector<B, S, V>): String {
-        val coeffToString: (S) -> String = { it.toString() }
-        val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() }
-        val basisToString: (B) -> String = { it.toString() }
-        return this.stringify(vector, coeffToString, coeffToStringWithoutSign, basisToString)
-    }
 }
 
 class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
-    private val beforeSign: String = " ",
-    private val afterSign: String = " ",
-    private val afterCoeff: String = " ",
-) : VectorPrinter<B, S, V> {
-    private val defaultVectorPrinter = DefaultVectorPrinter<B, S, V>(this.beforeSign, this.afterSign, this.afterCoeff)
-    override fun stringify(vector: Vector<B, S, V>): String {
-        val coeffToString: (S) -> String = { it.toTex() }
-        val coeffToStringWithoutSign: (S) -> String = { it.toTexWithoutSign() }
-        val basisToString: (B) -> String = { it.toTex() }
-        return this.defaultVectorPrinter.stringify(vector, coeffToString, coeffToStringWithoutSign, basisToString)
-    }
-}
+    beforeSign: String = " ",
+    afterSign: String = " ",
+    afterCoeff: String = " ",
+) : DefaultVectorPrinter<B, S, V>(
+    beforeSign = beforeSign,
+    afterSign = afterSign,
+    afterCoeff = afterCoeff,
+    coeffToString = { it.toTex() },
+    coeffToStringWithoutSign = { it.toTexWithoutSign() },
+    basisToString = { it.toTex() }
+)
 
 interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(vector: Vector<B, S, V>): Boolean

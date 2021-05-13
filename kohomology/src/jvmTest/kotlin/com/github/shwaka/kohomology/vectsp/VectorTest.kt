@@ -97,6 +97,20 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     v.toString() shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
                 }
             }
+            "printer with comparator" - {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z"))
+                vectorSpace.printer = DefaultVectorPrinter(
+                    basisComparator = compareBy { it.name }
+                )
+                "(2y + 3x + 4z).toString() should be \"3 x + 2 y + 4 z\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                    v.toString() shouldBe "3 x + 2 y + 4 z"
+                }
+                "(0y + 3x + 4z).toString() should be \"3 x + 4 z\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, three, four))
+                    v.toString() shouldBe "3 x + 4 z"
+                }
+            }
         }
     }
 }

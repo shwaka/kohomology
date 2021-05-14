@@ -132,4 +132,22 @@ class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
             gLinearMap = this.factory.gAlgebraProjection
         )
     }
+
+    val comparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
+        var comparator: Comparator<Monomial<D, CopiedName<D, I>>> =
+            compareBy { monomial -> this.getShiftedLength(monomial) }
+        for (i in 0 until this.n)
+            comparator = comparator.thenBy { monomial -> monomial.exponentList[i + 2 * this.n] }
+        for (i in 0 until this.n)
+            comparator = comparator.thenBy { monomial -> monomial.exponentList[i] }
+        for (i in 0 until this.n)
+            comparator = comparator.thenBy { monomial -> monomial.exponentList[i + this.n] }
+        comparator
+    }
+    private val n: Int by lazy {
+        this.factory.freeDGAlgebra.gAlgebra.generatorList.size
+    }
+    private fun getShiftedLength(monomial: Monomial<D, CopiedName<D, I>>): Int {
+        return (0 until this.n).map { monomial.exponentList[it + 2 * this.n] }.sum()
+    }
 }

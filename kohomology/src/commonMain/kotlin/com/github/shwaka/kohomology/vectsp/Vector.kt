@@ -150,13 +150,15 @@ class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
     beforeSign: String = " ",
     afterSign: String = " ",
     afterCoeff: String = " ",
+    basisComparator: Comparator<B>? = null,
 ) : DefaultVectorPrinter<B, S, V>(
     beforeSign = beforeSign,
     afterSign = afterSign,
     afterCoeff = afterCoeff,
     coeffToString = { it.toTex() },
     coeffToStringWithoutSign = { it.toTexWithoutSign() },
-    basisToString = { it.toTex() }
+    basisToString = { it.toTex() },
+    basisComparator = basisComparator,
 )
 
 interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {

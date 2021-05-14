@@ -123,6 +123,20 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     v.toString() shouldBe "0"
                 }
             }
+            "TexVectorPrinter with comparator" - {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z"))
+                vectorSpace.printer = TexVectorPrinter(
+                    basisComparator = compareBy { it.name }
+                )
+                "(2y + 3x + 4z).toString() should be \"3 x + 2 y + 4 z\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                    v.toString() shouldBe "3 x + 2 y + 4 z"
+                }
+                "(y + (1/2)x + (-1/3)z).toString() should be \"\\frac{1}{2} x + y - \\frac{1}{3} z\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
+                    v.toString() shouldBe "\\frac{1}{2} x + y - \\frac{1}{3} z"
+                }
+            }
         }
     }
 }

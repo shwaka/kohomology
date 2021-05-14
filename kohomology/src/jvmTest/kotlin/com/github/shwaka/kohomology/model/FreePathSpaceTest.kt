@@ -124,7 +124,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
         val (a1, b1, x1, y1, a2, b2, x2, y2, sa, sb, sx, sy) = freePathSpace.gAlgebra.generatorList
 
         freePathSpace.gAlgebra.printer = DefaultVectorPrinter(
-            basisComparator = freePathSpace.comparator
+            basisComparator = freePathSpace.basisComparator
         )
         freePathSpace.context.run {
             "sorted printer test" {

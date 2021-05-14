@@ -133,7 +133,7 @@ class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
         )
     }
 
-    val comparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
+    val basisComparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
         var comparator: Comparator<Monomial<D, CopiedName<D, I>>> =
             compareBy { monomial -> this.getShiftedLength(monomial) }
         for (i in 0 until this.n)

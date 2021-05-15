@@ -207,15 +207,15 @@ data class LinearDegreeGroupNormalization(
                 LinearDegreeHomomorphism(originalGroup, normalizedGroup, values)
             }
             val unnormalize: LinearDegreeHomomorphism = run {
-                val size = originalGroup.indeterminateList.size
+                val size = normalizedGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
-                    val sourceIndeterminate = originalGroup.indeterminateList[i]
-                    val targetIndeterminateAsDegree = normalizedGroup.fromCoefficients(
+                    val originalDefaultValue = originalGroup.indeterminateList[i].defaultValue
+                    val targetIndeterminateAsDegree = originalGroup.fromCoefficients(
                         0,
                         List(size) { if (it == i) 1 else 0 }
                     )
-                    normalizedGroup.context.run {
-                        targetIndeterminateAsDegree - sourceIndeterminate.defaultValue
+                    originalGroup.context.run {
+                        targetIndeterminateAsDegree - originalDefaultValue
                     }
                 }
                 LinearDegreeHomomorphism(normalizedGroup, originalGroup, values)

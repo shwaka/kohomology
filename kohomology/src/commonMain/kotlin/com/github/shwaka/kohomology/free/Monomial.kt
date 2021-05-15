@@ -329,7 +329,8 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         return this.listAllInternal(degree, 0)
     }
 
-    val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
+    // (degree: D, index: Int) -> List<Monomial<D, I>>
+    private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
 
     private fun listAllInternal(degree: D, index: Int): List<Monomial<D, I>> {
         if (index < 0 || index > this.indeterminateList.size)

@@ -179,6 +179,51 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
     }
 }
 
+class LinearDegreeGroupNormalization(val originalGroup: LinearDegreeGroup) {
+    val normalizedGroup: LinearDegreeGroup = run {
+        val indeterminateList = this.originalGroup.indeterminateList.map { indeterminate ->
+            DegreeIndeterminate("${indeterminate.name}_", 0)
+        }
+        LinearDegreeGroup(indeterminateList)
+    }
+    val toNormalized: LinearDegreeHomomorphism = run {
+        val size = this.originalGroup.indeterminateList.size
+        val values = (0 until size).map { i ->
+            val sourceIndeterminate = this.originalGroup.indeterminateList[i]
+            val targetIndeterminateAsDegree = this.normalizedGroup.fromCoefficients(
+                0,
+                List(size) { if (i == size) 1 else 0 }
+            )
+            this.normalizedGroup.context.run {
+                targetIndeterminateAsDegree + sourceIndeterminate.defaultValue
+            }
+        }
+        LinearDegreeHomomorphism(
+            this.originalGroup,
+            this.normalizedGroup,
+            values
+        )
+    }
+    val fromNormalized: LinearDegreeHomomorphism = run {
+        val size = this.originalGroup.indeterminateList.size
+        val values = (0 until size).map { i ->
+            val sourceIndeterminate = this.originalGroup.indeterminateList[i]
+            val targetIndeterminateAsDegree = this.normalizedGroup.fromCoefficients(
+                0,
+                List(size) { if (i == size) 1 else 0 }
+            )
+            this.normalizedGroup.context.run {
+                targetIndeterminateAsDegree - sourceIndeterminate.defaultValue
+            }
+        }
+        LinearDegreeHomomorphism(
+            this.normalizedGroup,
+            this.originalGroup,
+            values
+        )
+    }
+}
+
 class LinearDegreeHomomorphism(
     val source: LinearDegreeGroup,
     val target: LinearDegreeGroup,

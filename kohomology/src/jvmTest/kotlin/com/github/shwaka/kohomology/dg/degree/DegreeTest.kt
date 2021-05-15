@@ -7,6 +7,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
+import io.kotest.property.exhaustive.exhaustive
 
 val degreeTag = NamedTag("Degree")
 
@@ -59,6 +60,16 @@ suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
                 }
                 "augmentation(zero) should be 0" {
                     degreeGroup.augmentation(degreeGroup.zero) shouldBe 0
+                }
+                "augmentation of each element in listAllDegrees(augmentedDegree) should be augmentedDegree" {
+                    // can't use intArb since it may contain Int.MAX_VALUE, which is too large
+                    checkAll(Arb.int(-20..20)) { augmentedDegree ->
+                        val degreeList = degreeGroup.listAllDegrees(augmentedDegree)
+                        if (degreeList.isNotEmpty())
+                            checkAll(degreeList.exhaustive()) { degree ->
+                                degreeGroup.augmentation(degree) shouldBe augmentedDegree
+                            }
+                    }
                 }
             }
         }

@@ -132,7 +132,44 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
         return LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
     }
 
+    fun toList(degree: LinearDegree): List<Int> {
+        return listOf(degree.constantTerm) + degree.coeffList.toList()
+    }
+
     override fun listAllDegrees(augmentedDegree: Int): List<LinearDegree> {
-        TODO("Not yet implemented")
+        return this.listAllDegreesInternal(augmentedDegree, 0)
+    }
+
+    private val listSize: Int = this.indeterminateList.size + 1
+    private fun oneAtIndex(index: Int): LinearDegree {
+        return this.fromList(List(this.listSize) { if (it == index) 1 else 0 })
+    }
+    // (augmentedDegree: Int, index: Int) -> List<LinearDegree>
+    private val cache: MutableMap<Pair<Int, Int>, List<LinearDegree>> = mutableMapOf()
+
+    private fun listAllDegreesInternal(augmentedDegree: Int, index: Int): List<LinearDegree> {
+        if (index < 0 || index > this.listSize)
+            throw Exception("This can't happen! (illegal index: $index)")
+        if (index == this.listSize) {
+            return if (augmentedDegree == 0)
+                listOf(this.zero)
+            else
+                emptyList()
+        }
+        val cacheKey = Pair(augmentedDegree, index)
+        this.cache[cacheKey]?.let { return it }
+        // Since 0 <= index < this.listSize,
+        // we have 0 < this.listSize
+        val newAugmentedDegree = augmentedDegree - this.augmentation(this.oneAtIndex(index))
+        val listWithNonZeroAtIndex = if (newAugmentedDegree >= 0) {
+            this.listAllDegreesInternal(newAugmentedDegree, index)
+                .map { linearDegree ->
+                    this.context.run { linearDegree + this@LinearDegreeGroup.oneAtIndex(index) }
+                }
+        } else emptyList()
+        val listWithZeroAtIndex = this.listAllDegreesInternal(augmentedDegree, index + 1)
+        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
+        this.cache[cacheKey] = result
+        return result
     }
 }

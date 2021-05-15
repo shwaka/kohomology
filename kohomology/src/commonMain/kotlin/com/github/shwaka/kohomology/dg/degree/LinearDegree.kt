@@ -181,8 +181,8 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
 
 data class LinearDegreeGroupNormalization(
     val normalizedGroup: LinearDegreeGroup,
-    val toNormalized: LinearDegreeHomomorphism,
-    val fromNormalized: LinearDegreeHomomorphism,
+    val normalize: LinearDegreeHomomorphism,
+    val unnormalize: LinearDegreeHomomorphism,
 ) {
     companion object {
         fun from(originalGroup: LinearDegreeGroup): LinearDegreeGroupNormalization {
@@ -192,7 +192,7 @@ data class LinearDegreeGroupNormalization(
                 }
                 LinearDegreeGroup(indeterminateList)
             }
-            val toNormalized: LinearDegreeHomomorphism = run {
+            val normalize: LinearDegreeHomomorphism = run {
                 val size = originalGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
@@ -206,7 +206,7 @@ data class LinearDegreeGroupNormalization(
                 }
                 LinearDegreeHomomorphism(originalGroup, normalizedGroup, values)
             }
-            val fromNormalized: LinearDegreeHomomorphism = run {
+            val unnormalize: LinearDegreeHomomorphism = run {
                 val size = originalGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
@@ -220,7 +220,7 @@ data class LinearDegreeGroupNormalization(
                 }
                 LinearDegreeHomomorphism(normalizedGroup, originalGroup, values)
             }
-            return LinearDegreeGroupNormalization(normalizedGroup, toNormalized, fromNormalized)
+            return LinearDegreeGroupNormalization(normalizedGroup, normalize, unnormalize)
         }
     }
 }

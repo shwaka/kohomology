@@ -100,11 +100,11 @@ class LinearDegreeTest : FreeSpec({
         }
 
         "test normalization" - {
-            val (normalizedGroup, toNormalized, fromNormalized) =
+            val (normalizedGroup, normalize, unnormalize) =
                 LinearDegreeGroupNormalization.from(degreeGroup)
-            "toNormalized(1 + 2N) should be (3 + 2N_)" {
+            "normalize(1 + 2N) should be (3 + 2N_)" {
                 val degree = degreeGroup.fromList(listOf(1, 2))
-                toNormalized(degree) shouldBe normalizedGroup.fromList(listOf(3, 2))
+                normalize(degree) shouldBe normalizedGroup.fromList(listOf(3, 2))
             }
         }
     }

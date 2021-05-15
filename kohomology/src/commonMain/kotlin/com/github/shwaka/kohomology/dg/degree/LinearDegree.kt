@@ -198,7 +198,7 @@ data class LinearDegreeGroupNormalization(
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
                     val targetIndeterminateAsDegree = normalizedGroup.fromCoefficients(
                         0,
-                        List(size) { if (i == size) 1 else 0 }
+                        List(size) { if (it == i) 1 else 0 }
                     )
                     normalizedGroup.context.run {
                         targetIndeterminateAsDegree + sourceIndeterminate.defaultValue
@@ -212,7 +212,7 @@ data class LinearDegreeGroupNormalization(
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
                     val targetIndeterminateAsDegree = normalizedGroup.fromCoefficients(
                         0,
-                        List(size) { if (i == size) 1 else 0 }
+                        List(size) { if (it == i) 1 else 0 }
                     )
                     normalizedGroup.context.run {
                         targetIndeterminateAsDegree - sourceIndeterminate.defaultValue

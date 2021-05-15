@@ -116,12 +116,14 @@ class LinearDegreeTest : FreeSpec({
             }
 
             "unnormalize(normalize(degree)) should be degree for any degree" {
-                checkAll(listOf(
-                    listOf(1, 2),
-                    listOf(-2, -3),
-                    listOf(0, 0),
-                    listOf(4, -2),
-                ).exhaustive()) { coeffList ->
+                checkAll(
+                    listOf(
+                        listOf(1, 2),
+                        listOf(-2, -3),
+                        listOf(0, 0),
+                        listOf(4, -2),
+                    ).exhaustive()
+                ) { coeffList ->
                     val degree = degreeGroup.fromList(coeffList)
                     unnormalize(normalize(degree)) shouldBe degree
                 }

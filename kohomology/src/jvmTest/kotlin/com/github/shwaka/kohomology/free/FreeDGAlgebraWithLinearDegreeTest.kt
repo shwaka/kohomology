@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.LinearDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.degreeTag
 import com.github.shwaka.kohomology.model.FreeLoopSpace
@@ -51,6 +52,24 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
                     val expectedDim = if (i.isEven()) 1 else 0
                     freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
                 }
+            }
+        }
+        "getBasisForAugmentedDegree test" {
+            val intIndeterminateList = indeterminateList.map { indeterminate ->
+                Indeterminate(
+                    indeterminate.name,
+                    degreeGroup.augmentation(indeterminate.degree)
+                )
+            }
+            val intSphere = FreeDGAlgebra(matrixSpace, IntDegreeGroup, intIndeterminateList) { (x, _) ->
+                listOf(zeroGVector, x.pow(2))
+            }
+            val intFreeLoopSpace = FreeLoopSpace(intSphere)
+            for (degree in 0 until 20) {
+                sphere.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
+                    intSphere.gAlgebra.getBasis(degree).size
+                freeLoopSpace.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
+                    intFreeLoopSpace.gAlgebra.getBasis(degree).size
             }
         }
     }

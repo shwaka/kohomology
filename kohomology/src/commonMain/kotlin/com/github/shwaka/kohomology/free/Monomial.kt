@@ -40,6 +40,9 @@ data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val deg
         operator fun <D : Degree> invoke(name: String, degree: D): Indeterminate<D, StringIndeterminateName> {
             return Indeterminate(StringIndeterminateName(name), degree)
         }
+        operator fun <I : IndeterminateName> invoke(name: I, degree: Int): Indeterminate<IntDegree, I> {
+            return Indeterminate(name, IntDegree(degree))
+        }
         operator fun invoke(name: String, degree: Int): Indeterminate<IntDegree, StringIndeterminateName> {
             return Indeterminate(StringIndeterminateName(name), IntDegree(degree))
         }

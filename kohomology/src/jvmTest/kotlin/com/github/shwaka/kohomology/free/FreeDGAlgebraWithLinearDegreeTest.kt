@@ -28,21 +28,29 @@ class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
-        freeLoopSpace.cohomology[0].dim shouldBe 1
-        for (degree in 1 until 20) {
-            freeLoopSpace.gAlgebra[degree].dim shouldBe 0
-            freeLoopSpace.cohomology[degree].dim shouldBe 0
+        "degree 0 should be 1-dim" {
+            freeLoopSpace.cohomology[0].dim shouldBe 1
+        }
+        "positive integer degree should be 0-dim" {
+            for (degree in 1 until 20) {
+                freeLoopSpace.gAlgebra[degree].dim shouldBe 0
+                freeLoopSpace.cohomology[degree].dim shouldBe 0
+            }
         }
         degreeGroup.context.run {
-            for (i in 1 until 10) {
-                val degree = i * (2 * n - 1)
-                val expectedDim = if (i.isEven()) 0 else 1
-                freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
+            "non-trivial cohomology" {
+                for (i in 1 until 10) {
+                    val degree = i * (2 * n - 1)
+                    val expectedDim = if (i.isEven()) 0 else 1
+                    freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
+                }
             }
-            for (i in 0 until 10) {
-                val degree = 2 * n + i * (2 * n - 1)
-                val expectedDim = if (i.isEven()) 1 else 0
-                freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
+            "trivial cohomology (with non-zero cochain)" {
+                for (i in 0 until 10) {
+                    val degree = 2 * n + i * (2 * n - 1)
+                    val expectedDim = if (i.isEven()) 1 else 0
+                    freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
+                }
             }
         }
     }

@@ -46,4 +46,9 @@ object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
     override fun listAllDegrees(augmentedDegree: Int): List<IntDegree> {
         return listOf(IntDegree(augmentedDegree))
     }
+
+    override fun contains(degree: IntDegree): Boolean {
+        // type information is sufficient
+        return true
+    }
 }

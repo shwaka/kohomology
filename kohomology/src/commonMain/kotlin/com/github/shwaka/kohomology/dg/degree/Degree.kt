@@ -59,6 +59,7 @@ interface DegreeGroup<D : Degree> {
     fun multiply(degree: D, n: Int): D
     val zero: D
         get() = this.fromInt(0)
+    operator fun contains(degree: D): Boolean
 }
 
 interface AugmentedDegreeGroupOperations<D : Degree> {

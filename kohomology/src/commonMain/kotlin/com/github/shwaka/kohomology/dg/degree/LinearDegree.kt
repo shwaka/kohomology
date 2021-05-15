@@ -172,4 +172,8 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
         this.cache[cacheKey] = result
         return result
     }
+
+    override fun contains(degree: LinearDegree): Boolean {
+        return degree.group == this
+    }
 }

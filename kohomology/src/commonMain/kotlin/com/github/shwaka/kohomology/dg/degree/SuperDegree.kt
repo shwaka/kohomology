@@ -39,4 +39,9 @@ object SuperDegreeGroup : DegreeGroup<SuperDegree> {
     override fun multiply(degree: SuperDegree, n: Int): SuperDegree {
         return if (n.isEven()) EvenSuperDegree else degree
     }
+
+    override fun contains(degree: SuperDegree): Boolean {
+        // type information is sufficient
+        return true
+    }
 }

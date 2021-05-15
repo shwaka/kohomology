@@ -50,6 +50,11 @@ suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
                         a shouldBe zero
                 }
             }
+            "contains() should return true for elements of a degree group" {
+                checkAll(degreeArb) { a ->
+                    (a in degreeGroup).shouldBeTrue()
+                }
+            }
             if (degreeGroup is AugmentedDegreeGroup) {
                 // The existing context is not smart-casted
                 "augmentation() should be a group homomorphism" {

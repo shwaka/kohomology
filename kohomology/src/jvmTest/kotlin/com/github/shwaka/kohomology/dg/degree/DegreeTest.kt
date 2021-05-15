@@ -57,6 +57,9 @@ suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
                             (degreeGroup.augmentation(a) + degreeGroup.augmentation(b))
                     }
                 }
+                "augmentation(zero) should be 0" {
+                    degreeGroup.augmentation(degreeGroup.zero) shouldBe 0
+                }
             }
         }
     }

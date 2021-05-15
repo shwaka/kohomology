@@ -144,6 +144,7 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
     private fun oneAtIndex(index: Int): LinearDegree {
         return this.fromList(List(this.listSize) { if (it == index) 1 else 0 })
     }
+
     // (augmentedDegree: Int, index: Int) -> List<LinearDegree>
     private val cache: MutableMap<Pair<Int, Int>, List<LinearDegree>> = mutableMapOf()
 
@@ -175,5 +176,26 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
 
     override fun contains(degree: LinearDegree): Boolean {
         return degree.group == this
+    }
+}
+
+class LinearDegreeHomomorphism(
+    val source: LinearDegreeGroup,
+    val target: LinearDegreeGroup,
+    private val values: List<LinearDegree>,
+) {
+    init {
+        if (values.size != source.indeterminateList.size)
+            throw IllegalArgumentException("values.size should be equal to source.indeterminateList.size")
+    }
+
+    operator fun invoke(degree: LinearDegree): LinearDegree {
+        if (degree !in this.source)
+            throw IllegalArgumentException("The degree $degree is not an element of the group ${this.source}")
+        return this.target.context.run {
+            degree.coeffList.indices.map { i ->
+                degree.coeffList[i] * this@LinearDegreeHomomorphism.values[i]
+            }.fold(target.fromInt(degree.constantTerm)) { acc, degree -> acc + degree }
+        }
     }
 }

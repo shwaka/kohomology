@@ -42,4 +42,8 @@ object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
     override fun multiply(degree: IntDegree, n: Int): IntDegree {
         return IntDegree(degree.value * n)
     }
+
+    override fun listAllDegrees(augmentedDegree: Int): List<IntDegree> {
+        return listOf(IntDegree(augmentedDegree))
+    }
 }

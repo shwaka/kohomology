@@ -131,4 +131,8 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size + 1}, but ${coeffList.size} was given")
         return LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
     }
+
+    override fun listAllDegrees(augmentedDegree: Int): List<LinearDegree> {
+        TODO("Not yet implemented")
+    }
 }

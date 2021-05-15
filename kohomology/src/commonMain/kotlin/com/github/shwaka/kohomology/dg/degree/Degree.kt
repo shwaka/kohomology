@@ -63,6 +63,7 @@ interface DegreeGroup<D : Degree> {
 
 interface AugmentedDegreeGroupOperations<D : Degree> {
     fun augmentation(degree: D): Int
+    fun listAllDegrees(augmentedDegree: Int): List<D>
 }
 
 /**

@@ -4,7 +4,7 @@ package com.github.shwaka.kohomology.dg.degree
  * Represents degrees in graded objects.
  *
  * Operations are implemented in [DegreeGroup].
- * See [IntDegree] and [LinearDegree] for examples.
+ * See [IntDegree] and [MultiDegree] for examples.
  */
 interface Degree {
     fun isZero(): Boolean

@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.util.isOdd
 
 data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
-class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
+class MultiDegree(val group: MultiDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->
             if (oddIndices.isNotEmpty()) {
@@ -33,7 +33,7 @@ class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coef
         if (this === other) return true
         if (other == null || this::class != other::class) return false
 
-        other as LinearDegree
+        other as MultiDegree
 
         if (group != other.group) return false
         if (constantTerm != other.constantTerm) return false
@@ -74,81 +74,81 @@ class LinearDegree(val group: LinearDegreeGroup, val constantTerm: Int, val coef
     }
 }
 
-data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<LinearDegree> {
-    override val context: AugmentedDegreeContext<LinearDegree> by lazy {
+data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<MultiDegree> {
+    override val context: AugmentedDegreeContext<MultiDegree> by lazy {
         AugmentedDegreeContext(this)
     }
 
-    val generatorList: List<LinearDegree>
+    val generatorList: List<MultiDegree>
         get() = this.indeterminateList.indices.map { i ->
             val coeffList = List(this.indeterminateList.size) { j -> if (i == j) 1 else 0 }
             this.fromCoefficients(0, coeffList)
         }
 
-    override fun fromInt(n: Int): LinearDegree {
-        return LinearDegree(this, n, IntArray(this.indeterminateList.size) { 0 })
+    override fun fromInt(n: Int): MultiDegree {
+        return MultiDegree(this, n, IntArray(this.indeterminateList.size) { 0 })
     }
 
-    override fun augmentation(degree: LinearDegree): Int {
+    override fun augmentation(degree: MultiDegree): Int {
         return degree.constantTerm + degree.coeffList.indices.map {
             degree.coeffList[it] * this.indeterminateList[it].defaultValue
         }.sum()
     }
 
-    override fun add(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {
+    override fun add(degree1: MultiDegree, degree2: MultiDegree): MultiDegree {
         if (degree1.group != this)
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
         val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] + degree2.coeffList[it] }
-        return LinearDegree(this, degree1.constantTerm + degree2.constantTerm, coeffList)
+        return MultiDegree(this, degree1.constantTerm + degree2.constantTerm, coeffList)
     }
 
-    override fun subtract(degree1: LinearDegree, degree2: LinearDegree): LinearDegree {
+    override fun subtract(degree1: MultiDegree, degree2: MultiDegree): MultiDegree {
         if (degree1.group != this)
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
         val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] - degree2.coeffList[it] }
-        return LinearDegree(this, degree1.constantTerm - degree2.constantTerm, coeffList)
+        return MultiDegree(this, degree1.constantTerm - degree2.constantTerm, coeffList)
     }
 
-    override fun multiply(degree: LinearDegree, n: Int): LinearDegree {
+    override fun multiply(degree: MultiDegree, n: Int): MultiDegree {
         if (degree.group != this)
             throw IllegalContextException("$degree is not an element of $this")
         val coeffList = IntArray(degree.coeffList.size) { degree.coeffList[it] * n }
-        return LinearDegree(this, degree.constantTerm * n, coeffList)
+        return MultiDegree(this, degree.constantTerm * n, coeffList)
     }
 
-    fun fromCoefficients(constantTerm: Int, coeffList: List<Int>): LinearDegree {
+    fun fromCoefficients(constantTerm: Int, coeffList: List<Int>): MultiDegree {
         if (coeffList.size != this.indeterminateList.size)
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size}, but ${coeffList.size} was given")
-        return LinearDegree(this, constantTerm, coeffList.toIntArray())
+        return MultiDegree(this, constantTerm, coeffList.toIntArray())
     }
 
-    fun fromList(coeffList: List<Int>): LinearDegree {
+    fun fromList(coeffList: List<Int>): MultiDegree {
         if (coeffList.size != this.indeterminateList.size + 1)
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size + 1}, but ${coeffList.size} was given")
-        return LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
+        return MultiDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
     }
 
-    fun toList(degree: LinearDegree): List<Int> {
+    fun toList(degree: MultiDegree): List<Int> {
         return listOf(degree.constantTerm) + degree.coeffList.toList()
     }
 
-    override fun listAllDegrees(augmentedDegree: Int): List<LinearDegree> {
+    override fun listAllDegrees(augmentedDegree: Int): List<MultiDegree> {
         return this.listAllDegreesInternal(augmentedDegree, 0)
     }
 
     private val listSize: Int = this.indeterminateList.size + 1
-    private fun oneAtIndex(index: Int): LinearDegree {
+    private fun oneAtIndex(index: Int): MultiDegree {
         return this.fromList(List(this.listSize) { if (it == index) 1 else 0 })
     }
 
-    // (augmentedDegree: Int, index: Int) -> List<LinearDegree>
-    private val cache: MutableMap<Pair<Int, Int>, List<LinearDegree>> = mutableMapOf()
+    // (augmentedDegree: Int, index: Int) -> List<MultiDegree>
+    private val cache: MutableMap<Pair<Int, Int>, List<MultiDegree>> = mutableMapOf()
 
-    private fun listAllDegreesInternal(augmentedDegree: Int, index: Int): List<LinearDegree> {
+    private fun listAllDegreesInternal(augmentedDegree: Int, index: Int): List<MultiDegree> {
         if (index < 0 || index > this.listSize)
             throw Exception("This can't happen! (illegal index: $index)")
         if (index == this.listSize) {
@@ -164,8 +164,8 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
         val newAugmentedDegree = augmentedDegree - this.augmentation(this.oneAtIndex(index))
         val listWithNonZeroAtIndex = if (newAugmentedDegree >= 0) {
             this.listAllDegreesInternal(newAugmentedDegree, index)
-                .map { linearDegree ->
-                    this.context.run { linearDegree + this@LinearDegreeGroup.oneAtIndex(index) }
+                .map { multiDegree ->
+                    this.context.run { multiDegree + this@MultiDegreeGroup.oneAtIndex(index) }
                 }
         } else emptyList()
         val listWithZeroAtIndex = this.listAllDegreesInternal(augmentedDegree, index + 1)
@@ -174,25 +174,25 @@ data class LinearDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) :
         return result
     }
 
-    override fun contains(degree: LinearDegree): Boolean {
+    override fun contains(degree: MultiDegree): Boolean {
         return degree.group == this
     }
 }
 
-data class LinearDegreeGroupNormalization(
-    val normalizedGroup: LinearDegreeGroup,
-    val normalize: LinearDegreeHomomorphism,
-    val unnormalize: LinearDegreeHomomorphism,
+data class MultiDegreeGroupNormalization(
+    val normalizedGroup: MultiDegreeGroup,
+    val normalize: MultiDegreeHomomorphism,
+    val unnormalize: MultiDegreeHomomorphism,
 ) {
     companion object {
-        fun from(originalGroup: LinearDegreeGroup): LinearDegreeGroupNormalization {
-            val normalizedGroup: LinearDegreeGroup = run {
+        fun from(originalGroup: MultiDegreeGroup): MultiDegreeGroupNormalization {
+            val normalizedGroup: MultiDegreeGroup = run {
                 val indeterminateList = originalGroup.indeterminateList.map { indeterminate ->
                     DegreeIndeterminate("${indeterminate.name}_", 0)
                 }
-                LinearDegreeGroup(indeterminateList)
+                MultiDegreeGroup(indeterminateList)
             }
-            val normalize: LinearDegreeHomomorphism = run {
+            val normalize: MultiDegreeHomomorphism = run {
                 val size = originalGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
@@ -204,9 +204,9 @@ data class LinearDegreeGroupNormalization(
                         targetIndeterminateAsDegree + sourceIndeterminate.defaultValue
                     }
                 }
-                LinearDegreeHomomorphism(originalGroup, normalizedGroup, values)
+                MultiDegreeHomomorphism(originalGroup, normalizedGroup, values)
             }
-            val unnormalize: LinearDegreeHomomorphism = run {
+            val unnormalize: MultiDegreeHomomorphism = run {
                 val size = normalizedGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val originalDefaultValue = originalGroup.indeterminateList[i].defaultValue
@@ -218,29 +218,29 @@ data class LinearDegreeGroupNormalization(
                         targetIndeterminateAsDegree - originalDefaultValue
                     }
                 }
-                LinearDegreeHomomorphism(normalizedGroup, originalGroup, values)
+                MultiDegreeHomomorphism(normalizedGroup, originalGroup, values)
             }
-            return LinearDegreeGroupNormalization(normalizedGroup, normalize, unnormalize)
+            return MultiDegreeGroupNormalization(normalizedGroup, normalize, unnormalize)
         }
     }
 }
 
-class LinearDegreeHomomorphism(
-    val source: LinearDegreeGroup,
-    val target: LinearDegreeGroup,
-    private val values: List<LinearDegree>,
+class MultiDegreeHomomorphism(
+    val source: MultiDegreeGroup,
+    val target: MultiDegreeGroup,
+    private val values: List<MultiDegree>,
 ) {
     init {
         if (values.size != source.indeterminateList.size)
             throw IllegalArgumentException("values.size should be equal to source.indeterminateList.size")
     }
 
-    operator fun invoke(degree: LinearDegree): LinearDegree {
+    operator fun invoke(degree: MultiDegree): MultiDegree {
         if (degree !in this.source)
             throw IllegalArgumentException("The degree $degree is not an element of the group ${this.source}")
         return this.target.context.run {
             degree.coeffList.indices.map { i ->
-                degree.coeffList[i] * this@LinearDegreeHomomorphism.values[i]
+                degree.coeffList[i] * this@MultiDegreeHomomorphism.values[i]
             }.fold(target.fromInt(degree.constantTerm)) { acc, degree -> acc + degree }
         }
     }

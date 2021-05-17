@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
-import com.github.shwaka.kohomology.dg.degree.LinearDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.degreeTag
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
@@ -10,13 +10,13 @@ import com.github.shwaka.kohomology.util.isEven
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
-class FreeDGAlgebraWithLinearDegreeTest : FreeSpec({
+class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
     tags(freeDGAlgebraTag, degreeTag)
-    "FreeDGAlgebra with LinearDegree" - {
+    "FreeDGAlgebra with MultiDegree" - {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
-        val degreeGroup = LinearDegreeGroup(degreeIndeterminateList)
+        val degreeGroup = MultiDegreeGroup(degreeIndeterminateList)
         val (n) = degreeGroup.generatorList
         val indeterminateList = degreeGroup.context.run {
             listOf(

@@ -12,20 +12,20 @@ import io.kotest.property.arbitrary.map
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
-fun LinearDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE)): Arb<LinearDegree> {
+fun MultiDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE)): Arb<MultiDegree> {
     return myArbList(intArb, this.indeterminateList.size + 1).map { coeffList ->
-        LinearDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
+        MultiDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
     }
 }
 
-class LinearDegreeTest : FreeSpec({
+class MultiDegreeTest : FreeSpec({
     tags(degreeTag)
 
-    "tests for LinearDegree" - {
+    "tests for MultiDegree" - {
         val indeterminateList = listOf(
             DegreeIndeterminate("N", 1),
         )
-        val degreeGroup = LinearDegreeGroup(indeterminateList)
+        val degreeGroup = MultiDegreeGroup(indeterminateList)
 
         degreeTestTemplate(degreeGroup, degreeGroup.arb())
 
@@ -103,7 +103,7 @@ class LinearDegreeTest : FreeSpec({
 
         "test normalization" - {
             val (normalizedGroup, normalize, unnormalize) =
-                LinearDegreeGroupNormalization.from(degreeGroup)
+                MultiDegreeGroupNormalization.from(degreeGroup)
 
             "normalize(1 + 2N) should be (3 + 2N_)" {
                 val degree = degreeGroup.fromList(listOf(1, 2))

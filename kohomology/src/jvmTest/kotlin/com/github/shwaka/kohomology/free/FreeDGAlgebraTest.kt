@@ -190,6 +190,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(ma
                 a.pow(2).cohomologyClass().toString() shouldBe "[A^{2}]"
                 b.pow(2).cohomologyClass().toString() shouldBe "[B^{2}]"
                 (a * b).cohomologyClass().toString() shouldBe "[AB]"
+                (a.pow(2) + b.pow(2)).cohomologyClass().toString() shouldBe "[A^{2}] + [B^{2}]"
             }
         }
     }

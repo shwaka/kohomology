@@ -186,15 +186,15 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
-    printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
+    private var getPrinter: () -> VectorPrinter<B, S, V> = { DefaultVectorPrinter() }
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
-            printer: VectorPrinter<StringBasisName, S, V> = DefaultVectorPrinter()
+            getPrinter: () -> VectorPrinter<StringBasisName, S, V> = { DefaultVectorPrinter() }
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, printer)
+            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getPrinter)
         }
     }
 
@@ -208,9 +208,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     private val logger = KotlinLogging.logger {}
-    private var printerInternal = printer
+
     val printer: VectorPrinter<B, S, V>
-        get() = this.printerInternal
+        get() = this.getPrinter()
 
     init {
         this.logger.debug { "$this is created" }
@@ -222,7 +222,11 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     fun setPrinter(printer: VectorPrinter<B, S, V>) {
-        this.printerInternal = printer
+        this.getPrinter = { printer }
+    }
+
+    fun setPrinter(getPrinter: () -> VectorPrinter<B, S, V>) {
+        this.getPrinter = getPrinter
     }
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

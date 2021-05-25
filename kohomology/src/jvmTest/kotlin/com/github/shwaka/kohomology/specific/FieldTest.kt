@@ -211,6 +211,10 @@ class BigRationalTest : FreeSpec({
             BigRational.fromReduced(0, 2)
         }
     }
+
+    "(-1/2).toTex() should be -\\frac{1}{2}" {
+        BigRational(-1, 2).toTex() shouldBe "-\\frac{1}{2}"
+    }
 })
 
 class IntModpTest : FreeSpec({

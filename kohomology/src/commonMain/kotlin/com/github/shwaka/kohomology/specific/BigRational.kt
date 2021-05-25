@@ -122,7 +122,10 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
         return when {
             this.numerator == BigInteger.ZERO -> "0"
             this.denominator == BigInteger.ONE -> this.numerator.toString()
-            else -> "\\frac{${this.numerator}}{${this.denominator}}"
+            else -> {
+                val sign: String = if (this.numerator.isNegative) "-" else ""
+                "$sign\\frac{${this.numerator.abs()}}{${this.denominator}}"
+            }
         }
     }
 

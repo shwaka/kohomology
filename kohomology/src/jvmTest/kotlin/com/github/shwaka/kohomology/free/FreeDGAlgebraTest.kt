@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.vectsp.TexVectorPrinter
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -171,6 +172,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "toString() with TexVectorPrinter for cohomology classes" - {
+        val generatorList = listOf(
+            Indeterminate("a", "A", 2),
+            Indeterminate("b", "B", 2),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
+        freeDGAlgebra.gAlgebra.printer = TexVectorPrinter()
+        val (a, b) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            "length 1" {
+                a.cohomologyClass().toString() shouldBe "[A]"
+                b.cohomologyClass().toString() shouldBe "[B]"
+            }
+            "length 2" {
+                a.pow(2).cohomologyClass().toString() shouldBe "[A^{2}]"
+                b.pow(2).cohomologyClass().toString() shouldBe "[B^{2}]"
+                (a * b).cohomologyClass().toString() shouldBe "[AB]"
+            }
+        }
+    }
+}
+
 class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
@@ -182,4 +206,5 @@ class FreeDGAlgebraTest : FreeSpec({
     include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))
+    include(toStringInCohomologyTest(matrixSpace))
 })

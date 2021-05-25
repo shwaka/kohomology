@@ -186,7 +186,7 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
-    var printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
+    printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
@@ -208,6 +208,9 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     private val logger = KotlinLogging.logger {}
+    private var printerInternal = printer
+    val printer: VectorPrinter<B, S, V>
+        get() = this.printerInternal
 
     init {
         this.logger.debug { "$this is created" }
@@ -216,6 +219,10 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     private val basisNameToIndex: Map<B, Int> by lazy {
         // cache for indexOf(basisName)
         this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
+    fun setPrinter(printer: VectorPrinter<B, S, V>) {
+        this.printerInternal = printer
     }
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

@@ -91,7 +91,7 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
             }
             "TexVectorPrinter" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                vectorSpace.printer = TexVectorPrinter()
+                vectorSpace.setPrinter(TexVectorPrinter())
                 "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
                     v.toString() shouldBe "2 a + 3 b + 4 c"
@@ -107,8 +107,10 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
             }
             "printer with comparator" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z"))
-                vectorSpace.printer = DefaultVectorPrinter(
-                    basisComparator = compareBy { it.name }
+                vectorSpace.setPrinter(
+                    DefaultVectorPrinter(
+                        basisComparator = compareBy { it.name }
+                    )
                 )
                 "(2y + 3x + 4z).toString() should be \"3 x + 2 y + 4 z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
@@ -125,8 +127,10 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
             }
             "TexVectorPrinter with comparator" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z"))
-                vectorSpace.printer = TexVectorPrinter(
-                    basisComparator = compareBy { it.name }
+                vectorSpace.setPrinter(
+                    TexVectorPrinter(
+                        basisComparator = compareBy { it.name }
+                    )
                 )
                 "(2y + 3x + 4z).toString() should be \"3 x + 2 y + 4 z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))

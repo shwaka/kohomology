@@ -191,7 +191,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         // if cache does not exist
         this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val vectorSpace = this.getVectorSpace(degree)
-        vectorSpace.printer = this.printer
+        vectorSpace.setPrinter(this.printer)
         this.cache[degree] = vectorSpace
         return vectorSpace
     }

@@ -178,4 +178,20 @@ class MonomialTest : FreeSpec({
         xy2.toString() shouldBe "xy^2"
         xy2.toTex() shouldBe "xy^{2}"
     }
+
+    "toString() and toTex() test for indeterminate names with 'tex'" {
+        val indeterminateList = listOf(
+            Indeterminate("x", "X", 2),
+            Indeterminate("y", "Y", 2),
+        )
+        val x = Monomial(indeterminateList, listOf(1, 0))
+        x.toString() shouldBe "x"
+        x.toTex() shouldBe "X"
+        val xy = Monomial(indeterminateList, listOf(1, 1))
+        xy.toString() shouldBe "xy"
+        xy.toTex() shouldBe "XY"
+        val xy2 = Monomial(indeterminateList, listOf(1, 2))
+        xy2.toString() shouldBe "xy^2"
+        xy2.toTex() shouldBe "XY^{2}"
+    }
 })

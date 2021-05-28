@@ -123,7 +123,10 @@ class DenseMatrixSpace<S : Scalar>(
                 }
             }
         }
-        return this.fromRowList(rowList)
+        return this.fromRowList(
+            rowList = rowList,
+            colCount = second.colCount
+        )
     }
 
     override fun multiply(matrix: DenseMatrix<S>, scalar: S): DenseMatrix<S> {

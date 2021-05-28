@@ -176,6 +176,32 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 ).toMatrix()
                 (mat * n) shouldBe expected
             }
+            "(r×0-matrix) * (0×c-matrix) should be zero matrix of size r×c" {
+                val r = 3
+                val c = 2
+                val zeroCols = matrixSpace.fromRowMap(emptyMap(), r, 0)
+                val zeroRows = matrixSpace.fromRowMap(emptyMap(), 0, c)
+                val mat = shouldNotThrowAny {
+                    zeroCols * zeroRows
+                }
+                mat.rowCount shouldBe r
+                mat.colCount shouldBe c
+                for (i in 0 until r) {
+                    for (j in 0 until c) {
+                        mat[i, j].isZero().shouldBeTrue()
+                    }
+                }
+            }
+            "(0×k-matrix) * (k×0-matrix) should be a matrix of size 0×0" {
+                val k = 3
+                val zeroRows = matrixSpace.fromRowMap(emptyMap(), 0, k)
+                val zeroCols = matrixSpace.fromRowMap(emptyMap(), k, 0)
+                val mat = shouldNotThrowAny {
+                    zeroRows * zeroCols
+                }
+                mat.rowCount shouldBe 0
+                mat.colCount shouldBe 0
+            }
             "((2, 1), (0, -1)).isZero() should be false" {
                 m.isZero().shouldBeFalse()
                 m.isNotZero().shouldBeTrue()

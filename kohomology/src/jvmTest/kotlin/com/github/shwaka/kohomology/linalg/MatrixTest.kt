@@ -187,11 +187,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 multiplied.rowCount shouldBe r
                 multiplied.colCount shouldBe c
                 multiplied.isZero().shouldBeTrue()
-                for (i in 0 until r) {
-                    for (j in 0 until c) {
-                        multiplied[i, j].isZero().shouldBeTrue()
-                    }
-                }
             }
             "(0×k-matrix) * (k×0-matrix) should be a matrix of size 0×0" {
                 val k = 3
@@ -204,6 +199,36 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 multiplied.colCount shouldBe 0
                 multiplied.isZero().shouldBeTrue()
             }
+            "(0×k-matrix) * (k×l-matrix) should be a zero matrix of size 0×l" {
+                val k = 3
+                val l = 4
+                val zeroRows = matrixSpace.fromRowMap(emptyMap(), 0, k)
+                val mat = matrixSpace.fromRowList(
+                    rowList = List(k) { List(l) { one } },
+                    colCount = l
+                )
+                val multiplied = shouldNotThrowAny {
+                    zeroRows * mat
+                }
+                multiplied.rowCount shouldBe 0
+                multiplied.colCount shouldBe l
+                multiplied.isZero().shouldBeTrue()
+            }
+            "(l×k-matrix) * (k×0-matrix) should be a zero matrix of size l×0" {
+                val k = 3
+                val l = 4
+                val mat = matrixSpace.fromRowList(
+                    rowList = List(l) { List(k) { one } },
+                    colCount = k
+                )
+                val zeroCols = matrixSpace.fromRowMap(emptyMap(), k, 0)
+                val multiplied = shouldNotThrowAny {
+                    mat * zeroCols
+                }
+                multiplied.rowCount shouldBe l
+                multiplied.colCount shouldBe 0
+                multiplied.isZero().shouldBeTrue()
+            }
             "(k×0-matrix) * (0-dim vector) should be a zero numVector of dim k" {
                 val k = 3
                 val mat = matrixSpace.fromRowMap(emptyMap(), k, 0)
@@ -213,9 +238,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
                 multiplied.dim shouldBe k
                 multiplied.isZero().shouldBeTrue()
-                for (i in 0 until k) {
-                    multiplied[i].isZero().shouldBeTrue()
-                }
             }
             "(0×k-matrix) * (k-dim vector) should be a numVector of dim 0" {
                 val k = 3

@@ -13,7 +13,7 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegree(50, 0).main()
+        return CohomologyOfFreeLoopSpaceWithMultiDegree(50).main()
     }
 
     @Benchmark

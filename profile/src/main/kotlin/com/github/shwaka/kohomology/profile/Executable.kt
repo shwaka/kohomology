@@ -48,8 +48,7 @@ class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
 }
 
 class CohomologyOfFreeLoopSpaceWithMultiDegree(
-    val degreeLimitForConstantTerm: Int,
-    val degreeLimitForLinearTerm: Int
+    val degreeLimit: Int,
 ) : Executable() {
     override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
     override fun mainFun(): String {
@@ -70,18 +69,8 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree(
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
         var result = ""
-        for (degree in 0 until this.degreeLimitForConstantTerm) {
-            result += freeLoopSpace.cohomology[degree].toString() + "\n"
-        }
-        degreeMonoid.context.run {
-            for (i in 1 until this@CohomologyOfFreeLoopSpaceWithMultiDegree.degreeLimitForLinearTerm) {
-                val degree = i * (2 * n - 1)
-                result += freeLoopSpace.cohomology[degree].toString() + "\n"
-            }
-            for (i in 0 until this@CohomologyOfFreeLoopSpaceWithMultiDegree.degreeLimitForConstantTerm) {
-                val degree = 2 * n + i * (2 * n - 1)
-                result += freeLoopSpace.cohomology[degree].toString() + "\n"
-            }
+        for (degree in 0 until this.degreeLimit) {
+            result += freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).toString() + "\n"
         }
         return result
     }

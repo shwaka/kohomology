@@ -332,37 +332,12 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
     }
 
-    override fun listAll(degree: D): List<Monomial<D, I>> {
-        if (!this.indeterminateList.isAllowedDegree(degree))
-            return emptyList()
-        return this.listAllInternal(degree, 0)
+    private val monomialListGenerator by lazy {
+        MonomialListGenerator(this.degreeGroup, this.indeterminateList, this.unit)
     }
 
-    // (degree: D, index: Int) -> List<Monomial<D, I>>
-    private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
-
-    private fun listAllInternal(degree: D, index: Int): List<Monomial<D, I>> {
-        if (index < 0 || index > this.indeterminateList.size)
-            throw Exception("This can't happen! (illegal index: $index)")
-        if (index == this.indeterminateList.size) {
-            return if (degree.isZero())
-                listOf(this.unit)
-            else
-                emptyList()
-        }
-        val cacheKey = Pair(degree, index)
-        this.cache[cacheKey]?.let { return it }
-        // Since 0 <= index < this.indeterminateList.size,
-        // we have 0 < this.indeterminateList.size
-        val newDegree = this.degreeGroup.context.run { degree - this@FreeMonoid.indeterminateList[index].degree }
-        val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
-            this.listAllInternal(newDegree, index)
-                .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
-        } else emptyList()
-        val listWithZeroAtIndex = this.listAllInternal(degree, index + 1)
-        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
-        this.cache[cacheKey] = result
-        return result
+    override fun listAll(degree: D): List<Monomial<D, I>> {
+        return this.monomialListGenerator.listAll(degree)
     }
 
     private fun separate(monomial: Monomial<D, I>, index: Int): MonomialSeparation<D, I>? {
@@ -415,5 +390,44 @@ data class MonomialSeparation<D : Degree, I : IndeterminateName>(
     init {
         if (separatedExponent <= 0)
             throw Exception("separatedExponent must be positive")
+    }
+}
+
+private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
+    val degreeGroup: AugmentedDegreeGroup<D>,
+    val indeterminateList: IndeterminateList<D, I>,
+    val unit: Monomial<D, I>,
+) {
+    // (degree: D, index: Int) -> List<Monomial<D, I>>
+    private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
+
+    fun listAll(degree: D): List<Monomial<D, I>> {
+        if (!this.indeterminateList.isAllowedDegree(degree))
+            return emptyList()
+        return this.listAllInternal(degree, 0)
+    }
+
+    private fun listAllInternal(degree: D, index: Int): List<Monomial<D, I>> {
+        if (index < 0 || index > this.indeterminateList.size)
+            throw Exception("This can't happen! (illegal index: $index)")
+        if (index == this.indeterminateList.size) {
+            return if (degree.isZero())
+                listOf(this.unit)
+            else
+                emptyList()
+        }
+        val cacheKey = Pair(degree, index)
+        this.cache[cacheKey]?.let { return it }
+        // Since 0 <= index < this.indeterminateList.size,
+        // we have 0 < this.indeterminateList.size
+        val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGenerator.indeterminateList[index].degree }
+        val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
+            this.listAllInternal(newDegree, index)
+                .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
+        } else emptyList()
+        val listWithZeroAtIndex = this.listAllInternal(degree, index + 1)
+        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
+        this.cache[cacheKey] = result
+        return result
     }
 }

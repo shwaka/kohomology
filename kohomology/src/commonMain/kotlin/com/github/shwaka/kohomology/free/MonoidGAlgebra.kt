@@ -23,7 +23,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     private val logger = KotlinLogging.logger {}
 
     private fun getBasisNames(degree: D): List<E> {
-        return this.monoid.listAll(degree)
+        return this.monoid.listElements(degree)
     }
 
     fun getVectorSpace(degree: D): VectorSpace<E, S, V> {

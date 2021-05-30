@@ -336,8 +336,8 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         MonomialListGenerator(this.degreeGroup, this.indeterminateList, this.unit)
     }
 
-    override fun listAll(degree: D): List<Monomial<D, I>> {
-        return this.monomialListGenerator.listAll(degree)
+    override fun listElements(degree: D): List<Monomial<D, I>> {
+        return this.monomialListGenerator.listMonomials(degree)
     }
 
     private fun separate(monomial: Monomial<D, I>, index: Int): MonomialSeparation<D, I>? {
@@ -401,13 +401,13 @@ private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
     // (degree: D, index: Int) -> List<Monomial<D, I>>
     private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
 
-    fun listAll(degree: D): List<Monomial<D, I>> {
+    fun listMonomials(degree: D): List<Monomial<D, I>> {
         if (!this.indeterminateList.isAllowedDegree(degree))
             return emptyList()
-        return this.listAllInternal(degree, 0)
+        return this.listMonomialsInternal(degree, 0)
     }
 
-    private fun listAllInternal(degree: D, index: Int): List<Monomial<D, I>> {
+    private fun listMonomialsInternal(degree: D, index: Int): List<Monomial<D, I>> {
         if (index < 0 || index > this.indeterminateList.size)
             throw Exception("This can't happen! (illegal index: $index)")
         if (index == this.indeterminateList.size) {
@@ -422,10 +422,10 @@ private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
         // we have 0 < this.indeterminateList.size
         val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGenerator.indeterminateList[index].degree }
         val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
-            this.listAllInternal(newDegree, index)
+            this.listMonomialsInternal(newDegree, index)
                 .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
         } else emptyList()
-        val listWithZeroAtIndex = this.listAllInternal(degree, index + 1)
+        val listWithZeroAtIndex = this.listMonomialsInternal(degree, index + 1)
         val result = listWithNonZeroAtIndex + listWithZeroAtIndex
         this.cache[cacheKey] = result
         return result

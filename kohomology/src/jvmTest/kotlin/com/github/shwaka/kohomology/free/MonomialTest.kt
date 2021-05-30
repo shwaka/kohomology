@@ -46,7 +46,7 @@ class MonomialTest : FreeSpec({
         )
         val monoid = FreeMonoid(indeterminateList)
         shouldNotThrowAny {
-            monoid.listAll(0)
+            monoid.listElements(0)
         }
     }
 
@@ -58,7 +58,7 @@ class MonomialTest : FreeSpec({
         )
         val monoid = FreeMonoid(indeterminateList)
         shouldNotThrowAny {
-            monoid.listAll(0)
+            monoid.listElements(0)
         }
     }
 
@@ -70,7 +70,7 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 0), Pair(2, 2), Pair(3, 0), Pair(4, 3)))
         checkAll(gen) { (degree, size) ->
-            monoid.listAll(degree).size shouldBe size
+            monoid.listElements(degree).size shouldBe size
         }
     }
 
@@ -82,7 +82,7 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 0), Pair(-2, 2), Pair(-3, 0), Pair(-4, 3)))
         checkAll(gen) { (degree, size) ->
-            monoid.listAll(degree).size shouldBe size
+            monoid.listElements(degree).size shouldBe size
         }
     }
 
@@ -94,7 +94,7 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 2), Pair(2, 1), Pair(3, 0), Pair(4, 0)))
         checkAll(gen) { (degree, size) ->
-            monoid.listAll(degree).size shouldBe size
+            monoid.listElements(degree).size shouldBe size
         }
     }
 
@@ -106,7 +106,7 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 2), Pair(-2, 1), Pair(-3, 0), Pair(-4, 0)))
         checkAll(gen) { (degree, size) ->
-            monoid.listAll(degree).size shouldBe size
+            monoid.listElements(degree).size shouldBe size
         }
     }
 
@@ -118,7 +118,7 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         val gen = exhaustive(listOf(0, 1, 2, 3, 4))
         checkAll(gen) { degree ->
-            monoid.listAll(degree).size shouldBe 1
+            monoid.listElements(degree).size shouldBe 1
         }
     }
 
@@ -129,7 +129,7 @@ class MonomialTest : FreeSpec({
         )
         val monoid = FreeMonoid(indeterminateList)
         checkAll(Arb.negativeInts()) { degree ->
-            monoid.listAll(degree).isEmpty().shouldBeTrue()
+            monoid.listElements(degree).isEmpty().shouldBeTrue()
         }
     }
 
@@ -140,7 +140,7 @@ class MonomialTest : FreeSpec({
         )
         val monoid = FreeMonoid(indeterminateList)
         checkAll(Arb.positiveInts()) { degree ->
-            monoid.listAll(degree).isEmpty().shouldBeTrue()
+            monoid.listElements(degree).isEmpty().shouldBeTrue()
         }
     }
 

@@ -29,8 +29,8 @@ interface Monoid<D : Degree, E : MonoidElement<D>> {
     val unit: E
     val degreeGroup: DegreeGroup<D>
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
-    fun listAll(degree: D): List<E>
-    fun listAll(degree: Int): List<E> = this.listAll(this.degreeGroup.fromInt(degree))
+    fun listElements(degree: D): List<E>
+    fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
 }
 
 data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
@@ -73,7 +73,7 @@ class MonoidFromList<T, D : Degree>(
         return this.multiplicationTable[index1][index2]
     }
 
-    override fun listAll(degree: D): List<SimpleMonoidElement<T, D>> {
+    override fun listElements(degree: D): List<SimpleMonoidElement<T, D>> {
         return this.elements.filter { it.degree == degree }
     }
 }

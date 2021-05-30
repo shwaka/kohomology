@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
-import com.github.shwaka.kohomology.dg.degree.LinearDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -47,16 +47,16 @@ class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
     }
 }
 
-class CohomologyOfFreeLoopSpaceWithLinearDegree(
+class CohomologyOfFreeLoopSpaceWithMultiDegree(
     val degreeLimitForConstantTerm: Int,
     val degreeLimitForLinearTerm: Int
 ) : Executable() {
-    override val description: String = "cohomology of free loop space of 2n-sphere (with LinearDegree)"
+    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
     override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
         )
-        val degreeMonoid = LinearDegreeGroup(degreeIndeterminateList)
+        val degreeMonoid = MultiDegreeGroup(degreeIndeterminateList)
         val (n) = degreeMonoid.generatorList
         val indeterminateList = degreeMonoid.context.run {
             listOf(
@@ -74,11 +74,11 @@ class CohomologyOfFreeLoopSpaceWithLinearDegree(
             result += freeLoopSpace.cohomology[degree].toString() + "\n"
         }
         degreeMonoid.context.run {
-            for (i in 1 until this@CohomologyOfFreeLoopSpaceWithLinearDegree.degreeLimitForLinearTerm) {
+            for (i in 1 until this@CohomologyOfFreeLoopSpaceWithMultiDegree.degreeLimitForLinearTerm) {
                 val degree = i * (2 * n - 1)
                 result += freeLoopSpace.cohomology[degree].toString() + "\n"
             }
-            for (i in 0 until this@CohomologyOfFreeLoopSpaceWithLinearDegree.degreeLimitForConstantTerm) {
+            for (i in 0 until this@CohomologyOfFreeLoopSpaceWithMultiDegree.degreeLimitForConstantTerm) {
                 val degree = 2 * n + i * (2 * n - 1)
                 result += freeLoopSpace.cohomology[degree].toString() + "\n"
             }

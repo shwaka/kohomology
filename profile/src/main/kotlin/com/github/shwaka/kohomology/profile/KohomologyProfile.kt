@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 fun main() {
     val executableList: List<Executable> = listOf(
         CohomologyOfFreeLoopSpace(150),
-        CohomologyOfFreeLoopSpaceWithLinearDegree(150, 200),
+        CohomologyOfFreeLoopSpaceWithMultiDegree(150, 200),
         IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational),
     )

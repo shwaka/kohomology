@@ -12,8 +12,8 @@ class KohomologyBenchmark {
     }
 
     @Benchmark
-    fun cohomologyOfFreeLoopSpaceWithLinearDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithLinearDegree(50, 0).main()
+    fun cohomologyOfFreeLoopSpaceWithMultiDegree(): String {
+        return CohomologyOfFreeLoopSpaceWithMultiDegree(50, 0).main()
     }
 
     @Benchmark

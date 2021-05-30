@@ -160,12 +160,6 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         }
     }
 
-    fun getBasisForAugmentedDegree(augmentedDegree: Int): List<GVector<D, Monomial<D, I>, S, V>> {
-        return this.degreeGroup.listAllDegrees(augmentedDegree)
-            .map { degree -> this.getBasis(degree) }
-            .flatten()
-    }
-
     fun containsIndeterminate(indeterminateIndex: Int, element: GVector<D, Monomial<D, I>, S, V>): Boolean {
         return element.vector.toBasisMap().any { (monomial, _) ->
             monomial.containsIndeterminate(indeterminateIndex)

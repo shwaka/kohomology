@@ -129,8 +129,17 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
+    private val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {
+    constructor(
+        numVectorSpace: NumVectorSpace<S, V>,
+        degreeGroup: DegreeGroup<D>,
+        name: String,
+        printer: VectorPrinter<B, S, V>,
+        getVectorSpace: (D) -> VectorSpace<B, S, V>,
+    ) : this(numVectorSpace, degreeGroup, name, printer, null, getVectorSpace)
+
     constructor(
         numVectorSpace: NumVectorSpace<S, V>,
         degreeGroup: DegreeGroup<D>,
@@ -229,6 +238,18 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         return this[degree].getBasis().map { vector ->
             this.fromVector(vector, degree)
         }
+    }
+
+    fun getBasisForAugmentedDegree(augmentedDegree: Int): List<GVector<D, B, S, V>> {
+        val listDegreesForAugmentedDegree: (Int) -> List<D> = this.listDegreesForAugmentedDegree
+            ?: throw NotImplementedError(
+                "GVectorSpace.getBasisForAugmentedDegree() cannot be called" +
+                    "since the property listDegreesForAugmentedDegree is null"
+            )
+        // ↓local 変数に代入しておかないと、listDegreesForAugmentedDegree が nullable になってしまう
+        return listDegreesForAugmentedDegree(augmentedDegree)
+            .map { degree -> this.getBasis(degree) }
+            .flatten()
     }
 
     fun getZero(degree: D): GVector<D, B, S, V> {

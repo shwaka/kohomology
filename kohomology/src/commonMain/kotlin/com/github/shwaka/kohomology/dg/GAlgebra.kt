@@ -69,8 +69,9 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
     val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
-    printer: VectorPrinter<B, S, V> = DefaultVectorPrinter()
-) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
+    printer: VectorPrinter<B, S, V> = DefaultVectorPrinter(),
+    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, listDegreesForAugmentedDegree, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
     override val context by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra

@@ -1,10 +1,14 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeUnique
+import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.negativeInts
@@ -122,7 +126,7 @@ class MonomialTest : FreeSpec({
         }
     }
 
-    "listAll should return the empty list for a negative degree if the generators are positive" {
+    "listElements() should return the empty list for a negative degree if the generators are positive" {
         val indeterminateList = listOf(
             Indeterminate("x", 1),
             Indeterminate("y", 2),
@@ -133,7 +137,7 @@ class MonomialTest : FreeSpec({
         }
     }
 
-    "listAll should return the empty list for a positive degree if the generators are negative" {
+    "listElements() should return the empty list for a positive degree if the generators are negative" {
         val indeterminateList = listOf(
             Indeterminate("x", -1),
             Indeterminate("y", -2),
@@ -141,6 +145,42 @@ class MonomialTest : FreeSpec({
         val monoid = FreeMonoid(indeterminateList)
         checkAll(Arb.positiveInts()) { degree ->
             monoid.listElements(degree).isEmpty().shouldBeTrue()
+        }
+    }
+
+    "listDegreesForAugmentedDegree() test" - {
+        val degreeGroup = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1)
+            )
+        )
+        val (n) = degreeGroup.generatorList
+        degreeGroup.context.run {
+            val indeterminateList = listOf(
+                Indeterminate("a", 2 * n),
+                Indeterminate("b", 2 * n),
+                Indeterminate("x", 4 * n - 1),
+                Indeterminate("y", 4 * n - 1),
+                Indeterminate("z", 4 * n - 1),
+                Indeterminate("w", 4 * n - 1),
+            )
+            val monoid = FreeMonoid(degreeGroup, indeterminateList)
+
+            "listDegreesForAugmentedDegree() should return a list with distinct elements" {
+                for (degree in 0 until 20) {
+                    monoid.listDegreesForAugmentedDegree(degree).shouldBeUnique()
+                }
+            }
+            "check results of listDegreesForAugmentedDegree() for specific degrees" {
+                monoid.listDegreesForAugmentedDegree(2) shouldBe listOf(2 * n)
+                monoid.listDegreesForAugmentedDegree(4) shouldBe listOf(4 * n)
+                monoid.listDegreesForAugmentedDegree(6).shouldContainExactlyInAnyOrder(
+                    listOf(8 * n - 2, 6 * n)
+                )
+                monoid.listDegreesForAugmentedDegree(12).shouldContainExactlyInAnyOrder(
+                    listOf(16 * n - 4, 14 * n - 2, 12 * n)
+                )
+            }
         }
     }
 

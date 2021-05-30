@@ -80,6 +80,7 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,
             cohomologyUnit,
+            listDegreesForAugmentedDegree = this.gAlgebra.listDegreesForAugmentedDegree,
         )
     }
 

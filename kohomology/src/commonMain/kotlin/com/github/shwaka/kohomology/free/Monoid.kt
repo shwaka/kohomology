@@ -31,6 +31,9 @@ interface Monoid<D : Degree, E : MonoidElement<D>> {
     fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
     fun listElements(degree: D): List<E>
     fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
+    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+        throw NotImplementedError("Monoid.listDegreesForAugmentedDegree() is not implemented for a general monoid")
+    }
 }
 
 data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {

@@ -352,7 +352,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         MonomialListGenerator(IntDegreeGroup, indeterminateListWithAugDeg, unit)
     }
 
-    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+    override fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
         val elementListWithAugDeg: List<Monomial<IntDegree, I>> =
             this.monomialListGeneratorWithAugmentedDegree.listMonomials(IntDegree(augmentedDegree))
         val elementList: List<Monomial<D, I>> =

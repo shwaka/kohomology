@@ -66,6 +66,10 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         return BilinearMap(source1, source2, target, this.matrixSpace, valueList)
     }
 
+    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+        return this.monoid.listDegreesForAugmentedDegree(augmentedDegree)
+    }
+
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
@@ -77,7 +81,8 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
     factory.name,
     factory::getVectorSpace,
     factory::getMultiplication,
-    factory.unitVector
+    factory.unitVector,
+    listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree
 ) {
     val monoid: Mon = factory.monoid
 

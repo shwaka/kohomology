@@ -80,7 +80,8 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
             this.matrixSpace.numVectorSpace,
             this.gVectorSpace.degreeGroup,
             this.cohomologyName,
-            this::getCohomologyVectorSpace
+            this.gVectorSpace.listDegreesForAugmentedDegree,
+            this::getCohomologyVectorSpace,
         )
     }
 

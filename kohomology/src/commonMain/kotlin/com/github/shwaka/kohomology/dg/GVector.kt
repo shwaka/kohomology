@@ -129,7 +129,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
     var printer: VectorPrinter<B, S, V>,
-    private val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+    val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {
     constructor(
@@ -139,6 +139,14 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         printer: VectorPrinter<B, S, V>,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
     ) : this(numVectorSpace, degreeGroup, name, printer, null, getVectorSpace)
+
+    constructor(
+        numVectorSpace: NumVectorSpace<S, V>,
+        degreeGroup: DegreeGroup<D>,
+        name: String,
+        listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+        getVectorSpace: (D) -> VectorSpace<B, S, V>,
+    ) : this(numVectorSpace, degreeGroup, name, DefaultVectorPrinter(), listDegreesForAugmentedDegree, getVectorSpace)
 
     constructor(
         numVectorSpace: NumVectorSpace<S, V>,

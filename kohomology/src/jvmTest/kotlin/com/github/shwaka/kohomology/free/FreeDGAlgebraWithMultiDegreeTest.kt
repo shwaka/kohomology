@@ -54,8 +54,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
                 }
             }
         }
-        "getBasisForAugmentedDegree test".config(enabled = false) {
-            // This test fails due to the negative sign in '2n - 1'
+        "getBasisForAugmentedDegree test" {
             val intIndeterminateList = indeterminateList.map { indeterminate ->
                 Indeterminate(
                     indeterminate.name,
@@ -67,10 +66,16 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
             }
             val intFreeLoopSpace = FreeLoopSpace(intSphere)
             for (degree in 0 until 20) {
+                // basis for DGA
                 sphere.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
                     intSphere.gAlgebra.getBasis(degree).size
                 freeLoopSpace.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
                     intFreeLoopSpace.gAlgebra.getBasis(degree).size
+                // basis for cohomology
+                sphere.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
+                    intSphere.cohomology.getBasis(degree).size
+                freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
+                    intFreeLoopSpace.cohomology.getBasis(degree).size
             }
         }
     }

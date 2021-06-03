@@ -17,6 +17,7 @@ interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
     fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
     fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
+    fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
 }
 
 open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -34,6 +35,9 @@ open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     }
     fun GVector<D, SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<D, B, S, V> {
         return this@DGVectorContext.cocycleRepresentativeOf(this)
+    }
+    fun GVector<D, B, S, V>.boundingCochain(): GVector<D, B, S, V>? {
+        return this@DGVectorContext.boundingCochainOf(this)
     }
 }
 
@@ -99,6 +103,10 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cohomologyClass.degree)
         val cocycle = cohomologyOfTheDegree.section(vector)
         return this.gVectorSpace.fromVector(cocycle, cohomologyClass.degree)
+    }
+
+    override fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
+        return this.differential.findPreimage(cocycle)
     }
 
     override fun toString(): String {

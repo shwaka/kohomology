@@ -17,6 +17,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
@@ -103,6 +104,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 shouldNotThrowAny { cohomologyClassOf(x) }
                 shouldNotThrowAny { cohomologyClassOf(x.pow(2)) }
                 shouldThrow<IllegalArgumentException> { cohomologyClassOf(y) }
+            }
+            "check bounding cochain" {
+                x.boundingCochain().shouldBeNull()
+                val a = x.pow(2).boundingCochain() ?: throw Exception("x^2 should be a coboundary")
+                d(a) shouldBe x.pow(2)
             }
         }
     }

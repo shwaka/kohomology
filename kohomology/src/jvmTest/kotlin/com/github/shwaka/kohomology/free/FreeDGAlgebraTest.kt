@@ -112,7 +112,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             }
             "differential.kernelBasis(sphereDim * n) should be listOf(x^n)" {
                 for (n in 0 until 10) {
-                    freeDGAlgebra.differential.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
+                    d.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
                 }
             }
         }

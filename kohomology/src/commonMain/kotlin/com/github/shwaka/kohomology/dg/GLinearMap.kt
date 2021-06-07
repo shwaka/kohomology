@@ -75,6 +75,16 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         }
     }
 
+    fun kernelBasis(degree: D): List<GVector<D, BS, S, V>> {
+        return this[degree].kernelBasis().map { vector ->
+            this.source.fromVector(vector, degree)
+        }
+    }
+
+    fun kernelBasis(degree: Int): List<GVector<D, BS, S, V>> {
+        return this.kernelBasis(this.degreeGroup.fromInt(degree))
+    }
+
     override fun toString(): String {
         return this.name
     }

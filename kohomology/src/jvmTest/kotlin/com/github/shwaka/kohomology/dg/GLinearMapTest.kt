@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -57,6 +58,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 val nonImage = w0 + w1 + w2
                 val preimage = gLinearMap.findPreimage(nonImage)
                 preimage shouldBe null
+            }
+            "kernelBasis() should return an empty list" {
+                for (degree in 0 until 20) {
+                    gLinearMap.kernelBasis(degree).shouldBeEmpty()
+                }
             }
         }
     }

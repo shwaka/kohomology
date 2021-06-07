@@ -110,6 +110,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 val a = x.pow(2).boundingCochain() ?: throw Exception("x^2 should be a coboundary")
                 d(a) shouldBe x.pow(2)
             }
+            "differential.kernelBasis(sphereDim * n) should be listOf(x^n)" {
+                for (n in 0 until 10) {
+                    freeDGAlgebra.differential.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
+                }
+            }
         }
     }
 }

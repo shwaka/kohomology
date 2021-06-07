@@ -63,7 +63,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
     }
 
     operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
-        return this.get(this.degreeGroup.fromInt(degree))
+        return this[this.degreeGroup.fromInt(degree)]
     }
 
     fun findPreimage(gVector: GVector<D, BT, S, V>): GVector<D, BS, S, V>? {

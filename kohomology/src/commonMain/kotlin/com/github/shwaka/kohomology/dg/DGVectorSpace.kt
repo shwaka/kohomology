@@ -27,9 +27,8 @@ open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     dgVectorOperations: DGVectorOperations<D, B, S, V, M>
 ) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
     DGVectorOperations<D, B, S, V, M> by dgVectorOperations {
-    fun d(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this.differential(gVector)
-    }
+    // use 'by lazy' to avoid 'leaking this in non-final property'
+    val d by lazy { this.differential }
     fun GVector<D, B, S, V>.cohomologyClass(): GVector<D, SubQuotBasis<B, S, V>, S, V> {
         return this@DGVectorContext.cohomologyClassOf(this)
     }

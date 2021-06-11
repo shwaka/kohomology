@@ -76,6 +76,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                     freeLoopSpace.cohomology.isBasis(basis, degree).shouldBeTrue()
                 }
             }
+            "check suspension" {
+                val s = freeLoopSpace.suspension
+                s(x) shouldBe sx
+                s(y) shouldBe sy
+                s(sx).isZero().shouldBeTrue()
+                s(sy).isZero().shouldBeTrue()
+                s(x.pow(2)) shouldBe (2 * x * sx)
+                s(x * sx).isZero().shouldBeTrue()
+                s(x * y) shouldBe (sx * y + x * sy)
+            }
         }
     }
 }

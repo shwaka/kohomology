@@ -23,6 +23,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.maps.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -397,7 +398,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             "kernel of zero matrix should have the standard basis" {
                 val dim = 5
                 val mat = matrixSpace.getZero(dim)
-                val expected = (0 until 5).map { numVectorSpace.getOneAtIndex(it, 5) }
+                val expected = (0 until dim).map { numVectorSpace.getOneAtIndex(it, dim) }
                 mat.computeKernelBasis() shouldBe expected
             }
             "compute kernel of ((1, 1), (2, 2))" {
@@ -433,6 +434,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 } else {
                     kernelBasis.size shouldBe 0
                 }
+            }
+            "image of zero matrix should be zero" {
+                val dim = 5
+                val mat = matrixSpace.getZero(dim)
+                mat.computeImageBasis().shouldBeEmpty()
+            }
+            "image of the identity matrix should have the standard basis" {
+                val dim = 5
+                val mat = matrixSpace.getId(dim)
+                val expected = (0 until dim).map { numVectorSpace.getOneAtIndex(it, dim) }
+                mat.computeImageBasis() shouldBe expected
+            }
+            "compute image of ((1, 1), (2, 2))" {
+                val mat = listOf(
+                    listOf(one, one),
+                    listOf(two, two)
+                ).toMatrix()
+                val imageBasis = mat.computeImageBasis()
+                imageBasis.size shouldBe 1
+                val expected = listOf(
+                    listOf(one, two).toNumVector()
+                )
+                imageBasis shouldBe expected
             }
             "join of ((1, 2), (3, 4)) and ((-1, -2), (-3, -4)) should be ((1, 2, -1, -2), (3, 4, -3, -4))" {
                 val mat1 = listOf(

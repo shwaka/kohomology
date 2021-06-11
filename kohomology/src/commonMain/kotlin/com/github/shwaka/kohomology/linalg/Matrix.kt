@@ -163,6 +163,15 @@ class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         return trivialVectors + vectorsForPivots
     }
 
+    fun M.computeImageBasis(): List<V> {
+        // val rowEchelonForm = this.rowEchelonForm
+        val pivots = this.rowEchelonForm.pivots
+        val numVectorList = this.toNumVectorList()
+        return pivots.map { pivot ->
+            numVectorList[pivot]
+        }
+    }
+
     fun M.findPreimage(numVector: V): V? {
         if (this.rowCount != numVector.dim)
             throw InvalidSizeException("Cannot consider preimage since numVector.dim != matrix.colCount")

@@ -85,6 +85,17 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         return this.kernelBasis(this.degreeGroup.fromInt(degree))
     }
 
+    fun imageBasis(degree: D): List<GVector<D, BT, S, V>> {
+        val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
+        return this[sourceDegree].imageBasis().map { vector ->
+            this.target.fromVector(vector, degree)
+        }
+    }
+
+    fun imageBasis(degree: Int): List<GVector<D, BT, S, V>> {
+        return this.imageBasis(this.degreeGroup.fromInt(degree))
+    }
+
     override fun toString(): String {
         return this.name
     }

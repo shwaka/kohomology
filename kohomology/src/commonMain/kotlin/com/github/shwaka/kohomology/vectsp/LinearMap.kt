@@ -58,6 +58,11 @@ class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M 
         return numVectorList.map { this.source.fromNumVector(it) }
     }
 
+    fun imageBasis(): List<Vector<BT, S, V>> {
+        val numVectorList = this.matrixSpace.context.run { this@LinearMap.matrix.computeImageBasis() }
+        return numVectorList.map { this.target.fromNumVector(it) }
+    }
+
     fun imageGenerator(): List<Vector<BT, S, V>> {
         val numVectorList = this.matrix.toNumVectorList()
         return numVectorList.map { this.target.fromNumVector(it) }

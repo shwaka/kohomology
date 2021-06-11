@@ -64,6 +64,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                     gLinearMap.kernelBasis(degree).shouldBeEmpty()
                 }
             }
+            "imageBasis(n) should return a list of length (n - 1) with elements of degree n" {
+                gLinearMap.imageBasis(0).shouldBeEmpty()
+                for (degree in 1 until 20) {
+                    val imageBasis = gLinearMap.imageBasis(degree)
+                    imageBasis.size shouldBe (degree - 1)
+                    for (gVector in imageBasis) {
+                        val gVectorDegree: IntDegree = gVector.degree
+                        gVectorDegree shouldBe IntDegree(degree)
+                    }
+                }
+            }
         }
     }
 }

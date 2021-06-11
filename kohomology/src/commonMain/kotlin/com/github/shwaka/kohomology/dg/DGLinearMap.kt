@@ -147,3 +147,33 @@ class DGAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : N
         }
     }
 }
+
+class DGDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val source: DGAlgebra<D, B, S, V, M>,
+    override val gLinearMap: Derivation<D, B, S, V, M>,
+) : DGLinearMap<D, B, B, S, V, M>(source, source, gLinearMap) {
+    override val target: DGAlgebra<D, B, S, V, M> = source
+    companion object {
+        operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: DGAlgebra<D, B, S, V, M>,
+            degree: D,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getLinearMap: (D) -> LinearMap<B, B, S, V, M>
+        ): DGDerivation<D, B, S, V, M> {
+            val gLinearMap = Derivation(source.gAlgebra, degree, matrixSpace, name, getLinearMap)
+            return DGDerivation(source, gLinearMap)
+        }
+
+        fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+            source: DGAlgebra<D, B, S, V, M>,
+            degree: D,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getGVectors: (D) -> List<GVector<D, B, S, V>>
+        ): DGDerivation<D, B, S, V, M> {
+            val gLinearMap = Derivation.fromGVectors(source.gAlgebra, degree, matrixSpace, name, getGVectors)
+            return DGDerivation(source, gLinearMap)
+        }
+    }
+}

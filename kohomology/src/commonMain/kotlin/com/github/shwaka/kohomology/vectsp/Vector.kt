@@ -40,7 +40,7 @@ class StringBasisName(val name: String, tex: String? = null) : BasisName {
     }
 }
 
-class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) {
+class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) : Printable {
     init {
         if (numVector.dim != vectorSpace.dim)
             throw InvalidSizeException("Dimension of the numerical vector does not match the dimension of the vector space")
@@ -86,30 +86,22 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
     }
 
     override fun toString(): String {
-        return this.vectorSpace.printer.stringify(this)
+        return this.toString(PrintType.PLAIN)
     }
-}
 
-interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
-    fun stringify(vector: Vector<B, S, V>): String
-}
-
-open class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
-    private val beforeSign: String = " ",
-    private val afterSign: String = " ",
-    private val afterCoeff: String = " ",
-    private val coeffToString: (S) -> String = { it.toString() },
-    private val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
-    private val basisToString: (B) -> String = { it.toString() },
-    private val basisComparator: Comparator<B>? = null,
-) : VectorPrinter<B, S, V> {
-    override fun stringify(
-        vector: Vector<B, S, V>,
+    fun print(
+        beforeSign: String = " ",
+        afterSign: String = " ",
+        afterCoeff: String = " ",
+        coeffToString: (S) -> String = { it.toString() },
+        coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
+        basisToString: (B) -> String = { it.toString() },
+        basisComparator: Comparator<B>? = null,
     ): String {
         val basisStringWithCoeff = run {
-            val coeffList = vector.numVector.toList()
+            val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
-            val basisWithCoeff = coeffList.zip(vector.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
+            val basisWithCoeff = coeffList.zip(this.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
             val sortedBasisWithCoeff = if (basisComparator == null) {
                 basisWithCoeff
             } else {
@@ -117,10 +109,7 @@ open class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
             }
             sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, basisToString(basisName)) }
         }
-        val beforeSign = this.beforeSign
-        val afterSign = this.afterSign
-        val afterCoeff = this.afterCoeff
-        return vector.numVector.field.context.run {
+        return this.numVector.field.context.run {
             if (basisStringWithCoeff.isEmpty()) {
                 "0"
             } else {
@@ -144,22 +133,93 @@ open class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
             }
         }
     }
+
+    override fun toString(type: PrintType, config: PrintConfig?): String {
+        return when (type) {
+            PrintType.PLAIN -> this.print()
+            PrintType.TEX -> this.print(
+                coeffToString = { it.toTex() },
+                coeffToStringWithoutSign = { it.toTexWithoutSign() },
+                basisToString = { it.toTex() },
+            )
+        }
+    }
+
+    override fun acceptConfig(config: PrintConfig): Boolean {
+        return false
+    }
 }
 
-class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
-    beforeSign: String = " ",
-    afterSign: String = " ",
-    afterCoeff: String = " ",
-    basisComparator: Comparator<B>? = null,
-) : DefaultVectorPrinter<B, S, V>(
-    beforeSign = beforeSign,
-    afterSign = afterSign,
-    afterCoeff = afterCoeff,
-    coeffToString = { it.toTex() },
-    coeffToStringWithoutSign = { it.toTexWithoutSign() },
-    basisToString = { it.toTex() },
-    basisComparator = basisComparator,
-)
+// interface VectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>> {
+//     fun stringify(vector: Vector<B, S, V>): String
+// }
+//
+// open class DefaultVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
+//     private val beforeSign: String = " ",
+//     private val afterSign: String = " ",
+//     private val afterCoeff: String = " ",
+//     private val coeffToString: (S) -> String = { it.toString() },
+//     private val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
+//     private val basisToString: (B) -> String = { it.toString() },
+//     private val basisComparator: Comparator<B>? = null,
+// ) : VectorPrinter<B, S, V> {
+//     override fun stringify(
+//         vector: Vector<B, S, V>,
+//     ): String {
+//         val basisStringWithCoeff = run {
+//             val coeffList = vector.numVector.toList()
+//             // val basis = vector.vectorSpace.basisNames.map(basisToString)
+//             val basisWithCoeff = coeffList.zip(vector.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
+//             val sortedBasisWithCoeff = if (basisComparator == null) {
+//                 basisWithCoeff
+//             } else {
+//                 basisWithCoeff.sortedWith(compareBy(basisComparator) { it.second })
+//             }
+//             sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, basisToString(basisName)) }
+//         }
+//         val beforeSign = this.beforeSign
+//         val afterSign = this.afterSign
+//         val afterCoeff = this.afterCoeff
+//         return vector.numVector.field.context.run {
+//             if (basisStringWithCoeff.isEmpty()) {
+//                 "0"
+//             } else {
+//                 var result = ""
+//                 basisStringWithCoeff[0].let { (coeff, basisElm) ->
+//                     result += when (val coeffStr = coeffToString(coeff)) {
+//                         "1" -> basisElm
+//                         "-1" -> "-$afterSign$basisElm"
+//                         else -> "$coeffStr$afterCoeff$basisElm"
+//                     }
+//                 }
+//                 result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
+//                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
+//                     val str = when (val coeffStr = coeffToStringWithoutSign(coeff)) {
+//                         "1" -> basisElm
+//                         else -> "$coeffStr$afterCoeff$basisElm"
+//                     }
+//                     "$beforeSign$sign$afterSign$str"
+//                 }
+//                 result
+//             }
+//         }
+//     }
+// }
+//
+// class TexVectorPrinter<B : BasisName, S : Scalar, V : NumVector<S>>(
+//     beforeSign: String = " ",
+//     afterSign: String = " ",
+//     afterCoeff: String = " ",
+//     basisComparator: Comparator<B>? = null,
+// ) : DefaultVectorPrinter<B, S, V>(
+//     beforeSign = beforeSign,
+//     afterSign = afterSign,
+//     afterCoeff = afterCoeff,
+//     coeffToString = { it.toTex() },
+//     coeffToStringWithoutSign = { it.toTexWithoutSign() },
+//     basisToString = { it.toTex() },
+//     basisComparator = basisComparator,
+// )
 
 interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     operator fun contains(vector: Vector<B, S, V>): Boolean
@@ -186,15 +246,13 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
-    private var getPrinter: () -> VectorPrinter<B, S, V> = { DefaultVectorPrinter() }
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
-            getPrinter: () -> VectorPrinter<StringBasisName, S, V> = { DefaultVectorPrinter() }
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getPrinter)
+            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) })
         }
     }
 
@@ -209,9 +267,6 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     private val logger = KotlinLogging.logger {}
 
-    val printer: VectorPrinter<B, S, V>
-        get() = this.getPrinter()
-
     init {
         this.logger.debug { "$this is created" }
     }
@@ -219,14 +274,6 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     private val basisNameToIndex: Map<B, Int> by lazy {
         // cache for indexOf(basisName)
         this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
-    }
-
-    fun setPrinter(printer: VectorPrinter<B, S, V>) {
-        this.getPrinter = { printer }
-    }
-
-    fun setPrinter(getPrinter: () -> VectorPrinter<B, S, V>) {
-        this.getPrinter = getPrinter
     }
 
     override fun contains(vector: Vector<B, S, V>): Boolean {

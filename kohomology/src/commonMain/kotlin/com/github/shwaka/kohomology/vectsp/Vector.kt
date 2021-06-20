@@ -134,7 +134,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
         }
     }
 
-    override fun toString(type: PrintType, config: PrintConfig?): String {
+    override fun toString(type: PrintType): String {
         return when (type) {
             PrintType.PLAIN -> this.print()
             PrintType.TEX -> this.print(
@@ -143,10 +143,6 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
                 basisToString = { it.toTex() },
             )
         }
-    }
-
-    override fun acceptConfig(config: PrintConfig): Boolean {
-        return false
     }
 }
 

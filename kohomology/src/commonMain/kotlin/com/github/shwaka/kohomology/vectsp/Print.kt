@@ -10,10 +10,12 @@ interface Printable {
     fun toString(printType: PrintType): String
 }
 
-class Printer(
+class Printer private constructor(
     private val type: PrintType,
-    private val value: String = "",
+    private val value: String,
 ) {
+    constructor(type: PrintType) : this(type, "")
+
     override fun toString(): String {
         return this.value
     }

@@ -10,6 +10,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -122,9 +124,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
         val freePathSpace = FreePathSpace(freeDGAlgebra)
         val (a1, b1, x1, y1, a2, b2, x2, y2, sa, sb, sx, sy) = freePathSpace.gAlgebra.generatorList
 
-        freePathSpace.gAlgebra.printer = DefaultVectorPrinter(
-            basisComparator = freePathSpace.basisComparator
-        )
         freePathSpace.context.run {
             "sorted printer test" {
                 val alpha = b2.pow(2) + a1 * sx + sa * sb * sy + sx * sy

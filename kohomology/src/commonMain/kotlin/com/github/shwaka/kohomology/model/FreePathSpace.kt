@@ -18,6 +18,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val pathSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
+        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
         val zero = degreeGroup.zero
         val one = degreeGroup.fromInt(1)
@@ -26,7 +27,24 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
                 list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
                 list.map { it.copy(degreeGroup, shift = one) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList, CopiedName.Companion::getPrintConfig)
+        val basisComparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
+            // compare by the total length in shifted generators
+            var comparator: Comparator<Monomial<D, CopiedName<D, I>>> =
+                compareBy { monomial -> (0 until n).map { monomial.exponentList[it + 2 * n] }.sum() }
+            // compare by the exponents in shifted generators
+            for (i in 0 until n)
+                comparator = comparator.thenBy { monomial -> monomial.exponentList[i + 2 * n] }
+            // compare by the exponents in the generators in first component
+            for (i in 0 until n)
+                comparator = comparator.thenBy { monomial -> monomial.exponentList[i] }
+            // compare by the exponents in the generators in second component
+            for (i in 0 until n)
+                comparator = comparator.thenBy { monomial -> monomial.exponentList[i + n] }
+            comparator
+        }
+        FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList) { printType ->
+            CopiedName.getPrintConfig<D, I, S>(printType).copy(basisComparator = basisComparator)
+        }
     }
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
@@ -133,21 +151,7 @@ class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
         )
     }
 
-    val basisComparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
-        var comparator: Comparator<Monomial<D, CopiedName<D, I>>> =
-            compareBy { monomial -> this.getShiftedLength(monomial) }
-        for (i in 0 until this.n)
-            comparator = comparator.thenBy { monomial -> monomial.exponentList[i + 2 * this.n] }
-        for (i in 0 until this.n)
-            comparator = comparator.thenBy { monomial -> monomial.exponentList[i] }
-        for (i in 0 until this.n)
-            comparator = comparator.thenBy { monomial -> monomial.exponentList[i + this.n] }
-        comparator
-    }
     private val n: Int by lazy {
         this.factory.freeDGAlgebra.gAlgebra.generatorList.size
-    }
-    private fun getShiftedLength(monomial: Monomial<D, CopiedName<D, I>>): Int {
-        return (0 until this.n).map { monomial.exponentList[it + 2 * this.n] }.sum()
     }
 }

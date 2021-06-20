@@ -11,7 +11,7 @@ interface Printable {
 }
 
 class Printer private constructor(
-    private val type: PrintType,
+    private val printType: PrintType,
     private val value: String,
 ) {
     constructor(type: PrintType) : this(type, "")
@@ -21,11 +21,11 @@ class Printer private constructor(
     }
     operator fun plus(str: String): Printer {
         val value = this.value + str
-        return Printer(this.type, value)
+        return Printer(this.printType, value)
     }
     operator fun plus(printable: Printable): Printer {
-        val value = this.value + printable.toString(this.type)
-        return Printer(this.type, value)
+        val value = this.value + printable.toString(this.printType)
+        return Printer(this.printType, value)
     }
 }
 

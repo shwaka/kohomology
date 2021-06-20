@@ -9,7 +9,9 @@ import com.github.shwaka.kohomology.free.IndeterminateName
 import com.github.shwaka.kohomology.free.Monomial
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
+import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 
 data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
     override fun toString(): String {
@@ -57,20 +59,18 @@ fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
-class TexVectorPrinterForCopiedName<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>>(
-    useBar: Boolean = false,
-    beforeSign: String = " ",
-    afterSign: String = " ",
-    afterCoeff: String = " ",
-    basisComparator: Comparator<MonomialOnCopiedName<D, I>>? = null,
-) : DefaultVectorPrinter<MonomialOnCopiedName<D, I>, S, V>(
-    beforeSign = beforeSign,
-    afterSign = afterSign,
-    afterCoeff = afterCoeff,
-    coeffToString = { it.toTex() },
-    coeffToStringWithoutSign = { it.toTexWithoutSign() },
-    basisToString = { monomial ->
-        monomial.toTex { copiedName -> copiedName.toTex(useBar) }
-    },
-    basisComparator = basisComparator
-)
+fun <D : Degree, I : IndeterminateName, S : Scalar> printConfigForCopiedName(
+    printType: PrintType,
+    useBar: Boolean
+): PrintConfig<MonomialOnCopiedName<D, I>, S> {
+    return when (printType) {
+        PrintType.PLAIN -> PrintConfig()
+        PrintType.TEX -> PrintConfig(
+            coeffToString = { it.toTex() },
+            coeffToStringWithoutSign = { it.toTexWithoutSign() },
+            basisToString = { monomial ->
+                monomial.toTex { copiedName -> copiedName.toTex(useBar) }
+            },
+        )
+    }
+}

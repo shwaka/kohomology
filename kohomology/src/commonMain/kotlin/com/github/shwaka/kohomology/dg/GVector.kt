@@ -14,10 +14,11 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.Printable
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
 
@@ -37,7 +38,7 @@ open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>,
     val degree: D,
     val gVectorSpace: GVectorSpace<D, B, S, V>
-) : GVectorOrZero<D, B, S, V>() {
+) : GVectorOrZero<D, B, S, V>(), Printable {
     override fun isZero(): Boolean {
         return this.vector.isZero()
     }
@@ -63,7 +64,13 @@ open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
         return result
     }
 
-    override fun toString(): String = this.gVectorSpace.printer.stringify(this.vector)
+    override fun toString(): String {
+        return this.toString(PrintType.PLAIN)
+    }
+
+    override fun toString(printType: PrintType): String {
+        return this.vector.print(this.gVectorSpace.getPrintConfig(printType))
+    }
 }
 
 interface GVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
@@ -128,7 +135,6 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     val numVectorSpace: NumVectorSpace<S, V>,
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
-    var printer: VectorPrinter<B, S, V>,
     val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {
@@ -136,24 +142,8 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         numVectorSpace: NumVectorSpace<S, V>,
         degreeGroup: DegreeGroup<D>,
         name: String,
-        printer: VectorPrinter<B, S, V>,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, printer, null, getVectorSpace)
-
-    constructor(
-        numVectorSpace: NumVectorSpace<S, V>,
-        degreeGroup: DegreeGroup<D>,
-        name: String,
-        listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
-        getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, DefaultVectorPrinter(), listDegreesForAugmentedDegree, getVectorSpace)
-
-    constructor(
-        numVectorSpace: NumVectorSpace<S, V>,
-        degreeGroup: DegreeGroup<D>,
-        name: String,
-        getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, DefaultVectorPrinter(), getVectorSpace)
+    ) : this(numVectorSpace, degreeGroup, name, null, getVectorSpace)
 
     val field = this.numVectorSpace.field
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
@@ -208,7 +198,6 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         // if cache does not exist
         this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val vectorSpace = this.getVectorSpace(degree)
-        vectorSpace.setPrinter { this.printer } // Since this.printer is 'var', its evaluation should be delayed
         this.cache[degree] = vectorSpace
         return vectorSpace
     }
@@ -348,6 +337,10 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
             this[degree].getId(matrixSpace)
         }
+    }
+
+    open fun getPrintConfig(printType: PrintType): PrintConfig<B, S> {
+        return PrintConfig.default(printType)
     }
 
     override fun toString(): String {

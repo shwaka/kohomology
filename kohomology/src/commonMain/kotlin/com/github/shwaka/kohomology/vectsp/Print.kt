@@ -7,7 +7,7 @@ enum class PrintType {
 }
 
 interface Printable {
-    fun toString(type: PrintType): String
+    fun toString(printType: PrintType): String
 }
 
 class Printer(
@@ -35,4 +35,19 @@ data class PrintConfig<B : BasisName, S : Scalar>(
     val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
     val basisToString: (B) -> String = { it.toString() },
     val basisComparator: Comparator<B>? = null,
-)
+) {
+    companion object {
+        fun <B : BasisName, S : Scalar> plain(): PrintConfig<B, S> = PrintConfig()
+        fun <B : BasisName, S : Scalar> tex(): PrintConfig<B, S> = PrintConfig(
+            coeffToString = { it.toTex() },
+            coeffToStringWithoutSign = { it.toTexWithoutSign() },
+            basisToString = { it.toTex() },
+        )
+        fun <B : BasisName, S : Scalar> default(printType: PrintType): PrintConfig<B, S> {
+            return when (printType) {
+                PrintType.PLAIN -> PrintConfig.plain()
+                PrintType.TEX -> PrintConfig.tex()
+            }
+        }
+    }
+}

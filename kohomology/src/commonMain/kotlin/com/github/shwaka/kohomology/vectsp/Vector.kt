@@ -89,7 +89,11 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
         return this.toString(PrintType.PLAIN)
     }
 
-    private fun print(printConfig: PrintConfig<B, S>): String {
+    override fun toString(printType: PrintType): String {
+        return this.print(this.vectorSpace.getPrintConfig(printType))
+    }
+
+    fun print(printConfig: PrintConfig<B, S>): String {
         val basisStringWithCoeff = run {
             val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
@@ -124,10 +128,6 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
                 result
             }
         }
-    }
-
-    override fun toString(printType: PrintType): String {
-        return this.print(this.vectorSpace.getPrintConfig(printType))
     }
 }
 
@@ -284,14 +284,7 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     open fun getPrintConfig(printType: PrintType): PrintConfig<B, S> {
-        return when (printType) {
-            PrintType.PLAIN -> PrintConfig()
-            PrintType.TEX -> PrintConfig(
-                coeffToString = { it.toTex() },
-                coeffToStringWithoutSign = { it.toTexWithoutSign() },
-                basisToString = { it.toTex() },
-            )
-        }
+        return PrintConfig.default(printType)
     }
 
     override fun equals(other: Any?): Boolean {

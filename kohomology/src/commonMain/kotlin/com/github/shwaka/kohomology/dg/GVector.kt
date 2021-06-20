@@ -146,6 +146,14 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
     ) : this(numVectorSpace, degreeGroup, name, PrintConfig.Companion::default, null, getVectorSpace)
 
+    constructor(
+        numVectorSpace: NumVectorSpace<S, V>,
+        degreeGroup: DegreeGroup<D>,
+        name: String,
+        listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+        getVectorSpace: (D) -> VectorSpace<B, S, V>,
+    ) : this(numVectorSpace, degreeGroup, name, PrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
+
     val field = this.numVectorSpace.field
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}

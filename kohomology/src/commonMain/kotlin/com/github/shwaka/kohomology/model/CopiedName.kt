@@ -39,6 +39,24 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         //   when this.name contains a subscript
         return "$shiftString{${this.name.toTex()}}$indexString"
     }
+
+    companion object {
+        fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfig(
+            printType: PrintType,
+            useBar: Boolean = true,
+        ): PrintConfig<MonomialOnCopiedName<D, I>, S> {
+            return when (printType) {
+                PrintType.PLAIN -> PrintConfig()
+                PrintType.TEX -> PrintConfig(
+                    coeffToString = { it.toTex() },
+                    coeffToStringWithoutSign = { it.toTexWithoutSign() },
+                    basisToString = { monomial ->
+                        monomial.toTex { copiedName -> copiedName.toTex(useBar) }
+                    },
+                )
+            }
+        }
+    }
 }
 
 fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
@@ -58,19 +76,3 @@ fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
 }
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
-
-fun <D : Degree, I : IndeterminateName, S : Scalar> printConfigForCopiedName(
-    printType: PrintType,
-    useBar: Boolean
-): PrintConfig<MonomialOnCopiedName<D, I>, S> {
-    return when (printType) {
-        PrintType.PLAIN -> PrintConfig()
-        PrintType.TEX -> PrintConfig(
-            coeffToString = { it.toTex() },
-            coeffToStringWithoutSign = { it.toTexWithoutSign() },
-            basisToString = { monomial ->
-                monomial.toTex { copiedName -> copiedName.toTex(useBar) }
-            },
-        )
-    }
-}

@@ -135,6 +135,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     val numVectorSpace: NumVectorSpace<S, V>,
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
+    val getPrintConfig: (PrintType) -> PrintConfig<B, S>,
     val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {
@@ -143,7 +144,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         degreeGroup: DegreeGroup<D>,
         name: String,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, null, getVectorSpace)
+    ) : this(numVectorSpace, degreeGroup, name, PrintConfig.Companion::default, null, getVectorSpace)
 
     val field = this.numVectorSpace.field
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
@@ -337,10 +338,6 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
             this[degree].getId(matrixSpace)
         }
-    }
-
-    open fun getPrintConfig(printType: PrintType): PrintConfig<B, S> {
-        return PrintConfig.default(printType)
     }
 
     override fun toString(): String {

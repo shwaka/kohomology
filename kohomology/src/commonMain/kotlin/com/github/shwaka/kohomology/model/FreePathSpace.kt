@@ -26,7 +26,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
                 list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
                 list.map { it.copy(degreeGroup, shift = one) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList)
+        FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList, CopiedName.Companion::getPrintConfig)
     }
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

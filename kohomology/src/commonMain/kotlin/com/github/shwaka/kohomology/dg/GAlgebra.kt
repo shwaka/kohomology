@@ -11,9 +11,9 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.DefaultVectorPrinter
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorPrinter
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 interface GAlgebraOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -69,9 +69,9 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
     val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
-    printer: VectorPrinter<B, S, V> = DefaultVectorPrinter(),
+    getPrintConfig: (PrintType) -> PrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, printer, listDegreesForAugmentedDegree, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
+) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, getPrintConfig, listDegreesForAugmentedDegree, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
     override val context by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra

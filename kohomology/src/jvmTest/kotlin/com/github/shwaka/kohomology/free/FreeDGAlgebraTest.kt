@@ -10,7 +10,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.vectsp.TexVectorPrinter
+import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.Printer
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -184,24 +185,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "toString() with TexVectorPrinter for cohomology classes" - {
+    "print cohomology classes as TeX" - {
         val generatorList = listOf(
             Indeterminate("a", "A", 2),
             Indeterminate("b", "B", 2),
         )
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
-        freeDGAlgebra.gAlgebra.printer = TexVectorPrinter()
+        val texPrinter = Printer(PrintType.TEX)
         val (a, b) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
             "length 1" {
-                a.cohomologyClass().toString() shouldBe "[A]"
-                b.cohomologyClass().toString() shouldBe "[B]"
+                (texPrinter + a.cohomologyClass()) shouldBe "[A]"
+                (texPrinter + b.cohomologyClass()) shouldBe "[B]"
             }
             "length 2" {
-                a.pow(2).cohomologyClass().toString() shouldBe "[A^{2}]"
-                b.pow(2).cohomologyClass().toString() shouldBe "[B^{2}]"
-                (a * b).cohomologyClass().toString() shouldBe "[AB]"
-                (a.pow(2) + b.pow(2)).cohomologyClass().toString() shouldBe "[A^{2}] + [B^{2}]"
+                (texPrinter + a.pow(2).cohomologyClass()) shouldBe "[A^{2}]"
+                (texPrinter + b.pow(2).cohomologyClass()) shouldBe "[B^{2}]"
+                (texPrinter + (a * b).cohomologyClass()) shouldBe "[AB]"
+                (texPrinter + (a.pow(2) + b.pow(2)).cohomologyClass()) shouldBe "[A^{2}] + [B^{2}]"
             }
         }
     }

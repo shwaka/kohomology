@@ -9,7 +9,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.vectsp.TexVectorPrinter
+import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.Printer
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -272,18 +273,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "toString() and toTex() test" {
+    "printer test" {
         val indeterminateList = listOf(
             Indeterminate("x", "X", 2),
             Indeterminate("y", "Y", 2),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val (x, y) = freeGAlgebra.generatorList
-        freeGAlgebra.printer = TexVectorPrinter()
+        val texPrinter = Printer(PrintType.TEX)
         freeGAlgebra.context.run {
-            x.toString() shouldBe "X"
-            (x * y).toString() shouldBe "XY"
-            (x * y.pow(2)).toString() shouldBe "XY^{2}"
+            (texPrinter + x) shouldBe "X"
+            (texPrinter + (x * y)) shouldBe "XY"
+            (texPrinter + (x * y.pow(2))) shouldBe "XY^{2}"
         }
     }
 }

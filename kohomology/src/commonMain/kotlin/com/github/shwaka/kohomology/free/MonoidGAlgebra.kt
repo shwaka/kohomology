@@ -95,7 +95,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
         degreeGroup: DegreeGroup<D>,
         monoid: Mon,
         name: String,
-        getPrintConfig: (PrintType) -> PrintConfig<E, S>,
+        getPrintConfig: (PrintType) -> PrintConfig<E, S> = PrintConfig.Companion::default,
     ) : this(
         MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name, getPrintConfig),
     )

@@ -10,8 +10,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
-import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec

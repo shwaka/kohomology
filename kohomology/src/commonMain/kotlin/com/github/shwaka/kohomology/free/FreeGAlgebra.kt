@@ -43,12 +43,12 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
     val indeterminateList: List<Indeterminate<D, I>>,
     getPrintConfig: (PrintType) -> PrintConfig<Monomial<D, I>, S> = PrintConfig.Companion::default,
 ) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(
-    matrixSpace,
-    degreeGroup,
-    FreeMonoid(degreeGroup, indeterminateList),
-    FreeGAlgebra.getName(indeterminateList),
-    getPrintConfig,
-),
+        matrixSpace,
+        degreeGroup,
+        FreeMonoid(degreeGroup, indeterminateList),
+        FreeGAlgebra.getName(indeterminateList),
+        getPrintConfig,
+    ),
     FreeGAlgebraOperations<D, I, S, V, M> {
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)

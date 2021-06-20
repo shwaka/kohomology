@@ -7,9 +7,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.IndeterminateName
 import com.github.shwaka.kohomology.free.Monomial
-import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 

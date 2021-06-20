@@ -89,20 +89,20 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     v.toString() shouldBe "0"
                 }
             }
-            "TexVectorPrinter" - {
+            "tex printer" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
-                vectorSpace.setPrinter(TexVectorPrinter())
-                "(2a + 3b + 4c).toString() should be \"2 a + 3 b + 4 c\"" {
+                val texPrinter = Printer(PrintType.TEX)
+                "(2a + 3b + 4c) should be printed as \"2 a + 3 b + 4 c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
-                    v.toString() shouldBe "2 a + 3 b + 4 c"
+                    (texPrinter + v) shouldBe "2 a + 3 b + 4 c"
                 }
-                "(a + (1/2)b + (-1/3)c).toString() should be \"a + 1/2 b - 1/3 c\"" {
+                "(a + (1/2)b + (-1/3)c)should be printed as \"a + \\frac{1}{2} b - \\frac{1}{3} c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
-                    v.toString() shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
+                    (texPrinter + v) shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
                 }
-                "(0a + 0b + 0c).toString() should be \"0\"" {
+                "(0a + 0b + 0c) should be printed as \"0\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
-                    v.toString() shouldBe "0"
+                    (texPrinter + v) shouldBe "0"
                 }
             }
             "printer with comparator" - {

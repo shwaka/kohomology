@@ -156,13 +156,15 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
+    val getPrintConfig: (PrintType) -> PrintConfig<B, S> = PrintConfig.Companion::default,
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
+            getPrintConfig: (PrintType) -> PrintConfig<StringBasisName, S> = PrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) })
+            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getPrintConfig)
         }
     }
 
@@ -281,10 +283,6 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getId(this, matrixSpace)
-    }
-
-    open fun getPrintConfig(printType: PrintType): PrintConfig<B, S> {
-        return PrintConfig.default(printType)
     }
 
     override fun equals(other: Any?): Boolean {

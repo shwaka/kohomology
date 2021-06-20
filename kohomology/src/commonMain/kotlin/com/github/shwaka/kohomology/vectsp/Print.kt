@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
+import com.github.shwaka.kohomology.linalg.Scalar
+
 enum class PrintType {
     PLAIN, TEX
 }
@@ -24,3 +26,13 @@ class Printer(
         return Printer(this.type, value)
     }
 }
+
+data class PrintConfig<B : BasisName, S : Scalar>(
+    val beforeSign: String = " ",
+    val afterSign: String = " ",
+    val afterCoeff: String = " ",
+    val coeffToString: (S) -> String = { it.toString() },
+    val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
+    val basisToString: (B) -> String = { it.toString() },
+    val basisComparator: Comparator<B>? = null,
+)

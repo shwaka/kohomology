@@ -283,9 +283,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
         val (x, y) = freeGAlgebra.generatorList
         val texPrinter = Printer(PrintType.TEX)
         freeGAlgebra.context.run {
-            (texPrinter + x) shouldBe "X"
-            (texPrinter + (x * y)) shouldBe "XY"
-            (texPrinter + (x * y.pow(2))) shouldBe "XY^{2}"
+            (texPrinter + x).toString() shouldBe "X"
+            (texPrinter + (x * y)).toString() shouldBe "XY"
+            (texPrinter + (x * y.pow(2))).toString() shouldBe "XY^{2}"
         }
     }
 }

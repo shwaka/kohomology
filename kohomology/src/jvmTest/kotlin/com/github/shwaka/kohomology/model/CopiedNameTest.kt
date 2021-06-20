@@ -23,11 +23,11 @@ class CopiedNameTest : FreeSpec({
         val (sx) = vectorSpace.getBasis()
         "sx should be printed as \"s{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = false" {
             val texPrinter = Printer(PrintType.TEX)
-            (texPrinter + sx) shouldBe "s{x}"
+            (texPrinter + sx).toString() shouldBe "s{x}"
         }
         "sx should be printed as \"\\bar{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = true" {
             val texPrinter = Printer(PrintType.TEX)
-            (texPrinter + sx) shouldBe "\\bar{x}"
+            (texPrinter + sx).toString() shouldBe "\\bar{x}"
         }
     }
 })

@@ -140,5 +140,22 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             )
             return SubQuotVectorSpace(factory)
         }
+
+        fun <B : BasisName, S : Scalar, V : NumVector<S>> convertPrintConfig(
+            printConfig: PrintConfig<B, S>
+        ): PrintConfig<SubQuotBasis<B, S, V>, S> {
+            return PrintConfig(
+                beforeSign = printConfig.beforeSign,
+                afterSign = printConfig.afterSign,
+                afterCoeff = printConfig.afterCoeff,
+                coeffToString = printConfig.coeffToString,
+                coeffToStringWithoutSign = printConfig.coeffToStringWithoutSign,
+                basisToString = { subQuotBasisName ->
+                    val originalString = subQuotBasisName.vector.print(printConfig)
+                    "[$originalString]"
+                },
+                basisComparator = null
+            )
+        }
     }
 }

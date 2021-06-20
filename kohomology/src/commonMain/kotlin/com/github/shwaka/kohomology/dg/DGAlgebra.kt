@@ -9,6 +9,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
@@ -73,6 +75,9 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
     override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
+        val getPrintConfig: (PrintType) -> PrintConfig<SubQuotBasis<B, S, V>, S> = { printType: PrintType ->
+            SubQuotVectorSpace.convertPrintConfig(this.gAlgebra.getPrintConfig(printType))
+        }
         GAlgebra(
             matrixSpace,
             this.gAlgebra.degreeGroup,
@@ -81,6 +86,7 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
             this::getCohomologyMultiplication,
             cohomologyUnit,
             listDegreesForAugmentedDegree = this.gAlgebra.listDegreesForAugmentedDegree,
+            getPrintConfig = getPrintConfig
         )
     }
 

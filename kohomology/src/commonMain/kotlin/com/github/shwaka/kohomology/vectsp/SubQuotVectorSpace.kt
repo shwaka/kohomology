@@ -147,7 +147,6 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         ): InternalPrintConfig<SubQuotBasis<B, S, V>, S> {
             return InternalPrintConfig(
                 coeffToString = internalPrintConfig.coeffToString,
-                coeffToStringWithoutSign = internalPrintConfig.coeffToStringWithoutSign,
                 basisToString = { subQuotBasisName ->
                     val originalString = subQuotBasisName.vector.print(printConfig, internalPrintConfig)
                     "[$originalString]"

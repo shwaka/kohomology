@@ -117,7 +117,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
             } else {
                 var result = ""
                 basisStringWithCoeff[0].let { (coeff, basisElm) ->
-                    result += when (val coeffStr = internalPrintConfig.coeffToString(coeff)) {
+                    result += when (val coeffStr = internalPrintConfig.coeffToString(coeff, true)) {
                         "1" -> basisElm
                         "-1" -> "-${printConfig.afterSign}$basisElm"
                         else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
@@ -125,7 +125,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
                 }
                 result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
-                    val str = when (val coeffStr = internalPrintConfig.coeffToStringWithoutSign(coeff)) {
+                    val str = when (val coeffStr = internalPrintConfig.coeffToString(coeff, false)) {
                         "1" -> basisElm
                         else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
                     }

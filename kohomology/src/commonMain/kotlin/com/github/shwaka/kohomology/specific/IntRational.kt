@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign

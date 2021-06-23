@@ -23,7 +23,6 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
 
 interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>

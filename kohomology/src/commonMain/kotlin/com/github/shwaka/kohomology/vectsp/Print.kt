@@ -7,32 +7,29 @@ enum class PrintType {
 }
 
 interface Printable {
-    fun toString(printType: PrintType): String
+    fun toString(printConfig: PrintConfig): String
 }
 
 class Printer private constructor(
-    private val printType: PrintType,
+    private val printConfig: PrintConfig,
     private val value: String,
 ) {
-    constructor(type: PrintType) : this(type, "")
+    constructor(printConfig: PrintConfig) : this(printConfig, "")
 
     override fun toString(): String {
         return this.value
     }
     operator fun plus(str: String): Printer {
         val value = this.value + str
-        return Printer(this.printType, value)
+        return Printer(this.printConfig, value)
     }
     operator fun plus(printable: Printable): Printer {
-        val value = this.value + printable.toString(this.printType)
-        return Printer(this.printType, value)
+        val value = this.value + printable.toString(this.printConfig)
+        return Printer(this.printConfig, value)
     }
 }
 
 data class InternalPrintConfig<B : BasisName, S : Scalar>(
-    val beforeSign: String = " ",
-    val afterSign: String = " ",
-    val afterCoeff: String = " ",
     val coeffToString: (S) -> String = { it.toString() },
     val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
     val basisToString: (B) -> String = { it.toString() },
@@ -53,3 +50,10 @@ data class InternalPrintConfig<B : BasisName, S : Scalar>(
         }
     }
 }
+
+data class PrintConfig(
+    val printType: PrintType = PrintType.PLAIN,
+    val beforeSign: String = " ",
+    val afterSign: String = " ",
+    val afterCoeff: String = " ",
+)

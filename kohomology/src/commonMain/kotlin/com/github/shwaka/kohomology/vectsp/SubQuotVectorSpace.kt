@@ -141,13 +141,10 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             return SubQuotVectorSpace(factory)
         }
 
-        fun <B : BasisName, S : Scalar, V : NumVector<S>> convertPrintConfig(
+        fun <B : BasisName, S : Scalar, V : NumVector<S>> convertInternalPrintConfig(
             internalPrintConfig: InternalPrintConfig<B, S>
         ): InternalPrintConfig<SubQuotBasis<B, S, V>, S> {
             return InternalPrintConfig(
-                beforeSign = internalPrintConfig.beforeSign,
-                afterSign = internalPrintConfig.afterSign,
-                afterCoeff = internalPrintConfig.afterCoeff,
                 coeffToString = internalPrintConfig.coeffToString,
                 coeffToStringWithoutSign = internalPrintConfig.coeffToStringWithoutSign,
                 basisToString = { subQuotBasisName ->

@@ -86,14 +86,15 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
     }
 
     override fun toString(): String {
-        return this.toString(PrintType.PLAIN)
+        return this.toString(PrintConfig())
     }
 
-    override fun toString(printType: PrintType): String {
-        return this.print(this.vectorSpace.getInternalPrintConfig(printType))
+    override fun toString(printConfig: PrintConfig): String {
+        val internalPrintConfig = this.vectorSpace.getInternalPrintConfig(printConfig.printType)
+        return this.print(printConfig, internalPrintConfig)
     }
 
-    fun print(internalPrintConfig: InternalPrintConfig<B, S>): String {
+    fun print(printConfig: PrintConfig, internalPrintConfig: InternalPrintConfig<B, S>): String {
         val basisStringWithCoeff = run {
             val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
@@ -113,17 +114,17 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
                 basisStringWithCoeff[0].let { (coeff, basisElm) ->
                     result += when (val coeffStr = internalPrintConfig.coeffToString(coeff)) {
                         "1" -> basisElm
-                        "-1" -> "-${internalPrintConfig.afterSign}$basisElm"
-                        else -> "$coeffStr${internalPrintConfig.afterCoeff}$basisElm"
+                        "-1" -> "-${printConfig.afterSign}$basisElm"
+                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
                     }
                 }
                 result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
                     val str = when (val coeffStr = internalPrintConfig.coeffToStringWithoutSign(coeff)) {
                         "1" -> basisElm
-                        else -> "$coeffStr${internalPrintConfig.afterCoeff}$basisElm"
+                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
                     }
-                    "${internalPrintConfig.beforeSign}$sign${internalPrintConfig.afterSign}$str"
+                    "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
                 }
                 result
             }

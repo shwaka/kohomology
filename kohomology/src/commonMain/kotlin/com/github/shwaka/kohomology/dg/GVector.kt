@@ -15,6 +15,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printable
 import com.github.shwaka.kohomology.vectsp.StringBasisName
@@ -65,11 +66,12 @@ open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     override fun toString(): String {
-        return this.toString(PrintType.PLAIN)
+        return this.toString(PrintConfig())
     }
 
-    override fun toString(printType: PrintType): String {
-        return this.vector.print(this.gVectorSpace.getInternalPrintConfig(printType))
+    override fun toString(printConfig: PrintConfig): String {
+        val internalPrintConfig = this.gVectorSpace.getInternalPrintConfig(printConfig.printType)
+        return this.vector.print(printConfig, internalPrintConfig)
     }
 }
 

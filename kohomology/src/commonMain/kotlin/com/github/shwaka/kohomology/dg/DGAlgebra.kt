@@ -76,7 +76,7 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printType: PrintType ->
-            SubQuotVectorSpace.convertPrintConfig(this.gAlgebra.getInternalPrintConfig(printType))
+            SubQuotVectorSpace.convertInternalPrintConfig(this.gAlgebra.getInternalPrintConfig(printType))
         }
         GAlgebra(
             matrixSpace,

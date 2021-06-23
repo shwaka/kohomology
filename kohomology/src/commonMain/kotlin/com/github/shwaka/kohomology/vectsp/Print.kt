@@ -7,6 +7,8 @@ enum class PrintType {
 }
 
 interface Printable {
+    // In most cases, printConfig.printType is sufficient.
+    // Other properties are used in SubQuotVectorSpace.
     fun toString(printConfig: PrintConfig): String
 }
 
@@ -15,6 +17,7 @@ class Printer private constructor(
     private val value: String,
 ) {
     constructor(printConfig: PrintConfig) : this(printConfig, "")
+    constructor(printType: PrintType) : this(PrintConfig(printType))
 
     override fun toString(): String {
         return this.value
@@ -42,8 +45,8 @@ data class InternalPrintConfig<B : BasisName, S : Scalar>(
             coeffToStringWithoutSign = { it.toTexWithoutSign() },
             basisToString = { it.toTex() },
         )
-        fun <B : BasisName, S : Scalar> default(printType: PrintType): InternalPrintConfig<B, S> {
-            return when (printType) {
+        fun <B : BasisName, S : Scalar> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
+            return when (printConfig.printType) {
                 PrintType.PLAIN -> InternalPrintConfig.plain()
                 PrintType.TEX -> InternalPrintConfig.tex()
             }

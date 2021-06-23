@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import mu.KotlinLogging
@@ -20,7 +20,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     val degreeGroup: DegreeGroup<D>,
     val monoid: Mon,
     val name: String,
-    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<E, S>
+    val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<E, S>
 ) {
     private val cache: MutableMap<D, VectorSpace<E, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
@@ -95,7 +95,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
         degreeGroup: DegreeGroup<D>,
         monoid: Mon,
         name: String,
-        getInternalPrintConfig: (PrintType) -> InternalPrintConfig<E, S> = InternalPrintConfig.Companion::default,
+        getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<E, S> = InternalPrintConfig.Companion::default,
     ) : this(
         MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig),
     )

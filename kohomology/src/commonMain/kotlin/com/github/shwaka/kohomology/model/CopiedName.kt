@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.free.IndeterminateName
 import com.github.shwaka.kohomology.free.Monomial
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 
 data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) : IndeterminateName {
@@ -40,10 +41,10 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
 
     companion object {
         fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfig(
-            printType: PrintType,
+            printConfig: PrintConfig,
             useBar: Boolean = true,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
-            return when (printType) {
+            return when (printConfig.printType) {
                 PrintType.PLAIN -> InternalPrintConfig()
                 PrintType.TEX -> InternalPrintConfig(
                     coeffToString = { it.toTex() },

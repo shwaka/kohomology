@@ -70,7 +70,7 @@ open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        val internalPrintConfig = this.gVectorSpace.getInternalPrintConfig(printConfig.printType)
+        val internalPrintConfig = this.gVectorSpace.getInternalPrintConfig(printConfig)
         return this.vector.print(printConfig, internalPrintConfig)
     }
 }
@@ -137,7 +137,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     val numVectorSpace: NumVectorSpace<S, V>,
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
-    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<B, S>,
+    val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {

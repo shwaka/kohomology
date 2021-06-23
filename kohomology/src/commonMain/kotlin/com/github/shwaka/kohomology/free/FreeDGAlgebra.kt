@@ -21,7 +21,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 
 class FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
@@ -58,7 +58,7 @@ open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
             matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,
-            getInternalPrintConfig: (PrintType) -> InternalPrintConfig<Monomial<D, I>, S>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S>,
             getDifferentialValueList: GetDifferentialValueList<D, I, S, V, M>,
         ): FreeDGAlgebra<D, I, S, V, M> {
             val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = FreeGAlgebra(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig)
@@ -100,7 +100,7 @@ open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
         operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<IntDegree, I>>,
-            getInternalPrintConfig: (PrintType) -> InternalPrintConfig<Monomial<IntDegree, I>, S> = InternalPrintConfig.Companion::default,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<IntDegree, I>, S> = InternalPrintConfig.Companion::default,
             getDifferentialValueList: GetDifferentialValueList<IntDegree, I, S, V, M>,
         ): FreeDGAlgebra<IntDegree, I, S, V, M> {
             return FreeDGAlgebra.invoke(matrixSpace, IntDegreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueList)

@@ -90,7 +90,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        val internalPrintConfig = this.vectorSpace.getInternalPrintConfig(printConfig.printType)
+        val internalPrintConfig = this.vectorSpace.getInternalPrintConfig(printConfig)
         return this.print(printConfig, internalPrintConfig)
     }
 
@@ -157,13 +157,13 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
-    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+    val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
-            getInternalPrintConfig: (PrintType) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
             return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
         }

@@ -23,8 +23,11 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         return "$shiftString${this.name}$indexString"
     }
 
-    override fun toTex(): String {
-        return this.toTex(false)
+    override fun toString(printConfig: PrintConfig): String {
+        return when (printConfig.printType) {
+            PrintType.PLAIN -> this.toString()
+            PrintType.TEX -> this.toTex(printConfig.useBar)
+        }
     }
 
     fun toTex(useBar: Boolean): String {
@@ -36,11 +39,11 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         }
         // The brace surrounding ${this.name} is necessary to avoid "double subscript"
         //   when this.name contains a subscript
-        return "$shiftString{${this.name.toTex()}}$indexString"
+        return "$shiftString{${this.name.toString(PrintConfig(PrintType.TEX))}}$indexString"
     }
 
     companion object {
-        fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfig(
+        fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfigInternal(
             printConfig: PrintConfig,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
             return when (printConfig.printType) {

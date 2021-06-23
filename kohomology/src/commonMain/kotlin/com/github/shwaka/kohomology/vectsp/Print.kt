@@ -39,17 +39,12 @@ data class InternalPrintConfig<B : BasisName, S : Scalar>(
     val basisComparator: Comparator<B>? = null,
 ) {
     companion object {
-        fun <B : BasisName, S : Scalar> plain(): InternalPrintConfig<B, S> = InternalPrintConfig()
-        fun <B : BasisName, S : Scalar> tex(): InternalPrintConfig<B, S> = InternalPrintConfig(
-            coeffToString = { it.toTex() },
-            coeffToStringWithoutSign = { it.toTexWithoutSign() },
-            basisToString = { it.toTex() },
-        )
         fun <B : BasisName, S : Scalar> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
-            return when (printConfig.printType) {
-                PrintType.PLAIN -> InternalPrintConfig.plain()
-                PrintType.TEX -> InternalPrintConfig.tex()
-            }
+            return InternalPrintConfig(
+                coeffToString = { it.toTex() },
+                coeffToStringWithoutSign = { it.toTexWithoutSign() },
+                basisToString = { it.toString(printConfig) },
+            )
         }
     }
 }

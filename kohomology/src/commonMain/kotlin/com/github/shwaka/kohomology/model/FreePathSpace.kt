@@ -43,7 +43,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
             comparator
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, pathSpaceIndeterminateList) { printType ->
-            CopiedName.getPrintConfig<D, I, S>(printType).copy(basisComparator = basisComparator)
+            CopiedName.getPrintConfigInternal<D, I, S>(printType).copy(basisComparator = basisComparator)
         }
     }
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

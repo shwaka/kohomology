@@ -6,15 +6,22 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 
 interface IndeterminateName {
-    fun toTex(): String = this.toString()
+    fun toString(printConfig: PrintConfig): String = this.toString()
 }
 class StringIndeterminateName(val name: String, tex: String? = null) : IndeterminateName {
     val tex: String = tex ?: name
 
     override fun toString(): String = this.name
-    override fun toTex(): String = this.tex
+    override fun toString(printConfig: PrintConfig): String {
+        return when (printConfig.printType) {
+            PrintType.PLAIN -> this.name
+            PrintType.TEX -> this.tex
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -242,8 +249,11 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
     }
 
-    override fun toTex(): String {
-        return this.toTex { indeterminateName -> indeterminateName.toTex() }
+    override fun toString(printConfig: PrintConfig): String {
+        return when (printConfig.printType) {
+            PrintType.PLAIN -> this.toString()
+            PrintType.TEX -> this.toTex { IndeterminateName -> IndeterminateName.toString(printConfig) }
+        }
     }
 
     fun toTex(indeterminateNameToTex: (I) -> String): String {

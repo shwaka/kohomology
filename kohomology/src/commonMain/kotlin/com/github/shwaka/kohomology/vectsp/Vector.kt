@@ -13,13 +13,18 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import mu.KotlinLogging
 
 interface BasisName {
-    fun toTex(): String = this.toString()
+    fun toString(printConfig: PrintConfig): String = this.toString()
 }
 class StringBasisName(val name: String, tex: String? = null) : BasisName {
     val tex: String = tex ?: name
 
     override fun toString(): String = this.name
-    override fun toTex(): String = this.tex
+    override fun toString(printConfig: PrintConfig): String {
+        return when (printConfig.printType) {
+            PrintType.PLAIN -> this.name
+            PrintType.TEX -> this.tex
+        }
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

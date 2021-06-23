@@ -30,7 +30,7 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         }
     }
 
-    fun toTex(useBar: Boolean): String {
+    private fun toTex(useBar: Boolean): String {
         val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
         val shiftString = when {
             this.shift.isZero() -> ""
@@ -43,7 +43,7 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
     }
 
     companion object {
-        fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfigInternal(
+        fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(
             printConfig: PrintConfig,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
             return when (printConfig.printType) {

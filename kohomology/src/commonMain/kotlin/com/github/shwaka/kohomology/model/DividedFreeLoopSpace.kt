@@ -25,7 +25,7 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
             list.map { it.copy(degreeGroup, shift = zero, index = 1) } + list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
                 list.map { it.copy(degreeGroup, shift = one, index = 1) } + list.map { it.copy(degreeGroup, shift = one, index = 2) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeGroup, dividedLoopSpaceIndeterminateList, CopiedName.Companion::getPrintConfigInternal)
+        FreeGAlgebra(this.matrixSpace, degreeGroup, dividedLoopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }
     val pathSpaceDGAlgebra: FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> = FreePathSpace(freeDGAlgebra)
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

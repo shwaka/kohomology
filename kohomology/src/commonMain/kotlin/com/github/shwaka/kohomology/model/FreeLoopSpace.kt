@@ -22,7 +22,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, degreeGroup.fromInt(1)) }
         }
-        FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getPrintConfigInternal)
+        FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>

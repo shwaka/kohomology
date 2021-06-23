@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
@@ -58,7 +59,15 @@ class LongRational(numerator: Long, denominator: Long) : Scalar {
         return this.numerator >= 0
     }
 
-    override fun toStringWithoutSign(): String {
+    override fun toString(printConfig: PrintConfig, withSign: Boolean): String {
+        return if (withSign) {
+            this.toString()
+        } else {
+            this.toStringWithoutSign()
+        }
+    }
+
+    private fun toStringWithoutSign(): String {
         val numeratorAbs = this.numerator.absoluteValue
         return when {
             this.numerator == 0L -> "0"

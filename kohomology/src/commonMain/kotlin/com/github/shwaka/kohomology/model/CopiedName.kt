@@ -49,8 +49,8 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
             return when (printConfig.printType) {
                 PrintType.PLAIN -> InternalPrintConfig()
                 PrintType.TEX -> InternalPrintConfig(
-                    coeffToString = { it.toTex() },
-                    coeffToStringWithoutSign = { it.toTexWithoutSign() },
+                    coeffToString = { it.toString(PrintType.TEX) },
+                    coeffToStringWithoutSign = { it.toString(PrintType.TEX, withSign = false) },
                     basisToString = { monomial ->
                         monomial.toTex { copiedName -> copiedName.toTex(printConfig.useBar) }
                     },

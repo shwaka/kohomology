@@ -9,6 +9,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
 private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
@@ -92,7 +94,14 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
         return this.numerator.isPositive || this.numerator.isZero()
     }
 
-    override fun toStringWithoutSign(): String {
+    override fun toString(printConfig: PrintConfig, withSign: Boolean): String {
+        return when (printConfig.printType) {
+            PrintType.PLAIN -> if (withSign) this.toString() else this.toStringWithoutSign()
+            PrintType.TEX -> if (withSign) this.toTex() else this.toTexWithoutSign()
+        }
+    }
+
+    private fun toStringWithoutSign(): String {
         val numeratorAbs = this.numerator.abs()
         return when {
             this.numerator == BigInteger.ZERO -> "0"
@@ -109,7 +118,7 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
         }
     }
 
-    override fun toTexWithoutSign(): String {
+    private fun toTexWithoutSign(): String {
         val numeratorAbs = this.numerator.abs()
         return when {
             this.numerator == BigInteger.ZERO -> "0"
@@ -118,7 +127,7 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
         }
     }
 
-    override fun toTex(): String {
+    private fun toTex(): String {
         return when {
             this.numerator == BigInteger.ZERO -> "0"
             this.denominator == BigInteger.ONE -> this.numerator.toString()

@@ -34,25 +34,15 @@ class Printer private constructor(
 
 data class InternalPrintConfig<B : BasisName, S : Scalar>(
     val coeffToString: (S) -> String = { it.toString() },
-    val coeffToStringWithoutSign: (S) -> String = { it.toStringWithoutSign() },
+    val coeffToStringWithoutSign: (S) -> String = { it.toString(PrintType.PLAIN, withSign = true) },
     val basisToString: (B) -> String = { it.toString() },
     val basisComparator: Comparator<B>? = null,
 ) {
     companion object {
         fun <B : BasisName, S : Scalar> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
             return InternalPrintConfig(
-                coeffToString = {
-                    when (printConfig.printType) {
-                        PrintType.PLAIN -> it.toString()
-                        PrintType.TEX -> it.toTex()
-                    }
-                },
-                coeffToStringWithoutSign = {
-                    when (printConfig.printType) {
-                        PrintType.PLAIN -> it.toStringWithoutSign()
-                        PrintType.TEX -> it.toTexWithoutSign()
-                    }
-                },
+                coeffToString = { it.toString(printConfig, withSign = true) },
+                coeffToStringWithoutSign = { it.toString(printConfig, withSign = false) },
                 basisToString = { it.toString(printConfig) }
             )
         }

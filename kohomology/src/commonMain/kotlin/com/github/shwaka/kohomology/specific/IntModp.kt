@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 
 class IntModp(value: Int, val characteristic: Int) : Scalar {
     val value: Int = value.positiveRem(characteristic)
@@ -20,7 +21,15 @@ class IntModp(value: Int, val characteristic: Int) : Scalar {
 
     override fun isPrintedPositively(): Boolean = true
 
-    override fun toStringWithoutSign(): String = this.toString()
+    override fun toString(printConfig: PrintConfig, withSign: Boolean): String {
+        return if (withSign) {
+            this.toString()
+        } else {
+            this.toStringWithoutSign()
+        }
+    }
+
+    private fun toStringWithoutSign(): String = this.toString()
 
     override fun toString(): String {
         return "${this.value.positiveRem(this.characteristic)} mod ${this.characteristic}"

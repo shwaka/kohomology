@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
 import com.github.shwaka.kohomology.util.isPrime
+import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -212,8 +213,8 @@ class BigRationalTest : FreeSpec({
         }
     }
 
-    "(-1/2).toTex() should be -\\frac{1}{2}" {
-        BigRational(-1, 2).toTex() shouldBe "-\\frac{1}{2}"
+    "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
+        BigRational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
     }
 })
 

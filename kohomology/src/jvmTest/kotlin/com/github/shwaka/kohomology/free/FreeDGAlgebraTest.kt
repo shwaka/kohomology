@@ -195,14 +195,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(ma
         val (a, b) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
             "length 1" {
-                (texPrinter + a.cohomologyClass()) shouldBe "[A]"
-                (texPrinter + b.cohomologyClass()) shouldBe "[B]"
+                (texPrinter + a.cohomologyClass()).toString() shouldBe "[A]"
+                (texPrinter + b.cohomologyClass()).toString() shouldBe "[B]"
             }
             "length 2" {
-                (texPrinter + a.pow(2).cohomologyClass()) shouldBe "[A^{2}]"
-                (texPrinter + b.pow(2).cohomologyClass()) shouldBe "[B^{2}]"
-                (texPrinter + (a * b).cohomologyClass()) shouldBe "[AB]"
-                (texPrinter + (a.pow(2) + b.pow(2)).cohomologyClass()) shouldBe "[A^{2}] + [B^{2}]"
+                (texPrinter + a.pow(2).cohomologyClass()).toString() shouldBe "[A^{2}]"
+                (texPrinter + b.pow(2).cohomologyClass()).toString() shouldBe "[B^{2}]"
+                (texPrinter + (a * b).cohomologyClass()).toString() shouldBe "[AB]"
+                (texPrinter + (a.pow(2) + b.pow(2)).cohomologyClass()).toString() shouldBe "[A^{2}] + [B^{2}]"
             }
         }
     }

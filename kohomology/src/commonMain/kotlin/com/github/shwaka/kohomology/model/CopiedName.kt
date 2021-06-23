@@ -42,7 +42,6 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
     companion object {
         fun <D : Degree, I : IndeterminateName, S : Scalar> getPrintConfig(
             printConfig: PrintConfig,
-            useBar: Boolean = true,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
             return when (printConfig.printType) {
                 PrintType.PLAIN -> InternalPrintConfig()
@@ -50,7 +49,7 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
                     coeffToString = { it.toTex() },
                     coeffToStringWithoutSign = { it.toTexWithoutSign() },
                     basisToString = { monomial ->
-                        monomial.toTex { copiedName -> copiedName.toTex(useBar) }
+                        monomial.toTex { copiedName -> copiedName.toTex(printConfig.useBar) }
                     },
                 )
             }

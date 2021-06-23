@@ -59,4 +59,5 @@ data class PrintConfig(
     val beforeSign: String = " ",
     val afterSign: String = " ",
     val afterCoeff: String = " ",
+    val useBar: Boolean = false,
 )

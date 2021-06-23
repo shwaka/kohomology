@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.free.Indeterminate
 import com.github.shwaka.kohomology.free.Monomial
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printer
 import com.github.shwaka.kohomology.vectsp.VectorSpace
@@ -22,11 +23,11 @@ class CopiedNameTest : FreeSpec({
         val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
         val (sx) = vectorSpace.getBasis()
         "sx should be printed as \"s{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = false" {
-            val texPrinter = Printer(PrintType.TEX)
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = false))
             (texPrinter + sx).toString() shouldBe "s{x}"
         }
         "sx should be printed as \"\\bar{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = true" {
-            val texPrinter = Printer(PrintType.TEX)
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = true))
             (texPrinter + sx).toString() shouldBe "\\bar{x}"
         }
     }

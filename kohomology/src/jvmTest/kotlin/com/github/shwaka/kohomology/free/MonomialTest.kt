@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -207,31 +209,33 @@ class MonomialTest : FreeSpec({
     }
 
     "toString() and toTex() test" {
+        val printConfigForTex = PrintConfig(PrintType.TEX)
         val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 2),
         )
         val unit = Monomial(indeterminateList, listOf(0, 0))
         unit.toString() shouldBe "1"
-        unit.toTex() shouldBe "1"
+        unit.toString(printConfigForTex) shouldBe "1"
         val xy2 = Monomial(indeterminateList, listOf(1, 2))
         xy2.toString() shouldBe "xy^2"
-        xy2.toTex() shouldBe "xy^{2}"
+        xy2.toString(printConfigForTex) shouldBe "xy^{2}"
     }
 
     "toString() and toTex() test for indeterminate names with 'tex'" {
+        val printConfigForTex = PrintConfig(PrintType.TEX)
         val indeterminateList = listOf(
             Indeterminate("x", "X", 2),
             Indeterminate("y", "Y", 2),
         )
         val x = Monomial(indeterminateList, listOf(1, 0))
         x.toString() shouldBe "x"
-        x.toTex() shouldBe "X"
+        x.toString(printConfigForTex) shouldBe "X"
         val xy = Monomial(indeterminateList, listOf(1, 1))
         xy.toString() shouldBe "xy"
-        xy.toTex() shouldBe "XY"
+        xy.toString(printConfigForTex) shouldBe "XY"
         val xy2 = Monomial(indeterminateList, listOf(1, 2))
         xy2.toString() shouldBe "xy^2"
-        xy2.toTex() shouldBe "XY^{2}"
+        xy2.toString(printConfigForTex) shouldBe "XY^{2}"
     }
 })

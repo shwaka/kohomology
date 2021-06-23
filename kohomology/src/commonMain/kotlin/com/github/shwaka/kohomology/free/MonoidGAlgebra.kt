@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
@@ -20,7 +20,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     val degreeGroup: DegreeGroup<D>,
     val monoid: Mon,
     val name: String,
-    val getPrintConfig: (PrintType) -> PrintConfig<E, S>
+    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<E, S>
 ) {
     private val cache: MutableMap<D, VectorSpace<E, S, V>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
@@ -86,7 +86,7 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
     factory::getMultiplication,
     factory.unitVector,
     listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree,
-    getPrintConfig = factory.getPrintConfig
+    getInternalPrintConfig = factory.getInternalPrintConfig
 ) {
     val monoid: Mon = factory.monoid
 
@@ -95,8 +95,8 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
         degreeGroup: DegreeGroup<D>,
         monoid: Mon,
         name: String,
-        getPrintConfig: (PrintType) -> PrintConfig<E, S> = PrintConfig.Companion::default,
+        getInternalPrintConfig: (PrintType) -> InternalPrintConfig<E, S> = InternalPrintConfig.Companion::default,
     ) : this(
-        MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name, getPrintConfig),
+        MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig),
     )
 }

@@ -90,20 +90,20 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
     }
 
     override fun toString(printType: PrintType): String {
-        return this.print(this.vectorSpace.getPrintConfig(printType))
+        return this.print(this.vectorSpace.getInternalPrintConfig(printType))
     }
 
-    fun print(printConfig: PrintConfig<B, S>): String {
+    fun print(internalPrintConfig: InternalPrintConfig<B, S>): String {
         val basisStringWithCoeff = run {
             val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
             val basisWithCoeff = coeffList.zip(this.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
-            val sortedBasisWithCoeff = if (printConfig.basisComparator == null) {
+            val sortedBasisWithCoeff = if (internalPrintConfig.basisComparator == null) {
                 basisWithCoeff
             } else {
-                basisWithCoeff.sortedWith(compareBy(printConfig.basisComparator) { it.second })
+                basisWithCoeff.sortedWith(compareBy(internalPrintConfig.basisComparator) { it.second })
             }
-            sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, printConfig.basisToString(basisName)) }
+            sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, internalPrintConfig.basisToString(basisName)) }
         }
         return this.numVector.field.context.run {
             if (basisStringWithCoeff.isEmpty()) {
@@ -111,19 +111,19 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
             } else {
                 var result = ""
                 basisStringWithCoeff[0].let { (coeff, basisElm) ->
-                    result += when (val coeffStr = printConfig.coeffToString(coeff)) {
+                    result += when (val coeffStr = internalPrintConfig.coeffToString(coeff)) {
                         "1" -> basisElm
-                        "-1" -> "-${printConfig.afterSign}$basisElm"
-                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+                        "-1" -> "-${internalPrintConfig.afterSign}$basisElm"
+                        else -> "$coeffStr${internalPrintConfig.afterCoeff}$basisElm"
                     }
                 }
                 result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
                     val sign = if (coeff.isPrintedPositively()) "+" else "-"
-                    val str = when (val coeffStr = printConfig.coeffToStringWithoutSign(coeff)) {
+                    val str = when (val coeffStr = internalPrintConfig.coeffToStringWithoutSign(coeff)) {
                         "1" -> basisElm
-                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+                        else -> "$coeffStr${internalPrintConfig.afterCoeff}$basisElm"
                     }
-                    "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
+                    "${internalPrintConfig.beforeSign}$sign${internalPrintConfig.afterSign}$str"
                 }
                 result
             }
@@ -156,15 +156,15 @@ class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
 open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     val numVectorSpace: NumVectorSpace<S, V>,
     val basisNames: List<B>,
-    val getPrintConfig: (PrintType) -> PrintConfig<B, S> = PrintConfig.Companion::default,
+    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorOperations<B, S, V> {
     companion object {
         operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
-            getPrintConfig: (PrintType) -> PrintConfig<StringBasisName, S> = PrintConfig.Companion::default,
+            getInternalPrintConfig: (PrintType) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getPrintConfig)
+            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
         }
     }
 

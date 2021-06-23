@@ -29,7 +29,7 @@ class Printer private constructor(
     }
 }
 
-data class PrintConfig<B : BasisName, S : Scalar>(
+data class InternalPrintConfig<B : BasisName, S : Scalar>(
     val beforeSign: String = " ",
     val afterSign: String = " ",
     val afterCoeff: String = " ",
@@ -39,16 +39,16 @@ data class PrintConfig<B : BasisName, S : Scalar>(
     val basisComparator: Comparator<B>? = null,
 ) {
     companion object {
-        fun <B : BasisName, S : Scalar> plain(): PrintConfig<B, S> = PrintConfig()
-        fun <B : BasisName, S : Scalar> tex(): PrintConfig<B, S> = PrintConfig(
+        fun <B : BasisName, S : Scalar> plain(): InternalPrintConfig<B, S> = InternalPrintConfig()
+        fun <B : BasisName, S : Scalar> tex(): InternalPrintConfig<B, S> = InternalPrintConfig(
             coeffToString = { it.toTex() },
             coeffToStringWithoutSign = { it.toTexWithoutSign() },
             basisToString = { it.toTex() },
         )
-        fun <B : BasisName, S : Scalar> default(printType: PrintType): PrintConfig<B, S> {
+        fun <B : BasisName, S : Scalar> default(printType: PrintType): InternalPrintConfig<B, S> {
             return when (printType) {
-                PrintType.PLAIN -> PrintConfig.plain()
-                PrintType.TEX -> PrintConfig.tex()
+                PrintType.PLAIN -> InternalPrintConfig.plain()
+                PrintType.TEX -> InternalPrintConfig.tex()
             }
         }
     }

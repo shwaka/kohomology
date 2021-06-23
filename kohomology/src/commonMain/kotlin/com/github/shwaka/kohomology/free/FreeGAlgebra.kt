@@ -21,7 +21,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 
 interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -41,13 +41,13 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
     matrixSpace: MatrixSpace<S, V, M>,
     override val degreeGroup: AugmentedDegreeGroup<D>,
     val indeterminateList: List<Indeterminate<D, I>>,
-    getPrintConfig: (PrintType) -> PrintConfig<Monomial<D, I>, S> = PrintConfig.Companion::default,
+    getInternalPrintConfig: (PrintType) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
 ) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(
         matrixSpace,
         degreeGroup,
         FreeMonoid(degreeGroup, indeterminateList),
         FreeGAlgebra.getName(indeterminateList),
-        getPrintConfig,
+        getInternalPrintConfig,
     ),
     FreeGAlgebraOperations<D, I, S, V, M> {
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {

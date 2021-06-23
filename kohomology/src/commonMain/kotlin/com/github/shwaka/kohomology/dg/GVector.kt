@@ -14,7 +14,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printable
 import com.github.shwaka.kohomology.vectsp.StringBasisName
@@ -69,7 +69,7 @@ open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     override fun toString(printType: PrintType): String {
-        return this.vector.print(this.gVectorSpace.getPrintConfig(printType))
+        return this.vector.print(this.gVectorSpace.getInternalPrintConfig(printType))
     }
 }
 
@@ -135,7 +135,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
     val numVectorSpace: NumVectorSpace<S, V>,
     open val degreeGroup: DegreeGroup<D>,
     val name: String,
-    val getPrintConfig: (PrintType) -> PrintConfig<B, S>,
+    val getInternalPrintConfig: (PrintType) -> InternalPrintConfig<B, S>,
     val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorOperations<D, B, S, V> {
@@ -144,7 +144,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         degreeGroup: DegreeGroup<D>,
         name: String,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, PrintConfig.Companion::default, null, getVectorSpace)
+    ) : this(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, null, getVectorSpace)
 
     constructor(
         numVectorSpace: NumVectorSpace<S, V>,
@@ -152,7 +152,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         name: String,
         listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
         getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, PrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
+    ) : this(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
 
     val field = this.numVectorSpace.field
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()

@@ -107,7 +107,7 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
             }
             "printer with comparator" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {
-                    PrintConfig(basisComparator = compareBy { it.name })
+                    InternalPrintConfig(basisComparator = compareBy { it.name })
                 }
                 "(2y + 3x + 4z).toString() should be \"3 x + 2 y + 4 z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
@@ -125,7 +125,7 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
             "TexVectorPrinter with comparator" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) { printType ->
                     // PrintConfig(basisComparator = compareBy { it.name })
-                    PrintConfig.default<StringBasisName, S>(printType).copy(
+                    InternalPrintConfig.default<StringBasisName, S>(printType).copy(
                         basisComparator = compareBy { it.name }
                     )
                 }

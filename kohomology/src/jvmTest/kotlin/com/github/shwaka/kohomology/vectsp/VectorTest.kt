@@ -123,8 +123,11 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 }
             }
             "TexVectorPrinter with comparator" - {
-                val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {
-                    PrintConfig(basisComparator = compareBy { it.name })
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) { printType ->
+                    // PrintConfig(basisComparator = compareBy { it.name })
+                    PrintConfig.default<StringBasisName, S>(printType).copy(
+                        basisComparator = compareBy { it.name }
+                    )
                 }
                 val texPrinter = Printer(PrintType.TEX)
                 "(2y + 3x + 4z) should be printed as \"3 x + 2 y + 4 z\"" {

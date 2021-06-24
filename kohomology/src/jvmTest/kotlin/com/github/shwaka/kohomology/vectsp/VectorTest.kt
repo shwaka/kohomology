@@ -94,15 +94,15 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 val texPrinter = Printer(PrintType.TEX)
                 "(2a + 3b + 4c) should be printed as \"2 a + 3 b + 4 c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
-                    (texPrinter + v).toString() shouldBe "2 a + 3 b + 4 c"
+                    texPrinter(v) shouldBe "2 a + 3 b + 4 c"
                 }
                 "(a + (1/2)b + (-1/3)c)should be printed as \"a + \\frac{1}{2} b - \\frac{1}{3} c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
-                    (texPrinter + v).toString() shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
+                    texPrinter(v) shouldBe "a + \\frac{1}{2} b - \\frac{1}{3} c"
                 }
                 "(0a + 0b + 0c) should be printed as \"0\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
-                    (texPrinter + v).toString() shouldBe "0"
+                    texPrinter(v) shouldBe "0"
                 }
             }
             "printer with comparator" - {
@@ -132,11 +132,11 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 val texPrinter = Printer(PrintType.TEX)
                 "(2y + 3x + 4z) should be printed as \"3 x + 2 y + 4 z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
-                    (texPrinter + v).toString() shouldBe "3 x + 2 y + 4 z"
+                    texPrinter(v) shouldBe "3 x + 2 y + 4 z"
                 }
                 "(y + (1/2)x + (-1/3)z) should be printed as \"\\frac{1}{2} x + y - \\frac{1}{3} z\"" {
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
-                    (texPrinter + v).toString() shouldBe "\\frac{1}{2} x + y - \\frac{1}{3} z"
+                    texPrinter(v) shouldBe "\\frac{1}{2} x + y - \\frac{1}{3} z"
                 }
             }
         }

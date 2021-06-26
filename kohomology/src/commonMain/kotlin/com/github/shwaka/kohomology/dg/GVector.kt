@@ -292,7 +292,7 @@ open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>
         if (b !in this)
             throw IllegalContextException("The gVector $b does not match the context")
         if (a.degree != b.degree)
-            throw ArithmeticException("Cannot add two graded vectors of different degrees")
+            throw ArithmeticException("Cannot add two graded vectors of different degrees: $a and $b")
         val vector = a.vector.vectorSpace.context.run {
             a.vector + b.vector
         }

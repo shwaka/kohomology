@@ -25,14 +25,14 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
         return reducedRowMap
     }
 
-    private fun Map<Int, Map<Int, S>>.rowEchelonFormInternal(
+    private tailrec fun Map<Int, Map<Int, S>>.rowEchelonFormInternal(
         currentColInd: Int,
         pivots: List<Int>,
         exchangeCount: Int,
         colCount: Int
     ): SparseRowEchelonFormData<S> {
         if (this.isEmpty()) {
-            // 0 行の行列だった場合
+            // 全ての成分が0の場合
             return SparseRowEchelonFormData(this, emptyList(), 0)
         }
         if (currentColInd == colCount) {
@@ -92,12 +92,17 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
         val elm: S? = mainRow[colInd]
         if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
-        val zero = this@SparseRowEchelonFormCalculator.field.zero
         return this@SparseRowEchelonFormCalculator.field.context.run {
             this@eliminateOtherRows.mapValues { (i, row) ->
                 when (i) {
                     rowInd -> row
-                    else -> row - mainRow * (row.getOrElse(colInd) { zero } / elm)
+                    else -> {
+                        val coeff: S? = row[colInd]
+                        if (coeff == null)
+                            row
+                        else
+                            row - mainRow * (coeff / elm)
+                    }
                 }
             }.filterValues { row -> row.isNotEmpty() }
         }

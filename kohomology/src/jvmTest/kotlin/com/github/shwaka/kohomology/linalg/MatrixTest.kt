@@ -96,6 +96,12 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
             ).toMatrix()
             (m * zero).rowMap.shouldBeEmpty()
         }
+
+        "computation of row echelon form for large identity matrix" {
+            val dim = 5000
+            val m = matrixSpace.getId(dim)
+            m.rowEchelonForm.matrix shouldBe m
+        }
     }
 }
 

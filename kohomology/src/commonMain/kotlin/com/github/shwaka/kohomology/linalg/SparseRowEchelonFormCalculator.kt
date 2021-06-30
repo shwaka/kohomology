@@ -98,6 +98,8 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
                 when (i) {
                     rowInd -> row
                     else -> {
+                        // row[colInd] == null の場合は、mainRow * (coeff/elm) は計算せずに
+                        // row を直接返した方が有意に速い
                         val coeff: S? = row[colInd]
                         if (coeff == null)
                             row

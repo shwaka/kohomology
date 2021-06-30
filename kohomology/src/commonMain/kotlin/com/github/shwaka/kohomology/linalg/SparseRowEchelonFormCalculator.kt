@@ -31,6 +31,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
         exchangeCount: Int,
         colCount: Int
     ): SparseRowEchelonFormData<S> {
+        // use 'tailrec' to avoid StackOverflowError
         if (this.isEmpty()) {
             // 全ての成分が0の場合
             return SparseRowEchelonFormData(this, emptyList(), 0)

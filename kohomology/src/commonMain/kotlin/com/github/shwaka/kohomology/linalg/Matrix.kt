@@ -202,8 +202,8 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
 
     fun getZero(rowCount: Int, colCount: Int): M {
         val zero = this.field.zero
-        val rows = List(rowCount) { List(colCount) { zero } }
-        return this.fromRowList(rows)
+        val rowMap: Map<Int, Map<Int, S>> = mapOf()
+        return this.fromRowMap(rowMap, rowCount, colCount)
     }
 
     fun getZero(dim: Int): M {
@@ -211,17 +211,9 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     }
 
     fun getId(dim: Int): M {
-        val zero = this.field.zero
         val one = this.field.one
-        val rows = List(dim) { i ->
-            List(dim) { j ->
-                if (i == j)
-                    one
-                else
-                    zero
-            }
-        }
-        return this.fromRowList(rows, colCount = dim)
+        val rowMap = List(dim) { i -> i to mapOf(i to one) }.toMap()
+        return this.fromRowMap(rowMap, dim, dim)
     }
 }
 

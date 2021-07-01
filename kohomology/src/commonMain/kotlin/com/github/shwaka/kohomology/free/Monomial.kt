@@ -121,8 +121,8 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
                     indeterminateList.all { it.degree.toInt() > 0 } -> PositiveIndeterminateList(degreeGroup, indeterminateList)
                     indeterminateList.all { it.degree.toInt() < 0 } -> NegativeIndeterminateList(degreeGroup, indeterminateList)
                     else -> {
-                        val positiveIndeterminateList = indeterminateList.filter { it.degree.toInt() > 0}
-                        val negativeIndeterminateList = indeterminateList.filter { it.degree.toInt() < 0}
+                        val positiveIndeterminateList = indeterminateList.filter { it.degree.toInt() > 0 }
+                        val negativeIndeterminateList = indeterminateList.filter { it.degree.toInt() < 0 }
                         throw IllegalArgumentException(
                             "Cannot consider a list of indeterminate containing both positive and negative degrees; " +
                                 "positive: $positiveIndeterminateList, negative: $negativeIndeterminateList"

@@ -112,10 +112,22 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
         fun <D : Degree, I : IndeterminateName> from(degreeGroup: AugmentedDegreeGroup<D>, indeterminateList: List<Indeterminate<D, I>>): IndeterminateList<D, I> {
             return degreeGroup.context.run {
                 when {
-                    indeterminateList.any { it.degree.toInt() == 0 } -> throw IllegalArgumentException("Cannot consider an indeterminate of degree zero")
+                    indeterminateList.any { it.degree.toInt() == 0 } -> {
+                        val degree0IndeterminateList = indeterminateList.filter { it.degree.toInt() == 0 }
+                        throw IllegalArgumentException(
+                            "Cannot consider indeterminate of degree zero: $degree0IndeterminateList"
+                        )
+                    }
                     indeterminateList.all { it.degree.toInt() > 0 } -> PositiveIndeterminateList(degreeGroup, indeterminateList)
                     indeterminateList.all { it.degree.toInt() < 0 } -> NegativeIndeterminateList(degreeGroup, indeterminateList)
-                    else -> throw IllegalArgumentException("Cannot consider a list of indeterminate containing both positive and negative degrees")
+                    else -> {
+                        val positiveIndeterminateList = indeterminateList.filter { it.degree.toInt() > 0}
+                        val negativeIndeterminateList = indeterminateList.filter { it.degree.toInt() < 0}
+                        throw IllegalArgumentException(
+                            "Cannot consider a list of indeterminate containing both positive and negative degrees; " +
+                                "positive: $positiveIndeterminateList, negative: $negativeIndeterminateList"
+                        )
+                    }
                 }
             }
         }

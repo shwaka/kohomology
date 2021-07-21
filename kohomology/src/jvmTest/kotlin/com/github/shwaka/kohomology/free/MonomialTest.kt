@@ -275,7 +275,6 @@ class MonomialTest : FreeSpec({
             )
         }
         val monoid1 = FreeMonoid(degreeGroup1, indeterminateList)
-        val (x, y) = monoid1.generatorList
 
         val degreeGroup2 = MultiDegreeGroup(
             listOf(
@@ -292,11 +291,31 @@ class MonomialTest : FreeSpec({
         val monoid2 = monoidMorphism.target
 
         "x should be mapped to a monomial of degree (2n + 2m)" {
+            val x = monoid1.fromExponentList(intArrayOf(1, 0))
             monoidMorphism(x).degree shouldBe degreeGroup2.context.run { 2 * n + 2 * m }
         }
 
         "y should be mapped to a monomial of degree (4n + 4m - 1)" {
+            val y = monoid1.fromExponentList(intArrayOf(0, 1))
             monoidMorphism(y).degree shouldBe degreeGroup2.context.run { 4 * n + 4 * m - 1 }
+        }
+
+        "(x^2 y) should be mapped to a monomial of degree (8n + 8m - 1)" {
+            val x2y = monoid1.fromExponentList(intArrayOf(2, 1))
+            monoidMorphism(x2y).degree shouldBe degreeGroup2.context.run { 8 * n + 8 * m - 1 }
+        }
+
+        "FreeMonoidMorphismByDegreeChange should preserve exponentList" {
+            val exponentLists = listOf(
+                intArrayOf(1, 0),
+                intArrayOf(0, 1),
+                intArrayOf(1, 1),
+                intArrayOf(3, 2),
+            )
+            for (exponentList in exponentLists) {
+                monoidMorphism(monoid1.fromExponentList(exponentList)) shouldBe
+                    monoid2.fromExponentList(exponentList)
+            }
         }
     }
 })

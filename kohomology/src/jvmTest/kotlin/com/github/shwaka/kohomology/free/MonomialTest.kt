@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeHomomorphism
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -237,5 +238,20 @@ class MonomialTest : FreeSpec({
         val xy2 = Monomial(indeterminateList, listOf(1, 2))
         xy2.toString() shouldBe "xy^2"
         xy2.toString(printConfigForTex) shouldBe "XY^{2}"
+    }
+
+    "morphism test" {
+        val degreeGroup = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1)
+            )
+        )
+        val (n) = degreeGroup.generatorList
+        degreeGroup.context.run {
+            val morphism = MultiDegreeHomomorphism(degreeGroup, degreeGroup, listOf(2 * n))
+            val x = Indeterminate("x", 1 + n)
+            x.degree shouldBe (1 + n)
+            x.convertDegree(morphism).degree shouldBe (1 + 2 * n)
+        }
     }
 })

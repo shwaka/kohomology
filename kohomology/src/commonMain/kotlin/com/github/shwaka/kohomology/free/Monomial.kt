@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
@@ -62,6 +63,10 @@ data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val deg
     }
     override fun toString(): String {
         return this.name.toString()
+    }
+
+    fun <D_ : Degree> convertDegree(degreeMorphism: DegreeMorphism<D, D_>): Indeterminate<D_, I> {
+        return Indeterminate(this.name, degreeMorphism(this.degree))
     }
 }
 

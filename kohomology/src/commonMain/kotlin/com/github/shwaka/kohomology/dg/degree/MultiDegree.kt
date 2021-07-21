@@ -226,16 +226,16 @@ data class MultiDegreeGroupNormalization(
 }
 
 class MultiDegreeHomomorphism(
-    val source: MultiDegreeGroup,
-    val target: MultiDegreeGroup,
+    override val source: MultiDegreeGroup,
+    override val target: MultiDegreeGroup,
     private val values: List<MultiDegree>,
-) {
+) : DegreeMorphism<MultiDegree, MultiDegree> {
     init {
         if (values.size != source.indeterminateList.size)
             throw IllegalArgumentException("values.size should be equal to source.indeterminateList.size")
     }
 
-    operator fun invoke(degree: MultiDegree): MultiDegree {
+    override operator fun invoke(degree: MultiDegree): MultiDegree {
         if (degree !in this.source)
             throw IllegalArgumentException("The degree $degree is not an element of the group ${this.source}")
         return this.target.context.run {

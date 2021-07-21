@@ -74,3 +74,9 @@ interface AugmentedDegreeGroup<D : Degree> : DegreeGroup<D>, AugmentedDegreeGrou
     /** An augmentation homomorphism to Z. */
     override val context: AugmentedDegreeContext<D>
 }
+
+interface DegreeMorphism<DS : Degree, DT : Degree> {
+    val source: DegreeGroup<DS>
+    val target: DegreeGroup<DT>
+    operator fun invoke(degree: DS): DT
+}

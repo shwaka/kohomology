@@ -8,6 +8,7 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
     protected val degreeGroup: AugmentedDegreeGroup<D>,
     protected val rawList: List<Indeterminate<D, I>>
 ) {
+    fun toList(): List<Indeterminate<D, I>> = this.rawList
     fun isEmpty(): Boolean = this.rawList.isEmpty()
     fun first(): Indeterminate<D, I> = this.rawList.first()
     abstract fun drop(): IndeterminateList<D, I>

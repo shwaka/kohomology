@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free.monoid
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
+import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
@@ -33,4 +34,11 @@ interface Monoid<D : Degree, E : MonoidElement<D>> {
     fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
         throw NotImplementedError("Monoid.listDegreesForAugmentedDegree() is not implemented for a general monoid")
     }
+}
+
+interface MonoidMorphismWithDegreeChange<DS : Degree, ES : MonoidElement<DS>, DT : Degree, ET : MonoidElement<DT>> {
+    val source: Monoid<DS, ES>
+    val target: Monoid<DT, ET>
+    val degreeMorphism: DegreeMorphism<DS, DT>
+    operator fun invoke(monoidElement: ES): ET
 }

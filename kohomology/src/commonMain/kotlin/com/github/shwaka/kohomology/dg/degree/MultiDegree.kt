@@ -181,8 +181,8 @@ data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : 
 
 data class MultiDegreeGroupNormalization(
     val normalizedGroup: MultiDegreeGroup,
-    val normalize: MultiDegreeHomomorphism,
-    val unnormalize: MultiDegreeHomomorphism,
+    val normalize: MultiDegreeMorphism,
+    val unnormalize: MultiDegreeMorphism,
 ) {
     companion object {
         fun from(originalGroup: MultiDegreeGroup): MultiDegreeGroupNormalization {
@@ -192,7 +192,7 @@ data class MultiDegreeGroupNormalization(
                 }
                 MultiDegreeGroup(indeterminateList)
             }
-            val normalize: MultiDegreeHomomorphism = run {
+            val normalize: MultiDegreeMorphism = run {
                 val size = originalGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val sourceIndeterminate = originalGroup.indeterminateList[i]
@@ -204,9 +204,9 @@ data class MultiDegreeGroupNormalization(
                         targetIndeterminateAsDegree + sourceIndeterminate.defaultValue
                     }
                 }
-                MultiDegreeHomomorphism(originalGroup, normalizedGroup, values)
+                MultiDegreeMorphism(originalGroup, normalizedGroup, values)
             }
-            val unnormalize: MultiDegreeHomomorphism = run {
+            val unnormalize: MultiDegreeMorphism = run {
                 val size = normalizedGroup.indeterminateList.size
                 val values = (0 until size).map { i ->
                     val originalDefaultValue = originalGroup.indeterminateList[i].defaultValue
@@ -218,14 +218,14 @@ data class MultiDegreeGroupNormalization(
                         targetIndeterminateAsDegree - originalDefaultValue
                     }
                 }
-                MultiDegreeHomomorphism(normalizedGroup, originalGroup, values)
+                MultiDegreeMorphism(normalizedGroup, originalGroup, values)
             }
             return MultiDegreeGroupNormalization(normalizedGroup, normalize, unnormalize)
         }
     }
 }
 
-class MultiDegreeHomomorphism(
+class MultiDegreeMorphism(
     override val source: MultiDegreeGroup,
     override val target: MultiDegreeGroup,
     private val values: List<MultiDegree>,
@@ -240,7 +240,7 @@ class MultiDegreeHomomorphism(
             throw IllegalArgumentException("The degree $degree is not an element of the group ${this.source}")
         return this.target.context.run {
             degree.coeffList.indices.map { i ->
-                degree.coeffList[i] * this@MultiDegreeHomomorphism.values[i]
+                degree.coeffList[i] * this@MultiDegreeMorphism.values[i]
             }.fold(target.fromInt(degree.constantTerm)) { acc, degree -> acc + degree }
         }
     }

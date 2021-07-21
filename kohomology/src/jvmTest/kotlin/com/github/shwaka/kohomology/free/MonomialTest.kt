@@ -240,7 +240,7 @@ class MonomialTest : FreeSpec({
         xy2.toString(printConfigForTex) shouldBe "XY^{2}"
     }
 
-    "morphism test" {
+    "Indeterminate.convertDegree() test" {
         val degreeGroup = MultiDegreeGroup(
             listOf(
                 DegreeIndeterminate("N", 1)

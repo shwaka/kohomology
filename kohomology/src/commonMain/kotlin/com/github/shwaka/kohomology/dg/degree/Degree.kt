@@ -80,3 +80,8 @@ interface DegreeMorphism<DS : Degree, DT : Degree> {
     val target: DegreeGroup<DT>
     operator fun invoke(degree: DS): DT
 }
+
+interface AugmentedDegreeMorphism<DS : Degree, DT : Degree> : DegreeMorphism<DS, DT> {
+    override val source: AugmentedDegreeGroup<DS>
+    override val target: AugmentedDegreeGroup<DT>
+}

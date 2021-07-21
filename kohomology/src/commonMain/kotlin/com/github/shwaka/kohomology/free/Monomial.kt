@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -96,6 +97,7 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
     }
 
     abstract fun isAllowedDegree(degree: D): Boolean
+    abstract fun <D_ : Degree> convertDegree(degreeMorphism: AugmentedDegreeMorphism<D, D_>): IndeterminateList<D_, I>
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -158,6 +160,15 @@ internal class PositiveIndeterminateList<D : Degree, I : IndeterminateName>(
         }
     }
 
+    override fun <D_ : Degree> convertDegree(degreeMorphism: AugmentedDegreeMorphism<D, D_>): PositiveIndeterminateList<D_, I> {
+        if (this.degreeGroup != degreeMorphism.source)
+            throw IllegalArgumentException("The source of degreeMorphism is invalid")
+        val rawList = this.rawList.map { indeterminate ->
+            indeterminate.convertDegree(degreeMorphism)
+        }
+        return PositiveIndeterminateList(degreeMorphism.target, rawList)
+    }
+
     override fun drop(): PositiveIndeterminateList<D, I> = PositiveIndeterminateList(this.degreeGroup, this.rawList.drop(1))
 }
 
@@ -178,6 +189,15 @@ internal class NegativeIndeterminateList<D : Degree, I : IndeterminateName>(
         return this.degreeGroup.context.run {
             degree.toInt() <= 0
         }
+    }
+
+    override fun <D_ : Degree> convertDegree(degreeMorphism: AugmentedDegreeMorphism<D, D_>): NegativeIndeterminateList<D_, I> {
+        if (this.degreeGroup != degreeMorphism.source)
+            throw IllegalArgumentException("The source of degreeMorphism is invalid")
+        val rawList = this.rawList.map { indeterminate ->
+            indeterminate.convertDegree(degreeMorphism)
+        }
+        return NegativeIndeterminateList(degreeMorphism.target, rawList)
     }
 
     override fun drop(): NegativeIndeterminateList<D, I> = NegativeIndeterminateList(this.degreeGroup, this.rawList.drop(1))

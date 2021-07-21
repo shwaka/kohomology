@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.NonZero
@@ -257,6 +258,45 @@ class MonomialTest : FreeSpec({
             val x = Indeterminate("x", 1 + n)
             x.degree shouldBe (1 + n)
             x.convertDegree(morphism).degree shouldBe (1 + 2 * n)
+        }
+    }
+
+    "FreeMonoidMorphismByDegreeChange test" - {
+        val degreeGroup1 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("K", 1)
+            )
+        )
+        val (k) = degreeGroup1.generatorList
+        val indeterminateList = degreeGroup1.context.run {
+            listOf(
+                Indeterminate("x", 2 * k),
+                Indeterminate("y", 4 * k - 1),
+            )
+        }
+        val monoid1 = FreeMonoid(degreeGroup1, indeterminateList)
+        val (x, y) = monoid1.generatorList
+
+        val degreeGroup2 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1),
+                DegreeIndeterminate("M", 1),
+            )
+        )
+        val (n, m) = degreeGroup2.generatorList
+
+        val degreeMorphism = degreeGroup2.context.run {
+            MultiDegreeMorphism(degreeGroup1, degreeGroup2, listOf(n + m))
+        }
+        val monoidMorphism = FreeMonoidMorphismByDegreeChange(monoid1, degreeMorphism)
+        val monoid2 = monoidMorphism.target
+
+        "x should be mapped to a monomial of degree (2n + 2m)" {
+            monoidMorphism(x).degree shouldBe degreeGroup2.context.run { 2 * n + 2 * m }
+        }
+
+        "y should be mapped to a monomial of degree (4n + 4m - 1)" {
+            monoidMorphism(y).degree shouldBe degreeGroup2.context.run { 4 * n + 4 * m - 1 }
         }
     }
 })

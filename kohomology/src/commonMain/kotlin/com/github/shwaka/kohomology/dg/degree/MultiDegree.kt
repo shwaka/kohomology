@@ -229,7 +229,7 @@ class MultiDegreeMorphism(
     override val source: MultiDegreeGroup,
     override val target: MultiDegreeGroup,
     private val values: List<MultiDegree>,
-) : DegreeMorphism<MultiDegree, MultiDegree> {
+) : AugmentedDegreeMorphism<MultiDegree, MultiDegree> {
     init {
         if (values.size != source.indeterminateList.size)
             throw IllegalArgumentException("values.size should be equal to source.indeterminateList.size")

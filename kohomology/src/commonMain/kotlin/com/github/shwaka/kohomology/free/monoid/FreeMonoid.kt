@@ -156,6 +156,15 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
 
     override val unit: Monomial<D, I> = Monomial(this.degreeGroup, this.indeterminateListInternal, IntArray(this.indeterminateListInternal.size) { 0 })
 
+    val generatorList: List<Monomial<D, I>> by lazy {
+        val n = this.indeterminateListInternal.size
+        List(n) { i ->
+            IntArray(n) { j -> if (i == j) 1 else 0 }
+        }.map { exponentList ->
+            this.fromExponentList(exponentList)
+        }
+    }
+
     fun fromExponentList(exponentList: IntArray): Monomial<D, I> {
         return Monomial(this.degreeGroup, this.indeterminateListInternal, exponentList)
     }

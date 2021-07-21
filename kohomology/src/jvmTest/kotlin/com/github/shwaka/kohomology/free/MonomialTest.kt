@@ -3,6 +3,11 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.Monomial
+import com.github.shwaka.kohomology.free.monoid.NonZero
+import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldNotThrowAny

@@ -8,6 +8,11 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.OddSuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegreeGroup
+import com.github.shwaka.kohomology.free.monoid.MaybeZero
+import com.github.shwaka.kohomology.free.monoid.MonoidFromList
+import com.github.shwaka.kohomology.free.monoid.NonZero
+import com.github.shwaka.kohomology.free.monoid.SimpleMonoidElement
+import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

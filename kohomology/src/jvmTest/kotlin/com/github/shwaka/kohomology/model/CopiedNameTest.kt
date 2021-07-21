@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.free.Indeterminate
-import com.github.shwaka.kohomology.free.Monomial
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType

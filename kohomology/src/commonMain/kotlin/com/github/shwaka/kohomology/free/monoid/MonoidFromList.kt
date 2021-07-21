@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.free
+package com.github.shwaka.kohomology.free.monoid
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup

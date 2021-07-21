@@ -6,8 +6,8 @@ import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
-import com.github.shwaka.kohomology.free.IndeterminateName
-import com.github.shwaka.kohomology.free.Monomial
+import com.github.shwaka.kohomology.free.monoid.IndeterminateName
+import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar

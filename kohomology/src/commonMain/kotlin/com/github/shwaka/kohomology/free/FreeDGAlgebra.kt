@@ -6,13 +6,16 @@ import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGVectorOperations
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraOperations
+import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -169,5 +172,19 @@ open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
             underlyingMap = this.getId(),
             surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism
         )
+    }
+
+    fun <D_ : Degree> convertDegree(
+        degreeMorphism: AugmentedDegreeMorphism<D, D_>
+    ): Pair<FreeDGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {
+        val (newFreeGAlgebra, changeDegree) = this.gAlgebra.convertDegree(degreeMorphism)
+        val differentialValueList = this.gAlgebra.generatorList.map { v ->
+            val dv = this.context.run { d(v) }
+            changeDegree(dv)
+        }
+        val differential = newFreeGAlgebra.getDerivation(differentialValueList, 1)
+        val matrixSpace = this.matrixSpace
+        val newFreeDGAlgebra = FreeDGAlgebra(newFreeGAlgebra, differential, matrixSpace)
+        return Pair(newFreeDGAlgebra, changeDegree)
     }
 }

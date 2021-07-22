@@ -100,14 +100,7 @@ class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
                 newDegreeGroup,
                 newDegreeGroup.generatorList.dropLast(1),
             )
-            val (newFreeGAlgebra, changeDegree) = freeDGAlgebra.gAlgebra.convertDegree(degreeMorphism)
-            val differentialValueList = freeDGAlgebra.gAlgebra.generatorList.map { v ->
-                val dv = freeDGAlgebra.context.run { d(v) }
-                changeDegree(dv)
-            }
-            val differential = newFreeGAlgebra.getDerivation(differentialValueList, 1)
-            val matrixSpace = freeDGAlgebra.matrixSpace
-            val newFreeDGAlgebra = FreeDGAlgebra(newFreeGAlgebra, differential, matrixSpace)
+            val (newFreeDGAlgebra, _) = freeDGAlgebra.convertDegree(degreeMorphism)
             return FreeLoopSpace(newFreeDGAlgebra)
         }
     }

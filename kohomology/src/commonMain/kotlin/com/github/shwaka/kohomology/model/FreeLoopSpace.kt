@@ -97,7 +97,7 @@ class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
             )
             val shiftDegree = newDegreeGroup.context.run {
                 val s = newDegreeGroup.generatorList.last()
-                2 * s + 1
+                -2 * s + 1
             }
             val degreeMorphism = MultiDegreeMorphism(
                 degreeGroup,

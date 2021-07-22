@@ -105,14 +105,15 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(
     }
 }
 
-class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWrittern(
+class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWritten(
     private val degreeLimit: Int,
 ) : Executable() {
     override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree and hand-written shiftDegree)"
     override fun mainFun(): String {
+        val k = 10
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),
-            DegreeIndeterminate("s", 0),
+            DegreeIndeterminate("s", k),
         )
         val degreeMonoid = MultiDegreeGroup(degreeIndeterminateList)
         val (n, s) = degreeMonoid.generatorList
@@ -120,8 +121,8 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWrittern(
             listOf(
                 Indeterminate("x", 2 * n),
                 Indeterminate("y", 4 * n - 1),
-                Indeterminate("sx", 2 * n + 2 * s - 1),
-                Indeterminate("sy", 4 * n + 2 * s - 2),
+                Indeterminate("sx", 2 * n + 2 * s - 2 * k - 1),
+                Indeterminate("sy", 4 * n + 2 * s - 2 * k - 2),
             )
         }
         val matrixSpace = SparseMatrixSpaceOverBigRational

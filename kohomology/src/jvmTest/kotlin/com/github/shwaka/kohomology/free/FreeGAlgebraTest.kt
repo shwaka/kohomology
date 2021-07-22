@@ -296,7 +296,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "convertDegreeTest" - {
+    "convertDegreeTest for the model the sphere" - {
         val degreeGroup1 = MultiDegreeGroup(
             listOf(
                 DegreeIndeterminate("K", 1)
@@ -339,6 +339,43 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
         "(x1^2 y1) should be sent to (x2^2 y2)" {
             val elm1 = freeGAlgebra1.context.run { x1.pow(2) * y1 }
             val elm2 = freeGAlgebra2.context.run { x2.pow(2) * y2 }
+            gLinearMapWithDegreeChange(elm1) shouldBe elm2
+        }
+    }
+
+    "convertDegreeTest for the polynomial algebra of two variables" - {
+        val degreeGroup1 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("K", 1)
+            )
+        )
+        val (k) = degreeGroup1.generatorList
+        val indeterminateList1 = degreeGroup1.context.run {
+            listOf(
+                Indeterminate("x", 2 * k),
+                Indeterminate("y", 2 * k),
+            )
+        }
+        val freeGAlgebra1 = FreeGAlgebra(matrixSpace, degreeGroup1, indeterminateList1)
+        val (x1, y1) = freeGAlgebra1.generatorList
+
+        val degreeGroup2 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1),
+                DegreeIndeterminate("M", 1),
+            )
+        )
+        val (n, m) = degreeGroup2.generatorList
+        val degreeMorphism = degreeGroup2.context.run {
+            MultiDegreeMorphism(degreeGroup1, degreeGroup2, listOf(n + m))
+        }
+
+        val (freeGAlgebra2, gLinearMapWithDegreeChange) = freeGAlgebra1.convertDegree(degreeMorphism)
+        val (x2, y2) = freeGAlgebra2.generatorList
+
+        "(x1 - y1)^2 should be sent to (x2 - y2)^2" {
+            val elm1 = freeGAlgebra1.context.run { (x1 - y1).pow(2) }
+            val elm2 = freeGAlgebra2.context.run { (x2 - y2).pow(2) }
             gLinearMapWithDegreeChange(elm1) shouldBe elm2
         }
     }

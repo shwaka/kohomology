@@ -12,6 +12,8 @@ import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 
+private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
+
 data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
     IndeterminateName {
     override fun toString(): String {
@@ -75,5 +77,3 @@ fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
 ): Indeterminate<IntDegree, CopiedName<IntDegree, I>> {
     return this.copy(IntDegreeGroup, IntDegree(shift), index)
 }
-
-private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>

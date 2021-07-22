@@ -79,7 +79,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree(
 class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(
     private val degreeLimit: Int,
 ) : Executable() {
-    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
+    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree and FreeLoopSpace.withShiftDegree)"
     override fun mainFun(): String {
         val degreeIndeterminateList = listOf(
             DegreeIndeterminate("n", 1),

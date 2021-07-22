@@ -6,6 +6,7 @@ fun main() {
     val executableList: List<Executable> = listOf(
         CohomologyOfFreeLoopSpace(150),
         CohomologyOfFreeLoopSpaceWithMultiDegree(150),
+        CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(100),
         IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational),
     )

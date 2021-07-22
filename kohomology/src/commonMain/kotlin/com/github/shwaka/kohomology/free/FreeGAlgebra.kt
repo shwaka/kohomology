@@ -5,15 +5,18 @@ import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GAlgebraOperations
+import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -184,6 +187,24 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
             Pair(indeterminate.name.toString(), generator)
         }
         return this.parse(generators, text)
+    }
+
+    fun <D_ : Degree> convertDegree(
+        degreeMorphism: AugmentedDegreeMorphism<D, D_>
+    ): Pair<FreeGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {
+        val newIndeterminateList = this.indeterminateList.map { indeterminate ->
+            indeterminate.convertDegree(degreeMorphism)
+        }
+        val newFreeGAlgebra = FreeGAlgebra(this.matrixSpace, degreeMorphism.target, newIndeterminateList)
+        val freeMonoidMorphism = FreeMonoidMorphismByDegreeChange(this.monoid, degreeMorphism)
+        val gLinearMapWithDegreeChange = GLinearMapWithDegreeChange(
+            this,
+            newFreeGAlgebra,
+            degreeMorphism,
+            this.matrixSpace,
+            "${this.name} (degree changed)"
+        ) { monomial -> freeMonoidMorphism(monomial) }
+        return Pair(newFreeGAlgebra, gLinearMapWithDegreeChange)
     }
 
     companion object {

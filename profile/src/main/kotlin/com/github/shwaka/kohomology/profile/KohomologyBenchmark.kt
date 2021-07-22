@@ -22,6 +22,11 @@ class KohomologyBenchmark {
     }
 
     @Benchmark
+    fun cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWrittern(): String {
+        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWritten(50).main()
+    }
+
+    @Benchmark
     fun isomorphismToCohomologyOfFreePathSpace(): String {
         return IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 35).main()
     }

@@ -1,9 +1,7 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
-import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
-import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate

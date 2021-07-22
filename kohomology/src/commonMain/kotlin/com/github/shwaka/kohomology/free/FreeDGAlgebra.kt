@@ -15,7 +15,6 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
-import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial

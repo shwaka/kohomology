@@ -17,7 +17,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 abstract class Executable {
     abstract val description: String
     protected open fun setupFun() {}
-    var setupFinished = false
+    private var setupFinished = false
     fun setup() {
         if (this.setupFinished)
             return
@@ -31,7 +31,7 @@ abstract class Executable {
     }
 }
 
-class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
+class CohomologyOfFreeLoopSpace(private val degreeLimit: Int) : Executable() {
     override val description = "cohomology of free loop space of 2-sphere"
     override fun mainFun(): String {
         val sphereDim = 2
@@ -48,7 +48,7 @@ class CohomologyOfFreeLoopSpace(val degreeLimit: Int) : Executable() {
 }
 
 class CohomologyOfFreeLoopSpaceWithMultiDegree(
-    val degreeLimit: Int,
+    private val degreeLimit: Int,
 ) : Executable() {
     override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
     override fun mainFun(): String {
@@ -68,6 +68,35 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree(
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
+        var result = ""
+        for (degree in 0 until this.degreeLimit) {
+            result += freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).toString() + "\n"
+        }
+        return result
+    }
+}
+
+class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(
+    private val degreeLimit: Int,
+) : Executable() {
+    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree)"
+    override fun mainFun(): String {
+        val degreeIndeterminateList = listOf(
+            DegreeIndeterminate("n", 1),
+        )
+        val degreeMonoid = MultiDegreeGroup(degreeIndeterminateList)
+        val (n) = degreeMonoid.generatorList
+        val indeterminateList = degreeMonoid.context.run {
+            listOf(
+                Indeterminate("x", 2 * n),
+                Indeterminate("y", 4 * n - 1)
+            )
+        }
+        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val sphere = FreeDGAlgebra(matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
+            listOf(zeroGVector, x.pow(2))
+        }
+        val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere)
         var result = ""
         for (degree in 0 until this.degreeLimit) {
             result += freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).toString() + "\n"

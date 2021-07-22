@@ -24,6 +24,7 @@ open class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by 
     operator fun D.minus(other: Int): D = this@DegreeContext.subtract(this, other.toDegree())
     operator fun D.times(n: Int): D = this@DegreeContext.multiply(this, n)
     operator fun Int.times(degree: D): D = this@DegreeContext.multiply(degree, this)
+    operator fun D.unaryMinus(): D = this@DegreeContext.multiply(this, -1)
 }
 
 class AugmentedDegreeContext<D : Degree>(group: AugmentedDegreeGroup<D>) :

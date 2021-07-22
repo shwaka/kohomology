@@ -14,13 +14,15 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
 private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>
+    val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    val degreeForShift: D?,
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
+        val degreeForShiftNonNull = degreeForShift ?: degreeGroup.fromInt(1)
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
-            list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, degreeGroup.fromInt(1)) }
+            list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, degreeForShiftNonNull) }
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }
@@ -58,7 +60,11 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<D, I, S, V, M>
 ) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
-    constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreeLoopSpaceFactory(freeDGAlgebra))
+    constructor(
+        freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+        degreeForShift: D? = null,
+    ) : this(FreeLoopSpaceFactory(freeDGAlgebra, degreeForShift))
+
     val suspension: DGDerivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         DGDerivation(this, this.factory.suspension)
     val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {

@@ -1,6 +1,9 @@
 package com.github.shwaka.kohomology.example
 
+import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
@@ -46,6 +49,63 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(
         Indeterminate("y", 2 * dim - 1)
     )
     return FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+        listOf(zeroGVector, x.pow(2))
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphereWithMultiDegree(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dim: Int
+): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
+    if (dim <= 0)
+        throw IllegalArgumentException("The dimension of a sphere must be positive")
+    return if (dim % 2 == 1)
+        oddSphereWithMultiDegree(matrixSpace, dim)
+    else
+        evenSphereWithMultiDegree(matrixSpace, dim)
+}
+
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereWithMultiDegree(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dim: Int
+): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
+    if (dim % 2 == 0)
+        throw Exception("This can't happen!")
+    val degreeGroup = MultiDegreeGroup(
+        listOf(
+            DegreeIndeterminate("N", dim / 2),
+        )
+    )
+    val (n) = degreeGroup.generatorList
+    val indeterminateList = degreeGroup.context.run {
+        listOf(
+            Indeterminate("x", 2 * n + 1),
+        )
+    }
+    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (_) ->
+        listOf(zeroGVector)
+    }
+}
+
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereWithMultiDegree(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dim: Int
+): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
+    if (dim % 2 == 1)
+        throw Exception("This can't happen!")
+    val degreeGroup = MultiDegreeGroup(
+        listOf(
+            DegreeIndeterminate("N", dim / 2),
+        )
+    )
+    val (n) = degreeGroup.generatorList
+    val indeterminateList = degreeGroup.context.run {
+        listOf(
+            Indeterminate("x", 2 * n),
+            Indeterminate("y", 4 * n - 1)
+        )
+    }
+    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
 }

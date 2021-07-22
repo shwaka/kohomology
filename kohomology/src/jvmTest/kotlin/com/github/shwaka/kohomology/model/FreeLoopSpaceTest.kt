@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
+import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
@@ -119,22 +120,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
     matrixSpace: MatrixSpace<S, V, M>,
 ) = freeSpec {
     "FreeLoopSpace.withShiftDegree" - {
-        val degreeGroup = MultiDegreeGroup(
-            listOf(
-                DegreeIndeterminate("N", 1),
-            )
-        )
-        val (n) = degreeGroup.generatorList
-        val indeterminateList = degreeGroup.context.run {
-            listOf(
-                Indeterminate("x", 2 * n),
-                Indeterminate("y", 4 * n - 1)
-            )
-        }
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
-            listOf(zeroGVector, x.pow(2))
-        }
-        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere", freeDGAlgebra, 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere", sphereWithMultiDegree(matrixSpace, 2), 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere", sphereWithMultiDegree(matrixSpace, 3), 20)
     }
 }
 

@@ -1,8 +1,12 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.exception.InvalidSizeException
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -291,6 +295,55 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "convertDegreeTest" - {
+        val degreeGroup1 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("K", 1)
+            )
+        )
+        val (k) = degreeGroup1.generatorList
+        val indeterminateList1 = degreeGroup1.context.run {
+            listOf(
+                Indeterminate("x", 2 * k),
+                Indeterminate("y", 4 * k - 1),
+            )
+        }
+        val freeGAlgebra1 = FreeGAlgebra(matrixSpace, degreeGroup1, indeterminateList1)
+        val (x1, y1) = freeGAlgebra1.generatorList
+
+        val degreeGroup2 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1),
+                DegreeIndeterminate("M", 1),
+            )
+        )
+        val (n, m) = degreeGroup2.generatorList
+        val degreeMorphism = degreeGroup2.context.run {
+            MultiDegreeMorphism(degreeGroup1, degreeGroup2, listOf(n + m))
+        }
+
+        val (freeGAlgebra2, gLinearMapWithDegreeChange) = freeGAlgebra1.convertDegree(degreeMorphism)
+        val (x2, y2) = freeGAlgebra2.generatorList
+
+        "x1 should be sent to x2" {
+            gLinearMapWithDegreeChange(x1).degree shouldBe degreeGroup2.context.run { 2 * n + 2 * m }
+            gLinearMapWithDegreeChange(x1) shouldBe x2
+        }
+
+        "y1 should be sent to y2" {
+            gLinearMapWithDegreeChange(y1).degree shouldBe degreeGroup2.context.run { 4 * n + 4 * m - 1 }
+            gLinearMapWithDegreeChange(y1) shouldBe y2
+        }
+
+        "(x1^2 y1) should be sent to (x2^2 y2)" {
+            val elm1 = freeGAlgebra1.context.run { x1.pow(2) * y1 }
+            val elm2 = freeGAlgebra2.context.run { x2.pow(2) * y2 }
+            gLinearMapWithDegreeChange(elm1) shouldBe elm2
+        }
+    }
+}
+
 class FreeGAlgebraTest : FreeSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
@@ -311,4 +364,6 @@ class FreeGAlgebraTest : FreeSpec({
 
     include(parseTest(matrixSpace))
     include(toStringTest(matrixSpace))
+
+    include(convertDegreeTest(matrixSpace))
 })

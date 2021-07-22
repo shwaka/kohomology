@@ -125,6 +125,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceWithMultiDegree(
+    matrixSpace: MatrixSpace<S, V, M>,
+    n: Int
+): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
+    if (n <= 0)
+        throw IllegalArgumentException("The complex dimension n of CP^n must be positive")
+    val degreeGroup = MultiDegreeGroup(
+        listOf(
+            DegreeIndeterminate("K", 1),
+        )
+    )
+    val (k) = degreeGroup.generatorList
+    val indeterminateList = degreeGroup.context.run {
+        listOf(
+            Indeterminate("c", 2 * k),
+            Indeterminate("x", 2 * k * (n + 1) - 1)
+        )
+    }
+    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (c, _) ->
+        listOf(zeroGVector, c.pow(n + 1))
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4(
     matrixSpace: MatrixSpace<S, V, M>,
 ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
@@ -136,6 +159,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
         Indeterminate("z", 3),
     )
     return FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
+        listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4WithMultiDegree(
+    matrixSpace: MatrixSpace<S, V, M>,
+): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
+    val degreeGroup = MultiDegreeGroup(
+        listOf(
+            DegreeIndeterminate("N", 1),
+            DegreeIndeterminate("M", 1),
+        )
+    )
+    val (n, m) = degreeGroup.generatorList
+    val indeterminateList = degreeGroup.context.run {
+        listOf(
+            Indeterminate("a", 2 * n),
+            Indeterminate("b", 2 * m),
+            Indeterminate("x", 4 * n - 1),
+            Indeterminate("y", 2 * n + 2 * m - 1),
+            Indeterminate("z", 4 * m - 1),
+        )
+    }
+    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (a, b, _, _, _) ->
         listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
     }
 }

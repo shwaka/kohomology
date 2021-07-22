@@ -105,6 +105,37 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(
     }
 }
 
+class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWrittern(
+    private val degreeLimit: Int,
+) : Executable() {
+    override val description: String = "cohomology of free loop space of 2n-sphere (with MultiDegree and hand-written shiftDegree)"
+    override fun mainFun(): String {
+        val degreeIndeterminateList = listOf(
+            DegreeIndeterminate("n", 1),
+            DegreeIndeterminate("s", 0),
+        )
+        val degreeMonoid = MultiDegreeGroup(degreeIndeterminateList)
+        val (n, s) = degreeMonoid.generatorList
+        val indeterminateList = degreeMonoid.context.run {
+            listOf(
+                Indeterminate("x", 2 * n),
+                Indeterminate("y", 4 * n - 1),
+                Indeterminate("sx", 2 * n + 2 * s - 1),
+                Indeterminate("sy", 4 * n + 2 * s - 2),
+            )
+        }
+        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val freeLoopSpace = FreeDGAlgebra(matrixSpace, degreeMonoid, indeterminateList) { (x, _, sx, _) ->
+            listOf(zeroGVector, x.pow(2), zeroGVector, -2 * x * sx)
+        }
+        var result = ""
+        for (degree in 0 until this.degreeLimit) {
+            result += freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).toString() + "\n"
+        }
+        return result
+    }
+}
+
 class IsomorphismToCohomologyOfFreePathSpace(val n: Int, val degreeLimit: Int) : Executable() {
     override val description: String = "cohomology of the free path space of CP^n"
     override fun mainFun(): String {

@@ -1,8 +1,12 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
+import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -11,6 +15,7 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import mu.KotlinLogging
@@ -95,9 +100,48 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     }
 }
 
+suspend inline fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.freeLoopSpaceWithShiftDegreeTestTemplate(
+    name: String,
+    freeDGAlgebra: FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M>,
+    maxDegree: Int,
+) {
+    "FreeLoopSpace.withShiftDegree for $name" {
+        val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
+        val freeLoopSpaceWithShiftDegree = FreeLoopSpace.withShiftDegree(freeDGAlgebra)
+        for (degree in 0..maxDegree) {
+            freeLoopSpaceWithShiftDegree.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
+                freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).size
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegreeTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+) = freeSpec {
+    "FreeLoopSpace.withShiftDegree" - {
+        val degreeGroup = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("N", 1),
+            )
+        )
+        val (n) = degreeGroup.generatorList
+        val indeterminateList = degreeGroup.context.run {
+            listOf(
+                Indeterminate("x", 2 * n),
+                Indeterminate("y", 4 * n - 1)
+            )
+        }
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
+            listOf(zeroGVector, x.pow(2))
+        }
+        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere", freeDGAlgebra, 20)
+    }
+}
+
 class FreeLoopSpaceTest : FreeSpec({
     tags(freeLoopSpaceTag, bigRationalTag)
 
     include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))
     include(freeLoopSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 4))
+    include(freeLoopSpaceWithShiftDegreeTest(DenseMatrixSpaceOverBigRational))
 })

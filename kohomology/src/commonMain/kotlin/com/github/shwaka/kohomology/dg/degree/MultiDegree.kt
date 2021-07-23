@@ -100,7 +100,7 @@ data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : 
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
-        val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] + degree2.coeffList[it] }
+        val coeffList = IntArray(this.indeterminateList.size) { degree1.coeffList[it] + degree2.coeffList[it] }
         return MultiDegree(this, degree1.constantTerm + degree2.constantTerm, coeffList)
     }
 
@@ -109,14 +109,14 @@ data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : 
             throw IllegalContextException("$degree1 is not an element of $this")
         if (degree2.group != this)
             throw IllegalContextException("$degree2 is not an element of $this")
-        val coeffList = IntArray(degree1.coeffList.size) { degree1.coeffList[it] - degree2.coeffList[it] }
+        val coeffList = IntArray(this.indeterminateList.size) { degree1.coeffList[it] - degree2.coeffList[it] }
         return MultiDegree(this, degree1.constantTerm - degree2.constantTerm, coeffList)
     }
 
     override fun multiply(degree: MultiDegree, n: Int): MultiDegree {
         if (degree.group != this)
             throw IllegalContextException("$degree is not an element of $this")
-        val coeffList = IntArray(degree.coeffList.size) { degree.coeffList[it] * n }
+        val coeffList = IntArray(this.indeterminateList.size) { degree.coeffList[it] * n }
         return MultiDegree(this, degree.constantTerm * n, coeffList)
     }
 

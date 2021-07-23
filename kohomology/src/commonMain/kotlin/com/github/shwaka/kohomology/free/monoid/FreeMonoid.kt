@@ -210,7 +210,11 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     }
 
     override fun listElements(degree: D): List<Monomial<D, I>> {
-        return this.monomialListGenerator.listMonomials(degree)
+        // return this.monomialListGenerator.listMonomials(degree)
+        val augmentedDegree = this.degreeGroup.augmentation(degree)
+        return this.listElementsForAugmentedDegree(augmentedDegree).filter {
+            it.degree == degree
+        }
     }
 
     private val monomialListGeneratorWithAugmentedDegree by lazy {
@@ -221,14 +225,16 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         MonomialListGenerator(IntDegreeGroup, indeterminateListWithAugDeg)
     }
 
-    override fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
-        val elementListWithAugDeg: List<Monomial<IntDegree, I>> =
+    private fun listElementsForAugmentedDegree(augmentedDegree: Int): List<Monomial<D, I>> {
+        val elementListWithIntDegree: List<Monomial<IntDegree, I>> =
             this.monomialListGeneratorWithAugmentedDegree.listMonomials(IntDegree(augmentedDegree))
-        val elementList: List<Monomial<D, I>> =
-            elementListWithAugDeg.map { elementWithAugDeg ->
-                Monomial(this.degreeGroup, this.indeterminateListInternal, elementWithAugDeg.exponentList)
-            }
-        return elementList.map { it.degree }.distinct()
+        return elementListWithIntDegree.map { elementWithAugDeg ->
+            Monomial(this.degreeGroup, this.indeterminateListInternal, elementWithAugDeg.exponentList)
+        }
+    }
+
+    override fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+        return this.listElementsForAugmentedDegree(augmentedDegree).map { it.degree }.distinct()
     }
 
     private fun separate(monomial: Monomial<D, I>, index: Int): MonomialSeparation<D, I>? {

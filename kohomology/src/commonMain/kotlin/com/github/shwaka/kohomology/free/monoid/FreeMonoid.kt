@@ -206,7 +206,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     }
 
     private val monomialListGenerator by lazy {
-        MonomialListGenerator(this.degreeGroup, this.indeterminateListInternal, this.unit)
+        MonomialListGenerator(this.degreeGroup, this.indeterminateListInternal)
     }
 
     override fun listElements(degree: D): List<Monomial<D, I>> {
@@ -218,8 +218,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
             Indeterminate(indeterminate.name, this.degreeGroup.augmentation(indeterminate.degree))
         }
         val indeterminateListWithAugDeg = IndeterminateList.from(IntDegreeGroup, indeterminateRawList)
-        val unit = Monomial(IntDegreeGroup, indeterminateListWithAugDeg, IntArray(indeterminateListWithAugDeg.size) { 0 })
-        MonomialListGenerator(IntDegreeGroup, indeterminateListWithAugDeg, unit)
+        MonomialListGenerator(IntDegreeGroup, indeterminateListWithAugDeg)
     }
 
     override fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
@@ -288,10 +287,16 @@ data class MonomialSeparation<D : Degree, I : IndeterminateName>(
 private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
     val degreeGroup: AugmentedDegreeGroup<D>,
     val indeterminateList: IndeterminateList<D, I>,
-    val unit: Monomial<D, I>,
+    // val unit: Monomial<D, I>,
 ) {
     // (degree: D, index: Int) -> List<Monomial<D, I>>
     private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
+
+    private val unit: Monomial<D, I> = Monomial(
+        this.degreeGroup,
+        this.indeterminateList,
+        IntArray(this.indeterminateList.size) { 0 }
+    )
 
     fun listMonomials(degree: D): List<Monomial<D, I>> {
         if (!this.indeterminateList.isAllowedDegree(degree))

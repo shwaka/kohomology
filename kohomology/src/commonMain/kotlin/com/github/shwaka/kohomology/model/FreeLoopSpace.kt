@@ -6,6 +6,9 @@ import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
+import com.github.shwaka.kohomology.dg.degree.InclusionFromIntDegreeToMultiDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
@@ -84,7 +87,18 @@ class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
 
     companion object {
         private const val degreeIndeterminateName: String = "S"
-        fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(
+        fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(
+            freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+        ): FreeLoopSpace<MultiDegree, I, S, V, M> {
+            @Suppress("UNCHECKED_CAST")
+            return when (freeDGAlgebra.gAlgebra.degreeGroup) {
+                is IntDegreeGroup -> this.withShiftDegreeForIntDegree(freeDGAlgebra as FreeDGAlgebra<IntDegree, I, S, V, M>)
+                is MultiDegreeGroup -> this.withShiftDegreeForMultiDegree(freeDGAlgebra as FreeDGAlgebra<MultiDegree, I, S, V, M>)
+                else -> throw UnsupportedOperationException("withShiftDegree is supported only for IntDegree and MultiDegree")
+            }
+        }
+
+        private fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegreeForMultiDegree(
             freeDGAlgebra: FreeDGAlgebra<MultiDegree, I, S, V, M>,
         ): FreeLoopSpace<MultiDegree, I, S, V, M> {
             val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
@@ -104,6 +118,24 @@ class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
                 newDegreeGroup,
                 newDegreeGroup.generatorList.dropLast(1),
             )
+            val (newFreeDGAlgebra, _) = freeDGAlgebra.convertDegree(degreeMorphism)
+            return FreeLoopSpace(newFreeDGAlgebra, shiftDegree)
+        }
+
+        private fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegreeForIntDegree(
+            freeDGAlgebra: FreeDGAlgebra<IntDegree, I, S, V, M>,
+        ): FreeLoopSpace<MultiDegree, I, S, V, M> {
+            val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
+            if (degreeGroup !is IntDegreeGroup)
+                throw NotImplementedError("not supported!")
+            val newDegreeGroup = MultiDegreeGroup(
+                listOf(DegreeIndeterminate(this.degreeIndeterminateName, 0))
+            )
+            val shiftDegree = newDegreeGroup.context.run {
+                val s = newDegreeGroup.generatorList.last()
+                -2 * s + 1
+            }
+            val degreeMorphism = InclusionFromIntDegreeToMultiDegree(newDegreeGroup)
             val (newFreeDGAlgebra, _) = freeDGAlgebra.convertDegree(degreeMorphism)
             return FreeLoopSpace(newFreeDGAlgebra, shiftDegree)
         }

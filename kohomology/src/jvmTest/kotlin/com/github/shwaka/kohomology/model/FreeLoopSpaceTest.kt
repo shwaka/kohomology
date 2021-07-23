@@ -1,7 +1,9 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -99,9 +101,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     }
 }
 
-suspend inline fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.freeLoopSpaceWithShiftDegreeTestTemplate(
+suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.freeLoopSpaceWithShiftDegreeTestTemplate(
     name: String,
-    freeDGAlgebra: FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M>,
+    freeDGAlgebra: FreeDGAlgebra<D, StringIndeterminateName, S, V, M>,
     maxDegree: Int,
 ) {
     "FreeLoopSpace.withShiftDegree for $name" {
@@ -118,8 +120,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
     matrixSpace: MatrixSpace<S, V, M>,
 ) = freeSpec {
     "FreeLoopSpace.withShiftDegree" - {
-        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere", sphereWithMultiDegree(matrixSpace, 2), 20)
-        freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere", sphereWithMultiDegree(matrixSpace, 3), 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere (IntDegree)", sphere(matrixSpace, 2), 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (IntDegree)", sphere(matrixSpace, 3), 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("even sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 2), 20)
+        freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 3), 20)
     }
 }
 

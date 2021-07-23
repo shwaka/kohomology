@@ -245,3 +245,13 @@ class MultiDegreeMorphism(
         }
     }
 }
+
+class InclusionFromIntDegreeToMultiDegree(
+    override val target: MultiDegreeGroup
+) : AugmentedDegreeMorphism<IntDegree, MultiDegree> {
+    override val source: AugmentedDegreeGroup<IntDegree> = IntDegreeGroup
+
+    override fun invoke(degree: IntDegree): MultiDegree {
+        return this.target.fromInt(degree.value)
+    }
+}

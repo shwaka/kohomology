@@ -6,24 +6,26 @@ import org.openjdk.jmh.annotations.State
 
 @State(Scope.Benchmark)
 class KohomologyBenchmark {
+    private val degreeLimit: Int = 50
+
     @Benchmark
     fun cohomologyOfFreeLoopSpace(): String {
-        return CohomologyOfFreeLoopSpace(50).main()
+        return CohomologyOfFreeLoopSpace(this.degreeLimit).main()
     }
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegree(50).main()
+        return CohomologyOfFreeLoopSpaceWithMultiDegree(this.degreeLimit).main()
     }
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(50).main()
+        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(this.degreeLimit).main()
     }
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWrittern(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWritten(50).main()
+        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree_handWritten(this.degreeLimit).main()
     }
 
     @Benchmark

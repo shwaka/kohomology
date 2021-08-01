@@ -100,6 +100,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             freeGAlgebra.containsIndeterminate(0, xy).shouldBeTrue()
             freeGAlgebra.containsIndeterminate(1, xy).shouldBeTrue()
         }
+        "getGLinearMap test" {
+            val (x, y) = freeGAlgebra.generatorList
+            val f = freeGAlgebra.getGLinearMapByMultiplication(x)
+            freeGAlgebra.context.run {
+                f(x) shouldBe x.pow(2)
+                f(y) shouldBe (x * y)
+                f(x.pow(3)) shouldBe x.pow(4)
+            }
+        }
     }
 }
 
@@ -153,6 +162,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
                 f(y) shouldBe y
                 f(x + y) shouldBe (x + 2 * y)
                 f(x * y) shouldBe (x * y)
+            }
+        }
+        "getGLinearMap test" {
+            val (x, y) = freeGAlgebra.generatorList
+            val f = freeGAlgebra.getGLinearMapByMultiplication(x)
+            freeGAlgebra.context.run {
+                f(x).isZero().shouldBeTrue()
+                f(y) shouldBe (x * y)
             }
         }
     }

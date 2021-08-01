@@ -126,4 +126,18 @@ open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
         val grammar = GAlgebraGrammar(this, generators)
         return grammar.parseToEnd(text)
     }
+
+    fun getGLinearMapByMultiplication(cochain: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
+        return GLinearMap.fromGVectors(
+            this,
+            this,
+            cochain.degree,
+            this.matrixSpace,
+            "($cochain * (-))"
+        ) { degree ->
+            this.context.run {
+                this@GAlgebra.getBasis(degree).map { cochain * it }
+            }
+        }
+    }
 }

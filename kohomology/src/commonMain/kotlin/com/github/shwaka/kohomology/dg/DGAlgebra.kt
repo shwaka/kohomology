@@ -94,4 +94,13 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
         val gAlgebraMap = this.gAlgebra.getId()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
+
+    fun getDGLinearMapByMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
+        this.context.run {
+            if (d(cocycle).isNotZero())
+                throw IllegalArgumentException("Not cocycle: $cocycle")
+        }
+        val gLinearMap = this.gAlgebra.getGLinearMapByMultiplication(cocycle)
+        return DGLinearMap(this, this, gLinearMap)
+    }
 }

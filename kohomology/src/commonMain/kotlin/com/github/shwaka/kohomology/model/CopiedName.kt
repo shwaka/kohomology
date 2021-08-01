@@ -14,6 +14,10 @@ import com.github.shwaka.kohomology.vectsp.PrintType
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
+enum class UseBar {
+    ALWAYS, ONE, NEVER
+}
+
 data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
     IndeterminateName {
     override fun toString(): String {
@@ -33,12 +37,23 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         }
     }
 
-    private fun toTex(useBar: Boolean): String {
+    private fun toTex(useBar: UseBar): String {
         val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
-        val shiftString = when {
-            this.shift.isZero() -> ""
-            this.shift.isOne() -> if (useBar) "\\bar" else "s"
-            else -> "s^{${this.shift}}"
+        val shiftString = when (useBar) {
+            UseBar.ALWAYS -> when {
+                this.shift.isZero() -> ""
+                else -> "\\bar"
+            }
+            UseBar.ONE -> when {
+                this.shift.isZero() -> ""
+                this.shift.isOne() -> "\\bar"
+                else -> "s^{${this.shift}}"
+            }
+            UseBar.NEVER -> when {
+                this.shift.isZero() -> ""
+                this.shift.isOne() -> "s"
+                else -> "s^{${this.shift}}"
+            }
         }
         // The brace surrounding ${this.name} is necessary to avoid "double subscript"
         //   when this.name contains a subscript

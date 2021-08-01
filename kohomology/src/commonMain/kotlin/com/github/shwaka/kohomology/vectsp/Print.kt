@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.model.UseBar
 
 enum class PrintType {
     PLAIN, TEX
@@ -55,5 +56,5 @@ data class PrintConfig(
     val beforeSign: String = " ",
     val afterSign: String = " ",
     val afterCoeff: String = " ",
-    val useBar: Boolean = false,
+    val useBar: UseBar = UseBar.NEVER,
 )

@@ -27,12 +27,13 @@ class Printer private constructor(
         val value: String = this.value + str
         return Printer(this.printConfig, value)
     }
-    operator fun plus(printable: Printable): Printer {
+    operator fun plus(printable: Printable?): Printer {
         val value: String = this(printable)
         return Printer(this.printConfig, value)
     }
-    operator fun invoke(printable: Printable): String {
-        return this.value + printable.toString(this.printConfig)
+    operator fun invoke(printable: Printable?): String {
+        val stringFromPrintable: String = printable?.toString(this.printConfig) ?: "null"
+        return this.value + stringFromPrintable
     }
 }
 

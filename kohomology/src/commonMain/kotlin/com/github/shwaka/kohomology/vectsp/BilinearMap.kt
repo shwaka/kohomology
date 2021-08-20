@@ -5,18 +5,18 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-class BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val source1: VectorSpace<BS1, S, V>,
-    val source2: VectorSpace<BS2, S, V>,
-    val target: VectorSpace<BT, S, V>,
-    val matrixSpace: MatrixSpace<S, V, M>,
+public class BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public val source1: VectorSpace<BS1, S, V>,
+    public val source2: VectorSpace<BS2, S, V>,
+    public val target: VectorSpace<BT, S, V>,
+    public val matrixSpace: MatrixSpace<S, V, M>,
     private val values: List<List<Vector<BT, S, V>>>,
 ) {
     init {
         // TODO: check rowCount, colCount, and dim of 'values'
     }
 
-    operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {
+    public operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {
         return this.target.context.run {
             vector1.numVector.toMap().mapValues { (ind1, coeff1) ->
                 vector2.numVector.toMap().mapValues { (ind2, coeff2) ->

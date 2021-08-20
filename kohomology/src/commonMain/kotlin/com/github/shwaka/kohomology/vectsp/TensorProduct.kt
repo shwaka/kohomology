@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-data class BasisPair<B1, B2>(val first: B1, val second: B2) : BasisName {
+public data class BasisPair<B1, B2>(val first: B1, val second: B2) : BasisName {
     private fun stringPairToString(s1: String, s2: String): String {
         return "($s1, $s2)"
     }
@@ -16,7 +16,7 @@ data class BasisPair<B1, B2>(val first: B1, val second: B2) : BasisName {
     }
 }
 
-class TensorProductContext<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
+public class TensorProductContext<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
     private val tensorProduct: TensorProduct<B1, B2, S, V>
 ) : MultipleVectorContext<S, V>(
     tensorProduct.vectorSpace.numVectorSpace,
@@ -27,17 +27,17 @@ class TensorProductContext<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVe
     )
 ) {
 
-    infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
+    public infix fun Vector<B1, S, V>.tensor(other: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
         return this@TensorProductContext.tensorProduct.tensorProductOf(this, other)
     }
 }
 
-class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
-    val vectorSpace1: VectorSpace<B1, S, V>,
-    val vectorSpace2: VectorSpace<B2, S, V>
+public class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>>(
+    public val vectorSpace1: VectorSpace<B1, S, V>,
+    public val vectorSpace2: VectorSpace<B2, S, V>
 ) {
-    val vectorSpace: VectorSpace<BasisPair<B1, B2>, S, V>
-    val context by lazy { TensorProductContext(this) } // 直接代入するとなぜか Null Pointer Exception が起きる
+    public val vectorSpace: VectorSpace<BasisPair<B1, B2>, S, V>
+    public val context: TensorProductContext<B1, B2, S, V> by lazy { TensorProductContext(this) } // 直接代入するとなぜか Null Pointer Exception が起きる
 
     init {
         if (vectorSpace1.numVectorSpace != vectorSpace2.numVectorSpace)
@@ -48,7 +48,7 @@ class TensorProduct<B1 : BasisName, B2 : BasisName, S : Scalar, V : NumVector<S>
         this.vectorSpace = VectorSpace(vectorSpace1.numVectorSpace, basisNames)
     }
 
-    fun tensorProductOf(vector1: Vector<B1, S, V>, vector2: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
+    public fun tensorProductOf(vector1: Vector<B1, S, V>, vector2: Vector<B2, S, V>): Vector<BasisPair<B1, B2>, S, V> {
         if (vector1.vectorSpace != this.vectorSpace1)
             throw IllegalContextException("The first vector is not an element of the first vector space")
         if (vector2.vectorSpace != this.vectorSpace2)

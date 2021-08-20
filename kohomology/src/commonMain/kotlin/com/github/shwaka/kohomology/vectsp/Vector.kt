@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
+import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -12,11 +13,11 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
 import mu.KotlinLogging
 
-interface BasisName {
-    fun toString(printConfig: PrintConfig): String = this.toString()
+public interface BasisName {
+    public fun toString(printConfig: PrintConfig): String = this.toString()
 }
-class StringBasisName(val name: String, tex: String? = null) : BasisName {
-    val tex: String = tex ?: name
+public class StringBasisName(public val name: String, tex: String? = null) : BasisName {
+    public val tex: String = tex ?: name
 
     override fun toString(): String = this.name
     override fun toString(printConfig: PrintConfig): String {
@@ -45,27 +46,30 @@ class StringBasisName(val name: String, tex: String? = null) : BasisName {
     }
 }
 
-class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val vectorSpace: VectorSpace<B, S, V>) : Printable {
+public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
+    public val numVector: V,
+    public val vectorSpace: VectorSpace<B, S, V>
+) : Printable {
     init {
         if (numVector.dim != vectorSpace.dim)
             throw InvalidSizeException("Dimension of the numerical vector does not match the dimension of the vector space")
     }
 
-    fun toNumVector(): V {
+    public fun toNumVector(): V {
         return this.numVector
     }
 
-    fun coeffOf(basisName: B): S {
+    public fun coeffOf(basisName: B): S {
         return this.vectorSpace.numVectorSpace.context.run {
             this@Vector.numVector[this@Vector.vectorSpace.indexOf(basisName)]
         }
     }
 
-    fun isZero(): Boolean {
+    public fun isZero(): Boolean {
         return this.numVector.isZero()
     }
 
-    fun toBasisMap(): Map<B, S> {
+    public fun toBasisMap(): Map<B, S> {
         return this.numVector.toMap().mapKeys { (index, _) ->
             this.vectorSpace.basisNames[index]
         }
@@ -99,7 +103,7 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
         return this.print(printConfig, internalPrintConfig)
     }
 
-    fun print(printConfig: PrintConfig, internalPrintConfig: InternalPrintConfig<B, S>): String {
+    public fun print(printConfig: PrintConfig, internalPrintConfig: InternalPrintConfig<B, S>): String {
         val basisStringWithCoeff = run {
             val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
@@ -137,35 +141,35 @@ class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(val numVector: V, val 
     }
 }
 
-interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
-    operator fun contains(vector: Vector<B, S, V>): Boolean
-    fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
-    val zeroVector: Vector<B, S, V>
+public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
+    public operator fun contains(vector: Vector<B, S, V>): Boolean
+    public fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
+    public fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
+    public fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
+    public val zeroVector: Vector<B, S, V>
 }
 
-class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
+public class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     vectorOperations: VectorOperations<B, S, V>
 ) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), VectorOperations<B, S, V> by vectorOperations {
-    operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
-    operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
-    operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
-    operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
-    operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
-    operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
-    operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
+    public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
+    public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
+    public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
+    public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
+    public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
+    public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
+    public operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
 }
 
-open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
-    val numVectorSpace: NumVectorSpace<S, V>,
-    val basisNames: List<B>,
-    val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
+    public val numVectorSpace: NumVectorSpace<S, V>,
+    public val basisNames: List<B>,
+    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorOperations<B, S, V> {
-    companion object {
-        operator fun <S : Scalar, V : NumVector<S>> invoke(
+    public companion object {
+        public operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
@@ -174,12 +178,12 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    val dim = basisNames.size
-    val field = this.numVectorSpace.field
+    public val dim: Int = basisNames.size
+    public val field: Field<S> = this.numVectorSpace.field
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    val context by lazy {
+    public val context: VectorContext<B, S, V> by lazy {
         VectorContext(numVectorSpace.field, numVectorSpace, this)
     }
 
@@ -228,21 +232,21 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    fun fromNumVector(numVector: V): Vector<B, S, V> {
+    public fun fromNumVector(numVector: V): Vector<B, S, V> {
         return Vector(numVector, this)
     }
 
-    fun fromCoeffList(coeffList: List<S>): Vector<B, S, V> {
+    public fun fromCoeffList(coeffList: List<S>): Vector<B, S, V> {
         val numVector = this.numVectorSpace.fromValueList(coeffList)
         return this.fromNumVector(numVector)
     }
 
-    fun fromCoeffMap(coeffMap: Map<Int, S>): Vector<B, S, V> {
+    public fun fromCoeffMap(coeffMap: Map<Int, S>): Vector<B, S, V> {
         val numVector = this.numVectorSpace.fromValueMap(coeffMap, this.dim)
         return this.fromNumVector(numVector)
     }
 
-    fun fromBasisName(basisName: B): Vector<B, S, V> {
+    public fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
         val coeffMap: Map<Int, S> = mapOf(index to this.field.one)
         // directly call fromReducedValueMap since coeffMap is reduced (contains no zero)
@@ -250,11 +254,11 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return this.fromNumVector(numVector)
     }
 
-    fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {
+    public fun fromBasisName(basisName: B, coeff: S): Vector<B, S, V> {
         return this.context.run { this@VectorSpace.fromBasisName(basisName) * coeff }
     }
 
-    fun fromBasisName(basisName: B, coeff: Int): Vector<B, S, V> {
+    public fun fromBasisName(basisName: B, coeff: Int): Vector<B, S, V> {
         val coeffScalar = this.context.run { coeff.toScalar() }
         return this.fromBasisName(basisName, coeffScalar)
     }
@@ -262,7 +266,7 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val zeroVector: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
-    fun getBasis(): List<Vector<B, S, V>> {
+    public fun getBasis(): List<Vector<B, S, V>> {
         val zero = this.field.zero
         val one = this.field.one
         return (0 until this.dim).map { i ->
@@ -271,12 +275,12 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    fun indexOf(basisName: B): Int {
+    public fun indexOf(basisName: B): Int {
         return basisNameToIndex[basisName]
             ?: throw NoSuchElementException("$basisName is not a name of basis element of this vector space")
     }
 
-    fun <M : Matrix<S, V>> isBasis(
+    public fun <M : Matrix<S, V>> isBasis(
         vectorList: List<Vector<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>
     ): Boolean {
@@ -287,7 +291,7 @@ open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
+    public fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getId(this, matrixSpace)
     }
 

@@ -8,7 +8,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 
-data class SubQuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
+public data class SubQuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>
 ) : BasisName {
     override fun toString(): String {
@@ -101,10 +101,10 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
     }
 }
 
-class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: SubQuotFactory<B, S, V, M>
 ) : VectorSpace<SubQuotBasis<B, S, V>, S, V>(factory.numVectorSpace, factory.basisNames) {
-    val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+    public val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this.factory.totalVectorSpace,
             target = this,
@@ -112,7 +112,7 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             matrix = this.factory.projectionMatrix,
         )
     }
-    val section: LinearMap<SubQuotBasis<B, S, V>, B, S, V, M> by lazy {
+    public val section: LinearMap<SubQuotBasis<B, S, V>, B, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this,
             target = this.factory.totalVectorSpace,
@@ -121,12 +121,12 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         )
     }
 
-    fun subspaceContains(vector: Vector<B, S, V>): Boolean {
+    public fun subspaceContains(vector: Vector<B, S, V>): Boolean {
         return this.factory.subspaceContains(vector)
     }
 
-    companion object {
-        operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+    public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             totalVectorSpace: VectorSpace<B, S, V>,
             subspaceGenerator: List<Vector<B, S, V>>,
@@ -141,7 +141,7 @@ class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             return SubQuotVectorSpace(factory)
         }
 
-        fun <B : BasisName, S : Scalar, V : NumVector<S>> convertInternalPrintConfig(
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>> convertInternalPrintConfig(
             printConfig: PrintConfig,
             internalPrintConfig: InternalPrintConfig<B, S>
         ): InternalPrintConfig<SubQuotBasis<B, S, V>, S> {

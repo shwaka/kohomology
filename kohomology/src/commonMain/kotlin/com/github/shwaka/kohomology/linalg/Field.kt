@@ -4,43 +4,43 @@ import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printable
 
-interface Scalar : Printable {
-    fun isZero(): Boolean
-    fun isNotZero(): Boolean = !this.isZero()
-    fun isPrintedPositively(): Boolean
-    fun toString(printConfig: PrintConfig, withSign: Boolean): String
-    fun toString(printType: PrintType, withSign: Boolean): String = this.toString(PrintConfig(printType), withSign)
+public interface Scalar : Printable {
+    public fun isZero(): Boolean
+    public fun isNotZero(): Boolean = !this.isZero()
+    public fun isPrintedPositively(): Boolean
+    public fun toString(printConfig: PrintConfig, withSign: Boolean): String
+    public fun toString(printType: PrintType, withSign: Boolean): String = this.toString(PrintConfig(printType), withSign)
     override fun toString(printConfig: PrintConfig): String = this.toString(printConfig, true)
-    fun toString(printType: PrintType): String = this.toString(PrintConfig(printType))
+    public fun toString(printType: PrintType): String = this.toString(PrintConfig(printType))
 }
 
-interface ScalarOperations<S : Scalar> {
-    val field: Field<S>
-    val characteristic: Int
-    operator fun contains(scalar: S): Boolean
-    fun add(a: S, b: S): S
-    fun subtract(a: S, b: S): S
-    fun multiply(a: S, b: S): S
-    fun divide(a: S, b: S): S
-    fun unaryMinusOf(scalar: S): S = this.multiply(scalar, this.fromInt(-1))
-    fun fromInt(n: Int): S
-    fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
+public interface ScalarOperations<S : Scalar> {
+    public val field: Field<S>
+    public val characteristic: Int
+    public operator fun contains(scalar: S): Boolean
+    public fun add(a: S, b: S): S
+    public fun subtract(a: S, b: S): S
+    public fun multiply(a: S, b: S): S
+    public fun divide(a: S, b: S): S
+    public fun unaryMinusOf(scalar: S): S = this.multiply(scalar, this.fromInt(-1))
+    public fun fromInt(n: Int): S
+    public fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
 }
 
-open class ScalarContext<S : Scalar>(
+public open class ScalarContext<S : Scalar>(
     private val scalarOperations: ScalarOperations<S>
 ) : ScalarOperations<S> by scalarOperations {
-    operator fun S.plus(other: S): S = this@ScalarContext.add(this, other)
-    operator fun S.minus(other: S): S = this@ScalarContext.subtract(this, other)
-    operator fun S.times(other: S): S = this@ScalarContext.multiply(this, other)
-    operator fun S.times(other: Int): S = this@ScalarContext.multiply(this, this@ScalarContext.fromInt(other))
-    operator fun Int.times(other: S): S = this@ScalarContext.multiply(this@ScalarContext.fromInt(this), other)
-    operator fun S.unaryMinus(): S = this@ScalarContext.unaryMinusOf(this)
-    operator fun S.div(other: S): S = this@ScalarContext.divide(this, other)
-    operator fun S.div(other: Int): S = this@ScalarContext.divide(this, this@ScalarContext.fromInt(other))
-    operator fun Int.div(other: S): S = this@ScalarContext.divide(this@ScalarContext.fromInt(this), other)
-    fun S.inv(): S = this@ScalarContext.divide(one, this)
-    fun S.pow(exponent: Int): S {
+    public operator fun S.plus(other: S): S = this@ScalarContext.add(this, other)
+    public operator fun S.minus(other: S): S = this@ScalarContext.subtract(this, other)
+    public operator fun S.times(other: S): S = this@ScalarContext.multiply(this, other)
+    public operator fun S.times(other: Int): S = this@ScalarContext.multiply(this, this@ScalarContext.fromInt(other))
+    public operator fun Int.times(other: S): S = this@ScalarContext.multiply(this@ScalarContext.fromInt(this), other)
+    public operator fun S.unaryMinus(): S = this@ScalarContext.unaryMinusOf(this)
+    public operator fun S.div(other: S): S = this@ScalarContext.divide(this, other)
+    public operator fun S.div(other: Int): S = this@ScalarContext.divide(this, this@ScalarContext.fromInt(other))
+    public operator fun Int.div(other: S): S = this@ScalarContext.divide(this@ScalarContext.fromInt(this), other)
+    public fun S.inv(): S = this@ScalarContext.divide(one, this)
+    public fun S.pow(exponent: Int): S {
         return when {
             exponent == 0 -> one
             exponent == 1 -> this
@@ -53,19 +53,19 @@ open class ScalarContext<S : Scalar>(
             else -> throw Exception("This can't happen!")
         }
     }
-    fun Int.toScalar(): S = this@ScalarContext.fromInt(this)
-    val zero: S = 0.toScalar()
-    val one: S = 1.toScalar()
-    val two: S = 2.toScalar()
-    val three: S = 3.toScalar()
-    val four: S = 4.toScalar()
-    val five: S = 5.toScalar()
+    public fun Int.toScalar(): S = this@ScalarContext.fromInt(this)
+    public val zero: S = 0.toScalar()
+    public val one: S = 1.toScalar()
+    public val two: S = 2.toScalar()
+    public val three: S = 3.toScalar()
+    public val four: S = 4.toScalar()
+    public val five: S = 5.toScalar()
 }
 
-interface Field<S : Scalar> : ScalarOperations<S> {
-    val context: ScalarContext<S>
-    val zero: S
+public interface Field<S : Scalar> : ScalarOperations<S> {
+    public val context: ScalarContext<S>
+    public val zero: S
         get() = this.context.zero
-    val one: S
+    public val one: S
         get() = this.context.one
 }

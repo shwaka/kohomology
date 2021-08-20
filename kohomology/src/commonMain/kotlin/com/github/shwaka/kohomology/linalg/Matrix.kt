@@ -201,7 +201,6 @@ interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOp
     val field: Field<S>
 
     fun getZero(rowCount: Int, colCount: Int): M {
-        val zero = this.field.zero
         val rowMap: Map<Int, Map<Int, S>> = mapOf()
         return this.fromRowMap(rowMap, rowCount, colCount)
     }

@@ -15,7 +15,7 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, B, S, V>,
@@ -25,21 +25,21 @@ open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector
     GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
     private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations)
 
-    operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
+    public operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@times * other }
     }
 
-    fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
+    public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@pow.pow(exponent) }
     }
 }
 
-open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    open val gAlgebra: GAlgebra<D, B, S, V, M>,
+public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public open val gAlgebra: GAlgebra<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorSpace<D, B, S, V, M>(gAlgebra, differential, matrixSpace) {
-    override val context by lazy {
+    override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
     }
 
@@ -90,12 +90,12 @@ open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M 
         )
     }
 
-    fun getId(): DGAlgebraMap<D, B, B, S, V, M> {
+    public fun getId(): DGAlgebraMap<D, B, B, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getId()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
-    fun getDGLinearMapByMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
+    public fun getDGLinearMapByMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
         this.context.run {
             if (d(cocycle).isNotZero())
                 throw IllegalArgumentException("Not cocycle: $cocycle")

@@ -12,15 +12,15 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import mu.KotlinLogging
 
-interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    val differential: GLinearMap<D, B, B, S, V, M>
-    val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
-    fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
-    fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
-    fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
+public interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    public val differential: GLinearMap<D, B, B, S, V, M>
+    public val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
+    public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
+    public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
+    public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
 }
 
-open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, B, S, V>,
@@ -28,27 +28,27 @@ open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 ) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
     DGVectorOperations<D, B, S, V, M> by dgVectorOperations {
     // use 'by lazy' to avoid 'leaking this in non-final property'
-    val d by lazy { this.differential }
-    fun GVector<D, B, S, V>.cohomologyClass(): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+    public val d: GLinearMap<D, B, B, S, V, M> by lazy { this.differential }
+    public fun GVector<D, B, S, V>.cohomologyClass(): GVector<D, SubQuotBasis<B, S, V>, S, V> {
         return this@DGVectorContext.cohomologyClassOf(this)
     }
-    fun GVector<D, SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<D, B, S, V> {
+    public fun GVector<D, SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<D, B, S, V> {
         return this@DGVectorContext.cocycleRepresentativeOf(this)
     }
-    fun GVector<D, B, S, V>.boundingCochain(): GVector<D, B, S, V>? {
+    public fun GVector<D, B, S, V>.boundingCochain(): GVector<D, B, S, V>? {
         return this@DGVectorContext.boundingCochainOf(this)
     }
 }
 
-open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val gVectorSpace: GVectorSpace<D, B, S, V>,
+public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public val gVectorSpace: GVectorSpace<D, B, S, V>,
     override val differential: GLinearMap<D, B, B, S, V, M>,
-    val matrixSpace: MatrixSpace<S, V, M>
+    public val matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorOperations<D, B, S, V, M> {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
-    open val context by lazy {
+    public open val context: DGVectorContext<D, B, S, V, M> by lazy {
         DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
     }
 
@@ -72,11 +72,11 @@ open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         this.cache[degree] = subQuotVectorSpace
         return subQuotVectorSpace
     }
-    fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
+    public fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
         return this.getCohomologyVectorSpace(this.gVectorSpace.degreeGroup.fromInt(degree))
     }
 
-    protected val cohomologyName = "H(${this.gVectorSpace.name})"
+    protected val cohomologyName: String = "H(${this.gVectorSpace.name})"
 
     override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
         GVectorSpace(

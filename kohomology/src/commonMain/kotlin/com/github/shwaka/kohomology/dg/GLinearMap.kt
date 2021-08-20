@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -11,12 +12,12 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import mu.KotlinLogging
 
-open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val source: GVectorSpace<D, BS, S, V>,
-    val target: GVectorSpace<D, BT, S, V>,
-    val degree: D,
-    val matrixSpace: MatrixSpace<S, V, M>,
-    val name: String,
+public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public val source: GVectorSpace<D, BS, S, V>,
+    public val target: GVectorSpace<D, BT, S, V>,
+    public val degree: D,
+    public val matrixSpace: MatrixSpace<S, V, M>,
+    public val name: String,
     private val getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) {
     private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
@@ -27,9 +28,9 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
     }
 
-    val degreeGroup = source.degreeGroup
+    public val degreeGroup: DegreeGroup<D> = source.degreeGroup
 
-    constructor(
+    public constructor(
         source: GVectorSpace<D, BS, S, V>,
         target: GVectorSpace<D, BT, S, V>,
         degree: Int,
@@ -38,7 +39,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
     ) : this(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getLinearMap)
 
-    operator fun invoke(gVector: GVector<D, BS, S, V>): GVector<D, BT, S, V> {
+    public operator fun invoke(gVector: GVector<D, BS, S, V>): GVector<D, BT, S, V> {
         if (gVector !in this.source)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
         val linearMap = this.getLinearMap(gVector.degree)
@@ -49,7 +50,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         return this.target.fromVector(newVector, newDegree)
     }
 
-    operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
+    public operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
             this.logger.debug { "cache found for $this[$degree]" }
@@ -62,11 +63,11 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         return linearMap
     }
 
-    operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
+    public operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
         return this[this.degreeGroup.fromInt(degree)]
     }
 
-    fun findPreimage(gVector: GVector<D, BT, S, V>): GVector<D, BS, S, V>? {
+    public fun findPreimage(gVector: GVector<D, BT, S, V>): GVector<D, BS, S, V>? {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
         val sourceDegree = this.degreeGroup.context.run { gVector.degree - this@GLinearMap.degree }
@@ -75,24 +76,24 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         }
     }
 
-    fun kernelBasis(degree: D): List<GVector<D, BS, S, V>> {
+    public fun kernelBasis(degree: D): List<GVector<D, BS, S, V>> {
         return this[degree].kernelBasis().map { vector ->
             this.source.fromVector(vector, degree)
         }
     }
 
-    fun kernelBasis(degree: Int): List<GVector<D, BS, S, V>> {
+    public fun kernelBasis(degree: Int): List<GVector<D, BS, S, V>> {
         return this.kernelBasis(this.degreeGroup.fromInt(degree))
     }
 
-    fun imageBasis(degree: D): List<GVector<D, BT, S, V>> {
+    public fun imageBasis(degree: D): List<GVector<D, BT, S, V>> {
         val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
         return this[sourceDegree].imageBasis().map { vector ->
             this.target.fromVector(vector, degree)
         }
     }
 
-    fun imageBasis(degree: Int): List<GVector<D, BT, S, V>> {
+    public fun imageBasis(degree: Int): List<GVector<D, BT, S, V>> {
         return this.imageBasis(this.degreeGroup.fromInt(degree))
     }
 
@@ -100,8 +101,8 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
         return this.name
     }
 
-    companion object {
-        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+    public companion object {
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
             degree: D,
@@ -126,7 +127,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             }
         }
 
-        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
             degree: Int,
@@ -136,7 +137,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             return this.createGetLinearMap(source, target, source.degreeGroup.fromInt(degree), matrixSpace, getGVectors)
         }
 
-        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
             degree: D,
@@ -148,7 +149,7 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
             return GLinearMap(source, target, degree, matrixSpace, name, getLinearMap)
         }
 
-        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
             degree: Int,
@@ -161,15 +162,15 @@ open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V 
     }
 }
 
-class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<D, BS, S, V, M>,
     target: GAlgebra<D, BT, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) : GLinearMap<D, BS, BT, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
-    companion object {
-        fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+    public companion object {
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<D, BS, S, V, M>,
             target: GAlgebra<D, BT, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>,
@@ -182,15 +183,15 @@ class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : Nu
     }
 }
 
-class Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     source: GAlgebra<D, B, S, V, M>,
     degree: D,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getLinearMap: (D) -> LinearMap<B, B, S, V, M>
 ) : GLinearMap<D, B, B, S, V, M>(source, source, degree, matrixSpace, name, getLinearMap) {
-    companion object {
-        fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
+    public companion object {
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<D, B, S, V, M>,
             degree: D,
             matrixSpace: MatrixSpace<S, V, M>,

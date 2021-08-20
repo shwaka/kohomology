@@ -17,40 +17,40 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
-    val zero by literalToken("zero")
-    val gen by regexToken("(" + this.generators.joinToString("|") { it.first } + ")")
-    val int by regexToken("\\d+")
-    val lpar by literalToken("(")
-    val rpar by literalToken(")")
-    val mul by literalToken("*")
-    val pow by literalToken("^")
+    private val zero by literalToken("zero")
+    private val gen by regexToken("(" + this.generators.joinToString("|") { it.first } + ")")
+    private val int by regexToken("\\d+")
+    private val lpar by literalToken("(")
+    private val rpar by literalToken(")")
+    private val mul by literalToken("*")
+    private val pow by literalToken("^")
     // val div by literalToken("/")
-    val minus by literalToken("-")
-    val plus by literalToken("+")
-    val ws by regexToken("\\s*", ignore = true)
+    private val minus by literalToken("-")
+    private val plus by literalToken("+")
+    private val ws by regexToken("\\s*", ignore = true)
 
-    val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
+    private val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
         gen use {
             this@GAlgebraGrammar.generators.find { it.first == text }?.second
                 ?: throw Exception("This can't happen!")
         }
         ) or (zero use { this@GAlgebraGrammar.gAlgebra.zeroGVector })
-    val intParser: Parser<Int> by int use { text.toInt() }
-    val minusParser: Parser<GVectorOrZero<D, B, S, V>> by (
+    private val intParser: Parser<Int> by int use { text.toInt() }
+    private val minusParser: Parser<GVectorOrZero<D, B, S, V>> by (
         skip(minus) and parser(::termParser) map { this.gAlgebra.context.run { -it } }
         )
-    val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or
+    private val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or
         (skip(lpar) and parser(::rootParser) and skip(rpar))
-    val powerParser: Parser<GVectorOrZero<D, B, S, V>> by (
+    private val powerParser: Parser<GVectorOrZero<D, B, S, V>> by (
         termParser and skip(pow) and intParser map { (gVector, n) ->
             this.gAlgebra.context.run { gVector.pow(n) }
         }
         ) or termParser
-    val scalarMulParser: Parser<GVectorOrZero<D, B, S, V>> by (
+    private val scalarMulParser: Parser<GVectorOrZero<D, B, S, V>> by (
         intParser and skip(mul) and powerParser map { (n, gVector) ->
             this.gAlgebra.context.run { n * gVector }
         }
@@ -59,10 +59,10 @@ class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M
             this.gAlgebra.context.run { n * gVector }
         }
         ) or powerParser
-    val mulChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->
+    private val mulChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->
         this.gAlgebra.context.run { a * b }
     }
-    val subSumChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
+    private val subSumChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->
         this.gAlgebra.context.run {
             when (op) {
                 plus -> a + b

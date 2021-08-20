@@ -9,16 +9,16 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-open class GLinearMapWithDegreeChange<DS : Degree, BS : BasisName, DT : Degree, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val source: GVectorSpace<DS, BS, S, V>,
-    val target: GVectorSpace<DT, BT, S, V>,
-    val degreeMorphism: DegreeMorphism<DS, DT>,
-    val matrixSpace: MatrixSpace<S, V, M>,
-    val name: String,
+public open class GLinearMapWithDegreeChange<DS : Degree, BS : BasisName, DT : Degree, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public val source: GVectorSpace<DS, BS, S, V>,
+    public val target: GVectorSpace<DT, BT, S, V>,
+    public val degreeMorphism: DegreeMorphism<DS, DT>,
+    public val matrixSpace: MatrixSpace<S, V, M>,
+    public val name: String,
     private val getValueOnBasis: (BS, DS) -> GVector<DT, BT, S, V>,
 ) {
-    companion object {
-        operator fun <DS : Degree, BS : BasisName, DT : Degree, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+    public companion object {
+        public operator fun <DS : Degree, BS : BasisName, DT : Degree, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: GVectorSpace<DS, BS, S, V>,
             target: GVectorSpace<DT, BT, S, V>,
             degreeMorphism: DegreeMorphism<DS, DT>,
@@ -34,7 +34,7 @@ open class GLinearMapWithDegreeChange<DS : Degree, BS : BasisName, DT : Degree, 
         }
     }
 
-    operator fun invoke(gVector: GVector<DS, BS, S, V>): GVector<DT, BT, S, V> {
+    public operator fun invoke(gVector: GVector<DS, BS, S, V>): GVector<DT, BT, S, V> {
         if (gVector !in this.source)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map with degree change")
         val targetDegree = this.degreeMorphism(gVector.degree)

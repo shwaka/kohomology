@@ -100,34 +100,5 @@ class MultiDegreeTest : FreeSpec({
                 degree.toString() shouldBe "0"
             }
         }
-
-        "test normalization" - {
-            val (normalizedGroup, normalize, unnormalize) =
-                MultiDegreeGroupNormalization.from(degreeGroup)
-
-            "normalize(1 + 2N) should be (3 + 2N_)" {
-                val degree = degreeGroup.fromList(listOf(1, 2))
-                normalize(degree) shouldBe normalizedGroup.fromList(listOf(3, 2))
-            }
-
-            "normalize(-1 + 2N) should be (1 + 2N_)" {
-                val degree = degreeGroup.fromList(listOf(-1, 2))
-                normalize(degree) shouldBe normalizedGroup.fromList(listOf(1, 2))
-            }
-
-            "unnormalize(normalize(degree)) should be degree for any degree" {
-                checkAll(
-                    listOf(
-                        listOf(1, 2),
-                        listOf(-2, -3),
-                        listOf(0, 0),
-                        listOf(4, -2),
-                    ).exhaustive()
-                ) { coeffList ->
-                    val degree = degreeGroup.fromList(coeffList)
-                    unnormalize(normalize(degree)) shouldBe degree
-                }
-            }
-        }
     }
 })

@@ -183,52 +183,6 @@ public data class MultiDegreeGroup(val indeterminateList: List<DegreeIndetermina
     }
 }
 
-public data class MultiDegreeGroupNormalization(
-    val normalizedGroup: MultiDegreeGroup,
-    val normalize: MultiDegreeMorphism,
-    val unnormalize: MultiDegreeMorphism,
-) {
-    public companion object {
-        public fun from(originalGroup: MultiDegreeGroup): MultiDegreeGroupNormalization {
-            val normalizedGroup: MultiDegreeGroup = run {
-                val indeterminateList = originalGroup.indeterminateList.map { indeterminate ->
-                    DegreeIndeterminate("${indeterminate.name}_", 0)
-                }
-                MultiDegreeGroup(indeterminateList)
-            }
-            val normalize: MultiDegreeMorphism = run {
-                val size = originalGroup.indeterminateList.size
-                val values = (0 until size).map { i ->
-                    val sourceIndeterminate = originalGroup.indeterminateList[i]
-                    val targetIndeterminateAsDegree = normalizedGroup.fromCoefficients(
-                        0,
-                        List(size) { if (it == i) 1 else 0 }
-                    )
-                    normalizedGroup.context.run {
-                        targetIndeterminateAsDegree + sourceIndeterminate.defaultValue
-                    }
-                }
-                MultiDegreeMorphism(originalGroup, normalizedGroup, values)
-            }
-            val unnormalize: MultiDegreeMorphism = run {
-                val size = normalizedGroup.indeterminateList.size
-                val values = (0 until size).map { i ->
-                    val originalDefaultValue = originalGroup.indeterminateList[i].defaultValue
-                    val targetIndeterminateAsDegree = originalGroup.fromCoefficients(
-                        0,
-                        List(size) { if (it == i) 1 else 0 }
-                    )
-                    originalGroup.context.run {
-                        targetIndeterminateAsDegree - originalDefaultValue
-                    }
-                }
-                MultiDegreeMorphism(normalizedGroup, originalGroup, values)
-            }
-            return MultiDegreeGroupNormalization(normalizedGroup, normalize, unnormalize)
-        }
-    }
-}
-
 public class MultiDegreeMorphism(
     override val source: MultiDegreeGroup,
     override val target: MultiDegreeGroup,

@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.util
 
-fun Int.pow(exponent: Int): Int {
+public fun Int.pow(exponent: Int): Int {
     return when {
         exponent == 0 -> 1
         exponent == 1 -> this
@@ -14,7 +14,7 @@ fun Int.pow(exponent: Int): Int {
     }
 }
 
-fun Int.positiveRem(mod: Int): Int {
+public fun Int.positiveRem(mod: Int): Int {
     // Kotlin's built-in rem is incorrect (in our context):
     //   -1 % 5 = -1
     //   -6 % 5 = -1
@@ -22,18 +22,18 @@ fun Int.positiveRem(mod: Int): Int {
     return if (rem >= 0) rem else rem + mod
 }
 
-fun Int.isEven(): Boolean {
+public fun Int.isEven(): Boolean {
     return this % 2 == 0
 }
 
-fun Int.isOdd(): Boolean {
+public fun Int.isOdd(): Boolean {
     // We cannot use 'this % 2 == 1' since:
     // -1 % 2 = -1
     // -2 % 2 = 0
     return this % 2 != 0
 }
 
-fun Int.isPrime(): Boolean {
+public fun Int.isPrime(): Boolean {
     if (this <= 1) return false
     var n = 2
     while (n * n <= this) {

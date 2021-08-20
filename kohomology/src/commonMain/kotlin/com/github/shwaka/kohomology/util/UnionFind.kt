@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.util
 
-class UnionFind(private val size: Int) {
+internal class UnionFind(private val size: Int) {
     private val parent: MutableList<Int> = MutableList(this.size) { index -> index }
 
     fun rootOf(index: Int): Int {

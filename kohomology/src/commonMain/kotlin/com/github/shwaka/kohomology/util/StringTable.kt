@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.util
 
-data class Paren(
+public data class Paren(
     val upperLeft: String = "[",
     val left: String = "[",
     val lowerLeft: String = "[",
@@ -22,14 +22,14 @@ private val PrettyParen = Paren(
     lowerRight = "⎦"
 )
 
-class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
+public class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
     override fun toString(): String {
         val rowStringList = this.data.map { row -> row.toString() }
         val joinedRowStrings = rowStringList.joinToString(this.paren.separator)
         return "${this.paren.leftOneRow} $joinedRowStrings ${this.paren.rightOneRow}"
     }
 
-    fun toPrettyString(): String {
+    public fun toPrettyString(): String {
         if (this.data.isEmpty()) {
             // 下で this.data[0] とするので、ここの分岐は必要
             return "${this.paren.leftOneRow} ${this.paren.rightOneRow}"

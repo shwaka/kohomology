@@ -38,7 +38,7 @@ private class NonEmptyPermutation<T>(val list: List<T>) : Iterator<Pair<List<T>,
     }
 }
 
-fun <T> getPermutation(list: List<T>): Iterator<Pair<List<T>, Int>> {
+public fun <T> getPermutation(list: List<T>): Iterator<Pair<List<T>, Int>> {
     return if (list.isEmpty()) {
         EmptyPermutation()
     } else {

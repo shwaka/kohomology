@@ -4,9 +4,13 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.util.isEven
 import com.github.shwaka.kohomology.util.isOdd
 
-data class DegreeIndeterminate(val name: String, val defaultValue: Int)
+public data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
-class MultiDegree(val group: MultiDegreeGroup, val constantTerm: Int, val coeffList: IntArray) : Degree {
+public class MultiDegree(
+    public val group: MultiDegreeGroup,
+    public val constantTerm: Int,
+    public val coeffList: IntArray
+) : Degree {
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->
             if (oddIndices.isNotEmpty()) {
@@ -74,7 +78,7 @@ class MultiDegree(val group: MultiDegreeGroup, val constantTerm: Int, val coeffL
     }
 }
 
-data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<MultiDegree> {
+public data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<MultiDegree> {
     override val context: AugmentedDegreeContext<MultiDegree> by lazy {
         AugmentedDegreeContext(this)
     }
@@ -120,19 +124,19 @@ data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : 
         return MultiDegree(this, degree.constantTerm * n, coeffList)
     }
 
-    fun fromCoefficients(constantTerm: Int, coeffList: List<Int>): MultiDegree {
+    public fun fromCoefficients(constantTerm: Int, coeffList: List<Int>): MultiDegree {
         if (coeffList.size != this.indeterminateList.size)
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size}, but ${coeffList.size} was given")
         return MultiDegree(this, constantTerm, coeffList.toIntArray())
     }
 
-    fun fromList(coeffList: List<Int>): MultiDegree {
+    public fun fromList(coeffList: List<Int>): MultiDegree {
         if (coeffList.size != this.indeterminateList.size + 1)
             throw IllegalArgumentException("The length of $coeffList should be ${this.indeterminateList.size + 1}, but ${coeffList.size} was given")
         return MultiDegree(this, coeffList[0], coeffList.drop(1).toIntArray())
     }
 
-    fun toList(degree: MultiDegree): List<Int> {
+    public fun toList(degree: MultiDegree): List<Int> {
         return listOf(degree.constantTerm) + degree.coeffList.toList()
     }
 
@@ -179,13 +183,13 @@ data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : 
     }
 }
 
-data class MultiDegreeGroupNormalization(
+public data class MultiDegreeGroupNormalization(
     val normalizedGroup: MultiDegreeGroup,
     val normalize: MultiDegreeMorphism,
     val unnormalize: MultiDegreeMorphism,
 ) {
-    companion object {
-        fun from(originalGroup: MultiDegreeGroup): MultiDegreeGroupNormalization {
+    public companion object {
+        public fun from(originalGroup: MultiDegreeGroup): MultiDegreeGroupNormalization {
             val normalizedGroup: MultiDegreeGroup = run {
                 val indeterminateList = originalGroup.indeterminateList.map { indeterminate ->
                     DegreeIndeterminate("${indeterminate.name}_", 0)
@@ -225,7 +229,7 @@ data class MultiDegreeGroupNormalization(
     }
 }
 
-class MultiDegreeMorphism(
+public class MultiDegreeMorphism(
     override val source: MultiDegreeGroup,
     override val target: MultiDegreeGroup,
     private val values: List<MultiDegree>,
@@ -246,7 +250,7 @@ class MultiDegreeMorphism(
     }
 }
 
-class InclusionFromIntDegreeToMultiDegree(
+public class InclusionFromIntDegreeToMultiDegree(
     override val target: MultiDegreeGroup
 ) : AugmentedDegreeMorphism<IntDegree, MultiDegree> {
     override val source: AugmentedDegreeGroup<IntDegree> = IntDegreeGroup

@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
-data class IntDegree(val value: Int) : Degree {
+public data class IntDegree(val value: Int) : Degree {
     override fun isEven(): Boolean {
         return (this.value % 2 == 0)
     }
@@ -18,7 +18,7 @@ data class IntDegree(val value: Int) : Degree {
     }
 }
 
-object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
+public object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
     override val context: AugmentedDegreeContext<IntDegree> by lazy {
         AugmentedDegreeContext(this)
     }

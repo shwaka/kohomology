@@ -9,8 +9,6 @@ import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.arbitrary.map
-import io.kotest.property.checkAll
-import io.kotest.property.exhaustive.exhaustive
 
 fun MultiDegreeGroup.arb(intArb: Arb<Int> = Arb.int(Int.MIN_VALUE..Int.MAX_VALUE)): Arb<MultiDegree> {
     return myArbList(intArb, this.indeterminateList.size + 1).map { coeffList ->

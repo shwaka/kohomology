@@ -4,13 +4,13 @@ import com.github.shwaka.kococo.debugOnly
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 
-class SparseNumVector<S : Scalar> private constructor(
-    val valueMap: Map<Int, S>,
+public class SparseNumVector<S : Scalar> private constructor(
+    public val valueMap: Map<Int, S>,
     override val field: Field<S>,
     override val dim: Int,
 ) : NumVector<S> {
-    companion object {
-        operator fun <S : Scalar> invoke(
+    public companion object {
+        public operator fun <S : Scalar> invoke(
             valueMap: Map<Int, S>,
             field: Field<S>,
             dim: Int,
@@ -65,14 +65,14 @@ class SparseNumVector<S : Scalar> private constructor(
     }
 }
 
-class SparseNumVectorSpace<S : Scalar>(
+public class SparseNumVectorSpace<S : Scalar>(
     override val field: Field<S>
 ) : NumVectorSpace<S, SparseNumVector<S>> {
-    companion object {
+    public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<Field<*>, SparseNumVectorSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(field: Field<S>): SparseNumVectorSpace<S> {
+        public fun <S : Scalar> from(field: Field<S>): SparseNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[field] as SparseNumVectorSpace<S>
@@ -84,7 +84,7 @@ class SparseNumVectorSpace<S : Scalar>(
         }
     }
 
-    override val context = NumVectorContext(this.field, this)
+    override val context: NumVectorContext<S, SparseNumVector<S>> = NumVectorContext(this.field, this)
     override val numVectorSpace: NumVectorSpace<S, SparseNumVector<S>> = this
 
     override fun contains(numVector: SparseNumVector<S>): Boolean {

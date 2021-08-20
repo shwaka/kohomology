@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
 import com.github.shwaka.kohomology.util.pmap
 
-class DecomposedSparseRowEchelonForm<S : Scalar>(
+internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     matrixSpace: AbstractSparseMatrixSpace<S>,
     originalMatrix: SparseMatrix<S>
 ) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {

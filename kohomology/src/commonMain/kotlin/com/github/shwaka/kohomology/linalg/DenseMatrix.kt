@@ -4,13 +4,13 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.StringTable
 
-data class DenseMatrix<S : Scalar>(
+public data class DenseMatrix<S : Scalar>(
     override val numVectorSpace: DenseNumVectorSpace<S>,
     val rowList: List<List<S>>,
     override val rowCount: Int,
     override val colCount: Int
 ) : Matrix<S, DenseNumVector<S>> {
-    var rowEchelonForm: DenseRowEchelonForm<S>? = null
+    internal var rowEchelonForm: DenseRowEchelonForm<S>? = null
         set(value) {
             if (field != null)
                 throw IllegalStateException("Cannot assign rowEchelonForm twice")
@@ -42,7 +42,7 @@ data class DenseMatrix<S : Scalar>(
     }
 }
 
-class DenseMatrixSpace<S : Scalar>(
+public class DenseMatrixSpace<S : Scalar>(
     override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
 
@@ -53,11 +53,11 @@ class DenseMatrixSpace<S : Scalar>(
     // ) : MatrixOperations<S, DenseNumVector<S>, DenseMatrix<S>> by matrixSpace,
     //     MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>>
 
-    companion object {
+    public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<DenseNumVectorSpace<*>, DenseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(numVectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
+        public fun <S : Scalar> from(numVectorSpace: DenseNumVectorSpace<S>): DenseMatrixSpace<S> {
             if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DenseMatrixSpace<S>
@@ -74,7 +74,7 @@ class DenseMatrixSpace<S : Scalar>(
 
     override val field: Field<S> = this.numVectorSpace.field
 
-    override val context = MatrixContext(this.field, this.numVectorSpace, this)
+    override val context: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> = MatrixContext(this.field, this.numVectorSpace, this)
     override val matrixSpace: MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> = this
 
     override fun contains(matrix: DenseMatrix<S>): Boolean {

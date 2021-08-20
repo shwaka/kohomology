@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.Sign
 
-class DenseRowEchelonForm<S : Scalar>(
+internal class DenseRowEchelonForm<S : Scalar>(
     matrixSpace: DenseMatrixSpace<S>,
     originalMatrix: DenseMatrix<S>
 ) : RowEchelonForm<S, DenseNumVector<S>, DenseMatrix<S>>(matrixSpace, originalMatrix) {
@@ -37,7 +37,7 @@ class DenseRowEchelonForm<S : Scalar>(
         return this.matrixSpace.fromRowList(rawReducedMatrix, colCount = this.originalMatrix.colCount)
     }
 
-    data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
+    private data class RowEchelonFormData<S : Scalar>(val matrix: List<List<S>>, val pivots: List<Int>, val exchangeCount: Int)
 
     private fun List<List<S>>.rowEchelonForm(): RowEchelonFormData<S> {
         return this.rowEchelonFormInternal(0, listOf(), 0)

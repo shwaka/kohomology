@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 
-data class DenseNumVector<S : Scalar>(
+public data class DenseNumVector<S : Scalar>(
     val valueList: List<S>,
     override val field: Field<S>,
 ) : NumVector<S> {
@@ -25,14 +25,14 @@ data class DenseNumVector<S : Scalar>(
     }
 }
 
-class DenseNumVectorSpace<S : Scalar>(
+public class DenseNumVectorSpace<S : Scalar>(
     override val field: Field<S>
 ) : NumVectorSpace<S, DenseNumVector<S>> {
-    companion object {
+    public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<Field<*>, DenseNumVectorSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(field: Field<S>): DenseNumVectorSpace<S> {
+        public fun <S : Scalar> from(field: Field<S>): DenseNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[field] as DenseNumVectorSpace<S>
@@ -44,7 +44,7 @@ class DenseNumVectorSpace<S : Scalar>(
         }
     }
 
-    override val context = NumVectorContext(this.field, this)
+    override val context: NumVectorContext<S, DenseNumVector<S>> = NumVectorContext(this.field, this)
     override val numVectorSpace: NumVectorSpace<S, DenseNumVector<S>> = this
 
     override fun contains(numVector: DenseNumVector<S>): Boolean {

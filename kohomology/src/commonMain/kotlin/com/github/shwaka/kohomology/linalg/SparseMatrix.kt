@@ -4,16 +4,16 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.StringTable
 
-class SparseMatrix<S : Scalar>(
+public class SparseMatrix<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>,
     rowMap: Map<Int, Map<Int, S>>,
     override val rowCount: Int,
     override val colCount: Int,
 ) : Matrix<S, SparseNumVector<S>> {
-    val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
+    public val rowMap: Map<Int, Map<Int, S>> = rowMap.mapValues { (_, row) ->
         row.filterValues { it.isNotZero() }
     }.filterValues { it.isNotEmpty() }
-    var rowEchelonFormInternal: RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>? = null
+    internal var rowEchelonFormInternal: RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>? = null
         set(value) {
             if (field != null)
                 throw IllegalStateException("Cannot assign rowEchelonForm twice")
@@ -91,7 +91,7 @@ class SparseMatrix<S : Scalar>(
     }
 }
 
-abstract class AbstractSparseMatrixSpace<S : Scalar>(
+public abstract class AbstractSparseMatrixSpace<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>
 ) : MatrixSpace<S, SparseNumVector<S>, SparseMatrix<S>> {
     override val field: Field<S> by lazy {
@@ -99,7 +99,7 @@ abstract class AbstractSparseMatrixSpace<S : Scalar>(
         numVectorSpace.field
     }
 
-    override val context by lazy {
+    override val context: MatrixContext<S, SparseNumVector<S>, SparseMatrix<S>> by lazy {
         // Use 'by lazy' to avoid warning 'Accessing non-final property in constructor'
         MatrixContext(this.field, this.numVectorSpace, this)
     }
@@ -276,14 +276,14 @@ abstract class AbstractSparseMatrixSpace<S : Scalar>(
     }
 }
 
-class SparseMatrixSpace<S : Scalar>(
+public class SparseMatrixSpace<S : Scalar>(
     numVectorSpace: SparseNumVectorSpace<S>
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
-    companion object {
+    public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
+        public fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
             if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as SparseMatrixSpace<S>
@@ -303,14 +303,14 @@ class SparseMatrixSpace<S : Scalar>(
     }
 }
 
-class DecomposedSparseMatrixSpace<S : Scalar>(
+public class DecomposedSparseMatrixSpace<S : Scalar>(
     numVectorSpace: SparseNumVectorSpace<S>
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
-    companion object {
+    public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, DecomposedSparseMatrixSpace<*>> = mutableMapOf()
-        fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): DecomposedSparseMatrixSpace<S> {
+        public fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): DecomposedSparseMatrixSpace<S> {
             if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DecomposedSparseMatrixSpace<S>

@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.specific
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
-interface Integer<I : Integer<I>> {
+internal interface Integer<I : Integer<I>> {
     // assertNoOverflow では Integer<*> にせざるを得ないので、ここも Integer<*> にせざるを得ない
     operator fun plus(other: Integer<*>): I
     operator fun minus(other: Integer<*>): I
@@ -14,7 +14,7 @@ interface Integer<I : Integer<I>> {
     }
 }
 
-class WrappedInt(private val value: Int) : Integer<WrappedInt> {
+internal class WrappedInt(private val value: Int) : Integer<WrappedInt> {
     override operator fun plus(other: Integer<*>): WrappedInt {
         other as WrappedInt
         return WrappedInt(this.value + other.value)
@@ -39,7 +39,7 @@ class WrappedInt(private val value: Int) : Integer<WrappedInt> {
     }
 }
 
-class WrappedLong(private val value: Long) : Integer<WrappedLong> {
+internal class WrappedLong(private val value: Long) : Integer<WrappedLong> {
     override operator fun plus(other: Integer<*>): WrappedLong {
         other as WrappedLong
         return WrappedLong(this.value + other.value)
@@ -64,7 +64,7 @@ class WrappedLong(private val value: Long) : Integer<WrappedLong> {
     }
 }
 
-class WrappedBigInteger(val value: BigInteger) : Integer<WrappedBigInteger> {
+internal class WrappedBigInteger(val value: BigInteger) : Integer<WrappedBigInteger> {
     override operator fun plus(other: Integer<*>): WrappedBigInteger {
         other as WrappedBigInteger
         return WrappedBigInteger(this.value + other.value)
@@ -89,7 +89,7 @@ class WrappedBigInteger(val value: BigInteger) : Integer<WrappedBigInteger> {
     }
 }
 
-class OverflowDetector {
+internal class OverflowDetector {
     companion object {
         private fun getMessage(originalResult: Integer<*>, bigIntegerResult: Integer<*>): String {
             return "[Overflow] Original result (with overflow) is ${originalResult.toBigInteger()}, " +

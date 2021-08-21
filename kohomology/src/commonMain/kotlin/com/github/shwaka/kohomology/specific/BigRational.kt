@@ -41,15 +41,15 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     return Pair(num, den)
 }
 
-class BigRational private constructor(val numerator: BigInteger, val denominator: BigInteger) : Scalar {
-    companion object {
-        operator fun invoke(numerator: BigInteger, denominator: BigInteger): BigRational {
+public class BigRational private constructor(public val numerator: BigInteger, public val denominator: BigInteger) : Scalar {
+    public companion object {
+        public operator fun invoke(numerator: BigInteger, denominator: BigInteger): BigRational {
             // 約分 と denominator > 0
             val red = reduce(numerator, denominator)
             return BigRational(red.first, red.second)
         }
 
-        operator fun invoke(numerator: Int, denominator: Int): BigRational {
+        public operator fun invoke(numerator: Int, denominator: Int): BigRational {
             // ↓明示的に invoke にしないと、 private constructor が呼ばれてしまうかも？
             return BigRational.invoke(BigInteger(numerator), BigInteger(denominator))
         }
@@ -160,9 +160,9 @@ class BigRational private constructor(val numerator: BigInteger, val denominator
     }
 }
 
-object BigRationalField : Field<BigRational> {
-    override val field = this
-    override val characteristic = 0
+public object BigRationalField : Field<BigRational> {
+    override val field: BigRationalField = this
+    override val characteristic: Int = 0
 
     override val context: ScalarContext<BigRational> = ScalarContext(this)
 
@@ -210,9 +210,14 @@ object BigRationalField : Field<BigRational> {
     }
 }
 
-val DenseNumVectorSpaceOverBigRational = DenseNumVectorSpace.from(BigRationalField)
-val DenseMatrixSpaceOverBigRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)
+public val DenseNumVectorSpaceOverBigRational: DenseNumVectorSpace<BigRational> =
+    DenseNumVectorSpace.from(BigRationalField)
+public val DenseMatrixSpaceOverBigRational: DenseMatrixSpace<BigRational> =
+    DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)
 
-val SparseNumVectorSpaceOverBigRational = SparseNumVectorSpace.from(BigRationalField)
-val SparseMatrixSpaceOverBigRational = SparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
-val DecomposedSparseMatrixSpaceOverBigRational = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
+public val SparseNumVectorSpaceOverBigRational: SparseNumVectorSpace<BigRational> =
+    SparseNumVectorSpace.from(BigRationalField)
+public val SparseMatrixSpaceOverBigRational: SparseMatrixSpace<BigRational> =
+    SparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
+public val DecomposedSparseMatrixSpaceOverBigRational: DecomposedSparseMatrixSpace<BigRational> =
+    DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)

@@ -40,9 +40,9 @@ private fun reduce(numerator: Long, denominator: Long): Pair<Long, Long> {
     return Pair(num, den)
 }
 
-class LongRational(numerator: Long, denominator: Long) : Scalar {
-    val numerator: Long
-    val denominator: Long
+public class LongRational(numerator: Long, denominator: Long) : Scalar {
+    public val numerator: Long
+    public val denominator: Long
     init {
         // 約分 と denominator > 0
         // 生成時に毎回やるのは無駄な気もする
@@ -112,9 +112,9 @@ class LongRational(numerator: Long, denominator: Long) : Scalar {
     }
 }
 
-object LongRationalField : Field<LongRational> {
-    override val field = this
-    override val characteristic = 0
+public object LongRationalField : Field<LongRational> {
+    override val field: LongRationalField = this
+    override val characteristic: Int = 0
 
     override val context: ScalarContext<LongRational> = ScalarContext(this)
 
@@ -190,8 +190,12 @@ object LongRationalField : Field<LongRational> {
     }
 }
 
-val DenseNumVectorSpaceOverLongRational = DenseNumVectorSpace.from(LongRationalField)
-val DenseMatrixSpaceOverLongRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverLongRational)
+public val DenseNumVectorSpaceOverLongRational: DenseNumVectorSpace<LongRational> =
+    DenseNumVectorSpace.from(LongRationalField)
+public val DenseMatrixSpaceOverLongRational: DenseMatrixSpace<LongRational> =
+    DenseMatrixSpace.from(DenseNumVectorSpaceOverLongRational)
 
-val SparseNumVectorSpaceOverLongRational = SparseNumVectorSpace.from(LongRationalField)
-val SparseMatrixSpaceOverLongRational = SparseMatrixSpace.from(SparseNumVectorSpaceOverLongRational)
+public val SparseNumVectorSpaceOverLongRational: SparseNumVectorSpace<LongRational> =
+    SparseNumVectorSpace.from(LongRationalField)
+public val SparseMatrixSpaceOverLongRational: SparseMatrixSpace<LongRational> =
+    SparseMatrixSpace.from(SparseNumVectorSpaceOverLongRational)

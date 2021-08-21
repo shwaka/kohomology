@@ -40,9 +40,9 @@ private fun reduce(numerator: Int, denominator: Int): Pair<Int, Int> {
     return Pair(num, den)
 }
 
-class IntRational(numerator: Int, denominator: Int) : Scalar {
-    val numerator: Int
-    val denominator: Int
+public class IntRational(numerator: Int, denominator: Int) : Scalar {
+    public val numerator: Int
+    public val denominator: Int
     init {
         // 約分 と denominator > 0
         // 生成時に毎回やるのは無駄な気もする
@@ -106,9 +106,9 @@ class IntRational(numerator: Int, denominator: Int) : Scalar {
     }
 }
 
-object IntRationalField : Field<IntRational> {
-    override val field = this
-    override val characteristic = 0
+public object IntRationalField : Field<IntRational> {
+    override val field: IntRationalField = this
+    override val characteristic: Int = 0
 
     override val context: ScalarContext<IntRational> = ScalarContext(this)
 
@@ -184,8 +184,12 @@ object IntRationalField : Field<IntRational> {
     }
 }
 
-val DenseNumVectorSpaceOverIntRational = DenseNumVectorSpace.from(IntRationalField)
-val DenseMatrixSpaceOverIntRational = DenseMatrixSpace.from(DenseNumVectorSpaceOverIntRational)
+public val DenseNumVectorSpaceOverIntRational: DenseNumVectorSpace<IntRational> =
+    DenseNumVectorSpace.from(IntRationalField)
+public val DenseMatrixSpaceOverIntRational: DenseMatrixSpace<IntRational> =
+    DenseMatrixSpace.from(DenseNumVectorSpaceOverIntRational)
 
-val SparseNumVectorSpaceOverIntRational = SparseNumVectorSpace.from(IntRationalField)
-val SparseMatrixSpaceOverIntRational = SparseMatrixSpace.from(SparseNumVectorSpaceOverIntRational)
+public val SparseNumVectorSpaceOverIntRational: SparseNumVectorSpace<IntRational> =
+    SparseNumVectorSpace.from(IntRationalField)
+public val SparseMatrixSpaceOverIntRational: SparseMatrixSpace<IntRational> =
+    SparseMatrixSpace.from(SparseNumVectorSpaceOverIntRational)

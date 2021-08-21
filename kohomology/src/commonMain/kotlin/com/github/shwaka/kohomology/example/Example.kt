@@ -12,7 +12,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphere(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphere(
     matrixSpace: MatrixSpace<S, V, M>,
     dim: Int
 ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
@@ -53,7 +53,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphereWithMultiDegree(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> sphereWithMultiDegree(
     matrixSpace: MatrixSpace<S, V, M>,
     dim: Int
 ): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
@@ -110,7 +110,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereWithMulti
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
     matrixSpace: MatrixSpace<S, V, M>,
     n: Int
 ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
@@ -125,7 +125,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpace(
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceWithMultiDegree(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceWithMultiDegree(
     matrixSpace: MatrixSpace<S, V, M>,
     n: Int
 ): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
@@ -148,7 +148,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceWithM
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4(
     matrixSpace: MatrixSpace<S, V, M>,
 ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
     val indeterminateList = listOf(
@@ -163,7 +163,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4WithMultiDegree(
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4WithMultiDegree(
     matrixSpace: MatrixSpace<S, V, M>,
 ): FreeDGAlgebra<MultiDegree, StringIndeterminateName, S, V, M> {
     val degreeGroup = MultiDegreeGroup(

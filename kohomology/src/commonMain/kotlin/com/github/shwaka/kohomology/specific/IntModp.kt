@@ -12,8 +12,8 @@ import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 
-class IntModp(value: Int, val characteristic: Int) : Scalar {
-    val value: Int = value.positiveRem(characteristic)
+public class IntModp(value: Int, public val characteristic: Int) : Scalar {
+    public val value: Int = value.positiveRem(characteristic)
 
     override fun isZero(): Boolean {
         return this.value == 0
@@ -54,17 +54,17 @@ class IntModp(value: Int, val characteristic: Int) : Scalar {
         return result
     }
 }
-class Fp private constructor(override val characteristic: Int) : Field<IntModp> {
-    companion object {
+public class Fp private constructor(override val characteristic: Int) : Field<IntModp> {
+    public companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
-        fun get(p: Int): Fp {
+        public fun get(p: Int): Fp {
             return this.cache.getOrPut(p, { if (p.isPrime()) Fp(p) else throw ArithmeticException("$p is not prime") })
         }
     }
 
     override val context: ScalarContext<IntModp> = ScalarContext(this)
 
-    override val field = this
+    override val field: Fp = this
 
     override fun contains(scalar: IntModp): Boolean {
         return this.characteristic == scalar.characteristic
@@ -139,26 +139,39 @@ class Fp private constructor(override val characteristic: Int) : Field<IntModp> 
     }
 }
 
-val F2 = Fp.get(2)
-val DenseNumVectorSpaceOverF2 = DenseNumVectorSpace.from(F2)
-val DenseMatrixSpaceOverF2 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF2)
-val SparseNumVectorSpaceOverF2 = SparseNumVectorSpace.from(F2)
-val SparseMatrixSpaceOverF2 = SparseMatrixSpace.from(SparseNumVectorSpaceOverF2)
+/*
+for p in 2 3 5 7; do
+    cat << EOS
+public val F$p: Fp = Fp.get($p)
+public val DenseNumVectorSpaceOverF$p: DenseNumVectorSpace<IntModp> = DenseNumVectorSpace.from(F$p)
+public val DenseMatrixSpaceOverF$p: DenseMatrixSpace<IntModp> = DenseMatrixSpace.from(DenseNumVectorSpaceOverF$p)
+public val SparseNumVectorSpaceOverF$p: SparseNumVectorSpace<IntModp> = SparseNumVectorSpace.from(F$p)
+public val SparseMatrixSpaceOverF$p: SparseMatrixSpace<IntModp> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF$p)
 
-val F3 = Fp.get(3)
-val DenseNumVectorSpaceOverF3 = DenseNumVectorSpace.from(F3)
-val DenseMatrixSpaceOverF3 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF3)
-val SparseNumVectorSpaceOverF3 = SparseNumVectorSpace.from(F3)
-val SparseMatrixSpaceOverF3 = SparseMatrixSpace.from(SparseNumVectorSpaceOverF3)
+EOS
+done
+ */
 
-val F5 = Fp.get(5)
-val DenseNumVectorSpaceOverF5 = DenseNumVectorSpace.from(F5)
-val DenseMatrixSpaceOverF5 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF5)
-val SparseNumVectorSpaceOverF5 = SparseNumVectorSpace.from(F5)
-val SparseMatrixSpaceOverF5 = SparseMatrixSpace.from(SparseNumVectorSpaceOverF5)
+public val F2: Fp = Fp.get(2)
+public val DenseNumVectorSpaceOverF2: DenseNumVectorSpace<IntModp> = DenseNumVectorSpace.from(F2)
+public val DenseMatrixSpaceOverF2: DenseMatrixSpace<IntModp> = DenseMatrixSpace.from(DenseNumVectorSpaceOverF2)
+public val SparseNumVectorSpaceOverF2: SparseNumVectorSpace<IntModp> = SparseNumVectorSpace.from(F2)
+public val SparseMatrixSpaceOverF2: SparseMatrixSpace<IntModp> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF2)
 
-val F7 = Fp.get(7)
-val DenseNumVectorSpaceOverF7 = DenseNumVectorSpace.from(F7)
-val DenseMatrixSpaceOverF7 = DenseMatrixSpace.from(DenseNumVectorSpaceOverF7)
-val SparseNumVectorSpaceOverF7 = SparseNumVectorSpace.from(F7)
-val SparseMatrixSpaceOverF7 = SparseMatrixSpace.from(SparseNumVectorSpaceOverF7)
+public val F3: Fp = Fp.get(3)
+public val DenseNumVectorSpaceOverF3: DenseNumVectorSpace<IntModp> = DenseNumVectorSpace.from(F3)
+public val DenseMatrixSpaceOverF3: DenseMatrixSpace<IntModp> = DenseMatrixSpace.from(DenseNumVectorSpaceOverF3)
+public val SparseNumVectorSpaceOverF3: SparseNumVectorSpace<IntModp> = SparseNumVectorSpace.from(F3)
+public val SparseMatrixSpaceOverF3: SparseMatrixSpace<IntModp> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF3)
+
+public val F5: Fp = Fp.get(5)
+public val DenseNumVectorSpaceOverF5: DenseNumVectorSpace<IntModp> = DenseNumVectorSpace.from(F5)
+public val DenseMatrixSpaceOverF5: DenseMatrixSpace<IntModp> = DenseMatrixSpace.from(DenseNumVectorSpaceOverF5)
+public val SparseNumVectorSpaceOverF5: SparseNumVectorSpace<IntModp> = SparseNumVectorSpace.from(F5)
+public val SparseMatrixSpaceOverF5: SparseMatrixSpace<IntModp> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF5)
+
+public val F7: Fp = Fp.get(7)
+public val DenseNumVectorSpaceOverF7: DenseNumVectorSpace<IntModp> = DenseNumVectorSpace.from(F7)
+public val DenseMatrixSpaceOverF7: DenseMatrixSpace<IntModp> = DenseMatrixSpace.from(DenseNumVectorSpaceOverF7)
+public val SparseNumVectorSpaceOverF7: SparseNumVectorSpace<IntModp> = SparseNumVectorSpace.from(F7)
+public val SparseMatrixSpaceOverF7: SparseMatrixSpace<IntModp> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF7)

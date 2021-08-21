@@ -14,11 +14,11 @@ import com.github.shwaka.kohomology.vectsp.PrintType
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
-enum class UseBar {
+public enum class UseBar {
     ALWAYS, ONE, NEVER
 }
 
-data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
+public data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
     IndeterminateName {
     override fun toString(): String {
         val indexString: String = this.index?.toString() ?: ""
@@ -60,8 +60,8 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
         return "$shiftString{${this.name.toString(PrintConfig(PrintType.TEX))}}$indexString"
     }
 
-    companion object {
-        fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(
+    public companion object {
+        public fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(
             printConfig: PrintConfig,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
             return when (printConfig.printType) {
@@ -77,7 +77,7 @@ data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift:
     }
 }
 
-fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
+public fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
     degreeGroup: DegreeGroup<D>,
     shift: D,
     index: Int? = null
@@ -86,7 +86,7 @@ fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
     return Indeterminate(CopiedName(this.name, shift, index), newDegree)
 }
 
-fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
+public fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
     shift: Int,
     index: Int? = null
 ): Indeterminate<IntDegree, CopiedName<IntDegree, I>> {

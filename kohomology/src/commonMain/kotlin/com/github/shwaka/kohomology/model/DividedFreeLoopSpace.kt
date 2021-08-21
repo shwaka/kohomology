@@ -27,12 +27,12 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, dividedLoopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }
-    val pathSpaceDGAlgebra: FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> = FreePathSpace(freeDGAlgebra)
+    val pathSpaceDGAlgebra: FreePathSpace<D, I, S, V, M> = FreePathSpace(freeDGAlgebra)
     val differential: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val pathGAlgebraInclusion1: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M>
     val pathGAlgebraInclusion2: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M>
 
-    val loopSpaceDGAlgebra: FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by lazy { FreeLoopSpace(freeDGAlgebra) }
+    val loopSpaceDGAlgebra: FreeLoopSpace<D, I, S, V, M> by lazy { FreeLoopSpace(freeDGAlgebra) }
     val gAlgebraProjection1: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
@@ -79,19 +79,19 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
     }
 }
 
-class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DividedFreeLoopSpaceFactory<D, I, S, V, M>
 ) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.dividedLoopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
-    constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
-    val freeLoopSpace = this.factory.loopSpaceDGAlgebra
-    val projection1: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
+    public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
+    public val freeLoopSpace: FreeLoopSpace<D, I, S, V, M> = this.factory.loopSpaceDGAlgebra
+    public val projection1: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.loopSpaceDGAlgebra,
             gLinearMap = this.factory.gAlgebraProjection1
         )
     }
-    val projection2: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
+    public val projection2: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.loopSpaceDGAlgebra,

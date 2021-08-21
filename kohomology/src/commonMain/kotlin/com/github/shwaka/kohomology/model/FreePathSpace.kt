@@ -123,27 +123,27 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     }
 }
 
-class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreePathSpaceFactory<D, I, S, V, M>
 ) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
-    constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
-    val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
+    public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
+    public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
-    val inclusion1: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
+    public val inclusion1: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion1
         )
     }
-    val inclusion2: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
+    public val inclusion2: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion2
         )
     }
-    val projection: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, I>, S, V, M> by lazy {
+    public val projection: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, I>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this,
             target = this.factory.freeDGAlgebra,
@@ -151,7 +151,7 @@ class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
         )
     }
 
-    private val n: Int by lazy {
-        this.factory.freeDGAlgebra.gAlgebra.generatorList.size
-    }
+    // private val n: Int by lazy {
+    //     this.factory.freeDGAlgebra.gAlgebra.generatorList.size
+    // }
 }

@@ -67,17 +67,17 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     }
 }
 
-class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<D, I, S, V, M>
 ) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
-    constructor(
+    public constructor(
         freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
         shiftDegree: D? = null,
     ) : this(FreeLoopSpaceFactory(freeDGAlgebra, shiftDegree))
 
-    val suspension: DGDerivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
+    public val suspension: DGDerivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         DGDerivation(this, this.factory.suspension)
-    val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
+    public val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
             source = this.factory.freeDGAlgebra,
             target = this,
@@ -85,9 +85,9 @@ class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector
         )
     }
 
-    companion object {
+    public companion object {
         private const val degreeIndeterminateName: String = "S"
-        fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(
+        public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(
             freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
         ): FreeLoopSpace<MultiDegree, I, S, V, M> {
             @Suppress("UNCHECKED_CAST")

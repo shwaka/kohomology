@@ -11,7 +11,7 @@ public data class BasisPair<B1, B2>(val first: B1, val second: B2) : BasisName {
     override fun toString(): String {
         return this.stringPairToString(this.first.toString(), this.second.toString())
     }
-    fun toString(basis1ToString: (B1) -> String, basis2ToString: (B2) -> String): String {
+    public fun toString(basis1ToString: (B1) -> String, basis2ToString: (B2) -> String): String {
         return this.stringPairToString(basis1ToString(this.first), basis2ToString(this.second))
     }
 }

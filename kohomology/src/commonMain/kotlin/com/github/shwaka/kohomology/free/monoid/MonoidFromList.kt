@@ -28,7 +28,7 @@ public class MonoidFromList<T, D : Degree>(
             throw IllegalArgumentException("The first element of the list 'elements' should be the unit (degree 0)")
     }
 
-    override val unit = this.elements[0]
+    override val unit: SimpleMonoidElement<T, D> = this.elements[0]
 
     override fun multiply(
         monoidElement1: SimpleMonoidElement<T, D>,

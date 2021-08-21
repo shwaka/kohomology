@@ -80,7 +80,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
-open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : GAlgebra<D, E, S, V, M>(
     factory.matrixSpace,
@@ -92,9 +92,9 @@ open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, 
     listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree,
     getInternalPrintConfig = factory.getInternalPrintConfig
 ) {
-    val monoid: Mon = factory.monoid
+    public val monoid: Mon = factory.monoid
 
-    constructor(
+    public constructor(
         matrixSpace: MatrixSpace<S, V, M>,
         degreeGroup: DegreeGroup<D>,
         monoid: Mon,

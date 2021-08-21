@@ -10,37 +10,37 @@ import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 
-class Monomial<D : Degree, I : IndeterminateName> internal constructor(
-    val degreeGroup: AugmentedDegreeGroup<D>,
+public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
+    public val degreeGroup: AugmentedDegreeGroup<D>,
     private val indeterminateList: IndeterminateList<D, I>,
-    val exponentList: IntArray,
+    public val exponentList: IntArray,
 ) : MonoidElement<D> {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw InvalidSizeException("Invalid size of the exponent list")
     }
 
-    constructor(
+    public constructor(
         degreeGroup: AugmentedDegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: IntArray
     ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList)
 
-    constructor(
+    public constructor(
         degreeGroup: AugmentedDegreeGroup<D>,
         indeterminateList: List<Indeterminate<D, I>>,
         exponentList: List<Int>
     ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList), exponentList.toIntArray())
 
-    companion object {
-        operator fun <I : IndeterminateName> invoke(
+    public companion object {
+        public operator fun <I : IndeterminateName> invoke(
             indeterminateList: List<Indeterminate<IntDegree, I>>,
             exponentList: List<Int>
         ): Monomial<IntDegree, I> {
             return Monomial(IntDegreeGroup, IndeterminateList.from(IntDegreeGroup, indeterminateList), exponentList.toIntArray())
         }
 
-        fun <D : Degree, I : IndeterminateName> fromIndeterminate(
+        public fun <D : Degree, I : IndeterminateName> fromIndeterminate(
             degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,
             indeterminate: Indeterminate<D, I>
@@ -75,7 +75,7 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         return Monomial(this.degreeGroup, this.indeterminateList, newExponents)
     }
 
-    fun containsIndeterminate(indeterminateIndex: Int): Boolean {
+    public fun containsIndeterminate(indeterminateIndex: Int): Boolean {
         return this.exponentList[indeterminateIndex] > 0
     }
 
@@ -100,7 +100,7 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
     }
 
-    fun toTex(indeterminateNameToTex: (I) -> String): String {
+    public fun toTex(indeterminateNameToTex: (I) -> String): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
@@ -134,7 +134,7 @@ class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     }
 }
 
-class FreeMonoid<D : Degree, I : IndeterminateName> (
+public class FreeMonoid<D : Degree, I : IndeterminateName> (
     override val degreeGroup: AugmentedDegreeGroup<D>,
     indeterminateList: List<Indeterminate<D, I>>
 ) : Monoid<D, Monomial<D, I>> {
@@ -142,12 +142,12 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
     private val indeterminateListInternal = IndeterminateList.from(degreeGroup, indeterminateList)
-    val indeterminateList: List<Indeterminate<D, I>> by lazy {
+    public val indeterminateList: List<Indeterminate<D, I>> by lazy {
         this.indeterminateListInternal.toList()
     }
 
-    companion object {
-        operator fun <I : IndeterminateName> invoke(
+    public companion object {
+        public operator fun <I : IndeterminateName> invoke(
             indeterminateList: List<Indeterminate<IntDegree, I>>
         ): Monoid<IntDegree, Monomial<IntDegree, I>> {
             return FreeMonoid(IntDegreeGroup, indeterminateList)
@@ -165,7 +165,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     //     }
     // }
 
-    fun fromExponentList(exponentList: IntArray): Monomial<D, I> {
+    public fun fromExponentList(exponentList: IntArray): Monomial<D, I> {
         return Monomial(this.degreeGroup, this.indeterminateListInternal, exponentList)
     }
 
@@ -266,7 +266,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
         return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)
     }
 
-    fun allSeparations(monomial: Monomial<D, I>): List<MonomialSeparation<D, I>> {
+    internal fun allSeparations(monomial: Monomial<D, I>): List<MonomialSeparation<D, I>> {
         // TODO: List じゃなくて Iterator の方が良い？
         return this.indeterminateListInternal.indices.mapNotNull { i -> this.separate(monomial, i) }
     }
@@ -277,7 +277,7 @@ class FreeMonoid<D : Degree, I : IndeterminateName> (
     }
 }
 
-data class MonomialSeparation<D : Degree, I : IndeterminateName>(
+internal data class MonomialSeparation<D : Degree, I : IndeterminateName>(
     val remainingMonomial: Monomial<D, I>,
     val separatedIndeterminate: Indeterminate<D, I>,
     val separatedExponent: Int,
@@ -335,7 +335,7 @@ private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
     }
 }
 
-class FreeMonoidMorphismByDegreeChange<DS : Degree, DT : Degree, I : IndeterminateName>(
+public class FreeMonoidMorphismByDegreeChange<DS : Degree, DT : Degree, I : IndeterminateName>(
     override val source: FreeMonoid<DS, I>,
     override val degreeMorphism: AugmentedDegreeMorphism<DS, DT>,
 ) : MonoidMorphismWithDegreeChange<DS, Monomial<DS, I>, DT, Monomial<DT, I>> {

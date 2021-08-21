@@ -31,11 +31,11 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 
-interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>
+public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>
 }
 
-class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, Monomial<D, I>, S, V>,
@@ -44,10 +44,10 @@ class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 ) : GAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
     FreeGAlgebraOperations<D, I, S, V, M> by freeGAlgebraOperations
 
-class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     override val degreeGroup: AugmentedDegreeGroup<D>,
-    val indeterminateList: List<Indeterminate<D, I>>,
+    public val indeterminateList: List<Indeterminate<D, I>>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
 ) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(
         matrixSpace,
@@ -60,13 +60,13 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
     }
-    val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
+    public val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.degreeGroup, this.indeterminateList, indeterminate)
             this.fromBasisName(monomial, indeterminate.degree)
         }
 
-    fun getDerivation(valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>, derivationDegree: D): Derivation<D, Monomial<D, I>, S, V, M> {
+    public fun getDerivation(valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>, derivationDegree: D): Derivation<D, Monomial<D, I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
             throw InvalidSizeException("Invalid size of the list of values of a derivation")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
@@ -101,7 +101,7 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         }
     }
 
-    fun getDerivation(valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>, derivationDegree: IntAsDegree): Derivation<D, Monomial<D, I>, S, V, M> {
+    public fun getDerivation(valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>, derivationDegree: IntAsDegree): Derivation<D, Monomial<D, I>, S, V, M> {
         return this.getDerivation(valueList, this.degreeGroup.fromInt(derivationDegree))
     }
 
@@ -132,7 +132,7 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         }
     }
 
-    fun <B : BasisName> getGAlgebraMap(
+    public fun <B : BasisName> getGAlgebraMap(
         target: GAlgebra<D, B, S, V, M>,
         valueList: List<GVectorOrZero<D, B, S, V>>,
     ): GAlgebraMap<D, Monomial<D, I>, B, S, V, M> {
@@ -176,7 +176,7 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         }
     }
 
-    fun containsIndeterminate(indeterminateIndex: Int, element: GVector<D, Monomial<D, I>, S, V>): Boolean {
+    public fun containsIndeterminate(indeterminateIndex: Int, element: GVector<D, Monomial<D, I>, S, V>): Boolean {
         return element.vector.toBasisMap().any { (monomial, _) ->
             monomial.containsIndeterminate(indeterminateIndex)
         }
@@ -189,7 +189,7 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         return this.parse(generators, text)
     }
 
-    fun <D_ : Degree> convertDegree(
+    public fun <D_ : Degree> convertDegree(
         degreeMorphism: AugmentedDegreeMorphism<D, D_>
     ): Pair<FreeGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {
         val newIndeterminateList = this.indeterminateList.map { indeterminate ->
@@ -207,13 +207,13 @@ class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<
         return Pair(newFreeGAlgebra, gLinearMapWithDegreeChange)
     }
 
-    companion object {
+    public companion object {
         private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
         }
 
-        operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        public operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             indeterminateList: List<Indeterminate<IntDegree, I>>
         ): FreeGAlgebra<IntDegree, I, S, V, M> {

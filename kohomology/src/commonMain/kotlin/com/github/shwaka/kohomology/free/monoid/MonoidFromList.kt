@@ -5,21 +5,21 @@ import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.util.Sign
 
-data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
+public data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
     override fun toString(): String {
         return this.name.toString()
     }
-    companion object {
-        operator fun <T> invoke(name: T, degree: Int): SimpleMonoidElement<T, IntDegree> {
+    public companion object {
+        public operator fun <T> invoke(name: T, degree: Int): SimpleMonoidElement<T, IntDegree> {
             return SimpleMonoidElement(name, IntDegree(degree))
         }
     }
 }
 
-class MonoidFromList<T, D : Degree>(
-    val elements: List<SimpleMonoidElement<T, D>>,
+public class MonoidFromList<T, D : Degree>(
+    public val elements: List<SimpleMonoidElement<T, D>>,
     override val degreeGroup: DegreeGroup<D>,
-    val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>>>>
+    public val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>>>>
 ) : Monoid<D, SimpleMonoidElement<T, D>> {
     init {
         if (this.elements.isEmpty())

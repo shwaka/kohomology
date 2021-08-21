@@ -6,12 +6,12 @@ import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-interface MonoidElement<D : Degree> : BasisName {
-    val degree: D
+public interface MonoidElement<D : Degree> : BasisName {
+    public val degree: D
 }
 
-sealed class MaybeZero<T>
-class Zero<T> : MaybeZero<T>() {
+public sealed class MaybeZero<T>
+public class Zero<T> : MaybeZero<T>() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -23,22 +23,22 @@ class Zero<T> : MaybeZero<T>() {
         return this::class.hashCode()
     }
 }
-data class NonZero<T>(val value: T) : MaybeZero<T>()
+public data class NonZero<T>(val value: T) : MaybeZero<T>()
 
-interface Monoid<D : Degree, E : MonoidElement<D>> {
-    val unit: E
-    val degreeGroup: DegreeGroup<D>
-    fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
-    fun listElements(degree: D): List<E>
-    fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
-    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+public interface Monoid<D : Degree, E : MonoidElement<D>> {
+    public val unit: E
+    public val degreeGroup: DegreeGroup<D>
+    public fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
+    public fun listElements(degree: D): List<E>
+    public fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
+    public fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
         throw NotImplementedError("Monoid.listDegreesForAugmentedDegree() is not implemented for a general monoid")
     }
 }
 
-interface MonoidMorphismWithDegreeChange<DS : Degree, ES : MonoidElement<DS>, DT : Degree, ET : MonoidElement<DT>> {
-    val source: Monoid<DS, ES>
-    val target: Monoid<DT, ET>
-    val degreeMorphism: DegreeMorphism<DS, DT>
-    operator fun invoke(monoidElement: ES): ET
+public interface MonoidMorphismWithDegreeChange<DS : Degree, ES : MonoidElement<DS>, DT : Degree, ET : MonoidElement<DT>> {
+    public val source: Monoid<DS, ES>
+    public val target: Monoid<DT, ET>
+    public val degreeMorphism: DegreeMorphism<DS, DT>
+    public operator fun invoke(monoidElement: ES): ET
 }

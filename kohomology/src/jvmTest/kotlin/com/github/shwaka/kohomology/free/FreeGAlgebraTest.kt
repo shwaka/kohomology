@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.exception.InvalidSizeException
@@ -349,6 +350,44 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
 
         "y1 should be sent to y2" {
             gLinearMapWithDegreeChange(y1).degree shouldBe degreeGroup2.context.run { 4 * n + 4 * m - 1 }
+            gLinearMapWithDegreeChange(y1) shouldBe y2
+        }
+
+        "(x1^2 y1) should be sent to (x2^2 y2)" {
+            val elm1 = freeGAlgebra1.context.run { x1.pow(2) * y1 }
+            val elm2 = freeGAlgebra2.context.run { x2.pow(2) * y2 }
+            gLinearMapWithDegreeChange(elm1) shouldBe elm2
+        }
+    }
+
+    "toIntDegree test for the model the sphere" - {
+        val degreeGroup1 = MultiDegreeGroup(
+            listOf(
+                DegreeIndeterminate("K", 1)
+            )
+        )
+        val (k) = degreeGroup1.generatorList
+        val indeterminateList1 = degreeGroup1.context.run {
+            listOf(
+                Indeterminate("x", 2 * k),
+                Indeterminate("y", 4 * k - 1),
+            )
+        }
+        val freeGAlgebra1 = FreeGAlgebra(matrixSpace, degreeGroup1, indeterminateList1)
+        val (x1, y1) = freeGAlgebra1.generatorList
+
+        val (freeGAlgebra2, gLinearMapWithDegreeChange) = freeGAlgebra1.toIntDegree()
+        val (x2, y2) = freeGAlgebra2.generatorList
+
+        val kAsInt: Int = degreeGroup1.augmentation(k)
+
+        "x1 should be sent to x2" {
+            gLinearMapWithDegreeChange(x1).degree shouldBe IntDegree(2 * kAsInt)
+            gLinearMapWithDegreeChange(x1) shouldBe x2
+        }
+
+        "y1 should be sent to y2" {
+            gLinearMapWithDegreeChange(y1).degree shouldBe IntDegree(4 * kAsInt - 1)
             gLinearMapWithDegreeChange(y1) shouldBe y2
         }
 

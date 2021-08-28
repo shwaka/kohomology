@@ -86,3 +86,10 @@ public interface AugmentedDegreeMorphism<DS : Degree, DT : Degree> : DegreeMorph
     override val source: AugmentedDegreeGroup<DS>
     override val target: AugmentedDegreeGroup<DT>
 }
+
+public class AugmentationDegreeMorphism<D : Degree>(override val source: AugmentedDegreeGroup<D>) : AugmentedDegreeMorphism<D, IntDegree> {
+    override val target: AugmentedDegreeGroup<IntDegree> = IntDegreeGroup
+    override fun invoke(degree: D): IntDegree {
+        return IntDegree(this.source.augmentation(degree))
+    }
+}

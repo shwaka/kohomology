@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
@@ -205,6 +206,11 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
             "${this.name} (degree changed)"
         ) { monomial -> freeMonoidMorphism(monomial) }
         return Pair(newFreeGAlgebra, gLinearMapWithDegreeChange)
+    }
+
+    public fun toIntDegree(): Pair<FreeGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
+        val degreeMorphism = AugmentationDegreeMorphism(this.degreeGroup)
+        return this.convertDegree(degreeMorphism)
     }
 
     public companion object {

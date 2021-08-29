@@ -67,6 +67,12 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
         return this[this.degreeGroup.fromInt(degree)]
     }
 
+    public fun imageContains(gVector: GVector<D, BT, S, V>): Boolean {
+        if (gVector !in this.target)
+            throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
+        return (this.findPreimage(gVector) != null)
+    }
+
     public fun findPreimage(gVector: GVector<D, BT, S, V>): GVector<D, BS, S, V>? {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")

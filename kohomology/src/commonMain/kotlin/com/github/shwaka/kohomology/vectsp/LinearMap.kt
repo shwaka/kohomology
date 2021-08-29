@@ -68,6 +68,12 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return numVectorList.map { this.target.fromNumVector(it) }
     }
 
+    public fun imageContains(vector: Vector<BT, S, V>): Boolean {
+        if (vector !in this.target)
+            throw IllegalArgumentException("Invalid vector is given: $vector is not an element of ${this.target}")
+        return (this.findPreimage(vector) != null)
+    }
+
     public fun findPreimage(vector: Vector<BT, S, V>): Vector<BS, S, V>? {
         if (vector !in this.target)
             throw IllegalArgumentException("Invalid vector is given: $vector is not an element of ${this.target}")

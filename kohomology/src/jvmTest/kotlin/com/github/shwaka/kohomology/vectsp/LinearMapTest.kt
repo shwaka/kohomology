@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
@@ -49,6 +50,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, listOf(v, w))
                 val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
                 f shouldBe expected
+            }
+            "imageContains test" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(two, two),
+                        listOf(one, one)
+                    )
+                )
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                val v = vectorSpace2.fromCoeffList(listOf(-four, -two))
+                val w = vectorSpace2.fromCoeffList(listOf(one, -one))
+                f.imageContains(vectorSpace2.zeroVector).shouldBeTrue()
+                f.imageContains(v).shouldBeTrue()
+                f.imageContains(w).shouldBeFalse()
             }
         }
     }

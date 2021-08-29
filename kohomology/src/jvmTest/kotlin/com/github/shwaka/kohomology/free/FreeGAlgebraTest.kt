@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.exception.InvalidSizeException

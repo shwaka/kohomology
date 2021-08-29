@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
+import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -212,6 +213,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(ma
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toIntDegreeTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "toIntDegree Test" - {
+        val sphereDim = 4
+        val freeDGAlgebraWithMultiDegree = sphereWithMultiDegree(matrixSpace, sphereDim)
+        val (freeDGAlgebra, _) = freeDGAlgebraWithMultiDegree.toIntDegree()
+        for (degree in 0 until 10) {
+            val expectedDim = when (degree) {
+                0, sphereDim -> 1
+                else -> 0
+            }
+            freeDGAlgebra.cohomology[degree].dim shouldBe expectedDim
+        }
+    }
+}
+
 class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
@@ -224,4 +240,5 @@ class FreeDGAlgebraTest : FreeSpec({
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))
     include(toStringInCohomologyTest(matrixSpace))
+    include(toIntDegreeTest(matrixSpace))
 })

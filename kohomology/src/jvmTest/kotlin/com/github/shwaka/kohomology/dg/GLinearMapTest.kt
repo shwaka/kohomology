@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -72,7 +73,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 gLinearMap.imageContains(nonImage).shouldBeFalse()
             }
             "kernelBasis() should return an empty list" {
-                for (degree in 0 until 20) {
+                (0 until 20).toList().forAll { degree ->
                     gLinearMap.kernelBasis(degree).shouldBeEmpty()
                 }
             }

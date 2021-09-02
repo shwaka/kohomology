@@ -20,6 +20,8 @@ import io.kotest.core.spec.style.freeSpec
 import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import mu.KotlinLogging
 
 val freeLoopSpaceTag = NamedTag("FreeLoopSpace")
@@ -98,9 +100,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 hs(x.cohomologyClass()) shouldBe (sx.cohomologyClass())
                 hs(sx.cohomologyClass()).isZero().shouldBeTrue()
             }
-            "shiftDegree should be 1" {
+            "freeLoopSpace.shiftDegree should be 1" {
                 val shiftDegree: Int = freeLoopSpace.shiftDegree.value
                 shiftDegree shouldBe 1
+            }
+            "freeLoopSpace.freeDGAlgebra should be the same as the original freeDGAlgebra" {
+                freeLoopSpace.freeDGAlgebra shouldBeSameInstanceAs sphere
             }
         }
     }
@@ -123,6 +128,12 @@ suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
         "the augmentation of shiftDegree should be 1" {
             val shiftDegree: MultiDegree = freeLoopSpaceWithShiftDegree.shiftDegree
             freeLoopSpaceWithShiftDegree.gAlgebra.degreeGroup.augmentation(shiftDegree) shouldBe 1
+        }
+        "freeLoopSpace.freeDGAlgebra should be the same instance as the original freeDGAlgebra" {
+            freeLoopSpace.freeDGAlgebra shouldBeSameInstanceAs freeDGAlgebra
+        }
+        "freeLoopSpaceWithShiftDegree.freeDGAlgebra should be a different instance from the original freeDGAlgebra" {
+            freeLoopSpaceWithShiftDegree.freeDGAlgebra shouldNotBeSameInstanceAs freeDGAlgebra
         }
     }
 }

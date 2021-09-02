@@ -85,6 +85,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
         )
     }
     public val shiftDegree: D = factory.shiftDegree
+    public val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M> = factory.freeDGAlgebra
 
     public companion object {
         private const val degreeIndeterminateName: String = "S"

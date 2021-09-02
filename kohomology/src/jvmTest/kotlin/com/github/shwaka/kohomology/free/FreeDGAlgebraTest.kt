@@ -13,10 +13,12 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printer
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.assertions.throwables.shouldThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -117,6 +119,31 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             "differential.kernelBasis(sphereDim * n) should be listOf(x^n)" {
                 for (n in 0 until 10) {
                     d.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
+                }
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    val sphereDim: Int = 4
+    "[test getDGAlgebraMap for the sphere of dimension $sphereDim]" - {
+        val freeDGAlgebra = sphere(matrixSpace, sphereDim)
+        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        val a: Int = 2
+        freeDGAlgebra.context.run {
+            "(x->${a}x, y->${a.pow(2)}y) should give a dga map" {
+                val f = shouldNotThrowAny {
+                    freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, listOf(a * x, a.pow(2) * y))
+                }
+                f(x) shouldBe (a * x)
+                f(y) shouldBe (a.pow(2) * y)
+                val n = 3
+                f(x.pow(n)) shouldBe (a.pow(n) * x.pow(n))
+            }
+            "(x->${a}x, y->${a}y) should not give a dga map" {
+                shouldThrowAny {
+                    freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, listOf(a * x, a.pow(2) * y))
                 }
             }
         }
@@ -236,6 +263,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(pointModelTest(matrixSpace))
     include(oddSphereModelTest(matrixSpace, 3))
     include(evenSphereModelTest(matrixSpace, 2))
+    include(getDGAlgebraMapTest(matrixSpace))
     include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))

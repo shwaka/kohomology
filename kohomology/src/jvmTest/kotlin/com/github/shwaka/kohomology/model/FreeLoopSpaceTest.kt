@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -96,6 +98,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 hs(x.cohomologyClass()) shouldBe (sx.cohomologyClass())
                 hs(sx.cohomologyClass()).isZero().shouldBeTrue()
             }
+            "shiftDegree should be 1" {
+                val shiftDegree: Int = freeLoopSpace.shiftDegree.value
+                shiftDegree shouldBe 1
+            }
         }
     }
 }
@@ -105,12 +111,18 @@ suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     freeDGAlgebra: FreeDGAlgebra<D, StringIndeterminateName, S, V, M>,
     maxDegree: Int,
 ) {
-    "FreeLoopSpace.withShiftDegree for $name" {
+    "FreeLoopSpace.withShiftDegree for $name" - {
         val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
         val freeLoopSpaceWithShiftDegree = FreeLoopSpace.withShiftDegree(freeDGAlgebra)
-        for (degree in 0..maxDegree) {
-            freeLoopSpaceWithShiftDegree.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
-                freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).size
+        "dimension of the cohomology with / without shiftDegree should be the same" {
+            for (degree in 0..maxDegree) {
+                freeLoopSpaceWithShiftDegree.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
+                    freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).size
+            }
+        }
+        "the augmentation of shiftDegree should be 1" {
+            val shiftDegree: MultiDegree = freeLoopSpaceWithShiftDegree.shiftDegree
+            freeLoopSpaceWithShiftDegree.gAlgebra.degreeGroup.augmentation(shiftDegree) shouldBe 1
         }
     }
 }

@@ -25,11 +25,11 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     shiftDegree: D?,
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
-    private val shiftDegreeNonNull = shiftDegree ?: freeDGAlgebra.gAlgebra.degreeGroup.fromInt(1)
+    val shiftDegree = shiftDegree ?: freeDGAlgebra.gAlgebra.degreeGroup.fromInt(1)
     val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
-            list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegreeNonNull) }
+            list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegree) }
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }
@@ -41,7 +41,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
         this.suspension = run {
             val suspensionDegree = this.freeDGAlgebra.gAlgebra.degreeGroup.context.run {
-                -this@FreeLoopSpaceFactory.shiftDegreeNonNull
+                -this@FreeLoopSpaceFactory.shiftDegree
             }
             val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
                 loopSpaceGAlgebra.zeroGVector
@@ -84,6 +84,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
             gLinearMap = this.factory.gAlgebraInclusion
         )
     }
+    public val shiftDegree: D = factory.shiftDegree
 
     public companion object {
         private const val degreeIndeterminateName: String = "S"

@@ -40,6 +40,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
             }
         }
 
+        "assert that projections are dga maps" {
+            for (projection in listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)) {
+                for (v in dividedFreeLoopSpace.gAlgebra.generatorList) {
+                    freeLoopSpace.differential(projection(v)) shouldBe
+                        projection(dividedFreeLoopSpace.differential(v))
+                }
+            }
+        }
+
         "find cocycle lift along projection" {
             val n = 3
             for (projection in listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)) {

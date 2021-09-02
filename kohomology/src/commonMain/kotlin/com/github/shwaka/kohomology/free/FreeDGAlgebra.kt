@@ -193,7 +193,9 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         val zeroGVector = liftTarget.context.run { zeroGVector }
         val liftValueList: MutableList<GVectorOrZero<D, BS, S, V>> = MutableList(n) { zeroGVector }
         for (i in 0 until n) {
-            val currentLift = this.getDGAlgebraMap(liftTarget, liftValueList)
+            val currentLift = this.gAlgebra.getGAlgebraMap(liftTarget.gAlgebra, liftValueList)
+            // ↑ This should be getGAlgebraMap, NOT getDGAlgebraMap
+            // since currentLift does NOT commute with differentials for i < n - 1
             val vi = this.gAlgebra.generatorList[i]
             val cochainLift = surjectiveQuasiIsomorphism.findLift(
                 targetCochain = underlyingMap(vi),

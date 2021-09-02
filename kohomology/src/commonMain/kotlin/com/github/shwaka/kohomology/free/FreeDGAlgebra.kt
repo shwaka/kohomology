@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraContext
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
+import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.DGVectorOperations
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraOperations
@@ -26,6 +27,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
@@ -143,12 +145,39 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
             val dfv = target.differential(gAlgebraMap(v))
             if (fdv != dfv) {
                 throw IllegalArgumentException(
-                    "The given map does not commute with the differential on the generator $v:\n" +
+                    "The given algebra map does not commute with the differential on the generator $v:\n" +
                         "f(d($v)) = $fdv, d(f($v)) = $dfv"
                 )
             }
         }
         return DGAlgebraMap(this, target, gAlgebraMap)
+    }
+
+    public fun getDGDerivation(
+        valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>,
+        derivationDegree: D,
+    ): DGDerivation<D, Monomial<D, I>, S, V, M> {
+        val derivation = this.gAlgebra.getDerivation(valueList, derivationDegree)
+        this.context.run {
+            for (v in this@FreeDGAlgebra.gAlgebra.generatorList) {
+                val fdv = derivation(d(v))
+                val dfv = d(derivation(v))
+                if (fdv != dfv) {
+                    throw IllegalArgumentException(
+                        "The given derivation does not commute with the differential on the generator $v:\n" +
+                            "f(d($v)) = $fdv, d(f($v)) = $dfv"
+                    )
+                }
+            }
+        }
+        return DGDerivation(this, derivation)
+    }
+
+    public fun getDGDerivation(
+        valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>,
+        derivationDegree: IntAsDegree,
+    ): DGDerivation<D, Monomial<D, I>, S, V, M> {
+        return this.getDGDerivation(valueList, this.gAlgebra.degreeGroup.fromInt(derivationDegree))
     }
 
     public fun <BS : BasisName, BT : BasisName> findLift(

@@ -150,6 +150,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMapTest(matrixS
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    val sphereDim: Int = 4
+    "[test getDGDerivation for the sphere of dimension $sphereDim]" - {
+        val freeDGAlgebra = sphere(matrixSpace, sphereDim)
+        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            "(x->0, y->1) should give a dg derivation" {
+                val f = shouldNotThrowAny {
+                    freeDGAlgebra.getDGDerivation(listOf(zeroGVector, unit), -(2 * sphereDim - 1))
+                }
+                f(x).isZero().shouldBeTrue()
+                f(y) shouldBe (unit)
+                val n = 3
+                f(x.pow(n) * y) shouldBe (x.pow(n))
+            }
+            "(x->1, y->0) should not give a dg derivation" {
+                shouldThrow<IllegalArgumentException> {
+                    freeDGAlgebra.getDGDerivation(listOf(unit, zeroGVector), -sphereDim)
+                }
+            }
+        }
+    }
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4Test(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "model in FHT Section 12 (a) Example 7 (p.147)" {
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
@@ -264,6 +288,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(oddSphereModelTest(matrixSpace, 3))
     include(evenSphereModelTest(matrixSpace, 2))
     include(getDGAlgebraMapTest(matrixSpace))
+    include(getDGDerivationTest(matrixSpace))
     include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))

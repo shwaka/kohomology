@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
-import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -104,8 +103,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 val shiftDegree: Int = freeLoopSpace.shiftDegree.value
                 shiftDegree shouldBe 1
             }
-            "freeLoopSpace.freeDGAlgebra should be the same as the original freeDGAlgebra" {
-                freeLoopSpace.freeDGAlgebra shouldBeSameInstanceAs sphere
+            "freeLoopSpace.baseSpace should be the same as the original freeDGAlgebra" {
+                freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
         }
     }
@@ -129,11 +128,11 @@ suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
             val shiftDegree: MultiDegree = freeLoopSpaceWithShiftDegree.shiftDegree
             freeLoopSpaceWithShiftDegree.gAlgebra.degreeGroup.augmentation(shiftDegree) shouldBe 1
         }
-        "freeLoopSpace.freeDGAlgebra should be the same instance as the original freeDGAlgebra" {
-            freeLoopSpace.freeDGAlgebra shouldBeSameInstanceAs freeDGAlgebra
+        "freeLoopSpace.baseSpace should be the same instance as the original freeDGAlgebra" {
+            freeLoopSpace.baseSpace shouldBeSameInstanceAs freeDGAlgebra
         }
-        "freeLoopSpaceWithShiftDegree.freeDGAlgebra should be a different instance from the original freeDGAlgebra" {
-            freeLoopSpaceWithShiftDegree.freeDGAlgebra shouldNotBeSameInstanceAs freeDGAlgebra
+        "freeLoopSpaceWithShiftDegree.baseSpace should be a different instance from the original freeDGAlgebra" {
+            freeLoopSpaceWithShiftDegree.baseSpace shouldNotBeSameInstanceAs freeDGAlgebra
         }
     }
 }

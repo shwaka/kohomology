@@ -142,8 +142,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMapTest(matrixS
                 f(x.pow(n)) shouldBe (a.pow(n) * x.pow(n))
             }
             "(x->${a}x, y->${a}y) should not give a dga map" {
-                shouldThrowAny {
-                    freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, listOf(a * x, a.pow(2) * y))
+                shouldThrow<IllegalArgumentException> {
+                    freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, listOf(a * x, a * y))
                 }
             }
         }

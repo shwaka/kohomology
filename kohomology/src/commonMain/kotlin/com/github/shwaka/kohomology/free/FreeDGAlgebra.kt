@@ -138,6 +138,16 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         valueList: List<GVectorOrZero<D, B, S, V>>,
     ): DGAlgebraMap<D, Monomial<D, I>, B, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getGAlgebraMap(target.gAlgebra, valueList)
+        for (v in this.gAlgebra.generatorList) {
+            val fdv = gAlgebraMap(this.differential(v))
+            val dfv = target.differential(gAlgebraMap(v))
+            if (fdv != dfv) {
+                throw IllegalArgumentException(
+                    "The given map does not commute with the differential on the generator $v:\n" +
+                        "f(d($v)) = $fdv, d(f($v)) = $dfv"
+                )
+            }
+        }
         return DGAlgebraMap(this, target, gAlgebraMap)
     }
 

@@ -425,7 +425,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 ).toMatrix()
                 val kernelBasis = mat.computeKernelBasis()
                 kernelBasis.size shouldBe 2
-                (kernelBasis).forAll { v ->
+                kernelBasis.forAll { v ->
                     (mat * v).isZero().shouldBeTrue()
                 }
             }

@@ -314,7 +314,7 @@ class MonomialTest : FreeSpec({
                 intArrayOf(1, 1),
                 intArrayOf(3, 2),
             )
-            (exponentLists).forAll { exponentList ->
+            exponentLists.forAll { exponentList ->
                 monoidMorphism(monoid1.fromExponentList(exponentList)) shouldBe
                     monoid2.fromExponentList(exponentList)
             }

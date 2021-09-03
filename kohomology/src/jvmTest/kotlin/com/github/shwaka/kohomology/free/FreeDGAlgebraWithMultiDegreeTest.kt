@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.degreeTag
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
@@ -34,21 +35,21 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
             freeLoopSpace.cohomology[0].dim shouldBe 1
         }
         "positive integer degree should be 0-dim" {
-            for (degree in 1 until 20) {
+            (1 until 20).forAll { degree ->
                 freeLoopSpace.gAlgebra[degree].dim shouldBe 0
                 freeLoopSpace.cohomology[degree].dim shouldBe 0
             }
         }
         degreeGroup.context.run {
             "non-trivial cohomology" {
-                for (i in 1 until 10) {
+                (1 until 10).forAll { i ->
                     val degree = i * (2 * n - 1)
                     val expectedDim = if (i.isEven()) 0 else 1
                     freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
                 }
             }
             "trivial cohomology (with non-zero cochain)" {
-                for (i in 0 until 10) {
+                (0 until 10).forAll { i ->
                     val degree = 2 * n + i * (2 * n - 1)
                     val expectedDim = if (i.isEven()) 1 else 0
                     freeLoopSpace.cohomology[degree].dim shouldBe expectedDim
@@ -66,7 +67,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
                 listOf(zeroGVector, x.pow(2))
             }
             val intFreeLoopSpace = FreeLoopSpace(intSphere)
-            for (degree in 0 until 20) {
+            (0 until 20).forAll { degree ->
                 // basis for DGA
                 sphere.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
                     intSphere.gAlgebra.getBasis(degree).size

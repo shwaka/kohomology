@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -70,7 +71,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
                 d(x).isZero().shouldBeTrue()
             }
             "check cohomology" {
-                for (n in 0 until (sphereDim * 3)) {
+                (0 until (sphereDim * 3)).forAll { n ->
                     val expectedDim = when (n) {
                         0, sphereDim -> 1
                         else -> 0
@@ -97,7 +98,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 d(y) shouldBe x.pow(2)
             }
             "check cohomology" {
-                for (n in 0 until (sphereDim * 3)) {
+                (0 until (sphereDim * 3)).forAll { n ->
                     val expectedDim = when (n) {
                         0, sphereDim -> 1
                         else -> 0
@@ -116,7 +117,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 d(a) shouldBe x.pow(2)
             }
             "differential.kernelBasis(sphereDim * n) should be listOf(x^n)" {
-                for (n in 0 until 10) {
+                (0 until 10).forAll { n ->
                     d.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
                 }
             }
@@ -229,7 +230,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
             d(y) shouldBe (x.pow(2))
             parse("2 * x^2") shouldBe (2 * x.pow(2))
         }
-        for (degree in 0 until 10) {
+        (0 until 10).forAll { degree ->
             val expectedDim = when (degree) {
                 0, 2 -> 1
                 else -> 0
@@ -268,7 +269,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toIntDegreeTest(matrixSpace
         val sphereDim = 4
         val freeDGAlgebraWithMultiDegree = sphereWithMultiDegree(matrixSpace, sphereDim)
         val (freeDGAlgebra, _) = freeDGAlgebraWithMultiDegree.toIntDegree()
-        for (degree in 0 until 10) {
+        (0 until 10).forAll { degree ->
             val expectedDim = when (degree) {
                 0, sphereDim -> 1
                 else -> 0

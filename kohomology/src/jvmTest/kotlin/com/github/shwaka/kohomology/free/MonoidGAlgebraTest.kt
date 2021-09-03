@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.OddSuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegreeGroup
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.MaybeZero
 import com.github.shwaka.kohomology.free.monoid.MonoidFromList
 import com.github.shwaka.kohomology.free.monoid.NonZero
@@ -48,15 +49,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
             }
         val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable)
         val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeGroup, monoid, "M")
-        for (degree in 0..(3 * n)) {
+        (0..(3 * n)).forAll { degree ->
             val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
             gAlgebra[degree].dim shouldBe expectedDim
         }
         val basis: List<GVector<IntDegree, SimpleMonoidElement<String, IntDegree>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
         gAlgebra.context.run {
-            for (i in 0..n) {
-                for (j in 0..n) {
+            (0..n).forAll { i ->
+                (0..n).forAll { j ->
                     if (i + j <= n) {
                         (basis[i] * basis[j]) shouldBe basis[i + j]
                     } else {

@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -73,16 +74,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 gLinearMap.imageContains(nonImage).shouldBeFalse()
             }
             "kernelBasis() should return an empty list" {
-                (0 until 20).toList().forAll { degree ->
+                (0 until 20).forAll { degree ->
                     gLinearMap.kernelBasis(degree).shouldBeEmpty()
                 }
             }
             "imageBasis(n) should return a list of length (n - 1) with elements of degree n" {
                 gLinearMap.imageBasis(0).shouldBeEmpty()
-                for (degree in 1 until 20) {
+                (1 until 20).forAll { degree ->
                     val imageBasis = gLinearMap.imageBasis(degree)
                     imageBasis.size shouldBe (degree - 1)
-                    for (gVector in imageBasis) {
+                    imageBasis.forAll { gVector ->
                         val gVectorDegree: IntDegree = gVector.degree
                         gVectorDegree shouldBe IntDegree(degree)
                     }

@@ -21,6 +21,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -424,7 +425,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 ).toMatrix()
                 val kernelBasis = mat.computeKernelBasis()
                 kernelBasis.size shouldBe 2
-                for (v in kernelBasis) {
+                (kernelBasis).forAll { v ->
                     (mat * v).isZero().shouldBeTrue()
                 }
             }

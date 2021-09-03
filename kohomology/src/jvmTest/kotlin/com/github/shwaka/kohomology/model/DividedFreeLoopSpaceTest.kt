@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-im
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
@@ -41,8 +42,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
         }
 
         "assert that projections are dga maps" {
-            for (projection in listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)) {
-                for (v in dividedFreeLoopSpace.gAlgebra.generatorList) {
+            (listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)).forAll { projection ->
+                (dividedFreeLoopSpace.gAlgebra.generatorList).forAll { v ->
                     freeLoopSpace.differential(projection(v)) shouldBe
                         projection(dividedFreeLoopSpace.differential(v))
                 }
@@ -51,7 +52,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
 
         "find cocycle lift along projection" {
             val n = 3
-            for (projection in listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)) {
+            (listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)).forAll { projection ->
                 val cocycle = freeLoopSpace.context.run {
                     2 * n * y * sx * sy.pow(n - 1) + x * sy.pow(n)
                 }
@@ -68,7 +69,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
             val section = freeLoopSpace.findSection(projection)
             val d1 = freeLoopSpace.differential
             val d2 = dividedFreeLoopSpace.differential
-            for (v in listOf(x, y, sx, sy)) {
+            (listOf(x, y, sx, sy)).forAll { v ->
                 section(d1(v)) shouldBe d2(section(v))
                 projection(section(v)) shouldBe v
             }

@@ -182,7 +182,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
             d(x * y) shouldBe (a.pow(2) * y - a * b * x)
             d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
         }
-        for (n in 0 until 12) {
+        (0 until 12).forAll { n ->
             val expectedDim = when (n) {
                 0, 7 -> 1
                 2, 5 -> 2

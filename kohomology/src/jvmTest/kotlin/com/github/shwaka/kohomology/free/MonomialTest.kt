@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -15,6 +16,7 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeUnique
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
@@ -176,7 +178,7 @@ class MonomialTest : FreeSpec({
             val monoid = FreeMonoid(degreeGroup, indeterminateList)
 
             "listDegreesForAugmentedDegree() should return a list with distinct elements" {
-                for (degree in 0 until 20) {
+                (0 until 20).forAll { degree ->
                     monoid.listDegreesForAugmentedDegree(degree).shouldBeUnique()
                 }
             }
@@ -312,7 +314,7 @@ class MonomialTest : FreeSpec({
                 intArrayOf(1, 1),
                 intArrayOf(3, 2),
             )
-            for (exponentList in exponentLists) {
+            (exponentLists).forAll { exponentList ->
                 monoidMorphism(monoid1.fromExponentList(exponentList)) shouldBe
                     monoid2.fromExponentList(exponentList)
             }

@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
@@ -53,7 +54,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 d(sy) shouldBe (-2 * x * sx)
             }
             "check cohomology" {
-                for (degree in 0 until sphereDim * 5) {
+                (0 until sphereDim * 5).forAll { degree ->
                     val expectedDim = when {
                         degree == 0 -> 1
                         ((degree % (sphereDim - 1) == 0) && ((degree / (sphereDim - 1)) % 2 == 1)) -> 1
@@ -64,13 +65,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 }
             }
             "check basis of cohomology" {
-                for (n in 0 until 5) {
+                (0 until 5).forAll { n ->
                     val degree = (2 * n + 1) * (sphereDim - 1)
                     logger.debug { "check basis (1) n = $n, degree = $degree" }
                     val basis = listOf(freeLoopSpace.cohomologyClassOf(sx * sy.pow(n)))
                     freeLoopSpace.cohomology.isBasis(basis, degree).shouldBeTrue()
                 }
-                for (n in 0 until 5) {
+                (0 until 5).forAll { n ->
                     val degree = (2 * n + 1) * (sphereDim - 1) + 1
                     logger.debug { "check basis (2) n = $n, degree = $degree" }
                     val basis = listOf(
@@ -119,7 +120,7 @@ suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
         val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
         val freeLoopSpaceWithShiftDegree = FreeLoopSpace.withShiftDegree(freeDGAlgebra)
         "dimension of the cohomology with / without shiftDegree should be the same" {
-            for (degree in 0..maxDegree) {
+            (0..maxDegree).forAll { degree ->
                 freeLoopSpaceWithShiftDegree.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
                     freeLoopSpace.cohomology.getBasisForAugmentedDegree(degree).size
             }

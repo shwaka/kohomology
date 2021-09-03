@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.example
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -59,7 +60,7 @@ suspend inline fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Mat
     maxDegree: Int,
 ) {
     "dimensions should be the same" {
-        for (degree in 0..maxDegree) {
+        (0..maxDegree).forAll { degree ->
             freeDGAlgebraWithMultiDegree.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
                 freeDGAlgebra.cohomology.getBasisForAugmentedDegree(degree).size
         }

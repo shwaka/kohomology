@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.example.complexProjectiveSpace
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -46,14 +47,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
         "check that inclusions are isomorphism on cohomology" {
             val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
             val cohomologyInclusion2 = freePathSpace.inclusion2.inducedMapOnCohomology()
-            for (degree in 0 until sphereDim * 5) {
+            (0 until sphereDim * 5).forAll { degree ->
                 cohomologyInclusion1[degree].isIsomorphism().shouldBeTrue()
                 cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
             }
         }
         "check that projection is isomorphism on cohomology" {
             val cohomologyProjection = freePathSpace.projection.inducedMapOnCohomology()
-            for (degree in 0 until sphereDim * 5) {
+            (0 until sphereDim * 5).forAll { degree ->
                 cohomologyProjection[degree].isIsomorphism().shouldBeTrue()
             }
         }
@@ -81,14 +82,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
         "check that inclusions are isomorphism on cohomology" {
             val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
             val cohomologyInclusion2 = freePathSpace.inclusion2.inducedMapOnCohomology()
-            for (degree in 0 until 2 * n + 4) {
+            (0 until 2 * n + 4).forAll { degree ->
                 cohomologyInclusion1[degree].isIsomorphism().shouldBeTrue()
                 cohomologyInclusion2[degree].isIsomorphism().shouldBeTrue()
             }
         }
         "check that projection is isomorphism on cohomology" {
             val cohomologyProjection = freePathSpace.projection.inducedMapOnCohomology()
-            for (degree in 0 until 2 * n + 4) {
+            (0 until 2 * n + 4).forAll { degree ->
                 cohomologyProjection[degree].isIsomorphism().shouldBeTrue()
             }
         }

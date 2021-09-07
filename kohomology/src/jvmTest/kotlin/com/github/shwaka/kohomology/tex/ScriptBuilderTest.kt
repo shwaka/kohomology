@@ -14,7 +14,10 @@ class ScriptBuilderTest : FreeSpec({
             addLines("foo")
             addLines("bar")
         }
-        scriptBuilder.toString() shouldBe "foo\nbar"
+        scriptBuilder.toString() shouldBe """
+            |foo
+            |bar
+        """.trimMargin()
     }
 
     "linePrefix should be added" {
@@ -22,14 +25,50 @@ class ScriptBuilderTest : FreeSpec({
             addLines("foo")
             addLines("bar")
         }
-        scriptBuilder.toString() shouldBe "  foo\n  bar"
+        scriptBuilder.toString() shouldBe """
+            |  foo
+            |  bar
+        """.trimMargin()
     }
 
     "addLines(multiLineString) should be split by newlines" {
         val scriptBuilder = ScriptBuilder(linePrefix = " ") {
             addLines("foo\nbar\nbaz")
         }
-        scriptBuilder.toString() shouldBe " foo\n bar\n baz"
+        scriptBuilder.toString() shouldBe """
+            | foo
+            | bar
+            | baz
+        """.trimMargin()
+    }
+
+    "addLines(listOfString) should work" {
+        val scriptBuilder = ScriptBuilder {
+            addLines(listOf("foo", "bar", "baz"))
+        }
+        scriptBuilder.toString() shouldBe """
+            |foo
+            |bar
+            |baz
+        """.trimMargin()
+    }
+
+    "addLines(scriptBuilder) should work" {
+        val scriptBuilder1 = ScriptBuilder {
+            addLines("foo1")
+            val scriptBuilder2 = ScriptBuilder {
+                addLines("foo2")
+                addLines("bar2")
+            }
+            addLines(scriptBuilder2)
+            addLines("bar1")
+        }
+        scriptBuilder1.toString() shouldBe """
+            |foo1
+            |foo2
+            |bar2
+            |bar1
+        """.trimMargin()
     }
 
     "withLinePrefix() should work" {
@@ -39,19 +78,56 @@ class ScriptBuilderTest : FreeSpec({
                 addLines("bar")
             }
         }
-        scriptBuilder.toString() shouldBe "% foo\n% bar"
+        scriptBuilder.toString() shouldBe """
+            |% foo
+            |% bar
+        """.trimMargin()
+    }
+
+    "withIndent() should work" {
+        val scriptBuilder = ScriptBuilder {
+            withIndent(2) {
+                addLines("foo")
+                addLines("bar")
+            }
+        }
+        scriptBuilder.toString() shouldBe """
+            |  foo
+            |  bar
+        """.trimMargin()
     }
 
     "nested withLinePrefix() should nest prefixes" {
         val scriptBuilder = ScriptBuilder {
-            addLines("foo")
+            addLines("a")
             withLinePrefix("%") {
-                addLines("bar")
+                addLines("b")
                 withLinePrefix(".") {
-                    addLines("baz")
+                    addLines("c")
                 }
+                addLines("d")
             }
+            addLines("e")
         }
-        scriptBuilder.toString() shouldBe "foo\n%bar\n%.baz"
+        scriptBuilder.toString() shouldBe """
+            |a
+            |%b
+            |%.c
+            |%d
+            |e
+        """.trimMargin()
+    }
+
+    "lines should be copied in the constructor of ScriptBuilder" {
+        val lines = mutableListOf("foo", "bar")
+        val scriptBuilder = ScriptBuilder(lines = lines).apply {
+            addLines("baz")
+        }
+        scriptBuilder.toString() shouldBe """
+            |foo
+            |bar
+            |baz
+        """.trimMargin()
+        lines shouldBe mutableListOf("foo", "bar")
     }
 })

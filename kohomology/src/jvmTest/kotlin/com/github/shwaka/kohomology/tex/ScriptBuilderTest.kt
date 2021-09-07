@@ -118,6 +118,33 @@ class ScriptBuilderTest : FreeSpec({
         """.trimMargin()
     }
 
+    "trailing newline should be preserved" {
+        val scriptBuilder = ScriptBuilder {
+            addLines("foo\nbar\nbaz\n")
+        }
+        scriptBuilder.toString() shouldBe """
+            |foo
+            |bar
+            |baz
+            |
+        """.trimMargin()
+    }
+
+    "trailing newline should be preserved with prefix added" {
+        // TODO: Is this behavior "good"?
+        val scriptBuilder = ScriptBuilder {
+            withLinePrefix(".") {
+                addLines("foo\nbar\nbaz\n")
+            }
+        }
+        scriptBuilder.toString() shouldBe """
+            |.foo
+            |.bar
+            |.baz
+            |.
+        """.trimMargin()
+    }
+
     "lines should be copied in the constructor of ScriptBuilder" {
         val lines = mutableListOf("foo", "bar")
         val scriptBuilder = ScriptBuilder(lines = lines).apply {

@@ -6,6 +6,16 @@ public open class ScriptBuilder(
 ) {
     private val lines: MutableList<String> = lines.toMutableList() // copy
 
+    public companion object {
+        public operator fun invoke(linePrefix: String, block: ScriptBuilder.() -> Unit): ScriptBuilder {
+            return ScriptBuilder(linePrefix).apply(block)
+        }
+
+        public operator fun invoke(block: ScriptBuilder.() -> Unit): ScriptBuilder {
+            return ScriptBuilder.invoke("", block)
+        }
+    }
+
     public fun addLines(lines: String) {
         this.lines.addAll(lines.split("\n"))
     }

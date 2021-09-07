@@ -10,7 +10,7 @@ class ScriptBuilderTest : FreeSpec({
     tags(scriptBuilderTag)
 
     "newline should be added between lines" {
-        val scriptBuilder = ScriptBuilder().apply {
+        val scriptBuilder = ScriptBuilder {
             addLines("foo")
             addLines("bar")
         }
@@ -18,20 +18,40 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "linePrefix should be added" {
-        val scriptBuilder = ScriptBuilder(linePrefix = "  ").apply {
+        val scriptBuilder = ScriptBuilder(linePrefix = "  ") {
             addLines("foo")
             addLines("bar")
         }
         scriptBuilder.toString() shouldBe "  foo\n  bar"
     }
 
+    "addLines(multiLineString) should be split by newlines" {
+        val scriptBuilder = ScriptBuilder(linePrefix = " ") {
+            addLines("foo\nbar\nbaz")
+        }
+        scriptBuilder.toString() shouldBe " foo\n bar\n baz"
+    }
+
     "withLinePrefix() should work" {
-        val scriptBuilder = ScriptBuilder().apply {
+        val scriptBuilder = ScriptBuilder {
             withLinePrefix("% ") {
                 addLines("foo")
                 addLines("bar")
             }
         }
         scriptBuilder.toString() shouldBe "% foo\n% bar"
+    }
+
+    "nested withLinePrefix() should nest prefixes" {
+        val scriptBuilder = ScriptBuilder {
+            addLines("foo")
+            withLinePrefix("%") {
+                addLines("bar")
+                withLinePrefix(".") {
+                    addLines("baz")
+                }
+            }
+        }
+        scriptBuilder.toString() shouldBe "foo\n%bar\n%.baz"
     }
 })

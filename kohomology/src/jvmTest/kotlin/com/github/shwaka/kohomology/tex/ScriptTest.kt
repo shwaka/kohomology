@@ -4,13 +4,13 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
-val scriptBuilderTag = NamedTag("ScriptBuilder")
+val scriptTag = NamedTag("Script")
 
-class ScriptBuilderTest : FreeSpec({
-    tags(scriptBuilderTag)
+class ScriptTest : FreeSpec({
+    tags(scriptTag)
 
     "newline should be added between lines" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             addLines("foo")
             addLines("bar")
         }
@@ -21,7 +21,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "linePrefix should be added" {
-        val scriptBuilder = ScriptBuilder(linePrefix = "  ") {
+        val scriptBuilder = Script(linePrefix = "  ") {
             addLines("foo")
             addLines("bar")
         }
@@ -32,7 +32,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "addLines(multiLineString) should be split by newlines" {
-        val scriptBuilder = ScriptBuilder(linePrefix = " ") {
+        val scriptBuilder = Script(linePrefix = " ") {
             addLines("foo\nbar\nbaz")
         }
         scriptBuilder.toString() shouldBe """
@@ -43,7 +43,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "addLines(listOfString) should work" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             addLines(listOf("foo", "bar", "baz"))
         }
         scriptBuilder.toString() shouldBe """
@@ -54,9 +54,9 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "addLines(scriptBuilder) should work" {
-        val scriptBuilder1 = ScriptBuilder {
+        val scriptBuilder1 = Script {
             addLines("foo1")
-            val scriptBuilder2 = ScriptBuilder {
+            val scriptBuilder2 = Script {
                 addLines("foo2")
                 addLines("bar2")
             }
@@ -72,7 +72,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "withLinePrefix() should work" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             withLinePrefix("% ") {
                 addLines("foo")
                 addLines("bar")
@@ -85,7 +85,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "withIndent() should work" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             withIndent(2) {
                 addLines("foo")
                 addLines("bar")
@@ -98,7 +98,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "nested withLinePrefix() should nest prefixes" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             addLines("a")
             withLinePrefix("%") {
                 addLines("b")
@@ -119,7 +119,7 @@ class ScriptBuilderTest : FreeSpec({
     }
 
     "trailing newline should be preserved" {
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             addLines("foo\nbar\nbaz\n")
         }
         scriptBuilder.toString() shouldBe """
@@ -132,7 +132,7 @@ class ScriptBuilderTest : FreeSpec({
 
     "trailing newline should be preserved with prefix added" {
         // TODO: Is this behavior "good"?
-        val scriptBuilder = ScriptBuilder {
+        val scriptBuilder = Script {
             withLinePrefix(".") {
                 addLines("foo\nbar\nbaz\n")
             }
@@ -147,7 +147,7 @@ class ScriptBuilderTest : FreeSpec({
 
     "lines should be copied in addLines(lines)" {
         val lines = mutableListOf("foo", "bar")
-        val scriptBuilder = ScriptBuilder().apply {
+        val scriptBuilder = Script().apply {
             addLines(lines)
             addLines("baz")
         }

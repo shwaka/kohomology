@@ -4,7 +4,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
 class TexScriptTest : FreeSpec({
-    tags(scriptBuilderTag)
+    tags(scriptTag)
 
     "newcommand(name, value) should add \\ if name does not start with \\" {
         val texScript = TexScript {
@@ -33,7 +33,7 @@ class TexScriptTest : FreeSpec({
 })
 
 class TexDocumentTest : FreeSpec({
-    tags(scriptBuilderTag)
+    tags(scriptTag)
 
     "begin() should work" {
         val texDocument = TexDocument {

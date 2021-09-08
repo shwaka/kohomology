@@ -1,20 +1,20 @@
 package com.github.shwaka.kohomology.tex
 
-public interface Builder<T : Builder<T>> {
+public interface ScriptInterface<T : ScriptInterface<T>> {
     public fun addLines(lines: List<String>)
     public fun toStringList(): List<String>
-    public fun newBuilder(linePrefix: String): T
+    public fun newScript(linePrefix: String): T
 
     public fun addLines(lines: String) {
         this.addLines(lines.split("\n"))
     }
 
-    public fun addLines(builder: Builder<*>) {
-        this.addLines(builder.toStringList())
+    public fun addLines(script: ScriptInterface<*>) {
+        this.addLines(script.toStringList())
     }
 
     public fun withLinePrefix(linePrefix: String, block: T.() -> Unit) {
-        val builder = this.newBuilder(linePrefix).apply(block)
+        val builder = this.newScript(linePrefix).apply(block)
         this.addLines(builder)
     }
 
@@ -24,12 +24,12 @@ public interface Builder<T : Builder<T>> {
     }
 }
 
-public abstract class ScriptBuilderBase<T : ScriptBuilderBase<T>>(
+public abstract class ScriptBase<T : ScriptBase<T>>(
     public val linePrefix: String = ""
-) : Builder<T> {
+) : ScriptInterface<T> {
     private val lines: MutableList<String> = mutableListOf()
 
-    abstract override fun newBuilder(linePrefix: String): T
+    abstract override fun newScript(linePrefix: String): T
 
     override fun addLines(lines: List<String>) {
         this.lines.addAll(lines)
@@ -44,14 +44,14 @@ public abstract class ScriptBuilderBase<T : ScriptBuilderBase<T>>(
     }
 }
 
-public class ScriptBuilder(linePrefix: String = "") : ScriptBuilderBase<ScriptBuilder>(linePrefix) {
+public class Script(linePrefix: String = "") : ScriptBase<Script>(linePrefix) {
     public companion object {
-        public operator fun invoke(linePrefix: String = "", block: ScriptBuilder.() -> Unit): ScriptBuilder {
-            return ScriptBuilder(linePrefix).apply(block)
+        public operator fun invoke(linePrefix: String = "", block: Script.() -> Unit): Script {
+            return Script(linePrefix).apply(block)
         }
     }
 
-    override fun newBuilder(linePrefix: String): ScriptBuilder {
-        return ScriptBuilder(linePrefix)
+    override fun newScript(linePrefix: String): Script {
+        return Script(linePrefix)
     }
 }

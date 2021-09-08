@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.tex
 
-public interface TexScriptInterface<T : Builder<T>> : Builder<T> {
+public interface TexScriptInterface<T : ScriptInterface<T>> : ScriptInterface<T> {
     public fun newcommand(name: String, value: String) {
         val nameWithBackslash = if (name.startsWith("\\")) name else "\\$name"
         this.addLines("\\newcommand{$nameWithBackslash}{$value}")
@@ -14,7 +14,7 @@ public interface TexScriptInterface<T : Builder<T>> : Builder<T> {
 }
 
 public class TexScript(linePrefix: String = "") :
-    ScriptBuilderBase<TexScript>(linePrefix),
+    ScriptBase<TexScript>(linePrefix),
     TexScriptInterface<TexScript> {
     public companion object {
         public operator fun invoke(linePrefix: String = "", block: TexScript.() -> Unit): TexScript {
@@ -22,7 +22,7 @@ public class TexScript(linePrefix: String = "") :
         }
     }
 
-    override fun newBuilder(linePrefix: String): TexScript {
+    override fun newScript(linePrefix: String): TexScript {
         return TexScript(linePrefix)
     }
 }
@@ -38,7 +38,7 @@ public interface TexDocumentInterface<T : TexScriptInterface<T>> : TexScriptInte
 }
 
 public class TexDocument(linePrefix: String = "") :
-    ScriptBuilderBase<TexDocument>(linePrefix),
+    ScriptBase<TexDocument>(linePrefix),
     TexDocumentInterface<TexDocument> {
     public companion object {
         public operator fun invoke(linePrefix: String = "", block: TexDocument.() -> Unit): TexDocument {
@@ -46,7 +46,7 @@ public class TexDocument(linePrefix: String = "") :
         }
     }
 
-    override fun newBuilder(linePrefix: String): TexDocument {
+    override fun newScript(linePrefix: String): TexDocument {
         return TexDocument(linePrefix)
     }
 }

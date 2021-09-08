@@ -24,6 +24,10 @@ public interface ScriptInterface<T : ScriptInterface<T>> {
         this.addScript(scripts.toList())
     }
 
+    public fun addEmptyLines(numLines: Int = 1) {
+        this.addLines(List(numLines) { "" })
+    }
+
     public fun withLinePrefix(linePrefix: String, block: T.() -> Unit) {
         val builder = this.newScript(linePrefix).apply(block)
         this.addScript(builder)

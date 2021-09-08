@@ -202,7 +202,7 @@ class ScriptTest : FreeSpec({
 
     "lines should be copied in addLines(lines)" {
         val lines = mutableListOf("foo", "bar")
-        val script = Script().apply {
+        val script = Script {
             addLines(lines)
             addLines("baz")
         }
@@ -212,5 +212,28 @@ class ScriptTest : FreeSpec({
             |baz
         """.trimMargin()
         lines shouldBe mutableListOf("foo", "bar")
+    }
+
+    "addEmptyLines() should add one empty line" {
+        val script = Script {
+            addLines("foo")
+            addEmptyLines()
+        }
+        script.toString() shouldBe "foo\n"
+    }
+
+    "addEmptyLines(3) should add three empty lines" {
+        val script = Script {
+            addLines("foo")
+            addEmptyLines(3)
+            addLines("bar")
+        }
+        script.toString() shouldBe """
+            |foo
+            |
+            |
+            |
+            |bar
+        """.trimMargin()
     }
 })

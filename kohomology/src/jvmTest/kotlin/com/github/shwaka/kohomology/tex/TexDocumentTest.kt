@@ -37,4 +37,32 @@ class TexDocumentTest : FreeSpec({
             |\end{bar}
         """.trimMargin()
     }
+
+    "test section()" {
+        val texDocument = TexDocument {
+            section("foo")
+        }
+        texDocument.toString() shouldBe "\\section{foo}"
+    }
+
+    "test sectionStar()" {
+        val texDocument = TexDocument {
+            sectionStar("foo")
+        }
+        texDocument.toString() shouldBe "\\section*{foo}"
+    }
+
+    "test subsection()" {
+        val texDocument = TexDocument {
+            subsection("foo")
+        }
+        texDocument.toString() shouldBe "\\subsection{foo}"
+    }
+
+    "test subsectionStar()" {
+        val texDocument = TexDocument {
+            subsectionStar("foo")
+        }
+        texDocument.toString() shouldBe "\\subsection*{foo}"
+    }
 })

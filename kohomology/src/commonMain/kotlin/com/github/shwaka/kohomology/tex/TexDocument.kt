@@ -16,6 +16,20 @@ public interface TexDocumentInterface<T : TexScriptInterface<T>> : TexScriptInte
         }
         this.addLines("\\end{$name}")
     }
+
+    public fun section(name: String) {
+        this.simpleCommand("section", name)
+    }
+    public fun sectionStar(name: String) {
+        this.simpleCommand("section*", name)
+    }
+
+    public fun subsection(name: String) {
+        this.simpleCommand("subsection", name)
+    }
+    public fun subsectionStar(name: String) {
+        this.simpleCommand("subsection*", name)
+    }
 }
 
 public class TexDocument(linePrefix: String = "") :

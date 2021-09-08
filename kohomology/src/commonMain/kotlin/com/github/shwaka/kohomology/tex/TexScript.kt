@@ -11,6 +11,19 @@ public interface TexScriptInterface<T : ScriptInterface<T>> : ScriptInterface<T>
             addLines(commentText)
         }
     }
+
+    public fun simpleCommand(controlSequence: String, arg: String, options: List<String> = listOf()) {
+        if (options.isEmpty()) {
+            this.addLines("\\$controlSequence{$arg}")
+        } else {
+            val optionsString = options.joinToString(", ")
+            this.addLines("\\$controlSequence[$optionsString]{$arg}")
+        }
+    }
+
+    public fun simpleCommand(controlSequence: String, arg: String, option: String) {
+        this.simpleCommand(controlSequence, arg, listOf(option))
+    }
 }
 
 public class TexScript(linePrefix: String = "") :

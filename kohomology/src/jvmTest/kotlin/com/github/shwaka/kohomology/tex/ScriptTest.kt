@@ -10,32 +10,32 @@ class ScriptTest : FreeSpec({
     tags(scriptTag)
 
     "newline should be added between lines" {
-        val scriptBuilder = Script {
+        val script = Script {
             addLines("foo")
             addLines("bar")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |foo
             |bar
         """.trimMargin()
     }
 
     "linePrefix should be added" {
-        val scriptBuilder = Script(linePrefix = "  ") {
+        val script = Script(linePrefix = "  ") {
             addLines("foo")
             addLines("bar")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |  foo
             |  bar
         """.trimMargin()
     }
 
     "addLines(multiLineString) should be split by newlines" {
-        val scriptBuilder = Script(linePrefix = " ") {
+        val script = Script(linePrefix = " ") {
             addLines("foo\nbar\nbaz")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             | foo
             | bar
             | baz
@@ -43,10 +43,10 @@ class ScriptTest : FreeSpec({
     }
 
     "addLines(listOfString) should work" {
-        val scriptBuilder = Script {
+        val script = Script {
             addLines(listOf("foo", "bar", "baz"))
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |foo
             |bar
             |baz
@@ -64,7 +64,7 @@ class ScriptTest : FreeSpec({
         """.trimMargin()
     }
 
-    "addLines(script) should work" {
+    "addScript(script) should work" {
         val script1 = Script {
             addLines("foo1")
             val script2 = Script {
@@ -82,7 +82,7 @@ class ScriptTest : FreeSpec({
         """.trimMargin()
     }
 
-    "addLines(listOfScripts) should work" {
+    "addScript(listOfScripts) should work" {
         val script = Script {
             addLines("foo")
             val script1 = Script {
@@ -104,7 +104,7 @@ class ScriptTest : FreeSpec({
         """.trimMargin()
     }
 
-    "addLines(script1, script2) should work" {
+    "addScript(script1, script2) should work" {
         val script = Script {
             addLines("foo")
             val script1 = Script {
@@ -127,33 +127,33 @@ class ScriptTest : FreeSpec({
     }
 
     "withLinePrefix() should work" {
-        val scriptBuilder = Script {
+        val script = Script {
             withLinePrefix("% ") {
                 addLines("foo")
                 addLines("bar")
             }
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |% foo
             |% bar
         """.trimMargin()
     }
 
     "withIndent() should work" {
-        val scriptBuilder = Script {
+        val script = Script {
             withIndent(2) {
                 addLines("foo")
                 addLines("bar")
             }
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |  foo
             |  bar
         """.trimMargin()
     }
 
     "nested withLinePrefix() should nest prefixes" {
-        val scriptBuilder = Script {
+        val script = Script {
             addLines("a")
             withLinePrefix("%") {
                 addLines("b")
@@ -164,7 +164,7 @@ class ScriptTest : FreeSpec({
             }
             addLines("e")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |a
             |%b
             |%.c
@@ -174,10 +174,10 @@ class ScriptTest : FreeSpec({
     }
 
     "trailing newline should be preserved" {
-        val scriptBuilder = Script {
+        val script = Script {
             addLines("foo\nbar\nbaz\n")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |foo
             |bar
             |baz
@@ -187,12 +187,12 @@ class ScriptTest : FreeSpec({
 
     "trailing newline should be preserved with prefix added" {
         // TODO: Is this behavior "good"?
-        val scriptBuilder = Script {
+        val script = Script {
             withLinePrefix(".") {
                 addLines("foo\nbar\nbaz\n")
             }
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |.foo
             |.bar
             |.baz
@@ -202,11 +202,11 @@ class ScriptTest : FreeSpec({
 
     "lines should be copied in addLines(lines)" {
         val lines = mutableListOf("foo", "bar")
-        val scriptBuilder = Script().apply {
+        val script = Script().apply {
             addLines(lines)
             addLines("baz")
         }
-        scriptBuilder.toString() shouldBe """
+        script.toString() shouldBe """
             |foo
             |bar
             |baz

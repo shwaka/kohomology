@@ -1,8 +1,16 @@
 package com.github.shwaka.kohomology.tex
 
 public interface TexDocumentInterface<T : TexScriptInterface<T>> : TexScriptInterface<T> {
-    public fun begin(name: String, indent: Int = 2, block: T.() -> Unit) {
-        this.addLines("\\begin{$name}")
+    public fun begin(
+        name: String,
+        argument: String? = null,
+        option: String? = null,
+        indent: Int = 2,
+        block: T.() -> Unit
+    ) {
+        val argumentString: String = if (argument == null) "" else "{$argument}"
+        val optionString: String = if (option == null) "" else "[$option]"
+        this.addLines("\\begin{$name}$optionString$argumentString")
         this.withIndent(indent) {
             block()
         }

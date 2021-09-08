@@ -22,4 +22,19 @@ class TexDocumentTest : FreeSpec({
             |bar
         """.trimMargin()
     }
+
+    "test begin() with arguments and options" {
+        val texDocument = TexDocument {
+            addLines("foo")
+            begin("bar", argument = "arg", option = "opt") {
+                addLines("baz")
+            }
+        }
+        texDocument.toString() shouldBe """
+            |foo
+            |\begin{bar}[opt]{arg}
+            |  baz
+            |\end{bar}
+        """.trimMargin()
+    }
 })

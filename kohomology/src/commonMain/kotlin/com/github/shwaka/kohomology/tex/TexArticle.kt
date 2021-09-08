@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.tex
 
+@TexArticleDslMarker
 public class TexArticle {
     public companion object {
         public operator fun invoke(block: TexArticle.() -> Unit): TexArticle {

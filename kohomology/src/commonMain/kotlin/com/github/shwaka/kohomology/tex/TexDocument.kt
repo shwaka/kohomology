@@ -32,6 +32,7 @@ public interface TexDocumentInterface<T : TexScriptInterface<T>> : TexScriptInte
     }
 }
 
+@TexArticleDslMarker
 public class TexDocument(linePrefix: String = "") :
     ScriptBase<TexDocument>(linePrefix),
     TexDocumentInterface<TexDocument> {

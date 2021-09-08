@@ -16,6 +16,7 @@ public interface TexPreambleInterface<T : TexScriptInterface<T>> : TexScriptInte
     }
 }
 
+@TexArticleDslMarker
 public class TexPreamble(linePrefix: String = "") :
     ScriptBase<TexPreamble>(linePrefix),
     TexPreambleInterface<TexPreamble> {

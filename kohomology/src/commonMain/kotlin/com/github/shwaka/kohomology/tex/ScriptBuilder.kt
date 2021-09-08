@@ -25,10 +25,9 @@ public interface Builder<T : Builder<T>> {
 }
 
 public abstract class ScriptBuilderBase<T : ScriptBuilderBase<T>>(
-    public val linePrefix: String = "",
-    lines: MutableList<String> = mutableListOf(),
+    public val linePrefix: String = ""
 ) : Builder<T> {
-    private val lines: MutableList<String> = lines.toMutableList() // copy
+    private val lines: MutableList<String> = mutableListOf()
 
     abstract override fun newBuilder(linePrefix: String): T
 
@@ -45,10 +44,7 @@ public abstract class ScriptBuilderBase<T : ScriptBuilderBase<T>>(
     }
 }
 
-public class ScriptBuilder(
-    linePrefix: String = "",
-    lines: MutableList<String> = mutableListOf()
-) : ScriptBuilderBase<ScriptBuilder>(linePrefix, lines) {
+public class ScriptBuilder(linePrefix: String = "") : ScriptBuilderBase<ScriptBuilder>(linePrefix) {
     public companion object {
         public operator fun invoke(linePrefix: String = "", block: ScriptBuilder.() -> Unit): ScriptBuilder {
             return ScriptBuilder(linePrefix).apply(block)

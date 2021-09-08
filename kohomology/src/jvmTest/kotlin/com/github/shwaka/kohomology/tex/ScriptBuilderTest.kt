@@ -145,9 +145,10 @@ class ScriptBuilderTest : FreeSpec({
         """.trimMargin()
     }
 
-    "lines should be copied in the constructor of ScriptBuilder" {
+    "lines should be copied in addLines(lines)" {
         val lines = mutableListOf("foo", "bar")
-        val scriptBuilder = ScriptBuilder(lines = lines).apply {
+        val scriptBuilder = ScriptBuilder().apply {
+            addLines(lines)
             addLines("baz")
         }
         scriptBuilder.toString() shouldBe """

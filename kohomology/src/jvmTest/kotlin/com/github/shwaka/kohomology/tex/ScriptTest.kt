@@ -53,21 +53,76 @@ class ScriptTest : FreeSpec({
         """.trimMargin()
     }
 
-    "addLines(scriptBuilder) should work" {
-        val scriptBuilder1 = Script {
+    "addLines(str1, str2) should work" {
+        val script = Script {
+            addLines("foo", "bar", "baz")
+        }
+        script.toString() shouldBe """
+            |foo
+            |bar
+            |baz
+        """.trimMargin()
+    }
+
+    "addLines(script) should work" {
+        val script1 = Script {
             addLines("foo1")
-            val scriptBuilder2 = Script {
+            val script2 = Script {
                 addLines("foo2")
                 addLines("bar2")
             }
-            addLines(scriptBuilder2)
+            addScript(script2)
             addLines("bar1")
         }
-        scriptBuilder1.toString() shouldBe """
+        script1.toString() shouldBe """
             |foo1
             |foo2
             |bar2
             |bar1
+        """.trimMargin()
+    }
+
+    "addLines(listOfScripts) should work" {
+        val script = Script {
+            addLines("foo")
+            val script1 = Script {
+                addLines("foo1")
+                addLines("bar1")
+            }
+            val script2 = Script {
+                addLines("foo2")
+            }
+            addScript(listOf(script1, script2))
+            addLines("bar")
+        }
+        script.toString() shouldBe """
+            |foo
+            |foo1
+            |bar1
+            |foo2
+            |bar
+        """.trimMargin()
+    }
+
+    "addLines(script1, script2) should work" {
+        val script = Script {
+            addLines("foo")
+            val script1 = Script {
+                addLines("foo1")
+                addLines("bar1")
+            }
+            val script2 = Script {
+                addLines("foo2")
+            }
+            addScript(script1, script2)
+            addLines("bar")
+        }
+        script.toString() shouldBe """
+            |foo
+            |foo1
+            |bar1
+            |foo2
+            |bar
         """.trimMargin()
     }
 

@@ -8,14 +8,25 @@ public interface ScriptInterface<T : ScriptInterface<T>> {
     public fun addLines(lines: String) {
         this.addLines(lines.split("\n"))
     }
+    public fun addLines(vararg lines: String) {
+        this.addLines(lines.toList())
+    }
 
-    public fun addLines(script: ScriptInterface<*>) {
+    public fun addScript(script: ScriptInterface<*>) {
         this.addLines(script.toStringList())
+    }
+    public fun addScript(scripts: List<ScriptInterface<*>>) {
+        for (script in scripts) {
+            this.addScript(script)
+        }
+    }
+    public fun addScript(vararg scripts: ScriptInterface<*>) {
+        this.addScript(scripts.toList())
     }
 
     public fun withLinePrefix(linePrefix: String, block: T.() -> Unit) {
         val builder = this.newScript(linePrefix).apply(block)
-        this.addLines(builder)
+        this.addScript(builder)
     }
 
     public fun withIndent(indent: Int, block: T.() -> Unit) {

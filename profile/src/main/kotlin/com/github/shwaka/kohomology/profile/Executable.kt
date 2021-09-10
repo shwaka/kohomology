@@ -130,7 +130,7 @@ class IsomorphismToCohomologyOfFreePathSpace(val n: Int, val degreeLimit: Int) :
 class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>
 ) : Executable() {
-    override val description: String = "compute row echelon form"
+    override val description: String = "compute row echelon form with $matrixSpace"
 
     private var matrix: M? = null
 
@@ -139,7 +139,7 @@ class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         // val freeDGAlgebra = sphere(this.matrixSpace, sphereDim)
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(this.matrixSpace)
         val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
-        val degree = 15
+        val degree = 23
         this.matrix = freeLoopSpace.differential[degree].matrix
     }
 

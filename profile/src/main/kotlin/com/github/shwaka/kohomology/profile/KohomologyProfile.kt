@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.profile
 
+import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -12,6 +13,7 @@ fun main() {
         CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(100),
         IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational),
+        ComputeRowEchelonForm(DecomposedSparseMatrixSpaceOverBigRational),
     )
     println("Select script to profile: (default = 0)")
     executableList.mapIndexed { index, script ->

@@ -26,7 +26,8 @@ abstract class Executable {
     }
     protected abstract fun mainFun(): String
     fun main(): String {
-        this.setup()
+        if (!this.setupFinished)
+            throw Exception("setup not finished")
         return this.mainFun()
     }
 }

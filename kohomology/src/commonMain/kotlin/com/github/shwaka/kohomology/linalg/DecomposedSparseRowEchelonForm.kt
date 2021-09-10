@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
+import com.github.shwaka.kohomology.util.list.hasNonEmptyIntersection
 import com.github.shwaka.kohomology.util.pmap
 
 internal class DecomposedSparseRowEchelonForm<S : Scalar>(
@@ -19,14 +20,17 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     private fun computeData(): SparseRowEchelonFormData<S> {
         val originalRowMap = this.originalMatrix.rowMap
         val rowIndices = originalRowMap.keys.toList()
-        val unionFind = UnionFind(rowIndices.size)
-        for ((i, rowInd1) in rowIndices.withIndex()) {
-            for (j in i + 1 until rowIndices.size) {
+        val rowKeysList = originalRowMap.map { (rowInd, row) -> Pair(rowInd, row.keys.toList().sorted()) }
+            .sortedBy { (rowInd, _) -> rowInd }
+            .map { (_, rowKeys) -> rowKeys }
+        val unionFind = UnionFind(rowKeysList.size)
+        for ((i, rowKeys1) in rowKeysList.withIndex()) {
+            for (j in i + 1 until rowKeysList.size) {
                 if (unionFind.same(i, j)) {
                     continue
                 }
-                val rowInd2 = rowIndices[j]
-                if (originalRowMap[rowInd1]!!.keys.intersect(originalRowMap[rowInd2]!!.keys).isNotEmpty()) {
+                val rowKeys2 = rowKeysList[j]
+                if (rowKeys1.hasNonEmptyIntersection(rowKeys2)) {
                     unionFind.unite(i, j)
                 }
             }

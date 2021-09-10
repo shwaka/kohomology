@@ -19,3 +19,13 @@ public fun <T : Comparable<T>> List<T>.hasEmptyIntersection(other: List<T>): Boo
     }
     return true
 }
+
+/**
+ * Returns true if the intersection of two *sorted* lists is non-empty.
+ *
+ * Two lists `this` and `other` are assumed to be already sorted in increasing order.
+ * Otherwise returns incorrect result.
+ */
+public fun <T : Comparable<T>> List<T>.hasNonEmptyIntersection(other: List<T>): Boolean {
+    return !this.hasEmptyIntersection(other)
+}

@@ -2,6 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.4.32"
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     application
     kotlin("plugin.allopen") version "1.4.0"
     id("org.jetbrains.kotlinx.benchmark") version "0.3.0"
@@ -62,4 +63,14 @@ benchmark {
     targets {
         register("main")
     }
+}
+
+tasks.register("kc") {
+    // alias
+    dependsOn("ktlintCheck")
+}
+
+tasks.register("kf") {
+    // alias
+    dependsOn("ktlintFormat")
 }

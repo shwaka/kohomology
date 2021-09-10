@@ -22,6 +22,9 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
         val unionFind = UnionFind(rowIndices.size)
         for ((i, rowInd1) in rowIndices.withIndex()) {
             for (j in i + 1 until rowIndices.size) {
+                if (unionFind.same(i, j)) {
+                    continue
+                }
                 val rowInd2 = rowIndices[j]
                 if (originalRowMap[rowInd1]!!.keys.intersect(originalRowMap[rowInd2]!!.keys).isNotEmpty()) {
                     unionFind.unite(i, j)

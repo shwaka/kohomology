@@ -25,7 +25,7 @@ public data class DenseNumVector<S : Scalar>(
     }
 }
 
-public class DenseNumVectorSpace<S : Scalar>(
+public class DenseNumVectorSpace<S : Scalar> private constructor(
     override val field: Field<S>
 ) : NumVectorSpace<S, DenseNumVector<S>> {
     public companion object {

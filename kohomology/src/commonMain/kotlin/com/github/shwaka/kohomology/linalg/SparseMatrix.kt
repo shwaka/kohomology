@@ -277,7 +277,7 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
     }
 }
 
-public class SparseMatrixSpace<S : Scalar>(
+public class SparseMatrixSpace<S : Scalar> private constructor(
     numVectorSpace: SparseNumVectorSpace<S>
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
@@ -308,7 +308,7 @@ public class SparseMatrixSpace<S : Scalar>(
     }
 }
 
-public class DecomposedSparseMatrixSpace<S : Scalar>(
+public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
     numVectorSpace: SparseNumVectorSpace<S>
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {

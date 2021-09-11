@@ -65,7 +65,7 @@ public class SparseNumVector<S : Scalar> private constructor(
     }
 }
 
-public class SparseNumVectorSpace<S : Scalar>(
+public class SparseNumVectorSpace<S : Scalar> private constructor(
     override val field: Field<S>
 ) : NumVectorSpace<S, SparseNumVector<S>> {
     public companion object {

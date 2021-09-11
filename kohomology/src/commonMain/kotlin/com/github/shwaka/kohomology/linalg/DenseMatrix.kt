@@ -42,7 +42,7 @@ public data class DenseMatrix<S : Scalar>(
     }
 }
 
-public class DenseMatrixSpace<S : Scalar>(
+public class DenseMatrixSpace<S : Scalar> private constructor(
     override val numVectorSpace: DenseNumVectorSpace<S>
 ) : MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> {
 

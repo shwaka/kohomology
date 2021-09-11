@@ -9,7 +9,9 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -135,7 +137,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
 class FreePathSpaceTest : FreeSpec({
     tags(freePathSpaceTag, bigRationalTag)
 
-    include(freePathSpaceOfEvenSphereTest(DenseMatrixSpaceOverBigRational, 2))
-    include(freePathSpaceOfCPnTest(DenseMatrixSpaceOverBigRational, 4))
-    include(freePathSpacePrinterTest(DenseMatrixSpaceOverBigRational))
+    val matrixSpace = SparseMatrixSpaceOverBigRational
+    include(freePathSpaceOfEvenSphereTest(matrixSpace, 2))
+    include(freePathSpaceOfCPnTest(matrixSpace, 4))
+    include(freePathSpacePrinterTest(matrixSpace))
+})
+
+class FreePathSpaceTestWithDecomposedSparseMatrixSpace : FreeSpec({
+    tags(freePathSpaceTag, bigRationalTag)
+
+    val matrixSpace = DecomposedSparseMatrixSpaceOverBigRational
+    include(freePathSpaceOfEvenSphereTest(matrixSpace, 2))
+    include(freePathSpaceOfCPnTest(matrixSpace, 4))
+    include(freePathSpacePrinterTest(matrixSpace))
 })

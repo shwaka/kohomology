@@ -13,7 +13,9 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
+import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printer
@@ -282,7 +284,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toIntDegreeTest(matrixSpace
 class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, bigRationalTag)
 
-    val matrixSpace = DenseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverBigRational
+    include(invalidModelTest(matrixSpace))
+    include(pointModelTest(matrixSpace))
+    include(oddSphereModelTest(matrixSpace, 3))
+    include(evenSphereModelTest(matrixSpace, 2))
+    include(getDGAlgebraMapTest(matrixSpace))
+    include(getDGDerivationTest(matrixSpace))
+    include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
+    include(errorTest(matrixSpace))
+    include(parseDifferentialValueTest(matrixSpace))
+    include(toStringInCohomologyTest(matrixSpace))
+    include(toIntDegreeTest(matrixSpace))
+})
+
+class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
+    tags(freeDGAlgebraTag, bigRationalTag)
+
+    val matrixSpace = DecomposedSparseMatrixSpaceOverBigRational
     include(invalidModelTest(matrixSpace))
     include(pointModelTest(matrixSpace))
     include(oddSphereModelTest(matrixSpace, 3))

@@ -218,4 +218,8 @@ public class DenseMatrixSpace<S : Scalar>(
         val rowList = matrix.rowList.map { row -> row.slice(colRange) }
         return this.fromRowList(rowList, colCount = colRange.count())
     }
+
+    override fun toString(): String {
+        return "DenseMatrixSpace(${this.field})"
+    }
 }

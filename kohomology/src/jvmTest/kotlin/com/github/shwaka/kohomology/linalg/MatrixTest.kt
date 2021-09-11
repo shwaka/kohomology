@@ -645,6 +645,10 @@ class IntRationalDenseMatrixTest : FreeSpec({
     // include(determinantTest(IntRationalField, 3, 5)) // overflow しがちなので除外
     // include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     // include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "DenseMatrixSpace(IntRationalField)"
+    }
 })
 
 class LongRationalDenseMatrixTest : FreeSpec({
@@ -657,6 +661,10 @@ class LongRationalDenseMatrixTest : FreeSpec({
     // include(determinantTest(LongRationalField, matrixSizeForDet, 5)) // overflow しがちなので除外
     // include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     // include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "DenseMatrixSpace(LongRationalField)"
+    }
 })
 
 class BigRationalDenseMatrixTest : FreeSpec({
@@ -671,6 +679,10 @@ class BigRationalDenseMatrixTest : FreeSpec({
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
     include(findPreimageGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "DenseMatrixSpace(BigRationalField)"
+    }
 })
 
 class IntMod2DenseMatrixTest : FreeSpec({
@@ -713,6 +725,10 @@ class BigRationalSparseMatrixTest : FreeSpec({
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
     include(findPreimageGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "SparseMatrixSpace(BigRationalField)"
+    }
 })
 
 class BigRationalDecomposedSparseMatrixTest : FreeSpec({
@@ -727,6 +743,10 @@ class BigRationalDecomposedSparseMatrixTest : FreeSpec({
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
     include(findPreimageGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "DecomposedSparseMatrixSpace(BigRationalField)"
+    }
 })
 
 class IntMod2SparseMatrixTest : FreeSpec({

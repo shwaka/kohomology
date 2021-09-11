@@ -302,6 +302,10 @@ public class SparseMatrixSpace<S : Scalar>(
         matrix.rowEchelonFormInternal = rowEchelonForm
         return rowEchelonForm
     }
+
+    override fun toString(): String {
+        return "SparseMatrixSpace(${this.field})"
+    }
 }
 
 public class DecomposedSparseMatrixSpace<S : Scalar>(
@@ -328,5 +332,9 @@ public class DecomposedSparseMatrixSpace<S : Scalar>(
         val rowEchelonForm = DecomposedSparseRowEchelonForm(this, matrix)
         matrix.rowEchelonFormInternal = rowEchelonForm
         return rowEchelonForm
+    }
+
+    override fun toString(): String {
+        return "DecomposedSparseMatrixSpace(${this.field})"
     }
 }

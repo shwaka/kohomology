@@ -173,34 +173,58 @@ class IntRationalDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, intRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverIntRational))
     include(numVectorTest(DenseNumVectorSpaceOverIntRational))
+
+    "test toString()" {
+        DenseNumVectorSpaceOverIntRational.toString() shouldBe "DenseNumVectorSpace(IntRationalField)"
+    }
 })
 
 class BigRationalDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, bigRationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverBigRational))
     include(numVectorTest(DenseNumVectorSpaceOverBigRational))
+
+    "test toString()" {
+        DenseNumVectorSpaceOverBigRational.toString() shouldBe "DenseNumVectorSpace(BigRationalField)"
+    }
 })
 
 class IntModpDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, intModpTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverF7))
     include(numVectorTest(DenseNumVectorSpaceOverF7))
+
+    "test toString()" {
+        DenseNumVectorSpaceOverF7.toString() shouldBe "DenseNumVectorSpace(F_7)"
+    }
 })
 
 class IntRationalSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, intRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverIntRational))
     include(numVectorTest(SparseNumVectorSpaceOverIntRational))
+
+    "test toString()" {
+        SparseNumVectorSpaceOverIntRational.toString() shouldBe "SparseNumVectorSpace(IntRationalField)"
+    }
 })
 
 class BigRationalSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverBigRational))
     include(numVectorTest(SparseNumVectorSpaceOverBigRational))
+
+    "test toString()" {
+        SparseNumVectorSpaceOverBigRational.toString() shouldBe "SparseNumVectorSpace(BigRationalField)"
+    }
 })
 
 class IntModpSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, intModpTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverF7))
     include(numVectorTest(SparseNumVectorSpaceOverF7))
+
+    "test toString()" {
+        SparseNumVectorSpaceOverF7.toString() shouldBe "SparseNumVectorSpace(F_7)"
+    }
 })

@@ -133,4 +133,8 @@ public class DenseNumVectorSpace<S : Scalar>(
         val valueList = List(dim) { this.field.zero }
         return this.fromValueList(valueList)
     }
+
+    override fun toString(): String {
+        return "DenseNumVectorSpace(${this.field})"
+    }
 }

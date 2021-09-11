@@ -203,4 +203,8 @@ public class SparseNumVectorSpace<S : Scalar>(
     override fun getZero(dim: Int): SparseNumVector<S> {
         return SparseNumVector(mapOf(), this.field, dim)
     }
+
+    override fun toString(): String {
+        return "SparseNumVectorSpace(${this.field})"
+    }
 }

@@ -14,7 +14,6 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

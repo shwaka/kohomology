@@ -33,21 +33,35 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
 
     private fun computeBlockList(): List<Map<Int, Map<Int, S>>> {
         val originalRowMap = this.originalMatrix.rowMap
+        // rowIndices と rowKeysList を同じ方法で sort しておく必要がある。
         val rowIndices = originalRowMap.keys.toList().sorted()
-        val rowKeysList = originalRowMap.map { (rowInd, row) -> Pair(rowInd, row.keys.toList().sorted()) }
-            .sortedBy { (rowInd, _) -> rowInd }
-            .map { (_, rowKeys) -> rowKeys }
-        val unionFind = UnionFind(rowKeysList.size)
-        for ((i, rowKeys1) in rowKeysList.withIndex()) {
+        val rowKeysList: List<List<Int>> =
+            originalRowMap
+                .map { (rowInd, row) -> Pair(rowInd, row.keys.toList().sorted()) }
+                .sortedBy { (rowInd, _) -> rowInd }
+                .map { (_, rowKeys) -> rowKeys }
+        val pairsToBeUnited: List<Pair<Int, Int>> = rowKeysList.withIndex().pmap { (i, rowKeys1) ->
+            // 外側で定義した MutableList に複数のスレッドから add すると、ランダムに成功/失敗する。
+            // MutableList.add() がスレッドセーフでないのが原因っぽい。
+            val pairsToBeUnitedThreadLocal = mutableListOf<Pair<Int, Int>>()
             for (j in i + 1 until rowKeysList.size) {
-                if (unionFind.same(i, j)) {
-                    continue
-                }
                 val rowKeys2 = rowKeysList[j]
                 if (rowKeys1.hasNonEmptyIntersection(rowKeys2)) {
-                    unionFind.unite(i, j)
+                    // unionFind.same(i, j) で先にチェックするとむしろ遅くなった。(並列処理とは無関係に)
+                    // 原因は多分、same(i, j) == true となる割合が少なすぎること。
+                    // if (unionFind.same(i, j)) {
+                    //     continue
+                    // }
+                    pairsToBeUnitedThreadLocal.add(Pair(i, j))
+                    // ↓スレッドセーフじゃない
+                    // unionFind.unite(i, j)
                 }
             }
+            pairsToBeUnitedThreadLocal
+        }.flatten()
+        val unionFind = UnionFind(rowKeysList.size)
+        for ((i, j) in pairsToBeUnited) {
+            unionFind.unite(i, j)
         }
         return unionFind.groups().map { rowIndicesInNonZero ->
             rowIndicesInNonZero.map { i ->

@@ -45,4 +45,4 @@ jobs:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # "token not required for public repositories" らしい…？
         run: bash <(curl -s https://codecov.io/bash)
       - name: Check with ktlint
-        run: ./gradlew ktlintCheck
+        run: ./gradlew kc # This will run ktlintCheck for ALL projects (see build.gradle.kts)

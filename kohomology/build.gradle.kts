@@ -31,6 +31,9 @@ subprojects {
     repositories {
         jcenter()
     }
+    apply {
+        plugin("org.jlleitschuh.gradle.ktlint")
+    }
 }
 
 kotlin {
@@ -218,9 +221,17 @@ publishing {
 tasks.register("kc") {
     // alias
     dependsOn("ktlintCheck")
+    subprojects.forEach {
+        // ./gradlew ktlintCheck --continue でも良いっぽいけど、--continue の本来の意味から考えるとちょっと変
+        dependsOn("${it.path}:ktlintCheck")
+    }
 }
 
 tasks.register("kf") {
     // alias
     dependsOn("ktlintFormat")
+    subprojects.forEach {
+        // ./gradlew ktlintCheck --continue でも良いっぽいけど、--continue の本来の意味から考えるとちょっと変
+        dependsOn("${it.path}:ktlintFormat")
+    }
 }

@@ -16,9 +16,12 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     private val data: SparseRowEchelonFormData<S> by lazy {
         this.computeData()
     }
+    private val dataList: List<SparseRowEchelonFormData<S>> by lazy {
+        this.computeDataList()
+    }
 
     private fun computeData(): SparseRowEchelonFormData<S> {
-        val dataList: List<SparseRowEchelonFormData<S>> = this.computeDataList()
+        val dataList: List<SparseRowEchelonFormData<S>> = this.dataList
         val pivots: List<Int> = this.computePivots(dataList)
         val rowMap: Map<Int, Map<Int, S>> = this.computeRowMapForRowEchelonForm(dataList, pivots)
         val exchangeCount = 0 // not implemented
@@ -129,7 +132,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
         // val reducedRowMap = this.calculator.reduce(this.data.rowMap, this.data.pivots)
         val reducedRowMap = this.computeReducedRowMapForRowEchelonForm(
-            this.computeDataList(),
+            this.dataList,
             this.computePivots(),
         )
         return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)

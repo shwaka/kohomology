@@ -6,7 +6,7 @@ package com.github.shwaka.kohomology.util.list
  * Two lists `this` and `other` are assumed to be already sorted in increasing order.
  * Otherwise returns incorrect result.
  */
-public fun <T : Comparable<T>> List<T>.hasEmptyIntersection(other: List<T>): Boolean {
+internal fun <T : Comparable<T>> List<T>.hasEmptyIntersection(other: List<T>): Boolean {
     var i = 0
     var j = 0
     while (i < this.size && j < other.size) {
@@ -26,6 +26,6 @@ public fun <T : Comparable<T>> List<T>.hasEmptyIntersection(other: List<T>): Boo
  * Two lists `this` and `other` are assumed to be already sorted in increasing order.
  * Otherwise returns incorrect result.
  */
-public fun <T : Comparable<T>> List<T>.hasNonEmptyIntersection(other: List<T>): Boolean {
+internal fun <T : Comparable<T>> List<T>.hasNonEmptyIntersection(other: List<T>): Boolean {
     return !this.hasEmptyIntersection(other)
 }

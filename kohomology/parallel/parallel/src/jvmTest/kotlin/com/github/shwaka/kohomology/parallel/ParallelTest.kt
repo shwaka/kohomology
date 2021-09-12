@@ -14,4 +14,13 @@ class ParallelTest : FreeSpec({
         val transform: (Int) -> Int = { it * 10 }
         intList.pmap(transform) shouldBe intList.map(transform)
     }
+
+    "pforEach should do the same as forEach" {
+        val intList = listOf(1, 4, 2, 3)
+        val list1 = mutableListOf<Int>()
+        intList.pforEach { list1.add(it) }
+        val list2 = mutableListOf<Int>()
+        intList.forEach { list2.add(it) }
+        list1 shouldBe list2
+    }
 })

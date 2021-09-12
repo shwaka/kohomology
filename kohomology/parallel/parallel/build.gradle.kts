@@ -1,5 +1,6 @@
 plugins {
     kotlin("multiplatform")
+    id("com.adarshr.test-logger")
 }
 
 kotlin {
@@ -54,7 +55,7 @@ kotlin {
         val jvmMain by getting
         val jvmTest by getting {
             dependencies {
-                implementation(kotlin("test-junit"))
+                // implementation(kotlin("test-junit"))
                 // kotest
                 val version = "4.3.2"
                 implementation("io.kotest:kotest-runner-junit5:$version")
@@ -72,4 +73,23 @@ kotlin {
         val nativeMain by getting
         val nativeTest by getting
     }
+}
+
+tasks.withType<Test> {
+    useJUnitPlatform()
+    testLogging {
+        events("skipped", "passed", "failed") // "started" は消した
+    }
+    System.getProperty("kotest.tags")?.let {
+        // null を set するとなんかエラーが起きるので、 ?.let を使った
+        systemProperties["kotest.tags"] = it
+    }
+}
+
+testlogger {
+    theme = com.adarshr.gradle.testlogger.theme.ThemeType.MOCHA
+    showCauses = true
+    showStandardStreams = true
+    showFullStackTraces = true
+    filterFullStackTraces = "io\\.kotest.*"
 }

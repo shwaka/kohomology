@@ -18,6 +18,31 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     }
 
     private fun computeData(): SparseRowEchelonFormData<S> {
+        val dataList: List<SparseRowEchelonFormData<S>> = this.computeDataList()
+        val pivots: List<Int> = dataList.fold(emptyList<Int>()) { acc, data ->
+            acc + data.pivots
+        }.sorted()
+        val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
+        for (data in dataList) {
+            for ((rowIndInBlock, row) in data.rowMap) {
+                val pivot = data.pivots[rowIndInBlock]
+                val rowInd = pivots.indexOf(pivot)
+                if (rowInd == -1)
+                    throw Exception("This can't happen!")
+                rowMap[rowInd] = row
+            }
+        }
+        val exchangeCount = 0 // not implemented
+        return SparseRowEchelonFormData(rowMap, pivots, exchangeCount)
+    }
+
+    private fun computeDataList(): List<SparseRowEchelonFormData<S>> {
+        return this.computeBlockList().pmap { block ->
+            this.calculator.rowEchelonForm(block, this.colCount)
+        }
+    }
+
+    private fun computeBlockList(): List<Map<Int, Map<Int, S>>> {
         val originalRowMap = this.originalMatrix.rowMap
         val rowIndices = originalRowMap.keys.toList().sorted()
         val rowKeysList = originalRowMap.map { (rowInd, row) -> Pair(rowInd, row.keys.toList().sorted()) }
@@ -35,29 +60,13 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
                 }
             }
         }
-        val blockList: List<Map<Int, Map<Int, S>>> = unionFind.groups().map { rowIndicesInNonZero ->
+        return unionFind.groups().map { rowIndicesInNonZero ->
             rowIndicesInNonZero.map { i ->
                 val rowInd = rowIndices[i]
                 val row = originalRowMap[rowInd] ?: throw Exception("This can't happen!")
                 Pair(rowInd, row)
             }.toMap()
         }
-        val dataList = blockList.pmap { block -> this.calculator.rowEchelonForm(block, this.colCount) }
-        val pivots = dataList.fold(emptyList<Int>()) { acc, data ->
-            acc + data.pivots
-        }.sorted()
-        val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
-        for (data in dataList) {
-            for ((rowIndInBlock, row) in data.rowMap) {
-                val pivot = data.pivots[rowIndInBlock]
-                val rowInd = pivots.indexOf(pivot)
-                if (rowInd == -1)
-                    throw Exception("This can't happen!")
-                rowMap[rowInd] = row
-            }
-        }
-        val exchangeCount = 0
-        return SparseRowEchelonFormData(rowMap, pivots, exchangeCount)
     }
 
     override fun computeRowEchelonForm(): SparseMatrix<S> {

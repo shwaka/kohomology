@@ -19,9 +19,16 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
 
     private fun computeData(): SparseRowEchelonFormData<S> {
         val dataList: List<SparseRowEchelonFormData<S>> = this.computeDataList()
-        val pivots: List<Int> = dataList.fold(emptyList<Int>()) { acc, data ->
-            acc + data.pivots
-        }.sorted()
+        val pivots: List<Int> = this.computePivots(dataList)
+        val rowMap: Map<Int, Map<Int, S>> = this.computeRowMapForRowEchelonForm(dataList, pivots)
+        val exchangeCount = 0 // not implemented
+        return SparseRowEchelonFormData(rowMap, pivots, exchangeCount)
+    }
+
+    private fun computeRowMapForRowEchelonForm(
+        dataList: List<SparseRowEchelonFormData<S>>,
+        pivots: List<Int>
+    ): Map<Int, Map<Int, S>> {
         val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
         for (data in dataList) {
             for ((rowIndInBlock, row) in data.rowMap) {
@@ -32,8 +39,13 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
                 rowMap[rowInd] = row
             }
         }
-        val exchangeCount = 0 // not implemented
-        return SparseRowEchelonFormData(rowMap, pivots, exchangeCount)
+        return rowMap
+    }
+
+    private fun computePivots(dataList: List<SparseRowEchelonFormData<S>>): List<Int> {
+        return dataList.fold(emptyList<Int>()) { acc, data ->
+            acc + data.pivots
+        }.sorted()
     }
 
     private fun computeDataList(): List<SparseRowEchelonFormData<S>> {

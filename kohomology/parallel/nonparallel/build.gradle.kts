@@ -1,0 +1,1 @@
+../parallel/build.gradle.kts

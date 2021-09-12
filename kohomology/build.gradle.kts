@@ -89,7 +89,10 @@ kotlin {
                 implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
 
                 // subprojects
-                implementation(project(":parallel:parallel"))
+                val parallel: String = System.getProperty("kohomology.parallel") ?: "parallel"
+                if (parallel !in listOf("parallel", "nonparallel"))
+                    throw GradleException("Unsupported value of kohomology.parallel: $parallel")
+                implementation(project(":parallel:$parallel"))
             }
         }
         val commonTest by getting {

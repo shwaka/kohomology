@@ -26,6 +26,8 @@ abstract class Executable {
     }
     protected abstract fun mainFun(): String
     fun main(): String {
+        // 測定したい処理に返り値を依存させることで、コンパイラの最適化で消されるのを回避する
+        // 必要ないかもしれないけど念の為
         if (!this.setupFinished)
             throw Exception("setup not finished")
         return this.mainFun()
@@ -144,9 +146,10 @@ class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun mainFun(): String {
+        val matrix: M = this.matrix ?: throw Exception("setupFun() is not called")
         return this.matrixSpace.context.run {
-            println(this@ComputeRowEchelonForm.matrix?.let { "${it.rowCount}, ${it.colCount}" })
-            this@ComputeRowEchelonForm.matrix?.rowEchelonForm?.reducedMatrix.toString()
+            println("${matrix.rowCount}, ${matrix.colCount}")
+            matrix.rowEchelonForm.reducedMatrix[0, 0].toString() // 全体を toString() すると重い
         }
     }
 }

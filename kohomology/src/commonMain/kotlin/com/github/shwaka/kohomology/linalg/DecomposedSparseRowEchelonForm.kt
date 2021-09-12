@@ -19,7 +19,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
 
     private fun computeData(): SparseRowEchelonFormData<S> {
         val originalRowMap = this.originalMatrix.rowMap
-        val rowIndices = originalRowMap.keys.toList()
+        val rowIndices = originalRowMap.keys.toList().sorted()
         val rowKeysList = originalRowMap.map { (rowInd, row) -> Pair(rowInd, row.keys.toList().sorted()) }
             .sortedBy { (rowInd, _) -> rowInd }
             .map { (_, rowKeys) -> rowKeys }

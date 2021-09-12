@@ -382,6 +382,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
             }
+            "reduced row echelon form of a matrix containing a zero row" {
+                val mat = listOf(
+                    listOf(one, two, three),
+                    listOf(zero, zero, zero),
+                    listOf(one, one, one),
+                ).toMatrix()
+                val expectedMat = listOf(
+                    listOf(one, zero, -one),
+                    listOf(zero, one, two),
+                    listOf(zero, zero, zero),
+                ).toMatrix()
+                mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
+            }
             "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
                 val mat = listOf(
                     listOf(one, two),

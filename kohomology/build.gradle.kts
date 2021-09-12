@@ -27,15 +27,6 @@ repositories {
     }
 }
 
-subprojects {
-    repositories {
-        jcenter()
-    }
-    apply {
-        plugin("org.jlleitschuh.gradle.ktlint")
-    }
-}
-
 kotlin {
     explicitApiWarning()
     jvm {
@@ -88,11 +79,11 @@ kotlin {
                 // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
                 implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
 
-                // subprojects
+                // parautil
                 val parallel: String = System.getProperty("kohomology.parallel") ?: "parallel"
                 if (parallel !in listOf("parallel", "nonparallel"))
                     throw GradleException("Unsupported value of kohomology.parallel: $parallel")
-                implementation(project(":parallel:$parallel"))
+                implementation("com.github.shwaka.parautil:parautil-$parallel:0.1")
             }
         }
         val commonTest by getting {
@@ -224,17 +215,9 @@ publishing {
 tasks.register("kc") {
     // alias
     dependsOn("ktlintCheck")
-    subprojects.forEach {
-        // ./gradlew ktlintCheck --continue でも良いっぽいけど、--continue の本来の意味から考えるとちょっと変
-        dependsOn("${it.path}:ktlintCheck")
-    }
 }
 
 tasks.register("kf") {
     // alias
     dependsOn("ktlintFormat")
-    subprojects.forEach {
-        // ./gradlew ktlintCheck --continue でも良いっぽいけど、--continue の本来の意味から考えるとちょっと変
-        dependsOn("${it.path}:ktlintFormat")
-    }
 }

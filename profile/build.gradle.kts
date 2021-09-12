@@ -13,9 +13,10 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("../repository")
-    }
+    // maven {
+    //     url = uri("../repository")
+    // }
+    mavenLocal()
     maven(url = "https://shwaka.github.io/maven/")
 }
 

@@ -205,10 +205,10 @@ publishing {
             url = uri("../../maven/repository")
             name = "MyMaven"
         }
-        maven {
-            url = uri("../repository")
-            name = "Temporary"
-        }
+        // maven {
+        //     url = uri("../repository")
+        //     name = "Temporary"
+        // }
     }
 }
 

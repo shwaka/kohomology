@@ -69,7 +69,8 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     }
 
     override fun computeSign(): Sign {
-        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+        // return if (this.data.exchangeCount % 2 == 0) 1 else -1
+        throw NotImplementedError("Computation of sign is not implemented for DecomposedSparseRowEchelonForm")
     }
 
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {

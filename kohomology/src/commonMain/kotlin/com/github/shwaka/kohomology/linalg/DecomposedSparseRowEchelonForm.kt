@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.parallel.pmap
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
 import com.github.shwaka.kohomology.util.list.hasNonEmptyIntersection
+import com.github.shwaka.parautil.pmap
 
 internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     matrixSpace: AbstractSparseMatrixSpace<S>,

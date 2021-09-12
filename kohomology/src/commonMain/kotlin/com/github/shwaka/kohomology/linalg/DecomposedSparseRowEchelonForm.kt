@@ -25,29 +25,6 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
         return SparseRowEchelonFormData(rowMap, pivots, exchangeCount)
     }
 
-    private fun computeRowMapForRowEchelonForm(
-        dataList: List<SparseRowEchelonFormData<S>>,
-        pivots: List<Int>
-    ): Map<Int, Map<Int, S>> {
-        val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
-        for (data in dataList) {
-            for ((rowIndInBlock, row) in data.rowMap) {
-                val pivot = data.pivots[rowIndInBlock]
-                val rowInd = pivots.indexOf(pivot)
-                if (rowInd == -1)
-                    throw Exception("This can't happen!")
-                rowMap[rowInd] = row
-            }
-        }
-        return rowMap
-    }
-
-    private fun computePivots(dataList: List<SparseRowEchelonFormData<S>>): List<Int> {
-        return dataList.fold(emptyList<Int>()) { acc, data ->
-            acc + data.pivots
-        }.sorted()
-    }
-
     private fun computeDataList(): List<SparseRowEchelonFormData<S>> {
         return this.computeBlockList().pmap { block ->
             this.calculator.rowEchelonForm(block, this.colCount)
@@ -79,6 +56,29 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
                 Pair(rowInd, row)
             }.toMap()
         }
+    }
+
+    private fun computePivots(dataList: List<SparseRowEchelonFormData<S>>): List<Int> {
+        return dataList.fold(emptyList<Int>()) { acc, data ->
+            acc + data.pivots
+        }.sorted()
+    }
+
+    private fun computeRowMapForRowEchelonForm(
+        dataList: List<SparseRowEchelonFormData<S>>,
+        pivots: List<Int>
+    ): Map<Int, Map<Int, S>> {
+        val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
+        for (data in dataList) {
+            for ((rowIndInBlock, row) in data.rowMap) {
+                val pivot = data.pivots[rowIndInBlock]
+                val rowInd = pivots.indexOf(pivot)
+                if (rowInd == -1)
+                    throw Exception("This can't happen!")
+                rowMap[rowInd] = row
+            }
+        }
+        return rowMap
     }
 
     override fun computeRowEchelonForm(): SparseMatrix<S> {

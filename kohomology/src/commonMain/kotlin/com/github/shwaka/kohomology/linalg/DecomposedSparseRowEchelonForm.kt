@@ -95,6 +95,24 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
         return rowMap
     }
 
+    private fun computeReducedRowMapForRowEchelonForm(
+        dataList: List<SparseRowEchelonFormData<S>>,
+        pivots: List<Int>
+    ): Map<Int, Map<Int, S>> {
+        val rowMap: MutableMap<Int, Map<Int, S>> = mutableMapOf()
+        for (data in dataList) {
+            val reducedRowMapOfData = this.calculator.reduce(data.rowMap, data.pivots)
+            for ((rowIndInBlock, row) in reducedRowMapOfData) {
+                val pivot = data.pivots[rowIndInBlock]
+                val rowInd = pivots.indexOf(pivot)
+                if (rowInd == -1)
+                    throw Exception("This can't happen!")
+                rowMap[rowInd] = row
+            }
+        }
+        return rowMap
+    }
+
     override fun computeRowEchelonForm(): SparseMatrix<S> {
         return this.matrixSpace.fromRowMap(this.data.rowMap, this.rowCount, this.colCount)
     }
@@ -109,7 +127,11 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     }
 
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {
-        val reducedRowMap = this.calculator.reduce(this.data.rowMap, this.data.pivots)
+        // val reducedRowMap = this.calculator.reduce(this.data.rowMap, this.data.pivots)
+        val reducedRowMap = this.computeReducedRowMapForRowEchelonForm(
+            this.computeDataList(),
+            this.computePivots(),
+        )
         return this.matrixSpace.fromRowMap(reducedRowMap, this.rowCount, this.colCount)
     }
 }

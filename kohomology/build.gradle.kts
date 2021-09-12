@@ -27,6 +27,12 @@ repositories {
     }
 }
 
+subprojects {
+    repositories {
+        jcenter()
+    }
+}
+
 kotlin {
     explicitApiWarning()
     jvm {
@@ -76,8 +82,11 @@ kotlin {
 
                 implementation("com.github.shwaka.counter:simple-counter:0.2")
                 implementation("io.github.microutils:kotlin-logging:2.0.6")
-                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
                 implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
+
+                // subprojects
+                implementation(project(":parallel:parallel"))
             }
         }
         val commonTest by getting {

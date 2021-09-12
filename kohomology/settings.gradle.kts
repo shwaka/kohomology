@@ -16,3 +16,6 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
+
+include(":parallel:parallel")
+include(":parallel:nonparallel")

@@ -113,6 +113,7 @@ cd ../profile
 
 ## Profiling
 1. `sudo sysctl kernel.perf_event_paranoid=1`
+    - or add `kernel.perf_event_paranoid=1` to `/etc/sysctl.conf`
 2. Open two terminals, say (A) and (B)
 3. Download [jvm-profiling-tools/async-profiler](https://github.com/jvm-profiling-tools/async-profiler).
 4. Change the current directory of (A) to the extracted one from async-profiler

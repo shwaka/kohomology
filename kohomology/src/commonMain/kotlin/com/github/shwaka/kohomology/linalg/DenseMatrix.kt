@@ -222,4 +222,12 @@ public class DenseMatrixSpace<S : Scalar> private constructor(
     override fun toString(): String {
         return "DenseMatrixSpace(${this.field})"
     }
+
+    override fun fromNumVectorList(numVectors: List<DenseNumVector<S>>, dim: Int?): DenseMatrix<S> {
+        // It is better to use toList() than toMap() for DenseMatrix
+        if (numVectors.isEmpty() && (dim == null))
+            throw IllegalArgumentException("Vector list is empty and dim is not specified")
+        val colList = numVectors.map { v -> v.toList() }
+        return this.fromColList(colList, dim)
+    }
 }

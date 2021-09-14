@@ -83,7 +83,7 @@ kotlin {
                 val parallel: String = System.getProperty("kohomology.parallel") ?: "parallel"
                 if (parallel !in listOf("parallel", "nonparallel"))
                     throw GradleException("Unsupported value of kohomology.parallel: $parallel")
-                implementation("com.github.shwaka.parautil:parautil-$parallel:0.1")
+                implementation("com.github.shwaka.parautil:parautil-$parallel:0.2")
             }
         }
         val commonTest by getting {

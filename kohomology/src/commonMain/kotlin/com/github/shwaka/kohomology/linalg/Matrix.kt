@@ -63,8 +63,16 @@ public interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>
     public fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val cols = numVectors.map { v -> v.toList() }
-        return this.fromColList(cols, dim)
+        val dimNotNull: Int = dim ?: numVectors[0].dim
+        val colMap = numVectors.mapIndexedNotNull { i, v ->
+            if (v.isZero())
+                null
+            else
+                Pair(i, v.toMap())
+        }.toMap()
+        return this.fromColMap(colMap, dimNotNull, numVectors.size)
+        // val cols = numVectors.map { v -> v.toList() }
+        // return this.fromColList(cols, dim)
     }
     public fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
         if (list.size != rowCount * colCount)

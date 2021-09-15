@@ -4,8 +4,12 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.util.isEven
 import com.github.shwaka.kohomology.util.isOdd
 
+/** An indeterminate used in [MultiDegreeGroup]. */
 public data class DegreeIndeterminate(val name: String, val defaultValue: Int)
 
+/**
+ * An element of [MultiDegreeGroup].
+ */
 public class MultiDegree(
     public val group: MultiDegreeGroup,
     public val constantTerm: Int,
@@ -78,6 +82,12 @@ public class MultiDegree(
     }
 }
 
+/**
+ * A [AugmentedDegreeGroup] representing "parametrized" degrees.
+ *
+ * Mathematically, this is equivalent to a direct sum of Z
+ * equipped with an augmentation map to Z.
+ */
 public data class MultiDegreeGroup(val indeterminateList: List<DegreeIndeterminate>) : AugmentedDegreeGroup<MultiDegree> {
     override val context: AugmentedDegreeContext<MultiDegree> by lazy {
         AugmentedDegreeContext(this)
@@ -183,6 +193,9 @@ public data class MultiDegreeGroup(val indeterminateList: List<DegreeIndetermina
     }
 }
 
+/**
+ * An [AugmentedDegreeMorphism] between two [MultiDegreeGroup]s.
+ */
 public class MultiDegreeMorphism(
     override val source: MultiDegreeGroup,
     override val target: MultiDegreeGroup,
@@ -204,6 +217,9 @@ public class MultiDegreeMorphism(
     }
 }
 
+/**
+ * The [AugmentedDegreeMorphism] from [IntDegreeGroup] to a [MultiDegreeGroup].
+ */
 public class InclusionFromIntDegreeToMultiDegree(
     override val target: MultiDegreeGroup
 ) : AugmentedDegreeMorphism<IntDegree, MultiDegree> {

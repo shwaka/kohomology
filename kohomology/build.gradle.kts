@@ -221,3 +221,11 @@ tasks.register("kf") {
     // alias
     dependsOn("ktlintFormat")
 }
+
+tasks.dokkaHtml.configure {
+    dokkaSourceSets {
+        configureEach {
+            includes.from("packages.md")
+        }
+    }
+}

@@ -56,6 +56,7 @@ for (degree in 0 until 25) {
 
 See tests in [kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology](kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology) for more examples.
 You can find complete examples in [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app).
+Auto-generated documentation is published at [kohomology](https://shwaka.github.io/kohomology/index.html) (but currently very few descriptions are given).
 
 ## Overview of classes and interfaces
 ![classes](uml/packages.png)

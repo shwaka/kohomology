@@ -22,12 +22,18 @@ fun main() {
     val index: Int = readLine()?.toIntOrNull() ?: 0
     val executable = executableList[index]
     println("Selected $index: ${executable.description}")
-    executable.setup()
+    measureTimedValue {
+        executable.setup()
+    }.let { setupTime ->
+        val seconds = "%.1f".format(setupTime.duration.inSeconds)
+        println("Setup finished in ${seconds}s")
+    }
     // print("Press ENTER to continue!!!")
     // readLine() // index 選択の際に待てるのでそれで十分
-    val timedValue = measureTimedValue {
+    measureTimedValue {
         executable.main()
+    }.let { mainTime ->
+        val seconds = "%.1f".format(mainTime.duration.inSeconds)
+        println("main() finished in ${seconds}s")
     }
-    val seconds = "%.1f".format(timedValue.duration.inSeconds)
-    println("  $seconds seconds")
 }

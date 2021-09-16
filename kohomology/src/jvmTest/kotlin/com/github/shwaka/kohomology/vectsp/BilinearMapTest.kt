@@ -88,7 +88,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
             }
         }
     }
-
 }
 
 class BigRationalBilinearMapTest : FreeSpec({

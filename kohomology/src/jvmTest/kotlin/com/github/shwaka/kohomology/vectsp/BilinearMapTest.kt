@@ -14,7 +14,7 @@ import io.kotest.matchers.shouldBe
 val bilinearMapTag = NamedTag("BilinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "bilinear map test" {
+    "test bilinear map" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
         val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
@@ -25,18 +25,83 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
         val (x, y) = sourceVectorSpace1.getBasis()
         val (a, b) = targetVectorSpace.getBasis()
         context.run {
-            val vectors = listOf(
-                listOf(a, b - a), // v*x, v*y
-                listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y
-            )
-            val f = ValueBilinearMap(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace, matrixSpace, vectors)
-            f(v, x) shouldBe a
-            f(v, y) shouldBe (b - a)
-            f(w, x) shouldBe (2 * a + b)
-            f(w, y) shouldBe targetVectorSpace.zeroVector
-            f(v + w, x + y) shouldBe (2 * (a + b))
+            "test ValueBilinearMap" {
+                val vectors = listOf(
+                    listOf(a, b - a), // v*x, v*y
+                    listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y
+                )
+                val f = ValueBilinearMap(
+                    sourceVectorSpace0,
+                    sourceVectorSpace1,
+                    targetVectorSpace,
+                    matrixSpace,
+                    vectors
+                )
+                f(v, x) shouldBe a
+                f(v, y) shouldBe (b - a)
+                f(w, x) shouldBe (2 * a + b)
+                f(w, y) shouldBe targetVectorSpace.zeroVector
+                f(v + w, x + y) shouldBe (2 * (a + b))
+            }
+
+            "test constructor of ValueBilinearMap with getValue" {
+                val f = ValueBilinearMap(
+                    sourceVectorSpace0,
+                    sourceVectorSpace1,
+                    targetVectorSpace,
+                    matrixSpace
+                ) { s, t ->
+                    when (s.name) {
+                        "v" -> when (t.name) {
+                            "x" -> a
+                            "y" -> b - a
+                            else -> throw Exception("This can't happen!")
+                        }
+                        "w" -> when (t.name) {
+                            "x" -> 2 * a + b
+                            "y" -> targetVectorSpace.zeroVector
+                            else -> throw Exception("This can't happen!")
+                        }
+                        else -> throw Exception("This can't happen!")
+                    }
+                }
+                f(v, x) shouldBe a
+                f(v, y) shouldBe (b - a)
+                f(w, x) shouldBe (2 * a + b)
+                f(w, y) shouldBe targetVectorSpace.zeroVector
+                f(v + w, x + y) shouldBe (2 * (a + b))
+            }
+
+            "test LazyBilinearMap" {
+                val f = LazyBilinearMap(
+                    sourceVectorSpace0,
+                    sourceVectorSpace1,
+                    targetVectorSpace,
+                    matrixSpace
+                ) { s, t ->
+                    when (s.name) {
+                        "v" -> when (t.name) {
+                            "x" -> a
+                            "y" -> b - a
+                            else -> throw Exception("This can't happen!")
+                        }
+                        "w" -> when (t.name) {
+                            "x" -> 2 * a + b
+                            "y" -> targetVectorSpace.zeroVector
+                            else -> throw Exception("This can't happen!")
+                        }
+                        else -> throw Exception("This can't happen!")
+                    }
+                }
+                f(v, x) shouldBe a
+                f(v, y) shouldBe (b - a)
+                f(w, x) shouldBe (2 * a + b)
+                f(w, y) shouldBe targetVectorSpace.zeroVector
+                f(v + w, x + y) shouldBe (2 * (a + b))
+            }
         }
     }
+
 }
 
 class BigRationalBilinearMapTest : FreeSpec({

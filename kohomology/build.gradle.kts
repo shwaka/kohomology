@@ -229,3 +229,14 @@ tasks.dokkaHtml.configure {
         }
     }
 }
+
+tasks.register("listConfigurations") {
+    configurations.forEach {
+        val description: String? = it.description
+        if (description == null) {
+            println(it.name)
+        } else {
+            println("${it.name} [${it.description}]")
+        }
+    }
+}

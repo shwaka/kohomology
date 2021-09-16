@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.StringBasisName
+import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -33,11 +34,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
             val v: Vector<StringBasisName, S, V> = gVectorSpace[1].getBasis()[0]
             val z2: Vector<StringBasisName, S, V> = gVectorSpace[2].zeroVector
             when (Pair(p, q)) {
-                Pair(0, 0) -> BilinearMap(gVectorSpace[0], gVectorSpace[0], gVectorSpace[0], matrixSpace, listOf(listOf(u)))
-                Pair(1, 0) -> BilinearMap(gVectorSpace[1], gVectorSpace[0], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
-                Pair(0, 1) -> BilinearMap(gVectorSpace[0], gVectorSpace[1], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
-                Pair(1, 1) -> BilinearMap(gVectorSpace[1], gVectorSpace[1], gVectorSpace[2], matrixSpace, listOf(listOf(z2)))
-                else -> BilinearMap(gVectorSpace[p], gVectorSpace[q], gVectorSpace[p + q], matrixSpace, emptyList())
+                Pair(0, 0) -> ValueBilinearMap(gVectorSpace[0], gVectorSpace[0], gVectorSpace[0], matrixSpace, listOf(listOf(u)))
+                Pair(1, 0) -> ValueBilinearMap(gVectorSpace[1], gVectorSpace[0], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
+                Pair(0, 1) -> ValueBilinearMap(gVectorSpace[0], gVectorSpace[1], gVectorSpace[1], matrixSpace, listOf(listOf(v)))
+                Pair(1, 1) -> ValueBilinearMap(gVectorSpace[1], gVectorSpace[1], gVectorSpace[2], matrixSpace, listOf(listOf(z2)))
+                else -> ValueBilinearMap(gVectorSpace[p], gVectorSpace[q], gVectorSpace[p + q], matrixSpace, emptyList())
             }
         }
         "gBilinearMap.degree should be zero" {

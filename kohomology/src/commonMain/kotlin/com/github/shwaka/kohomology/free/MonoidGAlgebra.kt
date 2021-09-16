@@ -53,25 +53,26 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
         val target = this.getVectorSpace(this.degreeGroup.context.run { p + q })
-        val valueList = source1.basisNames.map { monoidElement1 ->
-            source2.basisNames.map { monoidElement2 ->
-                this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
-                    when (maybeZero) {
-                        is Zero -> target.zeroVector
-                        is NonZero -> {
-                            val (monoidElement: E, sign: Sign) = maybeZero.value
-                            val vectorWithoutSign = target.fromBasisName(monoidElement)
-                            when (sign) {
-                                1 -> vectorWithoutSign
-                                -1 -> target.context.run { -vectorWithoutSign }
-                                else -> throw Exception("This can't happen!")
-                            }
+        return ValueBilinearMap(source1, source2, target, this.matrixSpace, this.generateGetValue(target))
+    }
+
+    private fun generateGetValue(target: VectorSpace<E, S, V>): (E, E) -> Vector<E, S, V> {
+        return { monoidElement1, monoidElement2 ->
+            this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
+                when (maybeZero) {
+                    is Zero -> target.zeroVector
+                    is NonZero -> {
+                        val (monoidElement: E, sign: Sign) = maybeZero.value
+                        val vectorWithoutSign = target.fromBasisName(monoidElement)
+                        when (sign) {
+                            1 -> vectorWithoutSign
+                            -1 -> target.context.run { -vectorWithoutSign }
+                            else -> throw Exception("This can't happen!")
                         }
                     }
                 }
             }
         }
-        return ValueBilinearMap(source1, source2, target, this.matrixSpace, valueList)
     }
 
     fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {

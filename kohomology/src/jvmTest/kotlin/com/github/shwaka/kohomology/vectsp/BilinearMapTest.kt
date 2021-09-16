@@ -24,13 +24,13 @@ typealias BilinearMapConstructor<BS1, BS2, BT, S, V, M> = (
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "test bilinear map" - {
         val numVectorSpace = matrixSpace.numVectorSpace
-        val sourceVectorSpace0 = VectorSpace(numVectorSpace, listOf("v", "w"))
-        val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("x", "y"))
+        val sourceVectorSpace1 = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val sourceVectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
         val targetVectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
-        val context = MultipleVectorContext(numVectorSpace, listOf(sourceVectorSpace0, sourceVectorSpace1, targetVectorSpace))
+        val context = MultipleVectorContext(numVectorSpace, listOf(sourceVectorSpace1, sourceVectorSpace2, targetVectorSpace))
 
-        val (v, w) = sourceVectorSpace0.getBasis()
-        val (x, y) = sourceVectorSpace1.getBasis()
+        val (v, w) = sourceVectorSpace1.getBasis()
+        val (x, y) = sourceVectorSpace2.getBasis()
         val (a, b) = targetVectorSpace.getBasis()
         context.run {
             "test ValueBilinearMap" {
@@ -39,8 +39,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
                     listOf(2 * a + b, targetVectorSpace.zeroVector) // w*x, w*y
                 )
                 val f = ValueBilinearMap(
-                    sourceVectorSpace0,
                     sourceVectorSpace1,
+                    sourceVectorSpace2,
                     targetVectorSpace,
                     matrixSpace,
                     vectors
@@ -60,8 +60,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
             for ((name, constructor) in constructors) {
                 "test constructor of $name with getValue" {
                     val f = constructor(
-                        sourceVectorSpace0,
                         sourceVectorSpace1,
+                        sourceVectorSpace2,
                         targetVectorSpace,
                         matrixSpace
                     ) { s, t ->

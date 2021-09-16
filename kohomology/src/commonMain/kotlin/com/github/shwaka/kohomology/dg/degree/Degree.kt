@@ -7,29 +7,54 @@ package com.github.shwaka.kohomology.dg.degree
  * See [IntDegree] and [MultiDegree] for examples.
  */
 public interface Degree {
+    /** Returns `true` if the degree is zero. */
     public fun isZero(): Boolean
+
+    /** Returns `true` if the degree is nonzero. */
     public fun isNotZero(): Boolean = !this.isZero()
+
+    /** Returns `true` if the degree is one. */
     public fun isOne(): Boolean
+
+    /** Returns `true` if the degree is even. */
     public fun isEven(): Boolean
+
+    /** Returns `true` if the degree is odd. */
     public fun isOdd(): Boolean = !this.isEven()
 }
 
+/**
+ * Context for [DegreeGroup], stored in [DegreeGroup.context].
+ */
 public open class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup<D> by group {
+    /** The inclusion from [IntDegreeGroup] to the current [DegreeGroup]. */
     public fun Int.toDegree(): D = this@DegreeContext.fromInt(this)
+
+    /** Adds two [Degree]s. */
     public operator fun D.plus(other: D): D = this@DegreeContext.add(this, other)
     public operator fun Int.plus(other: D): D = this@DegreeContext.add(this.toDegree(), other)
     public operator fun D.plus(other: Int): D = this@DegreeContext.add(this, other.toDegree())
+
+    /** Subtract a [Degree] from another. */
     public operator fun D.minus(other: D): D = this@DegreeContext.subtract(this, other)
     public operator fun Int.minus(other: D): D = this@DegreeContext.subtract(this.toDegree(), other)
     public operator fun D.minus(other: Int): D = this@DegreeContext.subtract(this, other.toDegree())
+
+    /** Multiplies two [Degree]s. */
     public operator fun D.times(n: Int): D = this@DegreeContext.multiply(this, n)
     public operator fun Int.times(degree: D): D = this@DegreeContext.multiply(degree, this)
+
+    /** Returns the minus of a [Degree].  */
     public operator fun D.unaryMinus(): D = this@DegreeContext.multiply(this, -1)
 }
 
+/**
+ * Context for [AugmentedDegreeGroup] extending [DegreeContext].
+ */
 public class AugmentedDegreeContext<D : Degree>(group: AugmentedDegreeGroup<D>) :
     DegreeContext<D>(group),
     AugmentedDegreeGroupOperations<D> by group {
+    /** Sends a [Degree] in [AugmentedDegreeGroup] by [AugmentedDegreeGroup.augmentation]. */
     public fun D.toInt(): Int = this@AugmentedDegreeContext.augmentation(this)
 }
 
@@ -58,11 +83,18 @@ public interface DegreeGroup<D : Degree> {
 
     /** Multiplies an integer to a degree. */
     public fun multiply(degree: D, n: Int): D
+
+    /** The zero element of the [DegreeGroup] */
     public val zero: D
         get() = this.fromInt(0)
+
+    /** Returns `true` if [degree] is contained in the [DegreeGroup]. */
     public operator fun contains(degree: D): Boolean
 }
 
+/**
+ * Additional operations for [AugmentedDegreeGroup].
+ */
 public interface AugmentedDegreeGroupOperations<D : Degree> {
     public fun augmentation(degree: D): Int
     public fun listAllDegrees(augmentedDegree: Int): List<D>
@@ -70,23 +102,42 @@ public interface AugmentedDegreeGroupOperations<D : Degree> {
 
 /**
  * Represents a group used for degrees in free objects (polynomial and exterior algebras).
+ *
+ * Used in
+ * [FreeGAlgebra][com.github.shwaka.kohomology.free.FreeGAlgebra]
+ * and
+ * [FreeDGAlgebra][com.github.shwaka.kohomology.free.FreeDGAlgebra].
  */
 public interface AugmentedDegreeGroup<D : Degree> : DegreeGroup<D>, AugmentedDegreeGroupOperations<D> {
     /** An augmentation homomorphism to Z. */
     override val context: AugmentedDegreeContext<D>
 }
 
+/**
+ * Homomorphism between two [DegreeGroup]s.
+ */
 public interface DegreeMorphism<DS : Degree, DT : Degree> {
+    /** The source [DegreeGroup] */
     public val source: DegreeGroup<DS>
+
+    /** The target [DegreeGroup] */
     public val target: DegreeGroup<DT>
+
+    /** Sends [degree] from [source] to [target]. */
     public operator fun invoke(degree: DS): DT
 }
 
+/**
+ * Homomorphism between two [AugmentedDegreeGroup]s.
+ */
 public interface AugmentedDegreeMorphism<DS : Degree, DT : Degree> : DegreeMorphism<DS, DT> {
     override val source: AugmentedDegreeGroup<DS>
     override val target: AugmentedDegreeGroup<DT>
 }
 
+/**
+ * The homomorphism from a [AugmentedDegreeGroup] to [IntDegreeGroup] given by [AugmentedDegreeGroup.augmentation].
+ */
 public class AugmentationDegreeMorphism<D : Degree>(override val source: AugmentedDegreeGroup<D>) : AugmentedDegreeMorphism<D, IntDegree> {
     override val target: AugmentedDegreeGroup<IntDegree> = IntDegreeGroup
     override fun invoke(degree: D): IntDegree {

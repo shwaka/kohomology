@@ -2,15 +2,18 @@ package com.github.shwaka.kohomology.dg.degree
 
 import com.github.shwaka.kohomology.util.isEven
 
+/** An element of [SuperDegreeGroup]. */
 public sealed class SuperDegree : Degree {
     internal abstract val theOther: SuperDegree
 }
+/** The even element of [SuperDegreeGroup]. */
 public object EvenSuperDegree : SuperDegree() {
     override fun isEven(): Boolean = true
     override fun isZero(): Boolean = true
     override fun isOne(): Boolean = false
     override val theOther = OddSuperDegree
 }
+/** The odd element of [SuperDegreeGroup]. */
 public object OddSuperDegree : SuperDegree() {
     override fun isEven(): Boolean = false
     override fun isZero(): Boolean = false
@@ -18,6 +21,12 @@ public object OddSuperDegree : SuperDegree() {
     override val theOther = EvenSuperDegree
 }
 
+/**
+ * A [DegreeGroup] representing Z/2.
+ *
+ * This [DegreeGroup] can be used to treat
+ * [super vector space](https://en.wikipedia.org/wiki/Super_vector_space).
+ */
 public object SuperDegreeGroup : DegreeGroup<SuperDegree> {
     override val context: DegreeContext<SuperDegree> by lazy {
         DegreeContext(this)

@@ -1,5 +1,8 @@
 package com.github.shwaka.kohomology.dg.degree
 
+/**
+ * Wrapper of [Int] as an element of [IntDegreeGroup].
+ */
 public data class IntDegree(val value: Int) : Degree {
     override fun isEven(): Boolean {
         return (this.value % 2 == 0)
@@ -18,6 +21,9 @@ public data class IntDegree(val value: Int) : Degree {
     }
 }
 
+/**
+ * An [AugmentedDegreeGroup] representing the additive group Z of integers.
+ */
 public object IntDegreeGroup : AugmentedDegreeGroup<IntDegree> {
     override val context: AugmentedDegreeContext<IntDegree> by lazy {
         AugmentedDegreeContext(this)

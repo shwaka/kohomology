@@ -46,6 +46,9 @@ public open class DegreeContext<D : Degree>(group: DegreeGroup<D>) : DegreeGroup
 
     /** Returns the minus of a [Degree].  */
     public operator fun D.unaryMinus(): D = this@DegreeContext.multiply(this, -1)
+
+    /** Adds all [Degree]s in an iterable. */
+    public fun Iterable<D>.sum(): D = this.fold(this@DegreeContext.zero) { acc, d -> acc + d }
 }
 
 /**

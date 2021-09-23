@@ -55,6 +55,14 @@ suspend inline fun <D : Degree> FreeScope.degreeTestTemplate(
                     (a in degreeGroup).shouldBeTrue()
                 }
             }
+            "listOf(a, b, c).sum() should be (a + b + c)" {
+                checkAll(degreeArb, degreeArb, degreeArb) { a, b, c ->
+                    listOf(a, b, c).sum() shouldBe (a + b + c)
+                }
+            }
+            "emptyList().sum() should be 0" {
+                emptyList<D>().sum().isZero().shouldBeTrue()
+            }
             if (degreeGroup is AugmentedDegreeGroup) {
                 // The existing context is not smart-casted
                 "augmentation() should be a group homomorphism" {

@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -78,6 +79,26 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
             val degree = 3
             val v = gVectorSpace.getBasis(degree).reduce { x, y -> x + y }
             gVectorSpace.convertToGVector(v, degree) shouldBe v
+        }
+
+        "Iterable<GVector>.sum() should return sum of the elements" {
+            val v0 = gVectorSpace.fromCoeff(listOf(one, zero, zero), 3)
+            val v1 = gVectorSpace.fromCoeff(listOf(zero, one, zero), 3)
+            val v2 = gVectorSpace.fromCoeff(listOf(zero, zero, one), 3)
+            listOf(v0, v1, v2).sum() shouldBe (v0 + v1 + v2)
+            listOf(v0).sum() shouldBe v0
+        }
+
+        "emptyList().sum(degree) should be 0" {
+            val degree = 3
+            val z = gVectorSpace.getZero(degree)
+            emptyList<GVector<IntDegree, StringBasisName, S, V>>().sum(degree) shouldBe z
+        }
+
+        "emptyList().sum() (without the argument 'degree') should throw an IllegalArgumentException" {
+            shouldThrow<IllegalArgumentException> {
+                emptyList<GVector<IntDegree, StringBasisName, S, V>>().sum()
+            }
         }
     }
 }

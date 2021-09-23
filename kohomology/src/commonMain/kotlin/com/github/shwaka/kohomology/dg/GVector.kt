@@ -81,6 +81,8 @@ public interface GVectorOperations<D : Degree, B : BasisName, S : Scalar, V : Nu
     public fun subtract(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
     public fun multiply(scalar: S, gVector: GVector<D, B, S, V>): GVector<D, B, S, V>
     public val zeroGVector: ZeroGVector<D, B, S, V>
+    public fun getZero(degree: D): GVector<D, B, S, V>
+    public val degreeGroup: DegreeGroup<D>
 }
 
 public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
@@ -131,11 +133,24 @@ public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
             is GVector -> -this
         }
     }
+    public fun Iterable<GVector<D, B, S, V>>.sum(degree: D? = null): GVector<D, B, S, V> {
+        return if (this.any()) {
+            this.reduce { v, w -> v + w }
+        } else {
+            if (degree == null)
+                throw IllegalArgumentException("degree cannot be null when an iterator of GVector is empty")
+            return this@GVectorContext.getZero(degree)
+        }
+    }
+    public fun Iterable<GVector<D, B, S, V>>.sum(degree: Int): GVector<D, B, S, V> {
+        val degreeInternal = this@GVectorContext.degreeGroup.fromInt(degree)
+        return this.sum(degreeInternal)
+    }
 }
 
 public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val numVectorSpace: NumVectorSpace<S, V>,
-    public open val degreeGroup: DegreeGroup<D>,
+    public override val degreeGroup: DegreeGroup<D>,
     public val name: String,
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
@@ -260,7 +275,7 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             .flatten()
     }
 
-    public fun getZero(degree: D): GVector<D, B, S, V> {
+    public override fun getZero(degree: D): GVector<D, B, S, V> {
         val vector = this[degree].zeroVector
         return this.fromVector(vector, degree)
     }

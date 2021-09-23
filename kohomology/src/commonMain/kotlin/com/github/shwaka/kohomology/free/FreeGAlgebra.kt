@@ -173,9 +173,7 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         return target.context.run {
             monomial.exponentList.mapIndexed { index, exponent ->
                 valueList[index].pow(exponent)
-            }.fold(this.unit) { acc, gVector ->
-                acc * gVector
-            }
+            }.product()
         }
     }
 

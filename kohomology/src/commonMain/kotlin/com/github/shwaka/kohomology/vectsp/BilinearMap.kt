@@ -47,8 +47,8 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
             vector1.numVector.toMap().mapValues { (ind1, coeff1) ->
                 vector2.numVector.toMap().mapValues { (ind2, coeff2) ->
                     this@ValueBilinearMap.values[ind1][ind2] * coeff1 * coeff2
-                }.values.fold(zeroVector) { acc, vector -> acc + vector }
-            }.values.fold(zeroVector) { acc, vector -> acc + vector }
+                }.values.sum()
+            }.values.sum()
         }
     }
 }
@@ -65,8 +65,8 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
             vector1.toBasisMap().mapValues { (basisName1, coeff1) ->
                 vector2.toBasisMap().mapValues { (basisName2, coeff2) ->
                     this@LazyBilinearMap.getValue(basisName1, basisName2) * coeff1 * coeff2
-                }.values.fold(zeroVector) { acc, vector -> acc + vector }
-            }.values.fold(zeroVector) { acc, vector -> acc + vector }
+                }.values.sum()
+            }.values.sum()
         }
     }
 }

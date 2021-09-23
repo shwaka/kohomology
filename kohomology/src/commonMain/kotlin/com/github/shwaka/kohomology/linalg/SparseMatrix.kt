@@ -204,7 +204,7 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
                         null, zero -> null
                         else -> elm * it
                     }
-                }.filterNotNull().fold(zero) { a, b -> a + b }
+                }.filterNotNull().sum()
             }
         }
         return SparseNumVector(valueMap, this.field, matrix.rowCount)

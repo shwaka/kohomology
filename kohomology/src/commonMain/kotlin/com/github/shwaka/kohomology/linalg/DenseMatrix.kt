@@ -120,7 +120,7 @@ public class DenseMatrixSpace<S : Scalar> private constructor(
                 this.field.context.run {
                     sumRange
                         .map { k -> first.rowList[i][k] * second.rowList[k][j] }
-                        .fold(zero) { a, b -> a + b }
+                        .sum()
                 }
             }
         }
@@ -150,7 +150,7 @@ public class DenseMatrixSpace<S : Scalar> private constructor(
             this.field.context.run {
                 row.zip(numVector.valueList)
                     .map { it.first * it.second }
-                    .fold(zero) { a, b -> a + b }
+                    .sum()
             }
         }
         return this.numVectorSpace.fromValueList(valueList)

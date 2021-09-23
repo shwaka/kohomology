@@ -164,13 +164,12 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
             throw IllegalContextException("The numVector $numVector2 does not match the context")
         if (numVector1.dim != numVector2.dim)
             throw InvalidSizeException("Cannot take the inner product of two numVectors with different length")
-        val zero = this.field.zero
         val indices = numVector1.valueMap.keys.intersect(numVector2.valueMap.keys)
         return this.field.context.run {
             indices.map { i ->
                 // we know that both 'values' contain the key 'i'
                 numVector1.valueMap[i]!! * numVector2.valueMap[i]!!
-            }.fold(zero) { acc, x -> acc + x }
+            }.sum()
         }
     }
 

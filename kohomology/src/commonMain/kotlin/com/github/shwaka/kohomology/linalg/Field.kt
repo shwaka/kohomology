@@ -60,6 +60,8 @@ public open class ScalarContext<S : Scalar>(
     public val three: S = 3.toScalar()
     public val four: S = 4.toScalar()
     public val five: S = 5.toScalar()
+    public fun Iterable<S>.sum(): S = this.fold(zero) { acc, x -> acc + x }
+    public fun Iterable<S>.product(): S = this.fold(one) { acc, x -> acc * x }
 }
 
 public interface Field<S : Scalar> : ScalarOperations<S> {

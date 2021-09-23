@@ -129,6 +129,19 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
             val three = field.fromInt(3)
             (two / three) shouldBe (two * (three.inv()))
         }
+        "listOf(1, -1/2, 1/3).sum() should be 5/6" {
+            val six = 6.toScalar()
+            listOf(one, -one / two, one / three).sum() shouldBe five / six
+        }
+        "emptyList().sum() should be 0" {
+            emptyList<S>().sum() shouldBe zero
+        }
+        "listOf(1, -2, 1/3).product() should be -2/3" {
+            listOf(one, -two, one / three).product() shouldBe (-two / three)
+        }
+        "emptyList().product() should be 1" {
+            emptyList<S>().product() shouldBe one
+        }
     }
 }
 

@@ -1,12 +1,14 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -109,6 +111,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 f(x.pow(3)) shouldBe x.pow(4)
             }
         }
+        "listOf(x, y).product() should be x * y" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                listOf(x, y).product() shouldBe (x * y)
+            }
+        }
+        "emptyList().product() should be unit" {
+            freeGAlgebra.context.run {
+                val l = emptyList<GVector<IntDegree, Monomial<IntDegree, StringIndeterminateName>, S, V>>()
+                l.product() shouldBe unit
+            }
+        }
     }
 }
 
@@ -170,6 +184,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             freeGAlgebra.context.run {
                 f(x).isZero().shouldBeTrue()
                 f(y) shouldBe (x * y)
+            }
+        }
+        "listOf(x, y, x).product() should be 0" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                listOf(x, y, x).product().isZero().shouldBeTrue()
             }
         }
     }

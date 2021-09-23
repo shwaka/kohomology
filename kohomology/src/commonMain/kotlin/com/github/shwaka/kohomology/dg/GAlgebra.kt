@@ -60,6 +60,9 @@ public open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Num
             }
         }
     }
+    public fun Iterable<GVector<D, B, S, V>>.product(): GVector<D, B, S, V> {
+        return this.fold(this@GAlgebraContext.unit) { acc, x -> acc * x }
+    }
 }
 
 public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

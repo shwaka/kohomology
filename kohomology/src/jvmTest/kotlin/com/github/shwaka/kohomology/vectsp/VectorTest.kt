@@ -61,7 +61,7 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
                 listOf(v, v, w).sum() shouldBe (2 * v + w)
             }
             "emptyList().sum() should be zeroVector" {
-                emptyList<Vector<StringBasisName, S, V>>() shouldBe zeroVector
+                emptyList<Vector<StringBasisName, S, V>>().sum() shouldBe zeroVector
             }
         }
     }

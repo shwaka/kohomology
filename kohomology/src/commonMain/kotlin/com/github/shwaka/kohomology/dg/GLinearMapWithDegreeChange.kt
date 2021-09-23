@@ -41,9 +41,7 @@ public open class GLinearMapWithDegreeChange<DS : Degree, BS : BasisName, DT : D
         return this.target.context.run {
             gVector.vector.toBasisMap().toList().map { (basisName, coeff) ->
                 this@GLinearMapWithDegreeChange.getValueOnBasis(basisName, gVector.degree) * coeff
-            }.fold(this@GLinearMapWithDegreeChange.target.getZero(targetDegree)) { acc, gVector ->
-                acc + gVector
-            }
+            }.sum(targetDegree)
         }
     }
 

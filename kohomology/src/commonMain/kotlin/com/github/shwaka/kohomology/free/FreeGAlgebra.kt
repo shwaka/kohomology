@@ -111,25 +111,27 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         monomial: Monomial<D, I>,
         valueDegree: D
     ): GVector<D, Monomial<D, I>, S, V> {
-        return this.monoid.allSeparations(monomial).map { separation ->
-            val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->
-                if (i == separation.index)
-                    separation.separatedExponent - 1
-                else
-                    0
+        val terms: List<GVector<D, Monomial<D, I>, S, V>> =
+            this.monoid.allSeparations(monomial).map { separation ->
+                val derivedSeparatedExponentList = this.indeterminateList.indices.map { i ->
+                    if (i == separation.index)
+                        separation.separatedExponent - 1
+                    else
+                        0
+                }
+                val derivedSeparatedMonomial = Monomial(this.degreeGroup, this.indeterminateList, derivedSeparatedExponentList)
+                val derivedSeparatedGVector = this.context.run {
+                    separation.separatedExponent *
+                        this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *
+                        valueList[separation.index]
+                }
+                val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.degree)
+                this.context.run {
+                    derivedSeparatedGVector * remainingGVector * separation.sign
+                }
             }
-            val derivedSeparatedMonomial = Monomial(this.degreeGroup, this.indeterminateList, derivedSeparatedExponentList)
-            val derivedSeparatedGVector = this.context.run {
-                separation.separatedExponent *
-                    this@FreeGAlgebra.fromBasisName(derivedSeparatedMonomial, derivedSeparatedMonomial.degree) *
-                    valueList[separation.index]
-            }
-            val remainingGVector = this.fromBasisName(separation.remainingMonomial, separation.remainingMonomial.degree)
-            this.context.run {
-                derivedSeparatedGVector * remainingGVector * separation.sign
-            }
-        }.fold(this.getZero(valueDegree)) { acc, gVector ->
-            this.context.run { acc + gVector }
+        return this.context.run {
+            terms.sum(valueDegree)
         }
     }
 

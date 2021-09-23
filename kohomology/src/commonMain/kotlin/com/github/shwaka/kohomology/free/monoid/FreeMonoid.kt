@@ -60,7 +60,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         this.degreeGroup.context.run {
             this@Monomial.indeterminateList.mapIndexed { i, indeterminate ->
                 indeterminate.degree * this@Monomial.exponentList[i]
-            }.fold(zero) { acc, b -> acc + b }
+            }.sum()
         }
     }
 

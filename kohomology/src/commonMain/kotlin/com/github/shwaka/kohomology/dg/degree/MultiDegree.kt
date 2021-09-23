@@ -210,9 +210,10 @@ public class MultiDegreeMorphism(
         if (degree !in this.source)
             throw IllegalArgumentException("The degree $degree is not an element of the group ${this.source}")
         return this.target.context.run {
-            degree.coeffList.indices.map { i ->
-                degree.coeffList[i] * this@MultiDegreeMorphism.values[i]
-            }.fold(target.fromInt(degree.constantTerm)) { acc, degree -> acc + degree }
+            target.fromInt(degree.constantTerm) +
+                degree.coeffList.indices.map { i ->
+                    degree.coeffList[i] * this@MultiDegreeMorphism.values[i]
+                }.sum()
         }
     }
 }

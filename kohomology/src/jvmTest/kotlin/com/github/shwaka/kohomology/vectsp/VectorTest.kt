@@ -55,6 +55,14 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
                 (2 * v) shouldBe expected
                 (two * v) shouldBe expected
             }
+            "listOf(v, v, w).sum() should be 2 * v + w" {
+                val v = vectorSpace.fromCoeffList(listOf(one, two, three))
+                val w = vectorSpace.fromCoeffList(listOf(one / two, -three / five, four / three))
+                listOf(v, v, w).sum() shouldBe (2 * v + w)
+            }
+            "emptyList().sum() should be zeroVector" {
+                emptyList<Vector<StringBasisName, S, V>>() shouldBe zeroVector
+            }
         }
     }
 }

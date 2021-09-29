@@ -33,8 +33,8 @@ jobs:
         run: chmod +x gradlew
       - name: Download dependencies # Not necessary, but useful to make the log clean
         run: |
-          ./gradlew dependencies --configuration nativeCompileKlibraries
-          ./gradlew dependencies --configuration dokkaHtmlRuntime
+          ./gradlew dependencies --configuration nativeCompileKlibraries --stacktrace
+          ./gradlew dependencies --configuration dokkaHtmlRuntime --stacktrace
       - name: Generate documentation by dokka
         run: ./gradlew dokkaHtml
       - name: Compute coverage

@@ -35,7 +35,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Download dependencies # Not necessary, but useful to make the log clean
-        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath
+        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
       - name: Compile with Gradle
         run: ./gradlew compileKotlinJvm
       - name: Test with Gradle

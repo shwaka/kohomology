@@ -12,6 +12,7 @@ plugins {
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
     id("org.jetbrains.dokka") version "1.4.32"
+    id("com.github.shwaka.dokkacov") version "0.1"
 }
 
 apply<com.github.shwaka.kohomology.MyPlugin>()

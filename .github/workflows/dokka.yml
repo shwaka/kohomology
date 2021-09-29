@@ -37,6 +37,8 @@ jobs:
           ./gradlew dependencies --configuration dokkaHtmlRuntime
       - name: Generate documentation by dokka
         run: ./gradlew dokkaHtml
+      - name: Compute coverage
+        run: ./gradlew dokkacovWriteJson
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3
         with:

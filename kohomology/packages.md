@@ -9,3 +9,6 @@ The group is represented by the interface [DegreeGroup],
 and their elements are represented by the interface [Degree].
 For example, [IntDegree] is the usual Z-grading.
 We also include definitions of [MultiDegree] and [SuperDegree].
+
+# Package com.github.shwaka.kohomology.util.list
+Contains extension functions for lists.

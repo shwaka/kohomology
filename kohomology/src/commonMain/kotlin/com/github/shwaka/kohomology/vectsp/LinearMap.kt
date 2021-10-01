@@ -21,7 +21,7 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
 
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
         if (vector !in this.source)
-            throw IllegalArgumentException("Invalid vector is given as an argument for a linear map")
+            throw IllegalArgumentException("Invalid vector is given as an argument of LinearMap: $vector is not an element of ${this.source}")
         val numVector = this.matrixSpace.context.run {
             this@LinearMap.matrix * vector.numVector
         }

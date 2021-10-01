@@ -46,6 +46,10 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return this.matrixSpace.context.run { this@LinearMap.matrix.isInvertible() }
     }
 
+    public fun isZero(): Boolean {
+        return this.matrix.isZero()
+    }
+
     override fun hashCode(): Int {
         var result = source.hashCode()
         result = 31 * result + target.hashCode()

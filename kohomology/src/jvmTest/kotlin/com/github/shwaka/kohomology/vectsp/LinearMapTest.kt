@@ -65,6 +65,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 f.imageContains(v).shouldBeTrue()
                 f.imageContains(w).shouldBeFalse()
             }
+            "(zero map).isZero() should be true" {
+                val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
+                f.isZero().shouldBeTrue()
+            }
+            "(non-zero map).isZero() should be false" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(two, zero),
+                        listOf(one, one)
+                    )
+                )
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                f.isZero().shouldBeFalse()
+            }
         }
     }
 }
@@ -82,10 +96,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matri
                 val f = LinearMap.fromVectors(vectorSpace, zeroVectorSpace, matrixSpace, listOf(zeroVector, zeroVector))
                 f(a).isZero().shouldBeTrue()
                 f(b).isZero().shouldBeTrue()
+                f.isZero().shouldBeTrue()
             }
             "linear map from zero" {
                 val g = LinearMap.fromVectors(zeroVectorSpace, vectorSpace, matrixSpace, listOf())
                 g(zeroVector).isZero().shouldBeTrue()
+                g.isZero().shouldBeTrue()
             }
         }
     }

@@ -10,6 +10,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val directSumTag = NamedTag("DirectSum")
@@ -71,6 +72,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             val inclusion1 = directSum.inclusion(1)
             inclusion1(v1) shouldBe d3
             inclusion1(v2) shouldBe d4
+        }
+    }
+
+    "empty direct sum" - {
+        val directSum = DirectSum<StringBasisName, S, V, M>(emptyList(), matrixSpace)
+
+        "dimension should be zero" {
+            directSum.dim shouldBe 0
+        }
+    }
+
+    "direct sum with zero vector space" - {
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("v1", "v2"))
+        val zeroVectorSpace = VectorSpace(numVectorSpace, emptyList<String>())
+        val directSum = DirectSum(listOf(vectorSpace, zeroVectorSpace), matrixSpace)
+
+        val (v1, v2) = vectorSpace.getBasis()
+        val (d1, d2) = directSum.getBasis()
+
+        "dimension should be the same" {
+            directSum.dim shouldBe vectorSpace.dim
+        }
+
+        "inclusion from the non-zero vector space" {
+            val inclusion0 = directSum.inclusion(0)
+            inclusion0(v1) shouldBe d1
+            inclusion0(v2) shouldBe d2
+        }
+
+        "inclusion from the zero vector space should be zero" {
+            // zero vector space からの LinearMap は常に zero なことが保証されているけど、
+            // エラーを出さずに LinearMap のインスタンスをちゃんと生成できることの確認も込めてテストする
+            directSum.inclusion(1).isZero().shouldBeTrue()
         }
     }
 }

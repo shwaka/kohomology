@@ -5,6 +5,6 @@ directories="kohomology"
 for d in $directories; do
     (
         cd $d
-        ./gradlew kc # This will run ktlintCheck for ALL projects (see kohomology/build.gradle.kts)
+        ./gradlew ktlintCheck
     )
 done

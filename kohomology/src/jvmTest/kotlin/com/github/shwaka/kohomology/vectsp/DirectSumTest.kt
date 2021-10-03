@@ -1,20 +1,75 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val directSumTag = NamedTag("DirectSum")
+
+suspend inline fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.directSumErrorTest(
+    directSum: DirectSum<B, S, V, M>
+) {
+    "inclusion(index) should throw IndexOutOfBoundsException if index < 0" {
+        (-5 until 0).forAll { index ->
+            shouldThrow<IndexOutOfBoundsException> {
+                directSum.inclusion(index)
+            }
+        }
+    }
+
+    "inclusion(index) should not throw if 0 <= index < size" {
+        (0 until directSum.size).forAll { index ->
+            shouldNotThrowAny {
+                directSum.inclusion(index)
+            }
+        }
+    }
+
+    "inclusion(index) should throw IndexOutOfBoundsException if index >= size" {
+        (directSum.size until directSum.size + 5).forAll { index ->
+            shouldThrow<IndexOutOfBoundsException> {
+                directSum.inclusion(index)
+            }
+        }
+    }
+
+    "projection(index) should throw IndexOutOfBoundsException if index < 0" {
+        (-5 until 0).forAll { index ->
+            shouldThrow<IndexOutOfBoundsException> {
+                directSum.projection(index)
+            }
+        }
+    }
+
+    "projection(index) should not throw if 0 <= index < size" {
+        (0 until directSum.size).forAll { index ->
+            shouldNotThrowAny {
+                directSum.projection(index)
+            }
+        }
+    }
+
+    "projection(index) should throw IndexOutOfBoundsException if index >= size" {
+        (directSum.size until directSum.size + 5).forAll { index ->
+            shouldThrow<IndexOutOfBoundsException> {
+                directSum.projection(index)
+            }
+        }
+    }
+}
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
@@ -26,6 +81,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
         val (v1, v2) = vectorSpace0.getBasis()
         val (w1, w2, w3) = vectorSpace1.getBasis()
         val (d1, d2, d3, d4, d5) = directSum.getBasis()
+
+        directSumErrorTest(directSum)
 
         "dimension should be the sum" {
             directSum.dim shouldBe (vectorSpace0.dim + vectorSpace1.dim)
@@ -77,6 +134,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
         val (v1, v2) = vectorSpace.getBasis()
         val (d1, d2, d3, d4) = directSum.getBasis()
 
+        directSumErrorTest(directSum)
+
         "dimension should be the sum" {
             directSum.dim shouldBe (2 * vectorSpace.dim)
         }
@@ -113,6 +172,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
     "empty direct sum" - {
         val directSum = DirectSum<StringBasisName, S, V, M>(emptyList(), matrixSpace)
 
+        directSumErrorTest(directSum)
+
         "dimension should be zero" {
             directSum.dim shouldBe 0
         }
@@ -125,6 +186,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
 
         val (v1, v2) = vectorSpace.getBasis()
         val (d1, d2) = directSum.getBasis()
+
+        directSumErrorTest(directSum)
 
         "dimension should be the same" {
             directSum.dim shouldBe vectorSpace.dim
@@ -166,6 +229,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
         val (v1, v2) = vectorSpace0.getBasis()
         val (w1, w2, w3) = vectorSpace1.getBasis()
         val (d1, d2, d3, d4, d5, d6, d7, d8, d9, d10) = directSum.getBasis()
+
+        directSumErrorTest(directSum)
 
         "dimension must be the sum" {
             directSum.dim shouldBe (2 * (vectorSpace0.dim + vectorSpace1.dim))

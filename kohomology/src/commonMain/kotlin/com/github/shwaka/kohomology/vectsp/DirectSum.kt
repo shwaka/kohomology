@@ -52,9 +52,9 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
 
     public fun inclusion(index: Int): LinearMap<B, DirectSumBasis<B>, S, V, M> {
         if (index < 0)
-            throw IllegalArgumentException("index must be non-negative")
+            throw IndexOutOfBoundsException("index must be non-negative")
         if (index >= this.size)
-            throw IllegalArgumentException("index must be smaller than the number of vector spaces in the direct sum")
+            throw IndexOutOfBoundsException("index must be smaller than the number of vector spaces in the direct sum")
         return this.inclusionList[index]
     }
 
@@ -69,9 +69,9 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
 
     public fun projection(index: Int): LinearMap<DirectSumBasis<B>, B, S, V, M> {
         if (index < 0)
-            throw IllegalArgumentException("index must be non-negative")
+            throw IndexOutOfBoundsException("index must be non-negative")
         if (index >= this.size)
-            throw IllegalArgumentException("index must be smaller than the number of vector spaces in the direct sum")
+            throw IndexOutOfBoundsException("index must be smaller than the number of vector spaces in the direct sum")
         return this.projectionList[index]
     }
 }

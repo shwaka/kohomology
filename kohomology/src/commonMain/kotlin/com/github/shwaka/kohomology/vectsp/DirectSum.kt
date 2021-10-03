@@ -55,6 +55,23 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
             throw IllegalArgumentException("index must be non-negative")
         if (index >= this.size)
             throw IllegalArgumentException("index must be smaller than the number of vector spaces in the direct sum")
-        return inclusionList[index]
+        return this.inclusionList[index]
+    }
+
+    private val projectionList: List<LinearMap<DirectSumBasis<B>, B, S, V, M>> by lazy {
+        (0 until this.size).map { index ->
+            val matrix = this.matrixSpace.context.run {
+                this@DirectSum.inclusionList[index].matrix.transpose()
+            }
+            LinearMap.fromMatrix(this, this.vectorSpaceList[index], this.matrixSpace, matrix)
+        }
+    }
+
+    public fun projection(index: Int): LinearMap<DirectSumBasis<B>, B, S, V, M> {
+        if (index < 0)
+            throw IllegalArgumentException("index must be non-negative")
+        if (index >= this.size)
+            throw IllegalArgumentException("index must be smaller than the number of vector spaces in the direct sum")
+        return this.projectionList[index]
     }
 }

@@ -50,6 +50,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
                 inclusion0(w1)
             }
         }
+
+        "projection to the first component" {
+            val projection0 = directSum.projection(0)
+            projection0(d1) shouldBe v1
+            projection0(d2) shouldBe v2
+            projection0(d3).isZero().shouldBeTrue()
+            projection0(d4).isZero().shouldBeTrue()
+            projection0(d5).isZero().shouldBeTrue()
+        }
+
+        "projection to the second component" {
+            val projection1 = directSum.projection(1)
+            projection1(d1).isZero().shouldBeTrue()
+            projection1(d2).isZero().shouldBeTrue()
+            projection1(d3) shouldBe w1
+            projection1(d4) shouldBe w2
+            projection1(d5) shouldBe w3
+        }
     }
 
     "direct sum of a vector space with itself" - {
@@ -73,6 +91,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             val inclusion1 = directSum.inclusion(1)
             inclusion1(v1) shouldBe d3
             inclusion1(v2) shouldBe d4
+        }
+
+        "projection to the first component" {
+            val projection0 = directSum.projection(0)
+            projection0(d1) shouldBe v1
+            projection0(d2) shouldBe v2
+            projection0(d3).isZero().shouldBeTrue()
+            projection0(d4).isZero().shouldBeTrue()
+        }
+
+        "projection to the second component" {
+            val projection1 = directSum.projection(1)
+            projection1(d1).isZero().shouldBeTrue()
+            projection1(d2).isZero().shouldBeTrue()
+            projection1(d3) shouldBe v1
+            projection1(d4) shouldBe v2
         }
     }
 
@@ -106,6 +140,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             // zero vector space からの LinearMap は常に zero なことが保証されているけど、
             // エラーを出さずに LinearMap のインスタンスをちゃんと生成できることの確認も込めてテストする
             directSum.inclusion(1).isZero().shouldBeTrue()
+        }
+
+        "projection to the non-zero vector space" {
+            val projection0 = directSum.projection(0)
+            projection0(d1) shouldBe v1
+            projection0(d2) shouldBe v2
+        }
+
+        "projection to the zero vector space should be zero" {
+            // zero vector space への LinearMap は常に zero なことが保証されているけど、
+            // エラーを出さずに LinearMap のインスタンスをちゃんと生成できることの確認も込めてテストする
+            directSum.projection(1).isZero().shouldBeTrue()
         }
     }
 
@@ -149,6 +195,62 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             inclusion3(w1) shouldBe d8
             inclusion3(w2) shouldBe d9
             inclusion3(w3) shouldBe d10
+        }
+
+        "projection to the first component" {
+            val projection0 = directSum.projection(0)
+            projection0(d1) shouldBe v1
+            projection0(d2) shouldBe v2
+            projection0(d3).isZero().shouldBeTrue()
+            projection0(d4).isZero().shouldBeTrue()
+            projection0(d5).isZero().shouldBeTrue()
+            projection0(d6).isZero().shouldBeTrue()
+            projection0(d7).isZero().shouldBeTrue()
+            projection0(d8).isZero().shouldBeTrue()
+            projection0(d9).isZero().shouldBeTrue()
+            projection0(d10).isZero().shouldBeTrue()
+        }
+
+        "projection to the second component" {
+            val projection1 = directSum.projection(1)
+            projection1(d1).isZero().shouldBeTrue()
+            projection1(d2).isZero().shouldBeTrue()
+            projection1(d3) shouldBe w1
+            projection1(d4) shouldBe w2
+            projection1(d5) shouldBe w3
+            projection1(d6).isZero().shouldBeTrue()
+            projection1(d7).isZero().shouldBeTrue()
+            projection1(d8).isZero().shouldBeTrue()
+            projection1(d9).isZero().shouldBeTrue()
+            projection1(d10).isZero().shouldBeTrue()
+        }
+
+        "projection to the third component" {
+            val projection2 = directSum.projection(2)
+            projection2(d1).isZero().shouldBeTrue()
+            projection2(d2).isZero().shouldBeTrue()
+            projection2(d3).isZero().shouldBeTrue()
+            projection2(d4).isZero().shouldBeTrue()
+            projection2(d5).isZero().shouldBeTrue()
+            projection2(d6) shouldBe v1
+            projection2(d7) shouldBe v2
+            projection2(d8).isZero().shouldBeTrue()
+            projection2(d9).isZero().shouldBeTrue()
+            projection2(d10).isZero().shouldBeTrue()
+        }
+
+        "projection to the fourth component" {
+            val projection3 = directSum.projection(3)
+            projection3(d1).isZero().shouldBeTrue()
+            projection3(d2).isZero().shouldBeTrue()
+            projection3(d3).isZero().shouldBeTrue()
+            projection3(d4).isZero().shouldBeTrue()
+            projection3(d5).isZero().shouldBeTrue()
+            projection3(d6).isZero().shouldBeTrue()
+            projection3(d7).isZero().shouldBeTrue()
+            projection3(d8) shouldBe w1
+            projection3(d9) shouldBe w2
+            projection3(d10) shouldBe w3
         }
     }
 }

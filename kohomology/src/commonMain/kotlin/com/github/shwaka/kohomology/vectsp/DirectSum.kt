@@ -6,6 +6,9 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 
+/**
+ * An implementation of [BasisName] for a direct sum.
+ */
 public data class DirectSumBasis<B>(val index: Int, val basisName: B) : BasisName
 
 private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -24,13 +27,27 @@ private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     // TODO: internalPrintConfig も渡す？
 }
 
+/**
+ * A direct sum of a finite number of vector spaces.
+ */
 public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: DirectSumFactory<B, S, V, M>
 ) : VectorSpace<DirectSumBasis<B>, S, V>(factory.numVectorSpace, factory.basisNames) {
+    /** A list of vector spaces in a direct sum. */
     public val vectorSpaceList: List<VectorSpace<B, S, V>> = factory.vectorSpaceList
+
+    /** The [MatrixSpace] used in a direct sum. */
     public val matrixSpace: MatrixSpace<S, V, M> = factory.matrixSpace
+
+    /** The number of vector spaces in a direct sum. */
     public val size: Int = vectorSpaceList.size
 
+    /**
+     * Constructs the direct sum of vector spaces in [vectorSpaceList].
+     *
+     * The list [vectorSpaceList] can contain a vector space more than once,
+     * since they are distinguished by the index in the list.
+     */
     public constructor(
         vectorSpaceList: List<VectorSpace<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>,
@@ -50,6 +67,7 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
         }
     }
 
+    /** Inclusion from a component to a direct sum. */
     public fun inclusion(index: Int): LinearMap<B, DirectSumBasis<B>, S, V, M> {
         if (index < 0)
             throw IndexOutOfBoundsException("index must be non-negative")
@@ -67,6 +85,7 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
         }
     }
 
+    /** Projection from a direct sum to a component. */
     public fun projection(index: Int): LinearMap<DirectSumBasis<B>, B, S, V, M> {
         if (index < 0)
             throw IndexOutOfBoundsException("index must be non-negative")

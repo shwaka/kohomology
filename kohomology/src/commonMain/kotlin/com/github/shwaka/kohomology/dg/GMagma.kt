@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.dg
 
-import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -13,7 +12,6 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface GMagmaOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -90,16 +88,16 @@ public open class GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         }
     }
 
-    public fun getGLinearMapByMultiplication(cochain: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
+    public fun getGLinearMapByMultiplication(gVector: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
         return GLinearMap.fromGVectors(
             this,
             this,
-            cochain.degree,
+            gVector.degree,
             this.matrixSpace,
-            "($cochain * (-))"
+            "($gVector * (-))"
         ) { degree ->
             this.context.run {
-                this@GMagma.getBasis(degree).map { cochain * it }
+                this@GMagma.getBasis(degree).map { gVector * it }
             }
         }
     }

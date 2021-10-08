@@ -79,6 +79,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 (x - y).pow(3) shouldBe (x.pow(3) - 3 * x.pow(2) * y + 3 * x * y.pow(2) - y.pow(3))
             }
         }
+        "check isBasis" {
+            val (x, y) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                freeGAlgebra.isBasis(listOf(x, y), generatorDegree).shouldBeTrue()
+                freeGAlgebra.isBasis(listOf(x, y), freeGAlgebra.degreeGroup.fromInt(generatorDegree)).shouldBeTrue()
+                freeGAlgebra.isBasis(listOf(x.pow(2), x * y, y.pow(2)), generatorDegree * 2).shouldBeTrue()
+                freeGAlgebra.isBasis(listOf(x.pow(2), x * y, y.pow(2)), freeGAlgebra.degreeGroup.fromInt(generatorDegree * 2)).shouldBeTrue()
+            }
+        }
         "check algebra map" {
             val (x, y) = freeGAlgebra.generatorList
             freeGAlgebra.context.run {

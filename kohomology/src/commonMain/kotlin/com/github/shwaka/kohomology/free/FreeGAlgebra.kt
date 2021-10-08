@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
+import com.github.shwaka.kohomology.dg.GMagmaOperations
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -40,9 +41,10 @@ public class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, 
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, Monomial<D, I>, S, V>,
+    gMagmaOperations: GMagmaOperations<D, Monomial<D, I>, S, V, M>,
     gAlgebraOperations: GAlgebraOperations<D, Monomial<D, I>, S, V, M>,
     freeGAlgebraOperations: FreeGAlgebraOperations<D, I, S, V, M>
-) : GAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations),
+) : GAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations),
     FreeGAlgebraOperations<D, I, S, V, M> by freeGAlgebraOperations
 
 public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -59,7 +61,7 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 ),
     FreeGAlgebraOperations<D, I, S, V, M> {
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
+        FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this, this)
     }
     public val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->

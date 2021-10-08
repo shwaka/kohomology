@@ -20,11 +20,12 @@ public open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Nu
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, B, S, V>,
+    gMagmaOperations: GMagmaOperations<D, B, S, V, M>,
     gAlgebraOperations: GAlgebraOperations<D, B, S, V, M>,
     dgVectorOperations: DGVectorOperations<D, B, S, V, M>
 ) : DGVectorContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, dgVectorOperations),
     GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
-    private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations)
+    private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations)
 
     public operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this@DGAlgebraContext.gAlgebraContext.run { this@times * other }
@@ -41,7 +42,7 @@ public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorSpace<D, B, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
-        DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this)
+        DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this)
     }
 
     private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {

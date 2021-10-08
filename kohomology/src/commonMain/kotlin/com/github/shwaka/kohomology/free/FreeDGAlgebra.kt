@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.dg.DGVectorOperations
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
+import com.github.shwaka.kohomology.dg.GMagmaOperations
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -36,10 +37,11 @@ public class FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar,
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, Monomial<D, I>, S, V>,
+    gMagmaOperations: GMagmaOperations<D, Monomial<D, I>, S, V, M>,
     gAlgebraOperations: GAlgebraOperations<D, Monomial<D, I>, S, V, M>,
     dgVectorOperations: DGVectorOperations<D, Monomial<D, I>, S, V, M>,
     freeGAlgebraOperations: FreeGAlgebraOperations<D, I, S, V, M>
-) : DGAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gAlgebraOperations, dgVectorOperations),
+) : DGAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations, dgVectorOperations),
     FreeGAlgebraOperations<D, I, S, V, M> by freeGAlgebraOperations
 
 public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val differentialValue: String) {
@@ -59,7 +61,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGAlgebra<D, Monomial<D, I>, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
+        FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }
 
     public companion object {

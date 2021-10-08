@@ -17,8 +17,6 @@ import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface GAlgebraOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    public fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V>
     public val unit: GVector<D, B, S, V>
 }
 
@@ -26,15 +24,10 @@ public open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Num
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, B, S, V>,
+    gMagmaOperations: GMagmaOperations<D, B, S, V, M>,
     gAlgebraOperations: GAlgebraOperations<D, B, S, V, M>,
-) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
+) : GMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations),
     GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
-    public operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this@GAlgebraContext.multiply(this, other)
-    }
-    public operator fun GVectorOrZero<D, B, S, V>.times(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
-        return this@GAlgebraContext.multiply(this, other)
-    }
     public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
         val unit = this@GAlgebraContext.unit
         return when {
@@ -74,11 +67,13 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     unitVector: Vector<B, S, V>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace), GAlgebraOperations<D, B, S, V, M> {
+) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace),
+    GMagmaOperations<D, B, S, V, M>,
+    GAlgebraOperations<D, B, S, V, M> {
     public override val context: GAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
-        GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
+        GAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
     }
 
     override val unit: GVector<D, B, S, V> by lazy {

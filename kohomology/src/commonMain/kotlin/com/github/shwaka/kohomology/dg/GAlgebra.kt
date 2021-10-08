@@ -59,16 +59,15 @@ public open class GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Num
 }
 
 public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val matrixSpace: MatrixSpace<S, V, M>,
+    matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    public val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
+    getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     unitVector: Vector<B, S, V>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-) : GVectorSpace<D, B, S, V>(matrixSpace.numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace),
-    GMagmaOperations<D, B, S, V, M>,
+) : GMagma<D, B, S, V, M>(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree),
     GAlgebraOperations<D, B, S, V, M> {
     public override val context: GAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
@@ -82,39 +81,7 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         this.fromVector(unitVector, 0)
     }
 
-    private val multiplication: GBilinearMap<B, B, B, D, S, V, M> by lazy {
-        val bilinearMapName = "Multiplication(${this.name})"
-        GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
-    }
-    override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this.multiplication(a, b)
-    }
-
-    override fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
-        return when (a) {
-            is ZeroGVector -> this.zeroGVector
-            is GVector -> when (b) {
-                is ZeroGVector -> this.zeroGVector
-                is GVector -> this.multiply(a, b)
-            }
-        }
-    }
-
-    public fun isBasis(
-        gVectorList: List<GVector<D, B, S, V>>,
-        degree: D,
-    ): Boolean {
-        return this.isBasis(gVectorList, degree, this.matrixSpace)
-    }
-
-    public fun isBasis(
-        gVectorList: List<GVector<D, B, S, V>>,
-        degree: Int,
-    ): Boolean {
-        return this.isBasis(gVectorList, degree, this.matrixSpace)
-    }
-
-    public fun getId(): GAlgebraMap<D, B, B, S, V, M> {
+    public override fun getId(): GAlgebraMap<D, B, B, S, V, M> {
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
             this[degree].getId(this.matrixSpace)
         }
@@ -123,19 +90,5 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
         return grammar.parseToEnd(text)
-    }
-
-    public fun getGLinearMapByMultiplication(cochain: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
-        return GLinearMap.fromGVectors(
-            this,
-            this,
-            cochain.degree,
-            this.matrixSpace,
-            "($cochain * (-))"
-        ) { degree ->
-            this.context.run {
-                this@GAlgebra.getBasis(degree).map { cochain * it }
-            }
-        }
     }
 }

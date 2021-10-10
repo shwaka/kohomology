@@ -88,7 +88,10 @@ public open class GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         }
     }
 
-    public fun getGLinearMapByMultiplication(gVector: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
+    /**
+     * Returns a [GLinearMap] which multiplies [gVector] from left.
+     */
+    public fun leftMultiplication(gVector: GVector<D, B, S, V>): GLinearMap<D, B, B, S, V, M> {
         return GLinearMap.fromGVectors(
             this,
             this,

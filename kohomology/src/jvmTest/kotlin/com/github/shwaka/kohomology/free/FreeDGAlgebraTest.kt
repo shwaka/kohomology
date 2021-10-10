@@ -198,7 +198,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
             freeDGAlgebra.cohomology.context.run {
                 (bClass * someClass) shouldBe topClass
             }
-            val f = freeDGAlgebra.getDGLinearMapByMultiplication(a * y - b * x).inducedMapOnCohomology()
+            val f = freeDGAlgebra.leftMultiplication(a * y - b * x).inducedMapOnCohomology()
             f(bClass) shouldBe topClass
         }
     }

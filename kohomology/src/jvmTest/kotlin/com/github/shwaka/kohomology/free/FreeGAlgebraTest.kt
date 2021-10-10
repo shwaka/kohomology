@@ -113,7 +113,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
         }
         "getGLinearMap test" {
             val (x, y) = freeGAlgebra.generatorList
-            val f = freeGAlgebra.getGLinearMapByMultiplication(x)
+            val f = freeGAlgebra.leftMultiplication(x)
             freeGAlgebra.context.run {
                 f(x) shouldBe x.pow(2)
                 f(y) shouldBe (x * y)
@@ -189,7 +189,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
         }
         "getGLinearMap test" {
             val (x, y) = freeGAlgebra.generatorList
-            val f = freeGAlgebra.getGLinearMapByMultiplication(x)
+            val f = freeGAlgebra.leftMultiplication(x)
             freeGAlgebra.context.run {
                 f(x).isZero().shouldBeTrue()
                 f(y) shouldBe (x * y)

@@ -97,12 +97,19 @@ public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
-    public fun getDGLinearMapByMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
+    /**
+     * Returns a [DGLinearMap] which multiplies [cocycle] from left.
+     *
+     * [cocycle] must be a cocycle.
+     * Use [GAlgebra.leftMultiplication] to get a [GLinearMap]
+     * which multiplies a cochain (not cocycle) from left.
+     */
+    public fun leftMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
         this.context.run {
             if (d(cocycle).isNotZero())
-                throw IllegalArgumentException("Not cocycle: $cocycle")
+                throw IllegalArgumentException("Not cocycle: $cocycle (Use GAlgebra.leftMultiplication to multiply a non-cocycle)")
         }
-        val gLinearMap = this.gAlgebra.getGLinearMapByMultiplication(cocycle)
+        val gLinearMap = this.gAlgebra.leftMultiplication(cocycle)
         return DGLinearMap(this, this, gLinearMap)
     }
 }

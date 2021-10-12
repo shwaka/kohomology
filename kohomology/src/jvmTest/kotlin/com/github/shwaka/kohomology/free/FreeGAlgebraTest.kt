@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
@@ -56,6 +57,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             Indeterminate("y", generatorDegree),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+
+        run {
+            val (x, y) = freeGAlgebra.generatorList
+            val elements = freeGAlgebra.context.run {
+                val zero0 = freeGAlgebra.getZero(0)
+                val zero3 = freeGAlgebra.getZero(3)
+                listOf(unit, x, y, 2 * x, x * x, x * y, - y * y, x.pow(3), x.pow(4) * y, zero0, zero3)
+            }
+            checkGAlgebraAxioms(freeGAlgebra, elements)
+        }
+
         // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
         val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
         "freeGAlgebra should have correct dimension for degrees which are multiple of $generatorDegree" {

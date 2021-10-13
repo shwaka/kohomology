@@ -12,51 +12,62 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
 import io.kotest.property.checkAll
 
+class GVectorCollection<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val gAlgebra: GAlgebra<D, B, S, V, M>,
+    gVectorList: List<GVector<D, B, S, V>>,
+) {
+    val list: List<GVector<D, B, S, V>> = gVectorList + gAlgebra.context.run {
+        listOf(unit, gAlgebra.getZero(0)) +
+            gVectorList.map { it.degree }.distinct().map { gAlgebra.getZero(it) }
+    }.distinct()
+
+    val map: Map<D, List<GVector<D, B, S, V>>> = list.groupBy { it.degree }
+    val degreeWiseArb: Map<D, Arb<GVector<D, B, S, V>>> =
+        map.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
+    val arb: Arb<GVector<D, B, S, V>> = Arb.element(list)
+
+}
+
 suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
     gAlgebra: GAlgebra<D, B, S, V, M>,
-    elementList: List<GVector<D, B, S, V>>,
+    gVectorList: List<GVector<D, B, S, V>>,
     commutative: Boolean = true,
 ) {
-    val newElementList: List<GVector<D, B, S, V>> = elementList + gAlgebra.context.run {
-        listOf(unit, gAlgebra.getZero(0)) +
-            elementList.map { it.degree }.distinct().map { gAlgebra.getZero(it) }
-    }.distinct()
-    val elementMap: Map<D, List<GVector<D, B, S, V>>> = newElementList.groupBy { it.degree }
-    val degreeWiseElementArb: Map<D, Arb<GVector<D, B, S, V>>> =
-        elementMap.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
-    val elementArb: Arb<GVector<D, B, S, V>> = Arb.element(elementList)
+    val gVectorCollection = GVectorCollection(gAlgebra, gVectorList)
+    val degreeWiseGVectorArb: Map<D, Arb<GVector<D, B, S, V>>> = gVectorCollection.degreeWiseArb
+    val gVectorArb: Arb<GVector<D, B, S, V>> = gVectorCollection.arb
     "check GAlgebra axioms" - {
         gAlgebra.context.run {
             "addition should be associative" {
-                for ((_, arb) in degreeWiseElementArb) {
+                for ((_, arb) in degreeWiseGVectorArb) {
                     checkAll(arb, arb, arb) { a, b, c ->
                         ((a + b) + c) shouldBe (a + (b + c))
                     }
                 }
             }
             "multiplication should be associative" {
-                checkAll(elementArb, elementArb, elementArb) { a, b, c ->
+                checkAll(gVectorArb, gVectorArb, gVectorArb) { a, b, c ->
                     ((a * b) * c) shouldBe (a * (b * c))
                 }
             }
             "unit should be the unit of multiplication" {
-                checkAll(elementArb) { a ->
+                checkAll(gVectorArb) { a ->
                     (unit * a) shouldBe a
                     (a * unit) shouldBe a
                 }
             }
             "multiplication should be distributive w.r.t. addition" {
-                for ((_, arb) in degreeWiseElementArb) {
-                    checkAll(arb, arb, elementArb) { a, b, c ->
+                for ((_, arb) in degreeWiseGVectorArb) {
+                    checkAll(arb, arb, gVectorArb) { a, b, c ->
                         ((a + b) * c) shouldBe (a * c + b * c)
                         (c * (a + b)) shouldBe (c * a + c * b)
                     }
                 }
             }
             "multiplication with zero should return zero" {
-                for (degree in degreeWiseElementArb.keys) {
+                for (degree in degreeWiseGVectorArb.keys) {
                     val zeroAtTheDegree = gAlgebra.getZero(degree)
-                    checkAll(elementArb) { a ->
+                    checkAll(gVectorArb) { a ->
                         (a * zeroAtTheDegree).isZero().shouldBeTrue()
                         (zeroAtTheDegree * a).isZero().shouldBeTrue()
                     }
@@ -64,7 +75,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             }
             if (commutative) {
                 "multiplication should be commutative" {
-                    checkAll(elementArb, elementArb) { a, b ->
+                    checkAll(gVectorArb, gVectorArb) { a, b ->
                         val sign: Int = if (a.degree.isEven() || b.degree.isEven()) 1 else -1
                         (a * b) shouldBe (sign * b * a)
                     }

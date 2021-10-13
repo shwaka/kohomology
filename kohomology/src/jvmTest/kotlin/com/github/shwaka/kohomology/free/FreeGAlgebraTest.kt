@@ -154,6 +154,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             Indeterminate("y", generatorDegree),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+
+        run {
+            val (x, y) = freeGAlgebra.generatorList
+            val elements = freeGAlgebra.context.run {
+                listOf(x, y, 2 * x, x * y, -3 * x * y)
+            }
+            checkGAlgebraAxioms(freeGAlgebra, elements)
+        }
+
         val multipleDegreeGen = exhaustive(
             listOf(
                 Pair(0, 1),

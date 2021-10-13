@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GLieAlgebra
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
@@ -48,6 +49,20 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
     }
 
     private fun generateGetValue(target: VectorSpace<DerivationBasis<D, I>, S, V>): (DerivationBasis<D, I>, DerivationBasis<D, I>) -> Vector<DerivationBasis<D, I>, S, V> {
+        return { derivationBasis1, derivationBasis2 ->
+            val derivation1 = derivationBasis1.toDerivation()
+            val derivation2 = derivationBasis2.toDerivation()
+            val sign = derivation1.degree.koszulSign(derivation2.degree)
+            val valueList = this.freeGAlgebra.context.run {
+                this@DerivationGLieAlgebraFactory.freeGAlgebra.generatorList.map { gVector ->
+                    derivation1(derivation2(gVector)) - sign * derivation2(derivation1(gVector))
+                }
+            }.map { gVector -> gVector.vector }
+            TODO()
+        }
+    }
+
+    private fun DerivationBasis<D, I>.toDerivation(): Derivation<D, Monomial<D, I>, S, V, M> {
         TODO()
     }
 }

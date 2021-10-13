@@ -15,6 +15,7 @@ import io.kotest.property.checkAll
 suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
     gAlgebra: GAlgebra<D, B, S, V, M>,
     elementList: List<GVector<D, B, S, V>>,
+    commutative: Boolean = true,
 ) {
     val newElementList: List<GVector<D, B, S, V>> = elementList + gAlgebra.context.run {
         listOf(unit, gAlgebra.getZero(0)) +
@@ -24,7 +25,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     val degreeWiseElementArb: Map<D, Arb<GVector<D, B, S, V>>> =
         elementMap.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
     val elementArb: Arb<GVector<D, B, S, V>> = Arb.element(elementList)
-    "check axioms" - {
+    "check GAlgebra axioms" - {
         gAlgebra.context.run {
             "addition should be associative" {
                 for ((_, arb) in degreeWiseElementArb) {
@@ -58,6 +59,14 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
                     checkAll(elementArb) { a ->
                         (a * zeroAtTheDegree).isZero().shouldBeTrue()
                         (zeroAtTheDegree * a).isZero().shouldBeTrue()
+                    }
+                }
+            }
+            if (commutative) {
+                "multiplication should be commutative" {
+                    checkAll(elementArb, elementArb) { a, b ->
+                        val sign: Int = if (a.degree.isEven() || b.degree.isEven()) 1 else -1
+                        (a * b) shouldBe (sign * b * a)
                     }
                 }
             }

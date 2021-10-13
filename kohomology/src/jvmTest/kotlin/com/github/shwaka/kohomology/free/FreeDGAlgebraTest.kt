@@ -68,10 +68,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val (x) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
-            run {
-                val gVectorList = listOf(x, 2 * x)
-                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
-            }
+            checkDGAlgebraAxioms(freeDGAlgebra, 0..(sphereDim * 2))
 
             "check differential" {
                 d(unit).isZero().shouldBeTrue()
@@ -99,10 +96,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val (x, y) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
-            run {
-                val gVectorList = listOf(x, y, 2 * x, x.pow(2), x * y, 3 * x.pow(3))
-                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
-            }
+            checkDGAlgebraAxioms(freeDGAlgebra, 0..(sphereDim * 4))
 
             "check differential" {
                 d(unit).isZero().shouldBeTrue()
@@ -191,13 +185,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
         val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
-            run {
-                val gVectorList = listOf(
-                    a, 2 * b, a + b, -x, -3 * y, 2 * z, x + y, y - 3 * z, a.pow(2),
-                    a * b + b.pow(2), a * y - b * x, a * b * y - b.pow(2) * x,
-                )
-                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
-            }
+            checkDGAlgebraAxioms(freeDGAlgebra, 0..15)
             "check differential" {
                 d(x * y) shouldBe (a.pow(2) * y - a * b * x)
                 d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)

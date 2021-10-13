@@ -14,6 +14,8 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
+public typealias DerivationBasis<D, I> = DirectSumBasis<Monomial<D, I>>
+
 private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val freeGAlgebra: FreeGAlgebra<D, I, S, V, M>,
 ) {
@@ -36,7 +38,7 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         return DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace)
     }
 
-    fun getMultiplication(derivationDegree1: D, derivationDegree2: D): BilinearMap<DirectSumBasis<Monomial<D, I>>, DirectSumBasis<Monomial<D, I>>, DirectSumBasis<Monomial<D, I>>, S, V, M> {
+    fun getMultiplication(derivationDegree1: D, derivationDegree2: D): BilinearMap<DerivationBasis<D, I>, DerivationBasis<D, I>, DerivationBasis<D, I>, S, V, M> {
         val source1 = this.getVectorSpace(derivationDegree1)
         val source2 = this.getVectorSpace(derivationDegree2)
         val target = this.getVectorSpace(
@@ -45,13 +47,13 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         return ValueBilinearMap(source1, source2, target, this.matrixSpace, this.generateGetValue(target))
     }
 
-    private fun generateGetValue(target: VectorSpace<DirectSumBasis<Monomial<D, I>>, S, V>): (DirectSumBasis<Monomial<D, I>>, DirectSumBasis<Monomial<D, I>>) -> Vector<DirectSumBasis<Monomial<D, I>>, S, V> {
+    private fun generateGetValue(target: VectorSpace<DerivationBasis<D, I>, S, V>): (DerivationBasis<D, I>, DerivationBasis<D, I>) -> Vector<DerivationBasis<D, I>, S, V> {
         TODO()
     }
 }
 
 public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationGLieAlgebraFactory<D, I, S, V, M>
-) : GLieAlgebra<D, DirectSumBasis<Monomial<D, I>>, S, V, M>(factory.matrixSpace, factory.degreeGroup, factory.name, factory::getVectorSpace, factory::getMultiplication) {
+) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(factory.matrixSpace, factory.degreeGroup, factory.name, factory::getVectorSpace, factory::getMultiplication) {
     public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = factory.freeGAlgebra
 }

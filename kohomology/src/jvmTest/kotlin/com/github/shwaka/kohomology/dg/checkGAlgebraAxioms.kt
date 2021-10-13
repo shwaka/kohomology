@@ -12,13 +12,13 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
 import io.kotest.property.checkAll
 
-class GVectorCollection<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val gAlgebra: GAlgebra<D, B, S, V, M>,
+class GVectorCollection<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    private val gVectorSpace: GVectorSpace<D, B, S, V>,
     gVectorList: List<GVector<D, B, S, V>>,
 ) {
-    val list: List<GVector<D, B, S, V>> = gVectorList + gAlgebra.context.run {
-        listOf(unit, gAlgebra.getZero(0)) +
-            gVectorList.map { it.degree }.distinct().map { gAlgebra.getZero(it) }
+    val list: List<GVector<D, B, S, V>> = gVectorList + gVectorSpace.context.run {
+        listOf(gVectorSpace.getZero(0)) +
+            gVectorList.map { it.degree }.distinct().map { gVectorSpace.getZero(it) }
     }.distinct()
 
     val map: Map<D, List<GVector<D, B, S, V>>> = list.groupBy { it.degree }
@@ -38,6 +38,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     "check GAlgebra axioms" - {
         gAlgebra.context.run {
             "addition should be associative" {
+                // TODO: This is automatically satisfied?
                 for ((_, arb) in degreeWiseGVectorArb) {
                     checkAll(arb, arb, arb) { a, b, c ->
                         ((a + b) + c) shouldBe (a + (b + c))

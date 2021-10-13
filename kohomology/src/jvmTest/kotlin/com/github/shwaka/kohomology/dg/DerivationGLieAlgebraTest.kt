@@ -23,6 +23,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest
             throw IllegalArgumentException("The dimension of a sphere must be even in this test")
         val freeGAlgebra = sphere(matrixSpace, sphereDim).gAlgebra
         val derivationGLieAlgebra = DerivationGLieAlgebra(freeGAlgebra)
+
+        checkGLieAlgebraAxioms(derivationGLieAlgebra, (-4 * sphereDim)..(4 * sphereDim))
+
         "check dimension" {
             derivationGLieAlgebra[-sphereDim].dim shouldBe 1
             derivationGLieAlgebra[-(sphereDim - 1)].dim shouldBe 1

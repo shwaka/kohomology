@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
@@ -67,6 +68,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val (x) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
+            run {
+                val gVectorList = listOf(x, 2 * x)
+                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
+            }
+
             "check differential" {
                 d(unit).isZero().shouldBeTrue()
                 d(x).isZero().shouldBeTrue()
@@ -93,6 +99,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val (x, y) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
+            run {
+                val gVectorList = listOf(x, y, 2 * x, x.pow(2), x * y, 3 * x.pow(3))
+                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
+            }
+
             "check differential" {
                 d(unit).isZero().shouldBeTrue()
                 d(x).isZero().shouldBeTrue()

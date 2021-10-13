@@ -11,14 +11,18 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.element
 import io.kotest.property.checkAll
 
-suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxiomsWithArb(
+suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
     gAlgebra: GAlgebra<D, B, S, V, M>,
-    elements: Map<D, Arb<GVector<D, B, S, V>>>,
+    elementList: List<GVector<D, B, S, V>>,
 ) {
+    val elementMap: Map<D, List<GVector<D, B, S, V>>> = elementList.groupBy { it.degree }
+    val degreeWiseElementArb: Map<D, Arb<GVector<D, B, S, V>>> =
+        elementMap.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
+    val elementArb: Arb<GVector<D, B, S, V>> = Arb.element(elementList)
     "check axioms" - {
         gAlgebra.context.run {
             "addition should be associative" {
-                for ((_, arb) in elements) {
+                for ((_, arb) in degreeWiseElementArb) {
                     checkAll(arb, arb, arb) { a, b, c ->
                         ((a + b) + c) shouldBe (a + (b + c))
                     }
@@ -26,20 +30,4 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             }
         }
     }
-}
-
-suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
-    gAlgebra: GAlgebra<D, B, S, V, M>,
-    elements: Map<D, List<GVector<D, B, S, V>>>,
-) {
-    val elementsArb = elements.mapValues { (_, elementList) -> Arb.element(elementList) }
-    checkGAlgebraAxiomsWithArb(gAlgebra, elementsArb)
-}
-
-suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
-    gAlgebra: GAlgebra<D, B, S, V, M>,
-    elements: List<GVector<D, B, S, V>>,
-) {
-    val elementsMap = elements.groupBy { it.degree }
-    checkGAlgebraAxioms(gAlgebra, elementsMap)
 }

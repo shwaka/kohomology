@@ -75,7 +75,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             if (commutative) {
                 "multiplication should be commutative" {
                     checkAll(gVectorArb, gVectorArb) { a, b ->
-                        val sign: Int = if (a.degree.isEven() || b.degree.isEven()) 1 else -1
+                        val sign: Int = a.degree.koszulSign(b.degree)
                         (a * b) shouldBe (sign * b * a)
                     }
                 }

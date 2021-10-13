@@ -23,8 +23,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
         dgAlgebra.context.run {
             "d should satisfy Leibniz rule" {
                 checkAll(gVectorArb, gVectorArb) { a, b ->
-                    val sign = if (a.degree.isEven()) 1 else -1
-                    d(a * b) shouldBe (d(a) * b + sign * a * d(b))
+                    d(a * b) shouldBe (d(a) * b + a.degree.sign * a * d(b))
                 }
             }
             "d(d(a)) should be zero for any a" {

@@ -4,9 +4,6 @@ on:
   push:
     branches: [ main ]
     paths: [ 'kohomology/**', '.github/workflows/dokka.yml' ]
-  pull_request:
-    branches: [ main ]
-    paths: [ 'kohomology/**', '.github/workflows/dokka.yml' ]
   workflow_dispatch:
 
 jobs:

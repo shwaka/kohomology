@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GLieAlgebra
+import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -48,7 +49,7 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         return ValueBilinearMap(source1, source2, target, this.matrixSpace, this.generateGetValue(target))
     }
 
-    private fun generateGetValue(target: VectorSpace<DerivationBasis<D, I>, S, V>): (DerivationBasis<D, I>, DerivationBasis<D, I>) -> Vector<DerivationBasis<D, I>, S, V> {
+    private fun generateGetValue(target: DirectSum<Monomial<D, I>, S, V, M>): (DerivationBasis<D, I>, DerivationBasis<D, I>) -> Vector<DerivationBasis<D, I>, S, V> {
         return { derivationBasis1, derivationBasis2 ->
             val derivation1 = derivationBasis1.toDerivation()
             val derivation2 = derivationBasis2.toDerivation()
@@ -58,12 +59,26 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
                     derivation1(derivation2(gVector)) - sign * derivation2(derivation1(gVector))
                 }
             }.map { gVector -> gVector.vector }
-            TODO()
+            target.fromVectorList(valueList)
         }
     }
 
     private fun DerivationBasis<D, I>.toDerivation(): Derivation<D, Monomial<D, I>, S, V, M> {
-        TODO()
+        val freeGAlgebra = this@DerivationGLieAlgebraFactory.freeGAlgebra
+        val size = freeGAlgebra.indeterminateList.size
+        val basisDegree = this.basisName.degree
+        val index = this.index
+        val derivationDegree = freeGAlgebra.degreeGroup.context.run {
+            basisDegree - freeGAlgebra.indeterminateList[index].degree
+        }
+        val valueList = (0 until size).map { i ->
+            if (i == index) {
+                freeGAlgebra.fromBasisName(this.basisName, basisDegree)
+            } else {
+                freeGAlgebra.zeroGVector
+            }
+        }
+        return freeGAlgebra.getDerivation(valueList, derivationDegree)
     }
 }
 

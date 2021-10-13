@@ -60,9 +60,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
         val basis: List<GVector<IntDegree, SimpleMonoidElement<String, IntDegree>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
 
-        run {
-            checkGAlgebraAxioms(gAlgebra, basis)
-        }
+        checkGAlgebraAxioms(gAlgebra, basis)
 
         gAlgebra.context.run {
             "check multiplication" {

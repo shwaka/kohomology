@@ -83,3 +83,14 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
         }
     }
 }
+
+suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(
+    gAlgebra: GAlgebra<D, B, S, V, M>,
+    degreeRange: IntRange,
+    commutative: Boolean = true,
+) {
+    val gVectorList = degreeRange.map { intDegree ->
+        gAlgebra.getBasis(intDegree)
+    }.flatten()
+    checkGAlgebraAxioms(gAlgebra, gVectorList, commutative)
+}

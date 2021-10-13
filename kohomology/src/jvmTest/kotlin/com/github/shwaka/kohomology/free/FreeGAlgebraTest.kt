@@ -58,13 +58,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
 
-        run {
-            val (x, y) = freeGAlgebra.generatorList
-            val elementList = freeGAlgebra.context.run {
-                listOf(x, y, 2 * x, x.pow(2), x * y, - y.pow(2), x.pow(3), x * y.pow(2), x.pow(4) * y, x.pow(2) * y.pow(3))
-            }
-            checkGAlgebraAxioms(freeGAlgebra, elementList)
-        }
+        checkGAlgebraAxioms(freeGAlgebra, 0..(generatorDegree * 4))
 
         // val lengthGen = exhaustive((0..maxPolynomialLength).toList())
         val multipleDegreeGen = exhaustive((0..maxPolynomialLength).toList()).map { i -> Pair(generatorDegree * i, i + 1) }
@@ -155,13 +149,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
 
-        run {
-            val (x, y) = freeGAlgebra.generatorList
-            val elementList = freeGAlgebra.context.run {
-                listOf(x, y, 2 * x, x * y, -3 * x * y)
-            }
-            checkGAlgebraAxioms(freeGAlgebra, elementList)
-        }
+        checkGAlgebraAxioms(freeGAlgebra, 0..(generatorDegree * 3))
 
         val multipleDegreeGen = exhaustive(
             listOf(

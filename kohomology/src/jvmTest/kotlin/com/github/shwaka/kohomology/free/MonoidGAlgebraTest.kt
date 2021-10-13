@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.EvenSuperDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
@@ -35,7 +36,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
 ) = freeSpec {
     if (n < 0)
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
-    "complex projective space of complex dimension $n" {
+    "complex projective space of complex dimension $n" - {
         val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
         val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, IntDegree>, Sign>>>> =
             (0..n).map { i ->
@@ -49,19 +50,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
             }
         val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable)
         val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeGroup, monoid, "M")
-        (0..(3 * n)).forAll { degree ->
-            val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
-            gAlgebra[degree].dim shouldBe expectedDim
+
+        "check dimension" {
+            (0..(3 * n)).forAll { degree ->
+                val expectedDim = if ((degree <= 2 * n) && (degree % 2 == 0)) 1 else 0
+                gAlgebra[degree].dim shouldBe expectedDim
+            }
         }
         val basis: List<GVector<IntDegree, SimpleMonoidElement<String, IntDegree>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
+
+        run {
+            checkGAlgebraAxioms(gAlgebra, basis)
+        }
+
         gAlgebra.context.run {
-            (0..n).forAll { i ->
-                (0..n).forAll { j ->
-                    if (i + j <= n) {
-                        (basis[i] * basis[j]) shouldBe basis[i + j]
-                    } else {
-                        (basis[i] * basis[j]).isZero().shouldBeTrue()
+            "check multiplication" {
+                (0..n).forAll { i ->
+                    (0..n).forAll { j ->
+                        if (i + j <= n) {
+                            (basis[i] * basis[j]) shouldBe basis[i + j]
+                        } else {
+                            (basis[i] * basis[j]).isZero().shouldBeTrue()
+                        }
                     }
                 }
             }

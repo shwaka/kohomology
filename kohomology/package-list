@@ -23,6 +23,8 @@ $dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/isNotZero/#/Pointi
 $dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/isOdd/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree/is-odd.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/isOne/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree/is-one.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/isZero/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree/is-zero.html
+$dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/koszulSign/#com.github.shwaka.kohomology.dg.degree.Degree/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree/koszul-sign.html
+$dokka.location:com.github.shwaka.kohomology.dg.degree/Degree/sign/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree/sign.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/DegreeContext///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree-context/index.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/DegreeContext/DegreeContext/#com.github.shwaka.kohomology.dg.degree.DegreeGroup[TypeParam(bounds=[com.github.shwaka.kohomology.dg.degree.Degree])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree-context/-degree-context.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/DegreeContext/minus/TypeParam(bounds=[com.github.shwaka.kohomology.dg.degree.Degree])#TypeParam(bounds=[com.github.shwaka.kohomology.dg.degree.Degree])/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-degree-context/minus.html

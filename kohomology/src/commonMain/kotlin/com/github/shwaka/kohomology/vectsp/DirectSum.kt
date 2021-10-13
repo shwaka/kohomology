@@ -93,4 +93,14 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
             throw IndexOutOfBoundsException("index must be smaller than the number of vector spaces in the direct sum")
         return this.projectionList[index]
     }
+
+    /** Construct an element of a direct sum from a family of elements. */
+    public fun fromVectorList(vectorList: List<Vector<B, S, V>>): Vector<DirectSumBasis<B>, S, V> {
+        if (vectorList.size != this.size)
+            throw IllegalArgumentException("The size (${vectorList.size}) of vectorList must be equal to the number (${this.size}) of vector spaces in the direct sum")
+        val vectorListInDirectSum = vectorList.mapIndexed { i, vector -> this.inclusion(i)(vector) }
+        return this.context.run {
+            vectorListInDirectSum.sum()
+        }
+    }
 }

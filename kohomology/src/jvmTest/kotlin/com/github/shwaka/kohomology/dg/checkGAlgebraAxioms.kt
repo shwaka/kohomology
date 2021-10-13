@@ -25,7 +25,6 @@ class GVectorCollection<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
     val degreeWiseArb: Map<D, Arb<GVector<D, B, S, V>>> =
         map.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
     val arb: Arb<GVector<D, B, S, V>> = Arb.element(list)
-
 }
 
 suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> FreeScope.checkGAlgebraAxioms(

@@ -15,7 +15,11 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     gAlgebra: GAlgebra<D, B, S, V, M>,
     elementList: List<GVector<D, B, S, V>>,
 ) {
-    val elementMap: Map<D, List<GVector<D, B, S, V>>> = elementList.groupBy { it.degree }
+    val newElementList: List<GVector<D, B, S, V>> = elementList + gAlgebra.context.run {
+        listOf(unit, gAlgebra.getZero(0)) +
+            elementList.map { it.degree }.distinct().map { gAlgebra.getZero(it) }
+    }
+    val elementMap: Map<D, List<GVector<D, B, S, V>>> = newElementList.groupBy { it.degree }
     val degreeWiseElementArb: Map<D, Arb<GVector<D, B, S, V>>> =
         elementMap.mapValues { (_, elementListForDegree) -> Arb.element(elementListForDegree) }
     val elementArb: Arb<GVector<D, B, S, V>> = Arb.element(elementList)
@@ -24,6 +28,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             "addition should be associative" {
                 for ((_, arb) in degreeWiseElementArb) {
                     checkAll(arb, arb, arb) { a, b, c ->
+                        println("$a, $b, $c")
                         ((a + b) + c) shouldBe (a + (b + c))
                     }
                 }

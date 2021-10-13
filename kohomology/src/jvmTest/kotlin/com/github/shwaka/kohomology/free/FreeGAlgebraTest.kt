@@ -61,9 +61,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
         run {
             val (x, y) = freeGAlgebra.generatorList
             val elements = freeGAlgebra.context.run {
-                val zero0 = freeGAlgebra.getZero(0)
-                val zero3 = freeGAlgebra.getZero(3)
-                listOf(unit, x, y, 2 * x, x * x, x * y, - y * y, x.pow(3), x.pow(4) * y, zero0, zero3)
+                listOf(x, y, 2 * x, x.pow(2), x * y, - y.pow(2), x.pow(3), x * y.pow(2), x.pow(4) * y, x.pow(2) * y.pow(3))
             }
             checkGAlgebraAxioms(freeGAlgebra, elements)
         }

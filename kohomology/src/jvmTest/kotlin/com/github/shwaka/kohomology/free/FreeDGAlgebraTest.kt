@@ -187,30 +187,41 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4Test(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "model in FHT Section 12 (a) Example 7 (p.147)" {
+    "model in FHT Section 12 (a) Example 7 (p.147)" - {
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
         val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
         freeDGAlgebra.context.run {
-            d(x * y) shouldBe (a.pow(2) * y - a * b * x)
-            d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
-        }
-        (0 until 12).forAll { n ->
-            val expectedDim = when (n) {
-                0, 7 -> 1
-                2, 5 -> 2
-                else -> 0
+            run {
+                val gVectorList = listOf(
+                    a, 2 * b, a + b, -x, -3 * y, 2 * z, x + y, y - 3 * z, a.pow(2),
+                    a * b + b.pow(2), a * y - b * x, a * b * y - b.pow(2) * x,
+                )
+                checkDGAlgebraAxioms(freeDGAlgebra, gVectorList)
             }
-            freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
-        }
-        freeDGAlgebra.context.run {
-            val bClass = b.cohomologyClass()
-            val someClass = (a * y - b * x).cohomologyClass()
-            val topClass = (a * b * y - b.pow(2) * x).cohomologyClass()
-            freeDGAlgebra.cohomology.context.run {
-                (bClass * someClass) shouldBe topClass
+            "check differential" {
+                d(x * y) shouldBe (a.pow(2) * y - a * b * x)
+                d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
             }
-            val f = freeDGAlgebra.leftMultiplication(a * y - b * x).inducedMapOnCohomology()
-            f(bClass) shouldBe topClass
+            "check dimension of cohomology" {
+                (0 until 12).forAll { n ->
+                    val expectedDim = when (n) {
+                        0, 7 -> 1
+                        2, 5 -> 2
+                        else -> 0
+                    }
+                    freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
+                }
+            }
+            "check top class" {
+                val bClass = b.cohomologyClass()
+                val someClass = (a * y - b * x).cohomologyClass()
+                val topClass = (a * b * y - b.pow(2) * x).cohomologyClass()
+                freeDGAlgebra.cohomology.context.run {
+                    (bClass * someClass) shouldBe topClass
+                }
+                val f = freeDGAlgebra.leftMultiplication(a * y - b * x).inducedMapOnCohomology()
+                f(bClass) shouldBe topClass
+            }
         }
     }
 }

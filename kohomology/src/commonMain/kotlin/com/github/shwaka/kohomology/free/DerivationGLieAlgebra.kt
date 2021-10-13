@@ -86,4 +86,13 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
     private val factory: DerivationGLieAlgebraFactory<D, I, S, V, M>
 ) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(factory.matrixSpace, factory.degreeGroup, factory.name, factory::getVectorSpace, factory::getMultiplication) {
     public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = factory.freeGAlgebra
+
+    public companion object {
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            freeGAlgebra: FreeGAlgebra<D, I, S, V, M>
+        ): DerivationGLieAlgebra<D, I, S, V, M> {
+            val factory = DerivationGLieAlgebraFactory(freeGAlgebra)
+            return DerivationGLieAlgebra(factory)
+        }
+    }
 }

@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.checkGLieAlgebraAxioms
 import com.github.shwaka.kohomology.example.sphere
-import com.github.shwaka.kohomology.free.DerivationGLieAlgebra
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -16,7 +15,10 @@ import io.kotest.matchers.shouldBe
 
 val derivationGLieAlgebraTag = NamedTag("DerivationGLieAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSphereTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+    sphereDim: Int
+) = freeSpec {
     "derivations on even dimensional sphere" - {
         if (sphereDim <= 0)
             throw IllegalArgumentException("The dimension of a sphere must be positive")
@@ -77,5 +79,5 @@ class DerivationGLieAlgebraTest : FreeSpec({
     tags(derivationGLieAlgebraTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
-    include(derivationForEvenSphereTest(matrixSpace, 4))
+    include(derivationGLieAlgForEvenSphereTest(matrixSpace, 4))
 })

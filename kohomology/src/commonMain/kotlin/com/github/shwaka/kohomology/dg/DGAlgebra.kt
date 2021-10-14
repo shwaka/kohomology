@@ -31,7 +31,7 @@ public open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Nu
 
 public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public open val gAlgebra: GAlgebra<D, B, S, V, M>,
-    differential: GLinearMap<D, B, B, S, V, M>,
+    differential: Derivation<D, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGMagma<D, B, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {

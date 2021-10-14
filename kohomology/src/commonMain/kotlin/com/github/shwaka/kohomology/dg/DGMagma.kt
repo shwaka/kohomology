@@ -39,7 +39,7 @@ public open class DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         DGMagmaContext(this.gMagma.field, this.gMagma.numVectorSpace, this.gMagma, this.gMagma, this)
     }
 
-    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
         val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.gMagma.degreeGroup.context.run { p + q })
@@ -96,6 +96,11 @@ public open class DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                 throw IllegalArgumentException("Not cocycle: $cocycle (Use GMagma.leftMultiplication to multiply a non-cocycle)")
         }
         val gLinearMap = this.gMagma.leftMultiplication(cocycle)
+        return DGLinearMap(this, this, gLinearMap)
+    }
+
+    public open fun getId(): DGLinearMap<D, B, B, S, V, M> {
+        val gLinearMap = this.gVectorSpace.getId(this.matrixSpace)
         return DGLinearMap(this, this, gLinearMap)
     }
 }

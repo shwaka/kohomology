@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGLieAlgebra
-import com.github.shwaka.kohomology.dg.GLinearMap
 import com.github.shwaka.kohomology.dg.LieDerivation
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName

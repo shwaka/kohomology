@@ -25,7 +25,7 @@ public open class GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : 
 ) : GMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations) {
     public fun ad(gVector: GVector<D, B, S, V>): LieDerivation<D, B, S, V, M> {
         val matrixSpace = this.gLieAlgebra.matrixSpace
-        val name = "ad(${gVector})"
+        val name = "ad($gVector)"
         return LieDerivation.fromGVectors(this.gLieAlgebra, gVector.degree, matrixSpace, name) { degree ->
             this.gLieAlgebra.getBasis(degree).map { basis -> gVector * basis }
         }

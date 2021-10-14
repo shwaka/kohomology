@@ -1,10 +1,8 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.checkDGLieAlgebraAxioms
-import com.github.shwaka.kohomology.dg.checkGLieAlgebraAxioms
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
-import com.github.shwaka.kohomology.free.DerivationGLieAlgebra
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -13,7 +11,6 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val derivationDGLieAlgebraTag = NamedTag("DerivationDGLieAlgebra")

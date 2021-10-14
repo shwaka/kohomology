@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GLieAlgebra
-import com.github.shwaka.kohomology.dg.GLieAlgebraContext
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName

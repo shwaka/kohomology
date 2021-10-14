@@ -1,5 +1,6 @@
-package com.github.shwaka.kohomology.dg
+package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.checkGLieAlgebraAxioms
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.free.DerivationGLieAlgebra
 import com.github.shwaka.kohomology.linalg.Matrix

@@ -137,6 +137,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             val vectorList = listOf(vectorSpace0.zeroVector)
             shouldThrow<IllegalArgumentException> { directSum.fromVectorList(vectorList) }
         }
+
+        "toVectorList test" {
+            val vector = directSum.context.run { d1 - 2 * d3 + d4 }
+            val expected1 = vectorSpace1.context.run { -2 * w1 + w2 }
+            directSum.toVectorList(vector) shouldBe listOf(v1, expected1)
+        }
     }
 
     "direct sum of a vector space with itself" - {

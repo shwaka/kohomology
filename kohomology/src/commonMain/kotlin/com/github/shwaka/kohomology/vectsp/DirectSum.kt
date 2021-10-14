@@ -94,7 +94,7 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
         return this.projectionList[index]
     }
 
-    /** Construct an element of a direct sum from a family of elements. */
+    /** Construct an element of a direct sum from a list of vectors. */
     public fun fromVectorList(vectorList: List<Vector<B, S, V>>): Vector<DirectSumBasis<B>, S, V> {
         if (vectorList.size != this.size)
             throw IllegalArgumentException("The size (${vectorList.size}) of vectorList must be equal to the number (${this.size}) of vector spaces in the direct sum")
@@ -102,5 +102,10 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
         return this.context.run {
             vectorListInDirectSum.sum()
         }
+    }
+
+    /** Represent an element of a direct sum as a list of vectors. */
+    public fun toVectorList(vector: Vector<DirectSumBasis<B>, S, V>): List<Vector<B, S, V>> {
+        return (0 until this.size).map { i -> this.projection(i)(vector) }
     }
 }

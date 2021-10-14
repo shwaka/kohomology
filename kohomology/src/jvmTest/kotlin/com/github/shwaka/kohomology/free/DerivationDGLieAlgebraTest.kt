@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.checkDGLieAlgebraAxioms
 import com.github.shwaka.kohomology.dg.checkGLieAlgebraAxioms
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
@@ -29,8 +30,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
 
+        checkDGLieAlgebraAxioms(derivationDGLieAlgebra, (-4 * sphereDim)..(4 * sphereDim))
+
         "check dimension" {
-            ((-3 * sphereDim) until 0).forAll { degree ->
+            ((-4 * sphereDim) until 0).forAll { degree ->
                 val expected = if (degree == -(2 * sphereDim - 1)) 1 else 0
                 derivationDGLieAlgebra.cohomology[degree].dim shouldBe expected
             }

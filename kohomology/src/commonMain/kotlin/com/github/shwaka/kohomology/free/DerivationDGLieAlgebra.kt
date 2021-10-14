@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGLieAlgebra
 import com.github.shwaka.kohomology.dg.GLinearMap
+import com.github.shwaka.kohomology.dg.LieDerivation
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -14,7 +15,10 @@ private class DerivationDGLieAlgebraFactory<D : Degree, I : IndeterminateName, S
     val matrixSpace = freeDGAlgebra.matrixSpace
     val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
     val gLieAlgebra = DerivationGLieAlgebra(freeDGAlgebra.gAlgebra)
-    val differential: GLinearMap<D, DerivationBasis<D, I>, DerivationBasis<D, I>, S, V, M> = TODO()
+    val differential: LieDerivation<D, DerivationBasis<D, I>, S, V, M> = gLieAlgebra.context.run {
+        val differentialAsGVector = gLieAlgebra.derivationToGVector(freeDGAlgebra.differential)
+        ad(differentialAsGVector)
+    }
 }
 
 public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(

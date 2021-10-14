@@ -57,7 +57,7 @@ private typealias GetDifferentialValueList<D, I, S, V, M> =
 
 public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M>,
-    differential: Derivation<D, Monomial<D, I>, S, V, M>,
+    override val differential: Derivation<D, Monomial<D, I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGAlgebra<D, Monomial<D, I>, S, V, M>(gAlgebra, differential, matrixSpace) {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {

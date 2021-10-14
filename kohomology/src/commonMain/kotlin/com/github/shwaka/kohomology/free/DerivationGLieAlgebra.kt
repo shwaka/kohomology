@@ -95,17 +95,17 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
 
     public fun gVectorToDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): Derivation<D, Monomial<D, I>, S, V, M> {
         val freeGAlgebra = this.freeGAlgebra
-        val size = freeGAlgebra.indeterminateList.size
         val derivationDegree = gVector.degree
-        val valueList: List<GVector<D, Monomial<D, I>, S, V>> = (0 until size).map { i ->
-            this.factory.getProjection(derivationDegree, i)(gVector.vector)
-        }.mapIndexed { i, vector ->
-            val generatorDegree = freeGAlgebra.generatorList[i].degree
-            val valueDegree = freeGAlgebra.degreeGroup.context.run {
-                generatorDegree + derivationDegree
+        val vectorValueList: List<Vector<Monomial<D, I>, S, V>> =
+            this.factory.getVectorSpace(derivationDegree).toVectorList(gVector.vector)
+        val valueList: List<GVector<D, Monomial<D, I>, S, V>> =
+            vectorValueList.mapIndexed { i, vector ->
+                val generatorDegree = freeGAlgebra.generatorList[i].degree
+                val valueDegree = freeGAlgebra.degreeGroup.context.run {
+                    generatorDegree + derivationDegree
+                }
+                freeGAlgebra.fromVector(vector, valueDegree)
             }
-            freeGAlgebra.fromVector(vector, valueDegree)
-        }
         return freeGAlgebra.getDerivation(valueList, derivationDegree)
     }
 

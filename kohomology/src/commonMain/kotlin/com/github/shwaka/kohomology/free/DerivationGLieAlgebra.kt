@@ -97,7 +97,7 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
         val freeGAlgebra = this.freeGAlgebra
         val size = freeGAlgebra.indeterminateList.size
         val derivationDegree = gVector.degree
-        val valueList = (0 until size).map { i ->
+        val valueList: List<GVector<D, Monomial<D, I>, S, V>> = (0 until size).map { i ->
             this.factory.getProjection(derivationDegree, i)(gVector.vector)
         }.mapIndexed { i, vector ->
             val generatorDegree = freeGAlgebra.generatorList[i].degree
@@ -107,6 +107,15 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
             freeGAlgebra.fromVector(vector, valueDegree)
         }
         return freeGAlgebra.getDerivation(valueList, derivationDegree)
+    }
+
+    public fun derivationToGVector(derivation: Derivation<D, Monomial<D, I>, S, V, M>): GVector<D, DerivationBasis<D, I>, S, V> {
+        val valueList: List<Vector<Monomial<D, I>, S, V>> =
+            this.freeGAlgebra.generatorList.map { generator ->
+                derivation(generator).vector
+            }
+        val vector = this.factory.getVectorSpace(derivation.degree).fromVectorList(valueList)
+        return this.fromVector(vector, derivation.degree)
     }
 
     public companion object {

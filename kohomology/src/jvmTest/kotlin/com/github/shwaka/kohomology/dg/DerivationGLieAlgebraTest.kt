@@ -41,7 +41,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest
                 (dx * dy).isZero().shouldBeTrue()
                 (dy * xdy).isZero().shouldBeTrue()
             }
-            "check value of toDerivation()" {
+            "check value of gVectorToDerivation()" {
                 val (x, y) = freeGAlgebra.generatorList
                 val dxDerivation = derivationGLieAlgebra.gVectorToDerivation(dx)
                 val dyDerivation = derivationGLieAlgebra.gVectorToDerivation(dy)
@@ -55,6 +55,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest
                     dyDerivation(x).isZero().shouldBeTrue()
                     xdyDerivation(y) shouldBe x
                     xdyDerivation(x * y) shouldBe x.pow(2)
+                }
+            }
+            "check derivationToGVector(gVectorToDerivation(f)) == f" {
+                for (f in listOf(dx, dy, xdy)) {
+                    derivationGLieAlgebra.derivationToGVector(
+                        derivationGLieAlgebra.gVectorToDerivation(f)
+                    ) shouldBe f
                 }
             }
         }

@@ -45,5 +45,4 @@ public open class DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVec
             getInternalPrintConfig = getInternalPrintConfig
         )
     }
-
 }

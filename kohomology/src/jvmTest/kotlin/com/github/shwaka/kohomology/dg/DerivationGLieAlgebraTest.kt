@@ -34,12 +34,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest
         val (dx) = derivationGLieAlgebra.getBasis(-sphereDim)
         val (dy) = derivationGLieAlgebra.getBasis(-(2 * sphereDim - 1))
         val (xdy) = derivationGLieAlgebra.getBasis(-(sphereDim - 1))
-        "check bracket" {
-            derivationGLieAlgebra.context.run {
+        derivationGLieAlgebra.context.run {
+            "check bracket" {
                 (dx * xdy) shouldBe dy
                 (xdy * dx) shouldBe (-dy)
                 (dx * dy).isZero().shouldBeTrue()
                 (dy * xdy).isZero().shouldBeTrue()
+            }
+            "check value of toDerivation()" {
+                val (x, y) = freeGAlgebra.generatorList
+                val dxDerivation = derivationGLieAlgebra.gVectorToDerivation(dx)
+                val dyDerivation = derivationGLieAlgebra.gVectorToDerivation(dy)
+                val xdyDerivation = derivationGLieAlgebra.gVectorToDerivation(xdy)
+                freeGAlgebra.context.run {
+                    dxDerivation(x) shouldBe unit
+                    dxDerivation(y).isZero().shouldBeTrue()
+                    dxDerivation(x.pow(3)) shouldBe (3 * x.pow(2))
+                    dyDerivation(y) shouldBe unit
+                    dyDerivation(x * y) shouldBe x
+                    dyDerivation(x).isZero().shouldBeTrue()
+                    xdyDerivation(y) shouldBe x
+                    xdyDerivation(x * y) shouldBe x.pow(2)
+                }
             }
         }
     }

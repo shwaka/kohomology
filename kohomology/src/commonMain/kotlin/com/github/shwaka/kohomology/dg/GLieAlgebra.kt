@@ -21,7 +21,16 @@ public open class GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : 
     numVectorOperations: NumVectorOperations<S, V>,
     gVectorOperations: GVectorOperations<D, B, S, V>,
     gMagmaOperations: GMagmaOperations<D, B, S, V, M>,
-) : GMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations)
+    private val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
+) : GMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations) {
+    public fun ad(gVector: GVector<D, B, S, V>): LieDerivation<D, B, S, V, M> {
+        val matrixSpace = this.gLieAlgebra.matrixSpace
+        val name = "ad(${gVector})"
+        return LieDerivation.fromGVectors(this.gLieAlgebra, gVector.degree, matrixSpace, name) { degree ->
+            this.gLieAlgebra.getBasis(degree).map { basis -> gVector * basis }
+        }
+    }
+}
 
 public open class GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -35,6 +44,6 @@ public open class GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
-        GLieAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this)
+        GLieAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
     }
 }

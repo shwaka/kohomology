@@ -64,6 +64,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationForEvenSphereTest
                     ) shouldBe f
                 }
             }
+            "check ad()" {
+                ad(dx)(xdy) shouldBe dy
+                ad(dy)(dx).isZero().shouldBeTrue()
+            }
         }
     }
 }

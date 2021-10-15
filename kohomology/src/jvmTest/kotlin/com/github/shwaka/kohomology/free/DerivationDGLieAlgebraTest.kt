@@ -1,8 +1,10 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.checkDGLieAlgebraAxioms
+import com.github.shwaka.kohomology.example.complexProjectiveSpace
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -38,9 +40,57 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForCPnTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+    n: Int
+) = freeSpec {
+    "derivations on complex projective space" - {
+        val freeDGAlgebra = complexProjectiveSpace(matrixSpace, n)
+        val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
+
+        checkDGLieAlgebraAxioms(derivationDGLieAlgebra, (-4 * n)..(4 * n))
+
+        "check dimension" {
+            val nonTrivialDegrees = (0 until n).map { i -> 2 * i - 2 * n - 1 }
+            ((-4 * n) until 0).forAll { degree ->
+                val expected = if (degree in nonTrivialDegrees) 1 else 0
+                derivationDGLieAlgebra.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForNonFormalSpaceTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+) = freeSpec {
+    "derivations on a non-formal space" - {
+        val indeterminateList = listOf(
+            Indeterminate("x", 3),
+            Indeterminate("y", 5),
+            Indeterminate("z", 7),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
+            listOf(zeroGVector, zeroGVector, x * y)
+        }
+        val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
+
+        checkDGLieAlgebraAxioms(derivationDGLieAlgebra, -20..20)
+
+        "check dimension" {
+            val nonTrivialDegrees = listOf(-7, -2)
+            (-20 until 0).forAll { degree ->
+                val expected = if (degree in nonTrivialDegrees) 1 else 0
+                derivationDGLieAlgebra.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+}
+
 class DerivationDGLieAlgebraTest : FreeSpec({
     tags(derivationDGLieAlgebraTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
     include(derivationDGLieAlgForEvenSphereTest(matrixSpace, 4))
+    include(derivationDGLieAlgForCPnTest(matrixSpace, 4))
+    include(derivationDGLieAlgForNonFormalSpaceTest(matrixSpace))
 })

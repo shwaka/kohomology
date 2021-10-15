@@ -63,6 +63,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
         FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }
+    override val degreeGroup: AugmentedDegreeGroup<D> = gAlgebra.degreeGroup
 
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -179,7 +180,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>,
         derivationDegree: IntAsDegree,
     ): DGDerivation<D, Monomial<D, I>, S, V, M> {
-        return this.getDGDerivation(valueList, this.gAlgebra.degreeGroup.fromInt(derivationDegree))
+        return this.getDGDerivation(valueList, this.degreeGroup.fromInt(derivationDegree))
     }
 
     public fun <BS : BasisName, BT : BasisName> findLift(
@@ -232,7 +233,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     }
 
     public fun toIntDegree(): Pair<FreeDGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
-        val degreeMorphism = AugmentationDegreeMorphism(this.gAlgebra.degreeGroup)
+        val degreeMorphism = AugmentationDegreeMorphism(this.degreeGroup)
         return this.convertDegree(degreeMorphism)
     }
 }

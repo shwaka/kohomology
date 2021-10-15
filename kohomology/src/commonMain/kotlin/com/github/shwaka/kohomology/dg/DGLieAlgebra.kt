@@ -37,7 +37,7 @@ public open class DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVec
         }
         GLieAlgebra(
             matrixSpace,
-            this.gMagma.degreeGroup,
+            this.degreeGroup,
             this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,

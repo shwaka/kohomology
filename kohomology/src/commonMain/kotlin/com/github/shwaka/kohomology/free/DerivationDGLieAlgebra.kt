@@ -12,7 +12,7 @@ private class DerivationDGLieAlgebraFactory<D : Degree, I : IndeterminateName, S
     val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
-    val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
+    val degreeGroup = freeDGAlgebra.degreeGroup
     val gLieAlgebra = DerivationGLieAlgebra(freeDGAlgebra.gAlgebra)
     val differential: LieDerivation<D, DerivationBasis<D, I>, S, V, M> = gLieAlgebra.context.run {
         val differentialAsGVector = gLieAlgebra.derivationToGVector(freeDGAlgebra.differential)

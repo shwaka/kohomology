@@ -42,7 +42,7 @@ public open class DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
-        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.gMagma.degreeGroup.context.run { p + q })
+        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.degreeGroup.context.run { p + q })
         val basisLift1: List<Vector<B, S, V>> =
             cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegP.section(vector1)
@@ -74,7 +74,7 @@ public open class DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         }
         GMagma(
             matrixSpace,
-            this.gMagma.degreeGroup,
+            this.degreeGroup,
             this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,

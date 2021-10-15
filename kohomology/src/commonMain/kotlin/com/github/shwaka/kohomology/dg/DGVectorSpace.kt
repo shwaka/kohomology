@@ -49,7 +49,7 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
 
-    public val degreeGroup: DegreeGroup<D> = gVectorSpace.degreeGroup
+    public open val degreeGroup: DegreeGroup<D> = gVectorSpace.degreeGroup
 
     public open val context: DGVectorContext<D, B, S, V, M> by lazy {
         DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
@@ -64,7 +64,7 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
         // if cache does not exist
         this.logger.debug { "cache not found for H^$degree(${this.gVectorSpace}), compute it" }
         val kernelBasis = this.differential[degree].kernelBasis()
-        val previousDegree = this.gVectorSpace.degreeGroup.context.run { degree - 1 }
+        val previousDegree = this.degreeGroup.context.run { degree - 1 }
         val imageGenerator = this.differential[previousDegree].imageGenerator()
         val subQuotVectorSpace = SubQuotVectorSpace(
             this.matrixSpace,
@@ -76,7 +76,7 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
         return subQuotVectorSpace
     }
     public fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
-        return this.getCohomologyVectorSpace(this.gVectorSpace.degreeGroup.fromInt(degree))
+        return this.getCohomologyVectorSpace(this.degreeGroup.fromInt(degree))
     }
 
     protected val cohomologyName: String = "H(${this.gVectorSpace.name})"
@@ -84,7 +84,7 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
     override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
         GVectorSpace(
             this.matrixSpace.numVectorSpace,
-            this.gVectorSpace.degreeGroup,
+            this.degreeGroup,
             this.cohomologyName,
             this.gVectorSpace.listDegreesForAugmentedDegree,
             this::getCohomologyVectorSpace,

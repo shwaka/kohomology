@@ -128,7 +128,7 @@ suspend inline fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
         }
         "the augmentation of shiftDegree should be 1" {
             val shiftDegree: MultiDegree = freeLoopSpaceWithShiftDegree.shiftDegree
-            freeLoopSpaceWithShiftDegree.gAlgebra.degreeGroup.augmentation(shiftDegree) shouldBe 1
+            freeLoopSpaceWithShiftDegree.degreeGroup.augmentation(shiftDegree) shouldBe 1
         }
         "freeLoopSpace.baseSpace should be the same instance as the original freeDGAlgebra" {
             freeLoopSpace.baseSpace shouldBeSameInstanceAs freeDGAlgebra

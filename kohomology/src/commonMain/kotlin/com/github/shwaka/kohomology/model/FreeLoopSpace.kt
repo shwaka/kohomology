@@ -25,9 +25,9 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     shiftDegree: D?,
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
-    val shiftDegree = shiftDegree ?: freeDGAlgebra.gAlgebra.degreeGroup.fromInt(1)
+    val shiftDegree = shiftDegree ?: freeDGAlgebra.degreeGroup.fromInt(1)
     val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
-        val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
+        val degreeGroup = this.freeDGAlgebra.degreeGroup
         val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegree) }
         }
@@ -40,7 +40,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
         val n = freeDGAlgebra.gAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
         this.suspension = run {
-            val suspensionDegree = this.freeDGAlgebra.gAlgebra.degreeGroup.context.run {
+            val suspensionDegree = this.freeDGAlgebra.degreeGroup.context.run {
                 -this@FreeLoopSpaceFactory.shiftDegree
             }
             val suspensionValueList = loopSpaceGeneratorList.takeLast(n) + List(n) {
@@ -93,7 +93,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
             freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
         ): FreeLoopSpace<MultiDegree, I, S, V, M> {
             @Suppress("UNCHECKED_CAST")
-            return when (freeDGAlgebra.gAlgebra.degreeGroup) {
+            return when (freeDGAlgebra.degreeGroup) {
                 is IntDegreeGroup -> this.withShiftDegreeForIntDegree(freeDGAlgebra as FreeDGAlgebra<IntDegree, I, S, V, M>)
                 is MultiDegreeGroup -> this.withShiftDegreeForMultiDegree(freeDGAlgebra as FreeDGAlgebra<MultiDegree, I, S, V, M>)
                 else -> throw UnsupportedOperationException("withShiftDegree is supported only for IntDegree and MultiDegree")
@@ -103,7 +103,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
         private fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegreeForMultiDegree(
             freeDGAlgebra: FreeDGAlgebra<MultiDegree, I, S, V, M>,
         ): FreeLoopSpace<MultiDegree, I, S, V, M> {
-            val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
+            val degreeGroup = freeDGAlgebra.degreeGroup
             if (degreeGroup !is MultiDegreeGroup)
                 throw NotImplementedError("not supported!")
             if (degreeGroup.indeterminateList.any { it.name == this.degreeIndeterminateName })
@@ -127,7 +127,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
         private fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegreeForIntDegree(
             freeDGAlgebra: FreeDGAlgebra<IntDegree, I, S, V, M>,
         ): FreeLoopSpace<MultiDegree, I, S, V, M> {
-            val degreeGroup = freeDGAlgebra.gAlgebra.degreeGroup
+            val degreeGroup = freeDGAlgebra.degreeGroup
             if (degreeGroup !is IntDegreeGroup)
                 throw NotImplementedError("not supported!")
             val newDegreeGroup = MultiDegreeGroup(

@@ -46,7 +46,7 @@ public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector
         }
         GAlgebra(
             matrixSpace,
-            this.gAlgebra.degreeGroup,
+            this.degreeGroup,
             this.cohomologyName,
             this::getCohomologyVectorSpace,
             this::getCohomologyMultiplication,

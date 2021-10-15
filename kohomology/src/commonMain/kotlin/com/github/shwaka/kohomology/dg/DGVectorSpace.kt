@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -47,6 +48,8 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
 ) : DGVectorOperations<D, B, S, V, M> {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     private val logger = KotlinLogging.logger {}
+
+    public val degreeGroup: DegreeGroup<D> = gVectorSpace.degreeGroup
 
     public open val context: DGVectorContext<D, B, S, V, M> by lazy {
         DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)

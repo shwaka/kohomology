@@ -63,7 +63,10 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
         FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }
-    override val degreeGroup: AugmentedDegreeGroup<D> = gAlgebra.degreeGroup
+    override val degreeGroup: AugmentedDegreeGroup<D> by lazy {
+        // Use by lazy to avoid accessing non-final property in constructor
+        this.gAlgebra.degreeGroup
+    }
 
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

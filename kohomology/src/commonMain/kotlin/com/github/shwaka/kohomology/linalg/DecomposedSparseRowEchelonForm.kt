@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.IntAsSign
 import com.github.shwaka.kohomology.util.UnionFind
 import com.github.shwaka.kohomology.util.list.hasNonEmptyIntersection
 import com.github.shwaka.parautil.pmap
@@ -124,7 +124,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
         return this.data.pivots
     }
 
-    override fun computeSign(): Sign {
+    override fun computeSign(): IntAsSign {
         // return if (this.data.exchangeCount % 2 == 0) 1 else -1
         throw NotImplementedError("Computation of sign is not implemented for DecomposedSparseRowEchelonForm")
     }

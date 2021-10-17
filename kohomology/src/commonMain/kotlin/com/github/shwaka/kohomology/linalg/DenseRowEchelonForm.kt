@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.IntAsSign
 
 internal class DenseRowEchelonForm<S : Scalar>(
     matrixSpace: DenseMatrixSpace<S>,
@@ -16,7 +16,7 @@ internal class DenseRowEchelonForm<S : Scalar>(
         return this.data.pivots
     }
 
-    override fun computeSign(): Sign {
+    override fun computeSign(): IntAsSign {
         return if (this.data.exchangeCount % 2 == 0) 1 else -1
     }
 

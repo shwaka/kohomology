@@ -10,21 +10,29 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun cohomologyOfFreeLoopSpace(): String {
-        return CohomologyOfFreeLoopSpace(this.degreeLimit).main()
+        val executable = CohomologyOfFreeLoopSpace(this.degreeLimit)
+        executable.setup()
+        return executable.main()
     }
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegree(this.degreeLimit).main()
+        val executable = CohomologyOfFreeLoopSpaceWithMultiDegree(this.degreeLimit)
+        executable.setup()
+        return executable.main()
     }
 
     @Benchmark
     fun cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(): String {
-        return CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(this.degreeLimit).main()
+        val executable = CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(this.degreeLimit)
+        executable.setup()
+        return executable.main()
     }
 
     @Benchmark
     fun isomorphismToCohomologyOfFreePathSpace(): String {
-        return IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 35).main()
+        val executable = IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 35)
+        executable.setup()
+        return executable.main()
     }
 }

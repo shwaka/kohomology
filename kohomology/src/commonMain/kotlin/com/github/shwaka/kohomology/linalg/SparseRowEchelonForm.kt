@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 
 internal class SparseRowEchelonForm<S : Scalar>(
     matrixSpace: AbstractSparseMatrixSpace<S>,
@@ -21,8 +22,8 @@ internal class SparseRowEchelonForm<S : Scalar>(
         return this.data.pivots
     }
 
-    override fun computeSign(): IntAsSign {
-        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+    override fun computeSign(): Sign {
+        return Sign.fromIntParity(this.data.exchangeCount)
     }
 
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {

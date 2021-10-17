@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.getPermutation
 import com.github.shwaka.parautil.pmapIndexedNotNull
 
@@ -112,7 +113,7 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             throw InvalidSizeException("Determinant is defined only for square matrices")
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
-        val sign: IntAsSign = rowEchelonForm.sign
+        val sign: Sign = rowEchelonForm.sign
         return this@MatrixContext.field.context.run {
             val detUpToSign = (0 until this@det.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
             detUpToSign * sign
@@ -243,13 +244,13 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
     public val pivots: List<Int> by lazy {
         this.computePivots()
     }
-    public val sign: IntAsSign by lazy {
+    public val sign: Sign by lazy {
         this.computeSign()
     }
     protected abstract fun computeRowEchelonForm(): M
     protected abstract fun computeReducedRowEchelonForm(): M
     protected abstract fun computePivots(): List<Int>
-    protected abstract fun computeSign(): IntAsSign
+    protected abstract fun computeSign(): Sign
 
     private val augmentedOriginalMatrix: M by lazy {
         val rowCount = this.originalMatrix.rowCount

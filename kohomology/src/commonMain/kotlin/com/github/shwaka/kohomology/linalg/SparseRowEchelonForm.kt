@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.util.IntAsSign
 import com.github.shwaka.kohomology.util.Sign
 
 internal class SparseRowEchelonForm<S : Scalar>(

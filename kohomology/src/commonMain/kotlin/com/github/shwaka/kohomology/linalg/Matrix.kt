@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.util.IntAsSign
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.getPermutation
 import com.github.shwaka.parautil.pmapIndexedNotNull

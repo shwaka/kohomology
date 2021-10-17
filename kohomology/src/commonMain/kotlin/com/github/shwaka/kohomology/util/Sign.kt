@@ -23,7 +23,14 @@ public enum class Sign(private val intValue: Int) {
     public fun pow(exponent: Int): Sign {
         return when (this) {
             Sign.PLUS -> Sign.PLUS
-            MINUS -> if (exponent.isEven()) Sign.PLUS else Sign.MINUS
+            Sign.MINUS -> if (exponent.isEven()) Sign.PLUS else Sign.MINUS
+        }
+    }
+
+    public fun revert(): Sign {
+        return when (this) {
+            Sign.PLUS -> Sign.MINUS
+            Sign.MINUS -> Sign.PLUS
         }
     }
 

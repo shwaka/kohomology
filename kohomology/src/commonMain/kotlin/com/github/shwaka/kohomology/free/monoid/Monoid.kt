@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.free.monoid
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface MonoidElement<D : Degree> : BasisName {
@@ -28,7 +28,7 @@ public data class NonZero<T>(val value: T) : MaybeZero<T>()
 public interface Monoid<D : Degree, E : MonoidElement<D>> {
     public val unit: E
     public val degreeGroup: DegreeGroup<D>
-    public fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, IntAsSign>>
+    public fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
     public fun listElements(degree: D): List<E>
     public fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
     public fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {

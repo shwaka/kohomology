@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 
@@ -172,7 +172,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
     override fun multiply(
         monoidElement1: Monomial<D, I>,
         monoidElement2: Monomial<D, I>
-    ): MaybeZero<Pair<Monomial<D, I>, IntAsSign>> {
+    ): MaybeZero<Pair<Monomial<D, I>, Sign>> {
         // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
         //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
         val size = this.indeterminateListInternal.size
@@ -184,12 +184,12 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()
         }
-        var sign = 1
+        var sign = Sign.PLUS
         for (i in 0 until size) {
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (monoidElement1.exponentList[i] == 1)) {
                 for (j in 0 until i) {
                     if ((this.indeterminateListInternal[j].degree.isOdd()) && (monoidElement2.exponentList[j] == 1)) {
-                        sign = -sign
+                        sign = sign.revert()
                     }
                 }
             }
@@ -281,7 +281,7 @@ internal data class MonomialSeparation<D : Degree, I : IndeterminateName>(
     val remainingMonomial: Monomial<D, I>,
     val separatedIndeterminate: Indeterminate<D, I>,
     val separatedExponent: Int,
-    val sign: IntAsSign,
+    val sign: Sign,
     val index: Int,
 ) {
     init {

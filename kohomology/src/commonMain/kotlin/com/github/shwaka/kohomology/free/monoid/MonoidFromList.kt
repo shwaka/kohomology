@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.free.monoid
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 
 public data class SimpleMonoidElement<T, D : Degree>(val name: T, override val degree: D) : MonoidElement<D> {
     override fun toString(): String {
@@ -19,7 +19,7 @@ public data class SimpleMonoidElement<T, D : Degree>(val name: T, override val d
 public class MonoidFromList<T, D : Degree>(
     public val elements: List<SimpleMonoidElement<T, D>>,
     override val degreeGroup: DegreeGroup<D>,
-    public val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, IntAsSign>>>>
+    public val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>>>>
 ) : Monoid<D, SimpleMonoidElement<T, D>> {
     init {
         if (this.elements.isEmpty())
@@ -33,7 +33,7 @@ public class MonoidFromList<T, D : Degree>(
     override fun multiply(
         monoidElement1: SimpleMonoidElement<T, D>,
         monoidElement2: SimpleMonoidElement<T, D>
-    ): MaybeZero<Pair<SimpleMonoidElement<T, D>, IntAsSign>> {
+    ): MaybeZero<Pair<SimpleMonoidElement<T, D>, Sign>> {
         val index1: Int = this.elements.indexOf(monoidElement1).also {
             if (it == -1)
                 throw NoSuchElementException("$monoidElement1 is not found in the list 'elements'")

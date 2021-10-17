@@ -20,7 +20,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -38,11 +38,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
     "complex projective space of complex dimension $n" - {
         val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
-        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, IntDegree>, IntAsSign>>>> =
+        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, IntDegree>, Sign>>>> =
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
-                        NonZero(Pair(elements[i + j], 1))
+                        NonZero(Pair(elements[i + j], Sign.PLUS))
                     } else {
                         Zero()
                     }
@@ -93,9 +93,9 @@ class MonoidGAlgebraTest : FreeSpec({
             SimpleMonoidElement("y", OddSuperDegree),
             SimpleMonoidElement("xy", EvenSuperDegree),
         )
-        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, SuperDegree>, IntAsSign>>>> = run {
-            val (e, x, y, xy) = elements.map { NonZero(Pair(it, 1)) }
-            val minusXY = NonZero(Pair(elements[3], -1))
+        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, SuperDegree>, Sign>>>> = run {
+            val (e, x, y, xy) = elements.map { NonZero(Pair(it, Sign.PLUS)) }
+            val minusXY = NonZero(Pair(elements[3], Sign.MINUS))
             listOf(
                 listOf(e, x, y, xy),
                 listOf(x, Zero(), xy, Zero()),

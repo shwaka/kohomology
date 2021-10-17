@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
@@ -62,12 +62,11 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
                 when (maybeZero) {
                     is Zero -> target.zeroVector
                     is NonZero -> {
-                        val (monoidElement: E, sign: IntAsSign) = maybeZero.value
+                        val (monoidElement: E, sign: Sign) = maybeZero.value
                         val vectorWithoutSign = target.fromBasisName(monoidElement)
                         when (sign) {
-                            1 -> vectorWithoutSign
-                            -1 -> target.context.run { -vectorWithoutSign }
-                            else -> throw Exception("This can't happen!")
+                            Sign.PLUS -> vectorWithoutSign
+                            Sign.MINUS -> target.context.run { -vectorWithoutSign }
                         }
                     }
                 }

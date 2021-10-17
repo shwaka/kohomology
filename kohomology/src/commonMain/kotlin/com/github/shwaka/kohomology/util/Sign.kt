@@ -34,14 +34,29 @@ public enum class Sign(private val intValue: Int) {
         }
     }
 
+    public operator fun unaryMinus(): Sign {
+        return when (this) {
+            Sign.PLUS -> Sign.MINUS
+            Sign.MINUS -> Sign.PLUS
+        }
+    }
+
     public fun toInt(): Int {
         return this.intValue
     }
 
     public companion object {
-        /** Returns 1 if [n] is even and otherwise -1. */
+        /** Returns [Sign.PLUS] if [n] is even and otherwise [Sign.MINUS]. */
         public fun fromIntParity(n: Int): Sign {
             return if (n.isEven()) {
+                Sign.PLUS
+            } else {
+                Sign.MINUS
+            }
+        }
+
+        public fun fromParity(even: Boolean): Sign {
+            return if (even) {
                 Sign.PLUS
             } else {
                 Sign.MINUS

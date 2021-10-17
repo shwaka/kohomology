@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
-import com.github.shwaka.kohomology.util.IntAsSign
+import com.github.shwaka.kohomology.util.Sign
 
 /**
  * Represents degrees in graded objects.
@@ -25,12 +25,12 @@ public interface Degree {
     public fun isOdd(): Boolean = !this.isEven()
 
     /** (-1)^degree. */
-    public val sign: IntAsSign
-        get() = if (this.isEven()) 1 else -1
+    public val sign: Sign
+        get() = Sign.fromParity(this.isEven())
 
     /** Returns (-1)^(this * other) */
-    public fun koszulSign(other: Degree): IntAsSign {
-        return if (this.isEven() || other.isEven()) 1 else -1
+    public fun koszulSign(other: Degree): Sign {
+        return Sign.fromParity(this.isEven() || other.isEven())
     }
 }
 

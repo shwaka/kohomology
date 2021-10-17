@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -76,7 +77,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             if (commutative) {
                 "multiplication should be commutative" {
                     checkAll(gVectorArb, gVectorArb) { a, b ->
-                        val sign: Int = a.degree.koszulSign(b.degree)
+                        val sign: Sign = a.degree.koszulSign(b.degree)
                         (a * b) shouldBe (sign * b * a)
                     }
                 }

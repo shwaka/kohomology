@@ -95,6 +95,13 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public operator fun S.times(matrix: M): M = matrix * this
     public operator fun M.times(scalar: Int): M = this@MatrixContext.multiply(this, this@MatrixContext.field.fromInt(scalar))
     public operator fun Int.times(matrix: M): M = matrix * this
+    public operator fun M.times(sign: Sign): M {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(matrix: M): M = matrix * this
     public operator fun M.unaryMinus(): M = this * (-1)
     public val M.rowEchelonForm: RowEchelonForm<S, V, M>
         get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!

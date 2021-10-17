@@ -27,13 +27,6 @@ public enum class Sign(private val intValue: Int) {
         }
     }
 
-    public fun revert(): Sign {
-        return when (this) {
-            Sign.PLUS -> Sign.MINUS
-            Sign.MINUS -> Sign.PLUS
-        }
-    }
-
     public operator fun unaryMinus(): Sign {
         return when (this) {
             Sign.PLUS -> Sign.MINUS

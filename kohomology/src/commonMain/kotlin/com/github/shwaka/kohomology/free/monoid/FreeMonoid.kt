@@ -189,7 +189,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (monoidElement1.exponentList[i] == 1)) {
                 for (j in 0 until i) {
                     if ((this.indeterminateListInternal[j].degree.isOdd()) && (monoidElement2.exponentList[j] == 1)) {
-                        sign = sign.revert()
+                        sign = -sign
                     }
                 }
             }

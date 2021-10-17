@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.NonZero
 import com.github.shwaka.kohomology.free.monoid.Zero
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -210,11 +211,11 @@ class MonomialTest : FreeSpec({
         val yz = Monomial(indeterminateList, listOf(0, 1, 1))
         val xyz = Monomial(indeterminateList, listOf(1, 1, 1))
         val yzz = Monomial(indeterminateList, listOf(0, 1, 2))
-        monoid.multiply(x, y) shouldBe NonZero(Pair(xy, 1))
+        monoid.multiply(x, y) shouldBe NonZero(Pair(xy, Sign.PLUS))
         monoid.multiply(xy, xz) shouldBe Zero()
-        monoid.multiply(xz, y) shouldBe NonZero(Pair(xyz, 1))
-        monoid.multiply(y, xz) shouldBe NonZero(Pair(xyz, -1))
-        monoid.multiply(z, yz) shouldBe NonZero(Pair(yzz, 1))
+        monoid.multiply(xz, y) shouldBe NonZero(Pair(xyz, Sign.PLUS))
+        monoid.multiply(y, xz) shouldBe NonZero(Pair(xyz, Sign.MINUS))
+        monoid.multiply(z, yz) shouldBe NonZero(Pair(yzz, Sign.PLUS))
     }
 
     "toString() and toTex() test" {

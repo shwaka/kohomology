@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.util.Sign
+
 public interface NumVector<S : Scalar> {
     public val field: Field<S>
     public val dim: Int
@@ -32,6 +34,13 @@ public open class NumVectorContext<S : Scalar, V : NumVector<S>>(
     public operator fun S.times(numVector: V): V = numVector * this
     public operator fun V.times(scalar: Int): V = this * fromInt(scalar)
     public operator fun Int.times(numVector: V): V = numVector * this
+    public operator fun V.times(sign: Sign): V {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(numVector: V): V = numVector * this
     public infix fun V.dot(other: V): S = this@NumVectorContext.innerProduct(this, other)
     public operator fun V.unaryMinus(): V = this@NumVectorContext.unaryMinusOf(this)
     public operator fun V.get(ind: Int): S = this@NumVectorContext.getElement(this, ind)

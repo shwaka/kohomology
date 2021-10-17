@@ -42,7 +42,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
-                        NonZero(Pair(elements[i + j], 1))
+                        NonZero(Pair(elements[i + j], Sign.PLUS))
                     } else {
                         Zero()
                     }
@@ -94,8 +94,8 @@ class MonoidGAlgebraTest : FreeSpec({
             SimpleMonoidElement("xy", EvenSuperDegree),
         )
         val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, SuperDegree>, Sign>>>> = run {
-            val (e, x, y, xy) = elements.map { NonZero(Pair(it, 1)) }
-            val minusXY = NonZero(Pair(elements[3], -1))
+            val (e, x, y, xy) = elements.map { NonZero(Pair(it, Sign.PLUS)) }
+            val minusXY = NonZero(Pair(elements[3], Sign.MINUS))
             listOf(
                 listOf(e, x, y, xy),
                 listOf(x, Zero(), xy, Zero()),

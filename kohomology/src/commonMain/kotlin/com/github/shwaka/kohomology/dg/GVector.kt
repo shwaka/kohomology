@@ -14,6 +14,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
@@ -125,6 +126,25 @@ public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
     public operator fun S.times(gVector: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> = gVector * this
     public operator fun GVectorOrZero<D, B, S, V>.times(scalar: Int): GVectorOrZero<D, B, S, V> = this * scalar.toScalar()
     public operator fun Int.times(gVector: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> = gVector * this
+
+    public operator fun GVector<D, B, S, V>.times(sign: Sign): GVector<D, B, S, V> {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun GVectorOrZero<D, B, S, V>.times(sign: Sign): GVectorOrZero<D, B, S, V> {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> {
+        return gVector * this
+    }
+    public operator fun Sign.times(gVector: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
+        return gVector * this
+    }
 
     public operator fun GVector<D, B, S, V>.unaryMinus(): GVector<D, B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
     public operator fun GVectorOrZero<D, B, S, V>.unaryMinus(): GVectorOrZero<D, B, S, V> {

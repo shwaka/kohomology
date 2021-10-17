@@ -184,7 +184,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (exponentList[i] >= 2))
                 return Zero()
         }
-        var sign = 1
+        var sign = Sign.PLUS
         for (i in 0 until size) {
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (monoidElement1.exponentList[i] == 1)) {
                 for (j in 0 until i) {

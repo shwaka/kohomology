@@ -17,7 +17,7 @@ internal class DenseRowEchelonForm<S : Scalar>(
     }
 
     override fun computeSign(): Sign {
-        return if (this.data.exchangeCount % 2 == 0) 1 else -1
+        return Sign.fromIntParity(this.data.exchangeCount)
     }
 
     override fun computeReducedRowEchelonForm(): DenseMatrix<S> {

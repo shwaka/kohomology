@@ -26,11 +26,11 @@ public interface Degree {
 
     /** (-1)^degree. */
     public val sign: Sign
-        get() = if (this.isEven()) 1 else -1
+        get() = Sign.fromParity(this.isEven())
 
     /** Returns (-1)^(this * other) */
     public fun koszulSign(other: Degree): Sign {
-        return if (this.isEven() || other.isEven()) 1 else -1
+        return Sign.fromParity(this.isEven() || other.isEven())
     }
 }
 

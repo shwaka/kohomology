@@ -65,9 +65,8 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
                         val (monoidElement: E, sign: Sign) = maybeZero.value
                         val vectorWithoutSign = target.fromBasisName(monoidElement)
                         when (sign) {
-                            1 -> vectorWithoutSign
-                            -1 -> target.context.run { -vectorWithoutSign }
-                            else -> throw Exception("This can't happen!")
+                            Sign.PLUS -> vectorWithoutSign
+                            Sign.MINUS -> target.context.run { -vectorWithoutSign }
                         }
                     }
                 }

@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printable
@@ -35,6 +36,13 @@ public open class ScalarContext<S : Scalar>(
     public operator fun S.times(other: S): S = this@ScalarContext.multiply(this, other)
     public operator fun S.times(other: Int): S = this@ScalarContext.multiply(this, this@ScalarContext.fromInt(other))
     public operator fun Int.times(other: S): S = this@ScalarContext.multiply(this@ScalarContext.fromInt(this), other)
+    public operator fun S.times(sign: Sign): S {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(scalar: S): S = scalar * this
     public operator fun S.unaryMinus(): S = this@ScalarContext.unaryMinusOf(this)
     public operator fun S.div(other: S): S = this@ScalarContext.divide(this, other)
     public operator fun S.div(other: Int): S = this@ScalarContext.divide(this, this@ScalarContext.fromInt(other))

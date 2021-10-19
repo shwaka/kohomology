@@ -21,5 +21,9 @@ class MyPlugin : Plugin<Project> {
             // this@MyPlugin.myTestListener.printSummary(project.logger)
             this@MyPlugin.myTestListener.printSummary(project.gradle as GradleInternal)
         }
+
+        project.tasks.register("generateComponentN") {
+            generateComponentN(30, project.rootDir)
+        }
     }
 }

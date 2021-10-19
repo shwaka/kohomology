@@ -10,13 +10,6 @@ fun generateComponentN(max: Int, rootDir: File) {
         """.trimIndent()
     } + "\n"
     val tests = run {
-        val testCases = (6..max).joinToString("\n\n") { n ->
-            """
-                |    "test component$n" {
-                |        stringList.component$n() shouldBe "foo${n - 1}"
-                |    }
-            """.trimMargin()
-        }
         """
             package com.github.shwaka.kohomology.util.list
 
@@ -30,7 +23,16 @@ fun generateComponentN(max: Int, rootDir: File) {
                 tags(componentNTag)
 
                 val stringList = (0..$max).map { "foo${'$'}it" }
-        """.trimIndent() + "\n\n" + testCases + "\n})\n"
+        """.trimIndent() +
+            "\n\n" +
+            (6..max).joinToString("\n\n") { n ->
+                """
+                    |    "test component$n" {
+                    |        stringList.component$n() shouldBe "foo${n - 1}"
+                    |    }
+                """.trimMargin()
+            } +
+            "\n})\n"
     }
     val imports = "import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports\n\n" +
         (6..max).joinToString("\n") { n ->
@@ -51,4 +53,16 @@ fun generateComponentN(max: Int, rootDir: File) {
 
     // print imports
     println(imports)
+
+    // print messages
+    println(
+        """
+
+            Copy the above code to import the extension function 'componentN()'.
+
+            The following files are edited:
+                $mainFile
+                $testFile
+        """.trimIndent()
+    )
 }

@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
+import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -113,6 +114,17 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
             val w = listOf(two, zero).toNumVector()
             (two * v) shouldBe w
             (2 * v) shouldBe w
+        }
+        "-(1, -2, 0) should be (-1, 2, 0)" {
+            val v = listOf(one, -two, zero).toNumVector()
+            (-v) shouldBe listOf(-one, two, zero).toNumVector()
+        }
+        "multiplication with Sign" {
+            val v = listOf(one, -two, zero).toNumVector()
+            (v * Sign.PLUS) shouldBe v
+            (Sign.PLUS * v) shouldBe v
+            (v * Sign.MINUS) shouldBe -v
+            (Sign.MINUS * v) shouldBe -v
         }
         "(1, 0).dim should be 2" {
             val v = listOf(one, zero).toNumVector()

@@ -16,6 +16,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.arb
+import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -256,6 +257,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 }
                 multiplied.dim shouldBe 0
                 multiplied.isZero().shouldBeTrue()
+            }
+            "multiplication with Sign" {
+                (m * Sign.PLUS) shouldBe m
+                (Sign.PLUS * m) shouldBe m
+                (m * Sign.MINUS) shouldBe -m
+                (Sign.MINUS * m) shouldBe -m
             }
             "((2, 1), (0, -1)).isZero() should be false" {
                 m.isZero().shouldBeFalse()

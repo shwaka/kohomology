@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.vectsp.PrintType
 import io.kotest.assertions.throwables.shouldThrow
@@ -93,6 +94,14 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
             checkAll(arb) { a ->
                 (a + (-a)) shouldBe zero
                 ((-a) + a) shouldBe zero
+            }
+        }
+        "multiplication with Sign" {
+            checkAll(arb) { a ->
+                (a * Sign.PLUS) shouldBe a
+                (Sign.PLUS * a) shouldBe a
+                (a * Sign.MINUS) shouldBe -a
+                (Sign.MINUS * a) shouldBe -a
             }
         }
         "inv() should give the multiplicative inverse" {

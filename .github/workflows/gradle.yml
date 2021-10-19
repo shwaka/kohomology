@@ -45,6 +45,9 @@ jobs:
       - name: Upload to codecov
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # "token not required for public repositories" らしい…？
-        run: bash <(curl -s https://codecov.io/bash)
+        run: |
+          curl -Os https://uploader.codecov.io/latest/linux/codecov
+          chmod +x codecov
+          ./codecov -t ${CODECOV_TOKEN}
       - name: Check with ktlint
         run: ./gradlew kc # This will run ktlintCheck for ALL projects (see build.gradle.kts)

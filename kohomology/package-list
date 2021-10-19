@@ -1123,6 +1123,7 @@ $dokka.location:com.github.shwaka.kohomology.util//isOdd/kotlin.Int#/PointingToD
 $dokka.location:com.github.shwaka.kohomology.util//isPrime/kotlin.Int#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-prime.html
 $dokka.location:com.github.shwaka.kohomology.util//positiveRem/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/positive-rem.html
 $dokka.location:com.github.shwaka.kohomology.util//pow/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/pow.html
+$dokka.location:com.github.shwaka.kohomology.util//times/kotlin.Int#com.github.shwaka.kohomology.util.Sign/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/times.html
 $dokka.location:com.github.shwaka.kohomology.util/Paren///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-paren/index.html
 $dokka.location:com.github.shwaka.kohomology.util/Paren/Paren/#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-paren/-paren.html
 $dokka.location:com.github.shwaka.kohomology.util/Paren/left/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-paren/left.html
@@ -1135,8 +1136,8 @@ $dokka.location:com.github.shwaka.kohomology.util/Paren/separator/#/PointingToDe
 $dokka.location:com.github.shwaka.kohomology.util/Paren/upperLeft/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-paren/upper-left.html
 $dokka.location:com.github.shwaka.kohomology.util/Paren/upperRight/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-paren/upper-right.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.util/Sign.Companion/fromIntParity/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/from-int-parity.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.Companion/fromParity/#kotlin.Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/from-parity.html
+$dokka.location:com.github.shwaka.kohomology.util/Sign.Companion/fromParity/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/from-parity.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/index.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/name.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS/ordinal/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/ordinal.html
@@ -1147,7 +1148,6 @@ $dokka.location:com.github.shwaka.kohomology.util/Sign///PointingToDeclaration/
 $dokka.location:com.github.shwaka.kohomology.util/Sign/pow/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/pow.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign/times/#com.github.shwaka.kohomology.util.Sign/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/times.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign/times/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/times.html
-$dokka.location:com.github.shwaka.kohomology.util/Sign/times/kotlin.Int#com.github.shwaka.kohomology.util.Sign/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/times.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign/toInt/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/to-int.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign/unaryMinus/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/unary-minus.html
 $dokka.location:com.github.shwaka.kohomology.util/StringTable///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-string-table/index.html

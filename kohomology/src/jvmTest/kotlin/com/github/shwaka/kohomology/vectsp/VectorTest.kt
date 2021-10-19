@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -48,6 +49,13 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
                 val expected = vectorSpace.fromCoeffList(listOf(zero, four, -two))
                 (v * 2) shouldBe expected
                 (v * two) shouldBe expected
+            }
+            "multiplication of Sign" {
+                val v = vectorSpace.fromCoeffList(listOf(one, -two, zero))
+                (v * Sign.PLUS) shouldBe v
+                (Sign.PLUS * v) shouldBe v
+                (v * Sign.MINUS) shouldBe -v
+                (Sign.MINUS * v) shouldBe -v
             }
             "multiplication of scalar with extension functions" {
                 val v = vectorSpace.fromCoeffList(listOf(zero, two, -one))

@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.util.Sign
 import mu.KotlinLogging
 
 public interface BasisName {
@@ -160,6 +161,13 @@ public class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
     public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
     public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
+    public operator fun Vector<B, S, V>.times(sign: Sign): Vector<B, S, V> {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(vector: Vector<B, S, V>): Vector<B, S, V> = vector * this
     public operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
     public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> = this.fold(zeroVector) { acc, v -> acc + v }
 }

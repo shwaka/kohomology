@@ -16,10 +16,6 @@ public enum class Sign(private val intValue: Int) {
         return this.toInt() * n
     }
 
-    public operator fun Int.times(sign: Sign): Int {
-        return sign * this
-    }
-
     public fun pow(exponent: Int): Sign {
         return when (this) {
             Sign.PLUS -> Sign.PLUS
@@ -56,4 +52,8 @@ public enum class Sign(private val intValue: Int) {
             }
         }
     }
+}
+
+public operator fun Int.times(sign: Sign): Int {
+    return sign * this
 }

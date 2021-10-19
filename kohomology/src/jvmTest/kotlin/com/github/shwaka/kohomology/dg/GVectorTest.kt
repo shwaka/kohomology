@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -37,6 +38,13 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
                 val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
                 (v + v) shouldBe expected
                 (v + v) shouldNotBe v
+            }
+            "multiplication with Sign" {
+                val v = gVectorSpace.fromCoeff(listOf(one, -two, zero), 3)
+                (v * Sign.PLUS) shouldBe v
+                (Sign.PLUS * v) shouldBe v
+                (v * Sign.MINUS) shouldBe -v
+                (Sign.MINUS * v) shouldBe -v
             }
             "(0, 0).isZero() should be true" {
                 val v = gVectorSpace.fromCoeff(listOf(zero, zero), 2)

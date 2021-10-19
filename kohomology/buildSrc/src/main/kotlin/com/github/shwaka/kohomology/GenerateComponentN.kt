@@ -13,7 +13,7 @@ fun generateComponentN(max: Int, rootDir: File) {
         val testCases = (6..max).joinToString("\n\n") { n ->
             """
                 |    "test component$n" {
-                |        stringList.component$n() shouldBe stringList[${n - 1}]
+                |        stringList.component$n() shouldBe "foo${n - 1}"
                 |    }
             """.trimMargin()
         }
@@ -29,7 +29,7 @@ fun generateComponentN(max: Int, rootDir: File) {
             class ComponentNTest : FreeSpec({
                 tags(componentNTag)
 
-                val stringList = (6..$max).map { "foo${'$'}it" }
+                val stringList = (0..$max).map { "foo${'$'}it" }
         """.trimIndent() + "\n\n" + testCases + "\n})\n"
     }
     val imports = "import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports\n\n" +

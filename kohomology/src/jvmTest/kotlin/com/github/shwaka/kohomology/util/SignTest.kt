@@ -38,14 +38,14 @@ class SignTest : FreeSpec({
         Sign.MINUS.toInt() shouldBe -1
     }
 
-    "test fromIntParity()" {
-        Sign.fromIntParity(0) shouldBe Sign.PLUS
-        Sign.fromIntParity(1) shouldBe Sign.MINUS
-        Sign.fromIntParity(-2) shouldBe Sign.PLUS
-        Sign.fromIntParity(-3) shouldBe Sign.MINUS
+    "test fromParity(Int)" {
+        Sign.fromParity(0) shouldBe Sign.PLUS
+        Sign.fromParity(1) shouldBe Sign.MINUS
+        Sign.fromParity(-2) shouldBe Sign.PLUS
+        Sign.fromParity(-3) shouldBe Sign.MINUS
     }
 
-    "test fromParity()" {
+    "test fromParity(Boolean)" {
         Sign.fromParity(even = true) shouldBe Sign.PLUS
         Sign.fromParity(even = false) shouldBe Sign.MINUS
     }

@@ -36,7 +36,7 @@ public enum class Sign(private val intValue: Int) {
 
     public companion object {
         /** Returns [Sign.PLUS] if [n] is even and otherwise [Sign.MINUS]. */
-        public fun fromIntParity(n: Int): Sign {
+        public fun fromParity(n: Int): Sign {
             return if (n.isEven()) {
                 Sign.PLUS
             } else {

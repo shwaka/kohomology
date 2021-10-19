@@ -17,7 +17,7 @@ internal class DenseRowEchelonForm<S : Scalar>(
     }
 
     override fun computeSign(): Sign {
-        return Sign.fromIntParity(this.data.exchangeCount)
+        return Sign.fromParity(this.data.exchangeCount)
     }
 
     override fun computeReducedRowEchelonForm(): DenseMatrix<S> {

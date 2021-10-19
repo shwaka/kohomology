@@ -22,7 +22,7 @@ internal class SparseRowEchelonForm<S : Scalar>(
     }
 
     override fun computeSign(): Sign {
-        return Sign.fromIntParity(this.data.exchangeCount)
+        return Sign.fromParity(this.data.exchangeCount)
     }
 
     override fun computeReducedRowEchelonForm(): SparseMatrix<S> {

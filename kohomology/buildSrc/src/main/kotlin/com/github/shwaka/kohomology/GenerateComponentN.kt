@@ -81,7 +81,7 @@ private fun ordinalOf(n: Int): String {
         throw IllegalArgumentException("n must be non-negative")
     val suffix: String = when (n % 100) {
         11, 12, 13 -> "th"
-        else ->  when (n % 10) {
+        else -> when (n % 10) {
             1 -> "st"
             2 -> "nd"
             3 -> "rd"

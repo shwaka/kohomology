@@ -49,13 +49,13 @@ public operator fun <T> List<T>.component19(): T = this[18]
 /** Returns 20th element from the list. */
 public operator fun <T> List<T>.component20(): T = this[19]
 
-/** Returns 21th element from the list. */
+/** Returns 21st element from the list. */
 public operator fun <T> List<T>.component21(): T = this[20]
 
-/** Returns 22th element from the list. */
+/** Returns 22nd element from the list. */
 public operator fun <T> List<T>.component22(): T = this[21]
 
-/** Returns 23th element from the list. */
+/** Returns 23rd element from the list. */
 public operator fun <T> List<T>.component23(): T = this[22]
 
 /** Returns 24th element from the list. */

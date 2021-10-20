@@ -14,7 +14,7 @@ fun generateComponentN(max: Int, rootDir: File) {
     val definitions = "package com.github.shwaka.kohomology.util.list\n" +
         comment + (6..max).joinToString("\n\n") { n ->
         """
-            /** Returns ${n}th element from the list. */
+            /** Returns ${ordinalOf(n)} element from the list. */
             public operator fun <T> List<T>.component$n(): T = this[${n - 1}]
         """.trimIndent()
     } + "\n"
@@ -74,4 +74,19 @@ fun generateComponentN(max: Int, rootDir: File) {
                 $testFile
         """.trimIndent()
     )
+}
+
+private fun ordinalOf(n: Int): String {
+    if (n < 0)
+        throw IllegalArgumentException("n must be non-negative")
+    val suffix: String = when (n % 100) {
+        11, 12, 13 -> "th"
+        else ->  when (n % 10) {
+            1 -> "st"
+            2 -> "nd"
+            3 -> "rd"
+            else -> "th"
+        }
+    }
+    return "$n$suffix"
 }

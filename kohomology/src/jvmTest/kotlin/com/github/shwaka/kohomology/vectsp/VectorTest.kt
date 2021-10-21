@@ -27,6 +27,11 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
     "vector test" - {
         val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
         vectorSpace.context.run {
+            "fromCoeffMap() should give the same vector as fromCoeffList()" {
+                val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))
+                val v2 = vectorSpace.fromCoeffMap(mapOf(1 to one, 2 to two))
+                v2 shouldBe v1
+            }
             "Vectors with same coefficients should return the same hashCode" {
                 val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))
                 val v2 = vectorSpace.fromCoeffList(listOf(zero, one, two))

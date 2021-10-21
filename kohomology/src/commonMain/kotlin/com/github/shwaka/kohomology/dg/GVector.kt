@@ -258,8 +258,14 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
         return this.fromVector(vector, degree)
     }
 
-    public fun fromCoeff(coeff: List<S>, degree: D): GVector<D, B, S, V> {
-        val numVector = this.numVectorSpace.fromValueList(coeff)
+    public fun fromCoeffList(coeffList: List<S>, degree: D): GVector<D, B, S, V> {
+        val numVector = this.numVectorSpace.fromValueList(coeffList)
+        return this.fromNumVector(numVector, degree)
+    }
+
+    public fun fromCoeffMap(coeffMap: Map<Int, S>, degree: D): GVector<D, B, S, V> {
+        val dim = this[degree].dim
+        val numVector = this.numVectorSpace.fromValueMap(coeffMap, dim)
         return this.fromNumVector(numVector, degree)
     }
 
@@ -310,7 +316,8 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public operator fun get(degree: Int): VectorSpace<B, S, V> = this[this.degreeGroup.fromInt(degree)]
     public fun fromVector(vector: Vector<B, S, V>, degree: Int): GVector<D, B, S, V> = this.fromVector(vector, this.degreeGroup.fromInt(degree))
     public fun fromNumVector(numVector: V, degree: Int): GVector<D, B, S, V> = this.fromNumVector(numVector, this.degreeGroup.fromInt(degree))
-    public fun fromCoeff(coeff: List<S>, degree: Int): GVector<D, B, S, V> = this.fromCoeff(coeff, this.degreeGroup.fromInt(degree))
+    public fun fromCoeffList(coeffList: List<S>, degree: Int): GVector<D, B, S, V> = this.fromCoeffList(coeffList, this.degreeGroup.fromInt(degree))
+    public fun fromCoeffMap(coeffMap: Map<Int, S>, degree: Int): GVector<D, B, S, V> = this.fromCoeffMap(coeffMap, this.degreeGroup.fromInt(degree))
     public fun fromBasisName(basisName: B, degree: Int): GVector<D, B, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree))
     public fun fromBasisName(basisName: B, degree: Int, coeff: S): GVector<D, B, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree), coeff)
     public fun fromBasisName(basisName: B, degree: Int, coeff: Int): GVector<D, B, S, V> = this.fromBasisName(basisName, this.degreeGroup.fromInt(degree), coeff)

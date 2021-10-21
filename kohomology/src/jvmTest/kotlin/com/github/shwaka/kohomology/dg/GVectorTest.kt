@@ -27,31 +27,36 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
             (0 until degree).map { "v$it" }
         }
         gVectorSpace.context.run {
+            "fromCoeffMap() should give the same gVector as fromCoeffList()" {
+                val v1 = gVectorSpace.fromCoeffList(listOf(zero, one, two), 3)
+                val v2 = gVectorSpace.fromCoeffMap(mapOf(1 to one, 2 to two), 3)
+                v2 shouldBe v1
+            }
             "GVectors with the same coefficients should have the same hashCode" {
-                val v1 = gVectorSpace.fromCoeff(listOf(one, two), 2)
-                val v2 = gVectorSpace.fromCoeff(listOf(one, two), 2)
+                val v1 = gVectorSpace.fromCoeffList(listOf(one, two), 2)
+                val v2 = gVectorSpace.fromCoeffList(listOf(one, two), 2)
                 v1 shouldNotBeSameInstanceAs v2
                 v1.hashCode() shouldBe v2.hashCode()
             }
             "addition test" {
-                val v = gVectorSpace.fromCoeff(listOf(one, zero), 2)
-                val expected = gVectorSpace.fromCoeff(listOf(two, zero), 2)
+                val v = gVectorSpace.fromCoeffList(listOf(one, zero), 2)
+                val expected = gVectorSpace.fromCoeffList(listOf(two, zero), 2)
                 (v + v) shouldBe expected
                 (v + v) shouldNotBe v
             }
             "multiplication with Sign" {
-                val v = gVectorSpace.fromCoeff(listOf(one, -two, zero), 3)
+                val v = gVectorSpace.fromCoeffList(listOf(one, -two, zero), 3)
                 (v * Sign.PLUS) shouldBe v
                 (Sign.PLUS * v) shouldBe v
                 (v * Sign.MINUS) shouldBe -v
                 (Sign.MINUS * v) shouldBe -v
             }
             "(0, 0).isZero() should be true" {
-                val v = gVectorSpace.fromCoeff(listOf(zero, zero), 2)
+                val v = gVectorSpace.fromCoeffList(listOf(zero, zero), 2)
                 v.isZero().shouldBeTrue()
             }
             "(0, 1).isZero() should be false" {
-                val v = gVectorSpace.fromCoeff(listOf(zero, one), 2)
+                val v = gVectorSpace.fromCoeffList(listOf(zero, one), 2)
                 v.isZero().shouldBeFalse()
             }
         }
@@ -70,9 +75,9 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
         }
 
         "getBasis(deg) should return the correct basis" {
-            val v0 = gVectorSpace.fromCoeff(listOf(one, zero, zero), 3)
-            val v1 = gVectorSpace.fromCoeff(listOf(zero, one, zero), 3)
-            val v2 = gVectorSpace.fromCoeff(listOf(zero, zero, one), 3)
+            val v0 = gVectorSpace.fromCoeffList(listOf(one, zero, zero), 3)
+            val v1 = gVectorSpace.fromCoeffList(listOf(zero, one, zero), 3)
+            val v2 = gVectorSpace.fromCoeffList(listOf(zero, zero, one), 3)
             gVectorSpace.getBasis(3) shouldBe listOf(v0, v1, v2)
         }
 
@@ -90,9 +95,9 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
         }
 
         "Iterable<GVector>.sum() should return sum of the elements" {
-            val v0 = gVectorSpace.fromCoeff(listOf(one, zero, zero), 3)
-            val v1 = gVectorSpace.fromCoeff(listOf(zero, one, zero), 3)
-            val v2 = gVectorSpace.fromCoeff(listOf(zero, zero, one), 3)
+            val v0 = gVectorSpace.fromCoeffList(listOf(one, zero, zero), 3)
+            val v1 = gVectorSpace.fromCoeffList(listOf(zero, one, zero), 3)
+            val v2 = gVectorSpace.fromCoeffList(listOf(zero, zero, one), 3)
             listOf(v0, v1, v2).sum() shouldBe (v0 + v1 + v2)
             listOf(v0).sum() shouldBe v0
         }

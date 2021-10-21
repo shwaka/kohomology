@@ -259,14 +259,13 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     }
 
     public fun fromCoeffList(coeffList: List<S>, degree: D): GVector<D, B, S, V> {
-        val numVector = this.numVectorSpace.fromValueList(coeffList)
-        return this.fromNumVector(numVector, degree)
+        val vector = this[degree].fromCoeffList(coeffList)
+        return this.fromVector(vector, degree)
     }
 
     public fun fromCoeffMap(coeffMap: Map<Int, S>, degree: D): GVector<D, B, S, V> {
-        val dim = this[degree].dim
-        val numVector = this.numVectorSpace.fromValueMap(coeffMap, dim)
-        return this.fromNumVector(numVector, degree)
+        val vector = this[degree].fromCoeffMap(coeffMap)
+        return this.fromVector(vector, degree)
     }
 
     public fun fromBasisName(basisName: B, degree: D): GVector<D, B, S, V> {

@@ -40,24 +40,23 @@ public class StringIndeterminateName(public val name: String, tex: String? = nul
     }
 }
 
+public fun <D : Degree> Indeterminate(name: String, degree: D): Indeterminate<D, StringIndeterminateName> {
+    return Indeterminate(StringIndeterminateName(name), degree)
+}
+public fun <D : Degree> Indeterminate(name: String, tex: String, degree: D): Indeterminate<D, StringIndeterminateName> {
+    return Indeterminate(StringIndeterminateName(name, tex), degree)
+}
+public fun <I : IndeterminateName> Indeterminate(name: I, degree: Int): Indeterminate<IntDegree, I> {
+    return Indeterminate(name, IntDegree(degree))
+}
+public fun Indeterminate(name: String, degree: Int): Indeterminate<IntDegree, StringIndeterminateName> {
+    return Indeterminate(StringIndeterminateName(name), IntDegree(degree))
+}
+public fun Indeterminate(name: String, tex: String, degree: Int): Indeterminate<IntDegree, StringIndeterminateName> {
+    return Indeterminate(StringIndeterminateName(name, tex), IntDegree(degree))
+}
+
 public data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val degree: D) {
-    public companion object {
-        public operator fun <D : Degree> invoke(name: String, degree: D): Indeterminate<D, StringIndeterminateName> {
-            return Indeterminate(StringIndeterminateName(name), degree)
-        }
-        public operator fun <D : Degree> invoke(name: String, tex: String, degree: D): Indeterminate<D, StringIndeterminateName> {
-            return Indeterminate(StringIndeterminateName(name, tex), degree)
-        }
-        public operator fun <I : IndeterminateName> invoke(name: I, degree: Int): Indeterminate<IntDegree, I> {
-            return Indeterminate(name, IntDegree(degree))
-        }
-        public operator fun invoke(name: String, degree: Int): Indeterminate<IntDegree, StringIndeterminateName> {
-            return Indeterminate(StringIndeterminateName(name), IntDegree(degree))
-        }
-        public operator fun invoke(name: String, tex: String, degree: Int): Indeterminate<IntDegree, StringIndeterminateName> {
-            return Indeterminate(StringIndeterminateName(name, tex), IntDegree(degree))
-        }
-    }
     override fun toString(): String {
         return this.name.toString()
     }

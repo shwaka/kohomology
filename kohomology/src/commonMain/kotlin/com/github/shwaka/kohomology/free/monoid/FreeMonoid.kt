@@ -205,9 +205,9 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
         return IntArray(exponentList1.size) { exponentList1[it] + exponentList2[it] }
     }
 
-    private val monomialListGenerator by lazy {
-        MonomialListGenerator(this.degreeGroup, this.indeterminateListInternal)
-    }
+    // private val monomialListGenerator by lazy {
+    //     MonomialListGenerator(this.degreeGroup, this.indeterminateListInternal)
+    // }
 
     override fun listElements(degree: D): List<Monomial<D, I>> {
         // return this.monomialListGenerator.listMonomials(degree)

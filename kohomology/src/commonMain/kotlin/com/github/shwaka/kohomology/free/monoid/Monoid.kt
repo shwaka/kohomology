@@ -10,20 +10,9 @@ public interface MonoidElement<D : Degree> : BasisName {
     public val degree: D
 }
 
-public sealed class SignedOrZero<T>
+public sealed class SignedOrZero<out T>
 public data class Signed<T>(val value: T, val sign: Sign) : SignedOrZero<T>()
-public class Zero<T> : SignedOrZero<T>() {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null) return false
-        if (this::class != other::class) return false
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return this::class.hashCode()
-    }
-}
+public object Zero : SignedOrZero<Nothing>()
 
 public interface Monoid<D : Degree, E : MonoidElement<D>> {
     public val unit: E

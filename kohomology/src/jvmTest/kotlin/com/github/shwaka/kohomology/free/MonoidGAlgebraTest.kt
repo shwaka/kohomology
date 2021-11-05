@@ -44,7 +44,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     if (i + j <= n) {
                         Signed(elements[i + j], Sign.PLUS)
                     } else {
-                        Zero()
+                        Zero
                     }
                 }
             }
@@ -98,9 +98,9 @@ class MonoidGAlgebraTest : FreeSpec({
             val minusXY = Signed(elements[3], Sign.MINUS)
             listOf(
                 listOf(e, x, y, xy),
-                listOf(x, Zero(), xy, Zero()),
-                listOf(y, minusXY, Zero(), Zero()),
-                listOf(xy, Zero(), Zero(), Zero()),
+                listOf(x, Zero, xy, Zero),
+                listOf(y, minusXY, Zero, Zero),
+                listOf(xy, Zero, Zero, Zero),
             )
         }
         val monoid = MonoidFromList(elements, SuperDegreeGroup, multiplicationTable)

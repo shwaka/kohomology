@@ -182,7 +182,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
         val exponentList = this.addExponentLists(monoidElement1.exponentList, monoidElement2.exponentList)
         for (i in 0 until size) {
             if ((this.indeterminateListInternal[i].degree.isOdd()) && (exponentList[i] >= 2))
-                return Zero()
+                return Zero
         }
         var sign = Sign.PLUS
         for (i in 0 until size) {

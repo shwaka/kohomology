@@ -64,6 +64,10 @@ cd ../profile
 ## Generate documentation
 `./gradlew dokkaHtml`
 
+## Generate componentN
+`./gradlew generateComponentN` will generate `util/list/componentN.kt` and its test.
+The task is defined in `buildSrc`.
+
 ## Memo
 ### Recursive generics
 当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．

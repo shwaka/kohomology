@@ -5,7 +5,8 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Monoid
 import com.github.shwaka.kohomology.free.monoid.MonoidElement
-import com.github.shwaka.kohomology.free.monoid.NonZero
+import com.github.shwaka.kohomology.free.monoid.Signed
+import com.github.shwaka.kohomology.free.monoid.SignedOrZero
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -58,11 +59,11 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
 
     private fun generateGetValue(target: VectorSpace<E, S, V>): (E, E) -> Vector<E, S, V> {
         return { monoidElement1, monoidElement2 ->
-            this.monoid.multiply(monoidElement1, monoidElement2).let { maybeZero ->
-                when (maybeZero) {
+            this.monoid.multiply(monoidElement1, monoidElement2).let { signedOrZero ->
+                when (signedOrZero) {
                     is Zero -> target.zeroVector
-                    is NonZero -> {
-                        val (monoidElement: E, sign: Sign) = maybeZero.value
+                    is Signed -> {
+                        val (monoidElement: E, sign: Sign) = signedOrZero
                         val vectorWithoutSign = target.fromBasisName(monoidElement)
                         when (sign) {
                             Sign.PLUS -> vectorWithoutSign

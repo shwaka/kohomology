@@ -10,9 +10,9 @@ import com.github.shwaka.kohomology.dg.degree.OddSuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegreeGroup
 import com.github.shwaka.kohomology.forAll
-import com.github.shwaka.kohomology.free.monoid.MaybeZero
 import com.github.shwaka.kohomology.free.monoid.MonoidFromList
-import com.github.shwaka.kohomology.free.monoid.NonZero
+import com.github.shwaka.kohomology.free.monoid.Signed
+import com.github.shwaka.kohomology.free.monoid.SignedOrZero
 import com.github.shwaka.kohomology.free.monoid.SimpleMonoidElement
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -38,11 +38,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
     "complex projective space of complex dimension $n" - {
         val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
-        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, IntDegree>, Sign>>>> =
+        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
-                        NonZero(Pair(elements[i + j], Sign.PLUS))
+                        Signed(elements[i + j], Sign.PLUS)
                     } else {
                         Zero()
                     }
@@ -93,9 +93,9 @@ class MonoidGAlgebraTest : FreeSpec({
             SimpleMonoidElement("y", OddSuperDegree),
             SimpleMonoidElement("xy", EvenSuperDegree),
         )
-        val multiplicationTable: List<List<MaybeZero<Pair<SimpleMonoidElement<String, SuperDegree>, Sign>>>> = run {
-            val (e, x, y, xy) = elements.map { NonZero(Pair(it, Sign.PLUS)) }
-            val minusXY = NonZero(Pair(elements[3], Sign.MINUS))
+        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, SuperDegree>>>> = run {
+            val (e, x, y, xy) = elements.map { Signed(it, Sign.PLUS) }
+            val minusXY = Signed(elements[3], Sign.MINUS)
             listOf(
                 listOf(e, x, y, xy),
                 listOf(x, Zero(), xy, Zero()),

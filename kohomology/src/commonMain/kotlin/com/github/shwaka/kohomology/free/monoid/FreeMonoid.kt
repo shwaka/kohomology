@@ -172,7 +172,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
     override fun multiply(
         monoidElement1: Monomial<D, I>,
         monoidElement2: Monomial<D, I>
-    ): MaybeZero<Pair<Monomial<D, I>, Sign>> {
+    ): SignedOrZero<Monomial<D, I>> {
         // if (monoidElement1.indeterminateList != monoidElement2.indeterminateList)
         //     throw IllegalArgumentException("Cannot multiply two monomials of different indeterminate")
         val size = this.indeterminateListInternal.size
@@ -195,7 +195,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
             }
         }
         val monomial = Monomial(this.degreeGroup, this.indeterminateListInternal, exponentList)
-        return NonZero(Pair(monomial, sign))
+        return Signed(monomial, sign)
     }
 
     private fun addExponentLists(exponentList1: IntArray, exponentList2: IntArray): IntArray {
@@ -259,8 +259,8 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
             Monomial(this.degreeGroup, this.indeterminateListInternal, separatedExponentList),
             remainingMonomial
         )
-        val (_, sign) = when (multipliedMonomialOrZero) {
-            is NonZero -> multipliedMonomialOrZero.value
+        val sign = when (multipliedMonomialOrZero) {
+            is Signed -> multipliedMonomialOrZero.sign
             is Zero -> throw Exception("This can't happen!")
         }
         return MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index)

@@ -10,8 +10,9 @@ public interface MonoidElement<D : Degree> : BasisName {
     public val degree: D
 }
 
-public sealed class MaybeZero<T>
-public class Zero<T> : MaybeZero<T>() {
+public sealed class SignedOrZero<T>
+public data class Signed<T>(val value: T, val sign: Sign) : SignedOrZero<T>()
+public class Zero<T> : SignedOrZero<T>() {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false
@@ -23,12 +24,11 @@ public class Zero<T> : MaybeZero<T>() {
         return this::class.hashCode()
     }
 }
-public data class NonZero<T>(val value: T) : MaybeZero<T>()
 
 public interface Monoid<D : Degree, E : MonoidElement<D>> {
     public val unit: E
     public val degreeGroup: DegreeGroup<D>
-    public fun multiply(monoidElement1: E, monoidElement2: E): MaybeZero<Pair<E, Sign>>
+    public fun multiply(monoidElement1: E, monoidElement2: E): SignedOrZero<E>
     public fun listElements(degree: D): List<E>
     public fun listElements(degree: Int): List<E> = this.listElements(this.degreeGroup.fromInt(degree))
     public fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {

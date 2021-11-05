@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Monoid
 import com.github.shwaka.kohomology.free.monoid.MonoidElement
 import com.github.shwaka.kohomology.free.monoid.Signed
-import com.github.shwaka.kohomology.free.monoid.SignedOrZero
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

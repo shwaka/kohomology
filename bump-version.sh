@@ -41,11 +41,14 @@ function bump_snapshot_version() {
     local snapshot_version=$1-SNAPSHOT
 
     update_build_gradle_kts "$snapshot_version"
-    for d in benchmark profile; do
+    git add $BUILD_GRADLE_KTS
+    for d in profile; do
         local kts=$d/build.gradle.kts
         echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$snapshot_version'")/' $kts
         sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$snapshot_version'")/' $kts
+        git add $kts
     done
+    git commit -m "Bump version to $snapshot_version"
 }
 
 if [ -z "${1-}" -o -z "${2-}" ]; then

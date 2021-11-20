@@ -2,8 +2,14 @@
 
 set -eu
 
+version_regex='^version = "\(.*\)"$'
+
 if [ -z "${1-}" ]; then
-    echo "Usage: ./release.sh 0.5" >&2
+    echo "Usage: ./release.sh 99.9" >&2
+    current_version=$(cat kohomology/build.gradle.kts |
+                          grep "$version_regex" |
+                          sed s/"$version_regex"/\\1/)
+    echo "Current version: $current_version" >&2
     tags=$(git tag | tac | tr "\n" " ")
     echo "Known tags: $tags" >&2
     exit 1

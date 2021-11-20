@@ -36,10 +36,8 @@ You can change the place by editing `build.gradle.kts`.
       └── src/
 ```
 
-```bash
-cd kohomology/kohomology
-./gradlew publishAllPublicationsToMyMavenRepository
-```
+- Bump version to `1.0` with a git tag `v1.0` and publish it: `./bump-version.sh release 1.0`
+- Bump version to `1.0-SNAPSHOT`: `./bump-versin.sh snapshot 1.0`
 
 ## Benchmark
 ```bash

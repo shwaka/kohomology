@@ -17,7 +17,7 @@ fi
 
 version=$1
 
-if ! echo "$version" | grep '^[0-9.]+$'; then
+if ! echo "$version" | grep -E '^[0-9.]+$'; then
     # accepts 0.5, 1.0, 2
     # rejects 0.5-SNAPSHOT, 1.0-snapshot, v2.0
     echo "[Error] Invalid version number: $version"

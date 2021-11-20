@@ -4,6 +4,8 @@ set -eu
 
 if [ -z "${1-}" ]; then
     echo "Usage: ./release.sh 0.5" >&2
+    tags=$(git tag | tac | tr "\n" " ")
+    echo "Known tags: $tags" >&2
     exit 1
 fi
 

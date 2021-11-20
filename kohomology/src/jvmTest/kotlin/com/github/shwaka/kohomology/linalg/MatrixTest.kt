@@ -649,6 +649,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> determinantTest(matrixSpace
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> notImplementedDeterminantTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "determinant should throw NotImplementedError" {
+        matrixSpace.context.run {
+            val matrix = listOf(
+                listOf(one, two),
+                listOf(three, four)
+            ).toMatrix()
+            shouldThrow<NotImplementedError> {
+                matrix.det()
+            }
+        }
+    }
+}
+
 const val maxValueForDet = 100
 const val matrixSizeForDet = 4
 // 5 でも一応できるけど、
@@ -759,6 +773,7 @@ class BigRationalDecomposedSparseMatrixTest : FreeSpec({
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     // include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet)) // sign is not implemented
+    include(notImplementedDeterminantTest(matrixSpace)) // This should be replaced if sign is implemented
     include(rowEchelonFormGenTest(matrixSpace, 3, 3))
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))

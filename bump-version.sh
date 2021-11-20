@@ -27,13 +27,6 @@ function update_build_gradle_kts() {
 function release_version() {
     local version=$1
 
-    if ! echo "$version" | grep -E '^[0-9.]+$'; then
-        # accepts 0.5, 1.0, 2
-        # rejects 0.5-SNAPSHOT, 1.0-snapshot, v2.0
-        echo "[Error] Invalid version number: $version"
-        exit 1
-    fi
-
     update_build_gradle_kts "$version"
 
     git commit -m "Release v$version"
@@ -54,13 +47,21 @@ function bump_snapshot_version() {
     done
 }
 
-if [ -z "${1-}" -o -z "${2-}"]; then
+if [ -z "${1-}" -o -z "${2-}" ]; then
     show_usage
     exit 1
 fi
 
 command=$1
 version=$2
+
+if ! echo "$version" | grep -E '^[0-9.]+$'; then
+    # accepts 0.5, 1.0, 2
+    # rejects 0.5-SNAPSHOT, 1.0-snapshot, v2.0
+    echo "[Error] Invalid version number: $version" >&2
+    show_usage
+    exit 1
+fi
 
 case "$command" in
     release) release_version "$version";;

@@ -29,6 +29,7 @@ function release_version() {
 
     update_build_gradle_kts "$version"
 
+    git add $BUILD_GRADLE_KTS
     git commit -m "Release v$version"
     git tag "v$version"
 
@@ -66,6 +67,6 @@ fi
 case "$command" in
     release) release_version "$version";;
     snapshot) bump_snapshot_version "$version";;
-    *) echo "[Error] invalid command"
-       show_usage
+    *) echo "[Error] invalid command" >&2
+       show_usage;;
 esac

@@ -68,9 +68,12 @@ The task is defined in `buildSrc`.
 
 ## Memo
 ### Recursive generics
-当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
-ちゃんと安定して動作するのか不安だったけど，例えば (`interface` じゃなくて `abstract class` だけど) `Enum` でも使われているっぽいので，多分大丈夫．
-[kotlin/Enum.kt at master · JetBrains/kotlin](https://github.com/JetBrains/kotlin/blob/master/core/builtins/native/kotlin/Enum.kt)
+今はやめたけど，当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
+ちゃんと安定して動作するのか不安だったけど，以下のような使用例があるので大丈夫っぽい．
+
+- [kotlin/Enum.kt at master · JetBrains/kotlin](https://github.com/JetBrains/kotlin/blob/master/core/builtins/native/kotlin/Enum.kt) `Enum` でも使われている (`interface` じゃなくて `abstract class` だけど)
+- [Kotlin 1.6.0 Released | The Kotlin Blog](https://blog.jetbrains.com/kotlin/2021/11/kotlin-1-6-0-is-released/) kotlin 1.6 で "Improved type inference for recursive generic types" という更新が行われている．
+
 
 参考になりそうなリンクたちを列挙しておく．
 (どれも長いのであんまりちゃんと読んでない)

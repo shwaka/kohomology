@@ -2,7 +2,7 @@
 [![build](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml/badge.svg)](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/gh/shwaka/kohomology/branch/main/graph/badge.svg?token=kTXiaOtBj1)](https://codecov.io/gh/shwaka/kohomology)
 [![license](https://img.shields.io/github/license/shwaka/kohomology)](https://github.com/shwaka/kohomology/blob/main/LICENSE)
-[![KDoc](https://img.shields.io/badge/dynamic/json?color=lightgray&label=KDoc&query=percent&suffix=%25&url=https%3A%2F%2Fshwaka.github.io%2Fkohomology%2Fdokka%2Fcoverage.json&logo=kotlin&logoColor=orange)](https://shwaka.github.io/kohomology/index.html)
+[![KDoc](https://img.shields.io/badge/dynamic/json?color=lightgray&label=KDoc&query=percent&suffix=%25&url=https%3A%2F%2Fshwaka.github.io%2Fkohomology%2Fdokka%2Fcoverage.json&logo=kotlin&logoColor=orange)](https://shwaka.github.io/kohomology/dokka/index.html)
 
 `kohomology` is a [Kotlin](https://kotlinlang.org/) library to compute the cohomology of a cochain complex. The main target is a Sullivan algebra (in [Rational homotopy theory - Wikipedia](https://en.wikipedia.org/wiki/Rational_homotopy_theory)).
 

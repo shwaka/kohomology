@@ -6,6 +6,7 @@ plugins {
     application
     kotlin("plugin.allopen") version "1.4.0"
     id("org.jetbrains.kotlinx.benchmark") version "0.3.0"
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.4.30"
 }
 
 group = "me.shun"
@@ -26,6 +27,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime-jvm:0.3.0")
     implementation("com.github.shwaka.kohomology:kohomology:0.6-SNAPSHOT")
     implementation("com.github.shwaka.counter:simple-counter:0.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 }
 
 tasks.test {
@@ -74,4 +76,9 @@ tasks.register("kc") {
 tasks.register("kf") {
     // alias
     dependsOn("ktlintFormat")
+}
+
+task("formatBenchmarkResult", JavaExec::class) {
+    main = "com.github.shwaka.kohomology.profile.FormatBenchmarkResultKt"
+    classpath = sourceSets["main"].runtimeClasspath
 }

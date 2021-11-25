@@ -56,7 +56,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1
@@ -79,3 +79,45 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           gh-pages-branch: benchmark-data
+
+  generate-site:
+    runs-on: ubuntu-latest
+    env:
+      BENCHMARK_DATA_DIR: benchmark-data
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle') }}
+          restore-keys: ${{ runner.os }}-gradle-jvm-
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Download dependencies # Not necessary, but useful to make the log clean
+        run: |
+          ./gradlew dependencies --configuration nativeCompileKlibraries --stacktrace
+          ./gradlew dependencies --configuration dokkaHtmlRuntime --stacktrace
+        working-directory: kohomology
+      - name: Generate documentation by dokka
+        run: ./gradlew dokkaHtml
+        working-directory: kohomology
+      - name: Compute coverage
+        run: ./gradlew dokkacovWriteJson
+        working-directory: kohomology
+      - name: Checkout benchmark-data branch as a subdirectory
+        uses: actions/checkout@v2
+        with:
+          path: ${{ env.BENCHMARK_DATA_DIR }}
+          ref: benchmark-data
+      - name: Build site
+        run: |
+          mkdir site
+          cp -r kohomology/build/dokka/html site/dokka
+          cp -r $BENCHMARK_DATA_DIR/dev/bench site/benchmark
+      - name: Upload
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: site

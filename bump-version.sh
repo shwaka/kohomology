@@ -4,6 +4,7 @@ set -eu
 
 VERSION_REGEX='^version = "\(.*\)"$'
 BUILD_GRADLE_KTS=kohomology/build.gradle.kts
+README_MD=README.md
 
 function show_usage() {
     echo "Usage:" >&2
@@ -35,9 +36,9 @@ function release_version() {
     local version=$1
 
     update_build_gradle_kts "$version"
-    update_implementation "$version" README.md
+    update_implementation "$version" $README_MD
 
-    git add $BUILD_GRADLE_KTS
+    git add $BUILD_GRADLE_KTS $README_MD
     git commit -m "Release v$version"
     git tag "v$version"
 

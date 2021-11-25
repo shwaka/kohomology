@@ -1,4 +1,5 @@
-name: Test, benchmark, and generate site
+name: Test # This will be shown in the badge in README.md
+# name: Test, benchmark, and generate site
 
 on:
   push:

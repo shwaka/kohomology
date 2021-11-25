@@ -45,7 +45,7 @@ fun findLatest(): File {
     return latestDir
 }
 
-fun getBenchmarkResults(): List<BenchmarkResult> {
+fun loadBenchmarkResults(): List<BenchmarkResult> {
     val latestDir = findLatest()
     val jsonFile = latestDir.resolve("main.json")
     val jsonText: String = jsonFile.readText(Charsets.UTF_8)
@@ -53,15 +53,18 @@ fun getBenchmarkResults(): List<BenchmarkResult> {
     return json.decodeFromString(jsonText)
 }
 
-fun generateOutputJson(results: List<BenchmarkResult>): String {
+fun saveOutput(outputs: List<BenchmarkOutput>) {
     val json = Json {
         prettyPrint = true
     }
-    val outputs: List<BenchmarkOutput> = results.map { BenchmarkOutput.fromResult(it) }
-    return json.encodeToString(outputs)
+    val jsonText = json.encodeToString(outputs)
+    val outputFile = File("build/kohomology/benchmark/output.json")
+    outputFile.parentFile.mkdirs()
+    outputFile.writeText(jsonText, Charsets.UTF_8)
 }
 
 fun main() {
-    val results = getBenchmarkResults()
-    println(generateOutputJson(results))
+    val results: List<BenchmarkResult> = loadBenchmarkResults()
+    val outputs: List<BenchmarkOutput> = results.map { BenchmarkOutput.fromResult(it) }
+    saveOutput(outputs)
 }

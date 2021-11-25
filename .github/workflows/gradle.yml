@@ -89,7 +89,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle') }}
+          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - name: Set up JDK 1.8
         uses: actions/setup-java@v1

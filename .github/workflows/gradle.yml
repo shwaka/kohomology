@@ -115,6 +115,7 @@ jobs:
           mkdir site
           cp -r kohomology/build/dokka/html site/dokka
           cp -r $BENCHMARK_DATA_DIR/dev/bench site/benchmark
+          cp index.html site/index.html
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3
         with:

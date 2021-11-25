@@ -24,10 +24,18 @@ function update_build_gradle_kts() {
     sed -i s/"$VERSION_REGEX"/"version = \"$version\""/ $BUILD_GRADLE_KTS
 }
 
+function update_implementation() {
+    local version=$1
+    local file=$2
+    echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
+    sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
+}
+
 function release_version() {
     local version=$1
 
     update_build_gradle_kts "$version"
+    update_implementation "$version" README.md
 
     git add $BUILD_GRADLE_KTS
     git commit -m "Release v$version"
@@ -44,8 +52,7 @@ function bump_snapshot_version() {
     git add $BUILD_GRADLE_KTS
     for d in profile; do
         local kts=$d/build.gradle.kts
-        echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$snapshot_version'")/' $kts
-        sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$snapshot_version'")/' $kts
+        update_implementation $snapshot_version $kts
         git add $kts
     done
     git commit -m "Bump version to $snapshot_version"

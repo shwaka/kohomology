@@ -19,8 +19,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.shwaka.kohomology:kohomology:0.2")
-    // version might be old, see the badge at the top of this README
+    implementation("com.github.shwaka.kohomology:kohomology:0.5")
 }
 ```
 

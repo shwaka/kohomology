@@ -113,6 +113,10 @@ const config = {
         darkTheme: darkCodeTheme,
       },
     }),
+
+  plugins: [
+    "./plugins/my-plugin.js",
+  ],
 };
 
 module.exports = config;

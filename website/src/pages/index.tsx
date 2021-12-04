@@ -19,6 +19,10 @@ function HomepageHeader() {
             to="/docs/intro">
             Kohomology Tutorial
           </Link>
+          <a className="button button--secondary button--lg"
+             href="/dokka/index.html" target="_blank">
+            dokka
+          </a>
         </div>
       </div>
     </header>

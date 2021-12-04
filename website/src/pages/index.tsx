@@ -20,7 +20,7 @@ function HomepageHeader() {
             Kohomology Tutorial
           </Link>
           <a className="button button--secondary button--lg"
-             href="/dokka/index.html" target="_blank">
+             href="/kohomology/dokka/index.html" target="_blank">
             dokka
           </a>
         </div>

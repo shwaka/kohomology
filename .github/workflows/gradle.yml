@@ -123,10 +123,11 @@ jobs:
           node-version: 14.x
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
+      - name: npm install
+        run: npm install
+        working-directory: website
       - name: Build site
-        run: |
-          npm install
-          npm run build
+        run: npm run build
         working-directory: website
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3

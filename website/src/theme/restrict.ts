@@ -5,6 +5,9 @@ function getLinesBetween(lines: string[], startRegExp: RegExp, endRegExp: RegExp
 }
 
 function getIndent(line: string): number {
+  if (line === "") {
+    return Infinity;
+  }
   const regexp = new RegExp("^ *");
   const matchObj: RegExpMatchArray | null = line.match(regexp)
   if (matchObj === null) {

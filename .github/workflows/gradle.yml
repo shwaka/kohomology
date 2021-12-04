@@ -4,7 +4,7 @@ name: Test # This will be shown in the badge in README.md
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'profile/**', 'website/**', '.github/workflows/gradle.yml' ]
   # pull_request: # See pull_request.yml for workflows on pull requests
   #   branches: [ main ]
   #   paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]
@@ -106,19 +106,29 @@ jobs:
       - name: Compute coverage
         run: ./gradlew dokkacovWriteJson
         working-directory: kohomology
-      - name: Checkout benchmark-data branch as a subdirectory
-        uses: actions/checkout@v2
+      # - name: Checkout benchmark-data branch as a subdirectory
+      #   uses: actions/checkout@v2
+      #   with:
+      #     path: ${{ env.BENCHMARK_DATA_DIR }}
+      #     ref: benchmark-data
+      # - name: Build site
+      #   run: |
+      #     mkdir site
+      #     cp -r kohomology/build/dokka/html site/dokka
+      #     cp -r $BENCHMARK_DATA_DIR/dev/bench site/benchmark
+      #     cp index.html site/index.html
+      - name: Use Node.js
+        uses: actions/setup-node@v2
         with:
-          path: ${{ env.BENCHMARK_DATA_DIR }}
-          ref: benchmark-data
+          node-version: 14.x
+          cache: 'npm'
       - name: Build site
         run: |
-          mkdir site
-          cp -r kohomology/build/dokka/html site/dokka
-          cp -r $BENCHMARK_DATA_DIR/dev/bench site/benchmark
-          cp index.html site/index.html
+          npm install
+          npm run build
+        working-directory: website
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: site
+          publish_dir: website/build

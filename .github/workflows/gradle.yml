@@ -86,6 +86,9 @@ jobs:
       BENCHMARK_DATA_DIR: benchmark-data
     steps:
       - uses: actions/checkout@v2
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          fetch-depth: 0
       - uses: actions/cache@v1
         with:
           path: ~/.gradle/caches
@@ -95,17 +98,19 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Download dependencies # Not necessary, but useful to make the log clean
-        run: |
-          ./gradlew dependencies --configuration nativeCompileKlibraries --stacktrace
-          ./gradlew dependencies --configuration dokkaHtmlRuntime --stacktrace
-        working-directory: kohomology
-      - name: Generate documentation by dokka
-        run: ./gradlew dokkaHtml
-        working-directory: kohomology
-      - name: Compute coverage
-        run: ./gradlew dokkacovWriteJson
-        working-directory: kohomology
+      - name: Prepare benchmark data and dokka html
+        run: ./prepare-site.sh
+      # - name: Download dependencies # Not necessary, but useful to make the log clean
+      #   run: |
+      #     ./gradlew dependencies --configuration nativeCompileKlibraries --stacktrace
+      #     ./gradlew dependencies --configuration dokkaHtmlRuntime --stacktrace
+      #   working-directory: kohomology
+      # - name: Generate documentation by dokka
+      #   run: ./gradlew dokkaHtml
+      #   working-directory: kohomology
+      # - name: Compute coverage
+      #   run: ./gradlew dokkacovWriteJson
+      #   working-directory: kohomology
       # - name: Checkout benchmark-data branch as a subdirectory
       #   uses: actions/checkout@v2
       #   with:
@@ -123,8 +128,7 @@ jobs:
           node-version: 14.x
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - name: npm install
-        run: npm install
+      - run: npm install
         working-directory: website
       - name: Build site
         run: npm run build

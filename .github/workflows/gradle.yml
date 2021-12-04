@@ -4,7 +4,7 @@ name: Test # This will be shown in the badge in README.md
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'profile/**', 'website/**', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'prepare-site.sh', '.github/workflows/gradle.yml' ]
   # pull_request: # See pull_request.yml for workflows on pull requests
   #   branches: [ main ]
   #   paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]

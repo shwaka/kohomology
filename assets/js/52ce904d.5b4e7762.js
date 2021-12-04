@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[598],{7158:function(o){o.exports=JSON.parse('{"allTagsPath":"/kohomology/blog/tags","slug":"/kohomology/blog/tags/hello","name":"hello","count":2,"permalink":"/kohomology/blog/tags/hello"}')}}]);

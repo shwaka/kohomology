@@ -60,6 +60,7 @@ const config = {
             href: 'dokka/index.html',
             label: 'dokka',
             position: 'left',
+            target: '_blank', // これがないと React router のせいでうまくいかないっぽい
           },
           {
             href: 'https://github.com/shwaka/kohomology',

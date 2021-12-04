@@ -5,7 +5,7 @@ cd $(dirname $0)
 
 # exapnd benchmark data to the working tree
 DESTINATION=benchmark-data
-rm -r "$DESTINATION"
+rm -rf "$DESTINATION"
 git read-tree --prefix="$DESTINATION" -u remotes/origin/benchmark-data
 git reset HEAD "$DESTINATION"
 

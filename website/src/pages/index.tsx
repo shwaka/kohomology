@@ -10,6 +10,7 @@ import useBaseUrl from '@docusaurus/useBaseUrl';
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
   const dokkaUrl = useBaseUrl('/dokka/index.html');
+  const benchUrl = useBaseUrl('/benchmark/index.html');
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -24,6 +25,10 @@ function HomepageHeader() {
           <a className="button button--secondary button--lg"
              href={dokkaUrl} target="_blank">
             dokka
+          </a>
+          <a className="button button--secondary button--lg"
+             href={benchUrl} target="_blank">
+            benchmark
           </a>
         </div>
       </div>

@@ -16,7 +16,8 @@ module.exports = function myPlugin(context, options) {
         plugins: [
           new CopyPlugin({
             patterns: [
-              { from: "../kohomology/build/dokka/html", to: "dokka" }
+              { from: "../kohomology/build/dokka/html", to: "dokka" },
+              { from: "../benchmark-data/dev/bench", to: "benchmark"},
             ]
           })
         ]

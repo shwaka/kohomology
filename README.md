@@ -12,6 +12,3 @@
 
 ## Documentation
 See [Kohomology](https://shwaka.github.io/kohomology/dokka/index.html) for tutorial and documentation. (currently under development)
-
-## Overview of classes and interfaces
-![classes](uml/packages.png)

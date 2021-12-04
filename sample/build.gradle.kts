@@ -25,3 +25,13 @@ tasks.test {
 tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
+
+tasks.register("kc") {
+    // alias
+    dependsOn("ktlintCheck")
+}
+
+tasks.register("kf") {
+    // alias
+    dependsOn("ktlintFormat")
+}

@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Kohomology',
-  tagline: 'Dinosaurs are cool',
+  tagline: 'Compute cohomology of Sullivan algebras',
   url: 'https://shwaka.github.io/kohomology',
   baseUrl: '/',
   onBrokenLinks: 'throw',

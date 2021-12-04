@@ -5,9 +5,11 @@ import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import HomepageFeatures from '../components/HomepageFeatures';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext();
+  const dokkaUrl = useBaseUrl('/dokka/index.html');
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
@@ -20,7 +22,7 @@ function HomepageHeader() {
             Kohomology Tutorial
           </Link>
           <a className="button button--secondary button--lg"
-             href="/kohomology/dokka/index.html" target="_blank">
+             href={dokkaUrl} target="_blank">
             dokka
           </a>
         </div>

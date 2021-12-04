@@ -37,8 +37,14 @@ function release_version() {
 
     update_build_gradle_kts "$version"
     update_implementation "$version" $README_MD
-
     git add $BUILD_GRADLE_KTS $README_MD
+
+    for d in sample; do
+        local kts=$d/build.gradle.kts
+        update_implementation $version $kts
+        git add $kts
+    done
+
     git commit -m "Release v$version"
     git tag "v$version"
 

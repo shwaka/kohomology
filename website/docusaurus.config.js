@@ -8,8 +8,8 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Kohomology',
   tagline: 'Compute cohomology of Sullivan algebras',
-  url: 'https://shwaka.github.io/kohomology',
-  baseUrl: '/',
+  url: 'https://shwaka.github.io',
+  baseUrl: '/kohomology/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -46,7 +46,7 @@ const config = {
         title: 'Kohomology',
         // logo: {
         //   alt: 'My Site Logo',
-        //   src: 'img/logo.svg',
+        //   src: 'img/logo.svg', // 上で baseUrl を設定するとうまくいかない？ local でのテスト時だけ？
         // },
         items: [
           {
@@ -56,6 +56,11 @@ const config = {
             label: 'Tutorial',
           },
           {to: '/blog', label: 'Blog', position: 'left'},
+          {
+            href: 'dokka/index.html',
+            label: 'dokka',
+            position: 'left',
+          },
           {
             href: 'https://github.com/shwaka/kohomology',
             label: 'GitHub',

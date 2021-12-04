@@ -10,53 +10,8 @@
 - This library also supports fields of positive characteristic. (But fewer implementation of concrete cochain complexes)
 - The name "*ko*homology" is obtained by combining "cohomology" and "kotlin".
 
-## Usage
-This library is published at the maven repository [shwaka/maven](https://github.com/shwaka/maven).
-With gradle, you can use it by:
-```kotlin
-repositories {
-    maven(url = "https://shwaka.github.io/maven/")
-}
-
-dependencies {
-    implementation("com.github.shwaka.kohomology:kohomology:0.5")
-}
-```
-
-Here is an example script computing the cohomology of the free loop space of the even dimensional sphere.
-```kotlin
-val sphereDim = 4
-val indeterminateList = listOf(
-    Indeterminate("x", sphereDim),
-    Indeterminate("y", sphereDim * 2 - 1)
-)
-val matrixSpace = SparseMatrixSpaceOverBigRational
-val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
-    listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
-}
-
-for (degree in 0 until 10) {
-    val basis = sphere.cohomology[degree].getBasis()
-    println("H^$degree(S^$sphereDim) = Q$basis")
-}
-
-val freeLoopSpace = FreeLoopSpace(sphere)
-val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
-
-freeLoopSpace.context.run {
-    // Operations in a DGA can be applied within 'context.run'
-    println("dsy = ${d(sy)} = ${-2 * x * sx}")
-}
-
-for (degree in 0 until 25) {
-    val basis = freeLoopSpace.cohomology[degree].getBasis()
-    println("H^$degree(LS^$sphereDim) = Q$basis")
-}
-```
-
-See tests in [kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology](kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology) for more examples.
-You can find complete examples in [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app).
-Auto-generated documentation can be seen [here](https://shwaka.github.io/kohomology/dokka/index.html) (but currently very few descriptions are given).
+## Documentation
+See [Kohomology](https://shwaka.github.io/kohomology/dokka/index.html) for tutorial and documentation. (currently under development)
 
 ## Overview of classes and interfaces
 ![classes](uml/packages.png)

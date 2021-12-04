@@ -109,6 +109,16 @@ const config = {
                 label: 'GitHub',
                 href: 'https://github.com/shwaka/kohomology',
               },
+              {
+                href: '/dokka/index.html',
+                label: 'dokka',
+                target: '_blank', // これがないと React router のせいでうまくいかないっぽい
+              },
+              {
+                href: '/benchmark/index.html',
+                label: 'benchmark',
+                target: '_blank', // これがないと React router のせいでうまくいかないっぽい
+              },
             ],
           },
         ],

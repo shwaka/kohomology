@@ -20,16 +20,8 @@ function HomepageHeader() {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Kohomology Tutorial
+            Tutorial
           </Link>
-          <a className="button button--secondary button--lg"
-             href={dokkaUrl} target="_blank">
-            dokka
-          </a>
-          <a className="button button--secondary button--lg"
-             href={benchUrl} target="_blank">
-            benchmark
-          </a>
         </div>
       </div>
     </header>
@@ -40,7 +32,7 @@ export default function Home(): JSX.Element {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main>

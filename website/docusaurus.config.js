@@ -57,7 +57,7 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'dokka/index.html',
+            href: '/dokka/index.html',
             label: 'dokka',
             position: 'left',
             target: '_blank', // これがないと React router のせいでうまくいかないっぽい

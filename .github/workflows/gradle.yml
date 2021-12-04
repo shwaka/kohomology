@@ -80,7 +80,7 @@ jobs:
           gh-pages-branch: benchmark-data
 
   generate-site:
-    needs: [ test-and-lint, benchmark ]
+    # needs: [ test-and-lint, benchmark ]
     runs-on: ubuntu-latest
     env:
       BENCHMARK_DATA_DIR: benchmark-data
@@ -122,6 +122,7 @@ jobs:
         with:
           node-version: 14.x
           cache: 'npm'
+          cache-dependency-path: website/package-lock.json
       - name: Build site
         run: |
           npm install

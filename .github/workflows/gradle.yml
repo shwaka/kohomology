@@ -102,7 +102,7 @@ jobs:
         run: ./prepare-site.sh
       - name: Assert samples are working
         run: |
-          for f in src/main/kotlin; do
+          for f in $(ls src/main/kotlin); do
             ./gradlew run -DsampleName=$f
           done
         working-directory: sample

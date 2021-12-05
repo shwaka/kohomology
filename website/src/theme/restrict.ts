@@ -25,17 +25,20 @@ function removeIndent(lines: string[]): string[] {
   return lines.map(line => line.substring(indent));
 }
 
-function createRegExp(startOrEnd: "start" | "end", key?: string): RegExp {
-  if (key === undefined) {
-    return new RegExp(`// ${startOrEnd}`)
+function createRegExp(startOrEnd: "start" | "end", key: string | true): RegExp {
+  if (key === true) {
+    return new RegExp(`// ${startOrEnd}`);
   } else {
-    return new RegExp(`// ${startOrEnd} +${key}`)
+    return new RegExp(`// ${startOrEnd} +${key}`);
   }
 }
 
-export function restrict(text: string, key?: string): string | null {
-  const startRegExp = createRegExp("start", key)
-  const endRegExp = createRegExp("end", key)
+export function restrict(text: string, key: string | true | undefined): string | null {
+  if (key === undefined) {
+    return text;
+  }
+  const startRegExp = createRegExp("start", key);
+  const endRegExp = createRegExp("end", key);
   const lines = text.split("\n");
   const restrictedLines: string[] | null = getLinesBetween(lines, startRegExp, endRegExp);
   if (restrictedLines === null) {

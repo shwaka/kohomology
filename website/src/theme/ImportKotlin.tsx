@@ -19,7 +19,7 @@ const files: Map<string, string> = new Map(
 
 type ImportKotlinProps = {
   path: string;
-  restrictKey?: string; // "key" conflicts with react
+  restrict?: string | true; // "key" conflicts with react
 }
 
 export function ImportKotlin(props: ImportKotlinProps) {
@@ -28,11 +28,11 @@ export function ImportKotlin(props: ImportKotlinProps) {
   if (code === undefined) {
     return <div>{`Invalid path: ${props.path}`}</div>;
   }
-  const restrictedCode: string | null = restrict(code, props.restrictKey);
+  const restrictedCode: string | null = restrict(code, props.restrict);
   if (restrictedCode === null) {
     return (
       <div>
-        ERROR: <code>{props.restrictKey}</code> is not found in <a href={href}>{href}</a>
+        ERROR: <code>{props.restrict}</code> is not found in <a href={href}>{href}</a>
       </div>
     );
   }

@@ -1,6 +1,9 @@
-function getLinesBetween(lines: string[], startRegExp: RegExp, endRegExp: RegExp): string[] {
+function getLinesBetween(lines: string[], startRegExp: RegExp, endRegExp: RegExp): string[] | null {
   const startLineNum: number = lines.findIndex(line => line.match(startRegExp));
   const endLineNum: number = lines.findIndex(line => line.match(endRegExp));
+  if (startLineNum === -1 || endLineNum === -1) {
+    return null;
+  }
   return lines.slice(startLineNum + 1, endLineNum);
 }
 
@@ -30,10 +33,13 @@ function createRegExp(startOrEnd: "start" | "end", key?: string): RegExp {
   }
 }
 
-export function restrict(text: string, key?: string): string {
+export function restrict(text: string, key?: string): string | null {
   const startRegExp = createRegExp("start", key)
   const endRegExp = createRegExp("end", key)
   const lines = text.split("\n");
-  const restrictedLines = getLinesBetween(lines, startRegExp, endRegExp);
+  const restrictedLines: string[] | null = getLinesBetween(lines, startRegExp, endRegExp);
+  if (restrictedLines === null) {
+    return null;
+  }
   return removeIndent(restrictedLines).join("\n");
 }

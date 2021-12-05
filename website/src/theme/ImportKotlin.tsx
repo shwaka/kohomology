@@ -25,15 +25,22 @@ type ImportKotlinProps = {
 export function ImportKotlin(props: ImportKotlinProps) {
   const href = `https://github.com/shwaka/kohomology/blob/main/sample/src/main/kotlin/${props.path}`;
   const code: string | undefined = files.get(normalizePath(props.path));
+  if (code === undefined) {
+    return <div>{`Invalid path: ${props.path}`}</div>;
+  }
+  const restrictedCode: string | null = restrict(code, props.restrictKey);
+  if (restrictedCode === null) {
+    return (
+      <div>
+        ERROR: <code>{props.restrictKey}</code> is not found in <a href={href}>{href}</a>
+      </div>
+    );
+  }
   return (
     <div>
-      { code ?
-        <MyCodeBlock className="language-kotlin" href={href} linkTitle={props.path}>
-          {restrict(code, props.restrictKey)}
-        </MyCodeBlock> :
-        <div>{`Invalid path: ${props.path}`}</div>
-      }
-      {/*<a href={href} target="_blank">see the original file</a>*/}
+      <MyCodeBlock className="language-kotlin" href={href} linkTitle={props.path}>
+        {restrictedCode}
+      </MyCodeBlock>
     </div>
   );
 }

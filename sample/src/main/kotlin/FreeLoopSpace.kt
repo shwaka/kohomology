@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 
-fun sample1() {
+fun main() {
     // start
     val sphereDim = 4
     val indeterminateList = listOf(
@@ -17,16 +17,10 @@ fun sample1() {
         listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
     }
 
-    for (degree in 0 until 10) {
-        val basis = sphere.cohomology[degree].getBasis()
-        println("H^$degree(S^$sphereDim) = Q$basis")
-    }
-
     val freeLoopSpace = FreeLoopSpace(sphere)
-    val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+    val (x, _, sx, sy) = freeLoopSpace.gAlgebra.generatorList
 
     freeLoopSpace.context.run {
-        // Operations in a DGA can be applied within 'context.run'
         println("dsy = ${d(sy)} = ${-2 * x * sx}")
     }
 

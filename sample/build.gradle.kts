@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     kotlin("jvm") version "1.4.32"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    application
 }
 
 group = "me.shun"
@@ -34,4 +35,10 @@ tasks.register("kc") {
 tasks.register("kf") {
     // alias
     dependsOn("ktlintFormat")
+}
+
+application {
+    val sampleName: String = System.getProperty("sampleName")?.capitalize()
+        ?: throw Exception("Set sample name with -DsampleName=<sample name>")
+    mainClassName = "com.github.shwaka.kohomology.sample.${sampleName}Kt"
 }

@@ -27,15 +27,9 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.register("kc") {
-    // alias
-    dependsOn("ktlintCheck")
-}
-
-tasks.register("kf") {
-    // alias
-    dependsOn("ktlintFormat")
-}
+// aliases
+tasks.register("kc") { dependsOn("ktlintCheck") }
+tasks.register("kf") { dependsOn("ktlintFormat") }
 
 fun convertSampleName(sampleName: String): String {
     // foo.kt -> FooKt

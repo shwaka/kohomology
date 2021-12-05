@@ -68,15 +68,9 @@ benchmark {
     }
 }
 
-tasks.register("kc") {
-    // alias
-    dependsOn("ktlintCheck")
-}
-
-tasks.register("kf") {
-    // alias
-    dependsOn("ktlintFormat")
-}
+// aliases
+tasks.register("kc") { dependsOn("ktlintCheck") }
+tasks.register("kf") { dependsOn("ktlintFormat") }
 
 task("formatBenchmarkResult", JavaExec::class) {
     main = "com.github.shwaka.kohomology.profile.FormatBenchmarkResultKt"

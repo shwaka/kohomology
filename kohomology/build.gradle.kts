@@ -213,15 +213,9 @@ publishing {
     }
 }
 
-tasks.register("kc") {
-    // alias
-    dependsOn("ktlintCheck")
-}
-
-tasks.register("kf") {
-    // alias
-    dependsOn("ktlintFormat")
-}
+// aliases
+tasks.register("kc") { dependsOn("ktlintCheck") }
+tasks.register("kf") { dependsOn("ktlintFormat") }
 
 tasks.dokkaHtml.configure {
     dokkaSourceSets {

@@ -20,7 +20,9 @@ fun main() {
         val basis = sphere.cohomology[degree].getBasis()
         println("H^$degree(S^$sphereDim) = Q$basis")
     }
+    // end
 
+    // start context
     val (x, y) = sphere.gAlgebra.generatorList
 
     sphere.context.run {
@@ -30,5 +32,5 @@ fun main() {
         println(x.cohomologyClass())
         println(x.pow(2).cohomologyClass())
     }
-    // end
+    // end context
 }

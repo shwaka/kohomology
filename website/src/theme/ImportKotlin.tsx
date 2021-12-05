@@ -19,6 +19,7 @@ const files: Map<string, string> = new Map(
 
 type ImportKotlinProps = {
   path: string;
+  restrictKey?: string; // "key" conflicts with react
 }
 
 export function ImportKotlin(props: ImportKotlinProps) {
@@ -28,7 +29,7 @@ export function ImportKotlin(props: ImportKotlinProps) {
     <div>
       { code ?
         <MyCodeBlock className="language-kotlin" href={href} linkTitle={props.path}>
-          {restrict(code)}
+          {restrict(code, props.restrictKey)}
         </MyCodeBlock> :
         <div>{`Invalid path: ${props.path}`}</div>
       }

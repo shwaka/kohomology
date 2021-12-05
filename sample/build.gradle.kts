@@ -45,7 +45,6 @@ fun convertSampleName(sampleName: String): String {
 }
 
 application {
-    val sampleName: String = System.getProperty("sampleName")
-        ?: throw Exception("Set sample name with -DsampleName=<sample name>")
+    val sampleName: String = System.getProperty("sampleName") ?: "SampleNameNotSet"
     mainClassName = "com.github.shwaka.kohomology.sample.${convertSampleName(sampleName)}"
 }

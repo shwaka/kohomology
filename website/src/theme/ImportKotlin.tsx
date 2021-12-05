@@ -26,9 +26,11 @@ export function ImportKotlin(props: ImportKotlinProps) {
   const code: string | undefined = files.get(normalizePath(props.path));
   return (
     <div>
-      { code
-        ? <MyCodeBlock className="language-kotlin" href={href}>{restrict(code)}</MyCodeBlock>
-        : <div>{`Invalid path: ${props.path}`}</div>
+      { code ?
+        <MyCodeBlock className="language-kotlin" href={href} linkTitle={props.path}>
+          {restrict(code)}
+        </MyCodeBlock> :
+        <div>{`Invalid path: ${props.path}`}</div>
       }
       {/*<a href={href} target="_blank">see the original file</a>*/}
     </div>

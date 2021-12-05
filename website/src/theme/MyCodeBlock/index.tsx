@@ -109,7 +109,7 @@ const highlightDirectiveRegex = (lang: string) => {
   }
 };
 
-type MyCodeBlockProps = { href?: string } & Props;
+type MyCodeBlockProps = { href?: string, linkTitle?: string } & Props;
 
 export default function MyCodeBlock({
   children,
@@ -117,6 +117,7 @@ export default function MyCodeBlock({
   metastring,
   title,
   href,
+  linkTitle,
 }: MyCodeBlockProps): JSX.Element {
   const {prism} = useThemeConfig();
 
@@ -233,7 +234,7 @@ export default function MyCodeBlock({
           {(codeBlockTitle || href) && (
             <div style={style} className={styles.codeBlockTitle}>
               {codeBlockTitle}
-              {href && <a href={href}>{href}</a>}
+              {href && <a href={href} target="_blank">{linkTitle ? linkTitle : href}</a>}
             </div>
           )}
           <div className={clsx(styles.codeBlockContent, language)}>

@@ -5,6 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+// docusaurus-theme-classic/src/theme/CodeBlock からコピペして
+//
+
 import React, {useEffect, useState, useRef} from 'react';
 import clsx from 'clsx';
 import Highlight, {defaultProps, Language} from 'prism-react-renderer';
@@ -12,6 +15,13 @@ import copy from 'copy-text-to-clipboard';
 import rangeParser from 'parse-numeric-range';
 import usePrismTheme from '@theme/hooks/usePrismTheme';
 import type {Props} from '@theme/CodeBlock';
+// ↑ docusaurus-theme-classic/src/theme-classic.d.ts に定義がある
+// export interface Props {
+//   readonly children: string | ReactElement;
+//   readonly className?: string;
+//   readonly metastring?: string;
+//   readonly title?: string;
+// }
 import Translate, {translate} from '@docusaurus/Translate';
 
 import styles from './styles.module.css';

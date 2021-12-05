@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 
 fun main() {
-    // start
+    // start basic
     val sphereDim = 4
     val indeterminateList = listOf(
         Indeterminate("x", sphereDim),
@@ -20,7 +20,7 @@ fun main() {
         val basis = sphere.cohomology[degree].getBasis()
         println("H^$degree(S^$sphereDim) = Q$basis")
     }
-    // end
+    // end basic
 
     // start context
     val (x, y) = sphere.gAlgebra.generatorList

@@ -1,5 +1,5 @@
 ---
-sidebar_label: Overview of classes
+title: Overview of classes
 sidebar_position: 4
 ---
 

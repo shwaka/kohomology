@@ -1,13 +1,24 @@
 ---
-sidebar_label: Quick start
+title: Quick start
 sidebar_position: 2
 ---
 
-Since `kohomology` is a [Kotlin](https://kotlinlang.org/) library, you can use it in any kotlin project.
-The repository [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app) provides a working example.
+`kohomology` is a [Kotlin](https://kotlinlang.org/) library published at the maven repository [shwaka/maven](https://github.com/shwaka/maven).
+You can use it in any kotlin project.
 
-This library is published at the maven repository [shwaka/maven](https://github.com/shwaka/maven).
-With gradle, you can use it by:
+## Requirement
+You need to install Java Development Kit (JDK).
+Version 8 (=1.8) is recommended.
+
+- [Windows] Install from [Amazon Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html). Usually you will choose [amazon-corretto-8-x64-windows-jdk.msi](https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi)
+- [Mac, Linux] First, install [sdkman](https://sdkman.io/). Then run `sdk install java 8.292.10.1-amzn`.
+
+## Quick start
+The repository [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app) provides a working example.
+If you are not familiar with kotlin projects, this is a good starting point.
+
+## In your gradle project
+To use in an existing gradle project, write the following in your `build.gradle.kts`:
 ```kotlin
 repositories {
     maven(url = "https://shwaka.github.io/maven/")

@@ -37,8 +37,15 @@ tasks.register("kf") {
     dependsOn("ktlintFormat")
 }
 
+fun convertSampleName(sampleName: String): String {
+    // foo.kt -> FooKt
+    // foo -> Foo
+    // Foo -> Foo
+    return sampleName.capitalize().removeSuffix(".kt") + "Kt"
+}
+
 application {
-    val sampleName: String = System.getProperty("sampleName")?.capitalize()
+    val sampleName: String = System.getProperty("sampleName")
         ?: throw Exception("Set sample name with -DsampleName=<sample name>")
-    mainClassName = "com.github.shwaka.kohomology.sample.${sampleName}Kt"
+    mainClassName = "com.github.shwaka.kohomology.sample.${convertSampleName(sampleName)}"
 }

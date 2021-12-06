@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import { restrict } from '@theme/restrict';
 import MyCodeBlock from './MyCodeBlock';
+import styles from './ImportKotlin.module.css';
 
 const context = require.context("../../../sample/src/main/kotlin", true, /\.kt$/);
 
@@ -31,7 +32,7 @@ export function ImportKotlin(props: ImportKotlinProps) {
   const restrictedCode: string | null = restrict(code, props.restrict);
   if (restrictedCode === null) {
     return (
-      <div>
+      <div className={styles.error}>
         ERROR: <code>{props.restrict}</code> is not found in <a href={href}>{href}</a>
       </div>
     );

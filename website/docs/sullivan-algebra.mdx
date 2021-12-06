@@ -5,12 +5,20 @@ sidebar_position: 3
 
 import { ImportKotlin } from '@theme/ImportKotlin';
 
-Cohomology of a Sullivan algebra can be computed in the following way.
-Consider the minimal Sullivan model of the $2n$-dimensional sphere:
-$(\Lambda(x, y), d)$ with $dx=0$ and $dy=x^2$.
+In this section, we explain a way to compute cohomology of a Sullivan algebra.
 
-<ImportKotlin path="SphereModel.kt" restrict="basic" />
+## Define a Sullivan algebra
+Consider the minimal Sullivan model of the $2n$-dimensional sphere.
+Explicitly it is written as $(\Lambda(x, y), d)$
+where the degrees are given by $\deg{x}=2n$ and $\deg{y}=4n-1$, and
+the differential is given by $dx=0$ and $dy=x^2$.
 
+<ImportKotlin path="SphereModel.kt" restrict="def" />
+
+## Compute cohomology
+<ImportKotlin path="SphereModel.kt" restrict="cohomology" />
+
+## DGA operations
 DGA operations (e.g. sum, multiplication, differential) can be applied within `context.run`.
 
 <ImportKotlin path="SphereModel.kt" restrict="context" />

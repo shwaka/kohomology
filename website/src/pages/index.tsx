@@ -1,18 +1,18 @@
-import React from 'react';
-import clsx from 'clsx';
-import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import styles from './index.module.css';
-import HomepageFeatures from '../components/HomepageFeatures';
-import useBaseUrl from '@docusaurus/useBaseUrl';
+import React from "react"
+import clsx from "clsx"
+import Layout from "@theme/Layout"
+import Link from "@docusaurus/Link"
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import styles from "./index.module.css"
+import HomepageFeatures from "../components/HomepageFeatures"
+import useBaseUrl from "@docusaurus/useBaseUrl"
 
 function HomepageHeader() {
-  const {siteConfig} = useDocusaurusContext();
-  const dokkaUrl = useBaseUrl('/dokka/index.html');
-  const benchUrl = useBaseUrl('/benchmark/index.html');
+  const {siteConfig} = useDocusaurusContext()
+  const dokkaUrl = useBaseUrl("/dokka/index.html")
+  const benchUrl = useBaseUrl("/benchmark/index.html")
   return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
+    <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">
         <h1 className="hero__title">{siteConfig.title}</h1>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
@@ -25,11 +25,11 @@ function HomepageHeader() {
         </div>
       </div>
     </header>
-  );
+  )
 }
 
 export default function Home(): JSX.Element {
-  const {siteConfig} = useDocusaurusContext();
+  const {siteConfig} = useDocusaurusContext()
   return (
     <Layout
       title={`${siteConfig.title}`}
@@ -39,5 +39,5 @@ export default function Home(): JSX.Element {
         {/* <HomepageFeatures /> */}
       </main>
     </Layout>
-  );
+  )
 }

@@ -151,6 +151,8 @@ export default function MyCodeBlock({
 
   if (metastring && HighlightLinesRangeRegex.test(metastring)) {
     // Tested above
+    // ↓元々なかったので追加
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const highlightLinesRange = metastring.match(HighlightLinesRangeRegex)![1]
     highlightLines = rangeParser(highlightLinesRange).filter((n) => n > 0)
   }
@@ -195,6 +197,8 @@ export default function MyCodeBlock({
             break
 
           case "highlight-end":
+            // ↓元々なかったので追加
+            // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
             range += `${blockStart!}-${lineNumber - 1},`
             break
 

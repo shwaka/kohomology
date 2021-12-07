@@ -18,7 +18,8 @@ module.exports = {
   },
   "plugins": [
     "react",
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "unused-imports"
   ],
   "rules": {
     "indent": [
@@ -37,6 +38,12 @@ module.exports = {
     "semi": [
       "error",
       "never"
+    ],
+    "@typescript-eslint/no-unused-vars": "off", // provided by "unused-imports"
+    "unused-imports/no-unused-imports": "error",
+    "unused-imports/no-unused-vars": [
+      "warn",
+      { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
     ]
   }
 }

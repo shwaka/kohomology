@@ -1,5 +1,5 @@
 [![version](https://img.shields.io/badge/dynamic/xml?label=version&query=%2F%2Fmetadata%2Fversioning%2Flatest&url=https%3A%2F%2Fshwaka.github.io%2Fmaven%2Fcom%2Fgithub%2Fshwaka%2Fkohomology%2Fkohomology%2Fmaven-metadata.xml)](https://shwaka.github.io/maven/com/github/shwaka/kohomology/)
-[![build](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml/badge.svg)](https://github.com/shwaka/kohomology/actions/workflows/gradle.yml)
+[![build](https://github.com/shwaka/kohomology/actions/workflows/main.yml/badge.svg)](https://github.com/shwaka/kohomology/actions/workflows/main.yml)
 [![codecov](https://codecov.io/gh/shwaka/kohomology/branch/main/graph/badge.svg?token=kTXiaOtBj1)](https://codecov.io/gh/shwaka/kohomology)
 [![license](https://img.shields.io/github/license/shwaka/kohomology)](https://github.com/shwaka/kohomology/blob/main/LICENSE)
 [![KDoc](https://img.shields.io/badge/dynamic/json?color=lightgray&label=KDoc&query=percent&suffix=%25&url=https%3A%2F%2Fshwaka.github.io%2Fkohomology%2Fdokka%2Fcoverage.json&logo=kotlin&logoColor=orange)](https://shwaka.github.io/kohomology/dokka/index.html)

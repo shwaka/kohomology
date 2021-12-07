@@ -110,7 +110,7 @@ jobs:
           node-version: 14.x
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - run: npm install
+      - run: npm ci
         working-directory: website
       - name: Build site
         run: npm run build
@@ -145,6 +145,8 @@ jobs:
           node-version: 14.x
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
+      - run: npm ci
+        working-directory: website
       - name: eslint
         run: npm run eslint
         working-directory: website

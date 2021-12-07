@@ -1,5 +1,5 @@
 // import CodeBlock from '@theme/CodeBlock';
-import React, {useState} from "react"
+import React from "react"
 import { restrict } from "@theme/restrict"
 import MyCodeBlock from "./MyCodeBlock"
 import styles from "./ImportKotlin.module.css"

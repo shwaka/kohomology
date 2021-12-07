@@ -4,7 +4,7 @@ name: Build # This will be shown in the badge in README.md
 env:
   JDK_VERSION: 1.8
   NODE_VERSION: 14.x
-  RUNS_ON: ubuntu-20.04
+  # 'env' cannot be used in 'runs-on'(?)
 
 on:
   push:
@@ -17,7 +17,7 @@ on:
 
 jobs:
   test:
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-20.04
     defaults:
       run:
         working-directory: kohomology
@@ -52,7 +52,7 @@ jobs:
 
   benchmark:
     needs: test
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -84,7 +84,7 @@ jobs:
 
   generate-site:
     needs: [ test, benchmark ]
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-20.04
     env:
       BENCHMARK_DATA_DIR: benchmark-data
     steps:
@@ -128,7 +128,7 @@ jobs:
 
   lint-kotlin:
     needs: [ test ]
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Set up JDK ${{ env.JDK_VERSION }}
@@ -141,7 +141,7 @@ jobs:
 
   lint-website:
     needs: [ generate-site ]
-    runs-on: ${{ env.RUNS_ON }}
+    runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js

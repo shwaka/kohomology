@@ -106,28 +106,6 @@ jobs:
             ./gradlew run -DsampleName=$f
           done
         working-directory: sample
-      # - name: Download dependencies # Not necessary, but useful to make the log clean
-      #   run: |
-      #     ./gradlew dependencies --configuration nativeCompileKlibraries --stacktrace
-      #     ./gradlew dependencies --configuration dokkaHtmlRuntime --stacktrace
-      #   working-directory: kohomology
-      # - name: Generate documentation by dokka
-      #   run: ./gradlew dokkaHtml
-      #   working-directory: kohomology
-      # - name: Compute coverage
-      #   run: ./gradlew dokkacovWriteJson
-      #   working-directory: kohomology
-      # - name: Checkout benchmark-data branch as a subdirectory
-      #   uses: actions/checkout@v2
-      #   with:
-      #     path: ${{ env.BENCHMARK_DATA_DIR }}
-      #     ref: benchmark-data
-      # - name: Build site
-      #   run: |
-      #     mkdir site
-      #     cp -r kohomology/build/dokka/html site/dokka
-      #     cp -r $BENCHMARK_DATA_DIR/dev/bench site/benchmark
-      #     cp index.html site/index.html
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:

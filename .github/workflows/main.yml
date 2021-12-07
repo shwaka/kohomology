@@ -1,10 +1,10 @@
-name: Test # This will be shown in the badge in README.md
+name: Build # This will be shown in the badge in README.md
 # name: Test, benchmark, and generate site
 
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'prepare-site.sh', '.github/workflows/gradle.yml' ]
+    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'prepare-site.sh', '.github/workflows/main.yml' ]
   # pull_request: # See pull_request.yml for workflows on pull requests
   #   branches: [ main ]
   #   paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]

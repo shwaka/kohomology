@@ -6,7 +6,7 @@
  */
 
 // docusaurus-theme-classic/src/theme/CodeBlock からコピペして
-//
+// Props に href と linkTitle を追加した．
 
 import React, {useEffect, useState, useRef} from "react"
 import clsx from "clsx"

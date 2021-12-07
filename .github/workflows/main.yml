@@ -1,6 +1,11 @@
 name: Build # This will be shown in the badge in README.md
 # name: Test, benchmark, and generate site
 
+env:
+  JDK_VERSION: 1.8
+  NODE_VERSION: 14.x
+  RUNS_ON: ubuntu-20.04
+
 on:
   push:
     branches: [ main ]
@@ -12,7 +17,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.RUNS_ON }}
     defaults:
       run:
         working-directory: kohomology
@@ -23,10 +28,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - name: Set up JDK 1.8
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: ${{ env.JDK_VERSION }}
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Download dependencies # Not necessary, but useful to make the log clean
@@ -47,7 +52,7 @@ jobs:
 
   benchmark:
     needs: test
-    runs-on: ubuntu-20.04
+    runs-on: ${{ env.RUNS_ON }}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/cache@v1
@@ -55,10 +60,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - name: Set up JDK 1.8
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: ${{ env.JDK_VERSION }}
       - name: Install kohomology to MavenLocal
         run: ./gradlew publishToMavenLocal
         working-directory: kohomology
@@ -79,7 +84,7 @@ jobs:
 
   generate-site:
     needs: [ test, benchmark ]
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.RUNS_ON }}
     env:
       BENCHMARK_DATA_DIR: benchmark-data
     steps:
@@ -92,10 +97,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - name: Set up JDK 1.8
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: ${{ env.JDK_VERSION }}
       - name: Prepare benchmark data and dokka html
         run: ./prepare-site.sh
       - name: Assert samples are working
@@ -107,7 +112,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
       - run: npm ci
@@ -123,26 +128,26 @@ jobs:
 
   lint-kotlin:
     needs: [ test ]
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.RUNS_ON }}
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 1.8
+      - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: ${{ env.JDK_VERSION }}
       - name: ktlint
         run: ./gradlew ktlintCheck
         working-directory: kohomology
 
   lint-website:
     needs: [ generate-site ]
-    runs-on: ubuntu-latest
+    runs-on: ${{ env.RUNS_ON }}
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14.x
+          node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
       - run: npm ci

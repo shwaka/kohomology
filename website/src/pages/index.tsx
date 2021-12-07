@@ -4,12 +4,12 @@ import Layout from "@theme/Layout"
 import Link from "@docusaurus/Link"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import styles from "./index.module.css"
-import useBaseUrl from "@docusaurus/useBaseUrl"
+// import useBaseUrl from "@docusaurus/useBaseUrl"
 
 function HomepageHeader() {
   const {siteConfig} = useDocusaurusContext()
-  const dokkaUrl = useBaseUrl("/dokka/index.html")
-  const benchUrl = useBaseUrl("/benchmark/index.html")
+  // const dokkaUrl = useBaseUrl("/dokka/index.html")
+  // const benchUrl = useBaseUrl("/benchmark/index.html")
   return (
     <header className={clsx("hero hero--primary", styles.heroBanner)}>
       <div className="container">

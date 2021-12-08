@@ -99,6 +99,12 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - name: Set up JDK ${{ env.JDK_VERSION }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ env.JDK_VERSION }}
+      - name: Prepare benchmark data and dokka html
+        run: ./prepare-site.sh
       - uses: actions/upload-artifact@v2 # for lint-website
         # 以下が全て必要
         # - build/js/packages/kohomology-js
@@ -108,12 +114,6 @@ jobs:
         with:
           name: ${{ env.SHARED_ARTIFACT_NAME }}
           path: ${{ env.SHARED_ARTIFACT_PATH }}
-      - name: Set up JDK ${{ env.JDK_VERSION }}
-        uses: actions/setup-java@v1
-        with:
-          java-version: ${{ env.JDK_VERSION }}
-      - name: Prepare benchmark data and dokka html
-        run: ./prepare-site.sh
       - name: Assert samples are working
         run: |
           for f in $(ls src/main/kotlin); do

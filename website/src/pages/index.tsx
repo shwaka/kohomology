@@ -6,7 +6,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import styles from "./index.module.css"
 // import useBaseUrl from "@docusaurus/useBaseUrl"
 
-function HomepageHeader() {
+function HomepageHeader(): JSX.Element {
   const {siteConfig} = useDocusaurusContext()
   // const dokkaUrl = useBaseUrl("/dokka/index.html")
   // const benchUrl = useBaseUrl("/benchmark/index.html")

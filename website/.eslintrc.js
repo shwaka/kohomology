@@ -39,6 +39,10 @@ module.exports = {
       "error",
       "never"
     ],
+    "@typescript-eslint/explicit-function-return-type": [
+      2,
+      { "allowExpressions": true }
+    ],
     "@typescript-eslint/no-unused-vars": "off", // provided by "unused-imports"
     "unused-imports/no-unused-imports": "error",
     "unused-imports/no-unused-vars": [

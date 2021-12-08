@@ -23,7 +23,7 @@ type ImportKotlinProps = {
   restrict?: string | true; // "key" conflicts with react
 }
 
-export function ImportKotlin(props: ImportKotlinProps) {
+export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
   const href = `https://github.com/shwaka/kohomology/blob/main/sample/src/main/kotlin/${props.path}`
   const code: string | undefined = files.get(normalizePath(props.path))
   if (code === undefined) {

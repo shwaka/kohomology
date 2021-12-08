@@ -63,7 +63,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         onClick={() => setJson(jsonString)} />
     )
   }
-  function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent): void {
     e.preventDefault()
     try {
       props.printResult(computeCohomology(json, parseInt(maxDegree)))
@@ -77,10 +77,10 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       }
     }
   }
-  function handleChangeMaxDegree(e: InputEvent) {
+  function handleChangeMaxDegree(e: InputEvent): void {
     setMaxDegree(e.target.value)
   }
-  function handleChangeJson(e: TextAreaEvent) {
+  function handleChangeJson(e: TextAreaEvent): void {
     setJson(e.target.value)
   }
   return (

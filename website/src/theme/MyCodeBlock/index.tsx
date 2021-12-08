@@ -71,7 +71,7 @@ const HighlightDirectives = [
 
 const getHighlightDirectiveRegex = (
   languages: readonly HighlightLanguage[] = HighlightLanguages,
-) => {
+): RegExp => {
   // to be more reliable, the opening and closing comment must match
   const commentPattern = languages
     .map((lang) => {
@@ -84,7 +84,7 @@ const getHighlightDirectiveRegex = (
 }
 
 // select comment styles based on language
-const highlightDirectiveRegex = (lang: string) => {
+const highlightDirectiveRegex = (lang: string): RegExp => {
   switch (lang) {
     case "js":
     case "javascript":
@@ -215,7 +215,7 @@ export default function MyCodeBlock({
     code = lines.join("\n")
   }
 
-  const handleCopyCode = () => {
+  const handleCopyCode = (): void => {
     copy(code)
     setShowCopied(true)
 

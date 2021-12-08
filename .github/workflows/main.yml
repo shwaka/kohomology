@@ -97,6 +97,10 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - uses: actions/cache@v1 # for lint-website
+        with:
+          path: website/kohomology-js/build/js/packages/kohomology-js
+          key: ${{ runner.os }}-kohomology-js-node-package
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
@@ -150,6 +154,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
+      - uses: actions/cache@v1 # restore kohomology-js
+        with:
+          path: website/kohomology-js/build/js/packages/kohomology-js
+          key: ${{ runner.os }}-kohomology-js-node-package
       - run: npm ci
         working-directory: website
       - name: eslint

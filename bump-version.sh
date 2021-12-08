@@ -39,7 +39,7 @@ function release_version() {
     update_implementation "$version" $README_MD
     git add $BUILD_GRADLE_KTS $README_MD
 
-    for d in sample; do
+    for d in sample website/kohomology-js; do
         local kts=$d/build.gradle.kts
         update_implementation $version $kts
         git add $kts

@@ -46,7 +46,11 @@ function sevenManifold(): string {
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
-export function Calculator(): JSX.Element {
+interface CalculatorFormProps {
+  printlnFun: (line: string) => void
+}
+
+function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
   const [maxDegree, setMaxDegree] = useState("20")
   function createButton(valueString: string, jsonString: string): JSX.Element {
@@ -57,7 +61,9 @@ export function Calculator(): JSX.Element {
   }
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    console.log(computeCohomology(json, parseInt(maxDegree)))
+    for (const line of computeCohomology(json, parseInt(maxDegree))) {
+      props.printlnFun(line)
+    }
   }
   function handleChangeMaxDegree(e: InputEvent) {
     setMaxDegree(e.target.value)
@@ -81,6 +87,14 @@ export function Calculator(): JSX.Element {
           <input type="button" value="Compute" onClick={handleSubmit} />
         </div>
       </form>
+    </div>
+  )
+}
+
+export function Calculator(): JSX.Element {
+  return (
+    <div>
+      <CalculatorForm printlnFun={(line) => console.log(line)} />
     </div>
   )
 }

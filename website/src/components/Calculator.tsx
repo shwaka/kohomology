@@ -47,7 +47,7 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
 interface CalculatorFormProps {
-  printlnFun: (line: string) => void
+  printResult: (result: string[]) => void
 }
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
@@ -61,9 +61,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   function handleSubmit(e: FormEvent) {
     e.preventDefault()
-    for (const line of computeCohomology(json, parseInt(maxDegree))) {
-      props.printlnFun(line)
-    }
+    props.printResult(computeCohomology(json, parseInt(maxDegree)))
   }
   function handleChangeMaxDegree(e: InputEvent) {
     setMaxDegree(e.target.value)
@@ -92,9 +90,13 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 }
 
 export function Calculator(): JSX.Element {
+  const [display, setDisplay] = useState<string[]>([])
   return (
     <div>
-      <CalculatorForm printlnFun={(line) => console.log(line)} />
+      <CalculatorForm printResult={(result: string[]) => setDisplay(result)} />
+      <div>
+        {display.map((line, index) => <div key={index}>{line}</div>)}
+      </div>
     </div>
   )
 }

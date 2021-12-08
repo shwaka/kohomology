@@ -2,7 +2,7 @@ import React, { FormEvent, useState } from "react"
 import { computeCohomology as computeCohomologyKotlin, Text as TextKotlin } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import TeX from "@matejmazur/react-katex"
-import styles from "./Calculator.module.css"
+import styles from "./styles.module.css"
 
 interface Text {
   type: "normal" | "math" | "invalid"

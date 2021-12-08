@@ -1,8 +1,25 @@
 import React, { FormEvent, useState } from "react"
-import { computeCohomology } from "kohomology-js"
+import { computeCohomology as computeCohomologyKotlin, Text as TextKotlin } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import TeX from "@matejmazur/react-katex"
 import styles from "./Calculator.module.css"
+
+interface Text {
+  type: "normal" | "math" | "invalid"
+  content: string
+}
+
+function convertToText(textKotlin: TextKotlin): Text {
+  if (["normal", "math"].includes(textKotlin.type)) {
+    return textKotlin as Text
+  } else {
+    return { type: "invalid", content: textKotlin.content }
+  }
+}
+
+function computeCohomology(json: string, maxDegree: number): Text[] {
+  return computeCohomologyKotlin(json, maxDegree).map((textKotlin) => convertToText(textKotlin))
+}
 
 function sphere(dim: number): string {
   if (!Number.isInteger(dim)) {
@@ -50,7 +67,7 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
 interface CalculatorFormProps {
-  printResult: (result: string[]) => void
+  printResult: (result: Text[]) => void
   printError: (errorString: string) => void
 }
 
@@ -105,16 +122,26 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 
 export function Calculator(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
-  const [equations, setEquations] = useState<string[]>([])
+  // const [equations, setEquations] = useState<string[]>([])
+  const [texts, setTexts] = useState<Text[]>([])
   return (
     <div>
       <CalculatorForm
-        printResult={(result: string[]) => {setEquations(result); setError(null)}}
-        printError={(errorString: string) => {setEquations([]); setError(errorString)}}
+        printResult={(result: Text[]) => {setTexts(result); setError(null)}}
+        printError={(errorString: string) => {setTexts([]); setError(errorString)}}
       />
       <div>
         {error && <div className={styles.error}>{error}</div>}
-        {equations.map((equation, index) => <div key={index}><TeX math={equation}/></div>)}
+        {texts.map((text, index) => {
+          switch (text.type) {
+            case "normal":
+              return <div key={index}>{text.content}</div>
+            case "math":
+              return <div key={index}><TeX math={text.content}/></div>
+            case "invalid":
+              return <div className={styles.error}>{text.content}</div>
+          }
+        })}
       </div>
     </div>
   )

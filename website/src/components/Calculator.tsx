@@ -1,5 +1,7 @@
 import React, { FormEvent, useState } from "react"
 import { computeCohomology } from "kohomology-js"
+import "katex/dist/katex.min.css"
+import TeX from "@matejmazur/react-katex"
 
 function sphere(dim: number): string {
   if (!Number.isInteger(dim)) {
@@ -102,14 +104,16 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 
 export function Calculator(): JSX.Element {
   const [display, setDisplay] = useState<string[]>([])
+  const [equations, setEquations] = useState<string[]>([])
   return (
     <div>
       <CalculatorForm
-        printResult={(result: string[]) => setDisplay(result)}
+        printResult={(result: string[]) => setEquations(result)}
         printError={(errorString: string) => setDisplay([errorString])}
       />
       <div>
         {display.map((line, index) => <div key={index}>{line}</div>)}
+        {equations.map((equation, index) => <div key={index}><TeX math={equation}/></div>)}
       </div>
     </div>
   )

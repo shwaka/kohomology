@@ -5,6 +5,8 @@ env:
   JDK_VERSION: 1.8
   NODE_VERSION: 14.x
   # 'env' cannot be used in 'runs-on'(?)
+  SHARED_ARTIFACT_NAME: _internal_artifact
+  SHARED_ARTIFACT_PATH: website/kohomology-js/build/js
 
 on:
   push:
@@ -97,25 +99,21 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v1 # for lint-website
+      - uses: actions/upload-artifact@v2 # for lint-website
+        # 以下が全て必要
+        # - build/js/packages/kohomology-js
+        # - build/js/packages-imported/kotlin/<version>
+        # - build/js/packages-imported/kotlin-test/<version>
+        # - build/js/packages-imported/kotlin-test-js-runner/<version>
         with:
-          # 以下が全て必要
-          # - build/js/packages/kohomology-js
-          # - build/js/packages-imported/kotlin/<version>
-          # - build/js/packages-imported/kotlin-test/<version>
-          # - build/js/packages-imported/kotlin-test-js-runner/<version>
-          path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package
+          name: ${{ env.SHARED_ARTIFACT_NAME }}
+          path: ${{ env.SHARED_ARTIFACT_PATH }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_VERSION }}
       - name: Prepare benchmark data and dokka html
         run: ./prepare-site.sh
-      - name: debug
-        run: |
-          pwd
-          tree website
       - name: Assert samples are working
         run: |
           for f in $(ls src/main/kotlin); do
@@ -163,10 +161,10 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - uses: actions/cache@v1 # restore kohomology-js
+      - uses: actions/download-artifact@v2 # restore kohomology-js
         with:
-          path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package
+          name: ${{ env.SHARED_ARTIFACT_NAME }}
+          path: ${{ env.SHARED_ARTIFACT_PATH }}
       - run: npm ci
         working-directory: website
       - name: eslint

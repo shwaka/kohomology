@@ -107,6 +107,10 @@ jobs:
           java-version: ${{ env.JDK_VERSION }}
       - name: Prepare benchmark data and dokka html
         run: ./prepare-site.sh
+      - name: debug
+        run: |
+          pwd
+          tree website
       - name: Assert samples are working
         run: |
           for f in $(ls src/main/kotlin); do

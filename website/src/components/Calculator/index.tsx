@@ -1,32 +1,20 @@
 import React, { FormEvent, useState } from "react"
-import { computeCohomology as computeCohomologyKotlin, Text as TextKotlin } from "kohomology-js"
+import { computeCohomology as computeCohomologyKt } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import TeX from "@matejmazur/react-katex"
 import styles from "./styles.module.css"
 import { sphere, complexProjective, sevenManifold } from "./examples"
+import { StyledMessage, StyledString, toStyledMessage } from "./styled"
 
-interface Text {
-  type: "normal" | "math" | "invalid"
-  content: string
-}
-
-function convertToText(textKotlin: TextKotlin): Text {
-  if (["normal", "math"].includes(textKotlin.type)) {
-    return textKotlin as Text
-  } else {
-    return { type: "invalid", content: textKotlin.content }
-  }
-}
-
-function computeCohomology(json: string, maxDegree: number): Text[] {
-  return computeCohomologyKotlin(json, maxDegree).map((textKotlin) => convertToText(textKotlin))
+function computeCohomology(json: string, maxDegree: number): StyledMessage[] {
+  return computeCohomologyKt(json, maxDegree).map(toStyledMessage)
 }
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
 interface CalculatorFormProps {
-  printResult: (result: Text[]) => void
+  printResult: (result: StyledMessage[]) => void
   printError: (errorString: string) => void
 }
 
@@ -81,26 +69,16 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 
 export function Calculator(): JSX.Element {
   const [error, setError] = useState<string | null>(null)
-  // const [equations, setEquations] = useState<string[]>([])
-  const [texts, setTexts] = useState<Text[]>([])
+  const [messages, setMessages] = useState<StyledMessage[]>([])
   return (
     <div>
       <CalculatorForm
-        printResult={(result: Text[]) => {setTexts(result); setError(null)}}
-        printError={(errorString: string) => {setTexts([]); setError(errorString)}}
+        printResult={(result: StyledMessage[]) => {setMessages(result); setError(null)}}
+        printError={(errorString: string) => {setMessages([]); setError(errorString)}}
       />
       <div>
         {error && <div className={styles.error}>{error}</div>}
-        {texts.map((text, index) => {
-          switch (text.type) {
-            case "normal":
-              return <div key={index}>{text.content}</div>
-            case "math":
-              return <div key={index}><TeX math={text.content}/></div>
-            case "invalid":
-              return <div className={styles.error}>{text.content}</div>
-          }
-        })}
+        {messages.map((message, index) => message.toJSXElement(index))}
       </div>
     </div>
   )

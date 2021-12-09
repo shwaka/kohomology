@@ -99,21 +99,30 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - uses: actions/cache@v2 # for lint-website
+        with:
+          # 以下が全て必要
+          # - build/js/packages/kohomology-js
+          # - build/js/packages-imported/kotlin/<version>
+          # - build/js/packages-imported/kotlin-test/<version>
+          # - build/js/packages-imported/kotlin-test-js-runner/<version>
+          path: website/kohomology-js/build/js
+          key: ${{ runner.os }}-kohomology-js-node-package-${{ hashFiles('website/kohomology-js/*.gradle.kts', 'website/kohomology-js/src') }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_VERSION }}
       - name: Prepare benchmark data and dokka html
         run: ./prepare-site.sh
-      - uses: actions/upload-artifact@v2 # for lint-website
-        # 以下が全て必要
-        # - build/js/packages/kohomology-js
-        # - build/js/packages-imported/kotlin/<version>
-        # - build/js/packages-imported/kotlin-test/<version>
-        # - build/js/packages-imported/kotlin-test-js-runner/<version>
-        with:
-          name: ${{ env.SHARED_ARTIFACT_NAME }}
-          path: ${{ env.SHARED_ARTIFACT_PATH }}
+      # - uses: actions/upload-artifact@v2 # for lint-website
+      #   # 以下が全て必要
+      #   # - build/js/packages/kohomology-js
+      #   # - build/js/packages-imported/kotlin/<version>
+      #   # - build/js/packages-imported/kotlin-test/<version>
+      #   # - build/js/packages-imported/kotlin-test-js-runner/<version>
+      #   with:
+      #     name: ${{ env.SHARED_ARTIFACT_NAME }}
+      #     path: ${{ env.SHARED_ARTIFACT_PATH }}
       - name: Assert samples are working
         run: |
           for f in $(ls src/main/kotlin); do
@@ -161,10 +170,15 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - uses: actions/download-artifact@v2 # restore kohomology-js
+      - uses: actions/cache@v2 # restore from generate-site
         with:
-          name: ${{ env.SHARED_ARTIFACT_NAME }}
-          path: ${{ env.SHARED_ARTIFACT_PATH }}
+          # 以下が全て必要
+          # - build/js/packages/kohomology-js
+          # - build/js/packages-imported/kotlin/<version>
+          # - build/js/packages-imported/kotlin-test/<version>
+          # - build/js/packages-imported/kotlin-test-js-runner/<version>
+          path: website/kohomology-js/build/js
+          key: ${{ runner.os }}-kohomology-js-node-package-${{ hashFiles('website/kohomology-js/*.gradle.kts', 'website/kohomology-js/src') }}
       - run: npm ci
         working-directory: website
       - name: eslint

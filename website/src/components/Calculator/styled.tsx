@@ -1,5 +1,6 @@
 import React from "react"
 import TeX from "@matejmazur/react-katex"
+import styles from "./styles.module.css"
 import { StyledStringKt, StyledMessageKt } from "kohomology-js"
 
 const styleTypes = ["normal", "math"] as const
@@ -37,14 +38,21 @@ export class StyledMessage {
   }
 
   toJSXElement(key: number): JSX.Element {
+    let style;
     switch (this.messageType) {
       case "success":
+        style = styles.messageSuccess
+        break
       case "error":
-        return (
-          <div key={key}>
-            { this.strings.map((styledString, index) => styledString.toJSXElement(index)) }
-          </div>)
+        style = styles.messageError
+        break
     }
+    return (
+      <div key={key} className={style}>
+        {this.strings.map((styledString, index) => styledString.toJSXElement(index))}
+      </div>
+    )
+
   }
 }
 

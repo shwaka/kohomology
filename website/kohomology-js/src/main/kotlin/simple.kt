@@ -43,7 +43,9 @@ fun computeCohomology(json: String, maxDegree: Int): Array<StyledMessageKt> {
     val freeDGAlgebra = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     // val lines: MutableList<Text> = mutableListOf(Text("normal", "Computation result:"))
     val messages = mutableListOf(
-        styledMessage(MessageType.SUCCESS) { "Computation result:".normal }.export()
+        styledMessage(MessageType.SUCCESS) {
+            "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
+        }.export()
     )
     for (degree in 0..maxDegree) {
         val basis = freeDGAlgebra.cohomology.getBasis(degree)

@@ -3,3 +3,11 @@
   background: peachpuff;
   padding: 5px;
 }
+
+.messageSuccess {
+  border-bottom: 1px solid lightGray;
+}
+.messageError {
+  background: peachpuff;
+  border-bottom: 1px solid lightGray;
+}

@@ -1,10 +1,9 @@
 import React, { FormEvent, useState } from "react"
 import { computeCohomology as computeCohomologyKt } from "kohomology-js"
 import "katex/dist/katex.min.css"
-import TeX from "@matejmazur/react-katex"
 import styles from "./styles.module.css"
 import { sphere, complexProjective, sevenManifold } from "./examples"
-import { StyledMessage, StyledString, toStyledMessage } from "./styled"
+import { StyledMessage, toStyledMessage } from "./styled"
 
 function computeCohomology(json: string, maxDegree: number): StyledMessage[] {
   return computeCohomologyKt(json, maxDegree).map(toStyledMessage)

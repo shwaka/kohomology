@@ -35,17 +35,16 @@ private fun jsonToGeneratorList(json: String): List<SerializableGenerator> {
 
 @ExperimentalJsExport
 @JsExport
-class Text(val type: String, val content: String)
-
-@ExperimentalJsExport
-@JsExport
-fun computeCohomology(json: String, maxDegree: Int): Array<Text> {
+fun computeCohomology(json: String, maxDegree: Int): Array<StyledMessageKt> {
     val serializableGeneratorList = jsonToGeneratorList(json)
     val generatorList = serializableGeneratorList.map {
         GeneratorOfFreeDGA(it.name, it.degree, it.differentialValue)
     }
     val freeDGAlgebra = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
-    val lines: MutableList<Text> = mutableListOf(Text("normal", "Computation result:"))
+    // val lines: MutableList<Text> = mutableListOf(Text("normal", "Computation result:"))
+    val messages = mutableListOf(
+        styledMessage(MessageType.SUCCESS) { "Computation result:".normal }.export()
+    )
     for (degree in 0..maxDegree) {
         val basis = freeDGAlgebra.cohomology.getBasis(degree)
         val vectorSpaceString = if (basis.isEmpty()) "0" else {
@@ -53,7 +52,10 @@ fun computeCohomology(json: String, maxDegree: Int): Array<Text> {
             "\\mathbb{Q}\\{$basisString\\}"
         }
         // this.props.printlnFun("\\(H^{$degree} = $vectorSpaceString\\)")
-        lines.add(Text("math", "H^{$degree} = $vectorSpaceString"))
+        // lines.add(Text("math", "H^{$degree} = $vectorSpaceString"))
+        messages.add(
+            styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
+        )
     }
-    return lines.toTypedArray()
+    return messages.toTypedArray()
 }

@@ -61,3 +61,44 @@ fun computeCohomology(json: String, maxDegree: Int): Array<StyledMessageKt> {
     }
     return messages.toTypedArray()
 }
+
+@ExperimentalJsExport
+@JsExport
+@Suppress("UNUSED")
+class FreeDGAWrapper(json: String) {
+    private val freeDGAlgebra = run {
+        val serializableGeneratorList = jsonToGeneratorList(json)
+        val generatorList = serializableGeneratorList.map {
+            GeneratorOfFreeDGA(it.name, it.degree, it.differentialValue)
+        }
+        FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
+    }
+    fun cohomology(degree: Int): StyledMessageKt {
+        val basis = this.freeDGAlgebra.cohomology.getBasis(degree)
+        val vectorSpaceString = if (basis.isEmpty()) "0" else {
+            val basisString = basis.joinToString(", ") { it.toString() }
+            "\\mathbb{Q}\\{$basisString\\}"
+        }
+        return styledMessage(MessageType.SUCCESS) {
+            "H^{$degree} = $vectorSpaceString".math
+        }.export()
+    }
+    fun cohomologyUpTo(maxDegree: Int): Array<StyledMessageKt> {
+        val messages = mutableListOf(
+            styledMessage(MessageType.SUCCESS) {
+                "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
+            }.export()
+        )
+        for (degree in 0..maxDegree) {
+            val basis = freeDGAlgebra.cohomology.getBasis(degree)
+            val vectorSpaceString = if (basis.isEmpty()) "0" else {
+                val basisString = basis.joinToString(", ") { it.toString() }
+                "\\mathbb{Q}\\{$basisString\\}"
+            }
+            messages.add(
+                styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
+            )
+        }
+        return messages.toTypedArray()
+    }
+}

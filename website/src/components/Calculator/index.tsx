@@ -1,13 +1,9 @@
 import React, { FormEvent, useState } from "react"
-import { computeCohomology as computeCohomologyKt } from "kohomology-js"
+import { FreeDGAWrapper } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import { StyledMessage, toStyledMessage } from "./styled"
-
-function computeCohomology(json: string, maxDegree: number): StyledMessage[] {
-  return computeCohomologyKt(json, maxDegree).map(toStyledMessage)
-}
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
@@ -20,6 +16,7 @@ interface CalculatorFormProps {
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
   const [maxDegree, setMaxDegree] = useState("20")
+  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper("[]"))
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input type="button" value={valueString}
@@ -29,7 +26,21 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleSubmit(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(computeCohomology(json, parseInt(maxDegree)))
+      props.printResult(dgaWrapper.cohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
+    } catch (error: unknown) {
+      if (error === null) {
+        props.printError("This can't happen!")
+      } else if (typeof error === "object") {
+        props.printError(error.toString())
+      } else {
+        props.printError("Unknown error!")
+      }
+    }
+  }
+  function applyJson(e: FormEvent): void {
+    e.preventDefault()
+    try {
+      setDgaWrapper(new FreeDGAWrapper(json))
     } catch (error: unknown) {
       if (error === null) {
         props.printError("This can't happen!")
@@ -58,6 +69,9 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         </div>
         <textarea
           value={json} onChange={handleChangeJson} />
+        <div>
+          <input type="button" value="Apply" onClick={applyJson} />
+        </div>
         <div>
           <input type="button" value="Compute" onClick={handleSubmit} />
         </div>

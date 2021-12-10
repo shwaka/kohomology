@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react"
-import { FreeDGAWrapper } from "kohomology-js"
+import { FreeDGAWrapper, StyledStringKt } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
@@ -11,6 +11,7 @@ type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 interface CalculatorFormProps {
   printResult: (result: StyledMessage[]) => void
   printError: (errorString: string) => void
+  setInfo: (infoElm: JSX.Element) => void
 }
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
@@ -26,7 +27,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleSubmit(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(dgaWrapper.cohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
+      props.printResult(dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
     } catch (error: unknown) {
       if (error === null) {
         props.printError("This can't happen!")
@@ -40,7 +41,9 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function applyJson(e: FormEvent): void {
     e.preventDefault()
     try {
-      setDgaWrapper(new FreeDGAWrapper(json))
+      const newDgaWrapper = new FreeDGAWrapper(json)
+      setDgaWrapper(newDgaWrapper)
+      props.setInfo(toStyledMessage(newDgaWrapper.dgaInfo()).toJSXElement())
     } catch (error: unknown) {
       if (error === null) {
         props.printError("This can't happen!")
@@ -83,6 +86,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
+  const [info, setInfo] = useState<JSX.Element>(<span>info</span>)
   function addMessages(addedMessages: StyledMessage[]): void {
     setMessages(messages.concat(addedMessages))
   }
@@ -93,9 +97,13 @@ export function Calculator(): JSX.Element {
         printError={(errorString: string) => {
           addMessages([StyledMessage.fromString("error", errorString)])
         }}
+        setInfo={setInfo}
       />
-      <div className={styles.calculatorResults}>
-        {messages.map((message, index) => message.toJSXElement(index))}
+      <div>
+        <div>{info}</div>
+        <div className={styles.calculatorResults}>
+          {messages.map((message, index) => message.toJSXElement(index))}
+        </div>
       </div>
     </div>
   )

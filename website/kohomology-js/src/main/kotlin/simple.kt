@@ -44,7 +44,17 @@ class FreeDGAWrapper(json: String) {
         }
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
-    fun cohomology(degree: Int): StyledMessageKt {
+    fun dgaInfo(): StyledMessageKt {
+        val freeDGAString = this.freeDGAlgebra.toString()
+        val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
+            "\\deg ${it.name} = ${it.degree}"
+        }
+        return styledMessage(MessageType.SUCCESS) {
+            freeDGAString.math + " with ".normal + degreeString.math
+        }.export()
+    }
+    // cohomology だと js で cohomology_0 に変換されてしまう
+    fun computeCohomology(degree: Int): StyledMessageKt {
         val basis = this.freeDGAlgebra.cohomology.getBasis(degree)
         val vectorSpaceString = if (basis.isEmpty()) "0" else {
             val basisString = basis.joinToString(", ") { it.toString() }
@@ -54,7 +64,7 @@ class FreeDGAWrapper(json: String) {
             "H^{$degree} = $vectorSpaceString".math
         }.export()
     }
-    fun cohomologyUpTo(maxDegree: Int): Array<StyledMessageKt> {
+    fun computeCohomologyUpTo(maxDegree: Int): Array<StyledMessageKt> {
         val messages = mutableListOf(
             styledMessage(MessageType.SUCCESS) {
                 "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal

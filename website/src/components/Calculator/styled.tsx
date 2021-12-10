@@ -38,7 +38,7 @@ export class StyledMessage {
     this.strings = strings
   }
 
-  toJSXElement(key: number): JSX.Element {
+  toJSXElement(key: number = 0): JSX.Element {
     let style: string
     switch (this.messageType) {
       case "success":

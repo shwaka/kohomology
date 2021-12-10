@@ -11,13 +11,13 @@ type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 interface CalculatorFormProps {
   printResult: (result: StyledMessage[]) => void
   printError: (errorString: string) => void
-  setInfo: (infoElm: JSX.Element) => void
+  dgaWrapper: FreeDGAWrapper
+  setDgaWrapper: (dgaWrapper: FreeDGAWrapper) => void
 }
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
   const [maxDegree, setMaxDegree] = useState("20")
-  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper("[]"))
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input type="button" value={valueString}
@@ -27,7 +27,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleSubmit(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
+      props.printResult(props.dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
     } catch (error: unknown) {
       if (error === null) {
         props.printError("This can't happen!")
@@ -41,9 +41,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function applyJson(e: FormEvent): void {
     e.preventDefault()
     try {
-      const newDgaWrapper = new FreeDGAWrapper(json)
-      setDgaWrapper(newDgaWrapper)
-      props.setInfo(toStyledMessage(newDgaWrapper.dgaInfo()).toJSXElement())
+      props.setDgaWrapper(new FreeDGAWrapper(json))
     } catch (error: unknown) {
       if (error === null) {
         props.printError("This can't happen!")
@@ -86,7 +84,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
-  const [info, setInfo] = useState<JSX.Element>(<span>info</span>)
+  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   function addMessages(addedMessages: StyledMessage[]): void {
     setMessages(messages.concat(addedMessages))
   }
@@ -97,10 +95,11 @@ export function Calculator(): JSX.Element {
         printError={(errorString: string) => {
           addMessages([StyledMessage.fromString("error", errorString)])
         }}
-        setInfo={setInfo}
+        dgaWrapper={dgaWrapper}
+        setDgaWrapper={setDgaWrapper}
       />
       <div>
-        <div>{info}</div>
+        <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
         <div className={styles.calculatorResults}>
           {messages.map((message, index) => message.toJSXElement(index))}
         </div>

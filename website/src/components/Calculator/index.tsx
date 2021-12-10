@@ -1,5 +1,5 @@
 import React, { FormEvent, useState } from "react"
-import { FreeDGAWrapper, StyledStringKt } from "kohomology-js"
+import { FreeDGAWrapper } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"

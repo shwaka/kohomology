@@ -104,3 +104,8 @@ Cannot download a dependency: javax.net.ssl.SSLHandshakeException: sun.security.
 1. `hostname -I` で ip アドレスを調べる (`192.168.1.8` みたいなローカルなアドレスが出るはず？)
 2. `npm run start`
 3. スマホから `192.168.1.8:8080` にアクセス
+
+### katex in 'overflow: scroll'
+`overflow: scroll` を設定した要素の中に katex 数式を置くと表示がおかしくなった．
+原因は `class="katex-mathml"` なる `span` 要素が `position: absolute` だったこと．
+katex の設定で `{ output: "html" }` とすることでこの要素の出力を抑制できて，表示も正しくなる．

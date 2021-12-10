@@ -20,7 +20,8 @@ export class StyledString {
       case "normal":
         return <span key={key}>{this.content}</span>
       case "math":
-        return <TeX key={key} math={this.content}/>
+        return <TeX key={key} math={this.content} settings={{ output: "html" }}/>
+        // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
     }
   }
 }

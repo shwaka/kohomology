@@ -67,16 +67,19 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 }
 
 export function Calculator(): JSX.Element {
-  const [error, setError] = useState<string | null>(null)
   const [messages, setMessages] = useState<StyledMessage[]>([])
+  function addMessages(addedMessages: StyledMessage[]): void {
+    setMessages(messages.concat(addedMessages))
+  }
   return (
     <div>
       <CalculatorForm
-        printResult={(result: StyledMessage[]) => {setMessages(result); setError(null)}}
-        printError={(errorString: string) => {setMessages([]); setError(errorString)}}
+        printResult={addMessages}
+        printError={(errorString: string) => {
+          addMessages([StyledMessage.fromString("error", errorString)])
+        }}
       />
       <div>
-        {error && <div className={styles.error}>{error}</div>}
         {messages.map((message, index) => message.toJSXElement(index))}
       </div>
     </div>

@@ -52,7 +52,11 @@ export class StyledMessage {
         {this.strings.map((styledString, index) => styledString.toJSXElement(index))}
       </div>
     )
+  }
 
+  static fromString(messageType: MessageType, str: string): StyledMessage {
+    const styledString = new StyledString("normal", str)
+    return new StyledMessage(messageType, [styledString])
   }
 }
 

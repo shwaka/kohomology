@@ -50,12 +50,6 @@ object StyledStringListBuilder {
         get() = listOf(StyledStringInternal(StringType.NORMAL, this))
     val String.math: List<StyledStringInternal>
         get() = listOf(StyledStringInternal(StringType.MATH, this))
-    operator fun StyledStringInternal.plus(other: StyledStringInternal): List<StyledStringInternal> {
-        return listOf(this, other)
-    }
-    operator fun List<StyledStringInternal>.plus(other: StyledStringInternal): List<StyledStringInternal> {
-        return this + listOf(other)
-    }
 }
 
 fun styledMessage(messageType: MessageType, block: StyledStringListBuilder.() -> List<StyledStringInternal>): StyledMessageInternal {

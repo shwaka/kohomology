@@ -35,35 +35,6 @@ private fun jsonToGeneratorList(json: String): List<SerializableGenerator> {
 
 @ExperimentalJsExport
 @JsExport
-fun computeCohomology(json: String, maxDegree: Int): Array<StyledMessageKt> {
-    val serializableGeneratorList = jsonToGeneratorList(json)
-    val generatorList = serializableGeneratorList.map {
-        GeneratorOfFreeDGA(it.name, it.degree, it.differentialValue)
-    }
-    val freeDGAlgebra = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
-    // val lines: MutableList<Text> = mutableListOf(Text("normal", "Computation result:"))
-    val messages = mutableListOf(
-        styledMessage(MessageType.SUCCESS) {
-            "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
-        }.export()
-    )
-    for (degree in 0..maxDegree) {
-        val basis = freeDGAlgebra.cohomology.getBasis(degree)
-        val vectorSpaceString = if (basis.isEmpty()) "0" else {
-            val basisString = basis.joinToString(", ") { it.toString() }
-            "\\mathbb{Q}\\{$basisString\\}"
-        }
-        // this.props.printlnFun("\\(H^{$degree} = $vectorSpaceString\\)")
-        // lines.add(Text("math", "H^{$degree} = $vectorSpaceString"))
-        messages.add(
-            styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
-        )
-    }
-    return messages.toTypedArray()
-}
-
-@ExperimentalJsExport
-@JsExport
 @Suppress("UNUSED")
 class FreeDGAWrapper(json: String) {
     private val freeDGAlgebra = run {

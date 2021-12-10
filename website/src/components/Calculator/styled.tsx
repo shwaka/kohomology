@@ -3,20 +3,20 @@ import TeX from "@matejmazur/react-katex"
 import styles from "./styles.module.css"
 import { StyledStringKt, StyledMessageKt } from "kohomology-js"
 
-const styleTypes = ["normal", "math"] as const
-type StyleType = typeof styleTypes[number]
+const stringTypes = ["normal", "math"] as const
+type StringType = typeof stringTypes[number]
 
 export class StyledString {
-  readonly styleType: StyleType
+  readonly stringType: StringType
   readonly content: string
 
-  constructor(styleType: StyleType, content: string) {
-    this.styleType = styleType
+  constructor(stringType: StringType, content: string) {
+    this.stringType = stringType
     this.content = content
   }
 
   toJSXElement(key: number): JSX.Element {
-    switch (this.styleType) {
+    switch (this.stringType) {
       case "normal":
         return <span key={key}>{this.content}</span>
       case "math":
@@ -57,11 +57,11 @@ export class StyledMessage {
 }
 
 export function toStyledString(styledStringKt: StyledStringKt): StyledString {
-  const styleType: string = styledStringKt.styleType
-  if (!(styleTypes as readonly string[]).includes(styleType)) {
-    throw new Error(`Invalid styleType: ${styleType}`)
+  const stringType: string = styledStringKt.stringType
+  if (!(stringTypes as readonly string[]).includes(stringType)) {
+    throw new Error(`Invalid stringType: ${stringType}`)
   }
-  return new StyledString(styleType as StyleType, styledStringKt.content)
+  return new StyledString(stringType as StringType, styledStringKt.content)
 }
 
 export function toStyledMessage(styledMessageKt: StyledMessageKt): StyledMessage {

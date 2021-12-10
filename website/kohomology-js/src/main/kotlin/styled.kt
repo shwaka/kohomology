@@ -1,7 +1,7 @@
 @ExperimentalJsExport
 @JsExport
 class StyledStringKt(
-    val styleType: String,
+    val stringType: String,
     val content: String,
 )
 

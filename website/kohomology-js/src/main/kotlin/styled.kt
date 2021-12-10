@@ -1,5 +1,6 @@
 @ExperimentalJsExport
 @JsExport
+@Suppress("UNUSED")
 class StyledStringKt(
     val stringType: String,
     val content: String,
@@ -22,6 +23,7 @@ class StyledStringInternal(
 
 @ExperimentalJsExport
 @JsExport
+@Suppress("UNUSED")
 class StyledMessageKt(
     val messageType: String,
     val strings: Array<StyledStringKt>,

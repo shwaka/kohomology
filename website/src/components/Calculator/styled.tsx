@@ -1,6 +1,6 @@
 import React from "react"
 import TeX from "@matejmazur/react-katex"
-import styles from "./styles.module.css"
+import styles from "./styles.module.scss"
 import { StyledStringKt, StyledMessageKt } from "kohomology-js"
 
 const stringTypes = ["normal", "math"] as const

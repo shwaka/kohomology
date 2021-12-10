@@ -1,7 +1,7 @@
 import React, { FormEvent, useState } from "react"
 import { computeCohomology as computeCohomologyKt } from "kohomology-js"
 import "katex/dist/katex.min.css"
-import styles from "./styles.module.css"
+import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import { StyledMessage, toStyledMessage } from "./styled"
 
@@ -47,7 +47,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     setJson(e.target.value)
   }
   return (
-    <div>
+    <div className={styles.calculatorForm}>
       {createButton("S^2", sphere(2))}
       {createButton("CP^3", complexProjective(3))}
       {createButton("7-mfd", sevenManifold())}
@@ -67,19 +67,20 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 }
 
 export function Calculator(): JSX.Element {
-  const [messages, setMessages] = useState<StyledMessage[]>([])
+  const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
+  const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   function addMessages(addedMessages: StyledMessage[]): void {
     setMessages(messages.concat(addedMessages))
   }
   return (
-    <div>
+    <div className={styles.calculator}>
       <CalculatorForm
         printResult={addMessages}
         printError={(errorString: string) => {
           addMessages([StyledMessage.fromString("error", errorString)])
         }}
       />
-      <div>
+      <div className={styles.calculatorResults}>
         {messages.map((message, index) => message.toJSXElement(index))}
       </div>
     </div>

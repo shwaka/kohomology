@@ -10,5 +10,6 @@
     "types": [
       "webpack-env"
     ]
-  }
+  },
+  "include": [ "modules.d.ts", "**/*" ]
 }

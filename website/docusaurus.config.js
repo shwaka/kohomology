@@ -147,6 +147,7 @@ const config = {
 
   plugins: [
     "./plugins/my-plugin.js",
+    "docusaurus-plugin-sass",
   ],
 };
 

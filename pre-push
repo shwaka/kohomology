@@ -1,10 +1,15 @@
 #! /bin/bash
 
+set -eu
+
+root_dir=$(pwd)
+
 # directories="kohomology kohomology-js"
 directories="kohomology"
 for d in $directories; do
-    (
-        cd $d
-        ./gradlew ktlintCheck
-    )
+    cd $root_dir/$d
+    ./gradlew ktlintCheck
 done
+
+cd $root_dir/website
+npm run eslint

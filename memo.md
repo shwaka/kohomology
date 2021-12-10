@@ -1,6 +1,7 @@
 *CAUTION: This file is not intended to be read by other people and hence written in Japanese (partially).*
 
-## Test
+## kohomology
+### Test
 以下のいずれか．
 test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を利用している．
 
@@ -13,7 +14,7 @@ test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/rada
 - test report は `./gradlew openTestReport` で表示できる．
 - log level は `-DlogLevel=DEBUG` などで指定できる．
 
-## Coverage
+### Coverage
 ```bash
 cd kohomology
 ./gradlew jvmTest  # 先に test を実行する必要がある
@@ -22,7 +23,7 @@ cd kohomology
 # ↑open build/reports/jacoco/test/html/index.html と同じ
 ```
 
-## Publish
+### Publish
 Put the `repository` directory at the following place.
 You can change the place by editing `build.gradle.kts`.
 
@@ -41,7 +42,7 @@ You can change the place by editing `build.gradle.kts`.
 - Bump version to `1.0` with a git tag `v1.0` and publish it: `./bump-version.sh release 1.0`
 - Bump version to `1.0-SNAPSHOT`: `./bump-versin.sh snapshot 1.0`
 
-## Benchmark
+### Benchmark
 ```bash
 cd kohomology/kohomology
 ./gradlew publishAllPublicationsToBenchmarkRepository
@@ -49,7 +50,7 @@ cd ../profile
 ./gradlew benchmark
 ```
 
-## Profiling
+### Profiling
 1. `sudo sysctl kernel.perf_event_paranoid=1`
     - or add `kernel.perf_event_paranoid=1` to `/etc/sysctl.conf`
 2. Open two terminals, say (A) and (B)
@@ -61,15 +62,15 @@ cd ../profile
     - `'*Executable.main*'` may be more useful than `'*KohomologyProfileKt*'`
 7. Press `ENTER` in (B)
 
-## Generate documentation
+### Generate documentation
 `./gradlew dokkaHtml`
 
-## Generate componentN
+### Generate componentN
 `./gradlew generateComponentN` will generate `util/list/componentN.kt` and its test.
 The task is defined in `buildSrc`.
 
-## Memo
-### Recursive generics
+### Memo
+#### Recursive generics
 今はやめたけど，当初は `interface Scalar<S : Scalar<S>>` みたいに再帰的な定義をしてた．
 ちゃんと安定して動作するのか不安だったけど，以下のような使用例があるので大丈夫っぽい．
 
@@ -83,7 +84,7 @@ The task is defined in `buildSrc`.
 - [Self Types with Java's Generics - SitePoint](https://www.sitepoint.com/self-types-with-javas-generics/)
 - [Emulating self types in Kotlin. DIY solution for missing language… | by Jerzy Chałupski | Medium](https://medium.com/@jerzy.chalupski/emulating-self-types-in-kotlin-d64fe8ea2e62)
 
-### Version of java
+#### Version of java
 native 向けにコンパイルしようとしたら，以下のエラーが出た．
 依存関係のダウンロードをする際に，証明書関係で失敗しているっぽい．
 使用する java のバージョンを変えたらうまくいった．
@@ -95,3 +96,11 @@ native 向けにコンパイルしようとしたら，以下のエラーが出�
 Downloading native dependencies (LLVM, sysroot etc). This is a one-time action performed only on the first run of the compiler.
 Cannot download a dependency: javax.net.ssl.SSLHandshakeException: sun.security.validator.ValidatorException: PKIX path building failed: sun.security.provider.certpath.SunCertPathBuilderException: unable to find valid certification path to requested target
 ```
+
+## website
+### スマホでのテスト
+(`package.json` の `scripts` で `"start": "docusaurus start --host 0.0.0.0"` と設定しておく)
+
+1. `hostname -I` で ip アドレスを調べる (`192.168.1.8` みたいなローカルなアドレスが出るはず？)
+2. `npm run start`
+3. スマホから `192.168.1.8:8080` にアクセス

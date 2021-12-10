@@ -56,7 +56,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           <span>max degree</span>
           <input type="number" value={maxDegree} onChange={handleChangeMaxDegree} />
         </div>
-        <textarea rows={20} cols={80}
+        <textarea
           value={json} onChange={handleChangeJson} />
         <div>
           <input type="button" value="Compute" onClick={handleSubmit} />

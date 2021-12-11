@@ -8,21 +8,45 @@ import { StyledMessage, toStyledMessage } from "./styled"
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
+interface JsonInputProps {
+  json: string
+  updateDgaWrapper: (json: string) => void
+}
+
+function JsonInput(props: JsonInputProps): JSX.Element {
+  const [json, setJson] = useState(props.json)
+  function createButton(valueString: string, jsonString: string): JSX.Element {
+    return (
+      <input
+        type="button" value={valueString}
+        onClick={() => setJson(jsonString)} />
+    )
+  }
+  function handleChangeJson(e: TextAreaEvent): void {
+    setJson(e.target.value)
+  }
+  return (
+    <div>
+      {createButton("S^2", sphere(2))}
+      {createButton("CP^3", complexProjective(3))}
+      {createButton("7-mfd", sevenManifold())}
+      <textarea
+        value={json} onChange={handleChangeJson} />
+      <input
+        type="button" value="Apply"
+        onClick={() => props.updateDgaWrapper(json)} />
+    </div>
+  )
+}
+
 interface CalculatorFormProps {
   printResult: (result: StyledMessage[]) => void
   printError: (errorString: string) => void
 }
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
-  const [json, setJson] = useState(sphere(2))
   const [maxDegree, setMaxDegree] = useState("20")
   const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
-  function createButton(valueString: string, jsonString: string): JSX.Element {
-    return (
-      <input type="button" value={valueString}
-        onClick={() => setJson(jsonString)} />
-    )
-  }
   function printError(error: unknown): void {
     if (error === null) {
       props.printError("This can't happen!")
@@ -48,8 +72,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       printError(error)
     }
   }
-  function applyJson(e: FormEvent): void {
-    e.preventDefault()
+  function applyJson(json: string): void {
     try {
       setDgaWrapper(new FreeDGAWrapper(json))
     } catch (error: unknown) {
@@ -59,24 +82,14 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleChangeMaxDegree(e: InputEvent): void {
     setMaxDegree(e.target.value)
   }
-  function handleChangeJson(e: TextAreaEvent): void {
-    setJson(e.target.value)
-  }
   return (
     <div className={styles.calculatorForm}>
-      {createButton("S^2", sphere(2))}
-      {createButton("CP^3", complexProjective(3))}
-      {createButton("7-mfd", sevenManifold())}
       <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
+      <JsonInput json={dgaWrapper.json} updateDgaWrapper={applyJson} />
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <span>max degree</span>
           <input type="number" value={maxDegree} onChange={handleChangeMaxDegree} />
-        </div>
-        <textarea
-          value={json} onChange={handleChangeJson} />
-        <div>
-          <input type="button" value="Apply" onClick={applyJson} />
         </div>
         <div>
           <input type="button" value="Compute" onClick={handleCohomologyButton} />

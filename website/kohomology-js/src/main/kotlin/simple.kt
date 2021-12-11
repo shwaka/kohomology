@@ -46,7 +46,7 @@ private fun jsonToGeneratorList(json: String): List<SerializableGenerator> {
 @ExperimentalJsExport
 @JsExport
 @Suppress("UNUSED")
-class FreeDGAWrapper(json: String) {
+class FreeDGAWrapper(val json: String) {
     private val freeDGAlgebra = run {
         val serializableGeneratorList = jsonToGeneratorList(json)
         val generatorList = serializableGeneratorList.map {

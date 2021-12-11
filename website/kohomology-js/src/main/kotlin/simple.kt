@@ -55,6 +55,15 @@ class FreeDGAWrapper(val json: String) {
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
     private val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
+
+    private fun getFreeDGAlgebra(name: String): FreeDGAlgebra<*, *, *, *, *> {
+        return when (name) {
+            "self" -> this.freeDGAlgebra
+            "freeLoopSpace" -> this.freeLoopSpace
+            else -> throw Exception("Invalid name: $name")
+        }
+    }
+
     fun dgaInfo(): Array<StyledMessageKt> {
         val freeDGAString = this.freeDGAlgebra.toString()
         val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
@@ -77,6 +86,7 @@ class FreeDGAWrapper(val json: String) {
             }.export(),
         )
     }
+
     // cohomology だと js で cohomology_0 に変換されてしまう
     fun computeCohomology(degree: Int): StyledMessageKt {
         val basis = this.freeDGAlgebra.cohomology.getBasis(degree)
@@ -88,11 +98,10 @@ class FreeDGAWrapper(val json: String) {
             "H^{$degree} = $vectorSpaceString".math
         }.export()
     }
-    fun computeCohomologyUpTo(maxDegree: Int): Array<StyledMessageKt> {
-        return computeCohomologyUpTo(this.freeDGAlgebra, maxDegree)
-    }
-    fun computeCohomologyOfFreeLoopSpaceUpTo(maxDegree: Int): Array<StyledMessageKt> {
-        return computeCohomologyUpTo(this.freeLoopSpace, maxDegree)
+
+    fun computeCohomologyUpTo(targetName: String, maxDegree: Int): Array<StyledMessageKt> {
+        val targetDGA = this.getFreeDGAlgebra(targetName)
+        return computeCohomologyUpTo(targetDGA, maxDegree)
     }
 }
 

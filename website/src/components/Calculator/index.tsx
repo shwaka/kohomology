@@ -48,10 +48,14 @@ interface CalculatorFormProps {
   printError: (errorString: string) => void
 }
 
+const targetNames = ["self", "freeLoopSpace"] as const
+type TargetName = (typeof targetNames)[number]
+
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
   const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   const [editingJson, setEditingJson] = useState(false)
+  const [targetName, setTargetName] = useState<TargetName>("self")
   function printError(error: unknown): void {
     if (error === null) {
       props.printError("This can't happen!")
@@ -64,15 +68,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
-    } catch (error: unknown) {
-      printError(error)
-    }
-  }
-  function handleFreeLoopSpaceButton(e: FormEvent): void {
-    e.preventDefault()
-    try {
-      props.printResult(dgaWrapper.computeCohomologyOfFreeLoopSpaceUpTo(parseInt(maxDegree)).map(toStyledMessage))
+      props.printResult(dgaWrapper.computeCohomologyUpTo(targetName, parseInt(maxDegree)).map(toStyledMessage))
     } catch (error: unknown) {
       printError(error)
     }
@@ -101,6 +97,17 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
          finish={() => setEditingJson(false)}
        />
       }
+      <div>
+        {targetNames.map((targetNameForLabel, index) =>
+          <label key={index}>
+            <input
+              type="radio" name="targetName"
+              value={targetNameForLabel} checked={targetNameForLabel === targetName}
+              onChange={() => setTargetName(targetNameForLabel)} />
+            {targetNameForLabel}
+          </label>
+        )}
+      </div>
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <span>max degree</span>
@@ -108,7 +115,6 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         </div>
         <div>
           <input type="button" value="Compute" onClick={handleCohomologyButton} />
-          <input type="button" value="Compute free loop space" onClick={handleFreeLoopSpaceButton} />
         </div>
       </form>
     </div>

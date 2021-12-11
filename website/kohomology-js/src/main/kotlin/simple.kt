@@ -55,14 +55,27 @@ class FreeDGAWrapper(val json: String) {
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
     private val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
-    fun dgaInfo(): StyledMessageKt {
+    fun dgaInfo(): Array<StyledMessageKt> {
         val freeDGAString = this.freeDGAlgebra.toString()
         val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
             "\\deg ${it.name} = ${it.degree}"
         }
-        return styledMessage(MessageType.SUCCESS) {
-            freeDGAString.math + " with ".normal + degreeString.math
-        }.export()
+        val differentialString = this.freeDGAlgebra.gAlgebra.generatorList.joinToString(", ") {
+            this.freeDGAlgebra.context.run {
+                "d$it = ${d(it)}"
+            }
+        }
+        return arrayOf(
+            styledMessage(MessageType.SUCCESS) {
+                freeDGAString.math
+            }.export(),
+            styledMessage(MessageType.SUCCESS) {
+                degreeString.math
+            }.export(),
+            styledMessage(MessageType.SUCCESS) {
+                differentialString.math
+            }.export(),
+        )
     }
     // cohomology だと js で cohomology_0 に変換されてしまう
     fun computeCohomology(degree: Int): StyledMessageKt {

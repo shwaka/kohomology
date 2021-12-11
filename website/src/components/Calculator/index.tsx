@@ -89,7 +89,11 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   return (
     <div className={styles.calculatorForm}>
-      <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
+      <div>
+        {dgaWrapper.dgaInfo().map(
+          (styledMessageKt) => toStyledMessage(styledMessageKt).toJSXElement()
+        )}
+      </div>
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
       {editingJson &&
        <JsonEditor

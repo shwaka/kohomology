@@ -6,8 +6,12 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreeLoopSpace
+import com.github.shwaka.kohomology.model.UseBar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.IntAsDegree
+import com.github.shwaka.kohomology.vectsp.PrintConfig
+import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.Printer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -84,6 +88,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     maxDegree: Int
 ): Array<StyledMessageKt> {
+    val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
     val messages = mutableListOf(
         styledMessage(MessageType.SUCCESS) {
             "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
@@ -92,7 +97,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     for (degree in 0..maxDegree) {
         val basis = freeDGAlgebra.cohomology.getBasis(degree)
         val vectorSpaceString = if (basis.isEmpty()) "0" else {
-            val basisString = basis.joinToString(", ") { it.toString() }
+            val basisString = basis.joinToString(", ") { p(it) }
             "\\mathbb{Q}\\{$basisString\\}"
         }
         messages.add(

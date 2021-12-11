@@ -108,15 +108,13 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           </label>
         )}
       </div>
-      <form onSubmit={(e) => e.preventDefault()}>
-        <div>
-          <span>max degree</span>
-          <input type="number" value={maxDegree} onChange={handleChangeMaxDegree} />
-        </div>
-        <div>
-          <input type="button" value="Compute" onClick={handleCohomologyButton} />
-        </div>
-      </form>
+      <div className={styles.computeCohomology}>
+        <input type="button" value="Compute cohomology" onClick={handleCohomologyButton} />
+        <span>up to degree</span>
+        <input
+          type="number" value={maxDegree} onChange={handleChangeMaxDegree}
+          min={0} className={styles.maxDegree} />
+      </div>
     </div>
   )
 }

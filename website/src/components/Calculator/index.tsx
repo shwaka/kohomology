@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
 import { FreeDGAWrapper } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
@@ -91,9 +91,19 @@ export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
+  const scrollRef = useRef<HTMLDivElement>(null)
   function addMessages(addedMessages: StyledMessage[]): void {
     setMessages(messages.concat(addedMessages))
   }
+  function scrollToBottom(): void {
+    const div: HTMLDivElement | null = scrollRef.current
+    if (div !== null) {
+      setTimeout(() => {
+        div.scrollTo({ top: div.scrollHeight, behavior: "smooth" })
+      })
+    }
+  }
+  useEffect(() => { scrollToBottom() }, [messages])
   return (
     <div className={styles.calculator}>
       <CalculatorForm
@@ -106,8 +116,9 @@ export function Calculator(): JSX.Element {
       />
       <div>
         <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
-        <div className={styles.calculatorResults}>
+        <div className={styles.calculatorResults}  ref={scrollRef}>
           {messages.map((message, index) => message.toJSXElement(index))}
+          <div/>
         </div>
       </div>
     </div>

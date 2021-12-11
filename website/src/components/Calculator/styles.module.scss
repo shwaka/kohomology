@@ -19,8 +19,13 @@
   padding-top: 10px;
   padding-bottom: 10px;
 
+  .jsonEditor {
+    background: lightgray;
+    padding: 10px;
+  }
+
   .calculatorForm {
-    width: 300px;
+    width: 400px;
     margin: 10px;
     textarea {
       width: 100%;

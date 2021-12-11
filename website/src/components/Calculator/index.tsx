@@ -8,12 +8,13 @@ import { StyledMessage, toStyledMessage } from "./styled"
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
-interface JsonInputProps {
+interface JsonEditorProps {
   json: string
   updateDgaWrapper: (json: string) => void
+  finish: () => void
 }
 
-function JsonInput(props: JsonInputProps): JSX.Element {
+function JsonEditor(props: JsonEditorProps): JSX.Element {
   const [json, setJson] = useState(props.json)
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
@@ -26,7 +27,7 @@ function JsonInput(props: JsonInputProps): JSX.Element {
     setJson(e.target.value)
   }
   return (
-    <div>
+    <div className={styles.jsonEditor}>
       {createButton("S^2", sphere(2))}
       {createButton("CP^3", complexProjective(3))}
       {createButton("7-mfd", sevenManifold())}
@@ -34,7 +35,10 @@ function JsonInput(props: JsonInputProps): JSX.Element {
         value={json} onChange={handleChangeJson} />
       <input
         type="button" value="Apply"
-        onClick={() => props.updateDgaWrapper(json)} />
+        onClick={() => { props.updateDgaWrapper(json); props.finish() }} />
+      <input
+        type="button" value="Cancel"
+        onClick={() => { props.finish() }} />
     </div>
   )
 }
@@ -47,6 +51,7 @@ interface CalculatorFormProps {
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
   const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
+  const [editingJson, setEditingJson] = useState(false)
   function printError(error: unknown): void {
     if (error === null) {
       props.printError("This can't happen!")
@@ -85,7 +90,13 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   return (
     <div className={styles.calculatorForm}>
       <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
-      <JsonInput json={dgaWrapper.json} updateDgaWrapper={applyJson} />
+      <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
+      {editingJson &&
+       <JsonEditor
+         json={dgaWrapper.json} updateDgaWrapper={applyJson}
+         finish={() => setEditingJson(false)}
+       />
+      }
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <span>max degree</span>

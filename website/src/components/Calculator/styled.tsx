@@ -16,11 +16,14 @@ export class StyledString {
   }
 
   toJSXElement(key: number): JSX.Element {
+    const macros = {
+      "\\deg": "|#1|",
+    }
     switch (this.stringType) {
       case "normal":
         return <span key={key}>{this.content}</span>
       case "math":
-        return <TeX key={key} math={this.content} settings={{ output: "html" }}/>
+        return <TeX key={key} math={this.content} settings={{ output: "html", macros: macros }}/>
         // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
     }
   }

@@ -1,5 +1,11 @@
+import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
+import com.github.shwaka.kohomology.free.monoid.IndeterminateName
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.IntAsDegree
 import kotlinx.serialization.Serializable
@@ -44,6 +50,7 @@ class FreeDGAWrapper(json: String) {
         }
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
+    private val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
     fun dgaInfo(): StyledMessageKt {
         val freeDGAString = this.freeDGAlgebra.toString()
         val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
@@ -65,21 +72,32 @@ class FreeDGAWrapper(json: String) {
         }.export()
     }
     fun computeCohomologyUpTo(maxDegree: Int): Array<StyledMessageKt> {
-        val messages = mutableListOf(
-            styledMessage(MessageType.SUCCESS) {
-                "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
-            }.export()
-        )
-        for (degree in 0..maxDegree) {
-            val basis = freeDGAlgebra.cohomology.getBasis(degree)
-            val vectorSpaceString = if (basis.isEmpty()) "0" else {
-                val basisString = basis.joinToString(", ") { it.toString() }
-                "\\mathbb{Q}\\{$basisString\\}"
-            }
-            messages.add(
-                styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
-            )
-        }
-        return messages.toTypedArray()
+        return computeCohomologyUpTo(this.freeDGAlgebra, maxDegree)
     }
+    fun computeCohomologyOfFreeLoopSpaceUpTo(maxDegree: Int): Array<StyledMessageKt> {
+        return computeCohomologyUpTo(this.freeLoopSpace, maxDegree)
+    }
+}
+
+@ExperimentalJsExport
+fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    maxDegree: Int
+): Array<StyledMessageKt> {
+    val messages = mutableListOf(
+        styledMessage(MessageType.SUCCESS) {
+            "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
+        }.export()
+    )
+    for (degree in 0..maxDegree) {
+        val basis = freeDGAlgebra.cohomology.getBasis(degree)
+        val vectorSpaceString = if (basis.isEmpty()) "0" else {
+            val basisString = basis.joinToString(", ") { it.toString() }
+            "\\mathbb{Q}\\{$basisString\\}"
+        }
+        messages.add(
+            styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
+        )
+    }
+    return messages.toTypedArray()
 }

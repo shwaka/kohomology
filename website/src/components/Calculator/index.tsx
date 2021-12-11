@@ -11,13 +11,12 @@ type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 interface CalculatorFormProps {
   printResult: (result: StyledMessage[]) => void
   printError: (errorString: string) => void
-  dgaWrapper: FreeDGAWrapper
-  setDgaWrapper: (dgaWrapper: FreeDGAWrapper) => void
 }
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
   const [maxDegree, setMaxDegree] = useState("20")
+  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input type="button" value={valueString}
@@ -36,7 +35,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(props.dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
+      props.printResult(dgaWrapper.computeCohomologyUpTo(parseInt(maxDegree)).map(toStyledMessage))
     } catch (error: unknown) {
       printError(error)
     }
@@ -44,7 +43,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function handleFreeLoopSpaceButton(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.printResult(props.dgaWrapper.computeCohomologyOfFreeLoopSpaceUpTo(parseInt(maxDegree)).map(toStyledMessage))
+      props.printResult(dgaWrapper.computeCohomologyOfFreeLoopSpaceUpTo(parseInt(maxDegree)).map(toStyledMessage))
     } catch (error: unknown) {
       printError(error)
     }
@@ -52,7 +51,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   function applyJson(e: FormEvent): void {
     e.preventDefault()
     try {
-      props.setDgaWrapper(new FreeDGAWrapper(json))
+      setDgaWrapper(new FreeDGAWrapper(json))
     } catch (error: unknown) {
       printError(error)
     }
@@ -68,6 +67,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       {createButton("S^2", sphere(2))}
       {createButton("CP^3", complexProjective(3))}
       {createButton("7-mfd", sevenManifold())}
+      <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
       <form onSubmit={(e) => e.preventDefault()}>
         <div>
           <span>max degree</span>
@@ -90,7 +90,6 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
-  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   const scrollRef = useRef<HTMLDivElement>(null)
   function addMessages(addedMessages: StyledMessage[]): void {
     setMessages(messages.concat(addedMessages))
@@ -111,11 +110,8 @@ export function Calculator(): JSX.Element {
         printError={(errorString: string) => {
           addMessages([StyledMessage.fromString("error", errorString)])
         }}
-        dgaWrapper={dgaWrapper}
-        setDgaWrapper={setDgaWrapper}
       />
       <div>
-        <div>{toStyledMessage(dgaWrapper.dgaInfo()).toJSXElement()}</div>
         <div className={styles.calculatorResults}  ref={scrollRef}>
           {messages.map((message, index) => message.toJSXElement(index))}
           <div/>

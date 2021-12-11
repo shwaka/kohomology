@@ -20,9 +20,10 @@
   padding-bottom: 10px;
 
   .calculatorForm {
+    width: 300px;
     margin: 10px;
     textarea {
-      width: 300px;
+      width: 100%;
       height: 150px;
     }
   }

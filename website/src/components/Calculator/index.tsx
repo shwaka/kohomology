@@ -145,7 +145,6 @@ export function Calculator(): JSX.Element {
       />
       <div className={styles.calculatorResults} ref={scrollRef}>
         {messages.map((message, index) => message.toJSXElement(index))}
-        <div />
       </div>
     </div>
   )

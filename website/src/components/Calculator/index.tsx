@@ -143,11 +143,9 @@ export function Calculator(): JSX.Element {
           addMessages([StyledMessage.fromString("error", errorString)])
         }}
       />
-      <div>
-        <div className={styles.calculatorResults}  ref={scrollRef}>
-          {messages.map((message, index) => message.toJSXElement(index))}
-          <div/>
-        </div>
+      <div className={styles.calculatorResults} ref={scrollRef}>
+        {messages.map((message, index) => message.toJSXElement(index))}
+        <div />
       </div>
     </div>
   )

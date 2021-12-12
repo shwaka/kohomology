@@ -111,12 +111,25 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 ): StyledMessageKt {
     val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
     val basis = freeDGAlgebra.cohomology.getBasis(degree)
-    val vectorSpaceString = if (basis.isEmpty()) "0" else {
-        val basisString = basis.joinToString(", ") { p(it) }
-        "\\mathbb{Q}\\{$basisString\\}"
-    }
+    // val vectorSpaceString = if (basis.isEmpty()) "0" else {
+    //     val basisString = basis.joinToString(", ") { p(it) }
+    //     "\\mathbb{Q}\\{$basisString\\}"
+    // }
+    // return styledMessage(MessageType.SUCCESS) {
+    //     "H^{$degree} = $vectorSpaceString".math // これだと "," の部分で改行されない
+    // }.export()
     return styledMessage(MessageType.SUCCESS) {
-        "H^{$degree} = $vectorSpaceString".math
+        val vectorSpace: List<StyledStringInternal> = if (basis.isEmpty()) {
+            "0".math
+        } else {
+            // katex は + などの二項演算の部分でしか改行してくれない (See displayMode in https://katex.org/docs/options.html)
+            // "," の部分で改行できるように要素を分ける
+            "\\mathbb{Q}\\{".math +
+                basis.dropLast(1).map { "${p(it)},\\ ".math }.flatten() +
+                p(basis.last()).math + // 最後の要素だけは "," を追加しない
+                "\\}".math
+        }
+        "H^{$degree} =\\ ".math + vectorSpace
     }.export()
 }
 
@@ -134,17 +147,9 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     maxDegree: Int
 ): Array<StyledMessageKt> {
-    val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
     val messages = mutableListOf(computationHeader(freeDGAlgebra))
     for (degree in 0..maxDegree) {
-        val basis = freeDGAlgebra.cohomology.getBasis(degree)
-        val vectorSpaceString = if (basis.isEmpty()) "0" else {
-            val basisString = basis.joinToString(", ") { p(it) }
-            "\\mathbb{Q}\\{$basisString\\}"
-        }
-        messages.add(
-            styledMessage(MessageType.SUCCESS) { "H^{$degree} = $vectorSpaceString".math }.export()
-        )
+        messages.add(computeCohomology(freeDGAlgebra, degree))
     }
     return messages.toTypedArray()
 }

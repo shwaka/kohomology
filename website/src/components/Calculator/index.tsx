@@ -67,12 +67,17 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
-    try {
-      props.printResult(dgaWrapper.computeCohomologyUpTo(targetName, parseInt(maxDegree)).map(toStyledMessage))
-    } catch (error: unknown) {
-      printError(error)
+    const compute = (degree: number, maxDegree: number): void => {
+      setTimeout(() => {
+        props.printResult([toStyledMessage(dgaWrapper.computeCohomology(targetName, degree))])
+        if (degree < maxDegree) {
+          compute(degree + 1, maxDegree)
+        }
+      })
     }
+    compute(0, parseInt(maxDegree))
   }
+
   function applyJson(json: string): void {
     try {
       setDgaWrapper(new FreeDGAWrapper(json))
@@ -124,7 +129,7 @@ export function Calculator(): JSX.Element {
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   const scrollRef = useRef<HTMLDivElement>(null)
   function addMessages(addedMessages: StyledMessage[]): void {
-    setMessages(messages.concat(addedMessages))
+    setMessages((prevMessages) => prevMessages.concat(addedMessages))
   }
   function scrollToBottom(): void {
     const div: HTMLDivElement | null = scrollRef.current

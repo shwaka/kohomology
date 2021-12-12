@@ -88,21 +88,31 @@ class FreeDGAWrapper(val json: String) {
     }
 
     // cohomology だと js で cohomology_0 に変換されてしまう
-    fun computeCohomology(degree: Int): StyledMessageKt {
-        val basis = this.freeDGAlgebra.cohomology.getBasis(degree)
-        val vectorSpaceString = if (basis.isEmpty()) "0" else {
-            val basisString = basis.joinToString(", ") { it.toString() }
-            "\\mathbb{Q}\\{$basisString\\}"
-        }
-        return styledMessage(MessageType.SUCCESS) {
-            "H^{$degree} = $vectorSpaceString".math
-        }.export()
+    fun computeCohomology(targetName: String, degree: Int): StyledMessageKt {
+        val targetDGA = this.getFreeDGAlgebra(targetName)
+        return computeCohomology(targetDGA, degree)
     }
 
     fun computeCohomologyUpTo(targetName: String, maxDegree: Int): Array<StyledMessageKt> {
         val targetDGA = this.getFreeDGAlgebra(targetName)
         return computeCohomologyUpTo(targetDGA, maxDegree)
     }
+}
+
+@ExperimentalJsExport
+fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    degree: Int,
+): StyledMessageKt {
+    val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
+    val basis = freeDGAlgebra.cohomology.getBasis(degree)
+    val vectorSpaceString = if (basis.isEmpty()) "0" else {
+        val basisString = basis.joinToString(", ") { p(it) }
+        "\\mathbb{Q}\\{$basisString\\}"
+    }
+    return styledMessage(MessageType.SUCCESS) {
+        "H^{$degree} = $vectorSpaceString".math
+    }.export()
 }
 
 @ExperimentalJsExport

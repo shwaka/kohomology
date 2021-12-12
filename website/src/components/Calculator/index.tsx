@@ -67,6 +67,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
+    props.printResult([toStyledMessage(dgaWrapper.computationHeader(targetName))])
     const compute = (degree: number, maxDegree: number): void => {
       setTimeout(() => {
         props.printResult([toStyledMessage(dgaWrapper.computeCohomology(targetName, degree))])

@@ -87,6 +87,11 @@ class FreeDGAWrapper(val json: String) {
         )
     }
 
+    fun computationHeader(targetName: String): StyledMessageKt {
+        val targetDGA = this.getFreeDGAlgebra(targetName)
+        return computationHeader(targetDGA)
+    }
+
     // cohomology だと js で cohomology_0 に変換されてしまう
     fun computeCohomology(targetName: String, degree: Int): StyledMessageKt {
         val targetDGA = this.getFreeDGAlgebra(targetName)
@@ -116,16 +121,21 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 }
 
 @ExperimentalJsExport
+fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+): StyledMessageKt {
+    return styledMessage(MessageType.SUCCESS) {
+        "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
+    }.export()
+}
+
+@ExperimentalJsExport
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     maxDegree: Int
 ): Array<StyledMessageKt> {
     val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
-    val messages = mutableListOf(
-        styledMessage(MessageType.SUCCESS) {
-            "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
-        }.export()
-    )
+    val messages = mutableListOf(computationHeader(freeDGAlgebra))
     for (degree in 0..maxDegree) {
         val basis = freeDGAlgebra.cohomology.getBasis(degree)
         val vectorSpaceString = if (basis.isEmpty()) "0" else {

@@ -44,7 +44,7 @@ function JsonEditor(props: JsonEditorProps): JSX.Element {
 }
 
 interface CalculatorFormProps {
-  printResult: (result: StyledMessage[]) => void
+  printResult: (result: StyledMessage | StyledMessage[]) => void
   printError: (errorString: string) => void
 }
 
@@ -67,10 +67,10 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
-    props.printResult([toStyledMessage(dgaWrapper.computationHeader(targetName))])
+    props.printResult(toStyledMessage(dgaWrapper.computationHeader(targetName)))
     const compute = (degree: number, maxDegree: number): void => {
       setTimeout(() => {
-        props.printResult([toStyledMessage(dgaWrapper.computeCohomology(targetName, degree))])
+        props.printResult(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
         if (degree < maxDegree) {
           compute(degree + 1, maxDegree)
         }
@@ -129,8 +129,12 @@ export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   const scrollRef = useRef<HTMLDivElement>(null)
-  function addMessages(addedMessages: StyledMessage[]): void {
-    setMessages((prevMessages) => prevMessages.concat(addedMessages))
+  function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
+    if (addedMessages instanceof StyledMessage) {
+      setMessages((prevMessages) => prevMessages.concat([addedMessages]))
+    } else {
+      setMessages((prevMessages) => prevMessages.concat(addedMessages))
+    }
   }
   function scrollToBottom(): void {
     const div: HTMLDivElement | null = scrollRef.current

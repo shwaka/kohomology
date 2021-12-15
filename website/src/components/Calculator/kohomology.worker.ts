@@ -13,19 +13,38 @@ function updateJson(json: string): void {
   dgaWrapper = new FreeDGAWrapper(json)
 }
 
+function sendMessages(messages: StyledMessage | StyledMessage[]): void {
+  if (messages instanceof Array) {
+    const output: WorkerOutput = {
+      messages: messages
+    }
+    ctx.postMessage(output)
+  } else {
+    const output: WorkerOutput = {
+      messages: [messages]
+    }
+    ctx.postMessage(output)
+  }
+}
+
 function computeCohomology(targetName: TargetName, maxDegree: number): void {
   if (dgaWrapper === null) {
     throw new Error("Not initialized")
   }
-  const messages: StyledMessage[] = []
-  messages.push(toStyledMessage(dgaWrapper.computationHeader(targetName)))
+  sendMessages(toStyledMessage(dgaWrapper.computationHeader(targetName)))
   for (let degree = 0; degree <= maxDegree; degree++) {
-    messages.push(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
+    sendMessages(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
+  }
+}
+
+function showDgaInfo(): void {
+  if (dgaWrapper === null) {
+    // throw new Error("Not initialized")
+    return
   }
   const output: WorkerOutput = {
-    messages: messages
+    messages: dgaWrapper.dgaInfo().map(toStyledMessage)
   }
-  console.log(messages)
   ctx.postMessage(output)
 }
 
@@ -39,6 +58,9 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
       break
     case "computeCohomology":
       computeCohomology(input.targetName, input.maxDegree)
+      break
+    case "dgaInfo":
+      showDgaInfo()
       break
   }
 }

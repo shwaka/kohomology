@@ -85,7 +85,8 @@ interface CalculatorFormProps {
 
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
-  const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
+  const [json, setJson] = useState(sphere(2))
+  // const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   function printError(error: unknown): void {
@@ -118,6 +119,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
 
   function applyJson(json: string): void {
+    setJson(json)
     const input: WorkerInput = {
       command: "updateJson",
       json: json,
@@ -134,15 +136,10 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   return (
     <div className={styles.calculatorForm}>
-      <div>
-        {dgaWrapper.dgaInfo().map(
-          (styledMessageKt, index) => styledMessagetoJSXElement(toStyledMessage(styledMessageKt), index)
-        )}
-      </div>
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
       {editingJson &&
        <JsonEditor
-         json={dgaWrapper.json} updateDgaWrapper={applyJson}
+         json={json} updateDgaWrapper={applyJson}
          finish={() => setEditingJson(false)}
        />
       }

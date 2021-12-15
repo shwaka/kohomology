@@ -4,7 +4,7 @@ import { StyledMessage } from "./styled"
 export const targetNames = ["self", "freeLoopSpace"] as const
 export type TargetName = (typeof targetNames)[number]
 
-export const commands = ["updateJson", "computeCohomology"] as const
+export const commands = ["updateJson", "computeCohomology", "dgaInfo"] as const
 export type Command = (typeof commands)[number]
 
 type UpdateJsonCommand = {
@@ -16,8 +16,11 @@ type ComputeCohomologyComamnd = {
   targetName: TargetName,
   maxDegree: number,
 }
+type NoArgCommand = {
+  command: "dgaInfo"
+}
 
-export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd
+export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd | NoArgCommand
 
 export interface WorkerOutput {
   messages: StyledMessage[]

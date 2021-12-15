@@ -1,8 +1,8 @@
 // import CodeBlock from '@theme/CodeBlock';
-import React from "react"
 import { restrict } from "@theme/restrict"
-import MyCodeBlock from "./MyCodeBlock"
+import React from "react"
 import styles from "./ImportKotlin.module.css"
+import MyCodeBlock from "./MyCodeBlock"
 
 const context = require.context("../../../sample/src/main/kotlin", true, /\.kt$/)
 

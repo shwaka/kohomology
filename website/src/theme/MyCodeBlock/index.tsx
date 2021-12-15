@@ -8,13 +8,15 @@
 // docusaurus-theme-classic/src/theme/CodeBlock からコピペして
 // Props に href と linkTitle を追加した．
 
-import React, {useEffect, useState, useRef} from "react"
+import Translate, {translate} from "@docusaurus/Translate"
+import {useThemeConfig, parseCodeBlockTitle} from "@docusaurus/theme-common"
+import type {Props} from "@theme/CodeBlock"
+import usePrismTheme from "@theme/hooks/usePrismTheme"
 import clsx from "clsx"
-import Highlight, {defaultProps, Language} from "prism-react-renderer"
 import copy from "copy-text-to-clipboard"
 import rangeParser from "parse-numeric-range"
-import usePrismTheme from "@theme/hooks/usePrismTheme"
-import type {Props} from "@theme/CodeBlock"
+import Highlight, {defaultProps, Language} from "prism-react-renderer"
+import React, {useEffect, useState, useRef} from "react"
 // ↑ docusaurus-theme-classic/src/theme-classic.d.ts に定義がある
 // export interface Props {
 //   readonly children: string | ReactElement;
@@ -22,11 +24,9 @@ import type {Props} from "@theme/CodeBlock"
 //   readonly metastring?: string;
 //   readonly title?: string;
 // }
-import Translate, {translate} from "@docusaurus/Translate"
 
 import styles from "./styles.module.css"
 
-import {useThemeConfig, parseCodeBlockTitle} from "@docusaurus/theme-common"
 
 const HighlightLinesRangeRegex = /{([\d,-]+)}/
 

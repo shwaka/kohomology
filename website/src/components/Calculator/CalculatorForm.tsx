@@ -1,12 +1,12 @@
-import React, { FormEvent, useEffect, useState } from "react"
 import TeX from "@matejmazur/react-katex"
+import React, { FormEvent, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
-import styles from "./styles.module.scss"
+import KohomologyWorker from "worker-loader!./kohomology.worker"
+import { JsonEditor } from "./JsonEditor"
 import { sphere } from "./examples"
 import { fromString, StyledMessage, StyledString } from "./styled"
+import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { JsonEditor } from "./JsonEditor"
-import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 const worker = new KohomologyWorker()
 

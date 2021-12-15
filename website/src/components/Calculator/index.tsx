@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
-import styles from "./styles.module.scss"
-import { fromString, StyledMessage } from "./styled"
 import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
+import { fromString, StyledMessage } from "./styled"
+import styles from "./styles.module.scss"
 
 export function Calculator(): JSX.Element {
   const initialMessage = fromString("success", "Computation results will be shown here")

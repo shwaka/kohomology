@@ -1,3 +1,4 @@
+import BrowserOnly from "@docusaurus/BrowserOnly"
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
@@ -26,9 +27,12 @@ export function Calculator(): JSX.Element {
     }
   }
   useEffect(() => { scrollToBottom() }, [messages])
+  // BrowserOnly is used to avoid SSR (see a comment in CalculatorFrom)
   return (
     <div className={styles.calculator}>
-      <CalculatorForm printMessages={addMessages} />
+      <BrowserOnly fallback={<div>Loading...</div>}>
+        {() => <CalculatorForm printMessages={addMessages} />}
+      </BrowserOnly>
       <div className={styles.calculatorResults} ref={scrollRef}>
         {messages.map((message, index) => styledMessageToJSXElement(message, index))}
       </div>

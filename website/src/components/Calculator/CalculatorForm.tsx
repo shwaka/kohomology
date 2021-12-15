@@ -50,8 +50,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
-  const workerRef = useRef(new KohomologyWorker())
 
+  // Worker cannot be accessed during SSR (Server Side Rendering)
+  // To avoid SSR, this component should be wrapped in BrowserOnly
+  //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
+  const workerRef = useRef(new KohomologyWorker())
   const worker: KohomologyWorker = workerRef.current
 
   worker.onmessage = (e: MessageEvent<WorkerOutput>) => {

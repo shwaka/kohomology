@@ -119,7 +119,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
 
   function applyJson(json: string): void {
-    setJson(json)
+    // setJson(json)
     const input: WorkerInput = {
       command: "updateJson",
       json: json,
@@ -131,6 +131,11 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     //   printError(error)
     // }
   }
+
+  useEffect(() => {
+    applyJson(json)
+  }, [json])
+
   function handleChangeMaxDegree(e: InputEvent): void {
     setMaxDegree(e.target.value)
   }
@@ -139,7 +144,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
       {editingJson &&
        <JsonEditor
-         json={json} updateDgaWrapper={applyJson}
+         json={json} updateDgaWrapper={setJson}
          finish={() => setEditingJson(false)}
        />
       }

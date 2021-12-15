@@ -10,7 +10,7 @@ import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 const worker = new KohomologyWorker()
 
-function styledStringtoJSXElement(styledString: StyledString, key: number): JSX.Element {
+function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
     "\\deg": "|#1|",
   }
@@ -23,7 +23,7 @@ function styledStringtoJSXElement(styledString: StyledString, key: number): JSX.
   }
 }
 
-export function styledMessagetoJSXElement(styledMessage: StyledMessage, key: number = 0): JSX.Element {
+export function styledMessageToJSXElement(styledMessage: StyledMessage, key: number = 0): JSX.Element {
   let style: string
   switch (styledMessage.messageType) {
     case "success":
@@ -35,7 +35,7 @@ export function styledMessagetoJSXElement(styledMessage: StyledMessage, key: num
   }
   return (
     <div key={key} className={style}>
-      {styledMessage.strings.map((styledString, index) => styledStringtoJSXElement(styledString, index))}
+      {styledMessage.strings.map((styledString, index) => styledStringToJSXElement(styledString, index))}
     </div>
   )
 }
@@ -123,7 +123,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   return (
     <div className={styles.calculatorForm}>
       <div>
-        {dgaInfo.map((styledMessage, index) => styledMessagetoJSXElement(styledMessage, index))}
+        {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
       </div>
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
       {editingJson &&

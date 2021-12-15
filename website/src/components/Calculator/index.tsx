@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { fromString, StyledMessage, StyledString } from "./styled"
-import { CalculatorForm, styledMessagetoJSXElement } from "./CalculatorForm"
+import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
 
 export function Calculator(): JSX.Element {
   const initialMessage = fromString("success", "Computation results will be shown here")
@@ -30,7 +30,7 @@ export function Calculator(): JSX.Element {
     <div className={styles.calculator}>
       <CalculatorForm printMessages={addMessages} />
       <div className={styles.calculatorResults} ref={scrollRef}>
-        {messages.map((message, index) => styledMessagetoJSXElement(message, index))}
+        {messages.map((message, index) => styledMessageToJSXElement(message, index))}
       </div>
     </div>
   )

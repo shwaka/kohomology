@@ -6,7 +6,8 @@ module.exports = {
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
-    "plugin:@typescript-eslint/recommended"
+    "plugin:@typescript-eslint/recommended",
+    "plugin:import/errors"
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
@@ -49,6 +50,10 @@ module.exports = {
     "unused-imports/no-unused-vars": [
       "warn",
       { "vars": "all", "varsIgnorePattern": "^_", "args": "after-used", "argsIgnorePattern": "^_" }
-    ]
+    ],
+    "sort-imports": 0,
+    "import/order": [2, { "alphabetize": { "order": "asc" } }],
+    "import/named": 0, // Language not found in 'prism-react-renderer'
+    "import/no-unresolved": 0, // ちゃんと設定できてないせいか大量に出てきてしまう
   }
 }

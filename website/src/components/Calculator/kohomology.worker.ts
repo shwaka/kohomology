@@ -40,8 +40,7 @@ function computeCohomology(targetName: TargetName, maxDegree: number): void {
 
 function showDgaInfo(): void {
   if (dgaWrapper === null) {
-    // throw new Error("Not initialized")
-    return
+    throw new Error("Not initialized")
   }
   const output: WorkerOutput = {
     command: "showDgaInfo",

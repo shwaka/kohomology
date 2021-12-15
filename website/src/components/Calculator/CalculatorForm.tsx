@@ -19,7 +19,7 @@ function styledStringToJSXElement(styledString: StyledString, key: number): JSX.
       return <span key={key}>{styledString.content}</span>
     case "math":
       return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />
-    // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
+      // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
   }
 }
 
@@ -49,7 +49,6 @@ interface CalculatorFormProps {
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
   const [json, setJson] = useState(sphere(2))
-  // const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
@@ -83,16 +82,6 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       maxDegree: parseInt(maxDegree),
     }
     worker.postMessage(input)
-    // props.printResult(toStyledMessage(dgaWrapper.computationHeader(targetName)))
-    // const compute = (degree: number, maxDegree: number): void => {
-    //   setTimeout(() => {
-    //     props.printResult(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
-    //     if (degree < maxDegree) {
-    //       compute(degree + 1, maxDegree)
-    //     }
-    //   })
-    // }
-    // compute(0, parseInt(maxDegree))
   }
 
   function applyJson(json: string): void {
@@ -106,11 +95,6 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       command: "dgaInfo"
     }
     worker.postMessage(inputShowInfo)
-    // try {
-    //   setDgaWrapper(new FreeDGAWrapper(json))
-    // } catch (error: unknown) {
-    //   printError(error)
-    // }
   }
 
   useEffect(() => {

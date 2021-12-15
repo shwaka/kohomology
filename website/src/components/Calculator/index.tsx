@@ -1,14 +1,9 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import TeX from "@matejmazur/react-katex"
-import { FreeDGAWrapper } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
-import { sphere, complexProjective, sevenManifold } from "./examples"
-import { fromString, StyledMessage, StyledString, toStyledMessage } from "./styled"
-import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { JsonEditor } from "./JsonEditor"
+import { fromString, StyledMessage, StyledString } from "./styled"
 import { CalculatorForm } from "./CalculatorForm"
-import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 function styledStringtoJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {

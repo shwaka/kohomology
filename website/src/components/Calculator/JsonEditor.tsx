@@ -1,4 +1,4 @@
-import React, { FormEvent, useEffect, useRef, useState } from "react"
+import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import styles from "./styles.module.scss"
 

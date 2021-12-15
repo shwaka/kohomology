@@ -1,6 +1,5 @@
 import { WorkerInput, WorkerOutput, TargetName } from "./workerInterface"
 import { FreeDGAWrapper } from "kohomology-js"
-import { StyledMessageKt } from "kohomology-js/build/compileSync/kotlin/kohomology-js"
 import { StyledMessage, toStyledMessage } from "./styled"
 
 // eslint-disable-next-line no-restricted-globals

@@ -1,4 +1,3 @@
-import { StyledMessageKt } from "kohomology-js/build/compileSync/kotlin/kohomology-js"
 import { StyledMessage } from "./styled"
 
 export const targetNames = ["self", "freeLoopSpace"] as const

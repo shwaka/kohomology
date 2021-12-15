@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import React, { FormEvent, useEffect, useState } from "react"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 import { JsonEditor } from "./JsonEditor"
@@ -7,8 +7,6 @@ import { sphere } from "./examples"
 import { fromString, StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-
-const worker = new KohomologyWorker()
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -52,6 +50,9 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
+  const workerRef = useRef(new KohomologyWorker())
+
+  const worker: KohomologyWorker = workerRef.current
 
   worker.onmessage = (e: MessageEvent<WorkerOutput>) => {
     const output: WorkerOutput = e.data

@@ -1,13 +1,44 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react"
+import TeX from "@matejmazur/react-katex"
 import { FreeDGAWrapper } from "kohomology-js"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
-import { StyledMessage, toStyledMessage } from "./styled"
+import { fromString, StyledMessage, StyledString, toStyledMessage } from "./styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 const worker = new KohomologyWorker()
+
+function styledStringtoJSXElement(styledString: StyledString, key: number): JSX.Element {
+  const macros = {
+    "\\deg": "|#1|",
+  }
+  switch (styledString.stringType) {
+    case "normal":
+      return <span key={key}>{styledString.content}</span>
+    case "math":
+      return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />
+    // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
+  }
+}
+
+function styledMessagetoJSXElement(styledMessage: StyledMessage, key: number = 0): JSX.Element {
+  let style: string
+  switch (styledMessage.messageType) {
+    case "success":
+      style = styles.messageSuccess
+      break
+    case "error":
+      style = styles.messageError
+      break
+  }
+  return (
+    <div key={key} className={style}>
+      {styledMessage.strings.map((styledString, index) => styledStringtoJSXElement(styledString, index))}
+    </div>
+  )
+}
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
@@ -105,7 +136,7 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     <div className={styles.calculatorForm}>
       <div>
         {dgaWrapper.dgaInfo().map(
-          (styledMessageKt, index) => toStyledMessage(styledMessageKt).toJSXElement(index)
+          (styledMessageKt, index) => styledMessagetoJSXElement(toStyledMessage(styledMessageKt), index)
         )}
       </div>
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
@@ -138,15 +169,15 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 }
 
 export function Calculator(): JSX.Element {
-  const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
+  const initialMessage = fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   const scrollRef = useRef<HTMLDivElement>(null)
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
-    if (addedMessages instanceof StyledMessage) {
-      setMessages((prevMessages) => prevMessages.concat([addedMessages]))
-    } else {
+    if (addedMessages instanceof Array) {
       setMessages((prevMessages) => prevMessages.concat(addedMessages))
+    } else {
+      setMessages((prevMessages) => prevMessages.concat([addedMessages]))
     }
   }
 
@@ -168,11 +199,11 @@ export function Calculator(): JSX.Element {
       <CalculatorForm
         printResult={addMessages}
         printError={(errorString: string) => {
-          addMessages([StyledMessage.fromString("error", errorString)])
+          addMessages([fromString("error", errorString)])
         }}
       />
       <div className={styles.calculatorResults} ref={scrollRef}>
-        {messages.map((message, index) => message.toJSXElement(index))}
+        {messages.map((message, index) => styledMessagetoJSXElement(message, index))}
       </div>
     </div>
   )

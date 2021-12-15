@@ -59,12 +59,7 @@ export function Calculator(): JSX.Element {
   useEffect(() => { scrollToBottom() }, [messages])
   return (
     <div className={styles.calculator}>
-      <CalculatorForm
-        printResult={addMessages}
-        printError={(errorString: string) => {
-          addMessages([fromString("error", errorString)])
-        }}
-      />
+      <CalculatorForm printMessages={addMessages} />
       <div className={styles.calculatorResults} ref={scrollRef}>
         {messages.map((message, index) => styledMessagetoJSXElement(message, index))}
       </div>

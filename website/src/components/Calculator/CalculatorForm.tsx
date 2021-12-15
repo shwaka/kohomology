@@ -2,7 +2,7 @@ import React, { FormEvent, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere } from "./examples"
-import { StyledMessage } from "./styled"
+import { fromString, StyledMessage } from "./styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
 import { JsonEditor } from "./JsonEditor"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
@@ -12,8 +12,7 @@ const worker = new KohomologyWorker()
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 
 interface CalculatorFormProps {
-  printResult: (result: StyledMessage | StyledMessage[]) => void
-  printError: (errorString: string) => void
+  printMessages: (result: StyledMessage | StyledMessage[]) => void
 }
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
@@ -25,16 +24,16 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 
 
   worker.onmessage = (e: MessageEvent<WorkerOutput>) => {
-    props.printResult(e.data.messages)
+    props.printMessages(e.data.messages)
   }
 
   function printError(error: unknown): void {
     if (error === null) {
-      props.printError("This can't happen!")
+      props.printMessages(fromString("error", "This can't happen!"))
     } else if (typeof error === "object") {
-      props.printError(error.toString())
+      props.printMessages(fromString("error", error.toString()))
     } else {
-      props.printError("Unknown error!")
+      props.printMessages(fromString("error", "Unknown error!"))
     }
   }
   function handleCohomologyButton(e: FormEvent): void {

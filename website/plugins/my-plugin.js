@@ -10,7 +10,16 @@ module.exports = function myPlugin(context, options) {
             {
               test: /\.kt$/i,
               use: 'raw-loader',
-            }
+            },
+            {
+              test: /\.worker\.js$/,
+              use: {
+                loader: "worker-loader",
+                options: {
+                  inline: "no-fallback"
+                }
+              }
+            },
           ]
         },
         plugins: [

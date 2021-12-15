@@ -4,6 +4,10 @@ import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import { StyledMessage, toStyledMessage } from "./styled"
+import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
+import KohomologyWorker from "worker-loader!./kohomology.worker"
+
+const worker = new KohomologyWorker()
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
@@ -48,9 +52,6 @@ interface CalculatorFormProps {
   printError: (errorString: string) => void
 }
 
-const targetNames = ["self", "freeLoopSpace"] as const
-type TargetName = (typeof targetNames)[number]
-
 function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
   const [dgaWrapper, setDgaWrapper] = useState(new FreeDGAWrapper(sphere(2)))
@@ -67,24 +68,35 @@ function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
-    props.printResult(toStyledMessage(dgaWrapper.computationHeader(targetName)))
-    const compute = (degree: number, maxDegree: number): void => {
-      setTimeout(() => {
-        props.printResult(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
-        if (degree < maxDegree) {
-          compute(degree + 1, maxDegree)
-        }
-      })
+    const input: WorkerInput = {
+      command: "computeCohomology",
+      targetName: targetName,
+      maxDegree: parseInt(maxDegree),
     }
-    compute(0, parseInt(maxDegree))
+    worker.postMessage(input)
+    // props.printResult(toStyledMessage(dgaWrapper.computationHeader(targetName)))
+    // const compute = (degree: number, maxDegree: number): void => {
+    //   setTimeout(() => {
+    //     props.printResult(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
+    //     if (degree < maxDegree) {
+    //       compute(degree + 1, maxDegree)
+    //     }
+    //   })
+    // }
+    // compute(0, parseInt(maxDegree))
   }
 
   function applyJson(json: string): void {
-    try {
-      setDgaWrapper(new FreeDGAWrapper(json))
-    } catch (error: unknown) {
-      printError(error)
+    const input: WorkerInput = {
+      command: "updateJson",
+      json: json,
     }
+    worker.postMessage(input)
+    // try {
+    //   setDgaWrapper(new FreeDGAWrapper(json))
+    // } catch (error: unknown) {
+    //   printError(error)
+    // }
   }
   function handleChangeMaxDegree(e: InputEvent): void {
     setMaxDegree(e.target.value)
@@ -129,6 +141,7 @@ export function Calculator(): JSX.Element {
   const initialMessage = StyledMessage.fromString("success", "Computation results will be shown here")
   const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
   const scrollRef = useRef<HTMLDivElement>(null)
+
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
     if (addedMessages instanceof StyledMessage) {
       setMessages((prevMessages) => prevMessages.concat([addedMessages]))
@@ -136,6 +149,11 @@ export function Calculator(): JSX.Element {
       setMessages((prevMessages) => prevMessages.concat(addedMessages))
     }
   }
+
+  worker.onmessage = (e: MessageEvent<WorkerOutput>) => {
+    addMessages(e.data.messages)
+  }
+
   function scrollToBottom(): void {
     const div: HTMLDivElement | null = scrollRef.current
     if (div !== null) {

@@ -1,39 +1,8 @@
 import React, { useEffect, useRef, useState } from "react"
-import TeX from "@matejmazur/react-katex"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
 import { fromString, StyledMessage, StyledString } from "./styled"
-import { CalculatorForm } from "./CalculatorForm"
-
-function styledStringtoJSXElement(styledString: StyledString, key: number): JSX.Element {
-  const macros = {
-    "\\deg": "|#1|",
-  }
-  switch (styledString.stringType) {
-    case "normal":
-      return <span key={key}>{styledString.content}</span>
-    case "math":
-      return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />
-    // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
-  }
-}
-
-function styledMessagetoJSXElement(styledMessage: StyledMessage, key: number = 0): JSX.Element {
-  let style: string
-  switch (styledMessage.messageType) {
-    case "success":
-      style = styles.messageSuccess
-      break
-    case "error":
-      style = styles.messageError
-      break
-  }
-  return (
-    <div key={key} className={style}>
-      {styledMessage.strings.map((styledString, index) => styledStringtoJSXElement(styledString, index))}
-    </div>
-  )
-}
+import { CalculatorForm, styledMessagetoJSXElement } from "./CalculatorForm"
 
 export function Calculator(): JSX.Element {
   const initialMessage = fromString("success", "Computation results will be shown here")

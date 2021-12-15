@@ -15,12 +15,14 @@ function updateJson(json: string): void {
 function sendMessages(messages: StyledMessage | StyledMessage[]): void {
   if (messages instanceof Array) {
     const output: WorkerOutput = {
-      messages: messages
+      command: "printMessages",
+      messages: messages,
     }
     ctx.postMessage(output)
   } else {
     const output: WorkerOutput = {
-      messages: [messages]
+      command: "printMessages",
+      messages: [messages],
     }
     ctx.postMessage(output)
   }
@@ -42,7 +44,8 @@ function showDgaInfo(): void {
     return
   }
   const output: WorkerOutput = {
-    messages: dgaWrapper.dgaInfo().map(toStyledMessage)
+    command: "showDgaInfo",
+    messages: dgaWrapper.dgaInfo().map(toStyledMessage),
   }
   ctx.postMessage(output)
 }

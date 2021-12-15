@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import styles from "./styles.module.scss"
-import { fromString, StyledMessage, StyledString } from "./styled"
+import { fromString, StyledMessage } from "./styled"
 import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
 
 export function Calculator(): JSX.Element {

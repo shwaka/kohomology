@@ -6,6 +6,7 @@ import styles from "./styles.module.scss"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import { fromString, StyledMessage, StyledString, toStyledMessage } from "./styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
+import { JsonEditor } from "./JsonEditor"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 const worker = new KohomologyWorker()
@@ -41,42 +42,6 @@ function styledMessagetoJSXElement(styledMessage: StyledMessage, key: number = 0
 }
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>
-type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
-
-interface JsonEditorProps {
-  json: string
-  updateDgaWrapper: (json: string) => void
-  finish: () => void
-}
-
-function JsonEditor(props: JsonEditorProps): JSX.Element {
-  const [json, setJson] = useState(props.json)
-  function createButton(valueString: string, jsonString: string): JSX.Element {
-    return (
-      <input
-        type="button" value={valueString}
-        onClick={() => setJson(jsonString)} />
-    )
-  }
-  function handleChangeJson(e: TextAreaEvent): void {
-    setJson(e.target.value)
-  }
-  return (
-    <div className={styles.jsonEditor}>
-      {createButton("S^2", sphere(2))}
-      {createButton("CP^3", complexProjective(3))}
-      {createButton("7-mfd", sevenManifold())}
-      <textarea
-        value={json} onChange={handleChangeJson} />
-      <input
-        type="button" value="Apply"
-        onClick={() => { props.updateDgaWrapper(json); props.finish() }} />
-      <input
-        type="button" value="Cancel"
-        onClick={() => { props.finish() }} />
-    </div>
-  )
-}
 
 interface CalculatorFormProps {
   printResult: (result: StyledMessage | StyledMessage[]) => void

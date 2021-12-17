@@ -6,12 +6,12 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreeLoopSpace
-import com.github.shwaka.kohomology.model.UseBar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.IntAsDegree
-import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
-import com.github.shwaka.kohomology.vectsp.Printer
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printer
+import com.github.shwaka.kohomology.util.UseBar
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json

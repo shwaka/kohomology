@@ -137,8 +137,9 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
 ): StyledMessageKt {
+    val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
     return styledMessage(MessageType.SUCCESS) {
-        "Cohomology of ".normal + freeDGAlgebra.toString().math + " is".normal
+        "Cohomology of ".normal + p(freeDGAlgebra).math + " is".normal
     }.export()
 }
 

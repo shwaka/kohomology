@@ -1,4 +1,6 @@
-package com.github.shwaka.kohomology.vectsp
+package com.github.shwaka.kohomology.util
+
+import com.github.shwaka.kohomology.vectsp.BasisName
 
 public enum class PrintType {
     PLAIN, TEX

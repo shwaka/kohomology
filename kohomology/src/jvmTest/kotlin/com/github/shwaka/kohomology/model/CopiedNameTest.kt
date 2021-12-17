@@ -3,10 +3,10 @@ package com.github.shwaka.kohomology.model
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
-import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
-import com.github.shwaka.kohomology.vectsp.Printer
-import com.github.shwaka.kohomology.vectsp.UseBar
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printer
+import com.github.shwaka.kohomology.util.UseBar
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

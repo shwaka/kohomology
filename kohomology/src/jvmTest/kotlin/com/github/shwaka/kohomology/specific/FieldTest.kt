@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isPrime
-import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.util.PrintType
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

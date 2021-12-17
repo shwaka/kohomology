@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.PrintableWithSign
+import com.github.shwaka.kohomology.util.Sign
 
 public interface Scalar : PrintableWithSign {
     public fun isZero(): Boolean

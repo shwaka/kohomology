@@ -6,9 +6,9 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Sign
 
 public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     public val degreeGroup: AugmentedDegreeGroup<D>,

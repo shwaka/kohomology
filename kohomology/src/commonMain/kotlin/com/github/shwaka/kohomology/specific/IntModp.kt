@@ -7,10 +7,10 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
-import com.github.shwaka.kohomology.util.PrintConfig
 
 public class IntModp(value: Int, public val characteristic: Int) : Scalar {
     public val value: Int = value.positiveRem(characteristic)

@@ -16,9 +16,9 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
+import com.github.shwaka.kohomology.util.pow
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag

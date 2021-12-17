@@ -32,6 +32,7 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.Printable
 
 public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>
@@ -59,7 +60,8 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
     FreeGAlgebra.getName(indeterminateList),
     getInternalPrintConfig,
 ),
-    FreeGAlgebraOperations<D, I, S, V, M> {
+    FreeGAlgebraOperations<D, I, S, V, M>,
+    Printable {
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this, this)
     }
@@ -213,6 +215,11 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
     public fun toIntDegree(): Pair<FreeGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
         val degreeMorphism = AugmentationDegreeMorphism(this.degreeGroup)
         return this.convertDegree(degreeMorphism)
+    }
+
+    public override fun toString(printConfig: PrintConfig): String {
+        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
+        return "Λ($indeterminateString)"
     }
 
     public companion object {

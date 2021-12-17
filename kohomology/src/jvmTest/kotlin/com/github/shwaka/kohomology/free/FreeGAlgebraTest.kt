@@ -344,6 +344,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
             texPrinter(x * y) shouldBe "XY"
             texPrinter(x * y.pow(2)) shouldBe "XY^{2}"
         }
+        freeGAlgebra.toString() shouldBe "Λ(x, y)"
+        texPrinter(freeGAlgebra) shouldBe "Λ(X, Y)"
     }
 }
 

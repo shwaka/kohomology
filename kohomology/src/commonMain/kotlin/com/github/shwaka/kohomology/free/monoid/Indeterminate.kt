@@ -61,6 +61,10 @@ public data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, 
         return this.name.toString()
     }
 
+    public fun toString(printConfig: PrintConfig): String {
+        return this.name.toString(printConfig)
+    }
+
     public fun <D_ : Degree> convertDegree(degreeMorphism: DegreeMorphism<D, D_>): Indeterminate<D_, I> {
         return Indeterminate(this.name, degreeMorphism(this.degree))
     }

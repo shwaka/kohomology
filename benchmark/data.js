@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1639586332735,
+  "lastUpdate": 1639739570238,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1803,6 +1803,50 @@ window.BENCHMARK_DATA = {
           {
             "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
             "value": 0.14678941597927073,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "71f19bebd5f445e4a6d862b59a331ce521cf0745",
+          "message": "ktlint",
+          "timestamp": "2021-12-17T19:59:25+09:00",
+          "tree_id": "83614230725207e728918cd0e47cbd83d99a3d71",
+          "url": "https://github.com/shwaka/kohomology/commit/71f19bebd5f445e4a6d862b59a331ce521cf0745"
+        },
+        "date": 1639739569211,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpace",
+            "value": 0.11778867955804412,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegree",
+            "value": 0.15309468015948346,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree",
+            "value": 0.19878341833690225,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
+            "value": 0.19585713640148592,
             "unit": "s/op"
           }
         ]

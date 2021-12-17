@@ -9,6 +9,7 @@ group = "me.shun"
 version = "1.0-SNAPSHOT"
 
 repositories {
+    mavenLocal() // install kohomology from mavenLocal
     jcenter()
     mavenCentral()
     maven { url = uri("https://shwaka.github.io/maven/") }
@@ -17,7 +18,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-    implementation("com.github.shwaka.kohomology:kohomology:0.5")
+    implementation("com.github.shwaka.kohomology:kohomology:0.6-SNAPSHOT")
 }
 
 kotlin {

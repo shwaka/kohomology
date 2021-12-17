@@ -62,6 +62,11 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - uses: actions/cache@v2
+        # will be restored in generate-site
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
@@ -99,6 +104,11 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - uses: actions/cache@v2
+        # restore mavenLocal repository from test
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
       - uses: actions/cache@v2 # for lint-website
         # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:

@@ -11,12 +11,9 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
+import com.github.shwaka.kohomology.vectsp.UseBar
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
-
-public enum class UseBar {
-    ALWAYS, ONE, NEVER
-}
 
 public data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
     IndeterminateName {

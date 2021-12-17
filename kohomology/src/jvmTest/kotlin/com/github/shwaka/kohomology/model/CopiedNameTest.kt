@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.vectsp.PrintConfig
 import com.github.shwaka.kohomology.vectsp.PrintType
 import com.github.shwaka.kohomology.vectsp.Printer
+import com.github.shwaka.kohomology.vectsp.UseBar
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

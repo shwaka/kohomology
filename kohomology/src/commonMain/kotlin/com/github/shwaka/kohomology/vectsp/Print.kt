@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.model.UseBar
-
 public enum class PrintType {
     PLAIN, TEX
 }
@@ -62,6 +60,13 @@ public data class InternalPrintConfig<B : BasisName, S : PrintableWithSign>(
             )
         }
     }
+}
+
+/**
+ * Determines how to print [com.github.shwaka.kohomology.model.CopiedName].
+ */
+public enum class UseBar {
+    ALWAYS, ONE, NEVER
 }
 
 public data class PrintConfig(

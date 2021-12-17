@@ -15,7 +15,13 @@ public class Printer private constructor(
     private val value: String,
 ) {
     public constructor(printConfig: PrintConfig) : this(printConfig, "")
-    public constructor(printType: PrintType) : this(PrintConfig(printType))
+    public constructor(
+        printType: PrintType = PrintType.PLAIN,
+        beforeSign: String = " ",
+        afterSign: String = " ",
+        afterCoeff: String = " ",
+        useBar: UseBar = UseBar.NEVER,
+    ) : this(PrintConfig(printType, beforeSign, afterSign, afterCoeff, useBar))
 
     override fun toString(): String {
         return this.value

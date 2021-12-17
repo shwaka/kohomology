@@ -18,8 +18,8 @@ import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Sign
 import mu.KotlinLogging
 
-public interface BasisName {
-    public fun toString(printConfig: PrintConfig): String = this.toString()
+public interface BasisName : Printable {
+    public override fun toString(printConfig: PrintConfig): String = this.toString()
 }
 public class StringBasisName(public val name: String, tex: String? = null) : BasisName {
     public val tex: String = tex ?: name

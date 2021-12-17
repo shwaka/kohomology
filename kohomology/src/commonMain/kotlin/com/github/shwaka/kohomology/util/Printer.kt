@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.util
 
-import com.github.shwaka.kohomology.vectsp.BasisName
-
 public enum class PrintType {
     PLAIN, TEX
 }
@@ -49,13 +47,19 @@ public interface PrintableWithSign : Printable {
     public fun toString(printType: PrintType): String = this.toString(PrintConfig(printType))
 }
 
-public data class InternalPrintConfig<B : BasisName, S : PrintableWithSign>(
+/**
+ * A printing configuration used internally in the library.
+ *
+ * Usually, the type parameter [B] is an implementation of [com.github.shwaka.kohomology.vectsp.BasisName]
+ * and [S] is that of [com.github.shwaka.kohomology.linalg.Scalar].
+ */
+public data class InternalPrintConfig<B, S : PrintableWithSign>(
     val coeffToString: (S, Boolean) -> String = { coeff, withSign -> coeff.toString(PrintType.PLAIN, withSign) },
     val basisToString: (B) -> String = { it.toString() },
     val basisComparator: Comparator<B>? = null,
 ) {
     public companion object {
-        public fun <B : BasisName, S : PrintableWithSign> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
+        public fun <B : Printable, S : PrintableWithSign> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
             return InternalPrintConfig(
                 coeffToString = { coeff, withSign -> coeff.toString(printConfig, withSign) },
                 basisToString = { it.toString(printConfig) }

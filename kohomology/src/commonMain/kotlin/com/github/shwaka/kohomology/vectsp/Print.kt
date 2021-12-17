@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.UseBar
 
 public enum class PrintType {
@@ -37,13 +36,26 @@ public class Printer private constructor(
     }
 }
 
-public data class InternalPrintConfig<B : BasisName, S : Scalar>(
+/**
+ * An interface used in [InternalPrintConfig].
+ *
+ * This is inherited by the interface [com.github.shwaka.kohomology.linalg.Scalar].
+ */
+public interface PrintableWithSign : Printable {
+    public fun toString(printConfig: PrintConfig, withSign: Boolean): String
+    public fun toString(printType: PrintType, withSign: Boolean): String =
+        this.toString(PrintConfig(printType), withSign)
+    override fun toString(printConfig: PrintConfig): String = this.toString(printConfig, true)
+    public fun toString(printType: PrintType): String = this.toString(PrintConfig(printType))
+}
+
+public data class InternalPrintConfig<B : BasisName, S : PrintableWithSign>(
     val coeffToString: (S, Boolean) -> String = { coeff, withSign -> coeff.toString(PrintType.PLAIN, withSign) },
     val basisToString: (B) -> String = { it.toString() },
     val basisComparator: Comparator<B>? = null,
 ) {
     public companion object {
-        public fun <B : BasisName, S : Scalar> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
+        public fun <B : BasisName, S : PrintableWithSign> default(printConfig: PrintConfig): InternalPrintConfig<B, S> {
             return InternalPrintConfig(
                 coeffToString = { coeff, withSign -> coeff.toString(printConfig, withSign) },
                 basisToString = { it.toString(printConfig) }

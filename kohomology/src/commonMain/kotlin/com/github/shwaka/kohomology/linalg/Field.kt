@@ -1,18 +1,12 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.util.Sign
-import com.github.shwaka.kohomology.vectsp.PrintConfig
-import com.github.shwaka.kohomology.vectsp.PrintType
-import com.github.shwaka.kohomology.vectsp.Printable
+import com.github.shwaka.kohomology.vectsp.PrintableWithSign
 
-public interface Scalar : Printable {
+public interface Scalar : PrintableWithSign {
     public fun isZero(): Boolean
     public fun isNotZero(): Boolean = !this.isZero()
     public fun isPrintedPositively(): Boolean
-    public fun toString(printConfig: PrintConfig, withSign: Boolean): String
-    public fun toString(printType: PrintType, withSign: Boolean): String = this.toString(PrintConfig(printType), withSign)
-    override fun toString(printConfig: PrintConfig): String = this.toString(printConfig, true)
-    public fun toString(printType: PrintType): String = this.toString(PrintConfig(printType))
 }
 
 public interface ScalarOperations<S : Scalar> {

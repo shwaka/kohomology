@@ -32,6 +32,7 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.Printable
 
 public class FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     scalarOperations: ScalarOperations<S>,
@@ -59,7 +60,8 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M>,
     override val differential: Derivation<D, Monomial<D, I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGAlgebra<D, Monomial<D, I>, S, V, M>(gAlgebra, differential, matrixSpace) {
+) : DGAlgebra<D, Monomial<D, I>, S, V, M>(gAlgebra, differential, matrixSpace),
+    Printable {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
         FreeDGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this, this.gAlgebra)
     }
@@ -238,5 +240,10 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     public fun toIntDegree(): Pair<FreeDGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
         val degreeMorphism = AugmentationDegreeMorphism(this.degreeGroup)
         return this.convertDegree(degreeMorphism)
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        val gAlgebraString = this.gAlgebra.toString(printConfig)
+        return "($gAlgebraString, d)"
     }
 }

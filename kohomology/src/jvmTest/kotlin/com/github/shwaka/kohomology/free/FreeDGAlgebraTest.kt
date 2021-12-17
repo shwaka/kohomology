@@ -251,26 +251,32 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringInCohomologyTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "print cohomology classes as TeX" - {
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> printerTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "printer test for FreeDGAlgebra" - {
         val generatorList = listOf(
             Indeterminate("a", "A", 2),
             Indeterminate("b", "B", 2),
         )
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
         val texPrinter = Printer(PrintType.TEX)
-        val (a, b) = freeDGAlgebra.gAlgebra.generatorList
-        freeDGAlgebra.context.run {
-            "length 1" {
-                texPrinter(a.cohomologyClass()) shouldBe "[A]"
-                texPrinter(b.cohomologyClass()) shouldBe "[B]"
+        "print cohomology classes as TeX" - {
+            val (a, b) = freeDGAlgebra.gAlgebra.generatorList
+            freeDGAlgebra.context.run {
+                "length 1" {
+                    texPrinter(a.cohomologyClass()) shouldBe "[A]"
+                    texPrinter(b.cohomologyClass()) shouldBe "[B]"
+                }
+                "length 2" {
+                    texPrinter(a.pow(2).cohomologyClass()) shouldBe "[A^{2}]"
+                    texPrinter(b.pow(2).cohomologyClass()) shouldBe "[B^{2}]"
+                    texPrinter((a * b).cohomologyClass()) shouldBe "[AB]"
+                    texPrinter((a.pow(2) + b.pow(2)).cohomologyClass()) shouldBe "[A^{2}] + [B^{2}]"
+                }
             }
-            "length 2" {
-                texPrinter(a.pow(2).cohomologyClass()) shouldBe "[A^{2}]"
-                texPrinter(b.pow(2).cohomologyClass()) shouldBe "[B^{2}]"
-                texPrinter((a * b).cohomologyClass()) shouldBe "[AB]"
-                texPrinter((a.pow(2) + b.pow(2)).cohomologyClass()) shouldBe "[A^{2}] + [B^{2}]"
-            }
+        }
+        "print FreeDGAlgebra" {
+            freeDGAlgebra.toString() shouldBe "(Λ(a, b), d)"
+            texPrinter(freeDGAlgebra) shouldBe "(Λ(A, B), d)"
         }
     }
 }
@@ -303,7 +309,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))
-    include(toStringInCohomologyTest(matrixSpace))
+    include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
 })
 
@@ -320,6 +326,6 @@ class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
     include(pullbackOfHopfFibrationOverS4Test(matrixSpace))
     include(errorTest(matrixSpace))
     include(parseDifferentialValueTest(matrixSpace))
-    include(toStringInCohomologyTest(matrixSpace))
+    include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
 })

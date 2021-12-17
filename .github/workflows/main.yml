@@ -63,7 +63,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v2
-        # will be restored in generate-site
+        # will be restored in 'generate-site'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
@@ -105,7 +105,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v2
-        # restore mavenLocal repository from test
+        # restore mavenLocal repository from 'benchmark'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}

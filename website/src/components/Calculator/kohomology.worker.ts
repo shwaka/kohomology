@@ -56,6 +56,10 @@ function showDgaInfo(): void {
   ctx.postMessage(output)
 }
 
+function assertUnreachable(_: never, message: string): never {
+  throw new Error(`This can't happen! (${message})`)
+}
+
 onmessage = function(e: MessageEvent<WorkerInput>) {
   console.log("Worker start")
   const input: WorkerInput = e.data
@@ -74,6 +78,8 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
       case "computeCohomologyClass":
         computeCohomologyClass(input.targetName, input.cocycleString)
         break
+      default:
+        assertUnreachable(input, "Invalid command")
     }
   } catch (error: unknown) {
     if (error instanceof Error) {

@@ -13,7 +13,7 @@ function styledStringToJSXElement(styledString: StyledString, key: number): JSX.
     "\\deg": "|#1|",
   }
   switch (styledString.stringType) {
-    case "normal":
+    case "text":
       return <span key={key}>{styledString.content}</span>
     case "math":
       return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />

@@ -1,6 +1,6 @@
 import { StyledStringKt, StyledMessageKt } from "kohomology-js"
 
-const stringTypes = ["normal", "math"] as const
+const stringTypes = ["text", "math"] as const
 type StringType = typeof stringTypes[number]
 
 export interface StyledString {
@@ -18,7 +18,7 @@ export interface StyledMessage {
 
 export function fromString(messageType: MessageType, str: string): StyledMessage {
   const styledString: StyledString = {
-    stringType: "normal",
+    stringType: "text",
     content: str,
   }
   return {

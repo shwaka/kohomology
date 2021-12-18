@@ -7,7 +7,7 @@ class StyledStringKt(
 )
 
 enum class StringType(val typeName: String) {
-    NORMAL("normal"),
+    TEXT("text"),
     MATH("math"),
 }
 
@@ -46,8 +46,8 @@ class StyledMessageInternal(
 }
 
 object StyledStringListBuilder {
-    val String.normal: List<StyledStringInternal>
-        get() = listOf(StyledStringInternal(StringType.NORMAL, this))
+    val String.text: List<StyledStringInternal>
+        get() = listOf(StyledStringInternal(StringType.TEXT, this))
     val String.math: List<StyledStringInternal>
         get() = listOf(StyledStringInternal(StringType.MATH, this))
 }

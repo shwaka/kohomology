@@ -148,7 +148,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 ): StyledMessageKt {
     val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
     return styledMessage(MessageType.SUCCESS) {
-        "Cohomology of ".normal + p(freeDGAlgebra).math + " is".normal
+        "Cohomology of ".text + p(freeDGAlgebra).math + " is".text
     }.export()
 }
 
@@ -171,7 +171,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 ): StyledMessageKt {
     val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString)
     return when (cocycle) {
-        is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".normal }.export()
+        is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }.export()
         is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle)
     }
 }
@@ -185,7 +185,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra.context.run {
         if (d(cocycle).isNotZero()) {
             return styledMessage(MessageType.ERROR) {
-                p(cocycle).math + " is not a cocycle: ".normal + "d(${p(cocycle)}) = ${p(d(cocycle))}".math
+                p(cocycle).math + " is not a cocycle: ".text + "d(${p(cocycle)}) = ${p(d(cocycle))}".math
             }.export()
         }
         return styledMessage(MessageType.SUCCESS) {

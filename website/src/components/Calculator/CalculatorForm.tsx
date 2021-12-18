@@ -70,15 +70,16 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     }
   }
 
-  function printError(error: unknown): void {
-    if (error === null) {
-      props.printMessages(fromString("error", "This can't happen!"))
-    } else if (typeof error === "object") {
-      props.printMessages(fromString("error", error.toString()))
-    } else {
-      props.printMessages(fromString("error", "Unknown error!"))
-    }
-  }
+  // function printError(error: unknown): void {
+  //   if (error === null) {
+  //     props.printMessages(fromString("error", "This can't happen!"))
+  //   } else if (typeof error === "object") {
+  //     props.printMessages(fromString("error", error.toString()))
+  //   } else {
+  //     props.printMessages(fromString("error", "Unknown error!"))
+  //   }
+  // }
+
   function handleCohomologyButton(e: FormEvent): void {
     e.preventDefault()
     const input: WorkerInput = {

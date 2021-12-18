@@ -8,6 +8,12 @@ const ctx: Worker = self as any
 
 let dgaWrapper: FreeDGAWrapper | null = null
 
+function assertInitialized(dgaWrapper: FreeDGAWrapper | null): asserts dgaWrapper is FreeDGAWrapper {
+  if (dgaWrapper === null) {
+    throw new Error("Not initialized")
+  }
+}
+
 function updateJson(json: string): void {
   dgaWrapper = new FreeDGAWrapper(json)
 }
@@ -29,9 +35,7 @@ function sendMessages(messages: StyledMessage | StyledMessage[]): void {
 }
 
 function computeCohomology(targetName: TargetName, maxDegree: number): void {
-  if (dgaWrapper === null) {
-    throw new Error("Not initialized")
-  }
+  assertInitialized(dgaWrapper)
   sendMessages(toStyledMessage(dgaWrapper.computationHeader(targetName)))
   for (let degree = 0; degree <= maxDegree; degree++) {
     sendMessages(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
@@ -39,16 +43,12 @@ function computeCohomology(targetName: TargetName, maxDegree: number): void {
 }
 
 function computeCohomologyClass(targetName: TargetName, cocycleString: string): void {
-  if (dgaWrapper === null) {
-    throw new Error("Not initialized")
-  }
+  assertInitialized(dgaWrapper)
   sendMessages(toStyledMessage(dgaWrapper.computeCohomologyClass(targetName, cocycleString)))
 }
 
 function showDgaInfo(): void {
-  if (dgaWrapper === null) {
-    throw new Error("Not initialized")
-  }
+  assertInitialized(dgaWrapper)
   const output: WorkerOutput = {
     command: "showDgaInfo",
     messages: dgaWrapper.dgaInfo().map(toStyledMessage),

@@ -141,19 +141,20 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           </label>
         )}
       </div>
-      <div className={styles.computeCohomology}>
-        <input type="button" value="Compute cohomology" onClick={handleCohomologyButton} />
+      <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
+        <input type="submit" value="Compute cohomology"/>
         <span>up to degree</span>
         <input
           type="number" value={maxDegree} onChange={handleChangeMaxDegree}
           min={0} className={styles.maxDegree} />
-      </div>
-      <div>
-        <input type="button" value="Compute class" onClick={handleComputeCohomologyClassButton} />
+      </form>
+      <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
+        <input type="submit" value="Compute class" />
         <span>cocycle:</span>
         <input
-          type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)} />
-      </div>
+          type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
+          onSubmit={handleComputeCohomologyClassButton} />
+      </form>
     </div>
   )
 }

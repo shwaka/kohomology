@@ -184,7 +184,9 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
     freeDGAlgebra.context.run {
         if (d(cocycle).isNotZero()) {
-            throw Exception("$cocycle is not a cocycle: d($cocycle) = ${d(cocycle)}")
+            return styledMessage(MessageType.ERROR) {
+                p(cocycle).math + " is not a cocycle: ".normal + "d(${p(cocycle)}) = ${p(d(cocycle))}".math
+            }.export()
         }
         return styledMessage(MessageType.SUCCESS) {
             "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())}".math

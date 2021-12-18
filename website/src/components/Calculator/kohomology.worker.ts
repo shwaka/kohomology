@@ -1,5 +1,5 @@
 import { FreeDGAWrapper } from "kohomology-js"
-import { StyledMessage, toStyledMessage } from "./styled"
+import { fromString, StyledMessage, toStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput, TargetName } from "./workerInterface"
 
 // eslint-disable-next-line no-restricted-globals
@@ -60,18 +60,25 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
   console.log("Worker start")
   const input: WorkerInput = e.data
   console.log(input)
-  switch (input.command) {
-    case "updateJson":
-      updateJson(input.json)
-      break
-    case "computeCohomology":
-      computeCohomology(input.targetName, input.maxDegree)
-      break
-    case "dgaInfo":
-      showDgaInfo()
-      break
-    case "computeCohomologyClass":
-      computeCohomologyClass(input.targetName, input.cocycleString)
-      break
+  try {
+    switch (input.command) {
+      case "updateJson":
+        updateJson(input.json)
+        break
+      case "computeCohomology":
+        computeCohomology(input.targetName, input.maxDegree)
+        break
+      case "dgaInfo":
+        showDgaInfo()
+        break
+      case "computeCohomologyClass":
+        computeCohomologyClass(input.targetName, input.cocycleString)
+        break
+    }
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      sendMessages(fromString("error", error.message))
+    }
+    console.error(error)
   }
 }

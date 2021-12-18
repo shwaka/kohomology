@@ -30,6 +30,11 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
+      - uses: actions/cache@v2
+        # will be restored in 'benchmark' and 'generate-site'
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
       - name: Set up JDK ${{ env.JDK_VERSION }}
         uses: actions/setup-java@v1
         with:
@@ -51,6 +56,10 @@ jobs:
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           ./codecov -t ${CODECOV_TOKEN}
+      - name: Install kohomology to MavenLocal
+        # saved by actions/cache
+        run: ./gradlew publishToMavenLocal
+        working-directory: kohomology
 
   benchmark:
     needs: test
@@ -63,7 +72,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v2
-        # will be restored in 'generate-site'
+        # restore mavenLocal repository from 'test'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
@@ -71,9 +80,6 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: ${{ env.JDK_VERSION }}
-      - name: Install kohomology to MavenLocal
-        run: ./gradlew publishToMavenLocal
-        working-directory: kohomology
       - name: Run benchmark
         run: ./gradlew benchmark
         working-directory: profile
@@ -105,7 +111,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v2
-        # restore mavenLocal repository from 'benchmark'
+        # restore mavenLocal repository from 'test'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}

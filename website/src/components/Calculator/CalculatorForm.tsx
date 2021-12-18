@@ -4,7 +4,7 @@ import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 import { JsonEditor } from "./JsonEditor"
 import { sphere } from "./examples"
-import { fromString, StyledMessage, StyledString } from "./styled"
+import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
 

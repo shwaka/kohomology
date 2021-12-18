@@ -1,7 +1,11 @@
+import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
+import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -102,6 +106,11 @@ class FreeDGAWrapper(val json: String) {
         val targetDGA = this.getFreeDGAlgebra(targetName)
         return computeCohomologyUpTo(targetDGA, maxDegree)
     }
+
+    fun computeCohomologyClass(targetName: String, cocycleString: String): StyledMessageKt {
+        val targetDGA = this.getFreeDGAlgebra(targetName)
+        return computeCohomologyClass(targetDGA, cocycleString)
+    }
 }
 
 @ExperimentalJsExport
@@ -153,4 +162,32 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
         messages.add(computeCohomology(freeDGAlgebra, degree))
     }
     return messages.toTypedArray()
+}
+
+@ExperimentalJsExport
+fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    cocycleString: String
+): StyledMessageKt {
+    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString)
+    return when (cocycle) {
+        is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".normal }.export()
+        is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle)
+    }
+}
+
+@ExperimentalJsExport
+fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    cocycle: GVector<D, Monomial<D, I>, S, V>
+): StyledMessageKt {
+    val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
+    freeDGAlgebra.context.run {
+        if (d(cocycle).isNotZero()) {
+            throw Exception("$cocycle is not a cocycle: d($cocycle) = ${d(cocycle)}")
+        }
+        return styledMessage(MessageType.SUCCESS) {
+            "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())}".math
+        }.export()
+    }
 }

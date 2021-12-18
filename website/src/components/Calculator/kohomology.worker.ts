@@ -38,6 +38,13 @@ function computeCohomology(targetName: TargetName, maxDegree: number): void {
   }
 }
 
+function computeCohomologyClass(targetName: TargetName, cocycleString: string): void {
+  if (dgaWrapper === null) {
+    throw new Error("Not initialized")
+  }
+  sendMessages(toStyledMessage(dgaWrapper.computeCohomologyClass(targetName, cocycleString)))
+}
+
 function showDgaInfo(): void {
   if (dgaWrapper === null) {
     throw new Error("Not initialized")
@@ -62,6 +69,9 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
       break
     case "dgaInfo":
       showDgaInfo()
+      break
+    case "computeCohomologyClass":
+      computeCohomologyClass(input.targetName, input.cocycleString)
       break
   }
 }

@@ -46,6 +46,7 @@ interface CalculatorFormProps {
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
+  const [cocycleString, setCocycleString] = useState("x^2")
   const [json, setJson] = useState(sphere(2))
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
@@ -84,6 +85,15 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       command: "computeCohomology",
       targetName: targetName,
       maxDegree: parseInt(maxDegree),
+    }
+    worker.postMessage(input)
+  }
+  function handleComputeCohomologyClassButton(e: FormEvent): void {
+    e.preventDefault()
+    const input: WorkerInput = {
+      command: "computeCohomologyClass",
+      targetName: targetName,
+      cocycleString: cocycleString,
     }
     worker.postMessage(input)
   }
@@ -137,6 +147,12 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <input
           type="number" value={maxDegree} onChange={handleChangeMaxDegree}
           min={0} className={styles.maxDegree} />
+      </div>
+      <div>
+        <input type="button" value="Compute class" onClick={handleComputeCohomologyClassButton} />
+        <span>cocycle:</span>
+        <input
+          type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)} />
       </div>
     </div>
   )

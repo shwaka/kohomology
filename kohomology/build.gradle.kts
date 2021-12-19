@@ -76,7 +76,6 @@ kotlin {
                 }
 
                 implementation("com.github.shwaka.counter:simple-counter:0.2")
-                implementation("io.github.microutils:kotlin-logging:2.0.6")
                 // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
                 implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
 
@@ -108,9 +107,6 @@ kotlin {
                 implementation("io.kotest:kotest-assertions-core:$version")
                 implementation("io.kotest:kotest-property:$version")
                 implementation("io.kotest:kotest-assertions-compiler:$version")
-                // logger
-                // implementation("org.slf4j:slf4j-simple:1.7.26")
-                implementation("ch.qos.logback:logback-classic:1.2.3")
             }
         }
         val jsMain by getting

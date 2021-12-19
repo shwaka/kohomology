@@ -10,7 +10,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
-import mu.KotlinLogging
 
 public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val source: GVectorSpace<D, BS, S, V>,
@@ -21,7 +20,6 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
     private val getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) {
     private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
-    private val logger = KotlinLogging.logger {}
 
     init {
         if (source.degreeGroup != target.degreeGroup)
@@ -53,11 +51,9 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
     public operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
-            this.logger.debug { "cache found for $this[$degree]" }
             return it
         }
         // if cache does not exist
-        this.logger.debug { "cache not found for $this[$degree], create new instance" }
         val linearMap = this.getLinearMap(degree)
         this.cache[degree] = linearMap
         return linearMap

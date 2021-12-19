@@ -26,7 +26,6 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
-import mu.KotlinLogging
 
 val freeLoopSpaceTag = NamedTag("FreeLoopSpace")
 
@@ -35,7 +34,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
     sphereDim: Int
 ) = freeSpec {
     "[dim=$sphereDim]" - {
-        val logger = KotlinLogging.logger {}
         if (sphereDim <= 0)
             throw IllegalArgumentException("The dimension of a sphere must be positive")
         if (sphereDim % 2 == 1)
@@ -71,13 +69,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             "check basis of cohomology" {
                 (0 until 5).forAll { n ->
                     val degree = (2 * n + 1) * (sphereDim - 1)
-                    logger.debug { "check basis (1) n = $n, degree = $degree" }
                     val basis = listOf(freeLoopSpace.cohomologyClassOf(sx * sy.pow(n)))
                     freeLoopSpace.cohomology.isBasis(basis, degree).shouldBeTrue()
                 }
                 (0 until 5).forAll { n ->
                     val degree = (2 * n + 1) * (sphereDim - 1) + 1
-                    logger.debug { "check basis (2) n = $n, degree = $degree" }
                     val basis = listOf(
                         freeLoopSpace.cohomologyClassOf(
                             if (n == 0)

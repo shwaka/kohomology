@@ -18,7 +18,6 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
-import mu.KotlinLogging
 
 private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
@@ -28,7 +27,6 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<E, S>
 ) {
     private val cache: MutableMap<D, VectorSpace<E, S, V>> = mutableMapOf()
-    private val logger = KotlinLogging.logger {}
 
     private fun getBasisNames(degree: D): List<E> {
         return this.monoid.listElements(degree)
@@ -37,11 +35,9 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     fun getVectorSpace(degree: D): VectorSpace<E, S, V> {
         this.cache[degree]?.let {
             // if cache exists
-            this.logger.debug { "cache found for ${this.monoid}[$degree]" }
             return it
         }
         // if cache does not exist
-        this.logger.debug { "cache not found for ${this.monoid}[$degree], create new instance" }
         val vectorSpace = VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
         this.cache[degree] = vectorSpace
         return vectorSpace

@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
-import mu.KotlinLogging
 
 public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val source1: GVectorSpace<D, BS1, S, V>,
@@ -20,7 +19,6 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     private val getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
 ) {
     private val cache: MutableMap<Pair<D, D>, BilinearMap<BS1, BS2, BT, S, V, M>> = mutableMapOf()
-    private val logger = KotlinLogging.logger {}
     public val degreeGroup: DegreeGroup<D> = source1.degreeGroup
 
     public constructor(
@@ -50,11 +48,9 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     public operator fun get(p: D, q: D): BilinearMap<BS1, BS2, BT, S, V, M> {
         this.cache[Pair(p, q)]?.let {
             // if cache exists
-            this.logger.debug { "cache found for $this[$p, $q]" }
             return it
         }
         // if cache does not exists
-        this.logger.debug { "cache not found for $this[$p, $q], create new instance" }
         val bilinearMap = this.getBilinearMap(p, q)
         this.cache[Pair(p, q)] = bilinearMap
         return bilinearMap

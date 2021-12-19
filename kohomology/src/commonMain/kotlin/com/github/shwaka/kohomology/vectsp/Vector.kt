@@ -16,7 +16,6 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Sign
-import mu.KotlinLogging
 
 public interface BasisName : Printable {
     public override fun toString(printConfig: PrintConfig): String = this.toString()
@@ -198,12 +197,6 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     //   Leaking 'this' in constructor of non-final class GAlgebra
     public val context: VectorContext<B, S, V> by lazy {
         VectorContext(numVectorSpace.field, numVectorSpace, this)
-    }
-
-    private val logger = KotlinLogging.logger {}
-
-    init {
-        this.logger.debug { "$this is created" }
     }
 
     private val basisNameToIndex: Map<B, Int> by lazy {

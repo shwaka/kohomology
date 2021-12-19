@@ -11,7 +11,6 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
-import mu.KotlinLogging
 
 public interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val differential: GLinearMap<D, B, B, S, V, M>
@@ -47,7 +46,6 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
     public val matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorOperations<D, B, S, V, M> {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
-    private val logger = KotlinLogging.logger {}
 
     public open val degreeGroup: DegreeGroup<D> = gVectorSpace.degreeGroup
 
@@ -58,11 +56,9 @@ public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVe
     protected fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
-            this.logger.debug { "cache found for H^$degree(${this.gVectorSpace})" }
             return it
         }
         // if cache does not exist
-        this.logger.debug { "cache not found for H^$degree(${this.gVectorSpace}), compute it" }
         val kernelBasis = this.differential[degree].kernelBasis()
         val previousDegree = this.degreeGroup.context.run { degree - 1 }
         val imageGenerator = this.differential[previousDegree].imageGenerator()

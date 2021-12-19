@@ -138,13 +138,6 @@ tasks.withType<Test> {
     System.getProperty("kococo.debug")?.let {
         systemProperties["kococo.debug"] = it
     }
-    // ↓公式ドキュメント では下のコードが書かれてるけどダメだった
-    //   (https://kotest.io/docs/framework/tags.html)
-    // systemProperties = System.getProperties().map { it.key.toString() to it.value }.toMap()
-    System.getProperty("logLevel")?.let {
-        // see resources/logback.xml
-        systemProperties["com.github.shwaka.kohomology.logLevel"] = it
-    }
 }
 
 tasks.jacocoTestReport {

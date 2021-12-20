@@ -73,6 +73,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> cyclicModelOfEvenSphereTest
                     cyclicModel.cohomology.isBasis(basis, degree).shouldBeTrue()
                 }
             }
+            "check suspension" {
+                val s = cyclicModel.suspension
+                s(u).isZero().shouldBeTrue()
+                s(x) shouldBe sx
+                s(y) shouldBe sy
+                s(sx).isZero().shouldBeTrue()
+                s(sy).isZero().shouldBeTrue()
+                s(u * x) shouldBe (u * sx)
+                s(x * y) shouldBe (sx * y + x * sy)
+            }
+            "check inclusion" {
+                val i = cyclicModel.inclusion
+                val (x_, y_) = sphere.gAlgebra.generatorList
+                i(x_) shouldBe x
+                i(y_) shouldBe y
+            }
         }
     }
 }

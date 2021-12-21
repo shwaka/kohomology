@@ -71,6 +71,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
                 ad(dx)(xdy) shouldBe dy
                 ad(dy)(dx).isZero().shouldBeTrue()
             }
+            "check toString()" {
+                dx.toString() shouldBe "(x, 1)"
+                dy.toString() shouldBe "(y, 1)"
+                xdy.toString() shouldBe "(y, x)"
+                (-dx).toString() shouldBe "- (x, 1)"
+                (2 * xdy).toString() shouldBe "2 (y, x)"
+            }
         }
     }
 }

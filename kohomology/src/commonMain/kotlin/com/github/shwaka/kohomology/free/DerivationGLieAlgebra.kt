@@ -4,11 +4,14 @@ import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GLieAlgebra
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.DirectSum
 import com.github.shwaka.kohomology.vectsp.DirectSumBasis
@@ -28,6 +31,19 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
 
     private val cache: MutableMap<D, DirectSum<Monomial<D, I>, S, V, M>> = mutableMapOf()
 
+    fun getInternalPrintConfig(
+        @Suppress("UNUSED_PARAMETER") printConfig: PrintConfig
+    ): InternalPrintConfig<DirectSumBasis<Monomial<D, I>>, S> {
+        val indeterminateList = this.freeGAlgebra.indeterminateList
+        return InternalPrintConfig(
+            basisToString = { directSumBasis ->
+                val from: Indeterminate<D, I> = indeterminateList[directSumBasis.index]
+                val to: Monomial<D, I> = directSumBasis.basisName
+                "($from, $to)"
+            }
+        )
+    }
+
     fun getVectorSpace(derivationDegree: D): DirectSum<Monomial<D, I>, S, V, M> {
         this.cache[derivationDegree]?.let {
             // if cache exists
@@ -38,7 +54,7 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         val vectorSpaceList: List<VectorSpace<Monomial<D, I>, S, V>> = this.degreeGroup.context.run {
             generatorDegreeList.map { degree -> freeGAlgebra[degree + derivationDegree] }
         }
-        return DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace)
+        return DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
     }
 
     fun getProjection(derivationDegree: D, index: Int): LinearMap<DerivationBasis<D, I>, Monomial<D, I>, S, V, M> {
@@ -89,7 +105,14 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
 
 public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationGLieAlgebraFactory<D, I, S, V, M>
-) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(factory.matrixSpace, factory.degreeGroup, factory.name, factory::getVectorSpace, factory::getMultiplication) {
+) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(
+    matrixSpace = factory.matrixSpace,
+    degreeGroup = factory.degreeGroup,
+    name = factory.name,
+    getVectorSpace = factory::getVectorSpace,
+    getMultiplication = factory::getMultiplication,
+    getInternalPrintConfig = factory::getInternalPrintConfig,
+) {
     public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = factory.freeGAlgebra
 
     public fun gVectorToDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): Derivation<D, Monomial<D, I>, S, V, M> {

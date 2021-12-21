@@ -157,7 +157,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMapTest(matrixS
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    val sphereDim: Int = 4
+    val sphereDim: Int = 4 // must be even
     "[test getDGDerivation for the sphere of dimension $sphereDim]" - {
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
         val (x, y) = freeDGAlgebra.gAlgebra.generatorList
@@ -174,6 +174,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
             "(x->1, y->0) should not give a dg derivation" {
                 shouldThrow<IllegalArgumentException> {
                     freeDGAlgebra.getDGDerivation(listOf(unit, zeroGVector), -sphereDim)
+                }
+            }
+        }
+    }
+    "[test getDGDerivation for the product $sphereDim-sphere and a contractible space]" - {
+        val n = sphereDim // must be even
+        val m = -3 // must be odd
+        val indeterminateList = listOf(
+            Indeterminate("x", n),
+            Indeterminate("y", 2 * n - 1),
+            Indeterminate("v", 2 * n - m),
+            Indeterminate("w", 2 * n - m - 1),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _, v, _) ->
+            listOf(zeroGVector, x.pow(2), zeroGVector, v)
+        }
+        val (x, y, _, _) = freeDGAlgebra.gAlgebra.generatorList
+        freeDGAlgebra.context.run {
+            "check sign in the commutativity of d and a derivation" {
+                shouldNotThrowAny {
+                    val valueList = listOf(zeroGVector, zeroGVector, x.pow(2), -y)
+                    freeDGAlgebra.getDGDerivation(valueList, m)
                 }
             }
         }

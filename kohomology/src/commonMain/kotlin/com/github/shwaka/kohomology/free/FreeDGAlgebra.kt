@@ -32,6 +32,7 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -170,7 +171,8 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
             for (v in this@FreeDGAlgebra.gAlgebra.generatorList) {
                 val fdv = derivation(d(v))
                 val dfv = d(derivation(v))
-                if (fdv != dfv) {
+                val sign: Sign = Sign.fromParity(derivationDegree.isEven())
+                if (fdv != sign * dfv) {
                     throw IllegalArgumentException(
                         "The given derivation does not commute with the differential on the generator $v:\n" +
                             "f(d($v)) = $fdv, d(f($v)) = $dfv"

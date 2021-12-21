@@ -5,6 +5,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 
 /**
  * An implementation of [BasisName] for a direct sum.
@@ -14,6 +16,7 @@ public data class DirectSumBasis<B>(val index: Int, val basisName: B) : BasisNam
 private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val vectorSpaceList: List<VectorSpace<B, S, V>>,
     val matrixSpace: MatrixSpace<S, V, M>,
+    val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<DirectSumBasis<B>, S>,
 ) {
     val numVectorSpace: NumVectorSpace<S, V> = matrixSpace.numVectorSpace
     // TODO: vectorSpaceList から取得できる numVectorSpace たちと一致しているかチェックする？
@@ -23,8 +26,6 @@ private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             DirectSumBasis(index, basisName)
         }
     }.flatten()
-
-    // TODO: internalPrintConfig も渡す？
 }
 
 /**
@@ -32,7 +33,7 @@ private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : 
  */
 public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: DirectSumFactory<B, S, V, M>
-) : VectorSpace<DirectSumBasis<B>, S, V>(factory.numVectorSpace, factory.basisNames) {
+) : VectorSpace<DirectSumBasis<B>, S, V>(factory.numVectorSpace, factory.basisNames, factory.getInternalPrintConfig) {
     /** A list of vector spaces in a direct sum. */
     public val vectorSpaceList: List<VectorSpace<B, S, V>> = factory.vectorSpaceList
 
@@ -51,7 +52,9 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
     public constructor(
         vectorSpaceList: List<VectorSpace<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>,
-    ) : this(DirectSumFactory(vectorSpaceList, matrixSpace))
+        getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<DirectSumBasis<B>, S> =
+            { printConfig -> InternalPrintConfig.default(printConfig) },
+    ) : this(DirectSumFactory(vectorSpaceList, matrixSpace, getInternalPrintConfig))
 
     private val inclusionList: List<LinearMap<B, DirectSumBasis<B>, S, V, M>> by lazy {
         val one = this.matrixSpace.field.one

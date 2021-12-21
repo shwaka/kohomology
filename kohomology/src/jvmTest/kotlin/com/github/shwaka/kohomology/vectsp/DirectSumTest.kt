@@ -7,6 +7,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
@@ -334,6 +336,32 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
             projection3(d8) shouldBe w1
             projection3(d9) shouldBe w2
             projection3(d10) shouldBe w3
+        }
+    }
+
+    "direct sum with InternalPrintConfig" - {
+        val vectorSpace0 = VectorSpace(numVectorSpace, listOf("v1", "v2"))
+        val vectorSpace1 = VectorSpace(numVectorSpace, listOf("w1", "w2", "w3"))
+        @Suppress("UNUSED_PARAMETER")
+        fun getInternalPrintConfig(printConfig: PrintConfig): InternalPrintConfig<DirectSumBasis<StringBasisName>, S> {
+            return InternalPrintConfig(
+                basisToString = { directSumBasis ->
+                    "<${directSumBasis.index}, ${directSumBasis.basisName}>"
+                }
+            )
+        }
+        val directSum = DirectSum(listOf(vectorSpace0, vectorSpace1), matrixSpace, ::getInternalPrintConfig)
+
+        val (d1, d2, d3, d4, d5) = directSum.getBasis()
+
+        directSumErrorTest(directSum)
+
+        directSum.context.run {
+            "test toString()" {
+                (d1 + d4).toString() shouldBe "<0, v1> + <1, w2>"
+                (2 * d1 + d2).toString() shouldBe "2 <0, v1> + <0, v2>"
+                (d3 - d5).toString() shouldBe "<1, w1> - <1, w3>"
+            }
         }
     }
 }

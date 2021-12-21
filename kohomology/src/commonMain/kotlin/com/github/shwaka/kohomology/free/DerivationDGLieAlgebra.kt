@@ -30,21 +30,19 @@ public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scala
     public val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M> = factory.freeDGAlgebra
     override val gLieAlgebra: DerivationGLieAlgebra<D, I, S, V, M> = factory.gLieAlgebra
 
-    public fun gVectorToDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): Derivation<D, Monomial<D, I>, S, V, M> {
-        return this.gLieAlgebra.gVectorToDerivation(gVector)
-    }
-
     public fun gVectorToDGDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): DGDerivation<D, Monomial<D, I>, S, V, M> {
         this.context.run {
             if (d(gVector).isNotZero()) {
                 throw IllegalArgumentException("gVector must be a cocycle, but d($gVector) = ${d(gVector)}")
             }
         }
-        return DGDerivation(this.freeDGAlgebra, this.gVectorToDerivation(gVector))
+        val derivation = this.gLieAlgebra.gVectorToDerivation(gVector)
+        return DGDerivation(this.freeDGAlgebra, derivation)
     }
 
-    public fun derivationToGVector(derivation: Derivation<D, Monomial<D, I>, S, V, M>): GVector<D, DerivationBasis<D, I>, S, V> {
-        return this.gLieAlgebra.derivationToGVector(derivation)
+    public fun dgDerivationToGVector(dgDerivation: DGDerivation<D, Monomial<D, I>, S, V, M>): GVector<D, DerivationBasis<D, I>, S, V> {
+        // dgDerivation is assumed to commute with d
+        return this.gLieAlgebra.derivationToGVector(dgDerivation.gLinearMap)
     }
 
     public companion object {

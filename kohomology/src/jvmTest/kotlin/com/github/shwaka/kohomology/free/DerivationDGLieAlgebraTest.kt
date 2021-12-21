@@ -10,9 +10,11 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val derivationDGLieAlgebraTag = NamedTag("DerivationDGLieAlgebra")
@@ -35,6 +37,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
             ((-4 * sphereDim) until 0).forAll { degree ->
                 val expected = if (degree == -(2 * sphereDim - 1)) 1 else 0
                 derivationDGLieAlgebra.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        val (dx) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-sphereDim)
+        val (dy) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-(2 * sphereDim - 1))
+        val (xdy) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-(sphereDim - 1))
+
+        "dgVectorToDerivation(gVector) should throw if d(gVector) != 0" {
+            shouldThrow<IllegalArgumentException> {
+                derivationDGLieAlgebra.gVectorToDGDerivation(dx)
+            }
+        }
+
+        "check value of dgVectorToDerivation()" {
+            val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+            val dyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(dy)
+            val xdyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(xdy)
+            freeDGAlgebra.context.run {
+                dyDgDerivation(x).isZero().shouldBeTrue()
+                dyDgDerivation(y) shouldBe unit
+                xdyDgDerivation(x).isZero().shouldBeTrue()
+                xdyDgDerivation(y) shouldBe x
+                xdyDgDerivation(x * y) shouldBe x.pow(2)
             }
         }
     }

@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.DGLieAlgebra
 import com.github.shwaka.kohomology.dg.Derivation
-import com.github.shwaka.kohomology.dg.GLieAlgebra
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.LieDerivation
 import com.github.shwaka.kohomology.dg.degree.Degree

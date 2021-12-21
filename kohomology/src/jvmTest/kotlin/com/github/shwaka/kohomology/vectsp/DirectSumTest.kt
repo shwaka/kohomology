@@ -342,8 +342,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
     "direct sum with InternalPrintConfig" - {
         val vectorSpace0 = VectorSpace(numVectorSpace, listOf("v1", "v2"))
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("w1", "w2", "w3"))
-        @Suppress("UNUSED_PARAMETER")
-        fun getInternalPrintConfig(printConfig: PrintConfig): InternalPrintConfig<DirectSumBasis<StringBasisName>, S> {
+        fun getInternalPrintConfig(
+            @Suppress("UNUSED_PARAMETER") printConfig: PrintConfig
+        ): InternalPrintConfig<DirectSumBasis<StringBasisName>, S> {
             return InternalPrintConfig(
                 basisToString = { directSumBasis ->
                     "<${directSumBasis.index}, ${directSumBasis.basisName}>"

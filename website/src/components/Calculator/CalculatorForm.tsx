@@ -7,6 +7,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
+import Usage from "./_usage.mdx"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -121,6 +122,12 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }
   return (
     <div className={styles.calculatorForm}>
+      <details>
+        <summary>Usage</summary>
+        <div className={styles.usage}>
+          <Usage />
+        </div>
+      </details>
       <div>
         {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
       </div>

@@ -1,6 +1,6 @@
 import { StyledMessage } from "./styled"
 
-export const targetNames = ["self", "freeLoopSpace"] as const
+export const targetNames = ["self", "freeLoopSpace", "cyclic"] as const
 export type TargetName = (typeof targetNames)[number]
 
 // inputs

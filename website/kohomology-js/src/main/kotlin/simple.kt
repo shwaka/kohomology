@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.model.CyclicModel
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.IntAsDegree
@@ -58,12 +59,14 @@ class FreeDGAWrapper(val json: String) {
         }
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
-    private val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
+    private val freeLoopSpace by lazy { FreeLoopSpace(freeDGAlgebra) }
+    private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
 
     private fun getFreeDGAlgebra(name: String): FreeDGAlgebra<*, *, *, *, *> {
         return when (name) {
             "self" -> this.freeDGAlgebra
             "freeLoopSpace" -> this.freeLoopSpace
+            "cyclic" -> this.cyclicModel
             else -> throw Exception("Invalid name: $name")
         }
     }

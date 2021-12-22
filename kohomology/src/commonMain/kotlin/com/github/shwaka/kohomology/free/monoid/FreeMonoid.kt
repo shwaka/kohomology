@@ -80,20 +80,17 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     }
 
     override fun toString(): String {
-        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
-            .filter { (_, exponent) -> exponent != 0 }
-        if (indeterminateAndExponentList.isEmpty())
-            return "1"
-        return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
-            when (exponent) {
-                0 -> throw Exception("This can't happen!")
-                1 -> indeterminate.toString()
-                else -> "$indeterminate^$exponent"
-            }
-        }
+        return this.toString(PrintType.PLAIN) { it.toString() }
     }
 
     override fun toString(printConfig: PrintConfig): String {
+        return this.toString(printConfig.printType) { it.toString(printConfig) }
+    }
+
+    private inline fun toString(
+        printType: PrintType,
+        crossinline indeterminateNameToString: (IndeterminateName) -> String,
+    ): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
@@ -101,13 +98,13 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
             when (exponent) {
                 0 -> throw Exception("This can't happen!")
-                1 -> indeterminate.name.toString(printConfig)
+                1 -> indeterminateNameToString(indeterminate.name)
                 else -> {
-                    val exponentStr = when (printConfig.printType) {
+                    val exponentStr = when (printType) {
                         PrintType.PLAIN -> exponent.toString()
                         PrintType.TEX -> "{$exponent}"
                     }
-                    "${indeterminate.name.toString(printConfig)}^$exponentStr"
+                    "${indeterminateNameToString(indeterminate.name)}^$exponentStr"
                 }
             }
         }

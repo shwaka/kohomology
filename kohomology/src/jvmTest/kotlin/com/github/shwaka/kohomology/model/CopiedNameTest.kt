@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Indeterminate

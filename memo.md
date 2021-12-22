@@ -109,3 +109,7 @@ Cannot download a dependency: javax.net.ssl.SSLHandshakeException: sun.security.
 `overflow: scroll` を設定した要素の中に katex 数式を置くと表示がおかしくなった．
 原因は `class="katex-mathml"` なる `span` 要素が `position: absolute` だったこと．
 katex の設定で `{ output: "html" }` とすることでこの要素の出力を抑制できて，表示も正しくなる．
+
+### ライブラリ本体と同一リポジトリに置いた理由
+- `kohomology-js` は `kohomology` の SNAPSHOT 版を用いている
+- benchmark 結果も website に載せる

@@ -59,7 +59,7 @@ class FreeDGAWrapper(val json: String) {
         }
         FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
     }
-    private val freeLoopSpace by lazy { FreeLoopSpace(freeDGAlgebra) }
+    private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
 
     private fun getFreeDGAlgebra(name: String): FreeDGAlgebra<*, *, *, *, *> {
@@ -122,7 +122,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     degree: Int,
 ): StyledMessageKt {
     val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
-    val basis = freeDGAlgebra.cohomology.getBasis(degree)
+    val basis = freeDGAlgebra.cohomology.getBasisForAugmentedDegree(degree)
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
     //     "\\mathbb{Q}\\{$basisString\\}"

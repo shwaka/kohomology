@@ -70,4 +70,21 @@ class CopiedNameTest : FreeSpec({
             texPrinter(sx) shouldBe "\\bar{x}"
         }
     }
+    "CopiedName test (index = 1)" - {
+        val n = 3
+        val index = 1
+        val indeterminate = Indeterminate("x", n).copy(shift = 0, index = index)
+        val basisName = Monomial(listOf(indeterminate), listOf(1))
+        val numVectorSpace = SparseNumVectorSpaceOverBigRational
+        val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
+        val (x1) = vectorSpace.getBasis()
+        for (useBar in UseBar.values()) {
+            "print x1 when useBar = $useBar" {
+                val plainPrinter = Printer(PrintType.PLAIN, useBar = useBar)
+                val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = useBar))
+                plainPrinter(x1) shouldBe "x1"
+                texPrinter(x1) shouldBe "{x}_{(1)}"
+            }
+        }
+    }
 })

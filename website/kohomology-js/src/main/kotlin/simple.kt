@@ -121,7 +121,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     degree: Int,
 ): StyledMessageKt {
-    val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.ONE))
+    val p = Printer(PrintConfig(printType = PrintType.TEX, useBar = UseBar.BAR))
     val basis = freeDGAlgebra.cohomology.getBasis(degree)
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
@@ -149,7 +149,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
 ): StyledMessageKt {
-    val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
+    val p = Printer(printType = PrintType.TEX, useBar = UseBar.BAR)
     return styledMessage(MessageType.SUCCESS) {
         "Cohomology of ".text + p(freeDGAlgebra).math + " is".text
     }.export()
@@ -184,7 +184,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycle: GVector<D, Monomial<D, I>, S, V>
 ): StyledMessageKt {
-    val p = Printer(printType = PrintType.TEX, useBar = UseBar.ONE)
+    val p = Printer(printType = PrintType.TEX, useBar = UseBar.BAR)
     freeDGAlgebra.context.run {
         if (d(cocycle).isNotZero()) {
             return styledMessage(MessageType.ERROR) {

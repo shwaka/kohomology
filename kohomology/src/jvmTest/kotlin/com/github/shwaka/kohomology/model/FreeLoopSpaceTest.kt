@@ -17,7 +17,7 @@ import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverBigR
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
-import com.github.shwaka.kohomology.util.UseBar
+import com.github.shwaka.kohomology.util.ShowShift
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -109,9 +109,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             }
             "printer test for FreeLoopSpace" {
                 freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerAlways = Printer(printType = PrintType.TEX, useBar = UseBar.BAR)
+                val printerAlways = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
                 printerAlways(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
-                val printerNever = Printer(printType = PrintType.TEX, useBar = UseBar.S_WITH_DEGREE)
+                val printerNever = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
                 printerNever(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
             }
         }

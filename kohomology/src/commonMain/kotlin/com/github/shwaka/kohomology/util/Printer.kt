@@ -20,8 +20,8 @@ public class Printer private constructor(
         beforeSign: String = " ",
         afterSign: String = " ",
         afterCoeff: String = " ",
-        useBar: UseBar = UseBar.S_WITH_DEGREE,
-    ) : this(PrintConfig(printType, beforeSign, afterSign, afterCoeff, useBar))
+        showShift: ShowShift = ShowShift.S_WITH_DEGREE,
+    ) : this(PrintConfig(printType, beforeSign, afterSign, afterCoeff, showShift))
 
     override fun toString(): String {
         return this.value
@@ -77,7 +77,7 @@ public data class InternalPrintConfig<B, S : PrintableWithSign>(
 /**
  * Determines how to print [com.github.shwaka.kohomology.model.CopiedName].
  */
-public enum class UseBar {
+public enum class ShowShift {
     BAR, S, S_WITH_DEGREE
 }
 
@@ -86,5 +86,5 @@ public data class PrintConfig(
     val beforeSign: String = " ",
     val afterSign: String = " ",
     val afterCoeff: String = " ",
-    val useBar: UseBar = UseBar.S_WITH_DEGREE,
+    val showShift: ShowShift = ShowShift.S_WITH_DEGREE,
 )

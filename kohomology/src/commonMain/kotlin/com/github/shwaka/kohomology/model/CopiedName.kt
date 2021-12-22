@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
-import com.github.shwaka.kohomology.util.UseBar
+import com.github.shwaka.kohomology.util.ShowShift
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
@@ -21,28 +21,28 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
     val index: Int? = null
 ) : IndeterminateName {
     override fun toString(): String {
-        return this.toPlain(UseBar.S_WITH_DEGREE)
+        return this.toPlain(ShowShift.S_WITH_DEGREE)
     }
 
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> this.toPlain(printConfig.useBar)
-            PrintType.TEX -> this.toTex(printConfig.useBar)
+            PrintType.PLAIN -> this.toPlain(printConfig.showShift)
+            PrintType.TEX -> this.toTex(printConfig.showShift)
         }
     }
 
-    private fun toPlain(useBar: UseBar): String {
+    private fun toPlain(showShift: ShowShift): String {
         val indexString: String = this.index?.toString() ?: ""
-        val shiftString = when (useBar) {
-            UseBar.BAR -> when {
+        val shiftString = when (showShift) {
+            ShowShift.BAR -> when {
                 this.shift.isZero() -> ""
                 else -> "_"
             }
-            UseBar.S -> when {
+            ShowShift.S -> when {
                 this.shift.isZero() -> ""
                 else -> "s"
             }
-            UseBar.S_WITH_DEGREE -> when {
+            ShowShift.S_WITH_DEGREE -> when {
                 this.shift.isZero() -> ""
                 this.shift.isOne() -> "s"
                 else -> {
@@ -58,18 +58,18 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
         return "$shiftString${this.name.toString(PrintConfig(PrintType.TEX))}$indexString"
     }
 
-    private fun toTex(useBar: UseBar): String {
+    private fun toTex(showShift: ShowShift): String {
         val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
-        val shiftString = when (useBar) {
-            UseBar.BAR -> when {
+        val shiftString = when (showShift) {
+            ShowShift.BAR -> when {
                 this.shift.isZero() -> ""
                 else -> "\\bar"
             }
-            UseBar.S -> when {
+            ShowShift.S -> when {
                 this.shift.isZero() -> ""
                 else -> "s"
             }
-            UseBar.S_WITH_DEGREE -> when {
+            ShowShift.S_WITH_DEGREE -> when {
                 this.shift.isZero() -> ""
                 this.shift.isOne() -> "s"
                 else -> "s^{${this.shift}}"

@@ -16,23 +16,45 @@ val copiedNameTag = NamedTag("CopiedName")
 
 class CopiedNameTest : FreeSpec({
     tags(copiedNameTag)
-    "CopiedName test" - {
+    "CopiedName test (shift = 1)" - {
         val n = 3
-        val indeterminate = Indeterminate("x", n).copy(1, null)
+        val shift = 1
+        val indeterminate = Indeterminate("x", n).copy(shift, null)
         val basisName = Monomial(listOf(indeterminate), listOf(1))
         val numVectorSpace = SparseNumVectorSpaceOverBigRational
         val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
         val (sx) = vectorSpace.getBasis()
-        "sx should be printed as \"s{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = NEVER" {
-            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.NEVER))
+        "sx should be printed as \"s{x}\" when useBar = S_WITH_DEGREE" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE))
             texPrinter(sx) shouldBe "s{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = ONE" {
-            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.ONE))
+        "sx should be printed as \"\\bar{x}\" when useBar = S" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S))
+            texPrinter(sx) shouldBe "s{x}"
+        }
+        "sx should be printed as \"\\bar{x}\" when useBar = BAR" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.BAR))
             texPrinter(sx) shouldBe "\\bar{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when the printer is TexVectorPrinterForCopiedName with useBar = ALWAYS" {
-            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.ALWAYS))
+    }
+    "CopiedName test (shift = 2)" - {
+        val n = 3
+        val shift = 2
+        val indeterminate = Indeterminate("x", n).copy(shift, null)
+        val basisName = Monomial(listOf(indeterminate), listOf(1))
+        val numVectorSpace = SparseNumVectorSpaceOverBigRational
+        val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
+        val (sx) = vectorSpace.getBasis()
+        "sx should be printed as \"s^{2}{x}\" when useBar = S_WITH_DEGREE" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE))
+            texPrinter(sx) shouldBe "s^{2}{x}"
+        }
+        "sx should be printed as \"\\bar{x}\" when useBar = S" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S))
+            texPrinter(sx) shouldBe "s{x}"
+        }
+        "sx should be printed as \"\\bar{x}\" when useBar = BAR" {
+            val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.BAR))
             texPrinter(sx) shouldBe "\\bar{x}"
         }
     }

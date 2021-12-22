@@ -109,9 +109,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             }
             "printer test for FreeLoopSpace" {
                 freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerAlways = Printer(printType = PrintType.TEX, useBar = UseBar.ALWAYS)
+                val printerAlways = Printer(printType = PrintType.TEX, useBar = UseBar.BAR)
                 printerAlways(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
-                val printerNever = Printer(printType = PrintType.TEX, useBar = UseBar.NEVER)
+                val printerNever = Printer(printType = PrintType.TEX, useBar = UseBar.S_WITH_DEGREE)
                 printerNever(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
             }
         }

@@ -15,38 +15,61 @@ import com.github.shwaka.kohomology.util.UseBar
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
-public data class CopiedName<D : Degree, I : IndeterminateName>(val name: I, val shift: D, val index: Int? = null) :
-    IndeterminateName {
+public data class CopiedName<D : Degree, I : IndeterminateName>(
+    val name: I,
+    val shift: D,
+    val index: Int? = null
+) : IndeterminateName {
     override fun toString(): String {
-        val indexString: String = this.index?.toString() ?: ""
-        val shiftString = when {
-            this.shift.isZero() -> ""
-            this.shift.isOne() -> "s"
-            else -> "s^${this.shift}"
-        }
-        return "$shiftString${this.name}$indexString"
+        return this.toPlain(UseBar.S_WITH_DEGREE)
     }
 
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> this.toString()
+            PrintType.PLAIN -> this.toPlain(printConfig.useBar)
             PrintType.TEX -> this.toTex(printConfig.useBar)
         }
+    }
+
+    private fun toPlain(useBar: UseBar): String {
+        val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
+        val shiftString = when (useBar) {
+            UseBar.BAR -> when {
+                this.shift.isZero() -> ""
+                else -> "_"
+            }
+            UseBar.S -> when {
+                this.shift.isZero() -> ""
+                else -> "s"
+            }
+            UseBar.S_WITH_DEGREE -> when {
+                this.shift.isZero() -> ""
+                this.shift.isOne() -> "s"
+                else -> {
+                    val shiftStr = this.shift.toString()
+                    if (shiftStr.length == 1) {
+                        "s^$shiftStr"
+                    } else {
+                        "s^{$shiftStr}"
+                    }
+                }
+            }
+        }
+        return "$shiftString${this.name.toString(PrintConfig(PrintType.TEX))}$indexString"
     }
 
     private fun toTex(useBar: UseBar): String {
         val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
         val shiftString = when (useBar) {
-            UseBar.ALWAYS -> when {
+            UseBar.BAR -> when {
                 this.shift.isZero() -> ""
                 else -> "\\bar"
             }
-            UseBar.ONE -> when {
+            UseBar.S -> when {
                 this.shift.isZero() -> ""
-                this.shift.isOne() -> "\\bar"
-                else -> "s^{${this.shift}}"
+                else -> "s"
             }
-            UseBar.NEVER -> when {
+            UseBar.S_WITH_DEGREE -> when {
                 this.shift.isZero() -> ""
                 this.shift.isOne() -> "s"
                 else -> "s^{${this.shift}}"

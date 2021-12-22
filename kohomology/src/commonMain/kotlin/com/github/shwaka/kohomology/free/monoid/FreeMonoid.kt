@@ -100,7 +100,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
     }
 
-    public fun toPlain(indeterminateNameToPlain: (I) -> String): String {
+    private fun toPlain(indeterminateNameToPlain: (I) -> String): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
@@ -114,7 +114,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
     }
 
-    public fun toTex(indeterminateNameToTex: (I) -> String): String {
+    private fun toTex(indeterminateNameToTex: (I) -> String): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())

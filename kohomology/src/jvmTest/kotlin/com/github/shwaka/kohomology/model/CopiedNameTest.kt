@@ -1,12 +1,9 @@
 package com.github.shwaka.kohomology.model
 
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
-import com.github.shwaka.kohomology.free.monoid.Monomial
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.UseBar
-import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -18,11 +15,7 @@ class CopiedNameTest : FreeSpec({
     "CopiedName test (shift = 1)" - {
         val n = 3
         val shift = 1
-        val indeterminate = Indeterminate("x", n).copy(shift, null)
-        val basisName = Monomial(listOf(indeterminate), listOf(1))
-        val numVectorSpace = SparseNumVectorSpaceOverBigRational
-        val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
-        val (sx) = vectorSpace.getBasis()
+        val sx = Indeterminate("x", n).copy(shift, null)
         "print sx when useBar = S_WITH_DEGREE" {
             val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S_WITH_DEGREE)
             val texPrinter = Printer(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE)
@@ -45,11 +38,7 @@ class CopiedNameTest : FreeSpec({
     "CopiedName test (shift = 2)" - {
         val n = 3
         val shift = 2
-        val indeterminate = Indeterminate("x", n).copy(shift, null)
-        val basisName = Monomial(listOf(indeterminate), listOf(1))
-        val numVectorSpace = SparseNumVectorSpaceOverBigRational
-        val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
-        val (sx) = vectorSpace.getBasis()
+        val sx = Indeterminate("x", n).copy(shift, null)
         "print sx when useBar = S_WITH_DEGREE" {
             val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S_WITH_DEGREE)
             val texPrinter = Printer(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE)
@@ -72,11 +61,7 @@ class CopiedNameTest : FreeSpec({
     "CopiedName test (index = 1)" - {
         val n = 3
         val index = 1
-        val indeterminate = Indeterminate("x", n).copy(shift = 0, index = index)
-        val basisName = Monomial(listOf(indeterminate), listOf(1))
-        val numVectorSpace = SparseNumVectorSpaceOverBigRational
-        val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
-        val (x1) = vectorSpace.getBasis()
+        val x1 = Indeterminate("x", n).copy(shift = 0, index = index)
         for (useBar in UseBar.values()) {
             "print x1 when useBar = $useBar" {
                 val plainPrinter = Printer(PrintType.PLAIN, useBar = useBar)

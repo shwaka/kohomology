@@ -5,9 +5,10 @@ import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printable
 
-public interface IndeterminateName {
-    public fun toString(printConfig: PrintConfig): String = this.toString()
+public interface IndeterminateName : Printable {
+    public override fun toString(printConfig: PrintConfig): String = this.toString()
 }
 
 public class StringIndeterminateName(public val name: String, tex: String? = null) : IndeterminateName {
@@ -56,12 +57,12 @@ public fun Indeterminate(name: String, tex: String, degree: Int): Indeterminate<
     return Indeterminate(StringIndeterminateName(name, tex), IntDegree(degree))
 }
 
-public data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val degree: D) {
+public data class Indeterminate<D : Degree, I : IndeterminateName>(val name: I, val degree: D) : Printable {
     override fun toString(): String {
         return this.name.toString()
     }
 
-    public fun toString(printConfig: PrintConfig): String {
+    public override fun toString(printConfig: PrintConfig): String {
         return this.name.toString(printConfig)
     }
 

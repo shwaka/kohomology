@@ -95,8 +95,22 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
 
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> this.toString()
-            PrintType.TEX -> this.toTex { IndeterminateName -> IndeterminateName.toString(printConfig) }
+            PrintType.PLAIN -> this.toPlain { indeterminateName -> indeterminateName.toString(printConfig) }
+            PrintType.TEX -> this.toTex { indeterminateName -> indeterminateName.toString(printConfig) }
+        }
+    }
+
+    public fun toPlain(indeterminateNameToPlain: (I) -> String): String {
+        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
+            .filter { (_, exponent) -> exponent != 0 }
+        if (indeterminateAndExponentList.isEmpty())
+            return "1"
+        return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
+            when (exponent) {
+                0 -> throw Exception("This can't happen!")
+                1 -> indeterminateNameToPlain(indeterminate.name)
+                else -> "${indeterminateNameToPlain(indeterminate.name)}^$exponent"
+            }
         }
     }
 

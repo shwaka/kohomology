@@ -32,7 +32,7 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
     }
 
     private fun toPlain(useBar: UseBar): String {
-        val indexString: String = this.index?.toString()?.let { "_{($it)}" } ?: ""
+        val indexString: String = this.index?.toString() ?: ""
         val shiftString = when (useBar) {
             UseBar.BAR -> when {
                 this.shift.isZero() -> ""

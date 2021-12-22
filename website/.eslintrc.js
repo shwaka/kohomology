@@ -22,6 +22,11 @@ module.exports = {
     "@typescript-eslint",
     "unused-imports"
   ],
+  "settings": {
+    "react": {
+      "version": "detect" // for eslint-plugin-react
+    }
+  },
   "rules": {
     "indent": [
       "error",

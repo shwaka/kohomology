@@ -24,16 +24,22 @@ class CopiedNameTest : FreeSpec({
         val numVectorSpace = SparseNumVectorSpaceOverBigRational
         val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
         val (sx) = vectorSpace.getBasis()
-        "sx should be printed as \"s{x}\" when useBar = S_WITH_DEGREE" {
+        "print sx when useBar = S_WITH_DEGREE" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S_WITH_DEGREE)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE))
+            plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when useBar = S" {
+        "print sx when useBar = S" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S))
+            plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when useBar = BAR" {
+        "print sx when useBar = BAR" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.BAR)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.BAR))
+            plainPrinter(sx) shouldBe "_x"
             texPrinter(sx) shouldBe "\\bar{x}"
         }
     }
@@ -45,16 +51,22 @@ class CopiedNameTest : FreeSpec({
         val numVectorSpace = SparseNumVectorSpaceOverBigRational
         val vectorSpace = VectorSpace(numVectorSpace, listOf(basisName))
         val (sx) = vectorSpace.getBasis()
-        "sx should be printed as \"s^{2}{x}\" when useBar = S_WITH_DEGREE" {
+        "print sx when useBar = S_WITH_DEGREE" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S_WITH_DEGREE)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S_WITH_DEGREE))
+            plainPrinter(sx) shouldBe "s^2x"
             texPrinter(sx) shouldBe "s^{2}{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when useBar = S" {
+        "print sx when useBar = S" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.S)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.S))
+            plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{x}"
         }
-        "sx should be printed as \"\\bar{x}\" when useBar = BAR" {
+        "print sx when useBar = BAR" {
+            val plainPrinter = Printer(PrintType.PLAIN, useBar = UseBar.BAR)
             val texPrinter = Printer(PrintConfig(PrintType.TEX, useBar = UseBar.BAR))
+            plainPrinter(sx) shouldBe "_x"
             texPrinter(sx) shouldBe "\\bar{x}"
         }
     }

@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import React, { FormEvent, useEffect, useRef, useState } from "react"
+import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 import { JsonEditor } from "./JsonEditor"
@@ -81,45 +81,58 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   //   }
   // }
 
-  function handleCohomologyButton(e: FormEvent): void {
-    e.preventDefault()
-    const input: WorkerInput = {
-      command: "computeCohomology",
-      targetName: targetName,
-      maxDegree: parseInt(maxDegree),
-    }
-    worker.postMessage(input)
-  }
-  function handleComputeCohomologyClassButton(e: FormEvent): void {
-    e.preventDefault()
-    const input: WorkerInput = {
-      command: "computeCohomologyClass",
-      targetName: targetName,
-      cocycleString: cocycleString,
-    }
-    worker.postMessage(input)
-  }
+  const handleCohomologyButton = useCallback(
+    (e: FormEvent): void => {
+      e.preventDefault()
+      const input: WorkerInput = {
+        command: "computeCohomology",
+        targetName: targetName,
+        maxDegree: parseInt(maxDegree),
+      }
+      worker.postMessage(input)
+    },
+    [targetName, maxDegree, worker]
+  )
+  const handleComputeCohomologyClassButton = useCallback(
+    (e: FormEvent): void => {
+      e.preventDefault()
+      const input: WorkerInput = {
+        command: "computeCohomologyClass",
+        targetName: targetName,
+        cocycleString: cocycleString,
+      }
+      worker.postMessage(input)
+    },
+    [targetName, cocycleString, worker]
+  )
 
-  function applyJson(json: string): void {
-    // setJson(json)
-    const inputUpdate: WorkerInput = {
-      command: "updateJson",
-      json: json,
-    }
-    worker.postMessage(inputUpdate)
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    worker.postMessage(inputShowInfo)
-  }
+  const applyJson = useCallback(
+    (json: string): void => {
+      // setJson(json)
+      const inputUpdate: WorkerInput = {
+        command: "updateJson",
+        json: json,
+      }
+      worker.postMessage(inputUpdate)
+      const inputShowInfo: WorkerInput = {
+        command: "dgaInfo"
+      }
+      worker.postMessage(inputShowInfo)
+    },
+    [worker]
+  )
 
   useEffect(() => {
     applyJson(json)
-  }, [json])
+  }, [json, applyJson])
 
-  function handleChangeMaxDegree(e: InputEvent): void {
-    setMaxDegree(e.target.value)
-  }
+  const handleChangeMaxDegree = useCallback(
+    (e: InputEvent): void => {
+      setMaxDegree(e.target.value)
+    },
+    []
+  )
+
   return (
     <div className={styles.calculatorForm}>
       <details>

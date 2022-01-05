@@ -1,3 +1,4 @@
+import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
 import { restrict } from "@theme/restrict"
 import React from "react"
@@ -24,7 +25,7 @@ type ImportKotlinProps = {
 }
 
 export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
-  const href = `https://github.com/shwaka/kohomology/blob/main/sample/src/main/kotlin/${props.path}`
+  const href = `${githubMainUrl}/sample/src/main/kotlin/${props.path}`
   const code: string | undefined = files.get(normalizePath(props.path))
   if (code === undefined) {
     return <div>{`Invalid path: ${props.path}`}</div>

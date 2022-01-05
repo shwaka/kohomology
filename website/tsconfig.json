@@ -5,7 +5,10 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "@theme/*": [ "src/theme/*" ]
+      "@data": ["src/data"],
+      "@data/*": ["src/data/*"],
+      "@theme/*": [ "src/theme/*" ],
+      "@site/*": ["*"]
     },
     "types": [
       "webpack-env"

@@ -1,4 +1,5 @@
 const CopyPlugin = require("copy-webpack-plugin");
+const path = require('path');
 
 module.exports = function myPlugin(context, options) {
   return {
@@ -29,7 +30,12 @@ module.exports = function myPlugin(context, options) {
               { from: "../benchmark-data/dev/bench", to: "benchmark"},
             ]
           })
-        ]
+        ],
+        resolve: {
+          alias: {
+            "@data": path.resolve(context.siteDir, "src/data")
+          }
+        }
       }
     }
   }

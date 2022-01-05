@@ -1,6 +1,6 @@
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
-import { restrict } from "@theme/restrict"
+import { restrict } from "./restrict"
 import React from "react"
 import styles from "./ImportKotlin.module.css"
 import MyCodeBlock from "@site/src/components/MyCodeBlock"

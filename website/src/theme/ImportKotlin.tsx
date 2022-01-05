@@ -5,7 +5,7 @@ import React from "react"
 import styles from "./ImportKotlin.module.css"
 import MyCodeBlock from "@site/src/components/MyCodeBlock"
 
-const context = require.context("../../../sample/src/main/kotlin", true, /\.kt$/)
+const context = require.context("@site/../sample/src/main/kotlin", true, /\.kt$/)
 
 function normalizePath(path: string): string {
   if (path.startsWith("./")) {

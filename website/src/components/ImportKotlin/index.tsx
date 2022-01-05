@@ -1,9 +1,9 @@
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
-import { restrict } from "./restrict"
+import MyCodeBlock from "@site/src/components/MyCodeBlock"
 import React from "react"
 import styles from "./ImportKotlin.module.css"
-import MyCodeBlock from "@site/src/components/MyCodeBlock"
+import { restrict } from "./restrict"
 
 const context = require.context("@site/../sample/src/main/kotlin", true, /\.kt$/)
 

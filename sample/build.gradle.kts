@@ -16,6 +16,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-junit"))
+    // Use released version intentionally (see .github/workflows/run_sample.yml)
     implementation("com.github.shwaka.kohomology:kohomology:0.5")
 }
 

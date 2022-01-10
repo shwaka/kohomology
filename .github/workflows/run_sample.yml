@@ -1,5 +1,7 @@
 name: Run sample
 
+# sample/ should use released version of kohomology
+
 on:
   push:
     branches: [ main ]

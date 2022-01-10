@@ -132,11 +132,7 @@ jobs:
       - name: Prepare benchmark data and dokka html
         run: ./scripts/prepare-site.sh
       - name: Assert samples are working
-        run: |
-          for f in $(ls src/main/kotlin); do
-            ./gradlew run -DsampleName=$f
-          done
-        working-directory: sample
+        run: ./scripts/run-sample.sh
       - name: Use Node.js
         uses: actions/setup-node@v2
         with:

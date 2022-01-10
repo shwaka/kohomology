@@ -1,7 +1,8 @@
 #! /bin/bash
 
 set -eu
-cd $(dirname $0)
+# cd $(dirname $0)
+cd $(git rev-parse --show-toplevel) # go to the root of the repository
 ROOT_DIR=$(pwd)
 
 # exapnd benchmark data to the working tree

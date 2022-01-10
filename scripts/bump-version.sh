@@ -2,6 +2,8 @@
 
 set -eu
 
+cd $(git rev-parse --show-toplevel) # go to the root of the repository
+
 VERSION_REGEX='^version = "\(.*\)"$'
 BUILD_GRADLE_KTS=kohomology/build.gradle.kts
 README_MD=README.md

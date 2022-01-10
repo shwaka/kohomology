@@ -11,7 +11,7 @@ env:
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'prepare-site.sh', '.github/workflows/main.yml' ]
+    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'scripts/prepare-site.sh', '.github/workflows/main.yml' ]
   # pull_request: # See pull_request.yml for workflows on pull requests
   #   branches: [ main ]
   #   paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]
@@ -130,7 +130,7 @@ jobs:
         with:
           java-version: ${{ env.JDK_VERSION }}
       - name: Prepare benchmark data and dokka html
-        run: ./prepare-site.sh
+        run: ./scripts/prepare-site.sh
       - name: Assert samples are working
         run: |
           for f in $(ls src/main/kotlin); do

@@ -47,9 +47,14 @@ function release_version() {
         git add $kts
     done
 
+    if ! select_yn "Do you want to git-commit? (y/n)"; then
+        return
+    fi
     git commit -m "Release v$version"
     git tag "v$version"
 
+    read -p "Do you want to publish? (y/n)" answer
+    if [ "$answer" = n ]; then return; fi
     cd kohomology
     ./gradlew publishAllPublicationsToMyMavenRepository
 }
@@ -64,7 +69,23 @@ function bump_snapshot_version() {
         update_implementation $snapshot_version $kts
         git add $kts
     done
+
+    if ! select_yn "Do you want to git-commit? (y/n)"; then
+        return
+    fi
     git commit -m "Bump version to $snapshot_version"
+}
+
+function select_yn() {
+    local msg=$1
+    while true; do
+        read -p "$msg" yn
+        case $yn in
+            [Yy]* ) return 0;;
+            [Nn]* ) return 1;;
+            * ) echo "Please answer yes/no (or y/n).";;
+        esac
+    done
 }
 
 if [ -z "${1-}" -o -z "${2-}" ]; then

@@ -34,6 +34,15 @@ function update_implementation() {
     sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
 }
 
+function setup_java() {
+    local sdkman_init="$HOME/.sdkman/bin/sdkman-init.sh"
+    local java_version=8.0.302-open
+    set +u
+    source "$sdkman_init"
+    sdk use java $java_version
+    set -u
+}
+
 function release_version() {
     local version=$1
 
@@ -56,6 +65,7 @@ function release_version() {
     read -p "Do you want to publish? (y/n)" answer
     if [ "$answer" = n ]; then return; fi
     cd kohomology
+    setup_java
     ./gradlew publishAllPublicationsToMyMavenRepository
 }
 

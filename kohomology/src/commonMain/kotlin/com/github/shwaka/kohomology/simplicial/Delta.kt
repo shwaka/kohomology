@@ -26,7 +26,18 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> delta(
     return SimplicialComplex(matrixSpace) { i ->
         when {
             i < 0 -> emptyList()
-            // i == 0 -> (0..dim).map { Simplex(listOf(it)) }
+            else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }
+        }
+    }
+}
+
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDelta(
+    matrixSpace: MatrixSpace<S, V, M>,
+    dim: Int
+): SimplicialComplex<Int, S, V, M> {
+    return SimplicialComplex(matrixSpace) { i ->
+        when {
+            (i < 0 || i == dim) -> emptyList()
             else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }
         }
     }

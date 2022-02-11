@@ -27,9 +27,25 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpace: MatrixSpace<S, V, M>, dim: Int) = freeSpec {
+    "BoundaryDelta[$dim]" - {
+        val simplicialComplex = delta(matrixSpace, dim)
+        val dgVectorSpace = simplicialComplex.dgVectorSpace
+        "check dimension of homology" {
+            dgVectorSpace.cohomology[0].dim shouldBe 1
+            dgVectorSpace.cohomology[dim].dim shouldBe 1
+            (1 until dim).forAll { i ->
+                dgVectorSpace.cohomology[-i].dim shouldBe 0
+                dgVectorSpace.gVectorSpace[i].dim shouldBe 0
+            }
+        }
+    }
+}
+
 class SimplicialComplexTest : FreeSpec({
     tags(simplicialComplexTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
     include(deltaTest(matrixSpace, 5))
+    include(boundaryDeltaTest(matrixSpace, 5))
 })

@@ -207,6 +207,14 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             return GVectorSpace<D, B, S, V>(numVectorSpace, degreeGroup, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
         }
 
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
+            numVectorSpace: NumVectorSpace<S, V>,
+            name: String,
+            getBasisNames: (Int) -> List<B>,
+        ): GVectorSpace<IntDegree, B, S, V> {
+            return GVectorSpace<IntDegree, B, S, V>(numVectorSpace, IntDegreeGroup, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree.value)) }
+        }
+
         public fun <D : Degree, S : Scalar, V : NumVector<S>> fromStringBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,

@@ -16,7 +16,7 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
     public val dim: Int = vertices.size
 
     public fun face(i: Int): Simplex<Vertex> {
-        return Simplex(this.vertices.drop(i))
+        return Simplex(this.vertices.filterIndexed{ index, _ -> index != i })
     }
 
     override fun equals(other: Any?): Boolean {
@@ -42,7 +42,7 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
 
 public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val matrixSpace: MatrixSpace<S, V, M>,
-    private val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
+    public val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
     private val gVectorSpace: GVectorSpace<IntDegree, Simplex<Vertex>, S, V> by lazy {
         GVectorSpace.fromBasisNames(
@@ -53,13 +53,20 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumV
 
     private val differential: GLinearMap<IntDegree, Simplex<Vertex>, Simplex<Vertex>, S, V, M> by lazy {
         GLinearMap.fromGVectors(this.gVectorSpace, this.gVectorSpace, 1, this.matrixSpace, "differential") { degree ->
-            val dim = -degree.value
-            this.getSimplices(dim).map { simplex ->
-                val terms = (0..dim).map { simplex.face(it) }.map {
-                    this.gVectorSpace.fromBasisName(it, degree.value + 1)
+            if (degree.isZero()) {
+                // This is necessary since <x>.face(0) = <> (i.e. augmented)
+                List(this.getSimplices(0).size) {
+                    this.gVectorSpace.getZero(1)
                 }
-                this.gVectorSpace.context.run {
-                    terms.sum(degree.value + 1)
+            } else {
+                val dim = -degree.value
+                this.getSimplices(dim).map { simplex ->
+                    val terms = (0..dim).map { simplex.face(it) }.map {
+                        this.gVectorSpace.fromBasisName(it, degree.value + 1)
+                    }
+                    this.gVectorSpace.context.run {
+                        terms.sum(degree.value + 1)
+                    }
                 }
             }
         }

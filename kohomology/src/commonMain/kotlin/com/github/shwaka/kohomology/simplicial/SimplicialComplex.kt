@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : BasisName {
-    public val vertices = vertices.sorted()
+    public val vertices: List<Vertex> = vertices.sorted()
 
     public val dim: Int = vertices.size
 
@@ -36,8 +36,8 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
 }
 
 public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
     public val matrixSpace: MatrixSpace<S, V, M>,
+    private val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
     private val gVectorSpace: GVectorSpace<IntDegree, Simplex<Vertex>, S, V> by lazy {
         GVectorSpace.fromBasisNames(

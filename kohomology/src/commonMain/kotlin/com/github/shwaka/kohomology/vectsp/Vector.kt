@@ -283,7 +283,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     public fun indexOf(basisName: B): Int {
         return basisNameToIndex[basisName]
-            ?: throw NoSuchElementException("$basisName is not a name of basis element of this vector space")
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
     }
 
     public fun <M : Matrix<S, V>> isBasis(

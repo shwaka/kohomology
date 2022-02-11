@@ -33,6 +33,11 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
     override fun hashCode(): Int {
         return vertices.hashCode()
     }
+
+    override fun toString(): String {
+        val verticesString = this.vertices.joinToString(",")
+        return "<$verticesString>"
+    }
 }
 
 public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

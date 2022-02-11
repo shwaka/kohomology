@@ -17,7 +17,7 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
     public val dim: Int = vertices.size
 
     public fun face(i: Int): Simplex<Vertex> {
-        return Simplex(this.vertices.filterIndexed{ index, _ -> index != i })
+        return Simplex(this.vertices.filterIndexed { index, _ -> index != i })
     }
 
     override fun equals(other: Any?): Boolean {

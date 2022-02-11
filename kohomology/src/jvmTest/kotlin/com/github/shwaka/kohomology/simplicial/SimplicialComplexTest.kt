@@ -21,6 +21,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
             dgVectorSpace.cohomology[0].dim shouldBe 1
             (1..(dim + 2)).forAll { i ->
                 dgVectorSpace.cohomology[-i].dim shouldBe 0
+                dgVectorSpace.gVectorSpace[i].dim shouldBe 0
             }
         }
     }

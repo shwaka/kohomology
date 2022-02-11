@@ -13,15 +13,37 @@ import io.kotest.matchers.shouldBe
 
 val simplicialComplexTag = NamedTag("SimplicialComplex")
 
+private fun factorial(n: Int): Int {
+    return when (n) {
+        0, 1 -> 1
+        else -> n * factorial(n - 1)
+    }
+}
+
+private fun combination(n: Int, p: Int): Int {
+    return factorial(n) / (factorial(p) * factorial(n - p))
+}
+
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: MatrixSpace<S, V, M>, dim: Int) = freeSpec {
     "Delta[$dim]" - {
         val simplicialComplex = delta(matrixSpace, dim)
         val dgVectorSpace = simplicialComplex.dgVectorSpace
+        "check dimension of complex" {
+            (-(dim + 2)..(dim + 2)).forAll { degree ->
+                val expected = when {
+                    (degree > 0 || degree < -dim) -> 0
+                    else -> combination(dim + 1, -degree + 1)
+                }
+                dgVectorSpace.gVectorSpace[degree].dim shouldBe expected
+            }
+        }
         "check dimension of homology" {
-            dgVectorSpace.cohomology[0].dim shouldBe 1
-            (1..(dim + 2)).forAll { i ->
-                dgVectorSpace.cohomology[-i].dim shouldBe 0
-                dgVectorSpace.gVectorSpace[i].dim shouldBe 0
+            (-(dim + 2)..(dim + 2)).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                dgVectorSpace.cohomology[degree].dim shouldBe expected
             }
         }
     }
@@ -32,12 +54,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpa
         val simplicialComplex = boundaryDelta(matrixSpace, dim)
         val dgVectorSpace = simplicialComplex.dgVectorSpace
         "check dimension of homology" {
-            (-(dim + 2)..(dim + 2)).forAll { i ->
-                val expected = when (i) {
+            (-(dim + 2)..(dim + 2)).forAll { degree ->
+                val expected = when (degree) {
                     0, -(dim - 1) -> 1
                     else -> 0
                 }
-                dgVectorSpace.cohomology[i].dim shouldBe expected
+                dgVectorSpace.cohomology[degree].dim shouldBe expected
             }
         }
     }

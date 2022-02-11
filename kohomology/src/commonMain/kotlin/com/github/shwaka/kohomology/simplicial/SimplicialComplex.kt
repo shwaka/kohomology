@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : BasisName {
@@ -60,12 +61,17 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumV
                 }
             } else {
                 val dim = -degree.value
+                val gVectorSpace = this.gVectorSpace
                 this.getSimplices(dim).map { simplex ->
-                    val terms = (0..dim).map { simplex.face(it) }.map {
-                        this.gVectorSpace.fromBasisName(it, degree.value + 1)
-                    }
-                    this.gVectorSpace.context.run {
-                        terms.sum(degree.value + 1)
+                    gVectorSpace.context.run {
+                        (0..dim).map {
+                            val face = simplex.face(it)
+                            val sign = Sign.fromParity(it)
+                            val gVector = gVectorSpace.fromBasisName(face, degree.value + 1)
+                            gVectorSpace.context.run {
+                                gVector * sign
+                            }
+                        }.sum(degree.value + 1)
                     }
                 }
             }

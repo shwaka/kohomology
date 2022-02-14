@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : BasisName {
@@ -80,5 +81,10 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumV
 
     public val dgVectorSpace: DGVectorSpace<IntDegree, Simplex<Vertex>, S, V, M> by lazy {
         DGVectorSpace(this.gVectorSpace, this.differential, this.matrixSpace)
+    }
+
+    public fun eulerCharacteristic(): Int {
+        val maxDim = this.getSimplices(0).size - 1
+        return (0..maxDim).map { dim -> this.getSimplices(dim).size * (-1).pow(dim) }.sum()
     }
 }

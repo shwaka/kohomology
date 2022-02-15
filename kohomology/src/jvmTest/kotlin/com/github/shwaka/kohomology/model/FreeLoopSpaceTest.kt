@@ -125,9 +125,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 }
             }
             "tex printer test for FreeLoopSpace" - {
-                "with toString()" {
-                    freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                }
                 "with ShowShift.BAR" {
                     val printerBar = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
                     printerBar(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
@@ -180,6 +177,42 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
         freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (IntDegree)", sphere(matrixSpace, 3), 20)
         freeLoopSpaceWithShiftDegreeTestTemplate("even sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 2), 20)
         freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 3), 20)
+
+        "printer test for FreeLoopSpace.withShiftDegree(sphere)" - {
+            val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere(matrixSpace, 2))
+
+            "plain printer test for FreeLoopSpace" - {
+                "with toString()" {
+                    freeLoopSpace.toString() shouldBe "(Λ(x, y, s^{1 + -2S}x, s^{1 + -2S}y), d)"
+                }
+                "with ShowShift.BAR" {
+                    val printerBar = Printer(printType = PrintType.PLAIN, showShift = ShowShift.BAR)
+                    printerBar(freeLoopSpace) shouldBe "(Λ(x, y, _x, _y), d)"
+                }
+                "with ShowShift.S" {
+                    val printerS = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
+                    printerS(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+                }
+                "with ShowShift.S_WITH_DEGREE" {
+                    val printerSWithDeg = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
+                    printerSWithDeg(freeLoopSpace) shouldBe "(Λ(x, y, s^{1 + -2S}x, s^{1 + -2S}y), d)"
+                }
+            }
+            "tex printer test for FreeLoopSpace" - {
+                "with ShowShift.BAR" {
+                    val printerBar = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+                    printerBar(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
+                }
+                "with ShowShift.S" {
+                    val printerS = Printer(printType = PrintType.TEX, showShift = ShowShift.S)
+                    printerS(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+                }
+                "with ShowShift.S_WITH_DEGREE" {
+                    val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+                    printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s^{1 + -2S}{x}, s^{1 + -2S}{y}), d)"
+                }
+            }
+        }
     }
 }
 

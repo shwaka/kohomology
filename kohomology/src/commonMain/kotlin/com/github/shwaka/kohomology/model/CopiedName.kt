@@ -85,7 +85,10 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
             printConfig: PrintConfig,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
             return when (printConfig.printType) {
-                PrintType.PLAIN -> InternalPrintConfig()
+                PrintType.PLAIN -> InternalPrintConfig(
+                    coeffToString = { coeff, withSign -> coeff.toString(PrintType.PLAIN, withSign) },
+                    basisToString = { monomial -> monomial.toString(printConfig) }
+                )
                 PrintType.TEX -> InternalPrintConfig(
                     coeffToString = { coeff, withSign -> coeff.toString(PrintType.TEX, withSign) },
                     basisToString = { monomial -> monomial.toString(printConfig) },

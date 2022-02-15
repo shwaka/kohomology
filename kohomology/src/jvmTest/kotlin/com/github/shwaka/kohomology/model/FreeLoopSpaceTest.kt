@@ -107,12 +107,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             "freeLoopSpace.baseSpace should be the same as the original freeDGAlgebra" {
                 freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
-            "printer test for FreeLoopSpace" {
+            "plain printer test for FreeLoopSpace" {
                 freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerAlways = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-                printerAlways(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
-                val printerNever = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
-                printerNever(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+                val printerBar = Printer(printType = PrintType.PLAIN, showShift = ShowShift.BAR)
+                printerBar(freeLoopSpace) shouldBe "(Λ(x, y, _x, _y), d)"
+                val printerS = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
+                printerS(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+                val printerSWithDeg = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
+                printerSWithDeg(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+            }
+            "tex printer test for FreeLoopSpace" {
+                freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
+                val printerBar = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+                printerBar(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
+                val printerS = Printer(printType = PrintType.TEX, showShift = ShowShift.S)
+                printerS(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+                val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+                printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
             }
         }
     }

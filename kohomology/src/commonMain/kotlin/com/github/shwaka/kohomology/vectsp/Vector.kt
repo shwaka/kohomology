@@ -108,7 +108,7 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     public fun print(printConfig: PrintConfig, internalPrintConfig: InternalPrintConfig<B, S>): String {
-        val basisStringWithCoeff = run {
+        val basisStringWithCoeff: List<Pair<S, String>> = run {
             val coeffList = this.numVector.toList()
             // val basis = vector.vectorSpace.basisNames.map(basisToString)
             val basisWithCoeff = coeffList.zip(this.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }

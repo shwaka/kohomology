@@ -107,23 +107,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             "freeLoopSpace.baseSpace should be the same as the original freeDGAlgebra" {
                 freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
-            "plain printer test for FreeLoopSpace" {
-                freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerBar = Printer(printType = PrintType.PLAIN, showShift = ShowShift.BAR)
-                printerBar(freeLoopSpace) shouldBe "(Λ(x, y, _x, _y), d)"
-                val printerS = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
-                printerS(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerSWithDeg = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-                printerSWithDeg(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+            "plain printer test for FreeLoopSpace" - {
+                "with toString()" {
+                    freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
+                }
+                "with ShowShift.BAR" {
+                    val printerBar = Printer(printType = PrintType.PLAIN, showShift = ShowShift.BAR)
+                    printerBar(freeLoopSpace) shouldBe "(Λ(x, y, _x, _y), d)"
+                }
+                "with ShowShift.S" {
+                    val printerS = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
+                    printerS(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+                }
+                "with ShowShift.S_WITH_DEGREE" {
+                    val printerSWithDeg = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
+                    printerSWithDeg(freeLoopSpace) shouldBe "(Λ(x, y, sx, sy), d)"
+                }
             }
-            "tex printer test for FreeLoopSpace" {
-                freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
-                val printerBar = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-                printerBar(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
-                val printerS = Printer(printType = PrintType.TEX, showShift = ShowShift.S)
-                printerS(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
-                val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
-                printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+            "tex printer test for FreeLoopSpace" - {
+                "with toString()" {
+                    freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"
+                }
+                "with ShowShift.BAR" {
+                    val printerBar = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+                    printerBar(freeLoopSpace) shouldBe "(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)"
+                }
+                "with ShowShift.S" {
+                    val printerS = Printer(printType = PrintType.TEX, showShift = ShowShift.S)
+                    printerS(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+                }
+                "with ShowShift.S_WITH_DEGERE" {
+                    val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+                    printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
+                }
             }
         }
     }

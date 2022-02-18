@@ -26,8 +26,8 @@ private fun combination(n: Int, p: Int): Int {
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: MatrixSpace<S, V, M>, dim: Int) = freeSpec {
     "Delta[$dim]" - {
-        val simplicialComplex = delta(matrixSpace, dim)
-        val dgVectorSpace = simplicialComplex.dgVectorSpace
+        val simplicialComplex = delta(dim)
+        val dgVectorSpace = simplicialComplex.dgVectorSpace(matrixSpace)
         "check dimension of complex" {
             (-(dim + 2)..(dim + 2)).forAll { degree ->
                 val expected = when {
@@ -51,8 +51,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpace: MatrixSpace<S, V, M>, dim: Int) = freeSpec {
     "BoundaryDelta[$dim]" - {
-        val simplicialComplex = boundaryDelta(matrixSpace, dim)
-        val dgVectorSpace = simplicialComplex.dgVectorSpace
+        val simplicialComplex = boundaryDelta(dim)
+        val dgVectorSpace = simplicialComplex.dgVectorSpace(matrixSpace)
         "check dimension of homology" {
             (-(dim + 2)..(dim + 2)).forAll { degree ->
                 val expected = when (degree) {

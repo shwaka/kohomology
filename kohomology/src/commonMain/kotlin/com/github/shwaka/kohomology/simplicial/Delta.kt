@@ -19,11 +19,10 @@ private fun <T> List<T>.subsets(size: Int): List<List<T>> {
     return subsetsWithoutLast + subsetsWithLast
 }
 
-public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> delta(
-    matrixSpace: MatrixSpace<S, V, M>,
+public fun delta(
     dim: Int
-): SimplicialComplex<Int, S, V, M> {
-    return SimplicialComplex(matrixSpace) { i ->
+): SimplicialComplex<Int> {
+    return SimplicialComplex { i ->
         when {
             i < 0 -> emptyList()
             else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }
@@ -31,11 +30,10 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> delta(
     }
 }
 
-public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDelta(
-    matrixSpace: MatrixSpace<S, V, M>,
+public fun boundaryDelta(
     dim: Int
-): SimplicialComplex<Int, S, V, M> {
-    return SimplicialComplex(matrixSpace) { i ->
+): SimplicialComplex<Int> {
+    return SimplicialComplex { i ->
         when {
             (i < 0 || i == dim) -> emptyList()
             else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }

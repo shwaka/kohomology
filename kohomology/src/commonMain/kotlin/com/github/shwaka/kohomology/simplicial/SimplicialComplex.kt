@@ -42,27 +42,30 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
     }
 }
 
-public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val matrixSpace: MatrixSpace<S, V, M>,
+public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
-    private val gVectorSpace: GVectorSpace<IntDegree, Simplex<Vertex>, S, V> by lazy {
-        GVectorSpace.fromBasisNames(
-            this.matrixSpace.numVectorSpace,
+    private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>getGVectorSpace(
+        matrixSpace: MatrixSpace<S, V, M>,
+    ): GVectorSpace<IntDegree, Simplex<Vertex>, S, V> {
+        return GVectorSpace.fromBasisNames(
+            matrixSpace.numVectorSpace,
             name = "ChainComplexFromSimplicialComplex",
         ) { degree -> this.getSimplices(-degree) }
     }
 
-    private val differential: GLinearMap<IntDegree, Simplex<Vertex>, Simplex<Vertex>, S, V, M> by lazy {
-        GLinearMap.fromGVectors(this.gVectorSpace, this.gVectorSpace, 1, this.matrixSpace, "differential") { degree ->
+    private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDifferential(
+        matrixSpace: MatrixSpace<S, V, M>,
+        gVectorSpace: GVectorSpace<IntDegree, Simplex<Vertex>, S, V>,
+    ): GLinearMap<IntDegree, Simplex<Vertex>, Simplex<Vertex>, S, V, M> {
+        return GLinearMap.fromGVectors(gVectorSpace, gVectorSpace, 1, matrixSpace, "differential") { degree ->
             if (degree.isZero()) {
                 // This is necessary since <x>.face(0) = <> (i.e. augmented)
                 List(this.getSimplices(0).size) {
-                    this.gVectorSpace.getZero(1)
+                    gVectorSpace.getZero(1)
                 }
             } else {
                 val dim = -degree.value
-                val gVectorSpace = this.gVectorSpace
                 this.getSimplices(dim).map { simplex ->
                     gVectorSpace.context.run {
                         (0..dim).map {
@@ -79,8 +82,12 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>, S : Scalar, V : NumV
         }
     }
 
-    public val dgVectorSpace: DGVectorSpace<IntDegree, Simplex<Vertex>, S, V, M> by lazy {
-        DGVectorSpace(this.gVectorSpace, this.differential, this.matrixSpace)
+    public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpace(
+        matrixSpace: MatrixSpace<S, V, M>,
+    ): DGVectorSpace<IntDegree, Simplex<Vertex>, S, V, M> {
+        val gVectorSpace = this.getGVectorSpace(matrixSpace)
+        val differential = this.getDifferential(matrixSpace, gVectorSpace)
+        return DGVectorSpace(gVectorSpace, differential, matrixSpace)
     }
 
     public fun eulerCharacteristic(): Int {

@@ -1,10 +1,5 @@
 package com.github.shwaka.kohomology.simplicial
 
-import com.github.shwaka.kohomology.linalg.Matrix
-import com.github.shwaka.kohomology.linalg.MatrixSpace
-import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.Scalar
-
 private fun <T> List<T>.subsets(size: Int): List<List<T>> {
     when {
         (size > this.size) -> return emptyList()

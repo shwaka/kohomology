@@ -104,6 +104,4 @@ class SimplicialComplexTest : FreeSpec({
     include(projectivePlaneTest(SparseMatrixSpaceOverF2))
     include(projectivePlaneTest(SparseMatrixSpaceOverF3))
     include(projectivePlaneTest(SparseMatrixSpaceOverF5))
-
-
 })

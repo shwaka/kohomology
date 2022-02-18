@@ -45,7 +45,7 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
 public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
-    private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>getGVectorSpace(
+    private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getGVectorSpace(
         matrixSpace: MatrixSpace<S, V, M>,
     ): GVectorSpace<IntDegree, Simplex<Vertex>, S, V> {
         return GVectorSpace.fromBasisNames(

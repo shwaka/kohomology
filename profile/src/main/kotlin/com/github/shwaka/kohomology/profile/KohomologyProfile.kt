@@ -15,11 +15,12 @@ fun main() {
         ComputeRowEchelonForm(SparseMatrixSpaceOverBigRational),
         ComputeRowEchelonForm(DecomposedSparseMatrixSpaceOverBigRational),
     )
-    println("Select script to profile: (default = 0)")
+    val defaultChoice = 0
+    println("Select script to profile: (default = $defaultChoice)")
     executableList.mapIndexed { index, script ->
         println("$index: ${script.description}")
     }
-    val index: Int = readLine()?.toIntOrNull() ?: 0
+    val index: Int = readLine()?.toIntOrNull() ?: defaultChoice
     val executable = executableList[index]
     println("Selected $index: ${executable.description}")
     measureTimedValue {

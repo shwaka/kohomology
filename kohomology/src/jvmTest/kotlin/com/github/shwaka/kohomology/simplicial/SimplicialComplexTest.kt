@@ -6,6 +6,9 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -65,10 +68,42 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpa
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> projectivePlaneTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "real projective plane with coefficients in ${matrixSpace.field}" - {
+        val simplicialComplex = projectivePlane()
+        val dgVectorSpace = simplicialComplex.dgVectorSpace(matrixSpace)
+        "Euler characteristic should be 1" {
+            // This is independent of matrixSpace
+            simplicialComplex.eulerCharacteristic() shouldBe 1
+        }
+        "check dimension of homology" {
+            (-5..5).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    -1, -2 -> when (matrixSpace.field.characteristic) {
+                        2 -> 1
+                        else -> 0
+                    }
+                    else -> 0
+                }
+                dgVectorSpace.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+}
+
 class SimplicialComplexTest : FreeSpec({
     tags(simplicialComplexTag)
 
     val matrixSpace = SparseMatrixSpaceOverBigRational
     include(deltaTest(matrixSpace, 5))
     include(boundaryDeltaTest(matrixSpace, 5))
+
+    // projective plane
+    include(projectivePlaneTest(SparseMatrixSpaceOverBigRational))
+    include(projectivePlaneTest(SparseMatrixSpaceOverF2))
+    include(projectivePlaneTest(SparseMatrixSpaceOverF3))
+    include(projectivePlaneTest(SparseMatrixSpaceOverF5))
+
+
 })

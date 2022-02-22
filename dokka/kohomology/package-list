@@ -894,8 +894,10 @@ $dokka.location:com.github.shwaka.kohomology.simplicial////PointingToDeclaration
 $dokka.location:com.github.shwaka.kohomology.simplicial//boundaryDelta/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/boundary-delta.html
 $dokka.location:com.github.shwaka.kohomology.simplicial//delta/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/delta.html
 $dokka.location:com.github.shwaka.kohomology.simplicial//projectivePlane/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/projective-plane.html
+$dokka.location:com.github.shwaka.kohomology.simplicial/Simplex.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/-companion/index.html
+$dokka.location:com.github.shwaka.kohomology.simplicial/Simplex.Companion/fromSorted/#kotlin.collections.List[TypeParam(bounds=[kotlin.Comparable[^]])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/-companion/from-sorted.html
+$dokka.location:com.github.shwaka.kohomology.simplicial/Simplex.Companion/fromUnsorted/#kotlin.collections.List[TypeParam(bounds=[kotlin.Comparable[^]])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/-companion/from-unsorted.html
 $dokka.location:com.github.shwaka.kohomology.simplicial/Simplex///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/index.html
-$dokka.location:com.github.shwaka.kohomology.simplicial/Simplex/Simplex/#kotlin.collections.List[TypeParam(bounds=[kotlin.Comparable[^]])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/-simplex.html
 $dokka.location:com.github.shwaka.kohomology.simplicial/Simplex/dim/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/dim.html
 $dokka.location:com.github.shwaka.kohomology.simplicial/Simplex/equals/#kotlin.Any?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/equals.html
 $dokka.location:com.github.shwaka.kohomology.simplicial/Simplex/face/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.simplicial/-simplex/face.html

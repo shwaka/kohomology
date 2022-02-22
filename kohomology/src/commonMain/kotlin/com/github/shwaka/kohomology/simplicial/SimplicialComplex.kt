@@ -12,9 +12,8 @@ import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.pow
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : BasisName {
-    public val vertices: List<Vertex> = vertices.sorted()
-
+public class Simplex<Vertex : Comparable<Vertex>>
+private constructor(public val vertices: List<Vertex>) : BasisName {
     public val dim: Int = vertices.size
 
     public fun face(i: Int): Simplex<Vertex> {
@@ -39,6 +38,16 @@ public class Simplex<Vertex : Comparable<Vertex>>(vertices: List<Vertex>) : Basi
     override fun toString(): String {
         val verticesString = this.vertices.joinToString(",")
         return "<$verticesString>"
+    }
+
+    public companion object {
+        public fun <Vertex : Comparable<Vertex>> fromSorted(vertices: List<Vertex>): Simplex<Vertex> {
+            return Simplex(vertices)
+        }
+
+        public fun <Vertex : Comparable<Vertex>> fromUnsorted(vertices: List<Vertex>): Simplex<Vertex> {
+            return Simplex(vertices.sorted())
+        }
     }
 }
 

@@ -20,7 +20,7 @@ public fun delta(
     return SimplicialComplex { i ->
         when {
             i < 0 -> emptyList()
-            else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }
+            else -> (0..dim).toList().subsets(i + 1).map { Simplex.fromSorted(it) }
         }
     }
 }
@@ -31,7 +31,7 @@ public fun boundaryDelta(
     return SimplicialComplex { i ->
         when {
             (i < 0 || i == dim) -> emptyList()
-            else -> (0..dim).toList().subsets(i + 1).map { Simplex((it)) }
+            else -> (0..dim).toList().subsets(i + 1).map { Simplex.fromSorted((it)) }
         }
     }
 }
@@ -47,7 +47,7 @@ public fun projectivePlane(): SimplicialComplex<Int> {
     // Note:
     // The square 8310 (at the lower right corner) is triangulated in a different way
     // in order to avoid that the triangle 013 duplicates.
-    val vertices = (0..9).map { Simplex(listOf(it)) }
+    val vertices = (0..9).map { Simplex.fromSorted(listOf(it)) }
     val edges = listOf(
         // horizontal edges
         listOf(0, 1),
@@ -79,7 +79,7 @@ public fun projectivePlane(): SimplicialComplex<Int> {
         listOf(7, 9),
         listOf(8, 2),
         listOf(8, 0),
-    ).map { Simplex(it) }
+    ).map { Simplex.fromUnsorted(it) }
     val faces = listOf(
         // first row
         listOf(0, 1, 3),
@@ -102,7 +102,7 @@ public fun projectivePlane(): SimplicialComplex<Int> {
         listOf(8, 2, 1),
         listOf(8, 3, 0),
         listOf(8, 1, 0),
-    ).map { Simplex(it) }
+    ).map { Simplex.fromUnsorted(it) }
     return SimplicialComplex { i ->
         when (i) {
             0 -> vertices

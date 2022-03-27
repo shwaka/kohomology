@@ -59,8 +59,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
      */
     public fun findCocycleLift(targetCocycle: GVector<D, BT, S, V>): GVector<D, BS, S, V> {
         val degree = targetCocycle.degree
-        if (this.target.differential(targetCocycle).isNotZero())
-            throw IllegalArgumentException("$targetCocycle is not a cocycle")
+        require(this.target.differential(targetCocycle).isZero()) { "$targetCocycle is not a cocycle" }
         val targetClass = this.target.cohomologyClassOf(targetCocycle)
         val sourceClass = this.inducedMapOnCohomology().findPreimage(targetClass)
             ?: throw UnsupportedOperationException("H^$degree($this) is not surjective")
@@ -84,14 +83,15 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
      * Then this method returns a'∈A such that d(a')=a and f(a')=b.
      */
     public fun findLift(targetCochain: GVector<D, BT, S, V>, sourceCocycle: GVector<D, BS, S, V>): GVector<D, BS, S, V> {
-        if (sourceCocycle.degree != this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 })
-            throw IllegalArgumentException("deg($sourceCocycle) should be equal to deg($targetCochain) + 1")
-        if (this.source.differential(sourceCocycle).isNotZero())
-            throw IllegalArgumentException("$sourceCocycle is not a cocycle")
-        if (this.gLinearMap(sourceCocycle) != this.target.differential(targetCochain))
-            throw IllegalArgumentException(
-                "$sourceCocycle and $targetCochain are not compatible: the image of $sourceCocycle must be equal to d($targetCochain)"
-            )
+        require(sourceCocycle.degree == this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 }) {
+            "deg($sourceCocycle) should be equal to deg($targetCochain) + 1"
+        }
+        require(this.source.differential(sourceCocycle).isZero()) {
+            "$sourceCocycle is not a cocycle"
+        }
+        require(this.gLinearMap(sourceCocycle) == this.target.differential(targetCochain)) {
+            "$sourceCocycle and $targetCochain are not compatible: the image of $sourceCocycle must be equal to d($targetCochain)"
+        }
         val sourceCochain = this.source.differential.findPreimage(sourceCocycle)
             ?: throw Exception("This can't happen!")
         val targetCocycle = this.target.context.run {

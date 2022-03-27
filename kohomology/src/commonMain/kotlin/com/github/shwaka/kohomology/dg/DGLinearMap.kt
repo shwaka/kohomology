@@ -77,7 +77,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
     }
 
     /**
-     * Find a lift of [targetCochain] along a *surjective* quasi-isomorphism which cobounds [sourceCocycle].
+     * Find a lift of [targetCochain] along a *surjective* quasi-isomorphism which bounds [sourceCocycle].
      *
      * Given f: A→B, a=[sourceCocycle]∈A and b=[targetCochain]∈B satisfying f(a)=d(b).
      * Then this method returns a'∈A such that d(a')=a and f(a')=b.
@@ -101,6 +101,60 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         return this.source.context.run {
             sourceCochain + cocycleLift
         }
+    }
+
+    public data class LiftWithHomotopy<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>>(
+        val lift: GVector<D, BS, S, V>,
+        val boundingCochain: GVector<D, BT, S, V>,
+    )
+
+    /**
+     * Find a homotopy lift of [targetCocycle] along a (non-surjective) quasi-isomorphism.
+     *
+     * Given f: A→B and b=[targetCocycle]∈B satisfying d(b)=0.
+     * Then this method returns a∈A and b'∈B such that d(a)=0 and f(a)-b=d(b').
+     */
+    public fun findCocycleLiftUpToHomotopy(targetCocycle: GVector<D, BT, S, V>): LiftWithHomotopy<D, BS, BT, S, V> {
+        val degree = targetCocycle.degree
+        require(this.target.differential(targetCocycle).isZero()) { "$targetCocycle is not a cocycle" }
+        val targetClass = this.target.cohomologyClassOf(targetCocycle)
+        val sourceClass = this.inducedMapOnCohomology().findPreimage(targetClass)
+            ?: throw UnsupportedOperationException("H^$degree($this) is not surjective")
+        val sourceCocycle = this.source.cocycleRepresentativeOf(sourceClass)
+        val coboundary = this.target.context.run {
+            this@DGLinearMap.gLinearMap(sourceCocycle) - targetCocycle
+        }
+        val targetDifference = this.target.differential.findPreimage(coboundary)
+            ?: throw Exception("This can't happen!")
+        return LiftWithHomotopy(sourceCocycle, targetDifference)
+    }
+
+    /**
+     * Find a homotopy lift of [targetCochain] along a (non-surjective) quasi-isomorphism which bounds [sourceCocycle].
+     *
+     * Given f: A→B, a=[sourceCocycle]∈A and b=[targetCochain]∈B satisfying f(a)=d(b).
+     * Then this method returns a'∈A and b'∈B such that d(a')=a and f(a')-b=d(b').
+     */
+    public fun findLiftUpToHomotopy(targetCochain: GVector<D, BT, S, V>, sourceCocycle: GVector<D, BS, S, V>): LiftWithHomotopy<D, BS, BT, S, V> {
+        require(sourceCocycle.degree == this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 }) {
+            "deg($sourceCocycle) should be equal to deg($targetCochain) + 1"
+        }
+        require(this.source.differential(sourceCocycle).isZero()) {
+            "$sourceCocycle is not a cocycle"
+        }
+        require(this.gLinearMap(sourceCocycle) == this.target.differential(targetCochain)) {
+            "$sourceCocycle and $targetCochain are not compatible: the image of $sourceCocycle must be equal to d($targetCochain)"
+        }
+        val sourceCochain = this.source.differential.findPreimage(sourceCocycle)
+            ?: throw Exception("This can't happen!")
+        val targetCocycle = this.target.context.run {
+            targetCochain - this@DGLinearMap.gLinearMap(sourceCochain)
+        }
+        val (lift, boundingCochain) = this.findCocycleLiftUpToHomotopy(targetCocycle)
+        return LiftWithHomotopy(
+            this.source.context.run { sourceCochain + lift },
+            boundingCochain,
+        )
     }
 
     public companion object {

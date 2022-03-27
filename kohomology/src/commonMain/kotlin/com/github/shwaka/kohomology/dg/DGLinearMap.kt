@@ -51,6 +51,12 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         )
     }
 
+    /**
+     * Find a lift of [targetCocycle] along a *surjective* quasi-isomorphism.
+     *
+     * Given f: A→B and b=[targetCocycle]∈B satisfying d(b)=0.
+     * Then this method returns a∈A such that d(a)=0 and f(a)=b.
+     */
     public fun findCocycleLift(targetCocycle: GVector<D, BT, S, V>): GVector<D, BS, S, V> {
         val degree = targetCocycle.degree
         if (this.target.differential(targetCocycle).isNotZero())
@@ -71,23 +77,29 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         }
     }
 
-    public fun findLift(targetCochain: GVector<D, BT, S, V>, sourceCoboundary: GVector<D, BS, S, V>): GVector<D, BS, S, V> {
-        if (sourceCoboundary.degree != this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 })
-            throw IllegalArgumentException("deg($sourceCoboundary) should be equal to deg($targetCochain) + 1")
-        if (this.source.differential(sourceCoboundary).isNotZero())
-            throw IllegalArgumentException("$sourceCoboundary is not a cocycle")
-        if (this.gLinearMap(sourceCoboundary) != this.target.differential(targetCochain))
+    /**
+     * Find a lift of [targetCochain] along a *surjective* quasi-isomorphism which cobounds [sourceCocycle].
+     *
+     * Given f: A→B, a=[sourceCocycle]∈A and b=[targetCochain]∈B satisfying f(a)=d(b).
+     * Then this method returns a'∈A such that d(a')=a and f(a')=b.
+     */
+    public fun findLift(targetCochain: GVector<D, BT, S, V>, sourceCocycle: GVector<D, BS, S, V>): GVector<D, BS, S, V> {
+        if (sourceCocycle.degree != this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 })
+            throw IllegalArgumentException("deg($sourceCocycle) should be equal to deg($targetCochain) + 1")
+        if (this.source.differential(sourceCocycle).isNotZero())
+            throw IllegalArgumentException("$sourceCocycle is not a cocycle")
+        if (this.gLinearMap(sourceCocycle) != this.target.differential(targetCochain))
             throw IllegalArgumentException(
-                "$sourceCoboundary and $targetCochain are not compatible: the image of $sourceCoboundary must be equal to d($targetCochain)"
+                "$sourceCocycle and $targetCochain are not compatible: the image of $sourceCocycle must be equal to d($targetCochain)"
             )
-        val sourceCochain = this.source.differential.findPreimage(sourceCoboundary)
+        val sourceCochain = this.source.differential.findPreimage(sourceCocycle)
             ?: throw Exception("This can't happen!")
         val targetCocycle = this.target.context.run {
             targetCochain - this@DGLinearMap.gLinearMap(sourceCochain)
         }
-        val sourceCocycle = this.findCocycleLift(targetCocycle)
+        val cocycleLift = this.findCocycleLift(targetCocycle)
         return this.source.context.run {
-            sourceCochain + sourceCocycle
+            sourceCochain + cocycleLift
         }
     }
 

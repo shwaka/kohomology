@@ -209,7 +209,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
             val vi = this.gAlgebra.generatorList[i]
             val cochainLift = surjectiveQuasiIsomorphism.findLift(
                 targetCochain = underlyingMap(vi),
-                sourceCoboundary = currentLift(this.differential(vi))
+                sourceCocycle = currentLift(this.differential(vi))
             )
             liftValueList[i] = cochainLift
         }

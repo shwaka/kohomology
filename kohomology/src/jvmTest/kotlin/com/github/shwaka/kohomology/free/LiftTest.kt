@@ -85,6 +85,63 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
         }
     }
+
+    "test for DGLinearMap with a non-surjective quasi-isomorphism" - {
+        val sphereDim = 4
+        check(sphereDim % 2 == 0)
+        val sphere = sphere(matrixSpace, sphereDim)
+        val freePathSpace = FreePathSpace(sphere)
+        val (x, y) = sphere.gAlgebra.generatorList
+        val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
+        val f = freePathSpace.context.run {
+            val valueList = listOf(
+                x1 + x2,
+                2 * (y1 + y2) - (x2 - x1) * sx
+            )
+            sphere.getDGAlgebraMap(freePathSpace, valueList)
+        }
+
+        "findCocycleLift" - {
+            "should throw UnsupportedOperationException since non-surjective" {
+                shouldThrow<UnsupportedOperationException> {
+                    f.findCocycleLift(x1)
+                }
+            }
+        }
+
+        "findLift" - {
+            "should throw UnsupportedOperationException since non-surjective" {
+                val sourceCocycle = sphere.context.run { x.pow(2) }
+                val targetCochain = freePathSpace.context.run {
+                    3 * y1 + y2 + 2 * x1 * sx
+                }
+                shouldThrow<UnsupportedOperationException> {
+                    f.findLift(targetCochain, sourceCocycle)
+                }
+            }
+        }
+
+        "findCocycleLiftUpToHomotopy" - {
+            "should return a homotopy lift of a cocycle" {
+                val liftWithHomotopy = f.findCocycleLiftUpToHomotopy(x1)
+                val lift = liftWithHomotopy.lift
+                val boundingCochain = liftWithHomotopy.boundingCochain
+                sphere.context.run {
+                    d(lift).isZero().shouldBeTrue()
+                }
+                freePathSpace.context.run {
+                    (f(lift) - x1) shouldBe d(boundingCochain)
+                    f(lift).cohomologyClass() shouldBe x1.cohomologyClass()
+                }
+            }
+
+            "should throw IllegalArgumentException when the argument is not a cocycle" {
+                shouldThrow<IllegalArgumentException> {
+                    f.findCocycleLift(y1) // y1 is not a cocycle
+                }
+            }
+        }
+    }
 }
 
 class LiftTest : FreeSpec({

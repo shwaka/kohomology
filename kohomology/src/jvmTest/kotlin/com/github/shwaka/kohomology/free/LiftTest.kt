@@ -20,7 +20,7 @@ import io.kotest.matchers.string.shouldContain
 val liftTag = NamedTag("Lift")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "test for DGLinearMap with a surjective quasi-isomorphism" - {
+    "test a surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
         val sphere = sphere(matrixSpace, sphereDim)
@@ -29,178 +29,182 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val (x, y) = sphere.gAlgebra.generatorList
         val (x1, y1, x2, y2, _, _) = freePathSpace.gAlgebra.generatorList
 
-        "findCocycleLift" - {
-            "should return a lift of a cocycle" {
-                val lift = projection.findCocycleLift(x)
-                projection(lift) shouldBe x
-                freePathSpace.context.run {
-                    d(lift).isZero().shouldBeTrue()
+        "test for DGLinearMap" - {
+            "findCocycleLift" - {
+                "should return a lift of a cocycle" {
+                    val lift = projection.findCocycleLift(x)
+                    projection(lift) shouldBe x
+                    freePathSpace.context.run {
+                        d(lift).isZero().shouldBeTrue()
+                    }
+                }
+
+                "should throw IllegalArgumentException when the argument is not a cocycle" {
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        projection.findCocycleLift(y) // y is not a cocycle
+                    }
+                    exception.message.shouldContain("not a cocycle")
                 }
             }
 
-            "should throw IllegalArgumentException when the argument is not a cocycle" {
-                val exception = shouldThrow<IllegalArgumentException> {
-                    projection.findCocycleLift(y) // y is not a cocycle
+            "findLift" - {
+                "should return a lift of a cochain when the argument is valid" {
+                    val sourceCocycle = freePathSpace.context.run {
+                        x1 * x2
+                    }
+                    val lift = projection.findLift(y, sourceCocycle)
+                    projection(lift) shouldBe y
+                    freePathSpace.context.run {
+                        d(lift) shouldBe sourceCocycle
+                    }
                 }
-                exception.message.shouldContain("not a cocycle")
-            }
-        }
 
-        "findLift" - {
-            "should return a lift of a cochain when the argument is valid" {
-                val sourceCocycle = freePathSpace.context.run {
-                    x1 * x2
+                "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        projection.findLift(x, x1)
+                    }
+                    exception.message.shouldContain("should be equal to deg(")
                 }
-                val lift = projection.findLift(y, sourceCocycle)
-                projection(lift) shouldBe y
-                freePathSpace.context.run {
-                    d(lift) shouldBe sourceCocycle
+
+                "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
+                    val sourceCochain = freePathSpace.context.run {
+                        y1 - y2
+                    }
+                    val zero = sphere.gAlgebra.getZero(sourceCochain.degree.value - 1)
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        projection.findLift(zero, sourceCochain)
+                    }
+                    exception.message.shouldContain("not a cocycle")
+                }
+
+                "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
+                    val targetCochain = sphere.context.run {
+                        2 * y
+                    }
+                    val sourceCocycle = freePathSpace.context.run {
+                        x1 * x2
+                    }
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        projection.findLift(targetCochain, sourceCocycle)
+                    }
+                    exception.message.shouldContain("are not compatible")
+                    exception.message.shouldContain("must be equal to d(")
                 }
             }
 
-            "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
-                val exception = shouldThrow<IllegalArgumentException> {
-                    projection.findLift(x, x1)
+            "findLiftUpToHomotopy" - {
+                "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
+                    // This can't be done in the following test for non-surjective quasi-isomorphism
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        projection.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
+                    }
+                    exception.message.shouldContain("not a cocycle")
                 }
-                exception.message.shouldContain("should be equal to deg(")
-            }
-
-            "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
-                val sourceCochain = freePathSpace.context.run {
-                    y1 - y2
-                }
-                val zero = sphere.gAlgebra.getZero(sourceCochain.degree.value - 1)
-                val exception = shouldThrow<IllegalArgumentException> {
-                    projection.findLift(zero, sourceCochain)
-                }
-                exception.message.shouldContain("not a cocycle")
-            }
-
-            "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
-                val targetCochain = sphere.context.run {
-                    2 * y
-                }
-                val sourceCocycle = freePathSpace.context.run {
-                    x1 * x2
-                }
-                val exception = shouldThrow<IllegalArgumentException> {
-                    projection.findLift(targetCochain, sourceCocycle)
-                }
-                exception.message.shouldContain("are not compatible")
-                exception.message.shouldContain("must be equal to d(")
-            }
-        }
-
-        "findLiftUpToHomotopy" - {
-            "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
-                // This can't be done in the following test for non-surjective quasi-isomorphism
-                val exception = shouldThrow<IllegalArgumentException> {
-                    projection.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
-                }
-                exception.message.shouldContain("not a cocycle")
             }
         }
     }
 
-    "test for DGLinearMap with a non-surjective quasi-isomorphism" - {
-        val sphereDim = 4
-        check(sphereDim % 2 == 0)
-        val sphere = sphere(matrixSpace, sphereDim)
-        val freePathSpace = FreePathSpace(sphere)
-        val (x, _) = sphere.gAlgebra.generatorList
-        val (x1, y1, x2, y2, sx, _) = freePathSpace.gAlgebra.generatorList
-        val f = freePathSpace.context.run {
-            val valueList = listOf(
-                x1 + x2,
-                2 * (y1 + y2) - (x2 - x1) * sx
-            )
-            sphere.getDGAlgebraMap(freePathSpace, valueList)
-        }
-
-        "findCocycleLift" - {
-            "should throw UnsupportedOperationException since non-surjective" {
-                val exception = shouldThrow<UnsupportedOperationException> {
-                    f.findCocycleLift(x1)
-                }
-                exception.message.shouldContain("is not surjective")
+    "test with a non-surjective quasi-isomorphism" - {
+        "test for DGLinearMap with a non-surjective quasi-isomorphism" - {
+            val sphereDim = 4
+            check(sphereDim % 2 == 0)
+            val sphere = sphere(matrixSpace, sphereDim)
+            val freePathSpace = FreePathSpace(sphere)
+            val (x, _) = sphere.gAlgebra.generatorList
+            val (x1, y1, x2, y2, sx, _) = freePathSpace.gAlgebra.generatorList
+            val f = freePathSpace.context.run {
+                val valueList = listOf(
+                    x1 + x2,
+                    2 * (y1 + y2) - (x2 - x1) * sx
+                )
+                sphere.getDGAlgebraMap(freePathSpace, valueList)
             }
-        }
 
-        "findLift" - {
-            "should throw UnsupportedOperationException since non-surjective" {
-                val sourceCocycle = sphere.context.run { x.pow(2) }
-                val targetCochain = freePathSpace.context.run {
-                    3 * y1 + y2 + 2 * x1 * sx
-                }
-                val exception = shouldThrow<UnsupportedOperationException> {
-                    f.findLift(targetCochain, sourceCocycle)
-                }
-                exception.message.shouldContain("is not surjective")
-            }
-        }
-
-        "findCocycleLiftUpToHomotopy" - {
-            "should return a homotopy lift of a cocycle" {
-                val liftWithBoundingCochain = f.findCocycleLiftUpToHomotopy(x1)
-                val lift = liftWithBoundingCochain.lift
-                val boundingCochain = liftWithBoundingCochain.boundingCochain
-                sphere.context.run {
-                    d(lift).isZero().shouldBeTrue()
-                }
-                freePathSpace.context.run {
-                    (f(lift) - x1) shouldBe d(boundingCochain)
-                    f(lift).cohomologyClass() shouldBe x1.cohomologyClass()
+            "findCocycleLift" - {
+                "should throw UnsupportedOperationException since non-surjective" {
+                    val exception = shouldThrow<UnsupportedOperationException> {
+                        f.findCocycleLift(x1)
+                    }
+                    exception.message.shouldContain("is not surjective")
                 }
             }
 
-            "should throw IllegalArgumentException when the argument is not a cocycle" {
-                val exception = shouldThrow<IllegalArgumentException> {
-                    f.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
-                }
-                exception.message.shouldContain("not a cocycle")
-            }
-        }
-
-        "findLiftUpToHomotopy" - {
-            "should return a homotopy lift of a cochain when the argument is valid" {
-                val sourceCocycle = sphere.context.run { x.pow(2) }
-                val targetCochain = freePathSpace.context.run {
-                    3 * y1 + y2 + 2 * x1 * sx
-                }
-                val liftWithBoundingCochain = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
-                val lift = liftWithBoundingCochain.lift
-                val boundingCochain = liftWithBoundingCochain.boundingCochain
-                sphere.context.run {
-                    d(lift) shouldBe sourceCocycle
-                }
-                freePathSpace.context.run {
-                    (f(lift) - targetCochain) shouldBe d(boundingCochain)
-                    // The following condition is unnecessary, but is expected to make the test appropriate.
-                    (f(lift) - targetCochain).isNotZero().shouldBeTrue()
+            "findLift" - {
+                "should throw UnsupportedOperationException since non-surjective" {
+                    val sourceCocycle = sphere.context.run { x.pow(2) }
+                    val targetCochain = freePathSpace.context.run {
+                        3 * y1 + y2 + 2 * x1 * sx
+                    }
+                    val exception = shouldThrow<UnsupportedOperationException> {
+                        f.findLift(targetCochain, sourceCocycle)
+                    }
+                    exception.message.shouldContain("is not surjective")
                 }
             }
 
-            "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
-                val exception = shouldThrow<IllegalArgumentException> {
-                    f.findLiftUpToHomotopy(x1, x)
+            "findCocycleLiftUpToHomotopy" - {
+                "should return a homotopy lift of a cocycle" {
+                    val liftWithBoundingCochain = f.findCocycleLiftUpToHomotopy(x1)
+                    val lift = liftWithBoundingCochain.lift
+                    val boundingCochain = liftWithBoundingCochain.boundingCochain
+                    sphere.context.run {
+                        d(lift).isZero().shouldBeTrue()
+                    }
+                    freePathSpace.context.run {
+                        (f(lift) - x1) shouldBe d(boundingCochain)
+                        f(lift).cohomologyClass() shouldBe x1.cohomologyClass()
+                    }
                 }
-                exception.message.shouldContain("should be equal to deg(")
+
+                "should throw IllegalArgumentException when the argument is not a cocycle" {
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        f.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
+                    }
+                    exception.message.shouldContain("not a cocycle")
+                }
             }
 
-            // There is no pair (targetCochain, sourceCochain) such that
-            //   f(sourceCochain) = d(targetCochain) but d(sourceCochain) != 0
-            // "should throw IllegalArgumentException when sourceCocycle is not a cocycle" { }
+            "findLiftUpToHomotopy" - {
+                "should return a homotopy lift of a cochain when the argument is valid" {
+                    val sourceCocycle = sphere.context.run { x.pow(2) }
+                    val targetCochain = freePathSpace.context.run {
+                        3 * y1 + y2 + 2 * x1 * sx
+                    }
+                    val liftWithBoundingCochain = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                    val lift = liftWithBoundingCochain.lift
+                    val boundingCochain = liftWithBoundingCochain.boundingCochain
+                    sphere.context.run {
+                        d(lift) shouldBe sourceCocycle
+                    }
+                    freePathSpace.context.run {
+                        (f(lift) - targetCochain) shouldBe d(boundingCochain)
+                        // The following condition is unnecessary, but is expected to make the test appropriate.
+                        (f(lift) - targetCochain).isNotZero().shouldBeTrue()
+                    }
+                }
 
-            "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
-                val sourceCocycle = sphere.context.run { 2 * x.pow(2) }
-                val targetCochain = freePathSpace.context.run {
-                    3 * y1 + y2 + 2 * x1 * sx
+                "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        f.findLiftUpToHomotopy(x1, x)
+                    }
+                    exception.message.shouldContain("should be equal to deg(")
                 }
-                val exception = shouldThrow<IllegalArgumentException> {
-                    f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+
+                // There is no pair (targetCochain, sourceCochain) such that
+                //   f(sourceCochain) = d(targetCochain) but d(sourceCochain) != 0
+                // "should throw IllegalArgumentException when sourceCocycle is not a cocycle" { }
+
+                "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
+                    val sourceCocycle = sphere.context.run { 2 * x.pow(2) }
+                    val targetCochain = freePathSpace.context.run {
+                        3 * y1 + y2 + 2 * x1 * sx
+                    }
+                    val exception = shouldThrow<IllegalArgumentException> {
+                        f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                    }
+                    exception.message.shouldContain("are not compatible")
+                    exception.message.shouldContain("must be equal to d(")
                 }
-                exception.message.shouldContain("are not compatible")
-                exception.message.shouldContain("must be equal to d(")
             }
         }
     }

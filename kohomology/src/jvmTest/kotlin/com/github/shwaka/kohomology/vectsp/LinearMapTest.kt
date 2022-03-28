@@ -20,6 +20,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
         val numVectorSpace = matrixSpace.numVectorSpace
         val vectorSpace1 = VectorSpace(numVectorSpace, listOf("a", "b"))
         val vectorSpace2 = VectorSpace(numVectorSpace, listOf("x", "y"))
+        val vectorSpace3 = VectorSpace(numVectorSpace, listOf("s", "t"))
         matrixSpace.context.run {
             "check value" {
                 val matrix = matrixSpace.fromRowList(
@@ -132,12 +133,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                     )
                 )
                 val expectedMatrix = matrixSpace.context.run {
-                    matrix1 * matrix2
+                    matrix2 * matrix1
                 }
                 val f1 = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix1)
-                val f2 = LinearMap.fromMatrix(vectorSpace1, vectorSpace1, matrixSpace, matrix2)
-                val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, expectedMatrix)
-                (f1 * f2) shouldBe expected
+                val f2 = LinearMap.fromMatrix(vectorSpace2, vectorSpace3, matrixSpace, matrix2)
+                val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace3, matrixSpace, expectedMatrix)
+                (f2 * f1) shouldBe expected
             }
         }
     }

@@ -38,8 +38,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val v = vectorSpace1.fromCoeffList(listOf(one, two))
                 f(v) shouldBe vectorSpace2.zeroVector
             }
-            "getId should return the identity map" {
-                val f = LinearMap.getId(vectorSpace1, matrixSpace)
+            "getIdentity should return the identity map" {
+                val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
                 val v = vectorSpace1.fromCoeffList(listOf(one, two))
                 f(v) shouldBe v
             }
@@ -82,7 +82,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 f.isNotZero().shouldBeTrue()
             }
             "(identity map).isIdentity() should be true" {
-                val f = LinearMap.getId(vectorSpace1, matrixSpace)
+                val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
                 f.isIdentity().shouldBeTrue()
                 f.isNotIdentity().shouldBeFalse()
             }

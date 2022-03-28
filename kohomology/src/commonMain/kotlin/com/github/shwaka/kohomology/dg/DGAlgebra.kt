@@ -56,8 +56,8 @@ public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector
         )
     }
 
-    public override fun getId(): DGAlgebraMap<D, B, B, S, V, M> {
-        val gAlgebraMap = this.gAlgebra.getId()
+    public override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
+        val gAlgebraMap = this.gAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 }

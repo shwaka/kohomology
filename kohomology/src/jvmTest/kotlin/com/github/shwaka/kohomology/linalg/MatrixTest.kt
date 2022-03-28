@@ -101,7 +101,7 @@ fun <S : Scalar> sparseMatrixSpaceTest(matrixSpace: SparseMatrixSpace<S>) = free
 
         "computation of row echelon form for large identity matrix" {
             val dim = 5000
-            val m = matrixSpace.getId(dim)
+            val m = matrixSpace.getIdentity(dim)
             m.rowEchelonForm.matrix shouldBe m
         }
     }
@@ -405,7 +405,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                         listOf(one, one)
                     ).toMatrix()
                 }
-                val expectedMat = matrixSpace.getId(2)
+                val expectedMat = matrixSpace.getIdentity(2)
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
             }
             "reduced row echelon form of non-invertible matrix" {
@@ -509,7 +509,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
             }
             "image of the identity matrix should have the standard basis" {
                 val dim = 5
-                val mat = matrixSpace.getId(dim)
+                val mat = matrixSpace.getIdentity(dim)
                 val expected = (0 until dim).map { numVectorSpace.getOneAtIndex(it, dim) }
                 mat.computeImageBasis() shouldBe expected
             }

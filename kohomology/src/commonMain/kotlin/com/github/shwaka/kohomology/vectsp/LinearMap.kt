@@ -105,11 +105,11 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
             return LinearMap(matrixSpace, source, target, matrixSpace.getZero(source.dim, target.dim))
         }
 
-        public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getId(
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getIdentity(
             source: VectorSpace<B, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<B, B, S, V, M> {
-            return LinearMap(matrixSpace, source, source, matrixSpace.getId(source.dim))
+            return LinearMap(matrixSpace, source, source, matrixSpace.getIdentity(source.dim))
         }
 
         public fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMatrix(

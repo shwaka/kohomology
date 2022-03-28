@@ -297,8 +297,8 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    public fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
-        return LinearMap.getId(this, matrixSpace)
+    public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
+        return LinearMap.getIdentity(this, matrixSpace)
     }
 
     override fun equals(other: Any?): Boolean {

@@ -99,8 +99,8 @@ public open class DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         return DGLinearMap(this, this, gLinearMap)
     }
 
-    public open fun getId(): DGLinearMap<D, B, B, S, V, M> {
-        val gLinearMap = this.gVectorSpace.getId(this.matrixSpace)
+    public open fun getIdentity(): DGLinearMap<D, B, B, S, V, M> {
+        val gLinearMap = this.gVectorSpace.getIdentity(this.matrixSpace)
         return DGLinearMap(this, this, gLinearMap)
     }
 }

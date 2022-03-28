@@ -222,7 +222,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         surjectiveQuasiIsomorphism: DGAlgebraMap<D, B, Monomial<D, I>, S, V, M>,
     ): DGAlgebraMap<D, Monomial<D, I>, B, S, V, M> {
         return this.findLift(
-            underlyingMap = this.getId(),
+            underlyingMap = this.getIdentity(),
             surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism
         )
     }
@@ -289,7 +289,7 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         freePathSpace: FreePathSpace<D, I, S, V, M>? = null,
     ): LiftWithHomotopy<D, I, B, Monomial<D, I>, S, V, M> {
         return this.findLiftUpToHomotopy(
-            underlyingMap = this.getId(),
+            underlyingMap = this.getIdentity(),
             quasiIsomorphism = quasiIsomorphism,
             freePathSpace = freePathSpace,
         )

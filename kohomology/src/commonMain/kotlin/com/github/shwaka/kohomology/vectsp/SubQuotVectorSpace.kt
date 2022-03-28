@@ -52,7 +52,7 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
         val joinedMatrix: M = matrixSpace.context.run {
             val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
             val subspaceMatrix = matrixSpace.fromVectors(subspaceGenerator, totalVectorSpace.dim)
-            val id = matrixSpace.getId(totalVectorSpace.dim)
+            val id = matrixSpace.getIdentity(totalVectorSpace.dim)
             listOf(quotientMatrix, subspaceMatrix, id).join()
         }
         val rowEchelonForm: RowEchelonForm<S, V, M> = matrixSpace.context.run {

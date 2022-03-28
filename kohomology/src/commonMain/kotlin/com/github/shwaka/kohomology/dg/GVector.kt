@@ -392,9 +392,9 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
         return this.isBasis(gVectorList, this.degreeGroup.fromInt(degree), matrixSpace)
     }
 
-    public fun <M : Matrix<S, V>> getId(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<D, B, B, S, V, M> {
+    public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): GLinearMap<D, B, B, S, V, M> {
         return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
-            this[degree].getId(matrixSpace)
+            this[degree].getIdentity(matrixSpace)
         }
     }
 

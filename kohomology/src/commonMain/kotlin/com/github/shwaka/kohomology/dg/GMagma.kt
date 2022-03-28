@@ -82,9 +82,9 @@ public open class GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         return this.isBasis(gVectorList, degree, this.matrixSpace)
     }
 
-    public open fun getId(): GLinearMap<D, B, B, S, V, M> {
+    public open fun getIdentity(): GLinearMap<D, B, B, S, V, M> {
         return GLinearMap(this, this, this.degreeGroup.zero, this.matrixSpace, "id") { degree ->
-            this[degree].getId(this.matrixSpace)
+            this[degree].getIdentity(this.matrixSpace)
         }
     }
 

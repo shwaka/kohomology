@@ -81,9 +81,9 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         this.fromVector(unitVector, 0)
     }
 
-    public override fun getId(): GAlgebraMap<D, B, B, S, V, M> {
+    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
-            this[degree].getId(this.matrixSpace)
+            this[degree].getIdentity(this.matrixSpace)
         }
     }
 

@@ -232,7 +232,7 @@ public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : M
         return this.getZero(dim, dim)
     }
 
-    public fun getId(dim: Int): M {
+    public fun getIdentity(dim: Int): M {
         val one = this.field.one
         val rowMap = List(dim) { i -> i to mapOf(i to one) }.toMap()
         return this.fromRowMap(rowMap, dim, dim)
@@ -265,7 +265,7 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
         this.matrixSpace.context.run {
             listOf(
                 this@RowEchelonForm.originalMatrix,
-                this@RowEchelonForm.matrixSpace.getId(rowCount)
+                this@RowEchelonForm.matrixSpace.getIdentity(rowCount)
             ).join()
         }
     }

@@ -28,6 +28,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarOperations
+import com.github.shwaka.kohomology.model.CopiedName
+import com.github.shwaka.kohomology.model.FreePathSpace
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -194,10 +196,10 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         underlyingMap: DGAlgebraMap<D, Monomial<D, I>, BT, S, V, M>,
         surjectiveQuasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
     ): DGAlgebraMap<D, Monomial<D, I>, BS, S, V, M> {
-        if (underlyingMap.source != this)
-            throw IllegalArgumentException("Invalid diagram: ${underlyingMap.source} != $this")
-        if (underlyingMap.target != surjectiveQuasiIsomorphism.target)
-            throw IllegalArgumentException("Invalid diagram: ${underlyingMap.target} != ${surjectiveQuasiIsomorphism.target}")
+        require(underlyingMap.source == this) { "Invalid diagram: ${underlyingMap.source} != $this" }
+        require(underlyingMap.target == surjectiveQuasiIsomorphism.target) {
+            "Invalid diagram: ${underlyingMap.target} != ${surjectiveQuasiIsomorphism.target}"
+        }
         val n = this.gAlgebra.generatorList.size
         val liftTarget = surjectiveQuasiIsomorphism.source
         val zeroGVector = liftTarget.context.run { zeroGVector }
@@ -222,6 +224,71 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         return this.findLift(
             underlyingMap = this.getId(),
             surjectiveQuasiIsomorphism = surjectiveQuasiIsomorphism
+        )
+    }
+
+    public data class LiftWithHomotopy<D : Degree, I : IndeterminateName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+        val lift: DGAlgebraMap<D, Monomial<D, I>, BS, S, V, M>,
+        val homotopy: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, BT, S, V, M>,
+        val freePathSpace: FreePathSpace<D, I, S, V, M>,
+    )
+
+    public fun <BS : BasisName, BT : BasisName> findLiftUpToHomotopy(
+        underlyingMap: DGAlgebraMap<D, Monomial<D, I>, BT, S, V, M>,
+        quasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
+    ): LiftWithHomotopy<D, I, BS, BT, S, V, M> {
+        require(underlyingMap.source == this) { "Invalid diagram: ${underlyingMap.source} != $this" }
+        require(underlyingMap.target == quasiIsomorphism.target) {
+            "Invalid diagram: ${underlyingMap.target} != ${quasiIsomorphism.target}"
+        }
+        val freePathSpace = FreePathSpace(this)
+        val n = this.gAlgebra.generatorList.size
+        val liftTarget = quasiIsomorphism.source
+        val homotopyTarget = quasiIsomorphism.target
+        val liftValueList: MutableList<GVectorOrZero<D, BS, S, V>> = MutableList(n) {
+            liftTarget.context.run { zeroGVector }
+        }
+        val homotopyValueList: MutableList<GVectorOrZero<D, BT, S, V>> = MutableList(3 * n) { index ->
+            when {
+                index < n -> underlyingMap(this.gAlgebra.generatorList[index])
+                else -> homotopyTarget.context.run { zeroGVector }
+            }
+        }
+        for (i in 0 until n) {
+            val currentLift = this.gAlgebra.getGAlgebraMap(liftTarget.gAlgebra, liftValueList)
+            val currentHomotopy = freePathSpace.gAlgebra.getGAlgebraMap(homotopyTarget.gAlgebra, homotopyValueList)
+            // ↑ This should be getGAlgebraMap, NOT getDGAlgebraMap
+            // since currentLift and currentHomotopy does NOT commute with differentials for i < n - 1
+            val vi = this.gAlgebra.generatorList[i]
+            val targetCochain = homotopyTarget.context.run {
+                val vi1 = freePathSpace.gAlgebra.generatorList[i]
+                val vi2 = freePathSpace.gAlgebra.generatorList[n + i]
+                val svi = freePathSpace.gAlgebra.generatorList[2 * n + i]
+                val x = freePathSpace.context.run {
+                    vi2 - vi1 - d(svi)
+                }
+                underlyingMap(vi) + currentHomotopy(x)
+            }
+            val sourceCocycle = currentLift(this.differential(vi))
+            val liftWithHomotopy = quasiIsomorphism.findLiftUpToHomotopy(
+                targetCochain = targetCochain,
+                sourceCocycle = sourceCocycle,
+            )
+            liftValueList[i] = liftWithHomotopy.lift
+            homotopyValueList[n + i] = quasiIsomorphism(liftWithHomotopy.lift)
+            homotopyValueList[2 * n + i] = liftWithHomotopy.boundingCochain
+        }
+        val lift = this.getDGAlgebraMap(liftTarget, liftValueList)
+        val homotopy = freePathSpace.getDGAlgebraMap(homotopyTarget, homotopyValueList)
+        return LiftWithHomotopy(lift = lift, homotopy = homotopy, freePathSpace = freePathSpace)
+    }
+
+    public fun <B : BasisName> findSectionUpToHomotopy(
+        quasiIsomorphism: DGAlgebraMap<D, B, Monomial<D, I>, S, V, M>,
+    ): LiftWithHomotopy<D, I, B, Monomial<D, I>, S, V, M> {
+        return this.findLiftUpToHomotopy(
+            underlyingMap = this.getId(),
+            quasiIsomorphism = quasiIsomorphism,
         )
     }
 

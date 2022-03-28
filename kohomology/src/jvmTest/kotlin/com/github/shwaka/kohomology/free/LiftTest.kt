@@ -14,7 +14,6 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
 
@@ -28,7 +27,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val freePathSpace = FreePathSpace(sphere)
         val projection = freePathSpace.projection
         val (x, y) = sphere.gAlgebra.generatorList
-        val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
+        val (x1, y1, x2, y2, _, _) = freePathSpace.gAlgebra.generatorList
 
         "findCocycleLift" - {
             "should return a lift of a cocycle" {
@@ -108,8 +107,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         check(sphereDim % 2 == 0)
         val sphere = sphere(matrixSpace, sphereDim)
         val freePathSpace = FreePathSpace(sphere)
-        val (x, y) = sphere.gAlgebra.generatorList
-        val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
+        val (x, _) = sphere.gAlgebra.generatorList
+        val (x1, y1, x2, y2, sx, _) = freePathSpace.gAlgebra.generatorList
         val f = freePathSpace.context.run {
             val valueList = listOf(
                 x1 + x2,

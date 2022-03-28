@@ -236,12 +236,13 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     public fun <BS : BasisName, BT : BasisName> findLiftUpToHomotopy(
         underlyingMap: DGAlgebraMap<D, Monomial<D, I>, BT, S, V, M>,
         quasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
+        freePathSpace: FreePathSpace<D, I, S, V, M>? = null,
     ): LiftWithHomotopy<D, I, BS, BT, S, V, M> {
         require(underlyingMap.source == this) { "Invalid diagram: ${underlyingMap.source} != $this" }
         require(underlyingMap.target == quasiIsomorphism.target) {
             "Invalid diagram: ${underlyingMap.target} != ${quasiIsomorphism.target}"
         }
-        val freePathSpace = FreePathSpace(this)
+        val freePathSpaceNonNull = freePathSpace ?: FreePathSpace(this)
         val n = this.gAlgebra.generatorList.size
         val liftTarget = quasiIsomorphism.source
         val homotopyTarget = quasiIsomorphism.target
@@ -256,15 +257,15 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
         }
         for (i in 0 until n) {
             val currentLift = this.gAlgebra.getGAlgebraMap(liftTarget.gAlgebra, liftValueList)
-            val currentHomotopy = freePathSpace.gAlgebra.getGAlgebraMap(homotopyTarget.gAlgebra, homotopyValueList)
+            val currentHomotopy = freePathSpaceNonNull.gAlgebra.getGAlgebraMap(homotopyTarget.gAlgebra, homotopyValueList)
             // ↑ This should be getGAlgebraMap, NOT getDGAlgebraMap
             // since currentLift and currentHomotopy does NOT commute with differentials for i < n - 1
             val vi = this.gAlgebra.generatorList[i]
             val targetCochain = homotopyTarget.context.run {
-                val vi1 = freePathSpace.gAlgebra.generatorList[i]
-                val vi2 = freePathSpace.gAlgebra.generatorList[n + i]
-                val svi = freePathSpace.gAlgebra.generatorList[2 * n + i]
-                val x = freePathSpace.context.run {
+                val vi1 = freePathSpaceNonNull.gAlgebra.generatorList[i]
+                val vi2 = freePathSpaceNonNull.gAlgebra.generatorList[n + i]
+                val svi = freePathSpaceNonNull.gAlgebra.generatorList[2 * n + i]
+                val x = freePathSpaceNonNull.context.run {
                     vi2 - vi1 - d(svi)
                 }
                 underlyingMap(vi) + currentHomotopy(x)
@@ -279,16 +280,18 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
             homotopyValueList[2 * n + i] = liftWithBoundingCochain.boundingCochain
         }
         val lift = this.getDGAlgebraMap(liftTarget, liftValueList)
-        val homotopy = freePathSpace.getDGAlgebraMap(homotopyTarget, homotopyValueList)
-        return LiftWithHomotopy(lift = lift, homotopy = homotopy, freePathSpace = freePathSpace)
+        val homotopy = freePathSpaceNonNull.getDGAlgebraMap(homotopyTarget, homotopyValueList)
+        return LiftWithHomotopy(lift = lift, homotopy = homotopy, freePathSpace = freePathSpaceNonNull)
     }
 
     public fun <B : BasisName> findSectionUpToHomotopy(
         quasiIsomorphism: DGAlgebraMap<D, B, Monomial<D, I>, S, V, M>,
+        freePathSpace: FreePathSpace<D, I, S, V, M>? = null,
     ): LiftWithHomotopy<D, I, B, Monomial<D, I>, S, V, M> {
         return this.findLiftUpToHomotopy(
             underlyingMap = this.getId(),
             quasiIsomorphism = quasiIsomorphism,
+            freePathSpace = freePathSpace,
         )
     }
 

@@ -84,6 +84,15 @@ The task is defined in `buildSrc`.
 - [Self Types with Java's Generics - SitePoint](https://www.sitepoint.com/self-types-with-javas-generics/)
 - [Emulating self types in Kotlin. DIY solution for missing language… | by Jerzy Chałupski | Medium](https://medium.com/@jerzy.chalupski/emulating-self-types-in-kotlin-d64fe8ea2e62)
 
+#### Why 'context'?
+recursive generics をやめて `*.context.run {}` と書くようにした理由
+
+- recursive generics でやろうとすると，2項演算(e.g. `plus`)の引数を対称的に扱えない．
+  例えば `Vector.plus` だと `this.vectorSpace` と `other.vectorSpace` のどちらか一方を選択する必要がある．(もちろんその2つの一致を確認するので機能としては問題ないが，見た目として違和感がある)
+- `Int.time(other: Vector)` のような extension method が書き易い．
+  `context` 内では常に extension method が有効となるようにできるけど，他の方法だと一つ一つ `import` する必要があって面倒(だし，すぐに忘れる)．
+- (extension method の話と重複するけれど) `d(gVector)` みたいな略記を導入しやすい．
+
 #### Version of java
 native 向けにコンパイルしようとしたら，以下のエラーが出た．
 依存関係のダウンロードをする際に，証明書関係で失敗しているっぽい．

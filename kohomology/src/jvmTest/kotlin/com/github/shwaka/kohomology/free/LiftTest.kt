@@ -137,7 +137,47 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "should throw IllegalArgumentException when the argument is not a cocycle" {
                 shouldThrow<IllegalArgumentException> {
-                    f.findCocycleLift(y1) // y1 is not a cocycle
+                    f.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
+                }
+            }
+        }
+
+        "findLiftUpToHomotopy" - {
+            "should return a homotopy lift of a cochain when the argument is valid" {
+                val sourceCocycle = sphere.context.run { x.pow(2) }
+                val targetCochain = freePathSpace.context.run {
+                    3 * y1 + y2 + 2 * x1 * sx
+                }
+                val liftWithHomotopy = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                val lift = liftWithHomotopy.lift
+                val boundingCochain = liftWithHomotopy.boundingCochain
+                sphere.context.run {
+                    d(lift) shouldBe sourceCocycle
+                }
+                freePathSpace.context.run {
+                    (f(lift) - targetCochain) shouldBe d(boundingCochain)
+                    // The following condition is unnecessary, but is expected to make the test appropriate.
+                    (f(lift) - targetCochain).isNotZero().shouldBeTrue()
+                }
+            }
+
+            "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
+                shouldThrow<IllegalArgumentException> {
+                    f.findLiftUpToHomotopy(x1, x)
+                }
+            }
+
+            // There is no pair (targetCochain, sourceCochain) such that
+            //   f(sourceCochain) = d(targetCochain) but d(sourceCochain) != 0
+            // "should throw IllegalArgumentException when sourceCocycle is not a cocycle" { }
+
+            "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
+                val sourceCocycle = sphere.context.run { 2 * x.pow(2) }
+                val targetCochain = freePathSpace.context.run {
+                    3 * y1 + y2 + 2 * x1 * sx
+                }
+                shouldThrow<IllegalArgumentException> {
+                    f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
                 }
             }
         }

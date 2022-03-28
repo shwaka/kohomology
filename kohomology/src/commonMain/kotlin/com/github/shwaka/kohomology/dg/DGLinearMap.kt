@@ -33,6 +33,28 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         return this.gLinearMap(gVector)
     }
 
+    public operator fun plus(other: DGLinearMap<D, BS, BT, S, V, M>): DGLinearMap<D, BS, BT, S, V, M> {
+        require(this.source == other.source) { "DGLinear maps with different sources cannot be added" }
+        require(this.target == other.target) { "DGLinear maps with different targets cannot be added" }
+        require(this.degree == other.degree) { "DGLinear maps with different degrees cannot be added" }
+        return DGLinearMap(
+            source = this.source,
+            target = this.target,
+            gLinearMap = this.gLinearMap + other.gLinearMap,
+        )
+    }
+
+    public operator fun <BR : BasisName> times(other: DGLinearMap<D, BR, BS, S, V, M>): DGLinearMap<D, BR, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot composite dg linear maps since the source of $this and the target of $other are different"
+        }
+        return DGLinearMap(
+            source = other.source,
+            target = this.target,
+            gLinearMap = this.gLinearMap * other.gLinearMap,
+        )
+    }
+
     public fun inducedMapOnCohomology(): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
         val getGVectors: (D) -> List<GVector<D, SubQuotBasis<BT, S, V>, S, V>> = { k ->
             this.source.cohomology.getBasis(k).map { cohomologyClass ->
@@ -189,6 +211,17 @@ public class DGAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar
     override val target: DGAlgebra<D, BT, S, V, M>,
     override val gLinearMap: GAlgebraMap<D, BS, BT, S, V, M>,
 ) : DGLinearMap<D, BS, BT, S, V, M>(source, target, gLinearMap) {
+    public operator fun <BR : BasisName> times(other: DGAlgebraMap<D, BR, BS, S, V, M>): DGAlgebraMap<D, BR, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot composite dg linear maps since the source of $this and the target of $other are different"
+        }
+        return DGAlgebraMap(
+            source = other.source,
+            target = this.target,
+            gLinearMap = this.gLinearMap * other.gLinearMap,
+        )
+    }
+
     public companion object {
         public operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGAlgebra<D, BS, S, V, M>,

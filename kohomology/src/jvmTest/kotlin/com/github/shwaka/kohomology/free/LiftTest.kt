@@ -91,6 +91,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 exception.message.shouldContain("must be equal to d(")
             }
         }
+
+        "findLiftUpToHomotopy" - {
+            "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
+                // This can't be done in the following test for non-surjective quasi-isomorphism
+                val exception = shouldThrow<IllegalArgumentException> {
+                    projection.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
+                }
+                exception.message.shouldContain("not a cocycle")
+            }
+        }
     }
 
     "test for DGLinearMap with a non-surjective quasi-isomorphism" - {

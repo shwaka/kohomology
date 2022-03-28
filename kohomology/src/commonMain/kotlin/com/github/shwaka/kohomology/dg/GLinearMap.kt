@@ -12,21 +12,25 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
 public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public open val source: GVectorSpace<D, BS, S, V>,
-    public open val target: GVectorSpace<D, BT, S, V>,
+    source: GVectorSpace<D, BS, S, V>,
+    target: GVectorSpace<D, BT, S, V>,
     public val degree: D,
     public val matrixSpace: MatrixSpace<S, V, M>,
     public val name: String,
     private val getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) {
-    private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
-
     init {
         if (source.degreeGroup != target.degreeGroup)
             throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
     }
-
+    // Since source and target are "open val" and accessed from the initializer block,
+    // they can't be declared in the arguments of the primary constructor.
+    // (If they are declared there, the compiler throws the warning
+    //   "accessing non-final property in constructor")
+    public open val source: GVectorSpace<D, BS, S, V> = source
+    public open val target: GVectorSpace<D, BT, S, V> = target
     public val degreeGroup: DegreeGroup<D> = source.degreeGroup
+    private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
 
     public constructor(
         source: GVectorSpace<D, BS, S, V>,

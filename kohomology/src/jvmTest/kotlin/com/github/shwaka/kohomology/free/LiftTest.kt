@@ -214,9 +214,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         val section = liftWithHomotopy.lift
                         val freePathSpace = liftWithHomotopy.freePathSpace
                         for (degree in 0..(2 * sphereDim)) {
-                            val hSection = section.inducedMapOnCohomology()[degree]
-                            val hf = f.inducedMapOnCohomology()[degree]
-                            (hf * hSection).isIdentity().shouldBeTrue()
+                            (f * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
                         }
                         val homotopy = liftWithHomotopy.homotopy
                         val inclusion1 = freePathSpace.inclusion1

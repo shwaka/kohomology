@@ -16,9 +16,10 @@ import com.github.shwaka.kohomology.util.pow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
-val dgLinearMapOperationTag = NamedTag("DGLinearMapOperationTest")
+val dgLinearMapOperationTag = NamedTag("DGLinearMapOperation")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "test binary operations on DGLinearMap" - {
@@ -34,23 +35,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(ma
             listOf(zeroGVector, x1.pow(2), zeroGVector, x2.pow(2))
         }
         val (x1, y1, x2, y2) = freeDGAlgebra.gAlgebra.generatorList
-        val a1 = 2
+        val a = 2
         val f1 = freeDGAlgebra.context.run {
             val valueList = listOf(
-                a1 * x1,
-                a1.pow(2) * y1,
+                a * x1,
+                a.pow(2) * y1,
                 x2,
                 y2,
             )
             freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, valueList)
         }
-        val a2 = 3
         val f2 = freeDGAlgebra.context.run {
             val valueList = listOf(
                 x1,
                 y1,
-                a2 * x2,
-                a2.pow(2) * y2,
+                a * x2,
+                a.pow(2) * y2,
             )
             freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, valueList)
         }
@@ -60,7 +60,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(ma
                 Monomial<IntDegree, StringIndeterminateName>,
                 Monomial<IntDegree, StringIndeterminateName>,
                 S, V, M> = t * f1 // This should be DGAlgebraMap
-            tf1 shouldBe f2
+            val f2t = f2 * t
+            listOf(x1, y1, x2, y2).forAll { gVector ->
+                tf1(gVector) shouldBe f2t(gVector)
+            }
         }
         "check sum of two DGAlgebraMap's" {
             val sum: DGLinearMap<IntDegree,
@@ -68,10 +71,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(ma
                 Monomial<IntDegree, StringIndeterminateName>,
                 S, V, M> = f1 + f2 // This should be DGLinearMap
             freeDGAlgebra.context.run {
-                sum(x1) shouldBe ((a1 + 1) * x1)
-                sum(x2) shouldBe ((a2 + 1) * x2)
-                sum(y1) shouldBe ((a1.pow(2) + 1) * y1)
-                sum(y2) shouldBe ((a2.pow(2) + 1) * y2)
+                sum(x1) shouldBe ((a + 1) * x1)
+                sum(x2) shouldBe ((a + 1) * x2)
+                sum(y1) shouldBe ((a.pow(2) + 1) * y1)
+                sum(y2) shouldBe ((a.pow(2) + 1) * y2)
             }
         }
     }

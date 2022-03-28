@@ -12,8 +12,8 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
 public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val source: GVectorSpace<D, BS, S, V>,
-    public val target: GVectorSpace<D, BT, S, V>,
+    public open val source: GVectorSpace<D, BS, S, V>,
+    public open val target: GVectorSpace<D, BT, S, V>,
     public val degree: D,
     public val matrixSpace: MatrixSpace<S, V, M>,
     public val name: String,
@@ -199,12 +199,24 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
 }
 
 public class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    source: GAlgebra<D, BS, S, V, M>,
-    target: GAlgebra<D, BT, S, V, M>,
+    override val source: GAlgebra<D, BS, S, V, M>,
+    override val target: GAlgebra<D, BT, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
 ) : GLinearMap<D, BS, BT, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
+    public operator fun <BR : BasisName> times(other: GAlgebraMap<D, BR, BS, S, V, M>): GAlgebraMap<D, BR, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot composite graded linear maps since the source of $this and the target of $other are different"
+        }
+        return GAlgebraMap(
+            source = other.source,
+            target = this.target,
+            matrixSpace = this.matrixSpace,
+            name = "${this.name} + ${other.name}",
+        ) { degree -> this[degree] * other[degree] }
+    }
+
     public companion object {
         public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<D, BS, S, V, M>,

@@ -47,7 +47,7 @@ public data class DenseMatrix<S : Scalar>(
             this.rowList.withIndex().all { (rowInd, row) ->
                 row.withIndex().all { (colInd, value) ->
                     if (rowInd == colInd) {
-                        value == this.numVectorSpace.field.one
+                        value.isOne()
                     } else {
                         value.isZero()
                     }

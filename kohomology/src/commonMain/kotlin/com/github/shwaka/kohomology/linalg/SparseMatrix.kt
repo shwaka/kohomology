@@ -44,7 +44,7 @@ public class SparseMatrix<S : Scalar>(
             this.rowMap.all { (rowInd, row) ->
                 row.containsKey(rowInd) && row.all { (colInd, value) ->
                     if (rowInd == colInd) {
-                        value == this.numVectorSpace.field.one
+                        value.isOne()
                     } else {
                         value.isZero()
                     }

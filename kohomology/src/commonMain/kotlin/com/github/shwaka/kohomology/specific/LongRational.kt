@@ -55,6 +55,10 @@ public class LongRational(numerator: Long, denominator: Long) : Scalar {
         return this.numerator == 0L
     }
 
+    override fun isOne(): Boolean {
+        return (this.numerator == 1L) && (this.denominator == 1L)
+    }
+
     override fun isPrintedPositively(): Boolean {
         return this.numerator >= 0
     }

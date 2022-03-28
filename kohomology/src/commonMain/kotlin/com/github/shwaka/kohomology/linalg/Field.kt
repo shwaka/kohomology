@@ -6,6 +6,8 @@ import com.github.shwaka.kohomology.util.Sign
 public interface Scalar : PrintableWithSign {
     public fun isZero(): Boolean
     public fun isNotZero(): Boolean = !this.isZero()
+    public fun isOne(): Boolean
+    public fun isNotOne(): Boolean = !this.isOne()
     public fun isPrintedPositively(): Boolean
 }
 

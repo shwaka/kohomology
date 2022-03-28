@@ -90,6 +90,10 @@ public class BigRational private constructor(public val numerator: BigInteger, p
         return this.numerator.isZero()
     }
 
+    override fun isOne(): Boolean {
+        return (this.numerator == BigInteger.ONE) && (this.denominator == BigInteger.ONE)
+    }
+
     override fun isPrintedPositively(): Boolean {
         return this.numerator.isPositive || this.numerator.isZero()
     }

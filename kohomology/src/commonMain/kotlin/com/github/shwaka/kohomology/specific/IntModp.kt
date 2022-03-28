@@ -19,6 +19,10 @@ public class IntModp(value: Int, public val characteristic: Int) : Scalar {
         return this.value == 0
     }
 
+    override fun isOne(): Boolean {
+        return this.value == 1
+    }
+
     override fun isPrintedPositively(): Boolean = true
 
     override fun toString(printConfig: PrintConfig, withSign: Boolean): String {

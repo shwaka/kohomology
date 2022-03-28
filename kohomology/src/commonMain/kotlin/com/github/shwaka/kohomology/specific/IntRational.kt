@@ -55,6 +55,10 @@ public class IntRational(numerator: Int, denominator: Int) : Scalar {
         return this.numerator == 0
     }
 
+    override fun isOne(): Boolean {
+        return (this.numerator == 1) && (this.denominator == 1)
+    }
+
     override fun isPrintedPositively(): Boolean {
         return this.numerator >= 0
     }

@@ -19,7 +19,7 @@ import io.kotest.matchers.shouldBe
 val liftTag = NamedTag("Lift")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "lift test" - {
+    "test for DGLinearMap with a surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
         val sphere = sphere(matrixSpace, sphereDim)
@@ -28,20 +28,59 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val (x, y) = sphere.gAlgebra.generatorList
         val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
 
-        "test findCocycleLift" - {
-            "find list of a cocycle" {
-                val cocycle = x
-                val lift = projection.findCocycleLift(cocycle)
+        "findCocycleLift" - {
+            "should return a lift of a cocycle" {
+                val lift = projection.findCocycleLift(x)
+                projection(lift) shouldBe x
                 freePathSpace.context.run {
                     d(lift).isZero().shouldBeTrue()
-                    projection(lift) shouldBe cocycle
                 }
             }
 
-            "throw IllegalArgumentException when the argument is not a cocycle" {
-                val nonCocycle = y
+            "should throw IllegalArgumentException when the argument is not a cocycle" {
                 shouldThrow<IllegalArgumentException> {
-                    projection.findCocycleLift(nonCocycle)
+                    projection.findCocycleLift(y) // y is not a cocycle
+                }
+            }
+        }
+
+        "findLift" - {
+            "should return a lift of a cochain when the argument is valid" {
+                val sourceCocycle = freePathSpace.context.run {
+                    x1 * x2
+                }
+                val lift = projection.findLift(y, sourceCocycle)
+                projection(lift) shouldBe y
+                freePathSpace.context.run {
+                    d(lift) shouldBe sourceCocycle
+                }
+            }
+
+            "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
+                shouldThrow<IllegalArgumentException> {
+                    projection.findLift(x, x1)
+                }
+            }
+
+            "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
+                val sourceCochain = freePathSpace.context.run {
+                    y1 - y2
+                }
+                val zero = sphere.gAlgebra.getZero(sourceCochain.degree.value - 1)
+                shouldThrow<IllegalArgumentException> {
+                    projection.findLift(zero, sourceCochain)
+                }
+            }
+
+            "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
+                val targetCochain = sphere.context.run {
+                    2 * y
+                }
+                val sourceCocycle = freePathSpace.context.run {
+                    x1 * x2
+                }
+                shouldThrow<IllegalArgumentException> {
+                    projection.findLift(targetCochain, sourceCocycle)
                 }
             }
         }

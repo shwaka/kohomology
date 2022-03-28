@@ -92,6 +92,7 @@ recursive generics をやめて `*.context.run {}` と書くようにした理�
 - `Int.time(other: Vector)` のような extension method が書き易い．
   `context` 内では常に extension method が有効となるようにできるけど，他の方法だと一つ一つ `import` する必要があって面倒(だし，すぐに忘れる)．
 - (extension method の話と重複するけれど) `d(gVector)` みたいな略記を導入しやすい．
+- algebra の元に対する `a*b` を状況に応じて「通常の積」と「交換子による Lie bracket」で使い分けられる(けど，それは紛らわしいかも…？)
 
 #### Version of java
 native 向けにコンパイルしようとしたら，以下のエラーが出た．

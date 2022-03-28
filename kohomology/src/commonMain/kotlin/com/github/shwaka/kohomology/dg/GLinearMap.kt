@@ -48,6 +48,40 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
         return this.target.fromVector(newVector, newDegree)
     }
 
+    public operator fun plus(other: GLinearMap<D, BS, BT, S, V, M>): GLinearMap<D, BS, BT, S, V, M> {
+        require(this.source == other.source) { "GLinear maps with different sources cannot be added" }
+        require(this.target == other.target) { "GLinear maps with different targets cannot be added" }
+        require(this.degree == other.degree) { "GLinear maps with different degrees cannot be added" }
+        return GLinearMap(
+            source = this.source,
+            target = this.target,
+            degree = this.degree,
+            matrixSpace = this.matrixSpace,
+            name = "${this.name} + ${other.name}",
+        ) { degree -> this[degree] + other[degree] }
+    }
+
+    public operator fun <BR : BasisName> times(other: GLinearMap<D, BR, BS, S, V, M>): GLinearMap<D, BR, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot composite graded linear maps since the source of $this and the target of $other are different"
+        }
+        val compositionDegree = this.degreeGroup.context.run {
+            this@GLinearMap.degree + other.degree
+        }
+        return GLinearMap(
+            source = other.source,
+            target = this.target,
+            degree = compositionDegree,
+            matrixSpace = this.matrixSpace,
+            name = "${this.name} + ${other.name}",
+        ) { degree ->
+            val intermediateDegree = this.degreeGroup.context.run {
+                degree + other.degree
+            }
+            this[intermediateDegree] * other[degree]
+        }
+    }
+
     public operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists

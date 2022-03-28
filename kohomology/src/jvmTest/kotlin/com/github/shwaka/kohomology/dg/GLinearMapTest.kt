@@ -89,6 +89,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                     }
                 }
             }
+            "test addition of two GLinearMap's" {
+                val f = gLinearMap + gLinearMap
+                val (v0, v1) = gVectorSpace.getBasis(2)
+                val (w0, w1, w2) = gVectorSpace.getBasis(3)
+                f(v0) shouldBe (2 * w0 + 2 * w1)
+                f(v1) shouldBe (2 * w1 + 2 * w2)
+            }
+            "test composition of two GLinearMap's" {
+                val f = gLinearMap * gLinearMap
+                val (u0) = gVectorSpace.getBasis(1)
+                val (w0, w1, w2) = gVectorSpace.getBasis(3)
+                f(u0) shouldBe (w0 + 2 * w1 + w2)
+            }
         }
     }
 }

@@ -28,6 +28,33 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return this@LinearMap.target.fromNumVector(numVector)
     }
 
+    public operator fun plus(other: LinearMap<BS, BT, S, V, M>): LinearMap<BS, BT, S, V, M> {
+        require(this.source == other.source) { "Linear maps with different sources cannot be added" }
+        require(this.target == other.target) { "Linear maps with different targets cannot be added" }
+        return LinearMap(
+            this.matrixSpace,
+            this.source,
+            this.target,
+            this.matrixSpace.context.run {
+                this@LinearMap.matrix + other.matrix
+            }
+        )
+    }
+
+    public operator fun <BR : BasisName> times(other: LinearMap<BR, BS, S, V, M>): LinearMap<BR, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot composite linear maps since the source of $this and the target of $other are different"
+        }
+        return LinearMap(
+            this.matrixSpace,
+            other.source,
+            this.target,
+            this.matrixSpace.context.run {
+                this@LinearMap.matrix * other.matrix
+            }
+        )
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

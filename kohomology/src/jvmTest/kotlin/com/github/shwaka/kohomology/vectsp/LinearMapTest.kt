@@ -97,6 +97,48 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 f.isIdentity().shouldBeFalse()
                 f.isNotIdentity().shouldBeTrue()
             }
+            "test addition" {
+                val matrix1 = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(one, zero),
+                        listOf(-one, two),
+                    )
+                )
+                val matrix2 = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(-two, one),
+                        listOf(one, zero),
+                    )
+                )
+                val expectedMatrix = matrixSpace.context.run {
+                    matrix1 + matrix2
+                }
+                val f1 = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix1)
+                val f2 = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix2)
+                val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, expectedMatrix)
+                (f1 + f2) shouldBe expected
+            }
+            "test composition" {
+                val matrix1 = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(one, zero),
+                        listOf(-one, two),
+                    )
+                )
+                val matrix2 = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(-two, one),
+                        listOf(one, zero),
+                    )
+                )
+                val expectedMatrix = matrixSpace.context.run {
+                    matrix1 * matrix2
+                }
+                val f1 = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix1)
+                val f2 = LinearMap.fromMatrix(vectorSpace1, vectorSpace1, matrixSpace, matrix2)
+                val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, expectedMatrix)
+                (f1 * f2) shouldBe expected
+            }
         }
     }
 }

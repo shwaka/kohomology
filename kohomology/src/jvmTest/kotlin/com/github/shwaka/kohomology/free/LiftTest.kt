@@ -14,7 +14,9 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 
 val liftTag = NamedTag("Lift")
 
@@ -38,9 +40,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
 
             "should throw IllegalArgumentException when the argument is not a cocycle" {
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     projection.findCocycleLift(y) // y is not a cocycle
                 }
+                exception.message.shouldContain("not a cocycle")
             }
         }
 
@@ -57,9 +60,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
 
             "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     projection.findLift(x, x1)
                 }
+                exception.message.shouldContain("should be equal to deg(")
             }
 
             "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
@@ -67,9 +71,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     y1 - y2
                 }
                 val zero = sphere.gAlgebra.getZero(sourceCochain.degree.value - 1)
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     projection.findLift(zero, sourceCochain)
                 }
+                exception.message.shouldContain("not a cocycle")
             }
 
             "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
@@ -79,9 +84,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 val sourceCocycle = freePathSpace.context.run {
                     x1 * x2
                 }
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     projection.findLift(targetCochain, sourceCocycle)
                 }
+                exception.message.shouldContain("are not compatible")
+                exception.message.shouldContain("must be equal to d(")
             }
         }
     }
@@ -103,9 +110,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
         "findCocycleLift" - {
             "should throw UnsupportedOperationException since non-surjective" {
-                shouldThrow<UnsupportedOperationException> {
+                val exception = shouldThrow<UnsupportedOperationException> {
                     f.findCocycleLift(x1)
                 }
+                exception.message.shouldContain("is not surjective")
             }
         }
 
@@ -115,9 +123,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 val targetCochain = freePathSpace.context.run {
                     3 * y1 + y2 + 2 * x1 * sx
                 }
-                shouldThrow<UnsupportedOperationException> {
+                val exception = shouldThrow<UnsupportedOperationException> {
                     f.findLift(targetCochain, sourceCocycle)
                 }
+                exception.message.shouldContain("is not surjective")
             }
         }
 
@@ -136,9 +145,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
 
             "should throw IllegalArgumentException when the argument is not a cocycle" {
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     f.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
                 }
+                exception.message.shouldContain("not a cocycle")
             }
         }
 
@@ -162,9 +172,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
 
             "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     f.findLiftUpToHomotopy(x1, x)
                 }
+                exception.message.shouldContain("should be equal to deg(")
             }
 
             // There is no pair (targetCochain, sourceCochain) such that
@@ -176,9 +187,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 val targetCochain = freePathSpace.context.run {
                     3 * y1 + y2 + 2 * x1 * sx
                 }
-                shouldThrow<IllegalArgumentException> {
+                val exception = shouldThrow<IllegalArgumentException> {
                     f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
                 }
+                exception.message.shouldContain("are not compatible")
+                exception.message.shouldContain("must be equal to d(")
             }
         }
     }

@@ -38,6 +38,20 @@ public class SparseMatrix<S : Scalar>(
         return this.rowMap.isEmpty()
     }
 
+    override fun isIdentity(): Boolean {
+        return (this.rowCount == this.colCount) &&
+            (0 until this.rowCount).all { this.rowMap.containsKey(it) } &&
+            this.rowMap.all { (rowInd, row) ->
+                row.containsKey(rowInd) && row.all { (colInd, value) ->
+                    if (rowInd == colInd) {
+                        value == this.numVectorSpace.field.one
+                    } else {
+                        value.isZero()
+                    }
+                }
+            }
+    }
+
     private fun toStringTable(): StringTable {
         val valueList = (0 until this.rowCount).map { rowInd ->
             (0 until this.colCount).map { colInd ->

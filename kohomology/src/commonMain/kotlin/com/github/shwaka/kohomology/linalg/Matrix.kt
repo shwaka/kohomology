@@ -24,6 +24,8 @@ public interface Matrix<S : Scalar, V : NumVector<S>> {
 
     public fun isZero(): Boolean
     public fun isNotZero(): Boolean = !this.isZero()
+    public fun isIdentity(): Boolean
+    public fun isNotIdentity(): Boolean = !this.isIdentity()
 }
 
 public interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {

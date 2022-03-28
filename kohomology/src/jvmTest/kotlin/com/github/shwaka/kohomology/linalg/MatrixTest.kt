@@ -276,6 +276,46 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 mat.isZero().shouldBeTrue()
                 mat.isNotZero().shouldBeFalse()
             }
+            "((1, 0), (0, -1)).isIdentity() should be false" {
+                val mat = listOf(
+                    listOf(one, zero),
+                    listOf(zero, -one),
+                ).toMatrix()
+                mat.isIdentity().shouldBeFalse()
+                mat.isNotIdentity().shouldBeTrue()
+            }
+            "((1, 2), (0, 1)).isIdentity() should be false" {
+                val mat = listOf(
+                    listOf(one, two),
+                    listOf(zero, one),
+                ).toMatrix()
+                mat.isIdentity().shouldBeFalse()
+                mat.isNotIdentity().shouldBeTrue()
+            }
+            "((1, 0), (0, 0)).isIdentity() should be false" {
+                val mat = listOf(
+                    listOf(one, zero),
+                    listOf(zero, zero),
+                ).toMatrix()
+                mat.isIdentity().shouldBeFalse()
+                mat.isNotIdentity().shouldBeTrue()
+            }
+            "((1, 0, 0), (0, 1, 0)).isIdentity() should be false" {
+                val mat = listOf(
+                    listOf(one, zero, zero),
+                    listOf(zero, one, zero),
+                ).toMatrix()
+                mat.isIdentity().shouldBeFalse()
+                mat.isNotIdentity().shouldBeTrue()
+            }
+            "((1, 0), (0, 1)).isIdentity() should be true" {
+                val mat = listOf(
+                    listOf(one, zero),
+                    listOf(zero, one),
+                ).toMatrix()
+                mat.isIdentity().shouldBeTrue()
+                mat.isNotIdentity().shouldBeFalse()
+            }
             "toString and toPrettyString should not throw for square matrix of rank 2" {
                 shouldNotThrowAny {
                     m.toString()

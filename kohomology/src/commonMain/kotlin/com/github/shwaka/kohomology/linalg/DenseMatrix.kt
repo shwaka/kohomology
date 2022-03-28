@@ -41,6 +41,19 @@ public data class DenseMatrix<S : Scalar>(
     override fun isZero(): Boolean {
         return this.rowList.all { row -> row.all { it.isZero() } }
     }
+
+    override fun isIdentity(): Boolean {
+        return (this.rowCount == this.colCount) &&
+            this.rowList.withIndex().all { (rowInd, row) ->
+                row.withIndex().all { (colInd, value) ->
+                    if (rowInd == colInd) {
+                        value == this.numVectorSpace.field.one
+                    } else {
+                        value.isZero()
+                    }
+                }
+            }
+    }
 }
 
 public class DenseMatrixSpace<S : Scalar> private constructor(

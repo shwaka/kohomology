@@ -141,9 +141,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
         "findCocycleLiftUpToHomotopy" - {
             "should return a homotopy lift of a cocycle" {
-                val liftWithHomotopy = f.findCocycleLiftUpToHomotopy(x1)
-                val lift = liftWithHomotopy.lift
-                val boundingCochain = liftWithHomotopy.boundingCochain
+                val liftWithBoundingCochain = f.findCocycleLiftUpToHomotopy(x1)
+                val lift = liftWithBoundingCochain.lift
+                val boundingCochain = liftWithBoundingCochain.boundingCochain
                 sphere.context.run {
                     d(lift).isZero().shouldBeTrue()
                 }
@@ -167,9 +167,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 val targetCochain = freePathSpace.context.run {
                     3 * y1 + y2 + 2 * x1 * sx
                 }
-                val liftWithHomotopy = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
-                val lift = liftWithHomotopy.lift
-                val boundingCochain = liftWithHomotopy.boundingCochain
+                val liftWithBoundingCochain = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                val lift = liftWithBoundingCochain.lift
+                val boundingCochain = liftWithBoundingCochain.boundingCochain
                 sphere.context.run {
                     d(lift) shouldBe sourceCocycle
                 }

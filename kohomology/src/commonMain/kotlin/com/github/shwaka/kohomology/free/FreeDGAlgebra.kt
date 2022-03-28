@@ -270,13 +270,13 @@ public open class FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
                 underlyingMap(vi) + currentHomotopy(x)
             }
             val sourceCocycle = currentLift(this.differential(vi))
-            val liftWithHomotopy = quasiIsomorphism.findLiftUpToHomotopy(
+            val liftWithBoundingCochain = quasiIsomorphism.findLiftUpToHomotopy(
                 targetCochain = targetCochain,
                 sourceCocycle = sourceCocycle,
             )
-            liftValueList[i] = liftWithHomotopy.lift
-            homotopyValueList[n + i] = quasiIsomorphism(liftWithHomotopy.lift)
-            homotopyValueList[2 * n + i] = liftWithHomotopy.boundingCochain
+            liftValueList[i] = liftWithBoundingCochain.lift
+            homotopyValueList[n + i] = quasiIsomorphism(liftWithBoundingCochain.lift)
+            homotopyValueList[2 * n + i] = liftWithBoundingCochain.boundingCochain
         }
         val lift = this.getDGAlgebraMap(liftTarget, liftValueList)
         val homotopy = freePathSpace.getDGAlgebraMap(homotopyTarget, homotopyValueList)

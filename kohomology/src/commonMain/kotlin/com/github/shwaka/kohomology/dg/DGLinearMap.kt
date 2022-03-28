@@ -103,7 +103,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         }
     }
 
-    public data class LiftWithHomotopy<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>>(
+    public data class LiftWithBoundingCochain<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>>(
         val lift: GVector<D, BS, S, V>,
         val boundingCochain: GVector<D, BT, S, V>,
     )
@@ -114,7 +114,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
      * Given f: A→B and b=[targetCocycle]∈B satisfying d(b)=0.
      * Then this method returns a∈A and b'∈B such that d(a)=0 and f(a)-b=d(b').
      */
-    public fun findCocycleLiftUpToHomotopy(targetCocycle: GVector<D, BT, S, V>): LiftWithHomotopy<D, BS, BT, S, V> {
+    public fun findCocycleLiftUpToHomotopy(targetCocycle: GVector<D, BT, S, V>): LiftWithBoundingCochain<D, BS, BT, S, V> {
         val degree = targetCocycle.degree
         require(this.target.differential(targetCocycle).isZero()) { "$targetCocycle is not a cocycle" }
         val targetClass = this.target.cohomologyClassOf(targetCocycle)
@@ -126,7 +126,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         }
         val targetDifference = this.target.differential.findPreimage(coboundary)
             ?: throw Exception("This can't happen!")
-        return LiftWithHomotopy(sourceCocycle, targetDifference)
+        return LiftWithBoundingCochain(sourceCocycle, targetDifference)
     }
 
     /**
@@ -135,7 +135,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
      * Given f: A→B, a=[sourceCocycle]∈A and b=[targetCochain]∈B satisfying f(a)=d(b).
      * Then this method returns a'∈A and b'∈B such that d(a')=a and f(a')-b=d(b').
      */
-    public fun findLiftUpToHomotopy(targetCochain: GVector<D, BT, S, V>, sourceCocycle: GVector<D, BS, S, V>): LiftWithHomotopy<D, BS, BT, S, V> {
+    public fun findLiftUpToHomotopy(targetCochain: GVector<D, BT, S, V>, sourceCocycle: GVector<D, BS, S, V>): LiftWithBoundingCochain<D, BS, BT, S, V> {
         require(sourceCocycle.degree == this.gLinearMap.degreeGroup.context.run { targetCochain.degree + 1 }) {
             "deg($sourceCocycle) should be equal to deg($targetCochain) + 1"
         }
@@ -151,7 +151,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
             targetCochain - this@DGLinearMap.gLinearMap(sourceCochain)
         }
         val (lift, boundingCochain) = this.findCocycleLiftUpToHomotopy(targetCocycle)
-        return LiftWithHomotopy(
+        return LiftWithBoundingCochain(
             this.source.context.run { sourceCochain + lift },
             boundingCochain,
         )

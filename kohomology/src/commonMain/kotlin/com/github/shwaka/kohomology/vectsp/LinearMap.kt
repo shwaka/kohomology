@@ -50,6 +50,14 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return this.matrix.isZero()
     }
 
+    public fun isNotZero(): Boolean = !this.isZero()
+
+    public fun isIdentity(): Boolean {
+        return this.matrix.isIdentity()
+    }
+
+    public fun isNotIdentity(): Boolean = !this.isIdentity()
+
     override fun hashCode(): Int {
         var result = source.hashCode()
         result = 31 * result + target.hashCode()

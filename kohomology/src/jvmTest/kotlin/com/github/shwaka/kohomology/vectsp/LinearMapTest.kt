@@ -68,6 +68,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
             "(zero map).isZero() should be true" {
                 val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
                 f.isZero().shouldBeTrue()
+                f.isNotZero().shouldBeFalse()
             }
             "(non-zero map).isZero() should be false" {
                 val matrix = matrixSpace.fromRowList(
@@ -78,6 +79,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 )
                 val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
                 f.isZero().shouldBeFalse()
+                f.isNotZero().shouldBeTrue()
+            }
+            "(identity map).isIdentity() should be true" {
+                val f = LinearMap.getId(vectorSpace1, matrixSpace)
+                f.isIdentity().shouldBeTrue()
+                f.isNotIdentity().shouldBeFalse()
+            }
+            "(non-identity map).isNotIdentity() should be false" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(one, one),
+                        listOf(zero, one),
+                    )
+                )
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                f.isIdentity().shouldBeFalse()
+                f.isNotIdentity().shouldBeTrue()
             }
         }
     }

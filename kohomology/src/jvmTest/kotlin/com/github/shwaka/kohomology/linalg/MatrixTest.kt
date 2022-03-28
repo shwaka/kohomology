@@ -276,17 +276,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 mat.isZero().shouldBeTrue()
                 mat.isNotZero().shouldBeFalse()
             }
-            "((1, 0), (0, -1)).isIdentity() should be false" {
+            "((1, 0), (0, two)).isIdentity() should be false" {
                 val mat = listOf(
                     listOf(one, zero),
-                    listOf(zero, -one),
+                    listOf(zero, two),
                 ).toMatrix()
                 mat.isIdentity().shouldBeFalse()
                 mat.isNotIdentity().shouldBeTrue()
             }
-            "((1, 2), (0, 1)).isIdentity() should be false" {
+            "((1, 1), (0, 1)).isIdentity() should be false" {
                 val mat = listOf(
-                    listOf(one, two),
+                    listOf(one, one),
                     listOf(zero, one),
                 ).toMatrix()
                 mat.isIdentity().shouldBeFalse()

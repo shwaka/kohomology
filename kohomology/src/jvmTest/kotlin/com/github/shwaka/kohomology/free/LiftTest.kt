@@ -20,7 +20,7 @@ import io.kotest.matchers.string.shouldContain
 val liftTag = NamedTag("Lift")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "test a surjective quasi-isomorphism" - {
+    "test with a surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
         val sphere = sphere(matrixSpace, sphereDim)
@@ -29,7 +29,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val (x, y) = sphere.gAlgebra.generatorList
         val (x1, y1, x2, y2, _, _) = freePathSpace.gAlgebra.generatorList
 
-        "test for DGLinearMap" - {
+        "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
                 "should return a lift of a cocycle" {
                     val lift = projection.findCocycleLift(x)
@@ -105,21 +105,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
     }
 
     "test with a non-surjective quasi-isomorphism" - {
-        "test for DGLinearMap" - {
-            val sphereDim = 4
-            check(sphereDim % 2 == 0)
-            val sphere = sphere(matrixSpace, sphereDim)
-            val target = FreePathSpace(sphere)
-            val (x, _) = sphere.gAlgebra.generatorList
-            val (x1, y1, x2, y2, sx, _) = target.gAlgebra.generatorList
-            val f = target.context.run {
-                val valueList = listOf(
-                    x1 + x2,
-                    2 * (y1 + y2) - (x2 - x1) * sx
-                )
-                sphere.getDGAlgebraMap(target, valueList)
-            }
+        val sphereDim = 4
+        check(sphereDim % 2 == 0)
+        val sphere = sphere(matrixSpace, sphereDim)
+        val target = FreePathSpace(sphere)
+        val (x, _) = sphere.gAlgebra.generatorList
+        val (x1, y1, x2, y2, sx, _) = target.gAlgebra.generatorList
+        val f = target.context.run {
+            val valueList = listOf(
+                x1 + x2,
+                2 * (y1 + y2) - (x2 - x1) * sx
+            )
+            sphere.getDGAlgebraMap(target, valueList)
+        }
 
+        "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
                 "should throw UnsupportedOperationException since non-surjective" {
                     val exception = shouldThrow<UnsupportedOperationException> {
@@ -206,23 +206,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     exception.message.shouldContain("must be equal to d(")
                 }
             }
+        }
 
-            "test for FreeDGAlgebra" - {
-                "findSectionUpToHomotopy" - {
-                    "should return a homotopy lift" {
-                        val liftWithHomotopy = target.findSectionUpToHomotopy(f)
-                        val section = liftWithHomotopy.lift
-                        val freePathSpace = liftWithHomotopy.freePathSpace
-                        for (degree in 0..(2 * sphereDim)) {
-                            (f * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
-                        }
-                        val homotopy = liftWithHomotopy.homotopy
-                        val inclusion1 = freePathSpace.inclusion1
-                        val inclusion2 = freePathSpace.inclusion2
-                        for (v in target.gAlgebra.generatorList) {
-                            homotopy(inclusion1(v)) shouldBe v
-                            homotopy(inclusion2(v)) shouldBe f(section(v))
-                        }
+        "lift DGAlgebraMap from FreeDGAlgebra" - {
+            "findSectionUpToHomotopy" - {
+                "should return a homotopy lift" {
+                    val liftWithHomotopy = target.findSectionUpToHomotopy(f)
+                    val section = liftWithHomotopy.lift
+                    val freePathSpace = liftWithHomotopy.freePathSpace
+                    for (degree in 0..(2 * sphereDim)) {
+                        (f * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
+                    }
+                    val homotopy = liftWithHomotopy.homotopy
+                    val inclusion1 = freePathSpace.inclusion1
+                    val inclusion2 = freePathSpace.inclusion2
+                    for (v in target.gAlgebra.generatorList) {
+                        homotopy(inclusion1(v)) shouldBe v
+                        homotopy(inclusion2(v)) shouldBe f(section(v))
                     }
                 }
             }

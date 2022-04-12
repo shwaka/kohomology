@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -272,6 +273,65 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         homotopy(inclusion1(v)) shouldBe v
                         homotopy(inclusion2(v)) shouldBe quasiIsomorphism(section(v))
                     }
+                }
+            }
+        }
+    }
+
+    "test with a surjective quasi-injection" - {
+        val n = 4
+        check(n % 2 == 0)
+        val source = run {
+            val indeterminateList = listOf(
+                Indeterminate("dt", n + 1),
+                Indeterminate("t", n),
+                Indeterminate("du", 2 * n),
+                Indeterminate("u", 2 * n - 1),
+                Indeterminate("dv", 2 * n),
+                Indeterminate("v", 2 * n - 1),
+            )
+            FreeDGAlgebra(matrixSpace, indeterminateList) { (dt, _, du, _, dv, _) ->
+                listOf(zeroGVector, dt, zeroGVector, du, zeroGVector, dv)
+            }
+        }
+        val (dt, t, du, u, dv, v) = source.gAlgebra.generatorList
+        val target = run {
+            val indeterminateList = listOf(
+                Indeterminate("x", n),
+                Indeterminate("y", 2 * n - 1),
+                Indeterminate("z", 2 * n - 1),
+            )
+            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _, _) ->
+                listOf(zeroGVector, x.pow(2), zeroGVector)
+            }
+        }
+        val (x, y, z) = target.gAlgebra.generatorList
+        val quasiInjection = target.context.run {
+            val valueList = listOf(zeroGVector, x, x.pow(2), y, zeroGVector, z)
+            source.getDGAlgebraMap(target, valueList)
+        }
+
+        "lift DGVector along DGLinearMap" - {
+            "findCocycleLift" - {
+                "should throw UnsupportedOperationException" {
+                    val exception = shouldThrow<UnsupportedOperationException> {
+                        quasiInjection.findCocycleLift(x)
+                    }
+                    exception.message.shouldContain("H^")
+                    exception.message.shouldContain("is not surjective")
+                }
+            }
+
+            "findLift" - {
+                "should throw" {
+                    val targetCochain = target.context.run {
+                        y + z
+                    }
+                    val exception = shouldThrow<UnsupportedOperationException> {
+                        quasiInjection.findLift(targetCochain, du)
+                    }
+                    exception.message.shouldContain("H^")
+                    exception.message.shouldContain("is not surjective")
                 }
             }
         }

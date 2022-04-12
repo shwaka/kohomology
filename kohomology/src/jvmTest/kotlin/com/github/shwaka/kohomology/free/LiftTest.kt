@@ -323,7 +323,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             }
 
             "findLift" - {
-                "should throw" {
+                "should throw UnsupportedOperationException" {
                     val targetCochain = target.context.run {
                         y + z
                     }
@@ -332,6 +332,43 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     }
                     exception.message.shouldContain("H^")
                     exception.message.shouldContain("is not surjective")
+                }
+            }
+        }
+    }
+
+    "test with a surjective quasi-surjection" - {
+        val n = 4
+        check(n % 2 == 0)
+        val source = run {
+            val indeterminateList = listOf(
+                Indeterminate("t", n),
+                Indeterminate("u", 2 * n - 1),
+                Indeterminate("v", 2 * n),
+            )
+            FreeDGAlgebra(matrixSpace, indeterminateList) { (t, _, _) ->
+                listOf(zeroGVector, t.pow(2), zeroGVector)
+            }
+        }
+        val (t, u, v) = source.gAlgebra.generatorList
+        val target = sphere(matrixSpace, n)
+        val (x, y) = target.gAlgebra.generatorList
+        val quasiSurjection = target.context.run {
+            val valueList = listOf(x, y, zeroGVector)
+            source.getDGAlgebraMap(target, valueList)
+        }
+
+        "lift DGVector along DGLinearMap" - {
+            "findLift" - {
+                "should throw UnsupportedOperationException" {
+                    val exception = shouldThrow<UnsupportedOperationException> {
+                        val sourceCocycle = source.context.run {
+                            t.pow(2) + v
+                        }
+                        quasiSurjection.findLift(y, sourceCocycle)
+                    }
+                    exception.message.shouldContain("H^")
+                    exception.message.shouldContain("is not injective")
                 }
             }
         }

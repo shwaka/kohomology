@@ -90,9 +90,13 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
             this@DGLinearMap.gLinearMap(sourceCocycle) - targetCocycle
         }
         val targetDifference = this.target.differential.findPreimage(coboundary)
-            ?: throw Exception("This can't happen!")
+            ?: throw Exception(
+                "This can't happen since the element is the difference of two cocycles with the same cohomology class"
+            )
         val sourceDifference = this.gLinearMap.findPreimage(targetDifference)
-            ?: throw UnsupportedOperationException("$this[${this.gLinearMap.degreeGroup.context.run { degree - 1 }}] is not surjective")
+            ?: throw UnsupportedOperationException(
+                "$this[${this.gLinearMap.degreeGroup.context.run { degree - 1 }}] is not surjective"
+            )
         return this.source.context.run {
             sourceCocycle - d(sourceDifference)
         }
@@ -115,7 +119,9 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
             "$sourceCocycle and $targetCochain are not compatible: the image of $sourceCocycle must be equal to d($targetCochain)"
         }
         val sourceCochain = this.source.differential.findPreimage(sourceCocycle)
-            ?: throw Exception("This can't happen!")
+            ?: throw UnsupportedOperationException(
+                "H^${sourceCocycle.degree}($this) is not injective"
+            )
         val targetCocycle = this.target.context.run {
             targetCochain - this@DGLinearMap.gLinearMap(sourceCochain)
         }

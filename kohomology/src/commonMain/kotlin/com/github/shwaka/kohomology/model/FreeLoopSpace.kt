@@ -87,6 +87,13 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
     public val shiftDegree: D = factory.shiftDegree
     public val baseSpace: FreeDGAlgebra<D, I, S, V, M> = factory.freeDGAlgebra
 
+    public fun getDegree(totalDegree: Int, shiftLength: Int): D {
+        val shiftDegree = this.shiftDegree
+        return this.degreeGroup.context.run {
+            totalDegree - shiftLength * (shiftDegree - 1)
+        }
+    }
+
     public companion object {
         private const val degreeIndeterminateName: String = "S"
         public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(

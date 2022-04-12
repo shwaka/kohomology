@@ -104,6 +104,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 val shiftDegree: Int = freeLoopSpace.shiftDegree.value
                 shiftDegree shouldBe 1
             }
+            "check freeLoopSpace.getDegree" {
+                freeLoopSpace.getDegree(sphereDim, 0) shouldBe x.degree
+                freeLoopSpace.getDegree(2 * sphereDim - 1, 0) shouldBe y.degree
+                freeLoopSpace.getDegree(sphereDim - 1, 1) shouldBe sx.degree
+                freeLoopSpace.getDegree(2 * sphereDim - 2, 1) shouldBe sy.degree
+            }
             "freeLoopSpace.baseSpace should be the same as the original freeDGAlgebra" {
                 freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
@@ -186,8 +192,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
         freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 3), 20)
 
         "printer test for FreeLoopSpace.withShiftDegree(sphere)" - {
-            val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere(matrixSpace, 2))
-            val (_, _, sx, _) = freeLoopSpace.gAlgebra.generatorList
+            val sphereDim = 2
+            val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere(matrixSpace, sphereDim))
+            val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+
+            "check freeLoopSpace.getDegree" {
+                freeLoopSpace.getDegree(sphereDim, 0) shouldBe x.degree
+                freeLoopSpace.getDegree(2 * sphereDim - 1, 0) shouldBe y.degree
+                freeLoopSpace.getDegree(sphereDim - 1, 1) shouldBe sx.degree
+                freeLoopSpace.getDegree(2 * sphereDim - 2, 1) shouldBe sy.degree
+            }
 
             "plain printer test for FreeLoopSpace.withShiftDegree" - {
                 "with toString()" {

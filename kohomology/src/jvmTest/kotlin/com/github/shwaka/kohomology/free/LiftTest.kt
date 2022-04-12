@@ -25,18 +25,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
     "test with a surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
-        val source = sphere(matrixSpace, sphereDim)
-        val target = FreePathSpace(source)
-        val surjectiveQuasiIsomorphism = target.projection
-        val (x, y) = source.gAlgebra.generatorList
-        val (x1, y1, x2, y2, _, _) = target.gAlgebra.generatorList
+        val target = sphere(matrixSpace, sphereDim)
+        val source = FreePathSpace(target)
+        val surjectiveQuasiIsomorphism = source.projection
+        val (x, y) = target.gAlgebra.generatorList
+        val (x1, y1, x2, y2, _, _) = source.gAlgebra.generatorList
 
         "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
                 "should return a lift of a cocycle" {
                     val lift = surjectiveQuasiIsomorphism.findCocycleLift(x)
                     surjectiveQuasiIsomorphism(lift) shouldBe x
-                    target.context.run {
+                    source.context.run {
                         d(lift).isZero().shouldBeTrue()
                     }
                 }
@@ -51,12 +51,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "findLift" - {
                 "should return a lift of a cochain when the argument is valid" {
-                    val sourceCocycle = target.context.run {
+                    val sourceCocycle = source.context.run {
                         x1 * x2
                     }
                     val lift = surjectiveQuasiIsomorphism.findLift(y, sourceCocycle)
                     surjectiveQuasiIsomorphism(lift) shouldBe y
-                    target.context.run {
+                    source.context.run {
                         d(lift) shouldBe sourceCocycle
                     }
                 }
@@ -69,10 +69,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 }
 
                 "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
-                    val sourceCochain = target.context.run {
+                    val sourceCochain = source.context.run {
                         y1 - y2
                     }
-                    val zero = source.gAlgebra.getZero(sourceCochain.degree.value - 1)
+                    val zero = target.gAlgebra.getZero(sourceCochain.degree.value - 1)
                     val exception = shouldThrow<IllegalArgumentException> {
                         surjectiveQuasiIsomorphism.findLift(zero, sourceCochain)
                     }
@@ -80,10 +80,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 }
 
                 "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
-                    val targetCochain = source.context.run {
+                    val targetCochain = target.context.run {
                         2 * y
                     }
-                    val sourceCocycle = target.context.run {
+                    val sourceCocycle = source.context.run {
                         x1 * x2
                     }
                     val exception = shouldThrow<IllegalArgumentException> {
@@ -108,20 +108,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         "lift DGAlgebraMap from FreeDGAlgebra" - {
             "findLift" - {
                 "should return a lift" {
-                    val underlyingMap = source.context.run {
+                    val underlyingMap = target.context.run {
                         val valueList = listOf(2 * x, 4 * y)
-                        source.getDGAlgebraMap(source, valueList)
+                        target.getDGAlgebraMap(target, valueList)
                     }
-                    val lift = source.findLift(underlyingMap, surjectiveQuasiIsomorphism)
-                    source.gAlgebra.generatorList.forAll { v ->
+                    val lift = target.findLift(underlyingMap, surjectiveQuasiIsomorphism)
+                    target.gAlgebra.generatorList.forAll { v ->
                         (surjectiveQuasiIsomorphism * lift)(v) shouldBe underlyingMap(v)
                     }
                 }
             }
             "findSection" - {
                 "should return a lift" {
-                    val section = source.findSection(surjectiveQuasiIsomorphism)
-                    source.gAlgebra.generatorList.forAll { v ->
+                    val section = target.findSection(surjectiveQuasiIsomorphism)
+                    target.gAlgebra.generatorList.forAll { v ->
                         (surjectiveQuasiIsomorphism * section)(v) shouldBe v
                     }
                 }

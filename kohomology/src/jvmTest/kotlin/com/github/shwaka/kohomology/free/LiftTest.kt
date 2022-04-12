@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.example.sphere
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -13,6 +14,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
@@ -99,6 +101,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         projection.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
                     }
                     exception.message.shouldContain("not a cocycle")
+                }
+            }
+        }
+
+        "lift DGAlgebraMap from FreeDGAlgebra" - {
+            "findSection" - {
+                "should return a lift" {
+                    val section = sphere.findSection(projection)
+                    (0..(2 * sphereDim)).forAll { degree ->
+                        (projection * section).gLinearMap[degree].isIdentity().shouldBeTrue()
+                    }
+                    listOf(x, y).forAll { v ->
+                        (projection * section)(v) shouldBe v
+                    }
                 }
             }
         }

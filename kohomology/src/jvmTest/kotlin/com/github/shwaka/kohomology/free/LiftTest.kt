@@ -25,18 +25,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
     "test with a surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
-        val sphere = sphere(matrixSpace, sphereDim)
-        val freePathSpace = FreePathSpace(sphere)
-        val projection = freePathSpace.projection
-        val (x, y) = sphere.gAlgebra.generatorList
-        val (x1, y1, x2, y2, _, _) = freePathSpace.gAlgebra.generatorList
+        val source = sphere(matrixSpace, sphereDim)
+        val target = FreePathSpace(source)
+        val projection = target.projection
+        val (x, y) = source.gAlgebra.generatorList
+        val (x1, y1, x2, y2, _, _) = target.gAlgebra.generatorList
 
         "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
                 "should return a lift of a cocycle" {
                     val lift = projection.findCocycleLift(x)
                     projection(lift) shouldBe x
-                    freePathSpace.context.run {
+                    target.context.run {
                         d(lift).isZero().shouldBeTrue()
                     }
                 }
@@ -51,12 +51,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "findLift" - {
                 "should return a lift of a cochain when the argument is valid" {
-                    val sourceCocycle = freePathSpace.context.run {
+                    val sourceCocycle = target.context.run {
                         x1 * x2
                     }
                     val lift = projection.findLift(y, sourceCocycle)
                     projection(lift) shouldBe y
-                    freePathSpace.context.run {
+                    target.context.run {
                         d(lift) shouldBe sourceCocycle
                     }
                 }
@@ -69,10 +69,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 }
 
                 "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
-                    val sourceCochain = freePathSpace.context.run {
+                    val sourceCochain = target.context.run {
                         y1 - y2
                     }
-                    val zero = sphere.gAlgebra.getZero(sourceCochain.degree.value - 1)
+                    val zero = source.gAlgebra.getZero(sourceCochain.degree.value - 1)
                     val exception = shouldThrow<IllegalArgumentException> {
                         projection.findLift(zero, sourceCochain)
                     }
@@ -80,10 +80,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 }
 
                 "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
-                    val targetCochain = sphere.context.run {
+                    val targetCochain = source.context.run {
                         2 * y
                     }
-                    val sourceCocycle = freePathSpace.context.run {
+                    val sourceCocycle = target.context.run {
                         x1 * x2
                     }
                     val exception = shouldThrow<IllegalArgumentException> {
@@ -108,11 +108,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         "lift DGAlgebraMap from FreeDGAlgebra" - {
             "findSection" - {
                 "should return a lift" {
-                    val section = sphere.findSection(projection)
+                    val section = source.findSection(projection)
                     (0..(2 * sphereDim)).forAll { degree ->
                         (projection * section).gLinearMap[degree].isIdentity().shouldBeTrue()
                     }
-                    listOf(x, y).forAll { v ->
+                    source.gAlgebra.generatorList.forAll { v ->
                         (projection * section)(v) shouldBe v
                     }
                 }
@@ -123,16 +123,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
     "test with a non-surjective quasi-isomorphism" - {
         val sphereDim = 4
         check(sphereDim % 2 == 0)
-        val sphere = sphere(matrixSpace, sphereDim)
-        val target = FreePathSpace(sphere)
-        val (x, _) = sphere.gAlgebra.generatorList
+        val source = sphere(matrixSpace, sphereDim)
+        val target = FreePathSpace(source)
+        val (x, _) = source.gAlgebra.generatorList
         val (x1, y1, x2, y2, sx, _) = target.gAlgebra.generatorList
         val f = target.context.run {
             val valueList = listOf(
                 x1 + x2,
                 2 * (y1 + y2) - (x2 - x1) * sx
             )
-            sphere.getDGAlgebraMap(target, valueList)
+            source.getDGAlgebraMap(target, valueList)
         }
 
         "lift DGVector along DGLinearMap" - {
@@ -147,7 +147,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "findLift" - {
                 "should throw UnsupportedOperationException since non-surjective" {
-                    val sourceCocycle = sphere.context.run { x.pow(2) }
+                    val sourceCocycle = source.context.run { x.pow(2) }
                     val targetCochain = target.context.run {
                         3 * y1 + y2 + 2 * x1 * sx
                     }
@@ -163,7 +163,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val liftWithBoundingCochain = f.findCocycleLiftUpToHomotopy(x1)
                     val lift = liftWithBoundingCochain.lift
                     val boundingCochain = liftWithBoundingCochain.boundingCochain
-                    sphere.context.run {
+                    source.context.run {
                         d(lift).isZero().shouldBeTrue()
                     }
                     target.context.run {
@@ -182,14 +182,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "findLiftUpToHomotopy" - {
                 "should return a homotopy lift of a cochain when the argument is valid" {
-                    val sourceCocycle = sphere.context.run { x.pow(2) }
+                    val sourceCocycle = source.context.run { x.pow(2) }
                     val targetCochain = target.context.run {
                         3 * y1 + y2 + 2 * x1 * sx
                     }
                     val liftWithBoundingCochain = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
                     val lift = liftWithBoundingCochain.lift
                     val boundingCochain = liftWithBoundingCochain.boundingCochain
-                    sphere.context.run {
+                    source.context.run {
                         d(lift) shouldBe sourceCocycle
                     }
                     target.context.run {
@@ -211,7 +211,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 // "should throw IllegalArgumentException when sourceCocycle is not a cocycle" { }
 
                 "should throw IllegalArgumentException when the condition f(sourceCocycle)=d(targetCochain) is not satisfied" {
-                    val sourceCocycle = sphere.context.run { 2 * x.pow(2) }
+                    val sourceCocycle = source.context.run { 2 * x.pow(2) }
                     val targetCochain = target.context.run {
                         3 * y1 + y2 + 2 * x1 * sx
                     }

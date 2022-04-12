@@ -123,3 +123,15 @@ katex の設定で `{ output: "html" }` とすることでこの要素の出力�
 ### ライブラリ本体と同一リポジトリに置いた理由
 - `kohomology-js` は `kohomology` の SNAPSHOT 版を用いている
 - benchmark 結果も website に載せる
+
+### MyCodeBlock について
+当初は(行儀が良くないとは認識しながら)
+docusaurus の `CodeBlock` のソースコードをコピペして編集していたけど，
+2022/4/13 に以下の理由でやめた．
+
+docusaurus を `2.0.0-beta.9` から `2.0.0-beta.18` にアプデした際に問題が起きた．
+`@docusaurus/theme-classic/src/theme/CodeBlock/index.tsx` をそのまま `MyCodeBlock.tsx` にコピペしても，
+何故か kotlin のシンタックスハイライトが働かないという現象に遭遇．
+原因はよく分からないけど，
+kotlin が prism-react-renderer にビルトインで入っていないのが関係しているかも…？
+(`docusaurus.config.js` で `additionalLanguages` として追加している)

@@ -25,6 +25,7 @@ function update_build_gradle_kts() {
 
     echo sed -i s/"$VERSION_REGEX"/"version = \"$version\""/ $BUILD_GRADLE_KTS
     sed -i s/"$VERSION_REGEX"/"version = \"$version\""/ $BUILD_GRADLE_KTS
+    git add $BUILD_GRADLE_KTS
 }
 
 function update_implementation() {
@@ -32,6 +33,7 @@ function update_implementation() {
     local file=$2
     echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
     sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
+    git add $file
 }
 
 function setup_java() {
@@ -48,12 +50,10 @@ function release_version() {
 
     update_build_gradle_kts "$version"
     update_implementation "$version" $README_MD
-    git add $BUILD_GRADLE_KTS $README_MD
 
     for d in sample; do
         local kts=$d/build.gradle.kts
         update_implementation $version $kts
-        git add $kts
     done
 
     if ! select_yn "Do you want to git-commit? (y/n)"; then
@@ -73,11 +73,9 @@ function bump_snapshot_version() {
     local snapshot_version=$1-SNAPSHOT
 
     update_build_gradle_kts "$snapshot_version"
-    git add $BUILD_GRADLE_KTS
     for d in profile website/kohomology-js; do
         local kts=$d/build.gradle.kts
         update_implementation $snapshot_version $kts
-        git add $kts
     done
 
     if ! select_yn "Do you want to git-commit? (y/n)"; then

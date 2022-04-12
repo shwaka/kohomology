@@ -20,7 +20,7 @@ const files: Map<string, string> = new Map(
 )
 
 type ImportKotlinProps = {
-  path: string;
+  path: string
   restrict?: string | true; // "key" conflicts with react
 }
 

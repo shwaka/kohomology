@@ -9,10 +9,10 @@ import React from "react"
 import styles from "./HomepageFeatures.module.css"
 
 type FeatureItem = {
-  title: string;
-  image: string;
-  description: JSX.Element;
-};
+  title: string
+  image: string
+  description: JSX.Element
+}
 
 const FeatureList: FeatureItem[] = [
   {

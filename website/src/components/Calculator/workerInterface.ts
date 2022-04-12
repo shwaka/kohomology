@@ -8,18 +8,18 @@ export const inputCommands = ["updateJson", "computeCohomology", "dgaInfo", "com
 export type InputCommand = (typeof inputCommands)[number]
 
 type UpdateJsonCommand = {
-  command: "updateJson",
-  json: string,
+  command: "updateJson"
+  json: string
 }
 type ComputeCohomologyComamnd = {
-  command: "computeCohomology",
-  targetName: TargetName,
-  maxDegree: number,
+  command: "computeCohomology"
+  targetName: TargetName
+  maxDegree: number
 }
 type ComputeCohomologyClassCommand = {
-  command: "computeCohomologyClass",
-  targetName: TargetName,
-  cocycleString: string,
+  command: "computeCohomologyClass"
+  targetName: TargetName
+  cocycleString: string
 }
 type NoArgCommand = {
   command: "dgaInfo"
@@ -32,6 +32,6 @@ export const outputCommands = ["printMessages", "showDgaInfo"] as const
 export type OutputCommand = (typeof outputCommands)[number]
 
 export type WorkerOutput = {
-  command: OutputCommand,
-  messages: StyledMessage[],
+  command: OutputCommand
+  messages: StyledMessage[]
 }

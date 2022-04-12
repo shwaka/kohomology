@@ -31,12 +31,12 @@ import styles from "./styles.module.css"
 const HighlightLinesRangeRegex = /{([\d,-]+)}/
 
 const HighlightLanguages = ["js", "jsBlock", "jsx", "python", "html"] as const
-type HighlightLanguage = typeof HighlightLanguages[number];
+type HighlightLanguage = typeof HighlightLanguages[number]
 
 type HighlightLanguageConfig = {
-  start: string;
-  end: string;
-};
+  start: string
+  end: string
+}
 
 // Supported types of highlight comments
 const HighlightComments: Record<HighlightLanguage, HighlightLanguageConfig> = {
@@ -109,7 +109,7 @@ const highlightDirectiveRegex = (lang: string): RegExp => {
   }
 }
 
-type MyCodeBlockProps = { href?: string, linkTitle?: string } & Props;
+type MyCodeBlockProps = { href?: string, linkTitle?: string } & Props
 
 export default function MyCodeBlock({
   children,

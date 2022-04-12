@@ -65,7 +65,7 @@ function release_version() {
         return
     fi
     git commit -m "Release v$version"
-    git tag "v$version"
+    git tag -a "v$version" -m "Version $version"
 
     read -p "Do you want to publish? (y/n)" answer
     if [ "$answer" = n ]; then return; fi

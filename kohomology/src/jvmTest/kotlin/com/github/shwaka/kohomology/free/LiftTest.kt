@@ -106,12 +106,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         }
 
         "lift DGAlgebraMap from FreeDGAlgebra" - {
+            "findLift" - {
+                "should return a lift" {
+                    val underlyingMap = source.context.run {
+                        val valueList = listOf(2 * x, 4 * y)
+                        source.getDGAlgebraMap(source, valueList)
+                    }
+                    val lift = source.findLift(underlyingMap, surjectiveQuasiIsomorphism)
+                    source.gAlgebra.generatorList.forAll { v ->
+                        (surjectiveQuasiIsomorphism * lift)(v) shouldBe underlyingMap(v)
+                    }
+                }
+            }
             "findSection" - {
                 "should return a lift" {
                     val section = source.findSection(surjectiveQuasiIsomorphism)
-                    (0..(2 * sphereDim)).forAll { degree ->
-                        (surjectiveQuasiIsomorphism * section).gLinearMap[degree].isIdentity().shouldBeTrue()
-                    }
                     source.gAlgebra.generatorList.forAll { v ->
                         (surjectiveQuasiIsomorphism * section)(v) shouldBe v
                     }
@@ -225,15 +234,38 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         }
 
         "lift DGAlgebraMap from FreeDGAlgebra" - {
+            "findLiftUpToHomotopy" - {
+                "should return a homotopy lift" {
+                    val underlyingMap = source.getDGAlgebraMap(target, listOf(x1, y1))
+                    // test lift on cohomology
+                    val liftWithHomotopy = source.findLiftUpToHomotopy(underlyingMap, quasiIsomorphism)
+                    val lift = liftWithHomotopy.lift
+                    (0..(2 * sphereDim)).forAll { degree ->
+                        (quasiIsomorphism * lift).inducedMapOnCohomology()[degree] shouldBe
+                            underlyingMap.inducedMapOnCohomology()[degree]
+                    }
+                    // test homotopy
+                    val homotopy = liftWithHomotopy.homotopy
+                    val freePathSpace = liftWithHomotopy.freePathSpace
+                    val inclusion1 = freePathSpace.inclusion1
+                    val inclusion2 = freePathSpace.inclusion2
+                    source.gAlgebra.generatorList.forAll { v ->
+                        homotopy(inclusion1(v)) shouldBe underlyingMap(v)
+                        homotopy(inclusion2(v)) shouldBe quasiIsomorphism(lift(v))
+                    }
+                }
+            }
             "findSectionUpToHomotopy" - {
                 "should return a homotopy lift" {
                     val liftWithHomotopy = target.findSectionUpToHomotopy(quasiIsomorphism)
+                    // test section on cohomology
                     val section = liftWithHomotopy.lift
-                    val freePathSpace = liftWithHomotopy.freePathSpace
                     (0..(2 * sphereDim)).forAll { degree ->
                         (quasiIsomorphism * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
                     }
+                    // test homotopy
                     val homotopy = liftWithHomotopy.homotopy
+                    val freePathSpace = liftWithHomotopy.freePathSpace
                     val inclusion1 = freePathSpace.inclusion1
                     val inclusion2 = freePathSpace.inclusion2
                     target.gAlgebra.generatorList.forAll { v ->

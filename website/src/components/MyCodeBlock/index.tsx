@@ -1,6 +1,6 @@
-import React, {isValidElement, useEffect, useState} from 'react';
-import CodeBlock from '@theme/CodeBlock';
-import type {Props} from '@theme/CodeBlock';
+import CodeBlock from "@theme/CodeBlock"
+import type {Props} from "@theme/CodeBlock"
+import React from "react"
 // ↑ docusaurus-theme-classic/src/theme-classic.d.ts に定義がある
 // export interface Props {
 //   readonly children: string | ReactElement;
@@ -21,7 +21,11 @@ export default function MyCodeBlock({
   // <a> を <CodeBlock> の下に置こうとすると，<CodeBlock> の margin-bottom が邪魔になる
   return (
     <div className={styles.MyCodeBlock}>
-      {href && <a href={href} target="_blank" rel="noreferrer">{linkTitle ? linkTitle : href}</a>}
+      {href !== null && (
+        <a href={href} target="_blank" rel="noreferrer">
+          {linkTitle !== null ? linkTitle : href}
+        </a>
+      )}
       <CodeBlock {...props}>
         {props.children}
       </CodeBlock>

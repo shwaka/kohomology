@@ -230,13 +230,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val liftWithHomotopy = target.findSectionUpToHomotopy(f)
                     val section = liftWithHomotopy.lift
                     val freePathSpace = liftWithHomotopy.freePathSpace
-                    for (degree in 0..(2 * sphereDim)) {
+                    (0..(2 * sphereDim)).forAll { degree ->
                         (f * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
                     }
                     val homotopy = liftWithHomotopy.homotopy
                     val inclusion1 = freePathSpace.inclusion1
                     val inclusion2 = freePathSpace.inclusion2
-                    for (v in target.gAlgebra.generatorList) {
+                    target.gAlgebra.generatorList.forAll { v ->
                         homotopy(inclusion1(v)) shouldBe v
                         homotopy(inclusion2(v)) shouldBe f(section(v))
                     }

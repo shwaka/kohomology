@@ -9,9 +9,9 @@
 // Props に href と linkTitle を追加した．
 
 import Translate, {translate} from "@docusaurus/Translate"
-import {useThemeConfig, parseCodeBlockTitle} from "@docusaurus/theme-common"
+import {useThemeConfig, parseCodeBlockTitle, usePrismTheme} from "@docusaurus/theme-common"
+// import usePrismTheme from "@theme/hooks/usePrismTheme" // 2.0.0-beta.9 -> 2.0.0-beta.18 のアプデで場所が変わったっぽい
 import type {Props} from "@theme/CodeBlock"
-import usePrismTheme from "@theme/hooks/usePrismTheme"
 import clsx from "clsx"
 import copy from "copy-text-to-clipboard"
 import rangeParser from "parse-numeric-range"

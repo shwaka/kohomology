@@ -28,6 +28,9 @@ import React, {useEffect, useState, useRef} from "react"
 import styles from "./styles.module.css"
 
 
+// 自分で書いたわけじゃないコードでエラーが起きるので無効化しておく
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+
 const HighlightLinesRangeRegex = /{([\d,-]+)}/
 
 const HighlightLanguages = ["js", "jsBlock", "jsx", "python", "html"] as const

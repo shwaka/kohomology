@@ -21,7 +21,7 @@ const files: Map<string, string> = new Map(
 
 type ImportKotlinProps = {
   path: string
-  restrict?: string | true; // "key" conflicts with react
+  restrict?: string | true // "key" conflicts with react
 }
 
 export function ImportKotlin(props: ImportKotlinProps): JSX.Element {

@@ -27,15 +27,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         check(sphereDim % 2 == 0)
         val source = sphere(matrixSpace, sphereDim)
         val target = FreePathSpace(source)
-        val projection = target.projection
+        val surjectiveQuasiIsomorphism = target.projection
         val (x, y) = source.gAlgebra.generatorList
         val (x1, y1, x2, y2, _, _) = target.gAlgebra.generatorList
 
         "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
                 "should return a lift of a cocycle" {
-                    val lift = projection.findCocycleLift(x)
-                    projection(lift) shouldBe x
+                    val lift = surjectiveQuasiIsomorphism.findCocycleLift(x)
+                    surjectiveQuasiIsomorphism(lift) shouldBe x
                     target.context.run {
                         d(lift).isZero().shouldBeTrue()
                     }
@@ -43,7 +43,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
                 "should throw IllegalArgumentException when the argument is not a cocycle" {
                     val exception = shouldThrow<IllegalArgumentException> {
-                        projection.findCocycleLift(y) // y is not a cocycle
+                        surjectiveQuasiIsomorphism.findCocycleLift(y) // y is not a cocycle
                     }
                     exception.message.shouldContain("not a cocycle")
                 }
@@ -54,8 +54,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val sourceCocycle = target.context.run {
                         x1 * x2
                     }
-                    val lift = projection.findLift(y, sourceCocycle)
-                    projection(lift) shouldBe y
+                    val lift = surjectiveQuasiIsomorphism.findLift(y, sourceCocycle)
+                    surjectiveQuasiIsomorphism(lift) shouldBe y
                     target.context.run {
                         d(lift) shouldBe sourceCocycle
                     }
@@ -63,7 +63,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
                 "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
                     val exception = shouldThrow<IllegalArgumentException> {
-                        projection.findLift(x, x1)
+                        surjectiveQuasiIsomorphism.findLift(x, x1)
                     }
                     exception.message.shouldContain("should be equal to deg(")
                 }
@@ -74,7 +74,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     }
                     val zero = source.gAlgebra.getZero(sourceCochain.degree.value - 1)
                     val exception = shouldThrow<IllegalArgumentException> {
-                        projection.findLift(zero, sourceCochain)
+                        surjectiveQuasiIsomorphism.findLift(zero, sourceCochain)
                     }
                     exception.message.shouldContain("not a cocycle")
                 }
@@ -87,7 +87,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         x1 * x2
                     }
                     val exception = shouldThrow<IllegalArgumentException> {
-                        projection.findLift(targetCochain, sourceCocycle)
+                        surjectiveQuasiIsomorphism.findLift(targetCochain, sourceCocycle)
                     }
                     exception.message.shouldContain("are not compatible")
                     exception.message.shouldContain("must be equal to d(")
@@ -98,7 +98,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 "should throw IllegalArgumentException when sourceCocycle is not a cocycle" {
                     // This can't be done in the following test for non-surjective quasi-isomorphism
                     val exception = shouldThrow<IllegalArgumentException> {
-                        projection.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
+                        surjectiveQuasiIsomorphism.findCocycleLiftUpToHomotopy(y) // y is not a cocycle
                     }
                     exception.message.shouldContain("not a cocycle")
                 }
@@ -108,12 +108,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         "lift DGAlgebraMap from FreeDGAlgebra" - {
             "findSection" - {
                 "should return a lift" {
-                    val section = source.findSection(projection)
+                    val section = source.findSection(surjectiveQuasiIsomorphism)
                     (0..(2 * sphereDim)).forAll { degree ->
-                        (projection * section).gLinearMap[degree].isIdentity().shouldBeTrue()
+                        (surjectiveQuasiIsomorphism * section).gLinearMap[degree].isIdentity().shouldBeTrue()
                     }
                     source.gAlgebra.generatorList.forAll { v ->
-                        (projection * section)(v) shouldBe v
+                        (surjectiveQuasiIsomorphism * section)(v) shouldBe v
                     }
                 }
             }
@@ -127,7 +127,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val target = FreePathSpace(source)
         val (x, _) = source.gAlgebra.generatorList
         val (x1, y1, x2, y2, sx, _) = target.gAlgebra.generatorList
-        val f = target.context.run {
+        val quasiIsomorphism = target.context.run {
             val valueList = listOf(
                 x1 + x2,
                 2 * (y1 + y2) - (x2 - x1) * sx
@@ -139,7 +139,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             "findCocycleLift" - {
                 "should throw UnsupportedOperationException since non-surjective" {
                     val exception = shouldThrow<UnsupportedOperationException> {
-                        f.findCocycleLift(x1)
+                        quasiIsomorphism.findCocycleLift(x1)
                     }
                     exception.message.shouldContain("is not surjective")
                 }
@@ -152,7 +152,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         3 * y1 + y2 + 2 * x1 * sx
                     }
                     val exception = shouldThrow<UnsupportedOperationException> {
-                        f.findLift(targetCochain, sourceCocycle)
+                        quasiIsomorphism.findLift(targetCochain, sourceCocycle)
                     }
                     exception.message.shouldContain("is not surjective")
                 }
@@ -160,21 +160,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 
             "findCocycleLiftUpToHomotopy" - {
                 "should return a homotopy lift of a cocycle" {
-                    val liftWithBoundingCochain = f.findCocycleLiftUpToHomotopy(x1)
+                    val liftWithBoundingCochain = quasiIsomorphism.findCocycleLiftUpToHomotopy(x1)
                     val lift = liftWithBoundingCochain.lift
                     val boundingCochain = liftWithBoundingCochain.boundingCochain
                     source.context.run {
                         d(lift).isZero().shouldBeTrue()
                     }
                     target.context.run {
-                        (f(lift) - x1) shouldBe d(boundingCochain)
-                        f(lift).cohomologyClass() shouldBe x1.cohomologyClass()
+                        (quasiIsomorphism(lift) - x1) shouldBe d(boundingCochain)
+                        quasiIsomorphism(lift).cohomologyClass() shouldBe x1.cohomologyClass()
                     }
                 }
 
                 "should throw IllegalArgumentException when the argument is not a cocycle" {
                     val exception = shouldThrow<IllegalArgumentException> {
-                        f.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
+                        quasiIsomorphism.findCocycleLiftUpToHomotopy(y1) // y1 is not a cocycle
                     }
                     exception.message.shouldContain("not a cocycle")
                 }
@@ -186,22 +186,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val targetCochain = target.context.run {
                         3 * y1 + y2 + 2 * x1 * sx
                     }
-                    val liftWithBoundingCochain = f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                    val liftWithBoundingCochain = quasiIsomorphism.findLiftUpToHomotopy(targetCochain, sourceCocycle)
                     val lift = liftWithBoundingCochain.lift
                     val boundingCochain = liftWithBoundingCochain.boundingCochain
                     source.context.run {
                         d(lift) shouldBe sourceCocycle
                     }
                     target.context.run {
-                        (f(lift) - targetCochain) shouldBe d(boundingCochain)
+                        (quasiIsomorphism(lift) - targetCochain) shouldBe d(boundingCochain)
                         // The following condition is unnecessary, but is expected to make the test appropriate.
-                        (f(lift) - targetCochain).isNotZero().shouldBeTrue()
+                        (quasiIsomorphism(lift) - targetCochain).isNotZero().shouldBeTrue()
                     }
                 }
 
                 "should throw IllegalArgumentException when the degrees of the arguments are incompatible" {
                     val exception = shouldThrow<IllegalArgumentException> {
-                        f.findLiftUpToHomotopy(x1, x)
+                        quasiIsomorphism.findLiftUpToHomotopy(x1, x)
                     }
                     exception.message.shouldContain("should be equal to deg(")
                 }
@@ -216,7 +216,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         3 * y1 + y2 + 2 * x1 * sx
                     }
                     val exception = shouldThrow<IllegalArgumentException> {
-                        f.findLiftUpToHomotopy(targetCochain, sourceCocycle)
+                        quasiIsomorphism.findLiftUpToHomotopy(targetCochain, sourceCocycle)
                     }
                     exception.message.shouldContain("are not compatible")
                     exception.message.shouldContain("must be equal to d(")
@@ -227,18 +227,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         "lift DGAlgebraMap from FreeDGAlgebra" - {
             "findSectionUpToHomotopy" - {
                 "should return a homotopy lift" {
-                    val liftWithHomotopy = target.findSectionUpToHomotopy(f)
+                    val liftWithHomotopy = target.findSectionUpToHomotopy(quasiIsomorphism)
                     val section = liftWithHomotopy.lift
                     val freePathSpace = liftWithHomotopy.freePathSpace
                     (0..(2 * sphereDim)).forAll { degree ->
-                        (f * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
+                        (quasiIsomorphism * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
                     }
                     val homotopy = liftWithHomotopy.homotopy
                     val inclusion1 = freePathSpace.inclusion1
                     val inclusion2 = freePathSpace.inclusion2
                     target.gAlgebra.generatorList.forAll { v ->
                         homotopy(inclusion1(v)) shouldBe v
-                        homotopy(inclusion2(v)) shouldBe f(section(v))
+                        homotopy(inclusion2(v)) shouldBe quasiIsomorphism(section(v))
                     }
                 }
             }

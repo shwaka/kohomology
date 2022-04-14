@@ -15,7 +15,7 @@ const config = {
   baseUrl: '/kohomology/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/favicon.svg',
   organizationName: 'shwaka', // Usually your GitHub org/user name.
   projectName: 'kohomology', // Usually your repo name.
 

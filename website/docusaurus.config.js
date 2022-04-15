@@ -12,7 +12,7 @@ const config = {
   title: 'Kohomology',
   tagline: 'Compute cohomology of Sullivan algebras',
   url: 'https://shwaka.github.io',
-  baseUrl: '/kohomology/',
+  baseUrl: '/kohomology/', // ends with "/" (see https://docusaurus.io/docs/api/docusaurus-config#baseurl)
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.svg',

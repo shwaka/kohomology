@@ -1,6 +1,10 @@
 #!/usr/bin/env kscript
 
-// Usage: kscript generate-favicon.kts
+// Usage:
+// - kscript generate-favicon.kts
+// - svgexport favicon.svg favicon180.png 180:180
+//   # generate png of size 180x180
+//   # Install svgexport via "npm install svgexport -g"
 
 import java.io.File
 

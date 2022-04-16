@@ -75,7 +75,7 @@ const config = {
           {to: "calculator", label: "Calculator", position: "left"},
           {
             href: "/dokka/index.html",
-            label: "dokka",
+            label: "API",
             position: "left",
             target: "_blank", // これがないと React router のせいでうまくいかないっぽい
           },

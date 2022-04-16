@@ -1,33 +1,36 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
-const darkCodeTheme = require('prism-react-renderer/themes/oceanicNext');
+/* eslint-disable no-undef */ // 'require' is not defined
+/* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
 
-const math = require('remark-math');
-const katex = require('rehype-katex');
+const lightCodeTheme = require("prism-react-renderer/themes/nightOwlLight")
+const darkCodeTheme = require("prism-react-renderer/themes/oceanicNext")
+
+const katex = require("rehype-katex")
+const math = require("remark-math")
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Kohomology',
-  tagline: 'Compute cohomology of Sullivan algebras',
-  url: 'https://shwaka.github.io',
-  baseUrl: '/kohomology/', // ends with "/" (see https://docusaurus.io/docs/api/docusaurus-config#baseurl)
-  onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
-  favicon: 'img/favicon.svg',
-  organizationName: 'shwaka', // Usually your GitHub org/user name.
-  projectName: 'kohomology', // Usually your repo name.
+  title: "Kohomology",
+  tagline: "Compute cohomology of Sullivan algebras",
+  url: "https://shwaka.github.io",
+  baseUrl: "/kohomology/", // ends with "/" (see https://docusaurus.io/docs/api/docusaurus-config#baseurl)
+  onBrokenLinks: "throw",
+  onBrokenMarkdownLinks: "warn",
+  favicon: "img/favicon.svg",
+  organizationName: "shwaka", // Usually your GitHub org/user name.
+  projectName: "kohomology", // Usually your repo name.
 
   presets: [
     [
-      '@docusaurus/preset-classic',
+      "@docusaurus/preset-classic",
       /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
+          sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
-          editUrl: 'https://github.com/shwaka/kohomology/edit/main/website/',
+          editUrl: "https://github.com/shwaka/kohomology/edit/main/website/",
           remarkPlugins: [math],
           rehypePlugins: [katex],
         },
@@ -38,7 +41,7 @@ const config = {
         //     'https://github.com/shwaka/kohomology/edit/main/website/blog/',
         // },
         theme: {
-          customCss: require.resolve('./src/css/custom.css'),
+          customCss: require.resolve("./src/css/custom.css"),
         },
       }),
     ],
@@ -46,9 +49,9 @@ const config = {
 
   stylesheets: [
     {
-      href: 'https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css',
-      integrity: 'sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc',
-      crossorigin: 'anonymous',
+      href: "https://cdn.jsdelivr.net/npm/katex@0.13.11/dist/katex.min.css",
+      integrity: "sha384-Um5gpz1odJg5Z4HAmzPtgZKdTBHZdw8S29IecapCSB31ligYPhHQZMIlWLYQGVoc",
+      crossorigin: "anonymous",
     },
   ],
 
@@ -56,42 +59,42 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'Kohomology',
+        title: "Kohomology",
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/favicon.svg', // 上で baseUrl を設定するとうまくいかない？ local でのテスト時だけ？
+          alt: "My Site Logo",
+          src: "img/favicon.svg", // 上で baseUrl を設定するとうまくいかない？ local でのテスト時だけ？
         },
         items: [
           {
-            type: 'doc',
-            docId: 'intro',
-            position: 'left',
-            label: 'Tutorial',
+            type: "doc",
+            docId: "intro",
+            position: "left",
+            label: "Tutorial",
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
-          {to: 'calculator', label: 'Calculator', position: 'left'},
+          {to: "calculator", label: "Calculator", position: "left"},
           {
-            href: '/dokka/index.html',
-            label: 'dokka',
-            position: 'left',
-            target: '_blank', // これがないと React router のせいでうまくいかないっぽい
+            href: "/dokka/index.html",
+            label: "dokka",
+            position: "left",
+            target: "_blank", // これがないと React router のせいでうまくいかないっぽい
           },
           {
-            href: 'https://github.com/shwaka/kohomology',
-            label: 'GitHub',
-            position: 'right',
+            href: "https://github.com/shwaka/kohomology",
+            label: "GitHub",
+            position: "right",
           },
         ],
       },
       footer: {
-        style: 'dark',
+        style: "dark",
         links: [
           {
-            title: 'Docs',
+            title: "Docs",
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: "Tutorial",
+                to: "/docs/intro",
               },
             ],
           },
@@ -113,25 +116,25 @@ const config = {
           //   ],
           // },
           {
-            title: 'More',
+            title: "More",
             items: [
               // {
               //   label: 'Blog',
               //   to: '/blog',
               // },
               {
-                label: 'GitHub',
-                href: 'https://github.com/shwaka/kohomology',
+                label: "GitHub",
+                href: "https://github.com/shwaka/kohomology",
               },
               {
-                href: '/dokka/index.html',
-                label: 'dokka',
-                target: '_blank', // これがないと React router のせいでうまくいかないっぽい
+                href: "/dokka/index.html",
+                label: "dokka",
+                target: "_blank", // これがないと React router のせいでうまくいかないっぽい
               },
               {
-                href: '/benchmark/index.html',
-                label: 'benchmark',
-                target: '_blank', // これがないと React router のせいでうまくいかないっぽい
+                href: "/benchmark/index.html",
+                label: "benchmark",
+                target: "_blank", // これがないと React router のせいでうまくいかないっぽい
               },
             ],
           },
@@ -149,6 +152,6 @@ const config = {
     "./plugins/my-plugin.js",
     "docusaurus-plugin-sass",
   ],
-};
+}
 
-module.exports = config;
+module.exports = config

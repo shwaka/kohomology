@@ -57,10 +57,10 @@ const config = {
     ({
       navbar: {
         title: 'Kohomology',
-        // logo: {
-        //   alt: 'My Site Logo',
-        //   src: 'img/logo.svg', // 上で baseUrl を設定するとうまくいかない？ local でのテスト時だけ？
-        // },
+        logo: {
+          alt: 'My Site Logo',
+          src: 'img/favicon.svg', // 上で baseUrl を設定するとうまくいかない？ local でのテスト時だけ？
+        },
         items: [
           {
             type: 'doc',

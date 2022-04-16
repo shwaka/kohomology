@@ -5,6 +5,7 @@
 // - svgexport favicon.svg favicon180.png 180:180
 //   # generate png of size 180x180
 //   # Install svgexport via "npm install svgexport -g"
+// - convert -density 300 favicon.svg -define icon:auto-resize favicon.ico
 
 import java.io.File
 
@@ -16,7 +17,8 @@ data class Point(val x: Float, val y: Float) {
 
 fun polygon(points: List<Point>, fill: String): String {
     val pointsString = points.joinToString(", ")
-    return """<polygon points="$pointsString" fill="$fill"/>"""
+    return """<polygon points="$pointsString" fill="$fill" stroke="$fill"/>"""
+    // stroke="$fill" がないと、imagemagickで変換する際に黒い線が出てしまう
 }
 
 enum class Character {
@@ -77,7 +79,7 @@ fun main() {
 }
 
 fun writeToFile(text: String) {
-    val filename = "favicon.svg"
+    val filename = "img/favicon.svg"
     File(filename).writeText(text)
 }
 

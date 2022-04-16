@@ -10,7 +10,8 @@ export default function Root({children}: {children: React.ReactNode}): JSX.Eleme
   return (
     <>
       <Head>
-        <link rel="apple-touch-icon" href={`${baseUrl}img/favicon300.png`} sizes="300x300"/>
+        <link rel="icon" href={`${baseUrl}img/favicon.ico`}/>
+        <link rel="apple-touch-icon" href={`${baseUrl}img/favicon.png`} sizes="300x300"/>
       </Head>
       {children}
     </>

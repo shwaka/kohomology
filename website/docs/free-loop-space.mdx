@@ -8,4 +8,9 @@ import { ImportKotlin } from '@site/src/components/ImportKotlin';
 Here is an example script computing the cohomology of
 the free loop space of the even dimensional sphere.
 
-<ImportKotlin path="FreeLoopSpace.kt" />
+By using a Sullivan model `sphere` of the sphere,
+the model of the free loop space is obtained by `FreeLoopSpace(sphere)`.
+It is just a special example of `FreeDGAlgebra`,
+we can apply any computation methods to it. (See the [previous page](./sullivan-algebra.mdx) for details.)
+
+<ImportKotlin path="FreeLoopSpace.kt" restrict={true} />

@@ -8,7 +8,7 @@ You can use it in any kotlin project.
 
 ## Requirement
 You need to install Java Development Kit (JDK).
-Version 8 (=1.8) is recommended.
+Here we give an example of installation, but most JDK distributions and versions should be OK.
 
 - [Windows] Install from [Amazon Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html). Usually you will choose [amazon-corretto-8-x64-windows-jdk.msi](https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi)
 - [Mac, Linux] First, install [sdkman](https://sdkman.io/). Then run `sdk install java 8.292.10.1-amzn`.
@@ -18,7 +18,9 @@ The repository [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app)
 If you are not familiar with kotlin projects, this is a good starting point.
 
 ## In your gradle project
-To use in an existing gradle project, write the following in your `build.gradle.kts`:
+If you have not yet, please create a gradle project as in [Get started with Kotlin/JVM | Kotlin](https://kotlinlang.org/docs/jvm-get-started.html).
+Then write the following in your `build.gradle.kts`:
+
 ```kotlin
 repositories {
     maven(url = "https://shwaka.github.io/maven/")

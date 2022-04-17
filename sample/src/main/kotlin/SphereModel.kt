@@ -7,13 +7,21 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
 fun main() {
     // start def
     val n = 2
+    // Declare an indeterminate (generator) for the free commutative graded algebra Λ(x,y)
     val indeterminateList = listOf(
         Indeterminate("x", 2 * n),
         Indeterminate("y", 4 * n - 1)
     )
     val matrixSpace = SparseMatrixSpaceOverBigRational
+    // Sullivan algebra can be defined by using the constructor of FreeDGAlgebra.
+    // The last argument is a function
+    // which receives list of generators and returns the list of the values of the differential.
     val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
-        listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
+        // zeroGVector is a special element that represents zero in any degree.
+        val dx = zeroGVector
+        // x.pow(2) represents x^2
+        val dy = x.pow(2)
+        listOf(dx, dy)
     }
     // end def
 
@@ -27,8 +35,10 @@ fun main() {
     // start context
     val (x, y) = sphere.gAlgebra.generatorList
 
+    // You can't write DGA operations here.
+
     sphere.context.run {
-        // Operations in a DGA can be applied within 'context.run'
+        // You can write DGA operations in "context.run"
         println("d(x * y) = ${d(x * y)}")
         println(d(x).isZero())
         println(x.cohomologyClass())

@@ -12,10 +12,16 @@ Consider the minimal Sullivan model of the $2n$-dimensional sphere.
 Explicitly it is written as $(\Lambda(x, y), d)$
 where the degrees are given by $\deg{x}=2n$ and $\deg{y}=4n-1$, and
 the differential is given by $dx=0$ and $dy=x^2$.
+You can define it as follows:
 
 <ImportKotlin path="SphereModel.kt" restrict="def" />
 
+Note that `FreeDGAlgebra` is the class for Sullivan algebras.
+It is because, ignoring differentials, Sullivan algebras are free as commutative graded algebras.
+
 ## Compute cohomology
+The cohomology of a `FreeDGAlgebra` can be accessed from the member `cohomology`.
+
 <ImportKotlin path="SphereModel.kt" restrict="cohomology" />
 
 ## DGA operations

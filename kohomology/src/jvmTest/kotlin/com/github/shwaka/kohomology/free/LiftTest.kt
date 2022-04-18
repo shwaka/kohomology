@@ -294,7 +294,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 listOf(zeroGVector, dt, zeroGVector, du, zeroGVector, dv)
             }
         }
-        val (dt, t, du, u, dv, v) = source.gAlgebra.generatorList
+        val (_, _, du, _, _, _) = source.gAlgebra.generatorList
         val target = run {
             val indeterminateList = listOf(
                 Indeterminate("x", n),
@@ -350,7 +350,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 listOf(zeroGVector, t.pow(2), zeroGVector)
             }
         }
-        val (t, u, v) = source.gAlgebra.generatorList
+        val (t, _, v) = source.gAlgebra.generatorList
         val target = sphere(matrixSpace, n)
         val (x, y) = target.gAlgebra.generatorList
         val quasiSurjection = target.context.run {

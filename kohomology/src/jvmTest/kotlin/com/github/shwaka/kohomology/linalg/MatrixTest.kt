@@ -5,15 +5,15 @@ import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.longRationalTag
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.arb
 import com.github.shwaka.kohomology.util.Sign

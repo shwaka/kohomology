@@ -3,12 +3,12 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag

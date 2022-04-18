@@ -1,0 +1,58 @@
+---
+title: Print LaTeX code
+sidebar_position: 4
+---
+
+import { ImportKotlin } from '@site/src/components/ImportKotlin';
+
+## Why LaTeX?
+According to [this page](./free-loop-space),
+you can define the Sullivan model of the free loop space $LS^2$ of the 2-sphere $S^2$
+as follows:
+
+<ImportKotlin path="PrintTex.kt" restrict="def" />
+
+Now you can compute and print the basis of the cohomology $H^*(LS^2)$ by
+
+<ImportKotlin path="PrintTex.kt" restrict="plain" />
+
+and this prints
+
+```
+H^0(LS^2) = Q[[1]]
+H^1(LS^2) = Q[[sx]]
+H^2(LS^2) = Q[[x]]
+H^3(LS^2) = Q[[sxsy]]
+H^4(LS^2) = Q[[1/2 xsy + ysx]]
+H^5(LS^2) = Q[[sxsy^2]]
+H^6(LS^2) = Q[[1/4 xsy^2 + ysxsy]]
+H^7(LS^2) = Q[[sxsy^3]]
+H^8(LS^2) = Q[[1/6 xsy^3 + ysxsy^2]]
+H^9(LS^2) = Q[[sxsy^4]]
+H^10(LS^2) = Q[[1/8 xsy^4 + ysxsy^3]]
+```
+
+But this output is not very readable since
+
+- `xsy` can be confused with the product of three indeterminates `x`, `s` and `y`.
+- Fractions such as `1/8` are hard to read.
+
+## Solution
+
+By using `Printer`, you can print a LaTeX code:
+
+<ImportKotlin path="PrintTex.kt" restrict="tex" />
+
+```latex
+H^{0}(LS^2) &= \Q[[1]] \\
+H^{1}(LS^2) &= \Q[[\bar{x}]] \\
+H^{2}(LS^2) &= \Q[[{x}]] \\
+H^{3}(LS^2) &= \Q[[\bar{x}\bar{y}]] \\
+H^{4}(LS^2) &= \Q[[\frac{1}{2} {x}\bar{y} + {y}\bar{x}]] \\
+H^{5}(LS^2) &= \Q[[\bar{x}\bar{y}^{2}]] \\
+H^{6}(LS^2) &= \Q[[\frac{1}{4} {x}\bar{y}^{2} + {y}\bar{x}\bar{y}]] \\
+H^{7}(LS^2) &= \Q[[\bar{x}\bar{y}^{3}]] \\
+H^{8}(LS^2) &= \Q[[\frac{1}{6} {x}\bar{y}^{3} + {y}\bar{x}\bar{y}^{2}]] \\
+H^{9}(LS^2) &= \Q[[\bar{x}\bar{y}^{4}]] \\
+H^{10}(LS^2) &= \Q[[\frac{1}{8} {x}\bar{y}^{4} + {y}\bar{x}\bar{y}^{3}]] \\
+```

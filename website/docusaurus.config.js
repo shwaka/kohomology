@@ -144,7 +144,7 @@ const config = {
       prism: {
         theme: lightCodeTheme,
         darkTheme: darkCodeTheme,
-        additionalLanguages: ["kotlin", "groovy"],
+        additionalLanguages: ["kotlin", "groovy", "latex"],
       },
     }),
 

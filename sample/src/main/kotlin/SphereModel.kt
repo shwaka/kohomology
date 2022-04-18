@@ -10,7 +10,7 @@ fun main() {
     // Declare an indeterminate (generator) for the free commutative graded algebra Λ(x,y)
     val indeterminateList = listOf(
         Indeterminate("x", 2 * n),
-        Indeterminate("y", 4 * n - 1)
+        Indeterminate("y", 4 * n - 1),
     )
     val matrixSpace = SparseMatrixSpaceOverRational
     // Sullivan algebra can be defined by using the constructor of FreeDGAlgebra.

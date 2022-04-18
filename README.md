@@ -11,4 +11,4 @@
 - The name "*ko*homology" is obtained by combining "cohomology" and "kotlin".
 
 ## Documentation
-See [Kohomology](https://shwaka.github.io/kohomology/index.html) for tutorial and documentation. (currently under development)
+See the [website](https://shwaka.github.io/kohomology/index.html) for tutorial and documentation. (currently under development)

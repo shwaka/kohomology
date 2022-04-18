@@ -27,7 +27,7 @@ fun main() {
     println("----- plain output -----")
     // start plain
     for (degree in 0..4) {
-        val basis = freeLoopSpace.cohomology[degree].getBasis()
+        val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^$degree(LX) = Q$basis")
     }
     // end plain

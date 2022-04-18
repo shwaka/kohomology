@@ -27,7 +27,7 @@ fun main() {
 
     // start cohomology
     for (degree in 0 until 10) {
-        val basis = sphere.cohomology[degree].getBasis()
+        val basis = sphere.cohomology.getBasis(degree)
         println("H^$degree(S^${2 * n}) = Q$basis")
     }
     // end cohomology

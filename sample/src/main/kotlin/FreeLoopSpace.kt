@@ -29,7 +29,7 @@ fun main() {
 
     // Compute cohomology of the free loop space.
     for (degree in 0 until 25) {
-        val basis = freeLoopSpace.cohomology[degree].getBasis()
+        val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^$degree(LS^$sphereDim) = Q$basis")
     }
     // end

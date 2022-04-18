@@ -23,7 +23,7 @@ fun main() {
         listOf(da, db, dx, dy, dz)
     }
     for (degree in 0 until 10) {
-        val basis = sphere.cohomology[degree].getBasis()
+        val basis = sphere.cohomology.getBasis(degree)
         println("H^$degree = Q$basis")
     }
     // end

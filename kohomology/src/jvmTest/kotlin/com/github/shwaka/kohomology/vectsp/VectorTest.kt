@@ -128,6 +128,11 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
                     texPrinter(v) shouldBe "0"
                 }
+                "listOf(a, b) should be printed as \"[a, b]\"" {
+                    val a = vectorSpace.fromCoeffList(listOf(one, zero, zero))
+                    val b = vectorSpace.fromCoeffList(listOf(zero, one, zero))
+                    texPrinter(listOf(a, b)) shouldBe "[a, b]"
+                }
             }
             "printer with comparator" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {

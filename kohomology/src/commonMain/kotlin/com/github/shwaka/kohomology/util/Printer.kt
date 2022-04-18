@@ -38,6 +38,12 @@ public class Printer private constructor(
         val stringFromPrintable: String = printable?.toString(this.printConfig) ?: "null"
         return this.value + stringFromPrintable
     }
+    public operator fun invoke(iterable: Iterable<Printable>?): String {
+        val stringFromPrintable: String = iterable?.map { printable ->
+            printable.toString(this.printConfig)
+        }?.toString() ?: "null"
+        return this.value + stringFromPrintable
+    }
 }
 
 /**

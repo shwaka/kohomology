@@ -19,28 +19,8 @@ If you are not familiar with kotlin projects, this is a good starting point.
 
 ## In your gradle project
 If you have not yet, please create a gradle project as in [Get started with Kotlin/JVM | Kotlin](https://kotlinlang.org/docs/jvm-get-started.html).
-Then write the following in your `build.gradle.kts`:
+Then write the following in your `build.gradle.kts` (or `build.gradle`):
 
-```kotlin
-repositories {
-    maven(url = "https://shwaka.github.io/maven/")
-}
+import { BuildGradleDocument } from "@site/src/components/BuildGradleDocument";
 
-dependencies {
-    implementation("com.github.shwaka.kohomology:kohomology:0.5")
-}
-```
-
-If you are using `build.gradle` file written in Groovy, write the following:
-
-```groovy
-repositories {
-    maven {
-        url 'https://shwaka.github.io/maven/'
-    }
-}
-
-dependencies {
-    implementation 'com.github.shwaka.kohomology:kohomology:0.5'
-}
-```
+<BuildGradleDocument/>

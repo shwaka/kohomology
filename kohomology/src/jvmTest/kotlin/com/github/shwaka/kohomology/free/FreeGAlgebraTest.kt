@@ -16,7 +16,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.parseTag
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -476,7 +476,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
 class FreeGAlgebraTest : FreeSpec({
     tags(freeGAlgebraTag, bigRationalTag)
 
-    val matrixSpace = DenseMatrixSpaceOverBigRational
+    val matrixSpace = DenseMatrixSpaceOverRational
 
     include(noGeneratorTest(matrixSpace))
 

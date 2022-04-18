@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.dg.degree.degreeTag
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.isEven
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -26,7 +26,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
                 Indeterminate("y", 4 * n - 1)
             )
         }
-        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val matrixSpace = SparseMatrixSpaceOverRational
         val sphere = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }

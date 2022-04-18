@@ -3,10 +3,10 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.bigRationalTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverIntRational
 import com.github.shwaka.kohomology.util.Sign
@@ -191,13 +191,13 @@ class IntRationalDenseNumVectorTest : FreeSpec({
     }
 })
 
-class BigRationalDenseNumVectorTest : FreeSpec({
+class RationalDenseNumVectorTest : FreeSpec({
     tags(numVectorTag, denseNumVectorTag, bigRationalTag)
-    include(denseNumVectorTest(DenseNumVectorSpaceOverBigRational))
-    include(numVectorTest(DenseNumVectorSpaceOverBigRational))
+    include(denseNumVectorTest(DenseNumVectorSpaceOverRational))
+    include(numVectorTest(DenseNumVectorSpaceOverRational))
 
     "test toString()" {
-        DenseNumVectorSpaceOverBigRational.toString() shouldBe "DenseNumVectorSpace(BigRationalField)"
+        DenseNumVectorSpaceOverRational.toString() shouldBe "DenseNumVectorSpace(RationalField)"
     }
 })
 
@@ -221,13 +221,13 @@ class IntRationalSparseNumVectorTest : FreeSpec({
     }
 })
 
-class BigRationalSparseNumVectorTest : FreeSpec({
+class RationalSparseNumVectorTest : FreeSpec({
     tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
-    include(sparseNumVectorTest(SparseNumVectorSpaceOverBigRational))
-    include(numVectorTest(SparseNumVectorSpaceOverBigRational))
+    include(sparseNumVectorTest(SparseNumVectorSpaceOverRational))
+    include(numVectorTest(SparseNumVectorSpaceOverRational))
 
     "test toString()" {
-        SparseNumVectorSpaceOverBigRational.toString() shouldBe "SparseNumVectorSpace(BigRationalField)"
+        SparseNumVectorSpaceOverRational.toString() shouldBe "SparseNumVectorSpace(RationalField)"
     }
 })
 

@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
@@ -369,5 +369,5 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
 
 class DirectSumTest : FreeSpec({
     tags(directSumTag, bigRationalTag)
-    include(directSumTest(SparseMatrixSpaceOverBigRational))
+    include(directSumTest(SparseMatrixSpaceOverRational))
 })

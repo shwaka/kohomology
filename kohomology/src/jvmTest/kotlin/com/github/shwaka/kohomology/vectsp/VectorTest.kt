@@ -7,8 +7,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
@@ -242,16 +242,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSp
     }
 }
 
-class BigRationalVectorTest : FreeSpec({
+class RationalVectorTest : FreeSpec({
     tags(vectorTag, bigRationalTag)
 
-    val numVectorSpace = DenseNumVectorSpaceOverBigRational
+    val numVectorSpace = DenseNumVectorSpaceOverRational
     include(vectorTest(numVectorSpace))
     include(vectorSpaceTest(numVectorSpace))
     include(manyBasisTest(numVectorSpace))
     include(printerTest(numVectorSpace))
 
-    val matrixSpace = DenseMatrixSpaceOverBigRational
+    val matrixSpace = DenseMatrixSpaceOverRational
     include(isBasisTest(matrixSpace))
     include(isBasisForZeroTest(matrixSpace))
 })

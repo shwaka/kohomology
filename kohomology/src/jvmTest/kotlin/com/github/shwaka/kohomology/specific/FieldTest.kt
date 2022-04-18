@@ -216,27 +216,27 @@ class LongRationalTest : FreeSpec({
     }
 })
 
-class BigRationalTest : FreeSpec({
+class RationalTest : FreeSpec({
     tags(fieldTag, bigRationalTag)
 
-    include(fromIntTest(BigRationalField))
-    include(fieldTest(BigRationalField))
-    include(rationalTest(BigRationalField))
+    include(fromIntTest(RationalField))
+    include(fieldTest(RationalField))
+    include(rationalTest(RationalField))
 
     "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
         shouldThrow<IllegalArgumentException> {
-            BigRational.fromReduced(1, -1)
+            Rational.fromReduced(1, -1)
         }
         shouldThrow<IllegalArgumentException> {
-            BigRational.fromReduced(6, 2)
+            Rational.fromReduced(6, 2)
         }
         shouldThrow<IllegalArgumentException> {
-            BigRational.fromReduced(0, 2)
+            Rational.fromReduced(0, 2)
         }
     }
 
     "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
-        BigRational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
+        Rational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
     }
 })
 

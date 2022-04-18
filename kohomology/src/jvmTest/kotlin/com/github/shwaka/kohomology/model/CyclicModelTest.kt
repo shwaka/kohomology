@@ -12,7 +12,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -96,7 +96,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> cyclicModelOfEvenSphereTest
 class CyclicModelTest : FreeSpec({
     tags(cyclicModelTag, bigRationalTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     include(cyclicModelOfEvenSphereTest(matrixSpace, 2))
     include(cyclicModelOfEvenSphereTest(matrixSpace, 4))
 })

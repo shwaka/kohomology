@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.assertions.throwables.shouldThrow
@@ -116,10 +116,10 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
     }
 }
 
-class BigRationalGVectorSpaceTest : FreeSpec({
+class RationalGVectorSpaceTest : FreeSpec({
     tags(gVectorTag, bigRationalTag)
 
-    val numVectorSpace = DenseNumVectorSpaceOverBigRational
+    val numVectorSpace = DenseNumVectorSpaceOverRational
     include(gVectorTest(numVectorSpace))
     include(gVectorSpaceTest(numVectorSpace))
 })

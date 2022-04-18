@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.NamedTag
@@ -106,8 +106,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
     }
 }
 
-class BigRationalGLinearMapTest : FreeSpec({
+class RationalGLinearMapTest : FreeSpec({
     tags(gLinearMapTag, bigRationalTag)
 
-    include(gLinearMapTest(DenseMatrixSpaceOverBigRational))
+    include(gLinearMapTest(DenseMatrixSpaceOverRational))
 })

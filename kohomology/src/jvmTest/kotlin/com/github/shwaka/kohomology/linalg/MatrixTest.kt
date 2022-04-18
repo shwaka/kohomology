@@ -5,16 +5,16 @@ import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.longRationalTag
-import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import com.github.shwaka.kohomology.specific.arb
 import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -706,7 +706,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> notImplementedDeterminantTe
 const val maxValueForDet = 100
 const val matrixSizeForDet = 4
 // 5 でも一応できるけど、
-// - BigRational の test に2秒くらいかかる
+// - Rational の test に2秒くらいかかる
 // - LongRational の test が(乱数次第で)たまに overflow する
 
 class IntRationalDenseMatrixTest : FreeSpec({
@@ -741,10 +741,10 @@ class LongRationalDenseMatrixTest : FreeSpec({
     }
 })
 
-class BigRationalDenseMatrixTest : FreeSpec({
+class RationalDenseMatrixTest : FreeSpec({
     tags(matrixTag, denseMatrixTag, bigRationalTag)
 
-    val matrixSpace = DenseMatrixSpaceOverBigRational
+    val matrixSpace = DenseMatrixSpaceOverRational
     include(denseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
@@ -755,7 +755,7 @@ class BigRationalDenseMatrixTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 
     "test toString()" {
-        matrixSpace.toString() shouldBe "DenseMatrixSpace(BigRationalField)"
+        matrixSpace.toString() shouldBe "DenseMatrixSpace(RationalField)"
     }
 })
 
@@ -787,10 +787,10 @@ class IntMod5DenseMatrixTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 })
 
-class BigRationalSparseMatrixTest : FreeSpec({
+class RationalSparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
@@ -801,15 +801,15 @@ class BigRationalSparseMatrixTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 
     "test toString()" {
-        matrixSpace.toString() shouldBe "SparseMatrixSpace(BigRationalField)"
+        matrixSpace.toString() shouldBe "SparseMatrixSpace(RationalField)"
     }
 })
 
-class BigRationalDecomposedSparseMatrixTest : FreeSpec({
+class RationalDecomposedSparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, bigRationalTag)
 
-    val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
-    // include(sparseMatrixSpaceTest(BigRationalField))
+    val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
+    // include(sparseMatrixSpaceTest(RationalField))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))
     // include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet)) // sign is not implemented
@@ -820,7 +820,7 @@ class BigRationalDecomposedSparseMatrixTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 
     "test toString()" {
-        matrixSpace.toString() shouldBe "DecomposedSparseMatrixSpace(BigRationalField)"
+        matrixSpace.toString() shouldBe "DecomposedSparseMatrixSpace(RationalField)"
     }
 })
 

@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreePathSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.list.* // ktlint-disable no-wildcard-imports
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -378,6 +378,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 class LiftTest : FreeSpec({
     tags(liftTag, bigRationalTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     include(liftTest(matrixSpace))
 })

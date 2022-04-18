@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.scopes.FreeScope
@@ -20,7 +20,7 @@ val exampleTag = NamedTag("Example")
 class ExampleTest : FreeSpec({
     tags(exampleTag, bigRationalTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     "compare sphere and sphereWithMultiDegree in even dim" - {
         val dim = 4
         compare(

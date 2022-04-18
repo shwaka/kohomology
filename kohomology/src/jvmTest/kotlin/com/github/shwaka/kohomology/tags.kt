@@ -7,7 +7,7 @@ val overflowTag = NamedTag("Overflow")
 
 val intRationalTag = NamedTag("IntRational")
 val longRationalTag = NamedTag("LongRational")
-val bigRationalTag = NamedTag("BigRational")
+val bigRationalTag = NamedTag("Rational")
 val intModpTag = NamedTag("IntModp")
 
 val parseTag = NamedTag("Parse")

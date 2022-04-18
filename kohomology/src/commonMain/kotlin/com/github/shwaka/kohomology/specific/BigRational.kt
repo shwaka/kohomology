@@ -41,33 +41,33 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
     return Pair(num, den)
 }
 
-public class BigRational private constructor(public val numerator: BigInteger, public val denominator: BigInteger) : Scalar {
+public class Rational private constructor(public val numerator: BigInteger, public val denominator: BigInteger) : Scalar {
     public companion object {
-        public operator fun invoke(numerator: BigInteger, denominator: BigInteger): BigRational {
+        public operator fun invoke(numerator: BigInteger, denominator: BigInteger): Rational {
             // 約分 と denominator > 0
             val red = reduce(numerator, denominator)
-            return BigRational(red.first, red.second)
+            return Rational(red.first, red.second)
         }
 
-        public operator fun invoke(numerator: Int, denominator: Int): BigRational {
+        public operator fun invoke(numerator: Int, denominator: Int): Rational {
             // ↓明示的に invoke にしないと、 private constructor が呼ばれてしまうかも？
-            return BigRational.invoke(BigInteger(numerator), BigInteger(denominator))
+            return Rational.invoke(BigInteger(numerator), BigInteger(denominator))
         }
 
-        internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): BigRational {
+        internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): Rational {
             // If the pair numerator and denominator is already reduced (and denominator > 0)
             debugOnly {
                 this.assertReduced(numerator, denominator)
             }
-            return BigRational(numerator, denominator)
+            return Rational(numerator, denominator)
         }
 
-        internal fun fromReduced(numerator: Int, denominator: Int): BigRational {
+        internal fun fromReduced(numerator: Int, denominator: Int): Rational {
             // If the pair numerator and denominator is already reduced (and denominator > 0)
             debugOnly {
                 this.assertReduced(BigInteger(numerator), BigInteger(denominator))
             }
-            return BigRational(BigInteger(numerator), BigInteger(denominator))
+            return Rational(BigInteger(numerator), BigInteger(denominator))
         }
 
         private fun assertReduced(numerator: BigInteger, denominator: BigInteger) {
@@ -148,7 +148,7 @@ public class BigRational private constructor(public val numerator: BigInteger, p
         if (other == null) return false
         if (this::class != other::class) return false
 
-        other as BigRational
+        other as Rational
 
         if (numerator != other.numerator) return false
         if (denominator != other.denominator) return false
@@ -164,64 +164,64 @@ public class BigRational private constructor(public val numerator: BigInteger, p
     }
 }
 
-public object BigRationalField : Field<BigRational> {
-    override val field: BigRationalField = this
+public object RationalField : Field<Rational> {
+    override val field: RationalField = this
     override val characteristic: Int = 0
 
-    override val context: ScalarContext<BigRational> = ScalarContext(this)
+    override val context: ScalarContext<Rational> = ScalarContext(this)
 
-    override fun contains(scalar: BigRational): Boolean {
+    override fun contains(scalar: Rational): Boolean {
         return true // Type information is sufficient
     }
 
-    override fun add(a: BigRational, b: BigRational): BigRational {
+    override fun add(a: Rational, b: Rational): Rational {
         val numerator = a.numerator * b.denominator + b.numerator * a.denominator
         val denominator = a.denominator * b.denominator
-        return BigRational(numerator, denominator)
+        return Rational(numerator, denominator)
     }
 
-    override fun subtract(a: BigRational, b: BigRational): BigRational {
+    override fun subtract(a: Rational, b: Rational): Rational {
         val numerator = a.numerator * b.denominator - b.numerator * a.denominator
         val denominator = a.denominator * b.denominator
-        return BigRational(numerator, denominator)
+        return Rational(numerator, denominator)
     }
 
-    override fun multiply(a: BigRational, b: BigRational): BigRational {
-        return BigRational(a.numerator * b.numerator, a.denominator * b.denominator)
+    override fun multiply(a: Rational, b: Rational): Rational {
+        return Rational(a.numerator * b.numerator, a.denominator * b.denominator)
     }
 
-    override fun divide(a: BigRational, b: BigRational): BigRational {
-        if (b == BigRational(0, 1)) {
+    override fun divide(a: Rational, b: Rational): Rational {
+        if (b == Rational(0, 1)) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }
-        return BigRational(a.numerator * b.denominator, a.denominator * b.numerator)
+        return Rational(a.numerator * b.denominator, a.denominator * b.numerator)
     }
 
-    override fun unaryMinusOf(scalar: BigRational): BigRational {
-        return BigRational.fromReduced(-scalar.numerator, scalar.denominator)
+    override fun unaryMinusOf(scalar: Rational): Rational {
+        return Rational.fromReduced(-scalar.numerator, scalar.denominator)
     }
 
-    override fun fromInt(n: Int): BigRational {
-        return BigRational.fromReduced(n, 1)
+    override fun fromInt(n: Int): Rational {
+        return Rational.fromReduced(n, 1)
     }
 
-    override fun fromIntPair(numerator: Int, denominator: Int): BigRational {
-        return BigRational(numerator, denominator)
+    override fun fromIntPair(numerator: Int, denominator: Int): Rational {
+        return Rational(numerator, denominator)
     }
 
     override fun toString(): String {
-        return "BigRationalField"
+        return "RationalField"
     }
 }
 
-public val DenseNumVectorSpaceOverBigRational: DenseNumVectorSpace<BigRational> =
-    DenseNumVectorSpace.from(BigRationalField)
-public val DenseMatrixSpaceOverBigRational: DenseMatrixSpace<BigRational> =
-    DenseMatrixSpace.from(DenseNumVectorSpaceOverBigRational)
+public val DenseNumVectorSpaceOverRational: DenseNumVectorSpace<Rational> =
+    DenseNumVectorSpace.from(RationalField)
+public val DenseMatrixSpaceOverRational: DenseMatrixSpace<Rational> =
+    DenseMatrixSpace.from(DenseNumVectorSpaceOverRational)
 
-public val SparseNumVectorSpaceOverBigRational: SparseNumVectorSpace<BigRational> =
-    SparseNumVectorSpace.from(BigRationalField)
-public val SparseMatrixSpaceOverBigRational: SparseMatrixSpace<BigRational> =
-    SparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
-public val DecomposedSparseMatrixSpaceOverBigRational: DecomposedSparseMatrixSpace<BigRational> =
-    DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverBigRational)
+public val SparseNumVectorSpaceOverRational: SparseNumVectorSpace<Rational> =
+    SparseNumVectorSpace.from(RationalField)
+public val SparseMatrixSpaceOverRational: SparseMatrixSpace<Rational> =
+    SparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
+public val DecomposedSparseMatrixSpaceOverRational: DecomposedSparseMatrixSpace<Rational> =
+    DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)

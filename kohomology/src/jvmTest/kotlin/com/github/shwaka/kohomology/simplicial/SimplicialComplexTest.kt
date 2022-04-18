@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
@@ -95,12 +95,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> projectivePlaneTest(matrixS
 class SimplicialComplexTest : FreeSpec({
     tags(simplicialComplexTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     include(deltaTest(matrixSpace, 5))
     include(boundaryDeltaTest(matrixSpace, 5))
 
     // projective plane
-    include(projectivePlaneTest(SparseMatrixSpaceOverBigRational))
+    include(projectivePlaneTest(SparseMatrixSpaceOverRational))
     include(projectivePlaneTest(SparseMatrixSpaceOverF2))
     include(projectivePlaneTest(SparseMatrixSpaceOverF3))
     include(projectivePlaneTest(SparseMatrixSpaceOverF5))

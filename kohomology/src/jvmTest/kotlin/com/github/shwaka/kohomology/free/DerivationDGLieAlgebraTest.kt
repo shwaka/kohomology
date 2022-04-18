@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -114,7 +114,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForNonFor
 class DerivationDGLieAlgebraTest : FreeSpec({
     tags(derivationDGLieAlgebraTag)
 
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     include(derivationDGLieAlgForEvenSphereTest(matrixSpace, 4))
     include(derivationDGLieAlgForCPnTest(matrixSpace, 4))
     include(derivationDGLieAlgForNonFormalSpaceTest(matrixSpace))

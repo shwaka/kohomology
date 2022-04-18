@@ -1,8 +1,8 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational

@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.specific
 
-import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.compileTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
@@ -8,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.overflowTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isPrime

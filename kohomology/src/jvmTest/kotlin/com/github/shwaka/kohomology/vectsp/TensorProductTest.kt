@@ -1,9 +1,9 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

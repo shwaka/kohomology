@@ -31,7 +31,7 @@ But this output is not very readable since
 - `sasb` can be confused with the product of indeterminates `s`, `a`, `s` and `b`.
 - Fractions such as `1/2` are hard to read.
 
-## Solution
+## Print LaTeX code
 
 By using `Printer`, you can print a LaTeX code:
 
@@ -46,3 +46,15 @@ H^{4}(LX) &= \Q[[\frac{1}{2} {a}\bar{x} + {x}\bar{a}], [{a}\bar{y} - \frac{1}{2}
 ```
 
 ![print-latex](/img/docs/print-latex.png)
+
+## Print very long line
+
+Together with the LaTeX package [autobreak](https://ctan.org/pkg/autobreak?lang=en), line breaks can be added automatically.
+In the environment `autobreak`,
+line breaks in the LaTeX source code are considered
+as possible candidates for line breaks in the output PDF file.
+So `beforeSign = "\n"` and `joinToString(",\n")` in the following code give such candidates.
+
+<ImportKotlin path="PrintTex.kt" restrict="long" />
+
+![print-latex](/img/docs/print-latex-long.png)

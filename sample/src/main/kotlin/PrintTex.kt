@@ -37,9 +37,17 @@ fun main() {
     val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
     for (degree in 0..4) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
-        freeLoopSpace.context.run {
-            println("H^{$degree}(LX) &= \\Q${basis.map { v -> p(v) }} \\\\")
-        }
+        println("H^{$degree}(LX) &= \\Q${basis.map { v -> p(v) }} \\\\")
     }
     // end tex
+
+    println("----- long tex output -----")
+    // start long
+    val p2 = Printer(printType = PrintType.TEX, beforeSign = "\n", showShift = ShowShift.BAR)
+    for (degree in 0..6) {
+        val basis = freeLoopSpace.cohomology.getBasis(degree)
+        val basisString = basis.joinToString(",\n") { v -> p2(v) }
+        println("\\begin{autobreak}\nH^{$degree}(LX) = \\Q[\n${basisString}]\n\\end{autobreak}\\\\")
+    }
+    // end long
 }

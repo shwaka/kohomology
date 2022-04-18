@@ -112,6 +112,14 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
                     v.toString() shouldBe "0"
                 }
+                "(-a).toString() should be \"- a\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(-one, zero, zero))
+                    v.toString() shouldBe "- a"
+                }
+                "((-2)b).toString() should be \"-2 b\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, -two, zero))
+                    v.toString() shouldBe "-2 b"
+                }
             }
             "tex printer" - {
                 val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
@@ -127,6 +135,14 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                 "(0a + 0b + 0c) should be printed as \"0\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
                     texPrinter(v) shouldBe "0"
+                }
+                "(-a).toString() should be \"- a\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(-one, zero, zero))
+                    v.toString() shouldBe "- a"
+                }
+                "((-2)b).toString() should be \"-2 b\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, -two, zero))
+                    v.toString() shouldBe "-2 b"
                 }
                 "listOf(a, b) should be printed as \"[a, b]\"" {
                     val a = vectorSpace.fromCoeffList(listOf(one, zero, zero))

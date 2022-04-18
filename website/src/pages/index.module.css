@@ -21,3 +21,12 @@
   align-items: center;
   justify-content: center;
 }
+
+.exampleColumnContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.exampleColumn {
+  margin: 1rem;
+}

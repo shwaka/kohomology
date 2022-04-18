@@ -22,6 +22,7 @@ const files: Map<string, string> = new Map(
 type ImportKotlinProps = {
   path: string
   restrict?: string | true // "key" conflicts with react
+  className?: string
 }
 
 export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
@@ -33,8 +34,10 @@ export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
   const textRange: TextRange | null = restrict(code, props.restrict)
   if (textRange === null) {
     return (
-      <div className={styles.error}>
-        ERROR: <code>{props.restrict}</code> is not found in <a href={url}>{url}</a>
+      <div className={props.className}>
+        <div className={styles.error}>
+          ERROR: <code>{props.restrict}</code> is not found in <a href={url}>{url}</a>
+        </div>
       </div>
     )
   }
@@ -42,7 +45,7 @@ export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
     ? `${url}#L${textRange.start}-L${textRange.end}`
     : url
   return (
-    <div>
+    <div className={props.className}>
       <MyCodeBlock className="language-kotlin" href={urlWithLines} linkTitle={props.path}>
         {textRange.text}
       </MyCodeBlock>

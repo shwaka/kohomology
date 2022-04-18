@@ -35,8 +35,10 @@ function update_implementation() {
         echo "[ERROR] File does not exist: $file" >&2
         exit 1
     fi
-    echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
-    sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/' $file
+    echo sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/g' $file
+    sed -i 's/implementation("com.github.shwaka.kohomology:kohomology:.*")$/implementation("com.github.shwaka.kohomology:kohomology:'$version'")/g' $file
+    echo sed -i "s/implementation 'com.github.shwaka.kohomology:kohomology:.*'$/implementation 'com.github.shwaka.kohomology:kohomology:$version'/g" $file
+    sed -i "s/implementation 'com.github.shwaka.kohomology:kohomology:.*'$/implementation 'com.github.shwaka.kohomology:kohomology:$version'/g" $file
     git add $file
 }
 
@@ -54,7 +56,7 @@ function release_version() {
 
     update_build_gradle_kts "$version"
     update_implementation "$version" $README_MD
-    update_implementation "$version" website/docs/quick-start.md
+    update_implementation "$version" website/src/components/BuildGradleDocument.tsx
 
     for d in sample; do
         local kts=$d/build.gradle.kts

@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.CyclicModel
 import com.github.shwaka.kohomology.model.FreeLoopSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -57,7 +57,7 @@ class FreeDGAWrapper(val json: String) {
         val generatorList = serializableGeneratorList.map {
             GeneratorOfFreeDGA(it.name, it.degree, it.differentialValue)
         }
-        FreeDGAlgebra(SparseMatrixSpaceOverBigRational, generatorList)
+        FreeDGAlgebra(SparseMatrixSpaceOverRational, generatorList)
     }
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }

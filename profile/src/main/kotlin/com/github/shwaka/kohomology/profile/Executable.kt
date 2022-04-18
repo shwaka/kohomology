@@ -12,7 +12,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.model.FreePathSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 abstract class Executable {
     abstract val description: String
@@ -38,7 +38,7 @@ class CohomologyOfFreeLoopSpace(private val degreeLimit: Int) : Executable() {
     override val description = "cohomology of free loop space of 2-sphere"
     override fun mainFun(): String {
         val sphereDim = 2
-        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val matrixSpace = SparseMatrixSpaceOverRational
         val sphere = sphere(matrixSpace, sphereDim)
         val freeLoopSpace = FreeLoopSpace(sphere)
 
@@ -66,7 +66,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree(
                 Indeterminate("y", 4 * n - 1)
             )
         }
-        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val matrixSpace = SparseMatrixSpaceOverRational
         val sphere = FreeDGAlgebra(matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
@@ -95,7 +95,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(
                 Indeterminate("y", 4 * n - 1)
             )
         }
-        val matrixSpace = SparseMatrixSpaceOverBigRational
+        val matrixSpace = SparseMatrixSpaceOverRational
         val sphere = FreeDGAlgebra(matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
@@ -115,7 +115,7 @@ class IsomorphismToCohomologyOfFreePathSpace(val n: Int, val degreeLimit: Int) :
             Indeterminate("c", 2),
             Indeterminate("x", 2 * this.n + 1)
         )
-        val sphere = FreeDGAlgebra(SparseMatrixSpaceOverBigRational, indeterminateList) { (c, _) ->
+        val sphere = FreeDGAlgebra(SparseMatrixSpaceOverRational, indeterminateList) { (c, _) ->
             listOf(zeroGVector, c.pow(this@IsomorphismToCohomologyOfFreePathSpace.n + 1))
         }
         val freePathSpace = FreePathSpace(sphere)

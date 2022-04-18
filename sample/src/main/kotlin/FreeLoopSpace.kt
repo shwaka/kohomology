@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.sample
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.model.FreeLoopSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
     // start
@@ -13,7 +13,7 @@ fun main() {
         Indeterminate("x", sphereDim),
         Indeterminate("y", sphereDim * 2 - 1)
     )
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
         listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
     }

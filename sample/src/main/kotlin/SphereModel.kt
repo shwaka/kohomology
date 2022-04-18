@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.sample
 
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverBigRational
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
     // start def
@@ -12,7 +12,7 @@ fun main() {
         Indeterminate("x", 2 * n),
         Indeterminate("y", 4 * n - 1)
     )
-    val matrixSpace = SparseMatrixSpaceOverBigRational
+    val matrixSpace = SparseMatrixSpaceOverRational
     // Sullivan algebra can be defined by using the constructor of FreeDGAlgebra.
     // The last argument is a function
     // which receives list of generators and returns the list of the values of the differential.

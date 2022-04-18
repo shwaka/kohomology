@@ -1220,6 +1220,7 @@ $dokka.location:com.github.shwaka.kohomology.util/Printer///PointingToDeclaratio
 $dokka.location:com.github.shwaka.kohomology.util/Printer/Printer/#com.github.shwaka.kohomology.util.PrintConfig/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/-printer.html
 $dokka.location:com.github.shwaka.kohomology.util/Printer/Printer/#com.github.shwaka.kohomology.util.PrintType#kotlin.String#kotlin.String#kotlin.String#com.github.shwaka.kohomology.util.ShowShift/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/-printer.html
 $dokka.location:com.github.shwaka.kohomology.util/Printer/invoke/#com.github.shwaka.kohomology.util.Printable?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/invoke.html
+$dokka.location:com.github.shwaka.kohomology.util/Printer/invoke/#kotlin.collections.Iterable[com.github.shwaka.kohomology.util.Printable]?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/invoke.html
 $dokka.location:com.github.shwaka.kohomology.util/Printer/plus/#com.github.shwaka.kohomology.util.Printable?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/plus.html
 $dokka.location:com.github.shwaka.kohomology.util/Printer/plus/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/plus.html
 $dokka.location:com.github.shwaka.kohomology.util/Printer/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-printer/to-string.html

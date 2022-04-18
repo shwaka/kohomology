@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.example
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.forAll
@@ -18,7 +18,7 @@ import io.kotest.matchers.shouldBe
 val exampleTag = NamedTag("Example")
 
 class ExampleTest : FreeSpec({
-    tags(exampleTag, bigRationalTag)
+    tags(exampleTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     "compare sphere and sphereWithMultiDegree in even dim" - {

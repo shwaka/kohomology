@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.specific
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.compileTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
@@ -217,7 +217,7 @@ class LongRationalTest : FreeSpec({
 })
 
 class RationalTest : FreeSpec({
-    tags(fieldTag, bigRationalTag)
+    tags(fieldTag, rationalTag)
 
     include(fromIntTest(RationalField))
     include(fieldTest(RationalField))

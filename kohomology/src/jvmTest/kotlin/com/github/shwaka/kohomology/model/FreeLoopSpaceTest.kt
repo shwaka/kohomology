@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.example.sphere
@@ -246,7 +246,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
 }
 
 class FreeLoopSpaceTest : FreeSpec({
-    tags(freeLoopSpaceTag, bigRationalTag)
+    tags(freeLoopSpaceTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(freeLoopSpaceOfEvenSphereTest(matrixSpace, 2))
@@ -255,7 +255,7 @@ class FreeLoopSpaceTest : FreeSpec({
 })
 
 class FreeLoopSpaceTestWithDecomposedSparseMatrixSpace : FreeSpec({
-    tags(freeLoopSpaceTag, bigRationalTag)
+    tags(freeLoopSpaceTag, rationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpaceOverRational
     include(freeLoopSpaceOfEvenSphereTest(matrixSpace, 2))

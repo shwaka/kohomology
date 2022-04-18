@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -78,7 +78,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
 }
 
 class DividedFreeLoopSpaceTest : FreeSpec({
-    tags(dividedFreeLoopSpaceTag, bigRationalTag)
+    tags(dividedFreeLoopSpaceTag, rationalTag)
 
     include(dividedFreeLoopSpaceOfEvenSphereTest(SparseMatrixSpaceOverRational, 2))
 })

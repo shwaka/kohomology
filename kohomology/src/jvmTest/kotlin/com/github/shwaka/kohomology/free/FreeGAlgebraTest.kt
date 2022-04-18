@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
@@ -474,7 +474,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
 }
 
 class FreeGAlgebraTest : FreeSpec({
-    tags(freeGAlgebraTag, bigRationalTag)
+    tags(freeGAlgebraTag, rationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverRational
 

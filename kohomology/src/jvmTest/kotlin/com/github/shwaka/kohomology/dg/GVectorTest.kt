@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
@@ -117,7 +117,7 @@ fun <S : Scalar, V : NumVector<S>> gVectorSpaceTest(numVectorSpace: NumVectorSpa
 }
 
 class RationalGVectorSpaceTest : FreeSpec({
-    tags(gVectorTag, bigRationalTag)
+    tags(gVectorTag, rationalTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverRational
     include(gVectorTest(numVectorSpace))

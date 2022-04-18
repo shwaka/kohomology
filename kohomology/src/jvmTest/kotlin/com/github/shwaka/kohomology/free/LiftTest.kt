@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -376,7 +376,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
 }
 
 class LiftTest : FreeSpec({
-    tags(liftTag, bigRationalTag)
+    tags(liftTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(liftTest(matrixSpace))

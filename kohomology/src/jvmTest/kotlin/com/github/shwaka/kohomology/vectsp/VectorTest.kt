@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -264,7 +264,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSp
 }
 
 class RationalVectorTest : FreeSpec({
-    tags(vectorTag, bigRationalTag)
+    tags(vectorTag, rationalTag)
 
     val numVectorSpace = DenseNumVectorSpaceOverRational
     include(vectorTest(numVectorSpace))

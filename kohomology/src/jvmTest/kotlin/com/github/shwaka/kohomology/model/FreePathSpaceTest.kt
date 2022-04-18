@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.example.complexProjectiveSpace
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -134,7 +134,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
 }
 
 class FreePathSpaceTest : FreeSpec({
-    tags(freePathSpaceTag, bigRationalTag)
+    tags(freePathSpaceTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(freePathSpaceOfEvenSphereTest(matrixSpace, 2))
@@ -143,7 +143,7 @@ class FreePathSpaceTest : FreeSpec({
 })
 
 class FreePathSpaceTestWithDecomposedSparseMatrixSpace : FreeSpec({
-    tags(freePathSpaceTag, bigRationalTag)
+    tags(freePathSpaceTag, rationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpaceOverRational
     include(freePathSpaceOfEvenSphereTest(matrixSpace, 2))

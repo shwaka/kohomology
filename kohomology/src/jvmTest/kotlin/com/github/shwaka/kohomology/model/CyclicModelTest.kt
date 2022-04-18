@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.model
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.forAll
@@ -94,7 +94,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> cyclicModelOfEvenSphereTest
 }
 
 class CyclicModelTest : FreeSpec({
-    tags(cyclicModelTag, bigRationalTag)
+    tags(cyclicModelTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(cyclicModelOfEvenSphereTest(matrixSpace, 2))

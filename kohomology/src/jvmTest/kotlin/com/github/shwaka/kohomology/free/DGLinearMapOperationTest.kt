@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGLinearMap
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -81,7 +81,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(ma
 }
 
 class DGLinearMapOperationTest : FreeSpec({
-    tags(dgLinearMapOperationTag, bigRationalTag)
+    tags(dgLinearMapOperationTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(dgLinearMapOperationTest(matrixSpace))

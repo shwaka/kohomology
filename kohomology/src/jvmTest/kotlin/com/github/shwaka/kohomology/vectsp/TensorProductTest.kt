@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -50,6 +50,6 @@ fun <S : Scalar, V : NumVector<S>> tensorProductTest(numVectorSpace: NumVectorSp
 }
 
 class TensorProductTest : FreeSpec({
-    tags(tensorProductTag, bigRationalTag)
+    tags(tensorProductTag, rationalTag)
     include(tensorProductTest(DenseNumVectorSpaceOverRational))
 })

@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
@@ -319,7 +319,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toIntDegreeTest(matrixSpace
 }
 
 class FreeDGAlgebraTest : FreeSpec({
-    tags(freeDGAlgebraTag, bigRationalTag)
+    tags(freeDGAlgebraTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(invalidModelTest(matrixSpace))
@@ -336,7 +336,7 @@ class FreeDGAlgebraTest : FreeSpec({
 })
 
 class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
-    tags(freeDGAlgebraTag, bigRationalTag)
+    tags(freeDGAlgebraTag, rationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpaceOverRational
     include(invalidModelTest(matrixSpace))

@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
@@ -192,7 +192,7 @@ class IntRationalDenseNumVectorTest : FreeSpec({
 })
 
 class RationalDenseNumVectorTest : FreeSpec({
-    tags(numVectorTag, denseNumVectorTag, bigRationalTag)
+    tags(numVectorTag, denseNumVectorTag, rationalTag)
     include(denseNumVectorTest(DenseNumVectorSpaceOverRational))
     include(numVectorTest(DenseNumVectorSpaceOverRational))
 
@@ -222,7 +222,7 @@ class IntRationalSparseNumVectorTest : FreeSpec({
 })
 
 class RationalSparseNumVectorTest : FreeSpec({
-    tags(numVectorTag, sparseNumVectorTag, bigRationalTag)
+    tags(numVectorTag, sparseNumVectorTag, rationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverRational))
     include(numVectorTest(SparseNumVectorSpaceOverRational))
 

@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -368,6 +368,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> directSumTest(matrixSpace: 
 }
 
 class DirectSumTest : FreeSpec({
-    tags(directSumTag, bigRationalTag)
+    tags(directSumTag, rationalTag)
     include(directSumTest(SparseMatrixSpaceOverRational))
 })

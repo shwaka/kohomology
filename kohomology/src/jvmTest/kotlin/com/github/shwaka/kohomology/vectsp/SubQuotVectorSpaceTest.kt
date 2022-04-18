@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -52,7 +52,7 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
 }
 
 class SubQuotVectorSpaceTest : FreeSpec({
-    tags(subQuotVectorSpaceTag, bigRationalTag)
+    tags(subQuotVectorSpaceTag, rationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverRational
     include(subQuotVectorSpaceTest(matrixSpace))

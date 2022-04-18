@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
@@ -742,7 +742,7 @@ class LongRationalDenseMatrixTest : FreeSpec({
 })
 
 class RationalDenseMatrixTest : FreeSpec({
-    tags(matrixTag, denseMatrixTag, bigRationalTag)
+    tags(matrixTag, denseMatrixTag, rationalTag)
 
     val matrixSpace = DenseMatrixSpaceOverRational
     include(denseMatrixSpaceTest(matrixSpace))
@@ -788,7 +788,7 @@ class IntMod5DenseMatrixTest : FreeSpec({
 })
 
 class RationalSparseMatrixTest : FreeSpec({
-    tags(matrixTag, sparseMatrixTag, bigRationalTag)
+    tags(matrixTag, sparseMatrixTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     include(sparseMatrixSpaceTest(matrixSpace))
@@ -806,7 +806,7 @@ class RationalSparseMatrixTest : FreeSpec({
 })
 
 class RationalDecomposedSparseMatrixTest : FreeSpec({
-    tags(matrixTag, sparseMatrixTag, bigRationalTag)
+    tags(matrixTag, sparseMatrixTag, rationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
     // include(sparseMatrixSpaceTest(RationalField))

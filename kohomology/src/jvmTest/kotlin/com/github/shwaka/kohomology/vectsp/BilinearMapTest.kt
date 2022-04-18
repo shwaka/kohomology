@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -91,7 +91,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
 }
 
 class RationalBilinearMapTest : FreeSpec({
-    tags(bilinearMapTag, bigRationalTag)
+    tags(bilinearMapTag, rationalTag)
     val matrixSpace = DenseMatrixSpaceOverRational
     include(bilinearMapTest(matrixSpace))
 })

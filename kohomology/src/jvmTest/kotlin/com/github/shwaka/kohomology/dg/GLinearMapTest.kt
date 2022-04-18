@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -107,7 +107,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
 }
 
 class RationalGLinearMapTest : FreeSpec({
-    tags(gLinearMapTag, bigRationalTag)
+    tags(gLinearMapTag, rationalTag)
 
     include(gLinearMapTest(DenseMatrixSpaceOverRational))
 })

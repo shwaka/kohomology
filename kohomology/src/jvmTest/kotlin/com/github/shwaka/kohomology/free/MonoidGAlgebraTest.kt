@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.shwaka.kohomology.bigRationalTag
+import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.EvenSuperDegree
@@ -79,7 +79,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
 }
 
 class MonoidGAlgebraTest : FreeSpec({
-    tags(monoidGAlgebraTag, bigRationalTag)
+    tags(monoidGAlgebraTag, rationalTag)
 
     include(complexProjectiveSpaceTest(DenseMatrixSpaceOverRational, 5))
 

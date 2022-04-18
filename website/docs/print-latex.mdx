@@ -19,23 +19,17 @@ Now you can compute and print the basis of the cohomology $H^*(LS^2)$ by
 and this prints
 
 ```
-H^0(LS^2) = Q[[1]]
-H^1(LS^2) = Q[[sx]]
-H^2(LS^2) = Q[[x]]
-H^3(LS^2) = Q[[sxsy]]
-H^4(LS^2) = Q[[1/2 xsy + ysx]]
-H^5(LS^2) = Q[[sxsy^2]]
-H^6(LS^2) = Q[[1/4 xsy^2 + ysxsy]]
-H^7(LS^2) = Q[[sxsy^3]]
-H^8(LS^2) = Q[[1/6 xsy^3 + ysxsy^2]]
-H^9(LS^2) = Q[[sxsy^4]]
-H^10(LS^2) = Q[[1/8 xsy^4 + ysxsy^3]]
+H^0(LX) = Q[[1]]
+H^1(LX) = Q[[sa], [sb]]
+H^2(LX) = Q[[a], [b], [sasb]]
+H^3(LX) = Q[[asb], [sasx], [2 sasy + sbsx], [1/2 sasz + sbsy], [sbsz]]
+H^4(LX) = Q[[1/2 asx + xsa], [asy - 1/2 bsx + xsb], [1/2 bsx + ysa], [1/2 asz + ysb], [-1/2 asz + bsy + zsa], [1/2 bsz + zsb], [sasbsx], [sasbsy], [sasbsz]]
 ```
 
 But this output is not very readable since
 
-- `xsy` can be confused with the product of three indeterminates `x`, `s` and `y`.
-- Fractions such as `1/8` are hard to read.
+- `sasb` can be confused with the product of indeterminates `s`, `a`, `s` and `b`.
+- Fractions such as `1/2` are hard to read.
 
 ## Solution
 
@@ -44,15 +38,9 @@ By using `Printer`, you can print a LaTeX code:
 <ImportKotlin path="PrintTex.kt" restrict="tex" />
 
 ```latex
-H^{0}(LS^2) &= \Q[[1]] \\
-H^{1}(LS^2) &= \Q[[\bar{x}]] \\
-H^{2}(LS^2) &= \Q[[{x}]] \\
-H^{3}(LS^2) &= \Q[[\bar{x}\bar{y}]] \\
-H^{4}(LS^2) &= \Q[[\frac{1}{2} {x}\bar{y} + {y}\bar{x}]] \\
-H^{5}(LS^2) &= \Q[[\bar{x}\bar{y}^{2}]] \\
-H^{6}(LS^2) &= \Q[[\frac{1}{4} {x}\bar{y}^{2} + {y}\bar{x}\bar{y}]] \\
-H^{7}(LS^2) &= \Q[[\bar{x}\bar{y}^{3}]] \\
-H^{8}(LS^2) &= \Q[[\frac{1}{6} {x}\bar{y}^{3} + {y}\bar{x}\bar{y}^{2}]] \\
-H^{9}(LS^2) &= \Q[[\bar{x}\bar{y}^{4}]] \\
-H^{10}(LS^2) &= \Q[[\frac{1}{8} {x}\bar{y}^{4} + {y}\bar{x}\bar{y}^{3}]] \\
+H^{0}(LX) &= \Q[[1]] \\
+H^{1}(LX) &= \Q[[\bar{a}], [\bar{b}]] \\
+H^{2}(LX) &= \Q[[{a}], [{b}], [\bar{a}\bar{b}]] \\
+H^{3}(LX) &= \Q[[{a}\bar{b}], [\bar{a}\bar{x}], [2 \bar{a}\bar{y} + \bar{b}\bar{x}], [\frac{1}{2} \bar{a}\bar{z} + \bar{b}\bar{y}], [\bar{b}\bar{z}]] \\
+H^{4}(LX) &= \Q[[\frac{1}{2} {a}\bar{x} + {x}\bar{a}], [{a}\bar{y} - \frac{1}{2} {b}\bar{x} + {x}\bar{b}], [\frac{1}{2} {b}\bar{x} + {y}\bar{a}], [\frac{1}{2} {a}\bar{z} + {y}\bar{b}], [-\frac{1}{2} {a}\bar{z} + {b}\bar{y} + {z}\bar{a}], [\frac{1}{2} {b}\bar{z} + {z}\bar{b}], [\bar{a}\bar{b}\bar{x}], [\bar{a}\bar{b}\bar{y}], [\bar{a}\bar{b}\bar{z}]] \\
 ```

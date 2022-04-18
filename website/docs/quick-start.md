@@ -30,3 +30,17 @@ dependencies {
     implementation("com.github.shwaka.kohomology:kohomology:0.5")
 }
 ```
+
+If you are using `build.gradle` file written in Groovy, write the following:
+
+```groovy
+repositories {
+    maven {
+        url 'https://shwaka.github.io/maven/'
+    }
+}
+
+dependencies {
+    implementation 'com.github.shwaka.kohomology:kohomology:0.5'
+}
+```

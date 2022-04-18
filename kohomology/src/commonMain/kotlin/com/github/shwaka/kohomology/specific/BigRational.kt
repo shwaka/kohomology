@@ -225,3 +225,20 @@ public val SparseMatrixSpaceOverRational: SparseMatrixSpace<Rational> =
     SparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
 public val DecomposedSparseMatrixSpaceOverRational: DecomposedSparseMatrixSpace<Rational> =
     DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
+
+// aliases for old names
+@Deprecated("Use Rational", ReplaceWith("Rational"))
+public typealias BigRational = Rational
+@Deprecated("Use RationalField", ReplaceWith("RationalField"))
+public typealias BigRationalField = RationalField
+@Deprecated("Use DenseNumVectorSpaceOverRational", ReplaceWith("DenseNumVectorSpaceOverRational"))
+public val DenseNumVectorSpaceOverBigRational: DenseNumVectorSpace<Rational> by ::DenseNumVectorSpaceOverRational
+@Deprecated("Use DenseMatrixSpaceOverRational", ReplaceWith("DenseMatrixSpaceOverRational"))
+public val DenseMatrixSpaceOverBigRational: DenseMatrixSpace<Rational> by ::DenseMatrixSpaceOverRational
+
+@Deprecated("Use SparseNumVectorSpaceOverRational", ReplaceWith("SparseNumVectorSpaceOverRational"))
+public val SparseNumVectorSpaceOverBigRational: SparseNumVectorSpace<Rational> by ::SparseNumVectorSpaceOverRational
+@Deprecated("Use SparseMatrixSpaceOverRational", ReplaceWith("SparseMatrixSpaceOverRational"))
+public val SparseMatrixSpaceOverBigRational: SparseMatrixSpace<Rational> by ::SparseMatrixSpaceOverRational
+@Deprecated("Use DecomposedSparseMatrixSpaceOverRational", ReplaceWith("DecomposedSparseMatrixSpaceOverRational"))
+public val DecomposedSparseMatrixSpaceOverBigRational: DecomposedSparseMatrixSpace<Rational> by ::DecomposedSparseMatrixSpaceOverRational

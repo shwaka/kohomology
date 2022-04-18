@@ -13,7 +13,7 @@ const math = require("remark-math")
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: "Kohomology",
-  tagline: "Compute cohomology of Sullivan algebras",
+  tagline: "Cohomology calculator for Sullivan algebras",
   url: "https://shwaka.github.io",
   baseUrl: "/kohomology/", // ends with "/" (see https://docusaurus.io/docs/api/docusaurus-config#baseurl)
   onBrokenLinks: "throw",

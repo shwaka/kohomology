@@ -42,7 +42,7 @@ export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
     )
   }
   const urlWithLines = isRestricted(textRange)
-    ? `${url}#L${textRange.start}-L${textRange.end}`
+    ? `${url}#L${textRange.begin}-L${textRange.end}`
     : url
   return (
     <div className={props.className}>

@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
-    // start
+    // \begin
     // Define the Sullivan model of the 4-sphere.
     val sphereDim = 4
     val indeterminateList = listOf(
@@ -32,5 +32,5 @@ fun main() {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^$degree(LS^$sphereDim) = Q$basis")
     }
-    // end
+    // \end
 }

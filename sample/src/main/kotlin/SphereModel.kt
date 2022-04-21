@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
-    // start def
+    // \begin{def}
     val n = 2
     // Declare an indeterminate (generator) for the free commutative graded algebra Λ(x,y)
     val indeterminateList = listOf(
@@ -23,16 +23,16 @@ fun main() {
         val dy = x.pow(2)
         listOf(dx, dy)
     }
-    // end def
+    // \end{def}
 
-    // start cohomology
+    // \begin{cohomology}
     for (degree in 0 until 10) {
         val basis = sphere.cohomology.getBasis(degree)
         println("H^$degree(S^${2 * n}) = Q$basis")
     }
-    // end cohomology
+    // \end{cohomology}
 
-    // start context
+    // \begin{context}
     val (x, y) = sphere.gAlgebra.generatorList
 
     // You can't write DGA operations here.
@@ -44,5 +44,5 @@ fun main() {
         println(x.cohomologyClass())
         println(x.pow(2).cohomologyClass())
     }
-    // end context
+    // \end{context}
 }

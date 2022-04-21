@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
-    // start model
+    // \begin{model}
     val n = 1
     val matrixSpace = SparseMatrixSpaceOverRational
 
@@ -28,9 +28,9 @@ fun main() {
     val sphereProduct = FreeDGAlgebra(matrixSpace, sphereProductIndeterminateList) { (a1, _, a2, _) ->
         listOf(zeroGVector, a1.pow(2), zeroGVector, a2.pow(2))
     }
-    // end model
+    // \end{model}
 
-    // start dgaMap
+    // \begin{dgaMap}
     val (x, y) = sphere.gAlgebra.generatorList
     val (a1, b1, a2, b2) = sphereProduct.gAlgebra.generatorList
     val valueList = sphereProduct.context.run {
@@ -44,5 +44,5 @@ fun main() {
         println(f.inducedMapOnCohomology()(x.cohomologyClass())) // [a1a2]
         println(f.inducedMapOnCohomology()(x.pow(2).cohomologyClass())) // 0
     }
-    // end dgaMap
+    // \end{dgaMap}
 }

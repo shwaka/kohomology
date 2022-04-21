@@ -1,6 +1,6 @@
 type RestrictedTextRange = {
   text: string
-  start: number
+  begin: number
   end: number
 }
 type WholeText = {
@@ -9,24 +9,24 @@ type WholeText = {
 export type TextRange = RestrictedTextRange | WholeText
 
 export function isRestricted(textRange: TextRange): textRange is RestrictedTextRange {
-  return "start" in textRange
+  return "begin" in textRange
 }
 
-function getLinesBetween(lines: string[], startRegExp: RegExp, endRegExp: RegExp): TextRange | null {
-  const startLineNum: number = lines.findIndex(line => line.match(startRegExp))
+function getLinesBetween(lines: string[], beginRegExp: RegExp, endRegExp: RegExp): TextRange | null {
+  const beginLineNum: number = lines.findIndex(line => line.match(beginRegExp))
   const endLineNum: number = lines.findIndex(line => line.match(endRegExp))
-  if (startLineNum === -1 || endLineNum === -1) {
+  if (beginLineNum === -1 || endLineNum === -1) {
     return null
   }
-  // +1: exclude "// start" comment
-  const restrictedLines = lines.slice(startLineNum + 1, endLineNum)
+  // +1: exclude "// \begin" comment
+  const restrictedLines = lines.slice(beginLineNum + 1, endLineNum)
   return {
     text: removeIndent(restrictedLines).join("\n"),
     // +1: 0-based v.s. 1-based
-    // +1: exclude "// start" comment
-    start: startLineNum + 2,
+    // +1: exclude "// \begin" comment
+    begin: beginLineNum + 2,
     // +1: 0-based v.s. 1-based
-    // -1: exluce "// end" comment
+    // -1: exluce "// \end" comment
     end: endLineNum,
   }
 }
@@ -49,11 +49,15 @@ function removeIndent(lines: string[]): string[] {
   return lines.map(line => line.substring(indent))
 }
 
-function createRegExp(startOrEnd: "start" | "end", key: string | true): RegExp {
+function createRegExp(beginOrEnd: "begin" | "end", key: string | true): RegExp {
   if (key === true) {
-    return new RegExp(`// ${startOrEnd}`)
+    // "// \begin"
+    // "// \end"
+    return new RegExp(`// \\\\${beginOrEnd}`)
   } else {
-    return new RegExp(`// ${startOrEnd} +${key}`)
+    // "// \begin{key}"
+    // "// \end{key}"
+    return new RegExp(`// \\\\${beginOrEnd}{${key}}`)
   }
 }
 
@@ -63,8 +67,8 @@ export function restrict(text: string, key: string | true | undefined): TextRang
       text: text
     }
   }
-  const startRegExp = createRegExp("start", key)
+  const beginRegExp = createRegExp("begin", key)
   const endRegExp = createRegExp("end", key)
   const lines = text.split("\n")
-  return getLinesBetween(lines, startRegExp, endRegExp)
+  return getLinesBetween(lines, beginRegExp, endRegExp)
 }

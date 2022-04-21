@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
 
 fun main() {
-    // start def
+    // \begin{def}
     val indeterminateList = listOf(
         Indeterminate("a", 2),
         Indeterminate("b", 2),
@@ -22,32 +22,32 @@ fun main() {
         listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
     }
     val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
-    // end def
+    // \end{def}
 
     println("----- plain output -----")
-    // start plain
+    // \begin{plain}
     for (degree in 0..4) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^$degree(LX) = Q$basis")
     }
-    // end plain
+    // \end{plain}
 
     println("----- tex output -----")
-    // start tex
+    // \begin{tex}
     val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
     for (degree in 0..4) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^{$degree}(LX) &= \\Q${basis.map { v -> p(v) }} \\\\")
     }
-    // end tex
+    // \end{tex}
 
     println("----- long tex output -----")
-    // start long
+    // \begin{long}
     val p2 = Printer(printType = PrintType.TEX, beforeSign = "\n", showShift = ShowShift.BAR)
     for (degree in 0..6) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         val basisString = basis.joinToString(",\n") { v -> p2(v) }
         println("\\begin{autobreak}\nH^{$degree}(LX) = \\Q[\n${basisString}]\n\\end{autobreak}\\\\")
     }
-    // end long
+    // \end{long}
 }

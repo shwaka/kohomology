@@ -1,0 +1,28 @@
+---
+title: DGA map
+sidebar_position: 5
+---
+
+import CodeBlock from "@theme/CodeBlock"
+import { ImportKotlin } from '@site/src/components/ImportKotlin';
+
+## DGA map
+Consider the map
+$f\colon S^{2n}\times S^{2n}\to S^{4n}$
+obtained by collapsing $n$-skeleton of $S^{2n}\times S^{2n}$ to a point.
+Its Sullivan representative can be defined as follows.
+
+First we define Sullivan models of $S^{4n}$ and $S^{2n}\times S^{2n}$.
+They can be taken as
+$(\wedge(x,y), d)$ with $dx=0$ and $dy=x^2$, and
+$(\wedge(a_1, b_1, a_2, b_2), d)$ with $da_i=0$ and $db_i=a_i^2$, respectively.
+
+<ImportKotlin path="DGAlgebraMap.kt" restrict="model" />
+
+Sullivan representative of the map $f$ is a DGA map
+$\varphi\colon\wedge(x,y)\to\wedge(a_1, b_1, a_2, b_2)$
+given by
+$\varphi(x)=a_1a_2$ and $\varphi(y)=a_1^2b_2$.
+In kohomology, this can be defined and used as follows:
+
+<ImportKotlin path="DGAlgebraMap.kt" restrict="dgaMap" />

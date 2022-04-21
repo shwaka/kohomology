@@ -6,9 +6,12 @@
 
 `kohomology` is a [Kotlin](https://kotlinlang.org/) library to compute the cohomology of a cochain complex. The main target is a Sullivan algebra (in [Rational homotopy theory - Wikipedia](https://en.wikipedia.org/wiki/Rational_homotopy_theory)).
 
-- This library is a [kotlin multiplatform](https://kotlinlang.org/docs/multiplatform.html) project. So it can be compiled for JVM and browser. (See [shwaka/kohomology-app](https://github.com/shwaka/kohomology-app))
-- This library also supports fields of positive characteristic. (But fewer implementation of concrete cochain complexes)
-- The name "*ko*homology" is obtained by combining "cohomology" and "kotlin".
-
 ## Documentation
-See the [website](https://shwaka.github.io/kohomology/index.html) for tutorial and documentation. (currently under development)
+See the [website](https://shwaka.github.io/kohomology/index.html) for tutorial and documentation.
+
+## Contributing
+We welcome any kind of contribution.
+
+- If you have any comments, please send feedbacks at [Discussions](https://github.com/shwaka/kohomology/discussions).
+- Feel free to send a feature request at [Issues](https://github.com/shwaka/kohomology/issues).
+- When you implement some new feature or fix some bug, feel free to make [Pull requests](https://github.com/shwaka/kohomology/pulls).

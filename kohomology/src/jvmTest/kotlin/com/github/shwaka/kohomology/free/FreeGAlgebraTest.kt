@@ -27,6 +27,7 @@ import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 import io.kotest.property.exhaustive.map
@@ -272,9 +273,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         freeGAlgebra.context.run {
-            shouldThrow<InvalidSizeException> {
+            val exception = shouldThrow<InvalidSizeException> {
                 freeGAlgebra.getDerivation(listOf(zeroGVector), 1)
             }
+            exception.message.shouldContain("2 is expected")
+            exception.message.shouldContain("1 is given")
         }
     }
 }

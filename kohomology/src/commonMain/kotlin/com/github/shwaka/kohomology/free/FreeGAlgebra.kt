@@ -73,7 +73,10 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 
     public fun getDerivation(valueList: List<GVectorOrZero<D, Monomial<D, I>, S, V>>, derivationDegree: D): Derivation<D, Monomial<D, I>, S, V, M> {
         if (valueList.size != this.indeterminateList.size)
-            throw InvalidSizeException("Invalid size of the list of values of a derivation")
+            throw InvalidSizeException(
+                "Invalid size of the list of values of a derivation: " +
+                    "${this.indeterminateList.size} is expected but ${valueList.size} is given"
+            )
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
             if (value is GVector) {
                 val expectedValueDegree = this.degreeGroup.context.run {

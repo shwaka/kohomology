@@ -120,7 +120,7 @@ class IsomorphismToCohomologyOfFreePathSpace(val n: Int, val degreeLimit: Int) :
         }
         val freePathSpace = FreePathSpace(sphere)
 
-        val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology()
+        val cohomologyInclusion1 = freePathSpace.inclusion1.inducedMapOnCohomology
         var result = ""
         for (degree in 0 until this.degreeLimit) {
             result += cohomologyInclusion1[degree].isIsomorphism().toString()

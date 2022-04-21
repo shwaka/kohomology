@@ -16,36 +16,46 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    title: "Efficient computation",
+    title: "Compute cohomology efficiently",
     description: (
       <>
-        Kohomology supports computation
-        with <Link href="https://en.wikipedia.org/wiki/Sparse_matrix">sparse matrices</Link>.
-        This enables us to compute complicated examples.
+        Kohomology can compute the cohomology of a Sullivan algebra.
+        Since it can be done
+        with <Link href="https://en.wikipedia.org/wiki/Sparse_matrix">sparse matrices</Link>,
+        we can compute complicated examples.
       </>
     )
   },
   {
-    title: "Powered by Kotlin",
+    title: "DGA morphisms",
     description: (
       <>
-        Kohomology is a <Link href="https://kotlinlang.org/">Kotlin</Link> library.
+        Kohomology can also compute DGA morphisms, especially from Sullivan algebras.
+        Derivations on Sullivan algebras are also supported.
+      </>
+    )
+  },
+  {
+    title: "Kotlin multiplatform library",
+    description: (
+      <>
+        Kohomology is a <Link href="https://kotlinlang.org/">Kotlin</Link> <Link href="https://kotlinlang.org/docs/multiplatform.html">multiplatform</Link> library.
         You can use it in any Kotlin program.
         There is also an online <Link href="./calculator">Calculator</Link> powered
         by <Link href="https://kotlinlang.org/docs/js-overview.html">Kotlin/JS</Link>.
       </>
-    ),
-  },
-  {
-    title: "Output LaTeX code",
-    description: (
-      <>
-        Kohomology can print LaTeX source code.
-        It is useful to visualize comlicated computation result
-        as highly readable equations typeset by LaTeX.
-      </>
     )
   },
+  // {
+  //   title: "Output LaTeX code",
+  //   description: (
+  //     <>
+  //       Kohomology can print LaTeX source code.
+  //       It is useful to visualize comlicated computation result
+  //       as highly readable equations typeset by LaTeX.
+  //     </>
+  //   )
+  // },
 ]
 
 function Feature({title, description}: FeatureItem): JSX.Element {

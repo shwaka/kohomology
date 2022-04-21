@@ -4,9 +4,6 @@
 /* eslint-disable no-undef */ // 'require' is not defined
 /* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
 
-const lightCodeTheme = require("prism-react-renderer/themes/nightOwlLight")
-const darkCodeTheme = require("prism-react-renderer/themes/oceanicNext")
-
 const katex = require("rehype-katex")
 const math = require("remark-math")
 
@@ -142,8 +139,7 @@ const config = {
         // copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
       },
       prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
+        // themes are configured in the createConfig() function below
         additionalLanguages: ["kotlin", "groovy", "latex"],
       },
     }),
@@ -154,4 +150,15 @@ const config = {
   ],
 }
 
-module.exports = config
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+async function createConfig() {
+  const lightTheme = (await import("./src/prismThemes/prismLight.mjs")).default
+  const darkTheme = (await import("./src/prismThemes/prismDark.mjs")).default
+  // @ts-expect-error: we know it exists, right
+  config.themeConfig.prism.theme = lightTheme
+  // @ts-expect-error: we know it exists, right
+  config.themeConfig.prism.darkTheme = darkTheme
+  return config
+}
+
+module.exports = createConfig

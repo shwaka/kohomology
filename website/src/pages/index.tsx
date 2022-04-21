@@ -22,7 +22,7 @@ function HomepageHeader(): JSX.Element {
           <Link
             className="button button--secondary button--lg"
             to="/docs/intro">
-            Tutorial
+            Documentation
           </Link>
         </div>
       </div>

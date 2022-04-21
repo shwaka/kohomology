@@ -96,7 +96,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 s(x * y) shouldBe (sx * y + x * sy)
             }
             "check suspension on cohomology" {
-                val hs = freeLoopSpace.suspension.inducedMapOnCohomology()
+                val hs = freeLoopSpace.suspension.inducedMapOnCohomology
                 hs(x.cohomologyClass()) shouldBe (sx.cohomologyClass())
                 hs(sx.cohomologyClass()).isZero().shouldBeTrue()
             }

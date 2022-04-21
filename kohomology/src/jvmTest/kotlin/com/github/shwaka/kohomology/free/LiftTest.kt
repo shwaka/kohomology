@@ -242,8 +242,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val liftWithHomotopy = source.findLiftUpToHomotopy(underlyingMap, quasiIsomorphism)
                     val lift = liftWithHomotopy.lift
                     (0..(2 * sphereDim)).forAll { degree ->
-                        (quasiIsomorphism * lift).inducedMapOnCohomology()[degree] shouldBe
-                            underlyingMap.inducedMapOnCohomology()[degree]
+                        (quasiIsomorphism * lift).inducedMapOnCohomology[degree] shouldBe
+                            underlyingMap.inducedMapOnCohomology[degree]
                     }
                     // test homotopy
                     val homotopy = liftWithHomotopy.homotopy
@@ -262,7 +262,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     // test section on cohomology
                     val section = liftWithHomotopy.lift
                     (0..(2 * sphereDim)).forAll { degree ->
-                        (quasiIsomorphism * section).inducedMapOnCohomology()[degree].isIdentity().shouldBeTrue()
+                        (quasiIsomorphism * section).inducedMapOnCohomology[degree].isIdentity().shouldBeTrue()
                     }
                     // test homotopy
                     val homotopy = liftWithHomotopy.homotopy

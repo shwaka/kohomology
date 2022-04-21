@@ -55,7 +55,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         )
     }
 
-    public fun inducedMapOnCohomology(): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+    public val inducedMapOnCohomology: GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> by lazy {
         val getGVectors: (D) -> List<GVector<D, SubQuotBasis<BT, S, V>, S, V>> = { k ->
             this.source.cohomology.getBasis(k).map { cohomologyClass ->
                 val cocycle = this.source.cocycleRepresentativeOf(cohomologyClass)
@@ -63,7 +63,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
             }
         }
         val newName = "H^*(${this.gLinearMap.name})"
-        return GLinearMap.fromGVectors(
+        GLinearMap.fromGVectors(
             this.source.cohomology,
             this.target.cohomology,
             this.degree,
@@ -83,7 +83,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         val degree = targetCocycle.degree
         require(this.target.differential(targetCocycle).isZero()) { "$targetCocycle is not a cocycle" }
         val targetClass = this.target.cohomologyClassOf(targetCocycle)
-        val sourceClass = this.inducedMapOnCohomology().findPreimage(targetClass)
+        val sourceClass = this.inducedMapOnCohomology.findPreimage(targetClass)
             ?: throw UnsupportedOperationException("H^$degree($this) is not surjective")
         val sourceCocycle = this.source.cocycleRepresentativeOf(sourceClass)
         val coboundary = this.target.context.run {
@@ -146,7 +146,7 @@ public open class DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         val degree = targetCocycle.degree
         require(this.target.differential(targetCocycle).isZero()) { "$targetCocycle is not a cocycle" }
         val targetClass = this.target.cohomologyClassOf(targetCocycle)
-        val sourceClass = this.inducedMapOnCohomology().findPreimage(targetClass)
+        val sourceClass = this.inducedMapOnCohomology.findPreimage(targetClass)
             ?: throw UnsupportedOperationException("H^$degree($this) is not surjective")
         val sourceCocycle = this.source.cocycleRepresentativeOf(sourceClass)
         val coboundary = this.target.context.run {

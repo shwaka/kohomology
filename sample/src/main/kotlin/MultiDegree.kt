@@ -11,8 +11,8 @@ fun main() {
     val sphereDim = 2
     val degreeGroup = MultiDegreeGroup(
         listOf(
-            DegreeIndeterminate("N", sphereDim / 2),
-            DegreeIndeterminate("M", sphereDim / 2),
+            DegreeIndeterminate("n", sphereDim / 2),
+            DegreeIndeterminate("m", sphereDim / 2),
         )
     )
     val (n, m) = degreeGroup.generatorList

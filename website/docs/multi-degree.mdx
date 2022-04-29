@@ -1,0 +1,34 @@
+---
+title: MultiDegree
+sidebar_position: 6
+---
+
+import { ImportKotlin } from '@site/src/components/ImportKotlin';
+
+Using `MultiDegree`, you can efficiently compute cohomology of some Sullivan algebras.
+
+## Mathematical explanation
+Usually, Sullivan algebras are $\Z$-graded.
+But, in some case, the grading can be extended to a larger group.
+
+For example, the Sullivan model $(\wedge(x,y), d)$ of the even dimensional sphere $S^{2n}$
+can be $(\Z\oplus\Z)$-graded since it has $n$ as a "parameter".
+More precisely,
+the degrees $|x|=2n$ and $|y|=4n-1$ can be considered as elements of
+$\Z\oplus\Z=\Z\{1,n\}$ (i.e. $\{1, n\}$ is the basis of $\Z\oplus\Z$).
+
+`kohomology` supports computation of cohomology with
+$(\Z\oplus\Z)$-grading (or $(\Z\oplus\cdots\oplus\Z)$-grading),
+which is faster than the usual one.
+
+
+## Usage
+First you need to define `degreeGroup`.
+<ImportKotlin path="MultiDegree.kt" restrict="degree" />
+
+Then you can define a Sullivan algebra using the above `degreeGroup`.
+<ImportKotlin path="MultiDegree.kt" restrict="model" />
+
+Its cohomology can be computed as follows:
+
+<ImportKotlin path="MultiDegree.kt" restrict="cohomology" />

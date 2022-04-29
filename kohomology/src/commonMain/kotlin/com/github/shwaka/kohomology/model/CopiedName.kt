@@ -55,7 +55,7 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
                 }
             }
         }
-        return "$shiftString${this.name.toString(PrintConfig(PrintType.TEX))}$indexString"
+        return "$shiftString${this.name.toString(PrintConfig(PrintType.PLAIN))}$indexString"
     }
 
     private fun toTex(showShift: ShowShift): String {

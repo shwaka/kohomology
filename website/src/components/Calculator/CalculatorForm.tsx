@@ -8,7 +8,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { Button, Dialog, DialogContent } from "@mui/material"
+import { Button, Dialog, DialogContent, FormControlLabel, Radio, RadioGroup } from "@mui/material"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -156,17 +156,17 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         finish={() => setEditingJson(false)}
         isOpen={editingJson}
       />
-      <div>
-        {targetNames.map((targetNameForLabel, index) =>
-          <label key={index}>
-            <input
-              type="radio" name="targetName"
-              value={targetNameForLabel} checked={targetNameForLabel === targetName}
-              onChange={() => setTargetName(targetNameForLabel)} />
-            {targetNameForLabel}
-          </label>
+      <RadioGroup
+        row
+        value={targetName}
+        onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+      >
+        {targetNames.map((targetNameForLabel) =>
+          <FormControlLabel
+            key={targetNameForLabel} value={targetNameForLabel}
+            control={<Radio/>} label={targetNameForLabel}/>
         )}
-      </div>
+      </RadioGroup>
       <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
         <input type="submit" value="Compute cohomology"/>
         <span>up to degree</span>

@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import styles from "./styles.module.scss"
+import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
@@ -8,9 +9,10 @@ interface JsonEditorProps {
   json: string
   updateDgaWrapper: (json: string) => void
   finish: () => void
+  isOpen: boolean
 }
 
-export function JsonEditor(props: JsonEditorProps): JSX.Element {
+export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
   const [json, setJson] = useState(props.json)
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
@@ -23,18 +25,37 @@ export function JsonEditor(props: JsonEditorProps): JSX.Element {
     setJson(e.target.value)
   }
   return (
-    <div className={styles.jsonEditor}>
-      {createButton("S^2", sphere(2))}
-      {createButton("CP^3", complexProjective(3))}
-      {createButton("7-mfd", sevenManifold())}
-      <textarea
-        value={json} onChange={handleChangeJson} />
-      <input
-        type="button" value="Apply"
-        onClick={() => { props.updateDgaWrapper(json); props.finish() }} />
-      <input
-        type="button" value="Cancel"
-        onClick={() => { props.finish() }} />
-    </div>
+    <Dialog
+      open={props.isOpen}
+      onClose={props.finish}
+      maxWidth="sm" fullWidth={true}
+    >
+      <DialogContent>
+        <Stack spacing={2}>
+          <TextField
+            label="Input your DGA" multiline
+            value={json} onChange={handleChangeJson}
+          />
+          <div>
+            {"Examples: "}
+            {createButton("S^2", sphere(2))}
+            {createButton("CP^3", complexProjective(3))}
+            {createButton("7-mfd", sevenManifold())}
+          </div>
+        </Stack>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={() => { props.updateDgaWrapper(json); props.finish() }}
+        >
+          Apply
+        </Button>
+        <Button
+          onClick={() => { props.finish() }}
+        >
+          Cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }

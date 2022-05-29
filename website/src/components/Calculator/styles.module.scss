@@ -54,14 +54,3 @@
     }
   }
 }
-
-// This is not contained in .calculator since this is wrapped by MUI <Dialog>
-.jsonEditor {
-  background: lightgray;
-  padding: 10px;
-
-  textarea {
-    width: 100%;
-    height: 150px;
-  }
-}

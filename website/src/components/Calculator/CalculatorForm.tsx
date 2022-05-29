@@ -2,7 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
-import { JsonEditor } from "./JsonEditor"
+import { JsonEditorDialog } from "./JsonEditor"
 import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
@@ -151,17 +151,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         sx={{ textTransform: "none" }}>
         Edit DGA
       </Button>
-      <Dialog
-        open={editingJson}
-        onClose={() => setEditingJson(false)}
-      >
-        <DialogContent>
-          <JsonEditor
-            json={json} updateDgaWrapper={setJson}
-            finish={() => setEditingJson(false)}
-          />
-        </DialogContent>
-      </Dialog>
+      <JsonEditorDialog
+        json={json} updateDgaWrapper={setJson}
+        finish={() => setEditingJson(false)}
+        isOpen={editingJson}
+      />
       <div>
         {targetNames.map((targetNameForLabel, index) =>
           <label key={index}>

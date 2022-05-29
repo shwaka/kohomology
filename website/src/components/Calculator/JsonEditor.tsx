@@ -1,7 +1,6 @@
+import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
-import styles from "./styles.module.scss"
-import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 
 type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 

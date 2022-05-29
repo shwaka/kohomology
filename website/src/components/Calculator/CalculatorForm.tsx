@@ -8,7 +8,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { Button, Dialog, DialogContent, FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { Button, FormControlLabel, Radio, RadioGroup } from "@mui/material"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {

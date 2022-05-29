@@ -4,6 +4,15 @@ import "katex/dist/katex.min.css"
 import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
 import { fromString, StyledMessage } from "./styled"
 import styles from "./styles.module.scss"
+import { createTheme, ThemeProvider } from "@mui/material"
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#7e6ca8", // --ifm-color-primary in src/css/custom.css
+    }
+  }
+})
 
 export function Calculator(): JSX.Element {
   const initialMessage = fromString("success", "Computation results will be shown here")
@@ -29,13 +38,15 @@ export function Calculator(): JSX.Element {
   useEffect(() => { scrollToBottom() }, [messages])
   // BrowserOnly is used to avoid SSR (see a comment in CalculatorFrom)
   return (
-    <div className={styles.calculator}>
-      <BrowserOnly fallback={<div>Loading...</div>}>
-        {() => <CalculatorForm printMessages={addMessages} />}
-      </BrowserOnly>
-      <div className={styles.calculatorResults} ref={scrollRef}>
-        {messages.map((message, index) => styledMessageToJSXElement(message, index))}
+    <ThemeProvider theme={theme}>
+      <div className={styles.calculator}>
+        <BrowserOnly fallback={<div>Loading...</div>}>
+          {() => <CalculatorForm printMessages={addMessages} />}
+        </BrowserOnly>
+        <div className={styles.calculatorResults} ref={scrollRef}>
+          {messages.map((message, index) => styledMessageToJSXElement(message, index))}
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   )
 }

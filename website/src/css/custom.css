@@ -6,6 +6,7 @@
 
 /* You can override the default Infima variables here. */
 :root {
+  /* This is also used in theme in Calculator */
   --ifm-color-primary: #7e6ca8;
   --ifm-color-primary-dark: #6f5c9c;
   --ifm-color-primary-darker: #695793;

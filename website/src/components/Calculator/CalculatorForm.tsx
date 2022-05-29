@@ -8,6 +8,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
+import { Button, Dialog, DialogContent } from "@mui/material"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -145,12 +146,17 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
       </div>
       <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
-      {editingJson &&
-       <JsonEditor
-         json={json} updateDgaWrapper={setJson}
-         finish={() => setEditingJson(false)}
-       />
-      }
+      <Dialog
+        open={editingJson}
+        onClose={() => setEditingJson(false)}
+      >
+        <DialogContent>
+          <JsonEditor
+            json={json} updateDgaWrapper={setJson}
+            finish={() => setEditingJson(false)}
+          />
+        </DialogContent>
+      </Dialog>
       <div>
         {targetNames.map((targetNameForLabel, index) =>
           <label key={index}>

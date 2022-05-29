@@ -1,4 +1,5 @@
 import TeX from "@matejmazur/react-katex"
+import { Button, FormControlLabel, Radio, RadioGroup } from "@mui/material"
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
@@ -8,7 +9,6 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { Button, FormControlLabel, Radio, RadioGroup } from "@mui/material"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {

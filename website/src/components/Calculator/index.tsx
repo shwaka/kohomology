@@ -1,10 +1,10 @@
 import BrowserOnly from "@docusaurus/BrowserOnly"
+import { createTheme, ThemeProvider } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
 import { fromString, StyledMessage } from "./styled"
 import styles from "./styles.module.scss"
-import { createTheme, ThemeProvider } from "@mui/material"
 
 const theme = createTheme({
   palette: {

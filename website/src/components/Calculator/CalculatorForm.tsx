@@ -145,7 +145,12 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       <div>
         {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
       </div>
-      <input type="button" value="Edit DGA" onClick={() => setEditingJson(true)} />
+      <Button
+        variant="contained" size="small"
+        onClick={() => setEditingJson(true)}
+        sx={{ textTransform: "none" }}>
+        Edit DGA
+      </Button>
       <Dialog
         open={editingJson}
         onClose={() => setEditingJson(false)}

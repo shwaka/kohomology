@@ -83,7 +83,7 @@ class FreeDGAWrapper(val json: String) {
         }
         return arrayOf(
             styledMessage(MessageType.SUCCESS) {
-                freeDGAString.math
+                "(\\wedge V, d) = ".math + freeDGAString.math
             }.export(),
             styledMessage(MessageType.SUCCESS) {
                 degreeString.math

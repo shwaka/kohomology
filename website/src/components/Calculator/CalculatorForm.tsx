@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Button, FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
@@ -136,51 +136,59 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
 
   return (
     <div className={styles.calculatorForm}>
-      <details>
-        <summary>Usage</summary>
-        <div className={styles.usage}>
-          <Usage />
-        </div>
-      </details>
-      <div>
-        {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
-      </div>
-      <Button
-        variant="contained" size="small"
-        onClick={() => setEditingJson(true)}
-        sx={{ textTransform: "none" }}>
-        Edit DGA
-      </Button>
-      <JsonEditorDialog
-        json={json} updateDgaWrapper={setJson}
-        finish={() => setEditingJson(false)}
-        isOpen={editingJson}
-      />
-      <RadioGroup
-        row
-        value={targetName}
-        onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+      <Stack
+        direction="column"
+        spacing={2}
+        divider={<Divider orientation="horizontal"/>}
       >
-        {targetNames.map((targetNameForLabel) =>
-          <FormControlLabel
-            key={targetNameForLabel} value={targetNameForLabel}
-            control={<Radio/>} label={targetNameForLabel}/>
-        )}
-      </RadioGroup>
-      <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
-        <input type="submit" value="Compute cohomology"/>
-        <span>up to degree</span>
-        <input
-          type="number" value={maxDegree} onChange={handleChangeMaxDegree}
-          min={0} className={styles.maxDegree} />
-      </form>
-      <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
-        <input type="submit" value="Compute class" />
-        <span>cocycle:</span>
-        <input
-          type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
-          onSubmit={handleComputeCohomologyClassButton} />
-      </form>
+        <details>
+          <summary>Usage</summary>
+          <div className={styles.usage}>
+            <Usage />
+          </div>
+        </details>
+        <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+          <div>
+            {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
+          </div>
+          <Button
+            variant="contained" size="small"
+            onClick={() => setEditingJson(true)}
+            sx={{ textTransform: "none" }}>
+            Edit DGA
+          </Button>
+          <JsonEditorDialog
+            json={json} updateDgaWrapper={setJson}
+            finish={() => setEditingJson(false)}
+            isOpen={editingJson}
+          />
+        </Container>
+        <RadioGroup
+          row
+          value={targetName}
+          onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+        >
+          {targetNames.map((targetNameForLabel) =>
+            <FormControlLabel
+              key={targetNameForLabel} value={targetNameForLabel}
+              control={<Radio/>} label={targetNameForLabel}/>
+          )}
+        </RadioGroup>
+        <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
+          <input type="submit" value="Compute cohomology"/>
+          <span>up to degree</span>
+          <input
+            type="number" value={maxDegree} onChange={handleChangeMaxDegree}
+            min={0} className={styles.maxDegree} />
+        </form>
+        <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
+          <input type="submit" value="Compute class" />
+          <span>cocycle:</span>
+          <input
+            type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
+            onSubmit={handleComputeCohomologyClassButton} />
+        </form>
+      </Stack>
     </div>
   )
 }

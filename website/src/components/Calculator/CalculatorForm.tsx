@@ -40,6 +40,17 @@ export function styledMessageToJSXElement(styledMessage: StyledMessage, key: num
   )
 }
 
+function targetNameToTex(targetName: TargetName): JSX.Element {
+  switch (targetName) {
+    case "self":
+      return <TeX math="\wedge V"/>
+    case "freeLoopSpace":
+      return <TeX math="\wedge V \otimes \wedge \overline{V}"/>
+    case "cyclic":
+      return <TeX math="\wedge u \otimes\wedge V \otimes \wedge \overline{V}"/>
+  }
+}
+
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 
 interface CalculatorFormProps {
@@ -163,17 +174,21 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
             isOpen={editingJson}
           />
         </Container>
-        <RadioGroup
-          row
-          value={targetName}
-          onChange={(event) => setTargetName(event.target.value as typeof targetName)}
-        >
-          {targetNames.map((targetNameForLabel) =>
-            <FormControlLabel
-              key={targetNameForLabel} value={targetNameForLabel}
-              control={<Radio/>} label={targetNameForLabel}/>
-          )}
-        </RadioGroup>
+        <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+          <RadioGroup
+            row
+            value={targetName}
+            onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+          >
+            {targetNames.map((targetNameForLabel) =>
+              <FormControlLabel
+                key={targetNameForLabel} value={targetNameForLabel}
+                control={<Radio/>} label={targetNameForLabel}/>
+            )}
+          </RadioGroup>
+          {"Computation target: "}
+          {targetNameToTex(targetName)}
+        </Container>
         <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
           <input type="submit" value="Compute cohomology"/>
           <span>up to degree</span>

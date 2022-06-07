@@ -9,6 +9,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
+import { ComputeForm, InputEvent } from "./ComputeForm"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -58,8 +59,6 @@ function StackItem({ children }: { children: React.ReactNode }): JSX.Element {
     </Container>
   )
 }
-
-type InputEvent = React.ChangeEvent<HTMLInputElement>
 
 interface CalculatorFormProps {
   printMessages: (result: StyledMessage | StyledMessage[]) => void
@@ -198,20 +197,9 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           {targetNameToTex(targetName)}
         </StackItem>
         <StackItem>
-          <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
-            <input type="submit" value="Compute cohomology"/>
-            <span>up to degree</span>
-            <input
-              type="number" value={maxDegree} onChange={handleChangeMaxDegree}
-              min={0} className={styles.maxDegree} />
-          </form>
-          <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
-            <input type="submit" value="Compute class" />
-            <span>cocycle:</span>
-            <input
-              type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
-              onSubmit={handleComputeCohomologyClassButton} />
-          </form>
+          <ComputeForm
+            {...{handleCohomologyButton, handleComputeCohomologyClassButton, maxDegree, handleChangeMaxDegree, cocycleString, setCocycleString}}
+          />
         </StackItem>
       </Stack>
     </div>

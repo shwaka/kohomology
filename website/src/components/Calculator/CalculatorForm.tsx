@@ -51,6 +51,14 @@ function targetNameToTex(targetName: TargetName): JSX.Element {
   }
 }
 
+function StackItem({ children }: { children: React.ReactNode }): JSX.Element {
+  return (
+    <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+      {children}
+    </Container>
+  )
+}
+
 type InputEvent = React.ChangeEvent<HTMLInputElement>
 
 interface CalculatorFormProps {
@@ -158,7 +166,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
             <Usage />
           </div>
         </details>
-        <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+        <StackItem>
           <div>
             {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
           </div>
@@ -173,8 +181,8 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
             finish={() => setEditingJson(false)}
             isOpen={editingJson}
           />
-        </Container>
-        <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+        </StackItem>
+        <StackItem>
           <RadioGroup
             row
             value={targetName}
@@ -188,21 +196,23 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           </RadioGroup>
           {"Computation target: "}
           {targetNameToTex(targetName)}
-        </Container>
-        <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
-          <input type="submit" value="Compute cohomology"/>
-          <span>up to degree</span>
-          <input
-            type="number" value={maxDegree} onChange={handleChangeMaxDegree}
-            min={0} className={styles.maxDegree} />
-        </form>
-        <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
-          <input type="submit" value="Compute class" />
-          <span>cocycle:</span>
-          <input
-            type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
-            onSubmit={handleComputeCohomologyClassButton} />
-        </form>
+        </StackItem>
+        <StackItem>
+          <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
+            <input type="submit" value="Compute cohomology"/>
+            <span>up to degree</span>
+            <input
+              type="number" value={maxDegree} onChange={handleChangeMaxDegree}
+              min={0} className={styles.maxDegree} />
+          </form>
+          <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
+            <input type="submit" value="Compute class" />
+            <span>cocycle:</span>
+            <input
+              type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
+              onSubmit={handleComputeCohomologyClassButton} />
+          </form>
+        </StackItem>
       </Stack>
     </div>
   )

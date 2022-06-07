@@ -118,8 +118,6 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     applyJson(json)
   }, [json, applyJson])
 
-  const [computeFormProps] = useComputeForm({ targetName, worker })
-
   return (
     <div className={styles.calculatorForm}>
       <Stack
@@ -165,7 +163,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           {targetNameToTex(targetName)}
         </StackItem>
         <StackItem>
-          <ComputeForm {...computeFormProps}/>
+          <ComputeForm targetName={targetName} worker={worker}/>
         </StackItem>
       </Stack>
     </div>

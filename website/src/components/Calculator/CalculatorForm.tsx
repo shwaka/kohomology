@@ -163,7 +163,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           {targetNameToTex(targetName)}
         </StackItem>
         <StackItem>
-          <ComputeForm targetName={targetName} worker={worker}/>
+          <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>
         </StackItem>
       </Stack>
     </div>

@@ -14,13 +14,6 @@ export function ComputeForm({ targetName, worker }: ComputeFormProps): JSX.Eleme
   const [maxDegree, setMaxDegree] = useState("20")
   const [cocycleString, setCocycleString] = useState("x^2")
 
-  const handleChangeMaxDegree = useCallback(
-    (e: InputEvent): void => {
-      setMaxDegree(e.target.value)
-    },
-    []
-  )
-
   const handleCohomologyButton = useCallback(
     (e: FormEvent): void => {
       e.preventDefault()
@@ -52,7 +45,7 @@ export function ComputeForm({ targetName, worker }: ComputeFormProps): JSX.Eleme
         <input type="submit" value="Compute cohomology"/>
         <span>up to degree</span>
         <input
-          type="number" value={maxDegree} onChange={handleChangeMaxDegree}
+          type="number" value={maxDegree} onChange={(e) => setMaxDegree(e.target.value)}
           min={0} className={styles.maxDegree} />
       </form>
       <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>

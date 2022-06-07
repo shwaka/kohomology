@@ -1,7 +1,7 @@
 import React, { FormEvent, useCallback, useState } from "react"
+import KohomologyWorker from "worker-loader!./kohomology.worker"
 import styles from "./styles.module.scss"
 import { TargetName, WorkerInput } from "./workerInterface"
-import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 

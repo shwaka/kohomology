@@ -3,13 +3,13 @@ import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
+import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
 import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { ComputeForm, InputEvent, useComputeForm } from "./ComputeForm"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {

@@ -8,7 +8,7 @@ import { JsonEditorDialog } from "./JsonEditor"
 import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "../worker/styled"
-import styles from "../styles.module.scss"
+import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {

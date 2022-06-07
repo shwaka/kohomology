@@ -1,38 +1,9 @@
-.messageSuccess {
-  border-bottom: 1px solid lightGray;
-}
-.messageError {
-  background: peachpuff;
-  border-bottom: 1px solid lightGray;
-}
-
 .calculator {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
-
-  .calculatorForm {
-    width: 400px;
-    margin: 10px;
-    .usage {
-      background: lightgray;
-      padding: 10px;
-    }
-
-    .computeCohomology {
-      input {
-        margin: 3px;
-      }
-      span {
-        margin: 3px;
-      }
-      .maxDegree {
-        width: 50px;
-      }
-    }
-  }
 
   .calculatorResults {
     width: 700px;

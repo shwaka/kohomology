@@ -1,5 +1,7 @@
-import React, { FormEvent } from "react"
+import React, { FormEvent, useCallback, useState } from "react"
 import styles from "./styles.module.scss"
+import { TargetName, WorkerInput } from "./workerInterface"
+import KohomologyWorker from "worker-loader!./kohomology.worker"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -31,4 +33,49 @@ export function ComputeForm({ handleCohomologyButton, handleComputeCohomologyCla
       </form>
     </React.Fragment>
   )
+}
+
+export function useComputeForm({ targetName, worker }: { targetName: TargetName, worker: KohomologyWorker }): [ComputeFormProps] {
+  const [maxDegree, setMaxDegree] = useState("20")
+  const [cocycleString, setCocycleString] = useState("x^2")
+
+  const handleChangeMaxDegree = useCallback(
+    (e: InputEvent): void => {
+      setMaxDegree(e.target.value)
+    },
+    []
+  )
+
+  const handleCohomologyButton = useCallback(
+    (e: FormEvent): void => {
+      e.preventDefault()
+      const input: WorkerInput = {
+        command: "computeCohomology",
+        targetName: targetName,
+        maxDegree: parseInt(maxDegree),
+      }
+      worker.postMessage(input)
+    },
+    [targetName, maxDegree, worker]
+  )
+  const handleComputeCohomologyClassButton = useCallback(
+    (e: FormEvent): void => {
+      e.preventDefault()
+      const input: WorkerInput = {
+        command: "computeCohomologyClass",
+        targetName: targetName,
+        cocycleString: cocycleString,
+      }
+      worker.postMessage(input)
+    },
+    [targetName, cocycleString, worker]
+  )
+
+  const props: ComputeFormProps = {
+    handleCohomologyButton,
+    handleComputeCohomologyClassButton,
+    maxDegree, handleChangeMaxDegree,
+    cocycleString, setCocycleString,
+  }
+  return [props]
 }

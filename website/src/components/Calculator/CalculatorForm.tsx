@@ -1,6 +1,6 @@
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { FormEvent, useCallback, useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./kohomology.worker"
 import { JsonEditorDialog } from "./JsonEditor"
@@ -9,7 +9,7 @@ import { sphere } from "./examples"
 import { StyledMessage, StyledString } from "./styled"
 import styles from "./styles.module.scss"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "./workerInterface"
-import { ComputeForm, InputEvent } from "./ComputeForm"
+import { ComputeForm, InputEvent, useComputeForm } from "./ComputeForm"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -65,8 +65,6 @@ interface CalculatorFormProps {
 }
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
-  const [maxDegree, setMaxDegree] = useState("20")
-  const [cocycleString, setCocycleString] = useState("x^2")
   const [json, setJson] = useState(sphere(2))
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
@@ -100,31 +98,6 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   //   }
   // }
 
-  const handleCohomologyButton = useCallback(
-    (e: FormEvent): void => {
-      e.preventDefault()
-      const input: WorkerInput = {
-        command: "computeCohomology",
-        targetName: targetName,
-        maxDegree: parseInt(maxDegree),
-      }
-      worker.postMessage(input)
-    },
-    [targetName, maxDegree, worker]
-  )
-  const handleComputeCohomologyClassButton = useCallback(
-    (e: FormEvent): void => {
-      e.preventDefault()
-      const input: WorkerInput = {
-        command: "computeCohomologyClass",
-        targetName: targetName,
-        cocycleString: cocycleString,
-      }
-      worker.postMessage(input)
-    },
-    [targetName, cocycleString, worker]
-  )
-
   const applyJson = useCallback(
     (json: string): void => {
       // setJson(json)
@@ -145,12 +118,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
     applyJson(json)
   }, [json, applyJson])
 
-  const handleChangeMaxDegree = useCallback(
-    (e: InputEvent): void => {
-      setMaxDegree(e.target.value)
-    },
-    []
-  )
+  const [computeFormProps] = useComputeForm({ targetName, worker })
 
   return (
     <div className={styles.calculatorForm}>
@@ -197,9 +165,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           {targetNameToTex(targetName)}
         </StackItem>
         <StackItem>
-          <ComputeForm
-            {...{handleCohomologyButton, handleComputeCohomologyClassButton, maxDegree, handleChangeMaxDegree, cocycleString, setCocycleString}}
-          />
+          <ComputeForm {...computeFormProps}/>
         </StackItem>
       </Stack>
     </div>

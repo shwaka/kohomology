@@ -1,6 +1,6 @@
 import React, { FormEvent, useCallback, useState } from "react"
-import styles from "./styles.module.scss"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
+import styles from "./styles.module.scss"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 

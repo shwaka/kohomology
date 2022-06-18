@@ -32,20 +32,20 @@ package linalg {
 
 package specific {
   /'
-   ' class BigRational
-   ' Scalar <|-- BigRational
+   ' class Rational
+   ' Scalar <|-- Rational
    '/
 
-  class BigRationalField << (O, PaleGreen) >>
-  class DenseNumVectorSpaceOverBigRational << (O, PaleGreen) >>
-  class DenseMatrixSpaceOverBigRational << (O, PaleGreen) >>
+  class RationalField << (O, PaleGreen) >>
+  class DenseNumVectorSpaceOverRational << (O, PaleGreen) >>
+  class DenseMatrixSpaceOverRational << (O, PaleGreen) >>
 
-  Field <|-- BigRationalField
-  DenseNumVectorSpace <|-- DenseNumVectorSpaceOverBigRational
-  DenseMatrixSpace <|-- DenseMatrixSpaceOverBigRational
+  Field <|-- RationalField
+  DenseNumVectorSpace <|-- DenseNumVectorSpaceOverRational
+  DenseMatrixSpace <|-- DenseMatrixSpaceOverRational
 
-  BigRationalField *-down- DenseNumVectorSpaceOverBigRational
-  DenseNumVectorSpaceOverBigRational *-down- DenseMatrixSpaceOverBigRational
+  RationalField *-down- DenseNumVectorSpaceOverRational
+  DenseNumVectorSpaceOverRational *-down- DenseMatrixSpaceOverRational
 }
 
 package vectsp {

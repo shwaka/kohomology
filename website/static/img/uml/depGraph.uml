@@ -1,0 +1,46 @@
+@startuml
+hide members
+hide circle
+set namespaceSeparator ::
+class model
+class tex
+class linalg
+class specific
+class example
+class vectsp
+class simplicial
+package free {
+  class free
+  class free.monoid
+}
+package dg {
+  class dg
+  class dg.degree
+}
+model --> dg
+model --> dg.degree
+model --> free
+model --> free.monoid
+model --> linalg
+free --> dg
+free --> dg.degree
+free --> free.monoid
+free --> linalg
+free --> vectsp
+free --> model
+free.monoid --> dg.degree
+free.monoid --> vectsp
+specific --> linalg
+example --> dg.degree
+example --> free
+example --> free.monoid
+example --> linalg
+dg --> dg.degree
+dg --> linalg
+dg --> vectsp
+vectsp --> linalg
+simplicial --> dg
+simplicial --> dg.degree
+simplicial --> linalg
+simplicial --> vectsp
+@enduml

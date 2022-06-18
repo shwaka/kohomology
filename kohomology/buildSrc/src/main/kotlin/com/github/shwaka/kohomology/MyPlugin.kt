@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology
 
+import com.github.shwaka.kohomology.depgraph.writeDepGraph
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.internal.GradleInternal
@@ -24,6 +25,10 @@ class MyPlugin : Plugin<Project> {
 
         project.tasks.register("generateComponentN") {
             generateComponentN(30, project.rootDir)
+        }
+
+        project.tasks.register("writeDepGraph") {
+            writeDepGraph()
         }
     }
 }

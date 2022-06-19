@@ -5,7 +5,7 @@ import React from "react"
 import styles from "./ImportKotlin.module.css"
 import { isRestricted, restrict, TextRange } from "./restrict"
 
-const context = require.context("@site/../sample/src/main/kotlin", true, /\.kt$/)
+const context = require.context("@site/sample/src/main/kotlin", true, /\.kt$/)
 
 function normalizePath(path: string): string {
   if (path.startsWith("./")) {
@@ -26,7 +26,7 @@ type ImportKotlinProps = {
 }
 
 export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
-  const url = `${githubMainUrl}/sample/src/main/kotlin/${props.path}`
+  const url = `${githubMainUrl}/website/sample/src/main/kotlin/${props.path}`
   const code: string | undefined = files.get(normalizePath(props.path))
   if (code === undefined) {
     return <div>{`Invalid path: ${props.path}`}</div>

@@ -186,7 +186,7 @@ tasks.register<Exec>("openJacocoReport") {
 }
 
 tasks.withType<Wrapper> {
-    gradleVersion = "6.6.1"
+    gradleVersion = "7.4.2"
 }
 
 publishing {

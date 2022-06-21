@@ -89,7 +89,7 @@ class DependencyViewer {
             "@startuml",
             "hide members",
             "hide circle",
-            "set namespaceSeparator ::"
+            "set namespaceSeparator ::",
         )
         val groupPackages: Map<Package, MutableSet<Package>> =
             groups.map { Pair(it, mutableSetOf<Package>()) }.toMap()

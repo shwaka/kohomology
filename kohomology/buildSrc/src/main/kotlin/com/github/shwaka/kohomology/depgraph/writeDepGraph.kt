@@ -23,12 +23,12 @@ fun writeDepGraph() {
         "com.github.shwaka.parautil",
         "com.github.shwaka.kohomology.exception",
         "com.github.shwaka.kohomology.util",
-        "com.github.shwaka.kohomology.util.list"
+        "com.github.shwaka.kohomology.util.list",
     ).map { Package.fromString(it) }.toSet()
     val groups = listOf(
         "com.github.shwaka.kohomology.free",
         "com.github.shwaka.kohomology.dg",
-        "com.github.shwaka.kohomology.util"
+        "com.github.shwaka.kohomology.util",
     ).map { Package.fromString(it) }.toSet()
     // println(viewer.getDependency(prefix))
     val uml: String = viewer.toUml(prefix = prefix, ignore = ignore, groups = groups)

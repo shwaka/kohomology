@@ -4,15 +4,14 @@ group = "com.github.shwaka.kohomology"
 version = "0.8-SNAPSHOT"
 
 plugins {
-    val kotlinVersion = "1.7.0"
-    kotlin("multiplatform") version kotlinVersion
+    kotlin("multiplatform") version "1.5.32"
     id("io.kotest") version "0.2.6"
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     id("java-library") // necessary for jacoco
     jacoco
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
-    id("org.jetbrains.dokka") version kotlinVersion
+    id("org.jetbrains.dokka") version "1.4.30" // 1.5.32 は無いらしい
     id("com.github.shwaka.dokkacov") version "0.1"
 }
 

@@ -1238,9 +1238,11 @@ $dokka.location:com.github.shwaka.kohomology.util/Sign.Companion///PointingToDec
 $dokka.location:com.github.shwaka.kohomology.util/Sign.Companion/fromParity/#kotlin.Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/from-parity.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.Companion/fromParity/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-companion/from-parity.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/index.html
+$dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS/intValue/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/int-value.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/name.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.MINUS/ordinal/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-m-i-n-u-s/ordinal.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.PLUS///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-p-l-u-s/index.html
+$dokka.location:com.github.shwaka.kohomology.util/Sign.PLUS/intValue/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-p-l-u-s/int-value.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.PLUS/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-p-l-u-s/name.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign.PLUS/ordinal/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/-p-l-u-s/ordinal.html
 $dokka.location:com.github.shwaka.kohomology.util/Sign///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-sign/index.html

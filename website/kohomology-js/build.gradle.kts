@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.4.32"
+    val kotlinVersion = "1.5.32"
     kotlin("js") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"

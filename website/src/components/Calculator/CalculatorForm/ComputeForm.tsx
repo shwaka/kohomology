@@ -116,6 +116,7 @@ function isAvailable(targetName: TargetName, computationType: ComputationType): 
       return true
     case "freeLoopSpace":
     case "cyclic":
+    case "derivation":
       switch (computationType) {
         case "cohomology":
           return true

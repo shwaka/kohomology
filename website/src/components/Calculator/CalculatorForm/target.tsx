@@ -10,8 +10,9 @@ export function getComplexAsString(targetName: TargetName): string {
       return "\\wedge V \\otimes \\wedge \\overline{V}"
     case "cyclic":
       return "\\wedge u \\otimes\\wedge V \\otimes \\wedge \\overline{V}"
+    case "derivation":
+      return "\\mathrm{Der}(\\wedge V)"
   }
-
 }
 
 export function ComplexAsTex({ targetName }: { targetName: TargetName }): JSX.Element {

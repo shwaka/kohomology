@@ -1,8 +1,8 @@
-import { Tabs, Tab } from "@mui/material"
+import { Tabs, Tab, Button, Stack } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
+import { NumberField, useNumberField } from "./NumberField"
 import styles from "./styles.module.scss"
-import { getCohomologyAsTex, getComplexAsTex } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -12,27 +12,31 @@ export interface ComputeFormProps {
 }
 
 function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
-  const [maxDegree, setMaxDegree] = useState("20")
+  const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20})
   const handleCohomologyButton = useCallback(
-    (e: FormEvent): void => {
-      e.preventDefault()
+    (): void => {
       const input: WorkerInput = {
         command: "computeCohomology",
         targetName: targetName,
-        maxDegree: parseInt(maxDegree),
+        maxDegree: maxDegree,
       }
       postMessageToWorker(input)
     },
     [targetName, maxDegree, postMessageToWorker]
   )
   return (
-    <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
-      <input type="submit" value="Compute cohomology"/>
-      <span>up to degree</span>
-      <input
-        type="number" value={maxDegree} onChange={(e) => setMaxDegree(e.target.value)}
-        min={0} className={styles.maxDegree} />
-    </form>
+    <Stack>
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <span>Compute cohomology up to degree </span>
+        <NumberField {...maxDegreeFieldProps}/>
+      </Stack>
+      <Button
+        onClick={handleCohomologyButton}
+        variant="contained"
+      >
+        Compute
+      </Button>
+    </Stack>
   )
 }
 

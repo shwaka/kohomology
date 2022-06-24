@@ -9,10 +9,8 @@ export interface ComputeFormProps {
   postMessageToWorker: (message: WorkerInput) => void
 }
 
-export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
   const [maxDegree, setMaxDegree] = useState("20")
-  const [cocycleString, setCocycleString] = useState("x^2")
-
   const handleCohomologyButton = useCallback(
     (e: FormEvent): void => {
       e.preventDefault()
@@ -25,6 +23,19 @@ export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProp
     },
     [targetName, maxDegree, postMessageToWorker]
   )
+  return (
+    <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
+      <input type="submit" value="Compute cohomology"/>
+      <span>up to degree</span>
+      <input
+        type="number" value={maxDegree} onChange={(e) => setMaxDegree(e.target.value)}
+        min={0} className={styles.maxDegree} />
+    </form>
+  )
+}
+
+function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+  const [cocycleString, setCocycleString] = useState("x^2")
   const handleComputeCohomologyClassButton = useCallback(
     (e: FormEvent): void => {
       e.preventDefault()
@@ -37,23 +48,22 @@ export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProp
     },
     [targetName, cocycleString, postMessageToWorker]
   )
+  return (
+    <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
+      <input type="submit" value="Compute class" />
+      <span>cocycle:</span>
+      <input
+        type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
+        onSubmit={handleComputeCohomologyClassButton} />
+    </form>
+  )
+}
 
+export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
   return (
     <React.Fragment>
-      <form className={styles.computeCohomology} onSubmit={handleCohomologyButton}>
-        <input type="submit" value="Compute cohomology"/>
-        <span>up to degree</span>
-        <input
-          type="number" value={maxDegree} onChange={(e) => setMaxDegree(e.target.value)}
-          min={0} className={styles.maxDegree} />
-      </form>
-      <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
-        <input type="submit" value="Compute class" />
-        <span>cocycle:</span>
-        <input
-          type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
-          onSubmit={handleComputeCohomologyClassButton} />
-      </form>
+      <ComputeCohomologyForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
+      <ComputeClassForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
     </React.Fragment>
   )
 }

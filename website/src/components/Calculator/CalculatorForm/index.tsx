@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Button, Container, Dialog, DialogContent, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
+import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
@@ -7,10 +7,10 @@ import { StyledMessage, StyledString } from "../worker/styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
+import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { sphere } from "./examples"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
-import { UsageButton, UsageDialog, useUsage } from "./Usage"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {

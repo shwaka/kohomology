@@ -1,11 +1,10 @@
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Button, Stack, Alert } from "@mui/material"
-import React, { FormEvent, useCallback, useState } from "react"
+import React, { useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
-import styles from "./styles.module.scss"
-import { CohomologyAsTex, getCohomologyAsString, getComplexAsString } from "./target"
+import { CohomologyAsTex, getCohomologyAsString } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -18,8 +17,8 @@ interface InternalComputeFormProps {
 }
 
 function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
-  const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0})
-  const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20})
+  const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
+  const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const handleCohomologyButton = useCallback(
     (): void => {
       const input: WorkerInput = {

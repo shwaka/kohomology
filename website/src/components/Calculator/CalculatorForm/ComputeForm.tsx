@@ -65,8 +65,9 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
 }
 
 function ComputeClassForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
+  const disabled = !isAvailable(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
-    useStringField({ label: "", defaultValue: "x^2", width: 200 })
+    useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
   const handleComputeCohomologyClassButton = useCallback(
     (): void => {
       const input: WorkerInput = {
@@ -81,7 +82,6 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
   if (!visible) {
     return <React.Fragment></React.Fragment>
   }
-  const disabled = !isAvailable(targetName, "class")
   return (
     <Stack spacing={1}>
       <span>

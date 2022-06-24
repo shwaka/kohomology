@@ -110,51 +110,50 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   }, [json, applyJson])
 
   return (
-    <div className={styles.calculatorForm}>
-      <Stack
-        direction="column"
-        spacing={2}
-        divider={<Divider orientation="horizontal"/>}
-      >
-        <StackItem>
-          <UsageButton {...usageButtonProps}/>
-          <UsageDialog {...usageDialogProps}/>
-        </StackItem>
-        <StackItem>
-          <div>
-            {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
-          </div>
-          <Button
-            variant="contained" size="small"
-            onClick={() => setEditingJson(true)}
-            sx={{ textTransform: "none" }}>
-            Edit DGA
-          </Button>
-          <JsonEditorDialog
-            json={json} updateDgaWrapper={setJson}
-            finish={() => setEditingJson(false)}
-            isOpen={editingJson}
-          />
-        </StackItem>
-        <StackItem>
-          <RadioGroup
-            row
-            value={targetName}
-            onChange={(event) => setTargetName(event.target.value as typeof targetName)}
-          >
-            {targetNames.map((targetNameForLabel) =>
-              <FormControlLabel
-                key={targetNameForLabel} value={targetNameForLabel}
-                control={<Radio/>} label={targetNameForLabel}/>
-            )}
-          </RadioGroup>
-          {"Computation target: "}
-          <ComplexAsTex targetName={targetName}/>
-        </StackItem>
-        <StackItem>
-          <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>
-        </StackItem>
-      </Stack>
-    </div>
+    <Stack
+      direction="column"
+      spacing={2}
+      divider={<Divider orientation="horizontal"/>}
+      sx={{ width: 400, margin: 1 }}
+    >
+      <StackItem>
+        <UsageButton {...usageButtonProps}/>
+        <UsageDialog {...usageDialogProps}/>
+      </StackItem>
+      <StackItem>
+        <div>
+          {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
+        </div>
+        <Button
+          variant="contained" size="small"
+          onClick={() => setEditingJson(true)}
+          sx={{ textTransform: "none" }}>
+          Edit DGA
+        </Button>
+        <JsonEditorDialog
+          json={json} updateDgaWrapper={setJson}
+          finish={() => setEditingJson(false)}
+          isOpen={editingJson}
+        />
+      </StackItem>
+      <StackItem>
+        <RadioGroup
+          row
+          value={targetName}
+          onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+        >
+          {targetNames.map((targetNameForLabel) =>
+            <FormControlLabel
+              key={targetNameForLabel} value={targetNameForLabel}
+              control={<Radio/>} label={targetNameForLabel}/>
+          )}
+        </RadioGroup>
+        {"Computation target: "}
+        <ComplexAsTex targetName={targetName}/>
+      </StackItem>
+      <StackItem>
+        <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>
+      </StackItem>
+    </Stack>
   )
 }

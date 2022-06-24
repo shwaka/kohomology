@@ -7,10 +7,10 @@ import { StyledMessage, StyledString } from "../worker/styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
-import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
+import { UsageButton, UsageDialog, useUsage } from "./Usage"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -56,7 +56,7 @@ interface CalculatorFormProps {
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
-  const [showingUsage, setShowingUsage] = useState(false)
+  const { usageDialogProps, usageButtonProps } = useUsage()
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
@@ -116,17 +116,10 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         spacing={2}
         divider={<Divider orientation="horizontal"/>}
       >
-        <Button onClick={() => setShowingUsage(true)}>
-          Show usage
-        </Button>
-        <Dialog
-          open={showingUsage}
-          onClose={() => setShowingUsage(false)}
-        >
-          <DialogContent>
-            <Usage/>
-          </DialogContent>
-        </Dialog>
+        <StackItem>
+          <UsageButton {...usageButtonProps}/>
+          <UsageDialog {...usageDialogProps}/>
+        </StackItem>
         <StackItem>
           <div>
             {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}

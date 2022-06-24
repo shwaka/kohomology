@@ -114,7 +114,8 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
     getVectorSpace = factory::getVectorSpace,
     getMultiplication = factory::getMultiplication,
     getInternalPrintConfig = factory::getInternalPrintConfig,
-), Printable {
+),
+    Printable {
     public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = factory.freeGAlgebra
 
     public fun gVectorToDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): Derivation<D, Monomial<D, I>, S, V, M> {

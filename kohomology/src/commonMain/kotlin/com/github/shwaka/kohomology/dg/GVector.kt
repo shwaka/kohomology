@@ -295,7 +295,7 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public fun getBasisForAugmentedDegree(augmentedDegree: Int): List<GVector<D, B, S, V>> {
         val listDegreesForAugmentedDegree: (Int) -> List<D> = this.listDegreesForAugmentedDegree
             ?: throw NotImplementedError(
-                "GVectorSpace.getBasisForAugmentedDegree() cannot be called" +
+                "GVectorSpace.getBasisForAugmentedDegree() cannot be called " +
                     "since the property listDegreesForAugmentedDegree is null"
             )
         // ↓local 変数に代入しておかないと、listDegreesForAugmentedDegree が nullable になってしまう

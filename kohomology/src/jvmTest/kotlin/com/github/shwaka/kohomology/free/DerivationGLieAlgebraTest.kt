@@ -94,7 +94,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
         val texPrinter = Printer(PrintType.TEX)
 
         derivationGLieAlgebra.toString() shouldBe "Der(Λ(x, y))"
-        texPrinter(derivationGLieAlgebra) shouldBe "Der(Λ(X, Y))"
+        texPrinter(derivationGLieAlgebra) shouldBe "\\mathrm{Der}(Λ(X, Y))"
     }
 }
 

@@ -124,7 +124,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationPrinterTest(matri
         val texPrinter = Printer(PrintType.TEX)
 
         derivationDGLieAlgebra.toString() shouldBe "(Der(Λ(x, y)), d)"
-        texPrinter(derivationDGLieAlgebra) shouldBe "(Der(Λ(X, Y)), d)"
+        texPrinter(derivationDGLieAlgebra) shouldBe "(\\mathrm{Der}(Λ(X, Y)), d)"
     }
 }
 

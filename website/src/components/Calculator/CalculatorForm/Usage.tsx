@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogContent } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import React, { useState } from "react"
 import Usage from "./_usage.mdx"
 
@@ -33,6 +33,11 @@ export function UsageDialog({ open, setOpen }: UsageDialogProps): JSX.Element {
       <DialogContent>
         <Usage/>
       </DialogContent>
+      <DialogActions>
+        <Button onClick={() => setOpen(false)}>
+          Close
+        </Button>
+      </DialogActions>
     </Dialog>
   )
 }

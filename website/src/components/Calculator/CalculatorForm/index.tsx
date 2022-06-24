@@ -150,7 +150,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
             )}
           </RadioGroup>
           {"Computation target: "}
-          {ComplexAsTex(targetName)}
+          <ComplexAsTex targetName={targetName}/>
         </StackItem>
         <StackItem>
           <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>

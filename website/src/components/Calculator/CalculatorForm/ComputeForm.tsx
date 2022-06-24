@@ -1,9 +1,11 @@
+import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Button, Stack } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import styles from "./styles.module.scss"
+import { CohomologyAsTex } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -28,10 +30,15 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
     [targetName, minDegree, maxDegree, postMessageToWorker]
   )
   return (
-    <Stack>
-      <Stack direction="row" alignItems="center" spacing={1}>
-        <span>Compute cohomology up to degree</span>
+    <Stack spacing={1}>
+      <span>
+        {"Compute cohomology "}
+        <CohomologyAsTex targetName={targetName} degree="n"/>
+        {" for"}
+      </span>
+      <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
         <NumberField {...minDegreeFieldProps}/>
+        <TeX math="\leq n \leq"/>
         <NumberField {...maxDegreeFieldProps}/>
       </Stack>
       <Button

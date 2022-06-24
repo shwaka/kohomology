@@ -14,13 +14,13 @@ function getComplexAsString(targetName: TargetName): string {
 
 }
 
-export function ComplexAsTex(targetName: TargetName): JSX.Element {
+export function ComplexAsTex({ targetName }: { targetName: TargetName }): JSX.Element {
   return (
     <TeX math={getComplexAsString(targetName)}/>
   )
 }
 
-export function CohomologyAsTex(targetName: TargetName, degree: string): JSX.Element {
+export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree: string }): JSX.Element {
   const complex = getComplexAsString(targetName)
   const tex = `H^{${degree}}(${complex})`
   return (

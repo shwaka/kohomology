@@ -9,12 +9,15 @@ import { CohomologyAsTex, getCohomologyAsString, getComplexAsString } from "./ta
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
-export interface ComputeFormProps {
+// Tab を切り替えたても minDegree, maxDegree, cocycleString の値が保持されるために
+// visible を Props に追加して，component そのものは必ず render するようにした．
+interface InternalComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
+  visible: boolean
 }
 
-function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0})
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20})
   const handleCohomologyButton = useCallback(
@@ -29,6 +32,9 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
     },
     [targetName, minDegree, maxDegree, postMessageToWorker]
   )
+  if (!visible) {
+    return <React.Fragment></React.Fragment>
+  }
   const disabled = !isAvailable(targetName, "cohomology")
   return (
     <Stack spacing={1}>
@@ -58,7 +64,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
   )
 }
 
-function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+function ComputeClassForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200 })
   const handleComputeCohomologyClassButton = useCallback(
@@ -72,6 +78,9 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
     },
     [targetName, cocycleString, postMessageToWorker]
   )
+  if (!visible) {
+    return <React.Fragment></React.Fragment>
+  }
   const disabled = !isAvailable(targetName, "class")
   return (
     <Stack spacing={1}>
@@ -116,6 +125,11 @@ function isAvailable(targetName: TargetName, computationType: ComputationType): 
   }
 }
 
+export interface ComputeFormProps {
+  targetName: TargetName
+  postMessageToWorker: (message: WorkerInput) => void
+}
+
 export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
   const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
@@ -127,17 +141,16 @@ export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProp
         <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }}/>
         <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }}/>
       </Tabs>
-      {
-        computationType === "cohomology" &&
-          <ComputeCohomologyForm
-            targetName={targetName}
-            postMessageToWorker={postMessageToWorker}
-          />
-      }
-      {
-        computationType === "class" &&
-          <ComputeClassForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
-      }
+      <ComputeCohomologyForm
+        targetName={targetName}
+        postMessageToWorker={postMessageToWorker}
+        visible={computationType === "cohomology"}
+      />
+      <ComputeClassForm
+        targetName={targetName}
+        postMessageToWorker={postMessageToWorker}
+        visible={computationType === "class"}
+      />
     </React.Fragment>
   )
 }

@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
+import { Button, Container, Dialog, DialogContent, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
@@ -56,6 +56,7 @@ interface CalculatorFormProps {
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(sphere(2))
+  const [showingUsage, setShowingUsage] = useState(false)
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
@@ -115,12 +116,17 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         spacing={2}
         divider={<Divider orientation="horizontal"/>}
       >
-        <details>
-          <summary>Usage</summary>
-          <div className={styles.usage}>
-            <Usage />
-          </div>
-        </details>
+        <Button onClick={() => setShowingUsage(true)}>
+          Show usage
+        </Button>
+        <Dialog
+          open={showingUsage}
+          onClose={() => setShowingUsage(false)}
+        >
+          <DialogContent>
+            <Usage/>
+          </DialogContent>
+        </Dialog>
         <StackItem>
           <div>
             {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}

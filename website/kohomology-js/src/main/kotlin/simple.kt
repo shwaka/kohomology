@@ -68,7 +68,7 @@ class FreeDGAWrapper(val json: String) {
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
     private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
 
-    private fun getFreeDGAlgebra(name: String): DGVectorSpace<*, *, *, *, *> {
+    private fun getDGVectorSpace(name: String): DGVectorSpace<*, *, *, *, *> {
         return when (name) {
             "self" -> this.freeDGAlgebra
             "freeLoopSpace" -> this.freeLoopSpace
@@ -102,25 +102,25 @@ class FreeDGAWrapper(val json: String) {
     }
 
     fun computationHeader(targetName: String): StyledMessageKt {
-        val targetDGA = this.getFreeDGAlgebra(targetName)
-        return computationHeader(targetDGA)
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        return computationHeader(targetDGVectorSpace)
     }
 
     // cohomology だと js で cohomology_0 に変換されてしまう
     fun computeCohomology(targetName: String, degree: Int): StyledMessageKt {
-        val targetDGA = this.getFreeDGAlgebra(targetName)
-        return computeCohomology(targetDGA, degree)
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        return computeCohomology(targetDGVectorSpace, degree)
     }
 
     fun computeCohomologyUpTo(targetName: String, minDegree: Int, maxDegree: Int): Array<StyledMessageKt> {
-        val targetDGA = this.getFreeDGAlgebra(targetName)
-        return computeCohomologyUpTo(targetDGA, minDegree, maxDegree)
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        return computeCohomologyUpTo(targetDGVectorSpace, minDegree, maxDegree)
     }
 
     fun computeCohomologyClass(targetName: String, cocycleString: String): StyledMessageKt {
-        val targetDGA = this.getFreeDGAlgebra(targetName)
-        return if (targetDGA is FreeDGAlgebra<*, *, *, *, *>) {
-            computeCohomologyClass(targetDGA, cocycleString)
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        return if (targetDGVectorSpace is FreeDGAlgebra<*, *, *, *, *>) {
+            computeCohomologyClass(targetDGVectorSpace, cocycleString)
         } else {
             styledMessage(MessageType.ERROR) {
                 "Cannot compute class for $targetName".text
@@ -195,6 +195,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycleString: String
 ): StyledMessageKt {
+    // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
     val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString)
     return when (cocycle) {
         is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }.export()

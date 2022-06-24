@@ -13,22 +13,25 @@ export interface ComputeFormProps {
 }
 
 function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+  const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0})
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20})
   const handleCohomologyButton = useCallback(
     (): void => {
       const input: WorkerInput = {
         command: "computeCohomology",
         targetName: targetName,
+        minDegree: minDegree,
         maxDegree: maxDegree,
       }
       postMessageToWorker(input)
     },
-    [targetName, maxDegree, postMessageToWorker]
+    [targetName, minDegree, maxDegree, postMessageToWorker]
   )
   return (
     <Stack>
       <Stack direction="row" alignItems="center" spacing={1}>
         <span>Compute cohomology up to degree</span>
+        <NumberField {...minDegreeFieldProps}/>
         <NumberField {...maxDegreeFieldProps}/>
       </Stack>
       <Button

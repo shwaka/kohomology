@@ -14,6 +14,7 @@ type UpdateJsonCommand = {
 type ComputeCohomologyComamnd = {
   command: "computeCohomology"
   targetName: TargetName
+  minDegree: number
   maxDegree: number
 }
 type ComputeCohomologyClassCommand = {

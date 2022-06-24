@@ -34,10 +34,10 @@ function sendMessages(messages: StyledMessage | StyledMessage[]): void {
   }
 }
 
-function computeCohomology(targetName: TargetName, maxDegree: number): void {
+function computeCohomology(targetName: TargetName, minDegree: number, maxDegree: number): void {
   assertInitialized(dgaWrapper)
   sendMessages(toStyledMessage(dgaWrapper.computationHeader(targetName)))
-  for (let degree = 0; degree <= maxDegree; degree++) {
+  for (let degree = minDegree; degree <= maxDegree; degree++) {
     sendMessages(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
   }
 }
@@ -70,7 +70,7 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
         updateJson(input.json)
         break
       case "computeCohomology":
-        computeCohomology(input.targetName, input.maxDegree)
+        computeCohomology(input.targetName, input.minDegree, input.maxDegree)
         break
       case "dgaInfo":
         showDgaInfo()

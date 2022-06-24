@@ -2,6 +2,7 @@ import { Tabs, Tab } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import styles from "./styles.module.scss"
+import { getCohomologyAsTex, getComplexAsTex } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 

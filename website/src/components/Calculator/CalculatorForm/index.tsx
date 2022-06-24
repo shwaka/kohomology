@@ -10,7 +10,7 @@ import { JsonEditorDialog } from "./JsonEditor"
 import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import styles from "./styles.module.scss"
-import { targetNameToTex } from "./target"
+import { ComplexAsTex } from "./target"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -150,7 +150,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
             )}
           </RadioGroup>
           {"Computation target: "}
-          {targetNameToTex(targetName)}
+          {ComplexAsTex(targetName)}
         </StackItem>
         <StackItem>
           <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>

@@ -2,6 +2,7 @@ import { Tabs, Tab, Button, Stack } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
+import { StringField, useStringField } from "./StringField"
 import styles from "./styles.module.scss"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
@@ -27,7 +28,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
   return (
     <Stack>
       <Stack direction="row" alignItems="center" spacing={1}>
-        <span>Compute cohomology up to degree </span>
+        <span>Compute cohomology up to degree</span>
         <NumberField {...maxDegreeFieldProps}/>
       </Stack>
       <Button
@@ -41,10 +42,10 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
 }
 
 function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
-  const [cocycleString, setCocycleString] = useState("x^2")
+  const [cocycleString, cocycleStringFieldProps] =
+    useStringField({ label: "", defaultValue: "x^2", width: 150 })
   const handleComputeCohomologyClassButton = useCallback(
-    (e: FormEvent): void => {
-      e.preventDefault()
+    (): void => {
       const input: WorkerInput = {
         command: "computeCohomologyClass",
         targetName: targetName,
@@ -55,13 +56,18 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
     [targetName, cocycleString, postMessageToWorker]
   )
   return (
-    <form className={styles.computeCohomology} onSubmit={handleComputeCohomologyClassButton}>
-      <input type="submit" value="Compute class" />
-      <span>cocycle:</span>
-      <input
-        type="text" value={cocycleString} onChange={(e) => setCocycleString(e.target.value)}
-        onSubmit={handleComputeCohomologyClassButton} />
-    </form>
+    <Stack>
+      <Stack direction="row" alignItems="center" spacing={1}>
+        <span>Compute cohomology class of the cocycle</span>
+        <StringField {...cocycleStringFieldProps}/>
+      </Stack>
+      <Button
+        onClick={handleComputeCohomologyClassButton}
+        variant="contained"
+      >
+        Compute
+      </Button>
+    </Stack>
   )
 }
 

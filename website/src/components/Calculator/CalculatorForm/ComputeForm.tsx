@@ -5,7 +5,7 @@ import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import styles from "./styles.module.scss"
-import { CohomologyAsTex } from "./target"
+import { CohomologyAsTex, getCohomologyAsString, getComplexAsString } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -53,7 +53,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
 
 function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
   const [cocycleString, cocycleStringFieldProps] =
-    useStringField({ label: "", defaultValue: "x^2", width: 150 })
+    useStringField({ label: "", defaultValue: "x^2", width: 200 })
   const handleComputeCohomologyClassButton = useCallback(
     (): void => {
       const input: WorkerInput = {
@@ -66,9 +66,14 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
     [targetName, cocycleString, postMessageToWorker]
   )
   return (
-    <Stack>
-      <Stack direction="row" alignItems="center" spacing={1}>
-        <span>Compute cohomology class of the cocycle</span>
+    <Stack spacing={1}>
+      <span>
+        {"Compute cohomology class "}
+        <TeX math={`[\\omega] \\in ${getCohomologyAsString(targetName)}`}/>
+        {" for"}
+      </span>
+      <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
+        <TeX math="\omega ="/>
         <StringField {...cocycleStringFieldProps}/>
       </Stack>
       <Button

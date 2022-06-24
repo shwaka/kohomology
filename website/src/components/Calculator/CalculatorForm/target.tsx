@@ -2,7 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import React from "react"
 import { TargetName } from "../worker/workerInterface"
 
-function getComplexAsString(targetName: TargetName): string {
+export function getComplexAsString(targetName: TargetName): string {
   switch (targetName) {
     case "self":
       return "\\wedge V"
@@ -20,10 +20,14 @@ export function ComplexAsTex({ targetName }: { targetName: TargetName }): JSX.El
   )
 }
 
-export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree: string }): JSX.Element {
+export function getCohomologyAsString(targetName: TargetName, degree: string | undefined = undefined): string {
+  const degreeString = degree !== undefined ? degree : "*"
   const complex = getComplexAsString(targetName)
-  const tex = `H^{${degree}}(${complex})`
+  return `H^{${degreeString}}(${complex})`
+}
+
+export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree?: string }): JSX.Element {
   return (
-    <TeX math={tex}/>
+    <TeX math={getCohomologyAsString(targetName, degree)}/>
   )
 }

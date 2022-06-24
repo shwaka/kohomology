@@ -10,6 +10,7 @@ import { JsonEditorDialog } from "./JsonEditor"
 import Usage from "./_usage.mdx"
 import { sphere } from "./examples"
 import styles from "./styles.module.scss"
+import { targetNameToTex } from "./target"
 
 function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
   const macros = {
@@ -39,17 +40,6 @@ export function styledMessageToJSXElement(styledMessage: StyledMessage, key: num
       {styledMessage.strings.map((styledString, index) => styledStringToJSXElement(styledString, index))}
     </div>
   )
-}
-
-function targetNameToTex(targetName: TargetName): JSX.Element {
-  switch (targetName) {
-    case "self":
-      return <TeX math="\wedge V"/>
-    case "freeLoopSpace":
-      return <TeX math="\wedge V \otimes \wedge \overline{V}"/>
-    case "cyclic":
-      return <TeX math="\wedge u \otimes\wedge V \otimes \wedge \overline{V}"/>
-  }
 }
 
 function StackItem({ children }: { children: React.ReactNode }): JSX.Element {

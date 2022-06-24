@@ -105,9 +105,9 @@ class FreeDGAWrapper(val json: String) {
         return computeCohomology(targetDGA, degree)
     }
 
-    fun computeCohomologyUpTo(targetName: String, maxDegree: Int): Array<StyledMessageKt> {
+    fun computeCohomologyUpTo(targetName: String, minDegree: Int, maxDegree: Int): Array<StyledMessageKt> {
         val targetDGA = this.getFreeDGAlgebra(targetName)
-        return computeCohomologyUpTo(targetDGA, maxDegree)
+        return computeCohomologyUpTo(targetDGA, minDegree, maxDegree)
     }
 
     fun computeCohomologyClass(targetName: String, cocycleString: String): StyledMessageKt {
@@ -158,10 +158,11 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 @ExperimentalJsExport
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
-    maxDegree: Int
+    minDegree: Int,
+    maxDegree: Int,
 ): Array<StyledMessageKt> {
     val messages = mutableListOf(computationHeader(freeDGAlgebra))
-    for (degree in 0..maxDegree) {
+    for (degree in minDegree..maxDegree) {
         messages.add(computeCohomology(freeDGAlgebra, degree))
     }
     return messages.toTypedArray()

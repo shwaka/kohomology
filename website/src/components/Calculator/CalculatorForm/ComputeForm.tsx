@@ -1,3 +1,4 @@
+import { Tabs, Tab } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import styles from "./styles.module.scss"
@@ -59,11 +60,27 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
   )
 }
 
+type ComputationType = "cohomology" | "class"
+
 export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+  const [computationType, setComputationType] = useState<ComputationType>("cohomology")
+  const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
+    setComputationType(newValue)
+  }
   return (
     <React.Fragment>
-      <ComputeCohomologyForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
-      <ComputeClassForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
+      <Tabs value={computationType} onChange={handleChange}>
+        <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }}/>
+        <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }}/>
+      </Tabs>
+      {
+        computationType === "cohomology" &&
+          <ComputeCohomologyForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
+      }
+      {
+        computationType === "class" &&
+          <ComputeClassForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
+      }
     </React.Fragment>
   )
 }

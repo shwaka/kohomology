@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Tabs, Tab, Button, Stack } from "@mui/material"
+import { Tabs, Tab, Button, Stack, Alert } from "@mui/material"
 import React, { FormEvent, useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
@@ -29,6 +29,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
     },
     [targetName, minDegree, maxDegree, postMessageToWorker]
   )
+  const disabled = !isAvailable(targetName, "cohomology")
   return (
     <Stack spacing={1}>
       <span>
@@ -44,9 +45,15 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker }: ComputeFormP
       <Button
         onClick={handleCohomologyButton}
         variant="contained"
+        disabled={disabled}
       >
         Compute
       </Button>
+      { disabled &&
+        <Alert severity="info">
+          Currently, this type of computation is not supported.
+        </Alert>
+      }
     </Stack>
   )
 }
@@ -65,6 +72,7 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
     },
     [targetName, cocycleString, postMessageToWorker]
   )
+  const disabled = !isAvailable(targetName, "class")
   return (
     <Stack spacing={1}>
       <span>
@@ -79,14 +87,34 @@ function ComputeClassForm({ targetName, postMessageToWorker }: ComputeFormProps)
       <Button
         onClick={handleComputeCohomologyClassButton}
         variant="contained"
+        disabled={disabled}
       >
         Compute
       </Button>
+      { disabled &&
+        <Alert severity="info">
+          Currently, this type of computation is not supported.
+        </Alert>
+      }
     </Stack>
   )
 }
 
 type ComputationType = "cohomology" | "class"
+function isAvailable(targetName: TargetName, computationType: ComputationType): boolean {
+  switch (targetName) {
+    case "self":
+      return true
+    case "freeLoopSpace":
+    case "cyclic":
+      switch (computationType) {
+        case "cohomology":
+          return true
+        case "class":
+          return false
+      }
+  }
+}
 
 export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
@@ -101,7 +129,10 @@ export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProp
       </Tabs>
       {
         computationType === "cohomology" &&
-          <ComputeCohomologyForm targetName={targetName} postMessageToWorker={postMessageToWorker}/>
+          <ComputeCohomologyForm
+            targetName={targetName}
+            postMessageToWorker={postMessageToWorker}
+          />
       }
       {
         computationType === "class" &&

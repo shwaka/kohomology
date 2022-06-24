@@ -10,6 +10,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printer
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -111,6 +113,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForNonFor
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationPrinterTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "printer test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", "X", 2),
+            Indeterminate("y", "Y", 2),
+        )
+        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { listOf(zeroGVector, zeroGVector) }
+        val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
+        val texPrinter = Printer(PrintType.TEX)
+
+        derivationDGLieAlgebra.toString() shouldBe "(Der(Λ(x, y)), d)"
+        texPrinter(derivationDGLieAlgebra) shouldBe "(Der(Λ(X, Y)), d)"
+    }
+}
+
 class DerivationDGLieAlgebraTest : FreeSpec({
     tags(derivationDGLieAlgebraTag)
 
@@ -118,4 +135,5 @@ class DerivationDGLieAlgebraTest : FreeSpec({
     include(derivationDGLieAlgForEvenSphereTest(matrixSpace, 4))
     include(derivationDGLieAlgForCPnTest(matrixSpace, 4))
     include(derivationDGLieAlgForNonFormalSpaceTest(matrixSpace))
+    include(derivationPrinterTest(matrixSpace))
 })

@@ -2,11 +2,14 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.checkGLieAlgebraAxioms
 import com.github.shwaka.kohomology.example.sphere
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printer
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -79,6 +82,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
                 (2 * xdy).toString() shouldBe "2 (y, x)"
             }
         }
+    }
+
+    "printer test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", "X", 2),
+            Indeterminate("y", "Y", 2),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+        val derivationGLieAlgebra = DerivationGLieAlgebra(freeGAlgebra)
+        val texPrinter = Printer(PrintType.TEX)
+
+        derivationGLieAlgebra.toString() shouldBe "Der(Λ(x, y))"
+        texPrinter(derivationGLieAlgebra) shouldBe "Der(Λ(X, Y))"
     }
 }
 

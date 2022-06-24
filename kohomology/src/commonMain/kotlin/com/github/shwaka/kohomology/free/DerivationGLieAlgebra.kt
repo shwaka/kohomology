@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.DirectSum
 import com.github.shwaka.kohomology.vectsp.DirectSumBasis
@@ -112,7 +113,7 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
     getVectorSpace = factory::getVectorSpace,
     getMultiplication = factory::getMultiplication,
     getInternalPrintConfig = factory::getInternalPrintConfig,
-) {
+), Printable {
     public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M> = factory.freeGAlgebra
 
     public fun gVectorToDerivation(gVector: GVector<D, DerivationBasis<D, I>, S, V>): Derivation<D, Monomial<D, I>, S, V, M> {
@@ -138,6 +139,10 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
             }
         val vector = this.factory.getVectorSpace(derivation.degree).fromVectorList(valueList)
         return this.fromVector(vector, derivation.degree)
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return "Der(${this.freeGAlgebra.toString(printConfig)})"
     }
 
     public companion object {

@@ -3,6 +3,7 @@ import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
@@ -134,7 +135,11 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     degree: Int,
 ): StyledMessageKt {
     val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
-    val basis = dgVectorSpace.cohomology.getBasisForAugmentedDegree(degree)
+    val basis = if (dgVectorSpace.degreeGroup is IntDegreeGroup) {
+        dgVectorSpace.cohomology.getBasis(degree)
+    } else {
+        dgVectorSpace.cohomology.getBasisForAugmentedDegree(degree)
+    }
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
     //     "\\mathbb{Q}\\{$basisString\\}"

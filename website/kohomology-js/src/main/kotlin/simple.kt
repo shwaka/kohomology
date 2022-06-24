@@ -1,7 +1,9 @@
+import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
@@ -15,8 +17,10 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
+import com.github.shwaka.kohomology.vectsp.BasisName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -61,12 +65,14 @@ class FreeDGAWrapper(val json: String) {
     }
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
+    private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
 
-    private fun getFreeDGAlgebra(name: String): FreeDGAlgebra<*, *, *, *, *> {
+    private fun getFreeDGAlgebra(name: String): DGVectorSpace<*, *, *, *, *> {
         return when (name) {
             "self" -> this.freeDGAlgebra
             "freeLoopSpace" -> this.freeLoopSpace
             "cyclic" -> this.cyclicModel
+            "derivation" -> this.derivationLieAlgebra
             else -> throw Exception("Invalid name: $name")
         }
     }
@@ -112,17 +118,23 @@ class FreeDGAWrapper(val json: String) {
 
     fun computeCohomologyClass(targetName: String, cocycleString: String): StyledMessageKt {
         val targetDGA = this.getFreeDGAlgebra(targetName)
-        return computeCohomologyClass(targetDGA, cocycleString)
+        return if (targetDGA is FreeDGAlgebra<*, *, *, *, *>) {
+            computeCohomologyClass(targetDGA, cocycleString)
+        } else {
+            styledMessage(MessageType.ERROR) {
+                "Cannot compute class for $targetName".text
+            }.export()
+        }
     }
 }
 
 @ExperimentalJsExport
-fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
-    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
+    dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
 ): StyledMessageKt {
     val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
-    val basis = freeDGAlgebra.cohomology.getBasisForAugmentedDegree(degree)
+    val basis = dgVectorSpace.cohomology.getBasisForAugmentedDegree(degree)
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
     //     "\\mathbb{Q}\\{$basisString\\}"
@@ -146,24 +158,29 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 }
 
 @ExperimentalJsExport
-fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
-    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
+    dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
 ): StyledMessageKt {
-    val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
     return styledMessage(MessageType.SUCCESS) {
-        "Cohomology of ".text + p(freeDGAlgebra).math + " is".text
+        val printed = if (dgVectorSpace is Printable) {
+            val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+            p(dgVectorSpace).math
+        } else {
+            dgVectorSpace.toString().text
+        }
+        "Cohomology of ".text + printed + " is".text
     }.export()
 }
 
 @ExperimentalJsExport
-fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
-    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
+    dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     minDegree: Int,
     maxDegree: Int,
 ): Array<StyledMessageKt> {
-    val messages = mutableListOf(computationHeader(freeDGAlgebra))
+    val messages = mutableListOf(computationHeader(dgVectorSpace))
     for (degree in minDegree..maxDegree) {
-        messages.add(computeCohomology(freeDGAlgebra, degree))
+        messages.add(computeCohomology(dgVectorSpace, degree))
     }
     return messages.toTypedArray()
 }

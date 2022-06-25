@@ -23,6 +23,7 @@ import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -118,10 +119,10 @@ class FreeDGAWrapper(val json: String) {
         return computeCohomologyUpTo(targetDGVectorSpace, minDegree, maxDegree)
     }
 
-    fun computeCohomologyClass(targetName: String, cocycleString: String): StyledMessageKt {
+    fun computeCohomologyClass(targetName: String, cocycleString: String, showBasis: Boolean): StyledMessageKt {
         val targetDGVectorSpace = this.getDGVectorSpace(targetName)
         return if (targetDGVectorSpace is FreeDGAlgebra<*, *, *, *, *>) {
-            computeCohomologyClass(targetDGVectorSpace, cocycleString)
+            computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis)
         } else {
             styledMessage(MessageType.ERROR) {
                 "Cannot compute class for $targetName".text
@@ -130,17 +131,23 @@ class FreeDGAWrapper(val json: String) {
     }
 }
 
-@ExperimentalJsExport
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getBasis(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
-): StyledMessageKt {
-    val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
-    val basis = if (dgVectorSpace.degreeGroup is IntDegreeGroup) {
+): List<GVector<D, SubQuotBasis<B, S, V>, S, V>> {
+    return if (dgVectorSpace.degreeGroup is IntDegreeGroup) {
         dgVectorSpace.cohomology.getBasis(degree)
     } else {
         dgVectorSpace.cohomology.getBasisForAugmentedDegree(degree)
     }
+}
+
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(
+    dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
+    degree: Int,
+): StyledMessageInternal {
+    val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
+    val basis = getBasis(dgVectorSpace, degree)
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
     //     "\\mathbb{Q}\\{$basisString\\}"
@@ -160,7 +167,15 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
                 "\\}".math
         }
         "H^{$degree} =\\ ".math + vectorSpace
-    }.export()
+    }
+}
+
+@ExperimentalJsExport
+fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
+    dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
+    degree: Int,
+): StyledMessageKt {
+    return computeCohomologyInternal(dgVectorSpace, degree).export()
 }
 
 @ExperimentalJsExport
@@ -194,7 +209,8 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
 @ExperimentalJsExport
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
-    cocycleString: String
+    cocycleString: String,
+    showBasis: Boolean,
 ): StyledMessageKt {
     // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
     val printer = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
@@ -210,14 +226,15 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     }
     return when (cocycle) {
         is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }.export()
-        is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle)
+        is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle, showBasis)
     }
 }
 
 @ExperimentalJsExport
 fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
-    cocycle: GVector<D, Monomial<D, I>, S, V>
+    cocycle: GVector<D, Monomial<D, I>, S, V>,
+    showBasis: Boolean,
 ): StyledMessageKt {
     val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
     freeDGAlgebra.context.run {
@@ -230,7 +247,12 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
             augmentation(cocycle.degree)
         }
         return styledMessage(MessageType.SUCCESS) {
-            "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())} \\in H^$degree".math
+            val cohomologyString = if (showBasis) {
+                computeCohomologyInternal(freeDGAlgebra, degree).strings
+            } else {
+                "H^$degree".math
+            }
+            "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())} \\in ".math + cohomologyString
         }.export()
     }
 }

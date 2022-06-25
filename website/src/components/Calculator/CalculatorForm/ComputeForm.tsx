@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Tabs, Tab, Button, Stack, Alert } from "@mui/material"
+import { Tabs, Tab, Button, Stack, Alert, Checkbox, FormControlLabel } from "@mui/material"
 import React, { useCallback, useState } from "react"
 import { TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
@@ -67,16 +67,18 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
   const disabled = !isAvailable(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
+  const [showBasis, setShowBasis] = useState(true)
   const handleComputeCohomologyClassButton = useCallback(
     (): void => {
       const input: WorkerInput = {
         command: "computeCohomologyClass",
         targetName: targetName,
         cocycleString: cocycleString,
+        showBasis: showBasis,
       }
       postMessageToWorker(input)
     },
-    [targetName, cocycleString, postMessageToWorker]
+    [targetName, cocycleString, showBasis, postMessageToWorker]
   )
   if (!visible) {
     return <React.Fragment></React.Fragment>
@@ -92,6 +94,11 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
         <TeX math="\omega ="/>
         <StringField {...cocycleStringFieldProps}/>
       </Stack>
+      <FormControlLabel
+        control={<Checkbox/>} label="Show basis"
+        checked={showBasis}
+        onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
+      />
       <Button
         onClick={handleComputeCohomologyClassButton}
         variant="contained"

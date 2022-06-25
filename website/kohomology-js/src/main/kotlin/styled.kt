@@ -35,8 +35,8 @@ enum class MessageType(val typeName: String) {
 }
 
 class StyledMessageInternal(
-    private val messageType: MessageType,
-    private val strings: List<StyledStringInternal>,
+    val messageType: MessageType,
+    val strings: List<StyledStringInternal>,
 ) {
     @ExperimentalJsExport
     fun export(): StyledMessageKt {

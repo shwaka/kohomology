@@ -21,6 +21,7 @@ type ComputeCohomologyClassCommand = {
   command: "computeCohomologyClass"
   targetName: TargetName
   cocycleString: string
+  showBasis: boolean
 }
 type NoArgCommand = {
   command: "dgaInfo"

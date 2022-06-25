@@ -42,9 +42,9 @@ function computeCohomology(targetName: TargetName, minDegree: number, maxDegree:
   }
 }
 
-function computeCohomologyClass(targetName: TargetName, cocycleString: string): void {
+function computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
   assertInitialized(dgaWrapper)
-  sendMessages(toStyledMessage(dgaWrapper.computeCohomologyClass(targetName, cocycleString)))
+  sendMessages(toStyledMessage(dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
 }
 
 function showDgaInfo(): void {
@@ -76,7 +76,7 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
         showDgaInfo()
         break
       case "computeCohomologyClass":
-        computeCohomologyClass(input.targetName, input.cocycleString)
+        computeCohomologyClass(input.targetName, input.cocycleString, input.showBasis)
         break
       default:
         assertUnreachable(input, "Invalid command")

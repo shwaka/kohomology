@@ -214,7 +214,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
         freeLoopSpaceWithShiftDegreeTestTemplate("even sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 2), 20)
         freeLoopSpaceWithShiftDegreeTestTemplate("odd sphere (MultiDegree)", sphereWithMultiDegree(matrixSpace, 3), 20)
 
-        "printer test for FreeLoopSpace.withShiftDegree(sphere)" - {
+        "test for FreeLoopSpace.withShiftDegree(sphere)" - {
             val sphereDim = 2
             val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere(matrixSpace, sphereDim))
             val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
@@ -262,6 +262,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
                     val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
                     printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s^{1 + -2S}{x}, s^{1 + -2S}{y}), d)"
                     printerSWithDeg(sx) shouldBe "s^{1 + -2S}{x}"
+                }
+            }
+            "parse test" - {
+                "parse test without specifying printer".config(tags = setOf(parseTag)) {
+                    freeLoopSpace.gAlgebra.parse("x") shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx") shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y") shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy") shouldBe sy
+                }
+                "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
+                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
+                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                }
+                "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
+                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
+                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
                 }
             }
         }

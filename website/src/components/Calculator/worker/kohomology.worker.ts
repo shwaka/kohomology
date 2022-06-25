@@ -1,6 +1,6 @@
 import { FreeDGAWrapper } from "kohomology-js"
 import { fromString, StyledMessage, toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology } from "./workerInterface"
 
 // eslint-disable-next-line no-restricted-globals
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -34,11 +34,22 @@ function sendMessages(messages: StyledMessage | StyledMessage[]): void {
   }
 }
 
-function computeCohomology(targetName: TargetName, minDegree: number, maxDegree: number): void {
+function computeCohomology(
+  targetName: TargetName,
+  minDegree: number, maxDegree: number,
+  showCohomology: ShowCohomology,
+): void {
   assertInitialized(dgaWrapper)
   sendMessages(toStyledMessage(dgaWrapper.computationHeader(targetName)))
   for (let degree = minDegree; degree <= maxDegree; degree++) {
-    sendMessages(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
+    switch (showCohomology) {
+      case "basis":
+        sendMessages(toStyledMessage(dgaWrapper.computeCohomology(targetName, degree)))
+        break
+      case "dim":
+        sendMessages(toStyledMessage(dgaWrapper.computeCohomologyDim(targetName, degree)))
+        break
+    }
   }
 }
 
@@ -70,7 +81,7 @@ onmessage = function(e: MessageEvent<WorkerInput>) {
         updateJson(input.json)
         break
       case "computeCohomology":
-        computeCohomology(input.targetName, input.minDegree, input.maxDegree)
+        computeCohomology(input.targetName, input.minDegree, input.maxDegree, input.showCohomology)
         break
       case "dgaInfo":
         showDgaInfo()

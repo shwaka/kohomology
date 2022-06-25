@@ -1,7 +1,7 @@
 import TeX from "@matejmazur/react-katex"
-import { Tabs, Tab, Button, Stack, Alert, Checkbox, FormControlLabel } from "@mui/material"
+import { Tabs, Tab, Button, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import React, { useCallback, useState } from "react"
-import { TargetName, WorkerInput } from "../worker/workerInterface"
+import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInput } from "../worker/workerInterface"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
@@ -19,6 +19,7 @@ interface InternalComputeFormProps {
 function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
+  const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
   const handleCohomologyButton = useCallback(
     (): void => {
       const input: WorkerInput = {
@@ -26,10 +27,11 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
         targetName: targetName,
         minDegree: minDegree,
         maxDegree: maxDegree,
+        showCohomology: showCohomology,
       }
       postMessageToWorker(input)
     },
-    [targetName, minDegree, maxDegree, postMessageToWorker]
+    [targetName, minDegree, maxDegree, showCohomology, postMessageToWorker]
   )
   if (!visible) {
     return <React.Fragment></React.Fragment>
@@ -47,6 +49,17 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
         <TeX math="\leq n \leq"/>
         <NumberField {...maxDegreeFieldProps}/>
       </Stack>
+      <RadioGroup
+        row
+        value={showCohomology}
+        onChange={(event) => setShowCohomology(event.target.value as ShowCohomology)}
+      >
+        {showCohomologyCandidates.map((showCohomologyForLabel) =>
+          <FormControlLabel
+            key={showCohomologyForLabel} value={showCohomologyForLabel}
+            control={<Radio/>} label={showCohomologyForLabel}/>
+        )}
+      </RadioGroup>
       <Button
         onClick={handleCohomologyButton}
         variant="contained"

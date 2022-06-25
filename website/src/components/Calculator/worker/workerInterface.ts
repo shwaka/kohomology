@@ -7,6 +7,9 @@ export type TargetName = (typeof targetNames)[number]
 export const inputCommands = ["updateJson", "computeCohomology", "dgaInfo", "computeCohomologyClass"] as const
 export type InputCommand = (typeof inputCommands)[number]
 
+export const showCohomologyCandidates = ["basis", "dim"] as const
+export type ShowCohomology = (typeof showCohomologyCandidates)[number]
+
 type UpdateJsonCommand = {
   command: "updateJson"
   json: string
@@ -16,6 +19,7 @@ type ComputeCohomologyComamnd = {
   targetName: TargetName
   minDegree: number
   maxDegree: number
+  showCohomology: ShowCohomology
 }
 type ComputeCohomologyClassCommand = {
   command: "computeCohomologyClass"

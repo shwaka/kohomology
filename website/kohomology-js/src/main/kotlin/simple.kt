@@ -114,6 +114,14 @@ class FreeDGAWrapper(val json: String) {
         return computeCohomology(targetDGVectorSpace, degree)
     }
 
+    fun computeCohomologyDim(targetName: String, degree: Int): StyledMessageKt {
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        val dim = getBasis(targetDGVectorSpace, degree).size
+        return styledMessage(MessageType.SUCCESS) {
+            "\\mathrm{dim}H^{$degree} = $dim".math
+        }.export()
+    }
+
     fun computeCohomologyUpTo(targetName: String, minDegree: Int, maxDegree: Int): Array<StyledMessageKt> {
         val targetDGVectorSpace = this.getDGVectorSpace(targetName)
         return computeCohomologyUpTo(targetDGVectorSpace, minDegree, maxDegree)

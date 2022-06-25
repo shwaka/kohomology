@@ -46,6 +46,19 @@ export function createURLSearchParams(
 
 export function useDefaultDGAJson(): string {
   const urlSearchParams = useQuery()
-  const dgaJson: string | null = urlSearchParams.get("dgaJson")
-  return (dgaJson !== null) ? prettifyDGAJson(dgaJson) : sphere(2)
+  const defaultJson = sphere(2)
+  try {
+    const dgaJson: string | null = urlSearchParams.get("dgaJson")
+    return (dgaJson !== null) ? prettifyDGAJson(dgaJson) : defaultJson
+  } catch (e) {
+    if (e instanceof SyntaxError) {
+      console.log("[Error] Invalid JSON is given as URL parameter.")
+      console.log(e)
+      return defaultJson
+    } else {
+      throw e
+    }
+  }
+
+
 }

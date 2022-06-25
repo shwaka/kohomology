@@ -1,4 +1,5 @@
 import useBaseUrl from "@docusaurus/useBaseUrl"
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
 import React, { useState } from "react"
 import { createURLSearchParams } from "./urlQuery"
@@ -47,8 +48,9 @@ export interface ShareDGADialogProps {
 
 export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
   const urlSearchParams = createURLSearchParams({ dgaJson })
+  const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
   const pageUrl = useBaseUrl("calculator")
-  const url = `${pageUrl}?${urlSearchParams.toString()}`
+  const url = `${domainUrl}${pageUrl}?${urlSearchParams.toString()}`
   return (
     <Dialog
       open={open}

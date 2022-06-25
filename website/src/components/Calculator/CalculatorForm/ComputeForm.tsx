@@ -112,9 +112,9 @@ type ComputationType = "cohomology" | "class"
 function isAvailable(targetName: TargetName, computationType: ComputationType): boolean {
   switch (targetName) {
     case "self":
-      return true
     case "freeLoopSpace":
     case "cyclic":
+      return true
     case "derivation":
       switch (computationType) {
         case "cohomology":

@@ -196,7 +196,8 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
     cocycleString: String
 ): StyledMessageKt {
     // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
-    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString)
+    val printer = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
+    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString, printer)
     return when (cocycle) {
         is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }.export()
         is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle)

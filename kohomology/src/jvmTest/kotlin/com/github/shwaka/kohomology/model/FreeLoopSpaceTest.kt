@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
@@ -149,6 +150,28 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                     val printerSWithDeg = Printer(printType = PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
                     printerSWithDeg(freeLoopSpace) shouldBe "(Λ({x}, {y}, s{x}, s{y}), d)"
                     printerSWithDeg(sx) shouldBe "s{x}"
+                }
+            }
+            "parse test" - {
+                "parse test without specifying printer".config(tags = setOf(parseTag)) {
+                    freeLoopSpace.gAlgebra.parse("x") shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx") shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y") shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy") shouldBe sy
+                }
+                "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
+                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
+                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                }
+                "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
+                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
+                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
+                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
+                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
                 }
             }
         }

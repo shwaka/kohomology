@@ -1,5 +1,5 @@
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
 import React, { useState } from "react"
 import { createURLSearchParams } from "./urlQuery"
 
@@ -20,6 +20,25 @@ export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): JSX.Element {
   )
 }
 
+function CopyToClipBoardButton({ text }: { text: string }): JSX.Element {
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+  const handleClick = (): void => {
+    navigator.clipboard.writeText(text)
+    setTooltipOpen(true)
+  }
+  return (
+    <Tooltip
+      title="Copied"
+      open={tooltipOpen}
+      onClose={() => setTooltipOpen(false)}
+    >
+      <Button onClick={handleClick} variant="contained" size="small">
+        copy
+      </Button>
+    </Tooltip>
+  )
+}
+
 export interface ShareDGADialogProps {
   open: boolean
   setOpen: (open: boolean) => void
@@ -36,7 +55,15 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
       onClose={() => setOpen(false)}
     >
       <DialogContent>
-        {url}
+        <TextField
+          label={"url"}
+          value={url}
+          sx={{ width: 300 }} size="small"
+          InputProps={{ readOnly: true }}
+        />
+        <CopyToClipBoardButton
+          text={url}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>

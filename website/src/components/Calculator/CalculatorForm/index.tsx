@@ -12,6 +12,7 @@ import { sphere } from "./examples"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
 import { createURLSearchParams, useDefaultDGAJson, useQuery } from "./urlQuery"
+import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")
@@ -82,6 +83,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const defaultDGAJson = useDefaultDGAJson()
   const [json, setJson] = useState(defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
+  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA()
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
@@ -160,6 +162,8 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           finish={() => setEditingJson(false)}
           isOpen={editingJson}
         />
+        <ShareDGAButton {...shareDGAButtonProps}/>
+        <ShareDGADialog {...shareDGADialogProps}/>
       </StackItem>
       <StackItem>
         <RadioGroup

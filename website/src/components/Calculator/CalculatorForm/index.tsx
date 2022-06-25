@@ -11,6 +11,7 @@ import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { sphere } from "./examples"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
+import { createURLSearchParams, useDefaultDGAJson, useQuery } from "./urlQuery"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")
@@ -78,7 +79,8 @@ interface CalculatorFormProps {
 }
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
-  const [json, setJson] = useState(sphere(2))
+  const defaultDGAJson = useDefaultDGAJson()
+  const [json, setJson] = useState(defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")

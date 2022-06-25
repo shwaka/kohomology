@@ -226,8 +226,11 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
                 p(cocycle).math + " is not a cocycle: ".text + "d(${p(cocycle)}) = ${p(d(cocycle))}".math
             }.export()
         }
+        val degree = freeDGAlgebra.degreeGroup.context.run {
+            augmentation(cocycle.degree)
+        }
         return styledMessage(MessageType.SUCCESS) {
-            "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())}".math
+            "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())} \\in H^$degree".math
         }.export()
     }
 }

@@ -7,12 +7,11 @@ import { StyledMessage, StyledString } from "../worker/styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
+import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
-import { sphere } from "./examples"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
-import { createURLSearchParams, useDefaultDGAJson, useQuery } from "./urlQuery"
-import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
+import { useDefaultDGAJson } from "./urlQuery"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")

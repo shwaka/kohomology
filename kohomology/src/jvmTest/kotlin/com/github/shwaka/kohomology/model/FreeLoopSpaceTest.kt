@@ -267,9 +267,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
             "parse test" - {
                 "parse test without specifying printer".config(tags = setOf(parseTag)) {
                     freeLoopSpace.gAlgebra.parse("x") shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx") shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}x") shouldBe sx
                     freeLoopSpace.gAlgebra.parse("y") shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy") shouldBe sy
+                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}y") shouldBe sy
                 }
                 "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
@@ -281,9 +281,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
                 "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
                     freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}x", printer) shouldBe sx
                     freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}y", printer) shouldBe sy
                 }
             }
         }

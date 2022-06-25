@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -89,6 +90,13 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
-        return grammar.parseToEnd(text)
+        try {
+            return grammar.parseToEnd(text)
+        } catch (exception: ParseException) {
+            val generatorsString = generators.joinToString(", ") { it.first }
+            println("[Error] Failed to parse text.")
+            println("  Expected generators are: $generatorsString")
+            throw exception
+        }
     }
 }

@@ -22,7 +22,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
     private val zero by literalToken("zero")
-    private val gen by regexToken("(" + this.generators.joinToString("|") { it.first } + ")")
+    private val gen by regexToken("(" + this.generators.joinToString("|") { Regex.escape(it.first) } + ")")
     private val int by regexToken("\\d+")
     private val lpar by literalToken("(")
     private val rpar by literalToken(")")

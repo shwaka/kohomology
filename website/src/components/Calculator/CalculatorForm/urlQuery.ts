@@ -11,6 +11,16 @@ function useQuery(): URLSearchParams {
   )
 }
 
+function compressJson(json: string): string {
+  const obj = JSON.parse(json)
+  return JSON.stringify(obj, null, undefined)
+}
+
+function prettifyJson(json: string): string {
+  const obj = JSON.parse(json)
+  return JSON.stringify(obj, null, 2)
+}
+
 interface CreateURLSearchParamsArgs {
   dgaJson: string
 }
@@ -19,12 +29,12 @@ export function createURLSearchParams(
   { dgaJson }: CreateURLSearchParamsArgs
 ): URLSearchParams {
   const urlSearchParams = new URLSearchParams()
-  urlSearchParams.append("dgaJson", dgaJson)
+  urlSearchParams.append("dgaJson", compressJson(dgaJson))
   return urlSearchParams
 }
 
 export function useDefaultDGAJson(): string {
   const urlSearchParams = useQuery()
   const dgaJson: string | null = urlSearchParams.get("dgaJson")
-  return (dgaJson !== null) ? dgaJson : sphere(2)
+  return (dgaJson !== null) ? prettifyJson(dgaJson) : sphere(2)
 }

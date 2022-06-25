@@ -31,7 +31,9 @@ import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -191,8 +193,13 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
     }
 
     override fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
+        val plainPrinter = Printer(PrintType.PLAIN)
+        return this.parse(text, plainPrinter)
+    }
+
+    public fun parse(text: String, printer: Printer): GVectorOrZero<D, Monomial<D, I>, S, V> {
         val generators = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
-            Pair(indeterminate.name.toString(), generator)
+            Pair(printer(indeterminate.name), generator)
         }
         return this.parse(generators, text)
     }

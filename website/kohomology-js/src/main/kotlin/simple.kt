@@ -1,3 +1,4 @@
+import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -197,7 +198,16 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 ): StyledMessageKt {
     // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
     val printer = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
-    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = freeDGAlgebra.gAlgebra.parse(cocycleString, printer)
+    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = try {
+        freeDGAlgebra.gAlgebra.parse(cocycleString, printer)
+    } catch (e: ParseException) {
+        return styledMessage(MessageType.ERROR) {
+            val generatorsString = freeDGAlgebra.gAlgebra.getGeneratorsForParser(printer).joinToString(", ") { it.first }
+            "[Error] Parse failed.\n".text +
+                "Note: Current generators are $generatorsString\n".text +
+                "${e.errorResult}\n".text
+        }.export()
+    }
     return when (cocycle) {
         is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }.export()
         is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle)

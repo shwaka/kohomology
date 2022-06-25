@@ -198,10 +198,14 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
     }
 
     public fun parse(text: String, printer: Printer): GVectorOrZero<D, Monomial<D, I>, S, V> {
-        val generators = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
+        val generators = this.getGeneratorsForParser(printer)
+        return this.parse(generators, text)
+    }
+
+    public fun getGeneratorsForParser(printer: Printer = Printer(PrintType.PLAIN)): List<Pair<String, GVector<D, Monomial<D, I>, S, V>>> {
+        return this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
             Pair(printer(indeterminate.name), generator)
         }
-        return this.parse(generators, text)
     }
 
     public fun <D_ : Degree> convertDegree(

@@ -151,19 +151,21 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <div>
           {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
         </div>
-        <Button
-          variant="contained" size="small"
-          onClick={() => setEditingJson(true)}
-          sx={{ textTransform: "none" }}>
-          Edit DGA
-        </Button>
-        <JsonEditorDialog
-          json={json} updateDgaWrapper={setJson}
-          finish={() => setEditingJson(false)}
-          isOpen={editingJson}
-        />
-        <ShareDGAButton {...shareDGAButtonProps}/>
-        <ShareDGADialog {...shareDGADialogProps}/>
+        <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
+          <Button
+            variant="contained" size="small"
+            onClick={() => setEditingJson(true)}
+            sx={{ textTransform: "none" }}>
+            Edit DGA
+          </Button>
+          <JsonEditorDialog
+            json={json} updateDgaWrapper={setJson}
+            finish={() => setEditingJson(false)}
+            isOpen={editingJson}
+          />
+          <ShareDGAButton {...shareDGAButtonProps}/>
+          <ShareDGADialog {...shareDGADialogProps}/>
+        </Stack>
       </StackItem>
       <StackItem>
         <RadioGroup

@@ -1,5 +1,7 @@
+import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import React, { useState } from "react"
+import { createURLSearchParams } from "./urlQuery"
 
 export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void
@@ -21,16 +23,20 @@ export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): JSX.Element {
 export interface ShareDGADialogProps {
   open: boolean
   setOpen: (open: boolean) => void
+  dgaJson: string
 }
 
-export function ShareDGADialog({ open, setOpen }: ShareDGADialogProps): JSX.Element {
+export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
+  const urlSearchParams = createURLSearchParams({ dgaJson })
+  const pageUrl = useBaseUrl("calculator")
+  const url = `${pageUrl}?${urlSearchParams.toString()}`
   return (
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
     >
       <DialogContent>
-        link will be inserted here
+        {url}
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>
@@ -41,9 +47,9 @@ export function ShareDGADialog({ open, setOpen }: ShareDGADialogProps): JSX.Elem
   )
 }
 
-export function useShareDGA(): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps} {
+export function useShareDGA(dgaJson: string): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps} {
   const [open, setOpen] = useState(false)
-  const shareDGADialogProps: ShareDGADialogProps = { open, setOpen }
+  const shareDGADialogProps: ShareDGADialogProps = { open, setOpen, dgaJson }
   const shareDGAButtonProps: ShareDGAButtonProps = { setOpen }
   return { shareDGADialogProps, shareDGAButtonProps }
 }

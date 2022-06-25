@@ -83,7 +83,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const defaultDGAJson = useDefaultDGAJson()
   const [json, setJson] = useState(defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
-  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA()
+  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])

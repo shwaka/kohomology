@@ -123,6 +123,9 @@ kotlin {
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
         jvmTarget = "1.8"
+        // kotest で "test name".config(tags = setOf(someTag)) と書くと "This declaration is experimental" と言われた。
+        // kotlin 1.5.32 に上げたタイミングで出るようになった気がする。
+        freeCompilerArgs += "-Xopt-in=kotlin.time.ExperimentalTime"
     }
 }
 

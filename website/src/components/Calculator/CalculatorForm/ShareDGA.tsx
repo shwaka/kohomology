@@ -50,7 +50,8 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
   const urlSearchParams = createURLSearchParams({ dgaJson })
   const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
   const pageUrl = useBaseUrl("calculator")
-  const url = `${domainUrl}${pageUrl}?${urlSearchParams.toString()}`
+  const url = (urlSearchParams !== null) ?
+    `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
   return (
     <Dialog
       open={open}

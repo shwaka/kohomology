@@ -63,6 +63,7 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
           value={url}
           sx={{ width: 300 }} size="small"
           InputProps={{ readOnly: true }}
+          multiline
         />
         <CopyToClipBoardButton
           text={url}

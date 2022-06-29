@@ -65,7 +65,7 @@ export class KohomologyMessageHandler {
     minDegree: number, maxDegree: number,
     showCohomology: ShowCohomology,
   ): void {
-    assertInitialized(this.dgaWrapper)
+    assertNotNull(this.dgaWrapper)
     this.sendMessages(toStyledMessage(this.dgaWrapper.computationHeader(targetName)))
     for (let degree = minDegree; degree <= maxDegree; degree++) {
       switch (showCohomology) {
@@ -80,12 +80,12 @@ export class KohomologyMessageHandler {
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
-    assertInitialized(this.dgaWrapper)
+    assertNotNull(this.dgaWrapper)
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
   }
 
   private showDgaInfo(): void {
-    assertInitialized(this.dgaWrapper)
+    assertNotNull(this.dgaWrapper)
     const output: WorkerOutput = {
       command: "showDgaInfo",
       messages: this.dgaWrapper.dgaInfo().map(toStyledMessage),
@@ -94,9 +94,9 @@ export class KohomologyMessageHandler {
   }
 }
 
-function assertInitialized(dgaWrapper: FreeDGAWrapper | null): asserts dgaWrapper is FreeDGAWrapper {
-  if (dgaWrapper === null) {
-    throw new Error("Not initialized")
+function assertNotNull<T>(value: T | null): asserts value is T {
+  if (value === null) {
+    throw new Error("The given value is null.")
   }
 }
 

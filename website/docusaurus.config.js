@@ -70,12 +70,13 @@ const config = {
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
           {to: "calculator", label: "Calculator", position: "left"},
-          {
-            href: "/dokka/index.html",
-            label: "API",
-            position: "left",
-            target: "_blank", // これがないと React router のせいでうまくいかないっぽい
-          },
+          {to: "api", label: "API", position: "left"},
+          // {
+          //   href: "/dokka/index.html",
+          //   label: "API",
+          //   position: "left",
+          //   target: "_blank", // これがないと React router のせいでうまくいかないっぽい
+          // },
           {
             href: "https://github.com/shwaka/kohomology",
             label: "GitHub",

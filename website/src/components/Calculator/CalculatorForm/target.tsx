@@ -17,7 +17,7 @@ export function getComplexAsString(targetName: TargetName): string {
 
 export function ComplexAsTex({ targetName }: { targetName: TargetName }): JSX.Element {
   return (
-    <TeX math={getComplexAsString(targetName)}/>
+    <TeX math={getComplexAsString(targetName)} data-testid="ComplexAsTex"/>
   )
 }
 

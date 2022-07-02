@@ -1,6 +1,13 @@
 *CAUTION: This file is not intended to be read by other people and hence written in Japanese (partially).*
 
 ## kohomology
+### Commitlint
+```
+cd scripts/commitlint
+npm install
+npm run prepare
+```
+
 ### Test
 以下のいずれか．
 test の表示には [radarsh/gradle-test-logger-plugin](https://github.com/radarsh/gradle-test-logger-plugin) を利用している．

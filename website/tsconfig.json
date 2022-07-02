@@ -12,8 +12,9 @@
       "@site/*": ["*"]
     },
     "types": [
-      "webpack-env"
+      "webpack-env",
+      "jest"
     ]
   },
-  "include": [ "modules.d.ts", "**/*" ]
+  "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ]
 }

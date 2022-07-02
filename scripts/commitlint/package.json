@@ -1,0 +1,13 @@
+{
+  "name": "commitlint",
+  "version": "1.0.0",
+  "description": "Used for commitlint",
+  "scripts": {
+    "prepare": "cd ../.. && husky install scripts/commitlint/.husky"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.3",
+    "@commitlint/config-conventional": "^17.0.3",
+    "husky": "^8.0.1"
+  }
+}

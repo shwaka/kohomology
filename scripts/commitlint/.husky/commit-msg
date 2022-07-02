@@ -1,0 +1,17 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+BLUE="\e[34m"
+END="\e[m"
+
+show_usage() {
+    local status=$1
+    echo "Expected format: \"$BLUE<type>$END($BLUE<scope>?$END): $BLUE<subject>$END\""
+    echo
+    return $status
+}
+
+# .commitlint/ ディレクトリに移動する．
+# node package 内に移動することで，ちゃんと node_modules 内の commitlint を利用できるようにするため．
+cd "$(dirname "$0")"/..
+npx --no -- commitlint --edit "${1}" || show_usage $?

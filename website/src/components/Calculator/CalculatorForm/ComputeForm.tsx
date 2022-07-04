@@ -38,41 +38,43 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   }
   const disabled = !isAvailable(targetName, "cohomology")
   return (
-    <Stack spacing={1}>
-      <span>
-        {"Compute cohomology "}
-        <CohomologyAsTex targetName={targetName} degree="n"/>
-        {" for"}
-      </span>
-      <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-        <NumberField {...minDegreeFieldProps}/>
-        <TeX math="\leq n \leq"/>
-        <NumberField {...maxDegreeFieldProps}/>
+    <div data-testid="ComputeCohomologyForm">
+      <Stack spacing={1}>
+        <span>
+          {"Compute cohomology "}
+          <CohomologyAsTex targetName={targetName} degree="n"/>
+          {" for"}
+        </span>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
+          <NumberField {...minDegreeFieldProps}/>
+          <TeX math="\leq n \leq"/>
+          <NumberField {...maxDegreeFieldProps}/>
+        </Stack>
+        <RadioGroup
+          row
+          value={showCohomology}
+          onChange={(event) => setShowCohomology(event.target.value as ShowCohomology)}
+        >
+          {showCohomologyCandidates.map((showCohomologyForLabel) =>
+            <FormControlLabel
+              key={showCohomologyForLabel} value={showCohomologyForLabel}
+              control={<Radio/>} label={showCohomologyForLabel}/>
+          )}
+        </RadioGroup>
+        <Button
+          onClick={handleCohomologyButton}
+          variant="contained"
+          disabled={disabled}
+        >
+          Compute
+        </Button>
+        { disabled &&
+          <Alert severity="info">
+            Currently, this type of computation is not supported.
+          </Alert>
+        }
       </Stack>
-      <RadioGroup
-        row
-        value={showCohomology}
-        onChange={(event) => setShowCohomology(event.target.value as ShowCohomology)}
-      >
-        {showCohomologyCandidates.map((showCohomologyForLabel) =>
-          <FormControlLabel
-            key={showCohomologyForLabel} value={showCohomologyForLabel}
-            control={<Radio/>} label={showCohomologyForLabel}/>
-        )}
-      </RadioGroup>
-      <Button
-        onClick={handleCohomologyButton}
-        variant="contained"
-        disabled={disabled}
-      >
-        Compute
-      </Button>
-      { disabled &&
-        <Alert severity="info">
-          Currently, this type of computation is not supported.
-        </Alert>
-      }
-    </Stack>
+    </div>
   )
 }
 
@@ -97,34 +99,36 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
     return <React.Fragment></React.Fragment>
   }
   return (
-    <Stack spacing={1}>
-      <span>
-        {"Compute cohomology class "}
-        <TeX math={`[\\omega] \\in ${getCohomologyAsString(targetName)}`}/>
-        {" for"}
-      </span>
-      <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-        <TeX math="\omega ="/>
-        <StringField {...cocycleStringFieldProps}/>
+    <div data-testid="ComputeClassForm">
+      <Stack spacing={1}>
+        <span>
+          {"Compute cohomology class "}
+          <TeX math={`[\\omega] \\in ${getCohomologyAsString(targetName)}`}/>
+          {" for"}
+        </span>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
+          <TeX math="\omega ="/>
+          <StringField {...cocycleStringFieldProps}/>
+        </Stack>
+        <FormControlLabel
+          control={<Checkbox/>} label="Show basis"
+          checked={showBasis}
+          onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
+        />
+        <Button
+          onClick={handleComputeCohomologyClassButton}
+          variant="contained"
+          disabled={disabled}
+        >
+          Compute
+        </Button>
+        { disabled &&
+          <Alert severity="info">
+            Currently, this type of computation is not supported.
+          </Alert>
+        }
       </Stack>
-      <FormControlLabel
-        control={<Checkbox/>} label="Show basis"
-        checked={showBasis}
-        onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
-      />
-      <Button
-        onClick={handleComputeCohomologyClassButton}
-        variant="contained"
-        disabled={disabled}
-      >
-        Compute
-      </Button>
-      { disabled &&
-        <Alert severity="info">
-          Currently, this type of computation is not supported.
-        </Alert>
-      }
-    </Stack>
+    </div>
   )
 }
 

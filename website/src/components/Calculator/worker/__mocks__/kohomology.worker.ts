@@ -1,25 +1,19 @@
 import { KohomologyMessageHandler } from "../KohomologyMessageHandler"
 import { WorkerInput, WorkerOutput } from "../workerInterface"
 
-// - workerApi.postMessage corresponds to messageHandler.onmessage
-// - workerApi.onmessage corresponds to messageHandler.postMessage
+// - KohomologyWorker.postMessage corresponds to KohomologyMessageHandler.onmessage
+// - KohomologyWorker.onmessage corresponds to KohomologyMessageHandler.postMessage
+export default class KohomologyWorker {
+  onmessage: (e: MessageEvent<WorkerOutput>) => void
+  messageHandler: KohomologyMessageHandler
+  constructor() {
+    this.onmessage = (_) => { throw new Error("WebWorker is not initialized") } // This will be set outside of this module.
+    this.messageHandler = new KohomologyMessageHandler((output) =>
+      this.onmessage({ data: output } as MessageEvent<WorkerOutput>)
+    )
+  }
 
-const workerApi = {
-  // The property workerApi.postMessage is defined below by using messageHandler.
-  // But, due to workerApi.onmessage, the whole workerApi must be defined here (see below).
-  postMessage(_: WorkerInput): void { return },
-  // The property workerApi.onmessage will be set outside of this module
-  // and used in the construtor of KohomologyMessageHandler.
-  // Hence workerApi must be defined here (the beginning of this module).
-  onmessage(_: MessageEvent<WorkerOutput>): void { return }
+  postMessage(input: WorkerInput): void {
+    this.messageHandler.onmessage({ data: input } as MessageEvent<WorkerInput>)
+  }
 }
-
-const messageHandler = new KohomologyMessageHandler((output) =>
-  workerApi.onmessage({ data: output } as MessageEvent<WorkerOutput>)
-)
-
-workerApi.postMessage = (input) =>  {
-  messageHandler.onmessage({ data: input } as MessageEvent<WorkerInput>)
-}
-
-export default workerApi

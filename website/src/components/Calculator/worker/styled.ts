@@ -1,36 +1,5 @@
 import { StyledStringKt, StyledMessageKt } from "kohomology-js"
-
-const stringTypes = ["text", "math"] as const
-type StringType = typeof stringTypes[number]
-
-export interface StyledString {
-  readonly stringType: StringType
-  readonly content: string
-}
-
-const messageTypes = ["success", "error"] as const
-type MessageType = typeof messageTypes[number]
-
-export interface StyledMessage {
-  readonly messageType: MessageType
-  readonly strings: StyledString[]
-}
-
-export function formatStyledMessage(styledMessage: StyledMessage): string {
-  return styledMessage.strings.map((styledString) => styledString.content).join("")
-}
-
-export function fromString(messageType: MessageType, str: string): StyledMessage {
-  const styledString: StyledString = {
-    stringType: "text",
-    content: str,
-  }
-  return {
-    messageType: messageType,
-    strings: [styledString]
-  }
-}
-
+import { MessageType, messageTypes, StringType, stringTypes, StyledMessage, StyledString } from "../styled/message"
 
 export function toStyledString(styledStringKt: StyledStringKt): StyledString {
   const stringType: string = styledStringKt.stringType

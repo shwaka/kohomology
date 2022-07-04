@@ -3,7 +3,6 @@ import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
-import { formatStyledMessage, StyledMessage, StyledString } from "../worker/styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
@@ -12,59 +11,8 @@ import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
 import { useDefaultDGAJson } from "./urlQuery"
-
-function Text({ content }: { content: string } ): JSX.Element {
-  const lines = content.split("\n")
-  return (
-    <span>
-      {lines.map((line, lineNumber) => (
-        // If content ends with the newline,
-        // the last element of lines is the empty string "".
-        // Hence there is no need to write
-        //   lineNumber < lines.length - 1 || content.endsWith("\n")
-        (lineNumber < lines.length - 1) ? (
-          <React.Fragment key={lineNumber}>
-            {line}<br/>
-          </React.Fragment>
-        ): (
-          <React.Fragment key={lineNumber}>
-            {line}
-          </React.Fragment>
-        )
-      ))}
-    </span>
-  )
-}
-
-function styledStringToJSXElement(styledString: StyledString, key: number): JSX.Element {
-  const macros = {
-    "\\deg": "|#1|",
-  }
-  switch (styledString.stringType) {
-    case "text":
-      return <Text key={key} content={styledString.content}/>
-    case "math":
-      return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />
-      // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
-  }
-}
-
-export function styledMessageToJSXElement(styledMessage: StyledMessage, key: number = 0): JSX.Element {
-  let style: string
-  switch (styledMessage.messageType) {
-    case "success":
-      style = styles.messageSuccess
-      break
-    case "error":
-      style = styles.messageError
-      break
-  }
-  return (
-    <div key={key} className={style} data-styled-message={formatStyledMessage(styledMessage)}>
-      {styledMessage.strings.map((styledString, index) => styledStringToJSXElement(styledString, index))}
-    </div>
-  )
-}
+import { StyledMessage } from "../styled/message"
+import { ShowStyledMessage } from "../styled/components"
 
 function StackItem({ children }: { children: React.ReactNode }): JSX.Element {
   return (
@@ -148,7 +96,9 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
       </StackItem>
       <StackItem>
         <div>
-          {dgaInfo.map((styledMessage, index) => styledMessageToJSXElement(styledMessage, index))}
+          {dgaInfo.map((styledMessage, index) => (
+            <ShowStyledMessage styledMessage={styledMessage} key={index}/>
+          ))}
         </div>
         <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
           <Button

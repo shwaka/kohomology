@@ -2,9 +2,10 @@ import BrowserOnly from "@docusaurus/BrowserOnly"
 import { createTheme, ThemeProvider } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
-import { CalculatorForm, styledMessageToJSXElement } from "./CalculatorForm"
+import { CalculatorForm } from "./CalculatorForm"
 import styles from "./styles.module.scss"
-import { fromString, StyledMessage } from "./worker/styled"
+import { fromString, StyledMessage } from "./styled/message"
+import { ShowStyledMessage } from "./styled/components"
 
 const theme = createTheme({
   palette: {
@@ -44,7 +45,7 @@ export function Calculator(): JSX.Element {
           {() => <CalculatorForm printMessages={addMessages} />}
         </BrowserOnly>
         <div className={styles.calculatorResults} ref={scrollRef}>
-          {messages.map((message, index) => styledMessageToJSXElement(message, index))}
+          {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
         </div>
       </div>
     </ThemeProvider>

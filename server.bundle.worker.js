@@ -38,17 +38,55 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /******/ 	}
 /******/ 	
 /************************************************************************/
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
 var __webpack_exports__ = {};
 // This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
 "use strict";
 
+// NAMESPACE OBJECT: ./src/components/Calculator/worker/styled.ts
+var styled_namespaceObject = {};
+__webpack_require__.r(styled_namespaceObject);
+__webpack_require__.d(styled_namespaceObject, {
+  "y": () => (toStyledMessage)
+});
+
 // EXTERNAL MODULE: ./kohomology-js/build/js/packages/kohomology-js/kotlin/kohomology-js.js
 var kohomology_js = __webpack_require__(160);
+;// CONCATENATED MODULE: ./src/components/Calculator/styled/message.ts
+const stringTypes=["text","math"];const messageTypes=["success","error"];function formatStyledMessage(styledMessage){return styledMessage.strings.map(styledString=>styledString.content).join("");}function fromString(messageType,str){const styledString={stringType:"text",content:str};return{messageType:messageType,strings:[styledString]};}
 ;// CONCATENATED MODULE: ./src/components/Calculator/worker/styled.ts
-const stringTypes=["text","math"];const messageTypes=["success","error"];function fromString(messageType,str){const styledString={stringType:"text",content:str};return{messageType:messageType,strings:[styledString]};}function toStyledString(styledStringKt){const stringType=styledStringKt.stringType;if(!stringTypes.includes(stringType)){throw new Error(`Invalid stringType: ${stringType}`);}return{stringType:stringType,content:styledStringKt.content};}function toStyledMessage(styledMessageKt){const messageType=styledMessageKt.messageType;if(!messageTypes.includes(messageType)){throw new Error(`Invalid messageType: ${messageType}`);}return{messageType:messageType,strings:styledMessageKt.strings.map(toStyledString)};}
+function toStyledString(styledStringKt){const stringType=styledStringKt.stringType;if(!stringTypes.includes(stringType)){throw new Error(`Invalid stringType: ${stringType}`);}return{stringType:stringType,content:styledStringKt.content};}function toStyledMessage(styledMessageKt){const messageType=styledMessageKt.messageType;if(!messageTypes.includes(messageType)){throw new Error(`Invalid messageType: ${messageType}`);}return{messageType:messageType,strings:styledMessageKt.strings.map(toStyledString)};}
 ;// CONCATENATED MODULE: ./src/components/Calculator/worker/KohomologyMessageHandler.ts
-class KohomologyMessageHandler{dgaWrapper=null;constructor(postMessage){this.postMessage=postMessage;this.onmessage=this.onmessage.bind(this);}onmessage(e){console.log("Worker start");const input=e.data;console.log(input);try{switch(input.command){case"updateJson":this.updateJson(input.json);break;case"computeCohomology":this.computeCohomology(input.targetName,input.minDegree,input.maxDegree,input.showCohomology);break;case"dgaInfo":this.showDgaInfo();break;case"computeCohomologyClass":this.computeCohomologyClass(input.targetName,input.cocycleString,input.showBasis);break;default:throw new ExhaustiveError(input,`Invalid command: ${input}`);}}catch(error){if(error instanceof Error){this.sendMessages(fromString("error",error.message));}console.error(error);}}updateJson(json){this.dgaWrapper=new kohomology_js.FreeDGAWrapper(json);}sendMessages(messages){if(messages instanceof Array){const output={command:"printMessages",messages:messages};this.postMessage(output);}else{const output={command:"printMessages",messages:[messages]};this.postMessage(output);}}computeCohomology(targetName,minDegree,maxDegree,showCohomology){assertNotNull(this.dgaWrapper);this.sendMessages(toStyledMessage(this.dgaWrapper.computationHeader(targetName)));for(let degree=minDegree;degree<=maxDegree;degree++){switch(showCohomology){case"basis":this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomology(targetName,degree)));break;case"dim":this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyDim(targetName,degree)));break;}}}computeCohomologyClass(targetName,cocycleString,showBasis){assertNotNull(this.dgaWrapper);this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName,cocycleString,showBasis)));}showDgaInfo(){assertNotNull(this.dgaWrapper);const output={command:"showDgaInfo",messages:this.dgaWrapper.dgaInfo().map(toStyledMessage)};this.postMessage(output);}}function assertNotNull(value){if(value===null){throw new Error("The given value is null.");}}class ExhaustiveError extends Error{// https://typescriptbook.jp/reference/statements/never#%E4%BE%8B%E5%A4%96%E3%81%AB%E3%82%88%E3%82%8B%E7%B6%B2%E7%BE%85%E6%80%A7%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF (例外による網羅性チェック)
+class KohomologyMessageHandler{dgaWrapper=null;constructor(postMessage){this.postMessage=postMessage;this.onmessage=this.onmessage.bind(this);}onmessage(e){console.log("Worker start");const input=e.data;console.log(input);try{switch(input.command){case"updateJson":this.updateJson(input.json);break;case"computeCohomology":this.computeCohomology(input.targetName,input.minDegree,input.maxDegree,input.showCohomology);break;case"dgaInfo":this.showDgaInfo();break;case"computeCohomologyClass":this.computeCohomologyClass(input.targetName,input.cocycleString,input.showBasis);break;default:throw new ExhaustiveError(input,`Invalid command: ${input}`);}}catch(error){if(error instanceof Error){this.sendMessages((0,styled_namespaceObject.fromString)("error",error.message));}console.error(error);}}updateJson(json){this.dgaWrapper=new kohomology_js.FreeDGAWrapper(json);}sendMessages(messages){if(messages instanceof Array){const output={command:"printMessages",messages:messages};this.postMessage(output);}else{const output={command:"printMessages",messages:[messages]};this.postMessage(output);}}computeCohomology(targetName,minDegree,maxDegree,showCohomology){assertNotNull(this.dgaWrapper);this.sendMessages(toStyledMessage(this.dgaWrapper.computationHeader(targetName)));for(let degree=minDegree;degree<=maxDegree;degree++){switch(showCohomology){case"basis":this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomology(targetName,degree)));break;case"dim":this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyDim(targetName,degree)));break;}}}computeCohomologyClass(targetName,cocycleString,showBasis){assertNotNull(this.dgaWrapper);this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName,cocycleString,showBasis)));}showDgaInfo(){assertNotNull(this.dgaWrapper);const output={command:"showDgaInfo",messages:this.dgaWrapper.dgaInfo().map(toStyledMessage)};this.postMessage(output);}}function assertNotNull(value){if(value===null){throw new Error("The given value is null.");}}class ExhaustiveError extends Error{// https://typescriptbook.jp/reference/statements/never#%E4%BE%8B%E5%A4%96%E3%81%AB%E3%82%88%E3%82%8B%E7%B6%B2%E7%BE%85%E6%80%A7%E3%83%81%E3%82%A7%E3%83%83%E3%82%AF (例外による網羅性チェック)
 constructor(value,message=`Unsupported type: ${value}`){super(message);}}
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[5].use[0]!./src/components/Calculator/worker/kohomology.worker.ts
 // eslint-disable-next-line no-restricted-globals

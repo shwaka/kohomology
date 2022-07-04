@@ -15,7 +15,8 @@
     "typecheck": "tsc",
     "eslint": "eslint src docusaurus.config.js --ext .ts,.tsx",
     "eslint:fix": "eslint src docusaurus.config.js --ext .ts,.tsx --fix",
-    "test": "jest"
+    "test": "jest",
+    "test-watch": "jest --watch"
   },
   "dependencies": {
     "@docusaurus/core": "^2.0.0-beta.18",

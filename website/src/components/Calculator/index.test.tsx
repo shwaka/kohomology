@@ -12,5 +12,7 @@ test("Calculator", () => {
   const computeCohomologyButton = getByRole(computeCohomologyForm, "button")
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
-  expect(calculator).toContainHTML("Cohomology of ")
+  expect(calculator).toContainHTML("Cohomology of (Λ(x, y), d) is")
+  expect(calculator).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
+  expect(calculator).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
 })

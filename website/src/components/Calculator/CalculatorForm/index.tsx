@@ -3,7 +3,7 @@ import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
-import { StyledMessage, StyledString } from "../worker/styled"
+import { formatStyledMessage, StyledMessage, StyledString } from "../worker/styled"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
@@ -60,7 +60,7 @@ export function styledMessageToJSXElement(styledMessage: StyledMessage, key: num
       break
   }
   return (
-    <div key={key} className={style}>
+    <div key={key} className={style} data-styled-message={formatStyledMessage(styledMessage)}>
       {styledMessage.strings.map((styledString, index) => styledStringToJSXElement(styledString, index))}
     </div>
   )

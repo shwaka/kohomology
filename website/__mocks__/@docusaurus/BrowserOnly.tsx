@@ -1,5 +1,10 @@
-import React, { Fragment, ReactNode } from "react"
+import React, { Fragment } from "react"
 
-export default function BrowserOnly(props: { children: ReactNode }): JSX.Element {
-  return (<Fragment>{props.children}</Fragment>)
+interface Props {
+  children: () => JSX.Element
+  fallback?: JSX.Element
+}
+
+export default function BrowserOnly(props: Props): JSX.Element {
+  return (<Fragment>{props.children()}</Fragment>)
 }

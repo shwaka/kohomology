@@ -39,7 +39,7 @@ export function Calculator(): JSX.Element {
   // BrowserOnly is used to avoid SSR (see a comment in CalculatorFrom)
   return (
     <ThemeProvider theme={theme}>
-      <div className={styles.calculator}>
+      <div className={styles.calculator} data-testid="Calculator">
         <BrowserOnly fallback={<div>Loading...</div>}>
           {() => <CalculatorForm printMessages={addMessages} />}
         </BrowserOnly>

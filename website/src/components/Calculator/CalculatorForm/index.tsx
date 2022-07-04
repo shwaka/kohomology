@@ -1,18 +1,16 @@
-import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
+import { ShowStyledMessage } from "../styled/components"
+import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { JsonEditorDialog } from "./JsonEditor"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
-import styles from "./styles.module.scss"
 import { ComplexAsTex } from "./target"
 import { useDefaultDGAJson } from "./urlQuery"
-import { StyledMessage } from "../styled/message"
-import { ShowStyledMessage } from "../styled/components"
 
 function StackItem({ children }: { children: React.ReactNode }): JSX.Element {
   return (

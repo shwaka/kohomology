@@ -3,9 +3,9 @@ import { createTheme, ThemeProvider } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
-import styles from "./styles.module.scss"
-import { fromString, StyledMessage } from "./styled/message"
 import { ShowStyledMessage } from "./styled/components"
+import { fromString, StyledMessage } from "./styled/message"
+import styles from "./styles.module.scss"
 
 const theme = createTheme({
   palette: {

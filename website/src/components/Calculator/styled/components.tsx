@@ -27,20 +27,20 @@ function Text({ content }: { content: string } ): JSX.Element {
   )
 }
 
-function ShowStyledString({ styledString, key }: { styledString: StyledString, key: number }): JSX.Element {
+function ShowStyledString({ styledString }: { styledString: StyledString }): JSX.Element {
   const macros = {
     "\\deg": "|#1|",
   }
   switch (styledString.stringType) {
     case "text":
-      return <Text key={key} content={styledString.content}/>
+      return <Text content={styledString.content}/>
     case "math":
-      return <TeX key={key} math={styledString.content} settings={{ output: "html", macros: macros }} />
+      return <TeX math={styledString.content} settings={{ output: "html", macros: macros }} />
       // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)
   }
 }
 
-export function ShowStyledMessage({ styledMessage, key }: { styledMessage: StyledMessage, key?: number }): JSX.Element {
+export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
   let style: string
   switch (styledMessage.messageType) {
     case "success":
@@ -51,7 +51,7 @@ export function ShowStyledMessage({ styledMessage, key }: { styledMessage: Style
       break
   }
   return (
-    <div key={key} className={style} data-styled-message={formatStyledMessage(styledMessage)}>
+    <div className={style} data-styled-message={formatStyledMessage(styledMessage)}>
       {styledMessage.strings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>
       ))}

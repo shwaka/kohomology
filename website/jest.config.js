@@ -5,6 +5,7 @@ module.exports = {
   transform: {
     "^.+\\.(ts|tsx)$": "ts-jest",
     "^.+\\.(js|jsx)$": "babel-jest",
+    ".+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
   },
   setupFilesAfterEnv: ["<rootDir>/jest-setup.ts"],
   globals: {
@@ -18,4 +19,7 @@ module.exports = {
     "<rootDir>/kohomology-js/build/js/packages/kohomology-js",
     "<rootDir>/kohomology-js/build/tmp",
   ],
-};
+  moduleNameMapper: {
+    "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
+  }
+}

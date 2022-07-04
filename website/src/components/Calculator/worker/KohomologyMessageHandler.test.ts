@@ -1,10 +1,6 @@
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { StyledMessage } from "./styled"
+import { formatStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput } from "./workerInterface"
-
-function formatMessage(styledMessage: StyledMessage): string {
-  return styledMessage.strings.map((styledString) => styledString.content).join("")
-}
 
 test("computeCohomology", () => {
   const outputs: WorkerOutput[] = []
@@ -24,10 +20,10 @@ test("computeCohomology", () => {
   messageHandler.onmessage({ data: computeCohomologyCommand } as MessageEvent<WorkerInput>)
   expect(outputs.length).toBe(6)
   expect(outputs[0].messages[0].strings[0].content).toEqual("Cohomology of ")
-  expect(formatMessage(outputs[0].messages[0])).toEqual("Cohomology of (Λ(x, y), d) is")
-  expect(formatMessage(outputs[1].messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
-  expect(formatMessage(outputs[2].messages[0])).toEqual("H^{1} =\\ 0")
-  expect(formatMessage(outputs[3].messages[0])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
-  expect(formatMessage(outputs[4].messages[0])).toEqual("H^{3} =\\ 0")
-  expect(formatMessage(outputs[5].messages[0])).toEqual("H^{4} =\\ 0")
+  expect(formatStyledMessage(outputs[0].messages[0])).toEqual("Cohomology of (Λ(x, y), d) is")
+  expect(formatStyledMessage(outputs[1].messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
+  expect(formatStyledMessage(outputs[2].messages[0])).toEqual("H^{1} =\\ 0")
+  expect(formatStyledMessage(outputs[3].messages[0])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+  expect(formatStyledMessage(outputs[4].messages[0])).toEqual("H^{3} =\\ 0")
+  expect(formatStyledMessage(outputs[5].messages[0])).toEqual("H^{4} =\\ 0")
 })

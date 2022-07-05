@@ -31,6 +31,22 @@ async function clickComputeCohomologyButton(): Promise<void> {
   fireEvent.click(computeCohomologyButton)
 }
 
+function inputJson(json: string): void {
+  // Open dialog
+  const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
+  const editDGAButton = getByText(calculatorFormStackItemDGA, "Edit DGA")
+  // TODO: この時点では "JsonEditorDialog-input-json" が見つからないことをチェックする
+  // expect(screen.getAllByTestId("JsonEditorDialog-input-json").length).toBe(0)
+  fireEvent.click(editDGAButton)
+  // Input json
+  const dialog = screen.getByRole("dialog")
+  const jsonTextField = getByTestId(dialog, "JsonEditorDialog-input-json")
+  fireEvent.input(jsonTextField, { target: { value: json } })
+  // Click "Apply" button
+  const applyButton = getByText(dialog, "Apply")
+  fireEvent.click(applyButton)
+}
+
 test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
@@ -50,21 +66,12 @@ test("input json", async () => {
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
   // const results = getResultsDiv()
-  const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
-  const editDGAButton = getByText(calculatorFormStackItemDGA, "Edit DGA")
-  // TODO: この時点では "JsonEditorDialog-input-json" が見つからないことをチェックする
-  // expect(screen.getAllByTestId("JsonEditorDialog-input-json").length).toBe(0)
-  fireEvent.click(editDGAButton)
-  const dialog = screen.getByRole("dialog")
-  const jsonTextField = getByTestId(dialog, "JsonEditorDialog-input-json")
   const json = `[
   ["x", 3, "zero"],
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-  fireEvent.input(jsonTextField, { target: { value: json } })
-  const applyButton = getByText(dialog, "Apply")
-  fireEvent.click(applyButton)
+  inputJson(json)
   await clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [

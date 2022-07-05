@@ -11,7 +11,7 @@ export default class KohomologyWorker {
     this.messageHandler = new KohomologyMessageHandler(
       (output) => this.onmessage({ data: output } as MessageEvent<WorkerOutput>),
       (_message) => {
-        // console.log(message)
+        // console.log(_message)
         return
       },
       (message) => console.error(message),

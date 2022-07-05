@@ -6,22 +6,26 @@ function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
 }
 
-function checkInitialState(): void {
+function expectInitialState(): void {
   const results = getResultsDiv()
   expect(results).toContainHTML("Computation results will be shown here")
   expect(results).not.toContainHTML("Cohomology of ")
 }
 
-test("Calculator", () => {
-  render(<Calculator/>)
-  checkInitialState()
-  // const calculator = screen.getByTestId("Calculator")
-  const results = getResultsDiv()
+function clickComputeCohomologyButton(): void {
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
   const computeCohomologyButton = getByRole(computeCohomologyForm, "button")
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
+}
+
+test("Calculator", () => {
+  render(<Calculator/>)
+  expectInitialState()
+  // const calculator = screen.getByTestId("Calculator")
+  const results = getResultsDiv()
+  clickComputeCohomologyButton()
   expect(results).toContainHTML("Cohomology of (Λ(x, y), d) is")
   expect(results).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
   expect(results).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
@@ -29,7 +33,7 @@ test("Calculator", () => {
 
 test("input json", () => {
   render(<Calculator/>)
-  checkInitialState()
+  expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
   // const results = getResultsDiv()
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
@@ -39,7 +43,13 @@ test("input json", () => {
   fireEvent.click(editDGAButton)
   const dialog = screen.getByRole("dialog")
   const jsonTextField = getByTestId(dialog, "JsonEditorDialog-input-json")
-  fireEvent.change(jsonTextField, { target: { value: "write json here" } }) // TODO: write appropriate JSON here
+  const json = `[
+  ["x", 3, "zero"],
+  ["y", 3, "zero"],
+  ["z", 5, "x * y"]
+]`
+  fireEvent.change(jsonTextField, { target: json })
   const applyButton = getByText(dialog, "Apply")
   fireEvent.click(applyButton)
+  clickComputeCohomologyButton()
 })

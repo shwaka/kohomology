@@ -8,8 +8,13 @@ export default class KohomologyWorker {
   messageHandler: KohomologyMessageHandler
   constructor() {
     this.onmessage = (_) => { throw new Error("WebWorker is not initialized") } // This will be set outside of this module.
-    this.messageHandler = new KohomologyMessageHandler((output) =>
-      this.onmessage({ data: output } as MessageEvent<WorkerOutput>)
+    this.messageHandler = new KohomologyMessageHandler(
+      (output) => this.onmessage({ data: output } as MessageEvent<WorkerOutput>),
+      (_message) => {
+        // console.log(message)
+        return
+      },
+      (message) => console.error(message),
     )
   }
 

@@ -5,15 +5,21 @@ import { WorkerInput, WorkerOutput, TargetName, ShowCohomology } from "./workerI
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
+  private log: (message: unknown) => void
+  private error: (message: unknown) => void
   constructor(
     private readonly postMessage: (output: WorkerOutput) => void,
+    log?: (message: unknown) => void,
+    error?: (message: unknown) => void,
   ) {
     // this.onmessage = this.onmessage.bind(this)
+    this.log = log ?? ((message) => console.log(message))
+    this.error = error ?? ((message) => console.error(message))
   }
 
   public onmessage(input: WorkerInput): void {
-    console.log("Worker start")
-    console.log(input)
+    this.log("Worker start")
+    this.log(input)
     try {
       switch (input.command) {
         case "updateJson":
@@ -35,7 +41,7 @@ export class KohomologyMessageHandler {
       if (error instanceof Error) {
         this.sendMessages(fromString("error", error.message))
       }
-      console.error(error)
+      this.error(error)
     }
   }
 

@@ -4,7 +4,11 @@ import { WorkerInput, WorkerOutput } from "./workerInterface"
 
 test("computeCohomology", () => {
   const outputs: WorkerOutput[] = []
-  const messageHandler = new KohomologyMessageHandler((output) => { outputs.push(output) })
+  const messageHandler = new KohomologyMessageHandler(
+    (output) => { outputs.push(output) },
+    (_) => { return },
+    (_) => { return },
+  )
   const updateJsonCommand: WorkerInput = {
     command: "updateJson",
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',

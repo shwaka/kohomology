@@ -1,6 +1,6 @@
 import { FreeDGAWrapper } from "kohomology-js"
-import { fromString } from "../styled/message"
-import { StyledMessage, toStyledMessage } from "./styled"
+import { fromString, StyledMessage } from "../styled/message"
+import { toStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput, TargetName, ShowCohomology } from "./workerInterface"
 
 export class KohomologyMessageHandler {

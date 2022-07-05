@@ -62,7 +62,7 @@ test("input json", async () => {
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-  fireEvent.change(jsonTextField, { target: json })
+  fireEvent.input(jsonTextField, { target: { value: json } })
   const applyButton = getByText(dialog, "Apply")
   fireEvent.click(applyButton)
   await clickComputeCohomologyButton()
@@ -70,7 +70,7 @@ test("input json", async () => {
     [
       "Cohomology of (Λ(x, y, z), d) is",
       "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{3} =\\ \\mathbb{Q}\\{[x], [y]\\}",
+      "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]
   )
 })

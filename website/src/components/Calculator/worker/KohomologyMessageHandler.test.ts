@@ -1,5 +1,5 @@
+import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { formatStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput } from "./workerInterface"
 
 test("computeCohomology", () => {

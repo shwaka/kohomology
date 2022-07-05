@@ -1,4 +1,4 @@
-import { findByRole, fireEvent, getByRole, getByTestId, getByText, render, screen, waitFor } from "@testing-library/react"
+import { findByRole, fireEvent, getByTestId, getByText, render, screen } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
 

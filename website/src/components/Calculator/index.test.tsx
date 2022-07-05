@@ -1,4 +1,4 @@
-import { findByRole, fireEvent, getByRole, getByTestId, getByText, render, screen } from "@testing-library/react"
+import { findByRole, fireEvent, getByRole, getByTestId, getByText, render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
 
@@ -6,10 +6,21 @@ function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
 }
 
+function expectResultsToContainHTML(htmlToBeContained: string[], htmlNotToBeContained: string[] = []): void {
+  const resultsDiv = getResultsDiv()
+  for (const html of htmlToBeContained) {
+    expect(resultsDiv).toContainHTML(html)
+  }
+  for (const html of htmlNotToBeContained) {
+    expect(resultsDiv).not.toContainHTML(html)
+  }
+}
+
 function expectInitialState(): void {
-  const results = getResultsDiv()
-  expect(results).toContainHTML("Computation results will be shown here")
-  expect(results).not.toContainHTML("Cohomology of ")
+  expectResultsToContainHTML(
+    ["Computation results will be shown here"],
+    ["Cohomology of "],
+  )
 }
 
 async function clickComputeCohomologyButton(): Promise<void> {
@@ -24,14 +35,17 @@ test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
-  const results = getResultsDiv()
   await clickComputeCohomologyButton()
-  expect(results).toContainHTML("Cohomology of (Λ(x, y), d) is")
-  expect(results).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
-  expect(results).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+  expectResultsToContainHTML(
+    [
+      "Cohomology of (Λ(x, y), d) is",
+      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
+      "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
+    ],
+  )
 })
 
-test("input json", () => {
+test("input json", async () => {
   render(<Calculator/>)
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
@@ -51,5 +65,12 @@ test("input json", () => {
   fireEvent.change(jsonTextField, { target: json })
   const applyButton = getByText(dialog, "Apply")
   fireEvent.click(applyButton)
-  clickComputeCohomologyButton()
+  await clickComputeCohomologyButton()
+  expectResultsToContainHTML(
+    [
+      "Cohomology of (Λ(x, y, z), d) is",
+      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
+      "H^{3} =\\ \\mathbb{Q}\\{[x], [y]\\}",
+    ]
+  )
 })

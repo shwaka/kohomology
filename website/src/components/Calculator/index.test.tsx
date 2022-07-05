@@ -1,4 +1,4 @@
-import { findByRole, fireEvent, getByTestId, getByText, render, screen } from "@testing-library/react"
+import { fireEvent, getByRole, getByTestId, getByText, render, screen, waitForElementToBeRemoved } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
 
@@ -23,15 +23,15 @@ function expectInitialState(): void {
   )
 }
 
-async function clickComputeCohomologyButton(): Promise<void> {
+function clickComputeCohomologyButton(): void {
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
-  const computeCohomologyButton = await findByRole(computeCohomologyForm, "button")
+  const computeCohomologyButton = getByRole(computeCohomologyForm, "button")
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
 }
 
-function inputJson(json: string): void {
+async function inputJson(json: string): Promise<void> {
   // Open dialog
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
   const editDGAButton = getByText(calculatorFormStackItemDGA, "Edit DGA")
@@ -44,13 +44,14 @@ function inputJson(json: string): void {
   // Click "Apply" button
   const applyButton = getByText(dialog, "Apply")
   fireEvent.click(applyButton)
+  await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
 test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
-  await clickComputeCohomologyButton()
+  clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
       "Cohomology of (Λ(x, y), d) is",
@@ -70,8 +71,8 @@ test("input json", async () => {
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-  inputJson(json)
-  await clickComputeCohomologyButton()
+  await inputJson(json)
+  clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
       "Cohomology of (Λ(x, y, z), d) is",

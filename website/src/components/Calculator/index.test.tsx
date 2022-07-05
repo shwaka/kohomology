@@ -35,7 +35,7 @@ async function inputJson(json: string): Promise<void> {
   // Open dialog
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
   const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
-  expect(screen.queryByTestId("JsonEditorDialog-input-json")).toBeNull()
+  expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
   fireEvent.click(editDGAButton)
   // Input json
   const dialog = screen.getByRole("dialog")

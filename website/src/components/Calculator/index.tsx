@@ -44,7 +44,7 @@ export function Calculator(): JSX.Element {
         <BrowserOnly fallback={<div>Loading...</div>}>
           {() => <CalculatorForm printMessages={addMessages} />}
         </BrowserOnly>
-        <div className={styles.calculatorResults} ref={scrollRef}>
+        <div className={styles.calculatorResults} ref={scrollRef} data-testid="calculator-results">
           {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
         </div>
       </div>

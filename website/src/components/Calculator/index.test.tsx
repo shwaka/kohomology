@@ -2,17 +2,34 @@ import { fireEvent, getByRole, render, screen } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
 
+function getResultsDiv(): HTMLElement {
+  return screen.getByTestId("calculator-results")
+}
+
+function checkInitialState(): void {
+  const results = getResultsDiv()
+  expect(results).toContainHTML("Computation results will be shown here")
+  expect(results).not.toContainHTML("Cohomology of ")
+}
+
 test("Calculator", () => {
   render(<Calculator/>)
-  const calculator = screen.getByTestId("Calculator")
-  expect(calculator).toContainHTML("Computation results will be shown here")
-  expect(calculator).not.toContainHTML("Cohomology of ")
+  checkInitialState()
+  // const calculator = screen.getByTestId("Calculator")
+  const results = getResultsDiv()
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
   const computeCohomologyButton = getByRole(computeCohomologyForm, "button")
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
-  expect(calculator).toContainHTML("Cohomology of (Λ(x, y), d) is")
-  expect(calculator).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
-  expect(calculator).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+  expect(results).toContainHTML("Cohomology of (Λ(x, y), d) is")
+  expect(results).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
+  expect(results).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+})
+
+test("input json", () => {
+  render(<Calculator/>)
+  checkInitialState()
+  // const calculator = screen.getByTestId("Calculator")
+  // const results = getResultsDiv()
 })

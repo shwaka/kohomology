@@ -30,7 +30,8 @@ export function Calculator(): JSX.Element {
 
   function scrollToBottom(): void {
     const div: HTMLDivElement | null = scrollRef.current
-    if (div !== null) {
+    if (div !== null && div.scrollTo !== undefined) {
+      // div.scrollTo can be undefined in test environment
       setTimeout(() => {
         div.scrollTo({ top: div.scrollHeight, behavior: "smooth" })
       })

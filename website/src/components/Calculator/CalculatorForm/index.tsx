@@ -12,11 +12,13 @@ import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { ComplexAsTex } from "./target"
 import { useDefaultDGAJson } from "./urlQuery"
 
-function StackItem({ children }: { children: React.ReactNode }): JSX.Element {
+function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
-    <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
-      {children}
-    </Container>
+    <span data-testid={testId}>
+      <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
+        {children}
+      </Container>
+    </span>
   )
 }
 
@@ -92,7 +94,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <UsageButton {...usageButtonProps}/>
         <UsageDialog {...usageDialogProps}/>
       </StackItem>
-      <StackItem>
+      <StackItem data-testid="CalculatorForm-StackItem-DGA">
         <div>
           {dgaInfo.map((styledMessage, index) => (
             <ShowStyledMessage styledMessage={styledMessage} key={index}/>

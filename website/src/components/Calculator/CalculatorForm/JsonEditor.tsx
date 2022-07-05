@@ -34,6 +34,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
           <TextField
             label="Input your DGA" multiline
             value={json} onChange={handleChangeJson}
+            inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
           />
           <div>
             {"Examples: "}

@@ -8,12 +8,11 @@ export class KohomologyMessageHandler {
   constructor(
     private readonly postMessage: (output: WorkerOutput) => void,
   ) {
-    this.onmessage = this.onmessage.bind(this)
+    // this.onmessage = this.onmessage.bind(this)
   }
 
-  public onmessage(e: MessageEvent<WorkerInput>): void {
+  public onmessage(input: WorkerInput): void {
     console.log("Worker start")
-    const input: WorkerInput = e.data
     console.log(input)
     try {
       switch (input.command) {

@@ -9,7 +9,7 @@ test("computeCohomology", () => {
     command: "updateJson",
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
-  messageHandler.onmessage({ data: updateJsonCommand } as MessageEvent<WorkerInput>)
+  messageHandler.onmessage(updateJsonCommand)
   const computeCohomologyCommand: WorkerInput = {
     command: "computeCohomology",
     targetName: "self",
@@ -17,7 +17,7 @@ test("computeCohomology", () => {
     maxDegree: 4,
     showCohomology: "basis",
   }
-  messageHandler.onmessage({ data: computeCohomologyCommand } as MessageEvent<WorkerInput>)
+  messageHandler.onmessage(computeCohomologyCommand)
   expect(outputs.length).toBe(6)
   expect(outputs[0].messages[0].strings[0].content).toEqual("Cohomology of ")
   expect(formatStyledMessage(outputs[0].messages[0])).toEqual("Cohomology of (Λ(x, y), d) is")

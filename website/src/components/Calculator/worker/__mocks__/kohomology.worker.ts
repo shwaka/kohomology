@@ -14,6 +14,6 @@ export default class KohomologyWorker {
   }
 
   postMessage(input: WorkerInput): void {
-    this.messageHandler.onmessage({ data: input } as MessageEvent<WorkerInput>)
+    this.messageHandler.onmessage(input)
   }
 }

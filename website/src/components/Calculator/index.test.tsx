@@ -35,8 +35,7 @@ function inputJson(json: string): void {
   // Open dialog
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
   const editDGAButton = getByText(calculatorFormStackItemDGA, "Edit DGA")
-  // TODO: この時点では "JsonEditorDialog-input-json" が見つからないことをチェックする
-  // expect(screen.getAllByTestId("JsonEditorDialog-input-json").length).toBe(0)
+  expect(screen.queryByTestId("JsonEditorDialog-input-json")).toBeNull()
   fireEvent.click(editDGAButton)
   // Input json
   const dialog = screen.getByRole("dialog")

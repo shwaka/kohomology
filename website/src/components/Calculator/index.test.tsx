@@ -1,4 +1,4 @@
-import { fireEvent, getByRole, getByTestId, getByText, render, screen } from "@testing-library/react"
+import { findByRole, fireEvent, getByRole, getByTestId, getByText, render, screen } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
 
@@ -12,20 +12,20 @@ function expectInitialState(): void {
   expect(results).not.toContainHTML("Cohomology of ")
 }
 
-function clickComputeCohomologyButton(): void {
+async function clickComputeCohomologyButton(): Promise<void> {
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
-  const computeCohomologyButton = getByRole(computeCohomologyForm, "button")
+  const computeCohomologyButton = await findByRole(computeCohomologyForm, "button")
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
 }
 
-test("Calculator", () => {
+test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
   const results = getResultsDiv()
-  clickComputeCohomologyButton()
+  await clickComputeCohomologyButton()
   expect(results).toContainHTML("Cohomology of (Λ(x, y), d) is")
   expect(results).toContainHTML("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
   expect(results).toContainHTML("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")

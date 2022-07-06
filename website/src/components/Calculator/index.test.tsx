@@ -1,7 +1,7 @@
+import { useLocation } from "@docusaurus/router"
 import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
-import { useLocation } from "@docusaurus/router"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")

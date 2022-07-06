@@ -141,6 +141,9 @@ jobs:
           cache-dependency-path: website/package-lock.json
       - run: npm ci
         working-directory: website
+      - name: Test components in website
+        run: npm test
+        working-directory: website
       - name: Build site
         run: npm run build
         working-directory: website

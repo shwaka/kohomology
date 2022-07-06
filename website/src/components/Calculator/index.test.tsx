@@ -81,3 +81,16 @@ test("input json", async () => {
     ]
   )
 })
+
+test("invalid json", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  const json = "invalid json"
+  await inputJson(json)
+  expectResultsToContainHTML(
+    [
+      "Unexpected JSON token at offset 0",
+      `JSON input: ${json}`,
+    ]
+  )
+})

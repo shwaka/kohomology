@@ -14,7 +14,10 @@ export default class KohomologyWorker {
         // console.log(_message)
         return
       },
-      (message) => console.error(message),
+      (_message) => {
+        // console.error(_message)
+        return
+      },
     )
   }
 

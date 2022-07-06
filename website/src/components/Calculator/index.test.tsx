@@ -48,8 +48,9 @@ async function inputJson(json: string): Promise<void> {
   await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
+const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
-  useLocation.mockReturnValue({
+  mockUseLocation.mockReturnValue({
     search: ""
   })
 })
@@ -103,7 +104,7 @@ test("invalid json", async () => {
 })
 
 test("url query", async () => {
-  useLocation.mockReturnValue({
+  mockUseLocation.mockReturnValue({
     search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"
   })
   render(<Calculator/>)

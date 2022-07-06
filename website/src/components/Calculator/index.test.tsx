@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import React from "react"
 import { Calculator } from "."
+import { useLocation } from "@docusaurus/router"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
@@ -47,6 +48,12 @@ async function inputJson(json: string): Promise<void> {
   await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
+beforeEach(() => {
+  useLocation.mockReturnValue({
+    search: ""
+  })
+})
+
 test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
@@ -91,6 +98,22 @@ test("invalid json", async () => {
     [
       "Unexpected JSON token at offset 0",
       `JSON input: ${json}`,
+    ]
+  )
+})
+
+test("url query", async () => {
+  useLocation.mockReturnValue({
+    search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"
+  })
+  render(<Calculator/>)
+  expectInitialState()
+  clickComputeCohomologyButton()
+  expectResultsToContainHTML(
+    [
+      "Cohomology of (Λ(x, y, z), d) is",
+      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
+      "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]
   )
 })

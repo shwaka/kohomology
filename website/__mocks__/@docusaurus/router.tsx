@@ -1,5 +1,1 @@
-export function useLocation(): { search: string } {
-  return {
-    search: ""
-  }
-}
+export const useLocation = jest.fn()

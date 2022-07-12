@@ -40,6 +40,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
         val (dx) = derivationGLieAlgebra.getBasis(-sphereDim)
         val (dy) = derivationGLieAlgebra.getBasis(-(2 * sphereDim - 1))
         val (xdy) = derivationGLieAlgebra.getBasis(-(sphereDim - 1))
+        val (x2dy) = derivationGLieAlgebra.getBasis(1)
         derivationGLieAlgebra.context.run {
             "check bracket" {
                 (dx * xdy) shouldBe dy
@@ -80,6 +81,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
                 xdy.toString() shouldBe "(y, x)"
                 (-dx).toString() shouldBe "- (x, 1)"
                 (2 * xdy).toString() shouldBe "2 (y, x)"
+                x2dy.toString() shouldBe "(y, x^2)"
             }
         }
     }
@@ -98,17 +100,29 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
             texPrinter(derivationGLieAlgebra) shouldBe "\\mathrm{Der}(Λ(X, Y))"
         }
 
-        "print elements" {
+        "print elements" - {
             val (dx) = derivationGLieAlgebra.getBasis(-sphereDim)
             val (dy) = derivationGLieAlgebra.getBasis(-(2 * sphereDim - 1))
             val (xdy) = derivationGLieAlgebra.getBasis(-(sphereDim - 1))
+            val (x2dy) = derivationGLieAlgebra.getBasis(1)
 
             derivationGLieAlgebra.context.run {
-                texPrinter(dx) shouldBe "(X, 1)"
-                texPrinter(dy) shouldBe "(Y, 1)"
-                texPrinter(xdy) shouldBe "(Y, X)"
-                texPrinter(-dx) shouldBe "- (X, 1)"
-                texPrinter(2 * xdy) shouldBe "2 (Y, X)"
+                "as plain text" {
+                    dx.toString() shouldBe "(x, 1)"
+                    dy.toString() shouldBe "(y, 1)"
+                    xdy.toString() shouldBe "(y, x)"
+                    (-dx).toString() shouldBe "- (x, 1)"
+                    (2 * xdy).toString() shouldBe "2 (y, x)"
+                    x2dy.toString() shouldBe "(y, x^2)"
+                }
+                "as latex code" {
+                    texPrinter(dx) shouldBe "(X, 1)"
+                    texPrinter(dy) shouldBe "(Y, 1)"
+                    texPrinter(xdy) shouldBe "(Y, X)"
+                    texPrinter(-dx) shouldBe "- (X, 1)"
+                    texPrinter(2 * xdy) shouldBe "2 (Y, X)"
+                    texPrinter(x2dy) shouldBe "(Y, X^{2})"
+                }
             }
         }
     }

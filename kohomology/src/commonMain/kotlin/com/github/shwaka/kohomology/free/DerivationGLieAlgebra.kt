@@ -14,6 +14,7 @@ import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.DirectSum
 import com.github.shwaka.kohomology.vectsp.DirectSumBasis
@@ -34,14 +35,15 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
     private val cache: MutableMap<D, DirectSum<Monomial<D, I>, S, V, M>> = mutableMapOf()
 
     fun getInternalPrintConfig(
-        @Suppress("UNUSED_PARAMETER") printConfig: PrintConfig
+        printConfig: PrintConfig
     ): InternalPrintConfig<DirectSumBasis<Monomial<D, I>>, S> {
+        val p = Printer(printConfig)
         val indeterminateList = this.freeGAlgebra.indeterminateList
         return InternalPrintConfig(
             basisToString = { directSumBasis ->
                 val from: Indeterminate<D, I> = indeterminateList[directSumBasis.index]
                 val to: Monomial<D, I> = directSumBasis.basisName
-                "($from, $to)"
+                "(${p(from)}, ${p(to)})"
             }
         )
     }

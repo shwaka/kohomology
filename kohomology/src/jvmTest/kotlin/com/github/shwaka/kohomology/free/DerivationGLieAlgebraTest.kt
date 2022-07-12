@@ -84,17 +84,33 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationGLieAlgForEvenSph
         }
     }
 
-    "printer test" {
+    "printer test" - {
         val indeterminateList = listOf(
-            Indeterminate("x", "X", 2),
-            Indeterminate("y", "Y", 2),
+            Indeterminate("x", "X", sphereDim),
+            Indeterminate("y", "Y", 2 * sphereDim - 1),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val derivationGLieAlgebra = DerivationGLieAlgebra(freeGAlgebra)
         val texPrinter = Printer(PrintType.TEX)
 
-        derivationGLieAlgebra.toString() shouldBe "Der(Λ(x, y))"
-        texPrinter(derivationGLieAlgebra) shouldBe "\\mathrm{Der}(Λ(X, Y))"
+        "print Der itself" {
+            derivationGLieAlgebra.toString() shouldBe "Der(Λ(x, y))"
+            texPrinter(derivationGLieAlgebra) shouldBe "\\mathrm{Der}(Λ(X, Y))"
+        }
+
+        "print elements" {
+            val (dx) = derivationGLieAlgebra.getBasis(-sphereDim)
+            val (dy) = derivationGLieAlgebra.getBasis(-(2 * sphereDim - 1))
+            val (xdy) = derivationGLieAlgebra.getBasis(-(sphereDim - 1))
+
+            derivationGLieAlgebra.context.run {
+                texPrinter(dx) shouldBe "(X, 1)"
+                texPrinter(dy) shouldBe "(Y, 1)"
+                texPrinter(xdy) shouldBe "(Y, X)"
+                texPrinter(-dx) shouldBe "- (X, 1)"
+                texPrinter(2 * xdy) shouldBe "2 (Y, X)"
+            }
+        }
     }
 }
 

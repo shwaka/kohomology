@@ -10,7 +10,6 @@ import { JsonEditorDialog } from "./JsonEditor"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { ComplexAsTex } from "./target"
-import { useDefaultDGAJson } from "./urlQuery"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -24,11 +23,11 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 
 interface CalculatorFormProps {
   printMessages: (result: StyledMessage | StyledMessage[]) => void
+  defaultDGAJson: string
 }
 
 export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
-  const defaultDGAJson = useDefaultDGAJson()
-  const [json, setJson] = useState(defaultDGAJson)
+  const [json, setJson] = useState(props.defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const [editingJson, setEditingJson] = useState(false)

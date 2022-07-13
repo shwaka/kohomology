@@ -1,6 +1,5 @@
 import { useLocation } from "@docusaurus/router"
 import { useMemo } from "react"
-import { sphere } from "./examples"
 
 function useQuery(): URLSearchParams {
   // https://v5.reactrouter.com/web/example/query-parameters
@@ -56,19 +55,48 @@ export function createURLSearchParams(
   return urlSearchParams
 }
 
-export function useDefaultDGAJson(): string {
+interface QueryResultSuccess {
+  type: "success"
+  json: string
+}
+
+interface QueryResultUnspecified {
+  type: "unspecified"
+}
+
+interface QueryResultParseError {
+  type: "parseError"
+  errorMessage: string
+}
+
+type QueryResult = QueryResultSuccess | QueryResultUnspecified | QueryResultParseError
+
+export function useJsonFromURLQuery(): QueryResult {
   const urlSearchParams = useQuery()
-  const defaultJson = sphere(2)
-  try {
-    const dgaJson: string | null = urlSearchParams.get("dgaJson")
-    return (dgaJson !== null) ? prettifyDGAJson(dgaJson) : defaultJson
-  } catch (e) {
-    if (e instanceof SyntaxError) {
-      console.log("[Error] Invalid JSON is given as URL parameter.")
-      console.log(e)
-      return defaultJson
-    } else {
-      throw e
+  const dgaJson: string | null = urlSearchParams.get("dgaJson")
+  if (dgaJson === null) {
+    return {
+      type: "unspecified",
     }
   }
+  try {
+    return {
+      type: "success",
+      json: prettifyDGAJson(dgaJson),
+    }
+  } catch (e) {
+    if (e instanceof SyntaxError) {
+      return {
+        type: "parseError",
+        errorMessage: `[Error] Invalid JSON is given as URL parameter.\n${e.message}`
+      }
+    } else {
+      console.error(e)
+      return {
+        type: "parseError",
+        errorMessage: "[Error] Some error occurred while parsing URL parameter"
+      }
+    }
+  }
+
 }

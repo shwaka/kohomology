@@ -6,6 +6,8 @@ import { CalculatorForm } from "./CalculatorForm"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
 import styles from "./styles.module.scss"
+import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
+import { sphere } from "./CalculatorForm/examples"
 
 const theme = createTheme({
   palette: {
@@ -16,8 +18,15 @@ const theme = createTheme({
 })
 
 export function Calculator(): JSX.Element {
-  const initialMessage = fromString("success", "Computation results will be shown here")
-  const [messages, setMessages] = useState<StyledMessage[]>([initialMessage])
+  const queryResult = useJsonFromURLQuery()
+  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
+  const initialMessageArray = [fromString("success", "Computation results will be shown here")]
+  if (queryResult.type === "parseError") {
+    initialMessageArray.push(
+      fromString("error", queryResult.errorMessage)
+    )
+  }
+  const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
   const scrollRef = useRef<HTMLDivElement>(null)
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
@@ -43,7 +52,7 @@ export function Calculator(): JSX.Element {
     <ThemeProvider theme={theme}>
       <div className={styles.calculator} data-testid="Calculator">
         <BrowserOnly fallback={<div>Loading...</div>}>
-          {() => <CalculatorForm printMessages={addMessages} />}
+          {() => <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>}
         </BrowserOnly>
         <div className={styles.calculatorResults} ref={scrollRef} data-testid="calculator-results">
           {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}

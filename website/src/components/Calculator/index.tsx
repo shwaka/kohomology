@@ -3,11 +3,11 @@ import { createTheme, ThemeProvider } from "@mui/material"
 import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
+import { sphere } from "./CalculatorForm/examples"
+import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
 import styles from "./styles.module.scss"
-import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
-import { sphere } from "./CalculatorForm/examples"
 
 const theme = createTheme({
   palette: {

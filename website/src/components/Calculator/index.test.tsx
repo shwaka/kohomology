@@ -118,3 +118,16 @@ test("url query", async () => {
     ]
   )
 })
+
+test("url query with invalid json", async () => {
+  mockUseLocation.mockReturnValue({
+    search: "?dgaJson=invalidJson"
+  })
+  render(<Calculator/>)
+  expectInitialState()
+  expectResultsToContainHTML(
+    [
+      "[Error] Invalid JSON is given as URL parameter.",
+    ]
+  )
+})

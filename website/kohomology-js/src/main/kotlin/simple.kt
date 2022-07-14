@@ -264,3 +264,14 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
         }.export()
     }
 }
+
+@ExperimentalJsExport
+@JsExport
+fun validateJson(json: String): String? {
+    try {
+        FreeDGAWrapper(json)
+        return null
+    } catch (e: Exception) {
+        return e.message ?: e.toString()
+    }
+}

@@ -1,3 +1,4 @@
+import { validateJson } from "kohomology-js"
 import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
@@ -46,7 +47,11 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => { props.updateDgaWrapper(json); props.finish() }}
+          onClick={() => {
+            console.log(validateJson(json))
+            props.updateDgaWrapper(json)
+            props.finish()
+          }}
         >
           Apply
         </Button>

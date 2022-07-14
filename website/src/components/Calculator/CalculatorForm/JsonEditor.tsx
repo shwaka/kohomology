@@ -1,8 +1,8 @@
-import { validateJson, ValidationResult } from "kohomology-js"
 import { Alert, Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
-import React, { useState } from "react"
-import { sphere, complexProjective, sevenManifold } from "./examples"
+import { validateJson } from "kohomology-js"
+import React from "react"
 import { useForm } from "react-hook-form"
+import { sphere, complexProjective, sevenManifold } from "./examples"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 

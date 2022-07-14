@@ -1,4 +1,4 @@
-import { validateJson } from "kohomology-js"
+import { validateJson, ValidationResult } from "kohomology-js"
 import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
@@ -18,7 +18,7 @@ interface FormInput {
 }
 
 export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
-  const { register, handleSubmit, setValue } = useForm<FormInput>({
+  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormInput>({
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: props.json },
   })
@@ -30,9 +30,16 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
     )
   }
   function onSubmit({ json }: FormInput): void {
-    console.log(validateJson(json))
     props.updateDgaWrapper(json)
     props.finish()
+  }
+  function validate(value: string): true | string {
+    const validationResult = validateJson(value)
+    if (validationResult.type === "success") {
+      return true
+    } else {
+      return validationResult.message
+    }
   }
   return (
     <Dialog
@@ -45,8 +52,9 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
           <TextField
             label="Input your DGA" multiline
             inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
-            {...register("json")}
+            {...register("json", { validate })}
           />
+          {errors.json !== undefined && errors.json.message}
           <div>
             {"Examples: "}
             {createButton("S^2", sphere(2))}

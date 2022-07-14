@@ -267,11 +267,19 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 
 @ExperimentalJsExport
 @JsExport
-fun validateJson(json: String): String? {
+data class ValidationResult(
+    val type: String,
+    val message: String,
+)
+
+@ExperimentalJsExport
+@JsExport
+fun validateJson(json: String): ValidationResult {
     try {
         FreeDGAWrapper(json)
-        return null
+        return ValidationResult("success", "")
     } catch (e: Exception) {
-        return e.message ?: e.toString()
+        val message: String = e.message ?: e.toString()
+        return ValidationResult("error", message)
     }
 }

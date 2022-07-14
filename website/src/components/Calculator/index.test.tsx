@@ -32,37 +32,36 @@ function clickComputeCohomologyButton(): void {
   fireEvent.click(computeCohomologyButton)
 }
 
-async function inputValidJson(json: string): Promise<void> {
-  // Open dialog
-  const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
-  const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
-  expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
-  fireEvent.click(editDGAButton)
-  // Input json
-  const dialog = screen.getByRole("dialog")
-  const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
-  fireEvent.input(jsonTextField, { target: { value: json } })
-  // Click "Apply" button
-  const applyButton = within(dialog).getByText("Apply")
-  fireEvent.click(applyButton)
-  await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
-}
+class InputJson {
+  private static openDialog(): HTMLElement {
+    // Open dialog
+    const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
+    const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
+    expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
+    fireEvent.click(editDGAButton)
+    return screen.getByRole("dialog")
+  }
 
-async function inputInvalidJson(json: string): Promise<void> {
-  // Open dialog
-  const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
-  const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
-  expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
-  fireEvent.click(editDGAButton)
-  // Input json
-  const dialog = screen.getByRole("dialog")
-  const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
-  fireEvent.input(jsonTextField, { target: { value: json } })
-  // Click "Apply" button
-  const applyButton = within(dialog).getByText("Apply")
-  fireEvent.click(applyButton)
-  // TODO: ここまで inputValidJson と完全に同じなので，関数に切り出したりした方が良さそう
-  await within(dialog).findByRole("alert") // It takes some time to show alert.
+  private static inputAndApplyJson(dialog: HTMLElement, json: string): void {
+    // Input json
+    const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
+    fireEvent.input(jsonTextField, { target: { value: json } })
+    // Click "Apply" button
+    const applyButton = within(dialog).getByText("Apply")
+    fireEvent.click(applyButton)
+  }
+
+  static async inputValidJson(json: string): Promise<void> {
+    const dialog = InputJson.openDialog()
+    InputJson.inputAndApplyJson(dialog, json)
+    await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
+  }
+
+  static async inputInvalidJson(json: string): Promise<void> {
+    const dialog = InputJson.openDialog()
+    InputJson.inputAndApplyJson(dialog, json)
+    await within(dialog).findByRole("alert") // It takes some time to show alert.
+  }
 }
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -96,7 +95,7 @@ test("input json", async () => {
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-  await inputValidJson(json)
+  await InputJson.inputValidJson(json)
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
@@ -111,7 +110,7 @@ test("invalid json", async () => {
   render(<Calculator/>)
   expectInitialState()
   const json = "invalid json"
-  await inputInvalidJson(json)
+  await InputJson.inputInvalidJson(json)
   const dialog = screen.getByRole("dialog")
   expect(dialog).toContainHTML("Unexpected JSON token at offset 0")
   expect(dialog).toContainHTML(`JSON input: ${json}`)

@@ -2,8 +2,9 @@ import { validateJson } from "kohomology-js"
 import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
+import { useForm } from "react-hook-form"
 
-type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
+// type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
 interface JsonEditorProps {
   json: string
@@ -12,17 +13,26 @@ interface JsonEditorProps {
   isOpen: boolean
 }
 
+interface FormInput {
+  json: string
+}
+
 export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
-  const [json, setJson] = useState(props.json)
+  const { register, handleSubmit, setValue } = useForm<FormInput>({
+    shouldUnregister: false, // necessary for setValue with MUI
+    defaultValues: { json: props.json },
+  })
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input
         type="button" value={valueString}
-        onClick={() => setJson(jsonString)} />
+        onClick={() => setValue("json", jsonString)} />
     )
   }
-  function handleChangeJson(e: TextAreaEvent): void {
-    setJson(e.target.value)
+  function onSubmit({ json }: FormInput): void {
+    console.log(validateJson(json))
+    props.updateDgaWrapper(json)
+    props.finish()
   }
   return (
     <Dialog
@@ -34,8 +44,8 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
         <Stack spacing={2}>
           <TextField
             label="Input your DGA" multiline
-            value={json} onChange={handleChangeJson}
             inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
+            {...register("json")}
           />
           <div>
             {"Examples: "}
@@ -47,11 +57,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={() => {
-            console.log(validateJson(json))
-            props.updateDgaWrapper(json)
-            props.finish()
-          }}
+          onClick={handleSubmit(onSubmit)}
         >
           Apply
         </Button>

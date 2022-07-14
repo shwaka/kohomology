@@ -1,5 +1,5 @@
 import { validateJson, ValidationResult } from "kohomology-js"
-import { Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
+import { Alert, Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
 import React, { useState } from "react"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 import { useForm } from "react-hook-form"
@@ -54,7 +54,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
             inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
             {...register("json", { validate })}
           />
-          {errors.json !== undefined && errors.json.message}
+          {errors.json !== undefined && <Alert severity="error">{errors.json.message}</Alert>}
           <div>
             {"Examples: "}
             {createButton("S^2", sphere(2))}

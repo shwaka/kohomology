@@ -19,8 +19,9 @@ function getExample(exampleKey: ExampleKey): string {
 
 export function useTabItemExampleSelector(args: { updateDgaWrapper: (json: string) => void }): TabItem<"example"> {
   const [exampleKey, setExampleKey] = useState<ExampleKey>("S^2")
-  function onSubmit(): void {
+  function onSubmit(closeDialog: () => void): void {
     args.updateDgaWrapper(getExample(exampleKey))
+    closeDialog()
   }
   return {
     tabKey: "example",

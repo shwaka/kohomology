@@ -5,7 +5,7 @@ export interface TabItem<K extends string> {
   tabKey: K
   label: string
   render: () => JSX.Element
-  onSubmit: () => void
+  onSubmit: (closeDialog: () => void) => void
   onQuit?: () => void
   beforeOpen?: () => void
   preventQuit?: () => string | undefined
@@ -51,8 +51,7 @@ export function useTabDialog<K extends string>(
     setOpen(false)
   }
   function submit(): void {
-    currentTabItem.onSubmit()
-    setOpen(false)
+    currentTabItem.onSubmit(() => setOpen(false))
   }
   const tabDialogProps: TabDialogProps<K> = {
     tabItems, tabKey, setTabKey, tryToQuit, submit, open,

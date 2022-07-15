@@ -14,8 +14,13 @@ export function useTabItemJsonEditor(args: {
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: args.json },
   })
-  function onSubmit({ json: formJson }: FormInput): void {
-    args.updateDgaWrapper(formJson)
+  function onSubmit(closeDialog: () => void): void {
+    handleSubmit(
+      ({ json: formJson }) => {
+        args.updateDgaWrapper(formJson)
+        closeDialog()
+      }
+    )()
   }
   function beforeOpen(): void {
     setValue("json", args.json)
@@ -35,7 +40,7 @@ export function useTabItemJsonEditor(args: {
     tabKey: "json",
     label: "JSON",
     preventQuit,
-    onSubmit: handleSubmit(onSubmit),
+    onSubmit,
     beforeOpen,
     render: () => (<JsonEditor {...jsonEditorProps}/>),
   }

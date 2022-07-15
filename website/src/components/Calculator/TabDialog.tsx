@@ -39,22 +39,35 @@ export function useTabDialog<K extends string>(
   const [open, setOpen] = useState(false)
   const [tabKey, setTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = getTabItem(tabItems, tabKey)
+  function canQuit(): boolean {
+    if (currentTabItem.preventQuit === undefined) {
+      return true
+    }
+    const confirmPrompt: string | undefined = currentTabItem.preventQuit()
+    if (confirmPrompt === undefined) {
+      return true
+    }
+    return window.confirm(confirmPrompt)
+  }
   function tryToQuit(): void {
-    const confirmPrompt: string | undefined = currentTabItem.preventQuit?.()
-    if (confirmPrompt !== undefined) {
-      const quit: boolean = window.confirm(confirmPrompt)
-      if (!quit) {
-        return
-      }
+    if (!canQuit()) {
+      return
     }
     currentTabItem.onQuit?.()
     setOpen(false)
+  }
+  function handleChangeTabKey(newTabKey: K): void {
+    if (!canQuit()) {
+      return
+    }
+    setTabKey(newTabKey)
+    getTabItem(tabItems, newTabKey).beforeOpen?.()
   }
   function submit(): void {
     currentTabItem.onSubmit(() => setOpen(false))
   }
   const tabDialogProps: TabDialogProps<K> = {
-    tabItems, tabKey, setTabKey, tryToQuit, submit, open,
+    tabItems, tabKey, handleChangeTabKey, tryToQuit, submit, open,
   }
   function openDialog(): void {
     currentTabItem.beforeOpen?.()
@@ -69,17 +82,13 @@ export function useTabDialog<K extends string>(
 interface TabDialogProps<K extends string> {
   tabItems: TabItem<K>[]
   tabKey: K
-  setTabKey: (tabKey: K) => void
+  handleChangeTabKey: (newTabKey: K) => void
   submit: () => void
   tryToQuit: () => void
   open: boolean
 }
 
-export function TabDialog<K extends string>({ tabItems, tabKey, setTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
-  const handleChange = (_event: React.SyntheticEvent, newValue: K): void => {
-    setTabKey(newValue)
-    getTabItem(tabItems, newValue).beforeOpen?.()
-  }
+export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
   // 一つだけ該当することをチェックした方が良い？
   return (
     <Dialog
@@ -89,7 +98,7 @@ export function TabDialog<K extends string>({ tabItems, tabKey, setTabKey, submi
       fullWidth={true}
     >
       <DialogTitle>
-        <Tabs value={tabKey} onChange={handleChange}>
+        <Tabs value={tabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
           {tabItems.map((tabItem) => (
             <Tab
               value={tabItem.tabKey} key={tabItem.tabKey}

@@ -1,27 +1,67 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent, Stack, TextField } from "@mui/material"
+import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"
-import { useForm } from "react-hook-form"
+import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister, UseFormSetValue } from "react-hook-form"
+import { TabItem } from "../TabDialog"
 import { sphere, complexProjective, sevenManifold } from "./examples"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
-interface JsonEditorProps {
+export function useTabItemJsonEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-  finish: () => void
-  isOpen: boolean
+}): TabItem<"json"> {
+  const { register, handleSubmit, getValues, setValue, clearErrors, formState: { errors } } = useForm<FormInput>({
+    shouldUnregister: false, // necessary for setValue with MUI
+    defaultValues: { json: args.json },
+  })
+  function onSubmit({ json: formJson }: FormInput): void {
+    args.updateDgaWrapper(formJson)
+  }
+  function onQuit(): void {
+    setValue("json", args.json)
+    clearErrors()
+  }
+  function preventQuit(): string | undefined {
+    if (getValues().json !== args.json) {
+      return "Your JSON is not saved. Are you sure you want to quit?"
+    } else {
+      return undefined
+    }
+  }
+  const jsonEditorProps: JsonEditorProps = {
+    setValue, register, errors
+  }
+  return {
+    tabKey: "json",
+    label: "JSON",
+    preventQuit,
+    onSubmit: handleSubmit(onSubmit),
+    onQuit,
+    render: () => (<JsonEditor {...jsonEditorProps}/>),
+  }
+}
+
+interface JsonEditorProps {
+  setValue: UseFormSetValue<FormInput>
+  register: UseFormRegister<FormInput>
+  errors: FieldErrorsImpl<DeepRequired<FormInput>>
 }
 
 interface FormInput {
   json: string
 }
 
-export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
-  const { register, handleSubmit, getValues, setValue, clearErrors, formState: { errors } } = useForm<FormInput>({
-    shouldUnregister: false, // necessary for setValue with MUI
-    defaultValues: { json: props.json },
-  })
+function validate(value: string): true | string {
+  const validationResult = validateJson(value)
+  if (validationResult.type === "success") {
+    return true
+  } else {
+    return validationResult.message
+  }
+}
+
+export function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX.Element {
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input
@@ -29,63 +69,20 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
         onClick={() => setValue("json", jsonString)} />
     )
   }
-  function onSubmit({ json }: FormInput): void {
-    props.updateDgaWrapper(json)
-    props.finish()
-  }
-  function tryToQuit(): void {
-    if (getValues().json !== props.json) {
-      const quit = confirm("Your JSON is not saved. Are you sure you want to quit?")
-      if (!quit) {
-        return
-      }
-    }
-    props.finish()
-    setValue("json", props.json)
-    clearErrors()
-  }
-  function validate(value: string): true | string {
-    const validationResult = validateJson(value)
-    if (validationResult.type === "success") {
-      return true
-    } else {
-      return validationResult.message
-    }
-  }
   return (
-    <Dialog
-      open={props.isOpen}
-      onClose={tryToQuit}
-      maxWidth="sm" fullWidth={true}
-    >
-      <DialogContent>
-        <Stack spacing={2}>
-          <TextField
-            label="Input your DGA" multiline
-            inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
-            {...register("json", { validate })}
-          />
-          {errors.json !== undefined && <Alert severity="error">{errors.json.message}</Alert>}
-          <div>
-            {"Examples: "}
-            {createButton("S^2", sphere(2))}
-            {createButton("CP^3", complexProjective(3))}
-            {createButton("7-mfd", sevenManifold())}
-          </div>
-        </Stack>
-      </DialogContent>
-      <DialogActions>
-        <Button
-          onClick={handleSubmit(onSubmit)}
-        >
-          Apply
-        </Button>
-        <Button
-          onClick={tryToQuit}
-        >
-          Cancel
-        </Button>
-      </DialogActions>
-    </Dialog>
+    <Stack spacing={2}>
+      <TextField
+        label="Input your DGA" multiline
+        inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
+        {...register("json", { validate })}
+      />
+      {errors.json !== undefined && <Alert severity="error">{errors.json.message}</Alert>}
+      <div>
+        {"Examples: "}
+        {createButton("S^2", sphere(2))}
+        {createButton("CP^3", complexProjective(3))}
+        {createButton("7-mfd", sevenManifold())}
+      </div>
+    </Stack>
   )
 }

@@ -6,10 +6,11 @@ import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
-import { JsonEditorDialog } from "./JsonEditor"
+import { JsonEditorDialog, useTabItemJsonEditor } from "./JsonEditor"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { ComplexAsTex } from "./target"
+import { TabDialog, useTabDialog } from "../TabDialog"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -30,9 +31,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(props.defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
-  const [editingJson, setEditingJson] = useState(false)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
+  const tabItemJsonEditor = useTabItemJsonEditor({ json, updateDgaWrapper: setJson})
+  const tabItems = [tabItemJsonEditor]
+  const { tabDialogProps, openDialog } = useTabDialog(tabItems, "json")
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
@@ -102,15 +105,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
           <Button
             variant="contained" size="small"
-            onClick={() => setEditingJson(true)}
+            onClick={openDialog}
             sx={{ textTransform: "none" }}>
             Edit DGA
           </Button>
-          <JsonEditorDialog
-            json={json} updateDgaWrapper={setJson}
-            finish={() => setEditingJson(false)}
-            isOpen={editingJson}
-          />
+          <TabDialog {...tabDialogProps}/>
           <ShareDGAButton {...shareDGAButtonProps}/>
           <ShareDGADialog {...shareDGADialogProps}/>
         </Stack>

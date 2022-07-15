@@ -3,7 +3,6 @@ import { validateJson } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister, UseFormSetValue } from "react-hook-form"
 import { TabItem } from "../TabDialog"
-import { sphere, complexProjective, sevenManifold } from "./examples"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
@@ -61,7 +60,7 @@ function validate(value: string): true | string {
   }
 }
 
-export function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX.Element {
+function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX.Element {
   function createButton(valueString: string, jsonString: string): JSX.Element {
     return (
       <input
@@ -77,12 +76,6 @@ export function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX
         {...register("json", { validate })}
       />
       {errors.json !== undefined && <Alert severity="error">{errors.json.message}</Alert>}
-      <div>
-        {"Examples: "}
-        {createButton("S^2", sphere(2))}
-        {createButton("CP^3", complexProjective(3))}
-        {createButton("7-mfd", sevenManifold())}
-      </div>
     </Stack>
   )
 }

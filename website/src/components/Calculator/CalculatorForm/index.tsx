@@ -7,11 +7,11 @@ import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
-import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
-import { ComplexAsTex } from "./target"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
+import { useTabItemJsonEditor } from "./tabItemJsonEditor"
+import { ComplexAsTex } from "./target"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

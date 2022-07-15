@@ -7,6 +7,7 @@ export interface TabItem<K extends string> {
   render: () => JSX.Element
   onSubmit: () => void
   onQuit?: () => void
+  beforeOpen?: () => void
   preventQuit?: () => string | undefined
 }
 
@@ -18,7 +19,7 @@ function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }:
   )
 }
 
-function getCurrentTabItem<K extends string>(tabItems: TabItem<K>[], tabKey: K): TabItem<K> {
+function getTabItem<K extends string>(tabItems: TabItem<K>[], tabKey: K): TabItem<K> {
   const currentTabItem = tabItems.find((tabItem) => tabItem.tabKey === tabKey)
   if (currentTabItem === undefined) {
     throw Error(`Invalid tab key: ${tabKey}`)
@@ -37,7 +38,7 @@ export function useTabDialog<K extends string>(
 ): UseTabDialogReturnValue<K> {
   const [open, setOpen] = useState(false)
   const [tabKey, setTabKey] = useState<K>(defaultTabKey)
-  const currentTabItem = getCurrentTabItem(tabItems, tabKey)
+  const currentTabItem = getTabItem(tabItems, tabKey)
   function tryToQuit(): void {
     const confirmPrompt: string | undefined = currentTabItem.preventQuit?.()
     if (confirmPrompt !== undefined) {
@@ -57,6 +58,7 @@ export function useTabDialog<K extends string>(
     tabItems, tabKey, setTabKey, tryToQuit, submit, open,
   }
   function openDialog(): void {
+    currentTabItem.beforeOpen?.()
     setOpen(true)
   }
 
@@ -75,8 +77,9 @@ interface TabDialogProps<K extends string> {
 }
 
 export function TabDialog<K extends string>({ tabItems, tabKey, setTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
-  const handleChange = (event: React.SyntheticEvent, newValue: K): void => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: K): void => {
     setTabKey(newValue)
+    getTabItem(tabItems, newValue).beforeOpen?.()
   }
   // 一つだけ該当することをチェックした方が良い？
   return (

@@ -17,7 +17,7 @@ export function useTabItemJsonEditor(args: {
   function onSubmit({ json: formJson }: FormInput): void {
     args.updateDgaWrapper(formJson)
   }
-  function onQuit(): void {
+  function beforeOpen(): void {
     setValue("json", args.json)
     clearErrors()
   }
@@ -36,7 +36,7 @@ export function useTabItemJsonEditor(args: {
     label: "JSON",
     preventQuit,
     onSubmit: handleSubmit(onSubmit),
-    onQuit,
+    beforeOpen,
     render: () => (<JsonEditor {...jsonEditorProps}/>),
   }
 }

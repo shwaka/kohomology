@@ -35,7 +35,7 @@ export function useTabDialog<K extends string>(
   tabItems: TabItem<K>[],
   defaultTabKey: K,
 ): UseTabDialogReturnValue<K> {
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false)
   const [tabKey, setTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = getCurrentTabItem(tabItems, tabKey)
   function tryToQuit(): void {

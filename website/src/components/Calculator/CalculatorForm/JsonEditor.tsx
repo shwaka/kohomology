@@ -18,7 +18,7 @@ interface FormInput {
 }
 
 export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
-  const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormInput>({
+  const { register, handleSubmit, setValue, formState: { errors, isDirty } } = useForm<FormInput>({
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: props.json },
   })
@@ -33,6 +33,15 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
     props.updateDgaWrapper(json)
     props.finish()
   }
+  function tryToClose(): void {
+    if (isDirty) {
+      const quit = confirm("Your JSON is not saved. Are you sure you want to quit?")
+      if (!quit) {
+        return
+      }
+    }
+    props.finish()
+  }
   function validate(value: string): true | string {
     const validationResult = validateJson(value)
     if (validationResult.type === "success") {
@@ -44,7 +53,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
   return (
     <Dialog
       open={props.isOpen}
-      onClose={props.finish}
+      onClose={tryToClose}
       maxWidth="sm" fullWidth={true}
     >
       <DialogContent>
@@ -70,7 +79,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
           Apply
         </Button>
         <Button
-          onClick={() => { props.finish() }}
+          onClick={tryToClose}
         >
           Cancel
         </Button>

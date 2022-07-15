@@ -7,5 +7,5 @@ test("ComplexAsTex", () => {
   render(<ComplexAsTex targetName="self"/>)
   const linkElement = screen.getByTestId("ComplexAsTex")
   expect(linkElement).toBeInTheDocument()
-  expect(linkElement).toContainHTML("\\wedge V")
+  expect(linkElement).toContainHTML("\\Lambda V")
 })

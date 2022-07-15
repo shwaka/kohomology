@@ -5,13 +5,13 @@ import { TargetName } from "../worker/workerInterface"
 export function getComplexAsString(targetName: TargetName): string {
   switch (targetName) {
     case "self":
-      return "\\wedge V"
+      return "\\Lambda V"
     case "freeLoopSpace":
-      return "\\wedge V \\otimes \\wedge \\overline{V}"
+      return "\\Lambda V \\otimes \\Lambda \\overline{V}"
     case "cyclic":
-      return "\\wedge u \\otimes\\wedge V \\otimes \\wedge \\overline{V}"
+      return "\\Lambda u \\otimes\\Lambda V \\otimes \\Lambda \\overline{V}"
     case "derivation":
-      return "\\mathrm{Der}(\\wedge V)"
+      return "\\mathrm{Der}(\\Lambda V)"
   }
 }
 

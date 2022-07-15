@@ -1,7 +1,7 @@
 import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"
-import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister, UseFormSetValue } from "react-hook-form"
+import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
@@ -34,7 +34,7 @@ export function useTabItemJsonEditor(args: {
     }
   }
   const jsonEditorProps: JsonEditorProps = {
-    setValue, register, errors
+    register, errors
   }
   return {
     tabKey: "json",
@@ -47,7 +47,6 @@ export function useTabItemJsonEditor(args: {
 }
 
 interface JsonEditorProps {
-  setValue: UseFormSetValue<FormInput>
   register: UseFormRegister<FormInput>
   errors: FieldErrorsImpl<DeepRequired<FormInput>>
 }
@@ -65,7 +64,7 @@ function validate(value: string): true | string {
   }
 }
 
-function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX.Element {
+function JsonEditor({ register, errors }: JsonEditorProps): JSX.Element {
   return (
     <Stack spacing={2}>
       <TextField

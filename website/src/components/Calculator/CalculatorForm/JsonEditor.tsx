@@ -18,7 +18,7 @@ interface FormInput {
 }
 
 export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
-  const { register, handleSubmit, setValue, formState: { errors, isDirty } } = useForm<FormInput>({
+  const { register, handleSubmit, getValues, setValue, clearErrors, formState: { errors } } = useForm<FormInput>({
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: props.json },
   })
@@ -34,13 +34,15 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
     props.finish()
   }
   function tryToClose(): void {
-    if (isDirty) {
+    if (getValues().json !== props.json) {
       const quit = confirm("Your JSON is not saved. Are you sure you want to quit?")
       if (!quit) {
         return
       }
     }
     props.finish()
+    setValue("json", props.json)
+    clearErrors()
   }
   function validate(value: string): true | string {
     const validationResult = validateJson(value)

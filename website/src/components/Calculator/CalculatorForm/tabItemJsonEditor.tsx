@@ -66,13 +66,6 @@ function validate(value: string): true | string {
 }
 
 function JsonEditor({ setValue, register, errors }: JsonEditorProps): JSX.Element {
-  function createButton(valueString: string, jsonString: string): JSX.Element {
-    return (
-      <input
-        type="button" value={valueString}
-        onClick={() => setValue("json", jsonString)} />
-    )
-  }
   return (
     <Stack spacing={2}>
       <TextField

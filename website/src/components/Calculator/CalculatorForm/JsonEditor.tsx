@@ -33,7 +33,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
     props.updateDgaWrapper(json)
     props.finish()
   }
-  function tryToClose(): void {
+  function tryToQuit(): void {
     if (getValues().json !== props.json) {
       const quit = confirm("Your JSON is not saved. Are you sure you want to quit?")
       if (!quit) {
@@ -55,7 +55,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
   return (
     <Dialog
       open={props.isOpen}
-      onClose={tryToClose}
+      onClose={tryToQuit}
       maxWidth="sm" fullWidth={true}
     >
       <DialogContent>
@@ -81,7 +81,7 @@ export function JsonEditorDialog(props: JsonEditorProps): JSX.Element {
           Apply
         </Button>
         <Button
-          onClick={tryToClose}
+          onClick={tryToQuit}
         >
           Cancel
         </Button>

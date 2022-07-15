@@ -66,7 +66,7 @@ function validate(value: string): true | string {
 
 function JsonEditor({ register, errors }: JsonEditorProps): JSX.Element {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ marginTop: 1 }}>
       <TextField
         label="Input your DGA" multiline
         inputProps={{"data-testid": "JsonEditorDialog-input-json"}}

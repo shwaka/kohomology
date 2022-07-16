@@ -2,6 +2,7 @@ import { Alert, Button, Stack } from "@mui/material"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormRegister } from "react-hook-form"
 import { TabItem } from "../TabDialog"
+import { generatorArrayToPrettyJson } from "./utils"
 
 interface Generator {
   name: string
@@ -19,8 +20,10 @@ function jsonToGeneratorArray(json: string): Generator[] {
 }
 
 function generatorArrayToJson(generatorArray: Generator[]): string {
-  const arr = generatorArray.map(({ name, degree, differentialValue }) => [name, degree, differentialValue])
-  return JSON.stringify(arr, null, 2)
+  const arr = generatorArray.map(
+    ({ name, degree, differentialValue }) => [name, degree, differentialValue]
+  )
+  return generatorArrayToPrettyJson(arr)
 }
 
 export function useTabItemArrayEditor(args: {

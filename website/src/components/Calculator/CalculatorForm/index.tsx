@@ -9,10 +9,10 @@ import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/wo
 import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
+import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
 import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 import { ComplexAsTex } from "./target"
-import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

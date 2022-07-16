@@ -105,13 +105,17 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
   }
   return (
     <Stack spacing={0.3}>
-      {(["name", "degree", "differentialValue"] as const).map((key) => (
-        (error[key] !== undefined) ? (
+      {(["name", "degree", "differentialValue"] as const).map((key) => {
+        const errorForKey = error[key]
+        if (errorForKey === undefined) {
+          return undefined
+        }
+        return (
           <Alert severity="error" key={key}>
-            {error[key].message}
+            {errorForKey.message}
           </Alert>
-        ) : undefined
-      ))}
+        )
+      })}
     </Stack>
   )
 }

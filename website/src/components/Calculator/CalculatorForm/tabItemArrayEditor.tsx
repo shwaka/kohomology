@@ -1,4 +1,4 @@
-import { Alert, Button, Stack } from "@mui/material"
+import { Alert, Button, Stack, TextField } from "@mui/material"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormRegister } from "react-hook-form"
 import { TabItem } from "../TabDialog"
@@ -68,17 +68,29 @@ interface ArrayEditorProps {
 
 function ArrayEditor({ register, errors, fields, append, remove }: ArrayEditorProps): JSX.Element {
   return (
-    <Stack spacing={2}>
+    <Stack spacing={2} sx={{ marginTop: 1 }}>
       {fields.map((field, index) => (
         <div key={field.id}>
-          <label>
-            <input type="text" {...register(`generatorArray.${index}.name` as const)}/>
-            <input type="number" {...register(`generatorArray.${index}.degree` as const)}/>
-            <input type="text" {...register(`generatorArray.${index}.differentialValue` as const)}/>
-          </label>
-          <Button onClick={() => remove(index)}>
-            Delete
-          </Button>
+          <Stack direction="row" spacing={1}>
+            <TextField
+              label="generator"
+              sx={{ width: 90 }} size="small"
+              {...register(`generatorArray.${index}.name` as const)}
+            />
+            <TextField
+              label="degree" type="number"
+              sx={{ width: 80}} size="small"
+              {...register(`generatorArray.${index}.degree` as const)}
+            />
+            <TextField
+              label="generator"
+              sx={{ width: 200 }} size="small"
+              {...register(`generatorArray.${index}.differentialValue` as const)}
+            />
+            <Button onClick={() => remove(index)}>
+              Delete
+            </Button>
+          </Stack>
         </div>
       ))}
       {errors.generatorArray !== undefined && (

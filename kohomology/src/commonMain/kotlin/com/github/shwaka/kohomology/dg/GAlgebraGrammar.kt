@@ -48,14 +48,15 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
         }
         ) or (zero use { this@GAlgebraGrammar.gAlgebra.zeroGVector })
     private val intParser: Parser<Int> by int use { text.toInt() }
+    private val parenParser: Parser<GVectorOrZero<D, B, S, V>> by (
+        skip(lpar) and parser(::rootParser) and skip(rpar)
+        )
     private val minusParser: Parser<GVectorOrZero<D, B, S, V>> by (
-        skip(minus) and parser(::termParser) map { this.gAlgebra.context.run { -it } }
+        skip(minus) and parenParser map { this.gAlgebra.context.run { -it } }
         ) or (
-        // mulChain is not contained in termParser
         skip(minus) and parser(::mulChain) map { this.gAlgebra.context.run { -it } }
         )
-    private val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or
-        (skip(lpar) and parser(::rootParser) and skip(rpar))
+    private val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or parenParser
     private val powerParser: Parser<GVectorOrZero<D, B, S, V>> by (
         termParser and skip(pow) and intParser map { (gVector, n) ->
             this.gAlgebra.context.run { gVector.pow(n) }

@@ -12,6 +12,7 @@ import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
 import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 import { ComplexAsTex } from "./target"
+import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -36,6 +37,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const tabItems = [
     useTabItemJsonEditor({ json, updateDgaWrapper: setJson }),
+    useTabItemArrayEditor({ json, updateDgaWrapper: setJson }),
     useTabItemExampleSelector({ updateDgaWrapper: setJson }),
   ]
   const { tabDialogProps, openDialog } = useTabDialog(tabItems, "json")

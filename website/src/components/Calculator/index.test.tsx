@@ -39,7 +39,13 @@ class InputJson {
     const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
     expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
     fireEvent.click(editDGAButton)
-    return screen.getByRole("dialog")
+    const dialog = screen.getByRole("dialog")
+    // Select the "JSON" tab
+    const jsonTabButton = within(dialog).getByRole((role, element) => (
+      role === "tab" && element?.textContent?.includes("JSON")
+    ))
+    fireEvent.click(jsonTabButton)
+    return dialog
   }
 
   private static inputAndApplyJson(dialog: HTMLElement, json: string): void {

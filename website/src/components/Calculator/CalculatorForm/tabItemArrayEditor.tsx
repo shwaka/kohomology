@@ -1,7 +1,7 @@
 import { Alert, Button, Stack, TextField } from "@mui/material"
 import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
 import React from "react"
-import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormRegister } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { generatorArrayToPrettyJson } from "./utils"
 
@@ -31,7 +31,7 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem<"array"> {
-  const { handleSubmit, register, control, formState: { errors } } = useForm<GeneratorFormInput>({
+  const { handleSubmit, register, getValues, control, formState: { errors } } = useForm<GeneratorFormInput>({
     defaultValues: {
       generatorArray: jsonToGeneratorArray(args.json)
     }
@@ -49,7 +49,7 @@ export function useTabItemArrayEditor(args: {
     )()
   }
   const arrayEditorProps: ArrayEditorProps = {
-    register, errors, fields, append, remove,
+    register, errors, fields, append, remove, getValues,
   }
   return {
     tabKey: "array",
@@ -65,14 +65,16 @@ interface ArrayEditorProps {
   fields: FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
   append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
   remove: UseFieldArrayRemove
+  getValues: UseFormGetValues<GeneratorFormInput>
 }
 
-function validateDifferentialValue(fields: Generator[], index: number, value: string): true | string {
-  // fields[index].differentialValue can be older value.
-  // Instead, the argument value should be used.
-  const generatorNames: string[] = fields.map(({name}) => name).slice(0, index)
-  const generatorDegrees: number[] = fields.map(({degree}) => degree).slice(0, index)
-  const degree: number = fields[index].degree
+function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
+  if (generatorArray[index].differentialValue !== value) {
+    throw new Error("generatorArray[index] and value do not match.")
+  }
+  const generatorNames: string[] = generatorArray.map(({name}) => name).slice(0, index)
+  const generatorDegrees: number[] = generatorArray.map(({degree}) => degree).slice(0, index)
+  const degree: number = generatorArray[index].degree
   const validationResult = validateDifferentialValueKt(generatorNames, generatorDegrees, value, degree + 1)
   if (validationResult.type === "success") {
     return true
@@ -93,7 +95,7 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
   )
 }
 
-function ArrayEditor({ register, errors, fields, append, remove }: ArrayEditorProps): JSX.Element {
+function ArrayEditor({ register, errors, fields, append, remove, getValues }: ArrayEditorProps): JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       {fields.map((field, index) => (
@@ -115,7 +117,7 @@ function ArrayEditor({ register, errors, fields, append, remove }: ArrayEditorPr
                 sx={{ width: 200 }} size="small"
                 {...register(
                   `generatorArray.${index}.differentialValue` as const,
-                  { validate: (value: string) => validateDifferentialValue(fields, index, value) }
+                  { validate: (value: string) => validateDifferentialValue(getValues().generatorArray, index, value) }
                 )}
               />
               <Button onClick={() => remove(index)}>

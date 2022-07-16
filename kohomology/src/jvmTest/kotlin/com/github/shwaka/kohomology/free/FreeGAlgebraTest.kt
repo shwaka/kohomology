@@ -340,9 +340,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
             freeGAlgebra.parse("-2*y") shouldBe (-2 * y)
             freeGAlgebra.parse("- 2 * y") shouldBe (-2 * y)
             freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
-            freeGAlgebra.parse("y * -3 * x") // Regarded as (y * (-(3 * x))
+            freeGAlgebra.parse("y * -3 * x") shouldBe (y * (-3) * x) // Regarded as (y * (-(3 * x))
             shouldThrow<ParseException> {
                 freeGAlgebra.parse("y * -3")
+            }
+            shouldThrow<ParseException> {
+                freeGAlgebra.parse("y * (-3)")
             }
 
             // fraction

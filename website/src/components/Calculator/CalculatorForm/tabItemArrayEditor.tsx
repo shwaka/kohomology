@@ -104,9 +104,15 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
     return undefined
   }
   return (
-    <Alert severity="error">
-      {error.differentialValue !== undefined && error.differentialValue.message}
-    </Alert>
+    <Stack spacing={0.3}>
+      {(["name", "degree", "differentialValue"] as const).map((key) => (
+        (error[key] !== undefined) ? (
+          <Alert severity="error" key={key}>
+            {error[key].message}
+          </Alert>
+        ) : undefined
+      ))}
+    </Stack>
   )
 }
 
@@ -120,19 +126,33 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
               <TextField
                 label="generator"
                 sx={{ width: 90 }} size="small"
-                {...register(`generatorArray.${index}.name` as const)}
+                {...register(
+                  `generatorArray.${index}.name` as const,
+                  { required: "Please enter the name."}
+                )}
               />
               <TextField
                 label="degree" type="number"
                 sx={{ width: 80}} size="small"
-                {...register(`generatorArray.${index}.degree` as const, { valueAsNumber: true })}
+                {...register(
+                  `generatorArray.${index}.degree` as const,
+                  {
+                    valueAsNumber: true,
+                    required: "Please enter the degree.",
+                    validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
+                  }
+                )}
               />
               <TextField
                 label="differential"
                 sx={{ width: 200 }} size="small"
                 {...register(
                   `generatorArray.${index}.differentialValue` as const,
-                  { validate: (value: string) => validateDifferentialValue(getValues().generatorArray, index, value) }
+                  {
+                    validate: (value: string) =>
+                      validateDifferentialValue(getValues().generatorArray, index, value),
+                    required: "Please enter the value of the differential."
+                  }
                 )}
               />
               <Button onClick={() => remove(index)}>
@@ -143,7 +163,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
           </Stack>
         </div>
       ))}
-      <Button onClick={() => append({ name: "", degree: 0, differentialValue: "" })}>
+      <Button onClick={() => append({ name: "", degree: 1, differentialValue: "zero" })}>
         Add generator
       </Button>
     </Stack>

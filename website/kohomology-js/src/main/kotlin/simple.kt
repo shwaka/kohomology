@@ -85,7 +85,7 @@ class FreeDGAWrapper(val json: String) {
     fun dgaInfo(): Array<StyledMessageKt> {
         val freeDGAString = this.freeDGAlgebra.toString()
         val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
-            "\\deg ${it.name} = ${it.degree}"
+            "\\deg{${it.name}} = ${it.degree}"
         }
         val differentialString = this.freeDGAlgebra.gAlgebra.generatorList.joinToString(", ") {
             this.freeDGAlgebra.context.run {

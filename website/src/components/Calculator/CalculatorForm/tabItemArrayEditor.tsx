@@ -31,7 +31,7 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem<"array"> {
-  const { handleSubmit, register, getValues, control, formState: { errors } } = useForm<GeneratorFormInput>({
+  const { handleSubmit, register, getValues, setValue, clearErrors, control, formState: { errors } } = useForm<GeneratorFormInput>({
     defaultValues: {
       generatorArray: jsonToGeneratorArray(args.json)
     }
@@ -48,6 +48,11 @@ export function useTabItemArrayEditor(args: {
       }
     )()
   }
+  function beforeOpen(): void {
+    const generatorArray = jsonToGeneratorArray(args.json)
+    setValue("generatorArray", generatorArray)
+    clearErrors()
+  }
   function preventQuit(): string | undefined {
     const generatorArray = getValues().generatorArray
     if (generatorArrayToJson(generatorArray) !== args.json) {
@@ -63,6 +68,7 @@ export function useTabItemArrayEditor(args: {
     tabKey: "array",
     label: "Array",
     onSubmit,
+    beforeOpen,
     preventQuit,
     render: () => (<ArrayEditor {...arrayEditorProps}/>),
   }

@@ -24,7 +24,7 @@ export interface UseNumberFieldArgs {
   label: string
   defaultValue: number
   width?: number
-  disabled?: number
+  disabled?: boolean
 }
 
 export function useNumberField({ label, defaultValue, width, disabled }: UseNumberFieldArgs): [number, NumberFieldProps] {

@@ -1,4 +1,5 @@
-import { Alert, Button, Stack, TextField } from "@mui/material"
+import { Add, Delete } from "@mui/icons-material"
+import { Alert, Button, IconButton, Stack, TextField } from "@mui/material"
 import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister } from "react-hook-form"
@@ -159,16 +160,21 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
                   }
                 )}
               />
-              <Button onClick={() => remove(index)}>
-                Delete
-              </Button>
+              <IconButton onClick={() => remove(index)}>
+                <Delete/>
+              </IconButton>
             </Stack>
             {getFieldError({ errors, index })}
           </Stack>
         </div>
       ))}
-      <Button onClick={() => append({ name: "", degree: 1, differentialValue: "zero" })}>
-        Add generator
+      <Button
+        variant="outlined"
+        onClick={() => append({ name: "", degree: 1, differentialValue: "zero" })}
+        startIcon={<Add/>}
+        sx={{ textTransform: "none" }}
+      >
+        Add a generator
       </Button>
     </Stack>
   )

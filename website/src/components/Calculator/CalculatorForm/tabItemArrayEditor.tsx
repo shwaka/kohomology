@@ -21,7 +21,7 @@ function jsonToGeneratorArray(json: string): Generator[] {
 
 function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(
-    ({ name, degree, differentialValue }) => [name, degree, differentialValue]
+    ({ name, degree, differentialValue }) => [name, degree, differentialValue] as [string, number, string]
   )
   return generatorArrayToPrettyJson(arr)
 }

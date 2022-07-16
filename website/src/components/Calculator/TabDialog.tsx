@@ -119,8 +119,12 @@ export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabK
         ))}
       </DialogContent>
       <DialogActions>
-        <Button onClick={submit}>Apply</Button>
-        <Button onClick={tryToQuit}>Cancel</Button>
+        <Button onClick={submit} variant="contained">
+          Apply
+        </Button>
+        <Button onClick={tryToQuit} variant="outlined">
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   )

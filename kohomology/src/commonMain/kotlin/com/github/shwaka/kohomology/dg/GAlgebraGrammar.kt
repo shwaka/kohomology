@@ -28,7 +28,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val rpar by literalToken(")")
     private val mul by literalToken("*")
     private val pow by literalToken("^")
-    // val div by literalToken("/")
+    private val div by literalToken("/")
     private val minus by literalToken("-")
     private val plus by literalToken("+")
     private val ws by regexToken("\\s*", ignore = true)
@@ -37,7 +37,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
         val (p, q) = this
         val field = this@GAlgebraGrammar.gAlgebra.field
         return field.context.run {
-            p.toScalar() / q.toScalar()
+            fromIntPair(p, q)
         }
     }
 
@@ -58,10 +58,18 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
             this.gAlgebra.context.run { gVector.pow(n) }
         }
         ) or termParser
-    // scalarParser cannot be Parser<S> since S is not a reified type parameter.
-    // c.f. 'and' is declared as follows:
-    //   fun <reified T> Parser<T>.and(other)
-    private val scalarParser: Parser<Pair<Int, Int>> by int use { Pair(text.toInt(), 1) }
+    // - scalarParser cannot be Parser<S> since S is not a reified type parameter.
+    //   C.f. 'and' is declared as follows:
+    //     fun <reified T> Parser<T>.and(other)
+    // - The order to take 'or' is important in scalarParser.
+    //   In "1/2*x", the whole "1/2" should be considered as a scalar.
+    //   If 'or' is taken in the other order, only "1" is considered as a scalar
+    //   and a ParseException is thrown at "/".
+    private val scalarParser: Parser<Pair<Int, Int>> by (
+        intParser and skip(div) and intParser map { (p, q) -> Pair(p, q) }
+        ) or (
+        intParser.map { n -> Pair(n, 1) }
+        )
     private val scalarMulParser: Parser<GVectorOrZero<D, B, S, V>> by (
         scalarParser and skip(mul) and powerParser map { (n, gVector) ->
             this.gAlgebra.context.run { n.toScalar() * gVector }

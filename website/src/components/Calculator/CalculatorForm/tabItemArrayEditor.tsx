@@ -1,4 +1,5 @@
 import { Alert, Button, Stack, TextField } from "@mui/material"
+import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormRegister } from "react-hook-form"
 import { TabItem } from "../TabDialog"
@@ -66,36 +67,64 @@ interface ArrayEditorProps {
   remove: UseFieldArrayRemove
 }
 
+function validateDifferentialValue(fields: Generator[], index: number, value: string): true | string {
+  // fields[index].differentialValue can be older value.
+  // Instead, the argument value should be used.
+  const generatorNames: string[] = fields.map(({name}) => name).slice(0, index)
+  const generatorDegrees: number[] = fields.map(({degree}) => degree).slice(0, index)
+  const validationResult = validateDifferentialValueKt(generatorNames, generatorDegrees, value)
+  if (validationResult.type === "success") {
+    return true
+  } else {
+    return validationResult.message
+  }
+}
+
+function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {
+  const error = errors.generatorArray?.[index]
+  if (error === undefined) {
+    return undefined
+  }
+  return (
+    <Alert severity="error">
+      {error.differentialValue !== undefined && error.differentialValue.message}
+    </Alert>
+  )
+}
+
 function ArrayEditor({ register, errors, fields, append, remove }: ArrayEditorProps): JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       {fields.map((field, index) => (
         <div key={field.id}>
-          <Stack direction="row" spacing={1}>
-            <TextField
-              label="generator"
-              sx={{ width: 90 }} size="small"
-              {...register(`generatorArray.${index}.name` as const)}
-            />
-            <TextField
-              label="degree" type="number"
-              sx={{ width: 80}} size="small"
-              {...register(`generatorArray.${index}.degree` as const)}
-            />
-            <TextField
-              label="differential"
-              sx={{ width: 200 }} size="small"
-              {...register(`generatorArray.${index}.differentialValue` as const)}
-            />
-            <Button onClick={() => remove(index)}>
-              Delete
-            </Button>
+          <Stack spacing={1}>
+            <Stack direction="row" spacing={1}>
+              <TextField
+                label="generator"
+                sx={{ width: 90 }} size="small"
+                {...register(`generatorArray.${index}.name` as const)}
+              />
+              <TextField
+                label="degree" type="number"
+                sx={{ width: 80}} size="small"
+                {...register(`generatorArray.${index}.degree` as const)}
+              />
+              <TextField
+                label="differential"
+                sx={{ width: 200 }} size="small"
+                {...register(
+                  `generatorArray.${index}.differentialValue` as const,
+                  { validate: (value: string) => validateDifferentialValue(fields, index, value) }
+                )}
+              />
+              <Button onClick={() => remove(index)}>
+                Delete
+              </Button>
+            </Stack>
+            {getFieldError({ errors, index })}
           </Stack>
         </div>
       ))}
-      {errors.generatorArray !== undefined && (
-        <Alert severity="error">{errors.generatorArray.message}</Alert>
-      )}
       <Button onClick={() => append({ name: "", degree: 0, differentialValue: "" })}>
         Add generator
       </Button>

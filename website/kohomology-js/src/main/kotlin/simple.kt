@@ -7,7 +7,9 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -277,6 +279,32 @@ data class ValidationResult(
 fun validateJson(json: String): ValidationResult {
     try {
         FreeDGAWrapper(json)
+        return ValidationResult("success", "")
+    } catch (e: Exception) {
+        val message: String = e.message ?: e.toString()
+        return ValidationResult("error", message)
+    }
+}
+
+@ExperimentalJsExport
+@JsExport
+fun validateDifferentialValue(
+    generatorNames: Array<String>,
+    generatorDegrees: Array<Int>,
+    differentialValue: String
+): ValidationResult {
+    // Can't use Pair for JsExport?
+    require(generatorNames.size == generatorDegrees.size) {
+        "Size of arrays are different: $generatorNames and $generatorDegrees"
+    }
+    val indeterminateList = generatorNames.indices.map {
+        val name = generatorNames[it]
+        val degree = generatorDegrees[it]
+        Indeterminate(name, degree)
+    }
+    val freeGAlgebra = FreeGAlgebra(SparseMatrixSpaceOverRational, indeterminateList)
+    try {
+        freeGAlgebra.parse(differentialValue)
         return ValidationResult("success", "")
     } catch (e: Exception) {
         val message: String = e.message ?: e.toString()

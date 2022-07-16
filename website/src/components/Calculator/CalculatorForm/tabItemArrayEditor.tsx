@@ -48,6 +48,14 @@ export function useTabItemArrayEditor(args: {
       }
     )()
   }
+  function preventQuit(): string | undefined {
+    const generatorArray = getValues().generatorArray
+    if (generatorArrayToJson(generatorArray) !== args.json) {
+      return "Your input is not saved. Are you sure you want to quit?"
+    } else {
+      return undefined
+    }
+  }
   const arrayEditorProps: ArrayEditorProps = {
     register, errors, fields, append, remove, getValues,
   }
@@ -55,6 +63,7 @@ export function useTabItemArrayEditor(args: {
     tabKey: "array",
     label: "Array",
     onSubmit,
+    preventQuit,
     render: () => (<ArrayEditor {...arrayEditorProps}/>),
   }
 }

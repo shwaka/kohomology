@@ -330,6 +330,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
             freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
             freeGAlgebra.parse("-x") shouldBe (-x)
             freeGAlgebra.parse("-2*y") shouldBe (-2 * y)
+            freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
             freeGAlgebra.parse("zero") shouldBe zeroGVector
         }
     }

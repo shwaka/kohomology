@@ -33,6 +33,14 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val plus by literalToken("+")
     private val ws by regexToken("\\s*", ignore = true)
 
+    private fun Pair<Int, Int>.toScalar(): S {
+        val (p, q) = this
+        val field = this@GAlgebraGrammar.gAlgebra.field
+        return field.context.run {
+            p.toScalar() / q.toScalar()
+        }
+    }
+
     private val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
         gen use {
             this@GAlgebraGrammar.generators.find { it.first == text }?.second
@@ -50,13 +58,17 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
             this.gAlgebra.context.run { gVector.pow(n) }
         }
         ) or termParser
+    // scalarParser cannot be Parser<S> since S is not a reified type parameter.
+    // c.f. 'and' is declared as follows:
+    //   fun <reified T> Parser<T>.and(other)
+    private val scalarParser: Parser<Pair<Int, Int>> by int use { Pair(text.toInt(), 1) }
     private val scalarMulParser: Parser<GVectorOrZero<D, B, S, V>> by (
-        intParser and skip(mul) and powerParser map { (n, gVector) ->
-            this.gAlgebra.context.run { n * gVector }
+        scalarParser and skip(mul) and powerParser map { (n, gVector) ->
+            this.gAlgebra.context.run { n.toScalar() * gVector }
         }
         ) or (
-        powerParser and skip(mul) and intParser map { (gVector, n) ->
-            this.gAlgebra.context.run { n * gVector }
+        powerParser and skip(mul) and scalarParser map { (gVector, n) ->
+            this.gAlgebra.context.run { n.toScalar() * gVector }
         }
         ) or powerParser
     private val mulChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->

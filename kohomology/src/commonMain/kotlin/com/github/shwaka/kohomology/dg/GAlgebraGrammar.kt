@@ -23,7 +23,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
     private val zero by literalToken("zero")
     private val gen by regexToken("(" + this.generators.joinToString("|") { Regex.escape(it.first) } + ")")
-    private val int by regexToken("-?\\d+")
+    private val int by regexToken("\\d+")
     private val lpar by literalToken("(")
     private val rpar by literalToken(")")
     private val mul by literalToken("*")
@@ -50,6 +50,9 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val intParser: Parser<Int> by int use { text.toInt() }
     private val minusParser: Parser<GVectorOrZero<D, B, S, V>> by (
         skip(minus) and parser(::termParser) map { this.gAlgebra.context.run { -it } }
+        ) or (
+        // mulChain is not contained in termParser
+        skip(minus) and parser(::mulChain) map { this.gAlgebra.context.run { -it } }
         )
     private val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or
         (skip(lpar) and parser(::rootParser) and skip(rpar))

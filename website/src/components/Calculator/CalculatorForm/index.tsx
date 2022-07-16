@@ -36,11 +36,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const tabItems = [
-    useTabItemJsonEditor({ json, updateDgaWrapper: setJson }),
     useTabItemArrayEditor({ json, updateDgaWrapper: setJson }),
+    useTabItemJsonEditor({ json, updateDgaWrapper: setJson }),
     useTabItemExampleSelector({ updateDgaWrapper: setJson }),
   ]
-  const { tabDialogProps, openDialog } = useTabDialog(tabItems, "json")
+  const { tabDialogProps, openDialog } = useTabDialog(tabItems, "array")
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly

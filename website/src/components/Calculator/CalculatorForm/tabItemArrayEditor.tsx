@@ -83,7 +83,7 @@ function ArrayEditor({ register, errors, fields, append, remove }: ArrayEditorPr
               {...register(`generatorArray.${index}.degree` as const)}
             />
             <TextField
-              label="generator"
+              label="differential"
               sx={{ width: 200 }} size="small"
               {...register(`generatorArray.${index}.differentialValue` as const)}
             />

@@ -72,7 +72,8 @@ function validateDifferentialValue(fields: Generator[], index: number, value: st
   // Instead, the argument value should be used.
   const generatorNames: string[] = fields.map(({name}) => name).slice(0, index)
   const generatorDegrees: number[] = fields.map(({degree}) => degree).slice(0, index)
-  const validationResult = validateDifferentialValueKt(generatorNames, generatorDegrees, value)
+  const degree: number = fields[index].degree
+  const validationResult = validateDifferentialValueKt(generatorNames, generatorDegrees, value, degree + 1)
   if (validationResult.type === "success") {
     return true
   } else {

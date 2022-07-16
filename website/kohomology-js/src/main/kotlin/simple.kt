@@ -291,7 +291,8 @@ fun validateJson(json: String): ValidationResult {
 fun validateDifferentialValue(
     generatorNames: Array<String>,
     generatorDegrees: Array<Int>,
-    differentialValue: String
+    differentialValue: String,
+    expectedDegree: Int,
 ): ValidationResult {
     // Can't use Pair for JsExport?
     require(generatorNames.size == generatorDegrees.size) {
@@ -304,7 +305,12 @@ fun validateDifferentialValue(
     }
     val freeGAlgebra = FreeGAlgebra(SparseMatrixSpaceOverRational, indeterminateList)
     try {
-        freeGAlgebra.parse(differentialValue)
+        val gVector = freeGAlgebra.parse(differentialValue)
+        if (gVector is GVector && gVector.degree.value != expectedDegree) {
+            val message = "Illegal degree: the degree of $differentialValue is ${gVector.degree.value}, " +
+                "but ${expectedDegree - 1}+1=$expectedDegree is expected."
+            return ValidationResult("error", message)
+        }
         return ValidationResult("success", "")
     } catch (e: Exception) {
         val message: String = e.message ?: e.toString()

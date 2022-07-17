@@ -340,20 +340,25 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                 freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
             }
 
-            "power" {
-                freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
-                freeGAlgebra.parse("(x+y)^3") shouldBe (x + y).pow(3)
-            }
-
             "minus as an unary operation" {
                 freeGAlgebra.parse("-x") shouldBe (-x)
                 freeGAlgebra.parse("-2*y") shouldBe (-2 * y)
                 freeGAlgebra.parse("- 2 * y") shouldBe (-2 * y)
+                freeGAlgebra.parse("x - (-y)") shouldBe (x + y)
                 freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
                 freeGAlgebra.parse("y * -3 * x") shouldBe (y * (-3) * x) // Regarded as (y * (-(3 * x))
                 freeGAlgebra.parse("y * -3") // Regarded as (y * (-3))
                 freeGAlgebra.parse("y*-3") // Regarded as (y * (-3))
                 freeGAlgebra.parse("y * (-3)")
+            }
+
+            "power" {
+                freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
+                freeGAlgebra.parse("(x+y)^3") shouldBe (x + y).pow(3)
+                freeGAlgebra.parse("2^4") shouldBe (16 * unit)
+                freeGAlgebra.parse("(-(x-y))^3") shouldBe (-x + y).pow(3)
+                freeGAlgebra.parse("(-3)^3") shouldBe (-27 * unit)
+                freeGAlgebra.parse("x^0") shouldBe unit
             }
 
             "fraction" {

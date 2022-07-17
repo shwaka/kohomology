@@ -41,6 +41,16 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
         }
     }
 
+    private fun Pair<Int, Int>.toGVector(): GVectorOrZero<D, B, S, V> {
+        val numerator = this.first
+        if (numerator == 0) {
+            return this@GAlgebraGrammar.gAlgebra.zeroGVector
+        }
+        return this@GAlgebraGrammar.gAlgebra.context.run {
+            unit * this@toGVector.toScalar()
+        }
+    }
+
     private val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
         gen use {
             this@GAlgebraGrammar.generators.find { it.first == text }?.second
@@ -56,34 +66,24 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
         ) or (
         skip(minus) and parser(::mulChain) map { this.gAlgebra.context.run { -it } }
         )
-    private val termParser: Parser<GVectorOrZero<D, B, S, V>> by genParser or minusParser or parenParser
+    // The order to take 'or' is important in scalarParser.
+    // In "1/2*x", the whole "1/2" should be considered as a scalar.
+    // If 'or' is taken in the other order, only "1" is considered as a scalar
+    // and a ParseException is thrown at "/".
+    private val scalarParser: Parser<GVectorOrZero<D, B, S, V>> by (
+        intParser and skip(div) and intParser map { (p, q) -> Pair(p, q).toGVector() }
+        ) or (
+        intParser.map { n -> Pair(n, 1).toGVector() }
+        )
+    private val termParser: Parser<GVectorOrZero<D, B, S, V>> by (
+        scalarParser or genParser or minusParser or parenParser
+        )
     private val powerParser: Parser<GVectorOrZero<D, B, S, V>> by (
         termParser and skip(pow) and intParser map { (gVector, n) ->
             this.gAlgebra.context.run { gVector.pow(n) }
         }
         ) or termParser
-    // - scalarParser cannot be Parser<S> since S is not a reified type parameter.
-    //   C.f. 'and' is declared as follows:
-    //     fun <reified T> Parser<T>.and(other)
-    // - The order to take 'or' is important in scalarParser.
-    //   In "1/2*x", the whole "1/2" should be considered as a scalar.
-    //   If 'or' is taken in the other order, only "1" is considered as a scalar
-    //   and a ParseException is thrown at "/".
-    private val scalarParser: Parser<Pair<Int, Int>> by (
-        intParser and skip(div) and intParser map { (p, q) -> Pair(p, q) }
-        ) or (
-        intParser.map { n -> Pair(n, 1) }
-        )
-    private val scalarMulParser: Parser<GVectorOrZero<D, B, S, V>> by (
-        scalarParser and skip(mul) and powerParser map { (n, gVector) ->
-            this.gAlgebra.context.run { n.toScalar() * gVector }
-        }
-        ) or (
-        powerParser and skip(mul) and scalarParser map { (gVector, n) ->
-            this.gAlgebra.context.run { n.toScalar() * gVector }
-        }
-        ) or powerParser
-    private val mulChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(scalarMulParser, mul) { a, _, b ->
+    private val mulChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(powerParser, mul) { a, _, b ->
         this.gAlgebra.context.run { a * b }
     }
     private val subSumChain: Parser<GVectorOrZero<D, B, S, V>> by leftAssociative(mulChain, plus or minus use { type }) { a, op, b ->

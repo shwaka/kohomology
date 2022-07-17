@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
@@ -321,7 +320,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
+            // scalar
             freeGAlgebra.parse("zero") shouldBe zeroGVector
+            freeGAlgebra.parse("0") shouldBe zeroGVector
+            freeGAlgebra.parse("1") shouldBe unit
+            freeGAlgebra.parse("-2") shouldBe (-2 * unit)
+
+            // binary operations and powers
             freeGAlgebra.parse("x * y") shouldBe (x * y)
             freeGAlgebra.parse("2 * x") shouldBe (2 * x)
             freeGAlgebra.parse("x * 2") shouldBe (2 * x)
@@ -341,12 +346,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
             freeGAlgebra.parse("- 2 * y") shouldBe (-2 * y)
             freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
             freeGAlgebra.parse("y * -3 * x") shouldBe (y * (-3) * x) // Regarded as (y * (-(3 * x))
-            shouldThrow<ParseException> {
-                freeGAlgebra.parse("y * -3")
-            }
-            shouldThrow<ParseException> {
-                freeGAlgebra.parse("y * (-3)")
-            }
+            freeGAlgebra.parse("y * -3") // Regarded as (y * (-3))
+            freeGAlgebra.parse("y*-3") // Regarded as (y * (-3))
+            freeGAlgebra.parse("y * (-3)")
 
             // fraction
             freeGAlgebra.parse("1/2*y") shouldBe (fromIntPair(1, 2) * y)

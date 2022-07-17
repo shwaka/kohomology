@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
@@ -367,6 +368,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                 freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
                 freeGAlgebra.parse("x * 3 / 2") shouldBe (fromIntPair(3, 2) * x)
                 freeGAlgebra.parse("x^2 - 1/2 * x * y") shouldBe (x.pow(2) - fromIntPair(1, 2) * x * y)
+                shouldThrow<ParseException> {
+                    // Currently division is not supported.
+                    // Only fractions of integers are supported (as above).
+                    freeGAlgebra.parse("x / 2")
+                }
             }
         }
     }

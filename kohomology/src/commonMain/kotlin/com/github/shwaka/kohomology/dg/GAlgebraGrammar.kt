@@ -75,7 +75,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val scalarParser: Parser<GVectorOrZero<D, B, S, V>> by (
         intParser and skip(div) and intParser map { (p, q) -> Pair(p, q).toGVector() }
         ) or (
-        intParser.map { n -> Pair(n, 1).toGVector() }
+        intParser map { n -> Pair(n, 1).toGVector() }
         )
     private val termParser: Parser<GVectorOrZero<D, B, S, V>> by (
         scalarParser or genParser or minusParser or parenParser

@@ -7,12 +7,12 @@ export function sphere(dim: number): string {
   }
   if (dim % 2 == 0) {
     return `[
-  ["x", ${dim}, "zero"],
+  ["x", ${dim}, "0"],
   ["y", ${2*dim - 1}, "x^2"]
 ]`
   } else {
     return `[
-  ["x", ${dim}, "zero"]
+  ["x", ${dim}, "0"]
 ]`
   }
 }
@@ -25,15 +25,15 @@ export function complexProjective(n: number): string {
     throw new Error("dim must be positive")
   }
   return `[
-  ["c", 2, "zero"],
+  ["c", 2, "0"],
   ["x", ${2*n + 1}, "c^${n + 1}"]
 ]`
 }
 
 export function sevenManifold(): string {
   return `[
-  ["a", 2, "zero"],
-  ["b", 2, "zero"],
+  ["a", 2, "0"],
+  ["b", 2, "0"],
   ["x", 3, "a^2"],
   ["y", 3, "a*b"],
   ["z", 3, "b^2"]

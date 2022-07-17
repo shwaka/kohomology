@@ -172,7 +172,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
       ))}
       <Button
         variant="outlined"
-        onClick={() => append({ name: "", degree: 1, differentialValue: "zero" })}
+        onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}
         startIcon={<Add/>}
         sx={{ textTransform: "none" }}
       >

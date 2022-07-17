@@ -21,6 +21,8 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
+    // Previously "0" could not be used as a scalar and "zero" is used for such purpose.
+    // Currently "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
     private val gen by regexToken("(" + this.generators.joinToString("|") { Regex.escape(it.first) } + ")")
     private val int by regexToken("\\d+")

@@ -39,3 +39,14 @@ export function sevenManifold(): string {
   ["z", 3, "b^2"]
 ]`
 }
+
+export function arkowitzLupton(): string {
+  return `[
+  ["x_1", 10, "0"],
+  ["x_2", 12, "0"],
+  ["y_1", 41, "x_1^3 * x_2"],
+  ["y_2", 43, "x_1^2 * x_2^2"],
+  ["y_3", 45, "x_1 * x_2^3"],
+  ["z", 119, "x_2 * (y_1*x_2 - x_1*y_2) * (y_2*x_2 - x_1*y_3) + x_1^12 + x_2^10"]
+]`
+}

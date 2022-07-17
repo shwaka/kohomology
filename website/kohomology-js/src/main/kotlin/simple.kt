@@ -88,8 +88,9 @@ class FreeDGAWrapper(val json: String) {
             "\\deg{${it.name}} = ${it.degree}"
         }
         val differentialString = this.freeDGAlgebra.gAlgebra.generatorList.joinToString(", ") {
+            val p = Printer(printType = PrintType.TEX)
             this.freeDGAlgebra.context.run {
-                "d$it = ${d(it)}"
+                "d$it = ${p(d(it))}"
             }
         }
         return arrayOf(

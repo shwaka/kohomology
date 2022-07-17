@@ -90,13 +90,15 @@ public open class GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
-        try {
-            return grammar.parseToEnd(text)
-        } catch (exception: ParseException) {
-            val generatorsString = generators.joinToString(", ") { it.first }
-            println("[Error] Failed to parse text.")
-            println("  Expected generators are: $generatorsString")
-            throw exception
-        }
+        return grammar.parseToEnd(text)
+        // The following was commented out since it printed the message in tests.
+        // try {
+        //     return grammar.parseToEnd(text)
+        // } catch (exception: ParseException) {
+        //     val generatorsString = generators.joinToString(", ") { it.first }
+        //     println("[Error] Failed to parse text.")
+        //     println("  Expected generators are: $generatorsString")
+        //     throw exception
+        // }
     }
 }

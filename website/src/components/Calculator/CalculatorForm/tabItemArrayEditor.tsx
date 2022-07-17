@@ -1,5 +1,5 @@
 import { Add, Delete } from "@mui/icons-material"
-import { Alert, Button, IconButton, Stack, TextField } from "@mui/material"
+import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister } from "react-hook-form"
@@ -160,9 +160,11 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
                   }
                 )}
               />
-              <IconButton onClick={() => remove(index)}>
-                <Delete/>
-              </IconButton>
+              <Tooltip title="Delete this generator">
+                <IconButton onClick={() => remove(index)}>
+                  <Delete/>
+                </IconButton>
+              </Tooltip>
             </Stack>
             {getFieldError({ errors, index })}
           </Stack>

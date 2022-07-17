@@ -312,7 +312,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "parse test".config(tags = setOf(parseTag)) {
+    "parse test" - {
         val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 2),
@@ -320,42 +320,49 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
-            // scalar
-            freeGAlgebra.parse("zero") shouldBe zeroGVector
-            freeGAlgebra.parse("0") shouldBe zeroGVector
-            freeGAlgebra.parse("1") shouldBe unit
-            freeGAlgebra.parse("-2") shouldBe (-2 * unit)
+            "scalar" {
+                freeGAlgebra.parse("zero") shouldBe zeroGVector
+                freeGAlgebra.parse("0") shouldBe zeroGVector
+                freeGAlgebra.parse("1") shouldBe unit
+                freeGAlgebra.parse("-2") shouldBe (-2 * unit)
+            }
 
-            // binary operations and powers
-            freeGAlgebra.parse("x * y") shouldBe (x * y)
-            freeGAlgebra.parse("2 * x") shouldBe (2 * x)
-            freeGAlgebra.parse("x * 2") shouldBe (2 * x)
-            freeGAlgebra.parse("2*x") shouldBe (2 * x)
-            freeGAlgebra.parse("x*2") shouldBe (2 * x)
-            freeGAlgebra.parse("x - 2 * y") shouldBe (x - 2 * y)
-            freeGAlgebra.parse("x-2*y") shouldBe (x - 2 * y)
-            freeGAlgebra.parse("x*x - 2*x*y + y*y") shouldBe (x - y).pow(2)
-            freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
-            freeGAlgebra.parse("(x + y) * (x - y)") shouldBe (x.pow(2) - y.pow(2))
-            freeGAlgebra.parse("(x+y)^3") shouldBe (x + y).pow(3)
-            freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
+            "binary operations" {
+                freeGAlgebra.parse("x * y") shouldBe (x * y)
+                freeGAlgebra.parse("2 * x") shouldBe (2 * x)
+                freeGAlgebra.parse("x * 2") shouldBe (2 * x)
+                freeGAlgebra.parse("2*x") shouldBe (2 * x)
+                freeGAlgebra.parse("x*2") shouldBe (2 * x)
+                freeGAlgebra.parse("x - 2 * y") shouldBe (x - 2 * y)
+                freeGAlgebra.parse("x-2*y") shouldBe (x - 2 * y)
+                freeGAlgebra.parse("x*x - 2*x*y + y*y") shouldBe (x - y).pow(2)
+                freeGAlgebra.parse("(x + y) * (x - y)") shouldBe (x.pow(2) - y.pow(2))
+                freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
+            }
 
-            // minus as an unary operation
-            freeGAlgebra.parse("-x") shouldBe (-x)
-            freeGAlgebra.parse("-2*y") shouldBe (-2 * y)
-            freeGAlgebra.parse("- 2 * y") shouldBe (-2 * y)
-            freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
-            freeGAlgebra.parse("y * -3 * x") shouldBe (y * (-3) * x) // Regarded as (y * (-(3 * x))
-            freeGAlgebra.parse("y * -3") // Regarded as (y * (-3))
-            freeGAlgebra.parse("y*-3") // Regarded as (y * (-3))
-            freeGAlgebra.parse("y * (-3)")
+            "power" {
+                freeGAlgebra.parse("x^2 + y^2") shouldBe (x.pow(2) + y.pow(2))
+                freeGAlgebra.parse("(x+y)^3") shouldBe (x + y).pow(3)
+            }
 
-            // fraction
-            freeGAlgebra.parse("1/2*y") shouldBe (fromIntPair(1, 2) * y)
-            freeGAlgebra.parse("-2/3*x") shouldBe (fromIntPair(-2, 3) * x)
-            freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
-            freeGAlgebra.parse("x * 3 / 2") shouldBe (fromIntPair(3, 2) * x)
-            freeGAlgebra.parse("x^2 - 1/2 * x * y") shouldBe (x.pow(2) - fromIntPair(1, 2) * x * y)
+            "minus as an unary operation" {
+                freeGAlgebra.parse("-x") shouldBe (-x)
+                freeGAlgebra.parse("-2*y") shouldBe (-2 * y)
+                freeGAlgebra.parse("- 2 * y") shouldBe (-2 * y)
+                freeGAlgebra.parse("x - -y") shouldBe (x + y) // Regarded as (x - (-y))
+                freeGAlgebra.parse("y * -3 * x") shouldBe (y * (-3) * x) // Regarded as (y * (-(3 * x))
+                freeGAlgebra.parse("y * -3") // Regarded as (y * (-3))
+                freeGAlgebra.parse("y*-3") // Regarded as (y * (-3))
+                freeGAlgebra.parse("y * (-3)")
+            }
+
+            "fraction" {
+                freeGAlgebra.parse("1/2*y") shouldBe (fromIntPair(1, 2) * y)
+                freeGAlgebra.parse("-2/3*x") shouldBe (fromIntPair(-2, 3) * x)
+                freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
+                freeGAlgebra.parse("x * 3 / 2") shouldBe (fromIntPair(3, 2) * x)
+                freeGAlgebra.parse("x^2 - 1/2 * x * y") shouldBe (x.pow(2) - fromIntPair(1, 2) * x * y)
+            }
         }
     }
 }
@@ -521,8 +528,16 @@ class FreeGAlgebraTest : FreeSpec({
     include(derivationTest(matrixSpace))
     include(algebraMapTest(matrixSpace))
 
-    include(parseTest(matrixSpace))
     include(toStringTest(matrixSpace))
 
     include(convertDegreeTest(matrixSpace))
+})
+
+class FreeGAlgebraParseTest : FreeSpec({
+    // FreeGAlgebraParseTest is separated from FreeGAlgebraTest
+    // since tags(parseTag) and "test name".config(tags = setOf(parseTag)) do not work for nested tests.
+    tags(freeGAlgebraTag, rationalTag, parseTag)
+
+    val matrixSpace = DenseMatrixSpaceOverRational
+    include(parseTest(matrixSpace))
 })

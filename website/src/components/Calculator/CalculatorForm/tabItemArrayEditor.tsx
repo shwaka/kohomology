@@ -132,6 +132,15 @@ function validateGeneratorDegrees(generatorArray: Generator[]): true | string {
   return true
 }
 
+function validateGeneratorNames(generatorArray: Generator[]): true | string {
+  const names = generatorArray.map((generator) => generator.name)
+  const duplicatedNames = names.filter((item, index) => names.indexOf(item) !== index)
+  if (duplicatedNames.length === 0) {
+    return true
+  }
+  return "Generator names must be unique. Duplicated names are " + duplicatedNames.map((name) => `"${name}"`).join(", ")
+}
+
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): JSX.Element | undefined {
   const fieldError: FieldError | undefined = errors.dummy
   if (fieldError === undefined) {
@@ -214,6 +223,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
         {...register("dummy", {
           validate: {
             positiveAndNegativeDegree: (_) => validateGeneratorDegrees(getValues().generatorArray),
+            duplicatedNames: (_) => validateGeneratorNames(getValues().generatorArray),
           }
         })}
       />

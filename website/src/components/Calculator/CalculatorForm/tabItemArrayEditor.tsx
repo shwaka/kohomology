@@ -101,6 +101,14 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
   }
 }
 
+function PreserveNewline({ text }: { text: string }): JSX.Element {
+  return (
+    <React.Fragment>
+      {text.split("\n").map((line, index) => <span key={index}>{line}<br/></span>)}
+    </React.Fragment>
+  )
+}
+
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {
   const error = errors.generatorArray?.[index]
   if (error === undefined) {
@@ -110,12 +118,12 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
     <Stack spacing={0.3}>
       {(["name", "degree", "differentialValue"] as const).map((key) => {
         const errorForKey = error[key]
-        if (errorForKey === undefined) {
+        if (errorForKey === undefined || errorForKey.message === undefined) {
           return undefined
         }
         return (
           <Alert severity="error" key={key}>
-            {errorForKey.message}
+            <PreserveNewline text={errorForKey.message}/>
           </Alert>
         )
       })}

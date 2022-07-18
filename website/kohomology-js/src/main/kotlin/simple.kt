@@ -314,7 +314,9 @@ fun validateDifferentialValue(
         }
         return ValidationResult("success", "")
     } catch (e: Exception) {
-        val message: String = e.message ?: e.toString()
+        val messageFromException: String = e.message ?: e.toString()
+        val message = "Failed to parse the value \"$differentialValue\" of the differential " +
+            "with the following error message:\n$messageFromException"
         return ValidationResult("error", message)
     }
 }

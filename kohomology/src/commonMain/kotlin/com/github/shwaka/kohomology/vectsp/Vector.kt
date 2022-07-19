@@ -124,23 +124,43 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
                 "0"
             } else {
                 var result = ""
-                basisStringWithCoeff[0].let { (coeff, basisElm) ->
-                    result += when (val coeffStr = internalPrintConfig.coeffToString(coeff, true)) {
-                        "1" -> basisElm
-                        "-1" -> "-${printConfig.afterSign}$basisElm"
-                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
-                    }
+                result += basisStringWithCoeff[0].let { (coeff, basisElm) ->
+                    Vector.firstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
                 }
                 result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
-                    val sign = if (coeff.isPrintedPositively()) "+" else "-"
-                    val str = when (val coeffStr = internalPrintConfig.coeffToString(coeff, false)) {
-                        "1" -> basisElm
-                        else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
-                    }
-                    "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
+                    Vector.nonFirstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
                 }
                 result
             }
+        }
+    }
+
+    private companion object {
+        private fun <B, S : Scalar> firstTermToString(
+            coeff: S,
+            basisElm: String,
+            printConfig: PrintConfig,
+            internalPrintConfig: InternalPrintConfig<B, S>,
+        ): String {
+            return when (val coeffStr = internalPrintConfig.coeffToString(coeff, true)) {
+                "1" -> basisElm
+                "-1" -> "-${printConfig.afterSign}$basisElm"
+                else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+            }
+        }
+
+        private fun <B, S : Scalar> nonFirstTermToString(
+            coeff: S,
+            basisElm: String,
+            printConfig: PrintConfig,
+            internalPrintConfig: InternalPrintConfig<B, S>,
+        ): String {
+            val sign = if (coeff.isPrintedPositively()) "+" else "-"
+            val str = when (val coeffStr = internalPrintConfig.coeffToString(coeff, false)) {
+                "1" -> basisElm
+                else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+            }
+            return "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
         }
     }
 }

@@ -11,6 +11,8 @@ export function useTabItemJsonEditor(args: {
   updateDgaWrapper: (json: string) => void
 }): TabItem<"json"> {
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<FormInput>({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: args.json },
   })

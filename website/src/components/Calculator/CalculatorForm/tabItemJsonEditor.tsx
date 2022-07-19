@@ -72,6 +72,7 @@ function JsonEditor({ register, errors }: JsonEditorProps): JSX.Element {
         label="Input your DGA" multiline
         inputProps={{"data-testid": "JsonEditorDialog-input-json"}}
         {...register("json", { validate })}
+        error={errors.json !== undefined}
       />
       {errors.json !== undefined && <Alert severity="error">{errors.json.message}</Alert>}
     </Stack>

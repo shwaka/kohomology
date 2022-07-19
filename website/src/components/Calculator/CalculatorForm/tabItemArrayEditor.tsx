@@ -34,6 +34,8 @@ export function useTabItemArrayEditor(args: {
   updateDgaWrapper: (json: string) => void
 }): TabItem<"array"> {
   const { handleSubmit, register, getValues, setValue, clearErrors, control, formState: { errors } } = useForm<GeneratorFormInput>({
+    mode: "onBlur",
+    reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues: {
       generatorArray: jsonToGeneratorArray(args.json)

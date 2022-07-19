@@ -47,7 +47,12 @@ export class KohomologyMessageHandler {
 
 
   private updateJson(json: string): void {
-    this.dgaWrapper = new FreeDGAWrapper(json)
+    try {
+      this.dgaWrapper = new FreeDGAWrapper(json)
+    } catch (error: unknown) {
+      this.dgaWrapper = null
+      throw error
+    }
   }
 
   private sendMessages(messages: StyledMessage | StyledMessage[]): void {
@@ -91,12 +96,20 @@ export class KohomologyMessageHandler {
   }
 
   private showDgaInfo(): void {
-    assertNotNull(this.dgaWrapper)
-    const output: WorkerOutput = {
-      command: "showDgaInfo",
-      messages: this.dgaWrapper.dgaInfo().map(toStyledMessage),
+    if (this.dgaWrapper === null) {
+      const message = "[Error] Your DGA contains errors. Please fix them."
+      const output: WorkerOutput = {
+        command: "showDgaInfo",
+        messages: [fromString("error", message)],
+      }
+      this.postMessage(output)
+    } else {
+      const output: WorkerOutput = {
+        command: "showDgaInfo",
+        messages: this.dgaWrapper.dgaInfo().map(toStyledMessage),
+      }
+      this.postMessage(output)
     }
-    this.postMessage(output)
   }
 }
 

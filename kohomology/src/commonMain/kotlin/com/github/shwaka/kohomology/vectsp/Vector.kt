@@ -138,10 +138,22 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
             internalPrintConfig: InternalPrintConfig<B, S>,
         ): String {
             val basisNameString = internalPrintConfig.basisToString(basisName)
-            return when (val coeffStr = internalPrintConfig.coeffToString(coeff, true)) {
+            val coeffString = internalPrintConfig.coeffToString(coeff, true)
+            if (basisNameString == "1") {
+                // - The unit 1 of an algebra
+                //   The element (2 * unit) should be shown as "2", not as "2 1".
+                // - Note that there is another possible implementation
+                //   which seems to be a little more general.
+                //   Namely, add an option
+                //     val isUnit: (B) -> Boolean
+                //   to InternalPrintConfig<B, S> and use it instead of (basisNameString == "1").
+                //   But this generality is currently excessive.
+                return coeffString
+            }
+            return when (coeffString) {
                 "1" -> basisNameString
                 "-1" -> "-${printConfig.afterSign}$basisNameString"
-                else -> "$coeffStr${printConfig.afterCoeff}$basisNameString"
+                else -> "$coeffString${printConfig.afterCoeff}$basisNameString"
             }
         }
 
@@ -152,10 +164,15 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
             internalPrintConfig: InternalPrintConfig<B, S>,
         ): String {
             val basisNameString = internalPrintConfig.basisToString(basisName)
+            val coeffString = internalPrintConfig.coeffToString(coeff, false)
             val sign = if (coeff.isPrintedPositively()) "+" else "-"
-            val str = when (val coeffStr = internalPrintConfig.coeffToString(coeff, false)) {
+            if (basisNameString == "1") {
+                // See the comment in firstTermToString
+                return "${printConfig.beforeSign}$sign${printConfig.afterSign}$coeffString"
+            }
+            val str = when (coeffString) {
                 "1" -> basisNameString
-                else -> "$coeffStr${printConfig.afterCoeff}$basisNameString"
+                else -> "$coeffString${printConfig.afterCoeff}$basisNameString"
             }
             return "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
         }

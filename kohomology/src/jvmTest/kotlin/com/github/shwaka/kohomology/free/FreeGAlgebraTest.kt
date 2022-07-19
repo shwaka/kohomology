@@ -390,7 +390,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
         freeGAlgebra.context.run {
             "plain printer test" {
                 unit.toString() shouldBe "1"
-                (2 * unit).toString() shouldBe "2 1" // TODO: This is a known issue (see #232)
+                (2 * unit).toString() shouldBe "2"
                 x.toString() shouldBe "x"
                 (x * y).toString() shouldBe "xy"
                 (x * y.pow(2)).toString() shouldBe "xy^2"
@@ -401,7 +401,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
                 val texPrinter = Printer(PrintType.TEX)
 
                 unit.toString() shouldBe "1"
-                (2 * unit).toString() shouldBe "2 1" // TODO: This is a known issue (see #232)
+                (2 * unit).toString() shouldBe "2"
                 texPrinter(x) shouldBe "X"
                 texPrinter(x * y) shouldBe "XY"
                 texPrinter(x * y.pow(2)) shouldBe "XY^{2}"

@@ -26,7 +26,7 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 @ExperimentalJsExport
 @JsExport
 @Suppress("UNUSED")
-class FreeDGAWrapper(val json: String) {
+class FreeDGAWrapper(json: String) {
     private val freeDGAlgebra = FreeDGAlgebra(
         SparseMatrixSpaceOverRational,
         jsonToGeneratorList(json)
@@ -105,7 +105,7 @@ class FreeDGAWrapper(val json: String) {
     }
 }
 
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getBasis(
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getBasis(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
 ): List<GVector<D, SubQuotBasis<B, S, V>, S, V>> {
@@ -116,7 +116,7 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
     }
 }
 
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
 ): StyledMessageInternal {
@@ -145,7 +145,7 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
 }
 
 @ExperimentalJsExport
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomology(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
 ): StyledMessageKt {
@@ -153,7 +153,7 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
 }
 
 @ExperimentalJsExport
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
 ): StyledMessageKt {
     return styledMessage(MessageType.SUCCESS) {
@@ -168,7 +168,7 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
 }
 
 @ExperimentalJsExport
-fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyUpTo(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     minDegree: Int,
     maxDegree: Int,
@@ -181,7 +181,7 @@ fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> 
 }
 
 @ExperimentalJsExport
-fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycleString: String,
     showBasis: Boolean,
@@ -205,7 +205,7 @@ fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix
 }
 
 @ExperimentalJsExport
-fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycle: GVector<D, Monomial<D, I>, S, V>,
     showBasis: Boolean,

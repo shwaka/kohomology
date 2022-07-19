@@ -10,7 +10,7 @@ export function useTabItemJsonEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem<"json"> {
-  const { register, handleSubmit, getValues, setValue, clearErrors, formState: { errors } } = useForm<FormInput>({
+  const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<FormInput>({
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: args.json },
   })
@@ -23,8 +23,7 @@ export function useTabItemJsonEditor(args: {
     )()
   }
   function beforeOpen(): void {
-    setValue("json", args.json)
-    clearErrors()
+    reset({ json: args.json })
   }
   function preventQuit(): string | undefined {
     if (getValues().json !== args.json) {

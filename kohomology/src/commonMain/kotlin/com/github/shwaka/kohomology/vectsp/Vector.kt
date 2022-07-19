@@ -108,25 +108,23 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     public fun print(printConfig: PrintConfig, internalPrintConfig: InternalPrintConfig<B, S>): String {
-        val basisStringWithCoeff: List<Pair<S, String>> = run {
+        val sortedBasisWithCoeff: List<Pair<S, B>> = run {
             val coeffList = this.numVector.toList()
-            // val basis = vector.vectorSpace.basisNames.map(basisToString)
             val basisWithCoeff = coeffList.zip(this.vectorSpace.basisNames).filter { (coeff, _) -> coeff.isNotZero() }
-            val sortedBasisWithCoeff = if (internalPrintConfig.basisComparator == null) {
+            if (internalPrintConfig.basisComparator == null) {
                 basisWithCoeff
             } else {
                 basisWithCoeff.sortedWith(compareBy(internalPrintConfig.basisComparator) { it.second })
             }
-            sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, internalPrintConfig.basisToString(basisName)) }
         }
-        return if (basisStringWithCoeff.isEmpty()) {
+        return if (sortedBasisWithCoeff.isEmpty()) {
             "0"
         } else {
-            basisStringWithCoeff.withIndex().joinToString(separator = "") { (index, coeffAndBasisElm) ->
-                val (coeff, basisElm) = coeffAndBasisElm
+            sortedBasisWithCoeff.withIndex().joinToString(separator = "") { (index, coeffAndBasisName) ->
+                val (coeff, basisName) = coeffAndBasisName
                 when (index) {
-                    0 -> Vector.firstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
-                    else -> Vector.nonFirstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
+                    0 -> Vector.firstTermToString(coeff, basisName, printConfig, internalPrintConfig)
+                    else -> Vector.nonFirstTermToString(coeff, basisName, printConfig, internalPrintConfig)
                 }
             }
         }
@@ -135,27 +133,29 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
     private companion object {
         private fun <B, S : Scalar> firstTermToString(
             coeff: S,
-            basisElm: String,
+            basisName: B,
             printConfig: PrintConfig,
             internalPrintConfig: InternalPrintConfig<B, S>,
         ): String {
+            val basisNameString = internalPrintConfig.basisToString(basisName)
             return when (val coeffStr = internalPrintConfig.coeffToString(coeff, true)) {
-                "1" -> basisElm
-                "-1" -> "-${printConfig.afterSign}$basisElm"
-                else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+                "1" -> basisNameString
+                "-1" -> "-${printConfig.afterSign}$basisNameString"
+                else -> "$coeffStr${printConfig.afterCoeff}$basisNameString"
             }
         }
 
         private fun <B, S : Scalar> nonFirstTermToString(
             coeff: S,
-            basisElm: String,
+            basisName: B,
             printConfig: PrintConfig,
             internalPrintConfig: InternalPrintConfig<B, S>,
         ): String {
+            val basisNameString = internalPrintConfig.basisToString(basisName)
             val sign = if (coeff.isPrintedPositively()) "+" else "-"
             val str = when (val coeffStr = internalPrintConfig.coeffToString(coeff, false)) {
-                "1" -> basisElm
-                else -> "$coeffStr${printConfig.afterCoeff}$basisElm"
+                "1" -> basisNameString
+                else -> "$coeffStr${printConfig.afterCoeff}$basisNameString"
             }
             return "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
         }

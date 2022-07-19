@@ -2,7 +2,7 @@ import { Add, Delete } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
 import React from "react"
-import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { generatorArrayToPrettyJson } from "./utils"
 
@@ -33,7 +33,7 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem<"array"> {
-  const { handleSubmit, register, getValues, reset, control, formState: { errors } } = useForm<GeneratorFormInput>({
+  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<GeneratorFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
@@ -66,7 +66,7 @@ export function useTabItemArrayEditor(args: {
     }
   }
   const arrayEditorProps: ArrayEditorProps = {
-    register, errors, fields, append, remove, getValues,
+    register, errors, fields, append, remove, getValues, trigger
   }
   return {
     tabKey: "array",
@@ -85,6 +85,7 @@ interface ArrayEditorProps {
   append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
   remove: UseFieldArrayRemove
   getValues: UseFormGetValues<GeneratorFormInput>
+  trigger: UseFormTrigger<GeneratorFormInput>
 }
 
 function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
@@ -169,7 +170,7 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
   )
 }
 
-function ArrayEditor({ register, errors, fields, append, remove, getValues }: ArrayEditorProps): JSX.Element {
+function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger }: ArrayEditorProps): JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       {fields.map((field, index) => (
@@ -183,6 +184,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
                   `generatorArray.${index}.name` as const,
                   { required: "Please enter the name."}
                 )}
+                onBlur={() => trigger()}
               />
               <TextField
                 label="degree" type="number"
@@ -195,6 +197,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
                     validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
                   }
                 )}
+                onBlur={() => trigger()}
               />
               <TextField
                 label="differential"
@@ -207,6 +210,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues }: Ar
                     required: "Please enter the value of the differential."
                   }
                 )}
+                onBlur={() => trigger()}
               />
               <Tooltip title="Delete this generator">
                 <IconButton onClick={() => remove(index)}>

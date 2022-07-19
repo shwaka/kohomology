@@ -397,7 +397,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
                 freeGAlgebra.toString() shouldBe "Λ(x, y)"
             }
 
-            "tex printer test"  {
+            "tex printer test" {
                 val texPrinter = Printer(PrintType.TEX)
 
                 unit.toString() shouldBe "1"

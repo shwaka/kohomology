@@ -132,6 +132,11 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
   )
 }
 
+function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {
+  const error: FieldError | undefined = errors.generatorArray?.[index]?.[key]
+  return error !== undefined
+}
+
 function validateGeneratorDegrees(generatorArray: Generator[]): true | string {
   const positiveCount = generatorArray.filter((generator) => generator.degree > 0).length
   const negativeCount = generatorArray.filter((generator) => generator.degree < 0).length
@@ -185,6 +190,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   { required: "Please enter the name."}
                 )}
                 onBlur={() => trigger()}
+                error={containsError({ errors, index, key: "name" })}
               />
               <TextField
                 label="degree" type="number"
@@ -198,6 +204,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   }
                 )}
                 onBlur={() => trigger()}
+                error={containsError({ errors, index, key: "degree" })}
               />
               <TextField
                 label="differential"
@@ -211,6 +218,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   }
                 )}
                 onBlur={() => trigger()}
+                error={containsError({ errors, index, key: "differentialValue" })}
               />
               <Tooltip title="Delete this generator">
                 <IconButton onClick={() => remove(index)}>

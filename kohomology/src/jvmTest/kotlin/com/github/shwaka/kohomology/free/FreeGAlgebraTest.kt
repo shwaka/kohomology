@@ -379,21 +379,35 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "printer test" {
+    "printer test" - {
         val indeterminateList = listOf(
             Indeterminate("x", "X", 2),
             Indeterminate("y", "Y", 2),
         )
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
         val (x, y) = freeGAlgebra.generatorList
-        val texPrinter = Printer(PrintType.TEX)
+
         freeGAlgebra.context.run {
-            texPrinter(x) shouldBe "X"
-            texPrinter(x * y) shouldBe "XY"
-            texPrinter(x * y.pow(2)) shouldBe "XY^{2}"
+            "plain printer test" {
+                unit.toString() shouldBe "1"
+                (2 * unit).toString() shouldBe "2 1" // TODO: This is a known issue (see #232)
+                x.toString() shouldBe "x"
+                (x * y).toString() shouldBe "xy"
+                (x * y.pow(2)).toString() shouldBe "xy^2"
+                freeGAlgebra.toString() shouldBe "Λ(x, y)"
+            }
+
+            "tex printer test"  {
+                val texPrinter = Printer(PrintType.TEX)
+
+                unit.toString() shouldBe "1"
+                (2 * unit).toString() shouldBe "2 1" // TODO: This is a known issue (see #232)
+                texPrinter(x) shouldBe "X"
+                texPrinter(x * y) shouldBe "XY"
+                texPrinter(x * y.pow(2)) shouldBe "XY^{2}"
+                texPrinter(freeGAlgebra) shouldBe "Λ(X, Y)"
+            }
         }
-        freeGAlgebra.toString() shouldBe "Λ(x, y)"
-        texPrinter(freeGAlgebra) shouldBe "Λ(X, Y)"
     }
 }
 

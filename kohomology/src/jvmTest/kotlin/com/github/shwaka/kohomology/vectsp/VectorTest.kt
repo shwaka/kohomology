@@ -184,6 +184,26 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     texPrinter(v) shouldBe "\\frac{1}{2} x + y - \\frac{1}{3} z"
                 }
             }
+            "basis containing \"1\"" - {
+                // GAlgebra is the actual example for this test.
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("x", "1", "y"))
+                "(2 * 1) should be printed as \"2\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, two, zero))
+                    v.toString() shouldBe "2"
+                }
+                "(- 2 * 1 + 3y) should be printed as \"-2 + 3 y\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, -two, three))
+                    v.toString() shouldBe "-2 + 3 y"
+                }
+                "(4x + 2 * 1) should be printed as \"4 x + 2\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(four, two, zero))
+                    v.toString() shouldBe "4 x + 2"
+                }
+                "(4x - 2 * 1) should be printed as \"4 x - 2\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(four, -two, zero))
+                    v.toString() shouldBe "4 x - 2"
+                }
+            }
         }
     }
 }

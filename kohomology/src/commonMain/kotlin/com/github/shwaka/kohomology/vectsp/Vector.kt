@@ -119,18 +119,15 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
             }
             sortedBasisWithCoeff.map { (coeff, basisName) -> Pair(coeff, internalPrintConfig.basisToString(basisName)) }
         }
-        return this.numVector.field.context.run {
-            if (basisStringWithCoeff.isEmpty()) {
-                "0"
-            } else {
-                var result = ""
-                result += basisStringWithCoeff[0].let { (coeff, basisElm) ->
-                    Vector.firstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
+        return if (basisStringWithCoeff.isEmpty()) {
+            "0"
+        } else {
+            basisStringWithCoeff.withIndex().joinToString(separator = "") { (index, coeffAndBasisElm) ->
+                val (coeff, basisElm) = coeffAndBasisElm
+                when (index) {
+                    0 -> Vector.firstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
+                    else -> Vector.nonFirstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
                 }
-                result += basisStringWithCoeff.drop(1).joinToString(separator = "") { (coeff, basisElm) ->
-                    Vector.nonFirstTermToString(coeff, basisElm, printConfig, internalPrintConfig)
-                }
-                result
             }
         }
     }

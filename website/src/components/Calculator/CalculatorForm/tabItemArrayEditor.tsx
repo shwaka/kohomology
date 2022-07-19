@@ -90,10 +90,9 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
   if (generatorArray[index].differentialValue !== value) {
     throw new Error("generatorArray[index] and value do not match.")
   }
-  const generatorNames: string[] = generatorArray.map(({name}) => name).slice(0, index)
-  const generatorDegrees: number[] = generatorArray.map(({degree}) => degree).slice(0, index)
+  const previousGeneratorsJson: string = generatorArrayToJson(generatorArray.slice(0, index))
   const degree: number = generatorArray[index].degree
-  const validationResult = validateDifferentialValueKt(generatorNames, generatorDegrees, value, degree + 1)
+  const validationResult = validateDifferentialValueKt(previousGeneratorsJson, value, degree + 1)
   if (validationResult.type === "success") {
     return true
   } else {

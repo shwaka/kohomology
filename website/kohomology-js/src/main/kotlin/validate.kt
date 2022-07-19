@@ -44,19 +44,13 @@ fun validateJson(json: String): ValidationResult {
 @ExperimentalJsExport
 @JsExport
 fun validateDifferentialValue(
-    generatorNames: Array<String>,
-    generatorDegrees: Array<Int>,
+    previousGeneratorsJson: String,
     differentialValue: String,
     expectedDegree: Int,
 ): ValidationResult {
-    // Can't use Pair for JsExport?
-    require(generatorNames.size == generatorDegrees.size) {
-        "Size of arrays are different: $generatorNames and $generatorDegrees"
-    }
-    val indeterminateList = generatorNames.indices.map {
-        val name = generatorNames[it]
-        val degree = generatorDegrees[it]
-        Indeterminate(name, degree)
+    val generatorList = jsonToGeneratorList(previousGeneratorsJson)
+    val indeterminateList = generatorList.map { generator ->
+        Indeterminate(generator.name, generator.degree)
     }
     val freeGAlgebra = FreeGAlgebra(SparseMatrixSpaceOverRational, indeterminateList)
     val gVector = try {

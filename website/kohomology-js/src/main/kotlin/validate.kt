@@ -11,15 +11,33 @@ data class ValidationResult(
     val message: String,
 )
 
+enum class ValidationResultType(val typeName: String) {
+    SUCCESS("success"),
+    ERROR("error"),
+}
+
+sealed class ValidationResultInternal(
+    val type: ValidationResultType,
+    val message: String,
+) {
+    class Success() : ValidationResultInternal(ValidationResultType.SUCCESS, "")
+    class Error(message: String) : ValidationResultInternal(ValidationResultType.ERROR, message)
+
+    @ExperimentalJsExport
+    fun export(): ValidationResult {
+        return ValidationResult(this.type.typeName, this.message)
+    }
+}
+
 @ExperimentalJsExport
 @JsExport
 fun validateJson(json: String): ValidationResult {
     try {
         FreeDGAWrapper(json)
-        return ValidationResult("success", "")
+        return ValidationResultInternal.Success().export()
     } catch (e: Exception) {
         val message: String = e.message ?: e.toString()
-        return ValidationResult("error", message)
+        return ValidationResultInternal.Error(message).export()
     }
 }
 
@@ -47,15 +65,15 @@ fun validateDifferentialValue(
         val messageFromException: String = e.message ?: e.toString()
         val message = "Failed to parse the value \"$differentialValue\" of the differential " +
             "with the following error message:\n$messageFromException"
-        return ValidationResult("error", message)
+        return ValidationResultInternal.Error(message).export()
     } catch (e: Exception) {
         val message: String = e.message ?: e.toString()
-        return ValidationResult("error", message)
+        return ValidationResultInternal.Error(message).export()
     }
     if (gVector is GVector && gVector.degree.value != expectedDegree) {
         val message = "Illegal degree: the degree of $differentialValue is ${gVector.degree.value}, " +
             "but ${expectedDegree - 1}+1=$expectedDegree is expected."
-        return ValidationResult("error", message)
+        return ValidationResultInternal.Error(message).export()
     }
-    return ValidationResult("success", "")
+    return ValidationResultInternal.Success().export()
 }

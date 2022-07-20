@@ -77,7 +77,9 @@ export class KohomologyMessageHandler {
     showCohomology: ShowCohomology,
   ): void {
     assertNotNull(this.dgaWrapper)
-    this.sendMessages(toStyledMessage(this.dgaWrapper.computationHeader(targetName)))
+    this.sendMessages(toStyledMessage(
+      this.dgaWrapper.computationHeader(targetName, minDegree, maxDegree))
+    )
     let styledMessages: StyledMessage[] = []
     let previousTime: number = new Date().getTime() // in millisecond
     for (let degree = minDegree; degree <= maxDegree; degree++) {

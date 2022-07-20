@@ -69,9 +69,9 @@ class FreeDGAWrapper(json: String) {
         )
     }
 
-    fun computationHeader(targetName: String): StyledMessageKt {
+    fun computationHeader(targetName: String, minDegree: Int, maxDegree: Int): StyledMessageKt {
         val targetDGVectorSpace = this.getDGVectorSpace(targetName)
-        return computationHeader(targetDGVectorSpace)
+        return computationHeader(targetDGVectorSpace, minDegree, maxDegree)
     }
 
     // cohomology だと js で cohomology_0 に変換されてしまう
@@ -155,15 +155,23 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 @ExperimentalJsExport
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computationHeader(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
+    minDegree: Int,
+    maxDegree: Int,
 ): StyledMessageKt {
     return styledMessage(MessageType.SUCCESS) {
         val printed = if (dgVectorSpace is Printable) {
             val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-            p(dgVectorSpace).math
+            val dgVectorSpaceString = p(dgVectorSpace)
+            if (dgVectorSpaceString.startsWith("(") && dgVectorSpaceString.endsWith(")")) {
+                "H^n${p(dgVectorSpace)}".math
+            } else {
+                "H^n(${p(dgVectorSpace)})".math
+            }
         } else {
-            dgVectorSpace.toString().text
+            "H^n($dgVectorSpace)".text
         }
-        "Cohomology of ".text + printed + " is".text
+        "Computing ".text + printed + " for ".text +
+            "$minDegree \\leq n \\leq $maxDegree".math
     }.export()
 }
 
@@ -173,7 +181,7 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     minDegree: Int,
     maxDegree: Int,
 ): Array<StyledMessageKt> {
-    val messages = mutableListOf(computationHeader(dgVectorSpace))
+    val messages = mutableListOf(computationHeader(dgVectorSpace, minDegree, maxDegree))
     for (degree in minDegree..maxDegree) {
         messages.add(computeCohomology(dgVectorSpace, degree))
     }

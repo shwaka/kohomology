@@ -52,7 +52,6 @@ private fun getErrorMessageForPreviousGenerators(
     return "Please fix errors for generators ($generatorsString) above this."
 }
 
-@ExperimentalJsExport
 private fun assertDegreeOfDifferentialValue(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
     currentGenerator: GeneratorOfFreeDGA<IntDegree>,
@@ -90,7 +89,6 @@ private fun assertDegreeOfDifferentialValue(
     return null
 }
 
-@ExperimentalJsExport
 fun assertSquareOfDifferentialIsZero(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
     currentGenerator: GeneratorOfFreeDGA<IntDegree>,

@@ -221,8 +221,8 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                 error={containsError({ errors, index, key: "differentialValue" })}
               />
               <Tooltip title="Delete this generator">
-                <IconButton onClick={() => remove(index)}>
-                  <Delete/>
+                <IconButton onClick={() => remove(index)} size="small">
+                  <Delete fontSize="small"/>
                 </IconButton>
               </Tooltip>
             </Stack>

@@ -1,6 +1,6 @@
 import { Add, Delete } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import { validateDifferentialValue as validateDifferentialValueKt } from "kohomology-js"
+import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { TabItem } from "../TabDialog"
@@ -24,7 +24,9 @@ function jsonToGeneratorArray(json: string): Generator[] {
 
 function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(
-    ({ name, degree, differentialValue }) => [name, degree, differentialValue] as [string, number, string]
+    ({ name, degree, differentialValue }) => {
+      return [name, isNaN(degree) ? 1 : degree, differentialValue] as [string, number, string]
+    }
   )
   return generatorArrayToPrettyJson(arr)
 }
@@ -92,9 +94,8 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
   if (generatorArray[index].differentialValue !== value) {
     throw new Error("generatorArray[index] and value do not match.")
   }
-  const previousGeneratorsJson: string = generatorArrayToJson(generatorArray.slice(0, index))
-  const degree: number = generatorArray[index].degree
-  const validationResult = validateDifferentialValueKt(previousGeneratorsJson, value, degree + 1)
+  const generatorsJson: string = generatorArrayToJson(generatorArray.slice(0, index + 1))
+  const validationResult = validateDifferentialValueOfTheLast(generatorsJson)
   if (validationResult.type === "success") {
     return true
   } else {

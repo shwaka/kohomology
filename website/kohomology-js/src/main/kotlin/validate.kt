@@ -55,8 +55,7 @@ private fun getErrorMessageForPreviousGenerators(
 @ExperimentalJsExport
 private fun assertDegreeOfDifferentialValue(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
-    differentialValue: String,
-    expectedDegree: Int,
+    currentGenerator: GeneratorOfFreeDGA<IntDegree>,
 ): ValidationResultInternal? {
     val indeterminateList = generatorList.map { generator ->
         Indeterminate(generator.name, generator.degree)
@@ -69,6 +68,7 @@ private fun assertDegreeOfDifferentialValue(
         val message = getErrorMessageForPreviousGenerators(generatorList)
         return ValidationResultInternal.Error(message)
     }
+    val differentialValue: String = currentGenerator.differentialValue
     val gVector = try {
         freeGAlgebra.parse(differentialValue)
     } catch (e: ParseException) {
@@ -80,9 +80,10 @@ private fun assertDegreeOfDifferentialValue(
         val message: String = e.message ?: e.toString()
         return ValidationResultInternal.Error(message)
     }
+    val expectedDegree = currentGenerator.degree.value + 1
     if (gVector is GVector && gVector.degree.value != expectedDegree) {
         val message = "Illegal degree: the degree of $differentialValue is ${gVector.degree.value}, " +
-            "but ${expectedDegree - 1}+1=$expectedDegree is expected."
+            "but ${currentGenerator.degree.value}+1=$expectedDegree is expected."
         return ValidationResultInternal.Error(message)
     }
     return null
@@ -91,8 +92,9 @@ private fun assertDegreeOfDifferentialValue(
 @ExperimentalJsExport
 fun assertSquareOfDifferentialIsZero(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
-    differentialValue: String,
+    currentGenerator: GeneratorOfFreeDGA<IntDegree>,
 ): ValidationResultInternal? {
+    val differentialValue: String = currentGenerator.differentialValue
     val freeDGAlgebra = try {
         FreeDGAlgebra(SparseMatrixSpaceOverRational, generatorList)
     } catch (e: Exception) {
@@ -117,19 +119,19 @@ fun assertSquareOfDifferentialIsZero(
 
 @ExperimentalJsExport
 @JsExport
-fun validateDifferentialValue(
-    previousGeneratorsJson: String,
-    differentialValue: String,
-    expectedDegree: Int,
+fun validateDifferentialValueOfTheLast(
+    generatorsJson: String,
 ): ValidationResult {
     // FreeGAlgebra を assertDegreeOfDifferentialValue と assertSquareOfDifferentialIsZero の両方で
     // 生成しているのは無駄な気もするけど、
     // FreeDGAlgebra(SparseMatrixSpaceOverRational, generatorList) をそのまま使うためには仕方ない。
-    val generatorList = jsonToGeneratorList(previousGeneratorsJson)
-    assertDegreeOfDifferentialValue(generatorList, differentialValue, expectedDegree)?.let {
+    val generatorList = jsonToGeneratorList(generatorsJson)
+    val previousGeneratorList = generatorList.dropLast(1)
+    val currentGenerator = generatorList.last()
+    assertDegreeOfDifferentialValue(previousGeneratorList, currentGenerator)?.let {
         return it.export()
     }
-    assertSquareOfDifferentialIsZero(generatorList, differentialValue)?.let {
+    assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator)?.let {
         return it.export()
     }
     return ValidationResultInternal.Success().export()

@@ -82,8 +82,9 @@ private fun assertDegreeOfDifferentialValue(
     }
     val expectedDegree = currentGenerator.degree.value + 1
     if (gVector is GVector && gVector.degree.value != expectedDegree) {
-        val message = "Illegal degree: the degree of $differentialValue is ${gVector.degree.value}, " +
-            "but ${currentGenerator.degree.value}+1=$expectedDegree is expected."
+        val name = currentGenerator.name
+        val message = "The degree of d($name) is expected to be deg($name)+1=$expectedDegree, " +
+            "but the given value $differentialValue has degree ${gVector.degree.value}."
         return ValidationResultInternal.Error(message)
     }
     return null
@@ -109,7 +110,7 @@ fun assertSquareOfDifferentialIsZero(
                 when (gVectorWhichShouldBeZero.isZero()) {
                     true -> null
                     false -> ValidationResultInternal.Error(
-                        "d($differentialValue) must be zero, but was $gVectorWhichShouldBeZero"
+                        "d(d(${currentGenerator.name})) must be zero, but was $gVectorWhichShouldBeZero"
                     )
                 }
             }

@@ -179,58 +179,60 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
 function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger }: ArrayEditorProps): JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
-      {fields.map((field, index) => (
-        <div key={field.id}>
-          <Stack spacing={1}>
-            <Stack direction="row" spacing={1}>
-              <TextField
-                label="generator"
-                sx={{ width: 90 }} size="small"
-                {...register(
-                  `generatorArray.${index}.name` as const,
-                  { required: "Please enter the name."}
-                )}
-                onBlur={() => trigger()}
-                error={containsError({ errors, index, key: "name" })}
-              />
-              <TextField
-                label="degree" type="number"
-                sx={{ width: 80}} size="small"
-                {...register(
-                  `generatorArray.${index}.degree` as const,
-                  {
-                    valueAsNumber: true,
-                    required: "Please enter the degree.",
-                    validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
-                  }
-                )}
-                onBlur={() => trigger()}
-                error={containsError({ errors, index, key: "degree" })}
-              />
-              <TextField
-                label="differential"
-                sx={{ width: 200 }} size="small"
-                {...register(
-                  `generatorArray.${index}.differentialValue` as const,
-                  {
-                    validate: (value: string) =>
-                      validateDifferentialValue(getValues().generatorArray, index, value),
-                    required: "Please enter the value of the differential."
-                  }
-                )}
-                onBlur={() => trigger()}
-                error={containsError({ errors, index, key: "differentialValue" })}
-              />
-              <Tooltip title="Delete this generator">
-                <IconButton onClick={() => remove(index)} size="small">
-                  <Delete fontSize="small"/>
-                </IconButton>
-              </Tooltip>
+      {fields.map((field, index) => {
+        const generatorName = getValues().generatorArray[index].name
+        return (
+          <div key={field.id}>
+            <Stack spacing={1}>
+              <Stack direction="row" spacing={1}>
+                <TextField
+                  label="generator"
+                  sx={{ width: 90 }} size="small"
+                  {...register(
+                    `generatorArray.${index}.name` as const,
+                    { required: "Please enter the name."}
+                  )}
+                  onBlur={() => trigger()}
+                  error={containsError({ errors, index, key: "name" })}
+                />
+                <TextField
+                  label={`deg(${generatorName})`} type="number"
+                  sx={{ width: 80}} size="small"
+                  {...register(
+                    `generatorArray.${index}.degree` as const,
+                    {
+                      valueAsNumber: true,
+                      required: "Please enter the degree.",
+                      validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
+                    }
+                  )}
+                  onBlur={() => trigger()}
+                  error={containsError({ errors, index, key: "degree" })}
+                />
+                <TextField
+                  label={`d(${generatorName})`}
+                  sx={{ width: 200 }} size="small"
+                  {...register(
+                    `generatorArray.${index}.differentialValue` as const,
+                    {
+                      validate: (value: string) =>
+                        validateDifferentialValue(getValues().generatorArray, index, value),
+                      required: "Please enter the value of the differential."
+                    }
+                  )}
+                  onBlur={() => trigger()}
+                  error={containsError({ errors, index, key: "differentialValue" })}
+                />
+                <Tooltip title="Delete this generator">
+                  <IconButton onClick={() => remove(index)} size="small">
+                    <Delete fontSize="small"/>
+                  </IconButton>
+                </Tooltip>
+              </Stack>
+              {getFieldError({ errors, index })}
             </Stack>
-            {getFieldError({ errors, index })}
-          </Stack>
-        </div>
-      ))}
+          </div>
+      )})}
       <Button
         variant="outlined"
         onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}

@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs, useTheme } from "@mui/material"
 import React, { useState } from "react"
 
 export interface TabItem<K extends string> {
@@ -89,15 +89,16 @@ interface TabDialogProps<K extends string> {
 }
 
 export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
-  // 一つだけ該当することをチェックした方が良い？
-  // sx in PaperProps is added for mobile devices
+  // TODO: assert that keys for tabItems are distinct
+  const theme = useTheme()
+  const mobileMediaQuery = theme.breakpoints.down("sm")
   return (
     <Dialog
       open={open}
       onClose={tryToQuit}
       maxWidth="sm"
       fullWidth={true}
-      PaperProps={{ sx: { margin: 0, width: "calc(100% - 5pt)" } }}
+      PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogTitle>
         <Tabs value={tabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
@@ -110,7 +111,7 @@ export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabK
           ))}
         </Tabs>
       </DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ [mobileMediaQuery]: { padding: 1 } }}>
         {tabItems.map((tabItem) => (
           <TabPanel
             currentTabKey={tabKey}

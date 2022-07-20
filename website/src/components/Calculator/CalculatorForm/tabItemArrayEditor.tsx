@@ -232,7 +232,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
               {getFieldError({ errors, index })}
             </Stack>
           </div>
-      )})}
+        )})}
       <Button
         variant="outlined"
         onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}

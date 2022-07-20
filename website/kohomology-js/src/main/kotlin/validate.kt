@@ -45,6 +45,13 @@ fun validateJson(json: String): ValidationResult {
     }
 }
 
+private fun getErrorMessageForPreviousGenerators(
+    generatorList: List<GeneratorOfFreeDGA<IntDegree>>
+): String {
+    val generatorsString = generatorList.joinToString(", ") { it.name }
+    return "Please fix errors for generators ($generatorsString) above this."
+}
+
 @ExperimentalJsExport
 private fun assertDegreeOfDifferentialValue(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
@@ -54,7 +61,14 @@ private fun assertDegreeOfDifferentialValue(
     val indeterminateList = generatorList.map { generator ->
         Indeterminate(generator.name, generator.degree)
     }
-    val freeGAlgebra = FreeGAlgebra(SparseMatrixSpaceOverRational, indeterminateList)
+    val freeGAlgebra = try {
+        FreeGAlgebra(SparseMatrixSpaceOverRational, indeterminateList)
+    } catch (e: Exception) {
+        // Usually e is IllegalArgumentException thrown from the initializer block of FreeGAlgebra
+        // when indeterminateList contains duplicated indeterminates.
+        val message = getErrorMessageForPreviousGenerators(generatorList)
+        return ValidationResultInternal.Error(message)
+    }
     val gVector = try {
         freeGAlgebra.parse(differentialValue)
     } catch (e: ParseException) {
@@ -82,8 +96,7 @@ fun assertSquareOfDifferentialIsZero(
     val freeDGAlgebra = try {
         FreeDGAlgebra(SparseMatrixSpaceOverRational, generatorList)
     } catch (e: Exception) {
-        val generatorsString = generatorList.joinToString(", ") { it.name }
-        val message = "Please fix errors for generators ($generatorsString) above this."
+        val message = getErrorMessageForPreviousGenerators(generatorList)
         return ValidationResultInternal.Error(message)
     }
     freeDGAlgebra.context.run {

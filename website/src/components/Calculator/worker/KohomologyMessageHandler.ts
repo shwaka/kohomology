@@ -84,6 +84,10 @@ export class KohomologyMessageHandler {
     let previousTime: number = new Date().getTime() // in millisecond
     for (let degree = minDegree; degree <= maxDegree; degree++) {
       switch (showCohomology) {
+        // Don't send message immediately for performance reason.
+        // If styledMessages.push(...) is replaced with this.sendMessages(...),
+        // then the Calculator significantly slows down.
+        // This is because this.sendMessages(...) causes re-render of the component Calculator.
         case "basis":
           styledMessages.push(toStyledMessage(this.dgaWrapper.computeCohomology(targetName, degree)))
 

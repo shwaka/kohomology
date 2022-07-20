@@ -20,7 +20,7 @@ function expectResultsToContainHTML(htmlToBeContained: string[], htmlNotToBeCont
 function expectInitialState(): void {
   expectResultsToContainHTML(
     ["Computation results will be shown here"],
-    ["Cohomology of "],
+    ["Computing "],
   )
 }
 
@@ -84,7 +84,7 @@ test("Calculator", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Cohomology of (Λ(x, y), d) is",
+      "Computing H^n(Λ(x, y), d) for",
       "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
       "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
     ],
@@ -105,7 +105,7 @@ test("input json", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Cohomology of (Λ(x, y, z), d) is",
+      "Computing H^n(Λ(x, y, z), d) for",
       "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
       "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]
@@ -131,7 +131,7 @@ test("url query", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Cohomology of (Λ(x, y, z), d) is",
+      "Computing H^n(Λ(x, y, z), d) for",
       "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
       "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]

@@ -90,12 +90,14 @@ interface TabDialogProps<K extends string> {
 
 export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
   // 一つだけ該当することをチェックした方が良い？
+  // sx in PaperProps is added for mobile devices
   return (
     <Dialog
       open={open}
       onClose={tryToQuit}
       maxWidth="sm"
       fullWidth={true}
+      PaperProps={{ sx: { margin: 0, width: "calc(100% - 5pt)" } }}
     >
       <DialogTitle>
         <Tabs value={tabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>

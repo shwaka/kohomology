@@ -27,7 +27,7 @@ function getTabItem<K extends string>(tabItems: TabItem<K>[], tabKey: K): TabIte
   return currentTabItem
 }
 
-interface UseTabDialogReturnValue<K extends string> {
+export interface UseTabDialogReturnValue<K extends string> {
   tabDialogProps: TabDialogProps<K>
   openDialog: () => void
 }
@@ -79,7 +79,7 @@ export function useTabDialog<K extends string>(
   }
 }
 
-interface TabDialogProps<K extends string> {
+export interface TabDialogProps<K extends string> {
   tabItems: TabItem<K>[]
   tabKey: K
   handleChangeTabKey: (newTabKey: K) => void

@@ -1,6 +1,6 @@
 import { useLocation } from "@docusaurus/router"
 import { useMemo } from "react"
-import { compressJson, prettifyDGAJson } from "./utils"
+import { compressJson, prettifyDGAJson } from "../utils"
 
 function useQuery(): URLSearchParams {
   // https://v5.reactrouter.com/web/example/query-parameters

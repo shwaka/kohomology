@@ -2,7 +2,7 @@ import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form"
-import { TabItem } from "../TabDialog"
+import { TabItem } from "./TabDialog"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 

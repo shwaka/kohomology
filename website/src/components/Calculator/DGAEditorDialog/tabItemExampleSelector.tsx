@@ -1,6 +1,6 @@
 import { FormControlLabel, Radio, RadioGroup } from "@mui/material"
 import React, { useState } from "react"
-import { TabItem } from "../TabDialog"
+import { TabItem } from "./TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 
 const exampleKeys = ["S^2", "CP^3", "7-mfd", "arkowitz-lupton"] as const

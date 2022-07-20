@@ -2,17 +2,14 @@ import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
-import { TabDialog, useTabDialog } from "../TabDialog"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
-import { useTabItemArrayEditor } from "./tabItemArrayEditor"
-import { useTabItemExampleSelector } from "./tabItemExampleSelector"
-import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 import { ComplexAsTex } from "./target"
+import { useDGAEditorDialog } from "../DGAEditorDialog"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -35,12 +32,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
-  const tabItems = [
-    useTabItemArrayEditor({ json, updateDgaWrapper: setJson }),
-    useTabItemJsonEditor({ json, updateDgaWrapper: setJson }),
-    useTabItemExampleSelector({ updateDgaWrapper: setJson }),
-  ]
-  const { tabDialogProps, openDialog } = useTabDialog(tabItems, "array")
+  const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly

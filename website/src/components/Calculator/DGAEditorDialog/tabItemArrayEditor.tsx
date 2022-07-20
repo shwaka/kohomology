@@ -3,8 +3,8 @@ import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/mater
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { TabItem } from "../TabDialog"
-import { generatorArrayToPrettyJson } from "./utils"
+import { TabItem } from "./TabDialog"
+import { generatorArrayToPrettyJson } from "../utils"
 
 interface Generator {
   name: string

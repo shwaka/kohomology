@@ -78,16 +78,26 @@ export class KohomologyMessageHandler {
   ): void {
     assertNotNull(this.dgaWrapper)
     this.sendMessages(toStyledMessage(this.dgaWrapper.computationHeader(targetName)))
+    let styledMessages: StyledMessage[] = []
+    let previousTime: number = new Date().getTime() // in millisecond
     for (let degree = minDegree; degree <= maxDegree; degree++) {
       switch (showCohomology) {
         case "basis":
-          this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomology(targetName, degree)))
+          styledMessages.push(toStyledMessage(this.dgaWrapper.computeCohomology(targetName, degree)))
+
           break
         case "dim":
-          this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyDim(targetName, degree)))
+          styledMessages.push(toStyledMessage(this.dgaWrapper.computeCohomologyDim(targetName, degree)))
           break
       }
+      const currentTime = new Date().getTime() // in millisecond
+      if (currentTime - previousTime > 500) {
+        previousTime = currentTime
+        this.sendMessages(styledMessages)
+        styledMessages = []
+      }
     }
+    this.sendMessages(styledMessages)
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {

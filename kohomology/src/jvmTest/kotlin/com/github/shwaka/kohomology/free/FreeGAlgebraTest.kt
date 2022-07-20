@@ -535,6 +535,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> duplicatedNameTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "duplicated name test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("x", 2),
+            Indeterminate("y", 2),
+        )
+        val exception = shouldThrow<IllegalArgumentException> {
+            FreeGAlgebra(matrixSpace, indeterminateList)
+        }
+        exception.message shouldContain "indeterminateList contains duplicates: [x]"
+    }
+}
+
 class FreeGAlgebraTest : FreeSpec({
     tags(freeGAlgebraTag, rationalTag)
 
@@ -556,6 +570,8 @@ class FreeGAlgebraTest : FreeSpec({
     include(toStringTest(matrixSpace))
 
     include(convertDegreeTest(matrixSpace))
+
+    include(duplicatedNameTest(matrixSpace))
 })
 
 class FreeGAlgebraParseTest : FreeSpec({

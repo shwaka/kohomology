@@ -64,6 +64,16 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
 ),
     FreeGAlgebraOperations<D, I, S, V, M>,
     Printable {
+    init {
+        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList
+            .groupingBy { it }
+            .eachCount()
+            .filter { it.value > 1 }
+            .map { it.key }
+        require(duplicatedIndeterminateList.isEmpty()) {
+            "indeterminateList contains duplicates: $duplicatedIndeterminateList"
+        }
+    }
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this, this)
     }

@@ -35,6 +35,7 @@ export function useTabItemExampleSelector(args: { updateDgaWrapper: (json: strin
         onChange={(event: SelectChangeEvent) => (
           setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
         )}
+        sx={{ width: 300 }}
       >
         {exampleKeys.map((exampleKey) => (
           <MenuItem value={exampleKey} key={exampleKey}>{exampleKey}</MenuItem>

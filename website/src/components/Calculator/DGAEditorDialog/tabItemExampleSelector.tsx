@@ -1,4 +1,4 @@
-import { FormControlLabel, Radio, RadioGroup } from "@mui/material"
+import { Alert, FormControlLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent } from "@mui/material"
 import React, { useState } from "react"
 import { TabItem } from "./TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
@@ -30,19 +30,16 @@ export function useTabItemExampleSelector(args: { updateDgaWrapper: (json: strin
     label: "Examples",
     onSubmit,
     render: () => (
-      <RadioGroup
+      <Select
         value={exampleKey}
-        onChange={(event: React.ChangeEvent<HTMLInputElement>) => (
+        onChange={(event: SelectChangeEvent) => (
           setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
         )}
       >
         {exampleKeys.map((exampleKey) => (
-          <FormControlLabel
-            value={exampleKey} control={<Radio/>}
-            label={exampleKey} key={exampleKey}
-          />
+          <MenuItem value={exampleKey} key={exampleKey}>{exampleKey}</MenuItem>
         ))}
-      </RadioGroup>
+      </Select>
     )
   }
 }

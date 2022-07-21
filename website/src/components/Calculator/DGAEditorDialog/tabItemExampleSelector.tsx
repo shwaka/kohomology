@@ -17,11 +17,14 @@ interface Example {
   renderForm?: () => JSX.Element
 }
 
-function useExampleSphere(): Example {
+function useExampleParametraizedByN(
+  getJson: (n: number) => string,
+  renderSelectItem: () => JSX.Element,
+): Example {
   const [n, setN] = useState(2)
   return {
-    json: sphere(n),
-    renderSelectItem: () => <TeX math={`S^n`}/>,
+    json: getJson(n),
+    renderSelectItem,
     renderForm: () => (
       <TextField
         label="n" value={n} type="number"
@@ -44,13 +47,11 @@ interface Args {
 
 export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
   const [exampleKey, setExampleKey] = useState<ExampleKey>("S^n")
-  const exampleItemSphere = useExampleSphere()
+  const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math={`S^n`}/>)
+  const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math={`\\mathbb CP^n`}/>)
   const examples: { [K in ExampleKey]: Example } = {
     "S^n": exampleItemSphere,
-    "CP^3": {
-      json: complexProjective(3),
-      renderSelectItem: () => <TeX math="\mathbb CP^3"/>,
-    },
+    "CP^3": exampleItemComplexProjective,
     "7-mfd": {
       json: sevenManifold(),
       renderSelectItem: () => <span>a 7-manifold</span>
@@ -69,7 +70,7 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
     label: "Examples",
     onSubmit,
     render: () => (
-      <Stack>
+      <Stack spacing={2}>
         <Select
           value={exampleKey}
           onChange={(event: SelectChangeEvent) => (
@@ -84,9 +85,11 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
           ))}
         </Select>
         {examples[exampleKey].renderForm?.()}
-        {getDgaInfo(examples[exampleKey].json).map((styledMessage, index) => (
-          <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
-        ))}
+        <Stack>
+          {getDgaInfo(examples[exampleKey].json).map((styledMessage, index) => (
+            <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
+          ))}
+        </Stack>
       </Stack>
     )
   }

@@ -76,8 +76,8 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
             </MenuItem>
           ))}
         </Select>
-        {getDgaInfo(getExample(exampleKey).json).map((styledMessage) => (
-          <ShowStyledMessage styledMessage={styledMessage}/>
+        {getDgaInfo(getExample(exampleKey).json).map((styledMessage, index) => (
+          <ShowStyledMessage styledMessage={styledMessage} key={`$exampleKey-$index`}/>
         ))}
       </Stack>
     )

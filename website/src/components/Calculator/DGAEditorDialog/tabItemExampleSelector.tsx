@@ -1,28 +1,60 @@
-import { Alert, FormControlLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent } from "@mui/material"
+import { FreeDGAWrapper } from "kohomology-js"
+import TeX from "@matejmazur/react-katex"
+import { Alert, FormControlLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack } from "@mui/material"
 import React, { useState } from "react"
 import { TabItem } from "./TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
+import { StyledMessage } from "../styled/message"
+import { toStyledMessage } from "../worker/styled"
+import { ShowStyledMessage } from "../styled/components"
 
 const exampleKeys = ["S^2", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]
 
-function getExample(exampleKey: ExampleKey): string {
+interface Example {
+  json: string
+  renderSelectItem: () => JSX.Element
+}
+
+function getExample(exampleKey: ExampleKey): Example {
   switch (exampleKey) {
     case "S^2":
-      return sphere(2)
+      return {
+        json: sphere(2),
+        renderSelectItem: () => <TeX math="S^2"/>,
+      }
     case "CP^3":
-      return complexProjective(3)
+      return {
+        json: complexProjective(3),
+        renderSelectItem: () => <TeX math="\mathbb CP^3"/>,
+      }
     case "7-mfd":
-      return sevenManifold()
+      return {
+        json: sevenManifold(),
+        renderSelectItem: () => <span>a 7-manifold</span>
+      }
     case "arkowitz-lupton":
-      return arkowitzLupton()
+      return {
+        json: arkowitzLupton(),
+        renderSelectItem: () => <span>{"Arkowitz-Lupton's example"}</span>
+      }
   }
 }
 
-export function useTabItemExampleSelector(args: { updateDgaWrapper: (json: string) => void }): TabItem<"example"> {
+function getDgaInfo(json: string): StyledMessage[] {
+  const dgaWrapper = new FreeDGAWrapper(json)
+  console.log(dgaWrapper.dgaInfo())
+  return dgaWrapper.dgaInfo().map(toStyledMessage)
+}
+
+interface Args {
+  updateDgaWrapper: (json: string) => void
+}
+
+export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
   const [exampleKey, setExampleKey] = useState<ExampleKey>("S^2")
   function onSubmit(closeDialog: () => void): void {
-    args.updateDgaWrapper(getExample(exampleKey))
+    args.updateDgaWrapper(getExample(exampleKey).json)
     closeDialog()
   }
   return {
@@ -30,17 +62,24 @@ export function useTabItemExampleSelector(args: { updateDgaWrapper: (json: strin
     label: "Examples",
     onSubmit,
     render: () => (
-      <Select
-        value={exampleKey}
-        onChange={(event: SelectChangeEvent) => (
-          setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
-        )}
-        sx={{ width: 300 }}
-      >
-        {exampleKeys.map((exampleKey) => (
-          <MenuItem value={exampleKey} key={exampleKey}>{exampleKey}</MenuItem>
+      <Stack>
+        <Select
+          value={exampleKey}
+          onChange={(event: SelectChangeEvent) => (
+            setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
+          )}
+          sx={{ width: 300 }}
+        >
+          {exampleKeys.map((exampleKeyForItem) => (
+            <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
+              {getExample(exampleKeyForItem).renderSelectItem()}
+            </MenuItem>
+          ))}
+        </Select>
+        {getDgaInfo(getExample(exampleKey).json).map((styledMessage) => (
+          <ShowStyledMessage styledMessage={styledMessage}/>
         ))}
-      </Select>
+      </Stack>
     )
   }
 }

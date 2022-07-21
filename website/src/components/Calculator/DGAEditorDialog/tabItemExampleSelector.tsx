@@ -1,12 +1,12 @@
-import { FreeDGAWrapper } from "kohomology-js"
 import TeX from "@matejmazur/react-katex"
-import { Alert, FormControlLabel, MenuItem, Radio, RadioGroup, Select, SelectChangeEvent, Stack } from "@mui/material"
+import { MenuItem, Select, SelectChangeEvent, Stack } from "@mui/material"
+import { FreeDGAWrapper } from "kohomology-js"
 import React, { useState } from "react"
-import { TabItem } from "./TabDialog"
-import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
+import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
-import { ShowStyledMessage } from "../styled/components"
+import { TabItem } from "./TabDialog"
+import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 
 const exampleKeys = ["S^2", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]

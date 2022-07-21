@@ -11,13 +11,13 @@ import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./exam
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]
 
-interface SelectItem {
+interface Example {
   json: string
   renderSelectItem: () => JSX.Element
   renderForm?: () => JSX.Element
 }
 
-function useSelectItemSphere(): SelectItem {
+function useExampleSphere(): Example {
   const [n, setN] = useState(2)
   return {
     json: sphere(n),
@@ -44,9 +44,9 @@ interface Args {
 
 export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
   const [exampleKey, setExampleKey] = useState<ExampleKey>("S^n")
-  const selectItemSphere = useSelectItemSphere()
-  const selectItems: { [K in ExampleKey]: SelectItem } = {
-    "S^n": selectItemSphere,
+  const exampleItemSphere = useExampleSphere()
+  const examples: { [K in ExampleKey]: Example } = {
+    "S^n": exampleItemSphere,
     "CP^3": {
       json: complexProjective(3),
       renderSelectItem: () => <TeX math="\mathbb CP^3"/>,
@@ -61,7 +61,7 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
     },
   }
   function onSubmit(closeDialog: () => void): void {
-    args.updateDgaWrapper(selectItems[exampleKey].json)
+    args.updateDgaWrapper(examples[exampleKey].json)
     closeDialog()
   }
   return {
@@ -79,12 +79,12 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
         >
           {exampleKeys.map((exampleKeyForItem) => (
             <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
-              {selectItems[exampleKeyForItem].renderSelectItem()}
+              {examples[exampleKeyForItem].renderSelectItem()}
             </MenuItem>
           ))}
         </Select>
-        {selectItems[exampleKey].renderForm?.()}
-        {getDgaInfo(selectItems[exampleKey].json).map((styledMessage, index) => (
+        {examples[exampleKey].renderForm?.()}
+        {getDgaInfo(examples[exampleKey].json).map((styledMessage, index) => (
           <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
         ))}
       </Stack>

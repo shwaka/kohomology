@@ -3,7 +3,7 @@ import { MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/mate
 import { FreeDGAWrapper } from "kohomology-js"
 import React, { useState } from "react"
 import { ShowStyledMessage } from "../styled/components"
-import { StyledMessage } from "../styled/message"
+import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
 import { TabItem } from "./TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
@@ -12,9 +12,17 @@ const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]
 
 interface Example {
-  json: string
+  json: string | null
   renderSelectItem: () => JSX.Element
   renderForm?: () => JSX.Element
+}
+
+function tryOrNull<T>(func: () => T): T | null {
+  try {
+    return func()
+  } catch (_) {
+    return null
+  }
 }
 
 function useExampleParametraizedByN(
@@ -23,7 +31,7 @@ function useExampleParametraizedByN(
 ): Example {
   const [n, setN] = useState(2)
   return {
-    json: getJson(n),
+    json: tryOrNull(() => getJson(n)),
     renderSelectItem,
     renderForm: () => (
       <TextField
@@ -35,7 +43,10 @@ function useExampleParametraizedByN(
   }
 }
 
-function getDgaInfo(json: string): StyledMessage[] {
+function getDgaInfo(json: string | null): StyledMessage[] {
+  if (json === null) {
+    return [fromString("error", "Error")]
+  }
   const dgaWrapper = new FreeDGAWrapper(json)
   return dgaWrapper.dgaInfo().map(toStyledMessage)
 }
@@ -61,7 +72,11 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
     },
   }
   function onSubmit(closeDialog: () => void): void {
-    args.updateDgaWrapper(examples[exampleKey].json)
+    const json: string | null = examples[exampleKey].json
+    if (json === null) {
+      return
+    }
+    args.updateDgaWrapper(json)
     closeDialog()
   }
   return {

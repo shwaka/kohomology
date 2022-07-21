@@ -37,7 +37,6 @@ function useExampleParametraizedByN(
 
 function getDgaInfo(json: string): StyledMessage[] {
   const dgaWrapper = new FreeDGAWrapper(json)
-  console.log(dgaWrapper.dgaInfo())
   return dgaWrapper.dgaInfo().map(toStyledMessage)
 }
 

@@ -57,8 +57,8 @@ interface Args {
 
 export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
   const [exampleKey, setExampleKey] = useState<ExampleKey>("S^n")
-  const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math={`S^n`}/>)
-  const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math={`\\mathbb CP^n`}/>)
+  const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math="S^n"/>)
+  const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math="\mathbb CP^n"/>)
   const examples: { [K in ExampleKey]: Example } = {
     "S^n": exampleItemSphere,
     "CP^3": exampleItemComplexProjective,

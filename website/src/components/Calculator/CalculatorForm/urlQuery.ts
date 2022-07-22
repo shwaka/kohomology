@@ -16,19 +16,21 @@ type EncodingFormat = "json" | "dsv" | "auto"
 
 function getParam(dgaJson: string, format: EncodingFormat): ["dgaJson" | "dgaDsv", string] | null {
   switch (format) {
-    case "json":
+    case "json": {
       const compressedJson: string | null = compressJson(dgaJson)
       if (compressedJson === null) {
         return null
       }
       return ["dgaJson", compressedJson]
-    case "dsv":
+    }
+    case "dsv": {
       const dsv: string | null = jsonToDSV(dgaJson)
       if (dsv === null) {
         return null
       }
       return ["dgaDsv", dsv]
-    case "auto":
+    }
+    case "auto": {
       const paramsForDsv = getParam(dgaJson, "dsv")
       if (paramsForDsv !== null) {
         return paramsForDsv
@@ -38,6 +40,7 @@ function getParam(dgaJson: string, format: EncodingFormat): ["dgaJson" | "dgaDsv
         return paramsForJson
       }
       return null
+    }
   }
 }
 

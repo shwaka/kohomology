@@ -80,6 +80,9 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
     args.updateDgaWrapper(json)
     closeDialog()
   }
+  function beforeOpen(): void {
+    setExampleKey("")
+  }
   function disableSubmit(): boolean {
     return json === undefined
   }
@@ -88,6 +91,7 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
     tabKey: "example",
     label: "Examples",
     onSubmit,
+    beforeOpen,
     disableSubmit,
     render: () => (
       <Stack spacing={2} sx={{ marginTop: 1 }}>

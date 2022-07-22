@@ -67,6 +67,9 @@ export function useTabItemArrayEditor(args: {
       return undefined
     }
   }
+  function disableSubmit(): boolean {
+    return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
+  }
   const arrayEditorProps: ArrayEditorProps = {
     register, errors, fields, append, remove, getValues, trigger
   }
@@ -76,6 +79,7 @@ export function useTabItemArrayEditor(args: {
     onSubmit,
     beforeOpen,
     preventQuit,
+    disableSubmit,
     render: () => (<ArrayEditor {...arrayEditorProps}/>),
   }
 }

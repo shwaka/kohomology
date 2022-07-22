@@ -34,6 +34,9 @@ export function useTabItemJsonEditor(args: {
       return undefined
     }
   }
+  function disableSubmit(): boolean {
+    return errors.json !== undefined
+  }
   const jsonEditorProps: JsonEditorProps = {
     register, errors
   }
@@ -43,6 +46,7 @@ export function useTabItemJsonEditor(args: {
     preventQuit,
     onSubmit,
     beforeOpen,
+    disableSubmit,
     render: () => (<JsonEditor {...jsonEditorProps}/>),
   }
 }

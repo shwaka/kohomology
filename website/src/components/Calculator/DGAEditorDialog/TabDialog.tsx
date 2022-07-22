@@ -9,6 +9,7 @@ export interface TabItem<K extends string> {
   onQuit?: () => void
   beforeOpen?: () => void
   preventQuit?: () => string | undefined
+  disableSubmit?: () => boolean
 }
 
 function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): JSX.Element {
@@ -122,7 +123,10 @@ export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabK
         ))}
       </DialogContent>
       <DialogActions>
-        <Button onClick={submit} variant="contained">
+        <Button
+          onClick={submit} variant="contained"
+          disabled={getTabItem(tabItems, tabKey).disableSubmit?.()}
+        >
           Apply
         </Button>
         <Button onClick={tryToQuit} variant="outlined">

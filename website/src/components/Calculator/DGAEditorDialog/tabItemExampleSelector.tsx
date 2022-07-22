@@ -71,18 +71,22 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
       renderSelectItem: () => <span>{"Arkowitz-Lupton's example"}</span>
     },
   }
+  const json: string | null = examples[exampleKey].json
   function onSubmit(closeDialog: () => void): void {
-    const json: string | null = examples[exampleKey].json
     if (json === null) {
       return
     }
     args.updateDgaWrapper(json)
     closeDialog()
   }
+  function disableSubmit(): boolean {
+    return json === null
+  }
   return {
     tabKey: "example",
     label: "Examples",
     onSubmit,
+    disableSubmit,
     render: () => (
       <Stack spacing={2}>
         <Select

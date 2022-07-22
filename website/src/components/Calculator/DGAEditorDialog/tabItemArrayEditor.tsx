@@ -128,8 +128,8 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
           return undefined
         }
         return (
-          <Alert severity="error" key={key}>
-            <PreserveNewline text={errorForKey.message}/>
+          <Alert severity="error" key={key} sx={{ whiteSpace: 'pre', overflowX: "scroll" }}>
+            {errorForKey.message}
           </Alert>
         )
       })}

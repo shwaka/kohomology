@@ -77,7 +77,7 @@ private fun assertDegreeOfDifferentialValue(
         } else {
             val messageFromException: String = e.message ?: e.toString()
             "Failed to parse the value \"$differentialValue\" of the differential " +
-                "with the following error message:\n$messageFromException"
+                "with the following error message:\n${e.format()}"
         }
         return ValidationResultInternal.Error(message)
     } catch (e: Exception) {

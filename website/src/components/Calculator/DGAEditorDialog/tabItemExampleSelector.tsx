@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
+import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"
 import React, { useState } from "react"
 import { ShowStyledMessage } from "../styled/components"
@@ -12,16 +12,16 @@ const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]
 
 interface Example {
-  json: string | null
+  json: string | undefined
   renderSelectItem: () => JSX.Element
   renderForm?: () => JSX.Element
 }
 
-function tryOrNull<T>(func: () => T): T | null {
+function tryOrUndefined<T>(func: () => T): T | undefined {
   try {
     return func()
   } catch (_) {
-    return null
+    return undefined
   }
 }
 
@@ -31,7 +31,7 @@ function useExampleParametraizedByN(
 ): Example {
   const [n, setN] = useState(2)
   return {
-    json: tryOrNull(() => getJson(n)),
+    json: tryOrUndefined(() => getJson(n)),
     renderSelectItem,
     renderForm: () => (
       <TextField
@@ -43,8 +43,8 @@ function useExampleParametraizedByN(
   }
 }
 
-function getDgaInfo(json: string | null): StyledMessage[] {
-  if (json === null) {
+function getDgaInfo(json: string | undefined): StyledMessage[] {
+  if (json === undefined) {
     return [fromString("error", "Error")]
   }
   const dgaWrapper = new FreeDGAWrapper(json)
@@ -56,7 +56,7 @@ interface Args {
 }
 
 export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
-  const [exampleKey, setExampleKey] = useState<ExampleKey>("S^n")
+  const [exampleKey, setExampleKey] = useState<ExampleKey | "">("")
   const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math="S^n"/>)
   const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math="\mathbb CP^n"/>)
   const examples: { [K in ExampleKey]: Example } = {
@@ -71,43 +71,51 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
       renderSelectItem: () => <span>{"Arkowitz-Lupton's example"}</span>
     },
   }
-  const json: string | null = examples[exampleKey].json
+  const example: Example | undefined = (exampleKey === "") ? undefined : examples[exampleKey]
+  const json: string | undefined = example?.json
   function onSubmit(closeDialog: () => void): void {
-    if (json === null) {
+    if (json === undefined) {
       return
     }
     args.updateDgaWrapper(json)
     closeDialog()
   }
   function disableSubmit(): boolean {
-    return json === null
+    return json === undefined
   }
+  const labelForSelect = { label: "Select an example", labelId: "label-select-dga-example" }
   return {
     tabKey: "example",
     label: "Examples",
     onSubmit,
     disableSubmit,
     render: () => (
-      <Stack spacing={2}>
-        <Select
-          value={exampleKey}
-          onChange={(event: SelectChangeEvent) => (
-            setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
-          )}
-          sx={{ width: 300 }}
-        >
-          {exampleKeys.map((exampleKeyForItem) => (
-            <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
-              {examples[exampleKeyForItem].renderSelectItem()}
-            </MenuItem>
-          ))}
-        </Select>
-        {examples[exampleKey].renderForm?.()}
-        <Stack>
-          {getDgaInfo(examples[exampleKey].json).map((styledMessage, index) => (
-            <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
-          ))}
-        </Stack>
+      <Stack spacing={2} sx={{ marginTop: 1 }}>
+        <FormControl>
+          <InputLabel id={labelForSelect.labelId}>{labelForSelect.label}</InputLabel>
+          <Select
+            labelId={labelForSelect.labelId} label={labelForSelect.label}
+            value={exampleKey}
+            onChange={(event: SelectChangeEvent) => (
+              setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
+            )}
+            sx={{ width: 300 }}
+          >
+            {exampleKeys.map((exampleKeyForItem) => (
+              <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
+                {examples[exampleKeyForItem].renderSelectItem()}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {example?.renderForm?.()}
+        {(example !== undefined) && (
+          <Stack>
+            {getDgaInfo(example.json).map((styledMessage, index) => (
+              <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
+            ))}
+          </Stack>
+        )}
       </Stack>
     )
   }

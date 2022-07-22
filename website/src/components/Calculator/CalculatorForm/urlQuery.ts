@@ -1,6 +1,7 @@
 import { useLocation } from "@docusaurus/router"
 import { useMemo } from "react"
 import { compressJson, prettifyDGAJson } from "../utils"
+import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
 
 function useQuery(): URLSearchParams {
   // https://v5.reactrouter.com/web/example/query-parameters
@@ -13,18 +14,40 @@ function useQuery(): URLSearchParams {
 
 interface CreateURLSearchParamsArgs {
   dgaJson: string
+  format: "json" | "dsv"
 }
 
 export function createURLSearchParams(
-  { dgaJson }: CreateURLSearchParamsArgs
+  { dgaJson, format }: CreateURLSearchParamsArgs
 ): URLSearchParams | null {
   const urlSearchParams = new URLSearchParams()
-  const compressedJson: string | null = compressJson(dgaJson)
-  if (compressedJson === null) {
-    return null
+  switch (format) {
+    case "json":
+      const compressedJson: string | null = compressJson(dgaJson)
+      if (compressedJson === null) {
+        return null
+      }
+      urlSearchParams.append("dgaJson", compressedJson)
+      break
+    case "dsv":
+      const dsv = jsonToDSV(dgaJson)
+      urlSearchParams.append("dgaDsv", dsv)
+      break
   }
-  urlSearchParams.append("dgaJson", compressedJson)
   return urlSearchParams
+}
+
+function useDgaJsonFromURLQuery(): string | null {
+  const urlSearchParams = useQuery()
+  const dgaJson: string | null = urlSearchParams.get("dgaJson")
+  if (dgaJson !== null) {
+    return dgaJson
+  }
+  const dgaDsv: string | null = urlSearchParams.get("dgaDsv")
+  if (dgaDsv !== null) {
+    return dsvToJson(dgaDsv)
+  }
+  return null
 }
 
 interface QueryResultSuccess {
@@ -44,8 +67,7 @@ interface QueryResultParseError {
 type QueryResult = QueryResultSuccess | QueryResultUnspecified | QueryResultParseError
 
 export function useJsonFromURLQuery(): QueryResult {
-  const urlSearchParams = useQuery()
-  const dgaJson: string | null = urlSearchParams.get("dgaJson")
+  const dgaJson: string | null = useDgaJsonFromURLQuery()
   if (dgaJson === null) {
     return {
       type: "unspecified",

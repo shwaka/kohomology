@@ -1,6 +1,3 @@
-import com.github.h0tk3y.betterParse.parser.AlternativesFailure
-import com.github.h0tk3y.betterParse.parser.ErrorResult
-import com.github.h0tk3y.betterParse.parser.NoMatchingToken
 import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.ZeroGVector
@@ -55,14 +52,6 @@ private fun getErrorMessageForPreviousGenerators(
     return "Please fix errors for generators ($generatorsString) above this."
 }
 
-private fun isFailureAtTheBeginning(errorResult: ErrorResult): Boolean {
-    return when (errorResult) {
-        is AlternativesFailure -> errorResult.errors.all { isFailureAtTheBeginning(it) }
-        is NoMatchingToken -> errorResult.tokenMismatch.offset == 0
-        else -> false
-    }
-}
-
 private fun assertDegreeOfDifferentialValue(
     generatorList: List<GeneratorOfFreeDGA<IntDegree>>,
     currentGenerator: GeneratorOfFreeDGA<IntDegree>,
@@ -82,7 +71,7 @@ private fun assertDegreeOfDifferentialValue(
     val gVector = try {
         freeGAlgebra.parse(differentialValue)
     } catch (e: ParseException) {
-        val message = if (isFailureAtTheBeginning(e.errorResult)) {
+        val message = if (e.isFailureAtTheBeginning()) {
             "Failed to parse the value \"$differentialValue\" of the differential. " +
                 "No matching token at the beginning."
         } else {

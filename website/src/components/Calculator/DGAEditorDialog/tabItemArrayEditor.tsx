@@ -1,5 +1,5 @@
 import { Add, Delete } from "@mui/icons-material"
-import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { Alert, Box, Button, Container, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
@@ -107,14 +107,6 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
   }
 }
 
-function PreserveNewline({ text }: { text: string }): JSX.Element {
-  return (
-    <React.Fragment>
-      {text.split("\n").map((line, index) => <span key={index}>{line}<br/></span>)}
-    </React.Fragment>
-  )
-}
-
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {
   const error = errors.generatorArray?.[index]
   if (error === undefined) {
@@ -128,7 +120,7 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
           return undefined
         }
         return (
-          <Alert severity="error" key={key} sx={{ whiteSpace: 'pre', overflowX: "scroll" }}>
+          <Alert severity="error" key={key} sx={{ whiteSpace: "pre-wrap" }}>
             {errorForKey.message}
           </Alert>
         )

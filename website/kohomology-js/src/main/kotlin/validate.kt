@@ -75,7 +75,6 @@ private fun assertDegreeOfDifferentialValue(
             "Failed to parse the value \"$differentialValue\" of the differential. " +
                 "No matching token at the beginning."
         } else {
-            val messageFromException: String = e.message ?: e.toString()
             "Failed to parse the value \"$differentialValue\" of the differential " +
                 "with the following error message:\n${e.format()}"
         }

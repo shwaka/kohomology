@@ -1,5 +1,5 @@
 import { Add, Delete } from "@mui/icons-material"
-import { Alert, Box, Button, Container, IconButton, Stack, TextField, Tooltip, Typography } from "@mui/material"
+import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"

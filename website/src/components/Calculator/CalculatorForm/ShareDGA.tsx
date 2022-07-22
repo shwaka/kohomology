@@ -47,7 +47,7 @@ export interface ShareDGADialogProps {
 }
 
 export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
-  const urlSearchParams = createURLSearchParams({ dgaJson, format: "dsv" })
+  const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
   const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
   const pageUrl = useBaseUrl("calculator")
   const url = (urlSearchParams !== null) ?

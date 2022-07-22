@@ -12,28 +12,50 @@ function useQuery(): URLSearchParams {
   )
 }
 
-interface CreateURLSearchParamsArgs {
-  dgaJson: string
-  format: "json" | "dsv"
-}
+type EncodingFormat = "json" | "dsv" | "auto"
 
-export function createURLSearchParams(
-  { dgaJson, format }: CreateURLSearchParamsArgs
-): URLSearchParams | null {
-  const urlSearchParams = new URLSearchParams()
+function getParam(dgaJson: string, format: EncodingFormat): ["dgaJson" | "dgaDsv", string] | null {
   switch (format) {
     case "json":
       const compressedJson: string | null = compressJson(dgaJson)
       if (compressedJson === null) {
         return null
       }
-      urlSearchParams.append("dgaJson", compressedJson)
-      break
+      return ["dgaJson", compressedJson]
     case "dsv":
-      const dsv = jsonToDSV(dgaJson)
-      urlSearchParams.append("dgaDsv", dsv)
-      break
+      const dsv: string | null = jsonToDSV(dgaJson)
+      if (dsv === null) {
+        return null
+      }
+      return ["dgaDsv", dsv]
+    case "auto":
+      const paramsForDsv = getParam(dgaJson, "dsv")
+      if (paramsForDsv !== null) {
+        return paramsForDsv
+      }
+      const paramsForJson = getParam(dgaJson, "json")
+      if (paramsForJson !== null) {
+        return paramsForJson
+      }
+      return null
   }
+}
+
+interface CreateURLSearchParamsArgs {
+  dgaJson: string
+  format: EncodingFormat
+}
+
+export function createURLSearchParams(
+  { dgaJson, format }: CreateURLSearchParamsArgs
+): URLSearchParams | null {
+  const urlSearchParams = new URLSearchParams()
+  const param = getParam(dgaJson, format)
+  if (param === null) {
+    return null
+  }
+  const [key, value] = param
+  urlSearchParams.append(key, value)
   return urlSearchParams
 }
 

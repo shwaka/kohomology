@@ -1,7 +1,30 @@
 // DSV = Dot-Separated Values (immitating CSV = Comma-Separated Values)
 
-export function jsonToDSV(json: string): string {
-  const arrFromJson = JSON.parse(json) as [string, number, string][]
+function validateArrFromJson(arrFromJson: unknown): arrFromJson is [string, number, string][] {
+  if (!Array.isArray(arrFromJson)) {
+    return false
+  }
+  for (const elm of arrFromJson) {
+    if ((!Array.isArray(elm)) ||
+      (elm.length !== 3) ||
+      (typeof elm[0] !== "string") ||
+      (typeof elm[1] !== "number") ||
+      (typeof elm[2] !== "string") ||
+      // DSV cannot tread strings containing dots
+      (elm[0].includes(".")) ||
+      (elm[2].includes("."))
+    ) {
+      return false
+    }
+  }
+  return true
+}
+
+export function jsonToDSV(json: string): string | null {
+  const arrFromJson: unknown = JSON.parse(json)
+  if (!validateArrFromJson(arrFromJson)) {
+    return null
+  }
   return arrFromJson.map(
     ([name, degree, differentialValue]) => `${name}.${degree}.${differentialValue}`
   ).join(".")

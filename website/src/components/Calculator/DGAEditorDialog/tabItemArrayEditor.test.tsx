@@ -75,7 +75,7 @@ class ArrayEditorTestUtil {
   }
 
   async submit(): Promise<void> {
-    const closeDialog = () => {}
+    const closeDialog = (): void => { return }
     await act(async () => {
       // This async/await is necessary (why?)
       this.result.current.onSubmit(closeDialog)

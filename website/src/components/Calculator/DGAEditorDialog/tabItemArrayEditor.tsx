@@ -174,7 +174,7 @@ interface ArrayEditorItemProps {
 function ArrayEditorItem({ index, register, errors, remove, getValues, trigger }: ArrayEditorItemProps): JSX.Element {
   const generatorName = getValues().generatorArray[index].name
   return (
-    <div>
+    <div data-testid="ArrayEditor-row">
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
           <TextField

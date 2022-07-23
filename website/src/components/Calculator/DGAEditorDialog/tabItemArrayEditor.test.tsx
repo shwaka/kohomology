@@ -34,13 +34,23 @@ class ArrayEditorTestUtil {
     this.expectValue("differentialValue", 1, "x^2")
   }
 
+  private getRow(index: number): HTMLElement {
+    const rows = within(this.container).getAllByTestId("ArrayEditor-row")
+    if (index >= rows.length) {
+      throw new Error(`index too large: ${index} is given but the length is ${rows.length}`)
+    }
+    return rows[index]
+  }
+
   private getInput(key: keyof Generator, index: number): HTMLElement {
     const testId = `ArrayEditor-input-${key}` as const
-    const inputs: HTMLElement[] = within(this.container).getAllByTestId(testId)
-    if (index >= inputs.length) {
-      throw new Error(`index too large: ${index} is given but the length is ${inputs.length}`)
-    }
-    return inputs[index]
+    const row = this.getRow(index)
+    return within(row).getByTestId(testId)
+  }
+
+  private getDeleteButton(index: number): HTMLElement {
+    const row = this.getRow(index)
+    return within(row).getByRole("button")
   }
 
   expectValue(key: keyof Generator, index: number, value: string | number): void {
@@ -56,6 +66,12 @@ class ArrayEditorTestUtil {
   inputValue(key: keyof Generator, index: number, value: string): void {
     const input = this.getInput(key, index)
     fireEvent.input(input, { target: { value: value } })
+  }
+
+  deleteRow(index: number): void {
+    const button = this.getDeleteButton(index)
+    expect(button).toContainHTML("Delete this generator") // as aria-label
+    fireEvent.click(button)
   }
 
   async submit(): Promise<void> {
@@ -84,6 +100,15 @@ describe("useTabItemArrayEditor", () => {
     testUtil.inputValue("differentialValue", 1, "2*x^2")
     await testUtil.submit()
     const json = '[["x", 2, "0"], ["y", 3, "2*x^2"]]'
+    expect(normalize(testUtil.json)).toEqual(normalize(json))
+  })
+
+  test("delete a generator", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.deleteRow(1)
+    await testUtil.submit()
+    const json = '[["x", 2, "0"]]'
     expect(normalize(testUtil.json)).toEqual(normalize(json))
   })
 

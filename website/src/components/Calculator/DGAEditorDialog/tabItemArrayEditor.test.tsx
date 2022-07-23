@@ -48,6 +48,11 @@ class ArrayEditorTestUtil {
     expect(input).toHaveValue(value)
   }
 
+  getValue(key: keyof Generator, index: number): string {
+    const input = this.getInput(key, index)
+    return (input as HTMLInputElement).value
+  }
+
   inputValue(key: keyof Generator, index: number, value: string): void {
     const input = this.getInput(key, index)
     fireEvent.input(input, { target: { value: value } })
@@ -82,12 +87,49 @@ describe("useTabItemArrayEditor", () => {
     expect(normalize(testUtil.json)).toEqual(normalize(json))
   })
 
-  test("invalid input", async () => {
+  test("empty name", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputValue("name", 1, "")
+    await testUtil.submit()
+    const errorMessage = "Please enter the name."
+    testUtil.expectSingleError(errorMessage)
+  })
+
+  test("empty degree", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputValue("degree", 1, "")
+    testUtil.inputValue("differentialValue", 1, "0") // To avoid error on the degree of the differential
+    await testUtil.submit()
+    const errorMessage = "Please enter the degree."
+    testUtil.expectSingleError(errorMessage)
+  })
+
+  test("empty differential value", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputValue("differentialValue", 1, "")
+    await testUtil.submit()
+    const errorMessage = "Please enter the value of the differential."
+    testUtil.expectSingleError(errorMessage)
+  })
+
+  test("differential value of illegal degree", async () => {
     const testUtil = new ArrayEditorTestUtil()
     testUtil.expectInitialState()
     testUtil.inputValue("differentialValue", 1, "x")
     await testUtil.submit()
     const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
+    testUtil.expectSingleError(errorMessage)
+  })
+
+  test("duplicated name", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputValue("name", 1, "x")
+    await testUtil.submit()
+    const errorMessage = 'Generator names must be unique. Duplicated names are "x"'
     testUtil.expectSingleError(errorMessage)
   })
 })

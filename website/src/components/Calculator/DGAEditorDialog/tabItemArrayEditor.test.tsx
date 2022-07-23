@@ -44,9 +44,12 @@ class ArrayEditorTestUtil {
     expect(input).toHaveValue(value)
   }
 
-  async inputDifferentialValue(index: number, value: string): Promise<void> {
+  inputDifferentialValue(index: number, value: string): void {
     const input = this.getDifferentialValueInput(index)
     fireEvent.input(input, { target: { value: value } })
+  }
+
+  async submit(): Promise<void> {
     const closeDialog = () => {}
     await act(async () => {
       // This async/await is necessary (why?)
@@ -61,11 +64,26 @@ class ArrayEditorTestUtil {
   }
 }
 
-test("useTabItemArrayEditor", async () => {
-  const testUtil = new ArrayEditorTestUtil()
-  testUtil.expectInitialState()
-  // input invalid value
-  await testUtil.inputDifferentialValue(1, "x")
-  const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
-  testUtil.expectSingleError(errorMessage)
+function normalize(json: string): string {
+  return JSON.stringify(JSON.parse(json))
+}
+
+describe("useTabItemArrayEditor", () => {
+  test("submit valid value", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputDifferentialValue(1, "2*x^2")
+    await testUtil.submit()
+    const json = '[["x", 2, "0"], ["y", 3, "2*x^2"]]'
+    expect(normalize(testUtil.json)).toEqual(normalize(json))
+  })
+
+  test("invalid input", async () => {
+    const testUtil = new ArrayEditorTestUtil()
+    testUtil.expectInitialState()
+    testUtil.inputDifferentialValue(1, "x")
+    await testUtil.submit()
+    const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
+    testUtil.expectSingleError(errorMessage)
+  })
 })

@@ -3,7 +3,7 @@ import { renderHook, act, RenderResult } from "@testing-library/react-hooks"
 import React from "react"
 import { sphere } from "./examples"
 import { TabItem } from "./TabDialog"
-import { useTabItemArrayEditor } from "./tabItemArrayEditor"
+import { Generator, useTabItemArrayEditor } from "./tabItemArrayEditor"
 
 class ArrayEditorTestUtil {
   result: RenderResult<TabItem<"array">>
@@ -26,12 +26,16 @@ class ArrayEditorTestUtil {
   }
 
   expectInitialState(): void {
-    this.expectDifferentialValue(0, "0")
-    this.expectDifferentialValue(1, "x^2")
+    this.expectValue("name", 0, "x")
+    this.expectValue("degree", 0, 2)
+    this.expectValue("differentialValue", 0, "0")
+    this.expectValue("name", 1, "y")
+    this.expectValue("degree", 1, 3)
+    this.expectValue("differentialValue", 1, "x^2")
   }
 
-  private getDifferentialValueInput(index: number): HTMLElement {
-    const testId = "ArrayEditor-input-differentialValue"
+  private getInput(key: keyof Generator, index: number): HTMLElement {
+    const testId = `ArrayEditor-input-${key}` as const
     const inputs: HTMLElement[] = within(this.container).getAllByTestId(testId)
     if (index >= inputs.length) {
       throw new Error(`index too large: ${index} is given but the length is ${inputs.length}`)
@@ -39,13 +43,13 @@ class ArrayEditorTestUtil {
     return inputs[index]
   }
 
-  expectDifferentialValue(index: number, value: string): void {
-    const input = this.getDifferentialValueInput(index)
+  expectValue(key: keyof Generator, index: number, value: string | number): void {
+    const input = this.getInput(key, index)
     expect(input).toHaveValue(value)
   }
 
-  inputDifferentialValue(index: number, value: string): void {
-    const input = this.getDifferentialValueInput(index)
+  inputValue(key: keyof Generator, index: number, value: string): void {
+    const input = this.getInput(key, index)
     fireEvent.input(input, { target: { value: value } })
   }
 
@@ -72,7 +76,7 @@ describe("useTabItemArrayEditor", () => {
   test("submit valid value", async () => {
     const testUtil = new ArrayEditorTestUtil()
     testUtil.expectInitialState()
-    testUtil.inputDifferentialValue(1, "2*x^2")
+    testUtil.inputValue("differentialValue", 1, "2*x^2")
     await testUtil.submit()
     const json = '[["x", 2, "0"], ["y", 3, "2*x^2"]]'
     expect(normalize(testUtil.json)).toEqual(normalize(json))
@@ -81,7 +85,7 @@ describe("useTabItemArrayEditor", () => {
   test("invalid input", async () => {
     const testUtil = new ArrayEditorTestUtil()
     testUtil.expectInitialState()
-    testUtil.inputDifferentialValue(1, "x")
+    testUtil.inputValue("differentialValue", 1, "x")
     await testUtil.submit()
     const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
     testUtil.expectSingleError(errorMessage)

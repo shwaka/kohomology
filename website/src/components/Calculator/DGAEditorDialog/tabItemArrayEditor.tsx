@@ -6,7 +6,7 @@ import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFi
 import { generatorArrayToPrettyJson } from "../utils"
 import { TabItem } from "./TabDialog"
 
-interface Generator {
+export interface Generator {
   name: string
   degree: number
   differentialValue: string

@@ -1,8 +1,8 @@
-import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { render, screen, within } from "@testing-library/react"
 import { renderHook, act } from "@testing-library/react-hooks"
 import React from "react"
-import { useDGAEditorDialog } from "."
 import { sphere } from "./examples"
+import { useDGAEditorDialog } from "."
 
 test("useDGAEditorDialog", async () => {
   const json = sphere(2)

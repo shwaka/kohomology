@@ -1,8 +1,8 @@
-import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { fireEvent, render, within } from "@testing-library/react"
 import { renderHook, act, RenderResult } from "@testing-library/react-hooks"
 import React from "react"
-import { sphere } from "./examples"
 import { TabItem } from "./TabDialog"
+import { sphere } from "./examples"
 import { Generator, useTabItemArrayEditor } from "./tabItemArrayEditor"
 
 class ArrayEditorTestUtil {

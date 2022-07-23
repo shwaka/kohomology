@@ -17,4 +17,8 @@ test("useDGAEditorDialog", async () => {
   const dialog = await screen.findByRole("dialog")
   expect(dialog).toContainHTML("Array")
   expect(dialog).toContainHTML("generator")
+  const dyInput = within(dialog).getByLabelText("d(y)")
+  expect(dyInput).toHaveValue("x^2")
+  const dyInput2 = within(dialog).getByDisplayValue("x^2")
+  expect(dyInput2).toHaveValue("x^2")
 })

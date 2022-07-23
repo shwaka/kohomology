@@ -94,67 +94,71 @@ function normalize(json: string): string {
 }
 
 describe("useTabItemArrayEditor", () => {
-  test("submit valid value", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("differentialValue", 1, "2*x^2")
-    await testUtil.submit()
-    const json = '[["x", 2, "0"], ["y", 3, "2*x^2"]]'
-    expect(normalize(testUtil.json)).toEqual(normalize(json))
+  describe("successful submission", () => {
+    test("submit valid value", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, "2*x^2")
+      await testUtil.submit()
+      const json = '[["x", 2, "0"], ["y", 3, "2*x^2"]]'
+      expect(normalize(testUtil.json)).toEqual(normalize(json))
+    })
+
+    test("delete a generator", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.deleteRow(1)
+      await testUtil.submit()
+      const json = '[["x", 2, "0"]]'
+      expect(normalize(testUtil.json)).toEqual(normalize(json))
+    })
   })
 
-  test("delete a generator", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.deleteRow(1)
-    await testUtil.submit()
-    const json = '[["x", 2, "0"]]'
-    expect(normalize(testUtil.json)).toEqual(normalize(json))
-  })
+  describe("validation errors", () => {
+    test("empty name", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("name", 1, "")
+      await testUtil.submit()
+      const errorMessage = "Please enter the name."
+      testUtil.expectSingleError(errorMessage)
+    })
 
-  test("empty name", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("name", 1, "")
-    await testUtil.submit()
-    const errorMessage = "Please enter the name."
-    testUtil.expectSingleError(errorMessage)
-  })
+    test("empty degree", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("degree", 1, "")
+      testUtil.inputValue("differentialValue", 1, "0") // To avoid error on the degree of the differential
+      await testUtil.submit()
+      const errorMessage = "Please enter the degree."
+      testUtil.expectSingleError(errorMessage)
+    })
 
-  test("empty degree", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("degree", 1, "")
-    testUtil.inputValue("differentialValue", 1, "0") // To avoid error on the degree of the differential
-    await testUtil.submit()
-    const errorMessage = "Please enter the degree."
-    testUtil.expectSingleError(errorMessage)
-  })
+    test("empty differential value", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, "")
+      await testUtil.submit()
+      const errorMessage = "Please enter the value of the differential."
+      testUtil.expectSingleError(errorMessage)
+    })
 
-  test("empty differential value", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("differentialValue", 1, "")
-    await testUtil.submit()
-    const errorMessage = "Please enter the value of the differential."
-    testUtil.expectSingleError(errorMessage)
-  })
+    test("differential value of illegal degree", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, "x")
+      await testUtil.submit()
+      const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
+      testUtil.expectSingleError(errorMessage)
+    })
 
-  test("differential value of illegal degree", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("differentialValue", 1, "x")
-    await testUtil.submit()
-    const errorMessage = "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
-    testUtil.expectSingleError(errorMessage)
-  })
-
-  test("duplicated name", async () => {
-    const testUtil = new ArrayEditorTestUtil()
-    testUtil.expectInitialState()
-    testUtil.inputValue("name", 1, "x")
-    await testUtil.submit()
-    const errorMessage = 'Generator names must be unique. Duplicated names are "x"'
-    testUtil.expectSingleError(errorMessage)
+    test("duplicated name", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("name", 1, "x")
+      await testUtil.submit()
+      const errorMessage = 'Generator names must be unique. Duplicated names are "x"'
+      testUtil.expectSingleError(errorMessage)
+    })
   })
 })

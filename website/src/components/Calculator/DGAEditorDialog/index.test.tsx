@@ -14,11 +14,12 @@ test("useDGAEditorDialog", async () => {
     result.current.openDialog()
   })
   rerender(<TabDialog {...result.current.tabDialogProps}/>)
+  // check texts in dialog
   const dialog = await screen.findByRole("dialog")
   expect(dialog).toContainHTML("Array")
   expect(dialog).toContainHTML("generator")
-  const dyInput = within(dialog).getByLabelText("d(y)")
-  expect(dyInput).toHaveValue("x^2")
-  const dyInput2 = within(dialog).getByDisplayValue("x^2")
-  expect(dyInput2).toHaveValue("x^2")
+  // check value of input elements
+  const differentialValueInputs = within(dialog).getAllByTestId("ArrayEditor-input-differentialValue")
+  expect(differentialValueInputs[0]).toHaveValue("0")
+  expect(differentialValueInputs[1]).toHaveValue("x^2")
 })

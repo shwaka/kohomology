@@ -190,6 +190,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   )}
                   onBlur={() => trigger()}
                   error={containsError({ errors, index, key: "name" })}
+                  inputProps={{ "data-testid": "ArrayEditor-input-name" }}
                 />
                 <TextField
                   label={`deg(${generatorName})`} type="number"
@@ -204,6 +205,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   )}
                   onBlur={() => trigger()}
                   error={containsError({ errors, index, key: "degree" })}
+                  inputProps={{ "data-testid": "ArrayEditor-input-degree" }}
                 />
                 <TextField
                   label={`d(${generatorName})`}
@@ -218,6 +220,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
                   )}
                   onBlur={() => trigger()}
                   error={containsError({ errors, index, key: "differentialValue" })}
+                  inputProps={{ "data-testid": "ArrayEditor-input-differentialValue" }}
                 />
                 <Tooltip title="Delete this generator">
                   <IconButton onClick={() => remove(index)} size="small">

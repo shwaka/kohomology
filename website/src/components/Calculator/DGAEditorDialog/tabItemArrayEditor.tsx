@@ -84,16 +84,6 @@ export function useTabItemArrayEditor(args: {
   }
 }
 
-interface ArrayEditorProps {
-  register: UseFormRegister<GeneratorFormInput>
-  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
-  fields: FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
-  append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
-  remove: UseFieldArrayRemove
-  getValues: UseFormGetValues<GeneratorFormInput>
-  trigger: UseFormTrigger<GeneratorFormInput>
-}
-
 function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
   if (generatorArray[index].differentialValue !== value) {
     throw new Error("generatorArray[index] and value do not match.")
@@ -172,66 +162,93 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
   )
 }
 
+interface ArrayEditorItemProps {
+  index: number
+  register: UseFormRegister<GeneratorFormInput>
+  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
+  remove: UseFieldArrayRemove
+  getValues: UseFormGetValues<GeneratorFormInput>
+  trigger: UseFormTrigger<GeneratorFormInput>
+}
+
+function ArrayEditorItem({ index, register, errors, remove, getValues, trigger }: ArrayEditorItemProps): JSX.Element {
+  const generatorName = getValues().generatorArray[index].name
+  return (
+    <div>
+      <Stack spacing={1}>
+        <Stack direction="row" spacing={1}>
+          <TextField
+            label="generator"
+            sx={{ width: 90 }} size="small"
+            {...register(
+              `generatorArray.${index}.name` as const,
+              { required: "Please enter the name."}
+            )}
+            onBlur={() => trigger()}
+            error={containsError({ errors, index, key: "name" })}
+            inputProps={{ "data-testid": "ArrayEditor-input-name" }}
+          />
+          <TextField
+            label={`deg(${generatorName})`} type="number"
+            sx={{ width: 80}} size="small"
+            {...register(
+              `generatorArray.${index}.degree` as const,
+              {
+                valueAsNumber: true,
+                required: "Please enter the degree.",
+                validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
+              }
+            )}
+            onBlur={() => trigger()}
+            error={containsError({ errors, index, key: "degree" })}
+            inputProps={{ "data-testid": "ArrayEditor-input-degree" }}
+          />
+          <TextField
+            label={`d(${generatorName})`}
+            sx={{ width: 200 }} size="small"
+            {...register(
+              `generatorArray.${index}.differentialValue` as const,
+              {
+                validate: (value: string) =>
+                  validateDifferentialValue(getValues().generatorArray, index, value),
+                required: "Please enter the value of the differential."
+              }
+            )}
+            onBlur={() => trigger()}
+            error={containsError({ errors, index, key: "differentialValue" })}
+            inputProps={{ "data-testid": "ArrayEditor-input-differentialValue" }}
+          />
+          <Tooltip title="Delete this generator">
+            <IconButton onClick={() => remove(index)} size="small">
+              <Delete fontSize="small"/>
+            </IconButton>
+          </Tooltip>
+        </Stack>
+        {getFieldError({ errors, index })}
+      </Stack>
+    </div>
+  )
+}
+
+interface ArrayEditorProps {
+  register: UseFormRegister<GeneratorFormInput>
+  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
+  fields: FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
+  append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
+  remove: UseFieldArrayRemove
+  getValues: UseFormGetValues<GeneratorFormInput>
+  trigger: UseFormTrigger<GeneratorFormInput>
+}
+
 function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger }: ArrayEditorProps): JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
-      {fields.map((field, index) => {
-        const generatorName = getValues().generatorArray[index].name
-        return (
-          <div key={field.id}>
-            <Stack spacing={1}>
-              <Stack direction="row" spacing={1}>
-                <TextField
-                  label="generator"
-                  sx={{ width: 90 }} size="small"
-                  {...register(
-                    `generatorArray.${index}.name` as const,
-                    { required: "Please enter the name."}
-                  )}
-                  onBlur={() => trigger()}
-                  error={containsError({ errors, index, key: "name" })}
-                  inputProps={{ "data-testid": "ArrayEditor-input-name" }}
-                />
-                <TextField
-                  label={`deg(${generatorName})`} type="number"
-                  sx={{ width: 80}} size="small"
-                  {...register(
-                    `generatorArray.${index}.degree` as const,
-                    {
-                      valueAsNumber: true,
-                      required: "Please enter the degree.",
-                      validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
-                    }
-                  )}
-                  onBlur={() => trigger()}
-                  error={containsError({ errors, index, key: "degree" })}
-                  inputProps={{ "data-testid": "ArrayEditor-input-degree" }}
-                />
-                <TextField
-                  label={`d(${generatorName})`}
-                  sx={{ width: 200 }} size="small"
-                  {...register(
-                    `generatorArray.${index}.differentialValue` as const,
-                    {
-                      validate: (value: string) =>
-                        validateDifferentialValue(getValues().generatorArray, index, value),
-                      required: "Please enter the value of the differential."
-                    }
-                  )}
-                  onBlur={() => trigger()}
-                  error={containsError({ errors, index, key: "differentialValue" })}
-                  inputProps={{ "data-testid": "ArrayEditor-input-differentialValue" }}
-                />
-                <Tooltip title="Delete this generator">
-                  <IconButton onClick={() => remove(index)} size="small">
-                    <Delete fontSize="small"/>
-                  </IconButton>
-                </Tooltip>
-              </Stack>
-              {getFieldError({ errors, index })}
-            </Stack>
-          </div>
-        )})}
+      {fields.map((field, index) => (
+        <ArrayEditorItem
+          key={field.id}
+          {...{index, register, errors, remove, getValues, trigger}}
+        />
+      ))}
       <Button
         variant="outlined"
         onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}

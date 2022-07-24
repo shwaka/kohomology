@@ -1,6 +1,7 @@
 import BrowserOnly from "@docusaurus/BrowserOnly"
+import { useColorMode } from "@docusaurus/theme-common"
 import { createTheme, ThemeProvider } from "@mui/material"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useMemo, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
@@ -8,14 +9,6 @@ import { sphere } from "./DGAEditorDialog/examples"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
 import styles from "./styles.module.scss"
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#7e6ca8", // --ifm-color-primary in src/css/custom.css
-    }
-  }
-})
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
@@ -28,6 +21,19 @@ export function Calculator(): JSX.Element {
   }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const { colorMode } = useColorMode()
+
+  const theme = useMemo(
+    () => createTheme({
+      palette: {
+        mode: colorMode,
+        primary: {
+          main: "#7e6ca8", // --ifm-color-primary in src/css/custom.css
+        }
+      }
+    }),
+    [colorMode]
+  )
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
     if (addedMessages instanceof Array) {

@@ -187,7 +187,7 @@ public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val zeroVector: Vector<B, S, V>
 }
 
-public class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
+public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     scalarOperations: ScalarOperations<S>,
     numVectorOperations: NumVectorOperations<S, V>,
     vectorOperations: VectorOperations<B, S, V>
@@ -229,7 +229,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    public val context: VectorContext<B, S, V> by lazy {
+    public open val context: VectorContext<B, S, V> by lazy {
         VectorContext(numVectorSpace.field, numVectorSpace, this)
     }
 

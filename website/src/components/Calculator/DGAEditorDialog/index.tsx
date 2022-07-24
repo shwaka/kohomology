@@ -3,17 +3,18 @@ import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
 import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 
-type TabKey = "array" | "json" | "example"
+const tabKeys = ["array", "json", "example"] as const
+type TabKey = (typeof tabKeys)[number]
 
 export function useDGAEditorDialog(
   json: string,
   updateDgaWrapper: (json: string) => void
 ): UseTabDialogReturnValue<TabKey> & { TabDialog: typeof TabDialog } {
-  const tabItems = [
-    useTabItemArrayEditor({ json, updateDgaWrapper }),
-    useTabItemJsonEditor({ json, updateDgaWrapper }),
-    useTabItemExampleSelector({ updateDgaWrapper }),
-  ]
-  const useTabDialogResult = useTabDialog(tabItems, "array")
+  const tabItems = {
+    "array": useTabItemArrayEditor({ json, updateDgaWrapper }),
+    "json": useTabItemJsonEditor({ json, updateDgaWrapper }),
+    "example": useTabItemExampleSelector({ updateDgaWrapper }),
+  }
+  const useTabDialogResult = useTabDialog<TabKey>(tabItems, tabKeys, "array")
   return { TabDialog, ...useTabDialogResult }
 }

@@ -55,7 +55,7 @@ interface Args {
   updateDgaWrapper: (json: string) => void
 }
 
-export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
+export function useTabItemExampleSelector(args: Args): TabItem {
   const [exampleKey, setExampleKey] = useState<ExampleKey | "">("")
   const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math="S^n"/>)
   const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math="\mathbb CP^n"/>)
@@ -88,7 +88,6 @@ export function useTabItemExampleSelector(args: Args): TabItem<"example"> {
   }
   const labelForSelect = { label: "Select an example", labelId: "label-select-dga-example" }
   return {
-    tabKey: "example",
     label: "Examples",
     onSubmit,
     beforeOpen,

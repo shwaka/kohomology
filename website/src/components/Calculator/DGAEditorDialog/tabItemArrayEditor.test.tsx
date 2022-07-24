@@ -6,7 +6,7 @@ import { sphere } from "./examples"
 import { Generator, useTabItemArrayEditor } from "./tabItemArrayEditor"
 
 class ArrayEditorTestUtil {
-  result: RenderResult<TabItem<"array">>
+  result: RenderResult<TabItem>
   json: string
   rerender: (ui: React.ReactElement) => void
   container: HTMLElement

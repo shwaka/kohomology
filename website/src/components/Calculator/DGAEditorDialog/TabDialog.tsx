@@ -1,8 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs, useTheme } from "@mui/material"
 import React, { useState } from "react"
 
-export interface TabItem<K extends string> {
-  tabKey: K
+export interface TabItem {
   label: string
   render: () => JSX.Element
   onSubmit: (closeDialog: () => void) => void
@@ -20,26 +19,19 @@ function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }:
   )
 }
 
-function getTabItem<K extends string>(tabItems: TabItem<K>[], tabKey: K): TabItem<K> {
-  const currentTabItem = tabItems.find((tabItem) => tabItem.tabKey === tabKey)
-  if (currentTabItem === undefined) {
-    throw Error(`Invalid tab key: ${tabKey}`)
-  }
-  return currentTabItem
-}
-
 export interface UseTabDialogReturnValue<K extends string> {
   tabDialogProps: TabDialogProps<K>
   openDialog: () => void
 }
 
 export function useTabDialog<K extends string>(
-  tabItems: TabItem<K>[],
+  tabItems: {[T in K]: TabItem},
+  tabKeys: readonly K[],
   defaultTabKey: K,
 ): UseTabDialogReturnValue<K> {
   const [open, setOpen] = useState(false)
-  const [tabKey, setTabKey] = useState<K>(defaultTabKey)
-  const currentTabItem = getTabItem(tabItems, tabKey)
+  const [currentTabKey, setCurrentTabKey] = useState<K>(defaultTabKey)
+  const currentTabItem = tabItems[currentTabKey]
   function canQuit(): boolean {
     if (currentTabItem.preventQuit === undefined) {
       return true
@@ -61,14 +53,14 @@ export function useTabDialog<K extends string>(
     if (!canQuit()) {
       return
     }
-    setTabKey(newTabKey)
-    getTabItem(tabItems, newTabKey).beforeOpen?.()
+    setCurrentTabKey(newTabKey)
+    tabItems[newTabKey].beforeOpen?.()
   }
   function submit(): void {
     currentTabItem.onSubmit(() => setOpen(false))
   }
   const tabDialogProps: TabDialogProps<K> = {
-    tabItems, tabKey, handleChangeTabKey, tryToQuit, submit, open,
+    tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, submit, open,
   }
   function openDialog(): void {
     currentTabItem.beforeOpen?.()
@@ -81,15 +73,16 @@ export function useTabDialog<K extends string>(
 }
 
 export interface TabDialogProps<K extends string> {
-  tabItems: TabItem<K>[]
-  tabKey: K
+  tabItems: {[T in K]: TabItem}
+  tabKeys: readonly K[]
+  currentTabKey: K
   handleChangeTabKey: (newTabKey: K) => void
   submit: () => void
   tryToQuit: () => void
   open: boolean
 }
 
-export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
+export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
   // TODO: assert that keys for tabItems are distinct
   const theme = useTheme()
   const mobileMediaQuery = theme.breakpoints.down("sm")
@@ -102,30 +95,30 @@ export function TabDialog<K extends string>({ tabItems, tabKey, handleChangeTabK
       PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogTitle>
-        <Tabs value={tabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
-          {tabItems.map((tabItem) => (
+        <Tabs value={currentTabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
+          {tabKeys.map((tabKey) => (
             <Tab
-              value={tabItem.tabKey} key={tabItem.tabKey}
-              label={tabItem.label}
+              value={tabKey} key={tabKey}
+              label={tabItems[tabKey].label}
               sx={{ textTransform: "none" }}
             />
           ))}
         </Tabs>
       </DialogTitle>
       <DialogContent sx={{ [mobileMediaQuery]: { padding: 1 } }}>
-        {tabItems.map((tabItem) => (
+        {tabKeys.map((tabKey) => (
           <TabPanel
-            currentTabKey={tabKey}
-            tabKeyForPanel={tabItem.tabKey} key={tabItem.tabKey}
+            currentTabKey={currentTabKey}
+            tabKeyForPanel={tabKey} key={tabKey}
           >
-            {tabItem.render()}
+            {tabItems[tabKey].render()}
           </TabPanel>
         ))}
       </DialogContent>
       <DialogActions>
         <Button
           onClick={submit} variant="contained"
-          disabled={getTabItem(tabItems, tabKey).disableSubmit?.()}
+          disabled={tabItems[currentTabKey].disableSubmit?.()}
         >
           Apply
         </Button>

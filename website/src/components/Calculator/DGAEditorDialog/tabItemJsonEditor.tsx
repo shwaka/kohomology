@@ -9,7 +9,7 @@ import { TabItem } from "./TabDialog"
 export function useTabItemJsonEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-}): TabItem<"json"> {
+}): TabItem {
   const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<FormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -41,7 +41,6 @@ export function useTabItemJsonEditor(args: {
     register, errors
   }
   return {
-    tabKey: "json",
     label: "JSON",
     preventQuit,
     onSubmit,

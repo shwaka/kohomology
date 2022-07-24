@@ -2,7 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import React from "react"
 import { TargetName } from "../worker/workerInterface"
 
-export function getComplexAsString(targetName: TargetName): string {
+function getComplexAsString(targetName: TargetName): string {
   switch (targetName) {
     case "self":
       return "\\Lambda V"
@@ -30,5 +30,24 @@ export function getCohomologyAsString(targetName: TargetName, degree: string | u
 export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree?: string }): JSX.Element {
   return (
     <TeX math={getCohomologyAsString(targetName, degree)}/>
+  )
+}
+
+function getTopologicalInvariantAsString(targetName: TargetName): string {
+  switch (targetName) {
+    case "self":
+      return "H^*(X)"
+    case "freeLoopSpace":
+      return "H^*(LX)"
+    case "cyclic":
+      return "H^*_{S^1}(LX)"
+    case "derivation":
+      return "\\pi_{-*}(\\mathrm{aut}_1(X))\\otimes\\mathbb{Q}"
+  }
+}
+
+export function TopologicalInvariantAsTex({ targetName }: { targetName: TargetName }): JSX.Element {
+  return (
+    <TeX math={getTopologicalInvariantAsString(targetName)}/>
   )
 }

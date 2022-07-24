@@ -1,3 +1,4 @@
+import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
@@ -9,7 +10,7 @@ import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/wo
 import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
-import { ComplexAsTex } from "./target"
+import { CohomologyAsTex, ComplexAsTex, getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -94,6 +95,7 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <UsageDialog {...usageDialogProps}/>
       </StackItem>
       <StackItem data-testid="CalculatorForm-StackItem-DGA">
+        Input a Sullivan model of a space <TeX math="X"/>:
         <div>
           {dgaInfo.map((styledMessage, index) => (
             <ShowStyledMessage styledMessage={styledMessage} key={index}/>
@@ -120,11 +122,11 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
           {targetNames.map((targetNameForLabel) =>
             <FormControlLabel
               key={targetNameForLabel} value={targetNameForLabel}
-              control={<Radio/>} label={targetNameForLabel}/>
+              control={<Radio size="small"/>}
+              label={<TopologicalInvariantAsTex targetName={targetNameForLabel}/>}/>
           )}
         </RadioGroup>
-        {"Computation target: "}
-        <ComplexAsTex targetName={targetName}/>
+        <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
       </StackItem>
       <StackItem>
         <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>

@@ -14,15 +14,6 @@ public fun Int.pow(exponent: Int): Int {
     }
 }
 
-public fun Int.positiveRem(mod: Int): Int {
-    // Kotlin's built-in rem is incorrect (in our context):
-    //   -1 % 5 = -1
-    //   -6 % 5 = -1
-    return this.mod(mod) // introduced in Kotlin 1.5
-    // val rem = this % mod
-    // return if (rem >= 0) rem else rem + mod
-}
-
 public fun Int.isEven(): Boolean {
     return this % 2 == 0
 }

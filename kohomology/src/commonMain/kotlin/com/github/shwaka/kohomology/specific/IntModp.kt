@@ -9,11 +9,10 @@ import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.isPrime
-import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
 
 public class IntModp(value: Int, public val characteristic: Int) : Scalar {
-    public val value: Int = value.positiveRem(characteristic)
+    public val value: Int = value.mod(characteristic)
 
     override fun isZero(): Boolean {
         return this.value == 0
@@ -36,7 +35,7 @@ public class IntModp(value: Int, public val characteristic: Int) : Scalar {
     private fun toStringWithoutSign(): String = this.toString()
 
     override fun toString(): String {
-        return "${this.value.positiveRem(this.characteristic)} mod ${this.characteristic}"
+        return "${this.value.mod(this.characteristic)} mod ${this.characteristic}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -115,7 +114,7 @@ public class Fp private constructor(override val characteristic: Int) : Field<In
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(a.value.pow(this.characteristic - 2).positiveRem(this.characteristic), this.characteristic)
+        return IntModp(a.value.pow(this.characteristic - 2).mod(this.characteristic), this.characteristic)
     }
 
     override fun fromInt(n: Int): IntModp {

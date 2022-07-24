@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.specific
 
 import com.github.shwaka.kohomology.util.isPrime
-import com.github.shwaka.kohomology.util.positiveRem
 import com.github.shwaka.kohomology.util.pow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -40,6 +39,9 @@ class PositiveRemTest : FreeSpec({
     tags(extensionTag)
 
     "positive remainder" {
+        // This test was originally written for the extension function Int.positiveRem
+        // defined in IntExtension.kt.
+        // In kotlin 1.5, Int.mod was added to the standard library.
         forAll(
             row(3, 5, 3),
             row(-1, 5, 4),
@@ -50,7 +52,7 @@ class PositiveRemTest : FreeSpec({
             row(-3, 7, 4),
             row(5, 7, 5)
         ) { a, mod, expected ->
-            a.positiveRem(mod) shouldBe expected
+            a.mod(mod) shouldBe expected
         }
     }
 })

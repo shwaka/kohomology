@@ -22,6 +22,9 @@ fun <S : Scalar, V : NumVector<S>> dualVectorTest(numVectorSpace: NumVectorSpace
         val (f, g, h) = dualVectorSpace.getBasis()
         vectorSpace.context.run {
             dualVectorSpace.context.run {
+                "check dualVectorSpace.originalVectorSpace" {
+                    dualVectorSpace.originalVectorSpace shouldBe vectorSpace
+                }
                 "dualVectorSpace.dim should be the same as the original one" {
                     dualVectorSpace.dim shouldBe vectorSpace.dim
                 }

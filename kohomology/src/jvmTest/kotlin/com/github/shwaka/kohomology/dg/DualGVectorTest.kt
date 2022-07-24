@@ -28,15 +28,32 @@ fun <S : Scalar, V : NumVector<S>> dualGVectorTest(numVectorSpace: NumVectorSpac
                         dualGVectorSpace[degree].dim shouldBe gVectorSpace[-degree].dim
                     }
                 }
-                "dualGVectorSpace[degree].originalVectorSpace should be the same as gVectorSpace[-degree]" {
+                "dualGVectorSpace[degree].originalVectorSpace should be the same instance as gVectorSpace[-degree]" {
                     (-10..10).forAll { degree ->
                         val dualVectorSpace = dualGVectorSpace[degree]
                         if (dualVectorSpace is DualVectorSpace) {
-                            dualVectorSpace.originalVectorSpace shouldBe gVectorSpace[-degree]
+                            dualVectorSpace.originalVectorSpace shouldBeSameInstanceAs gVectorSpace[-degree]
                         } else {
                             throw Exception("This can't happen")
                         }
                     }
+                }
+                "test evaluation at degree 2" {
+                    val (v0, v1) = gVectorSpace.getBasis(2)
+                    val (f0, f1) = dualGVectorSpace.getBasis(-2)
+                    f0(v0) shouldBe one
+                    f0(v1) shouldBe zero
+                    f1(v1) shouldBe one
+                    f1(v0) shouldBe zero
+                    (f0 + f1)(v0 + v1) shouldBe two
+                    (f0 + f1)(v0 - v1) shouldBe zero
+                }
+                "test evaluation at incompatible degrees" {
+                    val (v0, v1) = gVectorSpace.getBasis(2)
+                    val (g0, g1, g2) = dualGVectorSpace.getBasis(-3)
+                    g0(v0) shouldBe zero
+                    g1(v1) shouldBe zero
+                    g2(v0 + v1) shouldBe zero
                 }
             }
         }

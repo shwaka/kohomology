@@ -16,13 +16,19 @@ public class DualGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
     gVectorOperations: GVectorOperations<D, DualBasisName<B>, S, V>,
 ) : GVectorContext<D, DualBasisName<B>, S, V>(scalarOperations, numVectorOperations, gVectorOperations) {
     public operator fun GVector<D, DualBasisName<B>, S, V>.invoke(gVector: GVector<D, B, S, V>): S {
-        val minusGVectorDegree = this.gVectorSpace.degreeGroup.context.run {
+        val minusGVectorDegree = gVector.gVectorSpace.degreeGroup.context.run {
             -gVector.degree
         }
         return if (this.degree == minusGVectorDegree) {
-            this.gVectorSpace[this.degree].context.run {
-                TODO()
-                // this@invoke.vector(gVector.vector)
+            // This can be also implemented as this.vector.numVector.dot(gVector.vector.numVector).
+            // But currently this is implemented by using the corresponding method in DualVectorContext
+            // since it is closer to the mathematical definition.
+            val dualVectorSpace = this.gVectorSpace[this.degree]
+            check(dualVectorSpace is DualVectorSpace) {
+                "${this.gVectorSpace}[${this.degree}] should be an instance of DualVectorSpace"
+            }
+            dualVectorSpace.context.run {
+                this@invoke.vector(gVector.vector)
             }
         } else {
             this.gVectorSpace.field.zero
@@ -45,7 +51,7 @@ public class DualGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         DualVectorSpace(originalGVectorSpace[minusDegree])
     },
 ) {
-    override val context: GVectorContext<D, DualBasisName<B>, S, V> by lazy {
+    override val context: DualGVectorContext<D, B, S, V> by lazy {
         DualGVectorContext(numVectorSpace.field, numVectorSpace, this)
     }
 }

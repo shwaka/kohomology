@@ -29,7 +29,7 @@ public class DualVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 }
 
-private fun <B : BasisName, S : PrintableWithSign> InternalPrintConfig<B, S>.dual(
+internal fun <B : BasisName, S : PrintableWithSign> InternalPrintConfig<B, S>.dual(
     printConfig: PrintConfig
 ): InternalPrintConfig<DualBasisName<B>, S> {
     return InternalPrintConfig(

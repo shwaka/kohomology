@@ -11,6 +11,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 val dualVectorTag = NamedTag("DualVector")
 
@@ -23,7 +24,7 @@ fun <S : Scalar, V : NumVector<S>> dualVectorTest(numVectorSpace: NumVectorSpace
         vectorSpace.context.run {
             dualVectorSpace.context.run {
                 "check dualVectorSpace.originalVectorSpace" {
-                    dualVectorSpace.originalVectorSpace shouldBe vectorSpace
+                    dualVectorSpace.originalVectorSpace shouldBeSameInstanceAs vectorSpace
                 }
                 "dualVectorSpace.dim should be the same as the original one" {
                     dualVectorSpace.dim shouldBe vectorSpace.dim

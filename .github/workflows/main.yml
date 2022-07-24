@@ -3,7 +3,7 @@ name: Build # This will be shown in the badge in README.md
 
 env:
   JDK_VERSION: 1.8
-  NODE_VERSION: 14.x
+  NODE_VERSION: 16.x
   # 'env' cannot be used in 'runs-on'(?)
   SHARED_ARTIFACT_NAME: _internal_artifact
   SHARED_ARTIFACT_PATH: website/kohomology-js/build/js

@@ -20,7 +20,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
-  const handleCohomologyButton = useCallback(
+  const computeCohomology = useCallback(
     (event: React.FormEvent<HTMLFormEvent>): void => {
       event.preventDefault()
       const input: WorkerInput = {
@@ -39,7 +39,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   }
   const disabled = !isAvailable(targetName, "cohomology")
   return (
-    <form onSubmit={handleCohomologyButton} data-testid="ComputeCohomologyForm">
+    <form onSubmit={computeCohomology} data-testid="ComputeCohomologyForm">
       <Stack spacing={1}>
         <span>
           {"Compute cohomology "}
@@ -84,7 +84,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
   const [showBasis, setShowBasis] = useState(true)
-  const handleComputeCohomologyClassButton = useCallback(
+  const computeCohomologyClass = useCallback(
     (event: React.FormEvent<HTMLFormEvent>): void => {
       event.preventDefault()
       const input: WorkerInput = {
@@ -101,7 +101,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
     return <React.Fragment></React.Fragment>
   }
   return (
-    <form onSubmit={handleComputeCohomologyClassButton} data-testid="ComputeClassForm">
+    <form onSubmit={computeCohomologyClass} data-testid="ComputeClassForm">
       <Stack spacing={1}>
         <span>
           {"Compute cohomology class "}

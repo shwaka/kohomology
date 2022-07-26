@@ -21,7 +21,8 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
   const handleCohomologyButton = useCallback(
-    (): void => {
+    (event: React.FormEvent<HTMLFormEvent>): void => {
+      event.preventDefault()
       const input: WorkerInput = {
         command: "computeCohomology",
         targetName: targetName,
@@ -38,7 +39,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   }
   const disabled = !isAvailable(targetName, "cohomology")
   return (
-    <div data-testid="ComputeCohomologyForm">
+    <form onSubmit={handleCohomologyButton} data-testid="ComputeCohomologyForm">
       <Stack spacing={1}>
         <span>
           {"Compute cohomology "}
@@ -62,7 +63,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
           )}
         </RadioGroup>
         <Button
-          onClick={handleCohomologyButton}
+          type="submit"
           variant="contained"
           disabled={disabled}
         >
@@ -74,7 +75,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
           </Alert>
         }
       </Stack>
-    </div>
+    </form>
   )
 }
 
@@ -84,7 +85,8 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
   const [showBasis, setShowBasis] = useState(true)
   const handleComputeCohomologyClassButton = useCallback(
-    (): void => {
+    (event: React.FormEvent<HTMLFormEvent>): void => {
+      event.preventDefault()
       const input: WorkerInput = {
         command: "computeCohomologyClass",
         targetName: targetName,
@@ -99,7 +101,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
     return <React.Fragment></React.Fragment>
   }
   return (
-    <div data-testid="ComputeClassForm">
+    <form onSubmit={handleComputeCohomologyClassButton} data-testid="ComputeClassForm">
       <Stack spacing={1}>
         <span>
           {"Compute cohomology class "}
@@ -116,7 +118,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
           onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
         />
         <Button
-          onClick={handleComputeCohomologyClassButton}
+          type="submit"
           variant="contained"
           disabled={disabled}
         >
@@ -128,7 +130,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
           </Alert>
         }
       </Stack>
-    </div>
+    </form>
   )
 }
 

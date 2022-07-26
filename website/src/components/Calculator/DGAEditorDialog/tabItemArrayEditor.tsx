@@ -70,8 +70,8 @@ export function useTabItemArrayEditor(args: {
   function disableSubmit(): boolean {
     return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
   }
-  const arrayEditorProps: ArrayEditorProps = {
-    register, errors, fields, append, remove, getValues, trigger
+  const arrayEditorProps: Omit<ArrayEditorProps, "submit"> = {
+    register, errors, fields, append, remove, getValues, trigger,
   }
   return {
     label: "Array",
@@ -79,7 +79,7 @@ export function useTabItemArrayEditor(args: {
     beforeOpen,
     preventQuit,
     disableSubmit,
-    render: () => (<ArrayEditor {...arrayEditorProps}/>),
+    render: (closeDialog) => (<ArrayEditor submit={() => onSubmit(closeDialog)} {...arrayEditorProps}/>),
   }
 }
 
@@ -237,35 +237,44 @@ interface ArrayEditorProps {
   remove: UseFieldArrayRemove
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
+  submit: () => void
 }
 
-function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger }: ArrayEditorProps): JSX.Element {
+function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, submit }: ArrayEditorProps): JSX.Element {
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+    event.preventDefault()
+    submit()
+  }
+  // <button hidden type="submit"/> is necessary for onSubmit in form
   return (
-    <Stack spacing={2} sx={{ marginTop: 1 }}>
-      {fields.map((field, index) => (
-        <ArrayEditorItem
-          key={field.id}
-          {...{index, register, errors, remove, getValues, trigger}}
+    <form onSubmit={onSubmit}>
+      <Stack spacing={2} sx={{ marginTop: 1 }}>
+        {fields.map((field, index) => (
+          <ArrayEditorItem
+            key={field.id}
+            {...{index, register, errors, remove, getValues, trigger}}
+          />
+        ))}
+        <Button
+          variant="outlined"
+          onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}
+          startIcon={<Add/>}
+          sx={{ textTransform: "none" }}
+        >
+          Add a generator
+        </Button>
+        <input
+          hidden value="dummy"
+          {...register("dummy", {
+            validate: {
+              positiveAndNegativeDegree: (_) => validateGeneratorDegrees(getValues().generatorArray),
+              duplicatedNames: (_) => validateGeneratorNames(getValues().generatorArray),
+            }
+          })}
         />
-      ))}
-      <Button
-        variant="outlined"
-        onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}
-        startIcon={<Add/>}
-        sx={{ textTransform: "none" }}
-      >
-        Add a generator
-      </Button>
-      <input
-        hidden value="dummy"
-        {...register("dummy", {
-          validate: {
-            positiveAndNegativeDegree: (_) => validateGeneratorDegrees(getValues().generatorArray),
-            duplicatedNames: (_) => validateGeneratorNames(getValues().generatorArray),
-          }
-        })}
-      />
-      {getGlobalError(errors)}
-    </Stack>
+        {getGlobalError(errors)}
+      </Stack>
+      <button hidden type="submit"/>
+    </form>
   )
 }

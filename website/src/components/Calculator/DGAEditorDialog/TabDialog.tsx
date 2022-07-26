@@ -3,7 +3,7 @@ import React, { useState } from "react"
 
 export interface TabItem {
   label: string
-  render: () => JSX.Element
+  render: (closeDialog: () => void) => JSX.Element
   onSubmit: (closeDialog: () => void) => void
   onQuit?: () => void
   beforeOpen?: () => void
@@ -32,6 +32,7 @@ export function useTabDialog<K extends string>(
   const [open, setOpen] = useState(false)
   const [currentTabKey, setCurrentTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = tabItems[currentTabKey]
+  const closeDialog = (): void => setOpen(false)
   function canQuit(): boolean {
     if (currentTabItem.preventQuit === undefined) {
       return true
@@ -57,10 +58,10 @@ export function useTabDialog<K extends string>(
     tabItems[newTabKey].beforeOpen?.()
   }
   function submit(): void {
-    currentTabItem.onSubmit(() => setOpen(false))
+    currentTabItem.onSubmit(closeDialog)
   }
   const tabDialogProps: TabDialogProps<K> = {
-    tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, submit, open,
+    tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, submit, open, closeDialog
   }
   function openDialog(): void {
     currentTabItem.beforeOpen?.()
@@ -80,9 +81,10 @@ export interface TabDialogProps<K extends string> {
   submit: () => void
   tryToQuit: () => void
   open: boolean
+  closeDialog: () => void
 }
 
-export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open }: TabDialogProps<K>): JSX.Element {
+export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open, closeDialog }: TabDialogProps<K>): JSX.Element {
   // TODO: assert that keys for tabItems are distinct
   const theme = useTheme()
   const mobileMediaQuery = theme.breakpoints.down("sm")
@@ -111,7 +113,7 @@ export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, 
             currentTabKey={currentTabKey}
             tabKeyForPanel={tabKey} key={tabKey}
           >
-            {tabItems[tabKey].render()}
+            {tabItems[tabKey].render(closeDialog)}
           </TabPanel>
         ))}
       </DialogContent>

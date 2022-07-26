@@ -92,7 +92,7 @@ export function useTabItemExampleSelector(args: Args): TabItem {
     onSubmit,
     beforeOpen,
     disableSubmit,
-    render: () => (
+    render: (_) => (
       <Stack spacing={2} sx={{ marginTop: 1 }}>
         <FormControl>
           <InputLabel id={labelForSelect.labelId}>{labelForSelect.label}</InputLabel>

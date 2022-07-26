@@ -46,7 +46,7 @@ export function useTabItemJsonEditor(args: {
     onSubmit,
     beforeOpen,
     disableSubmit,
-    render: () => (<JsonEditor {...jsonEditorProps}/>),
+    render: (_) => (<JsonEditor {...jsonEditorProps}/>),
   }
 }
 

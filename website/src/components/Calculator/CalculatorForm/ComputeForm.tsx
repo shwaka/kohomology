@@ -21,7 +21,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
   const computeCohomology = useCallback(
-    (event: React.FormEvent<HTMLFormEvent>): void => {
+    (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const input: WorkerInput = {
         command: "computeCohomology",
@@ -85,7 +85,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
   const [showBasis, setShowBasis] = useState(true)
   const computeCohomologyClass = useCallback(
-    (event: React.FormEvent<HTMLFormEvent>): void => {
+    (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const input: WorkerInput = {
         command: "computeCohomologyClass",

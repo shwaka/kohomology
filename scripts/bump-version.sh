@@ -66,7 +66,7 @@ function release_version() {
     if ! select_yn "Do you want to git-commit? (y/n)"; then
         return
     fi
-    git commit -m "Release v$version"
+    git commit --no-verify -m "Release v$version"
     git tag -a "v$version" -m "Version $version"
 
     read -p "Do you want to publish? (y/n)" answer
@@ -88,7 +88,7 @@ function bump_snapshot_version() {
     if ! select_yn "Do you want to git-commit? (y/n)"; then
         return
     fi
-    git commit -m "Bump version to $snapshot_version"
+    git commit --no-verify -m "Bump version to $snapshot_version"
 }
 
 function select_yn() {

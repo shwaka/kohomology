@@ -41,8 +41,8 @@ fun main() {
         // This 'context' is necessary for pow(2) and cohomologyClass()
         println(f(x)) // a1a2
         println(f(x.pow(2))) // a1^2a2^2
-        println(f.inducedMapOnCohomology()(x.cohomologyClass())) // [a1a2]
-        println(f.inducedMapOnCohomology()(x.pow(2).cohomologyClass())) // 0
+        println(f.inducedMapOnCohomology(x.cohomologyClass())) // [a1a2]
+        println(f.inducedMapOnCohomology(x.pow(2).cohomologyClass())) // 0
     }
     // \end{dgaMap}
 }

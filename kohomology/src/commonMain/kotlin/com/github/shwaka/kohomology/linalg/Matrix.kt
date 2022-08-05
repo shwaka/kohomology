@@ -28,74 +28,16 @@ public interface Matrix<S : Scalar, V : NumVector<S>> {
     public fun isNotIdentity(): Boolean = !this.isIdentity()
 }
 
-public interface MatrixOperations<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+public interface MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : NumVectorContext<S, V> {
     public val matrixSpace: MatrixSpace<S, V, M>
-    public operator fun contains(matrix: M): Boolean
-    public fun add(first: M, second: M): M
-    public fun subtract(first: M, second: M): M
-    public fun multiply(first: M, second: M): M
-    public fun multiply(matrix: M, numVector: V): V
-    public fun multiply(matrix: M, scalar: S): M
-    public fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
-    public fun computeTranspose(matrix: M): M
-    public fun joinMatrices(matrix1: M, matrix2: M): M
-    public fun computeRowSlice(matrix: M, rowRange: IntRange): M
-    public fun computeColSlice(matrix: M, colRange: IntRange): M
-    public fun fromRowList(rowList: List<List<S>>, colCount: Int? = null): M
-    public fun fromColList(colList: List<List<S>>, rowCount: Int? = null): M {
-        val rowCountNonNull: Int = when {
-            colList.isNotEmpty() -> colList[0].size
-            rowCount != null -> rowCount
-            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
-        }
-        val colCount = colList.size
-        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> colList[j][i] } }
-        return this.fromRowList(rows, colCount)
-    }
-    public fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M
-    public fun fromColMap(colMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
-        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
-        for ((colInd, col) in colMap) {
-            for ((rowInd, elm) in col) {
-                val row = rowMap.getOrPut(rowInd) { mutableMapOf() }
-                row[colInd] = elm
-            }
-        }
-        return this.fromRowMap(rowMap, rowCount, colCount)
-    }
-    public fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
-        // overridden in DenseMatrixSpace to use toList() instead of toMap()
-        if (numVectors.isEmpty() && (dim == null))
-            throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val dimNotNull: Int = dim ?: numVectors[0].dim
-        val colMap = numVectors.pmapIndexedNotNull { i, v ->
-            if (v.isZero())
-                null
-            else
-                Pair(i, v.toMap())
-        }.toMap()
-        return this.fromColMap(colMap, dimNotNull, numVectors.size)
-    }
-    public fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
-        if (list.size != rowCount * colCount)
-            throw InvalidSizeException("The size of the list should be equal to rowCount * colCount")
-        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
-        return this.fromRowList(rowList, colCount)
-    }
-}
 
-public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    private val matrixOperations: MatrixOperations<S, V, M>
-) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), MatrixOperations<S, V, M> by matrixOperations {
-    public operator fun M.plus(other: M): M = this@MatrixContext.add(this, other)
-    public operator fun M.minus(other: M): M = this@MatrixContext.subtract(this, other)
-    public operator fun M.times(other: M): M = this@MatrixContext.multiply(this, other)
-    public operator fun M.times(numVector: V): V = this@MatrixContext.multiply(this, numVector)
-    public operator fun M.times(scalar: S): M = this@MatrixContext.multiply(this, scalar)
+    public operator fun M.plus(other: M): M = this@MatrixContext.matrixSpace.add(this, other)
+    public operator fun M.minus(other: M): M = this@MatrixContext.matrixSpace.subtract(this, other)
+    public operator fun M.times(other: M): M = this@MatrixContext.matrixSpace.multiply(this, other)
+    public operator fun M.times(numVector: V): V = this@MatrixContext.matrixSpace.multiply(this, numVector)
+    public operator fun M.times(scalar: S): M = this@MatrixContext.matrixSpace.multiply(this, scalar)
     public operator fun S.times(matrix: M): M = matrix * this
-    public operator fun M.times(scalar: Int): M = this@MatrixContext.multiply(this, this@MatrixContext.field.fromInt(scalar))
+    public operator fun M.times(scalar: Int): M = this@MatrixContext.matrixSpace.multiply(this, this@MatrixContext.matrixSpace.field.fromInt(scalar))
     public operator fun Int.times(matrix: M): M = matrix * this
     public operator fun M.times(sign: Sign): M {
         return when (sign) {
@@ -106,14 +48,14 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public operator fun Sign.times(matrix: M): M = matrix * this
     public operator fun M.unaryMinus(): M = this * (-1)
     public val M.rowEchelonForm: RowEchelonForm<S, V, M>
-        get() = this@MatrixContext.computeRowEchelonForm(this) // TODO: cache!
-    public fun M.rowSlice(rowRange: IntRange): M = this@MatrixContext.computeRowSlice(this, rowRange)
-    public fun M.colSlice(colRange: IntRange): M = this@MatrixContext.computeColSlice(this, colRange)
+        get() = this@MatrixContext.matrixSpace.computeRowEchelonForm(this) // TODO: cache!
+    public fun M.rowSlice(rowRange: IntRange): M = this@MatrixContext.matrixSpace.computeRowSlice(this, rowRange)
+    public fun M.colSlice(colRange: IntRange): M = this@MatrixContext.matrixSpace.computeColSlice(this, colRange)
 
     public fun List<M>.join(): M {
         if (this.isEmpty())
             throw IllegalArgumentException("Empty list of matrices cannot be reduced")
-        return this.reduce { matrix1, matrix2 -> this@MatrixContext.joinMatrices(matrix1, matrix2) }
+        return this.reduce { matrix1, matrix2 -> this@MatrixContext.matrixSpace.joinMatrices(matrix1, matrix2) }
     }
 
     public fun M.det(): S {
@@ -122,7 +64,7 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val rowEchelonForm = this.rowEchelonForm
         val rowEchelonMatrix: M = rowEchelonForm.matrix
         val sign: Sign = rowEchelonForm.sign
-        return this@MatrixContext.field.context.run {
+        return this@MatrixContext.matrixSpace.field.context.run {
             val detUpToSign = (0 until this@det.rowCount).map { i -> rowEchelonMatrix[i, i] }.reduce { a, b -> a * b }
             detUpToSign * sign
         }
@@ -133,7 +75,7 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             throw InvalidSizeException("Determinant is defined only for square matrices")
         val n = this.rowCount
         var result: S = zero
-        this@MatrixContext.field.context.run {
+        this@MatrixContext.matrixSpace.field.context.run {
             for ((perm, sign) in getPermutation((0 until n).toList())) {
                 val product: S = (0 until n).zip(perm).map { (i, j) -> this@detByPermutations[i, j] }.reduce { a, b -> a * b }
                 result += sign * product
@@ -150,7 +92,7 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     public fun M.transpose(): M {
-        return this@MatrixContext.computeTranspose(this)
+        return this@MatrixContext.matrixSpace.computeTranspose(this)
     }
 
     public fun M.innerProduct(numVector1: V, numVector2: V): S {
@@ -207,18 +149,22 @@ public class MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     public fun List<List<S>>.toMatrix(colCount: Int? = null): M {
-        return this@MatrixContext.fromRowList(this, colCount)
+        return this@MatrixContext.matrixSpace.fromRowList(this, colCount)
     }
     public fun Map<Int, Map<Int, S>>.toMatrix(rowCount: Int, colCount: Int): M {
-        return this@MatrixContext.fromRowMap(this, rowCount, colCount)
+        return this@MatrixContext.matrixSpace.fromRowMap(this, rowCount, colCount)
     }
-    // fun List<V>.toMatrix(dim: Int? = null) = this@MatrixContext.fromNumVectorList(this, dim) // Platform declaration clash
+    // fun List<V>.toMatrix(dim: Int? = null) = this@MatrixContext.matrixSpace.fromNumVectorList(this, dim) // Platform declaration clash
     public fun List<S>.toMatrix(rowCount: Int, colCount: Int): M {
-        return this@MatrixContext.fromFlatList(this, rowCount, colCount)
+        return this@MatrixContext.matrixSpace.fromFlatList(this, rowCount, colCount)
     }
 }
 
-public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : MatrixOperations<S, V, M> {
+public class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val matrixSpace: MatrixSpace<S, V, M>,
+) : MatrixContext<S, V, M>, NumVectorContext<S, V> by NumVectorContextImpl(matrixSpace.numVectorSpace)
+
+public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val context: MatrixContext<S, V, M>
     public val numVectorSpace: NumVectorSpace<S, V>
     public val field: Field<S>
@@ -236,6 +182,58 @@ public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : M
         val one = this.field.one
         val rowMap = List(dim) { i -> i to mapOf(i to one) }.toMap()
         return this.fromRowMap(rowMap, dim, dim)
+    }
+    public operator fun contains(matrix: M): Boolean
+    public fun add(first: M, second: M): M
+    public fun subtract(first: M, second: M): M
+    public fun multiply(first: M, second: M): M
+    public fun multiply(matrix: M, numVector: V): V
+    public fun multiply(matrix: M, scalar: S): M
+    public fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M>
+    public fun computeTranspose(matrix: M): M
+    public fun joinMatrices(matrix1: M, matrix2: M): M
+    public fun computeRowSlice(matrix: M, rowRange: IntRange): M
+    public fun computeColSlice(matrix: M, colRange: IntRange): M
+    public fun fromRowList(rowList: List<List<S>>, colCount: Int? = null): M
+    public fun fromColList(colList: List<List<S>>, rowCount: Int? = null): M {
+        val rowCountNonNull: Int = when {
+            colList.isNotEmpty() -> colList[0].size
+            rowCount != null -> rowCount
+            else -> throw IllegalArgumentException("Column list is empty and rowCount is not specified")
+        }
+        val colCount = colList.size
+        val rows = (0 until rowCountNonNull).map { i -> (0 until colCount).map { j -> colList[j][i] } }
+        return this.fromRowList(rows, colCount)
+    }
+    public fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M
+    public fun fromColMap(colMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
+        val rowMap: MutableMap<Int, MutableMap<Int, S>> = mutableMapOf()
+        for ((colInd, col) in colMap) {
+            for ((rowInd, elm) in col) {
+                val row = rowMap.getOrPut(rowInd) { mutableMapOf() }
+                row[colInd] = elm
+            }
+        }
+        return this.fromRowMap(rowMap, rowCount, colCount)
+    }
+    public fun fromNumVectorList(numVectors: List<V>, dim: Int? = null): M {
+        // overridden in DenseMatrixSpace to use toList() instead of toMap()
+        if (numVectors.isEmpty() && (dim == null))
+            throw IllegalArgumentException("Vector list is empty and dim is not specified")
+        val dimNotNull: Int = dim ?: numVectors[0].dim
+        val colMap = numVectors.pmapIndexedNotNull { i, v ->
+            if (v.isZero())
+                null
+            else
+                Pair(i, v.toMap())
+        }.toMap()
+        return this.fromColMap(colMap, dimNotNull, numVectors.size)
+    }
+    public fun fromFlatList(list: List<S>, rowCount: Int, colCount: Int): M {
+        if (list.size != rowCount * colCount)
+            throw InvalidSizeException("The size of the list should be equal to rowCount * colCount")
+        val rowList = (0 until rowCount).map { i -> list.subList(colCount * i, colCount * (i + 1)) }
+        return this.fromRowList(rowList, colCount)
     }
 }
 

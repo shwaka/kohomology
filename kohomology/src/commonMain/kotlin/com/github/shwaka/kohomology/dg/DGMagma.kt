@@ -67,20 +67,24 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
 }
 
 internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    gMagma: GMagma<D, B, S, V, M>,
+    private val gMagma: GMagma<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorSpaceImpl<D, B, S, V, M>(gMagma, differential, matrixSpace), DGMagma<D, B, S, V, M>,
-    GMagma<D, B, S, V, M> by gMagma {
+) : DGMagma<D, B, S, V, M>,
+    DGVectorSpaceImpl<D, B, S, V, M>(gMagma, differential, matrixSpace) {
     override val context: DGMagmaContext<D, B, S, V, M> by lazy {
         DGMagmaContextImpl(this)
+    }
+
+    override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
+        return this.gMagma.multiply(a, b)
     }
 
     override fun getIdentity(): DGLinearMap<D, B, B, S, V, M> {
         return super<DGMagma>.getIdentity()
     }
 
-    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
         val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.degreeGroup.context.run { p + q })
@@ -96,7 +100,8 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             basisLift1.map { vector1: Vector<B, S, V> ->
                 basisLift2.map { vector2: Vector<B, S, V> ->
                     cohomOfDegPPlusQ.projection(
-                        this.getMultiplication(p, q)(vector1, vector2)
+                        // TODO: GVector を経由しているのは無駄
+                        this.multiply(this.fromVector(vector1, p), this.fromVector(vector2, q)).vector
                     )
                 }
             }

@@ -186,17 +186,15 @@ public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val zeroVector: Vector<B, S, V>
 }
 
-public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
-    numVectorSpace: NumVectorSpace<S, V>,
-    vectorOperations: VectorOperations<B, S, V>
-) : NumVectorContext<S, V> by NumVectorContextImpl(numVectorSpace),
-    VectorOperations<B, S, V> by vectorOperations {
-    public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
-    public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
-    public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
-    public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
-    public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
-    public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
+public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : NumVectorContext<S, V> {
+    public val vectorSpace: VectorSpace<B, S, V>
+
+    public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.add(this, other)
+    public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.subtract(this, other)
+    public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(scalar, this)
+    public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(this, vector)
+    public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(scalar.toScalar(), this)
+    public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(this.toScalar(), vector)
     public operator fun Vector<B, S, V>.times(sign: Sign): Vector<B, S, V> {
         return when (sign) {
             Sign.PLUS -> this
@@ -205,8 +203,14 @@ public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
     public operator fun Sign.times(vector: Vector<B, S, V>): Vector<B, S, V> = vector * this
     public operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
-    public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> = this.fold(zeroVector) { acc, v -> acc + v }
+    public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> =
+        this.fold(this@VectorContext.vectorSpace.zeroVector) { acc, v -> acc + v }
 }
+
+public class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val vectorSpace: VectorSpace<B, S, V>
+) : VectorContext<B, S, V>,
+    NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)
 
 public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     public val numVectorSpace: NumVectorSpace<S, V>,
@@ -229,7 +233,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
     public open val context: VectorContext<B, S, V> by lazy {
-        VectorContext(numVectorSpace, this)
+        VectorContextImpl(this)
     }
 
     private val basisNameToIndex: Map<B, Int> by lazy {

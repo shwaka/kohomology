@@ -178,14 +178,6 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 }
 
-public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
-    public operator fun contains(vector: Vector<B, S, V>): Boolean
-    public fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    public fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    public fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
-    public val zeroVector: Vector<B, S, V>
-}
-
 public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : NumVectorContext<S, V> {
     public val vectorSpace: VectorSpace<B, S, V>
 
@@ -212,7 +204,7 @@ public class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
 ) : VectorContext<B, S, V>,
     NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)
 
-public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : VectorOperations<B, S, V> {
+public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val numVectorSpace: NumVectorSpace<S, V>
     public val basisNames: List<B>
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
@@ -242,11 +234,11 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : Vect
     //   Leaking 'this' in constructor of non-final class GAlgebra
     public val context: VectorContext<B, S, V>
 
-    override fun contains(vector: Vector<B, S, V>): Boolean {
+    public operator fun contains(vector: Vector<B, S, V>): Boolean {
         return vector.vectorSpace == this
     }
 
-    override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+    public fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
             throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
@@ -256,7 +248,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : Vect
         }
     }
 
-    override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+    public fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
             throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
@@ -266,7 +258,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : Vect
         }
     }
 
-    override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
+    public fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
         if (scalar !in this.field)
             throw IllegalContextException("The scalar $scalar does not match the context (${this.field})")
         if (vector !in this)
@@ -307,7 +299,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : Vect
         return this.fromBasisName(basisName, coeffScalar)
     }
 
-    override val zeroVector: Vector<B, S, V>
+    public val zeroVector: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
     public fun getBasis(): List<Vector<B, S, V>> {

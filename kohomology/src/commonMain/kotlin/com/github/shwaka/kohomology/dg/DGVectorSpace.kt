@@ -43,7 +43,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
 }
 
-internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorSpace: GVectorSpace<D, B, S, V>,
     override val differential: GLinearMap<D, B, B, S, V, M>,
     override val matrixSpace: MatrixSpace<S, V, M>
@@ -55,18 +55,20 @@ internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
         DGVectorContextImpl(this)
     }
 
+    protected val cohomologyName: String
+        get() = "H(${this.name})"
+
     override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
-        val cohomologyName: String = "H(${this.name})"
         GVectorSpace(
             this.matrixSpace.numVectorSpace,
             this.degreeGroup,
-            cohomologyName,
+            this.cohomologyName,
             this.listDegreesForAugmentedDegree,
             this::getCohomologyVectorSpace,
         )
     }
 
-    private fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
+    protected fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
             return it

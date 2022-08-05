@@ -7,10 +7,9 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
+import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -188,10 +187,10 @@ public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
 }
 
 public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
+    numVectorSpace: NumVectorSpace<S, V>,
     vectorOperations: VectorOperations<B, S, V>
-) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), VectorOperations<B, S, V> by vectorOperations {
+) : NumVectorContext<S, V> by NumVectorContextImpl(numVectorSpace),
+    VectorOperations<B, S, V> by vectorOperations {
     public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
     public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
     public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
@@ -230,7 +229,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
     public open val context: VectorContext<B, S, V> by lazy {
-        VectorContext(numVectorSpace.field, numVectorSpace, this)
+        VectorContext(numVectorSpace, this)
     }
 
     private val basisNameToIndex: Map<B, Int> by lazy {

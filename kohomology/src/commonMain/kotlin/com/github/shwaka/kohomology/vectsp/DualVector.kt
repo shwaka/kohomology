@@ -1,9 +1,8 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -20,10 +19,9 @@ public data class DualBasisName<B : BasisName>(public val originalBasisName: B) 
 }
 
 public class DualVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
+    numVectorSpace: NumVectorSpace<S, V>,
     vectorOperations: VectorOperations<DualBasisName<B>, S, V>,
-) : VectorContext<DualBasisName<B>, S, V>(scalarOperations, numVectorOperations, vectorOperations) {
+) : VectorContext<DualBasisName<B>, S, V>(numVectorSpace, vectorOperations) {
     public operator fun Vector<DualBasisName<B>, S, V>.invoke(vector: Vector<B, S, V>): S {
         return this.numVector.dot(vector.numVector)
     }
@@ -59,6 +57,6 @@ public class DualVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     },
 ) {
     override val context: DualVectorContext<B, S, V> by lazy {
-        DualVectorContext(this.numVectorSpace.field, this.numVectorSpace, this)
+        DualVectorContext(this.numVectorSpace, this)
     }
 }

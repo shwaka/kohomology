@@ -51,20 +51,13 @@ public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumV
 public class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: GAlgebra<D, B, S, V, M>,
 ) : GAlgebraContext<D, B, S, V, M>,
-    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gAlgebra) {
-
-}
+    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gAlgebra)
 
 public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, B, S, V, M> {
     public val unit: GVector<D, B, S, V>
     public override val context: GAlgebraContext<D, B, S, V, M>
-
-    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
-        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
-            this[degree].getIdentity(this.matrixSpace)
-        }
-    }
+    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M>
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
@@ -102,5 +95,13 @@ public class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         // use 'lazy' to avoid NullPointerException concerning
         // 'open val degreeGroup: DegreeGroup<D>' in GVectorSpace
         this.fromVector(unitVector, 0)
+    }
+
+    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
+        // If this method is implemented in the interface GAlgebra,
+        // a type error is thrown.
+        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
+            this[degree].getIdentity(this.matrixSpace)
+        }
     }
 }

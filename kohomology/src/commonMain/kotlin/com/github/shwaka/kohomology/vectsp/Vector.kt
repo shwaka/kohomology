@@ -339,7 +339,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
 internal class VectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val numVectorSpace: NumVectorSpace<S, V>,
     override val basisNames: List<B>,
-    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorSpace<B, S, V> {
     override val context: VectorContext<B, S, V> = VectorContextImpl(this)
 

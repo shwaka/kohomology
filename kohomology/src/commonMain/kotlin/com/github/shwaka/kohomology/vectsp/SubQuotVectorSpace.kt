@@ -105,7 +105,7 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
 
 public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: SubQuotFactory<B, S, V, M>
-) : VectorSpace<SubQuotBasis<B, S, V>, S, V>(factory.numVectorSpace, factory.basisNames) {
+) : VectorSpace<SubQuotBasis<B, S, V>, S, V> by VectorSpaceImpl(factory.numVectorSpace, factory.basisNames) {
     public val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this.factory.totalVectorSpace,

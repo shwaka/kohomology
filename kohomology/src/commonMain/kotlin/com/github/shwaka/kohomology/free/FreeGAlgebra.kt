@@ -3,12 +3,10 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
+import com.github.shwaka.kohomology.dg.GAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.GAlgebraMap
-import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
-import com.github.shwaka.kohomology.dg.GMagmaOperations
 import com.github.shwaka.kohomology.dg.GVector
-import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
@@ -25,9 +23,7 @@ import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -41,14 +37,12 @@ public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : S
 }
 
 public class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, Monomial<D, I>, S, V>,
-    gMagmaOperations: GMagmaOperations<D, Monomial<D, I>, S, V, M>,
-    gAlgebraOperations: GAlgebraOperations<D, Monomial<D, I>, S, V, M>,
-    freeGAlgebraOperations: FreeGAlgebraOperations<D, I, S, V, M>
-) : GAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations),
-    FreeGAlgebraOperations<D, I, S, V, M> by freeGAlgebraOperations
+    public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M>
+) : GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(freeGAlgebra) {
+    public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
+        return this.freeGAlgebra.parse(text)
+    }
+}
 
 public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -75,7 +69,7 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         }
     }
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this, this)
+        FreeGAlgebraContext(this)
     }
     public val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->

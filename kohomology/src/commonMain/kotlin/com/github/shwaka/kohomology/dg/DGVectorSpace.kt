@@ -87,7 +87,7 @@ internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         return subQuotVectorSpace
     }
 
-    private fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
+    protected fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
         return this.getCohomologyVectorSpace(this.degreeGroup.fromInt(degree))
     }
 

@@ -66,7 +66,7 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     }
 }
 
-internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gMagma: GMagma<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
@@ -84,7 +84,7 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         return super<DGMagma>.getIdentity()
     }
 
-    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.getCohomologyVectorSpace(p)
         val cohomOfDegQ = this.getCohomologyVectorSpace(q)
         val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.degreeGroup.context.run { p + q })

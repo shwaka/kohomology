@@ -56,7 +56,7 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
             if (d(cocycle).isNotZero())
                 throw IllegalArgumentException("Not cocycle: $cocycle (Use GMagma.leftMultiplication to multiply a non-cocycle)")
         }
-        val gLinearMap = this.leftMultiplication(cocycle).gLinearMap
+        val gLinearMap = super.leftMultiplication(cocycle) // calls GMagma.leftMultiplication
         return DGLinearMap(this, this, gLinearMap)
     }
 
@@ -66,7 +66,7 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     }
 }
 
-internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gMagma: GMagma<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
@@ -74,6 +74,10 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
     GMagma<D, B, S, V, M> by gMagma {
     override val context: DGMagmaContext<D, B, S, V, M> by lazy {
         DGMagmaContextImpl(this)
+    }
+
+    override fun getIdentity(): DGLinearMap<D, B, B, S, V, M> {
+        return super<DGMagma>.getIdentity()
     }
 
     protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {

@@ -11,40 +11,24 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
-public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    source: GVectorSpace<D, BS, S, V>,
-    target: GVectorSpace<D, BT, S, V>,
-    public val degree: D,
-    public val matrixSpace: MatrixSpace<S, V, M>,
-    public val name: String,
-    private val getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-) {
-    init {
-        if (source.degreeGroup != target.degreeGroup)
-            throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
-    }
-    // Since source and target are "open val" and accessed from the initializer block,
-    // they can't be declared in the arguments of the primary constructor.
-    // (If they are declared there, the compiler throws the warning
-    //   "accessing non-final property in constructor")
-    public open val source: GVectorSpace<D, BS, S, V> = source
-    public open val target: GVectorSpace<D, BT, S, V> = target
-    public val degreeGroup: DegreeGroup<D> = source.degreeGroup
-    private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
+public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
+    public val source: GVectorSpace<D, BS, S, V>
+    public val target: GVectorSpace<D, BT, S, V>
+    public val degree: D
+    public val matrixSpace: MatrixSpace<S, V, M>
+    public val name: String
+    public val degreeGroup: DegreeGroup<D>
+        get() = source.degreeGroup
 
-    public constructor(
-        source: GVectorSpace<D, BS, S, V>,
-        target: GVectorSpace<D, BT, S, V>,
-        degree: Int,
-        matrixSpace: MatrixSpace<S, V, M>,
-        name: String,
-        getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-    ) : this(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getLinearMap)
+    public operator fun get(degree: D): LinearMap<BS, BT, S, V, M>
+    public operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
+        return this[this.degreeGroup.fromInt(degree)]
+    }
 
     public operator fun invoke(gVector: GVector<D, BS, S, V>): GVector<D, BT, S, V> {
         if (gVector !in this.source)
             throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
-        val linearMap = this.getLinearMap(gVector.degree)
+        val linearMap = this[gVector.degree]
         if (gVector.vector.vectorSpace != linearMap.source)
             throw Exception("Graded linear map contains a bug: getLinearMap returns incorrect linear map")
         val newVector = linearMap(gVector.vector)
@@ -86,21 +70,6 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
         }
     }
 
-    public operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
-        }
-        // if cache does not exist
-        val linearMap = this.getLinearMap(degree)
-        this.cache[degree] = linearMap
-        return linearMap
-    }
-
-    public operator fun get(degree: Int): LinearMap<BS, BT, S, V, M> {
-        return this[this.degreeGroup.fromInt(degree)]
-    }
-
     public fun imageContains(gVector: GVector<D, BT, S, V>): Boolean {
         if (gVector !in this.target)
             throw IllegalArgumentException("Invalid gVector is given: $gVector is not an element of ${this.target}")
@@ -137,11 +106,29 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
         return this.imageBasis(this.degreeGroup.fromInt(degree))
     }
 
-    override fun toString(): String {
-        return this.name
-    }
-
     public companion object {
+        public operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: GVectorSpace<D, BS, S, V>,
+            target: GVectorSpace<D, BT, S, V>,
+            degree: D,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
+        ): GLinearMap<D, BS, BT, S, V, M> {
+            return GLinearMapImpl(source, target, degree, matrixSpace, name, getLinearMap)
+        }
+
+        public operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: GVectorSpace<D, BS, S, V>,
+            target: GVectorSpace<D, BT, S, V>,
+            degree: Int,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>,
+        ): GLinearMap<D, BS, BT, S, V, M> {
+            return GLinearMapImpl(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getLinearMap)
+        }
+
         public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
@@ -202,13 +189,44 @@ public open class GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
     }
 }
 
+public class GLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val source: GVectorSpace<D, BS, S, V>,
+    override val target: GVectorSpace<D, BT, S, V>,
+    override val degree: D,
+    override val matrixSpace: MatrixSpace<S, V, M>,
+    override val name: String,
+    private val getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
+) : GLinearMap<D, BS, BT, S, V, M> {
+    init {
+        if (source.degreeGroup != target.degreeGroup)
+            throw IllegalArgumentException("Cannot consider a linear map between graded vector spaces with different degree groups")
+    }
+
+    private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
+
+    override operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
+        this.cache[degree]?.let {
+            // if cache exists
+            return it
+        }
+        // if cache does not exist
+        val linearMap = this.getLinearMap(degree)
+        this.cache[degree] = linearMap
+        return linearMap
+    }
+
+    override fun toString(): String {
+        return this.name
+    }
+}
+
 public class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GAlgebra<D, BS, S, V, M>,
     override val target: GAlgebra<D, BT, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,
     name: String,
     getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-) : GLinearMap<D, BS, BT, S, V, M>(source, target, 0, matrixSpace, name, getLinearMap) {
+) : GLinearMap<D, BS, BT, S, V, M> by GLinearMap(source, target, 0, matrixSpace, name, getLinearMap) {
     public operator fun <BR : BasisName> times(other: GAlgebraMap<D, BR, BS, S, V, M>): GAlgebraMap<D, BR, BT, S, V, M> {
         require(other.target == this.source) {
             "Cannot composite graded linear maps since the source of $this and the target of $other are different"

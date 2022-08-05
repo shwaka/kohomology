@@ -31,12 +31,18 @@ internal class GMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
 
 public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GVectorSpace<D, B, S, V> {
-    public val matrixSpace: MatrixSpace<S, V, M>
-    public val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>
-    public fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V>
-
     public override val context: GMagmaContext<D, B, S, V, M>
+    public val matrixSpace: MatrixSpace<S, V, M>
+    public fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
+    public fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
+        return when (a) {
+            is ZeroGVector -> this.zeroGVector
+            is GVector -> when (b) {
+                is ZeroGVector -> this.zeroGVector
+                is GVector -> this.multiply(a, b)
+            }
+        }
+    }
 
     public fun isBasis(
         gVectorList: List<GVector<D, B, S, V>>,
@@ -81,7 +87,7 @@ internal class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     degreeGroup: DegreeGroup<D>,
     name: String,
     getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    override val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
+    private val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
 ) : GMagma<D, B, S, V, M>,
@@ -103,17 +109,8 @@ internal class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         val bilinearMapName = "Multiplication(${this.name})"
         GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
     }
+
     override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this.multiplication(a, b)
-    }
-
-    override fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
-        return when (a) {
-            is ZeroGVector -> this.zeroGVector
-            is GVector -> when (b) {
-                is ZeroGVector -> this.zeroGVector
-                is GVector -> this.multiply(a, b)
-            }
-        }
     }
 }

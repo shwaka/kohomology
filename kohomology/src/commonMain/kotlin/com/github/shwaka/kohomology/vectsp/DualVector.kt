@@ -47,7 +47,7 @@ internal fun <B : BasisName, S : PrintableWithSign> InternalPrintConfig<B, S>.du
 
 public class DualVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     public val originalVectorSpace: VectorSpace<B, S, V>
-) : VectorSpace<DualBasisName<B>, S, V>(
+) : VectorSpace<DualBasisName<B>, S, V> by VectorSpaceImpl(
     numVectorSpace = originalVectorSpace.numVectorSpace,
     basisNames = originalVectorSpace.basisNames.map { DualBasisName(it) },
     getInternalPrintConfig = { printConfig ->

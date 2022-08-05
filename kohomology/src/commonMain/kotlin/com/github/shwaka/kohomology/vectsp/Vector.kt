@@ -212,11 +212,11 @@ public class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
 ) : VectorContext<B, S, V>,
     NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)
 
-public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
-    public val numVectorSpace: NumVectorSpace<S, V>,
-    public val basisNames: List<B>,
-    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
-) : VectorOperations<B, S, V> {
+public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> : VectorOperations<B, S, V> {
+    public val numVectorSpace: NumVectorSpace<S, V>
+    public val basisNames: List<B>
+    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
+
     public companion object {
         public operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
@@ -225,21 +225,22 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         ): VectorSpace<StringBasisName, S, V> {
             return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
         }
+
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            basisNames: List<B>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+        ): VectorSpace<B, S, V> {
+            return VectorSpace(numVectorSpace, basisNames, getInternalPrintConfig)
+        }
     }
 
-    public val dim: Int = basisNames.size
-    public val field: Field<S> = this.numVectorSpace.field
+    public val dim: Int get() = basisNames.size
+    public val field: Field<S> get() = this.numVectorSpace.field
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    public open val context: VectorContext<B, S, V> by lazy {
-        VectorContextImpl(this)
-    }
-
-    private val basisNameToIndex: Map<B, Int> by lazy {
-        // cache for indexOf(basisName)
-        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
-    }
+    public val context: VectorContext<B, S, V>
 
     override fun contains(vector: Vector<B, S, V>): Boolean {
         return vector.vectorSpace == this
@@ -319,6 +320,10 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     public fun indexOf(basisName: B): Int {
+        val basisNameToIndex: Map<B, Int> by lazy {
+            // cache for indexOf(basisName)
+            this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+        }
         return basisNameToIndex[basisName]
             ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
     }
@@ -337,6 +342,14 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getIdentity(this, matrixSpace)
     }
+}
+
+internal class VectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val numVectorSpace: NumVectorSpace<S, V>,
+    override val basisNames: List<B>,
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+) : VectorSpace<B, S, V> {
+    override val context: VectorContext<B, S, V> = VectorContextImpl(this)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

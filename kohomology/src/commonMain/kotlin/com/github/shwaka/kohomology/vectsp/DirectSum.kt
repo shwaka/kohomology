@@ -33,7 +33,7 @@ private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : 
  */
 public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: DirectSumFactory<B, S, V, M>
-) : VectorSpace<DirectSumBasis<B>, S, V>(factory.numVectorSpace, factory.basisNames, factory.getInternalPrintConfig) {
+) : VectorSpace<DirectSumBasis<B>, S, V> by VectorSpaceImpl(factory.numVectorSpace, factory.basisNames, factory.getInternalPrintConfig) {
     /** A list of vector spaces in a direct sum. */
     public val vectorSpaceList: List<VectorSpace<B, S, V>> = factory.vectorSpaceList
 

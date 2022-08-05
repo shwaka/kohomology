@@ -45,6 +45,8 @@ public interface ScalarContext<S : Scalar> {
         }
     }
     public fun Int.toScalar(): S = this@ScalarContext.field.fromInt(this)
+    public fun fromInt(n: Int): S = this.field.fromInt(n)
+    public fun fromIntPair(numerator: Int, denominator: Int): S = this.field.fromIntPair(numerator, denominator)
     public val zero: S get() = 0.toScalar()
     public val one: S get() = 1.toScalar()
     public val two: S get() = 2.toScalar()

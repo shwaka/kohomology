@@ -17,6 +17,8 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagmaContext<D, B, S, V, M> {
     public val gAlgebra: GAlgebra<D, B, S, V, M>
+    public val unit: GVector<D, B, S, V>
+        get() = this.gAlgebra.unit
 
     public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
         val unit = this@GAlgebraContext.gAlgebra.unit

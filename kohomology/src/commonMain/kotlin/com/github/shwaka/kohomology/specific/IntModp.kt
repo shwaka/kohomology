@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
+import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -65,9 +66,7 @@ public class Fp private constructor(override val characteristic: Int) : Field<In
         }
     }
 
-    override val context: ScalarContext<IntModp> = ScalarContext(this)
-
-    override val field: Fp = this
+    override val context: ScalarContext<IntModp> = ScalarContextImpl(this)
 
     override fun contains(scalar: IntModp): Boolean {
         return this.characteristic == scalar.characteristic

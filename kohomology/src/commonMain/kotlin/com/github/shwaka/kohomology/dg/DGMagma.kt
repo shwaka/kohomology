@@ -1,9 +1,11 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -25,9 +27,18 @@ public interface DGMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
 
 internal class DGMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgMagma: DGMagma<D, B, S, V, M>,
-) : DGMagmaContext<D, B, S, V, M>,
-    DGVectorContext<D, B, S, V, M> by DGVectorContextImpl(dgMagma),
-    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(dgMagma)
+) : DGMagmaContext<D, B, S, V, M> {
+    // If we write
+    //   DGVectorContext<D, B, S, V, M> by DGVectorContextImpl(dgMagma),
+    //   GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(dgMagma)
+    // to implement the interfaces,
+    // a lot of methods conflict.
+    override val dgVectorSpace: DGVectorSpace<D, B, S, V, M> = dgMagma
+    override val gMagma: GMagma<D, B, S, V, M> = dgMagma
+    override val gVectorSpace: GVectorSpace<D, B, S, V> = gMagma
+    override val numVectorSpace: NumVectorSpace<S, V> = gMagma.numVectorSpace
+    override val field: Field<S> = gMagma.field
+}
 
 public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGVectorSpace<D, B, S, V, M>, GMagma<D, B, S, V, M> {

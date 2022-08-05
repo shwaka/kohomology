@@ -219,36 +219,3 @@ public class GLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         return this.name
     }
 }
-
-public class GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    override val source: GAlgebra<D, BS, S, V, M>,
-    override val target: GAlgebra<D, BT, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>,
-    name: String,
-    getLinearMap: (D) -> LinearMap<BS, BT, S, V, M>
-) : GLinearMap<D, BS, BT, S, V, M> by GLinearMap(source, target, 0, matrixSpace, name, getLinearMap) {
-    public operator fun <BR : BasisName> times(other: GAlgebraMap<D, BR, BS, S, V, M>): GAlgebraMap<D, BR, BT, S, V, M> {
-        require(other.target == this.source) {
-            "Cannot composite graded linear maps since the source of $this and the target of $other are different"
-        }
-        return GAlgebraMap(
-            source = other.source,
-            target = this.target,
-            matrixSpace = this.matrixSpace,
-            name = "${this.name} + ${other.name}",
-        ) { degree -> this[degree] * other[degree] }
-    }
-
-    public companion object {
-        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
-            source: GAlgebra<D, BS, S, V, M>,
-            target: GAlgebra<D, BT, S, V, M>,
-            matrixSpace: MatrixSpace<S, V, M>,
-            name: String,
-            getGVectors: (D) -> List<GVector<D, BT, S, V>>
-        ): GAlgebraMap<D, BS, BT, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, target, 0, matrixSpace, getGVectors)
-            return GAlgebraMap(source, target, matrixSpace, name, getLinearMap)
-        }
-    }
-}

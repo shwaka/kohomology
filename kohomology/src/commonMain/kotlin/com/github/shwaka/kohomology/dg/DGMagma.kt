@@ -51,12 +51,12 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
      * Use [GMagma.leftMultiplication] to get a [GLinearMap]
      * which multiplies a cochain (not cocycle) from left.
      */
-    public override fun leftMultiplication(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
+    public fun leftMultiplicationByCocycle(cocycle: GVector<D, B, S, V>): DGLinearMap<D, B, B, S, V, M> {
         this.context.run {
             if (d(cocycle).isNotZero())
                 throw IllegalArgumentException("Not cocycle: $cocycle (Use GMagma.leftMultiplication to multiply a non-cocycle)")
         }
-        val gLinearMap = super.leftMultiplication(cocycle) // calls GMagma.leftMultiplication
+        val gLinearMap = this.leftMultiplication(cocycle)
         return DGLinearMap(this, this, gLinearMap)
     }
 

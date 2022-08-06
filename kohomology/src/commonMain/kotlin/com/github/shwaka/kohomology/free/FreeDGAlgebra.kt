@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
-import com.github.shwaka.kohomology.dg.GMagma
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
@@ -17,6 +16,7 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -40,9 +40,9 @@ public interface FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Sca
 }
 
 internal class FreeDGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    override val dgAlgebra:  FreeDGAlgebra<D, I, S, V, M>
+    override val dgAlgebra: FreeDGAlgebra<D, I, S, V, M>
 ) : FreeDGAlgebraContext<D, I, S, V, M>,
-    DGAlgebraContext<D, Monomial<D, I>, S, V, M> by DGAlgebraContextImpl(dgAlgebra){
+    DGAlgebraContext<D, Monomial<D, I>, S, V, M> by DGAlgebraContextImpl(dgAlgebra) {
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M> = dgAlgebra
 }
 
@@ -210,7 +210,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         )
     }
 
-    public fun <D_ : Degree> convertDegree(
+    public override fun <D_ : Degree> convertDegree(
         degreeMorphism: AugmentedDegreeMorphism<D, D_>
     ): Pair<FreeDGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {
         val (newFreeGAlgebra, changeDegree) = this.convertDegree(degreeMorphism)
@@ -224,12 +224,20 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         return Pair(newFreeDGAlgebra, changeDegree)
     }
 
-    public fun toIntDegree(): Pair<FreeDGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
+    public override fun toIntDegree(): Pair<FreeDGAlgebra<IntDegree, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, IntDegree, Monomial<IntDegree, I>, S, V, M>> {
         val degreeMorphism = AugmentationDegreeMorphism(this.degreeGroup)
         return this.convertDegree(degreeMorphism)
     }
 
     public companion object {
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gAlgebra: FreeGAlgebra<D, I, S, V, M>,
+            differential: Derivation<D, Monomial<D, I>, S, V, M>,
+            matrixSpace: MatrixSpace<S, V, M>
+        ): FreeDGAlgebra<D, I, S, V, M> {
+            return FreeDGAlgebraImpl(gAlgebra, differential, matrixSpace)
+        }
+
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: AugmentedDegreeGroup<D>,
@@ -318,6 +326,8 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
         // Use by lazy to avoid accessing non-final property in constructor
         this.degreeGroup
     }
+    override val indeterminateList: List<Indeterminate<D, I>> = gAlgebra.indeterminateList
+    override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
 
     override fun toString(printConfig: PrintConfig): String {
         val gAlgebraString = this.toString(printConfig)

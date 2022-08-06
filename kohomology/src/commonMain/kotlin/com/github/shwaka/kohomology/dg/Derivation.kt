@@ -44,6 +44,16 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
     override val target: GAlgebra<D, B, S, V, M>
 
     public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: GAlgebra<D, B, S, V, M>,
+            degree: D,
+            matrixSpace: MatrixSpace<S, V, M>,
+            name: String,
+            getLinearMap: (D) -> LinearMap<B, B, S, V, M>
+        ): Derivation<D, B, S, V, M> {
+            return DerivationImpl(source, degree, matrixSpace, name, getLinearMap)
+        }
+
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<D, B, S, V, M>,
             degree: D,

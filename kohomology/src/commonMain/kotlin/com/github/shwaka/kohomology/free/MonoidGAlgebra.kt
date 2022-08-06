@@ -78,21 +78,39 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
-public open class MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
-) : GAlgebra<D, E, S, V, M> by GAlgebraImpl(
-    factory.matrixSpace,
-    factory.degreeGroup,
-    factory.name,
-    factory::getVectorSpace,
-    factory::getMultiplication,
-    factory.unitVector,
-    listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree,
-    getInternalPrintConfig = factory.getInternalPrintConfig
-) {
-    public val monoid: Mon = factory.monoid
+public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GAlgebra<D, E, S, V, M> {
+    public val monoid: Mon
 
-    public constructor(
+    public companion object {
+        public operator fun <D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            monoid: Mon,
+            name: String,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<E, S> = InternalPrintConfig.Companion::default,
+        ): MonoidGAlgebra<D, E, Mon, S, V, M> {
+            return MonoidGAlgebraImpl(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig)
+        }
+    }
+}
+
+internal class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+    factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
+) : MonoidGAlgebra<D, E, Mon, S, V, M>,
+    GAlgebra<D, E, S, V, M> by GAlgebraImpl(
+        factory.matrixSpace,
+        factory.degreeGroup,
+        factory.name,
+        factory::getVectorSpace,
+        factory::getMultiplication,
+        factory.unitVector,
+        listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree,
+        getInternalPrintConfig = factory.getInternalPrintConfig
+    ) {
+    override val monoid: Mon = factory.monoid
+
+    constructor(
         matrixSpace: MatrixSpace<S, V, M>,
         degreeGroup: DegreeGroup<D>,
         monoid: Mon,

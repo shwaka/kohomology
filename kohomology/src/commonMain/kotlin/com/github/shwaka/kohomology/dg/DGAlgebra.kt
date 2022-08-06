@@ -16,7 +16,7 @@ public interface DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Num
     public val dgAlgebra: DGAlgebra<D, B, S, V, M>
 }
 
-public class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgAlgebra: DGAlgebra<D, B, S, V, M>,
 ) : DGAlgebraContext<D, B, S, V, M>,
     DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgAlgebra) {

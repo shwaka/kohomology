@@ -36,13 +36,18 @@ public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : S
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>
 }
 
-public class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val freeGAlgebra: FreeGAlgebra<D, I, S, V, M>
-) : GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(freeGAlgebra) {
+public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GAlgebraContext<D, Monomial<D, I>, S, V, M> {
+    override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
-        return this.freeGAlgebra.parse(text)
+        return this.gAlgebra.parse(text)
     }
 }
+
+public class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
+) : FreeGAlgebraContext<D, I, S, V, M>,
+    GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)
 
 public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
@@ -69,7 +74,7 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         }
     }
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeGAlgebraContext(this)
+        FreeGAlgebraContextImpl(this)
     }
     public val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->

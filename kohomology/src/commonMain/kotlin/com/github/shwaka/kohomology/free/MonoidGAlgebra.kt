@@ -95,7 +95,7 @@ public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D
     }
 }
 
-internal class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+private class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : MonoidGAlgebra<D, E, Mon, S, V, M>,
     GAlgebra<D, E, S, V, M> by GAlgebraImpl(

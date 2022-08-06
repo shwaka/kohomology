@@ -78,6 +78,7 @@ public interface GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
     NumVectorContext<S, V> {
     public val gVectorSpace: GVectorSpace<D, B, S, V>
 
+    public val zeroGVector: ZeroGVector<D, B, S, V> get() = this.gVectorSpace.zeroGVector
     public operator fun GVector<D, B, S, V>.plus(other: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.add(this, other)
     public operator fun GVectorOrZero<D, B, S, V>.plus(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return when (other) {

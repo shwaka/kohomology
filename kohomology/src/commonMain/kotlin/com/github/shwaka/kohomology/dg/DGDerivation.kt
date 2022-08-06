@@ -16,6 +16,13 @@ public interface DGDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGAlgebra<D, B, S, V, M>,
+            gLinearMap: Derivation<D, B, S, V, M>,
+        ) : DGDerivation<D, B, S, V, M> {
+            return DGDerivationImpl(source, gLinearMap)
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            source: DGAlgebra<D, B, S, V, M>,
             degree: D,
             matrixSpace: MatrixSpace<S, V, M>,
             name: String,
@@ -38,7 +45,7 @@ public interface DGDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVect
     }
 }
 
-internal class DGDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: DGAlgebra<D, B, S, V, M>,
     gLinearMap: Derivation<D, B, S, V, M>,
 ) : DGDerivation<D, B, S, V, M>,

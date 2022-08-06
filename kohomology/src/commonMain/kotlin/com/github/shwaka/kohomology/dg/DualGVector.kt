@@ -2,19 +2,15 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.DualBasisName
 import com.github.shwaka.kohomology.vectsp.DualVectorSpace
 import com.github.shwaka.kohomology.vectsp.dual
 
 public class DualGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, DualBasisName<B>, S, V>,
-) : GVectorContext<D, DualBasisName<B>, S, V>(scalarOperations, numVectorOperations, gVectorOperations) {
+    gVectorSpace: GVectorSpace<D, DualBasisName<B>, S, V>,
+) : GVectorContext<D, DualBasisName<B>, S, V> by GVectorContextImpl(gVectorSpace) {
     public operator fun GVector<D, DualBasisName<B>, S, V>.invoke(gVector: GVector<D, B, S, V>): S {
         val minusGVectorDegree = gVector.gVectorSpace.degreeGroup.context.run {
             -gVector.degree
@@ -38,7 +34,7 @@ public class DualGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
 
 public class DualGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val originalGVectorSpace: GVectorSpace<D, B, S, V>,
-) : GVectorSpace<D, DualBasisName<B>, S, V>(
+) : GVectorSpace<D, DualBasisName<B>, S, V> by GVectorSpaceImpl(
     numVectorSpace = originalGVectorSpace.numVectorSpace,
     degreeGroup = originalGVectorSpace.degreeGroup,
     name = "${originalGVectorSpace.name}^*",
@@ -52,6 +48,6 @@ public class DualGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     },
 ) {
     override val context: DualGVectorContext<D, B, S, V> by lazy {
-        DualGVectorContext(numVectorSpace.field, numVectorSpace, this)
+        DualGVectorContext(this)
     }
 }

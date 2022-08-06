@@ -74,16 +74,6 @@ public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 }
 
-public interface GVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
-    public operator fun contains(gVector: GVector<D, B, S, V>): Boolean
-    public fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun subtract(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun multiply(scalar: S, gVector: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public val zeroGVector: ZeroGVector<D, B, S, V>
-    public fun getZero(degree: D): GVector<D, B, S, V>
-    public val degreeGroup: DegreeGroup<D>
-}
-
 public interface GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> :
     NumVectorContext<S, V> {
     public val gVectorSpace: GVectorSpace<D, B, S, V>

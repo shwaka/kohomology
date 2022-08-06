@@ -5,9 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -16,13 +14,10 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 // no additional operations for Lie algebra (magma is enough)
 
-public open class GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, B, S, V>,
-    gMagmaOperations: GMagmaOperations<D, B, S, V, M>,
-    private val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
-) : GMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations) {
+public interface GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GMagmaContext<D, B, S, V, M> {
+    public val gLieAlgebra: GLieAlgebra<D, B, S, V, M>
+
     public fun ad(gVector: GVector<D, B, S, V>): LieDerivation<D, B, S, V, M> {
         val matrixSpace = this.gLieAlgebra.matrixSpace
         val name = "ad($gVector)"
@@ -31,8 +26,31 @@ public open class GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : 
         }
     }
 }
+public open class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
+) : GLieAlgebraContext<D, B, S, V, M>,
+    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gLieAlgebra)
 
-public open class GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GMagma<D, B, S, V, M> {
+    override val context: GLieAlgebraContext<D, B, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+            getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+        ): GLieAlgebra<D, B, S, V, M> {
+            return GLieAlgebraImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree)
+        }
+    }
+}
+
+internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,
@@ -40,10 +58,11 @@ public open class GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
     getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-) : GMagma<D, B, S, V, M>(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
-    public override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
+) : GLieAlgebra<D, B, S, V, M>,
+    GMagma<D, B, S, V, M> by GMagmaImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
-        GLieAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this)
+        GLieAlgebraContextImpl(this)
     }
 }

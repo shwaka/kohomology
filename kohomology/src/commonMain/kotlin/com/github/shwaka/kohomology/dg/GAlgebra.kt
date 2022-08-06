@@ -76,7 +76,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 }
 
-public class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,
@@ -87,7 +87,7 @@ public class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
 ) : GAlgebra<D, B, S, V, M>,
     GMagma<D, B, S, V, M> by GMagmaImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
-    public override val context: GAlgebraContext<D, B, S, V, M> by lazy {
+    override val context: GAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
         GAlgebraContextImpl(this)
@@ -99,7 +99,7 @@ public class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         this.fromVector(unitVector, 0)
     }
 
-    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
+    override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
         // If this method is implemented in the interface GAlgebra,
         // a type error is thrown.
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->

@@ -109,7 +109,7 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
 
 public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationGLieAlgebraFactory<D, I, S, V, M>
-) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(
+) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by GLieAlgebra(
     matrixSpace = factory.matrixSpace,
     degreeGroup = factory.degreeGroup,
     name = factory.name,

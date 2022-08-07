@@ -46,7 +46,7 @@ public class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scal
     GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)
 
 public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
-    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M> {
+    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>, Printable {
     override val context: FreeGAlgebraContext<D, I, S, V, M>
     override val degreeGroup: AugmentedDegreeGroup<D>
     public val indeterminateList: List<Indeterminate<D, I>>
@@ -215,6 +215,11 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
         return this.convertDegree(degreeMorphism)
     }
 
+    override fun toString(printConfig: PrintConfig): String {
+        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
+        return "Λ($indeterminateString)"
+    }
+
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
@@ -253,11 +258,6 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
     }
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContextImpl(this)
-    }
-
-    override fun toString(printConfig: PrintConfig): String {
-        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
-        return "Λ($indeterminateString)"
     }
 
     companion object {

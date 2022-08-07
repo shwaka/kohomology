@@ -30,12 +30,13 @@ internal class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : N
 public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGMagma<D, B, S, V, M>, GAlgebra<D, B, S, V, M> {
     override val context: DGAlgebraContext<D, B, S, V, M>
+    override val differential: Derivation<D, B, S, V, M>
     override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
 }
 
 internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public open val gAlgebra: GAlgebra<D, B, S, V, M>,
-    differential: Derivation<D, B, S, V, M>,
+    open val gAlgebra: GAlgebra<D, B, S, V, M>,
+    override val differential: Derivation<D, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGMagmaImpl<D, B, S, V, M>(gAlgebra, differential, matrixSpace),
     DGAlgebra<D, B, S, V, M> {

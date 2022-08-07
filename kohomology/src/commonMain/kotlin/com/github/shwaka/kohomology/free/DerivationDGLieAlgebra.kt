@@ -27,7 +27,8 @@ private class DerivationDGLieAlgebraFactory<D : Degree, I : IndeterminateName, S
 
 public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationDGLieAlgebraFactory<D, I, S, V, M>,
-) : DGLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by DGLieAlgebra(factory.gLieAlgebra, factory.differential, factory.matrixSpace), Printable {
+) : DGLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by DGLieAlgebra(factory.gLieAlgebra, factory.differential, factory.matrixSpace),
+    Printable {
     public val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M> = factory.freeDGAlgebra
     public val gLieAlgebra: DerivationGLieAlgebra<D, I, S, V, M> = factory.gLieAlgebra
 
@@ -43,7 +44,7 @@ public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scala
 
     public fun dgDerivationToGVector(dgDerivation: DGDerivation<D, Monomial<D, I>, S, V, M>): GVector<D, DerivationBasis<D, I>, S, V> {
         // dgDerivation is assumed to commute with d
-        return this.gLieAlgebra.derivationToGVector(dgDerivation.gLinearMap)
+        return this.gLieAlgebra.derivationToGVector(dgDerivation)
     }
 
     override fun toString(printConfig: PrintConfig): String {

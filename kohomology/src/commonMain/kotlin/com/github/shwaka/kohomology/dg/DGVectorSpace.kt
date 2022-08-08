@@ -41,6 +41,16 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
     public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
     public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+            differential: GLinearMap<D, B, B, S, V, M>,
+            matrixSpace: MatrixSpace<S, V, M>
+        ): DGVectorSpace<D, B, S, V, M> {
+            return DGVectorSpaceImpl(gVectorSpace, differential, matrixSpace)
+        }
+    }
 }
 
 internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

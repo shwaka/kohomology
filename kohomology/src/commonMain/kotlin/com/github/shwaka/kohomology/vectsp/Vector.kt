@@ -182,6 +182,7 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
 public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : NumVectorContext<S, V> {
     public val vectorSpace: VectorSpace<B, S, V>
 
+    public val zeroVector: Vector<B, S, V> get() = this.vectorSpace.zeroVector
     public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.add(this, other)
     public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.subtract(this, other)
     public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(scalar, this)

@@ -150,7 +150,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapEdgeCaseTest(matri
         val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
         val (a, b) = vectorSpace.getBasis()
         // val zeroVectorSpace = VectorSpace<StringBasisName, S, V>(numVectorSpace, listOf())
-        val zeroVectorSpace = VectorSpace(numVectorSpace, listOf())
+        // Explicit type parameter for emptyList() is necessary to avoid overload resolution ambiguity
+        val zeroVectorSpace = VectorSpace(numVectorSpace, emptyList<StringBasisName>())
         val zeroVector = zeroVectorSpace.zeroVector
         matrixSpace.context.run {
             "linear map to zero" {

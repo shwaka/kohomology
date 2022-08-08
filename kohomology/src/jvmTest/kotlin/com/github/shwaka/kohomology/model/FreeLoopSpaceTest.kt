@@ -47,7 +47,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
-        val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+        val (x, y, sx, sy) = freeLoopSpace.generatorList
 
         freeLoopSpace.context.run {
             "check differential" {
@@ -154,24 +154,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             }
             "parse test" - {
                 "parse test without specifying printer".config(tags = setOf(parseTag)) {
-                    freeLoopSpace.gAlgebra.parse("x") shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx") shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y") shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy") shouldBe sy
+                    freeLoopSpace.parse("x") shouldBe x
+                    freeLoopSpace.parse("sx") shouldBe sx
+                    freeLoopSpace.parse("y") shouldBe y
+                    freeLoopSpace.parse("sy") shouldBe sy
                 }
                 "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                    freeLoopSpace.parse("x", printer) shouldBe x
+                    freeLoopSpace.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.parse("y", printer) shouldBe y
+                    freeLoopSpace.parse("sy", printer) shouldBe sy
                 }
                 "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                    freeLoopSpace.parse("x", printer) shouldBe x
+                    freeLoopSpace.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.parse("y", printer) shouldBe y
+                    freeLoopSpace.parse("sy", printer) shouldBe sy
                 }
             }
         }
@@ -217,7 +217,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
         "test for FreeLoopSpace.withShiftDegree(sphere)" - {
             val sphereDim = 2
             val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere(matrixSpace, sphereDim))
-            val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+            val (x, y, sx, sy) = freeLoopSpace.generatorList
 
             "check freeLoopSpace.getDegree" {
                 freeLoopSpace.getDegree(sphereDim, 0) shouldBe x.degree
@@ -266,24 +266,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
             }
             "parse test" - {
                 "parse test without specifying printer".config(tags = setOf(parseTag)) {
-                    freeLoopSpace.gAlgebra.parse("x") shouldBe x
-                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}x") shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y") shouldBe y
-                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}y") shouldBe sy
+                    freeLoopSpace.parse("x") shouldBe x
+                    freeLoopSpace.parse("s^{1 + -2S}x") shouldBe sx
+                    freeLoopSpace.parse("y") shouldBe y
+                    freeLoopSpace.parse("s^{1 + -2S}y") shouldBe sy
                 }
                 "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
-                    freeLoopSpace.gAlgebra.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
-                    freeLoopSpace.gAlgebra.parse("sy", printer) shouldBe sy
+                    freeLoopSpace.parse("x", printer) shouldBe x
+                    freeLoopSpace.parse("sx", printer) shouldBe sx
+                    freeLoopSpace.parse("y", printer) shouldBe y
+                    freeLoopSpace.parse("sy", printer) shouldBe sy
                 }
                 "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
                     val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-                    freeLoopSpace.gAlgebra.parse("x", printer) shouldBe x
-                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}x", printer) shouldBe sx
-                    freeLoopSpace.gAlgebra.parse("y", printer) shouldBe y
-                    freeLoopSpace.gAlgebra.parse("s^{1 + -2S}y", printer) shouldBe sy
+                    freeLoopSpace.parse("x", printer) shouldBe x
+                    freeLoopSpace.parse("s^{1 + -2S}x", printer) shouldBe sx
+                    freeLoopSpace.parse("y", printer) shouldBe y
+                    freeLoopSpace.parse("s^{1 + -2S}y", printer) shouldBe sy
                 }
             }
         }

@@ -217,7 +217,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
             basisNames: List<B>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<B, S, V> {
-            return VectorSpace(numVectorSpace, basisNames, getInternalPrintConfig)
+            return VectorSpaceImpl(numVectorSpace, basisNames, getInternalPrintConfig)
         }
 
         @JvmName("VectorSpaceFromStringBasisName")
@@ -226,7 +226,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
             basisNames: List<String>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
+            return VectorSpaceImpl(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
         }
     }
 

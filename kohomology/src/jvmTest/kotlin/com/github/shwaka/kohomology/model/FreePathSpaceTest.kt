@@ -37,7 +37,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
             listOf(zeroGVector, x.pow(2))
         }
         val freePathSpace = FreePathSpace(sphere)
-        val (x1, y1, x2, y2, sx, sy) = freePathSpace.gAlgebra.generatorList
+        val (x1, y1, x2, y2, sx, sy) = freePathSpace.generatorList
 
         "check differential" {
             freePathSpace.context.run {
@@ -68,9 +68,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfCPnTest(
 ) = freeSpec {
     "[CP^$n]" - {
         val cpn = complexProjectiveSpace(matrixSpace, n)
-        val (c, _) = cpn.gAlgebra.generatorList
+        val (c, _) = cpn.generatorList
         val freePathSpace = FreePathSpace(cpn)
-        val (c1, x1, c2, x2, sc, sx) = freePathSpace.gAlgebra.generatorList
+        val (c1, x1, c2, x2, sc, sx) = freePathSpace.generatorList
 
         "check differential" {
             freePathSpace.context.run {
@@ -122,7 +122,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
             listOf(zeroGVector, zeroGVector, zeroGVector, zeroGVector)
         }
         val freePathSpace = FreePathSpace(freeDGAlgebra)
-        val (a1, b1, x1, y1, a2, b2, x2, y2, sa, sb, sx, sy) = freePathSpace.gAlgebra.generatorList
+        val (a1, b1, x1, y1, a2, b2, x2, y2, sa, sb, sx, sy) = freePathSpace.generatorList
 
         freePathSpace.context.run {
             "sorted printer test" {

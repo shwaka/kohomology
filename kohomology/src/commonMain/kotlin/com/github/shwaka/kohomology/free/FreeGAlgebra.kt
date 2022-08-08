@@ -229,6 +229,13 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
         ): FreeGAlgebra<D, I, S, V, M> {
             return FreeGAlgebraImpl(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig)
         }
+
+        public operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            indeterminateList: List<Indeterminate<IntDegree, I>>
+        ): FreeGAlgebra<IntDegree, I, S, V, M> {
+            return FreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
+        }
     }
 }
 
@@ -264,13 +271,6 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
         private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
             return "Λ($indeterminateString)"
-        }
-
-        operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            indeterminateList: List<Indeterminate<IntDegree, I>>
-        ): FreeGAlgebra<IntDegree, I, S, V, M> {
-            return FreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
         }
     }
 }

@@ -28,7 +28,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     val shiftDegree = shiftDegree ?: freeDGAlgebra.degreeGroup.fromInt(1)
     val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeGroup = this.freeDGAlgebra.degreeGroup
-        val loopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
+        val loopSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegree) }
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
@@ -37,7 +37,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val gAlgebraInclusion: GAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M>
     init {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
+        val n = freeDGAlgebra.indeterminateList.size
         val loopSpaceGeneratorList = loopSpaceGAlgebra.generatorList
         this.suspension = run {
             val suspensionDegree = this.freeDGAlgebra.degreeGroup.context.run {
@@ -48,12 +48,12 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
             }
             loopSpaceGAlgebra.getDerivation(suspensionValueList, suspensionDegree)
         }
-        this.gAlgebraInclusion = freeDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.gAlgebraInclusion = freeDGAlgebra.getGAlgebraMap(
             loopSpaceGAlgebra,
             loopSpaceGeneratorList.take(n)
         )
         val differentialValueList = run {
-            val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
+            val baseSpaceGeneratorList = freeDGAlgebra.generatorList
             val valueList1 = baseSpaceGeneratorList.map { v ->
                 freeDGAlgebra.context.run { gAlgebraInclusion(d(v)) }
             }
@@ -69,7 +69,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 
 public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     public constructor(
         freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
         shiftDegree: D? = null,

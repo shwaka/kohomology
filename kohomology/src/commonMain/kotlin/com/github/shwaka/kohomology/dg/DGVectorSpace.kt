@@ -25,6 +25,15 @@ public interface DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
     public fun GVector<D, B, S, V>.boundingCochain(): GVector<D, B, S, V>? {
         return this@DGVectorContext.dgVectorSpace.boundingCochainOf(this)
     }
+    public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+        return this.dgVectorSpace.cohomologyClassOf(cocycle)
+    }
+    public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
+        return this.dgVectorSpace.cocycleRepresentativeOf(cohomologyClass)
+    }
+    public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
+        return this.dgVectorSpace.boundingCochainOf(cocycle)
+    }
 }
 
 internal class DGVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

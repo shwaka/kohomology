@@ -211,6 +211,14 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
 
     public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            basisNames: List<B>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+        ): VectorSpace<B, S, V> {
+            return VectorSpace(numVectorSpace, basisNames, getInternalPrintConfig)
+        }
+
         @JvmName("VectorSpaceFromStringBasisName")
         public operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
@@ -218,14 +226,6 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
             return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
-        }
-
-        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
-            numVectorSpace: NumVectorSpace<S, V>,
-            basisNames: List<B>,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
-        ): VectorSpace<B, S, V> {
-            return VectorSpace(numVectorSpace, basisNames, getInternalPrintConfig)
         }
     }
 

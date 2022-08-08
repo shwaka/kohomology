@@ -26,9 +26,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
             throw IllegalArgumentException("The dimension of a sphere must be even in this test")
         val sphere = sphere(matrixSpace, sphereDim)
         val dividedFreeLoopSpace = DividedFreeLoopSpace(sphere)
-        val (x1, y1, x2, y2, sx1, sy1, sx2, sy2) = dividedFreeLoopSpace.gAlgebra.generatorList
+        val (x1, y1, x2, y2, sx1, sy1, sx2, sy2) = dividedFreeLoopSpace.generatorList
         val freeLoopSpace = dividedFreeLoopSpace.freeLoopSpace
-        val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+        val (x, y, sx, sy) = freeLoopSpace.generatorList
 
         "check differential" {
             dividedFreeLoopSpace.context.run {
@@ -43,7 +43,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dividedFreeLoopSpaceOfEvenS
 
         "assert that projections are dga maps" {
             (listOf(dividedFreeLoopSpace.projection1, dividedFreeLoopSpace.projection2)).forAll { projection ->
-                (dividedFreeLoopSpace.gAlgebra.generatorList).forAll { v ->
+                (dividedFreeLoopSpace.generatorList).forAll { v ->
                     freeLoopSpace.differential(projection(v)) shouldBe
                         projection(dividedFreeLoopSpace.differential(v))
                 }

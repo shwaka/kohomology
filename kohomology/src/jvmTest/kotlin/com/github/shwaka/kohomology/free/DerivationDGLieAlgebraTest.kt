@@ -53,7 +53,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
         }
 
         "check value of dgVectorToDerivation()" {
-            val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+            val (x, y) = freeDGAlgebra.generatorList
             val dyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(dy)
             val xdyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(xdy)
             freeDGAlgebra.context.run {

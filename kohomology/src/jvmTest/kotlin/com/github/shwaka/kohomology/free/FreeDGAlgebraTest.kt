@@ -66,7 +66,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
         if (sphereDim % 2 == 0)
             throw IllegalArgumentException("The dimension of a sphere must be odd in this test")
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
-        val (x) = freeDGAlgebra.gAlgebra.generatorList
+        val (x) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             checkDGAlgebraAxioms(freeDGAlgebra, 0..(sphereDim * 2))
 
@@ -94,7 +94,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
         if (sphereDim % 2 == 1)
             throw IllegalArgumentException("The dimension of a sphere must be even in this test")
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
-        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        val (x, y) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             checkDGAlgebraAxioms(freeDGAlgebra, 0..(sphereDim * 4))
 
@@ -135,7 +135,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMapTest(matrixS
     val sphereDim: Int = 4
     "[test getDGAlgebraMap for the sphere of dimension $sphereDim]" - {
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
-        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        val (x, y) = freeDGAlgebra.generatorList
         val a: Int = 2
         freeDGAlgebra.context.run {
             "(x->${a}x, y->${a.pow(2)}y) should give a dga map" {
@@ -160,7 +160,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
     val sphereDim: Int = 4 // must be even
     "[test getDGDerivation for the sphere of dimension $sphereDim]" - {
         val freeDGAlgebra = sphere(matrixSpace, sphereDim)
-        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        val (x, y) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             "(x->0, y->1) should give a dg derivation" {
                 val f = shouldNotThrowAny {
@@ -190,7 +190,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _, v, _) ->
             listOf(zeroGVector, x.pow(2), zeroGVector, v)
         }
-        val (x, y, _, _) = freeDGAlgebra.gAlgebra.generatorList
+        val (x, y, _, _) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             "check sign in the commutativity of d and a derivation" {
                 shouldNotThrowAny {
@@ -205,7 +205,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOverS4Test(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "model in FHT Section 12 (a) Example 7 (p.147)" - {
         val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
-        val (a, b, x, y, z) = freeDGAlgebra.gAlgebra.generatorList
+        val (a, b, x, y, z) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             checkDGAlgebraAxioms(freeDGAlgebra, 0..15)
             "check differential" {
@@ -257,7 +257,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
             GeneratorOfFreeDGA("y", 3, "x^2"),
         )
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList)
-        val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+        val (x, y) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             d(x).isZero().shouldBeTrue()
             d(y) shouldBe (x.pow(2))
@@ -282,7 +282,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> printerTest(matrixSpace: Ma
         val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
         val texPrinter = Printer(PrintType.TEX)
         "print cohomology classes as TeX" - {
-            val (a, b) = freeDGAlgebra.gAlgebra.generatorList
+            val (a, b) = freeDGAlgebra.generatorList
             freeDGAlgebra.context.run {
                 "length 1" {
                     texPrinter(a.cohomologyClass()) shouldBe "[A]"

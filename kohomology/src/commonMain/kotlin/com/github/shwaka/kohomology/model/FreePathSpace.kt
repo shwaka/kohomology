@@ -18,11 +18,11 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 ) {
     val matrixSpace = freeDGAlgebra.matrixSpace
     val pathSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
+        val n = freeDGAlgebra.indeterminateList.size
         val degreeGroup = this.freeDGAlgebra.degreeGroup
         val zero = degreeGroup.zero
         val one = degreeGroup.fromInt(1)
-        val pathSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
+        val pathSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeGroup, shift = zero, index = 1) } +
                 list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
                 list.map { it.copy(degreeGroup, shift = one) }
@@ -52,7 +52,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     val gAlgebraInclusion2: GAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M>
     val gAlgebraProjection: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, I>, S, V, M>
     init {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
+        val n = freeDGAlgebra.indeterminateList.size
         val pathSpaceGeneratorList = this.pathSpaceGAlgebra.generatorList
         this.suspension = run {
             val suspensionValueList = pathSpaceGeneratorList.takeLast(n) +
@@ -62,24 +62,24 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
                 }
             this.pathSpaceGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.gAlgebraInclusion1 = freeDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.gAlgebraInclusion1 = freeDGAlgebra.getGAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.take(n)
         )
-        this.gAlgebraInclusion2 = freeDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.gAlgebraInclusion2 = freeDGAlgebra.getGAlgebraMap(
             this.pathSpaceGAlgebra,
             pathSpaceGeneratorList.slice(n until 2 * n)
         )
         this.gAlgebraProjection = run {
-            val gAlgebraGeneratorList = freeDGAlgebra.gAlgebra.generatorList.take(n)
-            val zeroGVector = freeDGAlgebra.gAlgebra.zeroGVector
+            val gAlgebraGeneratorList = freeDGAlgebra.generatorList.take(n)
+            val zeroGVector = freeDGAlgebra.zeroGVector
             pathSpaceGAlgebra.getGAlgebraMap(
-                freeDGAlgebra.gAlgebra,
+                freeDGAlgebra,
                 gAlgebraGeneratorList + gAlgebraGeneratorList + List(n) { zeroGVector }
             )
         }
         var differentialValueList = run {
-            val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
+            val baseSpaceGeneratorList = freeDGAlgebra.generatorList
             val valueList1 = baseSpaceGeneratorList.map { v ->
                 freeDGAlgebra.context.run { this@FreePathSpaceFactory.gAlgebraInclusion1(d(v)) }
             }
@@ -125,7 +125,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 
 public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreePathSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
@@ -152,6 +152,6 @@ public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
     }
 
     // private val n: Int by lazy {
-    //     this.factory.freeDGAlgebra.gAlgebra.generatorList.size
+    //     this.factory.freeDGAlgebra.generatorList.size
     // }
 }

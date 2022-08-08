@@ -32,6 +32,7 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val context: DGAlgebraContext<D, B, S, V, M>
     override val differential: Derivation<D, B, S, V, M>
     override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
+    override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>
 }
 
 internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

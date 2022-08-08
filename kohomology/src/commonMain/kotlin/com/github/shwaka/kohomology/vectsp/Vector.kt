@@ -15,6 +15,7 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Sign
+import kotlin.jvm.JvmName
 
 public interface BasisName : Printable {
     public override fun toString(printConfig: PrintConfig): String = this.toString()
@@ -210,6 +211,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
 
     public companion object {
+        @JvmName("VectorSpaceFromStringBasisName")
         public operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,

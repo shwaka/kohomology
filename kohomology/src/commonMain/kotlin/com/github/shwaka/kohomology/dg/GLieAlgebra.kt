@@ -59,7 +59,7 @@ internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
 ) : GLieAlgebra<D, B, S, V, M>,
-    GMagma<D, B, S, V, M> by GMagmaImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    GMagma<D, B, S, V, M> by GMagma(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
     override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra

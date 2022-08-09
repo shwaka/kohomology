@@ -86,7 +86,7 @@ internal class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
 ) : GAlgebra<D, B, S, V, M>,
-    GMagma<D, B, S, V, M> by GMagmaImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    GMagma<D, B, S, V, M> by GMagma(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
     override val context: GAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra

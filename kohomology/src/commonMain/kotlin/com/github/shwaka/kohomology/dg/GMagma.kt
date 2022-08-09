@@ -80,9 +80,31 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
             }
         }
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+            getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+        ): GMagma<D, B, S, V, M> {
+            return GMagmaImpl(
+                matrixSpace,
+                degreeGroup,
+                name,
+                getVectorSpace,
+                getMultiplication,
+                getInternalPrintConfig,
+                listDegreesForAugmentedDegree
+            )
+        }
+    }
 }
 
-internal class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,

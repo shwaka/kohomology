@@ -118,7 +118,7 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.getInternalPrintConfig(printConfig))
         }
-        GMagmaImpl(
+        GMagma(
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,

@@ -113,7 +113,7 @@ private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
 ) : GMagma<D, B, S, V, M>,
-    GVectorSpace<D, B, S, V> by GVectorSpaceImpl(
+    GVectorSpace<D, B, S, V> by GVectorSpace(
         matrixSpace.numVectorSpace,
         degreeGroup,
         name,

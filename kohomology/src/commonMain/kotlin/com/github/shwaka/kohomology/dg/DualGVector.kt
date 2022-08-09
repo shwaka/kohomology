@@ -34,7 +34,7 @@ public class DualGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
 
 public class DualGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val originalGVectorSpace: GVectorSpace<D, B, S, V>,
-) : GVectorSpace<D, DualBasisName<B>, S, V> by GVectorSpaceImpl(
+) : GVectorSpace<D, DualBasisName<B>, S, V> by GVectorSpace(
     numVectorSpace = originalGVectorSpace.numVectorSpace,
     degreeGroup = originalGVectorSpace.degreeGroup,
     name = "${originalGVectorSpace.name}^*",

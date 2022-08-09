@@ -176,6 +176,17 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+        ): GVectorSpace<D, B, S, V> {
+            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace)
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
         ): GVectorSpace<D, B, S, V> {
             return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, null, getVectorSpace)
@@ -384,12 +395,12 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     }
 }
 
-public class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
-    public override val numVectorSpace: NumVectorSpace<S, V>,
-    public override val degreeGroup: DegreeGroup<D>,
-    public override val name: String,
-    public override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-    public override val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val numVectorSpace: NumVectorSpace<S, V>,
+    override val degreeGroup: DegreeGroup<D>,
+    override val name: String,
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+    override val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorSpace<D, B, S, V> {
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()

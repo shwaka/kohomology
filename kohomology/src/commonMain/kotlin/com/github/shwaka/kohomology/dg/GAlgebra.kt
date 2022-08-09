@@ -74,9 +74,33 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         //     throw exception
         // }
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+            getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
+            unitVector: Vector<B, S, V>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+        ): GAlgebra<D, B, S, V, M> {
+            return GAlgebraImpl(
+                matrixSpace,
+                degreeGroup,
+                name,
+                getVectorSpace,
+                getMultiplication,
+                unitVector,
+                getInternalPrintConfig,
+                listDegreesForAugmentedDegree
+            )
+        }
+    }
 }
 
-internal class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     matrixSpace: MatrixSpace<S, V, M>,
     degreeGroup: DegreeGroup<D>,
     name: String,

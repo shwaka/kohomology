@@ -52,7 +52,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.gAlgebra.getInternalPrintConfig(printConfig))
         }
-        GAlgebraImpl(
+        GAlgebra(
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,

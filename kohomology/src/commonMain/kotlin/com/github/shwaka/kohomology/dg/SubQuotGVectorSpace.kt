@@ -60,4 +60,7 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         this.cache[degree] = vectorSpace
         return vectorSpace
     }
+    override fun get(degree: Int): SubQuotVectorSpace<B, S, V, M> {
+        return this[this.degreeGroup.fromInt(degree)]
+    }
 }

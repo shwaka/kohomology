@@ -15,6 +15,9 @@ import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> {
     override fun get(degree: D): SubQuotVectorSpace<B, S, V, M>
+    override fun get(degree: Int): SubQuotVectorSpace<B, S, V, M> {
+        return this[this.degreeGroup.fromInt(degree)]
+    }
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

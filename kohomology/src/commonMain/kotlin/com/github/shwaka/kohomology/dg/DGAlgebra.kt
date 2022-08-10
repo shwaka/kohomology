@@ -32,7 +32,7 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val context: DGAlgebraContext<D, B, S, V, M>
     override val differential: Derivation<D, B, S, V, M>
     override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
-    override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>
+    override val cohomology: SubQuotGAlgebra<D, B, S, V, M>
 }
 
 internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -46,13 +46,13 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     }
     override val unit: GVector<D, B, S, V> by lazy { gAlgebra.unit }
 
-    override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+    override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
         val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.gAlgebra.getInternalPrintConfig(printConfig))
         }
-        GAlgebra(
+        SubQuotGAlgebra(
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,
@@ -64,7 +64,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
         )
     }
 
-    public override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
+    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
         val gAlgebraMap = this.gAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }

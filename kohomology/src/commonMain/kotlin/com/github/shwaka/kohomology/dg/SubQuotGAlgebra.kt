@@ -17,26 +17,28 @@ import com.github.shwaka.kohomology.vectsp.Vector
 public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>,
     SubQuotGMagma<D, B, S, V, M> {
-    public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-        matrixSpace: MatrixSpace<S, V, M>,
-        degreeGroup: DegreeGroup<D>,
-        name: String,
-        getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-        getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-        unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
-        getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
-        listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-    ): SubQuotGAlgebra<D, B, S, V, M> {
-        return SubQuotGAlgebraImpl(
-            matrixSpace,
-            degreeGroup,
-            name,
-            getVectorSpace,
-            getMultiplication,
-            unitVector,
-            getInternalPrintConfig,
-            listDegreesForAugmentedDegree,
-        )
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
+            getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
+            unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+        ): SubQuotGAlgebra<D, B, S, V, M> {
+            return SubQuotGAlgebraImpl(
+                matrixSpace,
+                degreeGroup,
+                name,
+                getVectorSpace,
+                getMultiplication,
+                unitVector,
+                getInternalPrintConfig,
+                listDegreesForAugmentedDegree,
+            )
+        }
     }
 }
 

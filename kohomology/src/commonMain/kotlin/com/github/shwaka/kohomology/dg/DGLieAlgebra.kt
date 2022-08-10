@@ -26,6 +26,7 @@ internal class DGLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V 
 public interface DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGMagma<D, B, S, V, M>, GLieAlgebra<D, B, S, V, M> {
     override val context: DGLieAlgebraContext<D, B, S, V, M>
+    override val cohomology: SubQuotGLieAlgebra<D, B, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -48,12 +49,12 @@ internal class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         DGLieAlgebraContextImpl(this)
     }
 
-    override val cohomology: GLieAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+    override val cohomology: SubQuotGLieAlgebra<D, B, S, V, M> by lazy {
         // Just override the type
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.getInternalPrintConfig(printConfig))
         }
-        GLieAlgebra(
+        SubQuotGLieAlgebra(
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,

@@ -43,6 +43,7 @@ internal class DGMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : Num
 public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGVectorSpace<D, B, S, V, M>, GMagma<D, B, S, V, M> {
     override val context: DGMagmaContext<D, B, S, V, M>
+    override val cohomology: SubQuotGMagma<D, B, S, V, M>
 
     /**
      * Returns a [DGLinearMap] which multiplies [cocycle] from left.
@@ -114,11 +115,11 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         )
     }
 
-    override val cohomology: GMagma<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+    override val cohomology: SubQuotGMagma<D, B, S, V, M> by lazy {
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.getInternalPrintConfig(printConfig))
         }
-        GMagma(
+        SubQuotGMagma(
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,

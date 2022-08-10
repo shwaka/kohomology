@@ -39,7 +39,7 @@ public interface DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
     }
 }
 
-internal class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
@@ -58,7 +58,7 @@ internal class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,
-            this::getCohomologyVectorSpace,
+            this.cohomology::get,
             this::getCohomologyMultiplication,
             listDegreesForAugmentedDegree = this.listDegreesForAugmentedDegree,
             getInternalPrintConfig = getInternalPrintConfig

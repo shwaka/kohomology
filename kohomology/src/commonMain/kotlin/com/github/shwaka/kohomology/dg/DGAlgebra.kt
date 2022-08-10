@@ -47,7 +47,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val unit: GVector<D, B, S, V> by lazy { gAlgebra.unit }
 
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
-        val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
+        val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.cohomology[0]
         val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
         val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
             SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.gAlgebra.getInternalPrintConfig(printConfig))
@@ -56,7 +56,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,
-            this::getCohomologyVectorSpace,
+            this.cohomology::get,
             this::getCohomologyMultiplication,
             cohomologyUnit,
             listDegreesForAugmentedDegree = this.gAlgebra.listDegreesForAugmentedDegree,

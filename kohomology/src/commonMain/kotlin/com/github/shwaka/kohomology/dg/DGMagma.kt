@@ -65,9 +65,19 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         val gLinearMap = this.getIdentity(this.matrixSpace)
         return DGLinearMap(this, this, gLinearMap)
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gMagma: GMagma<D, B, S, V, M>,
+            differential: GLinearMap<D, B, B, S, V, M>,
+            matrixSpace: MatrixSpace<S, V, M>
+        ): DGMagma<D, B, S, V, M> {
+            return DGMagmaImpl(gMagma, differential, matrixSpace)
+        }
+    }
 }
 
-private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gMagma: GMagma<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
@@ -85,7 +95,7 @@ private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         return super<DGMagma>.getIdentity()
     }
 
-    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.cohomology[p]
         val cohomOfDegQ = this.cohomology[q]
         val cohomOfDegPPlusQ = this.cohomology[this.degreeGroup.context.run { p + q }]

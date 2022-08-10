@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
@@ -46,7 +47,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public override val context: DGVectorContext<D, B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
     public val differential: GLinearMap<D, B, B, S, V, M>
-    public val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
+    public val cohomology: SubQuotGVectorSpace<D, B, S, V, M>
     public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
     public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
     public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
@@ -77,11 +78,12 @@ internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     protected val cohomologyName: String
         get() = "H(${this.name})"
 
-    override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
-        GVectorSpace(
+    override val cohomology: SubQuotGVectorSpace<D, B, S, V, M> by lazy {
+        SubQuotGVectorSpace(
             this.matrixSpace.numVectorSpace,
             this.degreeGroup,
             this.cohomologyName,
+            InternalPrintConfig.Companion::default,
             this.listDegreesForAugmentedDegree,
             this::getCohomologyVectorSpace,
         )

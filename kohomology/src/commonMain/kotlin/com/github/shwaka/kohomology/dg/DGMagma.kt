@@ -67,12 +67,12 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     }
 }
 
-internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gMagma: GMagma<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : DGMagma<D, B, S, V, M>,
-    DGVectorSpaceImpl<D, B, S, V, M>(gMagma, differential, matrixSpace) {
+    DGVectorSpace<D, B, S, V, M> by DGVectorSpace(gMagma, differential, matrixSpace) {
     override val context: DGMagmaContext<D, B, S, V, M> by lazy {
         DGMagmaContextImpl(this)
     }
@@ -85,10 +85,10 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         return super<DGMagma>.getIdentity()
     }
 
-    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
-        val cohomOfDegP = this.getCohomologyVectorSpace(p)
-        val cohomOfDegQ = this.getCohomologyVectorSpace(q)
-        val cohomOfDegPPlusQ = this.getCohomologyVectorSpace(this.degreeGroup.context.run { p + q })
+    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+        val cohomOfDegP = this.cohomology[p]
+        val cohomOfDegQ = this.cohomology[q]
+        val cohomOfDegPPlusQ = this.cohomology[this.degreeGroup.context.run { p + q }]
         val basisLift1: List<Vector<B, S, V>> =
             cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegP.section(vector1)
@@ -123,7 +123,7 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
             matrixSpace,
             this.degreeGroup,
             this.cohomologyName,
-            this::getCohomologyVectorSpace,
+            this.cohomology::get,
             this::getCohomologyMultiplication,
             listDegreesForAugmentedDegree = this.listDegreesForAugmentedDegree,
             getInternalPrintConfig = getInternalPrintConfig

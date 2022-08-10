@@ -52,6 +52,9 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
     public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
 
+    public val cohomologyName: String
+        get() = "H(${this.name})"
+
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gVectorSpace: GVectorSpace<D, B, S, V>,
@@ -63,7 +66,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     }
 }
 
-internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorSpace: GVectorSpace<D, B, S, V>,
     override val differential: GLinearMap<D, B, B, S, V, M>,
     override val matrixSpace: MatrixSpace<S, V, M>
@@ -74,9 +77,6 @@ internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     override val context: DGVectorContext<D, B, S, V, M> by lazy {
         DGVectorContextImpl(this)
     }
-
-    protected val cohomologyName: String
-        get() = "H(${this.name})"
 
     override val cohomology: SubQuotGVectorSpace<D, B, S, V, M> by lazy {
         SubQuotGVectorSpace(
@@ -89,7 +89,7 @@ internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         )
     }
 
-    protected fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
+    fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists
             return it
@@ -108,7 +108,7 @@ internal open class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         return subQuotVectorSpace
     }
 
-    protected fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
+    fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
         return this.getCohomologyVectorSpace(this.degreeGroup.fromInt(degree))
     }
 

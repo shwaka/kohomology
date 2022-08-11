@@ -26,14 +26,28 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGMagma<D, B, S, V, M> {
-            return SubQuotGMagmaImpl(
-                matrixSpace,
+            val subQuotGVectorSpace = SubQuotGVectorSpace(
+                matrixSpace.numVectorSpace,
                 degreeGroup,
                 name,
-                getVectorSpace,
-                getMultiplication,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,
+                getVectorSpace,
+            )
+            val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
+                val bilinearMapName = "Multiplication($name)"
+                GBilinearMap(
+                    subQuotGVectorSpace,
+                    subQuotGVectorSpace,
+                    subQuotGVectorSpace,
+                    0,
+                    bilinearMapName,
+                ) { p, q -> getMultiplication(p, q) }
+            }
+            return SubQuotGMagmaImpl(
+                matrixSpace,
+                subQuotGVectorSpace,
+                multiplication
             )
         }
     }
@@ -41,27 +55,11 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
 
 private class SubQuotGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
-    name: String,
-    private val getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-    getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
-    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+    subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+    override val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : SubQuotGMagma<D, B, S, V, M>,
-    SubQuotGVectorSpace<D, B, S, V, M> by SubQuotGVectorSpace(matrixSpace.numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace) {
+    SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
     override val context: GMagmaContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         GMagmaContextImpl(this)
-    }
-
-    private val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
-        val bilinearMapName = "Multiplication(${this.name})"
-        GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
-    }
-
-    override fun multiply(
-        a: GVector<D, SubQuotBasis<B, S, V>, S, V>,
-        b: GVector<D, SubQuotBasis<B, S, V>, S, V>
-    ): GVector<D, SubQuotBasis<B, S, V>, S, V> {
-        return this.multiplication(a, b)
     }
 }

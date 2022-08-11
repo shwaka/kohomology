@@ -69,7 +69,6 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
 private class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorSpace: GVectorSpace<D, B, S, V>,
     override val differential: GLinearMap<D, B, B, S, V, M>,
-    override val matrixSpace: MatrixSpace<S, V, M>
 ) : DGVectorSpace<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
@@ -77,6 +76,9 @@ private class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
     override val context: DGVectorContext<D, B, S, V, M> by lazy {
         DGVectorContextImpl(this)
     }
+
+    override val matrixSpace: MatrixSpace<S, V, M>
+        get() = this.differential.matrixSpace
 
     override val cohomology: SubQuotGVectorSpace<D, B, S, V, M> by lazy {
         SubQuotGVectorSpace(

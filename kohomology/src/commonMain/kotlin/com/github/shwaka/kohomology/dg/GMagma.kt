@@ -33,7 +33,12 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
     GVectorSpace<D, B, S, V> {
     public override val context: GMagmaContext<D, B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
-    public fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
+    public val multiplication: GBilinearMap<B, B, B, D, S, V, M>
+
+    public fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
+        return this.multiplication(a, b)
+    }
+
     public fun multiply(a: GVectorOrZero<D, B, S, V>, b: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return when (a) {
             is ZeroGVector -> this.zeroGVector
@@ -91,48 +96,30 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): GMagma<D, B, S, V, M> {
-            return GMagmaImpl(
-                matrixSpace,
+            val gVectorSpace = GVectorSpace(
+                matrixSpace.numVectorSpace,
                 degreeGroup,
                 name,
-                getVectorSpace,
-                getMultiplication,
                 getInternalPrintConfig,
-                listDegreesForAugmentedDegree
+                listDegreesForAugmentedDegree,
+                getVectorSpace
             )
+            val bilinearMapName = "Multiplication($name)"
+            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            return GMagmaImpl(matrixSpace, gVectorSpace, multiplication)
         }
     }
 }
 
 private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
-    name: String,
-    getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    private val getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+    gVectorSpace: GVectorSpace<D, B, S, V>,
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GMagma<D, B, S, V, M>,
-    GVectorSpace<D, B, S, V> by GVectorSpace(
-        matrixSpace.numVectorSpace,
-        degreeGroup,
-        name,
-        getInternalPrintConfig,
-        listDegreesForAugmentedDegree,
-        getVectorSpace
-    ) {
+    GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GMagmaContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
         GMagmaContextImpl(this)
-    }
-
-    private val multiplication: GBilinearMap<B, B, B, D, S, V, M> by lazy {
-        val bilinearMapName = "Multiplication(${this.name})"
-        GBilinearMap(this, this, this, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
-    }
-
-    override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this.multiplication(a, b)
     }
 }

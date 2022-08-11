@@ -72,27 +72,20 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
             differential: GLinearMap<D, B, B, S, V, M>,
             matrixSpace: MatrixSpace<S, V, M>
         ): DGMagma<D, B, S, V, M> {
-            return DGMagmaImpl(gMagma, differential, matrixSpace)
+            TODO()
+            // return DGMagmaImpl(gMagma, differential, matrixSpace)
         }
     }
 }
 
 internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val gMagma: GMagma<D, B, S, V, M>,
+    gVectorSpace: GVectorSpace<D, B, S, V>,
     differential: GLinearMap<D, B, B, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : DGMagma<D, B, S, V, M>,
-    DGVectorSpace<D, B, S, V, M> by DGVectorSpace(gMagma, differential, matrixSpace) {
+    DGVectorSpace<D, B, S, V, M> by DGVectorSpace(gVectorSpace, differential) {
     override val context: DGMagmaContext<D, B, S, V, M> by lazy {
         DGMagmaContextImpl(this)
-    }
-
-    override fun multiply(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this.gMagma.multiply(a, b)
-    }
-
-    override fun getIdentity(): DGLinearMap<D, B, B, S, V, M> {
-        return super<DGMagma>.getIdentity()
     }
 
     protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {

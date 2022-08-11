@@ -19,6 +19,13 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
+            subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+            multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
+        ): SubQuotGMagma<D, B, S, V, M> {
+            return SubQuotGMagmaImpl(matrixSpace, subQuotGVectorSpace, multiplication)
+        }
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,

@@ -89,6 +89,14 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+            multiplication: GBilinearMap<B, B, B, D, S, V, M>,
+        ): GMagma<D, B, S, V, M> {
+            return GMagmaImpl(matrixSpace, gVectorSpace, multiplication)
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getVectorSpace: (D) -> VectorSpace<B, S, V>,

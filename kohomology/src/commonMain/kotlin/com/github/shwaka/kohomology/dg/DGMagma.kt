@@ -70,10 +70,8 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gMagma: GMagma<D, B, S, V, M>,
             differential: GLinearMap<D, B, B, S, V, M>,
-            matrixSpace: MatrixSpace<S, V, M>
         ): DGMagma<D, B, S, V, M> {
-            TODO()
-            // return DGMagmaImpl(gMagma, differential, matrixSpace)
+            return DGMagmaImpl(gMagma, differential, gMagma.multiplication)
         }
     }
 }

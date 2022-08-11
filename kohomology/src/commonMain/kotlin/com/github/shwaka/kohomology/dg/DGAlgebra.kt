@@ -39,7 +39,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     open val gAlgebra: GAlgebra<D, B, S, V, M>,
     override val differential: Derivation<D, B, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
-) : DGMagmaImpl<D, B, S, V, M>(gAlgebra, differential, matrixSpace),
+) : DGMagma<D, B, S, V, M> by DGMagma(gAlgebra, differential),
     DGAlgebra<D, B, S, V, M> {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContextImpl(this)
@@ -57,7 +57,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
             this.degreeGroup,
             this.cohomologyName,
             this.cohomology::get,
-            this::getCohomologyMultiplication,
+            this.cohomology.multiplication,
             cohomologyUnit,
             listDegreesForAugmentedDegree = this.gAlgebra.listDegreesForAugmentedDegree,
             getInternalPrintConfig = getInternalPrintConfig

@@ -78,6 +78,14 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+            multiplication: GBilinearMap<B, B, B, D, S, V, M>,
+            unit: GVector<D, B, S, V>,
+        ): GAlgebra<D, B, S, V, M> {
+            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit)
+        }
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
@@ -86,41 +94,33 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): GAlgebra<D, B, S, V, M> {
-            return GAlgebraImpl(
-                matrixSpace,
+            val gVectorSpace = GVectorSpace(
+                matrixSpace.numVectorSpace,
                 degreeGroup,
                 name,
-                getVectorSpace,
-                getMultiplication,
-                unitVector,
                 getInternalPrintConfig,
-                listDegreesForAugmentedDegree
+                listDegreesForAugmentedDegree,
+                getVectorSpace
             )
+            val bilinearMapName = "Multiplication($name)"
+            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            val unit = gVectorSpace.fromVector(unitVector, 0)
+            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit)
         }
     }
 }
 
 private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
-    name: String,
-    getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
-    unitVector: Vector<B, S, V>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+    override val matrixSpace: MatrixSpace<S, V, M>,
+    gVectorSpace: GVectorSpace<D, B, S, V>,
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
+    override val unit: GVector<D, B, S, V>,
 ) : GAlgebra<D, B, S, V, M>,
-    GMagma<D, B, S, V, M> by GMagma(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra
         GAlgebraContextImpl(this)
-    }
-
-    override val unit: GVector<D, B, S, V> by lazy {
-        // use 'lazy' to avoid NullPointerException concerning
-        // 'open val degreeGroup: DegreeGroup<D>' in GVectorSpace
-        this.fromVector(unitVector, 0)
     }
 
     override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {

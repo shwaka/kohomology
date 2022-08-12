@@ -81,7 +81,7 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
 
 public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DividedFreeLoopSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.dividedLoopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.dividedLoopSpaceGAlgebra, factory.differential) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
     public val freeLoopSpace: FreeLoopSpace<D, I, S, V, M> = this.factory.loopSpaceDGAlgebra
     public val projection1: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {

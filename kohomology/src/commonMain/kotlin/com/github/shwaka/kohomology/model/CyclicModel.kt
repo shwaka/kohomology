@@ -82,7 +82,7 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
 
 public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: CyclicModelFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.cyclicGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.cyclicGAlgebra, factory.differential) {
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
     public val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {

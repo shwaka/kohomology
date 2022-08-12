@@ -69,7 +69,7 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 
 public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreeLoopSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.loopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.loopSpaceGAlgebra, factory.differential) {
     public constructor(
         freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
         shiftDegree: D? = null,

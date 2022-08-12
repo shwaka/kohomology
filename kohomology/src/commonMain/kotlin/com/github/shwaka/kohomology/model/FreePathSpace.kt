@@ -125,7 +125,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 
 public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreePathSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.pathSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.pathSpaceGAlgebra, factory.differential) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension

@@ -34,7 +34,7 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: GAlgebra<D, B, S, V, M>,
             differential: Derivation<D, B, S, V, M>,
-        ): DGMagma<D, B, S, V, M> {
+        ): DGAlgebra<D, B, S, V, M> {
             val dgMagma = DGMagma(gAlgebra, differential)
             return DGAlgebraImpl(
                 gAlgebra,
@@ -51,8 +51,8 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     override val differential: Derivation<D, B, S, V, M>,
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
-) : DGMagma<D, B, S, V, M> by DGMagma(gAlgebra, differential),
-    DGAlgebra<D, B, S, V, M> {
+) : DGAlgebra<D, B, S, V, M>,
+    DGMagma<D, B, S, V, M> by DGMagma(gAlgebra, differential) {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContextImpl(this)
     }

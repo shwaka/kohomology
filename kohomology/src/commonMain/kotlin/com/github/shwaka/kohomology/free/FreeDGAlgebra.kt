@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraContext
 import com.github.shwaka.kohomology.dg.DGAlgebraContextImpl
-import com.github.shwaka.kohomology.dg.DGAlgebraImpl
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.Derivation
@@ -316,7 +315,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     differential: Derivation<D, Monomial<D, I>, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>
 ) : FreeDGAlgebra<D, I, S, V, M>,
-    DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebraImpl(gAlgebra, differential, matrixSpace),
+    DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(gAlgebra, differential),
     FreeGAlgebra<D, I, S, V, M>,
     Printable {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {

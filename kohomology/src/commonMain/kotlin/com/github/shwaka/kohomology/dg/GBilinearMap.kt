@@ -57,15 +57,19 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     }
 
     public operator fun invoke(gVector1: GVector<D, BS1, S, V>, gVector2: GVector<D, BS2, S, V>): GVector<D, BT, S, V> {
-        if (gVector1.gVectorSpace != this.source1)
-            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
-        if (gVector2.gVectorSpace != this.source2)
-            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
+        require(gVector1.gVectorSpace.underlyingGVectorSpace == this.source1.underlyingGVectorSpace) {
+            "Invalid graded vector is given as an argument for a graded bilinear map"
+        }
+        require(gVector2.gVectorSpace.underlyingGVectorSpace == this.source2.underlyingGVectorSpace) {
+            "Invalid graded vector is given as an argument for a graded bilinear map"
+        }
         val bilinearMap = this[gVector1.degree, gVector2.degree]
-        if (gVector1.vector.vectorSpace != bilinearMap.source1)
-            throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")
-        if (gVector2.vector.vectorSpace != bilinearMap.source2)
-            throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")
+        require(gVector1.vector.vectorSpace == bilinearMap.source1) {
+            "Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map"
+        }
+        require(gVector2.vector.vectorSpace == bilinearMap.source2) {
+            "Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map"
+        }
         val newVector = bilinearMap(gVector1.vector, gVector2.vector)
         val newDegree = this.degreeGroup.context.run {
             gVector1.degree + gVector2.degree + this@GBilinearMap.degree

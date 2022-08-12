@@ -67,7 +67,7 @@ public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
 
         if (vector != other.vector) return false
         if (degree != other.degree) return false
-        if (gVectorSpace != other.gVectorSpace) return false
+        if (gVectorSpace.underlyingGVectorSpace != other.gVectorSpace.underlyingGVectorSpace) return false
 
         return true
     }

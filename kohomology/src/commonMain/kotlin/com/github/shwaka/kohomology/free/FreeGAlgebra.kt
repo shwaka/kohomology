@@ -266,7 +266,6 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
     override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
         FreeGAlgebraContextImpl(this)
     }
-
     companion object {
         private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }

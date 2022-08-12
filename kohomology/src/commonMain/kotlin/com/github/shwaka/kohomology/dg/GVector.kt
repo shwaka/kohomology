@@ -168,6 +168,7 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?
     public operator fun get(degree: D): VectorSpace<B, S, V>
     public val underlyingGVectorSpace: GVectorSpace<D, B, S, V>
+    override fun toString(): String
 
     public val field: Field<S> get() = this.numVectorSpace.field
     public val context: GVectorContext<D, B, S, V>

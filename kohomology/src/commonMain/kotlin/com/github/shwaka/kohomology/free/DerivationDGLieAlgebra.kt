@@ -27,7 +27,7 @@ private class DerivationDGLieAlgebraFactory<D : Degree, I : IndeterminateName, S
 
 public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationDGLieAlgebraFactory<D, I, S, V, M>,
-) : DGLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by DGLieAlgebra(factory.gLieAlgebra, factory.differential, factory.matrixSpace),
+) : DGLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by DGLieAlgebra(factory.gLieAlgebra, factory.differential),
     Printable {
     public val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M> = factory.freeDGAlgebra
     public val gLieAlgebra: DerivationGLieAlgebra<D, I, S, V, M> = factory.gLieAlgebra

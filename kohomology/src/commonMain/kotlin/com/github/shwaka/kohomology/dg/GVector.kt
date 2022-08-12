@@ -323,7 +323,7 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public fun convertToGVector(gVectorOrZero: GVectorOrZero<D, B, S, V>, degree: Int): GVector<D, B, S, V> = this.convertToGVector(gVectorOrZero, this.degreeGroup.fromInt(degree))
 
     public operator fun contains(gVector: GVector<D, B, S, V>): Boolean {
-        return gVector.gVectorSpace == this
+        return gVector.gVectorSpace.underlyingGVectorSpace == this.underlyingGVectorSpace
     }
 
     public fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {

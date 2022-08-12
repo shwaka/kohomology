@@ -167,6 +167,7 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
     public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?
     public operator fun get(degree: D): VectorSpace<B, S, V>
+    public val underlyingGVectorSpace: GVectorSpace<D, B, S, V>
 
     public val field: Field<S> get() = this.numVectorSpace.field
     public val context: GVectorContext<D, B, S, V>
@@ -405,6 +406,7 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
 ) : GVectorSpace<D, B, S, V> {
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
     override val context: GVectorContext<D, B, S, V> by lazy { GVectorContextImpl(this) }
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
 
     override fun get(degree: D): VectorSpace<B, S, V> {
         this.cache[degree]?.let {

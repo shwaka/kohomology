@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
@@ -78,6 +79,8 @@ private class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
 
     override val matrixSpace: MatrixSpace<S, V, M>
         get() = this.differential.matrixSpace
+
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace
 
     override val cohomology: SubQuotGVectorSpace<D, B, S, V, M> by lazy {
         SubQuotGVectorSpace(

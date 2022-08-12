@@ -50,6 +50,8 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
 ) : SubQuotGVectorSpace<D, B, S, V, M> {
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubQuotBasis<B, S, V>, S, V> by lazy { GVectorContextImpl(this) }
+    override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this
+
     override fun get(degree: D): SubQuotVectorSpace<B, S, V, M> {
         this.cache[degree]?.let {
             // if cache exists

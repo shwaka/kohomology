@@ -58,10 +58,12 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
 
     public operator fun invoke(gVector1: GVector<D, BS1, S, V>, gVector2: GVector<D, BS2, S, V>): GVector<D, BT, S, V> {
         require(gVector1.gVectorSpace.underlyingGVectorSpace == this.source1.underlyingGVectorSpace) {
-            "Invalid graded vector is given as an argument for a graded bilinear map"
+            "Cannot compute the value of the bilinear map $this; " +
+                "the first argument $gVector1 should be an element of ${this.source1}"
         }
         require(gVector2.gVectorSpace.underlyingGVectorSpace == this.source2.underlyingGVectorSpace) {
-            "Invalid graded vector is given as an argument for a graded bilinear map"
+            "Cannot compute the value of the bilinear map $this; " +
+                "the second argument $gVector2 should be an element of ${this.source2}"
         }
         val bilinearMap = this[gVector1.degree, gVector2.degree]
         require(gVector1.vector.vectorSpace == bilinearMap.source1) {

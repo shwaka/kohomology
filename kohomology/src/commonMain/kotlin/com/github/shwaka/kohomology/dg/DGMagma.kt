@@ -70,7 +70,8 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
             gMagma: GMagma<D, B, S, V, M>,
             differential: GLinearMap<D, B, B, S, V, M>,
         ): DGMagma<D, B, S, V, M> {
-            return DGMagmaImpl(gMagma, differential, gMagma.multiplication)
+            val dgVectorSpace = DGVectorSpace(gMagma, differential)
+            return DGMagmaImpl(gMagma, differential, gMagma.multiplication, dgVectorSpace.cohomology)
         }
     }
 }
@@ -79,16 +80,17 @@ private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     gVectorSpace: GVectorSpace<D, B, S, V>,
     differential: GLinearMap<D, B, B, S, V, M>,
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
+    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
 ) : DGMagma<D, B, S, V, M>,
     DGVectorSpace<D, B, S, V, M> by DGVectorSpace(gVectorSpace, differential) {
     override val context: DGMagmaContext<D, B, S, V, M> by lazy {
         DGMagmaContextImpl(this)
     }
 
-    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
-        val cohomOfDegP = this.cohomology[p]
-        val cohomOfDegQ = this.cohomology[q]
-        val cohomOfDegPPlusQ = this.cohomology[this.degreeGroup.context.run { p + q }]
+    private fun getCohomologyMultiplicationAtDegree(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+        val cohomOfDegP = this.cohomologyGVectorSpace[p]
+        val cohomOfDegQ = this.cohomologyGVectorSpace[q]
+        val cohomOfDegPPlusQ = this.cohomologyGVectorSpace[this.degreeGroup.context.run { p + q }]
         val basisLift1: List<Vector<B, S, V>> =
             cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
                 cohomOfDegP.section(vector1)
@@ -115,18 +117,22 @@ private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         )
     }
 
+    private fun getCohomologyMultiplication(): GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> {
+        val bilinearMapName = "Multiplication(H^*($name))"
+        return GBilinearMap(
+            this.cohomologyGVectorSpace,
+            this.cohomologyGVectorSpace,
+            this.cohomologyGVectorSpace,
+            0,
+            bilinearMapName,
+        ) { p, q -> this.getCohomologyMultiplicationAtDegree(p, q) }
+    }
+
     override val cohomology: SubQuotGMagma<D, B, S, V, M> by lazy {
-        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
-            SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.getInternalPrintConfig(printConfig))
-        }
         SubQuotGMagma(
             matrixSpace,
-            this.degreeGroup,
-            this.cohomologyName,
-            this.cohomology::get,
-            this::getCohomologyMultiplication,
-            listDegreesForAugmentedDegree = this.listDegreesForAugmentedDegree,
-            getInternalPrintConfig = getInternalPrintConfig
+            this.cohomologyGVectorSpace,
+            this.getCohomologyMultiplication(),
         )
     }
 }

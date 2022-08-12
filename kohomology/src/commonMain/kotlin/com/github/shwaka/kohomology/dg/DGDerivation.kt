@@ -17,7 +17,7 @@ public interface DGDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVect
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             source: DGAlgebra<D, B, S, V, M>,
             gLinearMap: Derivation<D, B, S, V, M>,
-        ) : DGDerivation<D, B, S, V, M> {
+        ): DGDerivation<D, B, S, V, M> {
             return DGDerivationImpl(source, gLinearMap)
         }
 

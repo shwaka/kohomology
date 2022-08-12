@@ -79,5 +79,4 @@ private class SubQuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
             this[degree].getIdentity(this.matrixSpace)
         }
     }
-
 }

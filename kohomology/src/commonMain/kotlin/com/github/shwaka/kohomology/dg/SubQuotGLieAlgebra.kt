@@ -21,7 +21,7 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             matrixSpace: MatrixSpace<S, V, M>,
             subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
             multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
-        ) : SubQuotGLieAlgebra<D, B, S, V, M> {
+        ): SubQuotGLieAlgebra<D, B, S, V, M> {
             return SubQuotGLieAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication)
         }
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -32,7 +32,7 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { InternalPrintConfig.default(it) },
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-        ) : SubQuotGLieAlgebra<D, B, S, V, M> {
+        ): SubQuotGLieAlgebra<D, B, S, V, M> {
             val subQuotGVectorSpace = SubQuotGVectorSpace(
                 matrixSpace.numVectorSpace,
                 degreeGroup,
@@ -70,5 +70,4 @@ private class SubQuotGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : 
     override val context: GLieAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         GLieAlgebraContextImpl(this)
     }
-
 }

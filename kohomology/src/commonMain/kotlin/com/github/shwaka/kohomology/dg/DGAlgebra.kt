@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
-import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -30,14 +29,28 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val differential: Derivation<D, B, S, V, M>
     override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gAlgebra: GAlgebra<D, B, S, V, M>,
+            differential: Derivation<D, B, S, V, M>,
+        ): DGMagma<D, B, S, V, M> {
+            val dgMagma = DGMagma(gAlgebra, differential)
+            return DGAlgebraImpl(
+                gAlgebra,
+                differential,
+                dgMagma.cohomology,
+                dgMagma.cohomology.multiplication,
+            )
+        }
+    }
 }
 
-internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    open val gAlgebra: GAlgebra<D, B, S, V, M>,
+private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val gAlgebra: GAlgebra<D, B, S, V, M>,
     override val differential: Derivation<D, B, S, V, M>,
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>
 ) : DGMagma<D, B, S, V, M> by DGMagma(gAlgebra, differential),
     DGAlgebra<D, B, S, V, M> {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
@@ -48,7 +61,7 @@ internal open class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
         val cohomologyUnit = this.cohomologyClassOf(this.gAlgebra.unit)
         SubQuotGAlgebra(
-            matrixSpace,
+            this.matrixSpace,
             this.cohomologyGVectorSpace,
             this.cohomologyMultiplication,
             cohomologyUnit,

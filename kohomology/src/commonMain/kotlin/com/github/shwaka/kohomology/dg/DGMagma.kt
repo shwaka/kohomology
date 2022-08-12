@@ -20,7 +20,7 @@ public interface DGMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
     public val dgMagma: DGMagma<D, B, S, V, M>
 
     override operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
-        return this@DGMagmaContext.run { this@times * other }
+        return this@DGMagmaContext.dgMagma.multiply(this, other)
     }
 }
 

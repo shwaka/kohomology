@@ -218,8 +218,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
             changeDegree(dv)
         }
         val differential = newFreeGAlgebra.getDerivation(differentialValueList, 1)
-        val matrixSpace = this.matrixSpace
-        val newFreeDGAlgebra = FreeDGAlgebra(newFreeGAlgebra, differential, matrixSpace)
+        val newFreeDGAlgebra = FreeDGAlgebra(newFreeGAlgebra, differential)
         return Pair(newFreeDGAlgebra, changeDegree)
     }
 
@@ -232,9 +231,8 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: FreeGAlgebra<D, I, S, V, M>,
             differential: Derivation<D, Monomial<D, I>, S, V, M>,
-            matrixSpace: MatrixSpace<S, V, M>
         ): FreeDGAlgebra<D, I, S, V, M> {
-            return FreeDGAlgebraImpl(gAlgebra, differential, matrixSpace)
+            return FreeDGAlgebraImpl(gAlgebra, differential)
         }
 
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -268,7 +266,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
                             "but your input is $value with d(d(${indeterminateList[i]})) = d($value) = $dValue (!= 0)"
                     )
             }
-            return FreeDGAlgebraImpl(freeGAlgebra, differential, matrixSpace)
+            return FreeDGAlgebraImpl(freeGAlgebra, differential)
         }
 
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

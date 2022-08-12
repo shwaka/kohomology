@@ -22,23 +22,38 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-public sealed class GVectorOrZero<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
-    public abstract fun isZero(): Boolean
+public sealed interface GVectorOrZero<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
+    public fun isZero(): Boolean
     public fun isNotZero(): Boolean = !this.isZero()
+    public val gVectorSpace: GVectorSpace<D, B, S, V>
 }
 
-public class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<D, B, S, V>() {
+public class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val gVectorSpace: GVectorSpace<D, B, S, V>,
+) : GVectorOrZero<D, B, S, V> {
     override fun isZero(): Boolean = true
     override fun toString(): String {
         return "0"
+    }
+
+    override fun hashCode(): Int {
+        return this.gVectorSpace.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+        other as ZeroGVector<*, *, *, *>
+        return this.gVectorSpace.underlyingGVectorSpace == other.gVectorSpace.underlyingGVectorSpace
     }
 }
 
 public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val vector: Vector<B, S, V>,
     public val degree: D,
-    public val gVectorSpace: GVectorSpace<D, B, S, V>
-) : GVectorOrZero<D, B, S, V>(), Printable {
+    override val gVectorSpace: GVectorSpace<D, B, S, V>
+) : GVectorOrZero<D, B, S, V>, Printable {
     override fun isZero(): Boolean {
         return this.vector.isZero()
     }
@@ -366,7 +381,7 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         return this.fromVector(vector, gVector.degree)
     }
 
-    public val zeroGVector: ZeroGVector<D, B, S, V> get() = ZeroGVector()
+    public val zeroGVector: ZeroGVector<D, B, S, V> get() = ZeroGVector(this)
 
     public fun <M : Matrix<S, V>> isBasis(
         gVectorList: List<GVector<D, B, S, V>>,

@@ -313,7 +313,6 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     gAlgebra: FreeGAlgebra<D, I, S, V, M>,
     differential: Derivation<D, Monomial<D, I>, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>
 ) : FreeDGAlgebra<D, I, S, V, M>,
     DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(gAlgebra, differential),
     FreeGAlgebra<D, I, S, V, M>,

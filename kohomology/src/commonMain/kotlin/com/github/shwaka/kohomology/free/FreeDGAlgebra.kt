@@ -309,7 +309,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 }
 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
-    gAlgebra: FreeGAlgebra<D, I, S, V, M>,
+    private val gAlgebra: FreeGAlgebra<D, I, S, V, M>,
     differential: Derivation<D, Monomial<D, I>, S, V, M>,
 ) : FreeDGAlgebra<D, I, S, V, M>,
     DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(gAlgebra, differential),
@@ -320,13 +320,13 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     }
     override val degreeGroup: AugmentedDegreeGroup<D> by lazy {
         // Use by lazy to avoid accessing non-final property in constructor
-        this.degreeGroup
+        this.gAlgebra.degreeGroup
     }
     override val indeterminateList: List<Indeterminate<D, I>> = gAlgebra.indeterminateList
     override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
 
     override fun toString(printConfig: PrintConfig): String {
-        val gAlgebraString = this.toString(printConfig)
+        val gAlgebraString = this.gAlgebra.toString(printConfig)
         return "($gAlgebraString, d)"
     }
 }

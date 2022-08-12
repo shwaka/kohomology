@@ -19,6 +19,13 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
+            subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+            multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
+        ) : SubQuotGLieAlgebra<D, B, S, V, M> {
+            return SubQuotGLieAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication)
+        }
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
@@ -26,29 +33,40 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { InternalPrintConfig.default(it) },
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ) : SubQuotGLieAlgebra<D, B, S, V, M> {
-            return SubQuotGLieAlgebraImpl(
-                matrixSpace,
+            val subQuotGVectorSpace = SubQuotGVectorSpace(
+                matrixSpace.numVectorSpace,
                 degreeGroup,
                 name,
-                getVectorSpace,
-                getMultiplication,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,
+                getVectorSpace,
+            )
+            val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
+                val bilinearMapName = "Multiplication($name)"
+                GBilinearMap(
+                    subQuotGVectorSpace,
+                    subQuotGVectorSpace,
+                    subQuotGVectorSpace,
+                    0,
+                    bilinearMapName,
+                ) { p, q -> getMultiplication(p, q) }
+            }
+            return SubQuotGLieAlgebraImpl(
+                matrixSpace,
+                subQuotGVectorSpace,
+                multiplication,
             )
         }
     }
 }
 
 private class SubQuotGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
-    name: String,
-    getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-    getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { InternalPrintConfig.default(it) },
-    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+    override val matrixSpace: MatrixSpace<S, V, M>,
+    subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+    override val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : SubQuotGLieAlgebra<D, B, S, V, M>,
-    SubQuotGMagma<D, B, S, V, M> by SubQuotGMagma(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
+
     override val context: GLieAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         GLieAlgebraContextImpl(this)
     }

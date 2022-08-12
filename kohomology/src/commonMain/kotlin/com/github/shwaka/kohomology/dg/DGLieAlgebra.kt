@@ -32,9 +32,14 @@ public interface DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
             differential: GLinearMap<D, B, B, S, V, M>,
-            matrixSpace: MatrixSpace<S, V, M>
         ): DGLieAlgebra<D, B, S, V, M> {
-            return DGLieAlgebraImpl(gLieAlgebra, differential, matrixSpace)
+            val dgMagma = DGMagma(gLieAlgebra, differential)
+            return DGLieAlgebraImpl(
+                gLieAlgebra,
+                differential,
+                dgMagma.cohomology,
+                dgMagma.cohomology.multiplication,
+            )
         }
     }
 }
@@ -42,26 +47,19 @@ public interface DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
 private class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
     differential: GLinearMap<D, B, B, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>
-) : DGMagmaImpl<D, B, S, V, M>(gLieAlgebra, differential, matrixSpace),
+    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+    private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
+) : DGMagma<D, B, S, V, M> by DGMagma(gLieAlgebra, differential),
     DGLieAlgebra<D, B, S, V, M> {
     override val context: DGLieAlgebraContext<D, B, S, V, M> by lazy {
         DGLieAlgebraContextImpl(this)
     }
 
     override val cohomology: SubQuotGLieAlgebra<D, B, S, V, M> by lazy {
-        // Just override the type
-        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
-            SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.getInternalPrintConfig(printConfig))
-        }
         SubQuotGLieAlgebra(
             matrixSpace,
-            this.degreeGroup,
-            this.cohomologyName,
-            this.cohomology::get,
-            this::getCohomologyMultiplication,
-            listDegreesForAugmentedDegree = this.listDegreesForAugmentedDegree,
-            getInternalPrintConfig = getInternalPrintConfig
+            this.cohomologyGVectorSpace,
+            this.cohomologyMultiplication,
         )
     }
 }

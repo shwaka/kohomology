@@ -75,7 +75,7 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     }
 }
 
-internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorSpace: GVectorSpace<D, B, S, V>,
     differential: GLinearMap<D, B, B, S, V, M>,
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
@@ -85,7 +85,7 @@ internal open class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         DGMagmaContextImpl(this)
     }
 
-    protected fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    private fun getCohomologyMultiplication(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         val cohomOfDegP = this.cohomology[p]
         val cohomOfDegQ = this.cohomology[q]
         val cohomOfDegPPlusQ = this.cohomology[this.degreeGroup.context.run { p + q }]

@@ -64,14 +64,6 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             return DGVectorSpaceImpl(gVectorSpace, differential, cohomology)
         }
 
-        internal operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            gVectorSpace: GVectorSpace<D, B, S, V>,
-            differential: GLinearMap<D, B, B, S, V, M>,
-            cohomology: SubQuotGVectorSpace<D, B, S, V, M>,
-        ): DGVectorSpace<D, B, S, V, M> {
-            return DGVectorSpaceImpl(gVectorSpace, differential, cohomology)
-        }
-
         internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
             gVectorSpace: GVectorSpace<D, B, S, V>,
             differential: GLinearMap<D, B, B, S, V, M>,
@@ -99,7 +91,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     }
 }
 
-private class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gVectorSpace: GVectorSpace<D, B, S, V>,
     override val differential: GLinearMap<D, B, B, S, V, M>,
     override val cohomology: SubQuotGVectorSpace<D, B, S, V, M>,

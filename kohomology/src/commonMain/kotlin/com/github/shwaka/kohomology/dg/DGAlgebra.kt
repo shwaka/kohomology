@@ -52,7 +52,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGAlgebra<D, B, S, V, M>,
-    DGMagma<D, B, S, V, M> by DGMagma(gAlgebra, differential) {
+    DGMagma<D, B, S, V, M> by DGMagmaImpl(gAlgebra, differential, gAlgebra.multiplication, cohomologyGVectorSpace) {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContextImpl(this)
     }

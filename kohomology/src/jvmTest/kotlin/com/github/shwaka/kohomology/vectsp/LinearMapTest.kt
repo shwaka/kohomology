@@ -39,6 +39,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val v = vectorSpace1.fromCoeffList(listOf(one, two))
                 f(v) shouldBe vectorSpace2.zeroVector
             }
+            "getZero should return the zero map for vector spaces of different dim" {
+                val threeDimVectorSpace = VectorSpace(numVectorSpace, listOf("x1", "x2", "x3"))
+                val f = LinearMap.getZero(vectorSpace1, threeDimVectorSpace, matrixSpace)
+                val v = vectorSpace1.fromCoeffList(listOf(one, two))
+                f(v) shouldBe threeDimVectorSpace.zeroVector
+            }
             "getIdentity should return the identity map" {
                 val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
                 val v = vectorSpace1.fromCoeffList(listOf(one, two))

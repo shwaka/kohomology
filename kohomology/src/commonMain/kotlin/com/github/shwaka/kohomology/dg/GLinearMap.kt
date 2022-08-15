@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -185,6 +186,34 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
             getGVectors: (D) -> List<GVector<D, BT, S, V>>
         ): GLinearMap<D, BS, BT, S, V, M> {
             return this.fromGVectors(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getGVectors)
+        }
+
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            matrixSpace: MatrixSpace<S, V, M>,
+            source: GVectorSpace<D, BS, S, V>,
+            target: GVectorSpace<D, BT, S, V>,
+            degree: D,
+        ): GLinearMap<D, BS, BT, S, V, M> {
+            return GLinearMap(
+                source,
+                target,
+                degree,
+                matrixSpace,
+                "0",
+            ) { n ->
+                source.degreeGroup.context.run {
+                    LinearMap.getZero(source[n], target[n + degree], matrixSpace)
+                }
+            }
+        }
+
+        public fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            matrixSpace: MatrixSpace<S, V, M>,
+            source: GVectorSpace<IntDegree, BS, S, V>,
+            target: GVectorSpace<IntDegree, BT, S, V>,
+            degree: Int,
+        ): GLinearMap<IntDegree, BS, BT, S, V, M> {
+            return GLinearMap.getZero(matrixSpace, source, target, source.degreeGroup.fromInt(degree))
         }
     }
 }

@@ -336,7 +336,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
 
     override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
-        // getIdentity() is implemented in DGAlgebraImp,
+        // getIdentity() is implemented in DGAlgebraImpl,
         // but 'this' in it is DGAlgebra, not FreeDGAlgebra
         val gAlgebraMap = this.gAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)

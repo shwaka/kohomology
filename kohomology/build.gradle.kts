@@ -164,7 +164,9 @@ testlogger {
     showCauses = true
     showStandardStreams = true
     showFullStackTraces = true
-    filterFullStackTraces = "io\\.kotest.*"
+    if (System.getProperty("noFilter") == null) {
+        filterFullStackTraces = "io\\.kotest.*"
+    }
 }
 
 fun inWSL(): Boolean {

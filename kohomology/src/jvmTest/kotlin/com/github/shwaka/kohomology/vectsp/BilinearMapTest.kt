@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val bilinearMapTag = NamedTag("BilinearMap")
@@ -33,6 +34,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
         val (x, y) = sourceVectorSpace2.getBasis()
         val (a, b) = targetVectorSpace.getBasis()
         context.run {
+            "test zero" {
+                val f = BilinearMap.getZero(sourceVectorSpace1, sourceVectorSpace2, targetVectorSpace, matrixSpace)
+                f(v, x).isZero().shouldBeTrue()
+            }
+
             "test ValueBilinearMap" {
                 val vectors = listOf(
                     listOf(a, b - a), // v*x, v*y

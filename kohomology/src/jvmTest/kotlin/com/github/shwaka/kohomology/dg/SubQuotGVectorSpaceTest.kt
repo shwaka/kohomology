@@ -49,7 +49,7 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             val degree = 0
             val (x) = subQuotGVectorSpace.getBasis(degree)
             x.gVectorSpace::class.simpleName shouldBe "SubQuotGVectorSpaceImpl"
-            x.vector.vectorSpace::class.simpleName shouldBe "SubQuotVectorSpaceImpl"
+            x.vector.vectorSpace::class.simpleName shouldBe "SubQuotVectorSpace"
         }
     }
 }

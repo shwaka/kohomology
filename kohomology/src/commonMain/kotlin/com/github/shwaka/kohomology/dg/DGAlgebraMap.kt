@@ -20,7 +20,7 @@ public interface DGAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Sc
         return DGAlgebraMap(
             source = other.source,
             target = this.target,
-            gLinearMap = this * other,
+            gLinearMap = super<GAlgebraMap>.times(other)
         )
     }
 

@@ -29,6 +29,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgMagmaTest(matrixSpace: Ma
         val dgMagma = DGMagma.fromGVectorSpace(matrixSpace, gVectorSpace)
 
         checkRequirementsForDGVectorSpace(dgMagma)
+
+        dgMagma.context.run {
+            val (v0, v1) = gVectorSpace.getBasis(2)
+
+            "check multiplication of cochains" {
+                (v0 * v1).isZero().shouldBeTrue()
+            }
+
+            "check multiplication of cohomology classes" {
+                dgMagma.cohomology.context.run {
+                    (v0.cohomologyClass() * v1.cohomologyClass()).isZero().shouldBeTrue()
+                }
+            }
+        }
     }
 }
 

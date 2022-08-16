@@ -83,7 +83,9 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 gVectorSpace.numVectorSpace,
                 gVectorSpace.degreeGroup,
                 name,
-                InternalPrintConfig.Companion::default,
+                { printConfig -> SubQuotVectorSpace.convertInternalPrintConfig(
+                    printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
+                )},
                 gVectorSpace.listDegreesForAugmentedDegree,
             ) { degree ->
                 val kernelBasis = differential[degree].kernelBasis()

@@ -47,7 +47,8 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             dgVectorSpace.context.run {
                 val v = dgVectorSpace.getZero(0)
                 (v.cohomologyClass() in dgVectorSpace.cohomology).shouldBeTrue()
-                v.cohomologyClass().gVectorSpace shouldBeSameInstanceAs dgVectorSpace.cohomology
+                v.cohomologyClass().gVectorSpace.underlyingGVectorSpace shouldBeSameInstanceAs
+                    dgVectorSpace.cohomology.underlyingGVectorSpace
             }
         }
     }

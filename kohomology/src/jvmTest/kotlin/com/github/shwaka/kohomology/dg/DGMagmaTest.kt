@@ -9,13 +9,14 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 
 val dgMagmaTag = NamedTag("DGMagma")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgMagmaTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     val numVectorSpace = matrixSpace.numVectorSpace
 
-    "DGMagma with trivial differential and mulitplication" - {
+    "DGMagma with trivial differential and multiplication" - {
         val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
             (0 until degree).map { "v$it" }
         }
@@ -34,6 +35,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgMagmaTest(matrixSpace: Ma
                 dgMagma.cohomology.context.run {
                     (v0.cohomologyClass() * v1.cohomologyClass()).isZero().shouldBeTrue()
                 }
+            }
+
+            "check classes" {
+                v0.cohomologyClass().gVectorSpace::class.simpleName shouldBe "SubQuotGMagmaImpl"
+                dgMagma.cohomology::class.simpleName shouldBe "SubQuotGMagmaImpl"
             }
         }
     }

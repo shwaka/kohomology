@@ -114,7 +114,7 @@ internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
     override val matrixSpace: MatrixSpace<S, V, M>
         get() = this.differential.matrixSpace
 
-    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace.underlyingGVectorSpace
 
     override fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
         val vector = cocycle.vector

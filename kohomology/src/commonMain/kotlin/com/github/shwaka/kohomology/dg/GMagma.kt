@@ -130,4 +130,6 @@ private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         //   Leaking 'this' in constructor of non-final class GAlgebra
         GMagmaContextImpl(this)
     }
+
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace.underlyingGVectorSpace
 }

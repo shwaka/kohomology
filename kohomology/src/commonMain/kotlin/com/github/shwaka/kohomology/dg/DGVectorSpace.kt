@@ -64,7 +64,16 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             return DGVectorSpaceImpl(gVectorSpace, differential, cohomology)
         }
 
-        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectorSpace(
+            matrixSpace: MatrixSpace<S, V, M>,
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+        ): DGVectorSpace<D, B, S, V, M> {
+            val degreeOne = gVectorSpace.degreeGroup.fromInt(1)
+            val differential = GLinearMap.getZero(matrixSpace, gVectorSpace, gVectorSpace, degreeOne)
+            return DGVectorSpace(gVectorSpace, differential)
+        }
+
+            internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
             gVectorSpace: GVectorSpace<D, B, S, V>,
             differential: GLinearMap<D, B, B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {

@@ -161,7 +161,7 @@ public interface DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
             target: DGVectorSpace<D, BT, S, V, M>,
             gLinearMap: GLinearMap<D, BS, BT, S, V, M>,
         ): DGLinearMap<D, BS, BT, S, V, M> {
-            return DGLinearMap(source, target, gLinearMap)
+            return DGLinearMapImpl(source, target, gLinearMap)
         }
 
         public operator fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

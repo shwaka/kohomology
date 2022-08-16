@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -69,6 +70,27 @@ public interface DGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
         ): DGMagma<D, B, S, V, M> {
             val dgVectorSpace = DGVectorSpace(gMagma, differential)
             return DGMagmaImpl(gMagma, differential, gMagma.multiplication, dgVectorSpace.cohomology)
+        }
+
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectorSpace(
+            matrixSpace: MatrixSpace<S, V, M>,
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+        ): DGMagma<D, B, S, V, M> {
+            val multiplication = GBilinearMap.getZero(
+                matrixSpace,
+                source1 = gVectorSpace,
+                source2 = gVectorSpace,
+                target = gVectorSpace,
+                degree = gVectorSpace.degreeGroup.zero
+            )
+            val gMagma = GMagma(matrixSpace, gVectorSpace, multiplication)
+            val differential = GLinearMap.getZero(
+                matrixSpace,
+                source = gVectorSpace,
+                target = gVectorSpace,
+                degree = gVectorSpace.degreeGroup.fromInt(1),
+            )
+            return DGMagma(gMagma, differential)
         }
     }
 }

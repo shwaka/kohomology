@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -40,6 +41,21 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
         ): GBilinearMap<BS1, BS2, BT, IntDegree, S, V, M> {
             return GBilinearMap(source1, source2, target, IntDegree(degree), name) { p, q ->
                 getBilinearMap(p.value, q.value)
+            }
+        }
+
+        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            matrixSpace: MatrixSpace<S, V, M>,
+            source1: GVectorSpace<D, BS1, S, V>,
+            source2: GVectorSpace<D, BS2, S, V>,
+            target: GVectorSpace<D, BT, S, V>,
+            degree: D,
+        ): GBilinearMap<BS1, BS2, BT, D, S, V, M> {
+            return GBilinearMap(source1, source2, target, degree, "0", ) { p: D, q: D ->
+                val targetDegree = target.degreeGroup.context.run {
+                    p + q + degree
+                }
+                BilinearMap.getZero(source1[p], source2[q], target[targetDegree], matrixSpace)
             }
         }
     }

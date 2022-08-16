@@ -110,9 +110,14 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         underlyingMap: DGAlgebraMap<D, Monomial<D, I>, BT, S, V, M>,
         surjectiveQuasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
     ): DGAlgebraMap<D, Monomial<D, I>, BS, S, V, M> {
-        require(underlyingMap.source == this) { "Invalid diagram: ${underlyingMap.source} != $this" }
+        require(underlyingMap.source == this) {
+            "The source dg algebra ${underlyingMap.source} of the underlying map " +
+                "should be equal to the free dg algebra $this"
+        }
         require(underlyingMap.target == surjectiveQuasiIsomorphism.target) {
-            "Invalid diagram: ${underlyingMap.target} != ${surjectiveQuasiIsomorphism.target}"
+            "The target dg algebra ${underlyingMap.target} of the underlying map " +
+                "should be equal to the target dg algebra ${surjectiveQuasiIsomorphism.target} " +
+                "of the surjective quasi-isomorphism $surjectiveQuasiIsomorphism"
         }
         val n = this.generatorList.size
         val liftTarget = surjectiveQuasiIsomorphism.source
@@ -152,9 +157,14 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         quasiIsomorphism: DGAlgebraMap<D, BS, BT, S, V, M>,
         freePathSpace: FreePathSpace<D, I, S, V, M>? = null,
     ): LiftWithHomotopy<D, I, BS, BT, S, V, M> {
-        require(underlyingMap.source == this) { "Invalid diagram: ${underlyingMap.source} != $this" }
+        require(underlyingMap.source == this) {
+            "The source dg algebra ${underlyingMap.source} of the underlying map " +
+                "should be equal to the free dg algebra $this"
+        }
         require(underlyingMap.target == quasiIsomorphism.target) {
-            "Invalid diagram: ${underlyingMap.target} != ${quasiIsomorphism.target}"
+            "The target dg algebra ${underlyingMap.target} of the underlying map " +
+                "should be equal to the target dg algebra ${quasiIsomorphism.target} " +
+                "of the quasi-isomorphism $quasiIsomorphism"
         }
         val freePathSpaceNonNull = freePathSpace ?: FreePathSpace(this)
         val n = this.generatorList.size

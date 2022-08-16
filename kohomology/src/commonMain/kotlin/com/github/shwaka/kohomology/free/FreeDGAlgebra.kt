@@ -335,6 +335,13 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     override val indeterminateList: List<Indeterminate<D, I>> = gAlgebra.indeterminateList
     override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
 
+    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
+        // getIdentity() is implemented in DGAlgebraImp,
+        // but 'this' in it is DGAlgebra, not FreeDGAlgebra
+        val gAlgebraMap = this.gAlgebra.getIdentity()
+        return DGAlgebraMap(this, this, gAlgebraMap)
+    }
+
     override fun toString(printConfig: PrintConfig): String {
         val gAlgebraString = this.gAlgebra.toString(printConfig)
         return "($gAlgebraString, d)"

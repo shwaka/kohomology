@@ -127,6 +127,11 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
         return this.factory.subspaceContains(vector)
     }
 
+    override fun toString(): String {
+        val basisNamesString = this.basisNames.joinToString(", ") { it.toString() }
+        return "SubQuotVectorSpace($basisNamesString)"
+    }
+
     public companion object {
         public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,

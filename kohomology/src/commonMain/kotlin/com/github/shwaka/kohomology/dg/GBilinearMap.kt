@@ -82,10 +82,14 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
         }
         val bilinearMap = this[gVector1.degree, gVector2.degree]
         require(gVector1.vector.vectorSpace == bilinearMap.source1) {
-            "Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map"
+            "Graded bilinear map contains a bug: " +
+                "gVector1.vector is an element of ${gVector1.vector.vectorSpace}, " +
+                "but bilinearMap.source1 is ${bilinearMap.source1}"
         }
         require(gVector2.vector.vectorSpace == bilinearMap.source2) {
-            "Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map"
+            "Graded bilinear map contains a bug: " +
+                "gVector2.vector is an element of ${gVector2.vector.vectorSpace}, " +
+                "but bilinearMap.source2 is ${bilinearMap.source2}"
         }
         val newVector = bilinearMap(gVector1.vector, gVector2.vector)
         val newDegree = this.degreeGroup.context.run {

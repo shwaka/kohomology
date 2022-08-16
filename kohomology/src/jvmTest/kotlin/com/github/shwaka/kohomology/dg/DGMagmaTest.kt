@@ -17,15 +17,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgMagmaTest(matrixSpace: Ma
     val numVectorSpace = matrixSpace.numVectorSpace
 
     "DGMagma with trivial differential and multiplication" - {
-        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
-            (0 until degree).map { "v$it" }
+        val dgMagma = run {
+            val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
+                (0 until degree).map { "v$it" }
+            }
+            DGMagma.fromGVectorSpace(matrixSpace, gVectorSpace)
         }
-        val dgMagma = DGMagma.fromGVectorSpace(matrixSpace, gVectorSpace)
 
         checkRequirementsForDGVectorSpace(dgMagma)
 
         dgMagma.context.run {
-            val (v0, v1) = gVectorSpace.getBasis(2)
+            val (v0, v1) = dgMagma.getBasis(2)
 
             "check multiplication of cochains" {
                 (v0 * v1).isZero().shouldBeTrue()
@@ -37,8 +39,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgMagmaTest(matrixSpace: Ma
                 }
             }
 
-            "check classes" {
-                v0.cohomologyClass().gVectorSpace::class.simpleName shouldBe "SubQuotGMagmaImpl"
+            "check classes for a cochain" {
+                v0.gVectorSpace::class.simpleName shouldBe "GVectorSpaceImpl"
+                dgMagma::class.simpleName shouldBe "DGMagmaImpl"
+            }
+
+            "check classes for a cohomology class" {
+                v0.cohomologyClass().gVectorSpace::class.simpleName shouldBe "SubQuotGVectorSpaceImpl"
                 dgMagma.cohomology::class.simpleName shouldBe "SubQuotGMagmaImpl"
             }
         }

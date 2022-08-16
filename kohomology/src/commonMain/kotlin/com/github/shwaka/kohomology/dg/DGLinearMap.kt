@@ -197,10 +197,12 @@ public class DGLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Sca
 ) : DGLinearMap<D, BS, BT, S, V, M>,
     GLinearMap<D, BS, BT, S, V, M> by gLinearMap {
     init {
-        if (source != gLinearMap.source)
-            throw IllegalArgumentException("The source DGVectorSpace does not match to the source GVectorSpace of GLinearMap")
-        if (target != gLinearMap.target)
-            throw IllegalArgumentException("The target DGVectorSpace does not match to the target GVectorSpace of GLinearMap")
+        require(source.underlyingGVectorSpace == gLinearMap.source.underlyingGVectorSpace) {
+            "The source DGVectorSpace does not match to the source GVectorSpace of GLinearMap"
+        }
+        require(target.underlyingGVectorSpace == gLinearMap.target.underlyingGVectorSpace) {
+            "The target DGVectorSpace does not match to the target GVectorSpace of GLinearMap"
+        }
     }
 
     override val inducedMapOnCohomology: GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> by lazy {

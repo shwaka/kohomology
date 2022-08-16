@@ -51,7 +51,7 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
             target: GVectorSpace<D, BT, S, V>,
             degree: D,
         ): GBilinearMap<BS1, BS2, BT, D, S, V, M> {
-            return GBilinearMap(source1, source2, target, degree, "0", ) { p: D, q: D ->
+            return GBilinearMap(source1, source2, target, degree, "0") { p: D, q: D ->
                 val targetDegree = target.degreeGroup.context.run {
                     p + q + degree
                 }

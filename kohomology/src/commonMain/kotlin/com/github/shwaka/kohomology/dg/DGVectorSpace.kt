@@ -73,7 +73,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             return DGVectorSpace(gVectorSpace, differential)
         }
 
-            internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
+        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
             gVectorSpace: GVectorSpace<D, B, S, V>,
             differential: GLinearMap<D, B, B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {

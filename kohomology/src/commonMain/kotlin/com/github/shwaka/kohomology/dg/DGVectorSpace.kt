@@ -5,7 +5,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
@@ -102,9 +101,11 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 gVectorSpace.numVectorSpace,
                 gVectorSpace.degreeGroup,
                 name,
-                { printConfig -> SubQuotVectorSpace.convertInternalPrintConfig(
-                    printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
-                )},
+                { printConfig ->
+                    SubQuotVectorSpace.convertInternalPrintConfig(
+                        printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
+                    )
+                },
                 gVectorSpace.listDegreesForAugmentedDegree,
             ) { degree ->
                 val kernelBasis = differential[degree].kernelBasis()

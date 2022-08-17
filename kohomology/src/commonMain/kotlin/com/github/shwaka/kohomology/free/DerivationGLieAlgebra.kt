@@ -58,7 +58,9 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         val vectorSpaceList: List<VectorSpace<Monomial<D, I>, S, V>> = this.degreeGroup.context.run {
             generatorDegreeList.map { degree -> freeGAlgebra[degree + derivationDegree] }
         }
-        return DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
+        val directSum = DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
+        this.cache[derivationDegree] = directSum
+        return directSum
     }
 
     fun getProjection(derivationDegree: D, index: Int): LinearMap<DerivationBasis<D, I>, Monomial<D, I>, S, V, M> {

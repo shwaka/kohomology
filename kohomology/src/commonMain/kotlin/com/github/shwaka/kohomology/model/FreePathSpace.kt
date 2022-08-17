@@ -1,12 +1,18 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -125,8 +131,17 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
 
 public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: FreePathSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M> by FreeDGAlgebra(factory.pathSpaceGAlgebra, factory.differential) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>,
+    DGAlgebra<D, Monomial<D, CopiedName<D, I>>, S, V, M> by DGAlgebra(factory.pathSpaceGAlgebra, factory.differential) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
+
+    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val degreeGroup: AugmentedDegreeGroup<D> = factory.freeDGAlgebra.degreeGroup
+    override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.pathSpaceGAlgebra
+    override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =
+        factory.pathSpaceGAlgebra.indeterminateList
+    override val monoid: FreeMonoid<D, CopiedName<D, I>> = factory.pathSpaceGAlgebra.monoid
+
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
     public val inclusion1: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
@@ -149,6 +164,13 @@ public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
             target = this.factory.freeDGAlgebra,
             gLinearMap = this.factory.gAlgebraProjection
         )
+    }
+
+    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> {
+        // getIdentity() is implemented in DGAlgebraImpl,
+        // but 'this' in it is DGAlgebra, not FreePathSpace
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
+        return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
     // private val n: Int by lazy {

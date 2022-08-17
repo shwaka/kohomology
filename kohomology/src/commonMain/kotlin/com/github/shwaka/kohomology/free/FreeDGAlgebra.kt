@@ -319,10 +319,10 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 }
 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
-    private val gAlgebra: FreeGAlgebra<D, I, S, V, M>,
+    override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M>,
     differential: Derivation<D, Monomial<D, I>, S, V, M>,
 ) : FreeDGAlgebra<D, I, S, V, M>,
-    DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(gAlgebra, differential),
+    DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(underlyingGAlgebra, differential),
     FreeGAlgebra<D, I, S, V, M>,
     Printable {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
@@ -330,25 +330,24 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     }
     override val degreeGroup: AugmentedDegreeGroup<D> by lazy {
         // Use by lazy to avoid accessing non-final property in constructor
-        this.gAlgebra.degreeGroup
+        this.underlyingGAlgebra.degreeGroup
     }
-    override val indeterminateList: List<Indeterminate<D, I>> = gAlgebra.indeterminateList
-    override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
-    override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = gAlgebra
+    override val indeterminateList: List<Indeterminate<D, I>> = underlyingGAlgebra.indeterminateList
+    override val monoid: FreeMonoid<D, I> = underlyingGAlgebra.monoid
 
     override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
         // getIdentity() is implemented in DGAlgebraImpl,
         // but 'this' in it is DGAlgebra, not FreeDGAlgebra
-        val gAlgebraMap = this.gAlgebra.getIdentity()
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        val gAlgebraString = this.gAlgebra.toString(printConfig)
+        val gAlgebraString = this.underlyingGAlgebra.toString(printConfig)
         return "($gAlgebraString, d)"
     }
 
     override fun toString(): String {
-        return "(${this.gAlgebra}, d)"
+        return "(${this.underlyingGAlgebra}, d)"
     }
 }

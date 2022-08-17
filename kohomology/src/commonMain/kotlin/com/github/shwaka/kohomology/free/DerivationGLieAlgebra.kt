@@ -152,7 +152,7 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
             PrintType.PLAIN -> "Der"
             PrintType.TEX -> "\\mathrm{Der}"
         }
-        return "$der(${this.freeGAlgebra.toString(printConfig)})"
+        return "$der(${this.freeGAlgebra.underlyingGAlgebra.toString(printConfig)})"
     }
 
     public companion object {

@@ -334,6 +334,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     }
     override val indeterminateList: List<Indeterminate<D, I>> = gAlgebra.indeterminateList
     override val monoid: FreeMonoid<D, I> = gAlgebra.monoid
+    override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = gAlgebra
 
     override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
         // getIdentity() is implemented in DGAlgebraImpl,

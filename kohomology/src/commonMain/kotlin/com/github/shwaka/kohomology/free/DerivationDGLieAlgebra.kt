@@ -52,6 +52,10 @@ public class DerivationDGLieAlgebra<D : Degree, I : IndeterminateName, S : Scala
         return "($gLieAlgebraString, d)"
     }
 
+    override fun toString(): String {
+        return "(${this.gLieAlgebra}, d)"
+    }
+
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>

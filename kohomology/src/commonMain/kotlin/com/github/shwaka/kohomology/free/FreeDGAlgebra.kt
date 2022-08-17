@@ -60,6 +60,11 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
     DGAlgebra<D, Monomial<D, I>, S, V, M>, FreeGAlgebra<D, I, S, V, M> {
     override val context: FreeDGAlgebraContext<D, I, S, V, M>
 
+    override fun toString(printConfig: PrintConfig): String {
+        val gAlgebraString = this.underlyingGAlgebra.toString(printConfig)
+        return "($gAlgebraString, d)"
+    }
+
     public fun <B : BasisName> getDGAlgebraMap(
         target: DGAlgebra<D, B, S, V, M>,
         valueList: List<GVectorOrZero<D, B, S, V>>,
@@ -340,11 +345,6 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
         // but 'this' in it is DGAlgebra, not FreeDGAlgebra
         val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
-    }
-
-    override fun toString(printConfig: PrintConfig): String {
-        val gAlgebraString = this.underlyingGAlgebra.toString(printConfig)
-        return "($gAlgebraString, d)"
     }
 
     override fun toString(): String {

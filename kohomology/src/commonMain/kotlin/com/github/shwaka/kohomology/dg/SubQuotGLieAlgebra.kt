@@ -61,4 +61,6 @@ private class SubQuotGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : 
     override val context: GLieAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         GLieAlgebraContextImpl(this)
     }
+
+    override val underlyingGLieAlgebra: GLieAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> = this
 }

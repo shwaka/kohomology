@@ -70,4 +70,6 @@ private class SubQuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
             this[degree].getIdentity(this.matrixSpace)
         }
     }
+
+    override val underlyingGAlgebra: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> = this
 }

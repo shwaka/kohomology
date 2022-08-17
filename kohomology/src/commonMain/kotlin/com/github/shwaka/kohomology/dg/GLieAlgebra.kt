@@ -34,6 +34,7 @@ public open class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, 
 public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, B, S, V, M> {
     override val context: GLieAlgebraContext<D, B, S, V, M>
+    public val underlyingGLieAlgebra: GLieAlgebra<D, B, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -71,4 +72,5 @@ internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
         //   Leaking 'this' in constructor of non-final class GAlgebra
         GLieAlgebraContextImpl(this)
     }
+    override val underlyingGLieAlgebra: GLieAlgebra<D, B, S, V, M> = this
 }

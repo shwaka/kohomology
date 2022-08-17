@@ -48,23 +48,23 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 }
 
 private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val gAlgebra: GAlgebra<D, B, S, V, M>,
+    override val underlyingGAlgebra: GAlgebra<D, B, S, V, M>,
     override val differential: Derivation<D, B, S, V, M>,
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGAlgebra<D, B, S, V, M>,
-    GVectorSpace<D, B, S, V> by gAlgebra {
+    GVectorSpace<D, B, S, V> by underlyingGAlgebra {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContextImpl(this)
     }
-    override val unit: GVector<D, B, S, V> = gAlgebra.unit
-    override val matrixSpace: MatrixSpace<S, V, M> = gAlgebra.matrixSpace
-    override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = gAlgebra.multiplication
+    override val unit: GVector<D, B, S, V> = underlyingGAlgebra.unit
+    override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGAlgebra.multiplication
 
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
         val cohomologyUnit = DGVectorSpace.getCohomologyClass(
             this.cohomologyGVectorSpace,
-            this.gAlgebra.unit,
+            this.underlyingGAlgebra.unit,
         )
         SubQuotGAlgebra(
             this.matrixSpace,
@@ -75,7 +75,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     }
 
     override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
-        val gAlgebraMap = this.gAlgebra.getIdentity()
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 }

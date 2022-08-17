@@ -60,6 +60,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     public val unit: GVector<D, B, S, V>
     public override val context: GAlgebraContext<D, B, S, V, M>
     public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M>
+    public val underlyingGAlgebra: GAlgebra<D, B, S, V, M>
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
@@ -130,4 +131,6 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             this[degree].getIdentity(this.matrixSpace)
         }
     }
+
+    override val underlyingGAlgebra: GAlgebra<D, B, S, V, M> = this
 }

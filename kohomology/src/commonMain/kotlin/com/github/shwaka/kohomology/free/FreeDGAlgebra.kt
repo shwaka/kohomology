@@ -346,4 +346,8 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
         val gAlgebraString = this.gAlgebra.toString(printConfig)
         return "($gAlgebraString, d)"
     }
+
+    override fun toString(): String {
+        return "(${this.gAlgebra}, d)"
+    }
 }

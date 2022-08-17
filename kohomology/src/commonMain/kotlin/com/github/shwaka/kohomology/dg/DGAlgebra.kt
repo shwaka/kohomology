@@ -62,7 +62,10 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = gAlgebra.multiplication
 
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
-        val cohomologyUnit = this.cohomologyClassOf(this.gAlgebra.unit)
+        val cohomologyUnit = DGVectorSpace.getCohomologyClass(
+            this.cohomologyGVectorSpace,
+            this.gAlgebra.unit,
+        )
         SubQuotGAlgebra(
             this.matrixSpace,
             this.cohomologyGVectorSpace,

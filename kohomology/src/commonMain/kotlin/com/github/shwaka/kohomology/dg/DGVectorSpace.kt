@@ -51,12 +51,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     // public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
     // public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
     public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
-        val vector = cocycle.vector
-        val cohomologyOfTheDegree = this.cohomology[cocycle.degree]
-        if (!cohomologyOfTheDegree.subspaceContains(vector))
-            throw IllegalArgumentException("$cocycle is not a cocycle")
-        val cohomologyClass = cohomologyOfTheDegree.projection(vector)
-        return this.cohomology.fromVector(cohomologyClass, cocycle.degree)
+        return DGVectorSpace.getCohomologyClass(this.cohomology, cocycle)
     }
 
     public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
@@ -119,6 +114,19 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 )
             }
         }
+
+        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomologyClass(
+            cohomology: SubQuotGVectorSpace<D, B, S, V, M>,
+            cocycle: GVector<D, B, S, V>,
+        ): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+            val vector = cocycle.vector
+            val cohomologyOfTheDegree = cohomology[cocycle.degree]
+            if (!cohomologyOfTheDegree.subspaceContains(vector))
+                throw IllegalArgumentException("$cocycle is not a cocycle")
+            val cohomologyClass = cohomologyOfTheDegree.projection(vector)
+            return cohomology.fromVector(cohomologyClass, cocycle.degree)
+        }
+
     }
 }
 

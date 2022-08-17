@@ -222,7 +222,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
     public override fun <D_ : Degree> convertDegree(
         degreeMorphism: AugmentedDegreeMorphism<D, D_>
     ): Pair<FreeDGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {
-        val (newFreeGAlgebra, changeDegree) = this.convertDegree(degreeMorphism)
+        val (newFreeGAlgebra, changeDegree) = super.convertDegree(degreeMorphism)
         val differentialValueList = this.generatorList.map { v ->
             val dv = this.context.run { d(v) }
             changeDegree(dv)

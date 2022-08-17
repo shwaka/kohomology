@@ -45,21 +45,27 @@ public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVecto
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): GLieAlgebra<D, B, S, V, M> {
-            return GLieAlgebraImpl(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree)
+            val gVectorSpace = GVectorSpace(
+                matrixSpace.numVectorSpace,
+                degreeGroup,
+                name,
+                getInternalPrintConfig,
+                listDegreesForAugmentedDegree,
+                getVectorSpace
+            )
+            val bilinearMapName = "LieBracket($name)"
+            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            return GLieAlgebraImpl(matrixSpace, gVectorSpace, multiplication)
         }
     }
 }
 
 internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    matrixSpace: MatrixSpace<S, V, M>,
-    degreeGroup: DegreeGroup<D>,
-    name: String,
-    getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
-    listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+    override val matrixSpace: MatrixSpace<S, V, M>,
+    gVectorSpace: GVectorSpace<D, B, S, V>,
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GLieAlgebra<D, B, S, V, M>,
-    GMagma<D, B, S, V, M> by GMagma(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree) {
+    GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
         // use 'lazy' to avoid the following warning:
         //   Leaking 'this' in constructor of non-final class GAlgebra

@@ -114,6 +114,10 @@ public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
+    }
+
     public companion object {
         public operator fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             freeDGAlgebra: FreeDGAlgebra<D, StringIndeterminateName, S, V, M>

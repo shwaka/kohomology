@@ -121,4 +121,7 @@ public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar,
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
+    }
 }

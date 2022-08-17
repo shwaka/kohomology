@@ -173,6 +173,10 @@ public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
+    }
+
     // private val n: Int by lazy {
     //     this.factory.freeDGAlgebra.generatorList.size
     // }

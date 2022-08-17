@@ -115,6 +115,10 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
+    }
+
     public companion object {
         private const val degreeIndeterminateName: String = "S"
         public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withShiftDegree(

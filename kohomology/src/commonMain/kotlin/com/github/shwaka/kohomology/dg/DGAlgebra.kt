@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -52,11 +53,13 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGAlgebra<D, B, S, V, M>,
-    DGMagma<D, B, S, V, M> by DGMagmaImpl(gAlgebra, differential, gAlgebra.multiplication, cohomologyGVectorSpace) {
+    GVectorSpace<D, B, S, V> by gAlgebra {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
         DGAlgebraContextImpl(this)
     }
-    override val unit: GVector<D, B, S, V> by lazy { gAlgebra.unit }
+    override val unit: GVector<D, B, S, V> = gAlgebra.unit
+    override val matrixSpace: MatrixSpace<S, V, M> = gAlgebra.matrixSpace
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = gAlgebra.multiplication
 
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
         val cohomologyUnit = this.cohomologyClassOf(this.gAlgebra.unit)

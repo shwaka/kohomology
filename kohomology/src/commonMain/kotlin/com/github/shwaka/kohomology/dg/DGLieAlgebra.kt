@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -42,14 +43,16 @@ public interface DGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
 
 private class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
-    differential: GLinearMap<D, B, B, S, V, M>,
+    override val differential: GLinearMap<D, B, B, S, V, M>,
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
-) : DGMagma<D, B, S, V, M> by DGMagma(gLieAlgebra, differential),
-    DGLieAlgebra<D, B, S, V, M> {
+) : DGLieAlgebra<D, B, S, V, M>,
+    GVectorSpace<D, B, S, V> by gLieAlgebra {
     override val context: DGLieAlgebraContext<D, B, S, V, M> by lazy {
         DGLieAlgebraContextImpl(this)
     }
+    override val matrixSpace: MatrixSpace<S, V, M> = gLieAlgebra.matrixSpace
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = gLieAlgebra.multiplication
 
     override val cohomology: SubQuotGLieAlgebra<D, B, S, V, M> by lazy {
         SubQuotGLieAlgebra(

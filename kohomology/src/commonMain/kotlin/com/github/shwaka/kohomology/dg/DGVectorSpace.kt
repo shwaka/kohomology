@@ -126,7 +126,6 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             val cohomologyClass = cohomologyOfTheDegree.projection(vector)
             return cohomology.fromVector(cohomologyClass, cocycle.degree)
         }
-
     }
 }
 

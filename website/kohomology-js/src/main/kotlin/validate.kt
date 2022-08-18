@@ -105,7 +105,7 @@ fun assertSquareOfDifferentialIsZero(
         return ValidationResultInternal.Error(message)
     }
     freeDGAlgebra.context.run {
-        return when (val gVector = freeDGAlgebra.gAlgebra.parse(differentialValue)) {
+        return when (val gVector = freeDGAlgebra.parse(differentialValue)) {
             is ZeroGVector -> null
             is GVector -> {
                 val gVectorWhichShouldBeZero = d(gVector)

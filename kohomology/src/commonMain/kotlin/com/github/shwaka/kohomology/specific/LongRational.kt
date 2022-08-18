@@ -189,6 +189,13 @@ public object LongRationalField : Field<LongRational> {
         return LongRational(numerator.toLong(), denominator.toLong())
     }
 
+    override val zero: LongRational = this.fromInt(0)
+    override val one: LongRational = this.fromInt(1)
+    override val two: LongRational = this.fromInt(2)
+    override val three: LongRational = this.fromInt(3)
+    override val four: LongRational = this.fromInt(4)
+    override val five: LongRational = this.fromInt(5)
+
     override fun toString(): String {
         return "LongRationalField"
     }

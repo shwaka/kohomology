@@ -120,6 +120,13 @@ public class Fp private constructor(override val characteristic: Int) : Field<In
         return IntModp(n, this.characteristic)
     }
 
+    override val zero: IntModp = this.fromInt(0)
+    override val one: IntModp = this.fromInt(1)
+    override val two: IntModp = this.fromInt(2)
+    override val three: IntModp = this.fromInt(3)
+    override val four: IntModp = this.fromInt(4)
+    override val five: IntModp = this.fromInt(5)
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null) return false

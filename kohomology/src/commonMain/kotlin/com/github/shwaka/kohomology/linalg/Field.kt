@@ -47,12 +47,20 @@ public interface ScalarContext<S : Scalar> {
     public fun Int.toScalar(): S = this@ScalarContext.field.fromInt(this)
     public fun fromInt(n: Int): S = this.field.fromInt(n)
     public fun fromIntPair(numerator: Int, denominator: Int): S = this.field.fromIntPair(numerator, denominator)
-    public val zero: S get() = 0.toScalar()
-    public val one: S get() = 1.toScalar()
-    public val two: S get() = 2.toScalar()
-    public val three: S get() = 3.toScalar()
-    public val four: S get() = 4.toScalar()
-    public val five: S get() = 5.toScalar()
+
+    public val zero: S
+        get() = this.field.zero
+    public val one: S
+        get() = this.field.one
+    public val two: S
+        get() = this.field.two
+    public val three: S
+        get() = this.field.three
+    public val four: S
+        get() = this.field.four
+    public val five: S
+        get() = this.field.five
+
     public fun Iterable<S>.sum(): S = this.fold(zero) { acc, x -> acc + x }
     public fun Iterable<S>.product(): S = this.fold(one) { acc, x -> acc * x }
 }
@@ -63,10 +71,6 @@ internal class ScalarContextImpl<S : Scalar>(
 
 public interface Field<S : Scalar> {
     public val context: ScalarContext<S>
-    public val zero: S
-        get() = this.context.zero
-    public val one: S
-        get() = this.context.one
     public val characteristic: Int
     public operator fun contains(scalar: S): Boolean
     public fun add(a: S, b: S): S
@@ -76,4 +80,13 @@ public interface Field<S : Scalar> {
     public fun unaryMinusOf(scalar: S): S = this.multiply(scalar, this.fromInt(-1))
     public fun fromInt(n: Int): S
     public fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
+
+    // Scalar values zero, one,..., five should be defined in classes that implement Field
+    // since it should be stored in a property for performance reason.
+    public val zero: S
+    public val one: S
+    public val two: S
+    public val three: S
+    public val four: S
+    public val five: S
 }

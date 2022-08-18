@@ -209,6 +209,13 @@ public object RationalField : Field<Rational> {
         return Rational(numerator, denominator)
     }
 
+    override val zero: Rational = this.fromInt(0)
+    override val one: Rational = this.fromInt(1)
+    override val two: Rational = this.fromInt(2)
+    override val three: Rational = this.fromInt(3)
+    override val four: Rational = this.fromInt(4)
+    override val five: Rational = this.fromInt(5)
+
     override fun toString(): String {
         return "RationalField"
     }

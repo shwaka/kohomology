@@ -183,6 +183,13 @@ public object IntRationalField : Field<IntRational> {
         return IntRational(numerator, denominator)
     }
 
+    override val zero: IntRational = this.fromInt(0)
+    override val one: IntRational = this.fromInt(1)
+    override val two: IntRational = this.fromInt(2)
+    override val three: IntRational = this.fromInt(3)
+    override val four: IntRational = this.fromInt(4)
+    override val five: IntRational = this.fromInt(5)
+
     override fun toString(): String {
         return "IntRationalField"
     }

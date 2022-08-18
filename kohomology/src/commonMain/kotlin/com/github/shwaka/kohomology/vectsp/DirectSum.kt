@@ -40,6 +40,16 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
         factory.getInternalPrintConfig
     override val context: VectorContext<DirectSumBasis<B>, S, V> = VectorContextImpl(this)
 
+    private val basisNameToIndex: Map<DirectSumBasis<B>, Int> by lazy {
+        // cache for indexOf(basisName)
+        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
+    override fun indexOf(basisName: DirectSumBasis<B>): Int {
+        return this.basisNameToIndex[basisName]
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
+    }
+
     /** A list of vector spaces in a direct sum. */
     public val vectorSpaceList: List<VectorSpace<B, S, V>> = factory.vectorSpaceList
 

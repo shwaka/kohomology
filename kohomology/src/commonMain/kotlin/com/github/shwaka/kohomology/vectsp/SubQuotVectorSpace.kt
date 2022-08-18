@@ -113,6 +113,16 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
         InternalPrintConfig.Companion::default
     override val context: VectorContext<SubQuotBasis<B, S, V>, S, V> = VectorContextImpl(this)
 
+    private val basisNameToIndex: Map<SubQuotBasis<B, S, V>, Int> by lazy {
+        // cache for indexOf(basisName)
+        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
+    override fun indexOf(basisName: SubQuotBasis<B, S, V>): Int {
+        return this.basisNameToIndex[basisName]
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
+    }
+
     public val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this.factory.totalVectorSpace,

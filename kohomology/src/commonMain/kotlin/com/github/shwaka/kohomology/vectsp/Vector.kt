@@ -210,6 +210,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val numVectorSpace: NumVectorSpace<S, V>
     public val basisNames: List<B>
     public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
+    public fun indexOf(basisName: B): Int
 
     public companion object {
         public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
@@ -314,15 +315,6 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         }
     }
 
-    public fun indexOf(basisName: B): Int {
-        val basisNameToIndex: Map<B, Int> by lazy {
-            // cache for indexOf(basisName)
-            this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
-        }
-        return basisNameToIndex[basisName]
-            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
-    }
-
     public fun <M : Matrix<S, V>> isBasis(
         vectorList: List<Vector<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>
@@ -345,6 +337,16 @@ internal class VectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorSpace<B, S, V> {
     override val context: VectorContext<B, S, V> = VectorContextImpl(this)
+
+    private val basisNameToIndex: Map<B, Int> by lazy {
+        // cache for indexOf(basisName)
+        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
+    override fun indexOf(basisName: B): Int {
+        return this.basisNameToIndex[basisName]
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

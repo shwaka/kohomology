@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
 
@@ -26,7 +27,7 @@ fun main() {
     measureTimedValue {
         executable.setup()
     }.let { setupTime ->
-        val seconds = "%.1f".format(setupTime.duration.inSeconds)
+        val seconds = "%.1f".format(setupTime.duration.toDouble(DurationUnit.SECONDS))
         println("Setup finished in ${seconds}s")
     }
     // print("Press ENTER to continue!!!")
@@ -34,7 +35,7 @@ fun main() {
     measureTimedValue {
         executable.main()
     }.let { mainTime ->
-        val seconds = "%.1f".format(mainTime.duration.inSeconds)
+        val seconds = "%.1f".format(mainTime.duration.toDouble(DurationUnit.SECONDS))
         println("main() finished in ${seconds}s")
     }
 }

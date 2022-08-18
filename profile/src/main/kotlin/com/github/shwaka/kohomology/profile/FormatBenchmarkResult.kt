@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.profile
 
+import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -45,6 +46,7 @@ fun findLatest(): File {
     return latestDir
 }
 
+@ExperimentalSerializationApi
 fun loadBenchmarkResults(): List<BenchmarkResult> {
     val latestDir = findLatest()
     val jsonFile = latestDir.resolve("main.json")
@@ -53,6 +55,7 @@ fun loadBenchmarkResults(): List<BenchmarkResult> {
     return json.decodeFromString(jsonText)
 }
 
+@ExperimentalSerializationApi
 fun saveOutput(outputs: List<BenchmarkOutput>) {
     val json = Json {
         prettyPrint = true
@@ -63,6 +66,7 @@ fun saveOutput(outputs: List<BenchmarkOutput>) {
     outputFile.writeText(jsonText, Charsets.UTF_8)
 }
 
+@ExperimentalSerializationApi
 fun main() {
     val results: List<BenchmarkResult> = loadBenchmarkResults()
     val outputs: List<BenchmarkOutput> = results.map { BenchmarkOutput.fromResult(it) }

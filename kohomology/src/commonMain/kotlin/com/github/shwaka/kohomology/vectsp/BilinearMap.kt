@@ -11,6 +11,19 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
     public val target: VectorSpace<BT, S, V>
     public val matrixSpace: MatrixSpace<S, V, M>
     public operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V>
+
+    public companion object {
+        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            source1: VectorSpace<BS1, S, V>,
+            source2: VectorSpace<BS2, S, V>,
+            target: VectorSpace<BT, S, V>,
+            matrixSpace: MatrixSpace<S, V, M>,
+        ): BilinearMap<BS1, BS2, BT, S, V, M> {
+            return LazyBilinearMap(source1, source2, target, matrixSpace) { _, _ ->
+                target.zeroVector
+            }
+        }
+    }
 }
 
 public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

@@ -7,15 +7,15 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
+import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Sign
+import kotlin.jvm.JvmName
 
 public interface BasisName : Printable {
     public override fun toString(printConfig: PrintConfig): String = this.toString()
@@ -179,25 +179,16 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 }
 
-public interface VectorOperations<B : BasisName, S : Scalar, V : NumVector<S>> {
-    public operator fun contains(vector: Vector<B, S, V>): Boolean
-    public fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    public fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V>
-    public fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V>
-    public val zeroVector: Vector<B, S, V>
-}
+public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : NumVectorContext<S, V> {
+    public val vectorSpace: VectorSpace<B, S, V>
 
-public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    vectorOperations: VectorOperations<B, S, V>
-) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), VectorOperations<B, S, V> by vectorOperations {
-    public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.add(this, other)
-    public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.subtract(this, other)
-    public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.multiply(scalar, this)
-    public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this, vector)
-    public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.multiply(scalar.toScalar(), this)
-    public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.multiply(this.toScalar(), vector)
+    public val zeroVector: Vector<B, S, V> get() = this.vectorSpace.zeroVector
+    public operator fun Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.add(this, other)
+    public operator fun Vector<B, S, V>.minus(other: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.subtract(this, other)
+    public operator fun Vector<B, S, V>.times(scalar: S): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(scalar, this)
+    public operator fun S.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(this, vector)
+    public operator fun Vector<B, S, V>.times(scalar: Int): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(scalar.toScalar(), this)
+    public operator fun Int.times(vector: Vector<B, S, V>): Vector<B, S, V> = this@VectorContext.vectorSpace.multiply(this.toScalar(), vector)
     public operator fun Vector<B, S, V>.times(sign: Sign): Vector<B, S, V> {
         return when (sign) {
             Sign.PLUS -> this
@@ -206,43 +197,51 @@ public open class VectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
     public operator fun Sign.times(vector: Vector<B, S, V>): Vector<B, S, V> = vector * this
     public operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
-    public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> = this.fold(zeroVector) { acc, v -> acc + v }
+    public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> =
+        this.fold(this@VectorContext.vectorSpace.zeroVector) { acc, v -> acc + v }
 }
 
-public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
-    public val numVectorSpace: NumVectorSpace<S, V>,
-    public val basisNames: List<B>,
-    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
-) : VectorOperations<B, S, V> {
+public class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val vectorSpace: VectorSpace<B, S, V>
+) : VectorContext<B, S, V>,
+    NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)
+
+public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
+    public val numVectorSpace: NumVectorSpace<S, V>
+    public val basisNames: List<B>
+    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
+
     public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            basisNames: List<B>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+        ): VectorSpace<B, S, V> {
+            return VectorSpaceImpl(numVectorSpace, basisNames, getInternalPrintConfig)
+        }
+
+        @JvmName("VectorSpaceFromStringBasisName")
         public operator fun <S : Scalar, V : NumVector<S>> invoke(
             numVectorSpace: NumVectorSpace<S, V>,
             basisNames: List<String>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<StringBasisName, S> = InternalPrintConfig.Companion::default,
         ): VectorSpace<StringBasisName, S, V> {
-            return VectorSpace(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
+            return VectorSpaceImpl(numVectorSpace, basisNames.map { StringBasisName(it) }, getInternalPrintConfig)
         }
     }
 
-    public val dim: Int = basisNames.size
-    public val field: Field<S> = this.numVectorSpace.field
+    public val dim: Int get() = basisNames.size
+    public val field: Field<S> get() = this.numVectorSpace.field
 
     // use 'lazy' to avoid the following warning:
     //   Leaking 'this' in constructor of non-final class GAlgebra
-    public open val context: VectorContext<B, S, V> by lazy {
-        VectorContext(numVectorSpace.field, numVectorSpace, this)
-    }
+    public val context: VectorContext<B, S, V>
 
-    private val basisNameToIndex: Map<B, Int> by lazy {
-        // cache for indexOf(basisName)
-        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
-    }
-
-    override fun contains(vector: Vector<B, S, V>): Boolean {
+    public operator fun contains(vector: Vector<B, S, V>): Boolean {
         return vector.vectorSpace == this
     }
 
-    override fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+    public fun add(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
             throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
@@ -252,7 +251,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    override fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
+    public fun subtract(a: Vector<B, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         if (a !in this)
             throw IllegalContextException("The vector $a is not contained in the vector space $this")
         if (b !in this)
@@ -262,7 +261,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         }
     }
 
-    override fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
+    public fun multiply(scalar: S, vector: Vector<B, S, V>): Vector<B, S, V> {
         if (scalar !in this.field)
             throw IllegalContextException("The scalar $scalar does not match the context (${this.field})")
         if (vector !in this)
@@ -303,7 +302,7 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
         return this.fromBasisName(basisName, coeffScalar)
     }
 
-    override val zeroVector: Vector<B, S, V>
+    public val zeroVector: Vector<B, S, V>
         get() = Vector(this.numVectorSpace.getZero(this.dim), this)
 
     public fun getBasis(): List<Vector<B, S, V>> {
@@ -316,6 +315,10 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 
     public fun indexOf(basisName: B): Int {
+        val basisNameToIndex: Map<B, Int> by lazy {
+            // cache for indexOf(basisName)
+            this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+        }
         return basisNameToIndex[basisName]
             ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
     }
@@ -334,6 +337,14 @@ public open class VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>>(
     public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getIdentity(this, matrixSpace)
     }
+}
+
+internal class VectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val numVectorSpace: NumVectorSpace<S, V>,
+    override val basisNames: List<B>,
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
+) : VectorSpace<B, S, V> {
+    override val context: VectorContext<B, S, V> = VectorContextImpl(this)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

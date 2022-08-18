@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
+import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -165,10 +166,9 @@ public class Rational private constructor(public val numerator: BigInteger, publ
 }
 
 public object RationalField : Field<Rational> {
-    override val field: RationalField = this
     override val characteristic: Int = 0
 
-    override val context: ScalarContext<Rational> = ScalarContext(this)
+    override val context: ScalarContext<Rational> = ScalarContextImpl(this)
 
     override fun contains(scalar: Rational): Boolean {
         return true // Type information is sufficient

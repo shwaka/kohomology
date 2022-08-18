@@ -16,8 +16,8 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     gVectorList: List<GVector<D, B, S, V>>,
 ) {
     "check DGLieAlgebra axioms" - {
-        checkGLieAlgebraAxioms(dgLieAlgebra.gLieAlgebra, gVectorList)
-        val gVectorCollection = GVectorCollection(dgLieAlgebra.gLieAlgebra, gVectorList)
+        checkGLieAlgebraAxioms(dgLieAlgebra, gVectorList)
+        val gVectorCollection = GVectorCollection(dgLieAlgebra, gVectorList)
         val gVectorArb: Arb<GVector<D, B, S, V>> = gVectorCollection.arb
         dgLieAlgebra.context.run {
             "d should satisfy Leibniz rule" {
@@ -39,7 +39,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     degreeRange: IntRange,
 ) {
     val gVectorList = degreeRange.map { intDegree ->
-        dgLieAlgebra.gLieAlgebra.getBasis(intDegree)
+        dgLieAlgebra.getBasis(intDegree)
     }.flatten()
     checkDGLieAlgebraAxioms(dgLieAlgebra, gVectorList)
 }

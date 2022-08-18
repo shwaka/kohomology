@@ -33,7 +33,13 @@ private class DirectSumFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : 
  */
 public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: DirectSumFactory<B, S, V, M>
-) : VectorSpace<DirectSumBasis<B>, S, V>(factory.numVectorSpace, factory.basisNames, factory.getInternalPrintConfig) {
+) : VectorSpace<DirectSumBasis<B>, S, V> {
+    override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
+    override val basisNames: List<DirectSumBasis<B>> = factory.basisNames
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<DirectSumBasis<B>, S> =
+        factory.getInternalPrintConfig
+    override val context: VectorContext<DirectSumBasis<B>, S, V> = VectorContextImpl(this)
+
     /** A list of vector spaces in a direct sum. */
     public val vectorSpaceList: List<VectorSpace<B, S, V>> = factory.vectorSpaceList
 
@@ -110,5 +116,9 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
     /** Represent an element of a direct sum as a list of vectors. */
     public fun toVectorList(vector: Vector<DirectSumBasis<B>, S, V>): List<Vector<B, S, V>> {
         return (0 until this.size).map { i -> this.projection(i)(vector) }
+    }
+
+    override fun toString(): String {
+        return "DirectSum(${this.vectorSpaceList.joinToString(", ") { it.toString() }})"
     }
 }

@@ -3,12 +3,10 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
+import com.github.shwaka.kohomology.dg.GAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.GAlgebraMap
-import com.github.shwaka.kohomology.dg.GAlgebraOperations
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
-import com.github.shwaka.kohomology.dg.GMagmaOperations
 import com.github.shwaka.kohomology.dg.GVector
-import com.github.shwaka.kohomology.dg.GVectorOperations
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
@@ -25,9 +23,7 @@ import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -36,47 +32,26 @@ import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public interface FreeGAlgebraOperations<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V>
+public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GAlgebraContext<D, Monomial<D, I>, S, V, M> {
+    override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
+    public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
+        return this.gAlgebra.parse(text)
+    }
 }
 
-public class FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, Monomial<D, I>, S, V>,
-    gMagmaOperations: GMagmaOperations<D, Monomial<D, I>, S, V, M>,
-    gAlgebraOperations: GAlgebraOperations<D, Monomial<D, I>, S, V, M>,
-    freeGAlgebraOperations: FreeGAlgebraOperations<D, I, S, V, M>
-) : GAlgebraContext<D, Monomial<D, I>, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations),
-    FreeGAlgebraOperations<D, I, S, V, M> by freeGAlgebraOperations
+public class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
+) : FreeGAlgebraContext<D, I, S, V, M>,
+    GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)
 
-public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    matrixSpace: MatrixSpace<S, V, M>,
-    override val degreeGroup: AugmentedDegreeGroup<D>,
-    public val indeterminateList: List<Indeterminate<D, I>>,
-    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
-) : MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>(
-    matrixSpace,
-    degreeGroup,
-    FreeMonoid(degreeGroup, indeterminateList),
-    FreeGAlgebra.getName(indeterminateList),
-    getInternalPrintConfig,
-),
-    FreeGAlgebraOperations<D, I, S, V, M>,
-    Printable {
-    init {
-        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList
-            .groupingBy { it }
-            .eachCount()
-            .filter { it.value > 1 }
-            .map { it.key }
-        require(duplicatedIndeterminateList.isEmpty()) {
-            "indeterminateList contains duplicates: $duplicatedIndeterminateList"
-        }
-    }
-    override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeGAlgebraContext(matrixSpace.numVectorSpace.field, matrixSpace.numVectorSpace, this, this, this, this)
-    }
+public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>, Printable {
+    override val context: FreeGAlgebraContext<D, I, S, V, M>
+    override val degreeGroup: AugmentedDegreeGroup<D>
+    public val indeterminateList: List<Indeterminate<D, I>>
+    override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M>
+
     public val generatorList: List<GVector<D, Monomial<D, I>, S, V>>
         get() = this.indeterminateList.map { indeterminate ->
             val monomial = Monomial.fromIndeterminate(this.degreeGroup, this.indeterminateList, indeterminate)
@@ -202,7 +177,7 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         }
     }
 
-    override fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
+    public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
         val plainPrinter = Printer(PrintType.PLAIN)
         return this.parse(text, plainPrinter)
     }
@@ -241,15 +216,19 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
         return this.convertDegree(degreeMorphism)
     }
 
-    public override fun toString(printConfig: PrintConfig): String {
+    override fun toString(printConfig: PrintConfig): String {
         val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
         return "Λ($indeterminateString)"
     }
 
     public companion object {
-        private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
-            val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
-            return "Λ($indeterminateString)"
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: List<Indeterminate<D, I>>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
+        ): FreeGAlgebra<D, I, S, V, M> {
+            return FreeGAlgebraImpl(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig)
         }
 
         public operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -257,6 +236,43 @@ public class FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : Num
             indeterminateList: List<Indeterminate<IntDegree, I>>
         ): FreeGAlgebra<IntDegree, I, S, V, M> {
             return FreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
+        }
+    }
+}
+
+private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    matrixSpace: MatrixSpace<S, V, M>,
+    override val degreeGroup: AugmentedDegreeGroup<D>,
+    override val indeterminateList: List<Indeterminate<D, I>>,
+    getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
+) : FreeGAlgebra<D, I, S, V, M>,
+    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M> by MonoidGAlgebra(
+        matrixSpace,
+        degreeGroup,
+        FreeMonoid(degreeGroup, indeterminateList),
+        FreeGAlgebraImpl.getName(indeterminateList),
+        getInternalPrintConfig,
+    ),
+    Printable {
+    init {
+        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList
+            .groupingBy { it }
+            .eachCount()
+            .filter { it.value > 1 }
+            .map { it.key }
+        require(duplicatedIndeterminateList.isEmpty()) {
+            "indeterminateList contains duplicates: $duplicatedIndeterminateList"
+        }
+    }
+    override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
+        FreeGAlgebraContextImpl(this)
+    }
+    override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = this
+
+    companion object {
+        private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
+            val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }
+            return "Λ($indeterminateString)"
         }
     }
 }

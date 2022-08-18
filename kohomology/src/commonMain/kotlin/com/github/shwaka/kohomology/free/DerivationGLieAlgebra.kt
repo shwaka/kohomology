@@ -58,7 +58,9 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
         val vectorSpaceList: List<VectorSpace<Monomial<D, I>, S, V>> = this.degreeGroup.context.run {
             generatorDegreeList.map { degree -> freeGAlgebra[degree + derivationDegree] }
         }
-        return DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
+        val directSum = DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
+        this.cache[derivationDegree] = directSum
+        return directSum
     }
 
     fun getProjection(derivationDegree: D, index: Int): LinearMap<DerivationBasis<D, I>, Monomial<D, I>, S, V, M> {
@@ -109,7 +111,7 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
 
 public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DerivationGLieAlgebraFactory<D, I, S, V, M>
-) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M>(
+) : GLieAlgebra<D, DerivationBasis<D, I>, S, V, M> by GLieAlgebra(
     matrixSpace = factory.matrixSpace,
     degreeGroup = factory.degreeGroup,
     name = factory.name,
@@ -150,7 +152,7 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
             PrintType.PLAIN -> "Der"
             PrintType.TEX -> "\\mathrm{Der}"
         }
-        return "$der(${this.freeGAlgebra.toString(printConfig)})"
+        return "$der(${this.freeGAlgebra.underlyingGAlgebra.toString(printConfig)})"
     }
 
     public companion object {

@@ -38,7 +38,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> cyclicModelOfEvenSphereTest
             listOf(zeroGVector, x.pow(2))
         }
         val cyclicModel = CyclicModel(sphere)
-        val (u, sx, x, sy, y) = cyclicModel.gAlgebra.generatorList
+        val (u, sx, x, sy, y) = cyclicModel.generatorList
 
         cyclicModel.context.run {
             "check differential" {
@@ -85,7 +85,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> cyclicModelOfEvenSphereTest
             }
             "check inclusion" {
                 val i = cyclicModel.inclusion
-                val (x_, y_) = sphere.gAlgebra.generatorList
+                val (x_, y_) = sphere.generatorList
                 i(x_) shouldBe x
                 i(y_) shouldBe y
             }

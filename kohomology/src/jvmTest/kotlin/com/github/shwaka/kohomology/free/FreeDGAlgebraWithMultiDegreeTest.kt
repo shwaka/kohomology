@@ -36,7 +36,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
         }
         "positive integer degree should be 0-dim" {
             (1 until 20).forAll { degree ->
-                freeLoopSpace.gAlgebra[degree].dim shouldBe 0
+                freeLoopSpace[degree].dim shouldBe 0
                 freeLoopSpace.cohomology[degree].dim shouldBe 0
             }
         }
@@ -69,10 +69,10 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
             val intFreeLoopSpace = FreeLoopSpace(intSphere)
             (0 until 20).forAll { degree ->
                 // basis for DGA
-                sphere.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
-                    intSphere.gAlgebra.getBasis(degree).size
-                freeLoopSpace.gAlgebra.getBasisForAugmentedDegree(degree).size shouldBe
-                    intFreeLoopSpace.gAlgebra.getBasis(degree).size
+                sphere.getBasisForAugmentedDegree(degree).size shouldBe
+                    intSphere.getBasis(degree).size
+                freeLoopSpace.getBasisForAugmentedDegree(degree).size shouldBe
+                    intFreeLoopSpace.getBasis(degree).size
                 // basis for cohomology
                 sphere.cohomology.getBasisForAugmentedDegree(degree).size shouldBe
                     intSphere.cohomology.getBasis(degree).size

@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.dg
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -43,6 +43,21 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
                 getBilinearMap(p.value, q.value)
             }
         }
+
+        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            matrixSpace: MatrixSpace<S, V, M>,
+            source1: GVectorSpace<D, BS1, S, V>,
+            source2: GVectorSpace<D, BS2, S, V>,
+            target: GVectorSpace<D, BT, S, V>,
+            degree: D,
+        ): GBilinearMap<BS1, BS2, BT, D, S, V, M> {
+            return GBilinearMap(source1, source2, target, degree, "0") { p: D, q: D ->
+                val targetDegree = target.degreeGroup.context.run {
+                    p + q + degree
+                }
+                BilinearMap.getZero(source1[p], source2[q], target[targetDegree], matrixSpace)
+            }
+        }
     }
 
     public operator fun get(p: D, q: D): BilinearMap<BS1, BS2, BT, S, V, M> {
@@ -57,15 +72,25 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     }
 
     public operator fun invoke(gVector1: GVector<D, BS1, S, V>, gVector2: GVector<D, BS2, S, V>): GVector<D, BT, S, V> {
-        if (gVector1.gVectorSpace != this.source1)
-            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
-        if (gVector2.gVectorSpace != this.source2)
-            throw IllegalContextException("Invalid graded vector is given as an argument for a graded bilinear map")
+        require(gVector1.gVectorSpace.underlyingGVectorSpace == this.source1.underlyingGVectorSpace) {
+            "Cannot compute the value of the bilinear map $this; " +
+                "the first argument $gVector1 should be an element of ${this.source1}"
+        }
+        require(gVector2.gVectorSpace.underlyingGVectorSpace == this.source2.underlyingGVectorSpace) {
+            "Cannot compute the value of the bilinear map $this; " +
+                "the second argument $gVector2 should be an element of ${this.source2}"
+        }
         val bilinearMap = this[gVector1.degree, gVector2.degree]
-        if (gVector1.vector.vectorSpace != bilinearMap.source1)
-            throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")
-        if (gVector2.vector.vectorSpace != bilinearMap.source2)
-            throw Exception("Graded bilinear map contains a bug: getBilinearMap returns incorrect linear map")
+        require(gVector1.vector.vectorSpace == bilinearMap.source1) {
+            "Graded bilinear map contains a bug: " +
+                "gVector1.vector is an element of ${gVector1.vector.vectorSpace}, " +
+                "but bilinearMap.source1 is ${bilinearMap.source1}"
+        }
+        require(gVector2.vector.vectorSpace == bilinearMap.source2) {
+            "Graded bilinear map contains a bug: " +
+                "gVector2.vector is an element of ${gVector2.vector.vectorSpace}, " +
+                "but bilinearMap.source2 is ${bilinearMap.source2}"
+        }
         val newVector = bilinearMap(gVector1.vector, gVector2.vector)
         val newDegree = this.degreeGroup.context.run {
             gVector1.degree + gVector2.degree + this@GBilinearMap.degree

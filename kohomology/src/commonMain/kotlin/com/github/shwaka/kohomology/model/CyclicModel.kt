@@ -1,11 +1,16 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -19,7 +24,7 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
     val periodicity: I,
 ) {
     init {
-        if (freeDGAlgebra.gAlgebra.indeterminateList.any { it.name == periodicity }) {
+        if (freeDGAlgebra.indeterminateList.any { it.name == periodicity }) {
             throw IllegalArgumentException(
                 "The free DGA $freeDGAlgebra contains an indeterminate '$periodicity', " +
                     "which is given as the generator for periodicity"
@@ -29,10 +34,10 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
 
     val matrixSpace = freeDGAlgebra.matrixSpace
     val cyclicGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
-        val degreeGroup = this.freeDGAlgebra.gAlgebra.degreeGroup
+        val degreeGroup = this.freeDGAlgebra.degreeGroup
         val loopSpaceIndeterminateList = listOf(
             Indeterminate(periodicity, degreeGroup.fromInt(2)).copy(degreeGroup, degreeGroup.zero)
-        ) + freeDGAlgebra.gAlgebra.indeterminateList.map {
+        ) + freeDGAlgebra.indeterminateList.map {
             listOf(
                 it.copy(degreeGroup, degreeGroup.fromInt(1)),
                 it.copy(degreeGroup, degreeGroup.zero),
@@ -44,7 +49,7 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
     val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M>
     val gAlgebraInclusion: GAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M>
     init {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
+        val n = freeDGAlgebra.indeterminateList.size
         val cyclicGeneratorList = cyclicGAlgebra.generatorList
         this.suspension = run {
             val suspensionValueList = listOf(cyclicGAlgebra.zeroGVector) +
@@ -56,7 +61,7 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
                 }.flatten()
             cyclicGAlgebra.getDerivation(suspensionValueList, -1)
         }
-        this.gAlgebraInclusion = freeDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.gAlgebraInclusion = freeDGAlgebra.getGAlgebraMap(
             cyclicGAlgebra,
             (0 until n).map { i ->
                 cyclicGeneratorList[2 * i + 2]
@@ -64,7 +69,7 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
         )
         val differentialValueList = run {
             val u = cyclicGeneratorList[0]
-            val baseSpaceGeneratorList = freeDGAlgebra.gAlgebra.generatorList
+            val baseSpaceGeneratorList = freeDGAlgebra.generatorList
             listOf(cyclicGAlgebra.zeroGVector) +
                 baseSpaceGeneratorList.map { v ->
                     val dv = freeDGAlgebra.context.run { d(v) }
@@ -82,7 +87,16 @@ private class CyclicModelFactory<D : Degree, I : IndeterminateName, S : Scalar, 
 
 public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: CyclicModelFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.cyclicGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>,
+    DGAlgebra<D, Monomial<D, CopiedName<D, I>>, S, V, M> by DGAlgebra(factory.cyclicGAlgebra, factory.differential) {
+
+    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val degreeGroup: AugmentedDegreeGroup<D> = factory.freeDGAlgebra.degreeGroup
+    override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.cyclicGAlgebra
+    override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =
+        factory.cyclicGAlgebra.indeterminateList
+    override val monoid: FreeMonoid<D, CopiedName<D, I>> = factory.cyclicGAlgebra.monoid
+
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension
     public val inclusion: DGAlgebraMap<D, Monomial<D, I>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
@@ -91,6 +105,17 @@ public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
             target = this,
             gLinearMap = this.factory.gAlgebraInclusion
         )
+    }
+
+    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> {
+        // getIdentity() is implemented in DGAlgebraImpl,
+        // but 'this' in it is DGAlgebra, not CyclicModel
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
+        return DGAlgebraMap(this, this, gAlgebraMap)
+    }
+
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
     }
 
     public companion object {

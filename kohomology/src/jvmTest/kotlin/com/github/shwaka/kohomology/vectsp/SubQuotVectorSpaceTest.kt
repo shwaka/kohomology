@@ -47,6 +47,10 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subQuotVectorSpace.subspaceContains(u).shouldBeFalse()
                 subQuotVectorSpace.subspaceContains(zeroVector).shouldBeTrue()
             }
+            "check class" {
+                val x = subQuotVectorSpace.getBasis()[0]
+                x.vectorSpace::class.simpleName shouldBe "SubQuotVectorSpace"
+            }
         }
     }
 }

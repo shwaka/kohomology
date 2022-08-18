@@ -1,114 +1,152 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 
-public interface DGVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
-    public val differential: GLinearMap<D, B, B, S, V, M>
-    public val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V>
-    public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
-    public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
-    public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
-}
+public interface DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GVectorContext<D, B, S, V> {
+    public val dgVectorSpace: DGVectorSpace<D, B, S, V, M>
 
-public open class DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, B, S, V>,
-    dgVectorOperations: DGVectorOperations<D, B, S, V, M>
-) : GVectorContext<D, B, S, V>(scalarOperations, numVectorOperations, gVectorOperations),
-    DGVectorOperations<D, B, S, V, M> by dgVectorOperations {
     // use 'by lazy' to avoid 'leaking this in non-final property'
-    public val d: GLinearMap<D, B, B, S, V, M> by lazy { this.differential }
+    public val d: GLinearMap<D, B, B, S, V, M>
+        get() = this.dgVectorSpace.differential
     public fun GVector<D, B, S, V>.cohomologyClass(): GVector<D, SubQuotBasis<B, S, V>, S, V> {
-        return this@DGVectorContext.cohomologyClassOf(this)
+        return this@DGVectorContext.dgVectorSpace.cohomologyClassOf(this)
     }
     public fun GVector<D, SubQuotBasis<B, S, V>, S, V>.cocycleRepresentative(): GVector<D, B, S, V> {
-        return this@DGVectorContext.cocycleRepresentativeOf(this)
+        return this@DGVectorContext.dgVectorSpace.cocycleRepresentativeOf(this)
     }
     public fun GVector<D, B, S, V>.boundingCochain(): GVector<D, B, S, V>? {
-        return this@DGVectorContext.boundingCochainOf(this)
+        return this@DGVectorContext.dgVectorSpace.boundingCochainOf(this)
+    }
+    public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+        return this.dgVectorSpace.cohomologyClassOf(cocycle)
+    }
+    public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
+        return this.dgVectorSpace.cocycleRepresentativeOf(cohomologyClass)
+    }
+    public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
+        return this.dgVectorSpace.boundingCochainOf(cocycle)
     }
 }
 
-public open class DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val gVectorSpace: GVectorSpace<D, B, S, V>,
-    override val differential: GLinearMap<D, B, B, S, V, M>,
+internal class DGVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
+) : DGVectorContext<D, B, S, V, M>,
+    GVectorContext<D, B, S, V> by GVectorContextImpl(dgVectorSpace)
+
+public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    GVectorSpace<D, B, S, V> {
+    public override val context: DGVectorContext<D, B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
-) : DGVectorOperations<D, B, S, V, M> {
-    private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
-
-    public open val degreeGroup: DegreeGroup<D> = gVectorSpace.degreeGroup
-
-    public open val context: DGVectorContext<D, B, S, V, M> by lazy {
-        DGVectorContext(this.gVectorSpace.field, this.gVectorSpace.numVectorSpace, this.gVectorSpace, this)
+    public val differential: GLinearMap<D, B, B, S, V, M>
+    public val cohomology: SubQuotGVectorSpace<D, B, S, V, M>
+    // public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V>
+    // public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V>
+    // public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>?
+    public fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+        return DGVectorSpace.getCohomologyClass(this.cohomology, cocycle)
     }
 
-    protected fun getCohomologyVectorSpace(degree: D): SubQuotVectorSpace<B, S, V, M> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
-        }
-        // if cache does not exist
-        val kernelBasis = this.differential[degree].kernelBasis()
-        val previousDegree = this.degreeGroup.context.run { degree - 1 }
-        val imageGenerator = this.differential[previousDegree].imageGenerator()
-        val subQuotVectorSpace = SubQuotVectorSpace(
-            this.matrixSpace,
-            this.gVectorSpace[degree],
-            subspaceGenerator = kernelBasis,
-            quotientGenerator = imageGenerator,
-        )
-        this.cache[degree] = subQuotVectorSpace
-        return subQuotVectorSpace
-    }
-    public fun getCohomologyVectorSpace(degree: Int): SubQuotVectorSpace<B, S, V, M> {
-        return this.getCohomologyVectorSpace(this.degreeGroup.fromInt(degree))
-    }
-
-    protected val cohomologyName: String = "H(${this.gVectorSpace.name})"
-
-    override val cohomology: GVectorSpace<D, SubQuotBasis<B, S, V>, S, V> by lazy {
-        GVectorSpace(
-            this.matrixSpace.numVectorSpace,
-            this.degreeGroup,
-            this.cohomologyName,
-            this.gVectorSpace.listDegreesForAugmentedDegree,
-            this::getCohomologyVectorSpace,
-        )
-    }
-
-    override fun cohomologyClassOf(cocycle: GVector<D, B, S, V>): GVector<D, SubQuotBasis<B, S, V>, S, V> {
-        val vector = cocycle.vector
-        val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cocycle.degree)
-        if (!cohomologyOfTheDegree.subspaceContains(vector))
-            throw IllegalArgumentException("$cocycle is not a cocycle")
-        val cohomologyClass = cohomologyOfTheDegree.projection(vector)
-        return this.cohomology.fromVector(cohomologyClass, cocycle.degree)
-    }
-
-    override fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
+    public fun cocycleRepresentativeOf(cohomologyClass: GVector<D, SubQuotBasis<B, S, V>, S, V>): GVector<D, B, S, V> {
         val vector = cohomologyClass.vector
-        val cohomologyOfTheDegree = this.getCohomologyVectorSpace(cohomologyClass.degree)
+        val cohomologyOfTheDegree = this.cohomology[cohomologyClass.degree]
         val cocycle = cohomologyOfTheDegree.section(vector)
-        return this.gVectorSpace.fromVector(cocycle, cohomologyClass.degree)
+        return this.fromVector(cocycle, cohomologyClass.degree)
     }
 
-    override fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
+    public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
         return this.differential.findPreimage(cocycle)
     }
 
+    public val cohomologyName: String
+        get() = "H(${this.name})"
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+            differential: GLinearMap<D, B, B, S, V, M>,
+        ): DGVectorSpace<D, B, S, V, M> {
+            val cohomology = DGVectorSpace.getCohomology(gVectorSpace, differential)
+            return DGVectorSpaceImpl(gVectorSpace, differential, cohomology)
+        }
+
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectorSpace(
+            matrixSpace: MatrixSpace<S, V, M>,
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+        ): DGVectorSpace<D, B, S, V, M> {
+            val degreeOne = gVectorSpace.degreeGroup.fromInt(1)
+            val differential = GLinearMap.getZero(matrixSpace, gVectorSpace, gVectorSpace, degreeOne)
+            return DGVectorSpace(gVectorSpace, differential)
+        }
+
+        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+            differential: GLinearMap<D, B, B, S, V, M>,
+        ): SubQuotGVectorSpace<D, B, S, V, M> {
+            // SubQuotGVectorSpaceImpl has cache
+            val name = "H(${gVectorSpace.name})"
+            return SubQuotGVectorSpace(
+                gVectorSpace.numVectorSpace,
+                gVectorSpace.degreeGroup,
+                name,
+                { printConfig ->
+                    SubQuotVectorSpace.convertInternalPrintConfig(
+                        printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
+                    )
+                },
+                gVectorSpace.listDegreesForAugmentedDegree,
+            ) { degree ->
+                val kernelBasis = differential[degree].kernelBasis()
+                val previousDegree = gVectorSpace.degreeGroup.context.run { degree - 1 }
+                val imageGenerator = differential[previousDegree].imageGenerator()
+                SubQuotVectorSpace(
+                    differential.matrixSpace,
+                    gVectorSpace[degree],
+                    subspaceGenerator = kernelBasis,
+                    quotientGenerator = imageGenerator,
+                )
+            }
+        }
+
+        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomologyClass(
+            cohomology: SubQuotGVectorSpace<D, B, S, V, M>,
+            cocycle: GVector<D, B, S, V>,
+        ): GVector<D, SubQuotBasis<B, S, V>, S, V> {
+            val vector = cocycle.vector
+            val cohomologyOfTheDegree = cohomology[cocycle.degree]
+            if (!cohomologyOfTheDegree.subspaceContains(vector))
+                throw IllegalArgumentException("$cocycle is not a cocycle")
+            val cohomologyClass = cohomologyOfTheDegree.projection(vector)
+            return cohomology.fromVector(cohomologyClass, cocycle.degree)
+        }
+    }
+}
+
+internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    gVectorSpace: GVectorSpace<D, B, S, V>,
+    override val differential: GLinearMap<D, B, B, S, V, M>,
+    override val cohomology: SubQuotGVectorSpace<D, B, S, V, M>,
+) : DGVectorSpace<D, B, S, V, M>,
+    GVectorSpace<D, B, S, V> by gVectorSpace {
+
+    override val context: DGVectorContext<D, B, S, V, M> by lazy {
+        DGVectorContextImpl(this)
+    }
+
+    override val matrixSpace: MatrixSpace<S, V, M>
+        get() = this.differential.matrixSpace
+
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace.underlyingGVectorSpace
+
     override fun toString(): String {
-        val name = this.gVectorSpace.name
+        val name = this.name
         return "($name, d)"
     }
 }

@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
@@ -105,7 +106,13 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
 
 public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: SubQuotFactory<B, S, V, M>
-) : VectorSpace<SubQuotBasis<B, S, V>, S, V>(factory.numVectorSpace, factory.basisNames) {
+) : VectorSpace<SubQuotBasis<B, S, V>, S, V> {
+    override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
+    override val basisNames: List<SubQuotBasis<B, S, V>> = factory.basisNames
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> =
+        InternalPrintConfig.Companion::default
+    override val context: VectorContext<SubQuotBasis<B, S, V>, S, V> = VectorContextImpl(this)
+
     public val projection: LinearMap<B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this.factory.totalVectorSpace,
@@ -125,6 +132,11 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
 
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean {
         return this.factory.subspaceContains(vector)
+    }
+
+    override fun toString(): String {
+        val basisNamesString = this.basisNames.joinToString(", ") { it.toString() }
+        return "SubQuotVectorSpace($basisNamesString)"
     }
 
     public companion object {

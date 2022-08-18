@@ -3,13 +3,14 @@ package com.github.shwaka.kohomology.vectsp
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
+import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 
 public open class MultipleVectorContext<S : Scalar, V : NumVector<S>>(
     numVectorSpace: NumVectorSpace<S, V>,
     private val vectorSpaceList: List<VectorSpace<*, S, V>>
-) : NumVectorContext<S, V>(numVectorSpace.field, numVectorSpace) {
+) : NumVectorContext<S, V> by NumVectorContextImpl(numVectorSpace) {
 
     @Suppress("UNCHECKED_CAST")
     public operator fun <B : BasisName> Vector<B, S, V>.plus(other: Vector<B, S, V>): Vector<B, S, V> {

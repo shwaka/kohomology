@@ -104,6 +104,27 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             }
         }
     }
+
+    "zero graded linear map test" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
+            // V[n] = span{v0, v1,..., v{n-1}}
+            (0 until degree).map { "v$it" }
+        }
+        val (v0, v1) = gVectorSpace.getBasis(2)
+
+        "zero graded linear map of degree 0" {
+            val gLinearMap = GLinearMap.getZero(matrixSpace, gVectorSpace, gVectorSpace, 0)
+            gLinearMap(v0).isZero().shouldBeTrue()
+            gLinearMap(v1).isZero().shouldBeTrue()
+        }
+
+        "zero graded linear map of degree 1" {
+            val gLinearMap = GLinearMap.getZero(matrixSpace, gVectorSpace, gVectorSpace, 1)
+            gLinearMap(v0).isZero().shouldBeTrue()
+            gLinearMap(v1).isZero().shouldBeTrue()
+        }
+    }
 }
 
 class RationalGLinearMapTest : FreeSpec({

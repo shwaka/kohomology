@@ -17,8 +17,8 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     commutative: Boolean = true,
 ) {
     "check DGAlgebra axioms" - {
-        checkGAlgebraAxioms(dgAlgebra.gAlgebra, gVectorList, commutative)
-        val gVectorCollection = GVectorCollection(dgAlgebra.gAlgebra, gVectorList)
+        checkGAlgebraAxioms(dgAlgebra, gVectorList, commutative)
+        val gVectorCollection = GVectorCollection(dgAlgebra, gVectorList)
         val gVectorArb: Arb<GVector<D, B, S, V>> = gVectorCollection.arb
         dgAlgebra.context.run {
             "d should satisfy Leibniz rule" {
@@ -33,7 +33,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             }
             "d(unit) should be zero" {
                 // mathematically this follows from Leibniz rule
-                d(dgAlgebra.gAlgebra.unit).isZero().shouldBeTrue()
+                d(dgAlgebra.unit).isZero().shouldBeTrue()
             }
         }
     }
@@ -45,7 +45,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
     commutative: Boolean = true,
 ) {
     val gVectorList = degreeRange.map { intDegree ->
-        dgAlgebra.gAlgebra.getBasis(intDegree)
+        dgAlgebra.getBasis(intDegree)
     }.flatten()
     checkDGAlgebraAxioms(dgAlgebra, gVectorList, commutative)
 }

@@ -1,11 +1,17 @@
 package com.github.shwaka.kohomology.model
 
+import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebraMap
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
+import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
+import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -19,7 +25,7 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
     val matrixSpace = freeDGAlgebra.matrixSpace
     val dividedLoopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeGroup = this.freeDGAlgebra.degreeGroup
-        val dividedLoopSpaceIndeterminateList = freeDGAlgebra.gAlgebra.indeterminateList.let { list ->
+        val dividedLoopSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
             val zero = degreeGroup.zero
             val one = degreeGroup.fromInt(1)
             list.map { it.copy(degreeGroup, shift = zero, index = 1) } + list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
@@ -34,43 +40,43 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
 
     val loopSpaceDGAlgebra: FreeLoopSpace<D, I, S, V, M> by lazy { FreeLoopSpace(freeDGAlgebra) }
     val gAlgebraProjection1: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
-        val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
+        val n = freeDGAlgebra.indeterminateList.size
+        val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.generatorList
         val zeroGVector = this.loopSpaceDGAlgebra.context.run { zeroGVector }
         this.dividedLoopSpaceGAlgebra.getGAlgebraMap(
-            this.loopSpaceDGAlgebra.gAlgebra,
+            this.loopSpaceDGAlgebra,
             loopSpaceGeneratorList.take(n) + loopSpaceGeneratorList.take(n) +
                 loopSpaceGeneratorList.takeLast(n) + List(n) { zeroGVector }
         )
     }
     val gAlgebraProjection2: GAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
-        val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.gAlgebra.generatorList
+        val n = freeDGAlgebra.indeterminateList.size
+        val loopSpaceGeneratorList = this.loopSpaceDGAlgebra.generatorList
         val zeroGVector = this.loopSpaceDGAlgebra.context.run { zeroGVector }
         this.dividedLoopSpaceGAlgebra.getGAlgebraMap(
-            this.loopSpaceDGAlgebra.gAlgebra,
+            this.loopSpaceDGAlgebra,
             loopSpaceGeneratorList.take(n) + loopSpaceGeneratorList.take(n) +
                 List(n) { zeroGVector } + loopSpaceGeneratorList.takeLast(n)
         )
     }
 
     init {
-        val n = freeDGAlgebra.gAlgebra.indeterminateList.size
+        val n = freeDGAlgebra.indeterminateList.size
         val pathSpaceDGAlgebra = this.pathSpaceDGAlgebra
         val dividedLoopSpaceGeneratorList = this.dividedLoopSpaceGAlgebra.generatorList
-        this.pathGAlgebraInclusion1 = pathSpaceDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.pathGAlgebraInclusion1 = pathSpaceDGAlgebra.getGAlgebraMap(
             this.dividedLoopSpaceGAlgebra,
             dividedLoopSpaceGeneratorList.take(3 * n)
         )
-        this.pathGAlgebraInclusion2 = pathSpaceDGAlgebra.gAlgebra.getGAlgebraMap(
+        this.pathGAlgebraInclusion2 = pathSpaceDGAlgebra.getGAlgebraMap(
             this.dividedLoopSpaceGAlgebra,
             dividedLoopSpaceGeneratorList.take(2 * n) + dividedLoopSpaceGeneratorList.takeLast(n)
         )
         val differentialValueList = pathSpaceDGAlgebra.context.run {
-            val valueList1 = pathSpaceDGAlgebra.gAlgebra.generatorList.map { v ->
+            val valueList1 = pathSpaceDGAlgebra.generatorList.map { v ->
                 this@DividedFreeLoopSpaceFactory.pathGAlgebraInclusion1(d(v))
             }
-            val valueList2 = pathSpaceDGAlgebra.gAlgebra.generatorList.takeLast(n).map { v ->
+            val valueList2 = pathSpaceDGAlgebra.generatorList.takeLast(n).map { v ->
                 this@DividedFreeLoopSpaceFactory.pathGAlgebraInclusion2(d(v))
             }
             valueList1 + valueList2
@@ -81,8 +87,17 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
 
 public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val factory: DividedFreeLoopSpaceFactory<D, I, S, V, M>
-) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>(factory.dividedLoopSpaceGAlgebra, factory.differential, factory.matrixSpace) {
+) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>,
+    DGAlgebra<D, Monomial<D, CopiedName<D, I>>, S, V, M> by DGAlgebra(factory.dividedLoopSpaceGAlgebra, factory.differential) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(DividedFreeLoopSpaceFactory(freeDGAlgebra))
+
+    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val degreeGroup: AugmentedDegreeGroup<D> = factory.freeDGAlgebra.degreeGroup
+    override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.dividedLoopSpaceGAlgebra
+    override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =
+        factory.dividedLoopSpaceGAlgebra.indeterminateList
+    override val monoid: FreeMonoid<D, CopiedName<D, I>> = factory.dividedLoopSpaceGAlgebra.monoid
+
     public val freeLoopSpace: FreeLoopSpace<D, I, S, V, M> = this.factory.loopSpaceDGAlgebra
     public val projection1: DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> by lazy {
         DGAlgebraMap(
@@ -97,5 +112,16 @@ public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar,
             target = this.factory.loopSpaceDGAlgebra,
             gLinearMap = this.factory.gAlgebraProjection2
         )
+    }
+
+    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, CopiedName<D, I>>, Monomial<D, CopiedName<D, I>>, S, V, M> {
+        // getIdentity() is implemented in DGAlgebraImpl,
+        // but 'this' in it is DGAlgebra, not DividedFreeLoopSpace
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
+        return DGAlgebraMap(this, this, gAlgebraMap)
+    }
+
+    override fun toString(): String {
+        return "(${this.underlyingGAlgebra}, d)"
     }
 }

@@ -13,10 +13,14 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
     public val matrix: M
 ) {
     init {
-        if (this.matrix.colCount != this.source.dim)
-            throw InvalidSizeException("The number of columns of the representing matrix does not match the dimension of the source vector space")
-        if (this.matrix.rowCount != this.target.dim)
-            throw InvalidSizeException("The number of rows of the representing matrix does not match the dimension of the target vector space")
+        require(this.matrix.colCount == this.source.dim) {
+            "The matrix has ${this.matrix.colCount} columns, " +
+                "but the source vector space has dimension ${this.source.dim}."
+        }
+        require(this.matrix.rowCount == this.target.dim) {
+            "The matrix has ${this.matrix.rowCount} rows, " +
+                "but the target vector space has dimension ${this.target.dim}."
+        }
     }
 
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
@@ -129,7 +133,7 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
             target: VectorSpace<BT, S, V>,
             matrixSpace: MatrixSpace<S, V, M>
         ): LinearMap<BS, BT, S, V, M> {
-            return LinearMap(matrixSpace, source, target, matrixSpace.getZero(source.dim, target.dim))
+            return LinearMap(matrixSpace, source, target, matrixSpace.getZero(target.dim, source.dim))
         }
 
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getIdentity(

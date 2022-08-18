@@ -10,8 +10,43 @@ public interface NumVector<S : Scalar> {
     public fun toMap(): Map<Int, S>
 }
 
-public interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
+public interface NumVectorContext<S : Scalar, V : NumVector<S>> : ScalarContext<S> {
     public val numVectorSpace: NumVectorSpace<S, V>
+
+    public operator fun V.plus(other: V): V = this@NumVectorContext.numVectorSpace.add(this, other)
+    public operator fun V.minus(other: V): V = this@NumVectorContext.numVectorSpace.subtract(this, other)
+    public operator fun V.times(scalar: S): V = this@NumVectorContext.numVectorSpace.multiply(scalar, this)
+    public operator fun S.times(numVector: V): V = numVector * this
+    public operator fun V.times(scalar: Int): V = this * this@NumVectorContext.field.fromInt(scalar)
+    public operator fun Int.times(numVector: V): V = numVector * this
+    public operator fun V.times(sign: Sign): V {
+        return when (sign) {
+            Sign.PLUS -> this
+            Sign.MINUS -> -this
+        }
+    }
+    public operator fun Sign.times(numVector: V): V = numVector * this
+    public infix fun V.dot(other: V): S = this@NumVectorContext.numVectorSpace.innerProduct(this, other)
+    public operator fun V.unaryMinus(): V = this@NumVectorContext.numVectorSpace.unaryMinusOf(this)
+    public operator fun V.get(ind: Int): S = this@NumVectorContext.numVectorSpace.getElement(this, ind)
+    public fun List<S>.toNumVector(): V = this@NumVectorContext.numVectorSpace.fromValueList(this)
+    public fun Map<Int, S>.toNumVector(dim: Int): V = this@NumVectorContext.numVectorSpace.fromValueMap(this, dim)
+}
+
+public class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
+    override val numVectorSpace: NumVectorSpace<S, V>
+) : NumVectorContext<S, V>, ScalarContext<S> by ScalarContextImpl(numVectorSpace.field)
+
+public interface NumVectorSpace<S : Scalar, V : NumVector<S>> {
+    public val field: Field<S>
+    public val context: NumVectorContext<S, V>
+    public fun getZero(dim: Int): V
+    public fun getOneAtIndex(index: Int, dim: Int): V {
+        val valueList = this.field.context.run {
+            (0 until dim).map { if (it == index) one else zero }
+        }
+        return this.fromValueList(valueList)
+    }
     public operator fun contains(numVector: V): Boolean
     public fun add(a: V, b: V): V
     public fun subtract(a: V, b: V): V
@@ -22,40 +57,4 @@ public interface NumVectorOperations<S : Scalar, V : NumVector<S>> {
     public fun fromValueList(valueList: List<S>): V
     public fun fromValueMap(valueMap: Map<Int, S>, dim: Int): V
     public fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): V = this.fromValueMap(valueMap, dim)
-}
-
-public open class NumVectorContext<S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    private val numVectorOperations: NumVectorOperations<S, V>
-) : ScalarContext<S>(scalarOperations), NumVectorOperations<S, V> by numVectorOperations {
-    public operator fun V.plus(other: V): V = this@NumVectorContext.add(this, other)
-    public operator fun V.minus(other: V): V = this@NumVectorContext.subtract(this, other)
-    public operator fun V.times(scalar: S): V = this@NumVectorContext.multiply(scalar, this)
-    public operator fun S.times(numVector: V): V = numVector * this
-    public operator fun V.times(scalar: Int): V = this * fromInt(scalar)
-    public operator fun Int.times(numVector: V): V = numVector * this
-    public operator fun V.times(sign: Sign): V {
-        return when (sign) {
-            Sign.PLUS -> this
-            Sign.MINUS -> -this
-        }
-    }
-    public operator fun Sign.times(numVector: V): V = numVector * this
-    public infix fun V.dot(other: V): S = this@NumVectorContext.innerProduct(this, other)
-    public operator fun V.unaryMinus(): V = this@NumVectorContext.unaryMinusOf(this)
-    public operator fun V.get(ind: Int): S = this@NumVectorContext.getElement(this, ind)
-    public fun List<S>.toNumVector(): V = this@NumVectorContext.fromValueList(this)
-    public fun Map<Int, S>.toNumVector(dim: Int): V = this@NumVectorContext.fromValueMap(this, dim)
-}
-
-public interface NumVectorSpace<S : Scalar, V : NumVector<S>> : NumVectorOperations<S, V> {
-    public val field: Field<S>
-    public val context: NumVectorContext<S, V>
-    public fun getZero(dim: Int): V
-    public fun getOneAtIndex(index: Int, dim: Int): V {
-        val valueList = this.field.context.run {
-            (0 until dim).map { if (it == index) one else zero }
-        }
-        return this.fromValueList(valueList)
-    }
 }

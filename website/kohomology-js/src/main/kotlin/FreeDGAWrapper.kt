@@ -47,10 +47,10 @@ class FreeDGAWrapper(json: String) {
 
     fun dgaInfo(): Array<StyledMessageKt> {
         val freeDGAString = this.freeDGAlgebra.toString()
-        val degreeString = this.freeDGAlgebra.gAlgebra.indeterminateList.joinToString(", ") {
+        val degreeString = this.freeDGAlgebra.indeterminateList.joinToString(", ") {
             "\\deg{${it.name}} = ${it.degree}"
         }
-        val differentialString = this.freeDGAlgebra.gAlgebra.generatorList.joinToString(", ") {
+        val differentialString = this.freeDGAlgebra.generatorList.joinToString(", ") {
             val p = Printer(printType = PrintType.TEX)
             this.freeDGAlgebra.context.run {
                 "d$it = ${p(d(it))}"
@@ -176,10 +176,10 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
     val printer = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
     val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = try {
-        freeDGAlgebra.gAlgebra.parse(cocycleString, printer)
+        freeDGAlgebra.parse(cocycleString, printer)
     } catch (e: ParseException) {
         return styledMessage(MessageType.ERROR) {
-            val generatorsString = freeDGAlgebra.gAlgebra.getGeneratorsForParser(printer).joinToString(", ") { it.first }
+            val generatorsString = freeDGAlgebra.getGeneratorsForParser(printer).joinToString(", ") { it.first }
             "[Error] Parse failed.\n".text +
                 "Note: Current generators are $generatorsString\n".text +
                 "${e.errorResult}\n".text

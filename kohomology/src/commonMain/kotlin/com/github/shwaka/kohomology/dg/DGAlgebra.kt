@@ -4,60 +4,78 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
-import com.github.shwaka.kohomology.util.InternalPrintConfig
-import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 
-public open class DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, B, S, V>,
-    gMagmaOperations: GMagmaOperations<D, B, S, V, M>,
-    gAlgebraOperations: GAlgebraOperations<D, B, S, V, M>,
-    dgVectorOperations: DGVectorOperations<D, B, S, V, M>
-) : DGMagmaContext<D, B, S, V, M>(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, dgVectorOperations),
-    GAlgebraOperations<D, B, S, V, M> by gAlgebraOperations {
-    private val gAlgebraContext = GAlgebraContext(scalarOperations, numVectorOperations, gVectorOperations, gMagmaOperations, gAlgebraOperations)
+public interface DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    DGMagmaContext<D, B, S, V, M>, GAlgebraContext<D, B, S, V, M> {
+    public val dgAlgebra: DGAlgebra<D, B, S, V, M>
+}
 
-    public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
-        return this@DGAlgebraContext.gAlgebraContext.run { this@pow.pow(exponent) }
+internal class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val dgAlgebra: DGAlgebra<D, B, S, V, M>,
+) : DGAlgebraContext<D, B, S, V, M>,
+    DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgAlgebra) {
+    override val gAlgebra: GAlgebra<D, B, S, V, M> = dgAlgebra
+
+    // public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
+    //     return this@DGAlgebraContextImpl.gAlgebraContext.run { this@pow.pow(exponent) }
+    // }
+}
+
+public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    DGMagma<D, B, S, V, M>, GAlgebra<D, B, S, V, M> {
+    override val context: DGAlgebraContext<D, B, S, V, M>
+    override val differential: Derivation<D, B, S, V, M>
+    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
+    override val cohomology: SubQuotGAlgebra<D, B, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gAlgebra: GAlgebra<D, B, S, V, M>,
+            differential: Derivation<D, B, S, V, M>,
+        ): DGAlgebra<D, B, S, V, M> {
+            val dgMagma = DGMagma(gAlgebra, differential)
+            return DGAlgebraImpl(
+                gAlgebra,
+                differential,
+                dgMagma.cohomology,
+                dgMagma.cohomology.multiplication,
+            )
+        }
     }
 }
 
-public open class DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public open val gAlgebra: GAlgebra<D, B, S, V, M>,
-    differential: Derivation<D, B, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>
-) : DGMagma<D, B, S, V, M>(gAlgebra, differential, matrixSpace) {
+private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val underlyingGAlgebra: GAlgebra<D, B, S, V, M>,
+    override val differential: Derivation<D, B, S, V, M>,
+    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+    private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
+) : DGAlgebra<D, B, S, V, M>,
+    GVectorSpace<D, B, S, V> by underlyingGAlgebra {
     override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
-        DGAlgebraContext(this.gAlgebra.field, this.gAlgebra.numVectorSpace, this.gAlgebra, this.gAlgebra, this.gAlgebra, this)
+        DGAlgebraContextImpl(this)
     }
+    override val unit: GVector<D, B, S, V> = underlyingGAlgebra.unit
+    override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
+    override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGAlgebra.multiplication
 
-    override val cohomology: GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
-        val cohomOfDeg0: SubQuotVectorSpace<B, S, V, M> = this.getCohomologyVectorSpace(0)
-        val cohomologyUnit = cohomOfDeg0.projection(this.gAlgebra.unit.vector)
-        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { printConfig: PrintConfig ->
-            SubQuotVectorSpace.convertInternalPrintConfig(printConfig, this.gAlgebra.getInternalPrintConfig(printConfig))
-        }
-        GAlgebra(
-            matrixSpace,
-            this.degreeGroup,
-            this.cohomologyName,
-            this::getCohomologyVectorSpace,
-            this::getCohomologyMultiplication,
+    override val cohomology: SubQuotGAlgebra<D, B, S, V, M> by lazy {
+        val cohomologyUnit = DGVectorSpace.getCohomologyClass(
+            this.cohomologyGVectorSpace,
+            this.underlyingGAlgebra.unit,
+        )
+        SubQuotGAlgebra(
+            this.matrixSpace,
+            this.cohomologyGVectorSpace,
+            this.cohomologyMultiplication,
             cohomologyUnit,
-            listDegreesForAugmentedDegree = this.gAlgebra.listDegreesForAugmentedDegree,
-            getInternalPrintConfig = getInternalPrintConfig
         )
     }
 
-    public override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
-        val gAlgebraMap = this.gAlgebra.getIdentity()
+    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 }

@@ -29,8 +29,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         val target = sphere(matrixSpace, sphereDim)
         val source = FreePathSpace(target)
         val surjectiveQuasiIsomorphism = source.projection
-        val (x, y) = target.gAlgebra.generatorList
-        val (x1, y1, x2, y2, _, _) = source.gAlgebra.generatorList
+        val (x, y) = target.generatorList
+        val (x1, y1, x2, y2, _, _) = source.generatorList
 
         "lift DGVector along DGLinearMap" - {
             "findCocycleLift" - {
@@ -73,7 +73,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val sourceCochain = source.context.run {
                         y1 - y2
                     }
-                    val zero = target.gAlgebra.getZero(sourceCochain.degree.value - 1)
+                    val zero = target.getZero(sourceCochain.degree.value - 1)
                     val exception = shouldThrow<IllegalArgumentException> {
                         surjectiveQuasiIsomorphism.findLift(zero, sourceCochain)
                     }
@@ -114,7 +114,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                         target.getDGAlgebraMap(target, valueList)
                     }
                     val lift = target.findLift(underlyingMap, surjectiveQuasiIsomorphism)
-                    target.gAlgebra.generatorList.forAll { v ->
+                    target.generatorList.forAll { v ->
                         (surjectiveQuasiIsomorphism * lift)(v) shouldBe underlyingMap(v)
                     }
                 }
@@ -122,7 +122,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
             "findSection" - {
                 "should return a lift" {
                     val section = target.findSection(surjectiveQuasiIsomorphism)
-                    target.gAlgebra.generatorList.forAll { v ->
+                    target.generatorList.forAll { v ->
                         (surjectiveQuasiIsomorphism * section)(v) shouldBe v
                     }
                 }
@@ -135,8 +135,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
         check(sphereDim % 2 == 0)
         val source = sphere(matrixSpace, sphereDim)
         val target = FreePathSpace(source)
-        val (x, _) = source.gAlgebra.generatorList
-        val (x1, y1, x2, y2, sx, _) = target.gAlgebra.generatorList
+        val (x, _) = source.generatorList
+        val (x1, y1, x2, y2, sx, _) = target.generatorList
         val quasiIsomorphism = target.context.run {
             val valueList = listOf(
                 x1 + x2,
@@ -250,7 +250,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val freePathSpace = liftWithHomotopy.freePathSpace
                     val inclusion1 = freePathSpace.inclusion1
                     val inclusion2 = freePathSpace.inclusion2
-                    source.gAlgebra.generatorList.forAll { v ->
+                    source.generatorList.forAll { v ->
                         homotopy(inclusion1(v)) shouldBe underlyingMap(v)
                         homotopy(inclusion2(v)) shouldBe quasiIsomorphism(lift(v))
                     }
@@ -269,7 +269,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                     val freePathSpace = liftWithHomotopy.freePathSpace
                     val inclusion1 = freePathSpace.inclusion1
                     val inclusion2 = freePathSpace.inclusion2
-                    target.gAlgebra.generatorList.forAll { v ->
+                    target.generatorList.forAll { v ->
                         homotopy(inclusion1(v)) shouldBe v
                         homotopy(inclusion2(v)) shouldBe quasiIsomorphism(section(v))
                     }
@@ -294,7 +294,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 listOf(zeroGVector, dt, zeroGVector, du, zeroGVector, dv)
             }
         }
-        val (_, _, du, _, _, _) = source.gAlgebra.generatorList
+        val (_, _, du, _, _, _) = source.generatorList
         val target = run {
             val indeterminateList = listOf(
                 Indeterminate("x", n),
@@ -305,7 +305,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 listOf(zeroGVector, x.pow(2), zeroGVector)
             }
         }
-        val (x, y, z) = target.gAlgebra.generatorList
+        val (x, y, z) = target.generatorList
         val quasiInjection = target.context.run {
             val valueList = listOf(zeroGVector, x, x.pow(2), y, zeroGVector, z)
             source.getDGAlgebraMap(target, valueList)
@@ -350,9 +350,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 listOf(zeroGVector, t.pow(2), zeroGVector)
             }
         }
-        val (t, _, v) = source.gAlgebra.generatorList
+        val (t, _, v) = source.generatorList
         val target = sphere(matrixSpace, n)
-        val (x, y) = target.gAlgebra.generatorList
+        val (x, y) = target.generatorList
         val quasiSurjection = target.context.run {
             val valueList = listOf(x, y, zeroGVector)
             source.getDGAlgebraMap(target, valueList)

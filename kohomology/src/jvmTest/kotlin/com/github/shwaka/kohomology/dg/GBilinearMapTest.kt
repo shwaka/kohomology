@@ -13,12 +13,13 @@ import com.github.shwaka.kohomology.vectsp.Vector
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val gBilinearMapTag = NamedTag("GBilinearMap")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "graded bilinear map test" - {
+    "multiplication of the exterior algebra of a single generator" - {
         // 1つの元で生成される外積代数
         val numVectorSpace = matrixSpace.numVectorSpace
         val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "span<u, v>") { degree ->
@@ -58,6 +59,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
                 gBilinearMap(z3, u) shouldBe z3
                 gBilinearMap(u, z3) shouldBe z3
             }
+        }
+    }
+
+    "test zero" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
+            (0 until degree).map { "v$it" }
+        }
+        val gBilinearMap = GBilinearMap.getZero(
+            matrixSpace,
+            source1 = gVectorSpace,
+            source2 = gVectorSpace,
+            target = gVectorSpace,
+            degree = gVectorSpace.degreeGroup.zero
+        )
+        "check values" {
+            val (v0, v1) = gVectorSpace.getBasis(2)
+            gBilinearMap(v0, v1).isZero().shouldBeTrue()
         }
     }
 }

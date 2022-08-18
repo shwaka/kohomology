@@ -37,7 +37,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
                     (degree > 0 || degree < -dim) -> 0
                     else -> combination(dim + 1, -degree + 1)
                 }
-                dgVectorSpace.gVectorSpace[degree].dim shouldBe expected
+                dgVectorSpace[degree].dim shouldBe expected
             }
         }
         "check dimension of homology" {

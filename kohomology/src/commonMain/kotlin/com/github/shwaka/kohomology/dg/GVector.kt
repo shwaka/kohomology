@@ -10,10 +10,9 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorOperations
+import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.linalg.ScalarOperations
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.Printable
@@ -23,23 +22,38 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-public sealed class GVectorOrZero<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
-    public abstract fun isZero(): Boolean
+public sealed interface GVectorOrZero<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
+    public fun isZero(): Boolean
     public fun isNotZero(): Boolean = !this.isZero()
+    public val gVectorSpace: GVectorSpace<D, B, S, V>
 }
 
-public class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> : GVectorOrZero<D, B, S, V>() {
+public class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val gVectorSpace: GVectorSpace<D, B, S, V>,
+) : GVectorOrZero<D, B, S, V> {
     override fun isZero(): Boolean = true
     override fun toString(): String {
         return "0"
+    }
+
+    override fun hashCode(): Int {
+        return this.gVectorSpace.hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null) return false
+        if (this::class != other::class) return false
+        other as ZeroGVector<*, *, *, *>
+        return this.gVectorSpace.underlyingGVectorSpace == other.gVectorSpace.underlyingGVectorSpace
     }
 }
 
 public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val vector: Vector<B, S, V>,
     public val degree: D,
-    public val gVectorSpace: GVectorSpace<D, B, S, V>
-) : GVectorOrZero<D, B, S, V>(), Printable {
+    override val gVectorSpace: GVectorSpace<D, B, S, V>
+) : GVectorOrZero<D, B, S, V>, Printable {
     override fun isZero(): Boolean {
         return this.vector.isZero()
     }
@@ -53,7 +67,7 @@ public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
 
         if (vector != other.vector) return false
         if (degree != other.degree) return false
-        if (gVectorSpace != other.gVectorSpace) return false
+        if (gVectorSpace.underlyingGVectorSpace != other.gVectorSpace.underlyingGVectorSpace) return false
 
         return true
     }
@@ -75,51 +89,41 @@ public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 }
 
-public interface GVectorOperations<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
-    public operator fun contains(gVector: GVector<D, B, S, V>): Boolean
-    public fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun subtract(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public fun multiply(scalar: S, gVector: GVector<D, B, S, V>): GVector<D, B, S, V>
-    public val zeroGVector: ZeroGVector<D, B, S, V>
-    public fun getZero(degree: D): GVector<D, B, S, V>
-    public val degreeGroup: DegreeGroup<D>
-}
+public interface GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> :
+    NumVectorContext<S, V> {
+    public val gVectorSpace: GVectorSpace<D, B, S, V>
 
-public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
-    scalarOperations: ScalarOperations<S>,
-    numVectorOperations: NumVectorOperations<S, V>,
-    gVectorOperations: GVectorOperations<D, B, S, V>,
-) : NumVectorContext<S, V>(scalarOperations, numVectorOperations), GVectorOperations<D, B, S, V> by gVectorOperations {
-    public operator fun GVector<D, B, S, V>.plus(other: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.add(this, other)
+    public val zeroGVector: ZeroGVector<D, B, S, V> get() = this.gVectorSpace.zeroGVector
+    public operator fun GVector<D, B, S, V>.plus(other: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.add(this, other)
     public operator fun GVectorOrZero<D, B, S, V>.plus(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return when (other) {
             is ZeroGVector -> this
             is GVector -> when (this) {
                 is ZeroGVector -> other
-                is GVector -> this@GVectorContext.add(this, other)
+                is GVector -> this@GVectorContext.gVectorSpace.add(this, other)
             }
         }
     }
 
-    public operator fun GVector<D, B, S, V>.minus(other: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.subtract(this, other)
+    public operator fun GVector<D, B, S, V>.minus(other: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.subtract(this, other)
     public operator fun GVectorOrZero<D, B, S, V>.minus(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return when (other) {
             is ZeroGVector -> this
             is GVector -> when (this) {
-                is ZeroGVector -> this@GVectorContext.multiply(this@GVectorContext.field.fromInt(-1), other)
-                is GVector -> this@GVectorContext.subtract(this, other)
+                is ZeroGVector -> this@GVectorContext.gVectorSpace.multiply(this@GVectorContext.gVectorSpace.field.fromInt(-1), other)
+                is GVector -> this@GVectorContext.gVectorSpace.subtract(this, other)
             }
         }
     }
 
-    public operator fun GVector<D, B, S, V>.times(scalar: S): GVector<D, B, S, V> = this@GVectorContext.multiply(scalar, this)
-    public operator fun S.times(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.multiply(this, gVector)
-    public operator fun GVector<D, B, S, V>.times(scalar: Int): GVector<D, B, S, V> = this@GVectorContext.multiply(scalar.toScalar(), this)
-    public operator fun Int.times(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.multiply(this.toScalar(), gVector)
+    public operator fun GVector<D, B, S, V>.times(scalar: S): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.multiply(scalar, this)
+    public operator fun S.times(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.multiply(this, gVector)
+    public operator fun GVector<D, B, S, V>.times(scalar: Int): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.multiply(scalar.toScalar(), this)
+    public operator fun Int.times(gVector: GVector<D, B, S, V>): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.multiply(this.toScalar(), gVector)
     public operator fun GVectorOrZero<D, B, S, V>.times(scalar: S): GVectorOrZero<D, B, S, V> {
         return when (this) {
-            is ZeroGVector -> this@GVectorContext.zeroGVector
-            is GVector -> this@GVectorContext.multiply(scalar, this)
+            is ZeroGVector -> this@GVectorContext.gVectorSpace.zeroGVector
+            is GVector -> this@GVectorContext.gVectorSpace.multiply(scalar, this)
         }
     }
     public operator fun S.times(gVector: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> = gVector * this
@@ -145,10 +149,10 @@ public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
         return gVector * this
     }
 
-    public operator fun GVector<D, B, S, V>.unaryMinus(): GVector<D, B, S, V> = this@GVectorContext.multiply((-1).toScalar(), this)
+    public operator fun GVector<D, B, S, V>.unaryMinus(): GVector<D, B, S, V> = this@GVectorContext.gVectorSpace.multiply((-1).toScalar(), this)
     public operator fun GVectorOrZero<D, B, S, V>.unaryMinus(): GVectorOrZero<D, B, S, V> {
         return when (this) {
-            is ZeroGVector -> this@GVectorContext.zeroGVector
+            is ZeroGVector -> this@GVectorContext.gVectorSpace.zeroGVector
             is GVector -> -this
         }
     }
@@ -158,46 +162,63 @@ public open class GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
         } else {
             if (degree == null)
                 throw IllegalArgumentException("degree cannot be null when an iterator of GVector is empty")
-            return this@GVectorContext.getZero(degree)
+            return this@GVectorContext.gVectorSpace.getZero(degree)
         }
     }
     public fun Iterable<GVector<D, B, S, V>>.sum(degree: Int): GVector<D, B, S, V> {
-        val degreeInternal = this@GVectorContext.degreeGroup.fromInt(degree)
+        val degreeInternal = this@GVectorContext.gVectorSpace.degreeGroup.fromInt(degree)
         return this.sum(degreeInternal)
     }
 }
 
-public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
-    public val numVectorSpace: NumVectorSpace<S, V>,
-    public override val degreeGroup: DegreeGroup<D>,
-    public val name: String,
-    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-    public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
-    private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
-) : GVectorOperations<D, B, S, V> {
-    public constructor(
-        numVectorSpace: NumVectorSpace<S, V>,
-        degreeGroup: DegreeGroup<D>,
-        name: String,
-        getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, null, getVectorSpace)
+internal class GVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val gVectorSpace: GVectorSpace<D, B, S, V>,
+) : GVectorContext<D, B, S, V>, NumVectorContext<S, V> by NumVectorContextImpl(gVectorSpace.numVectorSpace)
 
-    public constructor(
-        numVectorSpace: NumVectorSpace<S, V>,
-        degreeGroup: DegreeGroup<D>,
-        name: String,
-        listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
-        getVectorSpace: (D) -> VectorSpace<B, S, V>,
-    ) : this(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
+public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
+    public val numVectorSpace: NumVectorSpace<S, V>
+    public val degreeGroup: DegreeGroup<D>
+    public val name: String
+    public val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>
+    public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?
+    public operator fun get(degree: D): VectorSpace<B, S, V>
+    public val underlyingGVectorSpace: GVectorSpace<D, B, S, V>
+    override fun toString(): String
 
-    public val field: Field<S> = this.numVectorSpace.field
-    private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
-
-    // use 'lazy' to avoid the following warning:
-    //   Leaking 'this' in constructor of non-final class GAlgebra
-    public open val context: GVectorContext<D, B, S, V> by lazy { GVectorContext(numVectorSpace.field, numVectorSpace, this) }
+    public val field: Field<S> get() = this.numVectorSpace.field
+    public val context: GVectorContext<D, B, S, V>
 
     public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+        ): GVectorSpace<D, B, S, V> {
+            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace)
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+        ): GVectorSpace<D, B, S, V> {
+            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, null, getVectorSpace)
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+            getVectorSpace: (D) -> VectorSpace<B, S, V>,
+        ): GVectorSpace<D, B, S, V> {
+            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
+        }
+
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
@@ -239,17 +260,6 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
         }
-    }
-
-    public operator fun get(degree: D): VectorSpace<B, S, V> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
-        }
-        // if cache does not exist
-        val vectorSpace = this.getVectorSpace(degree)
-        this.cache[degree] = vectorSpace
-        return vectorSpace
     }
 
     public fun fromVector(vector: Vector<B, S, V>, degree: D): GVector<D, B, S, V> {
@@ -304,7 +314,7 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             .flatten()
     }
 
-    public override fun getZero(degree: D): GVector<D, B, S, V> {
+    public fun getZero(degree: D): GVector<D, B, S, V> {
         val vector = this[degree].zeroVector
         return this.fromVector(vector, degree)
     }
@@ -328,11 +338,11 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public fun getZero(degree: Int): GVector<D, B, S, V> = this.getZero(this.degreeGroup.fromInt(degree))
     public fun convertToGVector(gVectorOrZero: GVectorOrZero<D, B, S, V>, degree: Int): GVector<D, B, S, V> = this.convertToGVector(gVectorOrZero, this.degreeGroup.fromInt(degree))
 
-    override fun contains(gVector: GVector<D, B, S, V>): Boolean {
-        return gVector.gVectorSpace == this
+    public operator fun contains(gVector: GVector<D, B, S, V>): Boolean {
+        return gVector.gVectorSpace.underlyingGVectorSpace == this.underlyingGVectorSpace
     }
 
-    override fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
+    public fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
         if (a !in this)
             throw IllegalContextException("The gVector $a does not match the context")
         if (b !in this)
@@ -348,7 +358,7 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
         return this@GVectorSpace.fromVector(vector, a.degree)
     }
 
-    override fun subtract(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
+    public fun subtract(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
         if (a !in this)
             throw IllegalContextException("The gVector $a does not match the context")
         if (b !in this)
@@ -364,14 +374,14 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
         return this@GVectorSpace.fromVector(vector, a.degree)
     }
 
-    override fun multiply(scalar: S, gVector: GVector<D, B, S, V>): GVector<D, B, S, V> {
+    public fun multiply(scalar: S, gVector: GVector<D, B, S, V>): GVector<D, B, S, V> {
         if (gVector !in this)
             throw IllegalContextException("The gVector $gVector does not match the context")
         val vector = gVector.vector.vectorSpace.context.run { scalar * gVector.vector }
         return this.fromVector(vector, gVector.degree)
     }
 
-    override val zeroGVector: ZeroGVector<D, B, S, V> = ZeroGVector()
+    public val zeroGVector: ZeroGVector<D, B, S, V> get() = ZeroGVector(this)
 
     public fun <M : Matrix<S, V>> isBasis(
         gVectorList: List<GVector<D, B, S, V>>,
@@ -399,6 +409,30 @@ public open class GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
         return GLinearMap(this, this, 0, matrixSpace, "id") { degree ->
             this[degree].getIdentity(matrixSpace)
         }
+    }
+}
+
+private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+    override val numVectorSpace: NumVectorSpace<S, V>,
+    override val degreeGroup: DegreeGroup<D>,
+    override val name: String,
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+    override val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+    private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
+) : GVectorSpace<D, B, S, V> {
+    private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
+    override val context: GVectorContext<D, B, S, V> by lazy { GVectorContextImpl(this) }
+    override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
+
+    override fun get(degree: D): VectorSpace<B, S, V> {
+        this.cache[degree]?.let {
+            // if cache exists
+            return it
+        }
+        // if cache does not exist
+        val vectorSpace = this.getVectorSpace(degree)
+        this.cache[degree] = vectorSpace
+        return vectorSpace
     }
 
     override fun toString(): String {

@@ -88,8 +88,7 @@ public class DenseMatrixSpace<S : Scalar> private constructor(
 
     override val field: Field<S> = this.numVectorSpace.field
 
-    override val context: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> = MatrixContext(this.field, this.numVectorSpace, this)
-    override val matrixSpace: MatrixSpace<S, DenseNumVector<S>, DenseMatrix<S>> = this
+    override val context: MatrixContext<S, DenseNumVector<S>, DenseMatrix<S>> = MatrixContextImpl(this)
 
     override fun contains(matrix: DenseMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace

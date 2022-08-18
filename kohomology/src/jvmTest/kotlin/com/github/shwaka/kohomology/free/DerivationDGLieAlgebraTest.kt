@@ -42,9 +42,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
             }
         }
 
-        val (dx) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-sphereDim)
-        val (dy) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-(2 * sphereDim - 1))
-        val (xdy) = derivationDGLieAlgebra.gLieAlgebra.getBasis(-(sphereDim - 1))
+        val (dx) = derivationDGLieAlgebra.getBasis(-sphereDim)
+        val (dy) = derivationDGLieAlgebra.getBasis(-(2 * sphereDim - 1))
+        val (xdy) = derivationDGLieAlgebra.getBasis(-(sphereDim - 1))
 
         "dgVectorToDerivation(gVector) should throw if d(gVector) != 0" {
             shouldThrow<IllegalArgumentException> {
@@ -53,7 +53,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForEvenSp
         }
 
         "check value of dgVectorToDerivation()" {
-            val (x, y) = freeDGAlgebra.gAlgebra.generatorList
+            val (x, y) = freeDGAlgebra.generatorList
             val dyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(dy)
             val xdyDgDerivation = derivationDGLieAlgebra.gVectorToDGDerivation(xdy)
             freeDGAlgebra.context.run {

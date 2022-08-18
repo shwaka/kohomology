@@ -96,7 +96,7 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     ): DGVectorSpace<IntDegree, Simplex<Vertex>, S, V, M> {
         val gVectorSpace = this.getGVectorSpace(matrixSpace)
         val differential = this.getDifferential(matrixSpace, gVectorSpace)
-        return DGVectorSpace(gVectorSpace, differential, matrixSpace)
+        return DGVectorSpace(gVectorSpace, differential)
     }
 
     public fun eulerCharacteristic(): Int {

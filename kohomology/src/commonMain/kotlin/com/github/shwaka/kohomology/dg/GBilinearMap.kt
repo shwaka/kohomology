@@ -61,14 +61,9 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     }
 
     public operator fun get(p: D, q: D): BilinearMap<BS1, BS2, BT, S, V, M> {
-        this.cache[Pair(p, q)]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(Pair(p, q)) {
+            this.getBilinearMap(p, q)
         }
-        // if cache does not exists
-        val bilinearMap = this.getBilinearMap(p, q)
-        this.cache[Pair(p, q)] = bilinearMap
-        return bilinearMap
     }
 
     public operator fun invoke(gVector1: GVector<D, BS1, S, V>, gVector2: GVector<D, BS2, S, V>): GVector<D, BT, S, V> {

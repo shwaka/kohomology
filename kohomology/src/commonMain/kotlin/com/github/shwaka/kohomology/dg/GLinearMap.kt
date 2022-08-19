@@ -234,14 +234,9 @@ public class GLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scal
     private val cache: MutableMap<D, LinearMap<BS, BT, S, V, M>> = mutableMapOf()
 
     override operator fun get(degree: D): LinearMap<BS, BT, S, V, M> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(degree) {
+            this.getLinearMap(degree)
         }
-        // if cache does not exist
-        val linearMap = this.getLinearMap(degree)
-        this.cache[degree] = linearMap
-        return linearMap
     }
 
     override fun toString(): String {

@@ -49,18 +49,13 @@ private class DerivationGLieAlgebraFactory<D : Degree, I : IndeterminateName, S 
     }
 
     fun getVectorSpace(derivationDegree: D): DirectSum<Monomial<D, I>, S, V, M> {
-        this.cache[derivationDegree]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(derivationDegree) {
+            val generatorDegreeList = this.freeGAlgebra.indeterminateList.map { it.degree }
+            val vectorSpaceList: List<VectorSpace<Monomial<D, I>, S, V>> = this.degreeGroup.context.run {
+                generatorDegreeList.map { degree -> freeGAlgebra[degree + derivationDegree] }
+            }
+            DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
         }
-        // if cache does not exist
-        val generatorDegreeList = this.freeGAlgebra.indeterminateList.map { it.degree }
-        val vectorSpaceList: List<VectorSpace<Monomial<D, I>, S, V>> = this.degreeGroup.context.run {
-            generatorDegreeList.map { degree -> freeGAlgebra[degree + derivationDegree] }
-        }
-        val directSum = DirectSum(vectorSpaceList, freeGAlgebra.matrixSpace, this::getInternalPrintConfig)
-        this.cache[derivationDegree] = directSum
-        return directSum
     }
 
     fun getProjection(derivationDegree: D, index: Int): LinearMap<DerivationBasis<D, I>, Monomial<D, I>, S, V, M> {

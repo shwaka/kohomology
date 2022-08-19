@@ -425,14 +425,9 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
 
     override fun get(degree: D): VectorSpace<B, S, V> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(degree) {
+            this.getVectorSpace(degree)
         }
-        // if cache does not exist
-        val vectorSpace = this.getVectorSpace(degree)
-        this.cache[degree] = vectorSpace
-        return vectorSpace
     }
 
     override fun toString(): String {

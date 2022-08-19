@@ -33,14 +33,9 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     }
 
     fun getVectorSpace(degree: D): VectorSpace<E, S, V> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(degree) {
+            VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
         }
-        // if cache does not exist
-        val vectorSpace = VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
-        this.cache[degree] = vectorSpace
-        return vectorSpace
     }
 
     fun getVectorSpace(degree: Int): VectorSpace<E, S, V> = this.getVectorSpace(this.degreeGroup.fromInt(degree))

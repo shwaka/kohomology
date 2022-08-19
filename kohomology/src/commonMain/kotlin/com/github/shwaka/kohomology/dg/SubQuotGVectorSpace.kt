@@ -53,14 +53,9 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this
 
     override fun get(degree: D): SubQuotVectorSpace<B, S, V, M> {
-        this.cache[degree]?.let {
-            // if cache exists
-            return it
+        return this.cache.getOrPut(degree) {
+            this.getVectorSpace(degree)
         }
-        // if cache does not exist
-        val vectorSpace = this.getVectorSpace(degree)
-        this.cache[degree] = vectorSpace
-        return vectorSpace
     }
     override fun get(degree: Int): SubQuotVectorSpace<B, S, V, M> {
         return this[this.degreeGroup.fromInt(degree)]

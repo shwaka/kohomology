@@ -62,7 +62,12 @@ public class Fp private constructor(override val characteristic: Int) : Field<In
     public companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
         public fun get(p: Int): Fp {
-            return this.cache.getOrPut(p, { if (p.isPrime()) Fp(p) else throw ArithmeticException("$p is not prime") })
+            return this.cache.getOrPut(p) {
+                if (p.isPrime())
+                    Fp(p)
+                else
+                    throw ArithmeticException("$p is not prime")
+            }
         }
     }
 

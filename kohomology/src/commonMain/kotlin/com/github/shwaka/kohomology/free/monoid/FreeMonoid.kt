@@ -316,18 +316,17 @@ private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
                 emptyList()
         }
         val cacheKey = Pair(degree, index)
-        this.cache[cacheKey]?.let { return it }
-        // Since 0 <= index < this.indeterminateList.size,
-        // we have 0 < this.indeterminateList.size
-        val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGenerator.indeterminateList[index].degree }
-        val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
-            this.listMonomialsInternal(newDegree, index)
-                .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
-        } else emptyList()
-        val listWithZeroAtIndex = this.listMonomialsInternal(degree, index + 1)
-        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
-        this.cache[cacheKey] = result
-        return result
+        return this.cache.getOrPut(cacheKey) {
+            // Since 0 <= index < this.indeterminateList.size,
+            // we have 0 < this.indeterminateList.size
+            val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGenerator.indeterminateList[index].degree }
+            val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
+                this.listMonomialsInternal(newDegree, index)
+                    .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
+            } else emptyList()
+            val listWithZeroAtIndex = this.listMonomialsInternal(degree, index + 1)
+            listWithNonZeroAtIndex + listWithZeroAtIndex
+        }
     }
 }
 

@@ -172,20 +172,19 @@ public data class MultiDegreeGroup(val indeterminateList: List<DegreeIndetermina
                 emptyList()
         }
         val cacheKey = Pair(augmentedDegree, index)
-        this.cache[cacheKey]?.let { return it }
-        // Since 0 <= index < this.listSize,
-        // we have 0 < this.listSize
-        val newAugmentedDegree = augmentedDegree - this.augmentation(this.oneAtIndex(index))
-        val listWithNonZeroAtIndex = if (newAugmentedDegree >= 0) {
-            this.listAllDegreesInternal(newAugmentedDegree, index)
-                .map { multiDegree ->
-                    this.context.run { multiDegree + this@MultiDegreeGroup.oneAtIndex(index) }
-                }
-        } else emptyList()
-        val listWithZeroAtIndex = this.listAllDegreesInternal(augmentedDegree, index + 1)
-        val result = listWithNonZeroAtIndex + listWithZeroAtIndex
-        this.cache[cacheKey] = result
-        return result
+        return this.cache.getOrPut(cacheKey) {
+            // Since 0 <= index < this.listSize,
+            // we have 0 < this.listSize
+            val newAugmentedDegree = augmentedDegree - this.augmentation(this.oneAtIndex(index))
+            val listWithNonZeroAtIndex = if (newAugmentedDegree >= 0) {
+                this.listAllDegreesInternal(newAugmentedDegree, index)
+                    .map { multiDegree ->
+                        this.context.run { multiDegree + this@MultiDegreeGroup.oneAtIndex(index) }
+                    }
+            } else emptyList()
+            val listWithZeroAtIndex = this.listAllDegreesInternal(augmentedDegree, index + 1)
+            listWithNonZeroAtIndex + listWithZeroAtIndex
+        }
     }
 
     override fun contains(degree: MultiDegree): Boolean {

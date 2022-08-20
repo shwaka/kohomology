@@ -54,9 +54,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by underlyingGAlgebra {
-    override val context: DGAlgebraContext<D, B, S, V, M> by lazy {
-        DGAlgebraContextImpl(this)
-    }
+    override val context: DGAlgebraContext<D, B, S, V, M> = DGAlgebraContextImpl(this)
     override val unit: GVector<D, B, S, V> = underlyingGAlgebra.unit
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGAlgebra.multiplication

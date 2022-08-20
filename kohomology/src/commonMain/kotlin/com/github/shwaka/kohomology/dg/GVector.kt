@@ -421,7 +421,7 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorSpace<D, B, S, V> {
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
-    override val context: GVectorContext<D, B, S, V> by lazy { GVectorContextImpl(this) }
+    override val context: GVectorContext<D, B, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
 
     override fun get(degree: D): VectorSpace<B, S, V> {

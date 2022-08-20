@@ -102,9 +102,7 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
 ) : DGMagma<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: DGMagmaContext<D, B, S, V, M> by lazy {
-        DGMagmaContextImpl(this)
-    }
+    override val context: DGMagmaContext<D, B, S, V, M> = DGMagmaContextImpl(this)
     override val matrixSpace: MatrixSpace<S, V, M> = differential.matrixSpace
 
     private fun getCohomologyMultiplicationAtDegree(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {

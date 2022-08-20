@@ -66,7 +66,5 @@ private class SubQuotGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
     override val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : SubQuotGMagma<D, B, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
-    override val context: GMagmaContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
-        GMagmaContextImpl(this)
-    }
+    override val context: GMagmaContext<D, SubQuotBasis<B, S, V>, S, V, M> = GMagmaContextImpl(this)
 }

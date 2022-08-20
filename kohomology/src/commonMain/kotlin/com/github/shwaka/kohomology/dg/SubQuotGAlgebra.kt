@@ -59,9 +59,7 @@ private class SubQuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val unit: GVector<D, SubQuotBasis<B, S, V>, S, V>,
 ) : SubQuotGAlgebra<D, B, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
-    override val context: GAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> by lazy {
-        GAlgebraContextImpl(this)
-    }
+    override val context: GAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GAlgebraContextImpl(this)
 
     override fun getIdentity(): GAlgebraMap<D, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         // If this method is implemented in the interface SubQuotGAlgebra,

@@ -264,9 +264,7 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
             "indeterminateList contains duplicates: $duplicatedIndeterminateList"
         }
     }
-    override val context: FreeGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeGAlgebraContextImpl(this)
-    }
+    override val context: FreeGAlgebraContext<D, I, S, V, M> = FreeGAlgebraContextImpl(this)
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = this
 
     companion object {

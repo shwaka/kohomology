@@ -125,11 +125,7 @@ private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GMagma<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: GMagmaContext<D, B, S, V, M> by lazy {
-        // use 'lazy' to avoid the following warning:
-        //   Leaking 'this' in constructor of non-final class GAlgebra
-        GMagmaContextImpl(this)
-    }
+    override val context: GMagmaContext<D, B, S, V, M> = GMagmaContextImpl(this)
 
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace.underlyingGVectorSpace
 }

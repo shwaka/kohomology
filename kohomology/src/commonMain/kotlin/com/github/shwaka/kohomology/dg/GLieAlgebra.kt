@@ -67,10 +67,6 @@ internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GLieAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: GLieAlgebraContext<D, B, S, V, M> by lazy {
-        // use 'lazy' to avoid the following warning:
-        //   Leaking 'this' in constructor of non-final class GAlgebra
-        GLieAlgebraContextImpl(this)
-    }
+    override val context: GLieAlgebraContext<D, B, S, V, M> = GLieAlgebraContextImpl(this)
     override val underlyingGLieAlgebra: GLieAlgebra<D, B, S, V, M> = this
 }

@@ -48,9 +48,7 @@ private class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGLieAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by underlyingGLieAlgebra {
-    override val context: DGLieAlgebraContext<D, B, S, V, M> by lazy {
-        DGLieAlgebraContextImpl(this)
-    }
+    override val context: DGLieAlgebraContext<D, B, S, V, M> = DGLieAlgebraContextImpl(this)
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGLieAlgebra.matrixSpace
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGLieAlgebra.multiplication
 

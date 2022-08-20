@@ -330,13 +330,8 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(underlyingGAlgebra, differential),
     FreeGAlgebra<D, I, S, V, M>,
     Printable {
-    override val context: FreeDGAlgebraContext<D, I, S, V, M> by lazy {
-        FreeDGAlgebraContextImpl(this)
-    }
-    override val degreeGroup: AugmentedDegreeGroup<D> by lazy {
-        // Use by lazy to avoid accessing non-final property in constructor
-        this.underlyingGAlgebra.degreeGroup
-    }
+    override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val degreeGroup: AugmentedDegreeGroup<D> = this.underlyingGAlgebra.degreeGroup
     override val indeterminateList: List<Indeterminate<D, I>> = underlyingGAlgebra.indeterminateList
     override val monoid: FreeMonoid<D, I> = underlyingGAlgebra.monoid
 

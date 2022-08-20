@@ -136,9 +136,7 @@ internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
 ) : DGVectorSpace<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
 
-    override val context: DGVectorContext<D, B, S, V, M> by lazy {
-        DGVectorContextImpl(this)
-    }
+    override val context: DGVectorContext<D, B, S, V, M> = DGVectorContextImpl(this)
 
     override val matrixSpace: MatrixSpace<S, V, M>
         get() = this.differential.matrixSpace

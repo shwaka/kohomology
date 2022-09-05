@@ -59,8 +59,13 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     GMagma<D, B, S, V, M> {
     public val unit: GVector<D, B, S, V>
     public override val context: GAlgebraContext<D, B, S, V, M>
-    public override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M>
     public val underlyingGAlgebra: GAlgebra<D, B, S, V, M>
+
+    override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
+        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
+            this[degree].getIdentity(this.matrixSpace)
+        }
+    }
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
         val grammar = GAlgebraGrammar(this, generators)
@@ -119,14 +124,5 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 ) : GAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GAlgebraContext<D, B, S, V, M> = GAlgebraContextImpl(this)
-
-    override fun getIdentity(): GAlgebraMap<D, B, B, S, V, M> {
-        // If this method is implemented in the interface GAlgebra,
-        // a type error is thrown.
-        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
-            this[degree].getIdentity(this.matrixSpace)
-        }
-    }
-
     override val underlyingGAlgebra: GAlgebra<D, B, S, V, M> = this
 }

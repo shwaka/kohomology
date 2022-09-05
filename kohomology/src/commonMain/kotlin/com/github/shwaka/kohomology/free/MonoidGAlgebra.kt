@@ -1,6 +1,12 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
+import com.github.shwaka.kohomology.dg.GAlgebraContext
+import com.github.shwaka.kohomology.dg.GAlgebraContextImpl
+import com.github.shwaka.kohomology.dg.GAlgebraMap
+import com.github.shwaka.kohomology.dg.GBilinearMap
+import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.GVectorSpace
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Monoid
@@ -28,19 +34,43 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
 ) {
     private val cache: MutableMap<D, VectorSpace<E, S, V>> = mutableMapOf()
 
+    val gVectorSpace: GVectorSpace<D, E, S, V> = GVectorSpace(
+        this.matrixSpace.numVectorSpace,
+        this.degreeGroup,
+        this.name,
+        this.getInternalPrintConfig,
+        this::listDegreesForAugmentedDegree,
+        this::getVectorSpace,
+    )
+
+    val multiplication: GBilinearMap<E, E, E, D, S, V, M> = GBilinearMap(
+        this.gVectorSpace,
+        this.gVectorSpace,
+        this.gVectorSpace,
+        0,
+        "Multiplication(${this.name})",
+    ) { p, q -> this.getMultiplication(p, q) }
+
+    val unit: GVector<D, E, S, V> = this.gVectorSpace.fromVector(
+        this.getVectorSpace(0).fromBasisName(this.monoid.unit),
+        0,
+    )
+
     private fun getBasisNames(degree: D): List<E> {
         return this.monoid.listElements(degree)
     }
 
-    fun getVectorSpace(degree: D): VectorSpace<E, S, V> {
+    private fun getVectorSpace(degree: D): VectorSpace<E, S, V> {
         return this.cache.getOrPut(degree) {
             VectorSpace(this.matrixSpace.numVectorSpace, this.getBasisNames(degree))
         }
     }
 
-    fun getVectorSpace(degree: Int): VectorSpace<E, S, V> = this.getVectorSpace(this.degreeGroup.fromInt(degree))
+    private fun getVectorSpace(degree: Int): VectorSpace<E, S, V> {
+        return this.getVectorSpace(this.degreeGroup.fromInt(degree))
+    }
 
-    fun getMultiplication(p: D, q: D): BilinearMap<E, E, E, S, V, M> {
+    private fun getMultiplication(p: D, q: D): BilinearMap<E, E, E, S, V, M> {
         val source1 = this.getVectorSpace(p)
         val source2 = this.getVectorSpace(q)
         val target = this.getVectorSpace(this.degreeGroup.context.run { p + q })
@@ -65,16 +95,20 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         }
     }
 
-    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+    private fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
         return this.monoid.listDegreesForAugmentedDegree(augmentedDegree)
     }
-
-    val unitVector: Vector<E, S, V> = this.getVectorSpace(0).fromBasisName(this.monoid.unit)
 }
 
 public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GAlgebra<D, E, S, V, M> {
     public val monoid: Mon
+
+    override fun getIdentity(): GAlgebraMap<D, E, E, S, V, M> {
+        return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
+            this[degree].getIdentity(this.matrixSpace)
+        }
+    }
 
     public companion object {
         public operator fun <D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -92,17 +126,14 @@ public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D
 private class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : MonoidGAlgebra<D, E, Mon, S, V, M>,
-    GAlgebra<D, E, S, V, M> by GAlgebra(
-        factory.matrixSpace,
-        factory.degreeGroup,
-        factory.name,
-        factory::getVectorSpace,
-        factory::getMultiplication,
-        factory.unitVector,
-        listDegreesForAugmentedDegree = factory::listDegreesForAugmentedDegree,
-        getInternalPrintConfig = factory.getInternalPrintConfig
-    ) {
+    GVectorSpace<D, E, S, V> by factory.gVectorSpace {
+    override val matrixSpace: MatrixSpace<S, V, M> = factory.matrixSpace
+    override val multiplication: GBilinearMap<E, E, E, D, S, V, M> = factory.multiplication
+    override val unit: GVector<D, E, S, V> = factory.unit
     override val monoid: Mon = factory.monoid
+    override val context: GAlgebraContext<D, E, S, V, M> = GAlgebraContextImpl(this)
+    override val underlyingGVectorSpace: GVectorSpace<D, E, S, V> = factory.gVectorSpace
+    override val underlyingGAlgebra: GAlgebra<D, E, S, V, M> = this
 
     constructor(
         matrixSpace: MatrixSpace<S, V, M>,

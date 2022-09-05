@@ -65,6 +65,10 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         return "($gAlgebraString, d)"
     }
 
+    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
+        return super<DGAlgebra>.getIdentity()
+    }
+
     public fun <B : BasisName> getDGAlgebraMap(
         target: DGAlgebra<D, B, S, V, M>,
         valueList: List<GVectorOrZero<D, B, S, V>>,

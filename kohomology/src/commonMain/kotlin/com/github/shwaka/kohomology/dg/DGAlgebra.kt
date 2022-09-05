@@ -28,8 +28,12 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     DGMagma<D, B, S, V, M>, GAlgebra<D, B, S, V, M> {
     override val context: DGAlgebraContext<D, B, S, V, M>
     override val differential: Derivation<D, B, S, V, M>
-    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M>
     override val cohomology: SubQuotGAlgebra<D, B, S, V, M>
+
+    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
+        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
+        return DGAlgebraMap(this, this, gAlgebraMap)
+    }
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -70,10 +74,5 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
             this.cohomologyMultiplication,
             cohomologyUnit,
         )
-    }
-
-    override fun getIdentity(): DGAlgebraMap<D, B, B, S, V, M> {
-        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
-        return DGAlgebraMap(this, this, gAlgebraMap)
     }
 }

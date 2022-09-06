@@ -6,9 +6,12 @@ import com.github.shwaka.kohomology.dg.DGAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.Derivation
+import com.github.shwaka.kohomology.dg.GBilinearMap
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.GVectorSpace
+import com.github.shwaka.kohomology.dg.SubQuotGAlgebra
 import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
@@ -329,21 +332,22 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M>,
-    differential: Derivation<D, Monomial<D, I>, S, V, M>,
+    override val differential: Derivation<D, Monomial<D, I>, S, V, M>,
 ) : FreeDGAlgebra<D, I, S, V, M>,
-    DGAlgebra<D, Monomial<D, I>, S, V, M> by DGAlgebra(underlyingGAlgebra, differential),
-    FreeGAlgebra<D, I, S, V, M>,
+    GVectorSpace<D, Monomial<D, I>, S, V> by underlyingGAlgebra,
     Printable {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val unit: GVector<D, Monomial<D, I>, S, V> = underlyingGAlgebra.unit
+    override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
+    override val multiplication: GBilinearMap<Monomial<D, I>, Monomial<D, I>, Monomial<D, I>, D, S, V, M> = underlyingGAlgebra.multiplication
     override val degreeGroup: AugmentedDegreeGroup<D> = this.underlyingGAlgebra.degreeGroup
     override val indeterminateList: List<Indeterminate<D, I>> = underlyingGAlgebra.indeterminateList
     override val monoid: FreeMonoid<D, I> = underlyingGAlgebra.monoid
-
-    override fun getIdentity(): DGAlgebraMap<D, Monomial<D, I>, Monomial<D, I>, S, V, M> {
-        // getIdentity() is implemented in DGAlgebraImpl,
-        // but 'this' in it is DGAlgebra, not FreeDGAlgebra
-        val gAlgebraMap = this.underlyingGAlgebra.getIdentity()
-        return DGAlgebraMap(this, this, gAlgebraMap)
+    private val dgAlgebra: DGAlgebra<D, Monomial<D, I>, S, V, M> by lazy {
+        DGAlgebra(this.underlyingGAlgebra, this.differential)
+    }
+    override val cohomology: SubQuotGAlgebra<D, Monomial<D, I>, S, V, M> by lazy {
+        this.dgAlgebra.cohomology
     }
 
     override fun toString(): String {

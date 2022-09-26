@@ -78,9 +78,16 @@ fun main() {
         character = Character.V)
     val viewBoxWidth = 100f + horizontalMargin * 2
     val viewBoxHeight = 100f + verticalMargin * 2
+    val imgWidth = 256f
+    val imgHeight = imgWidth * viewBoxHeight / viewBoxWidth
     val svg = """
         <?xml version="1.0"?>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, $viewBoxWidth, $viewBoxHeight" width="256" height="256">
+        <svg 
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0, 0, $viewBoxWidth, $viewBoxHeight"
+          width="$imgWidth"
+          height="$imgHeight"
+        >
           ${polygon(pointsLambda, "#c7b83c")}
           ${polygon(pointsV, "#7e6ca8")}
         </svg>

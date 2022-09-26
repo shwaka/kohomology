@@ -53,24 +53,34 @@ fun getPoints(
 
 fun main() {
     val lineWidth = 18f
-    val verticalMargin = 5f
-    val horizontalMargin = 5f
+    // You can edit margins freely since they just add margin to the image.
+    val verticalMargin = 0f
+    val horizontalMargin = 0f
+    // Two characters (Λ and V) are drawn in a box of size 100x100.
+    // Do not edit paddings since they have effects on the shape of characters.
+    val verticalPadding = 5f
+    val horizontalPadding = 5f
     val characterWidth = 50f
     val pointsLambda = getPoints(
-        Point(horizontalMargin, verticalMargin),
+        Point(horizontalMargin + horizontalPadding, verticalMargin + verticalPadding),
         width = characterWidth,
-        height = 100f - 2 * verticalMargin,
+        height = 100f - 2 * verticalPadding,
         lineWidth = lineWidth,
         character = Character.Lambda)
     val pointsV = getPoints(
-        Point(100f - horizontalMargin - characterWidth, verticalMargin),
+        Point(
+            100f + horizontalMargin - horizontalPadding - characterWidth,
+            verticalMargin + verticalPadding
+        ),
         width = characterWidth,
-        height = 100f - 2 * verticalMargin,
+        height = 100f - 2 * verticalPadding,
         lineWidth = lineWidth,
         character = Character.V)
+    val viewBoxWidth = 100f + horizontalMargin * 2
+    val viewBoxHeight = 100f + verticalMargin * 2
     val svg = """
         <?xml version="1.0"?>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, 100, 100" width="256" height="256">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0, 0, $viewBoxWidth, $viewBoxHeight" width="256" height="256">
           ${polygon(pointsLambda, "#c7b83c")}
           ${polygon(pointsV, "#7e6ca8")}
         </svg>

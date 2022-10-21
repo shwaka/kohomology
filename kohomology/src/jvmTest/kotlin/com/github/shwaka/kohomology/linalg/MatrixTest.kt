@@ -276,7 +276,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 mat.isZero().shouldBeTrue()
                 mat.isNotZero().shouldBeFalse()
             }
-            "((1, 0), (0, two)).isIdentity() should be false" {
+            "((1, 0), (0, 2)).isIdentity() should be false" {
                 val mat = listOf(
                     listOf(one, zero),
                     listOf(zero, two),

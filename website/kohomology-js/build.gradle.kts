@@ -18,7 +18,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test-js"))
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-    implementation("com.github.shwaka.kohomology:kohomology:0.9-SNAPSHOT")
+    implementation("com.github.shwaka.kohomology:kohomology:0.10-SNAPSHOT")
 }
 
 kotlin {

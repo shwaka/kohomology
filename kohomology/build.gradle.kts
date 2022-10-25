@@ -1,7 +1,7 @@
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
-version = "0.9"
+version = "0.10-SNAPSHOT"
 
 plugins {
     kotlin("multiplatform") version "1.5.32"

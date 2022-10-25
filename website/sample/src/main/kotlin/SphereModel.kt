@@ -33,7 +33,7 @@ fun main() {
     // \end{cohomology}
 
     // \begin{context}
-    val (x, y) = sphere.gAlgebra.generatorList
+    val (x, y) = sphere.generatorList
 
     // You can't write DGA operations here.
 

@@ -20,7 +20,7 @@ fun main() {
 
     // Define the Sullivan model of the free loop space.
     val freeLoopSpace = FreeLoopSpace(sphere)
-    val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+    val (x, y, sx, sy) = freeLoopSpace.generatorList
 
     // Assert that d(sy) and -2*x*sx are the same.
     freeLoopSpace.context.run {

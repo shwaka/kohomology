@@ -31,8 +31,8 @@ fun main() {
     // \end{model}
 
     // \begin{dgaMap}
-    val (x, y) = sphere.gAlgebra.generatorList
-    val (a1, b1, a2, b2) = sphereProduct.gAlgebra.generatorList
+    val (x, y) = sphere.generatorList
+    val (a1, b1, a2, b2) = sphereProduct.generatorList
     val valueList = sphereProduct.context.run {
         listOf(a1 * a2, a1.pow(2) * b2)
     }

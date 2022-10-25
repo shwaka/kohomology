@@ -58,7 +58,7 @@ function release_version() {
     update_implementation "$version" $README_MD
     update_implementation "$version" website/src/components/BuildGradleDocument.tsx
 
-    for d in website/sample template; do
+    for d in profile website/sample template; do
         local kts=$d/build.gradle.kts
         update_implementation $version $kts
     done

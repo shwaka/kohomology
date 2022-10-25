@@ -14,7 +14,7 @@ fun main() {
         listOf(zeroGVector, x.pow(2))
     }
     val freeLoopSpace = FreeLoopSpace(sphere)
-    val (x, y, sx, sy) = freeLoopSpace.gAlgebra.generatorList
+    val (x, y, sx, sy) = freeLoopSpace.generatorList
 
     for (degree in 0 until 25) {
         val basis = freeLoopSpace.cohomology[degree].getBasis()

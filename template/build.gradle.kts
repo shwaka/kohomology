@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test-junit"))
-    implementation("com.github.shwaka.kohomology:kohomology:0.8")
+    implementation("com.github.shwaka.kohomology:kohomology:0.9")
 }
 
 tasks.test {

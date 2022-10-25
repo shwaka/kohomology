@@ -14,7 +14,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.shwaka.kohomology:kohomology:0.8")
+    implementation("com.github.shwaka.kohomology:kohomology:0.9")
 }`}
         </CodeBlock>
       </TabItem>
@@ -28,7 +28,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.shwaka.kohomology:kohomology:0.8'
+    implementation 'com.github.shwaka.kohomology:kohomology:0.9'
 }
 `}
         </CodeBlock>

@@ -136,20 +136,26 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
                 (two * 3) shouldBe six
                 (3 * two) shouldBe six
             }
-            "2 / 3 should be equal to 2 * 3^{-1}" {
-                val two = field.fromInt(2)
-                val three = field.fromInt(3)
-                (two / three) shouldBe (two * (three.inv()))
+            if (field.characteristic != 3) {
+                "2 / 3 should be equal to 2 * 3^{-1}" {
+                    val two = field.fromInt(2)
+                    val three = field.fromInt(3)
+                    (two / three) shouldBe (two * (three.inv()))
+                }
             }
-            "listOf(1, -1/2, 1/3).sum() should be 5/6" {
-                val six = 6.toScalar()
-                listOf(one, -one / two, one / three).sum() shouldBe five / six
+            if ((field.characteristic != 2) && (field.characteristic != 3)) {
+                "listOf(1, -1/2, 1/3).sum() should be 5/6" {
+                    val six = 6.toScalar()
+                    listOf(one, -one / two, one / three).sum() shouldBe five / six
+                }
             }
             "emptyList().sum() should be 0" {
                 emptyList<S>().sum() shouldBe zero
             }
-            "listOf(1, -2, 1/3).product() should be -2/3" {
-                listOf(one, -two, one / three).product() shouldBe (-two / three)
+            if (field.characteristic != 3) {
+                "listOf(1, -2, 1/3).product() should be -2/3" {
+                    listOf(one, -two, one / three).product() shouldBe (-two / three)
+                }
             }
             "emptyList().product() should be 1" {
                 emptyList<S>().product() shouldBe one

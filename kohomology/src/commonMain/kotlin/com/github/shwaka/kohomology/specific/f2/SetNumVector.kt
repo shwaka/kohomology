@@ -1,7 +1,12 @@
 package com.github.shwaka.kohomology.specific.f2
 
+import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorContext
+import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 
 public class SetNumVector<S : Scalar> private constructor(
@@ -65,5 +70,117 @@ public class SetNumVector<S : Scalar> private constructor(
         result = 31 * result + field.hashCode()
         result = 31 * result + dim
         return result
+    }
+}
+
+private infix fun <T> Set<T>.xor(other: Set<T>): Set<T> {
+    // TODO: performance?
+    return (this union other) - (this intersect other)
+}
+
+public class SetNumVectorSpace<S : Scalar> private constructor(
+    override val field: Field<S>
+) : NumVectorSpace<S, SetNumVector<S>> {
+    public companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<Field<*>, SetNumVectorSpace<*>> = mutableMapOf()
+        public fun <S : Scalar> from(field: Field<S>): SetNumVectorSpace<S> {
+            if (this.cache.containsKey(field)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[field] as SetNumVectorSpace<S>
+            } else {
+                val numVectorSpace = SetNumVectorSpace(field)
+                this.cache[field] = numVectorSpace
+                return numVectorSpace
+            }
+        }
+    }
+
+    init {
+        require(this.field.characteristic == 2) {
+            "field for SetNumVectorSpace must have characteristic 2, " +
+                "but ${this.field.characteristic} was given"
+        }
+    }
+
+    override val context: NumVectorContext<S, SetNumVector<S>> = NumVectorContextImpl(this)
+
+    override fun contains(numVector: SetNumVector<S>): Boolean {
+        return numVector.field == this.field
+    }
+
+    override fun add(a: SetNumVector<S>, b: SetNumVector<S>): SetNumVector<S> {
+        if (a !in this)
+            throw IllegalContextException("The numVector $a does not match the context ($this)")
+        if (b !in this)
+            throw IllegalContextException("The numVector $b does not match the context ($this)")
+        if (a.dim != b.dim)
+            throw InvalidSizeException("Cannot add numVectors of different dim")
+        return SetNumVector(a.valueSet xor b.valueSet, this.field, a.dim)
+    }
+
+    override fun subtract(a: SetNumVector<S>, b: SetNumVector<S>): SetNumVector<S> {
+        return this.add(a, b) // a + b = a - b in characteristic 2
+    }
+
+    override fun multiply(scalar: S, numVector: SetNumVector<S>): SetNumVector<S> {
+        return if (scalar.isZero()) {
+            this.getZero(numVector.dim)
+        } else {
+            numVector
+        }
+    }
+
+    override fun unaryMinusOf(numVector: SetNumVector<S>): SetNumVector<S> {
+        return numVector
+    }
+
+    override fun getElement(numVector: SetNumVector<S>, ind: Int): S {
+        return if (numVector.valueSet.contains(ind)) {
+            this.field.one
+        } else {
+            this.field.zero
+        }
+    }
+
+    override fun innerProduct(numVector1: SetNumVector<S>, numVector2: SetNumVector<S>): S {
+        if (numVector1 !in this)
+            throw IllegalContextException("The numVector $numVector1 does not match the context")
+        if (numVector2 !in this)
+            throw IllegalContextException("The numVector $numVector2 does not match the context")
+        if (numVector1.dim != numVector2.dim)
+            throw InvalidSizeException("Cannot take the inner product of two numVectors with different length")
+        return this.field.fromInt(
+            (numVector1.valueSet intersect numVector2.valueSet).size
+        )
+    }
+
+    override fun fromValueList(valueList: List<S>): SetNumVector<S> {
+        val valueSet = valueList.withIndex()
+            .filter { (_, value) -> value.isNotZero() }
+            .map { (ind, _) -> ind }
+            .toSet()
+        return SetNumVector(valueSet, this.field, valueList.size)
+    }
+
+    override fun fromValueMap(valueMap: Map<Int, S>, dim: Int): SetNumVector<S> {
+        val valueSet = valueMap
+            .filter { (_, value) -> value.isNotZero() }
+            .map { (ind, _) -> ind }
+            .toSet()
+        return SetNumVector(valueSet, this.field, dim)
+    }
+
+    override fun fromReducedValueMap(valueMap: Map<Int, S>, dim: Int): SetNumVector<S> {
+        return SetNumVector(valueMap.keys, this.field, dim)
+    }
+
+    override fun getZero(dim: Int): SetNumVector<S> {
+        return SetNumVector(emptySet(), this.field, dim)
+    }
+
+    override fun toString(): String {
+        return "SetNumVectorSpace(${this.field})"
     }
 }

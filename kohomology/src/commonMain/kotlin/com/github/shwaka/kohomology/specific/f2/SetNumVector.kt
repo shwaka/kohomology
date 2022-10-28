@@ -184,3 +184,6 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
         return "SetNumVectorSpace(${this.field})"
     }
 }
+
+public val SetNumVectorSpaceOverF2Boolean: SetNumVectorSpace<IntMod2Boolean> =
+    SetNumVectorSpace.from(F2Boolean)

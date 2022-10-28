@@ -92,9 +92,9 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
 
     override fun add(a: SparseNumVector<S>, b: SparseNumVector<S>): SparseNumVector<S> {
         if (a !in this)
-            throw IllegalContextException("The denseNumVector $a does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $a does not match the context ($this)")
         if (b !in this)
-            throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
         val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
@@ -111,9 +111,9 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
 
     override fun subtract(a: SparseNumVector<S>, b: SparseNumVector<S>): SparseNumVector<S> {
         if (a !in this)
-            throw IllegalContextException("The denseNumVector $a does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $a does not match the context ($this)")
         if (b !in this)
-            throw IllegalContextException("The denseNumVector $b does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $b does not match the context ($this)")
         if (a.dim != b.dim)
             throw InvalidSizeException("Cannot add numVectors of different dim")
         val valueMap: MutableMap<Int, S> = a.valueMap.toMutableMap()
@@ -130,7 +130,7 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
 
     override fun multiply(scalar: S, numVector: SparseNumVector<S>): SparseNumVector<S> {
         if (numVector !in this)
-            throw IllegalContextException("The denseNumVector $numVector does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $numVector does not match the context ($this)")
         if (scalar !in this.field)
             throw IllegalContextException("The scalar $scalar does not match the context (field = ${this.field})")
         if (scalar.isZero()) return SparseNumVector(mapOf(), this.field, numVector.dim)
@@ -144,7 +144,7 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
 
     override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {
         if (numVector !in this)
-            throw IllegalContextException("The denseNumVector $numVector does not match the context ($this)")
+            throw IllegalContextException("The sparseNumVector $numVector does not match the context ($this)")
         val valueMap = this.field.context.run {
             numVector.valueMap.mapValues { (_, value) -> -value }
         }
@@ -158,9 +158,9 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
 
     override fun innerProduct(numVector1: SparseNumVector<S>, numVector2: SparseNumVector<S>): S {
         if (numVector1 !in this)
-            throw IllegalContextException("The numVector $numVector1 does not match the context")
+            throw IllegalContextException("The sparseNumVector $numVector1 does not match the context")
         if (numVector2 !in this)
-            throw IllegalContextException("The numVector $numVector2 does not match the context")
+            throw IllegalContextException("The sparseNumVector $numVector2 does not match the context")
         if (numVector1.dim != numVector2.dim)
             throw InvalidSizeException("Cannot take the inner product of two numVectors with different length")
         val indices = numVector1.valueMap.keys.intersect(numVector2.valueMap.keys)

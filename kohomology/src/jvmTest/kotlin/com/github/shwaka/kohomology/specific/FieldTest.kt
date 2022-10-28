@@ -32,21 +32,23 @@ fun <S : Scalar> fromIntTest(field: Field<S>) = freeSpec {
     val intMax = 100
     val intArb = Arb.int(intMin..intMax)
     field.context.run {
-        "fromInt should be additive" {
-            checkAll(intArb, intArb) { a, b ->
-                (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
+        "fromIntTest for $field" - {
+            "fromInt should be additive" {
+                checkAll(intArb, intArb) { a, b ->
+                    (field.fromInt(a) + field.fromInt(b)) shouldBe field.fromInt(a + b)
+                }
             }
-        }
-        "field.fromInt(0) should be field.zero" {
-            field.fromInt(0) shouldBe zero
-        }
-        "fromInt should be multiplicative" {
-            checkAll(intArb, intArb) { a, b ->
-                (field.fromInt(a) * field.fromInt(b)) shouldBe field.fromInt(a * b)
+            "field.fromInt(0) should be field.zero" {
+                field.fromInt(0) shouldBe zero
             }
-        }
-        "field.fromInt(1) should be field.one" {
-            field.fromInt(1) shouldBe one
+            "fromInt should be multiplicative" {
+                checkAll(intArb, intArb) { a, b ->
+                    (field.fromInt(a) * field.fromInt(b)) shouldBe field.fromInt(a * b)
+                }
+            }
+            "field.fromInt(1) should be field.one" {
+                field.fromInt(1) shouldBe one
+            }
         }
     }
 }
@@ -55,101 +57,103 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
     if (intMax <= 0) throw IllegalArgumentException("intMax should be positive")
     val arb = field.arb(Arb.int(-intMax..intMax))
     field.context.run {
-        "field.characteristic should be zero or a prime" {
-            val p: Int = field.characteristic
-            ((p == 0) || p.isPrime()).shouldBeTrue()
-        }
-        "field.characteristic should be zero in the field" {
-            val p: S = field.characteristic.toScalar()
-            p shouldBe zero
-        }
-        "field.zero should be the unit of addition" {
-            checkAll(arb) { a ->
-                (a + zero) shouldBe a
-                (zero + a) shouldBe a
+        "fieldTest for $field" - {
+            "field.characteristic should be zero or a prime" {
+                val p: Int = field.characteristic
+                ((p == 0) || p.isPrime()).shouldBeTrue()
             }
-        }
-        "field.one should be the unit of multiplication" {
-            checkAll(arb) { a ->
-                (a * one) shouldBe a
-                (one * a) shouldBe a
+            "field.characteristic should be zero in the field" {
+                val p: S = field.characteristic.toScalar()
+                p shouldBe zero
             }
-        }
-        "addition should be associative" {
-            checkAll(arb, arb, arb) { a, b, c ->
-                ((a + b) + c) shouldBe (a + (b + c))
-            }
-        }
-        "multiplication should be associative" {
-            checkAll(arb, arb, arb) { a, b, c ->
-                ((a * b) * c) shouldBe (a * (b * c))
-            }
-        }
-        "multiplication should be distributive w.r.t. addition" {
-            checkAll(arb, arb, arb) { a, b, c ->
-                ((a + b) * c) shouldBe ((a * c) + (b * c))
-            }
-        }
-        "unaryMinus() should give the additive inverse" {
-            checkAll(arb) { a ->
-                (a + (-a)) shouldBe zero
-                ((-a) + a) shouldBe zero
-            }
-        }
-        "multiplication with Sign" {
-            checkAll(arb) { a ->
-                (a * Sign.PLUS) shouldBe a
-                (Sign.PLUS * a) shouldBe a
-                (a * Sign.MINUS) shouldBe -a
-                (Sign.MINUS * a) shouldBe -a
-            }
-        }
-        "inv() should give the multiplicative inverse" {
-            checkAll(arb) { a ->
-                if (a.isNotZero()) {
-                    (a * (a.inv())) shouldBe one
-                    ((a.inv()) * a) shouldBe one
+            "field.zero should be the unit of addition" {
+                checkAll(arb) { a ->
+                    (a + zero) shouldBe a
+                    (zero + a) shouldBe a
                 }
             }
-        }
-        "1 + 2 should be 3" {
-            (field.fromInt(1) + field.fromInt(2)) shouldBe field.fromInt(3)
-        }
-        "1 - 1 should be 0" {
-            (field.fromInt(1) - field.fromInt(1)) shouldBe field.fromInt(0)
-        }
-        "0^0 should be 1" {
-            field.fromInt(0).pow(0) shouldBe field.fromInt(1)
-        }
-        "unaryMinus of 2 should be -2" {
-            (-field.fromInt(2)) shouldBe field.fromInt(-2)
-        }
-        "unaryMinus of -5 should be 5" {
-            (-field.fromInt(-5)) shouldBe field.fromInt(5)
-        }
-        "Int multiplication should work correctly" {
-            val two = field.fromInt(2)
-            val six = field.fromInt(6)
-            (two * 3) shouldBe six
-            (3 * two) shouldBe six
-        }
-        "2 / 3 should be equal to 2 * 3^{-1}" {
-            val two = field.fromInt(2)
-            val three = field.fromInt(3)
-            (two / three) shouldBe (two * (three.inv()))
-        }
-        "listOf(1, -1/2, 1/3).sum() should be 5/6" {
-            val six = 6.toScalar()
-            listOf(one, -one / two, one / three).sum() shouldBe five / six
-        }
-        "emptyList().sum() should be 0" {
-            emptyList<S>().sum() shouldBe zero
-        }
-        "listOf(1, -2, 1/3).product() should be -2/3" {
-            listOf(one, -two, one / three).product() shouldBe (-two / three)
-        }
-        "emptyList().product() should be 1" {
-            emptyList<S>().product() shouldBe one
+            "field.one should be the unit of multiplication" {
+                checkAll(arb) { a ->
+                    (a * one) shouldBe a
+                    (one * a) shouldBe a
+                }
+            }
+            "addition should be associative" {
+                checkAll(arb, arb, arb) { a, b, c ->
+                    ((a + b) + c) shouldBe (a + (b + c))
+                }
+            }
+            "multiplication should be associative" {
+                checkAll(arb, arb, arb) { a, b, c ->
+                    ((a * b) * c) shouldBe (a * (b * c))
+                }
+            }
+            "multiplication should be distributive w.r.t. addition" {
+                checkAll(arb, arb, arb) { a, b, c ->
+                    ((a + b) * c) shouldBe ((a * c) + (b * c))
+                }
+            }
+            "unaryMinus() should give the additive inverse" {
+                checkAll(arb) { a ->
+                    (a + (-a)) shouldBe zero
+                    ((-a) + a) shouldBe zero
+                }
+            }
+            "multiplication with Sign" {
+                checkAll(arb) { a ->
+                    (a * Sign.PLUS) shouldBe a
+                    (Sign.PLUS * a) shouldBe a
+                    (a * Sign.MINUS) shouldBe -a
+                    (Sign.MINUS * a) shouldBe -a
+                }
+            }
+            "inv() should give the multiplicative inverse" {
+                checkAll(arb) { a ->
+                    if (a.isNotZero()) {
+                        (a * (a.inv())) shouldBe one
+                        ((a.inv()) * a) shouldBe one
+                    }
+                }
+            }
+            "1 + 2 should be 3" {
+                (field.fromInt(1) + field.fromInt(2)) shouldBe field.fromInt(3)
+            }
+            "1 - 1 should be 0" {
+                (field.fromInt(1) - field.fromInt(1)) shouldBe field.fromInt(0)
+            }
+            "0^0 should be 1" {
+                field.fromInt(0).pow(0) shouldBe field.fromInt(1)
+            }
+            "unaryMinus of 2 should be -2" {
+                (-field.fromInt(2)) shouldBe field.fromInt(-2)
+            }
+            "unaryMinus of -5 should be 5" {
+                (-field.fromInt(-5)) shouldBe field.fromInt(5)
+            }
+            "Int multiplication should work correctly" {
+                val two = field.fromInt(2)
+                val six = field.fromInt(6)
+                (two * 3) shouldBe six
+                (3 * two) shouldBe six
+            }
+            "2 / 3 should be equal to 2 * 3^{-1}" {
+                val two = field.fromInt(2)
+                val three = field.fromInt(3)
+                (two / three) shouldBe (two * (three.inv()))
+            }
+            "listOf(1, -1/2, 1/3).sum() should be 5/6" {
+                val six = 6.toScalar()
+                listOf(one, -one / two, one / three).sum() shouldBe five / six
+            }
+            "emptyList().sum() should be 0" {
+                emptyList<S>().sum() shouldBe zero
+            }
+            "listOf(1, -2, 1/3).product() should be -2/3" {
+                listOf(one, -two, one / three).product() shouldBe (-two / three)
+            }
+            "emptyList().product() should be 1" {
+                emptyList<S>().product() shouldBe one
+            }
         }
     }
 }
@@ -243,6 +247,10 @@ class RationalTest : FreeSpec({
 class IntModpTest : FreeSpec({
     tags(fieldTag, intModpTag)
 
+    include(fromIntTest(F2))
+    include(fieldTest(F2))
+    include(fromIntTest(F3))
+    include(fieldTest(F3))
     include(fromIntTest(F5))
     include(fieldTest(F5))
     "(8 mod 5) should be equal to (3 mod 5)" {

@@ -120,6 +120,7 @@ public class SetMatrixSpace<S : Scalar>(
     }
 
     override fun subtract(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
+        // Since characteristic 2
         return this.add(first, second)
     }
 

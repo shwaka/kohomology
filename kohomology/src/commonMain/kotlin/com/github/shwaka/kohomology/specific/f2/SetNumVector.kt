@@ -121,7 +121,8 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
     }
 
     override fun subtract(a: SetNumVector<S>, b: SetNumVector<S>): SetNumVector<S> {
-        return this.add(a, b) // a + b = a - b in characteristic 2
+        // Since characteristic 2
+        return this.add(a, b)
     }
 
     override fun multiply(scalar: S, numVector: SetNumVector<S>): SetNumVector<S> {
@@ -133,6 +134,7 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
     }
 
     override fun unaryMinusOf(numVector: SetNumVector<S>): SetNumVector<S> {
+        // Since characteristic 2
         return numVector
     }
 

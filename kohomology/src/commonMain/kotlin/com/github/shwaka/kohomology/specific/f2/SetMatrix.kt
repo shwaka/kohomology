@@ -86,9 +86,24 @@ public class SetMatrix<S : Scalar>(
     }
 }
 
-public class SetMatrixSpace<S : Scalar>(
+public class SetMatrixSpace<S : Scalar> private constructor(
     override val numVectorSpace: SetNumVectorSpace<S>
 ) : MatrixSpace<S, SetNumVector<S>, SetMatrix<S>> {
+    public companion object {
+        // TODO: cache まわりの型が割とやばい
+        // generic type に対する cache ってどうすれば良いだろう？
+        private val cache: MutableMap<SetNumVectorSpace<*>, SetMatrixSpace<*>> = mutableMapOf()
+        public fun <S : Scalar> from(numVectorSpace: SetNumVectorSpace<S>): SetMatrixSpace<S> {
+            if (this.cache.containsKey(numVectorSpace)) {
+                @Suppress("UNCHECKED_CAST")
+                return this.cache[numVectorSpace] as SetMatrixSpace<S>
+            } else {
+                val matrixSpace = SetMatrixSpace(numVectorSpace)
+                this.cache[numVectorSpace] = matrixSpace
+                return matrixSpace
+            }
+        }
+    }
     override val field: Field<S> = numVectorSpace.field
 
     override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> =
@@ -263,3 +278,6 @@ public class SetMatrixSpace<S : Scalar>(
         return "SetMatrixSpace(${this.field})"
     }
 }
+
+public val SetMatrixSpaceOverF2Boolean: SetMatrixSpace<IntMod2Boolean> =
+    SetMatrixSpace.from(SetNumVectorSpaceOverF2Boolean)

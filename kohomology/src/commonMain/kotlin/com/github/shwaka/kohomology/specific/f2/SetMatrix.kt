@@ -25,6 +25,7 @@ public class SetMatrix<S : Scalar>(
 
     override fun isIdentity(): Boolean {
         return (this.rowCount == this.colCount) &&
+            (this.rowMap.size == this.rowCount) &&
             this.rowMap.all { (rowInd, row) ->
                 row.size == 1 && row.first() == rowInd
             }

@@ -5,10 +5,12 @@ import com.github.shwaka.kohomology.linalg.matrixOfRank2Test
 import com.github.shwaka.kohomology.linalg.matrixTag
 import com.github.shwaka.kohomology.linalg.matrixTest
 import io.kotest.core.NamedTag
+import io.kotest.core.annotation.Ignored
 import io.kotest.core.spec.style.FreeSpec
 
 val setMatrixTag = NamedTag("SetMatrix")
 
+@Ignored
 class SetMatrixTest : FreeSpec({
     tags(matrixTag, setMatrixTag, intMod2BooleanTag)
 

@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.StringTable
+import com.github.shwaka.kohomology.util.isEven
 
 public class SetMatrix<S : Scalar>(
     override val numVectorSpace: SetNumVectorSpace<S>,
@@ -125,15 +126,57 @@ public class SetMatrixSpace<S : Scalar>(
     }
 
     override fun multiply(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
-        TODO("Not yet implemented")
+        require(first in this) {
+            "The setMatrix $first does not match the context ($this)"
+        }
+        require(second in this) {
+            "The setMatrix $second does  not match the context ($this)"
+        }
+        require(first.colCount == second.rowCount) {
+            "Cannot multiply matrices: first.colCount != second.rowCount"
+        }
+        val rowMap = first.rowMap.mapValues { (_, row1) ->
+            (0 until first.colCount).mapNotNull { colInd ->
+                val count = row1.map { sumInd ->
+                    second.rowMap[sumInd]?.contains(colInd) ?: false
+                }.filter { it }.size
+                if (count.isEven()) {
+                    colInd
+                } else {
+                    null
+                }
+            }.toSet()
+        }
+        return SetMatrix(this.numVectorSpace, rowMap, first.rowCount, second.colCount)
     }
 
     override fun multiply(matrix: SetMatrix<S>, scalar: S): SetMatrix<S> {
-        TODO("Not yet implemented")
+        return if (scalar.isZero()) {
+            this.getZero(matrix.rowCount, matrix.colCount)
+        } else {
+            matrix
+        }
     }
 
     override fun multiply(matrix: SetMatrix<S>, numVector: SetNumVector<S>): SetNumVector<S> {
-        TODO("Not yet implemented")
+        require(matrix in this) {
+            "The setMatrix $matrix does not match the context ($this)"
+        }
+        require(numVector in this.numVectorSpace) {
+            "The numVector $numVector does not match the context (${this.numVectorSpace})"
+        }
+        require(matrix.colCount == numVector.dim) {
+            "Cannot multiply matrix and vector: matrix.colCount != vector.dim"
+        }
+        val valueSet = matrix.rowMap.mapNotNull { (rowInd, row) ->
+            val count = (row intersect numVector.valueSet).size
+            if (count.isEven()) {
+                rowInd
+            } else {
+                null
+            }
+        }.toSet()
+        return SetNumVector(valueSet, this.field, matrix.rowCount)
     }
 
     override fun computeTranspose(matrix: SetMatrix<S>): SetMatrix<S> {

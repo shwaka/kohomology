@@ -82,3 +82,10 @@ public object F2Boolean : Field<IntMod2Boolean> {
 
 public val SparseNumVectorSpaceOverF2Boolean: SparseNumVectorSpace<IntMod2Boolean> = SparseNumVectorSpace.from(F2Boolean)
 public val SparseMatrixSpaceOverF2Boolean: SparseMatrixSpace<IntMod2Boolean> = SparseMatrixSpace.from(SparseNumVectorSpaceOverF2Boolean)
+
+// These should be defined here (not in SetNumVector.kt and SetMatrix.kt)
+// to confirm the order of initialization.
+public val SetNumVectorSpaceOverF2Boolean: SetNumVectorSpace<IntMod2Boolean> =
+    SetNumVectorSpace.from(F2Boolean)
+public val SetMatrixSpaceOverF2Boolean: SetMatrixSpace<IntMod2Boolean> =
+    SetMatrixSpace.from(SetNumVectorSpaceOverF2Boolean)

@@ -8,7 +8,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.StringTable
-import com.github.shwaka.kohomology.util.isEven
+import com.github.shwaka.kohomology.util.isOdd
 
 public class SetMatrix<S : Scalar>(
     override val numVectorSpace: SetNumVectorSpace<S>,
@@ -155,7 +155,7 @@ public class SetMatrixSpace<S : Scalar> private constructor(
                 val count = row1.map { sumInd ->
                     second.rowMap[sumInd]?.contains(colInd) ?: false
                 }.filter { it }.size
-                if (count.isEven()) {
+                if (count.isOdd()) {
                     colInd
                 } else {
                     null
@@ -185,7 +185,7 @@ public class SetMatrixSpace<S : Scalar> private constructor(
         }
         val valueSet = matrix.rowMap.mapNotNull { (rowInd, row) ->
             val count = (row intersect numVector.valueSet).size
-            if (count.isEven()) {
+            if (count.isOdd()) {
                 rowInd
             } else {
                 null

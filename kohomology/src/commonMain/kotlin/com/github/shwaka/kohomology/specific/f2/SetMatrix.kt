@@ -180,27 +180,79 @@ public class SetMatrixSpace<S : Scalar>(
     }
 
     override fun computeTranspose(matrix: SetMatrix<S>): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = matrix.colCount
+        val colCount = matrix.rowCount
+        val rowMap: MutableMap<Int, MutableSet<Int>> = mutableMapOf()
+        for ((rowInd, row) in matrix.rowMap) {
+            for (colInd in row) {
+                val newRow = rowMap.getOrPut(colInd) { mutableSetOf() }
+                newRow.add(rowInd)
+            }
+        }
+        return SetMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun fromRowList(rowList: List<List<S>>, colCount: Int?): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = rowList.size
+        val colCountNonNull: Int = when {
+            rowList.isNotEmpty() -> rowList[0].size
+            colCount != null -> colCount
+            else -> throw IllegalArgumentException("Row list is empty and colCount is not specified")
+        }
+        val rowMap: Map<Int, Set<Int>> = rowList.mapIndexedNotNull { rowInd, row ->
+            val newRow: Set<Int> = row.mapIndexedNotNull { colInd, elm ->
+                if (elm.isZero()) {
+                    null
+                } else {
+                    colInd
+                }
+            }.toSet()
+            if (newRow.isEmpty()) {
+                null
+            } else {
+                Pair(rowInd, newRow)
+            }
+        }.toMap()
+        return SetMatrix(this.numVectorSpace, rowMap, rowCount, colCountNonNull)
     }
 
     override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rowMapToSet: Map<Int, Set<Int>> = rowMap.mapValues { (_, row) -> row.keys.toSet() }
+        return SetMatrix(this.numVectorSpace, rowMapToSet, rowCount, colCount)
     }
 
     override fun joinMatrices(matrix1: SetMatrix<S>, matrix2: SetMatrix<S>): SetMatrix<S> {
-        TODO("Not yet implemented")
+        require(matrix1.rowCount == matrix2.rowCount) {
+            "Cannot join two matrices of different row counts"
+        }
+        val rowMap: MutableMap<Int, Set<Int>> = matrix1.rowMap.toMutableMap()
+        for ((rowInd2, row2) in matrix2.rowMap) {
+            val row1 = matrix1.rowMap.getOrElse(rowInd2) { setOf() }
+            val newRow = row1 union row2.map { colInd -> colInd + matrix1.colCount }
+            rowMap[rowInd2] = newRow
+        }
+        val rowCount = matrix1.rowCount
+        val colCount = matrix1.colCount + matrix2.colCount
+        return SetMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun computeRowSlice(matrix: SetMatrix<S>, rowRange: IntRange): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = rowRange.count()
+        val colCount = matrix.colCount
+        val rowMap = matrix.rowMap.filterKeys { rowInd -> rowInd in rowRange }
+            .mapKeys { (rowInd, _) -> rowInd - rowRange.first }
+        return SetMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun computeColSlice(matrix: SetMatrix<S>, colRange: IntRange): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rowCount = matrix.rowCount
+        val colCount = colRange.count()
+        val rowMap = matrix.rowMap.mapValues { (_, row) ->
+            row.filter { colInd -> colInd in colRange }
+                .map { colInd -> colInd - colRange.first }
+                .toSet()
+        }.filterValues { row -> row.isNotEmpty() }
+        return SetMatrix(this.numVectorSpace, rowMap, rowCount, colCount)
     }
 
     override fun computeRowEchelonForm(matrix: SetMatrix<S>): RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>> {

@@ -73,7 +73,7 @@ public class SetNumVector<S : Scalar> private constructor(
     }
 }
 
-private infix fun <T> Set<T>.xor(other: Set<T>): Set<T> {
+internal infix fun <T> Set<T>.xor(other: Set<T>): Set<T> {
     // TODO: performance?
     return (this union other) - (this intersect other)
 }

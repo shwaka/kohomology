@@ -1,6 +1,10 @@
 package com.github.shwaka.kohomology.specific.f2
 
+import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixContext
+import com.github.shwaka.kohomology.linalg.MatrixContextImpl
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.StringTable
 
@@ -77,5 +81,44 @@ public class SetMatrix<S : Scalar>(
         result = 31 * result + colCount
         result = 31 * result + rowMap.hashCode()
         return result
+    }
+}
+
+public class SetMatrixSpace<S : Scalar>(
+    override val numVectorSpace: SetNumVectorSpace<S>
+) : MatrixSpace<S, SetNumVector<S>, SetMatrix<S>> {
+    override val field: Field<S> = numVectorSpace.field
+
+    override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> =
+        MatrixContextImpl(this)
+
+    override fun contains(matrix: SetMatrix<S>): Boolean {
+        return matrix.numVectorSpace == this.numVectorSpace
+    }
+
+    override fun add(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
+        require(first in this) {
+            "The setMatrix $first does not match the context ($this)"
+        }
+        require(second in this) {
+            "The setMatrix $second does not match the context ($this)"
+        }
+        require(first.rowCount == second.rowCount && first.colCount == second.colCount) {
+            "Cannot add matrices: different shapes"
+        }
+        val newRowMap: MutableMap<Int, Set<Int>> = first.rowMap.toMutableMap()
+        for ((rowInd, row) in second.rowMap) {
+            val newRow: Set<Int>? = newRowMap[rowInd]
+            if (newRow == null) {
+                newRowMap[rowInd] = row
+            } else {
+                newRowMap[rowInd] = newRow xor row
+            }
+        }
+        return SetMatrix(this.numVectorSpace, newRowMap, first.rowCount, first.colCount)
+    }
+
+    override fun subtract(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
+        return this.add(first, second)
     }
 }

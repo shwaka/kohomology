@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixContext
 import com.github.shwaka.kohomology.linalg.MatrixContextImpl
 import com.github.shwaka.kohomology.linalg.MatrixSpace
+import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.StringTable
 
@@ -120,5 +121,49 @@ public class SetMatrixSpace<S : Scalar>(
 
     override fun subtract(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
         return this.add(first, second)
+    }
+
+    override fun multiply(first: SetMatrix<S>, second: SetMatrix<S>): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun multiply(matrix: SetMatrix<S>, scalar: S): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun multiply(matrix: SetMatrix<S>, numVector: SetNumVector<S>): SetNumVector<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun computeTranspose(matrix: SetMatrix<S>): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fromRowList(rowList: List<List<S>>, colCount: Int?): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun joinMatrices(matrix1: SetMatrix<S>, matrix2: SetMatrix<S>): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun computeRowSlice(matrix: SetMatrix<S>, rowRange: IntRange): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun computeColSlice(matrix: SetMatrix<S>, colRange: IntRange): SetMatrix<S> {
+        TODO("Not yet implemented")
+    }
+
+    override fun computeRowEchelonForm(matrix: SetMatrix<S>): RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>> {
+        TODO("Not yet implemented")
+    }
+
+    override fun toString(): String {
+        return "SetMatrixSpace(${this.field})"
     }
 }

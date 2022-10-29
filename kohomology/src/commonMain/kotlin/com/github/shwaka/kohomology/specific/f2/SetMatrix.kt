@@ -105,10 +105,20 @@ public class SetMatrixSpace<S : Scalar> private constructor(
             }
         }
     }
-    override val field: Field<S> = numVectorSpace.field
+    override val field: Field<S> by lazy {
+        // Use 'by lazy' to avoid the following error:
+        // When we execute 'npm run test' in website/,
+        // an error occurs around initialization of 'field'.
+        // This seems to be caused by the order of initialization.
+        // SetMatrix.kt is loaded before SetNumVector.kt. (really?)
+        this.numVectorSpace.field
+    }
 
-    override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> =
+    override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> by lazy {
+        // Use 'by lazy' to avoid an error on js.
+        // See the comment on 'field' for the details.
         MatrixContextImpl(this)
+    }
 
     override fun contains(matrix: SetMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace

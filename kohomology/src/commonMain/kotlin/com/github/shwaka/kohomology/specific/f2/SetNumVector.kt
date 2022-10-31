@@ -75,7 +75,19 @@ public class SetNumVector<S : Scalar> private constructor(
 
 internal infix fun <T> Set<T>.xor(other: Set<T>): Set<T> {
     // TODO: performance?
-    return (this union other) - (this intersect other)
+    // return (this union other) - (this intersect other) // This is slower
+    val result: MutableSet<T> = mutableSetOf()
+    for (x in this) {
+        if (x !in other) {
+            result.add(x)
+        }
+    }
+    for (y in other) {
+        if (y !in this) {
+            result.add(y)
+        }
+    }
+    return result
 }
 
 public class SetNumVectorSpace<S : Scalar> private constructor(

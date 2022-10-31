@@ -81,7 +81,7 @@ jobs:
         with:
           java-version: ${{ env.JDK_VERSION }}
       - name: Run benchmark
-        run: ./gradlew benchmark
+        run: ./gradlew benchmark -DbenchmarkTarget=com.github.shwaka.kohomology.profile.KohomologyBenchmark
         working-directory: profile
       - name: Format benchmark result
         run: ./gradlew formatBenchmarkResult

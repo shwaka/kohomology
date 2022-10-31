@@ -55,11 +55,15 @@ configure<org.jetbrains.kotlin.allopen.gradle.AllOpenExtension> {
 }
 
 benchmark {
+    val benchmarkTarget: String? = System.getProperty("benchmarkTarget")
     configurations {
         named("main") {
             iterations = 3
             warmups = 0
             mode = "AverageTime"
+            if (benchmarkTarget != null) {
+                include(benchmarkTarget) // a substring of fully qualified names
+            }
         }
     }
     targets {

@@ -36,7 +36,14 @@ internal class SetRowEchelonForm<S : Scalar>(
     }
 
     override fun computeReducedRowEchelonForm(): SetMatrix<S> {
-        TODO("Not yet implemented")
+        val rank = this.data.pivots.size
+        // Since any non-zero element is equal to 1,
+        // there is no need to change the leading entry in a row to 1.
+        var reducedRowSetMap = this.data.rowSetMap
+        for (i in 0 until rank) {
+            reducedRowSetMap = reducedRowSetMap.eliminateOtherRows(i, pivots[i])
+        }
+        return this.matrixSpace.fromRowSetMap(reducedRowSetMap, this.rowCount, this.colCount)
     }
 
     private fun rowEchelonForm(matrix: Map<Int, Set<Int>>, colCount: Int): SetRowEchelonFormData<S> {
@@ -49,7 +56,29 @@ internal class SetRowEchelonForm<S : Scalar>(
         exchangeCount: Int,
         colCount: Int,
     ): SetRowEchelonFormData<S> {
-        TODO()
+        // Almost all code is copied from SparseRowEchelonFormCalculator
+        // use 'tailrec' to avoid StackOverflowError
+        if (this.isEmpty()) {
+            // 全ての成分が0の場合
+            return SetRowEchelonFormData(this, emptyList(), 0)
+        }
+        if (currentColInd == colCount) {
+            // 全ての列の処理が終わった場合
+            return SetRowEchelonFormData(this, pivots, exchangeCount)
+        }
+        val rowInd: Int? = this.findNonZero(currentColInd, pivots.size)
+        return if (rowInd == null) {
+            this.rowEchelonFormInternal(currentColInd + 1, pivots, exchangeCount, colCount)
+        } else {
+            var newRowSetMap = this.eliminateOtherRows(rowInd, currentColInd)
+            var newExchangeCount = exchangeCount
+            if (rowInd != pivots.size) {
+                newRowSetMap = newRowSetMap.exchangeRows(rowInd, pivots.size)
+                newExchangeCount += 1
+            }
+            val newPivots = pivots + listOf(currentColInd)
+            newRowSetMap.rowEchelonFormInternal(currentColInd + 1, newPivots, newExchangeCount, colCount)
+        }
     }
 
     private fun Map<Int, Set<Int>>.exchangeRows(i1: Int, i2: Int): Map<Int, Set<Int>> {

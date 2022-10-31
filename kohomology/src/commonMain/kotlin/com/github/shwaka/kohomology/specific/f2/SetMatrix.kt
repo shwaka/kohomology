@@ -238,6 +238,10 @@ public class SetMatrixSpace<S : Scalar> private constructor(
         return SetMatrix(this.numVectorSpace, rowSetMap, rowCount, colCount)
     }
 
+    public fun fromRowSetMap(rowSetMap: Map<Int, Set<Int>>, rowCount: Int, colCount: Int): SetMatrix<S> {
+        return SetMatrix(this.numVectorSpace, rowSetMap, rowCount, colCount)
+    }
+
     override fun joinMatrices(matrix1: SetMatrix<S>, matrix2: SetMatrix<S>): SetMatrix<S> {
         require(matrix1.rowCount == matrix2.rowCount) {
             "Cannot join two matrices of different row counts"

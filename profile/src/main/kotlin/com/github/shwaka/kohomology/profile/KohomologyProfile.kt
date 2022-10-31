@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean
 import kotlin.time.DurationUnit
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -15,6 +16,7 @@ fun main() {
         IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
         ComputeRowEchelonForm(SparseMatrixSpaceOverRational),
         ComputeRowEchelonForm(DecomposedSparseMatrixSpaceOverRational),
+        ComputeReducedRowEchelonForm(SetMatrixSpaceOverF2Boolean, 5000),
     )
     val defaultChoice = 0
     println("Select script to profile: (default = $defaultChoice)")

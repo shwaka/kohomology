@@ -238,7 +238,7 @@ public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
 }
 
 public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    protected val matrixSpace: MatrixSpace<S, V, M>,
+    protected open val matrixSpace: MatrixSpace<S, V, M>, // type is overridden in SetRowEchelonForm
     protected val originalMatrix: M,
 ) {
     public val matrix: M by lazy {

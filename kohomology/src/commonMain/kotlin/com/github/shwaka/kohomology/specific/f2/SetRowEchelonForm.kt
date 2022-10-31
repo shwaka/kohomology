@@ -11,26 +11,28 @@ internal data class SetRowEchelonFormData<S : Scalar>(
 )
 
 internal class SetRowEchelonForm<S : Scalar>(
-    matrixSpace: SetMatrixSpace<S>,
+    override val matrixSpace: SetMatrixSpace<S>,
     originalMatrix: SetMatrix<S>,
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
+    private val rowCount = originalMatrix.rowCount
+    private val colCount = originalMatrix.colCount
     private val data: SetRowEchelonFormData<S> by lazy {
         val rowSetMap = this.matrixSpace.context.run {
             this@SetRowEchelonForm.originalMatrix.rowSetMap
         }
-        this.rowEchelonForm(rowSetMap, this.originalMatrix.colCount)
+        this.rowEchelonForm(rowSetMap, this.colCount)
     }
 
     override fun computeRowEchelonForm(): SetMatrix<S> {
-        TODO("Not yet implemented")
+        return this.matrixSpace.fromRowSetMap(this.data.rowSetMap, this.rowCount, this.colCount)
     }
 
     override fun computePivots(): List<Int> {
-        TODO("Not yet implemented")
+        return this.data.pivots
     }
 
     override fun computeSign(): Sign {
-        TODO("Not yet implemented")
+        return Sign.fromParity(this.data.exchangeCount)
     }
 
     override fun computeReducedRowEchelonForm(): SetMatrix<S> {
@@ -74,10 +76,32 @@ internal class SetRowEchelonForm<S : Scalar>(
     }
 
     private fun Map<Int, Set<Int>>.eliminateOtherRows(rowInd: Int, colInd: Int): Map<Int, Set<Int>> {
-        TODO()
+        val mainRow = this[rowInd]
+            ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
+        require(mainRow.contains(colInd)) {
+            "Cannot eliminate since the element at ($rowInd, $colInd) is zero"
+        }
+        return this.mapValues { (i, row) ->
+            when (i) {
+                rowInd -> row
+                else -> {
+                    if (row.contains(colInd)) {
+                        row - mainRow
+                    } else {
+                        row
+                    }
+                }
+            }
+        }
     }
 
     private fun Map<Int, Set<Int>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
-        TODO()
+        for (i in this.keys.filter { it >= rowIndFrom }) {
+            this[i]?.let { row ->
+                if (row.contains(colInd))
+                    return i
+            }
+        }
+        return null
     }
 }

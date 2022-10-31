@@ -18,6 +18,12 @@ public class SetMatrix<S : Scalar>(
     override val colCount: Int,
 ) : Matrix<S, SetNumVector<S>> {
     public val rowSetMap: Map<Int, Set<Int>> = rowSetMap.filterValues { it.isNotEmpty() }
+    internal var rowEchelonFormInternal: RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>? = null
+        set(value) {
+            if (field != null)
+                throw IllegalStateException("Cannot assign rowEchelonForm twice")
+            field = value
+        }
 
     override fun isZero(): Boolean {
         return this.rowSetMap.isEmpty()
@@ -277,7 +283,10 @@ public class SetMatrixSpace<S : Scalar> private constructor(
     }
 
     override fun computeRowEchelonForm(matrix: SetMatrix<S>): RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>> {
-        TODO("Not yet implemented")
+        matrix.rowEchelonFormInternal?.let { return it }
+        val rowEchelonForm = SetRowEchelonForm(this, matrix)
+        matrix.rowEchelonFormInternal = rowEchelonForm
+        return rowEchelonForm
     }
 
     override fun toString(): String {

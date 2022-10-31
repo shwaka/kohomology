@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
 
 internal data class SetRowEchelonFormData<S : Scalar>(
-    val rowMap: Map<Int, Set<Int>>,
+    val rowSetMap: Map<Int, Set<Int>>,
     val pivots: List<Int>,
     val exchangeCount: Int,
 )
@@ -15,10 +15,10 @@ internal class SetRowEchelonForm<S : Scalar>(
     originalMatrix: SetMatrix<S>,
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
     private val data: SetRowEchelonFormData<S> by lazy {
-        val matrixAsRowMap = this.matrixSpace.context.run {
-            this@SetRowEchelonForm.originalMatrix.rowMap
+        val rowSetMap = this.matrixSpace.context.run {
+            this@SetRowEchelonForm.originalMatrix.rowSetMap
         }
-        this.rowEchelonForm(matrixAsRowMap, this.originalMatrix.colCount)
+        this.rowEchelonForm(rowSetMap, this.originalMatrix.colCount)
     }
 
     override fun computeRowEchelonForm(): SetMatrix<S> {

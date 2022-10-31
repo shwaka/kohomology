@@ -14,6 +14,13 @@ internal class SetRowEchelonForm<S : Scalar>(
     matrixSpace: SetMatrixSpace<S>,
     originalMatrix: SetMatrix<S>,
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
+    private val data: SetRowEchelonFormData<S> by lazy {
+        val matrixAsRowMap = this.matrixSpace.context.run {
+            this@SetRowEchelonForm.originalMatrix.rowMap
+        }
+        this.rowEchelonForm(matrixAsRowMap, this.originalMatrix.colCount)
+    }
+
     override fun computeRowEchelonForm(): SetMatrix<S> {
         TODO("Not yet implemented")
     }
@@ -28,6 +35,10 @@ internal class SetRowEchelonForm<S : Scalar>(
 
     override fun computeReducedRowEchelonForm(): SetMatrix<S> {
         TODO("Not yet implemented")
+    }
+
+    private fun rowEchelonForm(matrix: Map<Int, Set<Int>>, colCount: Int): SetRowEchelonFormData<S> {
+        return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
     }
 
     private tailrec fun Map<Int, Set<Int>>.rowEchelonFormInternal(

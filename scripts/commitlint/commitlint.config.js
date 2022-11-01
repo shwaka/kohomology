@@ -6,7 +6,7 @@ const config = {
   extends: ["@commitlint/config-conventional"],
   rules: {
     // "scope-empty": [2, "never"], // scope is not required
-    "scope-enum": [2, "always", ["core", "website"]],
+    "scope-enum": [2, "always", ["core", "website", "profile"]],
     "header-max-length": [0],
   },
 }

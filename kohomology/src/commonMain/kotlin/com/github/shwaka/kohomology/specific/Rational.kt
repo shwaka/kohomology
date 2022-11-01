@@ -45,6 +45,10 @@ private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInte
 public class Rational private constructor(public val numerator: BigInteger, public val denominator: BigInteger) : Scalar {
     public companion object {
         public operator fun invoke(numerator: BigInteger, denominator: BigInteger): Rational {
+            if (numerator.isZero())
+                return RationalField.zero
+            if (numerator == denominator)
+                return RationalField.one
             // 約分 と denominator > 0
             val red = reduce(numerator, denominator)
             return Rational(red.first, red.second)
@@ -56,6 +60,10 @@ public class Rational private constructor(public val numerator: BigInteger, publ
         }
 
         internal fun fromReduced(numerator: BigInteger, denominator: BigInteger): Rational {
+            if (numerator.isZero())
+                return RationalField.zero
+            if (numerator == denominator)
+                return RationalField.one
             // If the pair numerator and denominator is already reduced (and denominator > 0)
             debugOnly {
                 this.assertReduced(numerator, denominator)

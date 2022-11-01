@@ -10,10 +10,10 @@ import kotlin.time.measureTimedValue
 @ExperimentalTime
 fun main() {
     val executableList: List<Executable> = listOf(
-        CohomologyOfFreeLoopSpace(150),
-        CohomologyOfFreeLoopSpaceWithMultiDegree(150),
-        CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(100),
-        IsomorphismToCohomologyOfFreePathSpace(n = 5, degreeLimit = 70),
+        CohomologyOfFreeLoopSpace(SparseMatrixSpaceOverRational, 150),
+        CohomologyOfFreeLoopSpaceWithMultiDegree(SparseMatrixSpaceOverRational, 150),
+        CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(SparseMatrixSpaceOverRational, 100),
+        IsomorphismToCohomologyOfFreePathSpace(SparseMatrixSpaceOverRational, n = 5, degreeLimit = 70),
         ComputeRowEchelonForm(SparseMatrixSpaceOverRational),
         ComputeRowEchelonForm(DecomposedSparseMatrixSpaceOverRational),
         ComputeReducedRowEchelonForm(SetMatrixSpaceOverF2Boolean, 5000),

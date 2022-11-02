@@ -266,7 +266,14 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
         if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
         return this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
-            for ((i, row) in this@eliminateOtherRows) {
+            // If we use a for-loop like
+            //   for ((i, row) in this@eliminateOtherRows)
+            // then java.util.ConcurrentModificationException is thrown.
+            // By using an iterator directly, this exception can be avoided.
+            val mapIterator = this@eliminateOtherRows.iterator()
+            while (mapIterator.hasNext()) {
+                val mapEntry = mapIterator.next()
+                val (i, row) = mapEntry
                 if (i != rowInd) {
                     // row[colInd] == null の場合は、mainRow * (coeff/elm) は計算せずに
                     // row を直接返した方が有意に速い
@@ -274,9 +281,10 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
                     if (coeff != null) {
                         row.subtract(mainRow, coeff / elm)
                         if (row.isEmpty())
-                            this@eliminateOtherRows.remove(i)
+                            mapIterator.remove()
                     }
                 }
+
             }
         }
     }

@@ -126,7 +126,45 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
 
 internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val field: Field<S>) {
     fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
-        TODO()
+        var currentColInd: Int = 0
+        val pivots: MutableList<Int> = mutableListOf()
+        var exchangeCount: Int = 0
+        val currentMatrix: MutableMap<Int, MutableMap<Int, S>> = matrix.toMutableMapDeeply()
+        while (currentColInd < colCount) {
+            val rowInd: Int? = matrix.findNonZero(currentColInd, pivots.size)
+            if (rowInd == null) {
+                currentColInd++
+                continue
+            } else {
+                currentMatrix.eliminateOtherRows(rowInd, currentColInd)
+                if (rowInd != pivots.size) {
+                    currentMatrix.exchangeRows(rowInd, pivots.size)
+                    exchangeCount++
+                }
+                pivots.add(currentColInd)
+            }
+        }
+        return SparseRowEchelonFormData(currentMatrix, pivots, exchangeCount)
+    }
+
+    fun reduce(rowEchelonRowMap: Map<Int, Map<Int, S>>, pivots: List<Int>): Map<Int, Map<Int, S>> {
+        val rank = pivots.size
+        val reducedRowMap = rowEchelonRowMap.toMutableMapDeeply()
+        for ((i, row) in reducedRowMap) {
+            val elm: S = row[pivots[i]] ?: throw Exception("This can't happen!")
+            val elmInv = this.field.context.run {
+                elm.inv()
+            }
+            row.multiply(elmInv)
+        }
+        for (i in 0 until rank) {
+            reducedRowMap.eliminateOtherRows(i, pivots[i])
+        }
+        return reducedRowMap
+    }
+
+    private fun <K, L, S> Map<K, Map<L, S>>.toMutableMapDeeply(): MutableMap<K, MutableMap<L, S>> {
+        return this.mapValues { (_, row) -> row.toMutableMap() }.toMutableMap()
     }
 
     private fun <K, V> MutableMap<K, V>.replace(getNewValue: (K, V) -> V) {

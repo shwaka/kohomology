@@ -131,7 +131,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
         var exchangeCount: Int = 0
         val currentMatrix: MutableMap<Int, MutableMap<Int, S>> = matrix.toMutableMapDeeply()
         while (currentColInd < colCount) {
-            val rowInd: Int? = matrix.findNonZero(currentColInd, pivots.size)
+            val rowInd: Int? = currentMatrix.findNonZero(currentColInd, pivots.size)
             if (rowInd == null) {
                 currentColInd++
                 continue
@@ -142,6 +142,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
                     exchangeCount++
                 }
                 pivots.add(currentColInd)
+                currentColInd++
             }
         }
         return SparseRowEchelonFormData(currentMatrix, pivots, exchangeCount)

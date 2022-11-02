@@ -151,7 +151,25 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
 
     private fun MutableMap<Int, MutableMap<Int, S>>.exchangeRows(i1: Int, i2: Int) {
         if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
-        TODO()
+        when (val row1 = this[i1]) {
+            null -> when (val row2 = this[i2]) {
+                null -> return
+                else -> {
+                    this[i1] = row2
+                    this.remove(i2)
+                }
+            }
+            else -> when (val row2 = this[i2]) {
+                null -> {
+                    this[i2] = row1
+                    this.remove(i1)
+                }
+                else -> {
+                    this[i1] = row2
+                    this[i2] = row1
+                }
+            }
+        }
     }
 
     private fun MutableMap<Int, S>.subtract(other: Map<Int, S>) {
@@ -162,6 +180,25 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
                     null -> this@subtract[i] = -value
                     else -> {
                         val newValue = valueFromThis - value
+                        if (newValue.isZero()) {
+                            this@subtract.remove(i)
+                        } else {
+                            this@subtract[i] = newValue
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun MutableMap<Int, S>.subtract(other: Map<Int, S>, scalar: S) {
+        this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+            // use this@subtract.replaceNotNull()?
+            for ((i, value) in other) {
+                when (val valueFromThis: S? = this@subtract[i]) {
+                    null -> this@subtract[i] = -value * scalar
+                    else -> {
+                        val newValue = valueFromThis - value * scalar
                         if (newValue.isZero()) {
                             this@subtract.remove(i)
                         } else {
@@ -184,7 +221,25 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
     }
 
     private fun MutableMap<Int, MutableMap<Int, S>>.eliminateOtherRows(rowInd: Int, colInd: Int) {
-        TODO()
+        val mainRow = this[rowInd]
+            ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
+        val elm: S? = mainRow[colInd]
+        if (elm == null || elm.isZero())
+            throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
+        return this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+            for ((i, row) in this@eliminateOtherRows) {
+                if (i != rowInd) {
+                    // row[colInd] == null の場合は、mainRow * (coeff/elm) は計算せずに
+                    // row を直接返した方が有意に速い
+                    val coeff: S? = row[colInd]
+                    if (coeff != null) {
+                        row.subtract(mainRow, coeff / elm)
+                        if (row.isEmpty())
+                            this@eliminateOtherRows.remove(i)
+                    }
+                }
+            }
+        }
     }
 
     private fun Map<Int, Map<Int, S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {

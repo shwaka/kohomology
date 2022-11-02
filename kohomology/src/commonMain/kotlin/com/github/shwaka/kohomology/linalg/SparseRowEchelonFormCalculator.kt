@@ -123,3 +123,80 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(private val field: Fie
         return null
     }
 }
+
+internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val field: Field<S>) {
+    fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
+        TODO()
+    }
+
+    private fun <K, V> MutableMap<K, V>.replace(getNewValue: (K, V) -> V) {
+        val mapIterator = this.iterator()
+        while (mapIterator.hasNext()) {
+            val mapEntry = mapIterator.next()
+            val newValue: V = getNewValue(mapEntry.key, mapEntry.value)
+            mapEntry.setValue(newValue)
+        }
+    }
+
+    private fun <K, V : Any> MutableMap<K, V>.replaceNotNull(getNewValue: (K, V) -> V?) {
+        val mapIterator = this.iterator()
+        while (mapIterator.hasNext()) {
+            val mapEntry = mapIterator.next()
+            val newValue: V? = getNewValue(mapEntry.key, mapEntry.value)
+            if (newValue != null) {
+                mapEntry.setValue(newValue)
+            }
+        }
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.exchangeRows(i1: Int, i2: Int) {
+        if (i1 == i2) throw IllegalArgumentException("Row numbers must be distinct")
+        TODO()
+    }
+
+    private fun MutableMap<Int, S>.subtract(other: Map<Int, S>) {
+        this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+            // use this@subtract.replaceNotNull()?
+            for ((i, value) in other) {
+                when (val valueFromThis: S? = this@subtract[i]) {
+                    null -> this@subtract[i] = -value
+                    else -> {
+                        val newValue = valueFromThis - value
+                        if (newValue.isZero()) {
+                            this@subtract.remove(i)
+                        } else {
+                            this@subtract[i] = newValue
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun MutableMap<Int, S>.multiply(scalar: S) {
+        if (scalar.isZero()) {
+            this.clear()
+        } else {
+            this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+                this@multiply.replace { _, value -> value * scalar }
+            }
+        }
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.eliminateOtherRows(rowInd: Int, colInd: Int) {
+        TODO()
+    }
+
+    private fun Map<Int, Map<Int, S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
+        // same as in SparseRowEchelonFormCalculator
+        for (i in this.keys.filter { it >= rowIndFrom }) {
+            this[i]?.let { row ->
+                row[colInd]?.let { elm ->
+                    if (elm.isNotZero())
+                        return i
+                }
+            }
+        }
+        return null
+    }
+}

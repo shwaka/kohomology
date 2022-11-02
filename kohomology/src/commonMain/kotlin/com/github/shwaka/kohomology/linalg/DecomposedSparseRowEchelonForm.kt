@@ -12,7 +12,7 @@ internal class DecomposedSparseRowEchelonForm<S : Scalar>(
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
     private val field = matrixSpace.field
-    private val calculator = SparseRowEchelonFormCalculator(field)
+    private val calculator = InPlaceSparseRowEchelonFormCalculator(field)
     private val data: SparseRowEchelonFormData<S> by lazy {
         this.computeData()
     }

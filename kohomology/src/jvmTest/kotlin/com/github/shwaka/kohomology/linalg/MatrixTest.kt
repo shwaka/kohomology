@@ -407,6 +407,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 val expectedMat = matrixSpace.getIdentity(2)
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
             }
+            "reduced row echelon form of ((1, 0, 0), (1, 0, 0), (0, 1, 0))" {
+                // Replicate java.util.ConcurrentModificationException in the computation of
+                // sparse row echelon form with in-place operations on MutableMap
+                val mat = listOf(
+                    listOf(one, zero, zero),
+                    listOf(one, zero, zero),
+                    listOf(zero, one, zero),
+                ).toMatrix()
+                val expectedMat = listOf(
+                    listOf(one, zero, zero),
+                    listOf(zero, one, zero),
+                    listOf(zero, zero, zero),
+                ).toMatrix()
+                mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
+            }
             "reduced row echelon form of non-invertible matrix" {
                 val mat = listOf(
                     listOf(zero, zero, one),

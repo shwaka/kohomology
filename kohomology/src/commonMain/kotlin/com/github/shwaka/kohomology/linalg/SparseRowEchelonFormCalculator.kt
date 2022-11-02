@@ -288,7 +288,6 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(private val fie
                             mapIterator.remove()
                     }
                 }
-
             }
         }
     }

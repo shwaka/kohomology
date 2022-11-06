@@ -52,3 +52,31 @@ class SetMatrixTest : FreeSpec({
         }
     }
 })
+
+class SetMatrixNonInPlaceTest : FreeSpec({
+    tags(matrixTag, setMatrixTag, intMod2BooleanTag)
+
+    val matrixSpace = SetMatrixSpace(SetNumVectorSpaceOverF2Boolean, ::NonInPlaceSetRowEchelonForm)
+    // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
+class SetMatrixInPlaceTest : FreeSpec({
+    tags(matrixTag, setMatrixTag, intMod2BooleanTag)
+
+    val matrixSpace = SetMatrixSpace(SetNumVectorSpaceOverF2Boolean, ::InPlaceSetRowEchelonForm)
+    // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})

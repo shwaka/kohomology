@@ -10,14 +10,14 @@ internal data class SetRowEchelonFormData<S : Scalar>(
     val exchangeCount: Int,
 )
 
-internal class SetRowEchelonForm<S : Scalar>(
+internal class NonInPlaceSetRowEchelonForm<S : Scalar>(
     override val matrixSpace: SetMatrixSpace<S>,
     originalMatrix: SetMatrix<S>,
 ) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
     private val data: SetRowEchelonFormData<S> by lazy {
-        val rowSetMap = this@SetRowEchelonForm.originalMatrix.rowSetMap
+        val rowSetMap = this@NonInPlaceSetRowEchelonForm.originalMatrix.rowSetMap
         this.rowEchelonForm(rowSetMap, this.colCount)
     }
 

@@ -93,8 +93,13 @@ public class SetMatrix<S : Scalar>(
     }
 }
 
-public class SetMatrixSpace<S : Scalar> private constructor(
-    override val numVectorSpace: SetNumVectorSpace<S>
+// The constructor is internal for test
+public class SetMatrixSpace<S : Scalar> internal constructor(
+    override val numVectorSpace: SetNumVectorSpace<S>,
+    private val computeRowEchelonFormInternal: (
+        matrixSpace: SetMatrixSpace<S>,
+        matrix: SetMatrix<S>,
+    ) -> RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>> = ::InPlaceSetRowEchelonForm,
 ) : MatrixSpace<S, SetNumVector<S>, SetMatrix<S>> {
     public companion object {
         // TODO: cache まわりの型が割とやばい
@@ -284,7 +289,7 @@ public class SetMatrixSpace<S : Scalar> private constructor(
 
     override fun computeRowEchelonForm(matrix: SetMatrix<S>): RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>> {
         matrix.rowEchelonFormInternal?.let { return it }
-        val rowEchelonForm = SetRowEchelonForm(this, matrix)
+        val rowEchelonForm = this.computeRowEchelonFormInternal(this, matrix)
         matrix.rowEchelonFormInternal = rowEchelonForm
         return rowEchelonForm
     }

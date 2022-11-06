@@ -838,6 +838,40 @@ class RationalDecomposedSparseMatrixTest : FreeSpec({
     }
 })
 
+class RationalSparseMatrixNonInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    val matrixSpace = SparseMatrixSpace(
+        SparseNumVectorSpaceOverRational,
+        SparseRowEchelonFormCalculator(SparseNumVectorSpaceOverRational.field),
+    )
+    include(sparseMatrixSpaceTest(matrixSpace))
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
+class RationalSparseMatrixInPlaceCalculatorTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    val matrixSpace = SparseMatrixSpace(
+        SparseNumVectorSpaceOverRational,
+        InPlaceSparseRowEchelonFormCalculator(SparseNumVectorSpaceOverRational.field),
+    )
+    include(sparseMatrixSpaceTest(matrixSpace))
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
 class IntMod2SparseMatrixTest : FreeSpec({
     tags(matrixTag, sparseMatrixTag, intModpTag)
 

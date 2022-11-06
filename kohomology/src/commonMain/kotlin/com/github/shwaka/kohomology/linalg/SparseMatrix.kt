@@ -291,7 +291,8 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
     }
 }
 
-public class SparseMatrixSpace<S : Scalar> private constructor(
+// The constructor is internal for test
+public class SparseMatrixSpace<S : Scalar> internal constructor(
     numVectorSpace: SparseNumVectorSpace<S>,
     override val rowEchelonFormCalculator: RowEchelonFormCalculator<S> =
         InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),

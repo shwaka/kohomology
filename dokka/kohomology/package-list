@@ -743,6 +743,9 @@ $dokka.location:com.github.shwaka.kohomology.linalg/Field/three/#/PointingToDecl
 $dokka.location:com.github.shwaka.kohomology.linalg/Field/two/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-field/two.html
 $dokka.location:com.github.shwaka.kohomology.linalg/Field/unaryMinusOf/#TypeParam(bounds=[com.github.shwaka.kohomology.linalg.Scalar])/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-field/unary-minus-of.html
 $dokka.location:com.github.shwaka.kohomology.linalg/Field/zero/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-field/zero.html
+$dokka.location:com.github.shwaka.kohomology.linalg/FiniteField///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-finite-field/index.html
+$dokka.location:com.github.shwaka.kohomology.linalg/FiniteField/elements/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-finite-field/elements.html
+$dokka.location:com.github.shwaka.kohomology.linalg/FiniteField/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-finite-field/order.html
 $dokka.location:com.github.shwaka.kohomology.linalg/Matrix///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-matrix/index.html
 $dokka.location:com.github.shwaka.kohomology.linalg/Matrix/colCount/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-matrix/col-count.html
 $dokka.location:com.github.shwaka.kohomology.linalg/Matrix/get/#kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.linalg/-matrix/get.html
@@ -1032,11 +1035,13 @@ $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/characteristi
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/contains/#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/contains.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/context/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/context.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/divide/#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/divide.html
+$dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/elements/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/elements.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/five/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/five.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/four/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/four.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/fromInt/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/from-int.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/multiply/#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/multiply.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/one/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/one.html
+$dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/order.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/subtract/#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/subtract.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/three/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/three.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/two/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/two.html
@@ -1160,6 +1165,7 @@ $dokka.location:com.github.shwaka.kohomology.specific/Fp/characteristic/#/Pointi
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/contains/#com.github.shwaka.kohomology.specific.IntModp/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/contains.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/context/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/context.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/divide/#com.github.shwaka.kohomology.specific.IntModp#com.github.shwaka.kohomology.specific.IntModp/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/divide.html
+$dokka.location:com.github.shwaka.kohomology.specific/Fp/elements/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/elements.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/equals/#kotlin.Any?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/equals.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/five/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/five.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/four/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/four.html
@@ -1167,6 +1173,7 @@ $dokka.location:com.github.shwaka.kohomology.specific/Fp/fromInt/#kotlin.Int/Poi
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/hashCode/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/hash-code.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/multiply/#com.github.shwaka.kohomology.specific.IntModp#com.github.shwaka.kohomology.specific.IntModp/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/multiply.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/one/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/one.html
+$dokka.location:com.github.shwaka.kohomology.specific/Fp/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/order.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/subtract/#com.github.shwaka.kohomology.specific.IntModp#com.github.shwaka.kohomology.specific.IntModp/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/subtract.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/three/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/three.html
 $dokka.location:com.github.shwaka.kohomology.specific/Fp/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-fp/to-string.html
@@ -1369,6 +1376,7 @@ $dokka.location:com.github.shwaka.kohomology.util////PointingToDeclaration/koho
 $dokka.location:com.github.shwaka.kohomology.util//getPermutation/#kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/get-permutation.html
 $dokka.location:com.github.shwaka.kohomology.util//isEven/kotlin.Int#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-even.html
 $dokka.location:com.github.shwaka.kohomology.util//isOdd/kotlin.Int#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-odd.html
+$dokka.location:com.github.shwaka.kohomology.util//isPowerOf/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-power-of.html
 $dokka.location:com.github.shwaka.kohomology.util//isPrime/kotlin.Int#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-prime.html
 $dokka.location:com.github.shwaka.kohomology.util//pow/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/pow.html
 $dokka.location:com.github.shwaka.kohomology.util//times/kotlin.Int#com.github.shwaka.kohomology.util.Sign/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/times.html

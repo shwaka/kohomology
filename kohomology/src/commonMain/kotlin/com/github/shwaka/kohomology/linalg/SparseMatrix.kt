@@ -113,6 +113,8 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
         numVectorSpace.field
     }
 
+    internal abstract val rowEchelonFormCalculator: RowEchelonFormCalculator<S>
+
     override val context: MatrixContext<S, SparseNumVector<S>, SparseMatrix<S>> by lazy {
         // Use 'by lazy' to avoid warning 'Accessing non-final property in constructor'
         MatrixContextImpl(this)
@@ -290,7 +292,9 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
 }
 
 public class SparseMatrixSpace<S : Scalar> private constructor(
-    numVectorSpace: SparseNumVectorSpace<S>
+    numVectorSpace: SparseNumVectorSpace<S>,
+    override val rowEchelonFormCalculator: RowEchelonFormCalculator<S> =
+        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい
@@ -321,7 +325,9 @@ public class SparseMatrixSpace<S : Scalar> private constructor(
 }
 
 public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
-    numVectorSpace: SparseNumVectorSpace<S>
+    numVectorSpace: SparseNumVectorSpace<S>,
+    override val rowEchelonFormCalculator: RowEchelonFormCalculator<S> =
+        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい

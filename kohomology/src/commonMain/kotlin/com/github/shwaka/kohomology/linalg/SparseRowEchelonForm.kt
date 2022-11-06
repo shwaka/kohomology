@@ -8,8 +8,7 @@ internal class SparseRowEchelonForm<S : Scalar>(
 ) : RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>>(matrixSpace, originalMatrix) {
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
-    private val field = matrixSpace.field
-    private val calculator = InPlaceSparseRowEchelonFormCalculator(field)
+    private val calculator = matrixSpace.rowEchelonFormCalculator
     private val data: SparseRowEchelonFormData<S> by lazy {
         this.calculator.rowEchelonForm(this@SparseRowEchelonForm.originalMatrix.rowMap, this.colCount)
     }

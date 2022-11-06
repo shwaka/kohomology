@@ -277,7 +277,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
         val elm: S? = mainRow[colInd]
         if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
-        return this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+        this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
             // If we use a for-loop like
             //   for ((i, row) in this@eliminateOtherRows)
             // then java.util.ConcurrentModificationException is thrown.

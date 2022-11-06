@@ -90,3 +90,8 @@ public interface Field<S : Scalar> {
     public val four: S
     public val five: S
 }
+
+public interface FiniteField<S : Scalar> : Field<S> {
+    public val order: Int
+    public val elements: List<S>
+}

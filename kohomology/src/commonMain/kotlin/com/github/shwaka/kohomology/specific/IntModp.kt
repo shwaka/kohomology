@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.specific
 
 import com.github.shwaka.kohomology.linalg.DenseMatrixSpace
 import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
-import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.ScalarContextImpl
@@ -58,7 +58,7 @@ public class IntModp(value: Int, public val characteristic: Int) : Scalar {
         return result
     }
 }
-public class Fp private constructor(override val characteristic: Int) : Field<IntModp> {
+public class Fp private constructor(override val characteristic: Int) : FiniteField<IntModp> {
     public companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()
         public fun get(p: Int): Fp {
@@ -72,6 +72,11 @@ public class Fp private constructor(override val characteristic: Int) : Field<In
     }
 
     override val context: ScalarContext<IntModp> = ScalarContextImpl(this)
+
+    override val order: Int = characteristic
+    override val elements: List<IntModp> by lazy {
+        (0..this.characteristic).map { this.fromInt(it) }
+    }
 
     override fun contains(scalar: IntModp): Boolean {
         return this.characteristic == scalar.characteristic

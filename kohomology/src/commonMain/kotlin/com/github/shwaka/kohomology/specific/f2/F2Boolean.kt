@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.specific.f2
 
-import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
 import com.github.shwaka.kohomology.linalg.ScalarContextImpl
@@ -36,10 +36,16 @@ public value class IntMod2Boolean(public val value: Boolean) : Scalar {
     }
 }
 
-public object F2Boolean : Field<IntMod2Boolean> {
+public object F2Boolean : FiniteField<IntMod2Boolean> {
     override val context: ScalarContext<IntMod2Boolean> = ScalarContextImpl(this)
 
     override val characteristic: Int = 2
+
+    override val order: Int = 2
+    override val elements: List<IntMod2Boolean> = listOf(
+        IntMod2Boolean(false),
+        IntMod2Boolean(true),
+    )
 
     override fun contains(scalar: IntMod2Boolean): Boolean {
         return true

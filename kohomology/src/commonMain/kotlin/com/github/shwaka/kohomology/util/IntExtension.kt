@@ -34,3 +34,19 @@ public fun Int.isPrime(): Boolean {
     }
     return true
 }
+
+public fun Int.isPowerOf(n: Int): Boolean {
+    require(this > 0) {
+        "k must be positive in k.isPowerOf(n), but $this was given"
+    }
+    require(n >= 2) {
+        "n must be greater than 1 in k.isPowerOf(n), but $n was given"
+    }
+    var current = this
+    while (current > 1) {
+        if (current % n != 0)
+            return false
+        current /= n
+    }
+    return true
+}

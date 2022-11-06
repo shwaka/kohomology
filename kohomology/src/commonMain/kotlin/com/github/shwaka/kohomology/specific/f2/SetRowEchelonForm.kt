@@ -17,9 +17,7 @@ internal class SetRowEchelonForm<S : Scalar>(
     private val rowCount = originalMatrix.rowCount
     private val colCount = originalMatrix.colCount
     private val data: SetRowEchelonFormData<S> by lazy {
-        val rowSetMap = this.matrixSpace.context.run {
-            this@SetRowEchelonForm.originalMatrix.rowSetMap
-        }
+        val rowSetMap = this@SetRowEchelonForm.originalMatrix.rowSetMap
         this.rowEchelonForm(rowSetMap, this.colCount)
     }
 
@@ -125,6 +123,134 @@ internal class SetRowEchelonForm<S : Scalar>(
     }
 
     private fun Map<Int, Set<Int>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
+        for (i in this.keys.filter { it >= rowIndFrom }) {
+            this[i]?.let { row ->
+                if (row.contains(colInd))
+                    return i
+            }
+        }
+        return null
+    }
+}
+
+internal class InPlaceSetRowEchelonForm<S : Scalar>(
+    override val matrixSpace: SetMatrixSpace<S>,
+    originalMatrix: SetMatrix<S>,
+) : RowEchelonForm<S, SetNumVector<S>, SetMatrix<S>>(matrixSpace, originalMatrix) {
+    private val rowCount = originalMatrix.rowCount
+    private val colCount = originalMatrix.colCount
+    private val data: SetRowEchelonFormData<S> by lazy {
+        val rowSetMap = this@InPlaceSetRowEchelonForm.originalMatrix.rowSetMap
+        this.rowEchelonForm(rowSetMap, this.colCount)
+    }
+
+    override fun computeRowEchelonForm(): SetMatrix<S> {
+        return this.matrixSpace.fromRowSetMap(this.data.rowSetMap, this.rowCount, this.colCount)
+    }
+
+    override fun computePivots(): List<Int> {
+        return this.data.pivots
+    }
+
+    override fun computeSign(): Sign {
+        return Sign.fromParity(this.data.exchangeCount)
+    }
+
+    override fun computeReducedRowEchelonForm(): SetMatrix<S> {
+        val rank = this.data.pivots.size
+        // Since any non-zero element is equal to 1,
+        // there is no need to change the leading entry in a row to 1.
+        val reducedRowSetMap = this.data.rowSetMap.toMutableDeeply()
+        for (i in 0 until rank) {
+            reducedRowSetMap.eliminateOtherRows(i, pivots[i])
+        }
+        return this.matrixSpace.fromRowSetMap(reducedRowSetMap, this.rowCount, this.colCount)
+    }
+
+    private fun <K, T> Map<K, Set<T>>.toMutableDeeply(): MutableMap<K, MutableSet<T>> {
+        return this.mapValues { (_, row) -> row.toMutableSet() }.toMutableMap()
+    }
+
+    private fun rowEchelonForm(matrix: Map<Int, Set<Int>>, colCount: Int): SetRowEchelonFormData<S> {
+        var currentColInd: Int = 0
+        val pivots: MutableList<Int> = mutableListOf()
+        var exchangeCount: Int = 0
+        val currentMatrix: MutableMap<Int, MutableSet<Int>> = matrix.toMutableDeeply()
+        while (currentColInd < colCount) {
+            val rowInd: Int? = currentMatrix.findNonZero(currentColInd, pivots.size)
+            if (rowInd == null) {
+                currentColInd++
+                continue
+            } else {
+                currentMatrix.eliminateOtherRows(rowInd, currentColInd)
+                if (rowInd != pivots.size) {
+                    currentMatrix.exchangeRows(rowInd, pivots.size)
+                    exchangeCount++
+                }
+                pivots.add(currentColInd)
+                currentColInd++
+            }
+        }
+        return SetRowEchelonFormData(currentMatrix, pivots, exchangeCount)
+    }
+
+    private fun MutableMap<Int, MutableSet<Int>>.exchangeRows(i1: Int, i2: Int) {
+        require(i1 != i2) { "Row numbers must be distinct" }
+        when (val row1 = this[i1]) {
+            null -> when (val row2 = this[i2]) {
+                null -> return
+                else -> {
+                    this[i1] = row2
+                    this.remove(i2)
+                }
+            }
+            else -> when (val row2 = this[i2]) {
+                null -> {
+                    this[i2] = row1
+                    this.remove(i1)
+                }
+                else -> {
+                    this[i1] = row2
+                    this[i2] = row1
+                }
+            }
+        }
+    }
+
+    private fun MutableSet<Int>.subtract(other: Set<Int>) {
+        for (i in other) {
+            if (this.contains(i)) {
+                this.remove(i)
+            } else {
+                this.add(i)
+            }
+        }
+    }
+
+    private fun MutableMap<Int, MutableSet<Int>>.eliminateOtherRows(rowInd: Int, colInd: Int) {
+        val mainRow = this[rowInd]
+            ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
+        require(mainRow.contains(colInd)) {
+            "Cannot eliminate since the element at ($rowInd, $colInd) is zero"
+        }
+        // If we use a for-loop like
+        //   for ((i, row) in this@eliminateOtherRows)
+        // then java.util.ConcurrentModificationException is thrown.
+        // By using an iterator directly, this exception can be avoided.
+        val mapIterator = this.iterator()
+        while (mapIterator.hasNext()) {
+            val mapEntry = mapIterator.next()
+            val (i, row) = mapEntry
+            if (i != rowInd) {
+                if (row.contains(colInd)) {
+                    row.subtract(mainRow)
+                }
+            }
+        }
+    }
+
+    private fun Map<Int, Set<Int>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
+        // same as in SetRowEchelonForm
         for (i in this.keys.filter { it >= rowIndFrom }) {
             this[i]?.let { row ->
                 if (row.contains(colInd))

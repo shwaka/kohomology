@@ -9,6 +9,9 @@ import com.github.shwaka.kohomology.linalg.matrixTag
 import com.github.shwaka.kohomology.linalg.matrixTest
 import com.github.shwaka.kohomology.linalg.maxValueForDet
 import com.github.shwaka.kohomology.linalg.rowEchelonFormGenTest
+import com.github.shwaka.kohomology.specific.F3
+import com.github.shwaka.kohomology.specific.F5
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -37,6 +40,15 @@ class SetMatrixTest : FreeSpec({
                 0 to setOf(1),
             )
             matrixSpace.fromRowSetMap(rowSetMap, 2, 2) shouldBe matrixSpace.fromRowList(rowList)
+        }
+    }
+
+    "should throw IllegalArgumentException for fields with 3 elements or more" {
+        shouldThrow<IllegalArgumentException> {
+            SetNumVectorSpace.from(F3)
+        }
+        shouldThrow<IllegalArgumentException> {
+            SetNumVectorSpace.from(F5)
         }
     }
 })

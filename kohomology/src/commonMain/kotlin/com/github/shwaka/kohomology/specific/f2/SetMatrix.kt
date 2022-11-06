@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.specific.f2
 
-import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixContext
 import com.github.shwaka.kohomology.linalg.MatrixContextImpl
@@ -111,7 +111,7 @@ public class SetMatrixSpace<S : Scalar> private constructor(
             }
         }
     }
-    override val field: Field<S> =
+    override val field: FiniteField<S> =
         numVectorSpace.field
 
     override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> =

@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.specific.f2
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
 import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
@@ -91,13 +92,13 @@ internal infix fun <T> Set<T>.xor(other: Set<T>): Set<T> {
 }
 
 public class SetNumVectorSpace<S : Scalar> private constructor(
-    override val field: Field<S>
+    override val field: FiniteField<S>
 ) : NumVectorSpace<S, SetNumVector<S>> {
     public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
-        private val cache: MutableMap<Field<*>, SetNumVectorSpace<*>> = mutableMapOf()
-        public fun <S : Scalar> from(field: Field<S>): SetNumVectorSpace<S> {
+        private val cache: MutableMap<FiniteField<*>, SetNumVectorSpace<*>> = mutableMapOf()
+        public fun <S : Scalar> from(field: FiniteField<S>): SetNumVectorSpace<S> {
             if (this.cache.containsKey(field)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[field] as SetNumVectorSpace<S>
@@ -110,9 +111,9 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
     }
 
     init {
-        require(this.field.characteristic == 2) {
-            "field for SetNumVectorSpace must have characteristic 2, " +
-                "but ${this.field.characteristic} was given"
+        require(this.field.order == 2) {
+            "field for SetNumVectorSpace must have exactly 2 elements, " +
+                "but had ${this.field.order} elements"
         }
     }
 

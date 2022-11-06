@@ -3,7 +3,7 @@ name: Build # This will be shown in the badge in README.md
 
 env:
   JAVA_DISTRIBUTION: zulu # default value in actions/setup-java@v1
-  JAVA_VERSION: 1.8
+  JAVA_VERSION: 8
   NODE_VERSION: 16.x
   # 'env' cannot be used in 'runs-on'(?)
   SHARED_ARTIFACT_NAME: _internal_artifact

@@ -4,12 +4,9 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
-import io.kotest.matchers.booleans.shouldBeFalse
-import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
-import io.kotest.property.arbitrary.positiveInts
 import io.kotest.property.forAll
 
 val intExtensionTag = NamedTag("IntExtension")

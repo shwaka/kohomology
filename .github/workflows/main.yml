@@ -30,7 +30,7 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         # will be restored in 'benchmark' and 'generate-site'
         with:
           path: ~/.m2/repository
@@ -71,7 +71,7 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         # restore mavenLocal repository from 'test'
         with:
           path: ~/.m2/repository
@@ -110,12 +110,12 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         # restore mavenLocal repository from 'test'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
-      - uses: actions/cache@v2 # for lint-website
+      - uses: actions/cache@v3 # for lint-website
         # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:
           # 以下が全て必要
@@ -134,7 +134,7 @@ jobs:
       - name: Assert samples are working
         run: ./scripts/run-sample.sh
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
@@ -172,12 +172,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - uses: actions/cache@v2 # restore from generate-site
+      - uses: actions/cache@v3 # restore from generate-site
         # actions/download-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:
           # 以下が全て必要

@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.specific.f2
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.exchange
 
 internal data class SetRowEchelonFormData<S : Scalar>(
     val rowSetMap: Map<Int, Set<Int>>,
@@ -184,7 +185,7 @@ internal class InPlaceSetRowEchelonForm<S : Scalar>(
             } else {
                 currentMatrix.eliminateOtherRows(rowInd, currentColInd)
                 if (rowInd != pivots.size) {
-                    currentMatrix.exchangeRows(rowInd, pivots.size)
+                    currentMatrix.exchange(rowInd, pivots.size)
                     exchangeCount++
                 }
                 pivots.add(currentColInd)
@@ -192,29 +193,6 @@ internal class InPlaceSetRowEchelonForm<S : Scalar>(
             }
         }
         return SetRowEchelonFormData(currentMatrix, pivots, exchangeCount)
-    }
-
-    private fun MutableMap<Int, MutableSet<Int>>.exchangeRows(i1: Int, i2: Int) {
-        require(i1 != i2) { "Row numbers must be distinct" }
-        when (val row1 = this[i1]) {
-            null -> when (val row2 = this[i2]) {
-                null -> return
-                else -> {
-                    this[i1] = row2
-                    this.remove(i2)
-                }
-            }
-            else -> when (val row2 = this[i2]) {
-                null -> {
-                    this[i2] = row1
-                    this.remove(i1)
-                }
-                else -> {
-                    this[i1] = row2
-                    this[i2] = row1
-                }
-            }
-        }
     }
 
     private fun MutableSet<Int>.subtract(other: Set<Int>) {

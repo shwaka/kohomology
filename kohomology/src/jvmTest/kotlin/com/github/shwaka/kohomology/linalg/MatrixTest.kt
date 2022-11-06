@@ -843,7 +843,7 @@ class RationalSparseMatrixNonInPlaceCalculatorTest : FreeSpec({
 
     val matrixSpace = SparseMatrixSpace(
         SparseNumVectorSpaceOverRational,
-        SparseRowEchelonFormCalculator(SparseNumVectorSpaceOverRational.field),
+        NonInPlaceSparseRowEchelonFormCalculator(SparseNumVectorSpaceOverRational.field),
     )
     // include(sparseMatrixSpaceTest(matrixSpace)) // fails around cache
     include(matrixTest(matrixSpace))

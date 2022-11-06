@@ -6,7 +6,7 @@ internal data class SparseRowEchelonFormData<S : Scalar>(
     val exchangeCount: Int
 )
 
-internal interface RowEchelonFormCalculator<S : Scalar> {
+internal interface SparseRowEchelonFormCalculator<S : Scalar> {
     fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S>
     fun reduce(rowEchelonRowMap: Map<Int, Map<Int, S>>, pivots: List<Int>): Map<Int, Map<Int, S>>
 }
@@ -14,9 +14,9 @@ internal interface RowEchelonFormCalculator<S : Scalar> {
 // SparseRowEchelonFormCalculator is slower than InPlaceSparseRowEchelonFormCalculator
 // and hence currently it is not used.
 // It is remaining here for debugging.
-internal class SparseRowEchelonFormCalculator<S : Scalar>(
+internal class NonInPlaceSparseRowEchelonFormCalculator<S : Scalar>(
     private val field: Field<S>
-) : RowEchelonFormCalculator<S> {
+) : SparseRowEchelonFormCalculator<S> {
     override fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
         return matrix.rowEchelonFormInternal(0, listOf(), 0, colCount)
     }
@@ -78,7 +78,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(
 
     private operator fun Map<Int, S>.minus(other: Map<Int, S>): Map<Int, S> {
         val newMap: MutableMap<Int, S> = this.toMutableMap()
-        this@SparseRowEchelonFormCalculator.field.context.run {
+        this@NonInPlaceSparseRowEchelonFormCalculator.field.context.run {
             for ((i, value) in other) {
                 when (val valueFromThis: S? = newMap[i]) {
                     null -> newMap[i] = -value
@@ -92,7 +92,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(
     private operator fun Map<Int, S>.times(scalar: S): Map<Int, S> {
         if (scalar.isZero())
             return mapOf()
-        return this@SparseRowEchelonFormCalculator.field.context.run {
+        return this@NonInPlaceSparseRowEchelonFormCalculator.field.context.run {
             this@times.mapValues { (_, value) -> value * scalar }
         }
     }
@@ -103,7 +103,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(
         val elm: S? = mainRow[colInd]
         if (elm == null || elm.isZero())
             throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
-        return this@SparseRowEchelonFormCalculator.field.context.run {
+        return this@NonInPlaceSparseRowEchelonFormCalculator.field.context.run {
             this@eliminateOtherRows.mapValues { (i, row) ->
                 when (i) {
                     rowInd -> row
@@ -136,7 +136,7 @@ internal class SparseRowEchelonFormCalculator<S : Scalar>(
 
 internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
     private val field: Field<S>
-) : RowEchelonFormCalculator<S> {
+) : SparseRowEchelonFormCalculator<S> {
     override fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
         var currentColInd: Int = 0
         val pivots: MutableList<Int> = mutableListOf()

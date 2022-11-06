@@ -11,18 +11,21 @@ import com.github.shwaka.kohomology.overflowTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Sign
+import com.github.shwaka.kohomology.util.isPowerOf
 import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.compilation.shouldCompile
 import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
+import io.kotest.property.forAll
 
 val fieldTag = NamedTag("Field")
 
@@ -165,6 +168,36 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
     }
 }
 
+fun <S : Scalar> finiteFieldTest(field: FiniteField<S>) = freeSpec {
+    tags(fieldTag)
+
+    "finiteFieldTest for $field" - {
+        "characteristic should be prime" {
+            field.characteristic.isPrime().shouldBeTrue()
+        }
+
+        "the order should be a power of the characteristic" {
+            field.order.isPowerOf(field.characteristic)
+        }
+
+        "the number of elements should be equal to the order" {
+            field.elements.size shouldBe field.order
+        }
+
+        "field.elements should contain all integers" {
+            field.elements.shouldContain(field.zero)
+            field.elements.shouldContain(field.one)
+            Arb.int().forAll { n ->
+                field.elements.contains(field.fromInt(n))
+            }
+        }
+
+        "field.elements should be distinct" {
+            field.elements.distinct().size shouldBe field.elements.size
+        }
+    }
+}
+
 fun <S : Scalar> rationalTest(field: Field<S>) = freeSpec {
     tags(fieldTag)
 
@@ -256,10 +289,13 @@ class IntModpTest : FreeSpec({
 
     include(fromIntTest(F2))
     include(fieldTest(F2))
+    include(finiteFieldTest(F2))
     include(fromIntTest(F3))
     include(fieldTest(F3))
+    include(finiteFieldTest(F3))
     include(fromIntTest(F5))
     include(fieldTest(F5))
+    include(finiteFieldTest(F5))
     "(8 mod 5) should be equal to (3 mod 5)" {
         F5.fromInt(8) shouldBe F5.fromInt(3)
     }

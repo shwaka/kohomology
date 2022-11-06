@@ -75,7 +75,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
 
     override val order: Int = characteristic
     override val elements: List<IntModp> by lazy {
-        (0..this.characteristic).map { this.fromInt(it) }
+        (0 until this.characteristic).map { this.fromInt(it) }
     }
 
     override fun contains(scalar: IntModp): Boolean {

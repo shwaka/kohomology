@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import kotlin.jvm.JvmInline
 
 @JvmInline
-public value class IntMod2Boolean(public val value: Boolean) : Scalar {
+public value class IntMod2Boolean private constructor(public val value: Boolean) : Scalar {
     override fun isZero(): Boolean {
         return !this.value
     }
@@ -32,6 +32,19 @@ public value class IntMod2Boolean(public val value: Boolean) : Scalar {
             "1"
         } else {
             "0"
+        }
+    }
+
+    public companion object {
+        private val zero: IntMod2Boolean = IntMod2Boolean(false)
+        private val one: IntMod2Boolean = IntMod2Boolean(true)
+
+        public operator fun invoke(value: Boolean): IntMod2Boolean {
+            return if (value) {
+                this.one
+            } else {
+                this.zero
+            }
         }
     }
 }

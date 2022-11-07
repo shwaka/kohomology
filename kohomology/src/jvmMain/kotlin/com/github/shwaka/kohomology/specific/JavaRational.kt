@@ -31,6 +31,8 @@ private fun gcdInternal(a: BigInteger, b: BigInteger): BigInteger {
 private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInteger, BigInteger> {
     if (numerator == BigInteger.ZERO) return Pair(BigInteger.ZERO, BigInteger.ONE)
     val g = gcd(numerator, denominator)
+    // Since there is no method such as BigInteger.times(other: Int),
+    // we cannot write numerator * denominator.signum() / g.
     val num = when (denominator.signum()) {
         1 -> numerator / g
         -1 -> -numerator / g

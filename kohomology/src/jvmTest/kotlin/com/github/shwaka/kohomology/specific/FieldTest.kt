@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.specific
 import com.github.shwaka.kohomology.compileTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.jvmOnlyTag
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -281,6 +282,30 @@ class RationalTest : FreeSpec({
 
     "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
         Rational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
+    }
+})
+
+class JavaRationalTest : FreeSpec({
+    tags(fieldTag, rationalTag, jvmOnlyTag)
+
+    include(fromIntTest(JavaRationalField))
+    include(fieldTest(JavaRationalField))
+    include(rationalTest(JavaRationalField))
+
+    "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
+        shouldThrow<IllegalArgumentException> {
+            JavaRational.fromReduced(1, -1)
+        }
+        shouldThrow<IllegalArgumentException> {
+            JavaRational.fromReduced(6, 2)
+        }
+        shouldThrow<IllegalArgumentException> {
+            JavaRational.fromReduced(0, 2)
+        }
+    }
+
+    "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
+        JavaRational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
     }
 })
 

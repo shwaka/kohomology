@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.jvmOnlyTag
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2
@@ -10,6 +11,8 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.JavaRationalField
+import com.github.shwaka.kohomology.specific.KotlinRationalField
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
@@ -802,9 +805,51 @@ class IntMod5DenseMatrixTest : FreeSpec({
 })
 
 class RationalSparseMatrixTest : FreeSpec({
+    // This is the same as KotlinRationalSparseMatrixTest or JavaRationalSparseMatrixTest.
+    // See comments in RationalTest for details.
     tags(matrixTag, sparseMatrixTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
+    include(sparseMatrixSpaceTest(matrixSpace))
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "SparseMatrixSpace(RationalField)"
+    }
+})
+
+class KotlinRationalSparseMatrixTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag)
+
+    val matrixSpace = SparseMatrixSpace.from(
+        SparseNumVectorSpace.from(KotlinRationalField)
+    )
+    include(sparseMatrixSpaceTest(matrixSpace))
+    include(matrixTest(matrixSpace))
+    include(matrixOfRank2Test(matrixSpace))
+    include(determinantTest(matrixSpace, matrixSizeForDet, maxValueForDet))
+    include(rowEchelonFormGenTest(matrixSpace, 3, 3))
+    include(rowEchelonFormGenTest(matrixSpace, 4, 3))
+    include(findPreimageGenTest(matrixSpace, 3, 3))
+    include(findPreimageGenTest(matrixSpace, 4, 3))
+
+    "test toString()" {
+        matrixSpace.toString() shouldBe "SparseMatrixSpace(RationalField)"
+    }
+})
+
+class JavaRationalSparseMatrixTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, rationalTag, jvmOnlyTag)
+
+    val matrixSpace = SparseMatrixSpace.from(
+        SparseNumVectorSpace.from(JavaRationalField)
+    )
     include(sparseMatrixSpaceTest(matrixSpace))
     include(matrixTest(matrixSpace))
     include(matrixOfRank2Test(matrixSpace))

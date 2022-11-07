@@ -2,10 +2,13 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
+import com.github.shwaka.kohomology.jvmOnlyTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverF7
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseNumVectorSpaceOverRational
+import com.github.shwaka.kohomology.specific.JavaRationalField
+import com.github.shwaka.kohomology.specific.KotlinRationalField
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF5
@@ -233,12 +236,38 @@ class IntRationalSparseNumVectorTest : FreeSpec({
 })
 
 class RationalSparseNumVectorTest : FreeSpec({
+    // This is the same as KotlinRationalSparseNumVectorTest or JavaRationalSparseNumVectorTest.
+    // See comments in RationalTest for details.
     tags(numVectorTag, sparseNumVectorTag, rationalTag)
     include(sparseNumVectorTest(SparseNumVectorSpaceOverRational))
     include(numVectorTest(SparseNumVectorSpaceOverRational))
 
     "test toString()" {
         SparseNumVectorSpaceOverRational.toString() shouldBe "SparseNumVectorSpace(RationalField)"
+    }
+})
+
+class KotlinRationalSparseNumVectorTest : FreeSpec({
+    tags(numVectorTag, sparseNumVectorTag, rationalTag)
+
+    val numVectorSpace = SparseNumVectorSpace.from(KotlinRationalField)
+    include(sparseNumVectorTest(numVectorSpace))
+    include(numVectorTest(numVectorSpace))
+
+    "test toString()" {
+        numVectorSpace.toString() shouldBe "SparseNumVectorSpace(RationalField)"
+    }
+})
+
+class JavaRationalSparseNumVectorTest : FreeSpec({
+    tags(numVectorTag, sparseNumVectorTag, rationalTag, jvmOnlyTag)
+
+    val numVectorSpace = SparseNumVectorSpace.from(JavaRationalField)
+    include(sparseNumVectorTest(numVectorSpace))
+    include(numVectorTest(numVectorSpace))
+
+    "test toString()" {
+        numVectorSpace.toString() shouldBe "SparseNumVectorSpace(RationalField)"
     }
 })
 

@@ -262,6 +262,9 @@ class LongRationalTest : FreeSpec({
 })
 
 class RationalTest : FreeSpec({
+    // This is the same as KotlinRationalTest or JavaRationalTest,
+    // but all of them are included to confirm correctness certainly.
+    // (Currently, tests are run only in JVM, this is equal to JavaRationalTest)
     tags(fieldTag, rationalTag)
 
     include(fromIntTest(RationalField))
@@ -282,6 +285,30 @@ class RationalTest : FreeSpec({
 
     "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
         Rational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
+    }
+})
+
+class KotlinRationalTest : FreeSpec({
+    tags(fieldTag, rationalTag)
+
+    include(fromIntTest(KotlinRationalField))
+    include(fieldTest(KotlinRationalField))
+    include(rationalTest(KotlinRationalField))
+
+    "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
+        shouldThrow<IllegalArgumentException> {
+            KotlinRational.fromReduced(1, -1)
+        }
+        shouldThrow<IllegalArgumentException> {
+            KotlinRational.fromReduced(6, 2)
+        }
+        shouldThrow<IllegalArgumentException> {
+            KotlinRational.fromReduced(0, 2)
+        }
+    }
+
+    "(-1/2).toString(PrintType.TEX) should be -\\frac{1}{2}" {
+        KotlinRational(-1, 2).toString(PrintType.TEX) shouldBe "-\\frac{1}{2}"
     }
 })
 

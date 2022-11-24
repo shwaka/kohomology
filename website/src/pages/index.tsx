@@ -35,7 +35,7 @@ export default function Home(): JSX.Element {
   return (
     <Layout
       title={`${siteConfig.title}`}
-      description="Description will go into a meta tag in <head />">
+      description="A library to compute the cohomology of Sullivan algebras">
       <HomepageHeader />
       <main>
         <HomepageFeatures />

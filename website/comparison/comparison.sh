@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 comparison_dir=$(pwd)
-output_file=$comparison_dir/comparison_result.json
+output_file=$comparison_dir/../src/components/ComparisonChart/comparison.json
 
 result="{}"
 

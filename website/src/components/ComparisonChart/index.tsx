@@ -1,6 +1,7 @@
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData } from "chart.js"
 import React from "react"
 import { Chart } from "react-chartjs-2"
+import comparisonData from "./comparison.json"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController)
 
@@ -19,6 +20,7 @@ const data: ChartData<"line", number[], string> = {
 }
 
 export function ComparisonChart(): JSX.Element {
+  console.log(comparisonData)
   return (
     <Chart
       type="line"

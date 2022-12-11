@@ -14,7 +14,8 @@
     "types": [
       "webpack-env",
       "jest"
-    ]
+    ],
+    "resolveJsonModule": true
   },
   "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ]
 }

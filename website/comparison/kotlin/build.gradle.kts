@@ -42,4 +42,9 @@ fun convertName(name: String): String {
 application {
     val name: String = System.getProperty("name") ?: "NameNotSet"
     mainClassName = "com.github.shwaka.kohomology.sample.${convertName(name)}"
+
+    val degree: String = System.getProperty("degree") ?: "10"
+    applicationDefaultJvmArgs = listOf(
+        "-Ddegree=$degree"
+    )
 }

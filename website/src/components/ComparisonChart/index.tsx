@@ -1,7 +1,7 @@
 import CodeBlock from "@theme/CodeBlock"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, Colors } from "chart.js"
 import React from "react"
-import { Chart } from "react-chartjs-2"
+import { Chart, ChartProps } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
 import { Target, tools, Tool } from "./comparisonKeys"
 
@@ -19,10 +19,19 @@ function getData(target: Target): ChartData<"line", number[], string> {
 
 function ComparisonChartForTool({ target }: { target: Target }): JSX.Element {
   const data = getData(target)
+  const options: ChartProps<"line", number[], string>["options"] = {
+    plugins: {
+      title: {
+        display: true,
+        text: target
+      }
+    }
+  }
   return (
     <Chart
       type="line"
       data={data}
+      options={options}
     />
   )
 }

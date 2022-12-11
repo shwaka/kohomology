@@ -2,7 +2,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React from "react"
 import { Chart } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
-import { Target, tools } from "./tools"
+import { Target, tools } from "./comparisonKeys"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, Colors)
 

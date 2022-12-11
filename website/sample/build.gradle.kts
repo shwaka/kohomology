@@ -34,8 +34,8 @@ tasks.register("kf") { dependsOn("ktlintFormat") }
 
 fun convertSampleName(sampleName: String): String {
     // foo.kt -> FooKt
-    // foo -> Foo
-    // Foo -> Foo
+    // foo -> FooKt
+    // Foo -> FooKt
     return sampleName.capitalize().removeSuffix(".kt") + "Kt"
 }
 

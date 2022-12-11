@@ -32,16 +32,16 @@ tasks.withType<KotlinCompile>() {
 tasks.register("kc") { dependsOn("ktlintCheck") }
 tasks.register("kf") { dependsOn("ktlintFormat") }
 
-fun convertName(name: String): String {
+fun convertTargetName(targetName: String): String {
     // foo.kt -> FooKt
     // foo -> FooKt
     // Foo -> FooKt
-    return name.capitalize().removeSuffix(".kt") + "Kt"
+    return targetName.capitalize().removeSuffix(".kt") + "Kt"
 }
 
 application {
-    val name: String = System.getProperty("name") ?: "NameNotSet"
-    mainClassName = "com.github.shwaka.kohomology.sample.${convertName(name)}"
+    val target: String = System.getProperty("target") ?: "TargetNameNotSet"
+    mainClassName = "com.github.shwaka.kohomology.sample.${convertTargetName(target)}"
 
     val degree: String = System.getProperty("degree") ?: "10"
     applicationDefaultJvmArgs = listOf(

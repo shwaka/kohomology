@@ -3,11 +3,12 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 command=$1
-degree=${2-10}
+target=${2-}
+degree=${3-}
 
 if [ "$command" = version ]; then
     ./gradlew --version
     ./gradlew dependencyInsight --dependency com.github.shwaka.kohomology:kohomology
 elif [ "$command" = compute ]; then
-    ./gradlew run -Dname=FreeLoopSpaceOf2Sphere -Ddegree="$degree"
+    ./gradlew run -Dtarget="$target" -Ddegree="$degree"
 fi

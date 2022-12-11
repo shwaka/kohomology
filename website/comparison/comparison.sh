@@ -27,7 +27,8 @@ for tool in $tools; do
             tempfile=$(mktemp)
             # Since bash-builtin time has no options, /usr/bin/time should be used.
             # /usr/bin/time can accept only external commands, not bash functions.
-            /usr/bin/time --format "%e" --output "$tempfile" "$executable" compute "$degree"
+            /usr/bin/time --format "%e" --output "$tempfile" \
+                          "$executable" compute "$target" "$degree"
             result_target=$(echo "$result_target" |
                                    jq --argjson time "$(cat "$tempfile")" \
                                       '. |= . + [$time]')

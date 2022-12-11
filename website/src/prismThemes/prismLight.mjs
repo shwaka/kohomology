@@ -14,7 +14,7 @@ export default {
   styles: [
     ...lightTheme.styles,
     {
-      types: ['title'],
+      types: ['title', 'shell-symbol'], // 'shell-symbol' was added for 'shell-session'
       style: {
         color: '#0550AE',
         fontWeight: 'bold',

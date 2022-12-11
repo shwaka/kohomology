@@ -17,7 +17,7 @@ export default {
   styles: [
     ...darkTheme.styles,
     {
-      types: ['title'],
+      types: ['title', 'shell-symbol'], // 'shell-symbol' was added for 'shell-session'
       style: {
         color: '#569CD6',
         fontWeight: 'bold',

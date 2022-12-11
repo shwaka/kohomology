@@ -30,6 +30,7 @@ export function ComparisonChart(): JSX.Element {
 export function ShowVersion({ tool }: { tool: Tool }): JSX.Element {
   return (
     <CodeBlock
+      language="shell-session"
       title={tool}
     >
       {comparisonData.result[tool].version}

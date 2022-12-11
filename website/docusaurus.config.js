@@ -141,7 +141,7 @@ const config = {
       // },
       prism: {
         // themes are configured in the createConfig() function below
-        additionalLanguages: ["kotlin", "groovy", "latex"],
+        additionalLanguages: ["kotlin", "groovy", "latex", "shell-session"],
       },
     }),
 

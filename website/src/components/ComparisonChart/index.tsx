@@ -1,10 +1,10 @@
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData } from "chart.js"
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, Colors } from "chart.js"
 import React from "react"
 import { Chart } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
 import { tools } from "./tools"
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, Colors)
 
 const data: ChartData<"line", number[], string> = {
   labels: comparisonData.degrees.map((degree) => degree.toString()),

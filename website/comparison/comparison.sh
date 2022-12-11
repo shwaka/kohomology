@@ -3,6 +3,7 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 comparison_dir=$(pwd)
+output_file=$comparison_dir/comparison_result.json
 
 function run_kohomology() {
     local command=$1
@@ -28,11 +29,28 @@ function run_sage() {
     fi
 }
 
+result="{}"
+
 tools="kohomology sage"
 degrees="10 50 100"
 for tool in $tools; do
-    "run_$tool" version
+    version_string=$("run_$tool" version)
+    benchmark_result="{}"
     for degree in $degrees; do
-        "run_$tool" compute "$degree"
+        tempfile=$(mktemp)
+        /usr/bin/time --format "%e" --output "$tempfile" "run_$tool" compute "$degree"
+        benchmark_result=$(echo "$benchmark_result" |
+                               jq --arg degree "$degree" \
+                                  --arg time "$(cat "$tempfile")" \
+                                  '.[$degree] = $time')
     done
+    tool_result=$(jq --null-input \
+                     --arg version_string "$version_string" \
+                     --argjson benchmark_result "$benchmark_result" \
+                     '{ "version": $version_string, "benchmark_result": $benchmark_result }')
+    result=$(echo "$result" |
+                 jq --arg tool "$tool" \
+                    --argjson tool_result "$tool_result" \
+                    '.[$tool] = $tool_result')
 done
+echo "$result" > "$output_file"

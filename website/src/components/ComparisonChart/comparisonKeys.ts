@@ -6,6 +6,7 @@ export const tools = [
 export type Tool = (typeof tools)[number]
 
 export const targets = [
-  "FreeLoopSpaceOf2Sphere"
+  "FreeLoopSpaceOf2Sphere",
+  "FreeLoopSpaceOf2SphereWithMultiGrading"
 ] as const
 export type Target = (typeof targets)[number]

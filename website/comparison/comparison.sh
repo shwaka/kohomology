@@ -12,6 +12,9 @@ targets=$(cat <<EOS
 {
   "FreeLoopSpaceOf2Sphere": {
     "degrees": [0, 10, 50, 100]
+  },
+  "FreeLoopSpaceOf2SphereWithMultiGrading": {
+    "degrees": [0, 10, 50, 100]
   }
 }
 EOS

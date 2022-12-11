@@ -17,13 +17,22 @@ function getData(target: Target): ChartData<"line", number[], string> {
   }
 }
 
-export function ComparisonChart(): JSX.Element {
-  const data = getData("FreeLoopSpaceOf2Sphere")
+function ComparisonChartForTool({ target }: { target: Target }): JSX.Element {
+  const data = getData(target)
   return (
     <Chart
       type="line"
       data={data}
     />
+  )
+}
+
+export function ComparisonChart(): JSX.Element {
+  return (
+    <div>
+      <ComparisonChartForTool target="FreeLoopSpaceOf2Sphere"/>
+      <ComparisonChartForTool target="FreeLoopSpaceOf2SphereWithMultiGrading"/>
+    </div>
   )
 }
 

@@ -1,18 +1,25 @@
 {
-  "kohomology": {
-    "version": "\n------------------------------------------------------------\nGradle 6.6.1\n------------------------------------------------------------\n\nBuild time:   2020-08-25 16:29:12 UTC\nRevision:     f2d1fb54a951d8b11d25748e4711bec8d128d7e3\n\nKotlin:       1.3.72\nGroovy:       2.5.12\nAnt:          Apache Ant(TM) version 1.10.8 compiled on May 10 2020\nJVM:          1.8.0_282 (Azul Systems, Inc. 25.282-b08)\nOS:           Linux 5.15.0-56-generic amd64\n\n\n> Task :dependencyInsight\ncom.github.shwaka.kohomology:kohomology:0.10\n   variant \"jvmApiElements-published\" [\n      org.gradle.libraryelements         = jar (compatible with: classes)\n      org.gradle.usage                   = java-api\n      org.jetbrains.kotlin.platform.type = jvm\n      org.gradle.status                  = release (not requested)\n\n      Requested attributes not found in the selected variant:\n         org.gradle.category                = library\n         org.gradle.dependency.bundling     = external\n         org.gradle.jvm.version             = 8\n   ]\n\ncom.github.shwaka.kohomology:kohomology:0.10\n\\--- compileClasspath\n\ncom.github.shwaka.kohomology:kohomology-jvm:0.10\n   variant \"jvmApiElements-published\" [\n      org.gradle.libraryelements         = jar (compatible with: classes)\n      org.gradle.usage                   = java-api\n      org.jetbrains.kotlin.platform.type = jvm\n      org.gradle.status                  = release (not requested)\n\n      Requested attributes not found in the selected variant:\n         org.gradle.category                = library\n         org.gradle.dependency.bundling     = external\n         org.gradle.jvm.version             = 8\n   ]\n\ncom.github.shwaka.kohomology:kohomology-jvm:0.10\n\\--- com.github.shwaka.kohomology:kohomology:0.10\n     \\--- compileClasspath\n\nA web-based, searchable dependency report is available by adding the --scan option.\n\nBUILD SUCCESSFUL in 258ms\n1 actionable task: 1 executed",
-    "benchmark_result": {
-      "10": "0.82",
-      "50": "0.95",
-      "100": "1.27"
-    }
-  },
-  "sage": {
-    "version": "SageMath version 9.7, Release Date: 2022-09-19\nPython 3.8.10",
-    "benchmark_result": {
-      "10": "1.11",
-      "50": "1.83",
-      "100": "5.64"
+  "degrees": [
+    10,
+    50,
+    100
+  ],
+  "result": {
+    "kohomology": {
+      "version": "\n------------------------------------------------------------\nGradle 6.6.1\n------------------------------------------------------------\n\nBuild time:   2020-08-25 16:29:12 UTC\nRevision:     f2d1fb54a951d8b11d25748e4711bec8d128d7e3\n\nKotlin:       1.3.72\nGroovy:       2.5.12\nAnt:          Apache Ant(TM) version 1.10.8 compiled on May 10 2020\nJVM:          1.8.0_282 (Azul Systems, Inc. 25.282-b08)\nOS:           Linux 5.15.0-56-generic amd64\n\n\n> Task :dependencyInsight\ncom.github.shwaka.kohomology:kohomology:0.10\n   variant \"jvmApiElements-published\" [\n      org.gradle.libraryelements         = jar (compatible with: classes)\n      org.gradle.usage                   = java-api\n      org.jetbrains.kotlin.platform.type = jvm\n      org.gradle.status                  = release (not requested)\n\n      Requested attributes not found in the selected variant:\n         org.gradle.category                = library\n         org.gradle.dependency.bundling     = external\n         org.gradle.jvm.version             = 8\n   ]\n\ncom.github.shwaka.kohomology:kohomology:0.10\n\\--- compileClasspath\n\ncom.github.shwaka.kohomology:kohomology-jvm:0.10\n   variant \"jvmApiElements-published\" [\n      org.gradle.libraryelements         = jar (compatible with: classes)\n      org.gradle.usage                   = java-api\n      org.jetbrains.kotlin.platform.type = jvm\n      org.gradle.status                  = release (not requested)\n\n      Requested attributes not found in the selected variant:\n         org.gradle.category                = library\n         org.gradle.dependency.bundling     = external\n         org.gradle.jvm.version             = 8\n   ]\n\ncom.github.shwaka.kohomology:kohomology-jvm:0.10\n\\--- com.github.shwaka.kohomology:kohomology:0.10\n     \\--- compileClasspath\n\nA web-based, searchable dependency report is available by adding the --scan option.\n\nBUILD SUCCESSFUL in 258ms\n1 actionable task: 1 executed",
+      "benchmark_result": [
+        0.81,
+        0.93,
+        1.28
+      ]
+    },
+    "sage": {
+      "version": "SageMath version 9.7, Release Date: 2022-09-19\nPython 3.8.10",
+      "benchmark_result": [
+        1.15,
+        1.87,
+        5.56
+      ]
     }
   }
 }

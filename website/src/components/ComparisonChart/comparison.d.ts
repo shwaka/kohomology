@@ -3,9 +3,12 @@ import { Tool } from "./tools"
 declare module "*/comparison.json" {
   interface Data {
     version: string
-    benchmark_result: any
+    benchmark_result: number[]
   }
 
-  const value: { [K in Tool]: Data }
+  const value: {
+    degrees: number[]
+    result: { [K in Tool]: Data }
+  }
   export = value
 }

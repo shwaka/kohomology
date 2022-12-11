@@ -2,25 +2,19 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React from "react"
 import { Chart } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
+import { tools } from "./tools"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController)
 
 const data: ChartData<"line", number[], string> = {
-  labels: ["foo", "bar", "baz"],
-  datasets: [
-    {
-      label: "dataset 1",
-      data: [1, 2, 3],
-    },
-    {
-      label: "dataset 2",
-      data: [2, 3, 4],
-    },
-  ]
+  labels: comparisonData.degrees.map((degree) => degree.toString()),
+  datasets: tools.map((tool) => ({
+    label: tool,
+    data: comparisonData.result[tool].benchmark_result,
+  })),
 }
 
 export function ComparisonChart(): JSX.Element {
-  console.log(comparisonData)
   return (
     <Chart
       type="line"

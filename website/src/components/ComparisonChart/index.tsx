@@ -1,8 +1,9 @@
+import CodeBlock from "@theme/CodeBlock"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, Colors } from "chart.js"
 import React from "react"
 import { Chart } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
-import { Target, tools } from "./comparisonKeys"
+import { Target, tools, Tool } from "./comparisonKeys"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, Colors)
 
@@ -23,5 +24,15 @@ export function ComparisonChart(): JSX.Element {
       type="line"
       data={data}
     />
+  )
+}
+
+export function ShowVersion({ tool }: { tool: Tool }): JSX.Element {
+  return (
+    <CodeBlock
+      title={tool}
+    >
+      {comparisonData.result[tool].version}
+    </CodeBlock>
   )
 }

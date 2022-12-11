@@ -1,13 +1,15 @@
-import { Tool } from "./tools"
+import { Target, Tool } from "./tools"
 
 declare module "*/comparison.json" {
   interface Data {
     version: string
-    benchmark_result: number[]
+    benchmark: { [K in Target]: number[] }
   }
 
   const value: {
-    degrees: number[]
+    targets: {
+      [K in Target]: { degrees: number[] }
+    }
     result: { [K in Tool]: Data }
   }
   export = value

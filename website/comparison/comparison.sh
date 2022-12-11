@@ -71,5 +71,5 @@ export type Tool = (typeof tools)[number]
 export const targets = $(echo "$targets" | jq keys) as const
 export type Target = (typeof targets)[number]
 EOS
-  )
+)
 echo "$ts" > "$ts_file"

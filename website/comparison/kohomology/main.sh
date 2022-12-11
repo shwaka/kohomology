@@ -7,8 +7,13 @@ target=${2-}
 degree=${3-}
 
 if [ "$command" = version ]; then
-    ./gradlew --version
-    ./gradlew dependencyInsight --dependency com.github.shwaka.kohomology:kohomology
+    while read line; do
+        echo "\$ $line"
+        eval "$line" # eval is necessary to handle pipes
+    done <<EOS
+./gradlew --version
+./gradlew dependencyInsight --dependency com.github.shwaka.kohomology:kohomology | grep "^com.github.shwaka.kohomology" | sort | uniq
+EOS
 elif [ "$command" = compute ]; then
     ./gradlew run -Dtarget="$target" -Ddegree="$degree"
 fi

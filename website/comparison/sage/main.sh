@@ -7,8 +7,13 @@ target=${2-}
 degree=${3-}
 
 if [ "$command" = version ]; then
-    sage --version
-    sage --python --version
+    while read line; do
+        echo "\$ $line"
+        eval "$line"
+    done <<EOS
+sage --version
+sage --python --version
+EOS
 elif [ "$command" = compute ]; then
     sage "$target".sage "$degree"
 fi

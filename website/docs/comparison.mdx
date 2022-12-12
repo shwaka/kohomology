@@ -23,11 +23,20 @@ In this document, we compare it with `kohomology`.
   Since $\deg{sx} < \deg{x} < \deg{sy} < \deg{y}$,
   they must be sorted as $(sx, x, sy, y)$ in `sage`.
   But we can sort as $(x, y, sx, sy)$ in `kohomology` and this looks better.
+- `kohomology` is implemented by a *statically typed* language `kotlin`.
+  So you get much assistance from development tools.
 
 ## Advantages of `sage`
-To be written.
+- Since computation of Sullivan algebras is a implemented as a part of *huge* system `sage`,
+  we can use it together with other parts of `sage`.
+- `sage` has some features which are not implemented in `kohomology`,
+  including [formality check](https://doc.sagemath.org/html/en/reference/algebras/sage/algebras/commutative_dga.html#sage.algebras.commutative_dga.DifferentialGCAlgebra.is_formal) and [computation of minimal models](https://doc.sagemath.org/html/en/reference/algebras/sage/algebras/commutative_dga.html#sage.algebras.commutative_dga.DifferentialGCAlgebra.minimal_model).
+  These may be implemented in `kohomology` in some future (your contributions are welcome!).
+
 
 ## Benchmark result {#benchmark}
+Here we give benchmark results of `kohomology` and `sage`.
+
 import { ComparisonChart, ShowVersion } from '@site/src/components/ComparisonChart';
 
 <ComparisonChart />

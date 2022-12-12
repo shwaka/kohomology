@@ -3,12 +3,35 @@ title: Comparison with other tools
 sidebar_position: 50
 ---
 
+[SageMath](https://www.sagemath.org/) can also handle Sullivan algebras, as documented in [this page](https://doc.sagemath.org/html/en/reference/algebras/sage/algebras/commutative_dga.html).
+In this document, we compare it with `kohomology`.
+
+## Advantages of `kohomology`
+- `kohomology` is much faster than `sage`.
+  See the section [benchmark](#benchmark) for details.
+- `kohomology` has implementations of some specific rational models (of mapping spaces).
+  For a 1-connected space $M$, we can get
+  $LM$, $ES^1\times_{S^1}LM$ and $\operatorname{Map}([0,1], M)$ easily.
+  See [this doc](./free-loop-space.mdx) and tests in [this directory](https://github.com/shwaka/kohomology/tree/main/kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology/model).
+  The Quilllen model of $B\operatorname{aut}_1(M)$ can be computed as in [this test](https://github.com/shwaka/kohomology/blob/main/kohomology/src/jvmTest/kotlin/com/github/shwaka/kohomology/free/DerivationDGLieAlgebraTest.kt).
+- In `sage`, the generators of a Sullivan algebra must be sorted by their degrees.
+  On the other hand, in `kohomology`,
+  they can be sorted in any order
+  as long as along the order is compatible with the differential of the Sullivan algebra.
+  For example, consider the Sullivan model $\Lambda(x, y, sx, sy)$
+  of the free loop space $LS^{2n}$.
+  Since $\deg{sx} < \deg{x} < \deg{sy} < \deg{y}$,
+  they must be sorted as $(sx, x, sy, y)$ in `sage`.
+  But we can sort as $(x, y, sx, sy)$ in `kohomology` and this looks better.
+
+## Advantages of `sage`
+To be written.
+
+## Benchmark result {#benchmark}
 import { ComparisonChart, ShowVersion } from '@site/src/components/ComparisonChart';
 
-## Benchmark result
 <ComparisonChart />
 
-
-## Version info
+### Version info
 <ShowVersion tool="sage"/>
 <ShowVersion tool="kohomology"/>

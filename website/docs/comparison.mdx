@@ -35,35 +35,44 @@ In this document, we compare it with `kohomology`.
 
 
 ## Benchmark result {#benchmark}
+import { ComparisonChart, ShowVersion } from '@site/src/components/ComparisonChart';
+
 Here we give benchmark results of `kohomology` and `sage`.
 Note that the source code can be read [here](https://github.com/shwaka/kohomology/tree/main/website/comparison).
 
-The following charts show the time to compute
+The following chart shows the time to compute
 $H^k(LS^{2})$ for $0\leq k\leq n$.
 The time grows very quickly for `sage`.
 
-The latter measures computations with *multi-grading*.
+<ComparisonChart target="FreeLoopSpaceOf2Sphere" />
+
+Next, the following shows the time to compute $H^k(LS^{2})$ with *multi-grading*.
+The time for `sage` is the same as the above,
+but the time for `kohomology` is much faster than the above.
+
+<ComparisonChart target="FreeLoopSpaceOf2SphereWithMultiGrading" />
+
 Multi-grading is the same as $\Z^m$-grading,
 but its precise definition is different between `kohomology` and `sage`.
+Its mathematical definition is given as follows:
 - Multi-graded DGA in `kohomology` is nothing but a $\Z^m$-graded DGA,
   i.e. the differential also preserves $\Z^m$-grading.
+  Hence its cohomology is also $\Z^m$-graded.
+  See [this doc](./multi-degree.mdx) for details.
 - Multi-graded DGA in `sage` is a $\Z^m$-graded algebra
   equipped with a differential which only preserves the $\Z$-grading
   given by the total degree (the sum of degrees).
+  Hence its cohomology is only $\Z$-graded.
   This is documented in the first paragraph of [this page](https://doc.sagemath.org/html/en/reference/algebras/sage/algebras/commutative_dga.html):
   > These algebras can be graded over the integers or
   > they can be multi-graded (i.e., graded over a finite rank free abelian group $\Z^m$);
   > if multi-graded, the total degree is used in the Koszul sign convention,
   > and the differential must have total degree 1.
 
-Hence the cohomology of multi-graded DGA is also $\Z^m$-graded in `kohomology`,
-but is only $\Z$-graded in `sage`.
-So the latter benchmark is faster than the former for `kohomology`,
-but is the same sped for `sage`.
-
-import { ComparisonChart, ShowVersion } from '@site/src/components/ComparisonChart';
-
-<ComparisonChart />
+In `kohomology`,
+the computation becomes faster with multi-grading
+since $\Z^m$-grading gives a finer decomposition of vector spaces and matrices.
+Of course, this is not the case for `sage`.
 
 ### Version info
 The following versions are used in the above benchmark.

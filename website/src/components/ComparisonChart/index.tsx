@@ -17,7 +17,7 @@ function getData(target: Target): ChartData<"line", number[], string> {
   }
 }
 
-function ComparisonChartForTool({ target }: { target: Target }): JSX.Element {
+export function ComparisonChart({ target }: { target: Target }): JSX.Element {
   const data = getData(target)
   const options: ChartProps<"line", number[], string>["options"] = {
     plugins: {
@@ -41,15 +41,6 @@ function ComparisonChartForTool({ target }: { target: Target }): JSX.Element {
       data={data}
       options={options}
     />
-  )
-}
-
-export function ComparisonChart(): JSX.Element {
-  return (
-    <div>
-      <ComparisonChartForTool target="FreeLoopSpaceOf2Sphere"/>
-      <ComparisonChartForTool target="FreeLoopSpaceOf2SphereWithMultiGrading"/>
-    </div>
   )
 }
 

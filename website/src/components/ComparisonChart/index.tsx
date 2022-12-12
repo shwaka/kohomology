@@ -9,7 +9,7 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 function getData(target: Target): ChartData<"line", number[], string> {
   return {
-    labels: comparisonData.targets[target].degrees.map((degree) => degree.toString()),
+    labels: comparisonData.targets[target].degrees.map((degree) => `n=${degree}`),
     datasets: tools.map((tool) => ({
       label: tool,
       data: comparisonData.result[tool].benchmark[target],
@@ -25,6 +25,14 @@ function ComparisonChartForTool({ target }: { target: Target }): JSX.Element {
         display: true,
         text: target
       }
+    },
+    scales: {
+      y: {
+        title: {
+          display: true,
+          text: "time (seconds)",
+        }
+      },
     }
   }
   return (

@@ -8,6 +8,10 @@ import { ImportKotlin } from '@site/src/components/ImportKotlin';
 Here is an example script computing the cohomology of
 the free loop space of the even dimensional sphere.
 
+## With usual degree
+
+Here we describe the simplest method to compute the cohomology
+of the free loop space of the even dimensional sphere.
 First we define the Sullivan model of the even dimensional sphere as in the [previous page](./sullivan-algebra.mdx).
 
 <ImportKotlin path="FreeLoopSpace.kt" restrict="sphere" />
@@ -24,6 +28,9 @@ so we can apply any computation methods to it. (See the [previous page](./sulliv
 
 
 ## With MultiDegree
+By using `MultiDegree`, the performance of the above computation can be improved.
+See [this page](./multi-degree.mdx) for details on `MultiDegree`.
+
 In general, the Sullivan model $(\Lambda V\otimes\Lambda\overline{V}, d)$ of a free loop space
 has a decomposition
 $(\Lambda V\otimes\Lambda\overline{V}, d) \cong \bigoplus_k(\Lambda V\otimes\Lambda^k\overline{V}, d)$
@@ -33,5 +40,3 @@ We can use this feature by replacing
 `FreeLoopSpace(sphere)` with `FreeLoopSpace.withShiftDegree(sphere)` as follows.
 
 <ImportKotlin path="FreeLoopSpace.kt" restrict="freeLoopSpaceWithMultiDegree" />
-
-See [this page](./multi-degree.mdx) for details on `MultiDegree`.

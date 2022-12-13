@@ -142,3 +142,16 @@ docusaurus を `2.0.0-beta.9` から `2.0.0-beta.18` にアプデした際に問
 原因はよく分からないけど，
 kotlin が prism-react-renderer にビルトインで入っていないのが関係しているかも…？
 (`docusaurus.config.js` で `additionalLanguages` として追加している)
+
+### chart.js のバージョンについて
+`chart.js@4.0.1` と `react-chartjs-2@5.0.1` だと，以下の環境で chart が全く表示されなかった．
+- iPhone with `iOS 14.2`
+- iPad with `iOS 14.3`
+エラーメッセージは以下の通り
+```
+[Error] Unhandled Promise Rejection: SyntaxError: Unexpected token '='. Expected an opening '(' before a method's parameter list.
+    （anonymous関数） (vendors-node_modules_mdx-js_react_dist_esm_js-node_modules_react-chartjs-2_dist_index_js.js:22)
+    promiseReactionJob
+```
+
+とりあえず `chart.js@3.8.0` と `react-chartjs-2@4.2.0` にダウングレードしたら問題なく動いたので，暫定的にこれで対処できたことにする．

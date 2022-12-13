@@ -4,10 +4,13 @@
  * work well for content-centric websites.
  */
 
+// This is also used in theme in src/components/Calculator/index.tsx
+$ifm-color-primary: #7e6ca8;
+
 /* You can override the default Infima variables here. */
 :root {
-  /* This is also used in theme in Calculator */
-  --ifm-color-primary: #7e6ca8;
+  // I don't know why, but interpolation (#{...}) is necessary here (i.e. in :root)
+  --ifm-color-primary: #{$ifm-color-primary};
   --ifm-color-primary-dark: #6f5c9c;
   --ifm-color-primary-darker: #695793;
   --ifm-color-primary-darkest: #574879;
@@ -33,11 +36,15 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   h2 {
     // Make it easier to distinguish h2 and h3.
     padding-bottom: 0.1em;
-    html[data-theme='light'] & {
-      border-bottom: 1px solid var(--ifm-color-primary-lightest);
-    }
-    html[data-theme='dark'] & {
-      border-bottom: 1px solid var(--ifm-color-primary-darkest);
-    }
+    // CSS's rgba does not accept Hex colors, but SCSS's rgba does.
+    // Rather than defining colors for 'light' and 'dark' separately,
+    // we prefer to define a single color with alpha.
+    border-bottom: 1px solid rgba($ifm-color-primary, 0.5);
+    // html[data-theme='light'] & {
+    //   border-bottom: 1px solid lighten($ifm-color-primary, 30%);
+    // }
+    // html[data-theme='dark'] & {
+    //   border-bottom: 1px solid darken($ifm-color-primary, 30%);
+    // }
   }
 }

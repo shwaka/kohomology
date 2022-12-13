@@ -2,6 +2,7 @@ import CodeBlock from "@theme/CodeBlock"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData } from "chart.js"
 import React from "react"
 import { Chart, ChartProps } from "react-chartjs-2"
+import { getBackgroundColor, getBorderColor } from "./colors"
 import comparisonData from "./comparison.json"
 import { Target, tools, Tool } from "./comparisonKeys"
 
@@ -10,9 +11,11 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 function getData(target: Target): ChartData<"line", number[], string> {
   return {
     labels: comparisonData.targets[target].degrees.map((degree) => `n=${degree}`),
-    datasets: tools.map((tool) => ({
+    datasets: tools.map((tool, i) => ({
       label: tool,
       data: comparisonData.result[tool].benchmark[target],
+      borderColor: getBorderColor(i),
+      backgroundColor: getBackgroundColor(i),
     })),
   }
 }

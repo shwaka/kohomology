@@ -38,7 +38,7 @@ const config = {
         //     'https://github.com/shwaka/kohomology/edit/main/website/blog/',
         // },
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve("./src/css/custom.scss"),
         },
       }),
     ],

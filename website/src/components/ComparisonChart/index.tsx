@@ -1,11 +1,11 @@
 import CodeBlock from "@theme/CodeBlock"
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, Colors } from "chart.js"
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData } from "chart.js"
 import React from "react"
 import { Chart, ChartProps } from "react-chartjs-2"
 import comparisonData from "./comparison.json"
 import { Target, tools, Tool } from "./comparisonKeys"
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, Colors)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController)
 
 function getData(target: Target): ChartData<"line", number[], string> {
   return {

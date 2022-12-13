@@ -28,4 +28,10 @@ In general, the Sullivan model $(\Lambda V\otimes\Lambda\overline{V}, d)$ of a f
 has a decomposition
 $(\Lambda V\otimes\Lambda\overline{V}, d) \cong \bigoplus_k(\Lambda V\otimes\Lambda^k\overline{V}, d)$
 as *complexses*.
-By using this fact, computation of its cohomology can be done very quickly.
+By using this fact, its cohomology can be computed very quickly.
+We can use this feature by replacing
+`FreeLoopSpace(sphere)` with `FreeLoopSpace.withShiftDegree(sphere)` as follows.
+
+<ImportKotlin path="FreeLoopSpace.kt" restrict="freeLoopSpaceWithMultiDegree" />
+
+See [this page](./multi-degree.mdx) for details on `MultiDegree`.

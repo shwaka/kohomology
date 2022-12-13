@@ -37,4 +37,12 @@ fun main() {
         println("H^$degree(LS^$sphereDim) = Q$basis")
     }
     // \end{computation}
+
+    // \begin{freeLoopSpaceWithMultiDegree}
+    val freeLoopSpaceWithMultiDegree = FreeLoopSpace.withShiftDegree(sphere)
+    for (degree in 0 until 25) {
+        val basis = freeLoopSpace.cohomology.getBasis(degree)
+        println("H^$degree(LS^$sphereDim) = Q$basis")
+    }
+    // \end{freeLoopSpaceWithMultiDegree}
 }

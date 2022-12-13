@@ -11,6 +11,14 @@ the free loop space of the even dimensional sphere.
 By using a Sullivan model `sphere` of the sphere,
 the model of the free loop space is obtained by `FreeLoopSpace(sphere)`.
 It is just a special example of `FreeDGAlgebra`,
-we can apply any computation methods to it. (See the [previous page](./sullivan-algebra.mdx) for details.)
+so we can apply any computation methods to it. (See the [previous page](./sullivan-algebra.mdx) for details.)
 
 <ImportKotlin path="FreeLoopSpace.kt" restrict={true} />
+
+
+## With MultiDegree
+In general, the Sullivan model $(\Lambda V\otimes\Lambda\overline{V}, d)$ of a free loop space
+has a decomposition
+$(\Lambda V\otimes\Lambda\overline{V}, d) \cong \bigoplus_k(\Lambda V\otimes\Lambda^k\overline{V}, d)$
+as *complexses*.
+By using this fact, computation of its cohomology can be done very quickly.

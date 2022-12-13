@@ -32,9 +32,16 @@ This directory serves as a template project to use the library.
 The source code for this website.
 This directory contains a node project together with some kotlin projects.
 
+### `website/src`, `website/docs`, `website/static`
+Directories which are directly used from the node project `website/`.
+
 ### `website/sample/`
 A project containing source code of samples in this documentation.
 
 ### `website/kohomology-js`
 A [Kotlin/JS](https://kotlinlang.org/docs/js-overview.html) project which wraps the library.
 The page [Calculator](../calculator) is written in TypeScript and uses the library through this project.
+
+### `website/comparison`
+Contains projects to compare performance of `kohomology` with that of `sage`.
+Results are shown in [this page](./comparison.mdx).

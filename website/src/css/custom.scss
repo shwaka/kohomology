@@ -27,3 +27,17 @@
 html[data-theme='dark'] .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.3);
 }
+
+.theme-doc-markdown {
+  // markdown in docs
+  h2 {
+    // Make it easier to distinguish h2 and h3.
+    padding-bottom: 0.1em;
+    html[data-theme='light'] & {
+      border-bottom: 1px solid var(--ifm-color-primary-lightest);
+    }
+    html[data-theme='dark'] & {
+      border-bottom: 1px solid var(--ifm-color-primary-darkest);
+    }
+  }
+}

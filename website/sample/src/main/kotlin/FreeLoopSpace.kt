@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.model.FreeLoopSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 fun main() {
-    // \begin
+    // \begin{sphere}
     // Define the Sullivan model of the 4-sphere.
     val sphereDim = 4
     val indeterminateList = listOf(
@@ -17,11 +17,15 @@ fun main() {
     val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
         listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
     }
+    // \end{sphere}
 
+    // \begin{freeLoopSpace}
     // Define the Sullivan model of the free loop space.
     val freeLoopSpace = FreeLoopSpace(sphere)
     val (x, y, sx, sy) = freeLoopSpace.generatorList
+    // \end{freeLoopSpace}
 
+    // \begin{computation}
     // Assert that d(sy) and -2*x*sx are the same.
     freeLoopSpace.context.run {
         println("dsy = ${d(sy)} = ${-2 * x * sx}")
@@ -32,5 +36,5 @@ fun main() {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^$degree(LS^$sphereDim) = Q$basis")
     }
-    // \end
+    // \end{computation}
 }

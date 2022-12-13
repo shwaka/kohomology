@@ -13,12 +13,13 @@ Here we give an example of installation, but most JDK distributions and versions
 - [Windows] Install from [Amazon Corretto](https://docs.aws.amazon.com/corretto/latest/corretto-8-ug/downloads-list.html). Usually you will choose [amazon-corretto-8-x64-windows-jdk.msi](https://corretto.aws/downloads/latest/amazon-corretto-8-x64-windows-jdk.msi)
 - [Mac, Linux] First, install [sdkman](https://sdkman.io/). Then run `sdk install java 8.292.10.1-amzn`.
 
-## Start from a template project (easiest)
+## How to start?
+### Start from a template project (easiest)
 The directory [kohomology/template](https://github.com/shwaka/kohomology/tree/main/template) serves as a template project to use kohomology.
 If you are not familiar with kotlin projects, this is a good starting point.
 See [its README.md](https://github.com/shwaka/kohomology/blob/main/template/README.md) for detailed usage.
 
-## Start from a new Kotlin project
+### Start from a new Kotlin project
 Create a gradle project as in [Get started with Kotlin/JVM | Kotlin](https://kotlinlang.org/docs/jvm-get-started.html)
 (or use an existing gradle project).
 Then write the following in your `build.gradle.kts` (or `build.gradle`):
@@ -27,12 +28,13 @@ import { BuildGradleDocument } from "@site/src/components/BuildGradleDocument";
 
 <BuildGradleDocument/>
 
-## New to Kotlin?
+## References
+### Introduction to Kotlin
 - The [official documentation](https://kotlinlang.org/docs/home.html) is well-written and is a good starting point.
-- I (and the Kotlin official team) strongly recommend to use [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=linux)
+- We (and the Kotlin official team) strongly recommend to use [IntelliJ IDEA](https://www.jetbrains.com/idea/download/#section=linux)
   to edit Kotlin source codes.
 
-## New to rational homotopy theory?
+### Introduction to rational homotopy theory
 - [Rational homotopy theory: a brief introduction](https://arxiv.org/abs/math/0604626): a survey due to Hess
 - [Rational homotopy theory via Sullivan models: a survey](https://arxiv.org/abs/1708.05245): a survey due to Félix and Halperin
 - [Rational Homotopy Theory (GTM 205)](https://link.springer.com/book/10.1007/978-1-4613-0105-9): an introductory book on rational homotopy theory (This book has 500 pages, but this library depends mainly only on Section 12)

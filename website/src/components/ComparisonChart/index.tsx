@@ -15,10 +15,10 @@ function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][] {
 function getData(target: Target): ChartData<"scatter", { x: number, y: number }[], string> {
   return {
     datasets: tools.map((tool, i) => {
-      const data: { time: number[], degrees: number[] } = comparisonData[tool].benchmark[target]
+      const dataForLine: { time: number[], degrees: number[] } = comparisonData[tool].benchmark[target]
       return {
         label: tool,
-        data: zip(data.degrees, data.time).map(([x, y]) => ({ x, y })),
+        data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })),
         showLine: true,
         borderColor: getBorderColor(i),
         backgroundColor: getBackgroundColor(i),

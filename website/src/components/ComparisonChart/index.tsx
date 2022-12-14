@@ -10,10 +10,10 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip,
 
 function getData(target: Target): ChartData<"line", number[], string> {
   return {
-    labels: comparisonData.targets[target].degrees.map((degree) => `n=${degree}`),
+    labels: comparisonData.kohomology.benchmark[target].degrees.map((degree) => `n=${degree}`),
     datasets: tools.map((tool, i) => ({
       label: tool,
-      data: comparisonData.result[tool].benchmark[target],
+      data: comparisonData[tool].benchmark[target].time,
       borderColor: getBorderColor(i),
       backgroundColor: getBackgroundColor(i),
     })),
@@ -53,7 +53,7 @@ export function ShowVersion({ tool }: { tool: Tool }): JSX.Element {
       language="shell-session"
       title={tool}
     >
-      {comparisonData.result[tool].version}
+      {comparisonData[tool].version}
     </CodeBlock>
   )
 }

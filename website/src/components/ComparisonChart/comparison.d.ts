@@ -3,14 +3,14 @@ import { Target, Tool } from "./comparisonKeys"
 declare module "*/comparison.json" {
   interface Data {
     version: string
-    benchmark: { [K in Target]: number[] }
+    benchmark: {
+      [K in Target]: {
+        time: number[]
+        degrees: number[]
+      }
+    }
   }
 
-  const value: {
-    targets: {
-      [K in Target]: { degrees: number[] }
-    }
-    result: { [K in Tool]: Data }
-  }
+  const value: { [K in Tool]: Data }
   export = value
 }

@@ -3,23 +3,13 @@ set -euo pipefail
 
 cd "$(dirname "$0")"
 comparison_dir=$(pwd)
+json_file=$comparison_dir/comparison_data.json
 ts_dir=$comparison_dir/../src/components/ComparisonChart
 output_file=$ts_dir/comparison.json
 ts_file=$ts_dir/comparisonKeys.ts
 
-tools='["kohomology", "sage"]'
-targets=$(cat <<EOS
-{
-  "FreeLoopSpaceOf2Sphere": {
-    "degrees": [0, 10, 50, 100]
-  },
-  "FreeLoopSpaceOf2SphereWithMultiGrading": {
-    "degrees": [0, 10, 50, 100]
-  }
-}
-EOS
-)
-
+tools=$(jq '.tools' < "$json_file")
+targets=$(jq '.targets' < "$json_file")
 
 # Run benchmark and write it to $output_file
 result="{}"

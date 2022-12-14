@@ -1,18 +1,18 @@
 {
   "kohomology": {
     "FreeLoopSpaceOf2Sphere": {
-      "degrees": [0, 10, 50, 100]
+      "degrees": [0, 10, 30, 50, 70, 100, 150, 200]
     },
     "FreeLoopSpaceOf2SphereWithMultiGrading": {
-      "degrees": [0, 10, 50, 100]
+      "degrees": [0, 10, 30, 50, 70, 100, 150, 200]
     }
   },
   "sage": {
     "FreeLoopSpaceOf2Sphere": {
-      "degrees": [0, 10, 50, 100]
+      "degrees": [0, 10, 30, 50, 70, 100, 150]
     },
     "FreeLoopSpaceOf2SphereWithMultiGrading": {
-      "degrees": [0, 10, 50, 100]
+      "degrees": [0, 10, 30, 50, 70, 100, 150]
     }
   }
 }

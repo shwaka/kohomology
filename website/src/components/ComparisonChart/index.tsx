@@ -1,12 +1,12 @@
 import CodeBlock from "@theme/CodeBlock"
-import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData } from "chart.js"
+import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, ScatterController } from "chart.js"
 import React from "react"
 import { Chart, ChartProps } from "react-chartjs-2"
 import { getBackgroundColor, getBorderColor } from "./colors"
 import comparisonData from "./comparison.json"
 import { Target, tools, Tool } from "./comparisonKeys"
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController)
+ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController)
 
 function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][] {
   return array1.map((t1, i) => [t1, array2[i]])

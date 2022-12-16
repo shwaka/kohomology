@@ -26,7 +26,7 @@ function show_versions() {
 function update() {
     for d in "${gradle_projects[@]}"; do
         f=$d/gradle/wrapper/gradle-wrapper.properties
-        sed -i -E "s#(distributionUrl=.*/gradle-)[0-9.]+(-bin.zip)#\\1$version\\2#" "$f"
+        sed -i -E "s#(distributionUrl=.*/gradle-)[0-9.]+(-bin\\.zip)#\\1$version\\2#" "$f"
     done
 }
 

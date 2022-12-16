@@ -60,7 +60,10 @@ jobs:
           ./codecov -t ${CODECOV_TOKEN}
       - name: Install kohomology to MavenLocal
         # saved by actions/cache
-        run: ./gradlew publishToMavenLocal
+        run: |
+          # ./gradlew publishToMavenLocal # native publication is not used in later workflows
+          ./gradlew publishJvmPublicationToMavenLocal
+          ./gradlew publishJsPublicationToMavenLocal
         working-directory: kohomology
 
   benchmark:

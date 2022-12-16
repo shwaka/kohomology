@@ -26,12 +26,14 @@ jobs:
         working-directory: kohomology
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - name: "Cache: ~/.gradle/caches"
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v3
+      - name: "Save cache: ~/.m2/repository"
+        uses: actions/cache@v3
         # will be restored in 'benchmark' and 'generate-site'
         with:
           path: ~/.m2/repository
@@ -65,7 +67,8 @@ jobs:
         working-directory: kohomology
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - name: "Cache: ~/.gradle/caches"
+        uses: actions/cache@v3
         with: # use different key from build
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-test-${{ hashFiles('**/*.gradle.kts') }}
@@ -98,12 +101,14 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/cache@v3
+      - name: "Cache: ~/.gradle/caches"
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v3
+      - name: "Read cache: ~/.m2/repository"
+        uses: actions/cache@v3
         # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
@@ -138,17 +143,20 @@ jobs:
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           fetch-depth: 0
-      - uses: actions/cache@v3
+      - name: "Cache: ~/.gradle/cache"
+        uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
-      - uses: actions/cache@v3
+      - name: "Read cache: ~/.m2/repository"
+        uses: actions/cache@v3
         # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}-${{ github.sha }}
-      - uses: actions/cache@v3 # for lint-website
+      - name: "Save cache: website/kohomology-js/build/js"
+        uses: actions/cache@v3 # for lint-website
         # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:
           # 以下が全て必要
@@ -212,7 +220,8 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: 'npm'
           cache-dependency-path: website/package-lock.json
-      - uses: actions/cache@v3 # restore from generate-site
+      - name: "Read cache: website/kohomology-js/build/js"
+        uses: actions/cache@v3 # restore from generate-site
         # actions/download-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:
           # 以下が全て必要

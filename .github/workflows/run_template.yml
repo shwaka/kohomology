@@ -18,7 +18,7 @@ jobs:
       - uses: actions/cache@v2
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
+          key: ${{ runner.os }}-gradle-jvm-template-${{ hashFiles('**/*.gradle.kts') }}
       - name: Setup JDK
         uses: actions/setup-java@v2
         with:

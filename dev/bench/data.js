@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1671192503329,
+  "lastUpdate": 1671194559824,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9371,6 +9371,48 @@ window.BENCHMARK_DATA = {
           {
             "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
             "value": 0.08272191004101363,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "name": "Shun Wakatsuki",
+            "username": "shwaka",
+            "email": "shun.wakatsuki@gmail.com"
+          },
+          "committer": {
+            "name": "Shun Wakatsuki",
+            "username": "shwaka",
+            "email": "shun.wakatsuki@gmail.com"
+          },
+          "id": "55c76667ee08cb0f80b58c111aed87c9ee0e9fed",
+          "message": "build(core): use disableNative in workflow",
+          "timestamp": "2022-12-16T11:53:46Z",
+          "url": "https://github.com/shwaka/kohomology/commit/55c76667ee08cb0f80b58c111aed87c9ee0e9fed"
+        },
+        "date": 1671194558888,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpace",
+            "value": 0.06285902270656052,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegree",
+            "value": 0.08480013338192817,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree",
+            "value": 0.11225008370824095,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
+            "value": 0.07785253859330823,
             "unit": "s/op"
           }
         ]

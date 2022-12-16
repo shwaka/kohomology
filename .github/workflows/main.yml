@@ -50,11 +50,11 @@ jobs:
       - name: Compile with Gradle
         run: ./gradlew compileKotlinJvm
       - name: Install kohomology to MavenLocal
-        # saved by actions/cache
-        run: |
-          # ./gradlew publishToMavenLocal # native publication is not used in later workflows
-          ./gradlew publishJvmPublicationToMavenLocal
-          ./gradlew publishJsPublicationToMavenLocal
+        # This publication will be saved by actions/cache.
+        # Native publication is not used in later workflows.
+        # Note that publish{Jvm,Js}PublicationToMavenLocal shouldn't be used here.
+        # If they were used, then -jvm and -js would be required when writing dependency.
+        run: ./gradlew publishToMavenLocal -Dkohomology.disableNative
         working-directory: kohomology
 
   test:

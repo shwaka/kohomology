@@ -165,7 +165,7 @@ jobs:
           # - build/js/packages-imported/kotlin-test/<version>
           # - build/js/packages-imported/kotlin-test-js-runner/<version>
           path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package-${{ hashFiles('website/kohomology-js/*.gradle.kts', 'website/kohomology-js/src') }}
+          key: ${{ runner.os }}-kohomology-js-node-package-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -230,7 +230,7 @@ jobs:
           # - build/js/packages-imported/kotlin-test/<version>
           # - build/js/packages-imported/kotlin-test-js-runner/<version>
           path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package-${{ hashFiles('website/kohomology-js/*.gradle.kts', 'website/kohomology-js/src') }}
+          key: ${{ runner.os }}-kohomology-js-node-package-${{ github.sha }}
       - run: npm ci
         working-directory: website
       - name: eslint

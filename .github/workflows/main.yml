@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test:
+  build:
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -47,6 +47,37 @@ jobs:
         run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
       - name: Compile with Gradle
         run: ./gradlew compileKotlinJvm
+      - name: Install kohomology to MavenLocal
+        # saved by actions/cache
+        run: |
+          # ./gradlew publishToMavenLocal # native publication is not used in later workflows
+          ./gradlew publishJvmPublicationToMavenLocal
+          ./gradlew publishJsPublicationToMavenLocal
+        working-directory: kohomology
+
+  test:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: kohomology
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
+        with: # use different key from build
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-jvm-test-${{ hashFiles('**/*.gradle.kts') }}
+          restore-keys: ${{ runner.os }}-gradle-jvm-test-
+      - name: Set up JDK ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ env.JAVA_DISTRIBUTION }}
+          java-version: ${{ env.JAVA_VERSION }}
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Download dependencies # Not necessary, but useful to make the log clean
+        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
+      - name: Compile with Gradle
+        run: ./gradlew compileKotlinJvm
       - name: Test with Gradle
         run: ./gradlew jvmTest -Dkococo.debug
       - name: Jacoco Test Report
@@ -58,16 +89,9 @@ jobs:
           curl -Os https://uploader.codecov.io/latest/linux/codecov
           chmod +x codecov
           ./codecov -t ${CODECOV_TOKEN}
-      - name: Install kohomology to MavenLocal
-        # saved by actions/cache
-        run: |
-          # ./gradlew publishToMavenLocal # native publication is not used in later workflows
-          ./gradlew publishJvmPublicationToMavenLocal
-          ./gradlew publishJsPublicationToMavenLocal
-        working-directory: kohomology
 
   benchmark:
-    needs: test
+    needs: build
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -77,7 +101,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v3
-        # restore mavenLocal repository from 'test'
+        # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
@@ -102,7 +126,7 @@ jobs:
           gh-pages-branch: benchmark-data
 
   generate-site:
-    needs: [ test, benchmark ]
+    needs: [ build, test, benchmark ]
     runs-on: ubuntu-20.04
     env:
       BENCHMARK_DATA_DIR: benchmark-data
@@ -117,7 +141,7 @@ jobs:
           key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - uses: actions/cache@v3
-        # restore mavenLocal repository from 'test'
+        # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
@@ -161,7 +185,7 @@ jobs:
           publish_dir: website/build
 
   lint-kotlin:
-    needs: [ test ]
+    needs: [ build ]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

@@ -37,10 +37,6 @@ tasks.withType<KotlinCompile>() {
     kotlinOptions.jvmTarget = "1.8"
 }
 
-tasks.withType<Wrapper> {
-    gradleVersion = "6.6.1"
-}
-
 application {
     mainClassName = "com.github.shwaka.kohomology.profile.KohomologyProfileKt"
 }

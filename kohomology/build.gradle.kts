@@ -190,10 +190,6 @@ tasks.register<Exec>("openJacocoReport") {
     commandLine(browserCommand, "./build/reports/jacoco/test/html/index.html")
 }
 
-tasks.withType<Wrapper> {
-    gradleVersion = "7.4.2"
-}
-
 publishing {
     repositories {
         maven {

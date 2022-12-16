@@ -35,7 +35,9 @@ jobs:
         # will be restored in 'benchmark' and 'generate-site'
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
+          # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
+          # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -105,7 +107,7 @@ jobs:
         # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -145,7 +147,7 @@ jobs:
         # restore mavenLocal repository from 'build'
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}
+          key: ${{ runner.os }}-kohomology-maven-local-${{ hashFiles('kohomology/*.gradle.kts', 'kohomology/src/**') }}-${{ github.sha }}
       - uses: actions/cache@v3 # for lint-website
         # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:

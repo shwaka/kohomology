@@ -45,8 +45,8 @@ jobs:
         # will be restored in test
         with:
           path: |
-            .gradle
-            build
+            kohomology/.gradle
+            kohomology/build
           key: ${{ runner.os }}-gradle-build-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
@@ -85,8 +85,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            .gradle
-            build
+            kohomology/.gradle
+            kohomology/build
           key: ${{ runner.os }}-gradle-build-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3

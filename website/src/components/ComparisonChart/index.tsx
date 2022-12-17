@@ -13,15 +13,23 @@ function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][] {
 }
 
 type Vector2 = { x: number, y: number }
+type FilterCoordinate = (coordinate: Vector2) => boolean
 
 function getData(
-  target: Target, tool: Tool, borderColor: string, backgroundColor: string,
-  filterCoordinate: (coordinate: Vector2) => boolean = ((_) => true),
+  { label, target, tool, borderColor, backgroundColor, filterCoordinate }: {
+    label: string
+    target: Target
+    tool: Tool
+    borderColor: string
+    backgroundColor: string
+    filterCoordinate?: FilterCoordinate
+  }
 ): ChartData<"scatter", { x: number, y: number }[], string>["datasets"][number] {
   const dataForLine: { time: number[], degrees: number[] } = comparisonData[tool].benchmark[target]
+  const filterCoordinateDefined: FilterCoordinate = filterCoordinate ?? ((_) => true)
   return {
-    label: tool,
-    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })).filter(filterCoordinate),
+    label: label,
+    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })).filter(filterCoordinateDefined),
     showLine: true,
     borderColor: borderColor,
     backgroundColor: backgroundColor,
@@ -29,9 +37,12 @@ function getData(
 }
 
 function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], string> {
-  const datasets = tools.map((tool, i) => getData(
-    target, tool, getBorderColor(i), getBackgroundColor(i),
-  ))
+  const datasets = tools.map((tool, i) => getData({
+    label: tool,
+    target, tool,
+    borderColor: getBorderColor(i),
+    backgroundColor: getBackgroundColor(i),
+  }))
   return { datasets }
 }
 

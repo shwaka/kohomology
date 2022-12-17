@@ -12,22 +12,25 @@ function zip<T1, T2>(array1: T1[], array2: T2[]): [T1, T2][] {
   return array1.map((t1, i) => [t1, array2[i]])
 }
 
+type Vector2 = { x: number, y: number }
+
 function getData(
-  target: Target, tool: Tool, borderColor: string, backgroundColor: string
+  target: Target, tool: Tool, borderColor: string, backgroundColor: string,
+  filterCoordinate: (coordinate: Vector2) => boolean = ((_) => true),
 ): ChartData<"scatter", { x: number, y: number }[], string>["datasets"][number] {
   const dataForLine: { time: number[], degrees: number[] } = comparisonData[tool].benchmark[target]
   return {
     label: tool,
-    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })),
+    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })).filter(filterCoordinate),
     showLine: true,
     borderColor: borderColor,
     backgroundColor: backgroundColor,
   }
 }
 
-function getDataForTarget(target: Target): ChartData<"scatter", { x: number, y: number }[], string> {
+function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], string> {
   const datasets = tools.map((tool, i) => getData(
-    target, tool, getBorderColor(i), getBackgroundColor(i)
+    target, tool, getBorderColor(i), getBackgroundColor(i),
   ))
   return { datasets }
 }

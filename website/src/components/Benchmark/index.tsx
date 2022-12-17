@@ -1,8 +1,9 @@
-import React from "react"
-import "@benchmark/data"
-import { Chart } from "react-chartjs-2"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController } from "chart.js"
+import React from "react"
+import { Chart } from "react-chartjs-2"
 import { getChartArgument, collectBenchesPerTestCase } from "./benchmark"
+
+import "@benchmark/data"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController)
 

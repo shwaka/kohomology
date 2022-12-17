@@ -57,14 +57,11 @@ function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], strin
   return getDataForArray(datasetInfoArray)
 }
 
-export function ComparisonChart({ target }: { target: Target }): JSX.Element {
-  const data = getDataForTarget(target)
-  const options: ChartProps<"scatter", { x: number, y: number }[], string>["options"] = {
+function getOptions(titleText: string | null = null): ChartProps<"scatter", { x: number, y: number }[], string>["options"] {
+  const title = (titleText !== null) ? { display: true, text: titleText} : { display: false }
+  return {
     plugins: {
-      title: {
-        display: true,
-        text: target
-      }
+      title
     },
     scales: {
       y: {
@@ -75,11 +72,29 @@ export function ComparisonChart({ target }: { target: Target }): JSX.Element {
       },
     }
   }
+}
+
+export function ComparisonChart({ target }: { target: Target }): JSX.Element {
+  const data = getDataForTarget(target)
   return (
     <Chart
       type="scatter"
       data={data}
-      options={options}
+      options={getOptions(target)}
+    />
+  )
+}
+
+export function ComparisonChartForDegrees(): JSX.Element {
+  const data = getDataForArray([
+    { label: "IntDegree", target: "FreeLoopSpaceOf2Sphere", tool: "kohomology" },
+    { label: "MultiDegree", target: "FreeLoopSpaceOf2SphereWithMultiGrading", tool: "kohomology" },
+  ])
+  return (
+    <Chart
+      type="scatter"
+      data={data}
+      options={getOptions()}
     />
   )
 }

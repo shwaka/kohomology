@@ -8,7 +8,7 @@ import { ImportKotlin } from '@site/src/components/ImportKotlin';
 Here is an example script computing the cohomology of
 the free loop space of the even dimensional sphere.
 
-## With usual degree
+## With `IntDegree` (usual $\Z$-grading)
 
 Here we describe the simplest method to compute the cohomology
 of the free loop space of the even dimensional sphere.
@@ -27,7 +27,7 @@ so we can apply any computation methods to it. (See the [previous page](./sulliv
 <ImportKotlin path="FreeLoopSpace.kt" restrict="computation" />
 
 
-## With multi-degree
+## With `MultiDegree`
 By using `MultiDegree`, the performance of the above computation can be improved.
 See [this page](./multi-degree.mdx) for details on `MultiDegree`.
 
@@ -40,3 +40,11 @@ We can use this feature by replacing
 `FreeLoopSpace(sphere)` with `FreeLoopSpace.withShiftDegree(sphere)` as follows.
 
 <ImportKotlin path="FreeLoopSpace.kt" restrict="freeLoopSpaceWithMultiDegree" />
+
+### Benchmark
+import { ComparisonChartForDegrees } from '@site/src/components/ComparisonChart';
+
+The following chart compares the time to compute $H^k(LS^2)$ for $0\leq k\leq n$.
+The computation with `MultiDegree` is much faster.
+
+<ComparisonChartForDegrees/>

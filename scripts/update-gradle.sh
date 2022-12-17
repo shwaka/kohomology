@@ -5,36 +5,26 @@ cd "$(git rev-parse --show-toplevel)" # go to the root of the repository
 
 version=${1-}
 
-gradle_projects=(
-    kohomology
-    profile
-    template
-    website/kohomology-js
-    website/comparison/kohomology
-    website/sample
-)
+properties_files=$(find . -name gradle-wrapper.properties)
 
 function show_versions() {
     echo "Current versions are:"
-    for d in "${gradle_projects[@]}"; do
-        f=$d/gradle/wrapper/gradle-wrapper.properties
+    for f in $properties_files; do
         current_ver=$(sed -n -E 's#^.*/gradle-([0-9.]+)-bin\.zip#\1#p' < "$f")
-        echo "$current_ver in $d"
+        echo "$current_ver in $f"
     done
 }
 
 function update() {
-    for d in "${gradle_projects[@]}"; do
-        f=$d/gradle/wrapper/gradle-wrapper.properties
+    for f in $properties_files; do
         sed -i -E "s#(distributionUrl=.*/gradle-)[0-9.]+(-bin\\.zip)#\\1$version\\2#" "$f"
     done
 }
 
 if [ -z "$version" ]; then
-    echo "[Error] Input gradle version" >&2
-    echo "Usage: ./update-gradle.sh 99.9.9" >&2
-    show_versions >&2
-    exit 1
+    show_versions
+    echo "Usage: ./update-gradle.sh 99.9.9"
+    exit 0
 else
     update
 fi

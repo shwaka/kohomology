@@ -65,7 +65,6 @@ jobs:
         # Note that publish{Jvm,Js}PublicationToMavenLocal shouldn't be used here.
         # If they were used, then -jvm and -js would be required when writing dependency.
         run: ./gradlew publishToMavenLocal -Dkohomology.disableNative
-        working-directory: kohomology
 
   test:
     needs: build

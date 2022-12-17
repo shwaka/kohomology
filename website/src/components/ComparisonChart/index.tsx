@@ -22,28 +22,39 @@ function getData(
     tool: Tool
     borderColor: string
     backgroundColor: string
-    filterCoordinate?: FilterCoordinate
+    filterCoordinate: FilterCoordinate
   }
 ): ChartData<"scatter", { x: number, y: number }[], string>["datasets"][number] {
   const dataForLine: { time: number[], degrees: number[] } = comparisonData[tool].benchmark[target]
-  const filterCoordinateDefined: FilterCoordinate = filterCoordinate ?? ((_) => true)
   return {
     label: label,
-    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })).filter(filterCoordinateDefined),
+    data: zip(dataForLine.degrees, dataForLine.time).map(([x, y]) => ({ x, y })).filter(filterCoordinate),
     showLine: true,
     borderColor: borderColor,
     backgroundColor: backgroundColor,
   }
 }
 
-function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], string> {
-  const datasets = tools.map((tool, i) => getData({
-    label: tool,
-    target, tool,
+function getDataForArray(
+  datasetInfoArray: { label: string, target: Target, tool: Tool }[],
+  filterCoordinate: FilterCoordinate | undefined = undefined,
+): ChartData<"scatter", Vector2[], string> {
+  const filterCoordinateDefined: FilterCoordinate = filterCoordinate ?? ((_) => true)
+  const datasets = datasetInfoArray.map(({ label, target, tool }, i) => getData({
+    label, target, tool,
     borderColor: getBorderColor(i),
     backgroundColor: getBackgroundColor(i),
+    filterCoordinate: filterCoordinateDefined,
   }))
   return { datasets }
+}
+
+function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], string> {
+  const datasetInfoArray = tools.map((tool) => ({
+    label: tool,
+    target, tool,
+  }))
+  return getDataForArray(datasetInfoArray)
 }
 
 export function ComparisonChart({ target }: { target: Target }): JSX.Element {

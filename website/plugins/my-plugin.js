@@ -33,7 +33,8 @@ module.exports = function myPlugin(context, options) {
         ],
         resolve: {
           alias: {
-            "@data": path.resolve(context.siteDir, "src/data")
+            "@data": path.resolve(context.siteDir, "src/data"),
+            "@benchmark": path.resolve(context.siteDir, "../benchmark-data/dev/bench"),
           }
         }
       }

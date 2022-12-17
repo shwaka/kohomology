@@ -19,6 +19,7 @@ function Benchset({ name, benchset }): JSX.Element {
     <div>
       {Array.from(benchset.entries()).map(([benchName, benches]) => (
         <Bench
+          key={benchName}
           name={benchName}
           dataset={benches}
         />

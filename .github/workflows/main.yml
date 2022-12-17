@@ -40,6 +40,14 @@ jobs:
           # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
           # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
           key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
+      - name: "Save cache: .gradle, build"
+        uses: actions/cache@v3
+        # will be restored in test
+        with:
+          path: |
+            .gradle
+            build
+          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -73,6 +81,13 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-test-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-test-
+      - name: "Read cache: .gradle, build"
+        uses: actions/cache@v3
+        with:
+          path: |
+            .gradle
+            build
+          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:

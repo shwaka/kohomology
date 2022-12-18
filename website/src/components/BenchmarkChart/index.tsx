@@ -2,7 +2,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
-import { getChartArgument, collectBenchesPerTestCase } from "./benchmark"
+import { getChartArgument, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
 
 import "@benchmark/data"
 
@@ -14,14 +14,18 @@ declare global {
   }
 }
 
-function Bench({ name, dataset }): JSX.Element {
+function Bench(
+  { name, dataset }: { name: string, dataset: BenchWithCommit[] }
+): JSX.Element {
   const arg = getChartArgument(name, dataset)
   return (
     <Chart {...arg}/>
   )
 }
 
-function Benchset({ name, benchset }): JSX.Element {
+function Benchset(
+  { name, benchset }: { name: string, benchset: Map<string, BenchWithCommit[]> }
+): JSX.Element {
   return (
     <div>
       {Array.from(benchset.entries()).map(([benchName, benches]) => (

@@ -105,7 +105,7 @@ export function getChartArgument(
         return
       }
       // XXX: Undocumented. How can we know the index?
-      const index = activeElems[0]._index
+      const index = activeElems[0].index
       const url = dataset[index].commit.url
       window.open(url, "_blank")
     },

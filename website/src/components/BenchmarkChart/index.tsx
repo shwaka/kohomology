@@ -15,7 +15,7 @@ declare global {
 }
 
 function Bench(
-  { dataset }: { name: string, dataset: BenchWithCommit[] }
+  { name, dataset }: { name: string, dataset: BenchWithCommit[] }
 ): JSX.Element {
   const arg = getChartArgument(name, dataset)
   return (

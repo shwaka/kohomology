@@ -39,8 +39,10 @@ function Benchset(
 }
 
 export function BenchmarkChart(): JSX.Element {
+  // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
+  const bd: BenchmarkData = benchmarkData
   const benchsetsWithNames = Array
-    .from(Object.entries(benchmarkData.entries))
+    .from(Object.entries(bd.entries))
     .map(([name, benchmarks]) => ({
       name,
       benchset: collectBenchesPerTestCase(benchmarks),

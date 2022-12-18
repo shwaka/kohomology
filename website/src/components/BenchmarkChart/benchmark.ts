@@ -46,11 +46,15 @@ export function collectBenchesPerTestCase(entries: Benchmark[]): Map<string, Ben
 }
 
 export function getChartProps(
-  name: string, dataset: BenchWithCommit[]
+  { name, dataset, getLabel }: {
+    name: string
+    dataset: BenchWithCommit[]
+    getLabel: (benchWithCommit: BenchWithCommit) => string
+  }
 ): ChartProps<"line", number[], string> {
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"]
   const data: ChartData<"line", number[], string> = {
-    labels: dataset.map(d => d.commit.id.slice(0, 7)),
+    labels: dataset.map(getLabel),
     datasets: [
       {
         label: name,

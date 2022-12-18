@@ -44,7 +44,7 @@ export function collectBenchesPerTestCase(entries: Benchmark[]): Map<string, Ben
   return map
 }
 
-export function getChartArgument(
+export function getChartProps(
   name: string, dataset: BenchWithCommit[]
 ): ChartProps<"line", number[], string> {
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"]

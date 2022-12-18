@@ -71,7 +71,7 @@ export function getChartProps(
       x: {
         title: {
           display: true,
-          text: "commit",
+          text: "commit date",
         }
       },
       y: {
@@ -85,6 +85,11 @@ export function getChartProps(
     plugins: {
       tooltip: {
         callbacks: {
+          title: (items) => {
+            const {dataIndex} = items[0]
+            const commit = dataset[dataIndex].commit
+            return commit.id
+          },
           afterTitle: (items) => {
             const {dataIndex} = items[0]
             const data = dataset[dataIndex]

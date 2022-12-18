@@ -16,8 +16,11 @@ declare global {
 function Bench(
   { name, dataset }: { name: string, dataset: BenchWithCommit[] }
 ): JSX.Element {
+  // const getLabel = (benchWithCommit: BenchWithCommit): string => (
+  //   benchWithCommit.commit.id.slice(0,7)
+  // )
   const getLabel = (benchWithCommit: BenchWithCommit): string => (
-    benchWithCommit.commit.id.slice(0,7)
+    benchWithCommit.commit.timestamp.slice(0, 10)
   )
   const arg = getChartProps({ name, dataset, getLabel })
   return (

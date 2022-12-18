@@ -8,12 +8,16 @@ const toolColors = {
   cargo: "#dea584",
   go: "#00add8",
   benchmarkjs: "#f1e05a",
+  benchmarkluau: "#000080",
   pytest: "#3572a5",
   googlecpp: "#f34b7d",
   catch2: "#f34b7d",
+  julia: "#a270ba",
+  jmh: "#b07219",
+  benchmarkdotnet: "#178600",
   customBiggerIsBetter: "#38ff38",
   customSmallerIsBetter: "#ff3838",
-  _: "#333333"
+  _: "#333333",
 }
 
 export interface BenchWithCommit {

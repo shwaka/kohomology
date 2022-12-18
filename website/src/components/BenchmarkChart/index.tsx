@@ -20,6 +20,7 @@ function Bench(
   //   benchWithCommit.commit.id.slice(0,7)
   // )
   const getLabel = (benchWithCommit: BenchWithCommit): string => (
+    // 2022-01-01T11:23:45+09:00 -> 2022-01-01
     benchWithCommit.commit.timestamp.slice(0, 10)
   )
   const arg = getChartProps({ name, dataset, getLabel })

@@ -61,25 +61,19 @@ export function getChartArgument(
   }
   const options: ChartProps<"line", number[], string>["options"] = {
     scales: {
-      xAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: "commit",
-          },
+      x: {
+        title: {
+          display: true,
+          text: "commit",
         }
-      ],
-      yAxes: [
-        {
-          scaleLabel: {
-            display: true,
-            labelString: dataset.length > 0 ? dataset[0].bench.unit : "",
-          },
-          ticks: {
-            beginAtZero: true,
-          }
-        }
-      ],
+      },
+      y: {
+        title: {
+          display: true,
+          text: dataset.length > 0 ? dataset[0].bench.unit : "",
+        },
+        suggestedMin: 0,
+      },
     },
     tooltips: {
       callbacks: {

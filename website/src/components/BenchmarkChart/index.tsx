@@ -41,16 +41,18 @@ function Benchset(
 
 export function BenchmarkChart(): JSX.Element {
   const benchmarkData = window.BENCHMARK_DATA
-  const benchmarks = Object.keys(benchmarkData.entries).map(name => ({
-    name,
-    benchset: collectBenchesPerTestCase(benchmarkData.entries[name]),
-  }))
+  const benchsetsWithNames = Array
+    .from(Object.entries(benchmarkData.entries))
+    .map(([name, benchmarks]) => ({
+      name,
+      benchset: collectBenchesPerTestCase(benchmarks),
+    }))
   return (
     <div>
-      {benchmarks.map((benchmark) => (
+      {benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
-          key={benchmark.name}
-          {...benchmark}
+          key={benchsetWithName.name}
+          {...benchsetWithName}
         />
       ))}
     </div>

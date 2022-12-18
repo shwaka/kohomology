@@ -5,6 +5,7 @@ import { BenchmarkData } from "./BenchmarkData"
 import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
 
 import "@benchmark/data"
+import BrowserOnly from "@docusaurus/BrowserOnly"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -39,7 +40,7 @@ function Benchset(
   )
 }
 
-export function BenchmarkChart(): JSX.Element {
+function BenchmarkChartInternal(): JSX.Element {
   const benchmarkData = window.BENCHMARK_DATA
   const benchsetsWithNames = Array
     .from(Object.entries(benchmarkData.entries))
@@ -56,5 +57,15 @@ export function BenchmarkChart(): JSX.Element {
         />
       ))}
     </div>
+  )
+}
+
+export function BenchmarkChart(): JSX.Element {
+  // Use <BrowserOnly> to prevent server side rendering
+  // since window is used in <BenchmarkChartInternal/>
+  return (
+    <BrowserOnly>
+      {() => <BenchmarkChartInternal/>}
+    </BrowserOnly>
   )
 }

@@ -12,6 +12,7 @@ echo "--- Expand benchmark data to '$DESTINATION/'---"
 rm -rf "$DESTINATION"
 git read-tree --prefix="$DESTINATION" -u remotes/origin/benchmark-data
 git reset HEAD "$DESTINATION"
+sed "s/window.BENCHMARK_DATA = //" < "$DESTINATION/dev/bench/data.js" > "$DESTINATION/dev/bench/benchmarkData.json"
 
 # build dokka
 cd "$ROOT_DIR"/kohomology

@@ -3,8 +3,7 @@ import React from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
 import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
-
-import "@benchmark/data"
+import benchmarkData from "@benchmark/benchmarkData.json"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -40,7 +39,6 @@ function Benchset(
 }
 
 export function BenchmarkChart(): JSX.Element {
-  const benchmarkData = window.BENCHMARK_DATA
   const benchsetsWithNames = Array
     .from(Object.entries(benchmarkData.entries))
     .map(([name, benchmarks]) => ({

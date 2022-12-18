@@ -76,25 +76,27 @@ export function getChartArgument(
         suggestedMin: 0,
       },
     },
-    tooltips: {
-      callbacks: {
-        afterTitle: items => {
-          const {index} = items[0]
-          const data = dataset[index]
-          return "\n" + data.commit.message + "\n\n" + data.commit.timestamp + " committed by @" + data.commit.committer.username + "\n"
-        },
-        label: item => {
-          let label = item.value
-          const { range, unit } = dataset[item.index].bench
-          label += " " + unit
-          if (range) {
-            label += " (" + range + ")"
+    plugins: {
+      tooltip: {
+        callbacks: {
+          afterTitle: (items) => {
+            const {dataIndex} = items[0]
+            const data = dataset[dataIndex]
+            return "\n" + data.commit.message + "\n\n" + data.commit.timestamp + " committed by @" + data.commit.committer.username + "\n"
+          },
+          label: (item) => {
+            let label = item.label
+            const { range, unit, value } = dataset[item.dataIndex].bench
+            label = value.toString() + " " + unit
+            if (range !== undefined) {
+              label += " (" + range + ")"
+            }
+            return label
+          },
+          afterLabel: item => {
+            const { extra } = dataset[item.dataIndex].bench
+            return (extra !== undefined) ? "\n" + extra : ""
           }
-          return label
-        },
-        afterLabel: item => {
-          const { extra } = dataset[item.index].bench
-          return extra ? "\n" + extra : ""
         }
       }
     },

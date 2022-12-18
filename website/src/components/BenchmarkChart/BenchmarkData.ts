@@ -4,6 +4,8 @@ export interface Bench {
   name: string
   value: number
   unit: string
+  range?: unknown
+  extra?: unknown
 }
 
 export interface Commit {

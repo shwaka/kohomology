@@ -8,6 +8,6 @@ The library is an open-source software and its source code is distributed at thi
 ## Benchmark
 The performance of the library is observed by a <a href="/benchmark/index.html" target="_blank">benchmark</a> which is automatically run for every push.
 
-import { Benchmark } from "@site/src/components/Benchmark";
+import { BenchmarkChart } from "@site/src/components/BenchmarkChart";
 
-<Benchmark/>
+<BenchmarkChart/>

@@ -35,7 +35,7 @@ function Benchset({ name, benchset }): JSX.Element {
   )
 }
 
-export function Benchmark(): JSX.Element {
+export function BenchmarkChart(): JSX.Element {
   const benchmarkData = window.BENCHMARK_DATA
   const benchmarks = Object.keys(benchmarkData.entries).map(name => ({
     name,

@@ -92,8 +92,8 @@ export function getChartProps(
           },
           afterTitle: (items) => {
             const {dataIndex} = items[0]
-            const data = dataset[dataIndex]
-            return "\n" + data.commit.message + "\n\n" + data.commit.timestamp + " committed by @" + data.commit.committer.username + "\n"
+            const commit = dataset[dataIndex].commit
+            return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
           },
           label: (item) => {
             let label = item.label

@@ -7,12 +7,6 @@ import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./ben
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
-declare global {
-  interface Window {
-    BENCHMARK_DATA: BenchmarkData
-  }
-}
-
 function Bench(
   { name, dataset }: { name: string, dataset: BenchWithCommit[] }
 ): JSX.Element {

@@ -1,9 +1,10 @@
 import benchmarkData from "@benchmark/benchmarkData.json"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
-import React from "react"
+import React, { useState } from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
 import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
+import { movingAverage } from "./movingAverage"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -24,26 +25,44 @@ function Bench(
 }
 
 function Benchset(
-  { benchset, filterBench }: {
+  { benchset, filterBench, weightArray }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
     filterBench: (benchWithCommit: BenchWithCommit) => boolean
+    weightArray: number[]
   }
 ): JSX.Element {
+  const getValue = (bench: BenchWithCommit): number => bench.bench.value
+  const getDataWithNewValue = (bench: BenchWithCommit, newValue: number): BenchWithCommit => ({
+    ...bench,
+    bench: {
+      ...bench.bench,
+      value: newValue,
+    }
+  })
   return (
     <div>
-      {Array.from(benchset.entries()).map(([benchName, benches]) => (
-        <Bench
-          key={benchName}
-          name={benchName}
-          dataset={benches.filter(filterBench)}
-        />
-      ))}
+      {Array.from(benchset.entries()).map(([benchName, benches]) => {
+        const benchAverages = movingAverage({
+          dataArray: benches,
+          weightArray,
+          getValue,
+          getDataWithNewValue
+        })
+        return (
+          <Bench
+            key={benchName}
+            name={benchName}
+            dataset={benchAverages.filter(filterBench)}
+          />
+        )
+      })}
     </div>
   )
 }
 
 export function BenchmarkChart(): JSX.Element {
+  const [showMovingAverage, setShowMovingAverage] = useState(false)
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
   const benchsetsWithNames = Array
@@ -56,12 +75,14 @@ export function BenchmarkChart(): JSX.Element {
     true
     // benchWithCommit.date > new Date("2022.10.01").getTime()
   )
+  const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
       {benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}
           filterBench={filterBench}
+          weightArray={weightArray}
           {...benchsetWithName}
         />
       ))}

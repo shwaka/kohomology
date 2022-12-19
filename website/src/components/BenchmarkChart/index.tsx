@@ -5,6 +5,7 @@ import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
 import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
 import { movingAverage } from "./movingAverage"
+import { Checkbox, FormControlLabel } from "@mui/material"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -78,6 +79,15 @@ export function BenchmarkChart(): JSX.Element {
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
+      <FormControlLabel
+        control={
+          <Checkbox
+            checked={showMovingAverage}
+            onChange={(event) => setShowMovingAverage(event.target.checked)}
+          />
+        }
+        label="Show moving average"
+      />
       {benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}

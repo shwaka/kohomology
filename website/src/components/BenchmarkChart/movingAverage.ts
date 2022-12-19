@@ -24,3 +24,20 @@ export function movingAverageOfNumberArrays(
   }
   return averageArray
 }
+
+export function movingAverage<T>(
+  { dataArray, weightArray, getValue, getDataWithNewValue }: {
+    dataArray: T[]
+    weightArray: number[]
+    getValue: (data: T) => number
+    getDataWithNewValue: (data: T, newValue: number) => T
+  }
+): T[] {
+  const valueArray = dataArray.map(getValue)
+  const newValueArray = movingAverageOfNumberArrays({ valueArray, weightArray })
+  const result: T[] = []
+  for (let i = 0; i < dataArray.length; i++) {
+    result.push(getDataWithNewValue(dataArray[i], newValueArray[i]))
+  }
+  return result
+}

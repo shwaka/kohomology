@@ -29,7 +29,7 @@ function Benchset(
   { benchset, filterBench, weightArray }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
-    filterBench: (benchWithCommit: BenchWithCommit, index: number) => boolean
+    filterBench: (benchWithCommit: BenchWithCommit) => boolean
     weightArray: number[]
   }
 ): JSX.Element {
@@ -72,7 +72,7 @@ export function BenchmarkChart(): JSX.Element {
       name,
       benchset: collectBenchesPerTestCase(benchmarks),
     }))
-  const filterBench = (_benchWithCommit: BenchWithCommit, _index: number): boolean => (
+  const filterBench = (_benchWithCommit: BenchWithCommit): boolean => (
     true
     // benchWithCommit.date > new Date("2022.10.01").getTime()
   )

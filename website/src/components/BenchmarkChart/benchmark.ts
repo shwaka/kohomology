@@ -45,6 +45,10 @@ export function collectBenchesPerTestCase(entries: Benchmark[]): Map<string, Ben
   return map
 }
 
+function extractMethodName(name: string): string {
+  return name.replace("com.github.shwaka.kohomology.profile.KohomologyBenchmark.", "")
+}
+
 export function getChartProps(
   { name, dataset, getLabel }: {
     name: string
@@ -57,7 +61,7 @@ export function getChartProps(
     labels: dataset.map(getLabel),
     datasets: [
       {
-        label: name,
+        label: extractMethodName(name),
         data: dataset.map(d => d.bench.value),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa

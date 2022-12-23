@@ -6,6 +6,7 @@ import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
 import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
 import { movingAverage } from "./movingAverage"
+import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -66,19 +67,17 @@ export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
+  const { filterBench, configureFilterBenchProps } = useFilterBench(bd)
   const benchsetsWithNames = Array
     .from(Object.entries(bd.entries))
     .map(([name, benchmarks]) => ({
       name,
       benchset: collectBenchesPerTestCase(benchmarks),
     }))
-  const filterBench = (_benchWithCommit: BenchWithCommit): boolean => (
-    true
-    // benchWithCommit.date > new Date("2022.10.01").getTime()
-  )
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
+      <ConfigureFilterBench {...configureFilterBenchProps}/>
       <FormControlLabel
         control={
           <Checkbox

@@ -1,4 +1,4 @@
-import { Slider } from "@mui/material"
+import { Box, Slider } from "@mui/material"
 import React, { useState } from "react"
 import { BenchmarkData, Commit } from "./BenchmarkData"
 import { BenchWithCommit } from "./benchmark"
@@ -32,22 +32,31 @@ function getCommits(benchmarkData: BenchmarkData): CommitWithDate[] {
 }
 
 interface ConfigureFilterBenchProps {
-  numberOfCommits: number
+  commits: CommitWithDate[]
   commitIndexRange: number[]
   setCommitIndexRange: (commitIndexRange: number[]) => void
 }
 
-export function ConfigureFilterBench({ numberOfCommits, commitIndexRange, setCommitIndexRange }: ConfigureFilterBenchProps): JSX.Element {
+export function ConfigureFilterBench({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterBenchProps): JSX.Element {
   return (
-    <Slider
-      min={0}
-      max={numberOfCommits - 1}
-      value={commitIndexRange}
-      onChange={(_event, newValue: number | number[]) => {
-        setCommitIndexRange(newValue as number[])
-      }}
-      valueLabelDisplay={"auto"}
-    />
+    <Box>
+      {"Restrict commits:"}
+      <Slider
+        min={0}
+        max={commits.length - 1}
+        value={commitIndexRange}
+        onChange={(_event, newValue: number | number[]) => {
+          setCommitIndexRange(newValue as number[])
+        }}
+        valueLabelDisplay={"auto"}
+        valueLabelFormat={(commitIndex: number) => {
+          const commit = commits[commitIndex]
+          const commitId: string = commit.id.slice(0, 7)
+          const commitDate: string = commit.timestamp.slice(0, 10)
+          return `[${commitIndex}] ${commitDate} (${commitId})`
+        }}
+      />
+    </Box>
   )
 }
 
@@ -68,9 +77,9 @@ export function useFilterBench(benchmarkData: BenchmarkData): UseFilterBenchRetu
   return {
     filterBench,
     configureFilterBenchProps: {
+      commits,
       commitIndexRange,
       setCommitIndexRange,
-      numberOfCommits: commits.length
     }
   }
 }

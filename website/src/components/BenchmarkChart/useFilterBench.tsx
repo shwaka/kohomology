@@ -1,7 +1,7 @@
 import { Slider } from "@mui/material"
 import React, { useState } from "react"
-import { BenchWithCommit } from "./benchmark"
 import { BenchmarkData, Commit } from "./BenchmarkData"
+import { BenchWithCommit } from "./benchmark"
 
 type CommitWithDate = Commit & { date: number }
 

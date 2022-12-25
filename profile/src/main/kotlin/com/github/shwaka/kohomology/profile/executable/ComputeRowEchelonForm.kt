@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.model.FreeLoopSpace
 class ComputeRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val matrixSpace: MatrixSpace<S, V, M>
 ) : Executable() {
-    override val description: String = "compute row echelon form with $matrixSpace"
+    override val description: String = "compute row echelon form of a differential of a DGA with $matrixSpace"
 
     private var matrix: M? = null
 
@@ -36,7 +36,7 @@ class ComputeReducedRowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S, V
     private val matrixSpace: MatrixSpace<S, V, M>,
     private val dim: Int,
 ) : Executable() {
-    override val description = "compute row echelon form with $matrixSpace"
+    override val description = "compute reduced row echelon form of a Jordan matrix with $matrixSpace"
     private var matrix: M? = null
 
     override fun setupFun() {

@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.profile
 
+import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonForm
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean

@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.profile
+package com.github.shwaka.kohomology.profile.executable
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup

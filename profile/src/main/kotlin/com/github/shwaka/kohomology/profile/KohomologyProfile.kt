@@ -1,5 +1,12 @@
 package com.github.shwaka.kohomology.profile
 
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
+import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonForm
+import com.github.shwaka.kohomology.profile.executable.ComputeRowEchelonForm
+import com.github.shwaka.kohomology.profile.executable.Executable
+import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean

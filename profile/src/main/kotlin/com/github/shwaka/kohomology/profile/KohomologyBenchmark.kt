@@ -15,6 +15,7 @@ import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
 
 @State(Scope.Benchmark)
+@Suppress("UNUSED") // Used from the task benchmark
 class KohomologyBenchmark {
     private val degreeLimit: Int = 50
 

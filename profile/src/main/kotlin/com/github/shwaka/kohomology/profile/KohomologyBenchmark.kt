@@ -1,6 +1,10 @@
 package com.github.shwaka.kohomology.profile
 
+import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
+import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import org.openjdk.jmh.annotations.Benchmark
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
@@ -43,6 +47,41 @@ class KohomologyBenchmark {
             n = 5,
             degreeLimit = 35
         )
+        executable.setup()
+        return executable.main()
+    }
+
+    val matrixSize = 1500
+
+    @Benchmark
+    fun reducedRowEchelonFormOverRational(): String {
+        val executable = ComputeReducedRowEchelonForm(
+            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverRational),
+            this.matrixSize,
+        )
+        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverRational, this.matrixSize)
+        executable.setup()
+        return executable.main()
+    }
+
+    @Benchmark
+    fun reducedRowEchelonFormOverF2(): String {
+        val executable = ComputeReducedRowEchelonForm(
+            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF2),
+            this.matrixSize,
+        )
+        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverF2, this.matrixSize)
+        executable.setup()
+        return executable.main()
+    }
+
+    @Benchmark
+    fun reducedRowEchelonFormOverF7(): String {
+        val executable = ComputeReducedRowEchelonForm(
+            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF7),
+            this.matrixSize,
+        )
+        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverF7, this.matrixSize)
         executable.setup()
         return executable.main()
     }

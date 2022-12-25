@@ -3,8 +3,8 @@ package com.github.shwaka.kohomology.profile
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
-import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonForm
-import com.github.shwaka.kohomology.profile.executable.ComputeRowEchelonForm
+import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
+import com.github.shwaka.kohomology.profile.executable.ComputeRowEchelonFormOfDifferential
 import com.github.shwaka.kohomology.profile.executable.Executable
 import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
@@ -21,9 +21,9 @@ fun main() {
         CohomologyOfFreeLoopSpaceWithMultiDegree(SparseMatrixSpaceOverRational, 150),
         CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(SparseMatrixSpaceOverRational, 100),
         IsomorphismToCohomologyOfFreePathSpace(SparseMatrixSpaceOverRational, n = 5, degreeLimit = 70),
-        ComputeRowEchelonForm(SparseMatrixSpaceOverRational),
-        ComputeRowEchelonForm(DecomposedSparseMatrixSpaceOverRational),
-        ComputeReducedRowEchelonForm(SetMatrixSpaceOverF2Boolean, 5000),
+        ComputeRowEchelonFormOfDifferential(SparseMatrixSpaceOverRational),
+        ComputeRowEchelonFormOfDifferential(DecomposedSparseMatrixSpaceOverRational),
+        ComputeReducedRowEchelonFormOfJordanMatrix(SetMatrixSpaceOverF2Boolean, 5000),
     )
     val defaultChoice = 0
     println("Select script to profile: (default = $defaultChoice)")

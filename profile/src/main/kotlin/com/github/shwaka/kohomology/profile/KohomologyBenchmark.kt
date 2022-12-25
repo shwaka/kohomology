@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
-import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonForm
+import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
 import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF2
@@ -61,7 +61,7 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun reducedRowEchelonFormOverRational(): String {
-        val executable = ComputeReducedRowEchelonForm(
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
             SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverRational),
             this.matrixSize,
         )
@@ -72,7 +72,7 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun reducedRowEchelonFormOverF2(): String {
-        val executable = ComputeReducedRowEchelonForm(
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
             SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF2),
             this.matrixSize,
         )
@@ -83,7 +83,7 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun reducedRowEchelonFormOverF7(): String {
-        val executable = ComputeReducedRowEchelonForm(
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
             SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF7),
             this.matrixSize,
         )

@@ -2,7 +2,7 @@
 
 import { ChartData } from "chart.js"
 import { ChartProps } from "react-chartjs-2"
-import { BenchWithCommit } from "./BenchmarkDataHandler"
+import { BenchmarkDataHandler, BenchWithCommit } from "./BenchmarkDataHandler"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 const toolColors = {
@@ -25,20 +25,23 @@ function extractMethodName(name: string): string {
   return name.replace("com.github.shwaka.kohomology.profile.KohomologyBenchmark.", "")
 }
 
+type Value = { x: string, y: number }
+
 export function getChartProps(
-  { name, dataset, getLabel }: {
+  { name, dataset, getLabel, dataHandler }: {
     name: string
     dataset: BenchWithCommit[]
     getLabel: (benchWithCommit: BenchWithCommit) => string
+    dataHandler: BenchmarkDataHandler
   }
-): ChartProps<"line", number[], string> {
+): ChartProps<"line", Value[], string> {
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"]
-  const data: ChartData<"line", number[], string> = {
-    labels: dataset.map(getLabel),
+  const data: ChartData<"line", Value[], string> = {
+    labels: dataHandler.commits.map((commit) => commit.id),
     datasets: [
       {
         label: extractMethodName(name),
-        data: dataset.map(d => d.bench.value),
+        data: dataset.map(d => ({ x: d.commit.id, y: d.bench.value })),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa
         fill: true,
@@ -46,7 +49,7 @@ export function getChartProps(
       }
     ],
   }
-  const options: ChartProps<"line", number[], string>["options"] = {
+  const options: ChartProps<"line", Value[], string>["options"] = {
     scales: {
       x: {
         title: {

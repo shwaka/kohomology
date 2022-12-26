@@ -11,6 +11,10 @@ import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
+// @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
+const bd: BenchmarkData = benchmarkData
+const dataHandler = new BenchmarkDataHandler(bd)
+
 function Bench(
   { name, dataset }: { name: string, dataset: BenchWithCommit[] }
 ): JSX.Element {
@@ -21,7 +25,7 @@ function Bench(
     // 2022-01-01T11:23:45+09:00 -> 2022-01-01
     benchWithCommit.commit.timestamp.slice(0, 10)
   )
-  const arg = getChartProps({ name, dataset, getLabel })
+  const arg = getChartProps({ name, dataset, getLabel, dataHandler })
   return (
     <Chart {...arg}/>
   )
@@ -63,10 +67,6 @@ function Benchset(
     </div>
   )
 }
-
-// @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
-const bd: BenchmarkData = benchmarkData
-const dataHandler = new BenchmarkDataHandler(bd)
 
 export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)

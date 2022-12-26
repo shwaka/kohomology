@@ -15,7 +15,7 @@ export class BenchmarkDataHandler {
     benchset: Map<string, BenchWithCommit[]>
   }[]
   commits: CommitWithDate[]
-  commitMap: Map<string, CommitWithDate>
+  private commitMap: Map<string, CommitWithDate>
 
   constructor(benchmarkData: BenchmarkData) {
     this.benchsetsWithNames = Array
@@ -29,6 +29,14 @@ export class BenchmarkDataHandler {
     for (const commit of this.commits) {
       this.commitMap.set(commit.id, commit)
     }
+  }
+
+  getCommitTimestamp(commitId: string): string {
+    const commit: CommitWithDate | undefined = this.commitMap.get(commitId)
+    if (commit === undefined) {
+      throw new Error(`[Error] commit not found: ${commitId}`)
+    }
+    return commit.timestamp
   }
 
   private static collectBenchesPerTestCase(entries: Benchmark[]): Map<string, BenchWithCommit[]> {

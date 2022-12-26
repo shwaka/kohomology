@@ -62,12 +62,9 @@ export function getChartProps(
               throw new Error("This can't happen!")
             }
             const commitId: string = this.getLabelForValue(tickValue)
-            const commit: CommitWithDate | undefined = dataHandler.commitMap.get(commitId)
-            if (commit === undefined) {
-              throw new Error(`[Error] commit not found: ${commitId}`)
-            }
+            const timestamp: string = dataHandler.getCommitTimestamp(commitId)
             // 2022-01-01T11:23:45+09:00 -> 2022-01-01
-            return commit.timestamp.slice(0, 10)
+            return timestamp.slice(0, 10)
           }
         }
       },

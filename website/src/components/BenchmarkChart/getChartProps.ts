@@ -28,15 +28,16 @@ function extractMethodName(name: string): string {
 type Value = { x: string, y: number }
 
 export function getChartProps(
-  { name, dataset, dataHandler }: {
+  { name, dataset, dataHandler, filterCommit }: {
     name: string
     dataset: BenchWithCommit[]
     dataHandler: BenchmarkDataHandler
+    filterCommit: (commit: CommitWithDate) => boolean
   }
 ): ChartProps<"line", Value[], string> {
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"]
   const data: ChartData<"line", Value[], string> = {
-    labels: dataHandler.commits.map((commit) => commit.id),
+    labels: dataHandler.commits.filter(filterCommit).map((commit) => commit.id),
     datasets: [
       {
         label: extractMethodName(name),

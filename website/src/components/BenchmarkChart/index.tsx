@@ -16,9 +16,13 @@ const bd: BenchmarkData = benchmarkData
 const dataHandler = new BenchmarkDataHandler(bd)
 
 function Bench(
-  { name, dataset }: { name: string, dataset: BenchWithCommit[] }
+  { name, dataset, filterCommit }: {
+    name: string
+    dataset: BenchWithCommit[]
+    filterCommit: (commit: CommitWithDate) => boolean
+  }
 ): JSX.Element {
-  const arg = getChartProps({ name, dataset, dataHandler })
+  const arg = getChartProps({ name, dataset, dataHandler, filterCommit })
   return (
     <Chart {...arg}/>
   )
@@ -54,6 +58,7 @@ function Benchset(
             key={benchName}
             name={benchName}
             dataset={benchAverages.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))}
+            filterCommit={filterCommit}
           />
         )
       })}

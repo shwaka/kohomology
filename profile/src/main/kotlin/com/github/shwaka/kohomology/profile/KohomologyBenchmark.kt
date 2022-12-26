@@ -1,15 +1,13 @@
 package com.github.shwaka.kohomology.profile
 
-import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
 import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF2
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverF7
-import com.github.shwaka.kohomology.specific.SparseNumVectorSpaceOverRational
 import org.openjdk.jmh.annotations.Benchmark
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
@@ -61,33 +59,22 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun reducedRowEchelonFormOverRational(): String {
-        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
-            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverRational),
-            this.matrixSize,
-        )
-        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverRational, this.matrixSize)
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(SparseMatrixSpaceOverRational, this.matrixSize)
         executable.setup()
         return executable.main()
     }
 
     @Benchmark
     fun reducedRowEchelonFormOverF2(): String {
-        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
-            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF2),
-            this.matrixSize,
-        )
-        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverF2, this.matrixSize)
+
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(SparseMatrixSpaceOverF2, this.matrixSize)
         executable.setup()
         return executable.main()
     }
 
     @Benchmark
     fun reducedRowEchelonFormOverF7(): String {
-        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(
-            SparseMatrixSpace.nonInPlaceFrom(SparseNumVectorSpaceOverF7),
-            this.matrixSize,
-        )
-        // val executable = ComputeReducedRowEchelonForm(SparseMatrixSpaceOverF7, this.matrixSize)
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(SparseMatrixSpaceOverF7, this.matrixSize)
         executable.setup()
         return executable.main()
     }

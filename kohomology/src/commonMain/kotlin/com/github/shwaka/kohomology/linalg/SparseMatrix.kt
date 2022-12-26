@@ -311,14 +311,6 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
                 return matrixSpace
             }
         }
-
-        // temporarily added for benchmark
-        public fun <S : Scalar> nonInPlaceFrom(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
-            return SparseMatrixSpace(
-                numVectorSpace,
-                NonInPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),
-            )
-        }
     }
 
     override fun computeRowEchelonForm(matrix: SparseMatrix<S>): RowEchelonForm<S, SparseNumVector<S>, SparseMatrix<S>> {

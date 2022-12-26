@@ -9,7 +9,7 @@ export interface BenchWithCommit {
   bench: Bench
 }
 
-export class BenchmarkHandler {
+export class BenchmarkDataHandler {
   benchsetsWithNames: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
@@ -21,9 +21,9 @@ export class BenchmarkHandler {
       .from(Object.entries(benchmarkData.entries))
       .map(([name, benchmarks]) => ({
         name,
-        benchset: BenchmarkHandler.collectBenchesPerTestCase(benchmarks),
+        benchset: BenchmarkDataHandler.collectBenchesPerTestCase(benchmarks),
       }))
-    this.commits = BenchmarkHandler.getCommits(benchmarkData)
+    this.commits = BenchmarkDataHandler.getCommits(benchmarkData)
   }
 
   private static collectBenchesPerTestCase(entries: Benchmark[]): Map<string, BenchWithCommit[]> {
@@ -50,7 +50,7 @@ export class BenchmarkHandler {
 
   private static containsCommit(commits: CommitWithDate[], commit: CommitWithDate): boolean {
     for (const c of commits) {
-      if (BenchmarkHandler.areSameCommits(c, commit)) {
+      if (BenchmarkDataHandler.areSameCommits(c, commit)) {
         return true
       }
     }
@@ -62,7 +62,7 @@ export class BenchmarkHandler {
     for (const [_name, benchmarks] of Object.entries(benchmarkData.entries)) {
       for (const benchmark of benchmarks) {
         const commit = { ...benchmark.commit, date: benchmark.date }
-        if (!BenchmarkHandler.containsCommit(commits, commit)) {
+        if (!BenchmarkDataHandler.containsCommit(commits, commit)) {
           commits.push(commit)
         }
       }

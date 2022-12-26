@@ -1,6 +1,6 @@
 import { Box, Slider } from "@mui/material"
 import React, { useState } from "react"
-import { BenchWithCommit, CommitWithDate } from "./BenchmarkHandler"
+import { BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 
 interface ConfigureFilterBenchProps {
   commits: CommitWithDate[]

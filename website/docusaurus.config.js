@@ -78,6 +78,10 @@ const config = {
           },
           {to: "others", label: "Others", position: "left"},
           {
+            type: "custom-goToPublishedPage",
+            position: "right",
+          },
+          {
             href: "https://github.com/shwaka/kohomology",
             label: "GitHub",
             position: "right",

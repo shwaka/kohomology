@@ -32,20 +32,20 @@ export function ConfigureFilterBench({ commits, commitIndexRange, setCommitIndex
 }
 
 interface UseFilterBenchReturnValue {
-  filterBench: (benchWithCommit: BenchWithCommit) => boolean
+  filterCommit: (commit: CommitWithDate) => boolean
   configureFilterBenchProps: ConfigureFilterBenchProps
 }
 
 export function useFilterBench(commits: CommitWithDate[]): UseFilterBenchReturnValue {
   const [commitIndexRange, setCommitIndexRange] = useState<number[]>([0, commits.length - 1])
-  const filterBench = (benchWithCommit: BenchWithCommit): boolean => {
+  const filterCommit = (commit: CommitWithDate): boolean => {
     const startDate = commits[commitIndexRange[0]].date
     const endDate = commits[commitIndexRange[1]].date
-    return (benchWithCommit.date >= startDate) && (benchWithCommit.date <= endDate)
+    return (commit.date >= startDate) && (commit.date <= endDate)
     // benchWithCommit.date > new Date("2022.10.01").getTime()
   }
   return {
-    filterBench,
+    filterCommit,
     configureFilterBenchProps: {
       commits,
       commitIndexRange,

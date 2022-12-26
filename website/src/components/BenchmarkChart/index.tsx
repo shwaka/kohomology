@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React, { useState } from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
-import { BenchmarkDataHandler, BenchWithCommit } from "./BenchmarkDataHandler"
+import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 import { getChartProps } from "./getChartProps"
 import { movingAverage } from "./movingAverage"
 import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
@@ -25,10 +25,10 @@ function Bench(
 }
 
 function Benchset(
-  { benchset, filterBench, weightArray }: {
+  { benchset, filterCommit, weightArray }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
-    filterBench: (benchWithCommit: BenchWithCommit) => boolean
+    filterCommit: (commit: CommitWithDate) => boolean
     weightArray: number[]
   }
 ): JSX.Element {
@@ -53,7 +53,7 @@ function Benchset(
           <Bench
             key={benchName}
             name={benchName}
-            dataset={benchAverages.filter(filterBench)}
+            dataset={benchAverages.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))}
           />
         )
       })}
@@ -63,7 +63,7 @@ function Benchset(
 
 export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)
-  const { filterBench, configureFilterBenchProps } = useFilterBench(dataHandler.commits)
+  const { filterCommit, configureFilterBenchProps } = useFilterBench(dataHandler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
@@ -80,7 +80,7 @@ export function BenchmarkChart(): JSX.Element {
       {dataHandler.benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}
-          filterBench={filterBench}
+          filterCommit={filterCommit}
           weightArray={weightArray}
           {...benchsetWithName}
         />

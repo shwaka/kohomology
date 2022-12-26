@@ -35,13 +35,14 @@ export function getChartProps(
     filterCommit: (commit: CommitWithDate) => boolean
   }
 ): ChartProps<"line", Value[], string> {
-  const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"]
+  const filteredDataset = dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
+  const color = toolColors[filteredDataset.length > 0 ? filteredDataset[0].tool : "_"]
   const data: ChartData<"line", Value[], string> = {
     labels: dataHandler.commits.filter(filterCommit).map((commit) => commit.id),
     datasets: [
       {
         label: extractMethodName(name),
-        data: dataset.map(d => ({ x: d.commit.id, y: d.bench.value })),
+        data: filteredDataset.map(d => ({ x: d.commit.id, y: d.bench.value })),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa
         fill: true,

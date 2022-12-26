@@ -57,7 +57,7 @@ function Benchset(
           <Bench
             key={benchName}
             name={benchName}
-            dataset={benchAverages.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))}
+            dataset={benchAverages}
             filterCommit={filterCommit}
           />
         )

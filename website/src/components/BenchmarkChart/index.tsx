@@ -4,9 +4,10 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React, { useState } from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
-import { getChartProps, BenchWithCommit, BenchmarkHandler } from "./benchmark"
+import { getChartProps } from "./getChartProps"
 import { movingAverage } from "./movingAverage"
 import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
+import { BenchmarkHandler, BenchWithCommit } from "./BenchmarkHandler"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 

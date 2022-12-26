@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import React, { useState } from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
-import { getChartProps, collectBenchesPerTestCase, BenchWithCommit } from "./benchmark"
+import { getChartProps, BenchWithCommit, BenchmarkHandler } from "./benchmark"
 import { movingAverage } from "./movingAverage"
 import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
 
@@ -67,13 +67,8 @@ export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
+  const handler = new BenchmarkHandler(bd)
   const { filterBench, configureFilterBenchProps } = useFilterBench(bd)
-  const benchsetsWithNames = Array
-    .from(Object.entries(bd.entries))
-    .map(([name, benchmarks]) => ({
-      name,
-      benchset: collectBenchesPerTestCase(benchmarks),
-    }))
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
@@ -87,7 +82,7 @@ export function BenchmarkChart(): JSX.Element {
         }
         label="Show moving average"
       />
-      {benchsetsWithNames.map((benchsetWithName) => (
+      {handler.benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}
           filterBench={filterBench}

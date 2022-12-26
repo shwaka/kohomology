@@ -64,11 +64,12 @@ function Benchset(
   )
 }
 
+// @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
+const bd: BenchmarkData = benchmarkData
+const dataHandler = new BenchmarkDataHandler(bd)
+
 export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)
-  // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
-  const bd: BenchmarkData = benchmarkData
-  const dataHandler = new BenchmarkDataHandler(bd)
   const { filterBench, configureFilterBenchProps } = useFilterBench(dataHandler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (

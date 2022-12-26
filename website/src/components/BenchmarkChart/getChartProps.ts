@@ -28,10 +28,9 @@ function extractMethodName(name: string): string {
 type Value = { x: string, y: number }
 
 export function getChartProps(
-  { name, dataset, getLabel, dataHandler }: {
+  { name, dataset, dataHandler }: {
     name: string
     dataset: BenchWithCommit[]
-    getLabel: (benchWithCommit: BenchWithCommit) => string
     dataHandler: BenchmarkDataHandler
   }
 ): ChartProps<"line", Value[], string> {
@@ -67,6 +66,7 @@ export function getChartProps(
             if (commit === undefined) {
               throw new Error(`[Error] commit not found: ${commitId}`)
             }
+            // 2022-01-01T11:23:45+09:00 -> 2022-01-01
             return commit.timestamp.slice(0, 10)
           }
         }

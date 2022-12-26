@@ -1,35 +1,6 @@
 import { Box, Slider } from "@mui/material"
 import React, { useState } from "react"
-import { BenchmarkData, Commit } from "./BenchmarkData"
-import { BenchWithCommit } from "./benchmark"
-
-type CommitWithDate = Commit & { date: number }
-
-function areSameCommits(commit1: CommitWithDate, commit2: CommitWithDate): boolean {
-  return commit1.id === commit2.id
-}
-
-function containsCommit(commits: CommitWithDate[], commit: CommitWithDate): boolean {
-  for (const c of commits) {
-    if (areSameCommits(c, commit)) {
-      return true
-    }
-  }
-  return false
-}
-
-function getCommits(benchmarkData: BenchmarkData): CommitWithDate[] {
-  const commits: CommitWithDate[] = []
-  for (const [_name, benchmarks] of Object.entries(benchmarkData.entries)) {
-    for (const benchmark of benchmarks) {
-      const commit = { ...benchmark.commit, date: benchmark.date }
-      if (!containsCommit(commits, commit)) {
-        commits.push(commit)
-      }
-    }
-  }
-  return commits.sort((commit1, commit2) => commit1.date - commit2.date)
-}
+import { BenchWithCommit, CommitWithDate } from "./BenchmarkHandler"
 
 interface ConfigureFilterBenchProps {
   commits: CommitWithDate[]
@@ -65,8 +36,7 @@ interface UseFilterBenchReturnValue {
   configureFilterBenchProps: ConfigureFilterBenchProps
 }
 
-export function useFilterBench(benchmarkData: BenchmarkData): UseFilterBenchReturnValue {
-  const commits = getCommits(benchmarkData)
+export function useFilterBench(commits: CommitWithDate[]): UseFilterBenchReturnValue {
   const [commitIndexRange, setCommitIndexRange] = useState<number[]>([0, commits.length - 1])
   const filterBench = (benchWithCommit: BenchWithCommit): boolean => {
     const startDate = commits[commitIndexRange[0]].date

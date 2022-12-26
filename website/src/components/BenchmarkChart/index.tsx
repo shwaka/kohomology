@@ -69,7 +69,7 @@ export function BenchmarkChart(): JSX.Element {
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
   const handler = new BenchmarkHandler(bd)
-  const { filterBench, configureFilterBenchProps } = useFilterBench(bd)
+  const { filterBench, configureFilterBenchProps } = useFilterBench(handler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>

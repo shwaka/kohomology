@@ -2,13 +2,13 @@ import { Box, Slider } from "@mui/material"
 import React, { useState } from "react"
 import { BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 
-interface ConfigureFilterBenchProps {
+interface ConfigureFilterCommitProps {
   commits: CommitWithDate[]
   commitIndexRange: number[]
   setCommitIndexRange: (commitIndexRange: number[]) => void
 }
 
-export function ConfigureFilterBench({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterBenchProps): JSX.Element {
+export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): JSX.Element {
   return (
     <Box>
       {"Restrict commits:"}
@@ -31,12 +31,12 @@ export function ConfigureFilterBench({ commits, commitIndexRange, setCommitIndex
   )
 }
 
-interface UseFilterBenchReturnValue {
+interface UseFilterCommitReturnValue {
   filterCommit: (commit: CommitWithDate) => boolean
-  configureFilterBenchProps: ConfigureFilterBenchProps
+  configureFilterCommitProps: ConfigureFilterCommitProps
 }
 
-export function useFilterBench(commits: CommitWithDate[]): UseFilterBenchReturnValue {
+export function useFilterCommit(commits: CommitWithDate[]): UseFilterCommitReturnValue {
   const [commitIndexRange, setCommitIndexRange] = useState<number[]>([0, commits.length - 1])
   const filterCommit = (commit: CommitWithDate): boolean => {
     const startDate = commits[commitIndexRange[0]].date
@@ -46,7 +46,7 @@ export function useFilterBench(commits: CommitWithDate[]): UseFilterBenchReturnV
   }
   return {
     filterCommit,
-    configureFilterBenchProps: {
+    configureFilterCommitProps: {
       commits,
       commitIndexRange,
       setCommitIndexRange,

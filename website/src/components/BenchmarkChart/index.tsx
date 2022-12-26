@@ -7,7 +7,7 @@ import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 import { getChartProps } from "./getChartProps"
 import { movingAverage } from "./movingAverage"
-import { ConfigureFilterBench, useFilterBench } from "./useFilterBench"
+import { ConfigureFilterCommit, useFilterCommit } from "./useFilterCommit"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -63,11 +63,11 @@ function Benchset(
 
 export function BenchmarkChart(): JSX.Element {
   const [showMovingAverage, setShowMovingAverage] = useState(false)
-  const { filterCommit, configureFilterBenchProps } = useFilterBench(dataHandler.commits)
+  const { filterCommit, configureFilterCommitProps } = useFilterCommit(dataHandler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   return (
     <div>
-      <ConfigureFilterBench {...configureFilterBenchProps}/>
+      <ConfigureFilterCommit {...configureFilterCommitProps}/>
       <FormControlLabel
         control={
           <Checkbox

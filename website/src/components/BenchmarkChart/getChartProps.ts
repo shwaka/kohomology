@@ -2,7 +2,7 @@
 
 import { ChartData } from "chart.js"
 import { ChartProps } from "react-chartjs-2"
-import { BenchmarkDataHandler, BenchWithCommit } from "./BenchmarkDataHandler"
+import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 const toolColors = {
@@ -52,9 +52,23 @@ export function getChartProps(
   const options: ChartProps<"line", Value[], string>["options"] = {
     scales: {
       x: {
+        type: "category",
         title: {
           display: true,
           text: "commit date",
+        },
+        ticks: {
+          callback: function (tickValue: string | number): string {
+            if (typeof tickValue === "string") {
+              throw new Error("This can't happen!")
+            }
+            const commitId: string = this.getLabelForValue(tickValue)
+            const commit: CommitWithDate | undefined = dataHandler.commitMap.get(commitId)
+            if (commit === undefined) {
+              throw new Error(`[Error] commit not found: ${commitId}`)
+            }
+            return commit.timestamp.slice(0, 10)
+          }
         }
       },
       y: {

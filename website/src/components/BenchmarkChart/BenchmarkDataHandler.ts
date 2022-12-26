@@ -15,6 +15,7 @@ export class BenchmarkDataHandler {
     benchset: Map<string, BenchWithCommit[]>
   }[]
   commits: CommitWithDate[]
+  commitMap: Map<string, CommitWithDate>
 
   constructor(benchmarkData: BenchmarkData) {
     this.benchsetsWithNames = Array
@@ -24,6 +25,10 @@ export class BenchmarkDataHandler {
         benchset: BenchmarkDataHandler.collectBenchesPerTestCase(benchmarks),
       }))
     this.commits = BenchmarkDataHandler.getCommits(benchmarkData)
+    this.commitMap = new Map()
+    for (const commit of this.commits) {
+      this.commitMap.set(commit.id, commit)
+    }
   }
 
   private static collectBenchesPerTestCase(entries: Benchmark[]): Map<string, BenchWithCommit[]> {

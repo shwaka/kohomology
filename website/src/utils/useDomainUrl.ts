@@ -1,6 +1,8 @@
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import { isDevelopmentMode } from "./isDevelopmentMode"
 
+// This component can be used without <BrowserOnly/>
+// since `window` is used only in dev-mode.
 export function useDomainUrl(): string {
   const context = useDocusaurusContext()
   if (isDevelopmentMode()) {

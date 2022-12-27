@@ -1,6 +1,6 @@
 import useBaseUrl from "@docusaurus/useBaseUrl"
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
+import { useDomainUrl } from "@site/src/utils/useDomainUrl"
 import React, { useState } from "react"
 import { createURLSearchParams } from "./urlQuery"
 
@@ -42,8 +42,8 @@ function CopyToClipBoardButton({ text }: { text: string }): JSX.Element {
 
 function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
   const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
-  const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
-  const pageUrl = useBaseUrl("calculator")
+  const domainUrl = useDomainUrl()
+  const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
   const url = (urlSearchParams !== null) ?
     `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
   return (

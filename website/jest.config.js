@@ -23,5 +23,6 @@ module.exports = {
   moduleNameMapper: {
     "^.+\\.(css|styl|less|sass|scss|png|jpg|ttf|woff|woff2)$": "jest-transform-stub",
     "^worker-loader!.*/kohomology.worker$": "<rootDir>/src/components/Calculator/worker/__mocks__/kohomology.worker.ts",
+    "@site/(.*)$": "<rootDir>/$1",
   }
 }

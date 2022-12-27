@@ -16,10 +16,12 @@ function GoToPublishedPageOnDevMode(props: Props): JSX.Element {
   const location = useLocation()
   const url = context.siteConfig.url
   const pathname = location.pathname
+  const search = location.search
+  const hash = location.hash
   return (
     <NavbarItem
       {...props}
-      href={`${url}${pathname}`}
+      href={`${url}${pathname}${search}${hash}`}
       label="Published page"
     />
   )

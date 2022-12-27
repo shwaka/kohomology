@@ -1,13 +1,9 @@
 import { useLocation } from "@docusaurus/router"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
+import { isDevelopmentMode } from "@site/src/utils/isDevelopmentMode"
 import NavbarItem from "@theme-original/NavbarItem"
 import type { Props } from "@theme/NavbarItem"
 import React from "react"
-
-function isDevelopmentMode(): boolean {
-  // https://docusaurus.io/docs/advanced/ssg#node-env
-  return process.env.NODE_ENV === "development"
-}
 
 function GoToPublishedPageOnDevMode(props: Props): JSX.Element {
   // On mobile devices, props contains { mobile: true, onClick: (some function) }.

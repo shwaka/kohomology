@@ -1,4 +1,3 @@
-import BrowserOnly from "@docusaurus/BrowserOnly"
 import { useColorMode } from "@docusaurus/theme-common"
 import { createTheme, ThemeProvider } from "@mui/material"
 import React, { useEffect, useMemo, useRef, useState } from "react"

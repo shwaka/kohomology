@@ -1,6 +1,7 @@
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
 import { useDomainUrl } from "@site/src/utils/useDomainUrl"
+import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 import { createURLSearchParams } from "./urlQuery"
 
@@ -69,10 +70,12 @@ export interface ShareDGADialogProps {
 }
 
 export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
+  const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
+      PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogContent>
         <ShareDGADialogContent dgaJson={dgaJson}/>

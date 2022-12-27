@@ -1,4 +1,5 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs, useTheme } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } from "@mui/material"
+import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 
 export interface TabItem {
@@ -86,8 +87,7 @@ export interface TabDialogProps<K extends string> {
 
 export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open, closeDialog }: TabDialogProps<K>): JSX.Element {
   // TODO: assert that keys for tabItems are distinct
-  const theme = useTheme()
-  const mobileMediaQuery = theme.breakpoints.down("sm")
+  const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
       open={open}

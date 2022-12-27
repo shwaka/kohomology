@@ -40,6 +40,28 @@ function CopyToClipBoardButton({ text }: { text: string }): JSX.Element {
   )
 }
 
+function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
+  const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
+  const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
+  const pageUrl = useBaseUrl("calculator")
+  const url = (urlSearchParams !== null) ?
+    `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
+  return (
+    <>
+      <TextField
+        label={"url"}
+        value={url}
+        sx={{ width: 300 }} size="small"
+        InputProps={{ readOnly: true }}
+        multiline
+      />
+      <CopyToClipBoardButton
+        text={url}
+      />
+    </>
+  )
+}
+
 export interface ShareDGADialogProps {
   open: boolean
   setOpen: (open: boolean) => void
@@ -47,27 +69,13 @@ export interface ShareDGADialogProps {
 }
 
 export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
-  const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
-  const domainUrl = useDocusaurusContext().siteConfig.url // contains "/" at the end
-  const pageUrl = useBaseUrl("calculator")
-  const url = (urlSearchParams !== null) ?
-    `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
   return (
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
     >
       <DialogContent>
-        <TextField
-          label={"url"}
-          value={url}
-          sx={{ width: 300 }} size="small"
-          InputProps={{ readOnly: true }}
-          multiline
-        />
-        <CopyToClipBoardButton
-          text={url}
-        />
+        <ShareDGADialogContent dgaJson={dgaJson}/>
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>

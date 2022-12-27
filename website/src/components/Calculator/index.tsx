@@ -53,13 +53,10 @@ export function Calculator(): JSX.Element {
     }
   }
   useEffect(() => { scrollToBottom() }, [messages])
-  // BrowserOnly is used to avoid SSR (see a comment in CalculatorFrom)
   return (
     <ThemeProvider theme={theme}>
       <div className={styles.calculator} data-testid="Calculator">
-        <BrowserOnly fallback={<div>Loading...</div>}>
-          {() => <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>}
-        </BrowserOnly>
+        <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>
         <div className={styles.calculatorResults} ref={scrollRef} data-testid="calculator-results">
           {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
         </div>

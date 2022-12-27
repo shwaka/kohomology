@@ -1,3 +1,4 @@
+import BrowserOnly from "@docusaurus/BrowserOnly"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useEffect, useRef, useState } from "react"
@@ -27,7 +28,7 @@ interface CalculatorFormProps {
   defaultDGAJson: string
 }
 
-export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
+function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
   const [json, setJson] = useState(props.defaultDGAJson)
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
@@ -132,5 +133,13 @@ export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
         <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>
       </StackItem>
     </Stack>
+  )
+}
+
+export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => <CalculatorFormImpl {...props}/>}
+    </BrowserOnly>
   )
 }

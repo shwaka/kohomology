@@ -19,6 +19,7 @@ fun writeDepGraph() {
         "com.ionspin.kotlin.bignum.integer",
         "kotlin",
         "kotlin.math",
+        "kotlin.jvm",
         "com.github.shwaka.kococo",
         "com.github.shwaka.parautil",
         "com.github.shwaka.kohomology.exception",

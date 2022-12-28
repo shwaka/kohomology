@@ -3,9 +3,9 @@ hide members
 hide circle
 set namespaceSeparator ::
 class model
-class tex
 class linalg
 class specific
+class specific.f2
 class example
 class vectsp
 class simplicial
@@ -31,6 +31,7 @@ free --> model
 free.monoid --> dg.degree
 free.monoid --> vectsp
 specific --> linalg
+specific.f2 --> linalg
 example --> dg.degree
 example --> free
 example --> free.monoid

@@ -110,7 +110,7 @@ kotlin {
                 implementation("io.kotest:kotest-runner-junit5:$version")
                 implementation("io.kotest:kotest-assertions-core:$version")
                 implementation("io.kotest:kotest-property:$version")
-                implementation("io.kotest:kotest-assertions-compiler:$version")
+                // implementation("io.kotest:kotest-assertions-compiler:$version")
             }
         }
         val jsMain by getting

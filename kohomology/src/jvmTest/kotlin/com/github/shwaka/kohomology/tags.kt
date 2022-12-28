@@ -4,7 +4,6 @@ import io.kotest.core.NamedTag
 
 val jvmOnlyTag = NamedTag("JvmOnly")
 
-val compileTag = NamedTag("Compile")
 val overflowTag = NamedTag("Overflow")
 
 val intRationalTag = NamedTag("IntRational")

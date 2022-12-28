@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.specific
 
-import com.github.shwaka.kohomology.compileTag
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.jvmOnlyTag
@@ -20,8 +19,6 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldContain
-import io.kotest.matchers.compilation.shouldCompile
-import io.kotest.matchers.compilation.shouldNotCompile
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
@@ -394,29 +391,5 @@ class FpTest : FreeSpec({
     }
     "Fp.get(6) should throw ArithmeticException" {
         shouldThrow<ArithmeticException> { Fp.get(6) }
-    }
-})
-
-class CompileTest : FreeSpec({
-    tags(fieldTag, compileTag)
-
-    "IntRational + IntRational should compile" {
-        val codeSnippet =
-            """
-            import com.github.shwaka.kohomology.specific.IntRational
-            import com.github.shwaka.kohomology.specific.IntRationalField
-            val foo = IntRationalField.context.run { IntRational(0, 1) + IntRational(1, 0) }
-            """ // compiles, but runtime error
-        codeSnippet.shouldCompile()
-    }
-    "Rational + IntModp should not compile" {
-        val codeSnippet =
-            """
-            import com.github.shwaka.kohomology.specific.IntRational
-            import com.github.shwaka.kohomology.specific.IntRationalField
-            import com.github.shwaka.kohomology.specific.IntModp
-            val foo = IntRationalField.context.run { IntRational(0, 1) + IntModp(0, 7) }
-            """
-        codeSnippet.shouldNotCompile()
     }
 })

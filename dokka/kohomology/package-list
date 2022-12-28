@@ -1312,74 +1312,6 @@ $dokka.location:com.github.shwaka.kohomology.specific/LongRationalField/two/#/Po
 $dokka.location:com.github.shwaka.kohomology.specific/LongRationalField/zero/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-long-rational-field/zero.html
 $dokka.location:com.github.shwaka.kohomology.specific/Rational///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-rational/index.html
 $dokka.location:com.github.shwaka.kohomology.specific/RationalField///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-rational-field/index.html
-$dokka.location:com.github.shwaka.kohomology.tex////PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/Script.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/Script.Companion/invoke/#kotlin.String#kotlin.Function1[com.github.shwaka.kohomology.tex.Script,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script/-companion/invoke.html
-$dokka.location:com.github.shwaka.kohomology.tex/Script///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/Script/Script/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script/-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/Script/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/ScriptBase/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/-script-base.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/addLines/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/add-lines.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/linePrefix/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/line-prefix.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/to-string.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptBase/toStringList/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-base/to-string-list.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addEmptyLines/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-empty-lines.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addLines/#kotlin.Array[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-lines.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addLines/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-lines.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addLines/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-lines.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addScript/#com.github.shwaka.kohomology.tex.ScriptInterface[*]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addScript/#kotlin.Array[com.github.shwaka.kohomology.tex.ScriptInterface[*]]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/addScript/#kotlin.collections.List[com.github.shwaka.kohomology.tex.ScriptInterface[*]]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/add-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/toStringList/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/to-string-list.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/withIndent/#kotlin.Int#kotlin.Function1[TypeParam(bounds=[com.github.shwaka.kohomology.tex.ScriptInterface[^]]),kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/with-indent.html
-$dokka.location:com.github.shwaka.kohomology.tex/ScriptInterface/withLinePrefix/#kotlin.String#kotlin.Function1[TypeParam(bounds=[com.github.shwaka.kohomology.tex.ScriptInterface[^]]),kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-script-interface/with-line-prefix.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle.Companion/invoke/#kotlin.Function1[com.github.shwaka.kohomology.tex.TexArticle,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/-companion/invoke.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle/TexArticle/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/-tex-article.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle/document/#kotlin.Function1[com.github.shwaka.kohomology.tex.TexDocument,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/document.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle/preamble/#kotlin.Function1[com.github.shwaka.kohomology.tex.TexPreamble,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/preamble.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticle/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article/to-string.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticleDslMarker///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article-dsl-marker/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexArticleDslMarker/TexArticleDslMarker/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-article-dsl-marker/-tex-article-dsl-marker.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocument.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocument.Companion/invoke/#kotlin.String#kotlin.Function1[com.github.shwaka.kohomology.tex.TexDocument,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document/-companion/invoke.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocument///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocument/TexDocument/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document/-tex-document.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocument/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface/begin/#kotlin.String#kotlin.String?#kotlin.String?#kotlin.Int#kotlin.Function1[TypeParam(bounds=[com.github.shwaka.kohomology.tex.TexScriptInterface[^]]),kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/begin.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface/section/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/section.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface/sectionStar/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/section-star.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface/subsection/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/subsection.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexDocumentInterface/subsectionStar/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-document-interface/subsection-star.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreamble.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreamble.Companion/invoke/#kotlin.String#kotlin.Function1[com.github.shwaka.kohomology.tex.TexPreamble,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble/-companion/invoke.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreamble///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreamble/TexPreamble/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble/-tex-preamble.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreamble/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreambleInterface///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble-interface/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreambleInterface/documentclass/#kotlin.String#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble-interface/documentclass.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreambleInterface/documentclass/#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble-interface/documentclass.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreambleInterface/usepackage/#kotlin.String#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble-interface/usepackage.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexPreambleInterface/usepackage/#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-preamble-interface/usepackage.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScript.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script/-companion/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScript.Companion/invoke/#kotlin.String#kotlin.Function1[com.github.shwaka.kohomology.tex.TexScript,kotlin.Unit]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script/-companion/invoke.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScript///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScript/TexScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script/-tex-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScript/newScript/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script/new-script.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/index.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/comment/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/comment.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/newcommand/#kotlin.String#kotlin.String#kotlin.Int#kotlin.String?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/newcommand.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/newcommandStar/#kotlin.String#kotlin.String#kotlin.Int#kotlin.String?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/newcommand-star.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/renewcommand/#kotlin.String#kotlin.String#kotlin.Int#kotlin.String?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/renewcommand.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/renewcommandStar/#kotlin.String#kotlin.String#kotlin.Int#kotlin.String?/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/renewcommand-star.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/simpleCommand/#kotlin.String#kotlin.String#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/simple-command.html
-$dokka.location:com.github.shwaka.kohomology.tex/TexScriptInterface/simpleCommand/#kotlin.String#kotlin.String#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.tex/-tex-script-interface/simple-command.html
 $dokka.location:com.github.shwaka.kohomology.util.list////PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util.list/index.html
 $dokka.location:com.github.shwaka.kohomology.util.list//component10/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util.list/component10.html
 $dokka.location:com.github.shwaka.kohomology.util.list//component11/kotlin.collections.List[TypeParam(bounds=[kotlin.Any?])]#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util.list/component11.html
@@ -1688,7 +1620,6 @@ com.github.shwaka.kohomology.model
 com.github.shwaka.kohomology.simplicial
 com.github.shwaka.kohomology.specific
 com.github.shwaka.kohomology.specific.f2
-com.github.shwaka.kohomology.tex
 com.github.shwaka.kohomology.util
 com.github.shwaka.kohomology.util.list
 com.github.shwaka.kohomology.vectsp

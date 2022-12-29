@@ -8,14 +8,51 @@ import com.github.h0tk3y.betterParse.combinators.skip
 import com.github.h0tk3y.betterParse.combinators.use
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parser
+import com.github.h0tk3y.betterParse.lexer.Language
+import com.github.h0tk3y.betterParse.lexer.Token
 import com.github.h0tk3y.betterParse.lexer.literalToken
-import com.github.h0tk3y.betterParse.lexer.regexToken
+// import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
+
+// RegexToken in better-parse has a bug in JS(IR) compiler in kotlin 1.7.
+// See https://github.com/h0tk3y/better-parse/issues/57
+// The workaround (disabling minification) didn't work here.
+private class RegexToken private constructor(
+    name: String?,
+    // private val pattern: String,
+    private val regex: Regex,
+    ignored: Boolean = false
+) : Token(name, ignored) {
+    constructor(
+        name: String?,
+        pattern: String,
+        ignored: Boolean = false
+    ) : this(name, Regex(pattern), ignored)
+
+    override fun match(input: CharSequence, fromIndex: Int): Int {
+        // Bad performance: this will find any match AFTER fromIndex
+        // and then check if it starts with fromIndex.
+        val matchResult: MatchResult? = this.regex.find(input, fromIndex)
+        if (matchResult != null && matchResult.range.first == fromIndex) {
+            return matchResult.range.last - fromIndex + 1
+        }
+        return 0
+    }
+
+    override fun toString(): String = "${name ?: ""} [${regex.pattern}]" + if (ignored) " [ignorable]" else ""
+}
+
+private fun regexToken(
+    @Language("RegExp", "", "") pattern: String,
+    ignore: Boolean = false
+): RegexToken {
+    return RegexToken(null, pattern, ignore)
+}
 
 public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
@@ -56,7 +93,10 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
         gen use {
             this@GAlgebraGrammar.generators.find { it.first == text }?.second
-                ?: throw Exception("This can't happen!")
+                ?: throw Exception(
+                    "This can't happen! " +
+                        "$text not found in generators (${this@GAlgebraGrammar.generators})"
+                )
         }
         ) or (zero use { this@GAlgebraGrammar.gAlgebra.zeroGVector })
     private val intParser: Parser<Int> by int use { text.toInt() }

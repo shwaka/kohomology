@@ -26,7 +26,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     // Previously "0" could not be used as a scalar and "zero" is used for such purpose.
     // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
-    private val gen by regexToken("(" + this.generators.joinToString("|") { Regex.escape(it.first) } + ")")
+    private val gen by literalListToken(this.generators.map { it.first })
     private val int by regexToken("\\d+")
     private val lpar by literalToken("(")
     private val rpar by literalToken(")")

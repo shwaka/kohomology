@@ -8,10 +8,7 @@ import com.github.h0tk3y.betterParse.combinators.skip
 import com.github.h0tk3y.betterParse.combinators.use
 import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parser
-import com.github.h0tk3y.betterParse.lexer.Language
-import com.github.h0tk3y.betterParse.lexer.Token
 import com.github.h0tk3y.betterParse.lexer.literalToken
-// import com.github.h0tk3y.betterParse.lexer.regexToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GVector
@@ -22,47 +19,12 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-// RegexToken in better-parse has a bug in JS(IR) compiler in kotlin 1.7.
-// See https://github.com/h0tk3y/better-parse/issues/57
-// The workaround (disabling minification) didn't work here.
-private class RegexToken private constructor(
-    name: String?,
-    // private val pattern: String,
-    private val regex: Regex,
-    ignored: Boolean = false
-) : Token(name, ignored) {
-    constructor(
-        name: String?,
-        pattern: String,
-        ignored: Boolean = false
-    ) : this(name, Regex(pattern), ignored)
-
-    override fun match(input: CharSequence, fromIndex: Int): Int {
-        // Bad performance: this will find any match AFTER fromIndex
-        // and then check if it starts with fromIndex.
-        val matchResult: MatchResult? = this.regex.find(input, fromIndex)
-        if (matchResult != null && matchResult.range.first == fromIndex) {
-            return matchResult.range.last - fromIndex + 1
-        }
-        return 0
-    }
-
-    override fun toString(): String = "${name ?: ""} [${regex.pattern}]" + if (ignored) " [ignorable]" else ""
-}
-
-private fun regexToken(
-    @Language("RegExp", "", "") pattern: String,
-    ignore: Boolean = false
-): RegexToken {
-    return RegexToken(null, pattern, ignore)
-}
-
 public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
     // Previously "0" could not be used as a scalar and "zero" is used for such purpose.
-    // Currently "zero" is unnecessary but left here for compatibility reason.
+    // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
     private val gen by regexToken("(" + this.generators.joinToString("|") { Regex.escape(it.first) } + ")")
     private val int by regexToken("\\d+")

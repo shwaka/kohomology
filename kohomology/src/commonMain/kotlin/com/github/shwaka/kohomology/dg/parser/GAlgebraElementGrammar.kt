@@ -19,7 +19,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class GAlgebraElementGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {
@@ -43,7 +43,7 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
 
     private fun Pair<Int, Int>.toScalar(): S {
         val (p, q) = this
-        val field = this@GAlgebraGrammar.gAlgebra.field
+        val field = this@GAlgebraElementGrammar.gAlgebra.field
         return field.context.run {
             fromIntPair(p, q)
         }
@@ -52,22 +52,22 @@ public class GAlgebraGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     private fun Pair<Int, Int>.toGVector(): GVectorOrZero<D, B, S, V> {
         val numerator = this.first
         if (numerator == 0) {
-            return this@GAlgebraGrammar.gAlgebra.zeroGVector
+            return this@GAlgebraElementGrammar.gAlgebra.zeroGVector
         }
-        return this@GAlgebraGrammar.gAlgebra.context.run {
+        return this@GAlgebraElementGrammar.gAlgebra.context.run {
             unit * this@toGVector.toScalar()
         }
     }
 
     private val genParser: Parser<GVectorOrZero<D, B, S, V>> by (
         gen use {
-            this@GAlgebraGrammar.generators.find { it.first == text }?.second
+            this@GAlgebraElementGrammar.generators.find { it.first == text }?.second
                 ?: throw Exception(
                     "This can't happen! " +
-                        "$text not found in generators (${this@GAlgebraGrammar.generators})"
+                        "$text not found in generators (${this@GAlgebraElementGrammar.generators})"
                 )
         }
-        ) or (zero use { this@GAlgebraGrammar.gAlgebra.zeroGVector })
+        ) or (zero use { this@GAlgebraElementGrammar.gAlgebra.zeroGVector })
     private val intParser: Parser<Int> by int use { text.toInt() }
     private val parenParser: Parser<GVectorOrZero<D, B, S, V>> by (
         skip(lpar) and parser(::rootParser) and skip(rpar)

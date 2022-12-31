@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
-import com.github.shwaka.kohomology.dg.parser.GAlgebraGrammar
+import com.github.shwaka.kohomology.dg.parser.GAlgebraElementGrammar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -69,7 +69,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
-        val grammar = GAlgebraGrammar(this, generators)
+        val grammar = GAlgebraElementGrammar(this, generators)
         return grammar.parseToEnd(text)
         // The following was commented out since it printed the message in tests.
         // try {

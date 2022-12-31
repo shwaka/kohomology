@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
+import com.github.shwaka.kohomology.dg.parser.GAlgebraGrammar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

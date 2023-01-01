@@ -13,7 +13,9 @@ gradle-app.setting
 # # Work around https://youtrack.jetbrains.com/issue/IDEA-116898
 # gradle/wrapper/gradle-wrapper.properties
 
-.idea/
+# **/ and /* below are necessary to be un-ignored by !-pattern.
+**/.idea/*
+!**/.idea/icon.svg
 
 # my temporary repository
 repository/

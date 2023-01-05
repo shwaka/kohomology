@@ -47,7 +47,7 @@ export type WorkerStatusWithProgress = {
   status: "idle"
 } | {
   status: "computing"
-  progress: number // should be between 0 and 1
+  progress: number | null // should be between 0 and 1
 }
 export type NotifyProgress = {
   command: "notifyProgress"

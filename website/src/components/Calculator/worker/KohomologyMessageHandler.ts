@@ -120,7 +120,7 @@ export class KohomologyMessageHandler {
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
     assertNotNull(this.dgaWrapper)
-    this.notifyProgress({ status: "computing", progress: 0 })
+    this.notifyProgress({ status: "computing", progress: null })
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
     this.notifyProgress({ status: "idle" })
   }

@@ -1,9 +1,13 @@
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { SendMessage, WorkerInput, WorkerOutput } from "./workerInterface"
+import { NotifyProgress, SendMessage, WorkerInput, WorkerOutput } from "./workerInterface"
 
 function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
   expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
+}
+
+function expectNotifyProgress(output: WorkerOutput): asserts output is NotifyProgress {
+  expect(output.command).toBeOneOf(["notifyProgress"])
 }
 
 test("computeCohomology", () => {
@@ -32,6 +36,8 @@ test("computeCohomology", () => {
   expectSendMessage(messageOutput0)
   const messageOutput1 = outputs[2]
   expectSendMessage(messageOutput1)
+  expectNotifyProgress(outputs[1])
+  expectNotifyProgress(outputs[3])
   // check first message
   expect(messageOutput0.messages.length).toBe(1)
   expect(messageOutput0.messages[0].strings[0].content).toEqual("Computing ")

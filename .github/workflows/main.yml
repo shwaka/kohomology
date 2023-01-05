@@ -199,6 +199,7 @@ jobs:
         working-directory: website
       - name: Typecheck website
         run: npm run typecheck
+        working-directory: website
       - name: Test components in website
         run: npm test
         working-directory: website

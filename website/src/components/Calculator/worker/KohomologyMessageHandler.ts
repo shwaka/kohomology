@@ -1,7 +1,7 @@
 import { FreeDGAWrapper } from "kohomology-js"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerStatus, WorkerStatusWithProgress } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerStatusWithProgress } from "./workerInterface"
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null

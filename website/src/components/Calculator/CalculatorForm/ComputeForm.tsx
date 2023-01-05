@@ -1,5 +1,5 @@
 import TeX from "@matejmazur/react-katex"
-import { Tabs, Tab, Button, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
+import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import React, { useCallback, useState } from "react"
 import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInput } from "../worker/workerInterface"
 import { ButtonWithProgress } from "./ButtonWithProgress"

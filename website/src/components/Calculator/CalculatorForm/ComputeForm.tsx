@@ -38,7 +38,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
   if (!visible) {
     return <React.Fragment></React.Fragment>
   }
-  const disabled = !isAvailable(targetName, "cohomology")
+  const supported = isSupported(targetName, "cohomology")
   return (
     <form onSubmit={computeCohomology} data-testid="ComputeCohomologyForm">
       <Stack spacing={1}>
@@ -66,11 +66,11 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
         <Button
           type="submit"
           variant="contained"
-          disabled={disabled || computing}
+          disabled={!supported || computing}
         >
           Compute
         </Button>
-        { disabled &&
+        { !supported &&
           <Alert severity="info">
             Currently, this type of computation is not supported.
           </Alert>
@@ -81,9 +81,9 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
 }
 
 function ComputeClassForm({ targetName, postMessageToWorker, visible, computing }: InternalComputeFormProps): JSX.Element {
-  const disabled = !isAvailable(targetName, "class")
+  const supported = isSupported(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
-    useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
+    useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: !supported })
   const [showBasis, setShowBasis] = useState(true)
   const computeCohomologyClass = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
@@ -121,11 +121,11 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, computing 
         <Button
           type="submit"
           variant="contained"
-          disabled={disabled || computing}
+          disabled={!supported || computing}
         >
           Compute
         </Button>
-        { disabled &&
+        { !supported &&
           <Alert severity="info">
             Currently, this type of computation is not supported.
           </Alert>
@@ -136,7 +136,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, computing 
 }
 
 type ComputationType = "cohomology" | "class"
-function isAvailable(targetName: TargetName, computationType: ComputationType): boolean {
+function isSupported(targetName: TargetName, computationType: ComputationType): boolean {
   switch (targetName) {
     case "self":
     case "freeLoopSpace":

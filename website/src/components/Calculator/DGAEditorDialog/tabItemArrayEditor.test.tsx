@@ -10,6 +10,7 @@ class ArrayEditorTestUtil {
   json: string
   rerender: (ui: React.ReactElement) => void
   container: HTMLElement
+  closeDialog: (() => void) = (() => undefined)
 
   constructor() {
     // set up useTabItemArrayEditor
@@ -20,7 +21,7 @@ class ArrayEditorTestUtil {
     }))
     this.result = result
     // render the tab item
-    const { rerender, container } = render(this.result.current.render())
+    const { rerender, container } = render(this.result.current.render(this.closeDialog))
     this.rerender = rerender
     this.container = container
   }
@@ -80,7 +81,7 @@ class ArrayEditorTestUtil {
       // This async/await is necessary (why?)
       this.result.current.onSubmit(closeDialog)
     })
-    this.rerender(this.result.current.render())
+    this.rerender(this.result.current.render(this.closeDialog))
   }
 
   expectSingleError(message: string): void {

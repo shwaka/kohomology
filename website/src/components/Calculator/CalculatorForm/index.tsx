@@ -35,6 +35,7 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
   const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
+  const [computing, setComputing] = useState(false)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
@@ -130,7 +131,14 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
       </StackItem>
       <StackItem>
-        <ComputeForm targetName={targetName} postMessageToWorker={(message) => worker.postMessage(message)}/>
+        <ComputeForm
+          targetName={targetName}
+          postMessageToWorker={(message) => {
+            worker.postMessage(message)
+            setComputing(true)
+          }}
+          computing={computing}
+        />
       </StackItem>
     </Stack>
   )

@@ -14,9 +14,10 @@ interface InternalComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
   visible: boolean
+  computing: boolean
 }
 
-function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, computing }: InternalComputeFormProps): JSX.Element {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
@@ -65,7 +66,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
         <Button
           type="submit"
           variant="contained"
-          disabled={disabled}
+          disabled={disabled || computing}
         >
           Compute
         </Button>
@@ -79,7 +80,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible }: Int
   )
 }
 
-function ComputeClassForm({ targetName, postMessageToWorker, visible }: InternalComputeFormProps): JSX.Element {
+function ComputeClassForm({ targetName, postMessageToWorker, visible, computing }: InternalComputeFormProps): JSX.Element {
   const disabled = !isAvailable(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: disabled })
@@ -120,7 +121,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible }: Internal
         <Button
           type="submit"
           variant="contained"
-          disabled={disabled}
+          disabled={disabled || computing}
         >
           Compute
         </Button>
@@ -154,9 +155,10 @@ function isAvailable(targetName: TargetName, computationType: ComputationType): 
 export interface ComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
+  computing: boolean
 }
 
-export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProps): JSX.Element {
+export function ComputeForm({ targetName, postMessageToWorker, computing }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
   const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)
@@ -171,11 +173,13 @@ export function ComputeForm({ targetName, postMessageToWorker }: ComputeFormProp
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "cohomology"}
+        computing={computing}
       />
       <ComputeClassForm
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "class"}
+        computing={computing}
       />
     </React.Fragment>
   )

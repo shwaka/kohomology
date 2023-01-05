@@ -1,7 +1,7 @@
 import { FreeDGAWrapper } from "kohomology-js"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerStatus } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerStatus, WorkerStatusWithProgress } from "./workerInterface"
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
@@ -71,10 +71,10 @@ export class KohomologyMessageHandler {
     }
   }
 
-  private notifyProgress(status: WorkerStatus): void {
+  private notifyProgress(statusWithProgress: WorkerStatusWithProgress): void {
     const output: WorkerOutput = {
       command: "notifyProgress",
-      status: status
+      ...statusWithProgress,
     }
     this.postMessage(output)
   }
@@ -88,7 +88,7 @@ export class KohomologyMessageHandler {
     this.sendMessages(toStyledMessage(
       this.dgaWrapper.computationHeader(targetName, minDegree, maxDegree)
     ))
-    this.notifyProgress("computing")
+    this.notifyProgress({ status: "computing", progress: 0 })
     let styledMessages: StyledMessage[] = []
     let previousTime: number = new Date().getTime() // in millisecond
     for (let degree = minDegree; degree <= maxDegree; degree++) {
@@ -109,19 +109,20 @@ export class KohomologyMessageHandler {
       if (currentTime - previousTime > 500) {
         previousTime = currentTime
         this.sendMessages(styledMessages)
-        this.notifyProgress("computing")
+        const progress = (degree - minDegree + 1) / (maxDegree - minDegree + 1)
+        this.notifyProgress({ status: "computing", progress })
         styledMessages = []
       }
     }
     this.sendMessages(styledMessages)
-    this.notifyProgress("idle")
+    this.notifyProgress({ status: "idle" })
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
     assertNotNull(this.dgaWrapper)
-    this.notifyProgress("computing")
+    this.notifyProgress({ status: "computing", progress: 0 })
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
-    this.notifyProgress("idle")
+    this.notifyProgress({ status: "idle" })
   }
 
   private showDgaInfo(): void {

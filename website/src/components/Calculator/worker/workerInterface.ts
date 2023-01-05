@@ -43,9 +43,14 @@ export type SendMessage = {
 }
 
 export type WorkerStatus = "computing" | "idle"
+export type WorkerStatusWithProgress = {
+  status: "idle"
+} | {
+  status: "computing"
+  progress: number // should be between 0 and 1
+}
 export type NotifyProgress = {
   command: "notifyProgress"
-  status: WorkerStatus
-}
+} & WorkerStatusWithProgress
 
 export type WorkerOutput = SendMessage | NotifyProgress

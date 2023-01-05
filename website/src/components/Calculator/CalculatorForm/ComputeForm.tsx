@@ -2,6 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Button, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import React, { useCallback, useState } from "react"
 import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInput } from "../worker/workerInterface"
+import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
@@ -15,9 +16,10 @@ interface InternalComputeFormProps {
   postMessageToWorker: (message: WorkerInput) => void
   visible: boolean
   computing: boolean
+  workerProgress: number
 }
 
-function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, computing }: InternalComputeFormProps): JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, computing, workerProgress }: InternalComputeFormProps): JSX.Element {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
@@ -63,13 +65,10 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
               control={<Radio/>} label={showCohomologyForLabel}/>
           )}
         </RadioGroup>
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={!supported || computing}
-        >
-          Compute
-        </Button>
+        <ButtonWithProgress
+          type="submit" variant="contained" disabled={!supported}
+          computing={computing} progress={workerProgress}
+        />
         { !supported &&
           <Alert severity="info">
             Currently, this type of computation is not supported.
@@ -80,7 +79,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
   )
 }
 
-function ComputeClassForm({ targetName, postMessageToWorker, visible, computing }: InternalComputeFormProps): JSX.Element {
+function ComputeClassForm({ targetName, postMessageToWorker, visible, computing, workerProgress }: InternalComputeFormProps): JSX.Element {
   const supported = isSupported(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: !supported })
@@ -118,13 +117,10 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, computing 
           checked={showBasis}
           onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
         />
-        <Button
-          type="submit"
-          variant="contained"
-          disabled={!supported || computing}
-        >
-          Compute
-        </Button>
+        <ButtonWithProgress
+          type="submit" variant="contained" disabled={!supported}
+          computing={computing} progress={workerProgress}
+        />
         { !supported &&
           <Alert severity="info">
             Currently, this type of computation is not supported.
@@ -156,9 +152,10 @@ export interface ComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
   computing: boolean
+  workerProgress: number
 }
 
-export function ComputeForm({ targetName, postMessageToWorker, computing }: ComputeFormProps): JSX.Element {
+export function ComputeForm({ targetName, postMessageToWorker, computing, workerProgress }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
   const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)
@@ -174,12 +171,14 @@ export function ComputeForm({ targetName, postMessageToWorker, computing }: Comp
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "cohomology"}
         computing={computing}
+        workerProgress={workerProgress}
       />
       <ComputeClassForm
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "class"}
         computing={computing}
+        workerProgress={workerProgress}
       />
     </React.Fragment>
   )

@@ -1,7 +1,7 @@
 import { FreeDGAWrapper } from "kohomology-js"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerStatus } from "./workerInterface"
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
@@ -71,6 +71,14 @@ export class KohomologyMessageHandler {
     }
   }
 
+  private notifyProgress(status: WorkerStatus): void {
+    const output: WorkerOutput = {
+      command: "notifyProgress",
+      status: status
+    }
+    this.postMessage(output)
+  }
+
   private computeCohomology(
     targetName: TargetName,
     minDegree: number, maxDegree: number,
@@ -78,8 +86,9 @@ export class KohomologyMessageHandler {
   ): void {
     assertNotNull(this.dgaWrapper)
     this.sendMessages(toStyledMessage(
-      this.dgaWrapper.computationHeader(targetName, minDegree, maxDegree))
-    )
+      this.dgaWrapper.computationHeader(targetName, minDegree, maxDegree)
+    ))
+    this.notifyProgress("computing")
     let styledMessages: StyledMessage[] = []
     let previousTime: number = new Date().getTime() // in millisecond
     for (let degree = minDegree; degree <= maxDegree; degree++) {
@@ -100,15 +109,19 @@ export class KohomologyMessageHandler {
       if (currentTime - previousTime > 500) {
         previousTime = currentTime
         this.sendMessages(styledMessages)
+        this.notifyProgress("computing")
         styledMessages = []
       }
     }
     this.sendMessages(styledMessages)
+    this.notifyProgress("idle")
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
     assertNotNull(this.dgaWrapper)
+    this.notifyProgress("computing")
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
+    this.notifyProgress("idle")
   }
 
   private showDgaInfo(): void {

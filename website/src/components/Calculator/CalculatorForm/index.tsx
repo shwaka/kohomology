@@ -52,6 +52,11 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
       case "showDgaInfo":
         setDgaInfo(output.messages)
         break
+      case "notifyProgress":
+        if (output.status === "idle") {
+          setComputing(false)
+        }
+        break
     }
   }
 

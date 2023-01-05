@@ -1,4 +1,4 @@
-import { StyledMessage } from "./styled"
+import { StyledMessage } from "../styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation"] as const
 export type TargetName = (typeof targetNames)[number]

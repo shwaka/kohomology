@@ -16,7 +16,7 @@ interface InternalComputeFormProps {
   postMessageToWorker: (message: WorkerInput) => void
   visible: boolean
   computing: boolean
-  workerProgress: number
+  workerProgress: number | null
 }
 
 function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, computing, workerProgress }: InternalComputeFormProps): JSX.Element {
@@ -152,7 +152,7 @@ export interface ComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
   computing: boolean
-  workerProgress: number
+  workerProgress: number | null
 }
 
 export function ComputeForm({ targetName, postMessageToWorker, computing, workerProgress }: ComputeFormProps): JSX.Element {

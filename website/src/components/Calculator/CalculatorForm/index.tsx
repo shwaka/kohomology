@@ -36,7 +36,7 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
   const [computing, setComputing] = useState(false)
-  const [workerProgress, setWorkerProgress] = useState(0)
+  const [workerProgress, setWorkerProgress] = useState<number | null>(null)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly

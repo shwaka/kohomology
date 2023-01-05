@@ -1,4 +1,4 @@
-import { Button } from "@mui/material"
+import { Button, CircularProgress } from "@mui/material"
 import React, { ComponentProps } from "react"
 
 type ButtonWithProgressProps = ComponentProps<typeof Button> & {
@@ -15,6 +15,7 @@ export function ButtonWithProgress({ computing, progress, ...buttonProps }: Butt
       disabled={disabled || computing}
     >
       {computing ? `Computing (${progressPercent}%)` : "Compute"}
+      <CircularProgress variant="determinate" value={progressPercent} size={20}/>
     </Button>
   )
 }

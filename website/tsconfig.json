@@ -18,5 +18,6 @@
     ],
     "resolveJsonModule": true
   },
-  "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ]
+  "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ],
+  "exclude": [ "kohomology-js/build/**/*" ]
 }

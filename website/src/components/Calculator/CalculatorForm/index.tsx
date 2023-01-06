@@ -13,6 +13,7 @@ import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -52,6 +53,8 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
             case "computing":
               setWorkerProgress(output.progress)
               break
+            default:
+              throw new ExhaustivityError(output)
           }
           break
       }

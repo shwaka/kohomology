@@ -164,7 +164,6 @@ function isSupported(targetName: TargetName, computationType: ComputationType): 
 export interface ComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
-  computing: boolean
   workerInfo: WorkerInfo
 }
 

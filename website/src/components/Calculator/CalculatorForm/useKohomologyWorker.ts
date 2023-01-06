@@ -21,25 +21,19 @@ export function useKohomologyWorker({ defaultJson }: UseKohomologyWorkerArgs): U
   const workerRef = useRef(new KohomologyWorker())
   const worker: KohomologyWorker = workerRef.current
 
-  const applyJson = useCallback(
-    (json: string): void => {
-      // setJson(json)
-      const inputUpdate: WorkerInput = {
-        command: "updateJson",
-        json: json,
-      }
-      worker.postMessage(inputUpdate)
-      const inputShowInfo: WorkerInput = {
-        command: "dgaInfo"
-      }
-      worker.postMessage(inputShowInfo)
-    },
-    [worker]
-  )
-
+  // Update worker when json is changed
   useEffect(() => {
-    applyJson(json)
-  }, [json, applyJson])
+    // setJson(json)
+    const inputUpdate: WorkerInput = {
+      command: "updateJson",
+      json: json,
+    }
+    worker.postMessage(inputUpdate)
+    const inputShowInfo: WorkerInput = {
+      command: "dgaInfo"
+    }
+    worker.postMessage(inputShowInfo)
+  }, [json, worker])
 
   return { json, setJson, worker }
 }

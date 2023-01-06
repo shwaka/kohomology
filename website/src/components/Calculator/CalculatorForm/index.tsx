@@ -1,7 +1,6 @@
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"

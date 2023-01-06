@@ -1,19 +1,18 @@
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { useCallback, useEffect, useRef, useState } from "react"
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
-import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
-import { targetNames, TargetName, WorkerInput, WorkerOutput } from "../worker/workerInterface"
+import { targetNames, TargetName, WorkerOutput } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
-import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

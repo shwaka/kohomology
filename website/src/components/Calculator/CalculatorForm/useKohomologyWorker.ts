@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 

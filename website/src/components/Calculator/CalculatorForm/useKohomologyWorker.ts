@@ -5,7 +5,7 @@ import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 interface UseKohomologyWorkerArgs {
   defaultJson: string
   onmessage: (e: MessageEvent<WorkerOutput>) => void
-  resetWorkerState: () => void
+  resetWorkerInfo: () => void
 }
 
 interface UseKohomologyWorkerResult {
@@ -16,7 +16,7 @@ interface UseKohomologyWorkerResult {
 }
 
 export function useKohomologyWorker({
-  defaultJson, onmessage, resetWorkerState
+  defaultJson, onmessage, resetWorkerInfo
 }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
   const [json, setJson] = useState(defaultJson)
 
@@ -46,9 +46,9 @@ export function useKohomologyWorker({
     () => {
       worker.terminate()
       setWorker(new KohomologyWorker())
-      resetWorkerState()
+      resetWorkerInfo()
     },
-    [worker]
+    [worker, setWorker, resetWorkerInfo]
   )
 
   return { json, setJson, postMessage, restart }

@@ -39,25 +39,28 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   const [computing, setComputing] = useState(false)
   const [workerProgress, setWorkerProgress] = useState<number | null>(null)
 
-  worker.onmessage = (e: MessageEvent<WorkerOutput>) => {
-    const output: WorkerOutput = e.data
-    switch (output.command) {
-      case "printMessages":
-        printMessages(output.messages)
-        break
-      case "showDgaInfo":
-        setDgaInfo(output.messages)
-        break
-      case "notifyProgress":
-        if (output.status === "idle") {
-          setComputing(false)
-        }
-        if (output.status === "computing") {
-          setWorkerProgress(output.progress)
-        }
-        break
-    }
-  }
+  worker.onmessage = useCallback(
+    (e: MessageEvent<WorkerOutput>) => {
+      const output: WorkerOutput = e.data
+      switch (output.command) {
+        case "printMessages":
+          printMessages(output.messages)
+          break
+        case "showDgaInfo":
+          setDgaInfo(output.messages)
+          break
+        case "notifyProgress":
+          if (output.status === "idle") {
+            setComputing(false)
+          }
+          if (output.status === "computing") {
+            setWorkerProgress(output.progress)
+          }
+          break
+      }
+    },
+    [printMessages, setDgaInfo, setComputing, setWorkerProgress]
+  )
 
   // function printError(error: unknown): void {
   //   if (error === null) {

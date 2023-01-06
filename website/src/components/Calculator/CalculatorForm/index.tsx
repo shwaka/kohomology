@@ -29,8 +29,8 @@ interface CalculatorFormProps {
   defaultDGAJson: string
 }
 
-function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
-  const { json, setJson, worker } = useKohomologyWorker({ defaultJson: props.defaultDGAJson })
+function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormProps): JSX.Element {
+  const { json, setJson, worker } = useKohomologyWorker({ defaultJson: defaultDGAJson })
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const [targetName, setTargetName] = useState<TargetName>("self")
@@ -43,7 +43,7 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
     const output: WorkerOutput = e.data
     switch (output.command) {
       case "printMessages":
-        props.printMessages(output.messages)
+        printMessages(output.messages)
         break
       case "showDgaInfo":
         setDgaInfo(output.messages)

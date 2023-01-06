@@ -1,7 +1,7 @@
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import React, { useCallback, useState } from "react"
-import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInput } from "../worker/workerInterface"
+import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../worker/workerInterface"
 import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
@@ -9,17 +9,24 @@ import { CohomologyAsTex, getCohomologyAsString } from "./target"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
+function destructureWorkerInfo(
+  workerInfo: WorkerInfo
+): { computing: boolean, workerProgress: number | null } {
+  const computing = (workerInfo.status === "computing")
+  const workerProgress: number | null = (workerInfo.status === "computing") ? workerInfo.progress : null
+  return { computing, workerProgress }
+}
+
 // Tab を切り替えたても minDegree, maxDegree, cocycleString の値が保持されるために
 // visible を Props に追加して，component そのものは必ず render するようにした．
 interface InternalComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
   visible: boolean
-  computing: boolean
-  workerProgress: number | null
+  workerInfo: WorkerInfo
 }
 
-function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, computing, workerProgress }: InternalComputeFormProps): JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): JSX.Element {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
@@ -40,7 +47,10 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
   if (!visible) {
     return <React.Fragment></React.Fragment>
   }
+
   const supported = isSupported(targetName, "cohomology")
+  const { computing, workerProgress } = destructureWorkerInfo(workerInfo)
+
   return (
     <form onSubmit={computeCohomology} data-testid="ComputeCohomologyForm">
       <Stack spacing={1}>
@@ -79,7 +89,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, compu
   )
 }
 
-function ComputeClassForm({ targetName, postMessageToWorker, visible, computing, workerProgress }: InternalComputeFormProps): JSX.Element {
+function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): JSX.Element {
   const supported = isSupported(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: !supported })
@@ -100,6 +110,9 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, computing,
   if (!visible) {
     return <React.Fragment></React.Fragment>
   }
+
+  const { computing, workerProgress } = destructureWorkerInfo(workerInfo)
+
   return (
     <form onSubmit={computeCohomologyClass} data-testid="ComputeClassForm">
       <Stack spacing={1}>
@@ -152,10 +165,10 @@ export interface ComputeFormProps {
   targetName: TargetName
   postMessageToWorker: (message: WorkerInput) => void
   computing: boolean
-  workerProgress: number | null
+  workerInfo: WorkerInfo
 }
 
-export function ComputeForm({ targetName, postMessageToWorker, computing, workerProgress }: ComputeFormProps): JSX.Element {
+export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
   const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)
@@ -170,15 +183,13 @@ export function ComputeForm({ targetName, postMessageToWorker, computing, worker
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "cohomology"}
-        computing={computing}
-        workerProgress={workerProgress}
+        workerInfo={workerInfo}
       />
       <ComputeClassForm
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "class"}
-        computing={computing}
-        workerProgress={workerProgress}
+        workerInfo={workerInfo}
       />
     </React.Fragment>
   )

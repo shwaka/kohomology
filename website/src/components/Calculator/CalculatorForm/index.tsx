@@ -7,7 +7,7 @@ import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
-import { targetNames, TargetName, WorkerOutput } from "../worker/workerInterface"
+import { targetNames, TargetName, WorkerOutput, WorkerInfo } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
@@ -31,15 +31,13 @@ interface CalculatorFormProps {
 
 function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormProps): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
-  const [computing, setComputing] = useState(false)
-  const [workerProgress, setWorkerProgress] = useState<number | null>(null)
+  const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
 
   const resetWorkerInfo = useCallback(
     (): void => {
-      setComputing(false)
-      setWorkerProgress(null)
+      setWorkerInfo({ status: "idle" })
     },
-    [setComputing, setWorkerProgress]
+    [setWorkerInfo]
   )
 
   const onmessage = useCallback(
@@ -53,20 +51,11 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
           setDgaInfo(output.messages)
           break
         case "notifyInfo":
-          switch (output.info.status) {
-            case "idle":
-              setComputing(false)
-              break
-            case "computing":
-              setWorkerProgress(output.info.progress)
-              break
-            default:
-              throw new ExhaustivityError(output.info)
-          }
+          setWorkerInfo(output.info)
           break
       }
     },
-    [printMessages, setDgaInfo, setComputing, setWorkerProgress]
+    [printMessages, setDgaInfo, setWorkerInfo]
   )
   const { json, setJson, postMessage, restart } = useKohomologyWorker({
     defaultJson: defaultDGAJson,
@@ -140,10 +129,9 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
           targetName={targetName}
           postMessageToWorker={(message) => {
             postMessage(message)
-            setComputing(true)
+            setWorkerInfo({ status: "computing", progress: null })
           }}
-          computing={computing}
-          workerProgress={workerProgress}
+          workerInfo={workerInfo}
         />
       </StackItem>
       <StackItem>

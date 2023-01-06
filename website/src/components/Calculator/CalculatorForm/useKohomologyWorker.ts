@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
-import { WorkerInput } from "../worker/workerInterface"
+import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string
+  onmessage: (e: MessageEvent<WorkerOutput>) => void
 }
 
 interface UseKohomologyWorkerResult {
@@ -12,7 +13,7 @@ interface UseKohomologyWorkerResult {
   worker: KohomologyWorker
 }
 
-export function useKohomologyWorker({ defaultJson }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
+export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
   const [json, setJson] = useState(defaultJson)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
@@ -20,6 +21,8 @@ export function useKohomologyWorker({ defaultJson }: UseKohomologyWorkerArgs): U
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   const workerRef = useRef(new KohomologyWorker())
   const worker: KohomologyWorker = workerRef.current
+
+  worker.onmessage = onmessage
 
   // Update worker when json is changed
   useEffect(() => {

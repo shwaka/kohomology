@@ -30,17 +30,12 @@ interface CalculatorFormProps {
 }
 
 function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormProps): JSX.Element {
-  const { json, setJson, worker } = useKohomologyWorker({ defaultJson: defaultDGAJson })
-  const { usageDialogProps, usageButtonProps } = useUsage()
-  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
-  const [targetName, setTargetName] = useState<TargetName>("self")
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
-  const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
   const [computing, setComputing] = useState(false)
   const [workerProgress, setWorkerProgress] = useState<number | null>(null)
 
-  worker.onmessage = useCallback(
-    (e: MessageEvent<WorkerOutput>) => {
+  const onmessage = useCallback(
+    (e: MessageEvent<WorkerOutput>): void => {
       const output: WorkerOutput = e.data
       switch (output.command) {
         case "printMessages":
@@ -61,6 +56,16 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
     },
     [printMessages, setDgaInfo, setComputing, setWorkerProgress]
   )
+  const { json, setJson, worker } = useKohomologyWorker({
+    defaultJson: defaultDGAJson,
+    onmessage,
+  })
+
+  const [targetName, setTargetName] = useState<TargetName>("self")
+  const { usageDialogProps, usageButtonProps } = useUsage()
+  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
+  const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
+
 
   // function printError(error: unknown): void {
   //   if (error === null) {

@@ -10,7 +10,7 @@ interface UseKohomologyWorkerArgs {
 interface UseKohomologyWorkerResult {
   json: string
   setJson: (json: string) => void
-  worker: KohomologyWorker
+  postMessage: (input: WorkerInput) => void
 }
 
 export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
@@ -23,6 +23,7 @@ export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWor
   const worker: KohomologyWorker = workerRef.current
 
   worker.onmessage = onmessage
+  const postMessage = worker.postMessage.bind(worker)
 
   // Update worker when json is changed
   useEffect(() => {
@@ -38,5 +39,5 @@ export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWor
     worker.postMessage(inputShowInfo)
   }, [json, worker])
 
-  return { json, setJson, worker }
+  return { json, setJson, postMessage }
 }

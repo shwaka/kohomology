@@ -34,7 +34,7 @@ type NoArgCommand = {
 export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
 
 // outputs
-export const outputCommands = ["printMessages", "showDgaInfo", "notifyProgress"] as const
+export const outputCommands = ["printMessages", "showDgaInfo", "notifyInfo"] as const
 export type OutputCommand = (typeof outputCommands)[number]
 
 export type SendMessage = {
@@ -43,14 +43,15 @@ export type SendMessage = {
 }
 
 export type WorkerStatus = "computing" | "idle"
-export type WorkerStatusWithProgress = {
+export type WorkerInfo = {
   status: "idle"
 } | {
   status: "computing"
   progress: number | null // should be between 0 and 1
 }
-export type NotifyProgress = {
-  command: "notifyProgress"
-} & WorkerStatusWithProgress
+export type NotifyInfo = {
+  command: "notifyInfo"
+  info: WorkerInfo
+}
 
-export type WorkerOutput = SendMessage | NotifyProgress
+export type WorkerOutput = SendMessage | NotifyInfo

@@ -52,16 +52,16 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
         case "showDgaInfo":
           setDgaInfo(output.messages)
           break
-        case "notifyProgress":
-          switch (output.status) {
+        case "notifyInfo":
+          switch (output.info.status) {
             case "idle":
               setComputing(false)
               break
             case "computing":
-              setWorkerProgress(output.progress)
+              setWorkerProgress(output.info.progress)
               break
             default:
-              throw new ExhaustivityError(output)
+              throw new ExhaustivityError(output.info)
           }
           break
       }

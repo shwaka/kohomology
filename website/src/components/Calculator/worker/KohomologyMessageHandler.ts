@@ -16,6 +16,7 @@ export class KohomologyMessageHandler {
     // this.onmessage = this.onmessage.bind(this)
     this.log = log ?? ((message) => console.log(message))
     this.error = error ?? ((message) => console.error(message))
+    this.log("new KohomologyMessageHandler()")
   }
 
   public onmessage(input: WorkerInput): void {

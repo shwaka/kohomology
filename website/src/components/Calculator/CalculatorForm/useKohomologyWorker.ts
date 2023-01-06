@@ -19,8 +19,7 @@ export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWor
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
-  const workerRef = useRef(new KohomologyWorker())
-  const worker: KohomologyWorker = workerRef.current
+  const [worker, setWorker] = useState(() => new KohomologyWorker())
 
   worker.onmessage = onmessage
   const postMessage = worker.postMessage.bind(worker)

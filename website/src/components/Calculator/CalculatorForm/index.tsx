@@ -34,6 +34,14 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   const [computing, setComputing] = useState(false)
   const [workerProgress, setWorkerProgress] = useState<number | null>(null)
 
+  const resetWorkerState = useCallback(
+    (): void => {
+      setComputing(false)
+      setWorkerProgress(null)
+    },
+    [setComputing, setWorkerProgress]
+  )
+
   const onmessage = useCallback(
     (e: MessageEvent<WorkerOutput>): void => {
       const output: WorkerOutput = e.data
@@ -63,6 +71,7 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   const { json, setJson, postMessage, restart } = useKohomologyWorker({
     defaultJson: defaultDGAJson,
     onmessage,
+    resetWorkerState,
   })
 
   const [targetName, setTargetName] = useState<TargetName>("self")

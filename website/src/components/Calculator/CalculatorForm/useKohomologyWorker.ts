@@ -5,6 +5,7 @@ import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 interface UseKohomologyWorkerArgs {
   defaultJson: string
   onmessage: (e: MessageEvent<WorkerOutput>) => void
+  resetWorkerState: () => void
 }
 
 interface UseKohomologyWorkerResult {
@@ -14,7 +15,9 @@ interface UseKohomologyWorkerResult {
   restart: () => void
 }
 
-export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
+export function useKohomologyWorker({
+  defaultJson, onmessage, resetWorkerState
+}: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
   const [json, setJson] = useState(defaultJson)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
@@ -43,6 +46,7 @@ export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWor
     () => {
       worker.terminate()
       setWorker(new KohomologyWorker())
+      resetWorkerState()
     },
     [worker]
   )

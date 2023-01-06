@@ -28,7 +28,13 @@ export function useKohomologyWorker({
   worker.onmessage = onmessage
   const postMessage = worker.postMessage.bind(worker)
 
-  // Update worker when json is changed
+  // KohomologyWorker (kohomology-js) also stores json (as a FreeDGAlgebra defined from it)
+  // to cache computation results.
+  // This violates the principle "single source of truth",
+  // but such implementation seems to be efficient since KohomologyWorker is run in a different thread.
+  // Hence it is necessary to update worker when
+  // - json is changed or
+  // - worker is restarted.
   useEffect(() => {
     // setJson(json)
     const inputUpdate: WorkerInput = {

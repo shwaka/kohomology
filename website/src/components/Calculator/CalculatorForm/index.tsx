@@ -60,7 +60,7 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
     },
     [printMessages, setDgaInfo, setComputing, setWorkerProgress]
   )
-  const { json, setJson, postMessage } = useKohomologyWorker({
+  const { json, setJson, postMessage, restart } = useKohomologyWorker({
     defaultJson: defaultDGAJson,
     onmessage,
   })
@@ -136,6 +136,14 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
           computing={computing}
           workerProgress={workerProgress}
         />
+      </StackItem>
+      <StackItem>
+        <Button
+          variant="contained" size="small"
+          onClick={restart}
+        >
+          Restart
+        </Button>
       </StackItem>
     </Stack>
   )

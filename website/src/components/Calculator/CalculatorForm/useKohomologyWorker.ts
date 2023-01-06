@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
@@ -11,6 +11,7 @@ interface UseKohomologyWorkerResult {
   json: string
   setJson: (json: string) => void
   postMessage: (input: WorkerInput) => void
+  restart: () => void
 }
 
 export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
@@ -38,5 +39,13 @@ export function useKohomologyWorker({ defaultJson, onmessage }: UseKohomologyWor
     worker.postMessage(inputShowInfo)
   }, [json, worker])
 
-  return { json, setJson, postMessage }
+  const restart = useCallback(
+    () => {
+      worker.terminate()
+      setWorker(new KohomologyWorker())
+    },
+    [worker]
+  )
+
+  return { json, setJson, postMessage, restart }
 }

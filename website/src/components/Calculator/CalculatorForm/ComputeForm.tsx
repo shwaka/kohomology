@@ -169,7 +169,7 @@ export interface ComputeFormProps {
 
 export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: ComputeFormProps): JSX.Element {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
-  const handleChange = (event: React.SyntheticEvent, newValue: ComputationType): void => {
+  const handleChange = (_event: React.SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)
   }
   return (

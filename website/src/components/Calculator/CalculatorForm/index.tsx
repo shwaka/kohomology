@@ -12,6 +12,7 @@ import { ComputeForm } from "./ComputeForm"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
+import { useKohomologyWorker } from "./useKohomologyWorker"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -29,7 +30,7 @@ interface CalculatorFormProps {
 }
 
 function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
-  const [json, setJson] = useState(props.defaultDGAJson)
+  const { json, setJson, worker } = useKohomologyWorker({ defaultJson: props.defaultDGAJson })
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const [targetName, setTargetName] = useState<TargetName>("self")
@@ -37,12 +38,6 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
   const [computing, setComputing] = useState(false)
   const [workerProgress, setWorkerProgress] = useState<number | null>(null)
-
-  // Worker cannot be accessed during SSR (Server Side Rendering)
-  // To avoid SSR, this component should be wrapped in BrowserOnly
-  //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
-  const workerRef = useRef(new KohomologyWorker())
-  const worker: KohomologyWorker = workerRef.current
 
   worker.onmessage = (e: MessageEvent<WorkerOutput>) => {
     const output: WorkerOutput = e.data
@@ -73,26 +68,6 @@ function CalculatorFormImpl(props: CalculatorFormProps): JSX.Element {
   //     props.printMessages(fromString("error", "Unknown error!"))
   //   }
   // }
-
-  const applyJson = useCallback(
-    (json: string): void => {
-      // setJson(json)
-      const inputUpdate: WorkerInput = {
-        command: "updateJson",
-        json: json,
-      }
-      worker.postMessage(inputUpdate)
-      const inputShowInfo: WorkerInput = {
-        command: "dgaInfo"
-      }
-      worker.postMessage(inputShowInfo)
-    },
-    [worker]
-  )
-
-  useEffect(() => {
-    applyJson(json)
-  }, [json, applyJson])
 
   return (
     <Stack

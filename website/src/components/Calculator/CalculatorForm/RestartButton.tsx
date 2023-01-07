@@ -34,7 +34,10 @@ export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): J
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={restart}
+          onClick={() => {
+            restart()
+            setOpen(false)
+          }}
           variant="contained"
         >
           Restart

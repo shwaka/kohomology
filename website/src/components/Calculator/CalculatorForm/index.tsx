@@ -5,7 +5,7 @@ import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { ShowStyledMessage } from "../styled/components"
-import { StyledMessage } from "../styled/message"
+import { fromString, StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerOutput, WorkerInfo } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
@@ -65,7 +65,10 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
 
   const [targetName, setTargetName] = useState<TargetName>("self")
   const { usageDialogProps, usageButtonProps } = useUsage()
-  const { restartDialogProps, restartButtonProps } = useRestart(restart)
+  const { restartDialogProps, restartButtonProps } = useRestart(() => {
+    restart()
+    printMessages(fromString("success", "The background process is restarted."))
+  })
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 

@@ -1,5 +1,5 @@
 import { useColorMode } from "@docusaurus/theme-common"
-import { Box, createTheme, Paper, Stack, ThemeProvider } from "@mui/material"
+import { Box, createTheme, Paper, ThemeProvider } from "@mui/material"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
@@ -7,7 +7,6 @@ import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { sphere } from "./DGAEditorDialog/examples"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
-import styles from "./styles.module.scss"
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()

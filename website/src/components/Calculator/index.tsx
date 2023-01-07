@@ -1,5 +1,5 @@
 import { useColorMode } from "@docusaurus/theme-common"
-import { createTheme, ThemeProvider } from "@mui/material"
+import { createTheme, Paper, ThemeProvider } from "@mui/material"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
@@ -56,9 +56,14 @@ export function Calculator(): JSX.Element {
     <ThemeProvider theme={theme}>
       <div className={styles.calculator} data-testid="Calculator">
         <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>
-        <div className={styles.calculatorResults} ref={scrollRef} data-testid="calculator-results">
+        <Paper
+          elevation={0}
+          classes={{ root: styles.calculatorResults }}
+          ref={scrollRef}
+          data-testid="calculator-results"
+        >
           {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
-        </div>
+        </Paper>
       </div>
     </ThemeProvider>
   )

@@ -34,7 +34,10 @@ export function UsageDialog({ open, setOpen }: UsageDialogProps): JSX.Element {
         <Usage/>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>
+        <Button
+          onClick={() => setOpen(false)}
+          variant="outlined"
+        >
           Close
         </Button>
       </DialogActions>

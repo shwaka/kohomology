@@ -8,11 +8,11 @@ import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerOutput, WorkerInfo } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
+import { RestartButton, RestartDialog, useRestart } from "./RestartButton"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
-import { RestartButton, RestartDialog, useRestart } from "./RestartButton"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -88,8 +88,15 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
       sx={{ width: 400, margin: 1 }}
     >
       <StackItem>
-        <UsageButton {...usageButtonProps}/>
-        <UsageDialog {...usageDialogProps}/>
+        <Stack
+          direction="row"
+          spacing={2}
+        >
+          <UsageButton {...usageButtonProps}/>
+          <UsageDialog {...usageDialogProps}/>
+          <RestartButton {...restartButtonProps}/>
+          <RestartDialog {...restartDialogProps}/>
+        </Stack>
       </StackItem>
       <StackItem data-testid="CalculatorForm-StackItem-DGA">
         Input a Sullivan model of a space <TeX math="X"/>:
@@ -134,10 +141,6 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
           }}
           workerInfo={workerInfo}
         />
-      </StackItem>
-      <StackItem>
-        <RestartButton {...restartButtonProps}/>
-        <RestartDialog {...restartDialogProps}/>
       </StackItem>
     </Stack>
   )

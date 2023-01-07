@@ -81,7 +81,10 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
         <ShareDGADialogContent dgaJson={dgaJson}/>
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)}>
+        <Button
+          onClick={() => setOpen(false)}
+          variant="outlined"
+        >
           Close
         </Button>
       </DialogActions>

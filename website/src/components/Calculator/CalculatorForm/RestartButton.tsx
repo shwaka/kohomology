@@ -30,13 +30,20 @@ export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): J
     >
       <DialogContent>
         Are you sure to restart the background process (WebWorker)?
+        This will stop the current computation (if exists) and clear the cache.
       </DialogContent>
       <DialogActions>
-        <Button onClick={restart}>
+        <Button
+          onClick={restart}
+          variant="contained"
+        >
           Restart
         </Button>
-        <Button onClick={() => setOpen(false)}>
-          Close
+        <Button
+          onClick={() => setOpen(false)}
+          variant="outlined"
+        >
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>

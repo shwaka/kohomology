@@ -12,6 +12,7 @@ import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGA"
 import { UsageButton, UsageDialog, useUsage } from "./Usage"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
+import { RestartButton, RestartDialog, useRestart } from "./RestartButton"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -64,6 +65,7 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
 
   const [targetName, setTargetName] = useState<TargetName>("self")
   const { usageDialogProps, usageButtonProps } = useUsage()
+  const { restartDialogProps, restartButtonProps } = useRestart(restart)
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
@@ -134,12 +136,8 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
         />
       </StackItem>
       <StackItem>
-        <Button
-          variant="contained" size="small"
-          onClick={restart}
-        >
-          Restart
-        </Button>
+        <RestartButton {...restartButtonProps}/>
+        <RestartDialog {...restartDialogProps}/>
       </StackItem>
     </Stack>
   )

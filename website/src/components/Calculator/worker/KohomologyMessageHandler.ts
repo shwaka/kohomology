@@ -8,19 +8,25 @@ export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
   private log: (message: unknown) => void
   private error: (message: unknown) => void
+  private readonly postMessage: (output: WorkerOutput) => void
+
   constructor(
-    private readonly postMessage: (output: WorkerOutput) => void,
+    postMessage: (output: WorkerOutput) => void,
     log?: (message: unknown) => void,
     error?: (message: unknown) => void,
   ) {
     // this.onmessage = this.onmessage.bind(this)
     this.log = log ?? ((message) => console.log(message))
     this.error = error ?? ((message) => console.error(message))
+    this.postMessage = (output: WorkerOutput): void => {
+      this.log(output)
+      postMessage(output)
+    }
+
     this.log("new KohomologyMessageHandler()")
   }
 
   public onmessage(input: WorkerInput): void {
-    this.log("Worker start")
     this.log(input)
     try {
       switch (input.command) {

@@ -1,5 +1,5 @@
 import { useColorMode } from "@docusaurus/theme-common"
-import { createTheme, Paper, ThemeProvider } from "@mui/material"
+import { Box, createTheme, Paper, Stack, ThemeProvider } from "@mui/material"
 import React, { useEffect, useMemo, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
@@ -54,7 +54,15 @@ export function Calculator(): JSX.Element {
   useEffect(() => { scrollToBottom() }, [messages])
   return (
     <ThemeProvider theme={theme}>
-      <div className={styles.calculator} data-testid="Calculator">
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          justifyContent: "center",
+          paddingTop: "10px",
+          paddingBottom: "10px",
+        }}
+      >
         <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>
         <Paper
           elevation={0} variant="outlined"
@@ -74,7 +82,7 @@ export function Calculator(): JSX.Element {
         >
           {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
         </Paper>
-      </div>
+      </Box>
     </ThemeProvider>
   )
 }

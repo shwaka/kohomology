@@ -27,6 +27,6 @@ export function GoToPublishedPage(props: Props): JSX.Element {
   return (
     isDevelopmentMode()
       ? <GoToPublishedPageOnDevMode {...props}/>
-      : <></>
+      : <React.Fragment></React.Fragment>
   )
 }

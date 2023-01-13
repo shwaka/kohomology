@@ -48,7 +48,7 @@ function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
   const url = (urlSearchParams !== null) ?
     `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
   return (
-    <>
+    <React.Fragment>
       <TextField
         label={"url"}
         value={url}
@@ -59,7 +59,7 @@ function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
       <CopyToClipBoardButton
         text={url}
       />
-    </>
+    </React.Fragment>
   )
 }
 

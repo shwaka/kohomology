@@ -8,12 +8,12 @@ export default function Root({children}: {children: React.ReactNode}): JSX.Eleme
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
   return (
-    <>
+    <React.Fragment>
       <Head>
         <link rel="icon" href={`${baseUrl}img/favicon.ico`}/>
         <link rel="apple-touch-icon" href={`${baseUrl}img/favicon.png`} sizes="300x300"/>
       </Head>
       {children}
-    </>
+    </React.Fragment>
   )
 }

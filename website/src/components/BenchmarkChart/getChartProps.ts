@@ -35,6 +35,7 @@ export function getChartProps(
     filterCommit: (commit: CommitWithDate) => boolean
   }
 ): ChartProps<"line", Value[], string> {
+  const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
   const filteredDataset = dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
   const color = toolColors[filteredDataset.length > 0 ? filteredDataset[0].tool : "_"]
   const data: ChartData<"line", Value[], string> = {
@@ -73,7 +74,7 @@ export function getChartProps(
       y: {
         title: {
           display: true,
-          text: dataset.length > 0 ? dataset[0].bench.unit : "",
+          text: benchUnit,
         },
         suggestedMin: 0,
       },
@@ -83,17 +84,17 @@ export function getChartProps(
         callbacks: {
           title: (items) => {
             const {dataIndex} = items[0]
-            const commit = dataset[dataIndex].commit
+            const commit = filteredDataset[dataIndex].commit
             return commit.id
           },
           afterTitle: (items) => {
             const {dataIndex} = items[0]
-            const commit = dataset[dataIndex].commit
+            const commit = filteredDataset[dataIndex].commit
             return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
           },
           label: (item) => {
             let label = item.label
-            const { range, unit, value } = dataset[item.dataIndex].bench
+            const { range, unit, value } = filteredDataset[item.dataIndex].bench
             label = value.toString() + " " + unit
             if (range !== undefined) {
               label += " (" + range + ")"
@@ -101,7 +102,7 @@ export function getChartProps(
             return label
           },
           afterLabel: item => {
-            const { extra } = dataset[item.dataIndex].bench
+            const { extra } = filteredDataset[item.dataIndex].bench
             return (extra !== undefined) ? "\n" + extra : ""
           }
         }
@@ -112,7 +113,7 @@ export function getChartProps(
         return
       }
       const index = activeElems[0].index
-      const url = dataset[index].commit.url
+      const url = filteredDataset[index].commit.url
       window.open(url, "_blank")
     },
   }

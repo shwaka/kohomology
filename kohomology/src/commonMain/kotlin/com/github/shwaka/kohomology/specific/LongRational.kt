@@ -27,7 +27,7 @@ private fun gcd(a: Long, b: Long): Long {
     }
 }
 
-private fun gcdInternal(a: Long, b: Long): Long {
+private tailrec fun gcdInternal(a: Long, b: Long): Long {
     // arguments should satisfy a >= b >= 0
     if (b == 0L) return a
     return gcdInternal(b, a % b)

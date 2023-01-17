@@ -22,7 +22,7 @@ private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
     }
 }
 
-private fun gcdInternal(a: BigInteger, b: BigInteger): BigInteger {
+private tailrec fun gcdInternal(a: BigInteger, b: BigInteger): BigInteger {
     // arguments should satisfy a >= b >= 0
     if (b == BigInteger.ZERO) return a
     return gcdInternal(b, a % b)

@@ -13,6 +13,7 @@ import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.isPowerOf
 import com.github.shwaka.kohomology.util.isPrime
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -226,6 +227,19 @@ fun <S : Scalar> rationalTest(field: Field<S>) = freeSpec {
     }
 }
 
+fun <S : Scalar> bigRationalTest(field: Field<S>) = freeSpec {
+    tags(fieldTag, rationalTag)
+
+    field.context.run {
+        "compute the Napier number should not throw StackOverflowError" {
+            val n = 10000
+            shouldNotThrow<StackOverflowError> {
+                (one + field.fromIntPair(1, n)).pow(n)
+            }
+        }
+    }
+}
+
 class IntRationalTest : FreeSpec({
     tags(fieldTag, intRationalTag)
 
@@ -267,6 +281,7 @@ class RationalTest : FreeSpec({
     include(fromIntTest(RationalField))
     include(fieldTest(RationalField))
     include(rationalTest(RationalField))
+    include(bigRationalTest(RationalField))
 
     "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
         shouldThrow<IllegalArgumentException> {
@@ -291,6 +306,7 @@ class KotlinRationalTest : FreeSpec({
     include(fromIntTest(KotlinRationalField))
     include(fieldTest(KotlinRationalField))
     include(rationalTest(KotlinRationalField))
+    include(bigRationalTest(KotlinRationalField))
 
     "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
         shouldThrow<IllegalArgumentException> {
@@ -315,6 +331,7 @@ class JavaRationalTest : FreeSpec({
     include(fromIntTest(JavaRationalField))
     include(fieldTest(JavaRationalField))
     include(rationalTest(JavaRationalField))
+    include(bigRationalTest(JavaRationalField))
 
     "assertReduced should throw IllegalArgumentException".config(enabled = kococoDebug) {
         shouldThrow<IllegalArgumentException> {

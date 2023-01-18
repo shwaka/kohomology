@@ -28,6 +28,7 @@ class MyPlugin : Plugin<Project> {
         }
 
         project.tasks.register("writeDepGraph") {
+            Exception("print stack trace for debugging").printStackTrace()
             writeDepGraph()
         }
     }

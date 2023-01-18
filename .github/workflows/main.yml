@@ -4,7 +4,7 @@ name: Build # This will be shown in the badge in README.md
 env:
   JAVA_DISTRIBUTION: zulu # default value in actions/setup-java@v1
   JAVA_VERSION: 8
-  NODE_VERSION: 16.x
+  # NODE_VERSION: 16.x # node version is specified in package.json by using volta
   # 'env' cannot be used in 'runs-on'(?)
   SHARED_ARTIFACT_NAME: _internal_artifact
   SHARED_ARTIFACT_PATH: website/kohomology-js/build/js
@@ -189,12 +189,20 @@ jobs:
         run: ./scripts/prepare-site.sh
       - name: Assert samples are working
         run: ./scripts/run-sample.sh
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: website/package-lock.json
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ env.NODE_VERSION }}
+      #     cache: 'npm'
+      #     cache-dependency-path: website/package-lock.json
+      - uses: volta-cli/action@v3
+      - name: Assert that volta is used
+        run: |
+          which node
+          node --version
+          which npm
+          npm --version
+        working-directory: website
       - run: npm ci
         working-directory: website
       - name: Typecheck website
@@ -231,12 +239,13 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
-          cache-dependency-path: website/package-lock.json
+      # - name: Use Node.js
+      #   uses: actions/setup-node@v3
+      #   with:
+      #     node-version: ${{ env.NODE_VERSION }}
+      #     cache: 'npm'
+      #     cache-dependency-path: website/package-lock.json
+      - uses: volta-cli/action@v3
       - name: "Read cache: website/kohomology-js/build/js"
         uses: actions/cache@v3 # restore from generate-site
         # actions/download-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる

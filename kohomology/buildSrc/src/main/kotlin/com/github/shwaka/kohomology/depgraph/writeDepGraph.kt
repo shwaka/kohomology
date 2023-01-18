@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.depgraph
 import java.io.File
 
 fun writeDepGraph() {
+    Exception("print stack trace for debugging").printStackTrace()
     val viewer = DependencyViewer()
     val rootDir = File("./src/commonMain/")
     for (file in rootDir.walk()) {

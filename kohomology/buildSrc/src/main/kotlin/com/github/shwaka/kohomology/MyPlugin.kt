@@ -24,11 +24,15 @@ class MyPlugin : Plugin<Project> {
         }
 
         project.tasks.register("generateComponentN") {
-            generateComponentN(30, project.rootDir)
+            doLast {
+                generateComponentN(30, project.rootDir)
+            }
         }
 
         project.tasks.register("writeDepGraph") {
-            writeDepGraph()
+            doLast {
+                writeDepGraph()
+            }
         }
     }
 }

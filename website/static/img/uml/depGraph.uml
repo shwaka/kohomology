@@ -15,6 +15,7 @@ package free {
 }
 package dg {
   class dg
+  class dg.parser
   class dg.degree
 }
 model --> dg
@@ -39,6 +40,11 @@ example --> linalg
 dg --> dg.degree
 dg --> linalg
 dg --> vectsp
+dg --> dg.parser
+dg.parser --> dg
+dg.parser --> dg.degree
+dg.parser --> linalg
+dg.parser --> vectsp
 vectsp --> linalg
 simplicial --> dg
 simplicial --> dg.degree

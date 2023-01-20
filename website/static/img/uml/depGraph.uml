@@ -2,52 +2,52 @@
 hide members
 hide circle
 set namespaceSeparator ::
-class model
+class example
 class linalg
+class model
+class simplicial
 class specific
 class specific.f2
-class example
 class vectsp
-class simplicial
 package free {
   class free
   class free.monoid
 }
 package dg {
   class dg
-  class dg.parser
   class dg.degree
+  class dg.parser
 }
+dg --> dg.degree
+dg --> dg.parser
+dg --> linalg
+dg --> vectsp
+dg.parser --> dg
+dg.parser --> dg.degree
+dg.parser --> linalg
+dg.parser --> vectsp
+example --> dg.degree
+example --> free
+example --> free.monoid
+example --> linalg
+free --> dg
+free --> dg.degree
+free --> free.monoid
+free --> linalg
+free --> model
+free --> vectsp
+free.monoid --> dg.degree
+free.monoid --> vectsp
 model --> dg
 model --> dg.degree
 model --> free
 model --> free.monoid
 model --> linalg
-free --> dg
-free --> dg.degree
-free --> free.monoid
-free --> linalg
-free --> vectsp
-free --> model
-free.monoid --> dg.degree
-free.monoid --> vectsp
-specific --> linalg
-specific.f2 --> linalg
-example --> dg.degree
-example --> free
-example --> free.monoid
-example --> linalg
-dg --> dg.degree
-dg --> linalg
-dg --> vectsp
-dg --> dg.parser
-dg.parser --> dg
-dg.parser --> dg.degree
-dg.parser --> linalg
-dg.parser --> vectsp
-vectsp --> linalg
 simplicial --> dg
 simplicial --> dg.degree
 simplicial --> linalg
 simplicial --> vectsp
+specific --> linalg
+specific.f2 --> linalg
+vectsp --> linalg
 @enduml

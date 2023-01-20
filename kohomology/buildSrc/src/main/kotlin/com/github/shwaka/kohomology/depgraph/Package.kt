@@ -1,6 +1,6 @@
 package com.github.shwaka.kohomology.depgraph
 
-data class Package(val names: List<String>) {
+data class Package(val names: List<String>) : Comparable<Package> {
     // fun commonPrefix(other: Package): Package {
     //     val commonNames = this.names.zip(other.names).filter { it.first == it.second }.map { it.first }
     //     return Package(commonNames)
@@ -22,6 +22,12 @@ data class Package(val names: List<String>) {
                 return false
         }
         return true
+    }
+
+    override fun compareTo(other: Package): Int {
+        val thisJoined = this.names.joinToString(".")
+        val otherJoined = other.names.joinToString(".")
+        return thisJoined.compareTo(otherJoined)
     }
 
     override fun toString(): String {

@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.depgraph
 
 import java.io.File
 
-fun writeDepGraph() {
+fun writeDepGraph(outputPath: String) {
     val viewer = DependencyViewer()
     val rootDir = File("./src/commonMain/")
     for (file in rootDir.walk()) {
@@ -34,6 +34,6 @@ fun writeDepGraph() {
     // println(viewer.getDependency(prefix))
     val uml: String = viewer.toUml(prefix = prefix, ignore = ignore, groups = groups)
     // println(uml)
-    val outputFile = File("../website/static/img/uml/depGraph.uml")
+    val outputFile = File(outputPath)
     outputFile.writeText(uml)
 }

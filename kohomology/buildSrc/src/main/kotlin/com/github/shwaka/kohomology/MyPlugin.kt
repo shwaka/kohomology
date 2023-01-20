@@ -31,7 +31,12 @@ class MyPlugin : Plugin<Project> {
 
         project.tasks.register("writeDepGraph") {
             doLast {
-                writeDepGraph()
+                val propertyName = "umlPath"
+                val umlPath: String? = System.getProperty(propertyName)
+                if (umlPath == null) {
+                    throw Exception("Please add option -D$propertyName=/path/to/depGraph.uml")
+                }
+                writeDepGraph(umlPath)
             }
         }
     }

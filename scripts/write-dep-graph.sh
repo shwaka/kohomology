@@ -1,8 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-cd ../kohomology/
-./gradlew writeDepGraph
+gitRoot=$(git rev-parse --show-toplevel) # root of the repository
 
-cd ../website/static/img/uml
-plantuml depGraph.uml
+umlPath=$gitRoot/website/static/img/uml/depGraph.uml
+
+cd ../kohomology/
+./gradlew writeDepGraph -DumlPath="$umlPath"
+
+# cd ../website/static/img/uml
+plantuml "$umlPath"

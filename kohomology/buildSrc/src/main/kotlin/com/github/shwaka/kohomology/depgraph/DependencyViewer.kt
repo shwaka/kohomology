@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.depgraph
 
 import java.io.File
 import java.util.SortedMap
+import java.util.SortedSet
 
 class DependencyViewer {
     private val dependency: MutableMap<Package, MutableSet<Package>> = mutableMapOf()
@@ -54,15 +55,16 @@ class DependencyViewer {
     //     return packageList.reduce { acc, pkg -> acc.commonPrefix(pkg) }
     // }
 
-    fun getDependency(prefix: Package? = null): SortedMap<Package, Set<Package>> {
+    fun getDependency(prefix: Package? = null): SortedMap<Package, SortedSet<Package>> {
         if (prefix == null) {
-            return this.dependency.toSortedMap()
+            return this.dependency.mapValues { (_, packages) -> packages.toSortedSet() }.toSortedMap()
         }
         return this.dependency
             .mapKeys { (currentPackage, _) -> currentPackage.removePrefix(prefix) }
             .mapValues { (_, importedPackageSet) ->
                 importedPackageSet.map { importedPackage -> importedPackage.removePrefix(prefix) }.toSet()
             }
+            .mapValues { (_, packages) -> packages.toSortedSet() }
             .toSortedMap()
     }
 

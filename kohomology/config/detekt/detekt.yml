@@ -727,13 +727,13 @@ formatting:
   android: false
   autoCorrect: true
   AnnotationOnSeparateLine:
-    active: true
+    active: false # changed
     autoCorrect: true
   AnnotationSpacing:
     active: true
     autoCorrect: true
   ArgumentListWrapping:
-    active: true
+    active: false # changed
     autoCorrect: true
     indentSize: 4
     maxLineLength: 120
@@ -756,8 +756,8 @@ formatting:
   EnumEntryNameCase:
     active: true
     autoCorrect: true
-  Filename:
-    active: true
+  Filename: # Files which contain single function are named by the function name
+    active: false # changed
   FinalNewline:
     active: true
     autoCorrect: true
@@ -794,7 +794,7 @@ formatting:
     autoCorrect: true
     indentSize: 4
   MaximumLineLength:
-    active: true
+    active: false # changed
     maxLineLength: 120
     ignoreBackTickedIdentifier: false
   ModifierListSpacing:
@@ -804,7 +804,7 @@ formatting:
     active: true
     autoCorrect: true
   MultiLineIfElse:
-    active: true
+    active: false # changed
     autoCorrect: true
   NoBlankLineBeforeRbrace:
     active: true
@@ -844,7 +844,7 @@ formatting:
     autoCorrect: true
   NoWildcardImports:
     active: true
-    packagesToUseImportOnDemandProperty: 'java.util.*,kotlinx.android.synthetic.**'
+    packagesToUseImportOnDemandProperty: 'java.util.*,kotlinx.android.synthetic.**,com.github.shwaka.kohomology.util.list.*' # changed
   NullableTypeSpacing:
     active: false
     autoCorrect: true
@@ -855,7 +855,7 @@ formatting:
     active: false
     autoCorrect: true
   ParameterListWrapping:
-    active: true
+    active: false # changed
     autoCorrect: true
     maxLineLength: 120
   SpacingAroundAngleBrackets:
@@ -892,10 +892,10 @@ formatting:
     active: true
     autoCorrect: true
   SpacingBetweenDeclarationsWithAnnotations:
-    active: true
+    active: false # changed
     autoCorrect: true
   SpacingBetweenDeclarationsWithComments:
-    active: true
+    active: false # changed
     autoCorrect: true
   SpacingBetweenFunctionNameAndOpeningParenthesis:
     active: false

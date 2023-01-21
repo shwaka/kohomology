@@ -23,7 +23,7 @@ suspend inline fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M :
             "bracket should be anti-commutative" {
                 checkAll(gVectorArb, gVectorArb) { a, b ->
                     val sign: Sign = a.degree.koszulSign(b.degree)
-                    (a * b) shouldBe (- sign * b * a)
+                    (a * b) shouldBe (-sign * b * a)
                 }
             }
             "Jacobi identity should be satisfied" {

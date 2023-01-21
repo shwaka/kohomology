@@ -16,6 +16,7 @@ gradle-app.setting
 # **/ and /* below are necessary to be un-ignored by !-pattern.
 **/.idea/*
 !**/.idea/icon.svg
+!**/.idea/detekt.xml
 
 # my temporary repository
 repository/

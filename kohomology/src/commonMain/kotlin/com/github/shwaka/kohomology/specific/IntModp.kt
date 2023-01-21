@@ -58,6 +58,7 @@ public class IntModp(value: Int, public val characteristic: Int) : Scalar {
         return result
     }
 }
+
 public class Fp private constructor(override val characteristic: Int) : FiniteField<IntModp> {
     public companion object {
         private val cache: MutableMap<Int, Fp> = mutableMapOf()

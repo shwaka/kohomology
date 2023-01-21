@@ -10,7 +10,6 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenLocal() // install kohomology from mavenLocal
-    jcenter()
     mavenCentral()
     maven { url = uri("https://shwaka.github.io/maven/") }
 }

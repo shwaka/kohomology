@@ -1,12 +1,12 @@
-import { useColorMode } from "@docusaurus/theme-common"
-import { Box, createTheme, Paper, ThemeProvider } from "@mui/material"
-import React, { useEffect, useMemo, useRef, useState } from "react"
+import { Box, Paper, ThemeProvider } from "@mui/material"
+import React, { useEffect, useRef, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { sphere } from "./DGAEditorDialog/examples"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
+import { useCustomTheme } from "./useCustomTheme"
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
@@ -19,19 +19,7 @@ export function Calculator(): JSX.Element {
   }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
   const scrollRef = useRef<HTMLDivElement>(null)
-  const { colorMode } = useColorMode()
-
-  const theme = useMemo(
-    () => createTheme({
-      palette: {
-        mode: colorMode,
-        primary: {
-          main: "#7e6ca8", // --ifm-color-primary in src/css/custom.css
-        }
-      }
-    }),
-    [colorMode]
-  )
+  const theme = useCustomTheme()
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
     if (addedMessages instanceof Array) {

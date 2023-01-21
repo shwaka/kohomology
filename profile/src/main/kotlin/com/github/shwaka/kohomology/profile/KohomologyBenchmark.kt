@@ -5,9 +5,9 @@ import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
 import com.github.shwaka.kohomology.profile.executable.IsomorphismToCohomologyOfFreePathSpace
-import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean
 import org.openjdk.jmh.annotations.Benchmark
 import org.openjdk.jmh.annotations.Scope
 import org.openjdk.jmh.annotations.State
@@ -66,8 +66,7 @@ class KohomologyBenchmark {
 
     @Benchmark
     fun reducedRowEchelonFormOverF2(): String {
-
-        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(SparseMatrixSpaceOverF2, this.matrixSize)
+        val executable = ComputeReducedRowEchelonFormOfJordanMatrix(SetMatrixSpaceOverF2Boolean, this.matrixSize)
         executable.setup()
         return executable.main()
     }

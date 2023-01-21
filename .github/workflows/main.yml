@@ -230,8 +230,8 @@ jobs:
         with:
           distribution: ${{ env.JAVA_DISTRIBUTION }}
           java-version: ${{ env.JAVA_VERSION }}
-      - name: ktlint
-        run: ./gradlew ktlintCheck
+      - name: detekt
+        run: ./gradlew detekt
         working-directory: kohomology
 
   lint-website:

@@ -1,4 +1,4 @@
-# Run jvmTest, benchmark, ktlintCheck on pull requests.
+# Run jvmTest, benchmark, detekt on pull requests.
 # This does not
 # - upload coverage report to Codecov
 # - publish anything at github pages
@@ -36,8 +36,8 @@ jobs:
         run: ./gradlew compileKotlinJvm
       - name: Test with Gradle
         run: ./gradlew jvmTest -Dkococo.debug
-      - name: Check with ktlint
-        run: ./gradlew ktlintCheck
+      - name: Check with detekt
+        run: ./gradlew detekt
 
   benchmark:
     runs-on: ubuntu-20.04

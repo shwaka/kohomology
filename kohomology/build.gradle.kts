@@ -6,7 +6,8 @@ version = "0.11-SNAPSHOT"
 plugins {
     kotlin("multiplatform") version "1.7.21"
     id("io.kotest") version "0.2.6"
-    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    // id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("io.gitlab.arturbosch.detekt") version "1.22.0"
     id("java-library") // necessary for jacoco
     jacoco
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
@@ -30,6 +31,9 @@ repositories {
 
 kotlin {
     explicitApiWarning()
+    dependencies {
+        detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
+    }
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
@@ -212,6 +216,17 @@ publishing {
 // aliases
 tasks.register("kc") { dependsOn("ktlintCheck") }
 tasks.register("kf") { dependsOn("ktlintFormat") }
+
+detekt {
+    // これがないと multiplatform project は認識してくれないっぽい？
+    source = files(
+        "src/commonMain/kotlin",
+        "src/jsMain/kotlin",
+        "src/jvmMain/kotlin",
+        "src/jvmTest/kotlin",
+        "src/nativeMain/kotlin"
+    )
+}
 
 tasks.dokkaHtml.configure {
     dokkaSourceSets {

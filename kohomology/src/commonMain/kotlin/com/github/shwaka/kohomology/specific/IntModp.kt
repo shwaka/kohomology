@@ -76,11 +76,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
 
     override val order: Int = characteristic
     override val elements: List<IntModp> by lazy {
-        (0 until this.characteristic).map { IntModp(it, this.characteristic) }
-    }
-
-    private inline fun fromCache(n: Int): IntModp {
-        return this.elements[n.mod(this.characteristic)]
+        (0 until this.characteristic).map { this.fromInt(it) }
     }
 
     override fun contains(scalar: IntModp): Boolean {
@@ -92,7 +88,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
             throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
         if (b.characteristic != this.characteristic)
             throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
-        return this.fromCache(a.value + b.value)
+        return IntModp(a.value + b.value, this.characteristic)
     }
 
     override fun subtract(a: IntModp, b: IntModp): IntModp {
@@ -100,7 +96,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
             throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
         if (b.characteristic != this.characteristic)
             throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
-        return this.fromCache(a.value - b.value)
+        return IntModp(a.value - b.value, this.characteristic)
     }
 
     override fun multiply(a: IntModp, b: IntModp): IntModp {
@@ -108,7 +104,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
             throw ArithmeticException("[Error] the characteristic ${a.characteristic} for $a does not match the context (p=${this.characteristic})")
         if (b.characteristic != this.characteristic)
             throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
-        return this.fromCache(a.value * b.value)
+        return IntModp(a.value * b.value, this.characteristic)
     }
 
     override fun divide(a: IntModp, b: IntModp): IntModp {
@@ -117,7 +113,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
         if (b.characteristic != this.characteristic)
             throw ArithmeticException("[Error] the characteristic ${b.characteristic} for $b does not match the context (p=${this.characteristic})")
         val bInv = this.invModp(b)
-        return this.fromCache(a.value * bInv.value)
+        return IntModp(a.value * bInv.value, this.characteristic)
     }
 
     override fun unaryMinusOf(scalar: IntModp): IntModp {
@@ -128,11 +124,11 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
         // TODO: Int として pow した後に modulo するのは重い
-        return this.fromCache(a.value.pow(this.characteristic - 2).mod(this.characteristic))
+        return IntModp(a.value.pow(this.characteristic - 2).mod(this.characteristic), this.characteristic)
     }
 
     override fun fromInt(n: Int): IntModp {
-        return this.fromCache(n)
+        return IntModp(n, this.characteristic)
     }
 
     override val zero: IntModp = this.fromInt(0)

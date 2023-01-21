@@ -15,7 +15,8 @@ export function useScrollToBottom(deps: DependencyList | undefined): RefObject<H
   const scrollToBottom = (): void => {
     const target: HTMLDivElement | null = scrollRef.current
     if (target !== null && target.scrollTo !== undefined && isAtBottom(target)) {
-      // target.scrollTo can be undefined in test environment
+      // target.scrollTo can be undefined in test environment.
+      // Check isAtBottom before rerendering.
       setTimeout(() => {
         target.scrollTo({ top: target.scrollHeight, behavior: "smooth" })
       })

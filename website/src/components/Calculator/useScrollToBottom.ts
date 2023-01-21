@@ -12,6 +12,11 @@ export function useScrollToBottom(deps: DependencyList | undefined): RefObject<H
       })
     }
   }
+
+  // eslint-disable below disables the following warning:
+  //   React Hook useEffect was passed a dependency list that is not an array literal.
+  //   This means we can't statically verify whether you've passed the correct dependencies
+  /* eslint-disable react-hooks/exhaustive-deps */
   useEffect(() => { scrollToBottom() }, deps)
 
   return scrollRef

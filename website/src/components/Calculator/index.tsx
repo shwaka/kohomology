@@ -1,13 +1,12 @@
-import { Box, Paper, ThemeProvider } from "@mui/material"
-import React, { useEffect, useRef, useState } from "react"
+import { Box, ThemeProvider } from "@mui/material"
+import React, { useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { sphere } from "./DGAEditorDialog/examples"
-import { ShowStyledMessage } from "./styled/components"
+import { MessageBox } from "./MessageBox"
 import { fromString, StyledMessage } from "./styled/message"
 import { useCustomTheme } from "./useCustomTheme"
-import { useScrollToBottom } from "./useScrollToBottom"
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
@@ -19,7 +18,6 @@ export function Calculator(): JSX.Element {
     )
   }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
-  const scrollRef = useScrollToBottom([messages])
   const theme = useCustomTheme()
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
@@ -42,24 +40,7 @@ export function Calculator(): JSX.Element {
         }}
       >
         <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>
-        <Paper
-          elevation={0} variant="outlined"
-          ref={scrollRef}
-          data-testid="calculator-results"
-          sx={{
-            width: "700px",
-            height: "700px",
-            overflowY: "scroll",
-            padding: "5px",
-            "@media screen and (max-width: 700px)": {
-              width: "100%",
-              height: "50vh",
-              margin: "3px",
-            }
-          }}
-        >
-          {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
-        </Paper>
+        <MessageBox messages={messages}/>
       </Box>
     </ThemeProvider>
   )

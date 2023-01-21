@@ -1,3 +1,4 @@
+import io.gitlab.arturbosch.detekt.Detekt
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
@@ -214,8 +215,13 @@ publishing {
 }
 
 // aliases
-tasks.register("kc") { dependsOn("ktlintCheck") }
-tasks.register("kf") { dependsOn("ktlintFormat") }
+tasks.register("kc") { dependsOn("detekt") }
+tasks.register("kf") { dependsOn("detekt") }
+tasks.withType<Detekt>().configureEach {
+    // By this option, "./gradlew kf" works the same as "./gradlew detekt --auto-correct".
+    // Note that doFirst didn't work to configure options.
+    autoCorrect = project.gradle.startParameter.taskNames.contains("kf")
+}
 
 detekt {
     // これがないと multiplatform project は認識してくれないっぽい？

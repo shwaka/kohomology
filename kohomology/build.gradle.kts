@@ -18,7 +18,7 @@ plugins {
 apply<com.github.shwaka.kohomology.MyPlugin>()
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven(url = "https://shwaka.github.io/maven/")
     maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") {
         // for dokka

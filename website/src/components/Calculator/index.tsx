@@ -7,6 +7,7 @@ import { sphere } from "./DGAEditorDialog/examples"
 import { ShowStyledMessage } from "./styled/components"
 import { fromString, StyledMessage } from "./styled/message"
 import { useCustomTheme } from "./useCustomTheme"
+import { useScrollToBottom } from "./useScrollToBottom"
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
@@ -18,7 +19,7 @@ export function Calculator(): JSX.Element {
     )
   }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
-  const scrollRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useScrollToBottom([messages])
   const theme = useCustomTheme()
 
   function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
@@ -29,16 +30,6 @@ export function Calculator(): JSX.Element {
     }
   }
 
-  function scrollToBottom(): void {
-    const div: HTMLDivElement | null = scrollRef.current
-    if (div !== null && div.scrollTo !== undefined) {
-      // div.scrollTo can be undefined in test environment
-      setTimeout(() => {
-        div.scrollTo({ top: div.scrollHeight, behavior: "smooth" })
-      })
-    }
-  }
-  useEffect(() => { scrollToBottom() }, [messages])
   return (
     <ThemeProvider theme={theme}>
       <Box

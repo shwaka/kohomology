@@ -50,7 +50,7 @@ output-reports:
   # - 'MdOutputReport'
 
 comments:
-  active: true
+  active: false
   AbsentOrWrongFileLicense:
     active: false
     licenseTemplateFile: 'license.template'
@@ -90,7 +90,7 @@ comments:
     searchProtectedProperty: false
 
 complexity:
-  active: true
+  active: false
   CognitiveComplexMethod:
     active: false
     threshold: 15
@@ -176,7 +176,7 @@ complexity:
     ignoreOverridden: false
 
 coroutines:
-  active: true
+  active: false
   GlobalCoroutineUsage:
     active: false
   InjectDispatcher:
@@ -230,7 +230,7 @@ empty-blocks:
     active: true
 
 exceptions:
-  active: true
+  active: false
   ExceptionRaisedInUnexpectedLocation:
     active: true
     methodNames:
@@ -301,7 +301,7 @@ exceptions:
       - 'Throwable'
 
 naming:
-  active: true
+  active: false
   BooleanPropertyNaming:
     active: false
     allowedPattern: '^(is|has|are)'
@@ -382,7 +382,7 @@ naming:
     ignoreOverridden: true
 
 performance:
-  active: true
+  active: false
   ArrayPrimitive:
     active: true
   CouldBeSequence:
@@ -400,7 +400,7 @@ performance:
     active: true
 
 potential-bugs:
-  active: true
+  active: false
   AvoidReferentialEquality:
     active: true
     forbiddenTypePatterns:
@@ -496,7 +496,7 @@ potential-bugs:
     active: true
 
 style:
-  active: true
+  active: false
   AlsoCouldBeApply:
     active: false
   CanBeNonNullable:

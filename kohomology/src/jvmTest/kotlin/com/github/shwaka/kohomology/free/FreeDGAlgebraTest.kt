@@ -2,11 +2,13 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -16,6 +18,8 @@ import com.github.shwaka.kohomology.parseTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DecomposedSparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.pow
@@ -106,6 +110,42 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
 
         "fromMap" {
             val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y) ->
+                mapOf(y to x.pow(2))
+            }
+            freeDGAlgebra.context.run {
+                val (x, y) = freeDGAlgebra.generatorList
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+                d(x * y) shouldBe x.pow(3)
+            }
+        }
+    }
+
+    "constructor should work well with all optional arguments" - {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+        val degreeGroup = IntDegreeGroup
+        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<IntDegree, StringIndeterminateName>, S>
+            = InternalPrintConfig.Companion::default
+
+        "fromList" {
+            val freeDGAlgebra = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) { (x, _) ->
+                val dx = zeroGVector
+                val dy = x.pow(2)
+                listOf(dx, dy)
+            }
+            freeDGAlgebra.context.run {
+                val (x, y) = freeDGAlgebra.generatorList
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+                d(x * y) shouldBe x.pow(3)
+            }
+        }
+
+        "fromMap" {
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) { (x, y) ->
                 mapOf(y to x.pow(2))
             }
             freeDGAlgebra.context.run {

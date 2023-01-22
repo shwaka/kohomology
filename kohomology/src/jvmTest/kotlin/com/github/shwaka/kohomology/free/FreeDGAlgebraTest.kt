@@ -32,23 +32,36 @@ val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "constructor should throw IllegalArgumentException when d^2 != 0" - {
+        val indeterminateList = listOf(
+            Indeterminate("x", 3),
+            Indeterminate("y", 2),
+            Indeterminate("z", 1),
+        )
+
         "fromList" {
-            val indeterminateList = listOf(
-                Indeterminate("x", 3),
-                Indeterminate("y", 2),
-                Indeterminate("z", 1),
-            )
             shouldThrow<IllegalArgumentException> {
                 FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
                     listOf(zeroGVector, x, y)
                 }
             }
         }
+
+        "fromMap" {
+            shouldThrow<IllegalArgumentException> {
+                FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y, z) ->
+                    mapOf(
+                        y to x,
+                        z to y,
+                    )
+                }
+            }
+        }
     }
 
     "constructor should work well even when the list of generator is empty" - {
+        val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
+
         "fromList" {
-            val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
             val freeDGAlgebra = shouldNotThrowAny {
                 FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
             }
@@ -56,6 +69,50 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
             freeDGAlgebra.context.run {
                 d(unit).isZero().shouldBeTrue()
                 algebraMap(unit) shouldBe unit
+            }
+        }
+
+        "fromMap" {
+            val freeDGAlgebra = shouldNotThrowAny {
+                FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { emptyMap() }
+            }
+            val algebraMap = freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, emptyList())
+            freeDGAlgebra.context.run {
+                d(unit).isZero().shouldBeTrue()
+                algebraMap(unit) shouldBe unit
+            }
+        }
+    }
+
+    "constructor should work well with IntDegree and StringIndeterminate" - {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 3),
+        )
+
+        "fromList" {
+            val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+                val dx = zeroGVector
+                val dy = x.pow(2)
+                listOf(dx, dy)
+            }
+            freeDGAlgebra.context.run {
+                val (x, y) = freeDGAlgebra.generatorList
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+                d(x * y) shouldBe x.pow(3)
+            }
+        }
+
+        "fromMap" {
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y) ->
+                mapOf(y to x.pow(2))
+            }
+            freeDGAlgebra.context.run {
+                val (x, y) = freeDGAlgebra.generatorList
+                d(unit).isZero().shouldBeTrue()
+                d(x).isZero().shouldBeTrue()
+                d(x * y) shouldBe x.pow(3)
             }
         }
     }

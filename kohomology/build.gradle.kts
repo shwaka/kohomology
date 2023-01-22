@@ -214,7 +214,9 @@ publishing {
     }
 }
 
-// aliases
+// Aliases:
+// The names "kc" and "kf" come from ktlintCheck and ktlintFormat,
+// which were previously used for formatting.
 tasks.register("kc") { dependsOn("detekt") }
 tasks.register("kf") { dependsOn("detekt") }
 tasks.withType<Detekt>().configureEach {

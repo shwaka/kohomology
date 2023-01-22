@@ -30,34 +30,37 @@ import io.kotest.matchers.shouldBe
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invalidModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "FreeDGAlgebra should throw IllegalArgumentException when d^2 != 0" {
-        val indeterminateList = listOf(
-            Indeterminate("x", 3),
-            Indeterminate("y", 2),
-            Indeterminate("z", 1),
-        )
-        shouldThrow<IllegalArgumentException> {
-            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
-                listOf(zeroGVector, x, y)
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "constructor should throw IllegalArgumentException when d^2 != 0" - {
+        "fromList" {
+            val indeterminateList = listOf(
+                Indeterminate("x", 3),
+                Indeterminate("y", 2),
+                Indeterminate("z", 1),
+            )
+            shouldThrow<IllegalArgumentException> {
+                FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
+                    listOf(zeroGVector, x, y)
+                }
+            }
+        }
+    }
+
+    "constructor should work well even when the list of generator is empty" - {
+        "fromList" {
+            val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
+            val freeDGAlgebra = shouldNotThrowAny {
+                FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
+            }
+            val algebraMap = freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, emptyList())
+            freeDGAlgebra.context.run {
+                d(unit).isZero().shouldBeTrue()
+                algebraMap(unit) shouldBe unit
             }
         }
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pointModelTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "FreeDGAlgebra should work well even when the list of generator is empty" {
-        val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
-        val freeDGAlgebra = shouldNotThrowAny {
-            FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
-        }
-        val algebraMap = freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, emptyList())
-        freeDGAlgebra.context.run {
-            d(unit).isZero().shouldBeTrue()
-            algebraMap(unit) shouldBe unit
-        }
-    }
-}
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
     "[sphere of odd dim $sphereDim]" - {
@@ -322,8 +325,7 @@ class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, rationalTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
-    include(invalidModelTest(matrixSpace))
-    include(pointModelTest(matrixSpace))
+    include(constructorTest(matrixSpace))
     include(oddSphereModelTest(matrixSpace, 3))
     include(evenSphereModelTest(matrixSpace, 2))
     include(getDGAlgebraMapTest(matrixSpace))
@@ -339,8 +341,7 @@ class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
     tags(freeDGAlgebraTag, rationalTag)
 
     val matrixSpace = DecomposedSparseMatrixSpaceOverRational
-    include(invalidModelTest(matrixSpace))
-    include(pointModelTest(matrixSpace))
+    include(constructorTest(matrixSpace))
     include(oddSphereModelTest(matrixSpace, 3))
     include(evenSphereModelTest(matrixSpace, 2))
     include(getDGAlgebraMapTest(matrixSpace))

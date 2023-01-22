@@ -127,8 +127,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
             Indeterminate("y", 3),
         )
         val degreeGroup = IntDegreeGroup
-        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<IntDegree, StringIndeterminateName>, S>
-            = InternalPrintConfig.Companion::default
+        val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<IntDegree, StringIndeterminateName>, S> =
+            InternalPrintConfig.Companion::default
 
         "fromList" {
             val freeDGAlgebra = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) { (x, _) ->
@@ -157,7 +157,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
         }
     }
 }
-
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSpace: MatrixSpace<S, V, M>, sphereDim: Int) = freeSpec {
     "[sphere of odd dim $sphereDim]" - {

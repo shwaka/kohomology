@@ -59,6 +59,9 @@ public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D
 private typealias GetDifferentialValueList<D, I, S, V, M> =
     FreeGAlgebraContext<D, I, S, V, M>.(List<GVector<D, Monomial<D, I>, S, V>>) -> List<GVectorOrZero<D, Monomial<D, I>, S, V>>
 
+private typealias GetDifferentialValueMap<D, I, S, V, M> =
+    FreeGAlgebraContext<D, I, S, V, M>.(List<GVector<D, Monomial<D, I>, S, V>>) -> Map<GVector<D, Monomial<D, I>, S, V>, GVectorOrZero<D, Monomial<D, I>, S, V>>
+
 public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGAlgebra<D, Monomial<D, I>, S, V, M>, FreeGAlgebra<D, I, S, V, M> {
     override val context: FreeDGAlgebraContext<D, I, S, V, M>
@@ -307,6 +310,40 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
             getDifferentialValueList: GetDifferentialValueList<IntDegree, I, S, V, M>,
         ): FreeDGAlgebra<IntDegree, I, S, V, M> {
             return FreeDGAlgebra.invoke(matrixSpace, IntDegreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueList)
+        }
+
+        public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMap(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: List<Indeterminate<D, I>>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S>,
+            getDifferentialValueMap: GetDifferentialValueMap<D, I, S, V, M>,
+        ): FreeDGAlgebra<D, I, S, V, M> {
+            val getDifferentialValueList: GetDifferentialValueList<D, I, S, V, M> = { generatorList ->
+                val valueMap = getDifferentialValueMap(generatorList)
+                generatorList.map { generator ->
+                    valueMap.getOrElse(generator) { zeroGVector }
+                }
+            }
+            return FreeDGAlgebra.invoke(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueList)
+        }
+
+        public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMap(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: List<Indeterminate<D, I>>,
+            getDifferentialValueMap: GetDifferentialValueMap<D, I, S, V, M>,
+        ): FreeDGAlgebra<D, I, S, V, M> {
+            return FreeDGAlgebra.fromMap(matrixSpace, degreeGroup, indeterminateList, InternalPrintConfig.Companion::default, getDifferentialValueMap)
+        }
+
+        public fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMap(
+            matrixSpace: MatrixSpace<S, V, M>,
+            indeterminateList: List<Indeterminate<IntDegree, I>>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<IntDegree, I>, S> = InternalPrintConfig.Companion::default,
+            getDifferentialValueMap: GetDifferentialValueMap<IntDegree, I, S, V, M>,
+        ): FreeDGAlgebra<IntDegree, I, S, V, M> {
+            return FreeDGAlgebra.fromMap(matrixSpace, IntDegreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueMap)
         }
 
         public operator fun <D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

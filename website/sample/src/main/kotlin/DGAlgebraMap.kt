@@ -14,8 +14,8 @@ fun main() {
         Indeterminate("x", 4 * n),
         Indeterminate("y", 8 * n - 1),
     )
-    val sphere = FreeDGAlgebra.fromList(matrixSpace, sphereIndeterminateList) { (x, _) ->
-        listOf(zeroGVector, x.pow(2))
+    val sphere = FreeDGAlgebra.fromMap(matrixSpace, sphereIndeterminateList) { (x, y) ->
+        mapOf(y to x.pow(2))
     }
 
     // define a Sullivan model of the product of two 2n-spheres
@@ -25,8 +25,8 @@ fun main() {
         Indeterminate("a2", 2 * n),
         Indeterminate("b2", 4 * n - 1),
     )
-    val sphereProduct = FreeDGAlgebra.fromList(matrixSpace, sphereProductIndeterminateList) { (a1, _, a2, _) ->
-        listOf(zeroGVector, a1.pow(2), zeroGVector, a2.pow(2))
+    val sphereProduct = FreeDGAlgebra.fromMap(matrixSpace, sphereProductIndeterminateList) { (a1, b1, a2, b2) ->
+        mapOf(b1 to a1.pow(2), b2 to a2.pow(2))
     }
     // \end{model}
 

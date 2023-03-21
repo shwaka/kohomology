@@ -14,13 +14,14 @@ fun main() {
         Indeterminate("z", 3)
     )
     val matrixSpace = SparseMatrixSpaceOverRational
-    val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
-        val da = zeroGVector // da = 0
-        val db = zeroGVector // db = 0
-        val dx = a.pow(2) // dx = a^2
-        val dy = a * b // dy = ab
-        val dz = b.pow(2) // dz = b^2
-        listOf(da, db, dx, dy, dz)
+    val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
+        mapOf(
+            // da = 0
+            // db = 0
+            x to a.pow(2), // dx = a^2
+            y to a * b,    // dy = ab
+            z to b.pow(2), // dz = b^2
+        )
     }
     for (degree in 0 until 10) {
         val basis = freeDGAlgebra.cohomology.getBasis(degree)

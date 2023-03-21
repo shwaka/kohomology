@@ -14,8 +14,8 @@ fun main() {
         Indeterminate("y", sphereDim * 2 - 1)
     )
     val matrixSpace = SparseMatrixSpaceOverRational
-    val sphere = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y) ->
-        listOf(zeroGVector, x.pow(2)) // dx = 0, dy = x^2
+    val sphere = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y) ->
+        mapOf(y to x.pow(2)) // dx = 0, dy = x^2
     }
     // \end{sphere}
 

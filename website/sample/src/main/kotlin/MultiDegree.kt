@@ -28,8 +28,11 @@ fun main() {
         )
     }
     val matrixSpace = SparseMatrixSpaceOverRational
-    val sphere = FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (x, y, a, b) ->
-        listOf(zeroGVector, x.pow(2), zeroGVector, a.pow(2))
+    val sphere = FreeDGAlgebra.fromMap(matrixSpace, degreeGroup, indeterminateList) { (x, y, a, b) ->
+        mapOf(
+            y to x.pow(2),
+            b to a.pow(2),
+        )
     }
     // \end{model}
 

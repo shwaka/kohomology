@@ -15,11 +15,15 @@ fun main() {
         Indeterminate("b", 2),
         Indeterminate("x", 3),
         Indeterminate("y", 3),
-        Indeterminate("z", 3)
+        Indeterminate("z", 3),
     )
     val matrixSpace = SparseMatrixSpaceOverRational
-    val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
-        listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
+    val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
+        mapOf(
+            x to a.pow(2),
+            y to a * b,
+            z to b.pow(2),
+        )
     }
     val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
     // \end{def}

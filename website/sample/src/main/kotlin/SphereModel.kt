@@ -13,15 +13,19 @@ fun main() {
         Indeterminate("y", 4 * n - 1),
     )
     val matrixSpace = SparseMatrixSpaceOverRational
-    // Sullivan algebra can be defined by using the constructor of FreeDGAlgebra.
+    // Sullivan algebra can be defined by using the function FreeDGAlgebra.fromMap.
     // The last argument is a function
-    // which receives list of generators and returns the list of the values of the differential.
-    val sphere = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y) ->
-        // zeroGVector is a special element that represents zero in any degree.
-        val dx = zeroGVector
-        // x.pow(2) represents x^2
-        val dy = x.pow(2)
-        listOf(dx, dy)
+    // which receives the list of generators and returns the map representing the differential.
+    val sphere = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y) ->
+        mapOf(
+            y to x.pow(2),    // x.pow(2) represents x^2
+        )
+        // If you want, you can write dx = 0 explicitly in the code
+        // by using zeroGVector, a special element that represents zero in any degree.
+        // mapOf(
+        //     x to zeroGVector,
+        //     y to x.pow(2),
+        // )
     }
     // \end{def}
 

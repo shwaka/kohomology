@@ -99,7 +99,7 @@ fun assertSquareOfDifferentialIsZero(
 ): ValidationResultInternal? {
     val differentialValue: String = currentGenerator.differentialValue
     val freeDGAlgebra = try {
-        FreeDGAlgebra(SparseMatrixSpaceOverRational, generatorList)
+        FreeDGAlgebra.fromList(SparseMatrixSpaceOverRational, generatorList)
     } catch (e: Exception) {
         val message = getErrorMessageForPreviousGenerators(generatorList)
         return ValidationResultInternal.Error(message)

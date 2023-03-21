@@ -27,7 +27,7 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 @JsExport
 @Suppress("UNUSED")
 class FreeDGAWrapper(json: String) {
-    private val freeDGAlgebra = FreeDGAlgebra(
+    private val freeDGAlgebra = FreeDGAlgebra.fromList(
         SparseMatrixSpaceOverRational,
         jsonToGeneratorList(json)
     )

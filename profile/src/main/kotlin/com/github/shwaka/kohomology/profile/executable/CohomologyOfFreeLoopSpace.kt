@@ -46,7 +46,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegree<S : Scalar, V : NumVector<S>, M :
                 Indeterminate("y", 4 * n - 1)
             )
         }
-        val sphere = FreeDGAlgebra(this.matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra.fromList(this.matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
@@ -75,7 +75,7 @@ class CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree<S : Scalar, V : Nu
                 Indeterminate("y", 4 * n - 1)
             )
         }
-        val sphere = FreeDGAlgebra(this.matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra.fromList(this.matrixSpace, degreeMonoid, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace.withShiftDegree(sphere)

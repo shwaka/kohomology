@@ -19,7 +19,7 @@ class IsomorphismToCohomologyOfFreePathSpace<S : Scalar, V : NumVector<S>, M : M
             Indeterminate("c", 2),
             Indeterminate("x", 2 * this.n + 1)
         )
-        val sphere = FreeDGAlgebra(this.matrixSpace, indeterminateList) { (c, _) ->
+        val sphere = FreeDGAlgebra.fromList(this.matrixSpace, indeterminateList) { (c, _) ->
             listOf(zeroGVector, c.pow(this@IsomorphismToCohomologyOfFreePathSpace.n + 1))
         }
         val freePathSpace = FreePathSpace(sphere)

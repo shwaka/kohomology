@@ -43,7 +43,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             Indeterminate("x", sphereDim),
             Indeterminate("y", sphereDim * 2 - 1)
         )
-        val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)

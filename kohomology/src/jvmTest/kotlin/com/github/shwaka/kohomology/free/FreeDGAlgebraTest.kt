@@ -44,7 +44,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
 
         "fromList" {
             shouldThrow<IllegalArgumentException> {
-                FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
+                FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y, _) ->
                     listOf(zeroGVector, x, y)
                 }
             }
@@ -67,7 +67,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
 
         "fromList" {
             val freeDGAlgebra = shouldNotThrowAny {
-                FreeDGAlgebra(matrixSpace, indeterminateList) { emptyList() }
+                FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { emptyList() }
             }
             val algebraMap = freeDGAlgebra.getDGAlgebraMap(freeDGAlgebra, emptyList())
             freeDGAlgebra.context.run {
@@ -95,7 +95,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
         )
 
         "fromList" {
-            val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+            val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _) ->
                 val dx = zeroGVector
                 val dy = x.pow(2)
                 listOf(dx, dy)
@@ -131,11 +131,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> constructorTest(matrixSpace
             InternalPrintConfig.Companion::default
 
         "fromList" {
-            val freeDGAlgebra = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) { (x, _) ->
-                val dx = zeroGVector
-                val dy = x.pow(2)
-                listOf(dx, dy)
-            }
+            val freeDGAlgebra =
+                FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) { (x, _) ->
+                    val dx = zeroGVector
+                    val dy = x.pow(2)
+                    listOf(dx, dy)
+                }
             freeDGAlgebra.context.run {
                 val (x, y) = freeDGAlgebra.generatorList
                 d(unit).isZero().shouldBeTrue()
@@ -286,7 +287,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGDerivationTest(matrixS
             Indeterminate("v", 2 * n - m),
             Indeterminate("w", 2 * n - m - 1),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _, v, _) ->
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _, v, _) ->
             listOf(zeroGVector, x.pow(2), zeroGVector, v)
         }
         val (x, y, _, _) = freeDGAlgebra.generatorList
@@ -342,7 +343,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> errorTest(matrixSpace: Matr
             Indeterminate("y", 3),
         )
         shouldThrow<IllegalArgumentException> {
-            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _, _, _) ->
+            FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y, _, _, _) ->
                 listOf(y, x.pow(2))
             }
         }
@@ -355,7 +356,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseDifferentialValueTest(
             GeneratorOfFreeDGA("x", 2, "zero"),
             GeneratorOfFreeDGA("y", 3, "x^2"),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList)
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, generatorList)
         val (x, y) = freeDGAlgebra.generatorList
         freeDGAlgebra.context.run {
             d(x).isZero().shouldBeTrue()
@@ -378,7 +379,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> printerTest(matrixSpace: Ma
             Indeterminate("a", "A", 2),
             Indeterminate("b", "B", 2),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, generatorList) { listOf(zeroGVector, zeroGVector) }
         val texPrinter = Printer(PrintType.TEX)
         "print cohomology classes as TeX" - {
             val (a, b) = freeDGAlgebra.generatorList

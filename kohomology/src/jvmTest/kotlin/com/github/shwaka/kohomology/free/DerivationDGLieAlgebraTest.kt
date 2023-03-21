@@ -96,7 +96,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationDGLieAlgForNonFor
             Indeterminate("y", 5),
             Indeterminate("z", 7),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y, _) ->
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y, _) ->
             listOf(zeroGVector, zeroGVector, x * y)
         }
         val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
@@ -119,7 +119,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationPrinterTest(matri
             Indeterminate("x", "X", 2),
             Indeterminate("y", "Y", 2),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { listOf(zeroGVector, zeroGVector) }
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { listOf(zeroGVector, zeroGVector) }
         val derivationDGLieAlgebra = DerivationDGLieAlgebra(freeDGAlgebra)
         val texPrinter = Printer(PrintType.TEX)
 

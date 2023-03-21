@@ -31,7 +31,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgLinearMapOperationTest(ma
             Indeterminate("x2", n),
             Indeterminate("y2", 2 * n - 1),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (x1, _, x2, _) ->
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x1, _, x2, _) ->
             listOf(zeroGVector, x1.pow(2), zeroGVector, x2.pow(2))
         }
         val (x1, y1, x2, y2) = freeDGAlgebra.generatorList

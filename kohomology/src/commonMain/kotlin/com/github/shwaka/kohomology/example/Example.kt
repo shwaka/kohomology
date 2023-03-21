@@ -33,7 +33,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphere(
     val indeterminateList = listOf(
         Indeterminate("x", dim),
     )
-    return FreeDGAlgebra(matrixSpace, indeterminateList) {
+    return FreeDGAlgebra.fromList(matrixSpace, indeterminateList) {
         listOf(zeroGVector)
     }
 }
@@ -48,7 +48,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphere(
         Indeterminate("x", dim),
         Indeterminate("y", 2 * dim - 1)
     )
-    return FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
 }
@@ -82,7 +82,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereWithMultiD
             Indeterminate("x", 2 * n + 1),
         )
     }
-    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (_) ->
+    return FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (_) ->
         listOf(zeroGVector)
     }
 }
@@ -105,7 +105,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereWithMulti
             Indeterminate("y", 4 * n - 1)
         )
     }
-    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
 }
@@ -120,7 +120,7 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpa
         Indeterminate("c", 2),
         Indeterminate("x", 2 * n + 1)
     )
-    return FreeDGAlgebra(matrixSpace, indeterminateList) { (c, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (c, _) ->
         listOf(zeroGVector, c.pow(n + 1))
     }
 }
@@ -143,7 +143,7 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpa
             Indeterminate("x", 2 * k * (n + 1) - 1)
         )
     }
-    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (c, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (c, _) ->
         listOf(zeroGVector, c.pow(n + 1))
     }
 }
@@ -158,7 +158,7 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrat
         Indeterminate("y", 3),
         Indeterminate("z", 3),
     )
-    return FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (a, b, _, _, _) ->
         listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
     }
 }
@@ -182,7 +182,7 @@ public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrat
             Indeterminate("z", 4 * m - 1),
         )
     }
-    return FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (a, b, _, _, _) ->
+    return FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (a, b, _, _, _) ->
         listOf(zeroGVector, zeroGVector, a.pow(2), a * b, b.pow(2))
     }
 }

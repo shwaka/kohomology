@@ -27,7 +27,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
             )
         }
         val matrixSpace = SparseMatrixSpaceOverRational
-        val sphere = FreeDGAlgebra(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra.fromList(matrixSpace, degreeGroup, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freeLoopSpace = FreeLoopSpace(sphere)
@@ -63,7 +63,7 @@ class FreeDGAlgebraWithMultiDegreeTest : FreeSpec({
                     degreeGroup.augmentation(indeterminate.degree)
                 )
             }
-            val intSphere = FreeDGAlgebra(matrixSpace, IntDegreeGroup, intIndeterminateList) { (x, _) ->
+            val intSphere = FreeDGAlgebra.fromList(matrixSpace, IntDegreeGroup, intIndeterminateList) { (x, _) ->
                 listOf(zeroGVector, x.pow(2))
             }
             val intFreeLoopSpace = FreeLoopSpace(intSphere)

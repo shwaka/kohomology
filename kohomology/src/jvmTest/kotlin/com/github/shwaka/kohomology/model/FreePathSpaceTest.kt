@@ -33,7 +33,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpaceOfEvenSphereTe
             Indeterminate("x", sphereDim),
             Indeterminate("y", sphereDim * 2 - 1)
         )
-        val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _) ->
+        val sphere = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _) ->
             listOf(zeroGVector, x.pow(2))
         }
         val freePathSpace = FreePathSpace(sphere)
@@ -118,7 +118,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freePathSpacePrinterTest(
             Indeterminate("x", 3),
             Indeterminate("y", 3),
         )
-        val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (_, _, _, _) ->
+        val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (_, _, _, _) ->
             listOf(zeroGVector, zeroGVector, zeroGVector, zeroGVector)
         }
         val freePathSpace = FreePathSpace(freeDGAlgebra)

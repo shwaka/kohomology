@@ -290,7 +290,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 Indeterminate("dv", 2 * n),
                 Indeterminate("v", 2 * n - 1),
             )
-            FreeDGAlgebra(matrixSpace, indeterminateList) { (dt, _, du, _, dv, _) ->
+            FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (dt, _, du, _, dv, _) ->
                 listOf(zeroGVector, dt, zeroGVector, du, zeroGVector, dv)
             }
         }
@@ -301,7 +301,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 Indeterminate("y", 2 * n - 1),
                 Indeterminate("z", 2 * n - 1),
             )
-            FreeDGAlgebra(matrixSpace, indeterminateList) { (x, _, _) ->
+            FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, _, _) ->
                 listOf(zeroGVector, x.pow(2), zeroGVector)
             }
         }
@@ -346,7 +346,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> liftTest(matrixSpace: Matri
                 Indeterminate("u", 2 * n - 1),
                 Indeterminate("v", 2 * n),
             )
-            FreeDGAlgebra(matrixSpace, indeterminateList) { (t, _, _) ->
+            FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (t, _, _) ->
                 listOf(zeroGVector, t.pow(2), zeroGVector)
             }
         }

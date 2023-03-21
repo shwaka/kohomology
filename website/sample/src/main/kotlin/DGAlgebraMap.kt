@@ -14,7 +14,7 @@ fun main() {
         Indeterminate("x", 4 * n),
         Indeterminate("y", 8 * n - 1),
     )
-    val sphere = FreeDGAlgebra(matrixSpace, sphereIndeterminateList) { (x, _) ->
+    val sphere = FreeDGAlgebra.fromList(matrixSpace, sphereIndeterminateList) { (x, _) ->
         listOf(zeroGVector, x.pow(2))
     }
 
@@ -25,7 +25,7 @@ fun main() {
         Indeterminate("a2", 2 * n),
         Indeterminate("b2", 4 * n - 1),
     )
-    val sphereProduct = FreeDGAlgebra(matrixSpace, sphereProductIndeterminateList) { (a1, _, a2, _) ->
+    val sphereProduct = FreeDGAlgebra.fromList(matrixSpace, sphereProductIndeterminateList) { (a1, _, a2, _) ->
         listOf(zeroGVector, a1.pow(2), zeroGVector, a2.pow(2))
     }
     // \end{model}

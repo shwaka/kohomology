@@ -14,7 +14,7 @@ fun main() {
         Indeterminate("z", 3)
     )
     val matrixSpace = SparseMatrixSpaceOverRational
-    val freeDGAlgebra = FreeDGAlgebra(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
+    val freeDGAlgebra = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (a, b, x, y, z) ->
         val da = zeroGVector // da = 0
         val db = zeroGVector // db = 0
         val dx = a.pow(2) // dx = a^2

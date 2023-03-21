@@ -16,7 +16,7 @@ fun main() {
     // Sullivan algebra can be defined by using the constructor of FreeDGAlgebra.
     // The last argument is a function
     // which receives list of generators and returns the list of the values of the differential.
-    val sphere = FreeDGAlgebra(matrixSpace, indeterminateList) { (x, y) ->
+    val sphere = FreeDGAlgebra.fromList(matrixSpace, indeterminateList) { (x, y) ->
         // zeroGVector is a special element that represents zero in any degree.
         val dx = zeroGVector
         // x.pow(2) represents x^2

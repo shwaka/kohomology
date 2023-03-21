@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
-version = "0.11-SNAPSHOT"
+version = "0.11"
 
 plugins {
     kotlin("multiplatform") version "1.7.21"

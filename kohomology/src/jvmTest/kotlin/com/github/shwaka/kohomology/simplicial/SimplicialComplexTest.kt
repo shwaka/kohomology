@@ -14,6 +14,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
@@ -144,6 +145,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpa
             }
             simplicialComplex.getMaximalFaces(dim - 1).shouldHaveSize(dim + 1)
             simplicialComplex.getMaximalFaces(dim).shouldBeEmpty()
+        }
+        "boundaryDelta(dim).isSameAs(delta(dim)) should be false" {
+            val other = delta(dim)
+            simplicialComplex.isSameAs(other).shouldBeFalse()
+            other.isSameAs(simplicialComplex).shouldBeFalse()
         }
     }
 }

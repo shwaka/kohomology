@@ -54,6 +54,12 @@ private constructor(public val vertices: List<Vertex>) : BasisName {
 public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
+    public val vertices: List<Vertex> by lazy {
+        this.getSimplices(0).map { zeroSimplex ->
+            zeroSimplex.vertices[0]
+        }
+    }
+
     private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getGVectorSpace(
         matrixSpace: MatrixSpace<S, V, M>,
     ): GVectorSpace<IntDegree, Simplex<Vertex>, S, V> {

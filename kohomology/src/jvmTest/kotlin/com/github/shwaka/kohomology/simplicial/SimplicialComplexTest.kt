@@ -49,6 +49,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
                 dgVectorSpace.cohomology[degree].dim shouldBe expected
             }
         }
+        "check vertices" {
+            simplicialComplex.vertices shouldBe (0..dim).toList()
+        }
     }
 }
 
@@ -64,6 +67,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpa
                 }
                 dgVectorSpace.cohomology[degree].dim shouldBe expected
             }
+        }
+        "check vertices" {
+            simplicialComplex.vertices shouldBe (0..dim).toList()
         }
     }
 }

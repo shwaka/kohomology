@@ -21,6 +21,11 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     }
 
     private val maximalFaces: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
+    public val allMaximalFaces: Map<Int, List<Simplex<Vertex>>> by lazy {
+        (0..(this.vertices.size)).associateWith { dim ->
+            this.getMaximalFaces(dim)
+        }
+    }
 
     public fun getMaximalFaces(dim: Int): List<Simplex<Vertex>> {
         this.maximalFaces[dim]?.let { return it }
@@ -82,6 +87,17 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public fun eulerCharacteristic(): Int {
         val maxDim = this.getSimplices(0).size - 1
         return (0..maxDim).sumOf { dim -> this.getSimplices(dim).size * (-1).pow(dim) }
+    }
+
+    public fun isSameAs(other: SimplicialComplex<Vertex>): Boolean {
+        // This method compares mathematically,
+        // so could not be implemented as equals()
+        if (this.vertices.size != other.vertices.size) {
+            return false
+        }
+        return (0..(this.vertices.size)).all { dim ->
+            this.getSimplices(dim) == other.getSimplices(dim)
+        }
     }
 
     public companion object {

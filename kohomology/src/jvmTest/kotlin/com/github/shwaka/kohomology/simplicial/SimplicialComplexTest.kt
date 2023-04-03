@@ -55,6 +55,10 @@ suspend inline fun <Vertex : Comparable<Vertex>> FreeScope.axiomTestTemplate(
                 }
             }
         }
+        "maximal faces should generate itself" {
+            val generatedSimplicialComplex = SimplicialComplex.generatedBy(simplicialComplex.allMaximalFaces)
+            generatedSimplicialComplex.isSameAs(simplicialComplex).shouldBeTrue()
+        }
     }
 }
 

@@ -16,6 +16,10 @@ public class Simplex<Vertex : Comparable<Vertex>>
 private constructor(public val vertices: List<Vertex>) : BasisName {
     public val dim: Int = vertices.size
 
+    public val faceList: List<Simplex<Vertex>> by lazy {
+        (0..this.dim).map { i -> this.face(i) }
+    }
+
     public fun face(i: Int): Simplex<Vertex> {
         return Simplex(this.vertices.filterIndexed { index, _ -> index != i })
     }
@@ -58,6 +62,22 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
         this.getSimplices(0).map { zeroSimplex ->
             zeroSimplex.vertices[0]
         }
+    }
+
+    private val maximalFaces: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
+
+    public fun getMaximalFaces(dim: Int): List<Simplex<Vertex>> {
+        this.maximalFaces[dim]?.let { return it }
+        // if (dim == this.vertices.size - 1) {
+        //     return this.getSimplices(dim)
+        // }
+        val result = this.getSimplices(dim).toMutableList()
+        for (simplex in this.getSimplices(dim + 1)) {
+            for (face in simplex.faceList) {
+                result.remove(face)
+            }
+        }
+        return result
     }
 
     private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getGVectorSpace(

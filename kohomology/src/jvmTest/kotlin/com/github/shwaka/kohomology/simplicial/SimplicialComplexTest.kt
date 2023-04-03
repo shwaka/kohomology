@@ -12,6 +12,9 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldHaveSingleElement
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 val simplicialComplexTag = NamedTag("SimplicialComplex")
@@ -52,6 +55,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
         "check vertices" {
             simplicialComplex.vertices shouldBe (0..dim).toList()
         }
+        "maximal face should be the top simplex" {
+            (0 until dim).forAll { i ->
+                simplicialComplex.getMaximalFaces(i).shouldBeEmpty()
+            }
+            simplicialComplex.getMaximalFaces(dim) shouldBe
+                listOf(Simplex.fromSorted((0..dim).toList()))
+        }
     }
 }
 
@@ -70,6 +80,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> boundaryDeltaTest(matrixSpa
         }
         "check vertices" {
             simplicialComplex.vertices shouldBe (0..dim).toList()
+        }
+        "the number of maximal faces should be dim + 1" {
+            (0 until dim - 1).forAll { i ->
+                simplicialComplex.getMaximalFaces(i).shouldBeEmpty()
+            }
+            simplicialComplex.getMaximalFaces(dim - 1).shouldHaveSize(dim + 1)
+            simplicialComplex.getMaximalFaces(dim).shouldBeEmpty()
         }
     }
 }

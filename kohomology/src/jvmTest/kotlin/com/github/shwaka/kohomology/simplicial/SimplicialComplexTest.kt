@@ -108,8 +108,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
             (0..(dim + 1)).forAll { i ->
                 generatedSimplicialComplex.getSimplices(i).size shouldBe simplicialComplex.getSimplices(i).size
             }
-            (0..(dim + 1)).forAll { i ->
-                generatedDGVectorSpace.cohomology[i].dim shouldBe dgVectorSpace.cohomology[i].dim
+            (-1..(dim + 1)).forAll { i ->
+                generatedDGVectorSpace.cohomology[-i].dim shouldBe dgVectorSpace.cohomology[-i].dim
             }
         }
     }

@@ -91,7 +91,8 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
             val maxDim = generatingSimplices.keys.max()
             val simplices: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
             fun getSimplices(dim: Int): List<Simplex<Vertex>> {
-                if (dim > maxDim) {
+                if (dim > maxDim || dim < 0) {
+                    // We don't want to contain (-1)-simplex (the empty simplex)
                     return emptyList()
                 }
                 simplices[dim]?.let { return it }

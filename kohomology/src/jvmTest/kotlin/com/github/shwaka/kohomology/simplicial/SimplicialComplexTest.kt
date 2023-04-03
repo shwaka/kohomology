@@ -61,6 +61,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
             simplicialComplex.getMaximalFaces(dim) shouldBe
                 listOf(Simplex.fromSorted((0..dim).toList()))
         }
+        "test generatedBy" {
+            val generatingSimplices = mapOf(
+                dim to listOf(Simplex.fromSorted((0..dim).toList()))
+            )
+            val generatedSimplicialComplex = SimplicialComplex.generatedBy(generatingSimplices)
+            val generatedDGVectorSpace = generatedSimplicialComplex.dgVectorSpace(matrixSpace)
+            (0..(dim + 1)).forAll { i ->
+                generatedDGVectorSpace.cohomology[i].dim shouldBe dgVectorSpace.cohomology[i].dim
+            }
+        }
     }
 }
 

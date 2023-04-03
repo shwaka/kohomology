@@ -24,15 +24,13 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
 
     public fun getMaximalFaces(dim: Int): List<Simplex<Vertex>> {
         this.maximalFaces[dim]?.let { return it }
-        // if (dim == this.vertices.size - 1) {
-        //     return this.getSimplices(dim)
-        // }
         val result = this.getSimplices(dim).toMutableList()
         for (simplex in this.getSimplices(dim + 1)) {
             for (face in simplex.faceList) {
                 result.remove(face)
             }
         }
+        this.maximalFaces[dim] = result
         return result
     }
 

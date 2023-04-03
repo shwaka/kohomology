@@ -81,6 +81,6 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
 
     public fun eulerCharacteristic(): Int {
         val maxDim = this.getSimplices(0).size - 1
-        return (0..maxDim).map { dim -> this.getSimplices(dim).size * (-1).pow(dim) }.sum()
+        return (0..maxDim).sumOf { dim -> this.getSimplices(dim).size * (-1).pow(dim) }
     }
 }

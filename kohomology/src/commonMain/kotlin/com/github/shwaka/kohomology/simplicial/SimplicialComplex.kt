@@ -24,7 +24,7 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public val allMaximalFaces: Map<Int, List<Simplex<Vertex>>> by lazy {
         (0..(this.vertices.size)).associateWith { dim ->
             this.getMaximalFaces(dim)
-        }
+        }.filterValues { simplices -> simplices.isNotEmpty() }
     }
 
     public fun getMaximalFaces(dim: Int): List<Simplex<Vertex>> {

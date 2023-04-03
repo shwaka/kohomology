@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -27,6 +28,17 @@ private fun factorial(n: Int): Int {
 
 private fun combination(n: Int, p: Int): Int {
     return factorial(n) / (factorial(p) * factorial(n - p))
+}
+
+fun <Vertex : Comparable<Vertex>>axiomTest(simplicialComplex: SimplicialComplex<Vertex>) = freeSpec {
+    val numOfVertices = simplicialComplex.vertices.size
+    "dimensions of simplices should be correct" {
+        (0..(2 * numOfVertices)).forAll { dim ->
+            simplicialComplex.getSimplices(dim).forAll { simplex ->
+                simplex.dim shouldBe dim
+            }
+        }
+    }
 }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: MatrixSpace<S, V, M>, dim: Int) = freeSpec {
@@ -133,6 +145,7 @@ class SimplicialComplexTest : FreeSpec({
     val matrixSpace = SparseMatrixSpaceOverRational
     include(deltaTest(matrixSpace, 5))
     include(boundaryDeltaTest(matrixSpace, 5))
+    include(axiomTest(delta(5)))
 
     // projective plane
     include(projectivePlaneTest(SparseMatrixSpaceOverRational))

@@ -14,6 +14,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -44,6 +45,16 @@ suspend inline fun <Vertex : Comparable<Vertex>> FreeScope.axiomTestTemplate(
                 }
             }
         }
+        "any face of a simplex should be a simplex" {
+            (1..(2 * numOfVertices)).forAll { dim ->
+                simplicialComplex.getSimplices(dim).forAll { simplex ->
+                    val simplices = simplicialComplex.getSimplices(dim - 1)
+                    simplex.faceList.forAll { face ->
+                        simplices.contains(face).shouldBeTrue()
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -52,6 +63,7 @@ fun axiomTest() = freeSpec {
         val n = 5
         axiomTestTemplate("Δ^$n", delta(n))
         axiomTestTemplate("∂Δ^$n", boundaryDelta(n))
+        axiomTestTemplate("RP^2", projectivePlane())
     }
 }
 

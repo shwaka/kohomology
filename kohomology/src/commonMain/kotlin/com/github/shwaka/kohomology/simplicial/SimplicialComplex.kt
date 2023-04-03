@@ -91,12 +91,13 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
             val maxDim = generatingSimplices.keys.max()
             val simplices: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
             fun getSimplices(dim: Int): List<Simplex<Vertex>> {
-                if (dim >= maxDim) {
+                if (dim > maxDim) {
                     return emptyList()
                 }
                 simplices[dim]?.let { return it }
 
-                val resultAsSet: MutableSet<Simplex<Vertex>> = mutableSetOf()
+                val resultAsSet: MutableSet<Simplex<Vertex>> =
+                    generatingSimplices.getOrElse(dim) { emptyList() }.toMutableSet()
                 for (simplex in getSimplices(dim + 1)) {
                     for (face in simplex.faceList) {
                         resultAsSet.add(face)

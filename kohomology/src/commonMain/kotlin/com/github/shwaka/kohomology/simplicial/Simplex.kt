@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class Simplex<Vertex : Comparable<Vertex>>
 private constructor(public val vertices: List<Vertex>) : BasisName {
-    public val dim: Int = vertices.size
+    public val dim: Int = vertices.size - 1
 
     public val faceList: List<Simplex<Vertex>> by lazy {
         (0..this.dim).map { i -> this.face(i) }

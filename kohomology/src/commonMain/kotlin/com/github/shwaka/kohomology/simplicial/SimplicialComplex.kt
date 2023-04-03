@@ -96,7 +96,7 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
             return false
         }
         return (0..(this.vertices.size)).all { dim ->
-            this.getSimplices(dim) == other.getSimplices(dim)
+            this.getSimplices(dim).toSet() == other.getSimplices(dim).toSet()
         }
     }
 

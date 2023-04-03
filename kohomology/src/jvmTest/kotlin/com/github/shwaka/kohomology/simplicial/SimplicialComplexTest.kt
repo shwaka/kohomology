@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
@@ -30,14 +31,27 @@ private fun combination(n: Int, p: Int): Int {
     return factorial(n) / (factorial(p) * factorial(n - p))
 }
 
-fun <Vertex : Comparable<Vertex>>axiomTest(simplicialComplex: SimplicialComplex<Vertex>) = freeSpec {
-    val numOfVertices = simplicialComplex.vertices.size
-    "dimensions of simplices should be correct" {
-        (0..(2 * numOfVertices)).forAll { dim ->
-            simplicialComplex.getSimplices(dim).forAll { simplex ->
-                simplex.dim shouldBe dim
+suspend inline fun <Vertex : Comparable<Vertex>> FreeScope.axiomTestTemplate(
+    name: String,
+    simplicialComplex: SimplicialComplex<Vertex>,
+) {
+    "check axioms of a simplicial complex $name" - {
+        val numOfVertices = simplicialComplex.vertices.size
+        "dimensions of simplices should be correct" {
+            (0..(2 * numOfVertices)).forAll { dim ->
+                simplicialComplex.getSimplices(dim).forAll { simplex ->
+                    simplex.dim shouldBe dim
+                }
             }
         }
+    }
+}
+
+fun axiomTest() = freeSpec {
+    "check axioms of simplicial complexes" - {
+        val n = 5
+        axiomTestTemplate("Δ^$n", delta(n))
+        axiomTestTemplate("∂Δ^$n", boundaryDelta(n))
     }
 }
 
@@ -145,7 +159,7 @@ class SimplicialComplexTest : FreeSpec({
     val matrixSpace = SparseMatrixSpaceOverRational
     include(deltaTest(matrixSpace, 5))
     include(boundaryDeltaTest(matrixSpace, 5))
-    include(axiomTest(delta(5)))
+    include(axiomTest())
 
     // projective plane
     include(projectivePlaneTest(SparseMatrixSpaceOverRational))

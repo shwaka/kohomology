@@ -6,7 +6,6 @@ import io.kotest.data.forAll
 import io.kotest.data.row
 import io.kotest.matchers.shouldBe
 
-
 class ProductSimplicialComplexTest : FreeSpec({
     tags(simplicialComplexTag)
 

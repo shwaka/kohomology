@@ -126,5 +126,12 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
             }
             return SimplicialComplex(::getSimplices)
         }
+
+        public fun <Vertex : Comparable<Vertex>> generatedBy(
+            generatingSimplices: List<Simplex<Vertex>>
+        ): SimplicialComplex<Vertex> {
+            val generatingSimplicesAsMap = generatingSimplices.groupBy { simplex -> simplex.dim }
+            return SimplicialComplex.generatedBy(generatingSimplicesAsMap)
+        }
     }
 }

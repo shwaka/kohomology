@@ -120,6 +120,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> deltaTest(matrixSpace: Matr
                 generatedDGVectorSpace.cohomology[-i].dim shouldBe dgVectorSpace.cohomology[-i].dim
             }
         }
+        "test generatedBy with a list" {
+            val generatingSimplices = listOf(
+                Simplex.fromSorted((0..dim).toList())
+            )
+            val generatedSimplicialComplex = SimplicialComplex.generatedBy(generatingSimplices)
+            val generatedDGVectorSpace = generatedSimplicialComplex.dgVectorSpace(matrixSpace)
+            (0..(dim + 1)).forAll { i ->
+                generatedSimplicialComplex.getSimplices(i).size shouldBe simplicialComplex.getSimplices(i).size
+            }
+            (-1..(dim + 1)).forAll { i ->
+                generatedDGVectorSpace.cohomology[-i].dim shouldBe dgVectorSpace.cohomology[-i].dim
+            }
+        }
     }
 }
 

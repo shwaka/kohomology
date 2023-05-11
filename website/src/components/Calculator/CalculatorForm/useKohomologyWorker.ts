@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from "react"
-import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
+import { useWorker } from "../WorkerContext"
+import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string
-  onmessage: (e: MessageEvent<WorkerOutput>) => void
+  onmessage: (output: WorkerOutput) => void
   resetWorkerInfo: () => void
 }
 
@@ -23,10 +24,36 @@ export function useKohomologyWorker({
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
-  const [worker, setWorker] = useState(() => new KohomologyWorker())
+  // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  worker.onmessage = onmessage
-  const postMessage = worker.postMessage.bind(worker)
+  const { postMessage, addListener, restart, addRestartListener } = useWorker(kohomologyWorkerContext)
+
+  const updateJson = useCallback((): void => {
+    // setJson(json)
+    const inputUpdate: WorkerInput = {
+      command: "updateJson",
+      json: json,
+    }
+    postMessage(inputUpdate)
+    const inputShowInfo: WorkerInput = {
+      command: "dgaInfo"
+    }
+    postMessage(inputShowInfo)
+  }, [json, postMessage])
+
+  useEffect(() => {
+    addListener("useKohomologyWorker", onmessage)
+  }, [addListener, onmessage])
+
+  useEffect(() => {
+    addRestartListener("useKohomologyWorker", () => {
+      resetWorkerInfo()
+      updateJson()
+    })
+  }, [addRestartListener, resetWorkerInfo, updateJson])
+
+  // worker.onmessage = onmessage
+  // const postMessage = worker.postMessage.bind(worker)
 
   // KohomologyWorker (kohomology-js) also stores json (as a FreeDGAlgebra defined from it)
   // to cache computation results.
@@ -36,26 +63,8 @@ export function useKohomologyWorker({
   // - json is changed or
   // - worker is restarted.
   useEffect(() => {
-    // setJson(json)
-    const inputUpdate: WorkerInput = {
-      command: "updateJson",
-      json: json,
-    }
-    worker.postMessage(inputUpdate)
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    worker.postMessage(inputShowInfo)
-  }, [json, worker])
-
-  const restart = useCallback(
-    () => {
-      worker.terminate()
-      setWorker(new KohomologyWorker())
-      resetWorkerInfo()
-    },
-    [worker, setWorker, resetWorkerInfo]
-  )
+    updateJson()
+  }, [updateJson])
 
   return { json, setJson, postMessage, restart }
 }

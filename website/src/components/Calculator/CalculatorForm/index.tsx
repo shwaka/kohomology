@@ -1,17 +1,18 @@
-import BrowserOnly from "@docusaurus/BrowserOnly"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
+import { sphere } from "../DGAEditorDialog/examples"
 import { ShowStyledMessage } from "../styled/components"
-import { fromString, StyledMessage } from "../styled/message"
+import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerOutput, WorkerInfo } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
+import { useJsonFromURLQuery } from "./urlQuery"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
@@ -24,14 +25,11 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
   )
 }
 
-interface CalculatorFormProps {
-  printMessages: (result: StyledMessage | StyledMessage[]) => void
-  defaultDGAJson: string
-}
-
-function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormProps): JSX.Element {
+export function CalculatorForm(): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
+  const queryResult = useJsonFromURLQuery()
+  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
   const resetWorkerInfo = useCallback(
     (): void => {
@@ -41,12 +39,8 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   )
 
   const onmessage = useCallback(
-    (e: MessageEvent<WorkerOutput>): void => {
-      const output: WorkerOutput = e.data
+    (output: WorkerOutput): void => {
       switch (output.command) {
-        case "printMessages":
-          printMessages(output.messages)
-          break
         case "showDgaInfo":
           setDgaInfo(output.messages)
           break
@@ -55,7 +49,7 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
           break
       }
     },
-    [printMessages, setDgaInfo, setWorkerInfo]
+    [setDgaInfo, setWorkerInfo]
   )
   const { json, setJson, postMessage, restart } = useKohomologyWorker({
     defaultJson: defaultDGAJson,
@@ -67,21 +61,9 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { restartDialogProps, restartButtonProps } = useRestart(() => {
     restart()
-    printMessages(fromString("success", "The background process is restarted."))
   })
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
-
-
-  // function printError(error: unknown): void {
-  //   if (error === null) {
-  //     props.printMessages(fromString("error", "This can't happen!"))
-  //   } else if (typeof error === "object") {
-  //     props.printMessages(fromString("error", error.toString()))
-  //   } else {
-  //     props.printMessages(fromString("error", "Unknown error!"))
-  //   }
-  // }
 
   return (
     <Stack
@@ -146,13 +128,5 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
         />
       </StackItem>
     </Stack>
-  )
-}
-
-export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
-  return (
-    <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => <CalculatorFormImpl {...props}/>}
-    </BrowserOnly>
   )
 }

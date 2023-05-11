@@ -29,7 +29,10 @@ export function useKohomologyWorker({
 
   const { postMessage, addListener, restart: restartWorker } = useWorker(kohomologyWorkerContext)
 
-  addListener("useKohomologyWorker", onmessage)
+  useEffect(() => {
+    addListener("useKohomologyWorker", onmessage)
+  }, [addListener, onmessage])
+
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
 

@@ -26,7 +26,7 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
   )
 }
 
-function CalculatorFormImpl(): JSX.Element {
+export function CalculatorForm(): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
   const queryResult = useJsonFromURLQuery()
@@ -129,13 +129,5 @@ function CalculatorFormImpl(): JSX.Element {
         />
       </StackItem>
     </Stack>
-  )
-}
-
-export function CalculatorForm(): JSX.Element {
-  return (
-    <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => <CalculatorFormImpl/>}
-    </BrowserOnly>
   )
 }

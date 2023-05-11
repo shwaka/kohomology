@@ -11,8 +11,9 @@ import { useCustomTheme } from "./useCustomTheme"
 import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 import { useWorker } from "./WorkerContext"
 import { WorkerOutput } from "./worker/workerInterface"
+import BrowserOnly from "@docusaurus/BrowserOnly"
 
-export function Calculator(): JSX.Element {
+function CalculatorImpl(): JSX.Element {
   const theme = useCustomTheme()
 
   const createWorker = (): Worker => new KohomologyWorker()
@@ -36,5 +37,13 @@ export function Calculator(): JSX.Element {
         </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>
+  )
+}
+
+export function Calculator(): JSX.Element {
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => <CalculatorImpl/>}
+    </BrowserOnly>
   )
 }

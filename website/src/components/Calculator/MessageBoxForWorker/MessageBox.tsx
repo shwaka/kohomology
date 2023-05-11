@@ -1,8 +1,8 @@
 import { Paper } from "@mui/material"
 import React from "react"
-import { ShowStyledMessage } from "./styled/components"
-import { StyledMessage } from "./styled/message"
-import { useScrollToBottom } from "./useScrollToBottom"
+import { ShowStyledMessage } from "../styled/components"
+import { StyledMessage } from "../styled/message"
+import { useScrollToBottom } from "../useScrollToBottom"
 
 interface MessageBoxProps {
   messages: StyledMessage[]

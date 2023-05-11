@@ -1,4 +1,5 @@
-import { Context, createContext, ReactNode, useCallback, useContext, useRef, useSyncExternalStore } from "react"
+import { Context, createContext, ReactNode, useCallback, useContext, useRef } from "react"
+import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
 import { WorkerContext } from "./WorkerContext"
 
 export interface UseWorkerReturnValue<WI, WO> {

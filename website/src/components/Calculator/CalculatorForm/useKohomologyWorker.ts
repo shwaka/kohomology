@@ -29,13 +29,29 @@ export function useKohomologyWorker({
 
   const { postMessage, addListener, restart, addRestartListener } = useWorker(kohomologyWorkerContext)
 
+  const updateJson = useCallback((): void => {
+    // setJson(json)
+    const inputUpdate: WorkerInput = {
+      command: "updateJson",
+      json: json,
+    }
+    postMessage(inputUpdate)
+    const inputShowInfo: WorkerInput = {
+      command: "dgaInfo"
+    }
+    postMessage(inputShowInfo)
+  }, [json, postMessage])
+
   useEffect(() => {
     addListener("useKohomologyWorker", onmessage)
   }, [addListener, onmessage])
 
   useEffect(() => {
-    addRestartListener("useKohomologyWorker", resetWorkerInfo)
-  }, [addRestartListener, resetWorkerInfo])
+    addRestartListener("useKohomologyWorker", () => {
+      resetWorkerInfo()
+      updateJson()
+    })
+  }, [addRestartListener, resetWorkerInfo, updateJson])
 
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
@@ -48,17 +64,8 @@ export function useKohomologyWorker({
   // - json is changed or
   // - worker is restarted.
   useEffect(() => {
-    // setJson(json)
-    const inputUpdate: WorkerInput = {
-      command: "updateJson",
-      json: json,
-    }
-    postMessage(inputUpdate)
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    postMessage(inputShowInfo)
-  }, [json, postMessage])
+    updateJson()
+  }, [updateJson])
 
   return { json, setJson, postMessage, restart }
 }

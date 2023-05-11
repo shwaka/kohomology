@@ -1,4 +1,4 @@
-import React, { Context, createContext, ReactNode, useCallback, useContext, useRef } from "react"
+import React, { Context, createContext, ReactNode, useRef } from "react"
 import { WorkerWrapper } from "./WorkerWrapper"
 
 interface ProviderProps {

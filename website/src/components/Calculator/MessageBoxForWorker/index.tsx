@@ -1,12 +1,11 @@
-import { Box, ThemeProvider } from "@mui/material"
 import React, { useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useJsonFromURLQuery } from "../CalculatorForm/urlQuery"
-import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
-import { MessageBox } from "./MessageBox"
-import { fromString, StyledMessage } from "../styled/message"
 import { useWorker } from "../WorkerContext"
+import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
+import { fromString, StyledMessage } from "../styled/message"
 import { WorkerOutput } from "../worker/workerInterface"
+import { MessageBox } from "./MessageBox"
 
 export function MessageBoxForWorker(): JSX.Element {
   const queryResult = useJsonFromURLQuery()

@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react"
-import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
+import { useWorker } from "../WorkerContext"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
-import { useWorker } from "../WorkerContext"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string

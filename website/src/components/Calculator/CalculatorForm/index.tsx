@@ -1,20 +1,19 @@
-import BrowserOnly from "@docusaurus/BrowserOnly"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
 import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
+import { sphere } from "../DGAEditorDialog/examples"
 import { ShowStyledMessage } from "../styled/components"
-import { fromString, StyledMessage } from "../styled/message"
+import { StyledMessage } from "../styled/message"
 import { targetNames, TargetName, WorkerOutput, WorkerInfo } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
-import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useJsonFromURLQuery } from "./urlQuery"
-import { sphere } from "../DGAEditorDialog/examples"
+import { useKohomologyWorker } from "./useKohomologyWorker"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

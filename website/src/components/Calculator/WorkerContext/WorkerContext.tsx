@@ -32,7 +32,7 @@ function WorkerContextProvider<WI, WO>(props: {
 function createProvider<WI, WO>(
   reactContext: Context<WorkerWrapper<WI, WO>>
 ): ((props: ProviderProps) => JSX.Element) {
-  return (props) =>  (
+  const WorkerContextProviderCurried = (props: ProviderProps): JSX.Element =>  (
     <WorkerContextProvider
       context={reactContext}
       createWorker={props.createWorker}
@@ -40,6 +40,7 @@ function createProvider<WI, WO>(
       {props.children}
     </WorkerContextProvider>
   )
+  return WorkerContextProviderCurried
 }
 
 export function createWorkerContext<WI, WO>(): WorkerContext<WI, WO> {

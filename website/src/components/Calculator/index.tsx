@@ -12,11 +12,11 @@ import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 import { useWorker } from "./WorkerContext"
 import { WorkerOutput } from "./worker/workerInterface"
 
-interface MessageBoxWithMessagesProps {
+interface MessageBoxForWorkerProps {
   queryResult: QueryResult
 }
 
-function MessageBoxWithMessages({ queryResult }: MessageBoxWithMessagesProps): JSX.Element {
+function MessageBoxForWorker({ queryResult }: MessageBoxForWorkerProps): JSX.Element {
   const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   if (queryResult.type === "parseError") {
@@ -41,11 +41,11 @@ function MessageBoxWithMessages({ queryResult }: MessageBoxWithMessagesProps): J
   }, [addMessages])
 
   useEffect(() => {
-    addListener("MessageBoxWithMessages", onmessage)
+    addListener("MessageBoxForWorker", onmessage)
   }, [addListener, onmessage])
 
   useEffect(() => {
-    addRestartListener("MessageBoxWithMessages", () => {
+    addRestartListener("MessageBoxForWorker", () => {
       addMessages(fromString("success", "The background process is restarted."))
     })
   }, [addRestartListener, addMessages])
@@ -77,7 +77,7 @@ export function Calculator(): JSX.Element {
           createWorker={createWorker}
         >
           <CalculatorForm defaultDGAJson={defaultDGAJson}/>
-          <MessageBoxWithMessages queryResult={queryResult}/>
+          <MessageBoxForWorker queryResult={queryResult}/>
         </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>

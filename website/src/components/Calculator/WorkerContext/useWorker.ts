@@ -11,7 +11,7 @@ export interface UseWorkerReturnValue<WI, WO> {
 
 export function useWorker<WI, WO>(
   context: WorkerContext<WI, WO>
-): UseWorkerFromContextReturnValue<WI, WO> {
+): UseWorkerReturnValue<WI, WO> {
   const wrapper = useContext(context.reactContext)
 
   const subscribe = useCallback(

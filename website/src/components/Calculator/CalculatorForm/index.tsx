@@ -12,7 +12,7 @@ import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
-import { useKohomologyWorker } from "./useKohomologyWorker"
+import { useKohomologyWorker } from "../useKohomologyWorker"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

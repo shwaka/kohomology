@@ -32,9 +32,12 @@ export function useWorker<WI, WO>(
 
   const workerOutputLog: WO[] = useSyncExternalStore(subscribe, getSnapshot)
 
-  const postMessage = (workerInput: WI): void => {
-    wrapper.postMessage(workerInput)
-  }
+  const postMessage = useCallback(
+    (workerInput: WI): void => {
+      wrapper.postMessage(workerInput)
+    },
+    [wrapper]
+  )
 
   const addListener = useCallback(
     (key: string, onmessage: (workerOutput: WO) => void): void => {

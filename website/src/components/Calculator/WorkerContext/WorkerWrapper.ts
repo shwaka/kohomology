@@ -1,5 +1,6 @@
 export class WorkerWrapper<WI, WO> {
   private readonly onmessageFunctions: Map<string, (workerOutput: WO) => void> = new Map()
+  private readonly onRestartFunctions: Map<string, () => void> = new Map()
   private worker: Worker
   public workerOutputLog: WO[] = []
 
@@ -15,6 +16,15 @@ export class WorkerWrapper<WI, WO> {
 
   unsubscribe(key: string): void {
     this.onmessageFunctions.delete(key)
+  }
+
+  subscribeRestart(key: string, onRestart: () => void): void {
+    this.onRestartFunctions.set(key, onRestart)
+    console.log(`subscribe restart: ${key}`)
+  }
+
+  unsubscribeRestart(key: string): void {
+    this.onRestartFunctions.delete(key)
   }
 
   postMessage(workerInput: WI): void {
@@ -35,6 +45,7 @@ export class WorkerWrapper<WI, WO> {
     this.worker.terminate()
     this.worker = this.createWorker()
     this.worker.onmessage = (e: MessageEvent<WO>): void => this.onmessage(e.data)
+    this.onRestartFunctions.forEach((func) => func())
   }
 
   static default<WI, WO>(): WorkerWrapper<WI, WO> {

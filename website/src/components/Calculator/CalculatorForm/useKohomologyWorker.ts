@@ -27,11 +27,15 @@ export function useKohomologyWorker({
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  const { postMessage, addListener, restart: restartWorker } = useWorker(kohomologyWorkerContext)
+  const { postMessage, addListener, restart, addRestartListener } = useWorker(kohomologyWorkerContext)
 
   useEffect(() => {
     addListener("useKohomologyWorker", onmessage)
   }, [addListener, onmessage])
+
+  useEffect(() => {
+    addRestartListener("useKohomologyWorker", resetWorkerInfo)
+  }, [addRestartListener, resetWorkerInfo])
 
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
@@ -55,16 +59,6 @@ export function useKohomologyWorker({
     }
     postMessage(inputShowInfo)
   }, [json, postMessage])
-
-  const restart = useCallback(
-    () => {
-      // worker.terminate()
-      // setWorker(new KohomologyWorker())
-      restartWorker()
-      resetWorkerInfo()
-    },
-    [restartWorker, resetWorkerInfo]
-  )
 
   return { json, setJson, postMessage, restart }
 }

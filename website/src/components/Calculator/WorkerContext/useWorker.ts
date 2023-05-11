@@ -7,6 +7,7 @@ export interface UseWorkerReturnValue<WI, WO> {
   workerOutputLog: WO[]
   addListener: (key: string, onmessage: (workerOutput: WO) => void) => void
   restart: () => void
+  addRestartListener: (key: string, onRestart: () => void) => void
 }
 
 export function useWorker<WI, WO>(
@@ -46,6 +47,14 @@ export function useWorker<WI, WO>(
     [wrapper]
   )
 
+  const addRestartListener = useCallback(
+    (key: string, onRestart: () => void): void => {
+      wrapper.subscribeRestart(key, onRestart)
+    },
+    [wrapper]
+  )
+
+
   const restart = useCallback(
     (): void => wrapper.restart(),
     [wrapper]
@@ -56,5 +65,6 @@ export function useWorker<WI, WO>(
     workerOutputLog,
     addListener,
     restart,
+    addRestartListener,
   }
 }

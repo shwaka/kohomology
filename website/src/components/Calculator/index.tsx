@@ -4,14 +4,11 @@ import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { sphere } from "./DGAEditorDialog/examples"
+import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { MessageBox } from "./MessageBox"
 import { fromString, StyledMessage } from "./styled/message"
 import { useCustomTheme } from "./useCustomTheme"
-import { createWorkerContext } from "./WorkerContext"
-import { WorkerInput, WorkerOutput } from "./worker/workerInterface"
 import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
-
-const workerContext = createWorkerContext<WorkerInput, WorkerOutput>()
 
 export function Calculator(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
@@ -46,12 +43,12 @@ export function Calculator(): JSX.Element {
           paddingBottom: "10px",
         }}
       >
-        <workerContext.Provider
+        <kohomologyWorkerContext.Provider
           createWorker={createWorker}
         >
           <CalculatorForm printMessages={addMessages} defaultDGAJson={defaultDGAJson}/>
           <MessageBox messages={messages}/>
-        </workerContext.Provider>
+        </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>
   )

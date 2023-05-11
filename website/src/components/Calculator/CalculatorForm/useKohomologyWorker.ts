@@ -1,10 +1,12 @@
 import { useCallback, useEffect, useState } from "react"
 import KohomologyWorker from "worker-loader!../worker/kohomology.worker"
+import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
+import { useWorker } from "../WorkerContext"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string
-  onmessage: (e: MessageEvent<WorkerOutput>) => void
+  onmessage: (output: WorkerOutput) => void
   resetWorkerInfo: () => void
 }
 
@@ -23,10 +25,13 @@ export function useKohomologyWorker({
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
-  const [worker, setWorker] = useState(() => new KohomologyWorker())
+  // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  worker.onmessage = onmessage
-  const postMessage = worker.postMessage.bind(worker)
+  const { postMessage, addListener, restart: restartWorker } = useWorker(kohomologyWorkerContext)
+
+  addListener(onmessage)
+  // worker.onmessage = onmessage
+  // const postMessage = worker.postMessage.bind(worker)
 
   // KohomologyWorker (kohomology-js) also stores json (as a FreeDGAlgebra defined from it)
   // to cache computation results.
@@ -41,20 +46,21 @@ export function useKohomologyWorker({
       command: "updateJson",
       json: json,
     }
-    worker.postMessage(inputUpdate)
+    postMessage(inputUpdate)
     const inputShowInfo: WorkerInput = {
       command: "dgaInfo"
     }
-    worker.postMessage(inputShowInfo)
-  }, [json, worker])
+    postMessage(inputShowInfo)
+  }, [json, postMessage])
 
   const restart = useCallback(
     () => {
-      worker.terminate()
-      setWorker(new KohomologyWorker())
+      // worker.terminate()
+      // setWorker(new KohomologyWorker())
+      restartWorker()
       resetWorkerInfo()
     },
-    [worker, setWorker, resetWorkerInfo]
+    [restartWorker, resetWorkerInfo]
   )
 
   return { json, setJson, postMessage, restart }

@@ -41,8 +41,7 @@ function CalculatorFormImpl({ printMessages, defaultDGAJson }: CalculatorFormPro
   )
 
   const onmessage = useCallback(
-    (e: MessageEvent<WorkerOutput>): void => {
-      const output: WorkerOutput = e.data
+    (output: WorkerOutput): void => {
       switch (output.command) {
         case "printMessages":
           printMessages(output.messages)

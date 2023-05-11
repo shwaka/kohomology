@@ -59,6 +59,8 @@ export function useTabItemArrayEditor(args: {
   )
 
   function handleDragEnd(event: DragEndEvent): void {
+    trigger() // trigger input validation
+
     const { active, over } = event
 
     if (over === null) {

@@ -1,3 +1,4 @@
+import BrowserOnly from "@docusaurus/BrowserOnly"
 import { Box, ThemeProvider } from "@mui/material"
 import React from "react"
 import "katex/dist/katex.min.css"
@@ -6,7 +7,6 @@ import { CalculatorForm } from "./CalculatorForm"
 import { MessageBoxForWorker } from "./MessageBoxForWorker"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { useCustomTheme } from "./useCustomTheme"
-import BrowserOnly from "@docusaurus/BrowserOnly"
 
 function CalculatorImpl(): JSX.Element {
   const theme = useCustomTheme()

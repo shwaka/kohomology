@@ -17,7 +17,7 @@ interface MessageBoxWithMessagesProps {
 }
 
 function MessageBoxWithMessages({ queryResult }: MessageBoxWithMessagesProps): JSX.Element {
-  const { addListener } = useWorker(kohomologyWorkerContext)
+  const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   if (queryResult.type === "parseError") {
     initialMessageArray.push(
@@ -44,6 +44,11 @@ function MessageBoxWithMessages({ queryResult }: MessageBoxWithMessagesProps): J
     addListener("MessageBoxWithMessages", onmessage)
   }, [addListener, onmessage])
 
+  useEffect(() => {
+    addRestartListener("MessageBoxWithMessages", () => {
+      addMessages(fromString("success", "The background process is restarted."))
+    })
+  }, [addRestartListener, addMessages])
 
   return (
     <MessageBox messages={messages}/>
@@ -71,7 +76,7 @@ export function Calculator(): JSX.Element {
         <kohomologyWorkerContext.Provider
           createWorker={createWorker}
         >
-          <CalculatorForm printMessages={() => {}} defaultDGAJson={defaultDGAJson}/>
+          <CalculatorForm defaultDGAJson={defaultDGAJson}/>
           <MessageBoxWithMessages queryResult={queryResult}/>
         </kohomologyWorkerContext.Provider>
       </Box>

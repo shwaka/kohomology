@@ -10,7 +10,7 @@ export class WorkerWrapper<WI, WO> {
 
   subscribe(key: string, onmessage: (workerOutput: WO) => void): void {
     this.onmessageFunctions.set(key, onmessage)
-    console.log(this.onmessageFunctions)
+    console.log(`subscribe: ${key}`)
   }
 
   unsubscribe(key: string): void {

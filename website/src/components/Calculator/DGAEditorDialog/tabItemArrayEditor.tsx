@@ -58,10 +58,8 @@ export function useTabItemArrayEditor(args: {
     })
   )
 
-  function handleDragEnd(event: DragEndEvent): void {
+  function handleDragEnd({ active, over }: DragEndEvent): void {
     trigger() // trigger input validation
-
-    const { active, over } = event
 
     if (over === null) {
       throw new Error("over is null")

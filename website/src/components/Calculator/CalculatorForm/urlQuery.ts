@@ -89,7 +89,7 @@ interface QueryResultParseError {
   errorMessage: string
 }
 
-type QueryResult = QueryResultSuccess | QueryResultUnspecified | QueryResultParseError
+export type QueryResult = QueryResultSuccess | QueryResultUnspecified | QueryResultParseError
 
 export function useJsonFromURLQuery(): QueryResult {
   const dgaJson: string | null = useDgaJsonFromURLQuery()

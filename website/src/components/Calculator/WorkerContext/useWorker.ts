@@ -30,7 +30,7 @@ export function useWorker<WI, WO>(
     [wrapper]
   )
 
-  const workerOutputLog = useSyncExternalStore(subscribe, getSnapshot)
+  const workerOutputLog: WO[] = useSyncExternalStore(subscribe, getSnapshot)
 
   const postMessage = (workerInput: WI): void => {
     wrapper.postMessage(workerInput)

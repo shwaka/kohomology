@@ -2,7 +2,7 @@ import { Box, ThemeProvider } from "@mui/material"
 import React, { useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
-import { QueryResult, useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
+import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
 import { sphere } from "./DGAEditorDialog/examples"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { MessageBox } from "./MessageBox"
@@ -12,11 +12,8 @@ import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 import { useWorker } from "./WorkerContext"
 import { WorkerOutput } from "./worker/workerInterface"
 
-interface MessageBoxForWorkerProps {
-  queryResult: QueryResult
-}
-
-function MessageBoxForWorker({ queryResult }: MessageBoxForWorkerProps): JSX.Element {
+function MessageBoxForWorker(): JSX.Element {
+  const queryResult = useJsonFromURLQuery()
   const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   if (queryResult.type === "parseError") {
@@ -77,7 +74,7 @@ export function Calculator(): JSX.Element {
           createWorker={createWorker}
         >
           <CalculatorForm defaultDGAJson={defaultDGAJson}/>
-          <MessageBoxForWorker queryResult={queryResult}/>
+          <MessageBoxForWorker/>
         </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>

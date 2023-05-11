@@ -10,50 +10,35 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.pow
-import com.github.shwaka.kohomology.vectsp.BasisName
-
-public class Simplex<Vertex : Comparable<Vertex>>
-private constructor(public val vertices: List<Vertex>) : BasisName {
-    public val dim: Int = vertices.size
-
-    public fun face(i: Int): Simplex<Vertex> {
-        return Simplex(this.vertices.filterIndexed { index, _ -> index != i })
-    }
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (other == null || this::class != other::class) return false
-
-        other as Simplex<*>
-
-        if (vertices != other.vertices) return false
-
-        return true
-    }
-
-    override fun hashCode(): Int {
-        return vertices.hashCode()
-    }
-
-    override fun toString(): String {
-        val verticesString = this.vertices.joinToString(",")
-        return "<$verticesString>"
-    }
-
-    public companion object {
-        public fun <Vertex : Comparable<Vertex>> fromSorted(vertices: List<Vertex>): Simplex<Vertex> {
-            return Simplex(vertices)
-        }
-
-        public fun <Vertex : Comparable<Vertex>> fromUnsorted(vertices: List<Vertex>): Simplex<Vertex> {
-            return Simplex(vertices.sorted())
-        }
-    }
-}
 
 public class SimplicialComplex<Vertex : Comparable<Vertex>>(
     public val getSimplices: (dim: Int) -> List<Simplex<Vertex>>,
 ) {
+    public val vertices: List<Vertex> by lazy {
+        this.getSimplices(0).map { zeroSimplex ->
+            zeroSimplex.vertices[0]
+        }
+    }
+
+    private val maximalFaces: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
+    public val allMaximalFaces: Map<Int, List<Simplex<Vertex>>> by lazy {
+        (0..(this.vertices.size)).associateWith { dim ->
+            this.getMaximalFaces(dim)
+        }.filterValues { simplices -> simplices.isNotEmpty() }
+    }
+
+    public fun getMaximalFaces(dim: Int): List<Simplex<Vertex>> {
+        this.maximalFaces[dim]?.let { return it }
+        val result = this.getSimplices(dim).toMutableList()
+        for (simplex in this.getSimplices(dim + 1)) {
+            for (face in simplex.faceList) {
+                result.remove(face)
+            }
+        }
+        this.maximalFaces[dim] = result
+        return result
+    }
+
     private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getGVectorSpace(
         matrixSpace: MatrixSpace<S, V, M>,
     ): GVectorSpace<IntDegree, Simplex<Vertex>, S, V> {
@@ -101,6 +86,52 @@ public class SimplicialComplex<Vertex : Comparable<Vertex>>(
 
     public fun eulerCharacteristic(): Int {
         val maxDim = this.getSimplices(0).size - 1
-        return (0..maxDim).map { dim -> this.getSimplices(dim).size * (-1).pow(dim) }.sum()
+        return (0..maxDim).sumOf { dim -> this.getSimplices(dim).size * (-1).pow(dim) }
+    }
+
+    public fun isSameAs(other: SimplicialComplex<Vertex>): Boolean {
+        // This method compares mathematically,
+        // so could not be implemented as equals()
+        if (this.vertices.size != other.vertices.size) {
+            return false
+        }
+        return (0..(this.vertices.size)).all { dim ->
+            this.getSimplices(dim).toSet() == other.getSimplices(dim).toSet()
+        }
+    }
+
+    public companion object {
+        public fun <Vertex : Comparable<Vertex>> generatedBy(
+            generatingSimplices: Map<Int, List<Simplex<Vertex>>>
+        ): SimplicialComplex<Vertex> {
+            val maxDim = generatingSimplices.keys.max()
+            val simplices: MutableMap<Int, List<Simplex<Vertex>>> = mutableMapOf()
+            fun getSimplices(dim: Int): List<Simplex<Vertex>> {
+                if (dim > maxDim || dim < 0) {
+                    // We don't want to contain (-1)-simplex (the empty simplex)
+                    return emptyList()
+                }
+                simplices[dim]?.let { return it }
+
+                val resultAsSet: MutableSet<Simplex<Vertex>> =
+                    generatingSimplices.getOrElse(dim) { emptyList() }.toMutableSet()
+                for (simplex in getSimplices(dim + 1)) {
+                    for (face in simplex.faceList) {
+                        resultAsSet.add(face)
+                    }
+                }
+                val result: List<Simplex<Vertex>> = resultAsSet.distinct()
+                simplices[dim] = result
+                return result
+            }
+            return SimplicialComplex(::getSimplices)
+        }
+
+        public fun <Vertex : Comparable<Vertex>> generatedBy(
+            generatingSimplices: List<Simplex<Vertex>>
+        ): SimplicialComplex<Vertex> {
+            val generatingSimplicesAsMap = generatingSimplices.groupBy { simplex -> simplex.dim }
+            return SimplicialComplex.generatedBy(generatingSimplicesAsMap)
+        }
     }
 }

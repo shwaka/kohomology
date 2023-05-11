@@ -1,4 +1,8 @@
-import { Add, Delete } from "@mui/icons-material"
+import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, SensorDescriptor, SensorOptions, useSensor, useSensors } from "@dnd-kit/core"
+import { restrictToParentElement } from "@dnd-kit/modifiers"
+import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
+import { CSS } from "@dnd-kit/utilities"
+import { Add, Delete, DragHandle } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React from "react"
@@ -43,10 +47,33 @@ export function useTabItemArrayEditor(args: {
       generatorArray: jsonToGeneratorArray(args.json)
     }
   })
-  const { fields, append, remove } = useFieldArray({
+  const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",
   })
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  )
+
+  function handleDragEnd({ active, over }: DragEndEvent): void {
+    trigger() // trigger input validation
+
+    if (over === null) {
+      throw new Error("over is null")
+    }
+
+    if (active.id !== over.id) {
+      console.log(`replace: ${active.id}, ${over.id}`)
+      const oldIndex = fields.map((field) => field.id).indexOf(active.id as string)
+      const newIndex = fields.map((field) => field.id).indexOf(over.id as string)
+
+      move(oldIndex, newIndex)
+    }
+  }
+
   function onSubmit(closeDialog: () => void): void {
     handleSubmit(
       ({generatorArray}) => {
@@ -71,7 +98,7 @@ export function useTabItemArrayEditor(args: {
     return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
   }
   const arrayEditorProps: Omit<ArrayEditorProps, "submit"> = {
-    register, errors, fields, append, remove, getValues, trigger,
+    register, errors, fields, append, remove, getValues, trigger, sensors, handleDragEnd,
   }
   return {
     label: "Array",
@@ -162,6 +189,7 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
 }
 
 interface ArrayEditorItemProps {
+  id: string
   index: number
   register: UseFormRegister<GeneratorFormInput>
   errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
@@ -170,10 +198,15 @@ interface ArrayEditorItemProps {
   trigger: UseFormTrigger<GeneratorFormInput>
 }
 
-function ArrayEditorItem({ index, register, errors, remove, getValues, trigger }: ArrayEditorItemProps): JSX.Element {
+function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigger }: ArrayEditorItemProps): JSX.Element {
+  const { attributes, listeners, setNodeRef: setSortableNodeRef, transform, transition } = useSortable({ id })
+  const sortableStyle = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
   const generatorName = getValues().generatorArray[index].name
   return (
-    <div data-testid="ArrayEditor-row">
+    <div data-testid="ArrayEditor-row" ref={setSortableNodeRef} style={sortableStyle}>
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
           <TextField
@@ -222,6 +255,15 @@ function ArrayEditorItem({ index, register, errors, remove, getValues, trigger }
               <Delete fontSize="small"/>
             </IconButton>
           </Tooltip>
+          <IconButton
+            {...attributes} {...listeners}
+            style={{
+              cursor: "grab",
+              touchAction: "none",
+            }}
+          >
+            <DragHandle/>
+          </IconButton>
         </Stack>
         {getFieldError({ errors, index })}
       </Stack>
@@ -238,9 +280,11 @@ interface ArrayEditorProps {
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
   submit: () => void
+  sensors: SensorDescriptor<SensorOptions>[]
+  handleDragEnd: (event: DragEndEvent) => void
 }
 
-function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, submit }: ArrayEditorProps): JSX.Element {
+function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, submit, sensors, handleDragEnd }: ArrayEditorProps): JSX.Element {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     submit()
@@ -249,12 +293,24 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
   return (
     <form onSubmit={onSubmit}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
-        {fields.map((field, index) => (
-          <ArrayEditorItem
-            key={field.id}
-            {...{index, register, errors, remove, getValues, trigger}}
-          />
-        ))}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+          modifiers={[restrictToParentElement]}
+        >
+          <SortableContext
+            items={fields}
+            strategy={verticalListSortingStrategy}
+          >
+            {fields.map((field, index) => (
+              <ArrayEditorItem
+                key={field.id} id={field.id}
+                {...{index, register, errors, remove, getValues, trigger}}
+              />
+            ))}
+          </SortableContext>
+        </DndContext>
         <Button
           variant="outlined"
           onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}

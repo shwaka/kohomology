@@ -1,5 +1,5 @@
 import { Box, ThemeProvider } from "@mui/material"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { QueryResult, useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
@@ -40,7 +40,10 @@ function MessageBoxWithMessages({ queryResult }: MessageBoxWithMessagesProps): J
     }
   }, [addMessages])
 
-  addListener("MessageBoxWithMessages", onmessage)
+  useEffect(() => {
+    addListener("MessageBoxWithMessages", onmessage)
+  }, [addListener, onmessage])
+
 
   return (
     <MessageBox messages={messages}/>

@@ -53,8 +53,6 @@ function MessageBoxForWorker(): JSX.Element {
 }
 
 export function Calculator(): JSX.Element {
-  const queryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
   const theme = useCustomTheme()
 
   const createWorker = (): Worker => new KohomologyWorker()
@@ -73,7 +71,7 @@ export function Calculator(): JSX.Element {
         <kohomologyWorkerContext.Provider
           createWorker={createWorker}
         >
-          <CalculatorForm defaultDGAJson={defaultDGAJson}/>
+          <CalculatorForm/>
           <MessageBoxForWorker/>
         </kohomologyWorkerContext.Provider>
       </Box>

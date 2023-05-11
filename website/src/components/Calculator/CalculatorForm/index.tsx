@@ -13,6 +13,8 @@ import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
+import { useJsonFromURLQuery } from "./urlQuery"
+import { sphere } from "../DGAEditorDialog/examples"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -24,13 +26,11 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
   )
 }
 
-interface CalculatorFormProps {
-  defaultDGAJson: string
-}
-
-function CalculatorFormImpl({ defaultDGAJson }: CalculatorFormProps): JSX.Element {
+function CalculatorFormImpl(): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
+  const queryResult = useJsonFromURLQuery()
+  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
   const resetWorkerInfo = useCallback(
     (): void => {
@@ -132,10 +132,10 @@ function CalculatorFormImpl({ defaultDGAJson }: CalculatorFormProps): JSX.Elemen
   )
 }
 
-export function CalculatorForm(props: CalculatorFormProps): JSX.Element {
+export function CalculatorForm(): JSX.Element {
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => <CalculatorFormImpl {...props}/>}
+      {() => <CalculatorFormImpl/>}
     </BrowserOnly>
   )
 }

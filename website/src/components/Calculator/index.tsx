@@ -1,5 +1,5 @@
 import { Box, ThemeProvider } from "@mui/material"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { CalculatorForm } from "./CalculatorForm"
 import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
@@ -22,13 +22,13 @@ export function Calculator(): JSX.Element {
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
   const theme = useCustomTheme()
 
-  function addMessages(addedMessages: StyledMessage | StyledMessage[]): void {
+  const addMessages = useCallback((addedMessages: StyledMessage | StyledMessage[]): void => {
     if (addedMessages instanceof Array) {
       setMessages((prevMessages) => prevMessages.concat(addedMessages))
     } else {
       setMessages((prevMessages) => prevMessages.concat([addedMessages]))
     }
-  }
+  }, [setMessages])
 
   const createWorker = (): Worker => new KohomologyWorker()
 

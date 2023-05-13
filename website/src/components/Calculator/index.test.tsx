@@ -1,36 +1,8 @@
 import { useLocation } from "@docusaurus/router"
 import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import React from "react"
+import { clickComputeCohomologyButton, expectInitialState, expectResultsToContainHTML } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
-
-function getResultsDiv(): HTMLElement {
-  return screen.getByTestId("calculator-results")
-}
-
-function expectResultsToContainHTML(htmlToBeContained: string[], htmlNotToBeContained: string[] = []): void {
-  const resultsDiv = getResultsDiv()
-  for (const html of htmlToBeContained) {
-    expect(resultsDiv).toContainHTML(html)
-  }
-  for (const html of htmlNotToBeContained) {
-    expect(resultsDiv).not.toContainHTML(html)
-  }
-}
-
-function expectInitialState(): void {
-  expectResultsToContainHTML(
-    ["Computation results will be shown here"],
-    ["Computing "],
-  )
-}
-
-function clickComputeCohomologyButton(): void {
-  const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
-  expect(computeCohomologyForm).toContainHTML("Compute cohomology")
-  const computeCohomologyButton = within(computeCohomologyForm).getByRole("button")
-  expect(computeCohomologyButton).toContainHTML("Compute")
-  fireEvent.click(computeCohomologyButton)
-}
 
 class InputJson {
   private static openDialog(): HTMLElement {

@@ -21,10 +21,15 @@ export function expectInitialState(): void {
   )
 }
 
-export function clickComputeCohomologyButton(): void {
+export function getComputeCohomologyButton(): HTMLElement{
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
   const computeCohomologyButton = within(computeCohomologyForm).getByRole("button")
+  return computeCohomologyButton
+}
+
+export function clickComputeCohomologyButton(): void {
+  const computeCohomologyButton = getComputeCohomologyButton()
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
 }

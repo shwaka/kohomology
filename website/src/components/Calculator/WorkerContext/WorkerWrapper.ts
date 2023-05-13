@@ -1,3 +1,5 @@
+import { isInJest } from "@site/src/utils/isInJest"
+
 export class WorkerWrapper<WI, WO> {
   private readonly onmessageFunctions: Map<string, (workerOutput: WO) => void> = new Map()
   private readonly onRestartFunctions: Map<string, () => void> = new Map()
@@ -9,9 +11,16 @@ export class WorkerWrapper<WI, WO> {
     this.worker.onmessage = (e: MessageEvent<WO>): void => this.onmessage(e.data)
   }
 
+  private log(...args: unknown[]): void {
+    if (!isInJest()) {
+      // Don't run console.log in JEST
+      console.log(...args)
+    }
+  }
+
   subscribe(key: string, onmessage: (workerOutput: WO) => void): void {
     this.onmessageFunctions.set(key, onmessage)
-    console.log(`subscribe: ${key}`)
+    this.log(`subscribe: ${key}`)
   }
 
   unsubscribe(key: string): void {
@@ -20,7 +29,7 @@ export class WorkerWrapper<WI, WO> {
 
   subscribeRestart(key: string, onRestart: () => void): void {
     this.onRestartFunctions.set(key, onRestart)
-    console.log(`subscribe restart: ${key}`)
+    this.log(`subscribe restart: ${key}`)
   }
 
   unsubscribeRestart(key: string): void {

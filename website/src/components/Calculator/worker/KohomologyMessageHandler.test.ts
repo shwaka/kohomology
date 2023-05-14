@@ -17,11 +17,17 @@ test("computeCohomology", () => {
     (_) => { return },
     (_) => { return },
   )
+
+  // updateJson
   const updateJsonCommand: WorkerInput = {
     command: "updateJson",
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
   messageHandler.onmessage(updateJsonCommand)
+  const expectedLengthUpdateJson = 2
+  expect(outputs.length).toBe(expectedLengthUpdateJson)
+
+  // computeCohomology
   const computeCohomologyCommand: WorkerInput = {
     command: "computeCohomology",
     targetName: "self",
@@ -30,14 +36,17 @@ test("computeCohomology", () => {
     showCohomology: "basis",
   }
   messageHandler.onmessage(computeCohomologyCommand)
-  expect(outputs.length).toBe(4)
+  const expectedLengthComputeCohomology = 5
+  expect(outputs.length).toBe(expectedLengthUpdateJson + expectedLengthComputeCohomology)
+
   // check output types
-  const messageOutput0 = outputs[0]
+  const messageOutput0 = outputs[expectedLengthUpdateJson + 1]
   expectSendMessage(messageOutput0)
-  const messageOutput1 = outputs[2]
+  const messageOutput1 = outputs[expectedLengthUpdateJson + 3]
   expectSendMessage(messageOutput1)
-  expectNotifyInfo(outputs[1])
-  expectNotifyInfo(outputs[3])
+  expectNotifyInfo(outputs[expectedLengthUpdateJson + 2])
+  expectNotifyInfo(outputs[expectedLengthUpdateJson + 4])
+
   // check first message
   expect(messageOutput0.messages.length).toBe(1)
   expect(messageOutput0.messages[0].strings[0].content).toEqual("Computing ")

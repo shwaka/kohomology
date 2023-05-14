@@ -28,6 +28,7 @@ export class KohomologyMessageHandler {
 
   public onmessage(input: WorkerInput): void {
     this.log("WorkerInput", input)
+    this.notifyInfo({ status: "computing", progress: null })
     try {
       switch (input.command) {
         case "updateJson":
@@ -50,6 +51,8 @@ export class KohomologyMessageHandler {
         this.sendMessages(fromString("error", error.message))
       }
       this.error(error)
+    } finally {
+      this.notifyInfo({ status: "idle" })
     }
   }
 
@@ -123,14 +126,12 @@ export class KohomologyMessageHandler {
       }
     }
     this.sendMessages(styledMessages)
-    this.notifyInfo({ status: "idle" })
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
     assertNotNull(this.dgaWrapper)
     this.notifyInfo({ status: "computing", progress: null })
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
-    this.notifyInfo({ status: "idle" })
   }
 
   private showDgaInfo(): void {

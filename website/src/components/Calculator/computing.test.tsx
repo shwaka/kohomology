@@ -1,9 +1,10 @@
 import { useLocation } from "@docusaurus/router"
 import { act, fireEvent, render } from "@testing-library/react"
 import React from "react"
-import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton } from "./__testutils__/utilsOnCalculator"
+import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerOutput } from "./worker/workerInterface"
 import { Calculator } from "."
+import { InputJson } from "./__testutils__/InputJson"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({
@@ -106,6 +107,21 @@ describe("text on the 'compute' button", () => {
     capturer.pop() // pop "notifyInfo"
     expectComputeCohomologyButtonToContain("Computing")
     capturer.popAll()
+    expectComputeCohomologyButtonToContain("Compute")
+  })
+
+  it("should be 'compute' after computation finished with an error", async () => {
+    render(<Calculator/>)
+    expectInitialState()
+
+    // This causes an error since deg(sx) is zero.
+    const json = '[["x", 1, "zero"]]'
+    await InputJson.inputValidJson(json)
+    selectComputationTarget("freeLoopSpace")
+
+    const computeCohomologyButton = getComputeCohomologyButton()
+    expectComputeCohomologyButtonToContain("Compute")
+    fireEvent.click(computeCohomologyButton)
     expectComputeCohomologyButtonToContain("Compute")
   })
 })

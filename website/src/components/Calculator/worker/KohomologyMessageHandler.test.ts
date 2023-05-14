@@ -1,6 +1,6 @@
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { NotifyInfo, SendMessage, WorkerInput, WorkerOutput } from "./workerInterface"
+import { NotifyInfo, SendMessage, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
 
 function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
   expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
@@ -8,6 +8,14 @@ function expectSendMessage(output: WorkerOutput): asserts output is SendMessage 
 
 function expectNotifyInfo(output: WorkerOutput): asserts output is NotifyInfo {
   expect(output.command).toBeOneOf(["notifyInfo"])
+}
+
+function expectNotifyInfoOfStatus(
+  output: WorkerOutput,
+  status: WorkerStatus,
+): asserts output is NotifyInfo {
+  expectNotifyInfo(output)
+  expect(output.info.status).toBe(status)
 }
 
 test("computeCohomology", () => {
@@ -26,8 +34,8 @@ test("computeCohomology", () => {
   messageHandler.onmessage(updateJsonCommand)
   const expectedLengthUpdateJson = 2
   expect(outputs.length).toBe(expectedLengthUpdateJson)
-  expectNotifyInfo(outputs[0])
-  expectNotifyInfo(outputs[1])
+  expectNotifyInfoOfStatus(outputs[0], "computing")
+  expectNotifyInfoOfStatus(outputs[1], "idle")
 
   // computeCohomology
   const computeCohomologyCommand: WorkerInput = {
@@ -46,9 +54,9 @@ test("computeCohomology", () => {
   expectSendMessage(messageOutput0)
   const messageOutput1 = outputs[expectedLengthUpdateJson + 3]
   expectSendMessage(messageOutput1)
-  expectNotifyInfo(outputs[expectedLengthUpdateJson])
-  expectNotifyInfo(outputs[expectedLengthUpdateJson + 2])
-  expectNotifyInfo(outputs[expectedLengthUpdateJson + 4])
+  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson], "computing")
+  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson + 2], "computing")
+  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson + 4], "idle")
 
   // check first message
   expect(messageOutput0.messages.length).toBe(1)

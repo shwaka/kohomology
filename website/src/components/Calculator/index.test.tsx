@@ -1,7 +1,7 @@
 import { useLocation } from "@docusaurus/router"
 import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import React from "react"
-import { clickComputeCohomologyButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 
@@ -57,6 +57,22 @@ test("invalid json", async () => {
   const dialog = screen.getByRole("dialog")
   expect(dialog).toContainHTML("Unexpected JSON token at offset 0")
   expect(dialog).toContainHTML(`JSON input: ${json}`)
+})
+
+test("compute cohomology of LX", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("freeLoopSpace")
+  clickComputeCohomologyButton()
+  expectResultsToContainHTML(
+    [
+      "Computing H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d) for",
+      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
+      "H^{1} =\\ \\mathbb{Q}\\{[\\bar{x}]\\}",
+      "H^{2} =\\ \\mathbb{Q}\\{[{x}]\\}",
+    ]
+  )
+  expectComputeCohomologyButtonToContain("Compute")
 })
 
 test("url query", async () => {

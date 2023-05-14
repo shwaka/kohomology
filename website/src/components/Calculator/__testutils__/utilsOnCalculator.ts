@@ -1,4 +1,5 @@
 import { fireEvent, screen, within } from "@testing-library/react"
+import { TargetName, targetNames } from "../worker/workerInterface"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
@@ -37,4 +38,28 @@ export function clickComputeCohomologyButton(): void {
 export function expectComputeCohomologyButtonToContain(text: "Compute" | "Computing"): void {
   const computeCohomologyButton = getComputeCohomologyButton()
   expect(computeCohomologyButton).toContainHTML(text)
+}
+
+function isRadioGroupForTargets(role: string, element: Element | null): boolean {
+  if (role !== "radiogroup") {
+    return false
+  }
+  if (element === null) {
+    return false
+  }
+  for (const targetName of targetNames) {
+    if (!element.innerHTML.includes(`value="${targetName}"`)) {
+      return false
+    }
+  }
+  return true
+}
+
+export function selectComputationTarget(targetName: TargetName): void {
+  const radiogroup = screen.getByRole(isRadioGroupForTargets)
+  const input = within(radiogroup).getByRole((role, element) => (
+    (role === "radio") && (element !== null) &&
+      (element.outerHTML.includes(`value="${targetName}"`))
+  ))
+  fireEvent.click(input)
 }

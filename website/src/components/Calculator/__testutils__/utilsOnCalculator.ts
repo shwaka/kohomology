@@ -33,3 +33,8 @@ export function clickComputeCohomologyButton(): void {
   expect(computeCohomologyButton).toContainHTML("Compute")
   fireEvent.click(computeCohomologyButton)
 }
+
+export function expectComputeCohomologyButtonToContain(text: "Compute" | "Computing"): void {
+  const computeCohomologyButton = getComputeCohomologyButton()
+  expect(computeCohomologyButton).toContainHTML(text)
+}

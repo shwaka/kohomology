@@ -121,8 +121,8 @@ export function CalculatorForm(): JSX.Element {
         <ComputeForm
           targetName={targetName}
           postMessageToWorker={(message) => {
-            postMessage(message)
             setWorkerInfo({ status: "computing", progress: null })
+            postMessage(message)
           }}
           workerInfo={workerInfo}
         />

@@ -1,7 +1,7 @@
 import { useLocation } from "@docusaurus/router"
 import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import React from "react"
-import { clickComputeCohomologyButton, expectInitialState, expectResultsToContainHTML } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 
 class InputJson {
@@ -61,6 +61,7 @@ test("Calculator", async () => {
       "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
     ],
   )
+  expectComputeCohomologyButtonToContain("Compute")
 })
 
 test("input json", async () => {
@@ -82,6 +83,7 @@ test("input json", async () => {
       "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]
   )
+  expectComputeCohomologyButtonToContain("Compute")
 })
 
 test("invalid json", async () => {
@@ -108,6 +110,7 @@ test("url query", async () => {
       "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
     ]
   )
+  expectComputeCohomologyButtonToContain("Compute")
 })
 
 test("url query with invalid json", async () => {

@@ -26,6 +26,8 @@ test("computeCohomology", () => {
   messageHandler.onmessage(updateJsonCommand)
   const expectedLengthUpdateJson = 2
   expect(outputs.length).toBe(expectedLengthUpdateJson)
+  expectNotifyInfo(outputs[0])
+  expectNotifyInfo(outputs[1])
 
   // computeCohomology
   const computeCohomologyCommand: WorkerInput = {
@@ -44,6 +46,7 @@ test("computeCohomology", () => {
   expectSendMessage(messageOutput0)
   const messageOutput1 = outputs[expectedLengthUpdateJson + 3]
   expectSendMessage(messageOutput1)
+  expectNotifyInfo(outputs[expectedLengthUpdateJson])
   expectNotifyInfo(outputs[expectedLengthUpdateJson + 2])
   expectNotifyInfo(outputs[expectedLengthUpdateJson + 4])
 

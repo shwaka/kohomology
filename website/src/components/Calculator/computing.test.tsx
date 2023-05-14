@@ -1,7 +1,7 @@
 import { useLocation } from "@docusaurus/router"
-import { fireEvent, render } from "@testing-library/react"
+import { act, fireEvent, render } from "@testing-library/react"
 import React from "react"
-import { expectInitialState, getComputeCohomologyButton } from "./__testutils__/utilsOnCalculator"
+import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton } from "./__testutils__/utilsOnCalculator"
 import { WorkerOutput } from "./worker/workerInterface"
 import { Calculator } from "."
 
@@ -17,6 +17,11 @@ class OnmessageCapturer {
   constructor() {
     this.queue = []
     this.enabled = false
+  }
+
+  initialize(): void {
+    this.disable()
+    this.queue = []
   }
 
   enable(): void {
@@ -36,7 +41,13 @@ class OnmessageCapturer {
       throw new Error("queue is empty")
     }
     const [onmessage, workerOutput] = firstElement
-    onmessage(workerOutput)
+    act(() => onmessage(workerOutput))
+  }
+
+  popAll(): void {
+    while (this.queue.length > 0) {
+      this.pop()
+    }
   }
 
   add(onmessage: (workerOutput: WorkerOutput) => void, workerOutput: WorkerOutput): void {
@@ -66,17 +77,35 @@ jest.mock("./WorkerContext/WorkerWrapper", () => {
   }
 })
 
-describe("'computing' shown on the 'compute' button", () => {
+describe("text on the 'compute' button", () => {
   beforeEach(() => {
-    capturer.disable()
+    capturer.initialize()
   })
 
-  it("disappears after computation finished", async () => {
+  it("should be 'compute' after computation finished", async () => {
     render(<Calculator/>)
     expectInitialState()
     const computeCohomologyButton = getComputeCohomologyButton()
-    expect(computeCohomologyButton).toContainHTML("Compute")
+    expectComputeCohomologyButtonToContain("Compute")
     fireEvent.click(computeCohomologyButton)
-    // expect(computeCohomologyButton).toContainHTML("Compute")
+    expectComputeCohomologyButtonToContain("Compute")
+  })
+
+  it("should be 'computing' during the computation", async () => {
+    capturer.enable()
+
+    // initialize
+    render(<Calculator/>)
+    expectInitialState()
+    capturer.popAll()
+    expectComputeCohomologyButtonToContain("Compute")
+
+    // click the button
+    const computeCohomologyButton = getComputeCohomologyButton()
+    fireEvent.click(computeCohomologyButton)
+    capturer.pop() // pop "notifyInfo"
+    expectComputeCohomologyButtonToContain("Computing")
+    capturer.popAll()
+    expectComputeCohomologyButtonToContain("Compute")
   })
 })

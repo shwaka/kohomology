@@ -1,9 +1,9 @@
 import { useLocation } from "@docusaurus/router"
-import { fireEvent, render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 import React from "react"
+import { InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
-import { InputJson } from "./__testutils__/InputJson"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {

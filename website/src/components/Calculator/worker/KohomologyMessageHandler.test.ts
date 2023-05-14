@@ -38,11 +38,12 @@ test("computeCohomology", () => {
   expectNotifyInfoOfStatus(outputs[1], "idle")
 
   // computeCohomology
+  const maxDegree = 4 // must be >= 3
   const computeCohomologyCommand: WorkerInput = {
     command: "computeCohomology",
     targetName: "self",
     minDegree: 0,
-    maxDegree: 4,
+    maxDegree: maxDegree,
     showCohomology: "basis",
   }
   messageHandler.onmessage(computeCohomologyCommand)
@@ -62,11 +63,12 @@ test("computeCohomology", () => {
   expect(messageOutput0.messages.length).toBe(1)
   expect(messageOutput0.messages[0].strings[0].content).toEqual("Computing ")
   // check second message
-  expect(messageOutput1.messages.length).toBe(5)
-  expect(formatStyledMessage(messageOutput0.messages[0])).toEqual("Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq 4")
+  expect(messageOutput1.messages.length).toBe(maxDegree + 1)
+  expect(formatStyledMessage(messageOutput0.messages[0])).toEqual(`Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq ${maxDegree}`)
   expect(formatStyledMessage(messageOutput1.messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
   expect(formatStyledMessage(messageOutput1.messages[1])).toEqual("H^{1} =\\ 0")
   expect(formatStyledMessage(messageOutput1.messages[2])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
-  expect(formatStyledMessage(messageOutput1.messages[3])).toEqual("H^{3} =\\ 0")
-  expect(formatStyledMessage(messageOutput1.messages[4])).toEqual("H^{4} =\\ 0")
+  for (let degree = 3; degree <= maxDegree; degree++) {
+    expect(formatStyledMessage(messageOutput1.messages[degree])).toEqual(`H^{${degree}} =\\ 0`)
+  }
 })

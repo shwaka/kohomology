@@ -251,7 +251,10 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
             inputProps={{ "data-testid": "ArrayEditor-input-differentialValue" }}
           />
           <Tooltip title="Delete this generator">
-            <IconButton onClick={() => remove(index)} size="small">
+            <IconButton
+              onClick={() => { remove(index); trigger() }}
+              size="small"
+            >
               <Delete fontSize="small"/>
             </IconButton>
           </Tooltip>

@@ -36,6 +36,18 @@ function generatorArrayToJson(generatorArray: Generator[]): string {
   return generatorArrayToPrettyJson(arr)
 }
 
+function getNameOfNextGenerator(generatorArray: Generator[]): string {
+  const existingNames: string[] = generatorArray.map((generator) => generator.name)
+  // "d" cannot be used since it represents the differential
+  const nameCandidates: string[] = "xyzuvwabc".split("")
+  for (const candidate of nameCandidates) {
+    if (!existingNames.includes(candidate)) {
+      return candidate
+    }
+  }
+  return ""
+}
+
 export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
@@ -329,7 +341,11 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
         </DndContext>
         <Button
           variant="outlined"
-          onClick={() => append({ name: "", degree: 1, differentialValue: "0" })}
+          onClick={() => append({
+            name: getNameOfNextGenerator(getValues().generatorArray),
+            degree: 1,
+            differentialValue: "0"
+          })}
           startIcon={<Add/>}
           sx={{ textTransform: "none" }}
         >

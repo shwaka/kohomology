@@ -5,10 +5,11 @@ import { CSS } from "@dnd-kit/utilities"
 import { Add, Delete, DragHandle } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
-import React from "react"
+import React, { useCallback } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { generatorArrayToPrettyJson } from "../jsonUtils"
 import { TabItem } from "./TabDialog"
+import { useOverwritableTimeout } from "./useOverwritableTimeout"
 
 export interface Generator {
   name: string
@@ -205,6 +206,13 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
     transition,
   }
   const generatorName = getValues().generatorArray[index].name
+
+  const setOverwritableTimeout = useOverwritableTimeout()
+  const triggerWithDelay = useCallback(
+    () => setOverwritableTimeout(async () => await trigger(), 1000),
+    [setOverwritableTimeout, trigger]
+  )
+
   return (
     <div data-testid="ArrayEditor-row" ref={setSortableNodeRef} style={sortableStyle}>
       <Stack spacing={1}>
@@ -214,7 +222,10 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
             sx={{ width: 90 }} size="small"
             {...register(
               `generatorArray.${index}.name` as const,
-              { required: "Please enter the name."}
+              {
+                required: "Please enter the name.",
+                onChange: triggerWithDelay,
+              }
             )}
             onBlur={() => trigger()}
             error={containsError({ errors, index, key: "name" })}
@@ -228,7 +239,8 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
               {
                 valueAsNumber: true,
                 required: "Please enter the degree.",
-                validate: (value: number) => value === 0 ? "The degree cannot be 0." : true
+                validate: (value: number) => value === 0 ? "The degree cannot be 0." : true,
+                onChange: triggerWithDelay,
               }
             )}
             onBlur={() => trigger()}
@@ -243,7 +255,8 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
               {
                 validate: (value: string) =>
                   validateDifferentialValue(getValues().generatorArray, index, value),
-                required: "Please enter the value of the differential."
+                required: "Please enter the value of the differential.",
+                onChange: triggerWithDelay,
               }
             )}
             onBlur={() => trigger()}

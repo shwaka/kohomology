@@ -1,35 +1,8 @@
 import { render, screen } from "@testing-library/react"
 import React, { useEffect } from "react"
-import { createWorkerContext } from "./WorkerContext"
+import { MyWorker } from "./__testutils__/MyWorker"
 import { useWorker } from "./useWorker"
-
-interface MyWorkerInput {
-  value: number
-}
-
-interface MyWorkerOutput {
-  result: string
-}
-
-class MyWorker {
-  value: number
-  onmessage: (e: MessageEvent<MyWorkerOutput>) => void
-
-  constructor() {
-    this.value = 0
-    this.onmessage = (_) => { throw new Error("MyWorker is not initialized") }
-  }
-
-  postMessage(input: MyWorkerInput): void {
-    this.value += input.value
-    const output: MyWorkerOutput = {
-      result: `value=${this.value}`
-    }
-    this.onmessage({ data: output } as MessageEvent<MyWorkerOutput>)
-  }
-}
-
-const myWorkerContext = createWorkerContext<MyWorkerInput, MyWorkerOutput>()
+import { myWorkerContext } from "./__testutils__/myWorkerContext"
 
 function MyComponent(): JSX.Element {
   const { postMessage, addListener, workerOutputLog } = useWorker(myWorkerContext)

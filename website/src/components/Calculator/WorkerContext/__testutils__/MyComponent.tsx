@@ -1,5 +1,4 @@
 import React, { useEffect } from "react"
-import { MyWorker } from "./MyWorker"
 import { useWorker } from "../useWorker"
 import { myWorkerContext } from "./myWorkerContext"
 

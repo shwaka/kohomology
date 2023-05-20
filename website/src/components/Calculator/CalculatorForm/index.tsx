@@ -25,31 +25,12 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 }
 
 export function CalculatorForm(): JSX.Element {
-  const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
   const queryResult = useJsonFromURLQuery()
   const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
-  const resetWorkerInfo = useCallback(
-    (): void => {
-      setWorkerInfo({ status: "idle" })
-    },
-    [setWorkerInfo]
-  )
-
-  const onmessage = useCallback(
-    (output: WorkerOutput): void => {
-      switch (output.command) {
-        case "notifyInfo":
-          setWorkerInfo(output.info)
-          break
-      }
-    },
-    [setWorkerInfo]
-  )
-  const { json, setJson, dgaInfo, postMessage, restart } = useKohomologyWorker({
+  const { json, setJson, dgaInfo, workerInfo, postMessage, restart } = useKohomologyWorker({
     defaultJson: defaultDGAJson,
-    onmessage,
-    resetWorkerInfo,
+    onmessage: (_) => undefined, // previously this was used to pass setState
   })
 
   const [targetName, setTargetName] = useState<TargetName>("self")
@@ -116,7 +97,7 @@ export function CalculatorForm(): JSX.Element {
         <ComputeForm
           targetName={targetName}
           postMessageToWorker={(message) => {
-            setWorkerInfo({ status: "computing", progress: null })
+            // setWorkerInfo({ status: "computing", progress: null })
             postMessage(message)
           }}
           workerInfo={workerInfo}

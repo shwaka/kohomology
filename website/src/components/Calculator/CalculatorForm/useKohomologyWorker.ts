@@ -2,24 +2,24 @@ import { useCallback, useEffect } from "react"
 import { useWorker } from "../WorkerContext"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { StyledMessage } from "../styled/message"
-import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
+import { WorkerInfo, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string
   onmessage: (output: WorkerOutput) => void
-  resetWorkerInfo: () => void
 }
 
 interface UseKohomologyWorkerResult {
   json: string
   setJson: (json: string) => void
   dgaInfo: StyledMessage[]
+  workerInfo: WorkerInfo
   postMessage: (input: WorkerInput) => void
   restart: () => void
 }
 
 export function useKohomologyWorker({
-  defaultJson, onmessage, resetWorkerInfo
+  defaultJson, onmessage
 }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
@@ -27,7 +27,7 @@ export function useKohomologyWorker({
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  const { postMessage, addListener, restart, addRestartListener, state: { json, dgaInfo } } = useWorker(kohomologyWorkerContext)
+  const { postMessage, addListener, restart, state: { json, dgaInfo, workerInfo } } = useWorker(kohomologyWorkerContext)
 
   const setJson = useCallback((newJson: string): void => {
     const inputUpdate: WorkerInput = {
@@ -41,12 +41,6 @@ export function useKohomologyWorker({
     addListener("useKohomologyWorker", onmessage)
   }, [addListener, onmessage])
 
-  useEffect(() => {
-    addRestartListener("useKohomologyWorker", () => {
-      resetWorkerInfo()
-    })
-  }, [addRestartListener, resetWorkerInfo])
-
   // initialization
   useEffect(() => {
     setJson(defaultJson)
@@ -55,5 +49,5 @@ export function useKohomologyWorker({
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
 
-  return { json, setJson, dgaInfo, postMessage, restart }
+  return { json, setJson, dgaInfo, workerInfo, postMessage, restart }
 }

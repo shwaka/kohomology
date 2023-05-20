@@ -30,6 +30,7 @@ function CalculatorImpl(): JSX.Element {
             // This is a dummy and shouldn't be used.
             json: "[]",
             dgaInfo: [],
+            workerInfo: { status: "idle"},
           }}
         >
           <CalculatorForm/>

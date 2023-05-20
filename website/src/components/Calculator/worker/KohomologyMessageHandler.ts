@@ -88,8 +88,9 @@ export class KohomologyMessageHandler {
 
   private notifyInfo(workerInfo: WorkerInfo): void {
     const output: WorkerOutput = {
-      command: "notifyInfo",
-      info: workerInfo,
+      command: "updateState",
+      key: "workerInfo",
+      value: workerInfo,
     }
     this.postMessage(output)
   }

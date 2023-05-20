@@ -1,4 +1,4 @@
-import { fireEvent, screen, within } from "@testing-library/react"
+import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { TargetName, targetNames } from "../worker/workerInterface"
 
 function getResultsDiv(): HTMLElement {
@@ -40,7 +40,7 @@ export function expectComputeCohomologyButtonToContain(text: "Compute" | "Comput
   expect(computeCohomologyButton).toContainHTML(text)
 }
 
-export function clickRestartButton(): void {
+export async function clickRestartButton(): Promise<void> {
   // Open dialog
   const restartButton = screen.getByRole((role, element) => (
     (role === "button") && (element !== null) &&
@@ -58,6 +58,7 @@ export function clickRestartButton(): void {
       (element.textContent === "Restart")
   ))
   fireEvent.click(restartButtonInDialog)
+  await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
 function isRadioGroupForTargets(role: string, element: Element | null): boolean {

@@ -30,7 +30,7 @@ test("Calculator", async () => {
 test("restart", async () => {
   render(<Calculator/>)
   expectInitialState()
-  clickRestartButton()
+  await clickRestartButton()
   expectResultsToContainHTML(
     ["The background process is restarted"]
   )

@@ -48,10 +48,6 @@ export type WorkerInfo = {
   status: "computing"
   progress: number | null // should be between 0 and 1
 }
-export type NotifyInfo = {
-  command: "notifyInfo"
-  info: WorkerInfo
-}
 
 export type WorkerState = {
   json: string
@@ -60,4 +56,4 @@ export type WorkerState = {
 }
 export type UpdateState = OutputFromState<WorkerState>
 
-export type WorkerOutput = SendMessage | NotifyInfo | UpdateState
+export type WorkerOutput = SendMessage | UpdateState

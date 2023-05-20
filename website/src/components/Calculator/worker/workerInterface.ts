@@ -1,5 +1,5 @@
-import { StyledMessage } from "../styled/message"
 import { OutputFromState } from "../WorkerContext"
+import { StyledMessage } from "../styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation"] as const
 export type TargetName = (typeof targetNames)[number]

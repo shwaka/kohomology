@@ -100,7 +100,7 @@ export class KohomologyMessageHandler {
     minDegree: number, maxDegree: number,
     showCohomology: ShowCohomology,
   ): void {
-    assertNotNull(this.dgaWrapper)
+    assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.sendMessages(toStyledMessage(
       this.dgaWrapper.computationHeader(targetName, minDegree, maxDegree)
     ))
@@ -134,7 +134,7 @@ export class KohomologyMessageHandler {
   }
 
   private computeCohomologyClass(targetName: TargetName, cocycleString: string, showBasis: boolean): void {
-    assertNotNull(this.dgaWrapper)
+    assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.notifyInfo({ status: "computing", progress: null })
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
   }
@@ -159,8 +159,8 @@ export class KohomologyMessageHandler {
   }
 }
 
-function assertNotNull<T>(value: T | null): asserts value is T {
+function assertNotNull<T>(value: T | null, errorMessage: string): asserts value is T {
   if (value === null) {
-    throw new Error("The given value is null.")
+    throw new Error(errorMessage)
   }
 }

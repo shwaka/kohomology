@@ -7,14 +7,14 @@ function ShowWorkerOutputLog({ log, testid }: { log: MyWorkerOutput[], testid: s
   return (
     <div data-testid={testid}>
       {log.map((workerOutput, index) => (
-        <div key={index}>{workerOutput.result}</div>
+        <div key={index}>{"result" in workerOutput ? workerOutput.result : "no result"}</div>
       ))}
     </div>
   )
 }
 
 export function MyComponent(): JSX.Element {
-  const { postMessage, addListener, workerOutputLog } = useWorker(myWorkerContext)
+  const { postMessage, addListener, workerOutputLog, state: { value } } = useWorker(myWorkerContext)
   const [workerOutputLogFromListener, setWorkerOutputLogFromListener] = useState<MyWorkerOutput[]>([])
 
   useEffect(() => {
@@ -33,6 +33,7 @@ export function MyComponent(): JSX.Element {
       </button>
       <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
       <ShowWorkerOutputLog log={workerOutputLogFromListener} testid="show-log-from-listener"/>
+      <div data-testid="show-state-value">{`stateValue=${value}`}</div>
     </div>
   )
 }

@@ -2,8 +2,12 @@ export interface MyWorkerInput {
   value: number
 }
 
-export interface MyWorkerOutput {
+export type MyWorkerOutput = {
   result: string
+} | {
+  command: "updateState"
+  key: "value"
+  value: number
 }
 
 export class MyWorker {
@@ -17,6 +21,12 @@ export class MyWorker {
 
   postMessage(input: MyWorkerInput): void {
     this.value += input.value
+    const outputUpdateState: MyWorkerOutput = {
+      command: "updateState",
+      key: "value",
+      value: this.value,
+    }
+    this.onmessage({ data: outputUpdateState } as MessageEvent<MyWorkerOutput>)
     const output: MyWorkerOutput = {
       result: `value=${this.value}`
     }

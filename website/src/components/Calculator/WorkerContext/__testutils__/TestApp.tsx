@@ -7,6 +7,7 @@ export function TestApp(): JSX.Element {
   return (
     <myWorkerContext.Provider
       createWorker={() => new MyWorker() as unknown as Worker}
+      defaultState={{ value: 0 }}
     >
       <MyComponent/>
     </myWorkerContext.Provider>

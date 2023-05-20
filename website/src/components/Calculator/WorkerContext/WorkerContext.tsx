@@ -2,6 +2,11 @@ import React, { Context, createContext, ReactNode, useRef, useState } from "reac
 import { StateFromOutput } from "./StateFromOutput"
 import { WorkerWrapper } from "./WorkerWrapper"
 
+type OmitIfEmpty<T, K extends string | number | symbol> =
+  T extends { [_ in K]: infer S}
+    ? (Record<string, never> extends S ? Omit<T, K> : T)
+    : T
+
 interface ProviderProps<WI, WO> {
   createWorker: () => Worker
   defaultState: StateFromOutput<WO>
@@ -18,7 +23,7 @@ type StateContext<WI, WO> = Context<StateAndSetState<WI, WO>>
 export type WorkerContext<WI, WO> = {
   reactContext: Context<WorkerWrapper<WI, WO>>
   stateContext: StateContext<WI, WO>
-  Provider: (props: ProviderProps<WI, WO>) => JSX.Element
+  Provider: (props: OmitIfEmpty<ProviderProps<WI, WO>, "defaultState">) => JSX.Element
 }
 
 function WorkerContextProvider<WI, WO>(
@@ -48,17 +53,22 @@ function WorkerContextProvider<WI, WO>(
 function createProvider<WI, WO>(
   reactContext: Context<WorkerWrapper<WI, WO>>,
   stateContext: StateContext<WI, WO>,
-): ((props: ProviderProps<WI, WO>) => JSX.Element) {
-  const WorkerContextProviderCurried = (props: ProviderProps<WI, WO>): JSX.Element =>  (
-    <WorkerContextProvider
-      context={reactContext}
-      stateContext={stateContext}
-      createWorker={props.createWorker}
-      defaultState={props.defaultState}
-    >
-      {props.children}
-    </WorkerContextProvider>
-  )
+): ((props: OmitIfEmpty<ProviderProps<WI, WO>, "defaultState">) => JSX.Element) {
+  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WI, WO>, "defaultState">): JSX.Element =>  {
+    // If props does not contain defaultState, then StateFromOutput<WO> is empty.
+    const defaultState: StateFromOutput<WO> =
+      "defaultState" in props ? props.defaultState : ({} as StateFromOutput<WO>)
+    return (
+      <WorkerContextProvider
+        context={reactContext}
+        stateContext={stateContext}
+        createWorker={props.createWorker}
+        defaultState={defaultState}
+      >
+        {props.children}
+      </WorkerContextProvider>
+    )
+  }
   return WorkerContextProviderCurried
 }
 

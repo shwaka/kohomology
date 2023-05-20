@@ -10,6 +10,11 @@ function expectUpdateState(output: WorkerOutput): asserts output is UpdateState 
   expect(output.command).toBeOneOf(["updateState"])
 }
 
+function expectUpdateStateOfKey(output: WorkerOutput, key: keyof WorkerOutput): asserts output is UpdateState {
+  expectUpdateState(output)
+  expect(output.key).toBe(key)
+}
+
 function expectNotifyInfo(output: WorkerOutput): asserts output is NotifyInfo {
   expect(output.command).toBeOneOf(["notifyInfo"])
 }
@@ -39,7 +44,7 @@ test("computeCohomology", () => {
   const expectedLengthUpdateJson = 3
   expect(outputs.length).toBe(expectedLengthUpdateJson)
   expectNotifyInfoOfStatus(outputs[0], "computing")
-  expectUpdateState(outputs[1])
+  expectUpdateStateOfKey(outputs[1], "json")
   expectNotifyInfoOfStatus(outputs[2], "idle")
 
   // computeCohomology

@@ -54,8 +54,10 @@ export type NotifyInfo = {
   command: "notifyInfo"
   info: WorkerInfo
 }
-export type UpdateState = OutputFromState<{
+
+export type WorkerState = {
   json: string
-}>
+}
+export type UpdateState = OutputFromState<WorkerState>
 
 export type WorkerOutput = SendMessage | NotifyInfo | UpdateState

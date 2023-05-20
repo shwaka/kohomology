@@ -26,7 +26,6 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 }
 
 export function CalculatorForm(): JSX.Element {
-  const [_dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
 
   const resetWorkerInfo = useCallback(
@@ -39,15 +38,12 @@ export function CalculatorForm(): JSX.Element {
   const onmessage = useCallback(
     (output: WorkerOutput): void => {
       switch (output.command) {
-        case "showDgaInfo":
-          setDgaInfo(output.messages)
-          break
         case "notifyInfo":
           setWorkerInfo(output.info)
           break
       }
     },
-    [setDgaInfo, setWorkerInfo]
+    [setWorkerInfo]
   )
   const { json, setJson, dgaInfo, postMessage, restart } = useKohomologyWorker({
     onmessage,

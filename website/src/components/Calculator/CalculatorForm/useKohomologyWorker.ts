@@ -28,34 +28,13 @@ export function useKohomologyWorker({
 
   const { postMessage, addListener, restart, addRestartListener, state: { json, dgaInfo } } = useWorker(kohomologyWorkerContext)
 
-  const showDgaInfo = useCallback((): void => {
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    postMessage(inputShowInfo)
-  }, [postMessage])
-
   const setJson = useCallback((newJson: string): void => {
     const inputUpdate: WorkerInput = {
       command: "updateJson",
       json: newJson,
     }
     postMessage(inputUpdate)
-    showDgaInfo()
-  }, [postMessage, showDgaInfo])
-
-  const updateJson = useCallback((): void => {
-    // setJson(json)
-    const inputUpdate: WorkerInput = {
-      command: "updateJson",
-      json: json,
-    }
-    postMessage(inputUpdate)
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    postMessage(inputShowInfo)
-  }, [json, postMessage])
+  }, [postMessage])
 
   useEffect(() => {
     addListener("useKohomologyWorker", onmessage)
@@ -64,23 +43,11 @@ export function useKohomologyWorker({
   useEffect(() => {
     addRestartListener("useKohomologyWorker", () => {
       resetWorkerInfo()
-      updateJson()
     })
-  }, [addRestartListener, resetWorkerInfo, updateJson])
+  }, [addRestartListener, resetWorkerInfo])
 
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
-
-  // KohomologyWorker (kohomology-js) also stores json (as a FreeDGAlgebra defined from it)
-  // to cache computation results.
-  // This violates the principle "single source of truth",
-  // but such implementation seems to be efficient since KohomologyWorker is run in a different thread.
-  // Hence it is necessary to update worker when
-  // - json is changed or
-  // - worker is restarted.
-  useEffect(() => {
-    updateJson()
-  }, [updateJson])
 
   return { json, setJson, dgaInfo, postMessage, restart }
 }

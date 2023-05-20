@@ -33,6 +33,7 @@ export class KohomologyMessageHandler {
       switch (input.command) {
         case "updateJson":
           this.updateJson(input.json)
+          this.showDgaInfo()
           break
         case "computeCohomology":
           this.computeCohomology(input.targetName, input.minDegree, input.maxDegree, input.showCohomology)
@@ -144,14 +145,16 @@ export class KohomologyMessageHandler {
     if (this.dgaWrapper === null) {
       const message = "[Error] Your DGA contains errors. Please fix them."
       const output: WorkerOutput = {
-        command: "showDgaInfo",
-        messages: [fromString("error", message)],
+        command: "updateState",
+        key: "dgaInfo",
+        value: [fromString("error", message)],
       }
       this.postMessage(output)
     } else {
       const output: WorkerOutput = {
-        command: "showDgaInfo",
-        messages: this.dgaWrapper.dgaInfo().map(toStyledMessage),
+        command: "updateState",
+        key: "dgaInfo",
+        value: this.dgaWrapper.dgaInfo().map(toStyledMessage),
       }
       this.postMessage(output)
     }

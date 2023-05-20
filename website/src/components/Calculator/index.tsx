@@ -30,7 +30,10 @@ function CalculatorImpl(): JSX.Element {
       >
         <kohomologyWorkerContext.Provider
           createWorker={createWorker}
-          defaultState={{ json: defaultDGAJson }}
+          defaultState={{
+            json: defaultDGAJson,
+            dgaInfo: [],
+          }}
         >
           <CalculatorForm/>
           <MessageBoxForWorker/>

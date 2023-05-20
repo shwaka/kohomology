@@ -57,6 +57,7 @@ export type NotifyInfo = {
 
 export type WorkerState = {
   json: string
+  dgaInfo: StyledMessage[]
 }
 export type UpdateState = OutputFromState<WorkerState>
 

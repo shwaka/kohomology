@@ -27,7 +27,7 @@ export function useKohomologyWorker({
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  const { postMessage, addListener, restart, state: { json, dgaInfo, workerInfo } } = useWorker(kohomologyWorkerContext)
+  const { postMessage, addListener, addRestartListener, restart, state: { json, dgaInfo, workerInfo } } = useWorker(kohomologyWorkerContext)
 
   const setJson = useCallback((newJson: string): void => {
     const inputUpdate: WorkerInput = {
@@ -40,6 +40,14 @@ export function useKohomologyWorker({
   useEffect(() => {
     addListener("useKohomologyWorker", onmessage)
   }, [addListener, onmessage])
+
+  useEffect(() => {
+    addRestartListener("useKohomologyWorker", () => {
+      // When the worker is restarted, json should be set again
+      // (c.f. see the initialization below)
+      setJson(json)
+    })
+  }, [addRestartListener, setJson, json])
 
   // initialization
   useEffect(() => {

@@ -26,17 +26,21 @@ export function useKohomologyWorker({
 
   const { postMessage, addListener, restart, addRestartListener, state: { json } } = useWorker(kohomologyWorkerContext)
 
+  const showDgaInfo = useCallback((): void => {
+    const inputShowInfo: WorkerInput = {
+      command: "dgaInfo"
+    }
+    postMessage(inputShowInfo)
+  }, [postMessage])
+
   const setJson = useCallback((newJson: string): void => {
     const inputUpdate: WorkerInput = {
       command: "updateJson",
       json: newJson,
     }
     postMessage(inputUpdate)
-    const inputShowInfo: WorkerInput = {
-      command: "dgaInfo"
-    }
-    postMessage(inputShowInfo)
-  }, [postMessage])
+    showDgaInfo()
+  }, [postMessage, showDgaInfo])
 
   const updateJson = useCallback((): void => {
     // setJson(json)

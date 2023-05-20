@@ -7,13 +7,9 @@ import { CalculatorForm } from "./CalculatorForm"
 import { MessageBoxForWorker } from "./MessageBoxForWorker"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { useCustomTheme } from "./useCustomTheme"
-import { useJsonFromURLQuery } from "./CalculatorForm/urlQuery"
-import { sphere } from "./DGAEditorDialog/examples"
 
 function CalculatorImpl(): JSX.Element {
   const theme = useCustomTheme()
-  const queryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
   const createWorker = (): Worker => new KohomologyWorker()
 
@@ -31,7 +27,8 @@ function CalculatorImpl(): JSX.Element {
         <kohomologyWorkerContext.Provider
           createWorker={createWorker}
           defaultState={{
-            json: defaultDGAJson,
+            // This is a dummy and shouldn't be used.
+            json: "[]",
             dgaInfo: [],
           }}
         >

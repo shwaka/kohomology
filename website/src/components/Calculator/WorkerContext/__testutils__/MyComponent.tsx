@@ -17,9 +17,11 @@ export function MyComponent(): JSX.Element {
       >
         Add 3
       </button>
-      {workerOutputLog.map((workerOutput, index) => (
-        <div key={index}>{workerOutput.result}</div>
-      ))}
+      <div data-testid="show-workerOutputLog">
+        {workerOutputLog.map((workerOutput, index) => (
+          <div key={index}>{workerOutput.result}</div>
+        ))}
+      </div>
     </div>
   )
 }

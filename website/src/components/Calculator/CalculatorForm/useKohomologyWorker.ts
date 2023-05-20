@@ -5,6 +5,7 @@ import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 import { StyledMessage } from "../styled/message"
 
 interface UseKohomologyWorkerArgs {
+  defaultJson: string
   onmessage: (output: WorkerOutput) => void
   resetWorkerInfo: () => void
 }
@@ -18,7 +19,7 @@ interface UseKohomologyWorkerResult {
 }
 
 export function useKohomologyWorker({
-  onmessage, resetWorkerInfo
+  defaultJson, onmessage, resetWorkerInfo
 }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
@@ -45,6 +46,11 @@ export function useKohomologyWorker({
       resetWorkerInfo()
     })
   }, [addRestartListener, resetWorkerInfo])
+
+  // initialization
+  useEffect(() => {
+    setJson(defaultJson)
+  }, [setJson, defaultJson])
 
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)

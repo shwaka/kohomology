@@ -1,5 +1,6 @@
 import { useCallback, useContext } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
+import { StateFromOutput } from "./StateFromOutput"
 import { WorkerContext } from "./WorkerContext"
 
 export interface UseWorkerReturnValue<WI, WO> {
@@ -8,12 +9,14 @@ export interface UseWorkerReturnValue<WI, WO> {
   addListener: (key: string, onmessage: (workerOutput: WO) => void) => void
   restart: () => void
   addRestartListener: (key: string, onRestart: () => void) => void
+  state: StateFromOutput<WO>
 }
 
 export function useWorker<WI, WO>(
   context: WorkerContext<WI, WO>
 ): UseWorkerReturnValue<WI, WO> {
   const wrapper = useContext(context.reactContext)
+  const [state, setState] = useContext(context.stateContext)
 
   const subscribe = useCallback(
     (onStoreChange: () => void): (() => void) => {
@@ -66,5 +69,6 @@ export function useWorker<WI, WO>(
     addListener,
     restart,
     addRestartListener,
+    state,
   }
 }

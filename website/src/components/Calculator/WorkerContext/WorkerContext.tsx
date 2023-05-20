@@ -1,41 +1,60 @@
-import React, { Context, createContext, ReactNode, useRef } from "react"
+import React, { Context, createContext, ReactNode, useRef, useState } from "react"
+import { StateFromOutput } from "./StateFromOutput"
 import { WorkerWrapper } from "./WorkerWrapper"
 
-interface ProviderProps {
+interface ProviderProps<WI, WO> {
   createWorker: () => Worker
+  defaultState: StateFromOutput<WO>
   children: ReactNode
 }
+
+type StateAndSetState<WI, WO> = [
+  StateFromOutput<WO>,
+  React.Dispatch<React.SetStateAction<StateFromOutput<WO>>>,
+]
+
+type StateContext<WI, WO> = Context<StateAndSetState<WI, WO>>
 
 export type WorkerContext<WI, WO> = {
   reactContext: Context<WorkerWrapper<WI, WO>>
-  Provider: (props: ProviderProps) => JSX.Element
+  stateContext: StateContext<WI, WO>
+  Provider: (props: ProviderProps<WI, WO>) => JSX.Element
 }
 
-function WorkerContextProvider<WI, WO>(props: {
-  context: Context<WorkerWrapper<WI, WO>>
-  createWorker: () => Worker
-  children: ReactNode
-}): JSX.Element {
+function WorkerContextProvider<WI, WO>(
+  props: {
+    context: Context<WorkerWrapper<WI, WO>>
+    stateContext: StateContext<WI, WO>
+  } & ProviderProps<WI, WO>
+): JSX.Element {
   const wrapperRef = useRef<WorkerWrapper<WI, WO> | null>(null)
   if (wrapperRef.current === null) {
     wrapperRef.current = new WorkerWrapper(props.createWorker)
   }
+  const stateAndSetState = useState<StateFromOutput<WO>>(props.defaultState)
 
   const CurrentContext = props.context
+  const StateContext = props.stateContext
+
   return (
     <CurrentContext.Provider value={wrapperRef.current}>
-      {props.children}
+      <StateContext.Provider value={stateAndSetState}>
+        {props.children}
+      </StateContext.Provider>
     </CurrentContext.Provider>
   )
 }
 
 function createProvider<WI, WO>(
-  reactContext: Context<WorkerWrapper<WI, WO>>
-): ((props: ProviderProps) => JSX.Element) {
-  const WorkerContextProviderCurried = (props: ProviderProps): JSX.Element =>  (
+  reactContext: Context<WorkerWrapper<WI, WO>>,
+  stateContext: StateContext<WI, WO>,
+): ((props: ProviderProps<WI, WO>) => JSX.Element) {
+  const WorkerContextProviderCurried = (props: ProviderProps<WI, WO>): JSX.Element =>  (
     <WorkerContextProvider
       context={reactContext}
+      stateContext={stateContext}
       createWorker={props.createWorker}
+      defaultState={props.defaultState}
     >
       {props.children}
     </WorkerContextProvider>
@@ -45,9 +64,14 @@ function createProvider<WI, WO>(
 
 export function createWorkerContext<WI, WO>(): WorkerContext<WI, WO> {
   const reactContext = createContext<WorkerWrapper<WI, WO>>(WorkerWrapper.default())
-  const Provider = createProvider(reactContext)
+  const stateContext = createContext<StateAndSetState<WI, WO>>([
+    undefined as unknown as StateFromOutput<WO>,
+    (_value) => { throw new Error("Not wrapped by provider") },
+  ])
+  const Provider = createProvider(reactContext, stateContext)
   return {
     reactContext,
+    stateContext,
     Provider,
   }
 }

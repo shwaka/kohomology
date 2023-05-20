@@ -4,7 +4,8 @@ import { ExtractUpdateState, StateFromOutput } from "./StateFromOutput"
 import { WorkerContext } from "./WorkerContext"
 
 function isUpdateState<WO>(output: WO): output is ExtractUpdateState<WO> {
-  return "updateState" in output
+  return ("command" in output) &&
+    ((output as unknown as { command: unknown }).command === "updateState")
 }
 
 function getPartialStateFromOutput<WO>(output: WO): StateFromOutput<WO> | null {
@@ -32,7 +33,10 @@ export function useWorker<WI, WO>(
   const [state, setState] = useContext(context.stateContext)
   useEffect(() => {
     wrapper.subscribe("__set_worker_state__", (workerOutput: WO): void => {
-      const partialState = getPartialStateFromOutput(workerOutput)
+      const partialState: StateFromOutput<WO> | null = getPartialStateFromOutput(workerOutput)
+      if (partialState === null) {
+        return
+      }
       setState((previousState) => ({
         ...previousState,
         ...partialState,

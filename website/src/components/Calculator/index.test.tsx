@@ -2,7 +2,7 @@ import { useLocation } from "@docusaurus/router"
 import { render, screen } from "@testing-library/react"
 import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
-import { clickComputeCohomologyButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -16,6 +16,24 @@ test("Calculator", async () => {
   render(<Calculator/>)
   expectInitialState()
   // const calculator = screen.getByTestId("Calculator")
+  clickComputeCohomologyButton()
+  expectResultsToContainHTML(
+    [
+      "Computing H^n(Λ(x, y), d) for",
+      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
+      "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
+    ],
+  )
+  expectComputeCohomologyButtonToContain("Compute")
+})
+
+test("restart", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  clickRestartButton()
+  expectResultsToContainHTML(
+    ["The background process is restarted"]
+  )
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [

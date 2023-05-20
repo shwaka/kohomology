@@ -40,6 +40,26 @@ export function expectComputeCohomologyButtonToContain(text: "Compute" | "Comput
   expect(computeCohomologyButton).toContainHTML(text)
 }
 
+export function clickRestartButton(): void {
+  // Open dialog
+  const restartButton = screen.getByRole((role, element) => (
+    (role === "button") && (element !== null) &&
+      (element.textContent === "Restart")
+  ))
+  fireEvent.click(restartButton)
+
+  // Close dialog
+  const dialog = screen.getByRole((role, element) => (
+    (role === "dialog") && (element !== null) &&
+      (element.innerHTML.includes("Are you sure to restart"))
+  ))
+  const restartButtonInDialog = within(dialog).getByRole((role, element) => (
+    (role === "button") && (element !== null) &&
+      (element.textContent === "Restart")
+  ))
+  fireEvent.click(restartButtonInDialog)
+}
+
 function isRadioGroupForTargets(role: string, element: Element | null): boolean {
   if (role !== "radiogroup") {
     return false

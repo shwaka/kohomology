@@ -11,7 +11,7 @@ type GetValueProperty<T extends OutputUpdateState, K> =
 
 type KeyOfOutput<O extends { key: string, value: unknown }> = O extends { key: unknown } ? O["key"] : never
 
-type ExtractUpdateState<O> =
+export type ExtractUpdateState<O> =
   O extends OutputUpdateState
     ? O
     : never

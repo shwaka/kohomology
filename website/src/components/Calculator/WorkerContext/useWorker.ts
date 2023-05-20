@@ -1,7 +1,20 @@
-import { useCallback, useContext } from "react"
+import { useCallback, useContext, useEffect } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
-import { StateFromOutput } from "./StateFromOutput"
+import { ExtractUpdateState, StateFromOutput } from "./StateFromOutput"
 import { WorkerContext } from "./WorkerContext"
+
+function isUpdateState<WO>(output: WO): output is ExtractUpdateState<WO> {
+  return "updateState" in output
+}
+
+function getPartialStateFromOutput<WO>(output: WO): StateFromOutput<WO> | null {
+  if (!isUpdateState(output)){
+    return null
+  }
+  return {
+    [output.key]: output.value
+  } as StateFromOutput<WO>
+}
 
 export interface UseWorkerReturnValue<WI, WO> {
   postMessage: (message: WI) => void
@@ -17,6 +30,15 @@ export function useWorker<WI, WO>(
 ): UseWorkerReturnValue<WI, WO> {
   const wrapper = useContext(context.reactContext)
   const [state, setState] = useContext(context.stateContext)
+  useEffect(() => {
+    wrapper.subscribe("__set_worker_state__", (workerOutput: WO): void => {
+      const partialState = getPartialStateFromOutput(workerOutput)
+      setState((previousState) => ({
+        ...previousState,
+        ...partialState,
+      }))
+    })
+  }, [wrapper, setState])
 
   const subscribe = useCallback(
     (onStoreChange: () => void): (() => void) => {

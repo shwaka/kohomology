@@ -41,11 +41,12 @@ test("computeCohomology", () => {
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
   messageHandler.onmessage(updateJsonCommand)
-  const expectedLengthUpdateJson = 3
+  const expectedLengthUpdateJson = 4
   expect(outputs.length).toBe(expectedLengthUpdateJson)
   expectNotifyInfoOfStatus(outputs[0], "computing")
   expectUpdateStateOfKey(outputs[1], "json")
-  expectNotifyInfoOfStatus(outputs[2], "idle")
+  expectUpdateStateOfKey(outputs[2], "dgaInfo")
+  expectNotifyInfoOfStatus(outputs[3], "idle")
 
   // computeCohomology
   const maxDegree = 4 // must be >= 3

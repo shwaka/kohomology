@@ -10,7 +10,7 @@ function expectUpdateState(output: WorkerOutput): asserts output is UpdateState 
   expect(output.command).toBeOneOf(["updateState"])
 }
 
-function expectUpdateStateOfKey(output: WorkerOutput, key: keyof WorkerOutput): asserts output is UpdateState {
+function expectUpdateStateOfKey(output: WorkerOutput, key: UpdateState["key"]): asserts output is UpdateState {
   expectUpdateState(output)
   expect(output.key).toBe(key)
 }

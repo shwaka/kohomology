@@ -24,4 +24,10 @@ export default class KohomologyWorker {
   postMessage(input: WorkerInput): void {
     this.messageHandler.onmessage(input)
   }
+
+  terminate(): void {
+    this.onmessage = (_) => {
+      throw new Error("WebWorker is already terminated")
+    }
+  }
 }

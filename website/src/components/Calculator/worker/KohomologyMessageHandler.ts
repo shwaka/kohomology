@@ -60,6 +60,12 @@ export class KohomologyMessageHandler {
   private updateJson(json: string): void {
     try {
       this.dgaWrapper = new FreeDGAWrapper(json)
+      const output: WorkerOutput = {
+        command: "updateState",
+        key: "json",
+        value: json,
+      }
+      this.postMessage(output)
     } catch (error: unknown) {
       this.dgaWrapper = null
       throw error

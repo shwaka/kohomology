@@ -1,6 +1,6 @@
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { SendMessage, UpdateState, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
+import { SendMessage, UpdateState, WorkerInput, WorkerOutput } from "./workerInterface"
 
 function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
   expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])

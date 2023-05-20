@@ -4,7 +4,6 @@ import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
-  defaultJson: string
   onmessage: (output: WorkerOutput) => void
   resetWorkerInfo: () => void
 }
@@ -17,16 +16,27 @@ interface UseKohomologyWorkerResult {
 }
 
 export function useKohomologyWorker({
-  defaultJson, onmessage, resetWorkerInfo
+  onmessage, resetWorkerInfo
 }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
-  const [json, setJson] = useState(defaultJson)
 
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  const { postMessage, addListener, restart, addRestartListener } = useWorker(kohomologyWorkerContext)
+  const { postMessage, addListener, restart, addRestartListener, state: { json } } = useWorker(kohomologyWorkerContext)
+
+  const setJson = useCallback((newJson: string): void => {
+    const inputUpdate: WorkerInput = {
+      command: "updateJson",
+      json: newJson,
+    }
+    postMessage(inputUpdate)
+    const inputShowInfo: WorkerInput = {
+      command: "dgaInfo"
+    }
+    postMessage(inputShowInfo)
+  }, [postMessage])
 
   const updateJson = useCallback((): void => {
     // setJson(json)

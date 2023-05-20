@@ -28,8 +28,6 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 export function CalculatorForm(): JSX.Element {
   const [dgaInfo, setDgaInfo] = useState<StyledMessage[]>([])
   const [workerInfo, setWorkerInfo] = useState<WorkerInfo>({ status: "idle" })
-  const queryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
   const resetWorkerInfo = useCallback(
     (): void => {
@@ -52,7 +50,6 @@ export function CalculatorForm(): JSX.Element {
     [setDgaInfo, setWorkerInfo]
   )
   const { json, setJson, postMessage, restart } = useKohomologyWorker({
-    defaultJson: defaultDGAJson,
     onmessage,
     resetWorkerInfo,
   })

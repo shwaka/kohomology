@@ -1,4 +1,5 @@
 import { StyledMessage } from "../styled/message"
+import { OutputFromState } from "../WorkerContext"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation"] as const
 export type TargetName = (typeof targetNames)[number]
@@ -53,5 +54,8 @@ export type NotifyInfo = {
   command: "notifyInfo"
   info: WorkerInfo
 }
+export type UpdateState = OutputFromState<{
+  json: string
+}>
 
-export type WorkerOutput = SendMessage | NotifyInfo
+export type WorkerOutput = SendMessage | NotifyInfo | UpdateState

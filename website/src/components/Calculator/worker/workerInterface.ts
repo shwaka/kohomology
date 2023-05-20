@@ -28,18 +28,16 @@ type ComputeCohomologyClassCommand = {
   cocycleString: string
   showBasis: boolean
 }
-type NoArgCommand = {
-  command: "dgaInfo"
-}
+type NoArgCommand = never // previously { command: "dgaInfo" }
 
 export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
 
 // outputs
-export const outputCommands = ["printMessages", "showDgaInfo", "notifyInfo"] as const
+export const outputCommands = ["printMessages", "notifyInfo"] as const
 export type OutputCommand = (typeof outputCommands)[number]
 
 export type SendMessage = {
-  command: "printMessages" | "showDgaInfo"
+  command: "printMessages"
   messages: StyledMessage[]
 }
 

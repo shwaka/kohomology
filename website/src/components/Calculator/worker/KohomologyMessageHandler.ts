@@ -38,9 +38,6 @@ export class KohomologyMessageHandler {
         case "computeCohomology":
           this.computeCohomology(input.targetName, input.minDegree, input.maxDegree, input.showCohomology)
           break
-        case "dgaInfo":
-          this.showDgaInfo()
-          break
         case "computeCohomologyClass":
           this.computeCohomologyClass(input.targetName, input.cocycleString, input.showBasis)
           break

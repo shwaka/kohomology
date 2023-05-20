@@ -1,9 +1,13 @@
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { NotifyInfo, SendMessage, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
+import { NotifyInfo, SendMessage, UpdateState, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
 
 function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
   expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
+}
+
+function expectUpdateState(output: WorkerOutput): asserts output is UpdateState {
+  expect(output.command).toBeOneOf(["updateState"])
 }
 
 function expectNotifyInfo(output: WorkerOutput): asserts output is NotifyInfo {
@@ -32,10 +36,11 @@ test("computeCohomology", () => {
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
   messageHandler.onmessage(updateJsonCommand)
-  const expectedLengthUpdateJson = 2
+  const expectedLengthUpdateJson = 3
   expect(outputs.length).toBe(expectedLengthUpdateJson)
   expectNotifyInfoOfStatus(outputs[0], "computing")
-  expectNotifyInfoOfStatus(outputs[1], "idle")
+  expectUpdateState(outputs[1])
+  expectNotifyInfoOfStatus(outputs[2], "idle")
 
   // computeCohomology
   const maxDegree = 4 // must be >= 3

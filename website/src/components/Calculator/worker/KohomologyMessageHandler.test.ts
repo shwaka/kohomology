@@ -1,6 +1,6 @@
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { NotifyInfo, SendMessage, UpdateState, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
+import { SendMessage, UpdateState, WorkerInput, WorkerOutput, WorkerStatus } from "./workerInterface"
 
 function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
   expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
@@ -13,18 +13,6 @@ function expectUpdateState(output: WorkerOutput): asserts output is UpdateState 
 function expectUpdateStateOfKey(output: WorkerOutput, key: UpdateState["key"]): asserts output is UpdateState {
   expectUpdateState(output)
   expect(output.key).toBe(key)
-}
-
-function expectNotifyInfo(output: WorkerOutput): asserts output is NotifyInfo {
-  expect(output.command).toBeOneOf(["notifyInfo"])
-}
-
-function expectNotifyInfoOfStatus(
-  output: WorkerOutput,
-  status: WorkerStatus,
-): asserts output is NotifyInfo {
-  expectNotifyInfo(output)
-  expect(output.info.status).toBe(status)
 }
 
 test("computeCohomology", () => {
@@ -43,10 +31,9 @@ test("computeCohomology", () => {
   messageHandler.onmessage(updateJsonCommand)
   const expectedLengthUpdateJson = 4
   expect(outputs.length).toBe(expectedLengthUpdateJson)
-  expectNotifyInfoOfStatus(outputs[0], "computing")
+  expectUpdateStateOfKey(outputs[0], "workerInfo")
   expectUpdateStateOfKey(outputs[1], "json")
   expectUpdateStateOfKey(outputs[2], "dgaInfo")
-  expectNotifyInfoOfStatus(outputs[3], "idle")
 
   // computeCohomology
   const maxDegree = 4 // must be >= 3
@@ -66,9 +53,6 @@ test("computeCohomology", () => {
   expectSendMessage(messageOutput0)
   const messageOutput1 = outputs[expectedLengthUpdateJson + 3]
   expectSendMessage(messageOutput1)
-  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson], "computing")
-  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson + 2], "computing")
-  expectNotifyInfoOfStatus(outputs[expectedLengthUpdateJson + 4], "idle")
 
   // check first message
   expect(messageOutput0.messages.length).toBe(1)

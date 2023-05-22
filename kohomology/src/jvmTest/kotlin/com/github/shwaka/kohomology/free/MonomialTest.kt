@@ -78,6 +78,14 @@ class MonomialTest : FreeSpec({
         }
     }
 
+    "isCommutative should be true" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+        )
+        val monoid = FreeMonoid(indeterminateList)
+        monoid.isCommutative.shouldBeTrue()
+    }
+
     "two generators of even degrees" {
         val indeterminateList = listOf(
             Indeterminate("x", 2),

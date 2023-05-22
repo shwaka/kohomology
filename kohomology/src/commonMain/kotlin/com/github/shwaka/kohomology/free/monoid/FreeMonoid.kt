@@ -154,6 +154,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
     }
 
     override val unit: Monomial<D, I> = Monomial(this.degreeGroup, this.indeterminateListInternal, IntArray(this.indeterminateListInternal.size) { 0 })
+    override val isCommutative: Boolean = true
 
     // val generatorList: List<Monomial<D, I>> by lazy {
     //     val n = this.indeterminateListInternal.size

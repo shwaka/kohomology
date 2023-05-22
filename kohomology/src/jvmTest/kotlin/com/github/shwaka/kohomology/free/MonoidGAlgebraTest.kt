@@ -48,7 +48,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable)
+        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
         val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeGroup, monoid, "M")
 
         "check dimension" {
@@ -103,7 +103,7 @@ class MonoidGAlgebraTest : FreeSpec({
                 listOf(xy, Zero, Zero, Zero),
             )
         }
-        val monoid = MonoidFromList(elements, SuperDegreeGroup, multiplicationTable)
+        val monoid = MonoidFromList(elements, SuperDegreeGroup, multiplicationTable, isCommutative = true)
         val gAlgebra = MonoidGAlgebra(matrixSpace, SuperDegreeGroup, monoid, "A")
         val (e, xy) = gAlgebra.getBasis(EvenSuperDegree)
         val (x, y) = gAlgebra.getBasis(OddSuperDegree)

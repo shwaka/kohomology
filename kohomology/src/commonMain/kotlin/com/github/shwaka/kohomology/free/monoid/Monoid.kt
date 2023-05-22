@@ -26,6 +26,7 @@ public object Zero : SignedOrZero<Nothing>()
  */
 public interface Monoid<D : Degree, E : MonoidElement<D>> {
     public val unit: E
+    public val isCommutative: Boolean
     public val degreeGroup: DegreeGroup<D>
     public fun multiply(monoidElement1: E, monoidElement2: E): SignedOrZero<E>
     public fun listElements(degree: D): List<E>

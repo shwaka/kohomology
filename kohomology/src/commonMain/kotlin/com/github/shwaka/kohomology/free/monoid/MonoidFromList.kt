@@ -18,7 +18,8 @@ public data class SimpleMonoidElement<T, D : Degree>(val name: T, override val d
 public class MonoidFromList<T, D : Degree>(
     public val elements: List<SimpleMonoidElement<T, D>>,
     override val degreeGroup: DegreeGroup<D>,
-    public val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<T, D>>>>
+    public val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<T, D>>>>,
+    override val isCommutative: Boolean,
 ) : Monoid<D, SimpleMonoidElement<T, D>> {
     init {
         if (this.elements.isEmpty())

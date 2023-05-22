@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.free.monoid
 
+import com.github.shwaka.kohomology.dg.Boundedness
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -29,6 +31,12 @@ public class MonoidFromList<T, D : Degree>(
     }
 
     override val unit: SimpleMonoidElement<T, D> = this.elements[0]
+    override val boundedness: Boundedness by lazy {
+        Boundedness(
+            upperBound = MonoidFromList.getUpperBound(this.elements, this.degreeGroup),
+            lowerBound = MonoidFromList.getLowerBound(this.elements, this.degreeGroup),
+        )
+    }
 
     override fun multiply(
         monoidElement1: SimpleMonoidElement<T, D>,
@@ -47,5 +55,37 @@ public class MonoidFromList<T, D : Degree>(
 
     override fun listElements(degree: D): List<SimpleMonoidElement<T, D>> {
         return this.elements.filter { it.degree == degree }
+    }
+
+    private companion object {
+        private const val boundForEmpty = 0
+        private fun <T, D : Degree> getBound(
+            elements: List<SimpleMonoidElement<T, D>>,
+            degreeGroup: DegreeGroup<D>,
+            maxOrMin: (degrees: List<Int>) -> Int,
+        ): Int? {
+            if (degreeGroup !is AugmentedDegreeGroup<D>) {
+                return null
+            }
+            if (elements.isEmpty()) {
+                return this.boundForEmpty
+            }
+            val degrees: List<Int> = elements.map { element ->
+                degreeGroup.augmentation(element.degree)
+            }
+            return maxOrMin(degrees)
+        }
+        private fun <T, D : Degree> getUpperBound(
+            elements: List<SimpleMonoidElement<T, D>>,
+            degreeGroup: DegreeGroup<D>,
+        ): Int? {
+            return this.getBound(elements, degreeGroup) { degrees -> degrees.max() }
+        }
+        private fun <T, D : Degree> getLowerBound(
+            elements: List<SimpleMonoidElement<T, D>>,
+            degreeGroup: DegreeGroup<D>,
+        ): Int? {
+            return this.getBound(elements, degreeGroup) { degrees -> degrees.min() }
+        }
     }
 }

@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free.monoid
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.util.isOdd
 
 internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
     protected val degreeGroup: AugmentedDegreeGroup<D>,
@@ -32,6 +33,17 @@ internal sealed class IndeterminateList<D : Degree, I : IndeterminateName>(
 
     abstract fun isAllowedDegree(degree: D): Boolean
     abstract fun <D_ : Degree> convertDegree(degreeMorphism: AugmentedDegreeMorphism<D, D_>): IndeterminateList<D_, I>
+
+    val isOddOnly: Boolean by lazy {
+        this.rawList.all { indeterminate ->
+            this.degreeGroup.augmentation(indeterminate.degree).isOdd()
+        }
+    }
+    val degreeSumAsInt: Int by lazy {
+        this.rawList.map { indeterminate ->
+            this.degreeGroup.augmentation(indeterminate.degree)
+        }.sum()
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

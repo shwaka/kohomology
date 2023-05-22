@@ -157,9 +157,14 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
     override val unit: Monomial<D, I> = Monomial(this.degreeGroup, this.indeterminateListInternal, IntArray(this.indeterminateListInternal.size) { 0 })
     override val isCommutative: Boolean = true
     override val boundedness: Boundedness by lazy {
+        val bound: Int? = if (this.indeterminateListInternal.isOddOnly) {
+            this.indeterminateListInternal.degreeSumAsInt
+        } else {
+            null
+        }
         when (this.indeterminateListInternal) {
-            is PositiveIndeterminateList -> Boundedness(upperBound = null, lowerBound = 0)
-            is NegativeIndeterminateList -> Boundedness(upperBound = 0, lowerBound = null)
+            is PositiveIndeterminateList -> Boundedness(upperBound = bound, lowerBound = 0)
+            is NegativeIndeterminateList -> Boundedness(upperBound = 0, lowerBound = bound)
         }
     }
 

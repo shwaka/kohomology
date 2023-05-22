@@ -14,6 +14,16 @@ public sealed class SignedOrZero<out T>
 public data class Signed<T>(val value: T, val sign: Sign) : SignedOrZero<T>()
 public object Zero : SignedOrZero<Nothing>()
 
+/**
+ * A monoid representing basis of [com.github.shwaka.kohomology.free.FreeGAlgebra]
+ * (or something similar to it).
+ *
+ * To model the multiplication in [com.github.shwaka.kohomology.free.FreeGAlgebra],
+ * the multiplication of two elements in [Monoid] can be one of
+ * - an element,
+ * - the minus of an element or
+ * - zero.
+ */
 public interface Monoid<D : Degree, E : MonoidElement<D>> {
     public val unit: E
     public val degreeGroup: DegreeGroup<D>

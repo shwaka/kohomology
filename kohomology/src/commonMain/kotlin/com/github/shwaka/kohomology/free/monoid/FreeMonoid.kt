@@ -130,6 +130,9 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     }
 }
 
+/**
+ * The free object among commutative [Monoid]s.
+ */
 public class FreeMonoid<D : Degree, I : IndeterminateName> (
     override val degreeGroup: AugmentedDegreeGroup<D>,
     indeterminateList: List<Indeterminate<D, I>>

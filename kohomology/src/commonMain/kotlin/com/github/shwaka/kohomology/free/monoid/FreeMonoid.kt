@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free.monoid
 
+import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
@@ -155,6 +156,12 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
 
     override val unit: Monomial<D, I> = Monomial(this.degreeGroup, this.indeterminateListInternal, IntArray(this.indeterminateListInternal.size) { 0 })
     override val isCommutative: Boolean = true
+    override val boundedness: Boundedness by lazy {
+        when (this.indeterminateListInternal) {
+            is PositiveIndeterminateList -> Boundedness(upperBound = null, lowerBound = 0)
+            is NegativeIndeterminateList -> Boundedness(upperBound = 0, lowerBound = null)
+        }
+    }
 
     // val generatorList: List<Monomial<D, I>> by lazy {
     //     val n = this.indeterminateListInternal.size

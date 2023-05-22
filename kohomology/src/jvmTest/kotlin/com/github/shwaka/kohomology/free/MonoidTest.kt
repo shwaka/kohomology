@@ -23,6 +23,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeUnique
 import io.kotest.matchers.collections.shouldContainExactlyInAnyOrder
@@ -370,6 +371,55 @@ class MonoidFromListTest : FreeSpec({
 
         "isCommutative should be true" {
             monoid.isCommutative.shouldBeTrue()
+        }
+    }
+
+    "basis (v0+v1, v0, e) of the path algebra of the quiver v0→v1" - {
+        // Note that the list of elements should contain the unit.
+        // This is the reason why the first element is (v0 + v1), not v1.
+        val elements = listOf(
+            SimpleMonoidElement("unit", 0),
+            SimpleMonoidElement("v0", 0),
+            SimpleMonoidElement("e", 1),
+        )
+        val (unit, v0, e) = elements
+        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
+            listOf(
+                listOf(
+                    unit, // unit * unit = unit
+                    v0,   // unit * v0 = v0
+                    e,    // unit * e = e
+                ),
+                listOf(
+                    v0, // v0 * unit = v0
+                    v0, // v0 * v0 = v0
+                    e,  // v0 * e = e
+                ),
+                listOf(
+                    e,    // e * unit = e
+                    null, // e * v0 = 0
+                    null, // e * e = 0
+                ),
+            ).map { multiplicationList ->
+                multiplicationList.map { result ->
+                    if (result == null) {
+                        Zero
+                    } else {
+                        Signed(result, Sign.PLUS)
+                    }
+                }
+            }
+        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = false)
+
+        "check multiplication" {
+            monoid.multiply(unit, v0) shouldBe Signed(v0, Sign.PLUS)
+            monoid.multiply(v0, unit) shouldBe Signed(v0, Sign.PLUS)
+            monoid.multiply(v0, e) shouldBe Signed(e, Sign.PLUS)
+            monoid.multiply(e, v0) shouldBe Zero
+        }
+
+        "isCommutative should be false" {
+            monoid.isCommutative.shouldBeFalse()
         }
     }
 })

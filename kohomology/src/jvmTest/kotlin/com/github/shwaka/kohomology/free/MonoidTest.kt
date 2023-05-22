@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
@@ -372,6 +373,10 @@ class MonoidFromListTest : FreeSpec({
         "isCommutative should be true" {
             monoid.isCommutative.shouldBeTrue()
         }
+
+        "check boundedness" {
+            monoid.boundedness shouldBe Boundedness(upperBound = 2 * n, lowerBound = 0)
+        }
     }
 
     "basis (v0+v1, v0, e) of the path algebra of the quiver v0→v1" - {
@@ -420,6 +425,10 @@ class MonoidFromListTest : FreeSpec({
 
         "isCommutative should be false" {
             monoid.isCommutative.shouldBeFalse()
+        }
+
+        "check boundedness" {
+            monoid.boundedness shouldBe Boundedness(upperBound = 1, lowerBound = 0)
         }
     }
 })

@@ -1,14 +1,19 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.MonoidFromList
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.Signed
+import com.github.shwaka.kohomology.free.monoid.SignedOrZero
+import com.github.shwaka.kohomology.free.monoid.SimpleMonoidElement
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -327,6 +332,44 @@ class FreeMonoidTest : FreeSpec({
                 monoidMorphism(monoid1.fromExponentList(exponentList)) shouldBe
                     monoid2.fromExponentList(exponentList)
             }
+        }
+    }
+})
+
+class MonoidFromListTest : FreeSpec({
+    tags(monoidTag)
+
+    val n = 5
+
+    "basis of cohomology of complex projective space of complex dimension $n" - {
+        val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
+        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
+            (0..n).map { i ->
+                (0..n).map { j ->
+                    if (i + j <= n) {
+                        Signed(elements[i + j], Sign.PLUS)
+                    } else {
+                        Zero
+                    }
+                }
+            }
+        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
+
+        "check multiplication" {
+            for (i in 0..n) {
+                for (j in 0..n) {
+                    val expected = if (i + j <= n) {
+                        Signed(elements[i + j], Sign.PLUS)
+                    } else {
+                        Zero
+                    }
+                    monoid.multiply(elements[i], elements[j]) shouldBe expected
+                }
+            }
+        }
+
+        "isCommutative should be true" {
+            monoid.isCommutative.shouldBeTrue()
         }
     }
 })

@@ -74,6 +74,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
             this.cohomologyGVectorSpace,
             this.cohomologyMultiplication,
             cohomologyUnit,
+            this.isCommutative, // inherit commutativity from the underlying dg algebra
         )
     }
 }

@@ -183,6 +183,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
                     freeDGAlgebra.cohomology[n].dim shouldBe expectedDim
                 }
             }
+            "freeDGAlgebra.isCommutative should be true" {
+                freeDGAlgebra.isCommutative.shouldBeTrue()
+            }
+            "freeDGAlgebra.cohomology.isCommutative should be true" {
+                freeDGAlgebra.cohomology.isCommutative.shouldBeTrue()
+            }
         }
     }
 }
@@ -226,6 +232,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 (0 until 10).forAll { n ->
                     d.kernelBasis(sphereDim * n) shouldBe listOf(x.pow(n))
                 }
+            }
+            "freeDGAlgebra.isCommutative should be true" {
+                freeDGAlgebra.isCommutative.shouldBeTrue()
+            }
+            "freeDGAlgebra.cohomology.isCommutative should be true" {
+                freeDGAlgebra.cohomology.isCommutative.shouldBeTrue()
             }
         }
     }

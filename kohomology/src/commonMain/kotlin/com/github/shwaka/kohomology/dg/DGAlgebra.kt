@@ -60,6 +60,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     GVectorSpace<D, B, S, V> by underlyingGAlgebra {
     override val context: DGAlgebraContext<D, B, S, V, M> = DGAlgebraContextImpl(this)
     override val unit: GVector<D, B, S, V> = underlyingGAlgebra.unit
+    override val isCommutative: Boolean = underlyingGAlgebra.isCommutative
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGAlgebra.multiplication
 

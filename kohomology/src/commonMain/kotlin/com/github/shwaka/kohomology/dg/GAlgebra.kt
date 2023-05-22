@@ -59,6 +59,7 @@ public class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
 public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, B, S, V, M> {
     public val unit: GVector<D, B, S, V>
+    public val isCommutative: Boolean
     public override val context: GAlgebraContext<D, B, S, V, M>
     public val underlyingGAlgebra: GAlgebra<D, B, S, V, M>
 
@@ -88,8 +89,9 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             gVectorSpace: GVectorSpace<D, B, S, V>,
             multiplication: GBilinearMap<B, B, B, D, S, V, M>,
             unit: GVector<D, B, S, V>,
+            isCommutative: Boolean = false,
         ): GAlgebra<D, B, S, V, M> {
-            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit)
+            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit, isCommutative)
         }
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
@@ -99,6 +101,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
             unitVector: Vector<B, S, V>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+            isCommutative: Boolean = false,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): GAlgebra<D, B, S, V, M> {
             val gVectorSpace = GVectorSpace(
@@ -112,7 +115,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             val bilinearMapName = "Multiplication($name)"
             val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
             val unit = gVectorSpace.fromVector(unitVector, 0)
-            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit)
+            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit, isCommutative)
         }
     }
 }
@@ -122,6 +125,7 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     gVectorSpace: GVectorSpace<D, B, S, V>,
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
     override val unit: GVector<D, B, S, V>,
+    override val isCommutative: Boolean,
 ) : GAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GAlgebraContext<D, B, S, V, M> = GAlgebraContextImpl(this)

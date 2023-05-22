@@ -130,6 +130,7 @@ private class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<
     override val matrixSpace: MatrixSpace<S, V, M> = factory.matrixSpace
     override val multiplication: GBilinearMap<E, E, E, D, S, V, M> = factory.multiplication
     override val unit: GVector<D, E, S, V> = factory.unit
+    override val isCommutative: Boolean = factory.monoid.isCommutative
     override val monoid: Mon = factory.monoid
     override val context: GAlgebraContext<D, E, S, V, M> = GAlgebraContextImpl(this)
     override val underlyingGVectorSpace: GVectorSpace<D, E, S, V> = factory.gVectorSpace

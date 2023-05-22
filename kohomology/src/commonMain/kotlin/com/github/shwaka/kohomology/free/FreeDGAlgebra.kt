@@ -375,6 +375,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     Printable {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContextImpl(this)
     override val unit: GVector<D, Monomial<D, I>, S, V> = underlyingGAlgebra.unit
+    override val isCommutative: Boolean = true
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace
     override val multiplication: GBilinearMap<Monomial<D, I>, Monomial<D, I>, Monomial<D, I>, D, S, V, M> = underlyingGAlgebra.multiplication
     override val degreeGroup: AugmentedDegreeGroup<D> = this.underlyingGAlgebra.degreeGroup

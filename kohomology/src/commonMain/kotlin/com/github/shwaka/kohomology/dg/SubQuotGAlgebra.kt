@@ -23,8 +23,9 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
             subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
             multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
             unit: GVector<D, SubQuotBasis<B, S, V>, S, V>,
+            isCommutative: Boolean = false,
         ): SubQuotGAlgebra<D, B, S, V, M> {
-            return SubQuotGAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication, unit)
+            return SubQuotGAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative)
         }
 
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -35,6 +36,7 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
             unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
+            isCommutative: Boolean = false,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGAlgebra<D, B, S, V, M> {
             val subQuotGMagma = SubQuotGMagma(
@@ -47,7 +49,7 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
                 listDegreesForAugmentedDegree,
             )
             val unit = subQuotGMagma.fromVector(unitVector, 0)
-            return SubQuotGAlgebraImpl(matrixSpace, subQuotGMagma, subQuotGMagma.multiplication, unit)
+            return SubQuotGAlgebraImpl(matrixSpace, subQuotGMagma, subQuotGMagma.multiplication, unit, isCommutative)
         }
     }
 }
@@ -57,6 +59,7 @@ private class SubQuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
     override val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
     override val unit: GVector<D, SubQuotBasis<B, S, V>, S, V>,
+    override val isCommutative: Boolean,
 ) : SubQuotGAlgebra<D, B, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
     override val context: GAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GAlgebraContextImpl(this)

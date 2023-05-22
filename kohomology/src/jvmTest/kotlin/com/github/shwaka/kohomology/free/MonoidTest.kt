@@ -387,16 +387,16 @@ class MonoidFromListTest : FreeSpec({
             listOf(
                 listOf(
                     unit, // unit * unit = unit
-                    v0,   // unit * v0 = v0
-                    e,    // unit * e = e
+                    v0, // unit * v0 = v0
+                    e, // unit * e = e
                 ),
                 listOf(
                     v0, // v0 * unit = v0
                     v0, // v0 * v0 = v0
-                    e,  // v0 * e = e
+                    e, // v0 * e = e
                 ),
                 listOf(
-                    e,    // e * unit = e
+                    e, // e * unit = e
                     null, // e * v0 = 0
                     null, // e * e = 0
                 ),

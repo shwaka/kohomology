@@ -28,10 +28,10 @@ import io.kotest.property.arbitrary.positiveInts
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
-val monomialTestTag = NamedTag("Monomial")
+val monoidTag = NamedTag("Monoid")
 
-class MonomialTest : FreeSpec({
-    tags(monomialTestTag)
+class FreeMonoidTest : FreeSpec({
+    tags(monoidTag)
 
     "indeterminate list with mixed degrees is not allowed" {
         checkAll(Arb.positiveInts(), Arb.negativeInts()) { positiveDegree, negativeDegree ->

@@ -37,7 +37,9 @@ object PrivateMemberAccessor {
         return property.call(target)
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun isLazyInitialized(target: Any, name: String): Boolean {
+        // This cast is necessary to call property.getDelegate(target) (Why?)
         val property = this.getProperty(target, name) as KProperty1<Any, *>
         property.isAccessible = true
         val delegate: Any = property.getDelegate(target) ?: throw Exception("Not delegate!")

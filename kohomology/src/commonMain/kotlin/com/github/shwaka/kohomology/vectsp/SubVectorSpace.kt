@@ -24,37 +24,45 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     val generator: List<Vector<B, S, V>>,
 ) {
     val numVectorSpace = matrixSpace.numVectorSpace
-    val basisNames: List<SubBasis<B, S, V>>
-    val transformationMatrix: M
-    val dim: Int
-    val inclusionMatrix: M
+
+    private val rowEchelonForm: RowEchelonForm<S, V, M> by lazy {
+        matrixSpace.context.run {
+            val joinedMatrix: M = matrixSpace.context.run {
+                val subspaceMatrix = matrixSpace.fromVectors(generator, totalVectorSpace.dim)
+                val id = matrixSpace.getIdentity(totalVectorSpace.dim)
+                listOf(subspaceMatrix, id).join()
+            }
+            joinedMatrix.rowEchelonForm
+        }
+    }
+
+    val dim: Int by lazy {rowEchelonForm.pivots.filter { it < generator.size }.size }
+
+    fun getBasisNames(): List<SubBasis<B, S, V>> {
+        return (0 until this.dim).map { index -> this.generator[index] }
+            .map { vector -> SubBasis(vector) }
+    }
+
+    private val transformationMatrix: M by lazy {
+        this.matrixSpace.context.run {
+            val size = this@SubFactory.rowEchelonForm.reducedMatrix.colCount
+            val dim = this@SubFactory.totalVectorSpace.dim
+            this@SubFactory.rowEchelonForm.reducedMatrix.colSlice((size - dim) until size)
+        }
+    }
+
+    fun getInclusionMatrix(): M {
+        return this.matrixSpace.fromNumVectorList(
+            (0 until this.dim).map { index -> this.generator[index].toNumVector() },
+            this.totalVectorSpace.dim,
+        )
+    }
 
     init {
         // check that generators are in totalVectorSpace
         for (vector in generator)
             if (vector !in totalVectorSpace)
                 throw IllegalContextException("The vector $vector is not contained in the vector space $totalVectorSpace")
-        val joinedMatrix: M = matrixSpace.context.run {
-            val subspaceMatrix = matrixSpace.fromVectors(generator, totalVectorSpace.dim)
-            val id = matrixSpace.getIdentity(totalVectorSpace.dim)
-            listOf(subspaceMatrix, id).join()
-        }
-        val rowEchelonForm: RowEchelonForm<S, V, M> = matrixSpace.context.run {
-            joinedMatrix.rowEchelonForm
-        }
-        this.dim = rowEchelonForm.pivots.filter { it < generator.size }.size
-        this.basisNames = (0 until this.dim).map { index -> generator[index] }
-            .map { vector -> SubBasis(vector) }
-
-        this.transformationMatrix = matrixSpace.context.run {
-            val size = rowEchelonForm.reducedMatrix.colCount
-            val dim = totalVectorSpace.dim
-            rowEchelonForm.reducedMatrix.colSlice((size - dim) until size)
-        }
-        this.inclusionMatrix = matrixSpace.fromNumVectorList(
-            (0 until this.dim).map { index -> generator[index].toNumVector() },
-            totalVectorSpace.dim,
-        )
     }
 
     fun contains(vector: Vector<B, S, V>): Boolean {
@@ -81,7 +89,7 @@ public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Mat
     private val factory: SubFactory<B, S, V, M>
 ) : VectorSpace<SubBasis<B, S, V>, S, V> {
     override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
-    override val basisNames: List<SubBasis<B, S, V>> = factory.basisNames
+    override val basisNames: List<SubBasis<B, S, V>> by lazy { factory.getBasisNames() }
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
         InternalPrintConfig.Companion::default
     override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
@@ -101,7 +109,7 @@ public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Mat
             source = this,
             target = this.factory.totalVectorSpace,
             matrixSpace = this.factory.matrixSpace,
-            matrix = this.factory.inclusionMatrix,
+            matrix = this.factory.getInclusionMatrix(),
         )
     }
 

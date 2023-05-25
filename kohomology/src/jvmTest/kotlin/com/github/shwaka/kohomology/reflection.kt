@@ -22,7 +22,7 @@ val KProperty0<*>.isLazyInitialized: Boolean
     }
 
 object PrivateMemberAccessor {
-    fun getProperty(target: Any, name: String): KProperty1<out Any, *> {
+    private fun getProperty(target: Any, name: String): KProperty1<out Any, *> {
         for (property in target::class.declaredMemberProperties) {
             if (property.name == name) {
                 return property

@@ -22,16 +22,16 @@ public data class SubQuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
 private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val totalVectorSpace: VectorSpace<B, S, V>,
-    val subspaceGenerator: List<Vector<B, S, V>>,
-    val quotientGenerator: List<Vector<B, S, V>>,
+    private val subspaceGenerator: List<Vector<B, S, V>>,
+    private val quotientGenerator: List<Vector<B, S, V>>,
 ) {
     val numVectorSpace = matrixSpace.numVectorSpace
     val basisNames: List<SubQuotBasis<B, S, V>>
-    val transformationMatrix: M
+    private val transformationMatrix: M
     val projectionMatrix: M
     val sectionMatrix: M
-    val quotientDim: Int
-    val subQuotDim: Int
+    private val quotientDim: Int
+    private val subQuotDim: Int
 
     init {
         // check that generators are in totalVectorSpace

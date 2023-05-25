@@ -36,7 +36,7 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         }
     }
 
-    val dim: Int by lazy {rowEchelonForm.pivots.filter { it < generator.size }.size }
+    val dim: Int by lazy { rowEchelonForm.pivots.filter { it < generator.size }.size }
 
     fun getBasisNames(): List<SubBasis<B, S, V>> {
         return (0 until this.dim).map { index -> this.generator[index] }

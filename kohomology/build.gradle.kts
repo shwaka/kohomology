@@ -99,6 +99,7 @@ kotlin {
             dependencies {
                 implementation(kotlin("test-common"))
                 implementation(kotlin("test-annotations-common"))
+                implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.21")
                 // Use the Kotlin test library.
                 // implementation("org.jetbrains.kotlin:kotlin-test")
 

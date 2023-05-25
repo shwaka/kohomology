@@ -11,8 +11,26 @@ import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import kotlin.reflect.KProperty0
+import kotlin.reflect.jvm.isAccessible
 
 val subVectorSpaceTag = NamedTag("SubVectorSpace")
+
+// https://stackoverflow.com/questions/42522739/kotlin-check-if-lazy-val-has-been-initialised
+val KProperty0<*>.isLazyInitialized: Boolean
+    get() {
+        // Prevent IllegalAccessException from JVM access check on private properties.
+        val originalAccessLevel = this.isAccessible
+        this.isAccessible = true
+        val delegate: Any = this.getDelegate() ?: throw Exception("Not delegate!")
+        if (delegate !is Lazy<*>) {
+            throw Exception("Not Lazy!")
+        }
+        val isLazyInitialized = delegate.isInitialized()
+        // Reset access level.
+        this.isAccessible = originalAccessLevel
+        return isLazyInitialized
+    }
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
 subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
@@ -38,6 +56,21 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subVectorSpace.subspaceContains(w).shouldBeFalse()
                 subVectorSpace.subspaceContains(u + w).shouldBeFalse()
                 subVectorSpace.subspaceContains(v - w).shouldBeFalse()
+            }
+        }
+    }
+
+    "check initialization of lazy properties" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
+        val (u, v, _) = vectorSpace.getBasis()
+        "accessing to subVectorSpace.dim should initialize subVectorSpace.basisNames" {
+            vectorSpace.context.run {
+                val generator = listOf(u + v, u, v)
+                val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
+                subVectorSpace::basisNames.isLazyInitialized.shouldBeFalse()
+                subVectorSpace.dim shouldBe 2
+                subVectorSpace::basisNames.isLazyInitialized.shouldBeTrue()
             }
         }
     }

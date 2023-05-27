@@ -69,6 +69,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val (a, b) = vectorSpace1.getBasis()
                 vectorSpace1.context.run {
                     val kernelSubVectorSpace = f.kernel()
+                    kernelSubVectorSpace.totalVectorSpace shouldBe vectorSpace1
                     val incl = kernelSubVectorSpace.inclusion
                     val kernelBasis = kernelSubVectorSpace.getBasis()
                     kernelBasis.map { incl(it) } shouldBe listOf(-a + b)
@@ -86,6 +87,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val (x, _) = vectorSpace2.getBasis()
                 vectorSpace1.context.run {
                     val imageSubVectorSpace = f.image()
+                    imageSubVectorSpace.totalVectorSpace shouldBe vectorSpace2
                     val incl = imageSubVectorSpace.inclusion
                     val imageBasis = imageSubVectorSpace.getBasis()
                     imageBasis.map { incl(it) } shouldBe listOf(x)

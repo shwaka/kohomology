@@ -101,6 +101,10 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return numVectorList.map { this.source.fromNumVector(it) }
     }
 
+    public fun kernel(): SubVectorSpace<BS, S, V, M> {
+        return SubVectorSpace(this.matrixSpace, this.source, generator = this.kernelBasis())
+    }
+
     public fun imageBasis(): List<Vector<BT, S, V>> {
         val numVectorList = this.matrixSpace.context.run { this@LinearMap.matrix.computeImageBasis() }
         return numVectorList.map { this.target.fromNumVector(it) }
@@ -109,6 +113,10 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
     public fun imageGenerator(): List<Vector<BT, S, V>> {
         val numVectorList = this.matrix.toNumVectorList()
         return numVectorList.map { this.target.fromNumVector(it) }
+    }
+
+    public fun image(): SubVectorSpace<BT, S, V, M> {
+        return SubVectorSpace(this.matrixSpace, this.target, generator = this.imageGenerator())
     }
 
     public fun imageContains(vector: Vector<BT, S, V>): Boolean {

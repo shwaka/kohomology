@@ -99,6 +99,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                     }
                 }
             }
+            "image()[n] should be a subspace of gVectorSpace[n]" {
+                (0 until 20).forAll { degree ->
+                    gLinearMap.image()[degree].totalVectorSpace shouldBe gVectorSpace[degree]
+                }
+            }
+            "image()[n] should be of dimension (n - 1)" {
+                (1 until 20).forAll { degree ->
+                    gLinearMap.image()[degree].dim shouldBe (degree - 1)
+                }
+            }
             "test addition of two GLinearMap's" {
                 val f = gLinearMap + gLinearMap
                 val (v0, v1) = gVectorSpace.getBasis(2)

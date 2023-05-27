@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -36,6 +37,32 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
                 listDegreesForAugmentedDegree,
                 getVectorSpace
             )
+        }
+
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: DegreeGroup<D>,
+            name: String,
+            totalGVectorSpace: GVectorSpace<D, B, S, V>,
+            subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
+            quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+        ): SubQuotGVectorSpace<D, B, S, V, M> {
+            return SubQuotGVectorSpace(
+                matrixSpace.numVectorSpace,
+                degreeGroup,
+                name = name,
+                getInternalPrintConfig = getInternalPrintConfig,
+                listDegreesForAugmentedDegree = listDegreesForAugmentedDegree,
+            ) { degree ->
+                SubQuotVectorSpace(
+                    matrixSpace,
+                    totalGVectorSpace[degree],
+                    subspaceGenerator = subspaceGenerator[degree],
+                    quotientGenerator = quotientGenerator[degree],
+                )
+            }
         }
     }
 }

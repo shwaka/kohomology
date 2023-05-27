@@ -86,33 +86,26 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             return DGVectorSpace(gVectorSpace, differential)
         }
 
-        internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
+        private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomology(
             gVectorSpace: GVectorSpace<D, B, S, V>,
             differential: GLinearMap<D, B, B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             // SubQuotGVectorSpaceImpl has cache
             val name = "H(${gVectorSpace.name})"
             return SubQuotGVectorSpace(
-                gVectorSpace.numVectorSpace,
+                differential.matrixSpace,
                 gVectorSpace.degreeGroup,
-                name,
-                { printConfig ->
+                name = name,
+                totalGVectorSpace = gVectorSpace,
+                subspaceGenerator = differential.kernel(),
+                quotientGenerator = differential.image(),
+                getInternalPrintConfig = { printConfig ->
                     SubQuotVectorSpace.convertInternalPrintConfig(
                         printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
                     )
                 },
-                gVectorSpace.listDegreesForAugmentedDegree,
-            ) { degree ->
-                val kernelBasis = differential[degree].kernelBasis()
-                val previousDegree = gVectorSpace.degreeGroup.context.run { degree - 1 }
-                val imageGenerator = differential[previousDegree].imageGenerator()
-                SubQuotVectorSpace(
-                    differential.matrixSpace,
-                    gVectorSpace[degree],
-                    subspaceGenerator = kernelBasis,
-                    quotientGenerator = imageGenerator,
-                )
-            }
+                listDegreesForAugmentedDegree = gVectorSpace.listDegreesForAugmentedDegree,
+            )
         }
 
         internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomologyClass(

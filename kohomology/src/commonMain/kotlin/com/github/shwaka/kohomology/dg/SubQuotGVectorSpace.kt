@@ -42,6 +42,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
+            name: String,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
@@ -51,7 +52,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             return SubQuotGVectorSpace(
                 matrixSpace.numVectorSpace,
                 degreeGroup,
-                name = "${subspaceGenerator}/${quotientGenerator}",
+                name = name,
                 getInternalPrintConfig = getInternalPrintConfig,
                 listDegreesForAugmentedDegree = listDegreesForAugmentedDegree,
             ) { degree ->

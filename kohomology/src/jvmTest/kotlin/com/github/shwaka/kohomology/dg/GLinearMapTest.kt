@@ -79,7 +79,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 }
             }
             "kernel()[n] should be a subspace of gVectorSpace[n]" {
-                (0 until 20).forAll { degree ->
+                (-20 until 20).forAll { degree ->
                     gLinearMap.kernel()[degree].totalVectorSpace shouldBe gVectorSpace[degree]
                 }
             }
@@ -100,7 +100,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 }
             }
             "image()[n] should be a subspace of gVectorSpace[n]" {
-                (0 until 20).forAll { degree ->
+                (-20 until 20).forAll { degree ->
                     gLinearMap.image()[degree].totalVectorSpace shouldBe gVectorSpace[degree]
                 }
             }

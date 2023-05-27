@@ -75,6 +75,23 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                     kernelSubVectorSpace.dim shouldBe 1
                 }
             }
+            "image test" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(one, one),
+                        listOf(zero, zero),
+                    )
+                )
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                val (x, _) = vectorSpace2.getBasis()
+                vectorSpace1.context.run {
+                    val imageSubVectorSpace = f.image()
+                    val incl = imageSubVectorSpace.inclusion
+                    val imageBasis = imageSubVectorSpace.getBasis()
+                    imageBasis.map { incl(it) } shouldBe listOf(x)
+                    imageSubVectorSpace.dim shouldBe 1
+                }
+            }
             "imageContains test" {
                 val matrix = matrixSpace.fromRowList(
                     listOf(

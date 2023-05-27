@@ -165,6 +165,21 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
             return SubQuotVectorSpace(factory)
         }
 
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            totalVectorSpace: VectorSpace<B, S, V>,
+            subspaceGenerator: SubVectorSpace<B, S, V, M>,
+            quotientGenerator: SubVectorSpace<B, S, V, M>,
+        ): SubQuotVectorSpace<B, S, V, M> {
+            val factory = SubQuotFactory(
+                matrixSpace,
+                totalVectorSpace,
+                subspaceGenerator = subspaceGenerator.generator,
+                quotientGenerator = quotientGenerator.generator,
+            )
+            return SubQuotVectorSpace(factory)
+        }
+
         public fun <B : BasisName, S : Scalar, V : NumVector<S>> convertInternalPrintConfig(
             printConfig: PrintConfig,
             internalPrintConfig: InternalPrintConfig<B, S>

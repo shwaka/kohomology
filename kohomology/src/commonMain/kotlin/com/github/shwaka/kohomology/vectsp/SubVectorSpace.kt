@@ -90,6 +90,7 @@ public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Mat
 ) : VectorSpace<SubBasis<B, S, V>, S, V> {
     override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
     override val basisNames: List<SubBasis<B, S, V>> by lazy { factory.getBasisNames() }
+    public val generator: List<Vector<B, S, V>> = factory.generator
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
         InternalPrintConfig.Companion::default
     override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)

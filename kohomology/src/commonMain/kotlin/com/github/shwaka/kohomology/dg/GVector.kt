@@ -49,7 +49,7 @@ public class ZeroGVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     }
 }
 
-public open class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+public class GVector<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     public val vector: Vector<B, S, V>,
     public val degree: D,
     override val gVectorSpace: GVectorSpace<D, B, S, V>

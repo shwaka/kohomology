@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
@@ -96,6 +97,16 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         return this.kernelBasis(this.degreeGroup.fromInt(degree))
     }
 
+    public fun kernel(): SubGVectorSpace<D, BS, S, V, M> {
+        return SubGVectorSpace(
+            matrixSpace.numVectorSpace,
+            this.degreeGroup,
+            "Ker(${this.name})",
+            { InternalPrintConfig.default(it) },
+            this.source.listDegreesForAugmentedDegree,
+        ) { degree -> this[degree].kernel() }
+    }
+
     public fun imageBasis(degree: D): List<GVector<D, BT, S, V>> {
         val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
         return this[sourceDegree].imageBasis().map { vector ->
@@ -105,6 +116,19 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
 
     public fun imageBasis(degree: Int): List<GVector<D, BT, S, V>> {
         return this.imageBasis(this.degreeGroup.fromInt(degree))
+    }
+
+    public fun image(): SubGVectorSpace<D, BT, S, V, M> {
+        return SubGVectorSpace(
+            matrixSpace.numVectorSpace,
+            this.degreeGroup,
+            "Im(${this.name})",
+            { InternalPrintConfig.default(it) },
+            this.target.listDegreesForAugmentedDegree,
+        ) { degree ->
+            val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
+            this[sourceDegree].image()
+        }
     }
 
     public companion object {

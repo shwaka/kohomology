@@ -116,7 +116,6 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         ) { p, q ->
             getSubQuotMultiplicationAtDegree(
                 this.cohomologyGVectorSpace,
-                this.matrixSpace,
                 this.multiplication,
                 p, q,
             )
@@ -135,7 +134,6 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
 getSubQuotMultiplicationAtDegree(
     subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
-    matrixSpace: MatrixSpace<S, V, M>, // TODO: use subQuotGVectorSpace.matrixSpace
     multiplication: GBilinearMap<B, B, B, D, S, V, M>,
     p: D, q: D,
 ): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
@@ -167,7 +165,7 @@ getSubQuotMultiplicationAtDegree(
         subQuotAtDegP,
         subQuotAtDegQ,
         subQuotAtDegPPlusQ,
-        matrixSpace,
+        subQuotGVectorSpace.matrixSpace,
         valueList,
     )
 }

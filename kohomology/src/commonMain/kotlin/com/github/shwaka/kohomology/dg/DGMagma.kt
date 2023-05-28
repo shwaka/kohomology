@@ -10,8 +10,6 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
-import com.github.shwaka.kohomology.vectsp.Vector
 
 public interface DGMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGVectorContext<D, B, S, V, M>, GMagmaContext<D, B, S, V, M> {
@@ -141,27 +139,9 @@ getSubQuotMultiplicationAtDegree(
     val subQuotAtDegQ = subQuotGVectorSpace[q]
     val pPlusQ = subQuotGVectorSpace.degreeGroup.context.run { p + q }
     val subQuotAtDegPPlusQ = subQuotGVectorSpace[pPlusQ]
-    val basisLift1: List<Vector<B, S, V>> =
-        subQuotAtDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
-            subQuotAtDegP.section(vector1)
-        }
-    val basisLift2: List<Vector<B, S, V>> =
-        subQuotAtDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
-            subQuotAtDegQ.section(vector2)
-        }
-    val valueList: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
-        basisLift1.map { vector1: Vector<B, S, V> ->
-            basisLift2.map { vector2: Vector<B, S, V> ->
-                subQuotAtDegPPlusQ.projection(
-                    multiplication[p, q](vector1, vector2)
-                )
-            }
-        }
-    return ValueBilinearMap(
+    return multiplication[p, q].induce(
         subQuotAtDegP,
         subQuotAtDegQ,
         subQuotAtDegPPlusQ,
-        subQuotGVectorSpace.matrixSpace,
-        valueList,
     )
 }

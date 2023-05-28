@@ -21,8 +21,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
 subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "sub-quotient graded vector space test" - {
         val numVectorSpace = matrixSpace.numVectorSpace
+        val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
         val subQuotVectorSpace = run {
-            val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
             val (u, v, w) = totalVectorSpace.getBasis()
             totalVectorSpace.context.run {
                 val subspaceGenerator = listOf(u + v, v + w)
@@ -30,10 +30,14 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 SubQuotVectorSpace(matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator)
             }
         }
-        val subQuotGVectorSpace = SubQuotGVectorSpace(
-            matrixSpace.numVectorSpace,
+        val totalGVectorSpace = GVectorSpace(
+            numVectorSpace,
             IntDegreeGroup,
             "V",
+        ) { _ -> totalVectorSpace }
+        val subQuotGVectorSpace = SubQuotGVectorSpace(
+            totalGVectorSpace,
+            "W",
             { InternalPrintConfig.default(it) },
             null,
         ) { _ -> subQuotVectorSpace }

@@ -20,9 +20,11 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
         return this[this.degreeGroup.fromInt(degree)]
     }
 
+    public val totalGVectorSpace: GVectorSpace<D, B, S, V>
+
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            numVectorSpace: NumVectorSpace<S, V>,
+            totalGVectorSpace: GVectorSpace<D, B, S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
@@ -30,7 +32,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpaceImpl(
-                numVectorSpace,
+                totalGVectorSpace,
                 degreeGroup,
                 name,
                 getInternalPrintConfig,
@@ -50,7 +52,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpace(
-                matrixSpace.numVectorSpace,
+                totalGVectorSpace,
                 degreeGroup,
                 name = name,
                 getInternalPrintConfig = getInternalPrintConfig,
@@ -68,13 +70,14 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
 }
 
 private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    override val numVectorSpace: NumVectorSpace<S, V>,
+    override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
     override val degreeGroup: DegreeGroup<D>,
     override val name: String,
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
     private val getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
 ) : SubQuotGVectorSpace<D, B, S, V, M> {
+    override val numVectorSpace: NumVectorSpace<S, V> = totalGVectorSpace.numVectorSpace
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubQuotBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this

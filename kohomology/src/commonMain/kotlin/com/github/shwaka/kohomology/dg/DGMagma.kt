@@ -105,36 +105,6 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val context: DGMagmaContext<D, B, S, V, M> = DGMagmaContextImpl(this)
     override val matrixSpace: MatrixSpace<S, V, M> = differential.matrixSpace
 
-    private fun getCohomologyMultiplicationAtDegree(p: D, q: D): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
-        val cohomOfDegP = this.cohomologyGVectorSpace[p]
-        val cohomOfDegQ = this.cohomologyGVectorSpace[q]
-        val cohomOfDegPPlusQ = this.cohomologyGVectorSpace[this.degreeGroup.context.run { p + q }]
-        val basisLift1: List<Vector<B, S, V>> =
-            cohomOfDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
-                cohomOfDegP.section(vector1)
-            }
-        val basisLift2: List<Vector<B, S, V>> =
-            cohomOfDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
-                cohomOfDegQ.section(vector2)
-            }
-        val valueList: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
-            basisLift1.map { vector1: Vector<B, S, V> ->
-                basisLift2.map { vector2: Vector<B, S, V> ->
-                    cohomOfDegPPlusQ.projection(
-                        // TODO: GVector を経由しているのは無駄
-                        this.multiply(this.fromVector(vector1, p), this.fromVector(vector2, q)).vector
-                    )
-                }
-            }
-        return ValueBilinearMap(
-            cohomOfDegP,
-            cohomOfDegQ,
-            cohomOfDegPPlusQ,
-            this.matrixSpace,
-            valueList
-        )
-    }
-
     private fun getCohomologyMultiplication(): GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> {
         val bilinearMapName = "Multiplication(H^*($name))"
         return GBilinearMap(
@@ -143,7 +113,15 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             this.cohomologyGVectorSpace,
             0,
             bilinearMapName,
-        ) { p, q -> this.getCohomologyMultiplicationAtDegree(p, q) }
+        ) { p, q ->
+            getSubQuotMultiplicationAtDegree(
+                this.cohomologyGVectorSpace,
+                this,
+                this.matrixSpace,
+                this.multiplication,
+                p, q,
+            )
+        }
     }
 
     override val cohomology: SubQuotGMagma<D, B, S, V, M> by lazy {
@@ -153,4 +131,44 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             this.getCohomologyMultiplication(),
         )
     }
+}
+
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+getSubQuotMultiplicationAtDegree(
+    subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
+    totalGVectorSpace: GVectorSpace<D, B, S, V>, // TODO: use subQuotGVectorSpace.totalGVectorSpace
+    matrixSpace: MatrixSpace<S, V, M>, // TODO: use subQuotGVectorSpace.matrixSpace
+    multiplication: GBilinearMap<B, B, B, D, S, V, M>,
+    p: D, q: D,
+): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
+    val subQuotAtDegP = subQuotGVectorSpace[p]
+    val subQuotAtDegQ = subQuotGVectorSpace[q]
+    val pPlusQ = subQuotGVectorSpace.degreeGroup.context.run { p + q }
+    val subQuotAtDegPPlusQ = subQuotGVectorSpace[pPlusQ]
+    val basisLift1: List<Vector<B, S, V>> =
+        subQuotAtDegP.getBasis().map { vector1: Vector<SubQuotBasis<B, S, V>, S, V> ->
+            subQuotAtDegP.section(vector1)
+        }
+    val basisLift2: List<Vector<B, S, V>> =
+        subQuotAtDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
+            subQuotAtDegQ.section(vector2)
+        }
+    val valueList: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
+        basisLift1.map { vector1: Vector<B, S, V> ->
+            basisLift2.map { vector2: Vector<B, S, V> ->
+                subQuotAtDegPPlusQ.projection(
+                    multiplication(
+                        totalGVectorSpace.fromVector(vector1, p),
+                        totalGVectorSpace.fromVector(vector2, q),
+                    ).vector
+                )
+            }
+        }
+    return ValueBilinearMap(
+        subQuotAtDegP,
+        subQuotAtDegQ,
+        subQuotAtDegPPlusQ,
+        matrixSpace,
+        valueList,
+    )
 }

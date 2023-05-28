@@ -94,7 +94,6 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             val name = "H(${gVectorSpace.name})"
             return SubQuotGVectorSpace(
                 differential.matrixSpace,
-                gVectorSpace.degreeGroup,
                 name = name,
                 totalGVectorSpace = gVectorSpace,
                 subspaceGenerator = differential.kernel(),

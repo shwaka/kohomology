@@ -30,7 +30,7 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
 
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeGroup: DegreeGroup<D>,
+            totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
@@ -41,7 +41,7 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
         ): SubQuotGAlgebra<D, B, S, V, M> {
             val subQuotGMagma = SubQuotGMagma(
                 matrixSpace,
-                degreeGroup,
+                totalGVectorSpace,
                 name,
                 getVectorSpace,
                 getMultiplication,

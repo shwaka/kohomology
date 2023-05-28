@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -26,7 +25,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
         }
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            degreeGroup: DegreeGroup<D>,
+            totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
@@ -34,8 +33,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGMagma<D, B, S, V, M> {
             val subQuotGVectorSpace = SubQuotGVectorSpace(
-                matrixSpace.numVectorSpace,
-                degreeGroup,
+                totalGVectorSpace,
                 name,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,

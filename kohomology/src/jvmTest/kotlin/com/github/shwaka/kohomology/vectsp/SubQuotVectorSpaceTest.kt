@@ -30,6 +30,9 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subspaceGenerator = subspaceGenerator,
                 quotientGenerator = quotientGenerator
             )
+            "subQuotVectorSpace.totalVectorSpace should be vectorSpace" {
+                subQuotVectorSpace.totalVectorSpace shouldBe vectorSpace
+            }
             "check projection and section" {
                 subQuotVectorSpace.dim shouldBe 1
                 val x = subQuotVectorSpace.getBasis()[0]

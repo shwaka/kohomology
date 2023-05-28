@@ -51,6 +51,14 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         "check subGVectorSpace.totalGVectorSpace" {
             subGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace
         }
+
+        "test totalGVectorSpace.asSubGVectorSpace" {
+            val wholeSubGVectorSpace = totalGVectorSpace.asSubGVectorSpace(matrixSpace)
+            wholeSubGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace
+            (-5..5).forAll { degree ->
+                wholeSubGVectorSpace[degree].dim shouldBe 3
+            }
+        }
     }
 }
 

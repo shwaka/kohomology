@@ -21,16 +21,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
 subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "sub graded vector space test" - {
         val numVectorSpace = matrixSpace.numVectorSpace
+        val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
         val subVectorSpace = run {
-            val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
             val (u, v, w) = totalVectorSpace.getBasis()
             totalVectorSpace.context.run {
                 val generator = listOf(u + v, v + w, u - w)
                 SubVectorSpace(matrixSpace, totalVectorSpace, generator)
             }
         }
+        val totalGVectorSpace = GVectorSpace(
+            numVectorSpace,
+            IntDegreeGroup,
+            "V",
+        ) { _ -> totalVectorSpace }
         val subGVectorSpace = SubGVectorSpace(
-            matrixSpace.numVectorSpace,
+            totalGVectorSpace,
             IntDegreeGroup,
             "V",
             { InternalPrintConfig.default(it) },

@@ -37,8 +37,8 @@ public data class SubBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 }
 
-public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    : VectorSpace<SubBasis<B, S, V>, S, V> {
+public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+    VectorSpace<SubBasis<B, S, V>, S, V> {
     public val totalVectorSpace: VectorSpace<B, S, V>
     public val generator: List<Vector<B, S, V>>
     public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>

@@ -147,3 +147,42 @@ private class SubVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
         return "SubVectorSpace($basisNamesString)"
     }
 }
+
+private class WholeSubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val matrixSpace: MatrixSpace<S, V, M>,
+    override val totalVectorSpace: VectorSpace<B, S, V>,
+) : SubVectorSpace<B, S, V, M> {
+    override val numVectorSpace: NumVectorSpace<S, V> = totalVectorSpace.numVectorSpace
+    override val basisNames: List<SubBasis<B, S, V>> = totalVectorSpace.getBasis().map { SubBasis(it) }
+    override val generator: List<Vector<B, S, V>> = totalVectorSpace.getBasis()
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
+        InternalPrintConfig.Companion::default
+    override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
+    override fun subspaceContains(vector: Vector<B, S, V>): Boolean = true
+
+    private val basisNameToIndex: Map<SubBasis<B, S, V>, Int> by lazy {
+        // cache for indexOf(basisName)
+        this.basisNames.mapIndexed { index, basisName -> Pair(basisName, index) }.toMap()
+    }
+
+    override fun indexOf(basisName: SubBasis<B, S, V>): Int {
+        return this.basisNameToIndex[basisName]
+            ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
+    }
+
+    override val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M> by lazy {
+        LinearMap.fromMatrix(
+            source = this,
+            target = this.totalVectorSpace,
+            matrixSpace = this.matrixSpace,
+            matrix = this.matrixSpace.getIdentity(this.totalVectorSpace.dim),
+        )
+    }
+}
+
+public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+VectorSpace<B, S, V>.asSubVectorSpace(
+    matrixSpace: MatrixSpace<S, V, M>,
+): SubVectorSpace<B, S, V, M> {
+    return WholeSubVectorSpace(matrixSpace, totalVectorSpace = this)
+}

@@ -18,6 +18,29 @@ public data class SubBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     }
 }
 
+public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    : VectorSpace<SubBasis<B, S, V>, S, V> {
+    public val totalVectorSpace: VectorSpace<B, S, V>
+    public val generator: List<Vector<B, S, V>>
+    public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>
+    public fun subspaceContains(vector: Vector<B, S, V>): Boolean
+
+    public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            totalVectorSpace: VectorSpace<B, S, V>,
+            generator: List<Vector<B, S, V>>,
+        ): SubVectorSpace<B, S, V, M> {
+            val factory = SubFactory(
+                matrixSpace,
+                totalVectorSpace,
+                generator,
+            )
+            return SubVectorSpaceImpl(factory)
+        }
+    }
+}
+
 private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val totalVectorSpace: VectorSpace<B, S, V>,
@@ -81,29 +104,6 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         ): M {
             val numVectorList = vectors.map { it.toNumVector() }
             return this.fromNumVectorList(numVectorList, dim)
-        }
-    }
-}
-
-public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    : VectorSpace<SubBasis<B, S, V>, S, V> {
-    public val totalVectorSpace: VectorSpace<B, S, V>
-    public val generator: List<Vector<B, S, V>>
-    public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>
-    public fun subspaceContains(vector: Vector<B, S, V>): Boolean
-
-    public companion object {
-        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalVectorSpace: VectorSpace<B, S, V>,
-            generator: List<Vector<B, S, V>>,
-        ): SubVectorSpace<B, S, V, M> {
-            val factory = SubFactory(
-                matrixSpace,
-                totalVectorSpace,
-                generator,
-            )
-            return SubVectorSpaceImpl(factory)
         }
     }
 }

@@ -85,13 +85,36 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     }
 }
 
-public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    : VectorSpace<SubBasis<B, S, V>, S, V> {
+    public val totalVectorSpace: VectorSpace<B, S, V>
+    public val generator: List<Vector<B, S, V>>
+    public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>
+    public fun subspaceContains(vector: Vector<B, S, V>): Boolean
+
+    public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            totalVectorSpace: VectorSpace<B, S, V>,
+            generator: List<Vector<B, S, V>>,
+        ): SubVectorSpace<B, S, V, M> {
+            val factory = SubFactory(
+                matrixSpace,
+                totalVectorSpace,
+                generator,
+            )
+            return SubVectorSpaceImpl(factory)
+        }
+    }
+}
+
+private class SubVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val factory: SubFactory<B, S, V, M>
-) : VectorSpace<SubBasis<B, S, V>, S, V> {
+) : SubVectorSpace<B, S, V, M> {
     override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
     override val basisNames: List<SubBasis<B, S, V>> by lazy { factory.getBasisNames() }
-    public val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
-    public val generator: List<Vector<B, S, V>> = factory.generator
+    override val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
+    override val generator: List<Vector<B, S, V>> = factory.generator
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
         InternalPrintConfig.Companion::default
     override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
@@ -106,7 +129,7 @@ public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Mat
             ?: throw NoSuchElementException("$basisName is not a name of basis element of the vector space $this")
     }
 
-    public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M> by lazy {
+    override val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M> by lazy {
         LinearMap.fromMatrix(
             source = this,
             target = this.factory.totalVectorSpace,
@@ -115,27 +138,12 @@ public class SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M : Mat
         )
     }
 
-    public fun subspaceContains(vector: Vector<B, S, V>): Boolean {
+    override fun subspaceContains(vector: Vector<B, S, V>): Boolean {
         return this.factory.contains(vector)
     }
 
     override fun toString(): String {
         val basisNamesString = this.basisNames.joinToString(", ") { it.toString() }
         return "SubVectorSpace($basisNamesString)"
-    }
-
-    public companion object {
-        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalVectorSpace: VectorSpace<B, S, V>,
-            generator: List<Vector<B, S, V>>,
-        ): SubVectorSpace<B, S, V, M> {
-            val factory = SubFactory(
-                matrixSpace,
-                totalVectorSpace,
-                generator,
-            )
-            return SubVectorSpace(factory)
-        }
     }
 }

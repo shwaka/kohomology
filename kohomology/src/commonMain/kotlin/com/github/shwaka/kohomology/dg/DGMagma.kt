@@ -149,15 +149,11 @@ getSubQuotMultiplicationAtDegree(
         subQuotAtDegQ.getBasis().map { vector2: Vector<SubQuotBasis<B, S, V>, S, V> ->
             subQuotAtDegQ.section(vector2)
         }
-    val totalGVectorSpace = subQuotGVectorSpace.totalGVectorSpace
     val valueList: List<List<Vector<SubQuotBasis<B, S, V>, S, V>>> =
         basisLift1.map { vector1: Vector<B, S, V> ->
             basisLift2.map { vector2: Vector<B, S, V> ->
                 subQuotAtDegPPlusQ.projection(
-                    multiplication(
-                        totalGVectorSpace.fromVector(vector1, p),
-                        totalGVectorSpace.fromVector(vector2, q),
-                    ).vector
+                    multiplication[p, q](vector1, vector2)
                 )
             }
         }

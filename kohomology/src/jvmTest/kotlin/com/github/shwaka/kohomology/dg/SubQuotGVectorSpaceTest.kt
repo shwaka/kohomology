@@ -42,6 +42,10 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             null,
         ) { _ -> subQuotVectorSpace }
 
+        "check subQuotGVectorSpace.totalGVectorSpace" {
+            subQuotGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace
+        }
+
         "check dimension" {
             (-5..5).forAll { degree ->
                 subQuotGVectorSpace[degree].dim shouldBe 1

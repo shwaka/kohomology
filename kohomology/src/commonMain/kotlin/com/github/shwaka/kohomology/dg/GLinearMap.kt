@@ -101,7 +101,6 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         return SubGVectorSpace(
             this.matrixSpace,
             this.source,
-            this.degreeGroup,
             "Ker(${this.name})",
             { InternalPrintConfig.default(it) },
             this.source.listDegreesForAugmentedDegree,
@@ -123,7 +122,6 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         return SubGVectorSpace(
             this.matrixSpace,
             this.target,
-            this.degreeGroup,
             "Im(${this.name})",
             { InternalPrintConfig.default(it) },
             this.target.listDegreesForAugmentedDegree,

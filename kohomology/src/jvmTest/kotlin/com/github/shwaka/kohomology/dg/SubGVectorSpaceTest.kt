@@ -37,7 +37,6 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         val subGVectorSpace = SubGVectorSpace(
             matrixSpace,
             totalGVectorSpace,
-            IntDegreeGroup,
             "V",
             { InternalPrintConfig.default(it) },
             null,

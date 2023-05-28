@@ -47,6 +47,10 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subGVectorSpace[degree].dim shouldBe 2
             }
         }
+
+        "check subGVectorSpace.totalGVectorSpace" {
+            subGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace
+        }
     }
 }
 

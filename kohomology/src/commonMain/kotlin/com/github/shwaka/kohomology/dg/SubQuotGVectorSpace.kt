@@ -20,10 +20,12 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
         return this[this.degreeGroup.fromInt(degree)]
     }
 
+    public val matrixSpace: MatrixSpace<S, V, M>
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
@@ -31,6 +33,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpaceImpl(
+                matrixSpace,
                 totalGVectorSpace,
                 name,
                 getInternalPrintConfig,
@@ -49,6 +52,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpace(
+                matrixSpace,
                 totalGVectorSpace,
                 name = name,
                 getInternalPrintConfig = getInternalPrintConfig,
@@ -66,6 +70,7 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
 }
 
 private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
     override val name: String,
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,

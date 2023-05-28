@@ -33,6 +33,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGMagma<D, B, S, V, M> {
             val subQuotGVectorSpace = SubQuotGVectorSpace(
+                matrixSpace,
                 totalGVectorSpace,
                 name,
                 getInternalPrintConfig,

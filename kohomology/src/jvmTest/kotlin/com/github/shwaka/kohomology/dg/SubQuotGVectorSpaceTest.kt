@@ -36,6 +36,7 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             "V",
         ) { _ -> totalVectorSpace }
         val subQuotGVectorSpace = SubQuotGVectorSpace(
+            matrixSpace,
             totalGVectorSpace,
             "W",
             { InternalPrintConfig.default(it) },

@@ -42,6 +42,16 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subVectorSpace.subspaceContains(v - w).shouldBeFalse()
             }
         }
+
+        "test vectorSpace.asSubVectorSpace" {
+            val subVectorSpace = vectorSpace.asSubVectorSpace(matrixSpace)
+            subVectorSpace.totalVectorSpace shouldBe vectorSpace
+            val incl = subVectorSpace.inclusion
+            val (x, y, z) = subVectorSpace.getBasis()
+            incl(x) shouldBe u
+            incl(y) shouldBe v
+            incl(z) shouldBe w
+        }
     }
 
     "check initialization of lazy properties" - {

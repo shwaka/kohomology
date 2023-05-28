@@ -52,9 +52,11 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             vectorSpace.context.run {
                 val generator = listOf(u + v, u, v)
                 val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
-                subVectorSpace::basisNames.isLazyInitialized.shouldBeFalse()
+                PrivateMemberAccessor.isLazyInitialized(subVectorSpace, "basisNames").shouldBeFalse()
                 subVectorSpace.dim shouldBe 2
-                subVectorSpace::basisNames.isLazyInitialized.shouldBeTrue()
+                PrivateMemberAccessor.isLazyInitialized(subVectorSpace, "basisNames").shouldBeTrue()
+                // subVectorSpace::basisNames.isLazyInitialized does not work
+                // since SubVectorSpace is an interface and basisNames is implemented in SubVectorSpaceImpl
             }
         }
         "accessing to subVectorSpace.dim should initialize factory.rowEchelonForm" {

@@ -35,6 +35,7 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             "V",
         ) { _ -> totalVectorSpace }
         val subGVectorSpace = SubGVectorSpace(
+            matrixSpace,
             totalGVectorSpace,
             IntDegreeGroup,
             "V",

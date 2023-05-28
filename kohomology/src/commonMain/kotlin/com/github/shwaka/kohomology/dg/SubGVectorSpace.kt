@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.dg
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -19,10 +20,12 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
         return this[this.degreeGroup.fromInt(degree)]
     }
 
+    public val matrixSpace: MatrixSpace<S, V, M>
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
@@ -31,6 +34,7 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
             getVectorSpace: (D) -> SubVectorSpace<B, S, V, M>,
         ): SubGVectorSpace<D, B, S, V, M> {
             return SubGVectorSpaceImpl(
+                matrixSpace,
                 totalGVectorSpace,
                 degreeGroup,
                 name,
@@ -43,6 +47,7 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
 }
 
 private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
     override val degreeGroup: DegreeGroup<D>,
     override val name: String,

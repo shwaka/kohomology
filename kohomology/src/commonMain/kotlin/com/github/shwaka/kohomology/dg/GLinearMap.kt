@@ -99,6 +99,7 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
 
     public fun kernel(): SubGVectorSpace<D, BS, S, V, M> {
         return SubGVectorSpace(
+            this.matrixSpace,
             this.source,
             this.degreeGroup,
             "Ker(${this.name})",
@@ -120,6 +121,7 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
 
     public fun image(): SubGVectorSpace<D, BT, S, V, M> {
         return SubGVectorSpace(
+            this.matrixSpace,
             this.target,
             this.degreeGroup,
             "Im(${this.name})",

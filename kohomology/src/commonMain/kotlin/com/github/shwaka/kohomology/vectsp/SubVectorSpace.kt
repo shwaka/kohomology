@@ -9,12 +9,31 @@ import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.Printer
 
 public data class SubBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>
 ) : BasisName {
     override fun toString(): String {
         return "(${this.vector})"
+    }
+
+    public companion object {
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>> convertGetInternalPrintConfig(
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+        ): (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> {
+            return { printConfig: PrintConfig ->
+                val internalPrintConfig: InternalPrintConfig<B, S> = getInternalPrintConfig(printConfig)
+                val printer = Printer(printConfig)
+                InternalPrintConfig(
+                    coeffToString = internalPrintConfig.coeffToString,
+                    basisToString = { basisName: SubBasis<B, S, V> ->
+                        "(${printer(basisName.vector)})"
+                    },
+                    basisComparator = null,
+                )
+            }
+        }
     }
 }
 
@@ -116,7 +135,7 @@ private class SubVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
     override val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
     override val generator: List<Vector<B, S, V>> = factory.generator
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
-        InternalPrintConfig.Companion::default
+        SubBasis.convertGetInternalPrintConfig(totalVectorSpace.getInternalPrintConfig)
     override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
 
     private val basisNameToIndex: Map<SubBasis<B, S, V>, Int> by lazy {
@@ -156,7 +175,7 @@ private class WholeSubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M
     override val basisNames: List<SubBasis<B, S, V>> = totalVectorSpace.getBasis().map { SubBasis(it) }
     override val generator: List<Vector<B, S, V>> = totalVectorSpace.getBasis()
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
-        InternalPrintConfig.Companion::default
+        SubBasis.convertGetInternalPrintConfig(totalVectorSpace.getInternalPrintConfig)
     override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
     override fun subspaceContains(vector: Vector<B, S, V>): Boolean = true
 

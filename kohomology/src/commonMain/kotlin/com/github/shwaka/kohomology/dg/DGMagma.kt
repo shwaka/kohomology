@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface DGMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -104,20 +103,11 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val matrixSpace: MatrixSpace<S, V, M> = differential.matrixSpace
 
     private fun getCohomologyMultiplication(): GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> {
-        val bilinearMapName = "Multiplication(H^*($name))"
-        return GBilinearMap(
-            this.cohomologyGVectorSpace,
-            this.cohomologyGVectorSpace,
-            this.cohomologyGVectorSpace,
-            0,
-            bilinearMapName,
-        ) { p, q ->
-            getSubQuotMultiplicationAtDegree(
-                this.cohomologyGVectorSpace,
-                this.multiplication,
-                p, q,
-            )
-        }
+        return this.multiplication.induce(
+            source1SubQuot = this.cohomologyGVectorSpace,
+            source2SubQuot = this.cohomologyGVectorSpace,
+            targetSubQuot = this.cohomologyGVectorSpace,
+        )
     }
 
     override val cohomology: SubQuotGMagma<D, B, S, V, M> by lazy {
@@ -127,21 +117,4 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             this.getCohomologyMultiplication(),
         )
     }
-}
-
-private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-getSubQuotMultiplicationAtDegree(
-    subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
-    multiplication: GBilinearMap<B, B, B, D, S, V, M>,
-    p: D, q: D,
-): BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
-    val subQuotAtDegP = subQuotGVectorSpace[p]
-    val subQuotAtDegQ = subQuotGVectorSpace[q]
-    val pPlusQ = subQuotGVectorSpace.degreeGroup.context.run { p + q }
-    val subQuotAtDegPPlusQ = subQuotGVectorSpace[pPlusQ]
-    return multiplication[p, q].induce(
-        subQuotAtDegP,
-        subQuotAtDegQ,
-        subQuotAtDegPPlusQ,
-    )
 }

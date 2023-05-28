@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val source1: GVectorSpace<D, BS1, S, V>,
@@ -91,6 +92,32 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
             gVector1.degree + gVector2.degree + this@GBilinearMap.degree
         }
         return this.target.fromVector(newVector, newDegree)
+    }
+
+    public fun induce(
+        source1SubQuot: SubQuotGVectorSpace<D, BS1, S, V, M>,
+        source2SubQuot: SubQuotGVectorSpace<D, BS2, S, V, M>,
+        targetSubQuot: SubQuotGVectorSpace<D, BT, S, V, M>,
+    ): GBilinearMap<
+        SubQuotBasis<BS1, S, V>,
+        SubQuotBasis<BS2, S, V>,
+        SubQuotBasis<BT, S, V>,
+        D, S, V, M
+        > {
+        return GBilinearMap(
+            source1SubQuot,
+            source2SubQuot,
+            targetSubQuot,
+            this.degree,
+            this.name,
+        ) { p, q ->
+            val pPlusQ = this.degreeGroup.context.run { p + q }
+            this[p, q].induce(
+                source1SubQuot[p],
+                source2SubQuot[q],
+                targetSubQuot[pPlusQ],
+            )
+        }
     }
 
     override fun toString(): String {

@@ -194,8 +194,9 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> =
+                InternalPrintConfig.Companion::default,
+            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
             boundedness: Boundedness = Boundedness(),
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
         ): GVectorSpace<D, B, S, V> {
@@ -207,39 +208,6 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
                 listDegreesForAugmentedDegree,
                 boundedness,
                 getVectorSpace,
-            )
-        }
-
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
-            numVectorSpace: NumVectorSpace<S, V>,
-            degreeGroup: DegreeGroup<D>,
-            name: String,
-            getVectorSpace: (D) -> VectorSpace<B, S, V>,
-        ): GVectorSpace<D, B, S, V> {
-            return GVectorSpace(
-                numVectorSpace,
-                degreeGroup,
-                name,
-                InternalPrintConfig.Companion::default,
-                null,
-                getVectorSpace = getVectorSpace,
-            )
-        }
-
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
-            numVectorSpace: NumVectorSpace<S, V>,
-            degreeGroup: DegreeGroup<D>,
-            name: String,
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
-            getVectorSpace: (D) -> VectorSpace<B, S, V>,
-        ): GVectorSpace<D, B, S, V> {
-            return GVectorSpace(
-                numVectorSpace,
-                degreeGroup,
-                name,
-                InternalPrintConfig.Companion::default,
-                listDegreesForAugmentedDegree,
-                getVectorSpace = getVectorSpace,
             )
         }
 

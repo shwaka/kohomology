@@ -23,6 +23,22 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
         S, V, M,
         >
 
+    public fun image(
+        source1Sub: SubVectorSpace<BS1, S, V, M> = this.source1.asSubVectorSpace(this.matrixSpace),
+        source2Sub: SubVectorSpace<BS2, S, V, M> = this.source2.asSubVectorSpace(this.matrixSpace),
+    ): SubVectorSpace<BT, S, V, M> {
+        val imageGenerator: List<Vector<BT, S, V>> = source1Sub.generator.map { vector1: Vector<BS1, S, V> ->
+            source2Sub.generator.map { vector2: Vector<BS2, S, V> ->
+                this(vector1, vector2)
+            }
+        }.flatten()
+        return SubVectorSpace(
+            this.matrixSpace,
+            totalVectorSpace = this.target,
+            generator = imageGenerator,
+        )
+    }
+
     public companion object {
         public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
             source1: VectorSpace<BS1, S, V>,

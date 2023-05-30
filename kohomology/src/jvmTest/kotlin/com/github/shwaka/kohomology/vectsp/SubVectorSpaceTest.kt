@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -77,6 +78,33 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 PrivateMemberAccessor.isLazyInitialized(factory, "rowEchelonForm").shouldBeFalse()
                 subVectorSpace.dim shouldBe 2
                 PrivateMemberAccessor.isLazyInitialized(factory, "rowEchelonForm").shouldBeTrue()
+            }
+        }
+    }
+
+    "getInternalPrintConfig should be inherited from subVectorSpace.totalVectorSpace" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {
+            InternalPrintConfig(
+                basisComparator = compareBy { it.name },
+                basisToString = { basisName -> basisName.name.replaceFirstChar { it.uppercase() } },
+            )
+        }
+        val (y, x, _) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            "test SubVectorSpaceImpl.getInternalPrintConfig" {
+                val generator = listOf(y + x, x)
+                val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
+                val (v, w) = subVectorSpace.getBasis()
+                v.toString() shouldBe "(X + Y)"
+                w.toString() shouldBe "(X)"
+            }
+            "test vectorSpace.asSubVectorSpace().getInternalPrintConfig" {
+                val subVectorSpace = vectorSpace.asSubVectorSpace(matrixSpace)
+                val (u, v, w) = subVectorSpace.getBasis()
+                u.toString() shouldBe "(Y)"
+                v.toString() shouldBe "(X)"
+                w.toString() shouldBe "(Z)"
             }
         }
     }

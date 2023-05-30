@@ -81,7 +81,7 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             matrixSpace,
             totalGVectorSpace,
             "V",
-        ) { _ ->  subVectorSpace }
+        ) { _ -> subVectorSpace }
         val (v, w) = subGVectorSpace.getBasis(0)
 
         v.toString() shouldBe "(X + Y)"

@@ -199,19 +199,5 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
             )
             return SubQuotVectorSpace(factory)
         }
-
-        public fun <B : BasisName, S : Scalar, V : NumVector<S>> convertInternalPrintConfig(
-            printConfig: PrintConfig,
-            internalPrintConfig: InternalPrintConfig<B, S>
-        ): InternalPrintConfig<SubQuotBasis<B, S, V>, S> {
-            return InternalPrintConfig(
-                coeffToString = internalPrintConfig.coeffToString,
-                basisToString = { subQuotBasisName ->
-                    val originalString = subQuotBasisName.vector.print(printConfig, internalPrintConfig)
-                    "[$originalString]"
-                },
-                basisComparator = null
-            )
-        }
     }
 }

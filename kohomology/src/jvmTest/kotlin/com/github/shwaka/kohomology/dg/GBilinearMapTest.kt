@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -22,7 +23,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
     "multiplication of the exterior algebra of a single generator" - {
         // 1つの元で生成される外積代数
         val numVectorSpace = matrixSpace.numVectorSpace
-        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "span<u, v>") { degree ->
+        val boundedness = Boundedness(upperBound = 1, lowerBound = 0)
+        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "span<u, v>", boundedness) { degree ->
             when (degree) {
                 0 -> listOf("u") // unit
                 1 -> listOf("v")
@@ -43,6 +45,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gBilinearMapTest(matrixSpac
         }
         "gBilinearMap.degree should be zero" {
             gBilinearMap.degree.value shouldBe 0
+        }
+        "gBilinearMap.image() should be the whole gVectorSpace" {
+            val image = gBilinearMap.image()
+            (-10..10).forAll { degree ->
+                image[degree].dim shouldBe if ((degree == 0) || (degree == 1)) 1 else 0
+            }
         }
         gVectorSpace.context.run {
             "check values of the bilinear map" {

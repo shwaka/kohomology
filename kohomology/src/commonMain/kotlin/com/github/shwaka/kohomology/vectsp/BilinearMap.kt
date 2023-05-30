@@ -21,14 +21,7 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
         SubQuotBasis<BS2, S, V>,
         SubQuotBasis<BT, S, V>,
         S, V, M,
-        > {
-        // TODO: Implement this separately in ValueBilinearMap and LazyBilinearMap?
-        return ValueBilinearMap.getInducedMap(
-            this,
-            source1SubQuot, source2SubQuot,
-            targetSubQuot,
-        )
-    }
+        >
 
     public companion object {
         public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
@@ -83,8 +76,21 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
         }
     }
 
+    override fun induce(
+        source1SubQuot: SubQuotVectorSpace<BS1, S, V, M>,
+        source2SubQuot: SubQuotVectorSpace<BS2, S, V, M>,
+        targetSubQuot: SubQuotVectorSpace<BT, S, V, M>
+    ): ValueBilinearMap<SubQuotBasis<BS1, S, V>, SubQuotBasis<BS2, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        return ValueBilinearMap.getInducedMap(
+            this,
+            source1SubQuot, source2SubQuot,
+            targetSubQuot,
+        )
+    }
+
+
     public companion object {
-        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
+        private fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
             bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,
             source1SubQuot: SubQuotVectorSpace<BS1, S, V, M>,
             source2SubQuot: SubQuotVectorSpace<BS2, S, V, M>,
@@ -139,8 +145,20 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
         }
     }
 
+    override fun induce(
+        source1SubQuot: SubQuotVectorSpace<BS1, S, V, M>,
+        source2SubQuot: SubQuotVectorSpace<BS2, S, V, M>,
+        targetSubQuot: SubQuotVectorSpace<BT, S, V, M>
+    ): LazyBilinearMap<SubQuotBasis<BS1, S, V>, SubQuotBasis<BS2, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        return LazyBilinearMap.getInducedMap(
+            this,
+            source1SubQuot, source2SubQuot,
+            targetSubQuot,
+        )
+    }
+
     public companion object {
-        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
+        private fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
             bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,
             source1SubQuot: SubQuotVectorSpace<BS1, S, V, M>,
             source2SubQuot: SubQuotVectorSpace<BS2, S, V, M>,

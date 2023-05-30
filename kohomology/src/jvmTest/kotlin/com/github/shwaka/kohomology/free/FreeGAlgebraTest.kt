@@ -141,7 +141,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             }
         }
         "boundedness should be Boundedness(upperBound=null, lowerBound=0)" {
-            freeGAlgebra.boundedness shouldBe Boundedness(upperBound = null, lowerBound = 0)
+            val expected = if (generatorDegree > 0) {
+                Boundedness(upperBound = null, lowerBound = 0)
+            } else {
+                Boundedness(upperBound = 0, lowerBound = null)
+            }
+            freeGAlgebra.boundedness shouldBe expected
         }
     }
 }
@@ -216,7 +221,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             }
         }
         "boundedness should be Boundedness(upperBound=$generatorDegree, lowerBound=0)" {
-            freeGAlgebra.boundedness shouldBe Boundedness(upperBound = generatorDegree, lowerBound = 0)
+            val expected = if (generatorDegree > 0) {
+                Boundedness(upperBound = 2 * generatorDegree, lowerBound = 0)
+            } else {
+                Boundedness(upperBound = 0, lowerBound = 2 * generatorDegree)
+            }
+            freeGAlgebra.boundedness shouldBe expected
         }
     }
 }

@@ -1,14 +1,14 @@
 package com.github.shwaka.kohomology.simplicial
 
 import com.github.shwaka.kohomology.util.ComparablePair
-import com.github.shwaka.kohomology.util.directProductOf
+import com.github.shwaka.kohomology.util.comparableDirectProductOf
 
 private fun <Vertex1 : Comparable<Vertex1>, Vertex2 : Comparable<Vertex2>> productOf(
     simplex1: Simplex<Vertex1>,
     simplex2: Simplex<Vertex2>,
 ): Simplex<ComparablePair<Vertex1, Vertex2>> {
     return Simplex.fromUnsorted(
-        directProductOf(simplex1.vertices, simplex2.vertices)
+        comparableDirectProductOf(simplex1.vertices, simplex2.vertices)
     )
 }
 

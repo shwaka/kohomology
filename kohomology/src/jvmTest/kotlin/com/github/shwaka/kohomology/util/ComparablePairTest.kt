@@ -30,8 +30,8 @@ class ComparablePairTest : FreeSpec({
         }
     }
 
-    "test directProductOf" {
-        val actual = directProductOf(
+    "test comparableDirectProductOf" {
+        val actual = comparableDirectProductOf(
             listOf(1, 2, 3),
             listOf(4, 5),
         )

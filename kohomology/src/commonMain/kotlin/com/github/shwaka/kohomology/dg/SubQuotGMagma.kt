@@ -37,6 +37,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {
                 val bilinearMapName = "Multiplication($name)"
                 GBilinearMap(
+                    matrixSpace,
                     subQuotGVectorSpace,
                     subQuotGVectorSpace,
                     subQuotGVectorSpace,

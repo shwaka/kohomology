@@ -44,6 +44,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     )
 
     val multiplication: GBilinearMap<E, E, E, D, S, V, M> = GBilinearMap(
+        this.matrixSpace,
         this.gVectorSpace,
         this.gVectorSpace,
         this.gVectorSpace,

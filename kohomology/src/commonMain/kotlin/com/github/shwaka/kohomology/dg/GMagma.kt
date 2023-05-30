@@ -113,7 +113,7 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
                 getVectorSpace
             )
             val bilinearMapName = "Multiplication($name)"
-            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            val multiplication = GBilinearMap(matrixSpace, gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
             return GMagmaImpl(matrixSpace, gVectorSpace, multiplication)
         }
     }

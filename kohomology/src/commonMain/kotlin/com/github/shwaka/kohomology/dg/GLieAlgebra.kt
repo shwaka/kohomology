@@ -55,7 +55,7 @@ public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVecto
                 getVectorSpace
             )
             val bilinearMapName = "LieBracket($name)"
-            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            val multiplication = GBilinearMap(matrixSpace, gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
             return GLieAlgebraImpl(matrixSpace, gVectorSpace, multiplication)
         }
     }

@@ -113,7 +113,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                 getVectorSpace
             )
             val bilinearMapName = "Multiplication($name)"
-            val multiplication = GBilinearMap(gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
+            val multiplication = GBilinearMap(matrixSpace, gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
             val unit = gVectorSpace.fromVector(unitVector, 0)
             return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit, isCommutative)
         }

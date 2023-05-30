@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    public val matrixSpace: MatrixSpace<S, V, M>,
     public val source1: GVectorSpace<D, BS1, S, V>,
     public val source2: GVectorSpace<D, BS2, S, V>,
     public val target: GVectorSpace<D, BT, S, V>,
@@ -23,16 +24,18 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
     public val degreeGroup: DegreeGroup<D> = source1.degreeGroup
 
     public constructor(
+        matrixSpace: MatrixSpace<S, V, M>,
         source1: GVectorSpace<D, BS1, S, V>,
         source2: GVectorSpace<D, BS2, S, V>,
         target: GVectorSpace<D, BT, S, V>,
         degree: Int,
         name: String,
         getBilinearMap: (D, D) -> BilinearMap<BS1, BS2, BT, S, V, M>,
-    ) : this(source1, source2, target, source1.degreeGroup.fromInt(degree), name, getBilinearMap)
+    ) : this(matrixSpace, source1, source2, target, source1.degreeGroup.fromInt(degree), name, getBilinearMap)
 
     public companion object {
         public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> withIntDegree(
+            matrixSpace: MatrixSpace<S, V, M>,
             source1: GVectorSpace<IntDegree, BS1, S, V>,
             source2: GVectorSpace<IntDegree, BS2, S, V>,
             target: GVectorSpace<IntDegree, BT, S, V>,
@@ -40,7 +43,7 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
             name: String,
             getBilinearMap: (Int, Int) -> BilinearMap<BS1, BS2, BT, S, V, M>,
         ): GBilinearMap<BS1, BS2, BT, IntDegree, S, V, M> {
-            return GBilinearMap(source1, source2, target, IntDegree(degree), name) { p, q ->
+            return GBilinearMap(matrixSpace, source1, source2, target, IntDegree(degree), name) { p, q ->
                 getBilinearMap(p.value, q.value)
             }
         }
@@ -52,7 +55,7 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
             target: GVectorSpace<D, BT, S, V>,
             degree: D,
         ): GBilinearMap<BS1, BS2, BT, D, S, V, M> {
-            return GBilinearMap(source1, source2, target, degree, "0") { p: D, q: D ->
+            return GBilinearMap(matrixSpace, source1, source2, target, degree, "0") { p: D, q: D ->
                 val targetDegree = target.degreeGroup.context.run {
                     p + q + degree
                 }
@@ -105,6 +108,7 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
         D, S, V, M
         > {
         return GBilinearMap(
+            this.matrixSpace,
             source1SubQuot,
             source2SubQuot,
             targetSubQuot,

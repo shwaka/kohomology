@@ -64,7 +64,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
                     "LazyBilinearMap" to ::LazyBilinearMap,
                 )
             for ((name, constructor) in constructors) {
-                "test constructor of $name with getValue" {
+                "test $name as parametrized test" - {
                     val f = constructor(
                         sourceVectorSpace1,
                         sourceVectorSpace2,
@@ -85,11 +85,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
                             else -> throw Exception("This can't happen!")
                         }
                     }
-                    f(v, x) shouldBe a
-                    f(v, y) shouldBe (b - a)
-                    f(w, x) shouldBe (2 * a + b)
-                    f(w, y) shouldBe targetVectorSpace.zeroVector
-                    f(v + w, x + y) shouldBe (2 * (a + b))
+                    "check values" {
+                        f(v, x) shouldBe a
+                        f(v, y) shouldBe (b - a)
+                        f(w, x) shouldBe (2 * a + b)
+                        f(w, y) shouldBe targetVectorSpace.zeroVector
+                        f(v + w, x + y) shouldBe (2 * (a + b))
+                    }
                 }
             }
         }

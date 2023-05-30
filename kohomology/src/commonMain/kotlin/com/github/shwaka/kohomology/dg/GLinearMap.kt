@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 
@@ -102,8 +101,6 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
             this.matrixSpace,
             this.source,
             "Ker(${this.name})",
-            { InternalPrintConfig.default(it) },
-            this.source.listDegreesForAugmentedDegree,
         ) { degree -> this[degree].kernel() }
     }
 
@@ -123,8 +120,6 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
             this.matrixSpace,
             this.target,
             "Im(${this.name})",
-            { InternalPrintConfig.default(it) },
-            this.target.listDegreesForAugmentedDegree,
         ) { degree ->
             val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
             this[sourceDegree].image()

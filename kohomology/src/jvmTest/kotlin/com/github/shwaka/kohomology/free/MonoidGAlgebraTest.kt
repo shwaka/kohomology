@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.EvenSuperDegree
@@ -74,6 +75,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     }
                 }
             }
+        }
+
+        "boundedness should be Boundedness(lowerBound=0, upperBound=2n)" {
+            gAlgebra.boundedness shouldBe Boundedness(lowerBound = 0, upperBound = 2 * n)
         }
     }
 }

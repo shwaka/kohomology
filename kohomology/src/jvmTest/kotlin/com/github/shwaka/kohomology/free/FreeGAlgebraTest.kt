@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.h0tk3y.betterParse.parser.ParseException
+import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
@@ -43,6 +44,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace
             FreeGAlgebra(matrixSpace, indeterminateList)
         }
         freeGAlgebra[0].dim shouldBe 1
+        freeGAlgebra.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = 0)
     }
 }
 
@@ -138,6 +140,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 l.product() shouldBe unit
             }
         }
+        "boundedness should be Boundedness(upperBound=null, lowerBound=0)" {
+            freeGAlgebra.boundedness shouldBe Boundedness(upperBound = null, lowerBound = 0)
+        }
     }
 }
 
@@ -209,6 +214,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
             freeGAlgebra.context.run {
                 listOf(x, y, x).product().isZero().shouldBeTrue()
             }
+        }
+        "boundedness should be Boundedness(upperBound=$generatorDegree, lowerBound=0)" {
+            freeGAlgebra.boundedness shouldBe Boundedness(upperBound = generatorDegree, lowerBound = 0)
         }
     }
 }

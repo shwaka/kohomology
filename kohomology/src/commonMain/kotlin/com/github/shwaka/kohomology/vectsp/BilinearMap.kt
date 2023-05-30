@@ -23,28 +23,10 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
         S, V, M,
         > {
         // TODO: Implement this separately in ValueBilinearMap and LazyBilinearMap?
-        val basisLift1: List<Vector<BS1, S, V>> =
-            source1SubQuot.getBasis().map { subQuotVector1: Vector<SubQuotBasis<BS1, S, V>, S, V> ->
-                source1SubQuot.section(subQuotVector1)
-            }
-        val basisLift2: List<Vector<BS2, S, V>> =
-            source2SubQuot.getBasis().map { subQuotVector2: Vector<SubQuotBasis<BS2, S, V>, S, V> ->
-                source2SubQuot.section(subQuotVector2)
-            }
-        val valueList: List<List<Vector<SubQuotBasis<BT, S, V>, S, V>>> =
-            basisLift1.map { vector1: Vector<BS1, S, V> ->
-                basisLift2.map { vector2: Vector<BS2, S, V> ->
-                    targetSubQuot.projection(
-                        this(vector1, vector2)
-                    )
-                }
-            }
-        return ValueBilinearMap(
-            source1SubQuot,
-            source2SubQuot,
+        return ValueBilinearMap.getInducedMap(
+            this,
+            source1SubQuot, source2SubQuot,
             targetSubQuot,
-            this.matrixSpace,
-            valueList,
         )
     }
 
@@ -98,6 +80,44 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
                     this@ValueBilinearMap.values[ind1][ind2] * coeff1 * coeff2
                 }.values.sum()
             }.values.sum()
+        }
+    }
+
+    public companion object {
+        public fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
+            bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,
+            source1SubQuot: SubQuotVectorSpace<BS1, S, V, M>,
+            source2SubQuot: SubQuotVectorSpace<BS2, S, V, M>,
+            targetSubQuot: SubQuotVectorSpace<BT, S, V, M>,
+        ): ValueBilinearMap<
+            SubQuotBasis<BS1, S, V>,
+            SubQuotBasis<BS2, S, V>,
+            SubQuotBasis<BT, S, V>,
+            S, V, M,
+            > {
+            val basisLift1: List<Vector<BS1, S, V>> =
+                source1SubQuot.getBasis().map { subQuotVector1: Vector<SubQuotBasis<BS1, S, V>, S, V> ->
+                    source1SubQuot.section(subQuotVector1)
+                }
+            val basisLift2: List<Vector<BS2, S, V>> =
+                source2SubQuot.getBasis().map { subQuotVector2: Vector<SubQuotBasis<BS2, S, V>, S, V> ->
+                    source2SubQuot.section(subQuotVector2)
+                }
+            val valueList: List<List<Vector<SubQuotBasis<BT, S, V>, S, V>>> =
+                basisLift1.map { vector1: Vector<BS1, S, V> ->
+                    basisLift2.map { vector2: Vector<BS2, S, V> ->
+                        targetSubQuot.projection(
+                            bilinearMap(vector1, vector2)
+                        )
+                    }
+                }
+            return ValueBilinearMap(
+                source1SubQuot,
+                source2SubQuot,
+                targetSubQuot,
+                bilinearMap.matrixSpace,
+                valueList,
+            )
         }
     }
 }

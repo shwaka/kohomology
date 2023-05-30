@@ -53,6 +53,7 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
         SubBasis.convertGetInternalPrintConfig(totalGVectorSpace.getInternalPrintConfig)
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
+    override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
@@ -82,6 +83,7 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
         SubBasis.convertGetInternalPrintConfig(totalGVectorSpace.getInternalPrintConfig)
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
+    override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this

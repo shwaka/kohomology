@@ -103,6 +103,7 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
             getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+            boundedness: Boundedness = Boundedness(),
         ): GMagma<D, B, S, V, M> {
             val gVectorSpace = GVectorSpace(
                 matrixSpace.numVectorSpace,
@@ -110,6 +111,7 @@ public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
                 name,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,
+                boundedness,
                 getVectorSpace
             )
             val bilinearMapName = "Multiplication($name)"

@@ -73,6 +73,7 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         SubQuotBasis.convertGetInternalPrintConfig(totalGVectorSpace.getInternalPrintConfig)
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
+    override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubQuotBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this

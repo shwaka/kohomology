@@ -103,6 +103,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
             isCommutative: Boolean = false,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+            boundedness: Boundedness = Boundedness(),
         ): GAlgebra<D, B, S, V, M> {
             val gVectorSpace = GVectorSpace(
                 matrixSpace.numVectorSpace,
@@ -110,6 +111,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                 name,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,
+                boundedness,
                 getVectorSpace
             )
             val bilinearMapName = "Multiplication($name)"

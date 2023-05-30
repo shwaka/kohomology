@@ -5,8 +5,8 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.util.directProductOf
 
 public data class Boundedness(
-    public val upperBound: Int?,
-    public val lowerBound: Int?,
+    public val upperBound: Int? = null,
+    public val lowerBound: Int? = null,
 ) {
     public companion object {
         public fun <D : Degree> listDegreePairsOfSum(

@@ -183,6 +183,7 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
     public val listDegreesForAugmentedDegree: ((Int) -> List<D>)?
     public operator fun get(degree: D): VectorSpace<B, S, V>
     public val underlyingGVectorSpace: GVectorSpace<D, B, S, V>
+    public val boundedness: Boundedness
     override fun toString(): String
 
     public val field: Field<S> get() = this.numVectorSpace.field
@@ -195,9 +196,18 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             name: String,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
             listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+            boundedness: Boundedness = Boundedness(),
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
         ): GVectorSpace<D, B, S, V> {
-            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, getVectorSpace)
+            return GVectorSpaceImpl(
+                numVectorSpace,
+                degreeGroup,
+                name,
+                getInternalPrintConfig,
+                listDegreesForAugmentedDegree,
+                boundedness,
+                getVectorSpace,
+            )
         }
 
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
@@ -206,7 +216,14 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             name: String,
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
         ): GVectorSpace<D, B, S, V> {
-            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, null, getVectorSpace)
+            return GVectorSpace(
+                numVectorSpace,
+                degreeGroup,
+                name,
+                InternalPrintConfig.Companion::default,
+                null,
+                getVectorSpace = getVectorSpace,
+            )
         }
 
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
@@ -216,7 +233,14 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
             getVectorSpace: (D) -> VectorSpace<B, S, V>,
         ): GVectorSpace<D, B, S, V> {
-            return GVectorSpaceImpl(numVectorSpace, degreeGroup, name, InternalPrintConfig.Companion::default, listDegreesForAugmentedDegree, getVectorSpace)
+            return GVectorSpace(
+                numVectorSpace,
+                degreeGroup,
+                name,
+                InternalPrintConfig.Companion::default,
+                listDegreesForAugmentedDegree,
+                getVectorSpace = getVectorSpace,
+            )
         }
 
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
@@ -418,6 +442,7 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val name: String,
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)?,
+    override val boundedness: Boundedness,
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorSpace<D, B, S, V> {
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()

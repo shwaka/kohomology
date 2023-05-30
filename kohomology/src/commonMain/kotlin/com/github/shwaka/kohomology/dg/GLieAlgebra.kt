@@ -45,6 +45,7 @@ public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVecto
             getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
             getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = { InternalPrintConfig.default(it) },
             listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
+            boundedness: Boundedness = Boundedness(),
         ): GLieAlgebra<D, B, S, V, M> {
             val gVectorSpace = GVectorSpace(
                 matrixSpace.numVectorSpace,
@@ -52,6 +53,7 @@ public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVecto
                 name,
                 getInternalPrintConfig,
                 listDegreesForAugmentedDegree,
+                boundedness,
                 getVectorSpace
             )
             val bilinearMapName = "LieBracket($name)"

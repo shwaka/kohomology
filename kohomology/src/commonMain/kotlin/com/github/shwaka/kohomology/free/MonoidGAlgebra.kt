@@ -40,6 +40,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
         this.name,
         this.getInternalPrintConfig,
         this::listDegreesForAugmentedDegree,
+        this.monoid.boundedness,
         this::getVectorSpace,
     )
 

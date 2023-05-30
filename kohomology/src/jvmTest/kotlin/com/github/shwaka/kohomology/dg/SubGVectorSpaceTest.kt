@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
@@ -56,6 +57,35 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 wholeSubGVectorSpace[degree].dim shouldBe 3
             }
         }
+    }
+
+    "getInternalPrintConfig should be inherited from subGVectorSpace.totalGVectorSpace" {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val totalVectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {
+            InternalPrintConfig(
+                basisComparator = compareBy { it.name },
+                basisToString = { basisName -> basisName.name.replaceFirstChar { it.uppercase() } },
+            )
+        }
+        val (y, x, _) = totalVectorSpace.getBasis()
+        val subVectorSpace = totalVectorSpace.context.run {
+            val generator = listOf(y + x, x)
+            SubVectorSpace(matrixSpace, totalVectorSpace, generator)
+        }
+        val totalGVectorSpace = GVectorSpace(
+            numVectorSpace,
+            IntDegreeGroup,
+            "V",
+        ) { _ -> totalVectorSpace }
+        val subGVectorSpace = SubGVectorSpace(
+            matrixSpace,
+            totalGVectorSpace,
+            "V",
+        ) { _ ->  subVectorSpace }
+        val (v, w) = subGVectorSpace.getBasis(0)
+
+        v.toString() shouldBe "(X + Y)"
+        w.toString() shouldBe "(X)"
     }
 }
 

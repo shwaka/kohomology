@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -53,6 +54,31 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             "check class" {
                 val x = subQuotVectorSpace.getBasis()[0]
                 x.vectorSpace::class.simpleName shouldBe "SubQuotVectorSpace"
+            }
+        }
+    }
+
+    "getInternalPrintConfig should be inherited from subQuotVectorSpace.totalVectorSpace" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {
+            InternalPrintConfig(
+                basisComparator = compareBy { it.name },
+                basisToString = { basisName -> basisName.name.replaceFirstChar { it.uppercase() } },
+            )
+        }
+        val (y, x, _) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            "test SubQuotVectorSpaceImpl.getInternalPrintConfig" {
+                val generator = listOf(y + x, x)
+                val subQuotVectorSpace = SubQuotVectorSpace(
+                    matrixSpace,
+                    vectorSpace,
+                    subspaceGenerator = generator,
+                    quotientGenerator = emptyList(),
+                )
+                val (v, w) = subQuotVectorSpace.getBasis()
+                v.toString() shouldBe "[X + Y]"
+                w.toString() shouldBe "[X]"
             }
         }
     }

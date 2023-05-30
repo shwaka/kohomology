@@ -10,12 +10,31 @@ import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.Printer
 
 public data class SubQuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
     val vector: Vector<B, S, V>
 ) : BasisName {
     override fun toString(): String {
         return "[${this.vector}]"
+    }
+
+    public companion object {
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>> convertGetInternalPrintConfig(
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
+        ): (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> {
+            return { printConfig: PrintConfig ->
+                val internalPrintConfig: InternalPrintConfig<B, S> = getInternalPrintConfig(printConfig)
+                val printer = Printer(printConfig)
+                InternalPrintConfig(
+                    coeffToString = internalPrintConfig.coeffToString,
+                    basisToString = { basisName: SubQuotBasis<B, S, V> ->
+                        "[${printer(basisName.vector)}]"
+                    },
+                    basisComparator = null,
+                )
+            }
+        }
     }
 }
 
@@ -110,7 +129,7 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
     override val numVectorSpace: NumVectorSpace<S, V> = factory.numVectorSpace
     override val basisNames: List<SubQuotBasis<B, S, V>> = factory.basisNames
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> =
-        InternalPrintConfig.Companion::default
+        SubQuotBasis.convertGetInternalPrintConfig(factory.totalVectorSpace.getInternalPrintConfig)
     override val context: VectorContext<SubQuotBasis<B, S, V>, S, V> = VectorContextImpl(this)
     public val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
 

@@ -88,7 +88,6 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
         )
     }
 
-
     public companion object {
         private fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
             bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,

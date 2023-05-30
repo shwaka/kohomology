@@ -215,27 +215,34 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
+            boundedness: Boundedness = Boundedness(),
             getBasisNames: (D) -> List<B>,
         ): GVectorSpace<D, B, S, V> {
-            return GVectorSpace<D, B, S, V>(numVectorSpace, degreeGroup, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree)) }
+            return GVectorSpace<D, B, S, V>(numVectorSpace, degreeGroup, name, boundedness = boundedness) { degree ->
+                VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree))
+            }
         }
 
         public fun <B : BasisName, S : Scalar, V : NumVector<S>> fromBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
+            boundedness: Boundedness = Boundedness(),
             getBasisNames: (Int) -> List<B>,
         ): GVectorSpace<IntDegree, B, S, V> {
-            return GVectorSpace<IntDegree, B, S, V>(numVectorSpace, IntDegreeGroup, name) { degree -> VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree.value)) }
+            return GVectorSpace<IntDegree, B, S, V>(numVectorSpace, IntDegreeGroup, name, boundedness = boundedness) { degree ->
+                VectorSpace<B, S, V>(numVectorSpace, getBasisNames(degree.value))
+            }
         }
 
         public fun <D : Degree, S : Scalar, V : NumVector<S>> fromStringBasisNames(
             numVectorSpace: NumVectorSpace<S, V>,
             degreeGroup: DegreeGroup<D>,
             name: String,
+            boundedness: Boundedness = Boundedness(),
             getBasisNames: (D) -> List<String>,
         ): GVectorSpace<D, StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<D, StringBasisName, S, V>(numVectorSpace, degreeGroup, name) { degree ->
+            return GVectorSpace<D, StringBasisName, S, V>(numVectorSpace, degreeGroup, name, boundedness = boundedness) { degree ->
                 val basisNames = getBasisNames(degree).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }
@@ -244,10 +251,11 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         public fun <S : Scalar, V : NumVector<S>> fromStringBasisNamesWithIntDegree(
             numVectorSpace: NumVectorSpace<S, V>,
             name: String,
+            boundedness: Boundedness = Boundedness(),
             getBasisNames: (Int) -> List<String>,
         ): GVectorSpace<IntDegree, StringBasisName, S, V> {
             // The following explicit type arguments cannot be removed in order to avoid freeze of Intellij Idea
-            return GVectorSpace<IntDegree, StringBasisName, S, V>(numVectorSpace, IntDegreeGroup, name) { degree ->
+            return GVectorSpace<IntDegree, StringBasisName, S, V>(numVectorSpace, IntDegreeGroup, name, boundedness = boundedness) { degree ->
                 val basisNames = getBasisNames(degree.value).map { StringBasisName(it) }
                 VectorSpace<StringBasisName, S, V>(numVectorSpace, basisNames)
             }

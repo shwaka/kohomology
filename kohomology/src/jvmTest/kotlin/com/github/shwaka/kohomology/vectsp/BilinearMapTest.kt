@@ -105,7 +105,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 f(w, y) shouldBe targetVectorSpace.zeroVector
                 f(v + w, x + y) shouldBe (2 * (a + b))
             }
-            "check bilinearMap.induce" {
+            "test bilinearMap.induce" {
                 val source1SubQuotVectorSpace = SubQuotVectorSpace(
                     matrixSpace,
                     totalVectorSpace = sourceVectorSpace1,
@@ -138,6 +138,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 g(p1(w), p2(x)) shouldBe q(3 * a)
                 g(p1(v), p2(y)).isZero().shouldBeTrue()
                 g(p1(w), p2(y)).isZero().shouldBeTrue()
+            }
+            "f.image() should be the whole of targetVectorSpace" {
+                f.image().dim shouldBe targetVectorSpace.dim
+            }
+            "test f.image(source1Sub)" {
+                val image = f.image(
+                    source2Sub = SubVectorSpace(matrixSpace, sourceVectorSpace2, listOf(y)),
+                )
+                image.dim shouldBe 1
+                image.subspaceContains(b - a).shouldBeTrue()
+            }
+            "test f.image(source1Sub, source2Sub)" {
+                val image = f.image(
+                    source1Sub = SubVectorSpace(matrixSpace, sourceVectorSpace1, listOf(v)),
+                    source2Sub = SubVectorSpace(matrixSpace, sourceVectorSpace2, listOf(x + y)),
+                )
+                image.dim shouldBe 1
+                image.subspaceContains(b).shouldBeTrue()
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -10,6 +11,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
+import com.github.shwaka.kohomology.vectsp.SubVectorSpace
+import com.github.shwaka.kohomology.vectsp.Vector
 
 public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : Degree, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val matrixSpace: MatrixSpace<S, V, M>,
@@ -120,6 +123,42 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
                 source1SubQuot[p],
                 source2SubQuot[q],
                 targetSubQuot[pPlusQ],
+            )
+        }
+    }
+
+    public fun image(
+        source1Sub: SubGVectorSpace<D, BS1, S, V, M> = this.source1.asSubGVectorSpace(this.matrixSpace),
+        source2Sub: SubGVectorSpace<D, BS2, S, V, M> = this.source2.asSubGVectorSpace(this.matrixSpace),
+    ): SubGVectorSpace<D, BT, S, V, M> {
+        if (this.degreeGroup !is AugmentedDegreeGroup) {
+            throw UnsupportedOperationException(
+                "GBilinearMap.image can be computed " +
+                    "only when its degreeGroup is an instance of AugmentedDegreeGroup"
+            )
+        }
+
+        return SubGVectorSpace(
+            this.matrixSpace,
+            this.target,
+            "Im(${this.name}",
+        ) { targetDegree ->
+            val sourceDegree = this.degreeGroup.context.run {
+                targetDegree - this@GBilinearMap.degree
+            }
+            val degreePairList: List<Pair<D, D>> = Boundedness.listDegreePairsOfSum(
+                this.degreeGroup,
+                sourceDegree,
+                source1Sub.boundedness,
+                source2Sub.boundedness,
+            )
+            val generator: List<Vector<BT, S, V>> = degreePairList.map { (p, q) ->
+                this[p, q].image(source1Sub[p], source2Sub[q]).generator
+            }.flatten()
+            SubVectorSpace(
+                this.matrixSpace,
+                this.target[targetDegree],
+                generator,
             )
         }
     }

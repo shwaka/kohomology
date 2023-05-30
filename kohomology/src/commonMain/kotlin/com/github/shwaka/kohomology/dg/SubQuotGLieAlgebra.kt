@@ -29,8 +29,6 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> = { InternalPrintConfig.default(it) },
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGLieAlgebra<D, B, S, V, M> {
             val subQuotGMagma = SubQuotGMagma(
                 matrixSpace,
@@ -38,8 +36,6 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
                 name,
                 getVectorSpace,
                 getMultiplication,
-                getInternalPrintConfig,
-                listDegreesForAugmentedDegree,
             )
             return SubQuotGLieAlgebraImpl(
                 matrixSpace,

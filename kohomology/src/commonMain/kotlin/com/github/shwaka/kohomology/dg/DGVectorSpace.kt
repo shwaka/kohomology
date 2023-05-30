@@ -7,7 +7,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 
 public interface DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GVectorContext<D, B, S, V> {
@@ -98,12 +97,6 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 totalGVectorSpace = gVectorSpace,
                 subspaceGenerator = differential.kernel(),
                 quotientGenerator = differential.image(),
-                getInternalPrintConfig = { printConfig ->
-                    SubQuotVectorSpace.convertInternalPrintConfig(
-                        printConfig, gVectorSpace.getInternalPrintConfig(printConfig)
-                    )
-                },
-                listDegreesForAugmentedDegree = gVectorSpace.listDegreesForAugmentedDegree,
             )
         }
 

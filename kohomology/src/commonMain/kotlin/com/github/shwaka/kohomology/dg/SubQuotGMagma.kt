@@ -5,8 +5,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.InternalPrintConfig
-import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
@@ -29,15 +27,11 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             name: String,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGMagma<D, B, S, V, M> {
             val subQuotGVectorSpace = SubQuotGVectorSpace(
                 matrixSpace,
                 totalGVectorSpace,
                 name,
-                getInternalPrintConfig,
-                listDegreesForAugmentedDegree,
                 getVectorSpace,
             )
             val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {

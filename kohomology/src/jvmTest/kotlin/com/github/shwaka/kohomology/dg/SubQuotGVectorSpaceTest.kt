@@ -7,7 +7,6 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
@@ -39,8 +38,6 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             matrixSpace,
             totalGVectorSpace,
             "W",
-            { InternalPrintConfig.default(it) },
-            null,
         ) { _ -> subQuotVectorSpace }
 
         "check subQuotGVectorSpace.totalGVectorSpace" {

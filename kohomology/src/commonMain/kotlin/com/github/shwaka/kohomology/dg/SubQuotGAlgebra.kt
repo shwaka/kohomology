@@ -34,9 +34,7 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
             unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S>,
             isCommutative: Boolean = false,
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
         ): SubQuotGAlgebra<D, B, S, V, M> {
             val subQuotGMagma = SubQuotGMagma(
                 matrixSpace,
@@ -44,8 +42,6 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
                 name,
                 getVectorSpace,
                 getMultiplication,
-                getInternalPrintConfig,
-                listDegreesForAugmentedDegree,
             )
             val unit = subQuotGMagma.fromVector(unitVector, 0)
             return SubQuotGAlgebraImpl(matrixSpace, subQuotGMagma, subQuotGMagma.multiplication, unit, isCommutative)

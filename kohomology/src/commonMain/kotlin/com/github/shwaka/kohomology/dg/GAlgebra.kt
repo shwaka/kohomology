@@ -83,6 +83,27 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         // }
     }
 
+    public fun getIdeal(generators: List<GVector<D, B, S, V>>): SubGVectorSpace<D, B, S, V, M> {
+        val generatingSubGVectorSpace = SubGVectorSpace.fromList(
+            this.matrixSpace,
+            this,
+            "Ideal($generators)",
+            generators,
+        )
+        return if (this.isCommutative) {
+            // If commutative, then it is enough to consider the image of I⊗A.
+            this.multiplication.image(source1Sub = generatingSubGVectorSpace)
+        } else {
+            // If non-commutative, then we need to consider the image of A⊗I⊗A.
+            val rightIdeal = this.multiplication.image(
+                source1Sub = generatingSubGVectorSpace,
+            )
+            this.multiplication.image(
+                source2Sub = rightIdeal,
+            )
+        }
+    }
+
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,

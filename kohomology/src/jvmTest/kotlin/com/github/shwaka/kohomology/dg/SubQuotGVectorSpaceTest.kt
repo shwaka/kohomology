@@ -65,7 +65,7 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 val (x) = subQuotGVectorSpace.getBasis(degree)
                 val sect = subQuotGVectorSpace.section
                 totalGVectorSpace.context.run {
-                     sect(x) shouldBe u + v
+                    sect(x) shouldBe u + v
                 }
             }
         }

@@ -83,7 +83,6 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 }
             }
         }
-
     }
 
     "test SubGVectorSpace.fromList" - {
@@ -129,7 +128,6 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 subGVectorSpace[degree].dim shouldBe expected
             }
             subGVectorSpace.boundedness shouldBe Boundedness(upperBound = 3, lowerBound = -1)
-
         }
     }
 

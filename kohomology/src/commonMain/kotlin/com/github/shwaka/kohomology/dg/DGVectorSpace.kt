@@ -104,12 +104,10 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             cohomology: SubQuotGVectorSpace<D, B, S, V, M>,
             cocycle: GVector<D, B, S, V>,
         ): GVector<D, SubQuotBasis<B, S, V>, S, V> {
-            val vector = cocycle.vector
-            val cohomologyOfTheDegree = cohomology[cocycle.degree]
-            if (!cohomologyOfTheDegree.subspaceContains(vector))
-                throw IllegalArgumentException("$cocycle is not a cocycle")
-            val cohomologyClass = cohomologyOfTheDegree.projection(vector)
-            return cohomology.fromVector(cohomologyClass, cocycle.degree)
+            require(cohomology.subspaceContains(cocycle)) {
+                "$cocycle is not a cocycle"
+            }
+            return cohomology.projection(cocycle)
         }
     }
 }

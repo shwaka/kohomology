@@ -24,6 +24,10 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
     public val projection: GLinearMap<D, B, SubQuotBasis<B, S, V>, S, V, M>
     public val section: GLinearMap<D, SubQuotBasis<B, S, V>, B, S, V, M>
+    public fun subspaceContains(gVector: GVector<D, B, S, V>): Boolean {
+        val subQuotVectorSpace = this[gVector.degree]
+        return subQuotVectorSpace.subspaceContains(gVector.vector)
+    }
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

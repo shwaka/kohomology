@@ -57,6 +57,18 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 wholeSubGVectorSpace[degree].dim shouldBe 3
             }
         }
+
+        "test inclusion" {
+            (-5..5).forAll { degree ->
+                val (u, v, w) = totalGVectorSpace.getBasis(degree)
+                val (x, y) = subGVectorSpace.getBasis(degree)
+                val incl = subGVectorSpace.inclusion
+                totalGVectorSpace.context.run {
+                    incl(x) shouldBe u + v
+                    incl(y) shouldBe v + w
+                }
+            }
+        }
     }
 
     "test SubGVectorSpace.fromList" - {

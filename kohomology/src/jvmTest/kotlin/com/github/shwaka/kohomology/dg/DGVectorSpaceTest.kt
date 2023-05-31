@@ -10,10 +10,12 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.core.spec.style.scopes.FreeScope
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -85,13 +87,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpaceTest(matrixSpa
                 else -> emptyList()
             }
         }
-        val dx = run {
-            val vectorSpace = gVectorSpace[n + 1]
-            val (y, z) = vectorSpace.getBasis()
-            vectorSpace.context.run {
-                y - z
-            }
-        }
         val differential = GLinearMap(
             source = gVectorSpace,
             target = gVectorSpace,
@@ -100,12 +95,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpaceTest(matrixSpa
             name = "d",
         ) { degree: IntDegree ->
             when (degree.value) {
-                n -> LinearMap.fromVectors(
-                    source = gVectorSpace[n],
-                    target = gVectorSpace[n + 1],
-                    matrixSpace = matrixSpace,
-                    vectors = listOf(dx)
-                )
+                n -> {
+                    val dx = run {
+                        val vectorSpace = gVectorSpace[n + 1]
+                        val (y, z) = vectorSpace.getBasis()
+                        vectorSpace.context.run {
+                            y - z
+                        }
+                    }
+                    LinearMap.fromVectors(
+                        source = gVectorSpace[n],
+                        target = gVectorSpace[n + 1],
+                        matrixSpace = matrixSpace,
+                        vectors = listOf(dx)
+                    )
+                }
                 else -> LinearMap.getZero(
                     source = gVectorSpace[degree],
                     target = gVectorSpace[degree.value + 1],
@@ -115,9 +119,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpaceTest(matrixSpa
         }
         val dgVectorSpace = DGVectorSpace(gVectorSpace, differential)
 
-        "dimension of cohomology should be zero except for degree ${n + 1}" {
-            (-10..10).forAll { degree ->
-                dgVectorSpace.cohomology[degree].dim shouldBe if (degree == n + 1) 1 else 0
+        dgVectorSpace.context.run {
+            val (x) = gVectorSpace.getBasis(n)
+            val (y, z) = gVectorSpace.getBasis(n + 1)
+
+            "dimension of cohomology should be zero except for degree ${n + 1}" {
+                (-10..10).forAll { degree ->
+                    dgVectorSpace.cohomology[degree].dim shouldBe if (degree == n + 1) 1 else 0
+                }
+            }
+
+            "[y] and [z] should be the same and non-zero" {
+                (y.cohomologyClass() == z.cohomologyClass()).shouldBeTrue()
+                y.cohomologyClass().isNotZero().shouldBeTrue()
+                z.cohomologyClass().isNotZero().shouldBeTrue()
+            }
+
+            "[y - z] should be zero" {
+                (y - z).cohomologyClass().isZero().shouldBeTrue()
+            }
+
+            "trying to compute [x] should throw IllegalArgumentException" {
+                shouldThrow<IllegalArgumentException> {
+                    x.cohomologyClass()
+                }
             }
         }
     }

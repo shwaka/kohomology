@@ -25,6 +25,7 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
         ): SubQuotGLieAlgebra<D, B, S, V, M> {
@@ -32,6 +33,7 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
                 matrixSpace,
                 totalGVectorSpace,
                 name,
+                boundedness,
                 getVectorSpace,
                 getMultiplication,
             )

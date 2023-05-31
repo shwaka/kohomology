@@ -29,13 +29,15 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
             matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
             getVectorSpace: (D) -> SubVectorSpace<B, S, V, M>,
         ): SubGVectorSpace<D, B, S, V, M> {
             return SubGVectorSpaceImpl(
                 matrixSpace,
                 totalGVectorSpace,
                 name,
-                getVectorSpace
+                boundedness,
+                getVectorSpace,
             )
         }
     }
@@ -45,6 +47,7 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
     override val name: String,
+    override val boundedness: Boundedness,
     private val getVectorSpace: (D) -> SubVectorSpace<B, S, V, M>,
 ) : SubGVectorSpace<D, B, S, V, M> {
     override val numVectorSpace: NumVectorSpace<S, V> = totalGVectorSpace.numVectorSpace
@@ -53,7 +56,6 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
         SubBasis.convertGetInternalPrintConfig(totalGVectorSpace.getInternalPrintConfig)
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
-    override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this

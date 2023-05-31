@@ -33,11 +33,13 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
             unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
             isCommutative: Boolean = false,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
         ): SubQuotGAlgebra<D, B, S, V, M> {
             val subQuotGMagma = SubQuotGMagma(
                 matrixSpace,
                 totalGVectorSpace,
                 name,
+                boundedness,
                 getVectorSpace,
                 getMultiplication,
             )

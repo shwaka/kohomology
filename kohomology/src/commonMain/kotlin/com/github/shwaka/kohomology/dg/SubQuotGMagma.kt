@@ -25,6 +25,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
             matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
             getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
         ): SubQuotGMagma<D, B, S, V, M> {
@@ -32,6 +33,7 @@ public interface SubQuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVec
                 matrixSpace,
                 totalGVectorSpace,
                 name,
+                boundedness,
                 getVectorSpace,
             )
             val multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> by lazy {

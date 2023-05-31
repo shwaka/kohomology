@@ -28,12 +28,14 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             matrixSpace: MatrixSpace<S, V, M>,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             name: String,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
             getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpaceImpl(
                 matrixSpace,
                 totalGVectorSpace,
                 name,
+                boundedness,
                 getVectorSpace
             )
         }
@@ -44,11 +46,13 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
+            boundedness: Boundedness = totalGVectorSpace.boundedness,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpace(
                 matrixSpace,
                 totalGVectorSpace,
                 name = name,
+                boundedness = boundedness,
             ) { degree ->
                 SubQuotVectorSpace(
                     matrixSpace,
@@ -65,6 +69,7 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
     override val name: String,
+    override val boundedness: Boundedness,
     private val getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
 ) : SubQuotGVectorSpace<D, B, S, V, M> {
     override val numVectorSpace: NumVectorSpace<S, V> = totalGVectorSpace.numVectorSpace
@@ -73,7 +78,6 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
         SubQuotBasis.convertGetInternalPrintConfig(totalGVectorSpace.getInternalPrintConfig)
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
-    override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubQuotBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this

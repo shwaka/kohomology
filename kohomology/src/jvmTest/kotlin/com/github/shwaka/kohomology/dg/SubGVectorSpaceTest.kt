@@ -59,6 +59,53 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         }
     }
 
+    "test SubGVectorSpace.fromList" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
+        val totalGVectorSpace = GVectorSpace(
+            numVectorSpace,
+            IntDegreeGroup,
+            "V",
+        ) { _ -> totalVectorSpace }
+
+        "empty list of generators" {
+            val subGVectorSpace = SubGVectorSpace.fromList(
+                matrixSpace,
+                totalGVectorSpace,
+                "W",
+                emptyList()
+            )
+            (-5..5).forAll { degree ->
+                subGVectorSpace[degree].dim shouldBe 0
+            }
+            subGVectorSpace.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = 0)
+        }
+
+        "non-empty list of generators" {
+            val subGVectorSpace = SubGVectorSpace.fromList(
+                matrixSpace,
+                totalGVectorSpace,
+                "W",
+                listOf(
+                    totalGVectorSpace.getBasis(-1)[0],
+                    totalGVectorSpace.getBasis(0)[2],
+                    totalGVectorSpace.getBasis(3)[0],
+                    totalGVectorSpace.getBasis(3)[1],
+                )
+            )
+            (-5..5).forAll { degree ->
+                val expected = when (degree) {
+                    -1, 0 -> 1
+                    3 -> 2
+                    else -> 0
+                }
+                subGVectorSpace[degree].dim shouldBe expected
+            }
+            subGVectorSpace.boundedness shouldBe Boundedness(upperBound = 3, lowerBound = -1)
+
+        }
+    }
+
     "getInternalPrintConfig should be inherited from subGVectorSpace.totalGVectorSpace" {
         val numVectorSpace = matrixSpace.numVectorSpace
         val totalVectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {

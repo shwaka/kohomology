@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val subQuotGVectorSpaceTag = NamedTag("SubQuotGVectorSpace")
@@ -55,6 +56,30 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             val (x) = subQuotGVectorSpace.getBasis(degree)
             x.gVectorSpace::class.simpleName shouldBe "SubQuotGVectorSpaceImpl"
             x.vector.vectorSpace::class.simpleName shouldBe "SubQuotVectorSpace"
+        }
+
+        "test section" {
+            (-5..5).forAll { degree ->
+                val (u, v, _) = totalGVectorSpace.getBasis(degree)
+                val (x) = subQuotGVectorSpace.getBasis(degree)
+                val sect = subQuotGVectorSpace.section
+                totalGVectorSpace.context.run {
+                     sect(x) shouldBe u + v
+                }
+            }
+        }
+
+        "test projection" {
+            (-5..5).forAll { degree ->
+                val (u, v, w) = totalGVectorSpace.getBasis(degree)
+                val (x) = subQuotGVectorSpace.getBasis(degree)
+                val proj = subQuotGVectorSpace.projection
+                totalGVectorSpace.context.run {
+                    proj(u + v) shouldBe x
+                    proj(-v - w) shouldBe x
+                    proj(u + 2 * v + w).isZero().shouldBeTrue()
+                }
+            }
         }
     }
 }

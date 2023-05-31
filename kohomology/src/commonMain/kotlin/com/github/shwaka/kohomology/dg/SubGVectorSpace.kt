@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -39,6 +40,37 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
                 boundedness,
                 getVectorSpace,
             )
+        }
+
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromList(
+            matrixSpace: MatrixSpace<S, V, M>,
+            totalGVectorSpace: GVectorSpace<D, B, S, V>,
+            name: String,
+            gVectorList: List<GVector<D, B, S, V>>,
+        ): SubGVectorSpace<D, B, S, V, M> {
+            // local variable is necessary for smart cast
+            val degreeGroup = totalGVectorSpace.degreeGroup
+            val boundedness = if (degreeGroup is AugmentedDegreeGroup) {
+                Boundedness.fromDegreeList(
+                    degreeGroup,
+                    gVectorList.map { it.degree }
+                )
+            } else {
+                Boundedness()
+            }
+            return SubGVectorSpaceImpl(
+                matrixSpace,
+                totalGVectorSpace,
+                name,
+                boundedness,
+            ) { degree ->
+                val vectorListForDegree = gVectorList.filter { it.degree == degree }.map { it.vector }
+                SubVectorSpace(
+                    matrixSpace,
+                    totalGVectorSpace[degree],
+                    vectorListForDegree,
+                )
+            }
         }
     }
 }

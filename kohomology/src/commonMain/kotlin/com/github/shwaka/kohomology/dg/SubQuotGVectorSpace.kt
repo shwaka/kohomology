@@ -22,6 +22,8 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
 
     public val matrixSpace: MatrixSpace<S, V, M>
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
+    public val projection: GLinearMap<D, B, SubQuotBasis<B, S, V>, S, V, M>
+    public val section: GLinearMap<D, SubQuotBasis<B, S, V>, B, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -81,6 +83,28 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     private val cache: MutableMap<D, SubQuotVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubQuotBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M> = this
+    override val projection: GLinearMap<D, B, SubQuotBasis<B, S, V>, S, V, M> by lazy {
+        GLinearMap(
+            source = this.totalGVectorSpace,
+            target = this,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "projection",
+        ) { degree ->
+            this[degree].projection
+        }
+    }
+    override val section: GLinearMap<D, SubQuotBasis<B, S, V>, B, S, V, M> by lazy {
+        GLinearMap(
+            source = this,
+            target = this.totalGVectorSpace,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "section",
+        ) { degree ->
+            this[degree].section
+        }
+    }
 
     override fun get(degree: D): SubQuotVectorSpace<B, S, V, M> {
         return this.cache.getOrPut(degree) {

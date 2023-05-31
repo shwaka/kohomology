@@ -13,6 +13,8 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val subGVectorSpaceTag = NamedTag("SubGVectorSpace")
@@ -69,6 +71,19 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 }
             }
         }
+
+        "test subspaceContains" {
+            (-5..5).forAll { degree ->
+                val (u, v, w) = totalGVectorSpace.getBasis(degree)
+                totalGVectorSpace.context.run {
+                    subGVectorSpace.subspaceContains(u + v).shouldBeTrue()
+                    subGVectorSpace.subspaceContains(v + w).shouldBeTrue()
+                    subGVectorSpace.subspaceContains(u - w).shouldBeTrue()
+                    subGVectorSpace.subspaceContains(u + w).shouldBeFalse()
+                }
+            }
+        }
+
     }
 
     "test SubGVectorSpace.fromList" - {

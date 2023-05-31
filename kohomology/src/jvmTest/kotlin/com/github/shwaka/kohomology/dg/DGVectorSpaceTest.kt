@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -8,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.LinearMap
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -69,6 +71,53 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpaceTest(matrixSpa
                 (-10 until 10).forAll { degree ->
                     dgVectorSpace.cohomology[degree].dim shouldBe dgVectorSpace[degree].dim
                 }
+            }
+        }
+    }
+
+    "3-dimensional DGVectorSpace with non-trivial differential" - {
+        // Q{x, y, z} with dx=y-z, dy=dz=0
+        val n = 0
+        val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
+            when (degree) {
+                n -> listOf("x")
+                n + 1 -> listOf("y", "z")
+                else -> emptyList()
+            }
+        }
+        val dx = run {
+            val vectorSpace = gVectorSpace[n + 1]
+            val (y, z) = vectorSpace.getBasis()
+            vectorSpace.context.run {
+                y - z
+            }
+        }
+        val differential = GLinearMap(
+            source = gVectorSpace,
+            target = gVectorSpace,
+            degree = 1,
+            matrixSpace = matrixSpace,
+            name = "d",
+        ) { degree: IntDegree ->
+            when (degree.value) {
+                n -> LinearMap.fromVectors(
+                    source = gVectorSpace[n],
+                    target = gVectorSpace[n + 1],
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(dx)
+                )
+                else -> LinearMap.getZero(
+                    source = gVectorSpace[degree],
+                    target = gVectorSpace[degree.value + 1],
+                    matrixSpace = matrixSpace,
+                )
+            }
+        }
+        val dgVectorSpace = DGVectorSpace(gVectorSpace, differential)
+
+        "dimension of cohomology should be zero except for degree ${n + 1}" {
+            (-10..10).forAll { degree ->
+                dgVectorSpace.cohomology[degree].dim shouldBe if (degree == n + 1) 1 else 0
             }
         }
     }

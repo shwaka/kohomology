@@ -52,5 +52,18 @@ public data class Boundedness(
                 }
             }
         }
+
+        public fun <D : Degree> fromDegreeList(
+            degreeGroup: AugmentedDegreeGroup<D>,
+            degreeList: List<D>,
+        ): Boundedness {
+            if (degreeList.isEmpty()) {
+                // These can be any int, but we need to specify some int.
+                return Boundedness(upperBound = 0, lowerBound = 0)
+            }
+            val upperBound: Int = degreeList.maxOf { degreeGroup.augmentation(it) }
+            val lowerBound: Int = degreeList.minOf { degreeGroup.augmentation(it) }
+            return Boundedness(upperBound = upperBound, lowerBound = lowerBound)
+        }
     }
 }

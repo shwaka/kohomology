@@ -83,4 +83,15 @@ class BoundednessTest : FreeSpec({
             }.toSet()
         }
     }
+
+    "test Boundedness.fromDegreeList" - {
+        "fromDegreeList should return Boundedness(0, 0) for empty list" {
+            Boundedness.fromDegreeList(IntDegreeGroup, emptyList()) shouldBe Boundedness(0, 0)
+        }
+        "fromDegreeList for non-empty list" {
+            val degreeList = listOf(0, -3, -2, 1, 4).map { IntDegreeGroup.fromInt(it) }
+            Boundedness.fromDegreeList(IntDegreeGroup, degreeList) shouldBe
+                Boundedness(upperBound = 4, lowerBound = -3)
+        }
+    }
 })

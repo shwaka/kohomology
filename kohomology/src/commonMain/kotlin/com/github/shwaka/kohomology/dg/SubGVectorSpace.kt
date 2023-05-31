@@ -24,6 +24,7 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
 
     public val matrixSpace: MatrixSpace<S, V, M>
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
+    public val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -91,6 +92,17 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
+    override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
+        GLinearMap(
+            source = this,
+            target = this.totalGVectorSpace,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "inclusion",
+        ) { degree ->
+            this[degree].inclusion
+        }
+    }
 
     override fun get(degree: D): SubVectorSpace<B, S, V, M> {
         return this.cache.getOrPut(degree) {
@@ -121,6 +133,17 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
+    override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
+        GLinearMap(
+            source = this,
+            target = this.totalGVectorSpace,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "inclusion",
+        ) { degree ->
+            this[degree].inclusion
+        }
+    }
 
     override fun get(degree: D): SubVectorSpace<B, S, V, M> {
         return this.cache.getOrPut(degree) {

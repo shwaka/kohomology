@@ -182,6 +182,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace3, matrixSpace, expectedMatrix)
                 (f2 * f1) shouldBe expected
             }
+            "test linearMap.induce" {
+                val (a, b) = vectorSpace1.getBasis()
+                val (x, y) = vectorSpace2.getBasis()
+                val vectors = vectorSpace2.context.run {
+                    listOf(x + y, x - y)
+                }
+                val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, vectors)
+                val subQuotVectorSpace1 =
+                    vectorSpace1.context.run {
+                        SubQuotVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace1,
+                            subspaceGenerator = listOf(a, b),
+                            quotientGenerator = listOf(a - b),
+                        )
+                    }
+                val subQuotVectorSpace2 =
+                    vectorSpace2.context.run {
+                        SubQuotVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace2,
+                            subspaceGenerator = listOf(x, y),
+                            quotientGenerator = listOf(2 * y),
+                        )
+                    }
+                val proj1 = subQuotVectorSpace1.projection
+                val proj2 = subQuotVectorSpace2.projection
+                val g = f.induce(subQuotVectorSpace1, subQuotVectorSpace2)
+                vectorSpace2.context.run {
+                    g(proj1(a)) shouldBe proj2(x - y) // [x + y] = [x - y]
+                    g(proj1(b)) shouldBe proj2(x - y)
+                }
+            }
         }
     }
 }

@@ -21,21 +21,23 @@ public interface MagmaDerivation<D : Degree, B : BasisName, S : Scalar, V : NumV
             name: String,
             getGVectors: (D) -> List<GVector<D, B, S, V>>
         ): MagmaDerivation<D, B, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, source, degree, matrixSpace, getGVectors)
-            return MagmaDerivationImpl(source, degree, matrixSpace, name, getLinearMap)
+            val gLinearMap = GLinearMap.fromGVectors(source, source, degree, matrixSpace, name, getGVectors)
+            return MagmaDerivationImpl(source, gLinearMap)
         }
     }
 }
 
 private class MagmaDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GMagma<D, B, S, V, M>,
-    degree: D,
-    matrixSpace: MatrixSpace<S, V, M>,
-    name: String,
-    getLinearMap: (D) -> LinearMap<B, B, S, V, M>
+    gLinearMap: GLinearMap<D, B, B, S, V, M>,
 ) : MagmaDerivation<D, B, S, V, M>,
-    GLinearMap<D, B, B, S, V, M> by GLinearMap(source, source, degree, matrixSpace, name, getLinearMap) {
+    GLinearMap<D, B, B, S, V, M> by gLinearMap {
     override val target: GMagma<D, B, S, V, M> = source
+
+    init {
+        require(gLinearMap.source == source)
+        require(gLinearMap.target == source)
+    }
 }
 
 public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -51,7 +53,8 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
             name: String,
             getLinearMap: (D) -> LinearMap<B, B, S, V, M>
         ): Derivation<D, B, S, V, M> {
-            return DerivationImpl(source, degree, matrixSpace, name, getLinearMap)
+            val gLinearMap = GLinearMap(source, source, degree, matrixSpace, name, getLinearMap)
+            return DerivationImpl(source, gLinearMap)
         }
 
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
@@ -61,20 +64,17 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
             name: String,
             getGVectors: (D) -> List<GVector<D, B, S, V>>
         ): Derivation<D, B, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, source, degree, matrixSpace, getGVectors)
-            return DerivationImpl(source, degree, matrixSpace, name, getLinearMap)
+            val gLinearMap = GLinearMap.fromGVectors(source, source, degree, matrixSpace, name, getGVectors)
+            return DerivationImpl(source, gLinearMap)
         }
     }
 }
 
 private class DerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GAlgebra<D, B, S, V, M>,
-    degree: D,
-    matrixSpace: MatrixSpace<S, V, M>,
-    name: String,
-    getLinearMap: (D) -> LinearMap<B, B, S, V, M>
+    gLinearMap: GLinearMap<D, B, B, S, V, M>,
 ) : Derivation<D, B, S, V, M>,
-    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, degree, matrixSpace, name, getLinearMap) {
+    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, gLinearMap) {
     override val target: GAlgebra<D, B, S, V, M> = source
 }
 
@@ -91,19 +91,16 @@ public interface LieDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVec
             name: String,
             getGVectors: (D) -> List<GVector<D, B, S, V>>
         ): LieDerivation<D, B, S, V, M> {
-            val getLinearMap = GLinearMap.createGetLinearMap(source, source, degree, matrixSpace, getGVectors)
-            return LieDerivationImpl(source, degree, matrixSpace, name, getLinearMap)
+            val gLinearMap = GLinearMap.fromGVectors(source, source, degree, matrixSpace, name, getGVectors)
+            return LieDerivationImpl(source, gLinearMap)
         }
     }
 }
 
 private class LieDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GLieAlgebra<D, B, S, V, M>,
-    degree: D,
-    matrixSpace: MatrixSpace<S, V, M>,
-    name: String,
-    getLinearMap: (D) -> LinearMap<B, B, S, V, M>
+    gLinearMap: GLinearMap<D, B, B, S, V, M>,
 ) : LieDerivation<D, B, S, V, M>,
-    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, degree, matrixSpace, name, getLinearMap) {
+    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, gLinearMap) {
     override val target: GLieAlgebra<D, B, S, V, M> = source
 }

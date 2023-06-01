@@ -164,7 +164,7 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
             return GLinearMapImpl(source, target, source.degreeGroup.fromInt(degree), matrixSpace, name, getLinearMap)
         }
 
-        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
+        private fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createGetLinearMap(
             source: GVectorSpace<D, BS, S, V>,
             target: GVectorSpace<D, BT, S, V>,
             degree: D,

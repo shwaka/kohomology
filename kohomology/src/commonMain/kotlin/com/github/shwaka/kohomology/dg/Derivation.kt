@@ -27,7 +27,7 @@ public interface MagmaDerivation<D : Degree, B : BasisName, S : Scalar, V : NumV
     }
 }
 
-internal class MagmaDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class MagmaDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GMagma<D, B, S, V, M>,
     degree: D,
     matrixSpace: MatrixSpace<S, V, M>,
@@ -67,7 +67,7 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
     }
 }
 
-internal class DerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GAlgebra<D, B, S, V, M>,
     degree: D,
     matrixSpace: MatrixSpace<S, V, M>,
@@ -97,7 +97,7 @@ public interface LieDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVec
     }
 }
 
-internal class LieDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class LieDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GLieAlgebra<D, B, S, V, M>,
     degree: D,
     matrixSpace: MatrixSpace<S, V, M>,

@@ -206,20 +206,6 @@ public class DGLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Sca
     }
 
     override val inducedMapOnCohomology: GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> by lazy {
-        val getGVectors: (D) -> List<GVector<D, SubQuotBasis<BT, S, V>, S, V>> = { k ->
-            this.source.cohomology.getBasis(k).map { cohomologyClass ->
-                val cocycle = this.source.cocycleRepresentativeOf(cohomologyClass)
-                this.target.cohomologyClassOf(this(cocycle))
-            }
-        }
-        val newName = "H^*(${this.name})"
-        GLinearMap.fromGVectors(
-            this.source.cohomology,
-            this.target.cohomology,
-            this.degree,
-            this.matrixSpace,
-            newName,
-            getGVectors
-        )
+        this.induce(this.source.cohomology, this.target.cohomology)
     }
 }

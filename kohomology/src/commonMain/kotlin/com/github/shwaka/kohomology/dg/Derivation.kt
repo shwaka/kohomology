@@ -14,6 +14,13 @@ public interface MagmaDerivation<D : Degree, B : BasisName, S : Scalar, V : NumV
     override val target: GMagma<D, B, S, V, M>
 
     public companion object {
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGLinearMap(
+            source: GMagma<D, B, S, V, M>,
+            gLinearMap: GLinearMap<D, B, B, S, V, M>,
+        ): MagmaDerivation<D, B, S, V, M> {
+            return MagmaDerivationImpl(source, gLinearMap)
+        }
+
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GMagma<D, B, S, V, M>,
             degree: D,
@@ -57,6 +64,13 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
             return DerivationImpl(source, gLinearMap)
         }
 
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGLinearMap(
+            source: GAlgebra<D, B, S, V, M>,
+            gLinearMap: GLinearMap<D, B, B, S, V, M>,
+        ): Derivation<D, B, S, V, M> {
+            return DerivationImpl(source, gLinearMap)
+        }
+
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GAlgebra<D, B, S, V, M>,
             degree: D,
@@ -74,7 +88,7 @@ private class DerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     override val source: GAlgebra<D, B, S, V, M>,
     gLinearMap: GLinearMap<D, B, B, S, V, M>,
 ) : Derivation<D, B, S, V, M>,
-    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, gLinearMap) {
+    MagmaDerivation<D, B, S, V, M> by MagmaDerivation.fromGLinearMap(source, gLinearMap) {
     override val target: GAlgebra<D, B, S, V, M> = source
 }
 
@@ -84,6 +98,14 @@ public interface LieDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val target: GLieAlgebra<D, B, S, V, M>
 
     public companion object {
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGLinearMap(
+            source: GLieAlgebra<D, B, S, V, M>,
+            gLinearMap: GLinearMap<D, B, B, S, V, M>,
+        ): LieDerivation<D, B, S, V, M> {
+            return LieDerivationImpl(source, gLinearMap)
+        }
+
+
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GLieAlgebra<D, B, S, V, M>,
             degree: D,
@@ -101,6 +123,6 @@ private class LieDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
     override val source: GLieAlgebra<D, B, S, V, M>,
     gLinearMap: GLinearMap<D, B, B, S, V, M>,
 ) : LieDerivation<D, B, S, V, M>,
-    MagmaDerivation<D, B, S, V, M> by MagmaDerivationImpl(source, gLinearMap) {
+    MagmaDerivation<D, B, S, V, M> by MagmaDerivation.fromGLinearMap(source, gLinearMap) {
     override val target: GLieAlgebra<D, B, S, V, M> = source
 }

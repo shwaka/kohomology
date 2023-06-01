@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -115,7 +114,6 @@ public interface LieDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVec
         ): LieDerivation<D, B, S, V, M> {
             return LieDerivationImpl(source, gLinearMap)
         }
-
 
         public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromGVectors(
             source: GLieAlgebra<D, B, S, V, M>,

@@ -135,6 +135,26 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         }
     }
 
+    public fun induce(
+        sourceSubQuot: SubQuotVectorSpace<BS, S, V, M>,
+        targetSubQuot: SubQuotVectorSpace<BT, S, V, M>,
+    ): LinearMap<SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        val basisLift: List<Vector<BS, S, V>> =
+            sourceSubQuot.getBasis().map { subQuotVector: Vector<SubQuotBasis<BS, S, V>, S, V> ->
+                sourceSubQuot.section(subQuotVector)
+            }
+        val vectors: List<Vector<SubQuotBasis<BT, S, V>, S, V>> =
+            basisLift.map { vector: Vector<BS, S, V> ->
+                targetSubQuot.projection(this(vector))
+            }
+        return LinearMap.fromVectors(
+            sourceSubQuot,
+            targetSubQuot,
+            this.matrixSpace,
+            vectors,
+        )
+    }
+
     public companion object {
         public fun <BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
             source: VectorSpace<BS, S, V>,

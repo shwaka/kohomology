@@ -35,6 +35,14 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
+    override fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): SubQuotDGAlgebra<D, B, S, V, M> {
+        val subQuotGAlgebra = super.getQuotientByIdeal(ideal)
+        return SubQuotDGAlgebra(
+            subQuotGAlgebra,
+            this.differential.induce(subQuotGAlgebra),
+        )
+    }
+
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: GAlgebra<D, B, S, V, M>,

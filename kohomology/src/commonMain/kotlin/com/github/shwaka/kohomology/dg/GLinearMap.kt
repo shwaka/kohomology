@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val source: GVectorSpace<D, BS, S, V>
@@ -123,6 +124,20 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         ) { degree ->
             val sourceDegree = this.degreeGroup.context.run { degree - this@GLinearMap.degree }
             this[sourceDegree].image()
+        }
+    }
+
+    public fun induce(
+        sourceSubQuot: SubQuotGVectorSpace<D, BS, S, V, M>,
+        targetSubQuot: SubQuotGVectorSpace<D, BT, S, V, M>,
+    ): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        return GLinearMap(
+            sourceSubQuot, targetSubQuot,
+            this.degree,
+            this.matrixSpace,
+            this.name,
+        ) { degree ->
+            this[degree].induce(sourceSubQuot[degree], targetSubQuot[degree])
         }
     }
 

@@ -1,12 +1,14 @@
 package com.github.shwaka.kohomology.dg
 
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface MagmaDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GLinearMap<D, B, B, S, V, M> {
@@ -51,6 +53,15 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
     MagmaDerivation<D, B, S, V, M> {
     override val source: GAlgebra<D, B, S, V, M>
     override val target: GAlgebra<D, B, S, V, M>
+
+    public fun induce(
+        sourceSubQuot: SubQuotGAlgebra<D, B, S, V, M>,
+    ): Derivation<D, SubQuotBasis<B, S, V>, S, V, M> {
+        return Derivation.fromGLinearMap(
+            sourceSubQuot,
+            super.induce(sourceSubQuot, sourceSubQuot),
+        )
+    }
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

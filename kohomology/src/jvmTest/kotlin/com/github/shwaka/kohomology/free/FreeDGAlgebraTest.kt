@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.SubQuotDGAlgebra
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
@@ -28,9 +29,11 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
@@ -321,6 +324,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
         freeDGAlgebra.context.run {
             checkDGAlgebraAxioms(freeDGAlgebra, 0..15)
             "check differential" {
+                d(x) shouldBe a.pow(2)
+                d(y) shouldBe a * b
+                d(z) shouldBe b.pow(2)
                 d(x * y) shouldBe (a.pow(2) * y - a * b * x)
                 d(x * y * z) shouldBe (a.pow(2) * y * z - a * b * x * z + b.pow(2) * x * y)
             }
@@ -343,6 +349,70 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
                 }
                 val f = freeDGAlgebra.leftMultiplicationByCocycle(a * y - b * x).inducedMapOnCohomology
                 f(bClass) shouldBe topClass
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "test quotient by an ideal" - {
+        "quotient of model in FHT Section 12 (a) Example 7 (p.147)" - {
+            val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
+            val (a, b, x, y, z) = freeDGAlgebra.generatorList
+            val ideal = freeDGAlgebra.context.run {
+                freeDGAlgebra.getIdeal(
+                    listOf(a.pow(2), b.pow(2), x, z)
+                )
+            }
+            // subQuotDGAlgebra should be quasi-isomorphic to freeDGAlgebra
+            // since Λ(a, b, x, z) → ∧(a, b, x, z)/(a^2, b^2, x, z) is (obviously) quasi-isomorphism.
+            val subQuotDGAlgebra = freeDGAlgebra.getQuotientByIdeal(ideal)
+            val proj = subQuotDGAlgebra.projection
+            val cohomProj = proj.induce(freeDGAlgebra.cohomology, subQuotDGAlgebra.cohomology)
+
+            "subQuotDGAlgebra should be an instance of SubQuotDGAlgebra" {
+                subQuotDGAlgebra.shouldBeInstanceOf<SubQuotDGAlgebra<*, *, S, V, M>>()
+            }
+            checkDGAlgebraAxioms(subQuotDGAlgebra, 0..15)
+            freeDGAlgebra.context.run {
+                subQuotDGAlgebra.context.run {
+                    "check image of elements" {
+                        proj(a).isZero().shouldBeFalse()
+                        proj(b).isZero().shouldBeFalse()
+                        proj(a.pow(2)).isZero().shouldBeTrue()
+                        proj(b.pow(2)).isZero().shouldBeTrue()
+                        proj(x).isZero().shouldBeTrue()
+                        proj(y).isZero().shouldBeFalse()
+                        proj(z).isZero().shouldBeTrue()
+                    }
+                    "check differential" {
+                        d(proj(a)).isZero().shouldBeTrue()
+                        d(proj(b)).isZero().shouldBeTrue()
+                        d(proj(x)).isZero().shouldBeTrue()
+                        d(proj(z)).isZero().shouldBeTrue()
+                        d(proj(y)).isZero().shouldBeFalse()
+                        d(proj(a * y)).isZero().shouldBeTrue()
+                        d(proj(b * y)).isZero().shouldBeTrue()
+                        d(proj(a * b * y)).isZero().shouldBeTrue()
+                    }
+                    "check cohomology class" {
+                        // Note: a * y is not a cocycle in freeDGAlgebra
+                        proj(a * y).cohomologyClass() shouldBe
+                            cohomProj((a * y - b * x).cohomologyClass())
+                        // Note: b * y is not a cocycle in freeDGAlgebra
+                        proj(b * y).cohomologyClass() shouldBe
+                            cohomProj((b * y - a * z).cohomologyClass())
+                        // Note: a * b * y is not a cocycle in freeDGAlgebra
+                        // This is the top cohomology class
+                        proj(a * b * y).cohomologyClass() shouldBe
+                            cohomProj((a * b * y - b.pow(2) * x).cohomologyClass())
+                    }
+                }
+            }
+            "check dimension of cohomology" {
+                (0 until 15).forAll { n ->
+                    subQuotDGAlgebra.cohomology[n].dim shouldBe freeDGAlgebra.cohomology[n].dim
+                }
             }
         }
     }

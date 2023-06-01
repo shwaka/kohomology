@@ -131,13 +131,24 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
         sourceSubQuot: SubQuotGVectorSpace<D, BS, S, V, M>,
         targetSubQuot: SubQuotGVectorSpace<D, BT, S, V, M>,
     ): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        val gLinearMapDegree = this.degree
         return GLinearMap(
             sourceSubQuot, targetSubQuot,
             this.degree,
             this.matrixSpace,
             this.name,
         ) { degree ->
-            this[degree].induce(sourceSubQuot[degree], targetSubQuot[degree])
+            val targetDegree = this.degreeGroup.context.run {
+                // If this@GLinearMap.degree is written here, the compiler warns as follows:
+                // > This label is now resolved to 'class GLinearMap'
+                // > but soon it will be resolved to the closest 'anonymous function'.
+                // > Please consider introducing or changing explicit label name
+                // This may be because there are two candidates of 'GLinearMap' here:
+                // - class GLinearMap in which fun induce is defined
+                // - the (fake) constructor GLinearMap whose result is used as the return value of induce
+                degree + gLinearMapDegree
+            }
+            this[degree].induce(sourceSubQuot[degree], targetSubQuot[targetDegree])
         }
     }
 

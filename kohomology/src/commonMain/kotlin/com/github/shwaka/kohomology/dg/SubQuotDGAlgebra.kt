@@ -10,7 +10,8 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface SubQuotDGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>,
-    SubQuotGAlgebra<D, B, S, V, M> {
+    SubQuotGAlgebra<D, B, S, V, M>,
+    SubQuotDGVectorSpace<D, B, S, V, M> {
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: SubQuotGAlgebra<D, B, S, V, M>,

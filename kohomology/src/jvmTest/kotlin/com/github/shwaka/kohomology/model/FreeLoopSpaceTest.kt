@@ -114,6 +114,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
             "freeLoopSpace.baseSpace should be the same as the original freeDGAlgebra" {
                 freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
+            "quotient by ideal respecting formality of even sphere" - {
+                val ideal = freeLoopSpace.getIdeal(
+                    listOf(x.pow(2), y)
+                )
+                val subQuotDGAlgebra = freeLoopSpace.getQuotientByIdeal(ideal)
+                "check dimension of cohomology" {
+                    (0 until 10 * sphereDim).forAll { n ->
+                        subQuotDGAlgebra.cohomology[n].dim shouldBe freeLoopSpace.cohomology[n].dim
+                    }
+                }
+            }
             "plain printer test for FreeLoopSpace" - {
                 "with toString()" {
                     freeLoopSpace.toString() shouldBe "(Λ(x, y, sx, sy), d)"

@@ -182,7 +182,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val expected = LinearMap.fromMatrix(vectorSpace1, vectorSpace3, matrixSpace, expectedMatrix)
                 (f2 * f1) shouldBe expected
             }
-            "test linearMap.induce" {
+            "test linearMap.induce for SubVectorSpace" {
+                val (a, b) = vectorSpace1.getBasis()
+                val (x, y) = vectorSpace2.getBasis()
+                val vectors = vectorSpace2.context.run {
+                    listOf(x + y, x - y)
+                }
+                val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, vectors)
+                val subVectorSpace1 =
+                    vectorSpace1.context.run {
+                        SubVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace1,
+                            generator = listOf(a - b),
+                        )
+                    }
+                val subVectorSpace2 =
+                    vectorSpace2.context.run {
+                        SubVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace2,
+                            generator = listOf(2 * y),
+                        )
+                    }
+                val retract1 = subVectorSpace1.retraction
+                val retract2 = subVectorSpace2.retraction
+                val g = f.induce(subVectorSpace1, subVectorSpace2)
+                g(retract1(
+                    vectorSpace1.context.run { a - b }
+                )) shouldBe retract2(
+                    vectorSpace2.context.run { 2 * y }
+                )
+            }
+            "test linearMap.induce for SubQuotVectorSpace" {
                 val (a, b) = vectorSpace1.getBasis()
                 val (x, y) = vectorSpace2.getBasis()
                 val vectors = vectorSpace2.context.run {

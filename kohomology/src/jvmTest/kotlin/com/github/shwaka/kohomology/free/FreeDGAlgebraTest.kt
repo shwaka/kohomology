@@ -31,6 +31,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -449,7 +450,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
                         d(y1 * y2 * u1.pow(3)) shouldBe (y2 * u1.pow(4))
                         // ↑ d([x1*x2*t1^3]) = [x2*t1^4 + x1*t1^3*t2] = [x2*t1^4]
                     }
+                    "the top cohomology class should be [t1*x2]=[t2*x1]" {
+                        val basis = subQuotDGAlgebra.cohomology.getBasis(3)
+                        basis shouldHaveSize 1
+                        basis[0] shouldBe (u1 * y2).cohomologyClass()
+                        basis[0] shouldBe (u2 * y1).cohomologyClass()
+                    }
                 }
+
                 "check dimension of cohomology" {
                     (0..20).forAll { n ->
                         val expected = when (n) {

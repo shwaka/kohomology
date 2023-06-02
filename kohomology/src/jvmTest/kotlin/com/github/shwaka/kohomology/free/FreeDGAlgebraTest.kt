@@ -361,7 +361,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
             val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
             val (a, b, x, y, z) = freeDGAlgebra.generatorList
             val ideal = freeDGAlgebra.context.run {
-                freeDGAlgebra.getIdeal(
+                freeDGAlgebra.getDGIdeal(
                     listOf(a.pow(2), b.pow(2), x, z)
                 )
             }
@@ -433,7 +433,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
             }
             val (t1, t2, x1, x2) = freeDGAlgebra.generatorList
             freeDGAlgebra.context.run {
-                val ideal = freeDGAlgebra.getIdeal(listOf(t1 * t2))
+                val ideal = freeDGAlgebra.getDGIdeal(listOf(t1 * t2))
                 val subQuotDGAlgebra = freeDGAlgebra.getQuotientByIdeal(ideal)
                 val proj = subQuotDGAlgebra.projection
                 val u1 = proj(t1)

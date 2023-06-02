@@ -115,7 +115,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 freeLoopSpace.baseSpace shouldBeSameInstanceAs sphere
             }
             "quotient by ideal respecting formality of even sphere" - {
-                val ideal = freeLoopSpace.getIdeal(
+                val ideal = freeLoopSpace.getDGIdeal(
                     listOf(x.pow(2), y)
                 )
                 val subQuotDGAlgebra = freeLoopSpace.getQuotientByIdeal(ideal)

@@ -35,7 +35,25 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
-    override fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): SubQuotDGAlgebra<D, B, S, V, M> {
+    public fun getDGIdeal(generators: List<GVector<D, B, S, V>>): SubDGVectorSpace<D, B, S, V, M> {
+        val idealWithoutD = this.getIdeal(generators)
+        for (gVector in generators) {
+            this.context.run {
+                require(
+                    idealWithoutD.subspaceContains(d(gVector))
+                ) {
+                    "d(${gVector})=${d(gVector)} must be contained in the ideal $idealWithoutD" +
+                        "to define dg ideal."
+                }
+            }
+        }
+        return SubDGVectorSpace(
+            subGVectorSpace = idealWithoutD,
+            differentialOnTotalGVectorSpace = this.differential,
+        )
+    }
+
+    public fun getQuotientByIdeal(ideal: SubDGVectorSpace<D, B, S, V, M>): SubQuotDGAlgebra<D, B, S, V, M> {
         val subQuotGAlgebra = super.getQuotientByIdeal(ideal)
         return SubQuotDGAlgebra(
             subQuotGAlgebra,

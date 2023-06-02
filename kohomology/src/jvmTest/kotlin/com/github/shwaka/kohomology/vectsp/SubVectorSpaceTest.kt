@@ -34,11 +34,14 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 x.toString() shouldBe "(u + v)"
                 y.toString() shouldBe "(u)"
             }
-            "check inclusion" {
+            "check inclusion and retraction" {
                 val (x, y) = subVectorSpace.getBasis()
                 val incl = subVectorSpace.inclusion
+                val retract = subVectorSpace.retraction
                 incl(x) shouldBe (u + v)
                 incl(y) shouldBe u
+                retract(incl(x)) shouldBe x
+                retract(incl(y)) shouldBe y
             }
             "subspaceContains should work" {
                 subVectorSpace.subspaceContains(u + v).shouldBeTrue()
@@ -78,11 +81,14 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                 x.toString() shouldBe "(u)"
                 y.toString() shouldBe "(v + w)"
             }
-            "check inclusion" {
+            "check inclusion and retraction" {
                 val (x, y) = subVectorSpace.getBasis()
                 val incl = subVectorSpace.inclusion
+                val retract = subVectorSpace.retraction
                 incl(x) shouldBe u
                 incl(y) shouldBe (v + w)
+                retract(incl(x)) shouldBe x
+                retract(incl(y)) shouldBe y
             }
             "subspaceContains should work" {
                 subVectorSpace.subspaceContains(u).shouldBeTrue()

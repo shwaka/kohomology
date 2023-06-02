@@ -25,9 +25,14 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         vectorSpace.context.run {
             val generator = listOf(u + v, u, v)
             val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
+            val (x, y) = subVectorSpace.getBasis()
+
+            "check basis names" {
+                x.toString() shouldBe "(u + v)"
+                y.toString() shouldBe "(u)"
+            }
             "check inclusion" {
                 subVectorSpace.dim shouldBe 2
-                val (x, y) = subVectorSpace.getBasis()
                 val incl = subVectorSpace.inclusion
                 incl(x) shouldBe (u + v)
                 incl(y) shouldBe u
@@ -61,9 +66,14 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         vectorSpace.context.run {
             val generator = listOf(u, zeroVector, u, v + w, zeroVector)
             val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
+            val (x, y) = subVectorSpace.getBasis()
+
+            "check basis names" {
+                x.toString() shouldBe "(u)"
+                y.toString() shouldBe "(v + w)"
+            }
             "check inclusion" {
                 subVectorSpace.dim shouldBe 2
-                val (x, y) = subVectorSpace.getBasis()
                 val incl = subVectorSpace.inclusion
                 incl(x) shouldBe u
                 incl(y) shouldBe (v + w)

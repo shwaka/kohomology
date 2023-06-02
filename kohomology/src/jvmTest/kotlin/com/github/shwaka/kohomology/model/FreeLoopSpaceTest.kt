@@ -19,6 +19,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -123,6 +124,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                     (0 until 10 * sphereDim).forAll { n ->
                         subQuotDGAlgebra.cohomology[n].dim shouldBe freeLoopSpace.cohomology[n].dim
                     }
+                }
+            }
+            "getDGIdeal should thrown IllegalArgumentException when the ideal is not closed under d" {
+                shouldThrow<IllegalArgumentException> {
+                    freeLoopSpace.getDGIdeal(
+                        listOf(y) // dy = x^2 ∉ I
+                    )
                 }
             }
             "plain printer test for FreeLoopSpace" - {

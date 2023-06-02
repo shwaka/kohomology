@@ -208,9 +208,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val retract1 = subVectorSpace1.retraction
                 val retract2 = subVectorSpace2.retraction
                 val g = f.induce(subVectorSpace1, subVectorSpace2)
-                g(retract1(
-                    vectorSpace1.context.run { a - b }
-                )) shouldBe retract2(
+                g(
+                    retract1(
+                        vectorSpace1.context.run { a - b }
+                    )
+                ) shouldBe retract2(
                     vectorSpace2.context.run { 2 * y }
                 )
             }

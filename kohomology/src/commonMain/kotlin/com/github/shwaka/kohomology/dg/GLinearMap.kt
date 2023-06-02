@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.SubBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
@@ -128,12 +129,12 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
     }
 
     public fun induce(
-        sourceSubQuot: SubQuotGVectorSpace<D, BS, S, V, M>,
-        targetSubQuot: SubQuotGVectorSpace<D, BT, S, V, M>,
-    ): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        sourceSub: SubGVectorSpace<D, BS, S, V, M>,
+        targetSub: SubGVectorSpace<D, BT, S, V, M>,
+    ): GLinearMap<D, SubBasis<BS, S, V>, SubBasis<BT, S, V>, S, V, M> {
         val gLinearMapDegree = this.degree
         return GLinearMap(
-            sourceSubQuot, targetSubQuot,
+            sourceSub, targetSub,
             this.degree,
             this.matrixSpace,
             this.name,
@@ -146,6 +147,25 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
                 // This may be because there are two candidates of 'GLinearMap' here:
                 // - class GLinearMap in which fun induce is defined
                 // - the (fake) constructor GLinearMap whose result is used as the return value of induce
+                degree + gLinearMapDegree
+            }
+            this[degree].induce(sourceSub[degree], targetSub[targetDegree])
+        }
+    }
+
+    public fun induce(
+        sourceSubQuot: SubQuotGVectorSpace<D, BS, S, V, M>,
+        targetSubQuot: SubQuotGVectorSpace<D, BT, S, V, M>,
+    ): GLinearMap<D, SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {
+        val gLinearMapDegree = this.degree
+        return GLinearMap(
+            sourceSubQuot, targetSubQuot,
+            this.degree,
+            this.matrixSpace,
+            this.name,
+        ) { degree ->
+            val targetDegree = this.degreeGroup.context.run {
+                // See the above definition of an overload concerning gLinearMapDegree
                 degree + gLinearMapDegree
             }
             this[degree].induce(sourceSubQuot[degree], targetSubQuot[targetDegree])

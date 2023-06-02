@@ -136,6 +136,26 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
     }
 
     public fun induce(
+        sourceSub: SubVectorSpace<BS, S, V, M>,
+        targetSub: SubVectorSpace<BT, S, V, M>,
+    ): LinearMap<SubBasis<BS, S, V>, SubBasis<BT, S, V>, S, V, M> {
+        val basisLift: List<Vector<BS, S, V>> =
+            sourceSub.getBasis().map { subVector: Vector<SubBasis<BS, S, V>, S, V> ->
+                sourceSub.inclusion(subVector)
+            }
+        val vectors: List<Vector<SubBasis<BT, S, V>, S, V>> =
+            basisLift.map { vector: Vector<BS, S, V> ->
+                targetSub.retraction(this(vector))
+            }
+        return LinearMap.fromVectors(
+            sourceSub,
+            targetSub,
+            this.matrixSpace,
+            vectors,
+        )
+    }
+
+    public fun induce(
         sourceSubQuot: SubQuotVectorSpace<BS, S, V, M>,
         targetSubQuot: SubQuotVectorSpace<BT, S, V, M>,
     ): LinearMap<SubQuotBasis<BS, S, V>, SubQuotBasis<BT, S, V>, S, V, M> {

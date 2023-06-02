@@ -25,6 +25,7 @@ public interface SubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumV
     public val matrixSpace: MatrixSpace<S, V, M>
     public val totalGVectorSpace: GVectorSpace<D, B, S, V>
     public val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M>
+    public val retraction: GLinearMap<D, B, SubBasis<B, S, V>, S, V, M>
     public fun subspaceContains(gVector: GVector<D, B, S, V>): Boolean {
         val subQuotVectorSpace = this[gVector.degree]
         return subQuotVectorSpace.subspaceContains(gVector.vector)
@@ -107,6 +108,17 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
             this[degree].inclusion
         }
     }
+    override val retraction: GLinearMap<D, B, SubBasis<B, S, V>, S, V, M> by lazy {
+        GLinearMap(
+            source = this.totalGVectorSpace,
+            target = this,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "inclusion",
+        ) { degree ->
+            this[degree].retraction
+        }
+    }
 
     override fun get(degree: D): SubVectorSpace<B, S, V, M> {
         return this.cache.getOrPut(degree) {
@@ -146,6 +158,17 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
             name = "inclusion",
         ) { degree ->
             this[degree].inclusion
+        }
+    }
+    override val retraction: GLinearMap<D, B, SubBasis<B, S, V>, S, V, M> by lazy {
+        GLinearMap(
+            source = this.totalGVectorSpace,
+            target = this,
+            degree = this.degreeGroup.zero,
+            matrixSpace = this.matrixSpace,
+            name = "inclusion",
+        ) { degree ->
+            this[degree].retraction
         }
     }
 

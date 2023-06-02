@@ -415,6 +415,52 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
                 }
             }
         }
+        "model of moment angle complex" - {
+            // Model of Z_K(D^2, S^1) where K=S^0 (two points).
+            // It is homeomorphic to (D^2×S^1)∪(S^1×D^2) = S^3.
+            val indeterminateList = listOf(
+                Indeterminate("t1", 2),
+                Indeterminate("t2", 2),
+                Indeterminate("x1", 1),
+                Indeterminate("x2", 1),
+            )
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (t1, t2, x1, x2) ->
+                mapOf(
+                    x1 to t1,
+                    x2 to t2,
+                )
+            }
+            val (t1, t2, x1, x2) = freeDGAlgebra.generatorList
+            freeDGAlgebra.context.run {
+                val ideal = freeDGAlgebra.getIdeal(listOf(t1 * t2))
+                val subQuotDGAlgebra = freeDGAlgebra.getQuotientByIdeal(ideal)
+                val proj = subQuotDGAlgebra.projection
+                val u1 = proj(t1)
+                val u2 = proj(t2)
+                val y1 = proj(x1)
+                val y2 = proj(x2)
+                subQuotDGAlgebra.context.run {
+                    "check differential" {
+                        d(u1).isZero().shouldBeTrue()
+                        d(u2).isZero().shouldBeTrue()
+                        d(y1) shouldBe u1
+                        d(y2) shouldBe u2
+                        d(y1 * u2).isZero().shouldBeTrue() // d([x1*t2]) = [t1*t2] = 0
+                        d(y1 * y2 * u1.pow(3)) shouldBe (y2 * u1.pow(4))
+                        // ↑ d([x1*x2*t1^3]) = [x2*t1^4 + x1*t1^3*t2] = [x2*t1^4]
+                    }
+                }
+                "check dimension of cohomology" {
+                    (0..20).forAll { n ->
+                        val expected = when (n) {
+                            0, 3 -> 1
+                            else -> 0
+                        }
+                        subQuotDGAlgebra.cohomology[n].dim shouldBe expected
+                    }
+                }
+            }
+        }
     }
 }
 

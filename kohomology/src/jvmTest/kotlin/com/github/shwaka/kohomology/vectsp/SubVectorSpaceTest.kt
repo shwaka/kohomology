@@ -54,6 +54,31 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         }
     }
 
+    "subspace test with redundant generator" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
+        val (u, v, w) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            val generator = listOf(u, zeroVector, u, v + w, zeroVector)
+            val subVectorSpace = SubVectorSpace(matrixSpace, vectorSpace, generator)
+            "check inclusion" {
+                subVectorSpace.dim shouldBe 2
+                val (x, y) = subVectorSpace.getBasis()
+                val incl = subVectorSpace.inclusion
+                incl(x) shouldBe u
+                incl(y) shouldBe (v + w)
+            }
+            "subspaceContains should work" {
+                subVectorSpace.subspaceContains(u).shouldBeTrue()
+                subVectorSpace.subspaceContains(v + w).shouldBeTrue()
+                subVectorSpace.subspaceContains(u + v + w).shouldBeTrue()
+                subVectorSpace.subspaceContains(v).shouldBeFalse()
+                subVectorSpace.subspaceContains(w).shouldBeFalse()
+                subVectorSpace.subspaceContains(v - w).shouldBeFalse()
+            }
+        }
+    }
+
     "check initialization of lazy properties" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))

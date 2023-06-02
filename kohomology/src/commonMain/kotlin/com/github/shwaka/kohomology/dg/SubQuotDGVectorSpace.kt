@@ -14,8 +14,11 @@ public interface SubQuotDGVectorSpace<D : Degree, B : BasisName, S : Scalar, V :
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             subQuotGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
-            differential: GLinearMap<D, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
+            differentialOnTotalGVectorSpace: GLinearMap<D, B, B, S, V, M>,
         ): SubQuotDGVectorSpace<D, B, S, V, M> {
+            require(differentialOnTotalGVectorSpace.source == subQuotGVectorSpace.totalGVectorSpace)
+            require(differentialOnTotalGVectorSpace.target == subQuotGVectorSpace.totalGVectorSpace)
+            val differential = differentialOnTotalGVectorSpace.induce(subQuotGVectorSpace, subQuotGVectorSpace)
             return SubQuotDGVectorSpaceImpl(subQuotGVectorSpace, differential)
         }
     }

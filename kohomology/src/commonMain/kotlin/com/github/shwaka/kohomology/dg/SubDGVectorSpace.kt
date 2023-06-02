@@ -14,8 +14,9 @@ public interface SubDGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Num
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             subGVectorSpace: SubGVectorSpace<D, B, S, V, M>,
-            differential: GLinearMap<D, SubBasis<B, S, V>, SubBasis<B, S, V>, S, V, M>,
+            differentialOnTotalGVectorSpace: GLinearMap<D, B, B, S, V, M>,
         ): SubDGVectorSpace<D, B, S, V, M> {
+            val differential = differentialOnTotalGVectorSpace.induce(subGVectorSpace, subGVectorSpace)
             return SubDGVectorSpaceImpl(subGVectorSpace, differential)
         }
     }

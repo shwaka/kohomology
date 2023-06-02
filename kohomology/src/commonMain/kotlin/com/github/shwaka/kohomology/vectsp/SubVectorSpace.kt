@@ -80,8 +80,12 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 
     val dim: Int by lazy { rowEchelonForm.pivots.filter { it < generator.size }.size }
 
+    private val basisIndices: List<Int> by lazy {
+        rowEchelonForm.pivots.slice(0 until dim)
+    }
+
     fun getBasisNames(): List<SubBasis<B, S, V>> {
-        return (0 until this.dim).map { index -> this.generator[index] }
+        return this.basisIndices.map { index -> this.generator[index] }
             .map { vector -> SubBasis(vector) }
     }
 
@@ -95,7 +99,7 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 
     fun getInclusionMatrix(): M {
         return this.matrixSpace.fromNumVectorList(
-            (0 until this.dim).map { index -> this.generator[index].toNumVector() },
+            this.basisIndices.map { index -> this.generator[index].toNumVector() },
             this.totalVectorSpace.dim,
         )
     }

@@ -60,14 +60,17 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             }
         }
 
-        "test inclusion" {
+        "test inclusion and retraction" {
             (-5..5).forAll { degree ->
                 val (u, v, w) = totalGVectorSpace.getBasis(degree)
                 val (x, y) = subGVectorSpace.getBasis(degree)
                 val incl = subGVectorSpace.inclusion
+                val retract = subGVectorSpace.retraction
                 totalGVectorSpace.context.run {
                     incl(x) shouldBe u + v
                     incl(y) shouldBe v + w
+                    retract(incl(x)) shouldBe x
+                    retract(incl(y)) shouldBe y
                 }
             }
         }

@@ -58,6 +58,40 @@ subQuotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         }
     }
 
+    "sub-quotient space test with redundant generator" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
+        val (u, v, w) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            val subspaceGenerator = listOf(zeroVector, u + v, zeroVector, u + v, v + w)
+            val quotientGenerator = listOf(zeroVector, u + 2 * v + w, zeroVector)
+            val subQuotVectorSpace = SubQuotVectorSpace(
+                matrixSpace,
+                vectorSpace,
+                subspaceGenerator = subspaceGenerator,
+                quotientGenerator = quotientGenerator
+            )
+
+            "check dimension" {
+                subQuotVectorSpace.dim shouldBe 1
+            }
+            "check basis names" {
+                val (x) = subQuotVectorSpace.getBasis()
+                x.toString() shouldBe "[u + v]"
+            }
+            "check projection and section" {
+                subQuotVectorSpace.dim shouldBe 1
+                val x = subQuotVectorSpace.getBasis()[0]
+                val sect = subQuotVectorSpace.section
+                val proj = subQuotVectorSpace.projection
+                // section(x) shouldBe (u + v) // depends on the choice
+                proj(sect(x)) shouldBe x
+                proj(u + 2 * v + w).isZero().shouldBeTrue()
+                (proj(u - w) == proj(2 * (u + v))).shouldBeTrue()
+            }
+        }
+    }
+
     "getInternalPrintConfig should be inherited from subQuotVectorSpace.totalVectorSpace" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         val vectorSpace = VectorSpace(numVectorSpace, listOf("y", "x", "z")) {

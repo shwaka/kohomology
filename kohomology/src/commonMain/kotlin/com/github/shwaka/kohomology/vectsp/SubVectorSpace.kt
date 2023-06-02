@@ -42,6 +42,7 @@ public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
     public val totalVectorSpace: VectorSpace<B, S, V>
     public val generator: List<Vector<B, S, V>>
     public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>
+    public val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M>
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
 
     public companion object {
@@ -104,6 +105,12 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         )
     }
 
+    fun getRetractionMatrix(): M {
+        return this.matrixSpace.context.run {
+            this@SubFactory.transformationMatrix.rowSlice(0 until this@SubFactory.dim)
+        }
+    }
+
     init {
         // check that generators are in totalVectorSpace
         for (vector in generator)
@@ -161,6 +168,15 @@ private class SubVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
         )
     }
 
+    override val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M> by lazy {
+        LinearMap.fromMatrix(
+            source = this.factory.totalVectorSpace,
+            target = this,
+            matrixSpace = this.factory.matrixSpace,
+            matrix = this.factory.getRetractionMatrix(),
+        )
+    }
+
     override fun subspaceContains(vector: Vector<B, S, V>): Boolean {
         return this.factory.contains(vector)
     }
@@ -197,6 +213,15 @@ private class WholeSubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M
         LinearMap.fromMatrix(
             source = this,
             target = this.totalVectorSpace,
+            matrixSpace = this.matrixSpace,
+            matrix = this.matrixSpace.getIdentity(this.totalVectorSpace.dim),
+        )
+    }
+
+    override val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M> by lazy {
+        LinearMap.fromMatrix(
+            source = this.totalVectorSpace,
+            target = this,
             matrixSpace = this.matrixSpace,
             matrix = this.matrixSpace.getIdentity(this.totalVectorSpace.dim),
         )

@@ -19,7 +19,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public class GAlgebraElementGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class GAlgebraElementGrammar<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val gAlgebra: GAlgebra<D, B, S, V, M>,
     private val generators: List<Pair<String, GVector<D, B, S, V>>>
 ) : Grammar<GVectorOrZero<D, B, S, V>>() {

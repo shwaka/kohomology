@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.QuotDGAlgebra
 import com.github.shwaka.kohomology.dg.SubQuotDGAlgebra
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -367,16 +368,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
             }
             // subQuotDGAlgebra should be quasi-isomorphic to freeDGAlgebra
             // since Λ(a, b, x, z) → ∧(a, b, x, z)/(a^2, b^2, x, z) is (obviously) quasi-isomorphism.
-            val subQuotDGAlgebra = freeDGAlgebra.getQuotientByIdeal(ideal)
-            val proj = subQuotDGAlgebra.projection
-            val cohomProj = proj.induce(freeDGAlgebra.cohomology, subQuotDGAlgebra.cohomology)
+            val quotDGAlgebra = freeDGAlgebra.getQuotientByIdeal(ideal)
+            val proj = quotDGAlgebra.projection
+            val cohomProj = proj.induce(freeDGAlgebra.cohomology, quotDGAlgebra.cohomology)
 
-            "subQuotDGAlgebra should be an instance of SubQuotDGAlgebra" {
-                subQuotDGAlgebra.shouldBeInstanceOf<SubQuotDGAlgebra<*, *, S, V, M>>()
+            "quotDGAlgebra should be an instance of QuotDGAlgebra" {
+                quotDGAlgebra.shouldBeInstanceOf<QuotDGAlgebra<*, *, S, V, M>>()
             }
-            checkDGAlgebraAxioms(subQuotDGAlgebra, 0..15)
+            checkDGAlgebraAxioms(quotDGAlgebra, 0..15)
             freeDGAlgebra.context.run {
-                subQuotDGAlgebra.context.run {
+                quotDGAlgebra.context.run {
                     "check image of elements" {
                         proj(a).isZero().shouldBeFalse()
                         proj(b).isZero().shouldBeFalse()
@@ -412,7 +413,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
             }
             "check dimension of cohomology" {
                 (0 until 15).forAll { n ->
-                    subQuotDGAlgebra.cohomology[n].dim shouldBe freeDGAlgebra.cohomology[n].dim
+                    quotDGAlgebra.cohomology[n].dim shouldBe freeDGAlgebra.cohomology[n].dim
                 }
             }
         }

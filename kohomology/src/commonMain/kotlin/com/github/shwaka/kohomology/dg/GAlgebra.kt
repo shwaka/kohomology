@@ -104,23 +104,22 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         }
     }
 
-    public fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): SubQuotGAlgebra<D, B, S, V, M> {
-        val subQuotGVectorSpace = SubQuotGVectorSpace(
+    public fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): QuotGAlgebra<D, B, S, V, M> {
+        val quotGVectorSpace = QuotGVectorSpace(
             this.matrixSpace,
             name = "${this.name}/${ideal.name}",
             totalGVectorSpace = this,
-            subspaceGenerator = this.asSubGVectorSpace(this.matrixSpace),
             quotientGenerator = ideal,
         )
         val multiplication = this.multiplication.induce(
-            source1SubQuot = subQuotGVectorSpace,
-            source2SubQuot = subQuotGVectorSpace,
-            targetSubQuot = subQuotGVectorSpace,
+            source1Quot = quotGVectorSpace,
+            source2Quot = quotGVectorSpace,
+            targetQuot = quotGVectorSpace,
         )
-        val unit = subQuotGVectorSpace.projection(this.unit)
-        return SubQuotGAlgebra(
+        val unit = quotGVectorSpace.projection(this.unit)
+        return QuotGAlgebra(
             this.matrixSpace,
-            subQuotGVectorSpace,
+            quotGVectorSpace,
             multiplication,
             unit,
         )

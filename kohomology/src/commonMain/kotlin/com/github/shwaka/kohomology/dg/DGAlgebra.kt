@@ -53,9 +53,9 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         )
     }
 
-    public fun getQuotientByIdeal(ideal: SubDGVectorSpace<D, B, S, V, M>): SubQuotDGAlgebra<D, B, S, V, M> {
-        val subQuotGAlgebra = super.getQuotientByIdeal(ideal)
-        return SubQuotDGAlgebra(this, subQuotGAlgebra)
+    public fun getQuotientByIdeal(ideal: SubDGVectorSpace<D, B, S, V, M>): QuotDGAlgebra<D, B, S, V, M> {
+        val quotGAlgebra = super.getQuotientByIdeal(ideal)
+        return QuotDGAlgebra(this, quotGAlgebra)
     }
 
     public companion object {

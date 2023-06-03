@@ -5,7 +5,6 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.parser.ASTNode
 import com.github.shwaka.kohomology.dg.parser.GAlgebraElementASTGrammar
-import com.github.shwaka.kohomology.dg.parser.GAlgebraElementGrammar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

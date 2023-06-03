@@ -32,7 +32,7 @@ private class SubQuotDGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Nu
     override val differential: Derivation<D, SubQuotBasis<B, S, V>, S, V, M> =
         totalDGAlgebra.differential.induce(underlyingGAlgebra)
     private val dgMagma = DGMagma(underlyingGAlgebra, differential)
-    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, SubQuotBasis<B, S, V>, S, V, M>  =
+    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, SubQuotBasis<B, S, V>, S, V, M> =
         dgMagma.cohomology
     private val cohomologyMultiplication: GBilinearMap<
         SubQuotBasis<SubQuotBasis<B, S, V>, S, V>,

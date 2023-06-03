@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.vectsp
 
 import com.github.shwaka.kococo.debugOnly
-import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector

@@ -23,7 +23,7 @@ quotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             val quotVectorSpace = QuotVectorSpace(matrixSpace, vectorSpace, quotientGenerator)
 
             "check dimension" {
-                quotVectorSpace.dim shouldBe  2
+                quotVectorSpace.dim shouldBe 2
             }
             "check basis names" {
                 val (x, y) = quotVectorSpace.getBasis()
@@ -51,7 +51,7 @@ quotVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             val quotVectorSpace = QuotVectorSpace(matrixSpace, vectorSpace, quotientGenerator)
 
             "check dimension" {
-                quotVectorSpace.dim shouldBe  2
+                quotVectorSpace.dim shouldBe 2
             }
             "check basis names" {
                 val (x, y) = quotVectorSpace.getBasis()

@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.QuotDGAlgebra
-import com.github.shwaka.kohomology.dg.SubQuotDGAlgebra
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup

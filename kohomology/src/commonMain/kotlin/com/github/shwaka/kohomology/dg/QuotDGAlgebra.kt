@@ -61,4 +61,12 @@ private class QuotDGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
             this.isCommutative, // inherit commutativity from the underlying dg algebra
         )
     }
+
+    override val projection: DGLinearMap<D, B, QuotBasis<B, S, V>, S, V, M> by lazy {
+        DGLinearMap(
+            source = this.totalGVectorSpace,
+            target = this,
+            gLinearMap = this.underlyingGAlgebra.projection,
+        )
+    }
 }

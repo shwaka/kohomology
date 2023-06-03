@@ -12,6 +12,8 @@ public interface SubQuotDGVectorSpace<D : Degree, B : BasisName, S : Scalar, V :
     DGVectorSpace<D, SubQuotBasis<B, S, V>, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> {
     override val totalGVectorSpace: DGVectorSpace<D, B, S, V, M>
+    // Here section and projection must NOT be overridden by DGLinearMap
+    // since they are NOT chain map.
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

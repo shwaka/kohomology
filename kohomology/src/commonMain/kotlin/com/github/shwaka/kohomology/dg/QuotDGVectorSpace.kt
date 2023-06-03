@@ -12,6 +12,7 @@ public interface QuotDGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
     DGVectorSpace<D, QuotBasis<B, S, V>, S, V, M>,
     QuotGVectorSpace<D, B, S, V, M> {
     override val totalGVectorSpace: DGVectorSpace<D, B, S, V, M>
+    override val projection: DGLinearMap<D, B, QuotBasis<B, S, V>, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -36,5 +37,13 @@ private class QuotDGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : N
     override val cohomology: SubQuotGVectorSpace<D, QuotBasis<B, S, V>, S, V, M> by lazy {
         val dgVectorSpace = DGVectorSpace(this.underlyingGVectorSpace, this.differential)
         dgVectorSpace.cohomology
+    }
+
+    override val projection: DGLinearMap<D, B, QuotBasis<B, S, V>, S, V, M> by lazy {
+        DGLinearMap(
+            source = this.totalGVectorSpace,
+            target = this,
+            gLinearMap = this.underlyingGVectorSpace.projection
+        )
     }
 }

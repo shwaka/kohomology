@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.QuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
@@ -98,6 +99,33 @@ public class GBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, D : 
             gVector1.degree + gVector2.degree + this@GBilinearMap.degree
         }
         return this.target.fromVector(newVector, newDegree)
+    }
+
+    public fun induce(
+        source1Quot: QuotGVectorSpace<D, BS1, S, V, M>,
+        source2Quot: QuotGVectorSpace<D, BS2, S, V, M>,
+        targetQuot: QuotGVectorSpace<D, BT, S, V, M>,
+    ): GBilinearMap<
+        QuotBasis<BS1, S, V>,
+        QuotBasis<BS2, S, V>,
+        QuotBasis<BT, S, V>,
+        D, S, V, M
+        > {
+        return GBilinearMap(
+            this.matrixSpace,
+            source1Quot,
+            source2Quot,
+            targetQuot,
+            this.degree,
+            this.name,
+        ) { p, q ->
+            val pPlusQ = this.degreeGroup.context.run { p + q }
+            this[p, q].induce(
+                source1Quot[p],
+                source2Quot[q],
+                targetQuot[pPlusQ],
+            )
+        }
     }
 
     public fun induce(

@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.QuotBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
 public interface MagmaDerivation<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -59,6 +60,15 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
         return Derivation.fromGLinearMap(
             sourceSubQuot,
             super.induce(sourceSubQuot, sourceSubQuot),
+        )
+    }
+
+    public fun induce(
+        sourceQuot: QuotGAlgebra<D, B, S, V, M>,
+    ): Derivation<D, QuotBasis<B, S, V>, S, V, M> {
+        return Derivation.fromGLinearMap(
+            sourceQuot,
+            super.induce(sourceQuot, sourceQuot),
         )
     }
 

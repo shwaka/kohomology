@@ -71,8 +71,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {
-        val grammar = GAlgebraElementASTGrammar(generators.map { it.first })
-        val astNode: ASTNode = grammar.parseToEnd(text)
+        val astNode: ASTNode = GAlgebraElementASTGrammar.parseToEnd(text)
         return this.getValueFromASTNode(astNode, generators)
         // The following was commented out since it printed the message in tests.
         // try {

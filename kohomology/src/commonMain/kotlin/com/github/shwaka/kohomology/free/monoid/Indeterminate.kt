@@ -68,15 +68,19 @@ public class StringIndeterminateName(public val name: String, tex: String? = nul
             // CharCategory.OTHER_PUNCTUATION
         )
 
+        internal val beginningCharCategoryList: List<CharCategory> =
+            alphabeticalCategories + punctuationCategories
+
+        internal val nonBeginningCharCategoryList: List<CharCategory> =
+            alphabeticalCategories + punctuationCategories + numericalCategories
+
         // The following functions are internal for test.
         internal fun isValidAsBeginningChar(char: Char): Boolean {
-            return char.category in
-                (this.alphabeticalCategories + this.punctuationCategories)
+            return char.category in this.beginningCharCategoryList
         }
 
         internal fun isValidAsNonBeginningChar(char: Char): Boolean {
-            return char.category in
-                (this.alphabeticalCategories + this.punctuationCategories + this.numericalCategories)
+            return char.category in this.nonBeginningCharCategoryList
         }
 
         internal fun validateName(name: String) {

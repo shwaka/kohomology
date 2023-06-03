@@ -30,40 +30,48 @@ internal class GAlgebraElementASTGrammar(val generators: List<String>) : Grammar
     @Suppress("UNUSED")
     private val ws by regexToken("\\s*", ignore = true)
 
-    private val genParser: Parser<ASTNode>
-        by (gen use { ASTNode.Generator(text) }) or
-            (zero use { ASTNode.Zero })
-    private val intParser: Parser<Int>
-        by int use { text.toInt() }
-    private val parenParser: Parser<ASTNode>
-        by skip(lpar) and parser(::rootParser) and skip(rpar)
-    private val minusParser: Parser<ASTNode.UnaryMinus>
-        by (skip(minus) and parenParser map { ASTNode.UnaryMinus(it) }) or
-            (skip(minus) and parser(::mulChain) map { ASTNode.UnaryMinus(it) })
+    private val genParser: Parser<ASTNode> by
+    (gen use { ASTNode.Generator(text) }) or
+        (zero use { ASTNode.Zero })
+
+    private val intParser: Parser<Int> by
+    int use { text.toInt() }
+
+    private val parenParser: Parser<ASTNode> by
+    skip(lpar) and parser(::rootParser) and skip(rpar)
+
+    private val minusParser: Parser<ASTNode.UnaryMinus> by
+    (skip(minus) and parenParser map { ASTNode.UnaryMinus(it) }) or
+        (skip(minus) and parser(::mulChain) map { ASTNode.UnaryMinus(it) })
+
     // The order to take 'or' is important in scalarParser.
     // In "1/2*x", the whole "1/2" should be considered as a scalar.
     // If 'or' is taken in the other order, only "1" is considered as a scalar
     // and a ParseException is thrown at "/".
-    private val fractionParser: Parser<ASTNode.Fraction>
-        by (intParser and skip(div) and intParser map { (p, q) -> ASTNode.Fraction(p, q) }) or
-            (intParser map { n -> ASTNode.Fraction(n, 1) })
-    private val termParser: Parser<ASTNode>
-        by fractionParser or genParser or minusParser or parenParser
-    private val powerParser: Parser<ASTNode>
-        by (termParser and skip(pow) and intParser map { (node, n) -> ASTNode.Power(node, n) }) or
-            termParser
-    private val mulChain: Parser<ASTNode>
-        by leftAssociative(powerParser, mul) { left, _, right ->
-            ASTNode.Multiply(left, right)
+    private val fractionParser: Parser<ASTNode.Fraction> by
+    (intParser and skip(div) and intParser map { (p, q) -> ASTNode.Fraction(p, q) }) or
+        (intParser map { n -> ASTNode.Fraction(n, 1) })
+
+    private val termParser: Parser<ASTNode> by
+    fractionParser or genParser or minusParser or parenParser
+
+    private val powerParser: Parser<ASTNode> by
+    (termParser and skip(pow) and intParser map { (node, n) -> ASTNode.Power(node, n) }) or
+        termParser
+
+    private val mulChain: Parser<ASTNode> by
+    leftAssociative(powerParser, mul) { left, _, right ->
+        ASTNode.Multiply(left, right)
+    }
+
+    private val subSumChain: Parser<ASTNode> by
+    leftAssociative(mulChain, plus or minus use { type }) { left, op, right ->
+        when (op) {
+            plus -> ASTNode.Sum(left, right)
+            minus -> ASTNode.Subtract(left, right)
+            else -> throw Exception("This can't happen!")
         }
-    private val subSumChain: Parser<ASTNode>
-        by leftAssociative(mulChain, plus or minus use { type }) { left, op, right ->
-            when (op){
-                plus -> ASTNode.Sum(left, right)
-                minus -> ASTNode.Subtract(left, right)
-                else -> throw Exception("This can't happen!")
-            }
-        }
+    }
 
     override val rootParser: Parser<ASTNode> by subSumChain
 }

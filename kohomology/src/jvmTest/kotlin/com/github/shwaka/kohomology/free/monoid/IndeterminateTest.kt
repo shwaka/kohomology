@@ -88,6 +88,7 @@ class IndeterminateTest : FreeSpec({
         "_α", "_β_", "γ_3"
     )
     val invalidNameList = listOf(
+        "",
         "0", "1", "2",
         "0x", "2y", "3z",
         "x-y", "a+b", "1*t",

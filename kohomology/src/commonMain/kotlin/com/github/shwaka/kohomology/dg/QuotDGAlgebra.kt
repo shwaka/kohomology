@@ -15,32 +15,32 @@ public interface QuotDGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVec
     QuotDGVectorSpace<D, B, S, V, M> {
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            gAlgebra: QuotGAlgebra<D, B, S, V, M>,
-            differential: Derivation<D, QuotBasis<B, S, V>, S, V, M>,
+            totalDGAlgebra: DGAlgebra<D, B, S, V, M>,
+            quotGAlgebra: QuotGAlgebra<D, B, S, V, M>,
         ): QuotDGAlgebra<D, B, S, V, M> {
-            val dgMagma = DGMagma(gAlgebra, differential)
-            return QuotDGAlgebraImpl(
-                gAlgebra,
-                differential,
-                dgMagma.cohomology,
-                dgMagma.cohomology.multiplication,
-            )
+            return QuotDGAlgebraImpl(totalDGAlgebra, quotGAlgebra)
         }
     }
 }
 
 private class QuotDGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    totalDGAlgebra: DGAlgebra<D, B, S, V, M>,
     override val underlyingGAlgebra: QuotGAlgebra<D, B, S, V, M>,
-    override val differential: Derivation<D, QuotBasis<B, S, V>, S, V, M>,
-    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, QuotBasis<B, S, V>, S, V, M>,
+) : QuotDGAlgebra<D, B, S, V, M>,
+    QuotGVectorSpace<D, B, S, V, M> by underlyingGAlgebra {
+
+    override val totalGVectorSpace: DGVectorSpace<D, B, S, V, M> = totalDGAlgebra
+    override val differential: Derivation<D, QuotBasis<B, S, V>, S, V, M> =
+        totalDGAlgebra.differential.induce(underlyingGAlgebra)
+    private val dgMagma = DGMagma(underlyingGAlgebra, differential)
+    private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, QuotBasis<B, S, V>, S, V, M> =
+        dgMagma.cohomology
     private val cohomologyMultiplication: GBilinearMap<
         SubQuotBasis<QuotBasis<B, S, V>, S, V>,
         SubQuotBasis<QuotBasis<B, S, V>, S, V>,
         SubQuotBasis<QuotBasis<B, S, V>, S, V>,
-        D, S, V, M>,
-) : QuotDGAlgebra<D, B, S, V, M>,
-    QuotGVectorSpace<D, B, S, V, M> by underlyingGAlgebra {
-
+        D, S, V, M> =
+        dgMagma.cohomology.multiplication
     override val context: DGAlgebraContext<D, QuotBasis<B, S, V>, S, V, M> = DGAlgebraContextImpl(this)
     override val unit: GVector<D, QuotBasis<B, S, V>, S, V> = underlyingGAlgebra.unit
     override val isCommutative: Boolean = underlyingGAlgebra.isCommutative

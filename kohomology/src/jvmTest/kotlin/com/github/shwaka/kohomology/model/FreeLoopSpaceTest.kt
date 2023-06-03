@@ -125,6 +125,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                         subQuotDGAlgebra.cohomology[n].dim shouldBe freeLoopSpace.cohomology[n].dim
                     }
                 }
+                "projection should be quasi-isomorphism" {
+                    val proj = subQuotDGAlgebra.projection
+                    (0 until 10 * sphereDim).forAll { n ->
+                        proj.inducedMapOnCohomology[n].isIsomorphism().shouldBeTrue()
+                    }
+                }
             }
             "getDGIdeal should thrown IllegalArgumentException when the ideal is not closed under d" {
                 shouldThrow<IllegalArgumentException> {

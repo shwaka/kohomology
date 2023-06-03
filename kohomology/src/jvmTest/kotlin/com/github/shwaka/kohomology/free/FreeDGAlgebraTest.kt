@@ -416,6 +416,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
                     quotDGAlgebra.cohomology[n].dim shouldBe freeDGAlgebra.cohomology[n].dim
                 }
             }
+            "projection should be quasi-isomorphism" {
+                (0 until 15).forAll { n ->
+                    proj.inducedMapOnCohomology[n].isIsomorphism().shouldBeTrue()
+                }
+            }
         }
         "model of moment angle complex" - {
             // Model of Z_K(D^2, S^1) where K=S^0 (two points).

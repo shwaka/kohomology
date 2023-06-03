@@ -12,6 +12,7 @@ public interface SubDGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Num
     DGVectorSpace<D, SubBasis<B, S, V>, S, V, M>,
     SubGVectorSpace<D, B, S, V, M> {
     override val totalGVectorSpace: DGVectorSpace<D, B, S, V, M>
+    override val inclusion: DGLinearMap<D, SubBasis<B, S, V>, B, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -36,5 +37,13 @@ private class SubDGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Nu
     override val cohomology: SubQuotGVectorSpace<D, SubBasis<B, S, V>, S, V, M> by lazy {
         val dgVectorSpace = DGVectorSpace(this.underlyingGVectorSpace, this.differential)
         dgVectorSpace.cohomology
+    }
+
+    override val inclusion: DGLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
+        DGLinearMap(
+            source = this,
+            target = this.totalGVectorSpace,
+            gLinearMap = this.underlyingGVectorSpace.inclusion,
+        )
     }
 }

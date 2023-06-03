@@ -76,19 +76,28 @@ class IndeterminateTest : FreeSpec({
         }
     }
 
+    val validNameList = listOf(
+        "x", "y", "z",
+        "t0", "t1", "t2",
+        "a_1", "b_2", "c_3_4",
+        "x_", "y_",
+        "sx", "sy",
+        "_", "_x", "_y", "_abc",
+        "x1y2z3",
+        "α", "β", "γ",
+        "_α", "_β_", "γ_3"
+    )
+    val invalidNameList = listOf(
+        "0", "1", "2",
+        "0x", "2y", "3z",
+        "x-y", "a+b", "1*t",
+        "a.b", ".t",
+        " ", " x", "y ",
+        "\\bar{x}", "x_{3}", "(x)",
+    )
+
     "test validateIndeterminateName" - {
-        "validateIndeterminateName should be true for valid names" {
-            val validNameList = listOf(
-                "x", "y", "z",
-                "t0", "t1", "t2",
-                "a_1", "b_2", "c_3_4",
-                "x_", "y_",
-                "sx", "sy",
-                "_", "_x", "_y", "_abc",
-                "x1y2z3",
-                "α", "β", "γ",
-                "_α", "_β_", "γ_3"
-            )
+        "validateIndeterminateName should not throw for valid names" {
             validNameList.forAll { validName ->
                 shouldNotThrow<IllegalArgumentException> {
                     StringIndeterminateName.validateName(validName)
@@ -96,18 +105,34 @@ class IndeterminateTest : FreeSpec({
             }
         }
 
-        "validateIndeterminateName should be false for invalid names" {
-            val invalidNameList = listOf(
-                "0", "1", "2",
-                "0x", "2y", "3z",
-                "x-y", "a+b", "1*t",
-                "a.b", ".t",
-                " ", " x", "y ",
-                "\\bar{x}", "x_{3}", "(x)",
-            )
+        "validateIndeterminateName should throw for invalid names" {
             invalidNameList.forAll { invalidName ->
                 shouldThrow<IllegalArgumentException> {
                     StringIndeterminateName.validateName(invalidName)
+                }
+            }
+        }
+    }
+
+    "test constructor of StringIndeterminateName" - {
+        "StringIndeterminateName.name should allow valid names" {
+            validNameList.forAll { validName ->
+                shouldNotThrow<IllegalArgumentException> {
+                    StringIndeterminateName(name = validName)
+                }
+            }
+        }
+        "StringIndeterminateName.name should not allow invalid names" {
+            invalidNameList.forAll { invalidName ->
+                shouldThrow<IllegalArgumentException> {
+                    StringIndeterminateName(name = invalidName)
+                }
+            }
+        }
+        "StringIndeterminateName.tex should allow string containing special characters" {
+            invalidNameList.forAll { invalidName ->
+                shouldNotThrow<IllegalArgumentException> {
+                    StringIndeterminateName(name = "x", tex = invalidName)
                 }
             }
         }

@@ -14,6 +14,11 @@ public interface IndeterminateName : Printable {
 public class StringIndeterminateName(public val name: String, tex: String? = null) : IndeterminateName {
     public val tex: String = tex ?: name
 
+    init {
+        StringIndeterminateName.validateName(name)
+        // tex must NOT be validated since it can contain special characters for TeX.
+    }
+
     override fun toString(): String = this.name
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {

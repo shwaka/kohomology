@@ -46,7 +46,8 @@ class IndeterminateTest : FreeSpec({
         )
         val illegalSymbols = CharacterData(
             name = "illegal symbols",
-            characters = " +-*/.()[]<>%$\\",
+            characters = " +-*/.()[]<>%$\\" +
+                "　" /* U+3000, Ideographic Space (full-width space used in Japanese) */,
             beginning = false,
             nonBeginning = false,
         )

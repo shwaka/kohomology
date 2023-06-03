@@ -113,9 +113,11 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 
     init {
         // check that generators are in totalVectorSpace
-        for (vector in generator)
-            if (vector !in totalVectorSpace)
-                throw IllegalContextException("The vector $vector is not contained in the vector space $totalVectorSpace")
+        for (vector in generator) {
+            require(vector in totalVectorSpace) {
+                "The vector $vector is not contained in the vector space $totalVectorSpace"
+            }
+        }
     }
 
     fun contains(vector: Vector<B, S, V>): Boolean {

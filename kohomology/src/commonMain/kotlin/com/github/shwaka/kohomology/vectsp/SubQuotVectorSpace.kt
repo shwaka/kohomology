@@ -54,9 +54,11 @@ private class SubQuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Ma
 
     init {
         // check that generators are in totalVectorSpace
-        for (vector in subspaceGenerator + quotientGenerator)
-            if (vector !in totalVectorSpace)
-                throw IllegalContextException("The vector $vector is not contained in the vector space $totalVectorSpace")
+        for (vector in subspaceGenerator + quotientGenerator) {
+            require(vector in totalVectorSpace) {
+                "The vector $vector is not contained in the vector space $totalVectorSpace"
+            }
+        }
         debugOnly {
             // check that quotientGenerator is contained in subspaceGenerator
             val pivots = matrixSpace.context.run {

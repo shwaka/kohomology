@@ -39,6 +39,59 @@ public class StringIndeterminateName(public val name: String, tex: String? = nul
         result = 31 * result + tex.hashCode()
         return result
     }
+
+    public companion object {
+        private val alphabeticalCategories: List<CharCategory> = listOf(
+            CharCategory.LOWERCASE_LETTER, // Also contains greek letters.
+            CharCategory.UPPERCASE_LETTER,
+            // CharCategory.TITLECASE_LETTER, // Very few characters (about 30) and seems useless.
+            // CharCategory.MODIFIER_LETTER, // What is this category?
+            CharCategory.OTHER_LETTER, // Contains Japanese characters.
+        )
+        private val numericalCategories: List<CharCategory> = listOf(
+            CharCategory.DECIMAL_DIGIT_NUMBER,
+            // CharCategory.LETTER_NUMBER, // Contains roman numeral
+            // CharCategory.OTHER_NUMBER,
+        )
+        private val punctuationCategories: List<CharCategory> = listOf(
+            CharCategory.CONNECTOR_PUNCTUATION, // Contains _ (underscore)
+            // CharCategory.DASH_PUNCTUATION, // Contains - (minus)
+            // CharCategory.START_PUNCTUATION, // Contains (, [, {
+            // CharCategory.END_PUNCTUATION, // Contains ), ], }
+            // CharCategory.INITIAL_QUOTE_PUNCTUATION,
+            // CharCategory.FINAL_QUOTE_PUNCTUATION,
+            // CharCategory.OTHER_PUNCTUATION
+        )
+
+        // The following functions are internal for test.
+        internal fun isValidAsBeginningChar(char: Char): Boolean {
+            return char.category in
+                (this.alphabeticalCategories + this.punctuationCategories)
+        }
+
+        internal fun isValidAsNonBeginningChar(char: Char): Boolean {
+            return char.category in
+                (this.alphabeticalCategories + this.punctuationCategories + this.numericalCategories)
+        }
+
+        internal fun validateName(name: String) {
+            require(name.isNotEmpty()) {
+                "Indeterminate name must be non-empty."
+            }
+            require(this.isValidAsBeginningChar(name[0])) {
+                "Indeterminate name must start with " +
+                    "alphabets (including greeks) or underscore, " +
+                    "but ${name[0]} was given."
+            }
+            for (c in name.drop(1)) {
+                require(this.isValidAsNonBeginningChar(c)) {
+                    "Indeterminate name can only contain " +
+                        "alphabets (including greeks), numbers or underscore, " +
+                        "but $c was given."
+                }
+            }
+        }
+    }
 }
 
 public fun <D : Degree> Indeterminate(name: String, degree: D): Indeterminate<D, StringIndeterminateName> {

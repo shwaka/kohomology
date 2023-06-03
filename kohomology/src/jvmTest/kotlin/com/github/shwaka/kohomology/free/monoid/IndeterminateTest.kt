@@ -38,7 +38,7 @@ class IndeterminateTest : FreeSpec({
             beginning = false,
             nonBeginning = true,
         )
-        val underscore= CharacterData(
+        val underscore = CharacterData(
             name = "underscore",
             characters = "_",
             beginning = true,

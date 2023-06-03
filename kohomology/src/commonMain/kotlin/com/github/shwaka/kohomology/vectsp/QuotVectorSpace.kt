@@ -67,7 +67,7 @@ private class QuotFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matri
 
     private val rowEchelonForm: RowEchelonForm<S, V, M> by lazy {
         matrixSpace.context.run {
-            val joinedMatrix: M = matrixSpace.context.run {
+            val joinedMatrix: M = run {
                 val quotientMatrix = matrixSpace.fromVectors(quotientGenerator, totalVectorSpace.dim)
                 val id = matrixSpace.getIdentity(totalVectorSpace.dim)
                 listOf(quotientMatrix, id).join()

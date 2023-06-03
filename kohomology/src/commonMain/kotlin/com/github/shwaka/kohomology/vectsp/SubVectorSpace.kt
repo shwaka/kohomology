@@ -70,7 +70,7 @@ private class SubFactory<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 
     private val rowEchelonForm: RowEchelonForm<S, V, M> by lazy {
         matrixSpace.context.run {
-            val joinedMatrix: M = matrixSpace.context.run {
+            val joinedMatrix: M = run {
                 val subspaceMatrix = matrixSpace.fromVectors(generator, totalVectorSpace.dim)
                 val id = matrixSpace.getIdentity(totalVectorSpace.dim)
                 listOf(subspaceMatrix, id).join()

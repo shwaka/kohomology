@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.QuotBasis
 import com.github.shwaka.kohomology.vectsp.SubBasis
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
@@ -150,6 +151,25 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
                 degree + gLinearMapDegree
             }
             this[degree].induce(sourceSub[degree], targetSub[targetDegree])
+        }
+    }
+
+    public fun induce(
+        sourceQuot: QuotGVectorSpace<D, BS, S, V, M>,
+        targetQuot: QuotGVectorSpace<D, BT, S, V, M>,
+    ): GLinearMap<D, QuotBasis<BS, S, V>, QuotBasis<BT, S, V>, S, V, M> {
+        val gLinearMapDegree = this.degree
+        return GLinearMap(
+            sourceQuot, targetQuot,
+            this.degree,
+            this.matrixSpace,
+            this.name,
+        ) { degree ->
+            val targetDegree = this.degreeGroup.context.run {
+                // See the above definition of an overload concerning gLinearMapDegree
+                degree + gLinearMapDegree
+            }
+            this[degree].induce(sourceQuot[degree], targetQuot[targetDegree])
         }
     }
 

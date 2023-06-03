@@ -216,6 +216,37 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                     vectorSpace2.context.run { 2 * y }
                 )
             }
+            "test linearMap.induce for QuotVectorSpace" {
+                val (a, b) = vectorSpace1.getBasis()
+                val (x, y) = vectorSpace2.getBasis()
+                val vectors = vectorSpace2.context.run {
+                    listOf(x + y, x - y)
+                }
+                val f = LinearMap.fromVectors(vectorSpace1, vectorSpace2, matrixSpace, vectors)
+                val quotVectorSpace1 =
+                    vectorSpace1.context.run {
+                        QuotVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace1,
+                            quotientGenerator = listOf(a - b),
+                        )
+                    }
+                val quotVectorSpace2 =
+                    vectorSpace2.context.run {
+                        QuotVectorSpace(
+                            matrixSpace,
+                            totalVectorSpace = vectorSpace2,
+                            quotientGenerator = listOf(2 * y),
+                        )
+                    }
+                val proj1 = quotVectorSpace1.projection
+                val proj2 = quotVectorSpace2.projection
+                val g = f.induce(quotVectorSpace1, quotVectorSpace2)
+                vectorSpace2.context.run {
+                    g(proj1(a)) shouldBe proj2(x - y) // [x + y] = [x - y]
+                    g(proj1(b)) shouldBe proj2(x - y)
+                }
+            }
             "test linearMap.induce for SubQuotVectorSpace" {
                 val (a, b) = vectorSpace1.getBasis()
                 val (x, y) = vectorSpace2.getBasis()

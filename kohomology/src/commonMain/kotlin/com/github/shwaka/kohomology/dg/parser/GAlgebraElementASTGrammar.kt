@@ -44,11 +44,11 @@ internal class GAlgebraElementASTGrammar(val generators: List<String>) : Grammar
     // In "1/2*x", the whole "1/2" should be considered as a scalar.
     // If 'or' is taken in the other order, only "1" is considered as a scalar
     // and a ParseException is thrown at "/".
-    private val scalarParser: Parser<ASTNode.Scalar>
-        by (intParser and skip(div) and intParser map { (p, q) -> ASTNode.Scalar(p, q) }) or
-            (intParser map { n -> ASTNode.Scalar(n, 1) })
+    private val fractionParser: Parser<ASTNode.Fraction>
+        by (intParser and skip(div) and intParser map { (p, q) -> ASTNode.Fraction(p, q) }) or
+            (intParser map { n -> ASTNode.Fraction(n, 1) })
     private val termParser: Parser<ASTNode>
-        by scalarParser or genParser or minusParser or parenParser
+        by fractionParser or genParser or minusParser or parenParser
     private val powerParser: Parser<ASTNode>
         by (termParser and skip(pow) and intParser map { (node, n) -> ASTNode.Power(node, n) }) or
             termParser

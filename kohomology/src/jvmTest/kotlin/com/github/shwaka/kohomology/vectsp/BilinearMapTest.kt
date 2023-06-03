@@ -105,7 +105,38 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 f(w, y) shouldBe targetVectorSpace.zeroVector
                 f(v + w, x + y) shouldBe (2 * (a + b))
             }
-            "test bilinearMap.induce" {
+            "test bilinearMap.induce for QuotVectorSpace" {
+                val source1QuotVectorSpace = QuotVectorSpace(
+                    matrixSpace,
+                    totalVectorSpace = sourceVectorSpace1,
+                    quotientGenerator = listOf(),
+                )
+                val source2QuotVectorSpace = QuotVectorSpace(
+                    matrixSpace,
+                    totalVectorSpace = sourceVectorSpace2,
+                    quotientGenerator = listOf(y),
+                )
+                val targetQuotVectorSpace = QuotVectorSpace(
+                    matrixSpace,
+                    totalVectorSpace = targetVectorSpace,
+                    quotientGenerator = listOf(a - b),
+                )
+                val g = f.induce(
+                    source1QuotVectorSpace,
+                    source2QuotVectorSpace,
+                    targetQuotVectorSpace,
+                )
+
+                val p1 = source1QuotVectorSpace.projection
+                val p2 = source2QuotVectorSpace.projection
+                val q = targetQuotVectorSpace.projection
+                g(p1(v), p2(x)) shouldBe q(a)
+                g(p1(v), p2(x)) shouldBe q(b) // [a] = [b] in targetQuotVectorSpace
+                g(p1(w), p2(x)) shouldBe q(3 * a)
+                g(p1(v), p2(y)).isZero().shouldBeTrue()
+                g(p1(w), p2(y)).isZero().shouldBeTrue()
+            }
+            "test bilinearMap.induce for SubQuotVectorSpace" {
                 val source1SubQuotVectorSpace = SubQuotVectorSpace(
                     matrixSpace,
                     totalVectorSpace = sourceVectorSpace1,

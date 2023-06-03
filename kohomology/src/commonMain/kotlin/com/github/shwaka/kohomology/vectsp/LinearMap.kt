@@ -74,6 +74,9 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
     }
 
     public fun isIsomorphism(): Boolean {
+        if (this.source.dim != this.target.dim) {
+            return false
+        }
         return this.matrixSpace.context.run { this@LinearMap.matrix.isInvertible() }
     }
 

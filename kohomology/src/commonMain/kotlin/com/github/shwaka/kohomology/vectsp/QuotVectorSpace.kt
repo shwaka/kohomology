@@ -27,7 +27,7 @@ public data class QuotBasis<B : BasisName, S : Scalar, V : NumVector<S>>(
                 InternalPrintConfig(
                     coeffToString = internalPrintConfig.coeffToString,
                     basisToString = { basisName: QuotBasis<B, S, V> ->
-                        "(${printer(basisName.vector)})"
+                        "[${printer(basisName.vector)}]"
                     },
                     basisComparator = null,
                 )

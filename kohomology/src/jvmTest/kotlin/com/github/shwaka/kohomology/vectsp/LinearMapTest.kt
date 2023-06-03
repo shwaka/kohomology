@@ -140,6 +140,22 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 f.isIdentity().shouldBeFalse()
                 f.isNotIdentity().shouldBeTrue()
             }
+            "(identity map).isIsomorphism() should be true" {
+                val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
+                f.isIsomorphism().shouldBeTrue()
+            }
+            "f.isIsomorphism() should be false if different dimension" {
+                val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
+                val (p, q, _) = vectorSpaceOfDim3.getBasis()
+                val f = LinearMap.fromVectors(
+                    source = vectorSpace1,
+                    target = vectorSpaceOfDim3,
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(p, q),
+                )
+                (f.source.dim != f.target.dim).shouldBeTrue()
+                f.isIsomorphism().shouldBeFalse()
+            }
             "test addition" {
                 val matrix1 = matrixSpace.fromRowList(
                     listOf(

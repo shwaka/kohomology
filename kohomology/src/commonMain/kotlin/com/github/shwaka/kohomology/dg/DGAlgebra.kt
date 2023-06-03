@@ -48,8 +48,8 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
             }
         }
         return SubDGVectorSpace(
+            totalDGVectorSpace = this,
             subGVectorSpace = idealWithoutD,
-            differentialOnTotalGVectorSpace = this.differential,
         )
     }
 

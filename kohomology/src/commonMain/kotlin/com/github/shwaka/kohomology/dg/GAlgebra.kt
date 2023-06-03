@@ -51,7 +51,7 @@ public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumV
     }
 }
 
-public class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: GAlgebra<D, B, S, V, M>,
 ) : GAlgebraContext<D, B, S, V, M>,
     GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gAlgebra)

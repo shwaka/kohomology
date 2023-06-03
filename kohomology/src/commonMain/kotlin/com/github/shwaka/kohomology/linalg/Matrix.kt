@@ -160,7 +160,7 @@ public interface MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     }
 }
 
-public class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
 ) : MatrixContext<S, V, M>, NumVectorContext<S, V> by NumVectorContextImpl(matrixSpace.numVectorSpace)
 

@@ -26,7 +26,7 @@ public interface GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : N
         }
     }
 }
-public open class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal open class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
 ) : GLieAlgebraContext<D, B, S, V, M>,
     GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gLieAlgebra)

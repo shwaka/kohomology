@@ -201,7 +201,7 @@ public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : Nu
         this.fold(this@VectorContext.vectorSpace.zeroVector) { acc, v -> acc + v }
 }
 
-public class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+internal class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val vectorSpace: VectorSpace<B, S, V>
 ) : VectorContext<B, S, V>,
     NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)

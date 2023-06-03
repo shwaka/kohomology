@@ -33,7 +33,7 @@ public interface NumVectorContext<S : Scalar, V : NumVector<S>> : ScalarContext<
     public fun Map<Int, S>.toNumVector(dim: Int): V = this@NumVectorContext.numVectorSpace.fromValueMap(this, dim)
 }
 
-public class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
+internal class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
     override val numVectorSpace: NumVectorSpace<S, V>
 ) : NumVectorContext<S, V>, ScalarContext<S> by ScalarContextImpl(numVectorSpace.field)
 

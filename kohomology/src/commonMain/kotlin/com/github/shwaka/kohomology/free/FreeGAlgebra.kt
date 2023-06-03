@@ -40,7 +40,7 @@ public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scal
     }
 }
 
-public class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
 ) : FreeGAlgebraContext<D, I, S, V, M>,
     GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)

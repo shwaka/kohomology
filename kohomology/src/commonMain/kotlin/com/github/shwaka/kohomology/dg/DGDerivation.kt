@@ -49,6 +49,6 @@ private class DGDerivationImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val source: DGAlgebra<D, B, S, V, M>,
     gLinearMap: Derivation<D, B, S, V, M>,
 ) : DGDerivation<D, B, S, V, M>,
-    DGLinearMap<D, B, B, S, V, M> by DGLinearMapImpl(source, source, gLinearMap) {
+    DGLinearMap<D, B, B, S, V, M> by DGLinearMap(source, source, gLinearMap) {
     override val target: DGAlgebra<D, B, S, V, M> = source
 }

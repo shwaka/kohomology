@@ -190,7 +190,7 @@ public interface DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
     }
 }
 
-public class DGLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: DGVectorSpace<D, BS, S, V, M>,
     override val target: DGVectorSpace<D, BT, S, V, M>,
     gLinearMap: GLinearMap<D, BS, BT, S, V, M>,

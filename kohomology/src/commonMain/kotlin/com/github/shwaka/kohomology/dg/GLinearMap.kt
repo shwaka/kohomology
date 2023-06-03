@@ -303,7 +303,7 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
     }
 }
 
-public class GLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GLinearMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GVectorSpace<D, BS, S, V>,
     override val target: GVectorSpace<D, BT, S, V>,
     override val degree: D,

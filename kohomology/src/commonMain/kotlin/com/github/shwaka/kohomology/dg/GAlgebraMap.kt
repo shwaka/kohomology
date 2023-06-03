@@ -50,7 +50,7 @@ public interface GAlgebraMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
 }
 
 // override types of source and target
-public class GAlgebraMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GAlgebraMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val source: GAlgebra<D, BS, S, V, M>,
     override val target: GAlgebra<D, BT, S, V, M>,
     matrixSpace: MatrixSpace<S, V, M>,

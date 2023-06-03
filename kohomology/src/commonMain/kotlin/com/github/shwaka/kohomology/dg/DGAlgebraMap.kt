@@ -62,4 +62,4 @@ internal class DGAlgebraMapImpl<D : Degree, BS : BasisName, BT : BasisName, S : 
     override val target: DGAlgebra<D, BT, S, V, M>,
     gLinearMap: GAlgebraMap<D, BS, BT, S, V, M>,
 ) : DGAlgebraMap<D, BS, BT, S, V, M>,
-    DGLinearMap<D, BS, BT, S, V, M> by DGLinearMapImpl(source, target, gLinearMap)
+    DGLinearMap<D, BS, BT, S, V, M> by DGLinearMap(source, target, gLinearMap)

@@ -39,7 +39,7 @@ import kotlin.math.absoluteValue
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "GAlgebra should work well even when the list of generator is empty" {
+    "FreeGAlgebra should work well even when the list of generator is empty" {
         val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
         val freeGAlgebra = shouldNotThrowAny {
             FreeGAlgebra(matrixSpace, indeterminateList)

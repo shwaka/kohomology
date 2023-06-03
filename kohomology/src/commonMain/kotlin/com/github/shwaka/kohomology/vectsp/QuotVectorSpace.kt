@@ -55,6 +55,19 @@ public interface QuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M 
             )
             return QuotVectorSpaceImpl(factory)
         }
+
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            totalVectorSpace: VectorSpace<B, S, V>,
+            quotientGenerator: SubVectorSpace<B, S, V, M>,
+        ): QuotVectorSpace<B, S, V, M> {
+            val factory = QuotFactory(
+                matrixSpace,
+                totalVectorSpace,
+                quotientGenerator = quotientGenerator.generator,
+            )
+            return QuotVectorSpaceImpl(factory)
+        }
     }
 }
 

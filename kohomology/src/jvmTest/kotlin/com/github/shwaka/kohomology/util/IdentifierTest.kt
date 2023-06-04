@@ -9,6 +9,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
+import io.kotest.property.arbitrary.flatMap
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 
@@ -42,12 +43,10 @@ class IdentifierTest : FreeSpec({
         }
 
         "result of Identifier.format(intList) should be valid as successor" {
-            checkAll(Arb.int(0..5)) { n ->
-                checkAll(myArbList(Arb.int(), n)) { intList ->
-                    val formatted = Identifier.format(intList)
-                    shouldNotThrowAny {
-                        Identifier.validateName("_$formatted")
-                    }
+            checkAll(myArbList(Arb.int(), 0..5)) { intList ->
+                val formatted = Identifier.format(intList)
+                shouldNotThrowAny {
+                    Identifier.validateName("_$formatted")
                 }
             }
         }

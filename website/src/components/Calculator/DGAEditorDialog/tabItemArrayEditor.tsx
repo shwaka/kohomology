@@ -4,7 +4,7 @@ import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { generatorArrayToPrettyJson } from "../jsonUtils"
-import { RowComponentProps, SortableFields } from "./SortableFields"
+import { FormData, RowComponentProps, SortableFields } from "./SortableFields"
 import { TabItem } from "./TabDialog"
 import { useOverwritableTimeout } from "./useOverwritableTimeout"
 
@@ -177,7 +177,7 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
 }
 
 function ArrayEditorItem(
-  { draggableProps, index, register, errors, remove, getValues, trigger }: RowComponentProps<GeneratorFormInput>
+  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
 ): JSX.Element {
   const generatorName = getValues().generatorArray[index].name
 
@@ -278,6 +278,9 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
     event.preventDefault()
     submit()
   }
+  const formData: FormData<GeneratorFormInput> = {
+    register, remove, errors, getValues, trigger
+  }
   // <button hidden type="submit"/> is necessary for onSubmit in form
   return (
     <form onSubmit={onSubmit}>
@@ -285,7 +288,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
         <SortableFields
           RowComponent={ArrayEditorItem}
           Container={({ children }) => <Stack spacing={2}>{children}</Stack>}
-          {...{ register, fields, remove, move, errors, getValues, trigger }}
+          {...{ fields, move, formData }}
         />
         <Button
           variant="outlined"

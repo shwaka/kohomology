@@ -6,16 +6,22 @@ import { CSS } from "@dnd-kit/utilities"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayPath, FieldArrayWithId, FieldErrorsImpl, FieldValues, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
-export interface RowComponentProps<
+export interface FormData<
   TFieldValues extends FieldValues = FieldValues,
 > {
-  draggableProps: DraggableAttributes | (DraggableAttributes & SyntheticListenerMap)
   register: UseFormRegister<TFieldValues>
-  index: number
   remove: UseFieldArrayRemove
   errors: FieldErrorsImpl<DeepRequired<TFieldValues>>
   getValues: UseFormGetValues<TFieldValues>
   trigger: UseFormTrigger<TFieldValues>
+}
+
+export interface RowComponentProps<
+  TFieldValues extends FieldValues = FieldValues,
+> {
+  draggableProps: DraggableAttributes | (DraggableAttributes & SyntheticListenerMap)
+  index: number
+  formData: FormData<TFieldValues>
 }
 
 interface SortableRowProps<
@@ -23,30 +29,22 @@ interface SortableRowProps<
 > {
   id: string
   RowComponent: (props: RowComponentProps<TFieldValues>) => JSX.Element
-  register: UseFormRegister<TFieldValues>
   index: number
-  remove: UseFieldArrayRemove
-  errors: FieldErrorsImpl<DeepRequired<TFieldValues>>
-  getValues: UseFormGetValues<TFieldValues>
-  trigger: UseFormTrigger<TFieldValues>
+  formData: FormData<TFieldValues>
 }
 
 function SortableRow<TFieldValues extends FieldValues = FieldValues>(
-  { id, RowComponent, register, index, remove, errors, getValues, trigger }: SortableRowProps<TFieldValues>
+  { id, RowComponent, index, formData }: SortableRowProps<TFieldValues>
 ): JSX.Element {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   }
-  const rowComponentProps = {
+  const rowComponentProps: RowComponentProps<TFieldValues> = {
     draggableProps: { ...attributes, ...listeners },
-    register,
     index,
-    remove,
-    errors,
-    getValues,
-    trigger,
+    formData
   }
   return (
     <div ref={setNodeRef} style={style}>
@@ -63,12 +61,8 @@ export interface SortableFieldsProps<
   // TKeyName extends string = "id" // directly specify "id" to avoid error (why error?)
 > {
   fields: FieldArrayWithId<TFieldValues, TFieldArrayName, "id">[]
-  remove: UseFieldArrayRemove
   move: UseFieldArrayMove
-  register: UseFormRegister<TFieldValues>
-  errors: FieldErrorsImpl<DeepRequired<TFieldValues>>
-  getValues: UseFormGetValues<TFieldValues>
-  trigger: UseFormTrigger<TFieldValues>
+  formData: FormData<TFieldValues>
   RowComponent: (props: RowComponentProps<TFieldValues>) => JSX.Element
   Container: (props: { children: ReactNode}) => JSX.Element
 }
@@ -77,7 +71,7 @@ export function SortableFields<
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
   // TKeyName extends string = "id"
 >(
-  { fields, remove, move, register, errors, getValues, trigger, RowComponent, Container }: SortableFieldsProps<TFieldValues, TFieldArrayName>
+  { fields, move, formData, RowComponent, Container }: SortableFieldsProps<TFieldValues, TFieldArrayName>
 ): JSX.Element {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -85,6 +79,8 @@ export function SortableFields<
       coordinateGetter: sortableKeyboardCoordinates,
     })
   )
+
+  const { trigger } = formData
 
   function handleDragEnd({ active, over }: DragEndEvent): void {
     trigger() // trigger input validation
@@ -118,7 +114,7 @@ export function SortableFields<
             <SortableRow
               key={field.id}
               id={field.id}
-              {...{ index, register, errors, getValues, trigger, remove }}
+              {...{ index, formData }}
               RowComponent={RowComponent}
             />
           ))}

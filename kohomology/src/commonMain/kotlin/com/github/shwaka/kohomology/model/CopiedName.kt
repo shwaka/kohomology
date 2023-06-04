@@ -17,7 +17,7 @@ import com.github.shwaka.kohomology.util.ShowShift
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
 /**
- * An implementation of [IndeterminateName] representing a shift or duplicate of [name].
+ * An implementation of [IndeterminateName] representing a shift or duplicate of [original].
  *
  * The option showShiftExponentInIdentifier is provided to the constructor
  * since necessity to print exponent (i.e. uniqueness of exponents) should be decided
@@ -25,7 +25,7 @@ private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
  * If it was provided to [PrintConfig], it would be impossible to decide.
  */
 public class CopiedName<D : Degree, I : IndeterminateName>(
-    public val name: I,
+    public val original: I,
     public val shift: D,
     public val index: Int? = null,
     showShiftExponentInIdentifier: Boolean = true,
@@ -33,7 +33,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
     // CopiedName.identifier is computed during initialization to validate its name.
     // This has no performance effect since CopiedName is created very few times
     // (only in initialization of some DGAlgebras, not their elements).
-    override val identifier: Identifier = CopiedName.getIdentifier(name, shift, index, showShiftExponentInIdentifier)
+    override val identifier: Identifier = CopiedName.getIdentifier(original, shift, index, showShiftExponentInIdentifier)
 
     override fun toString(): String {
         return this.toPlain(ShowShift.S_WITH_DEGREE)
@@ -70,7 +70,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
                 }
             }
         }
-        return "$shiftString${this.name.toString(PrintConfig(PrintType.PLAIN))}$indexString"
+        return "$shiftString${this.original.toString(PrintConfig(PrintType.PLAIN))}$indexString"
     }
 
     private fun toTex(showShift: ShowShift): String {
@@ -90,9 +90,9 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
                 else -> "s^{${this.shift}}"
             }
         }
-        // The brace surrounding ${this.name} is necessary to avoid "double subscript"
-        //   when this.name contains a subscript
-        return "$shiftString{${this.name.toString(PrintConfig(PrintType.TEX))}}$indexString"
+        // The brace surrounding ${this.original} is necessary to avoid "double subscript"
+        //   when this.original contains a subscript
+        return "$shiftString{${this.original.toString(PrintConfig(PrintType.TEX))}}$indexString"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -101,7 +101,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
 
         other as CopiedName<*, *>
 
-        if (name != other.name) return false
+        if (original != other.original) return false
         if (shift != other.shift) return false
         if (index != other.index) return false
 
@@ -109,7 +109,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
     }
 
     override fun hashCode(): Int {
-        var result = name.hashCode()
+        var result = original.hashCode()
         result = 31 * result + shift.hashCode()
         result = 31 * result + (index ?: 0)
         return result
@@ -147,14 +147,14 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
         }
 
         private fun <D : Degree, I : IndeterminateName> getIdentifier(
-            name: I,
+            original: I,
             shift: D,
             index: Int?,
             showShiftExponent: Boolean,
         ): Identifier {
             val indexString: String = index?.toString() ?: ""
             val shiftString: String = this.getShiftString(shift, showShiftExponent)
-            val originalName = name.identifier.value
+            val originalName = original.identifier.value
             return Identifier("$shiftString$originalName$indexString")
         }
     }

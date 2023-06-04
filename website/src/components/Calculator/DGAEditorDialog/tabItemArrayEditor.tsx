@@ -1,13 +1,10 @@
-import { closestCenter, DndContext, DragEndEvent, KeyboardSensor, PointerSensor, SensorDescriptor, SensorOptions, useSensor, useSensors } from "@dnd-kit/core"
-import { restrictToParentElement } from "@dnd-kit/modifiers"
-import { SortableContext, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from "@dnd-kit/sortable"
-import { CSS } from "@dnd-kit/utilities"
 import { Add, Delete, DragHandle } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import React, { useCallback } from "react"
-import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { generatorArrayToPrettyJson } from "../jsonUtils"
+import { RowComponentProps, SortableFields } from "./SortableFields"
 import { TabItem } from "./TabDialog"
 import { useOverwritableTimeout } from "./useOverwritableTimeout"
 
@@ -64,28 +61,6 @@ export function useTabItemArrayEditor(args: {
     control,
     name: "generatorArray",
   })
-  const sensors = useSensors(
-    useSensor(PointerSensor),
-    useSensor(KeyboardSensor, {
-      coordinateGetter: sortableKeyboardCoordinates,
-    })
-  )
-
-  function handleDragEnd({ active, over }: DragEndEvent): void {
-    trigger() // trigger input validation
-
-    if (over === null) {
-      throw new Error("over is null")
-    }
-
-    if (active.id !== over.id) {
-      console.log(`replace: ${active.id}, ${over.id}`)
-      const oldIndex = fields.map((field) => field.id).indexOf(active.id as string)
-      const newIndex = fields.map((field) => field.id).indexOf(over.id as string)
-
-      move(oldIndex, newIndex)
-    }
-  }
 
   function onSubmit(closeDialog: () => void): void {
     handleSubmit(
@@ -111,7 +86,7 @@ export function useTabItemArrayEditor(args: {
     return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
   }
   const arrayEditorProps: Omit<ArrayEditorProps, "submit"> = {
-    register, errors, fields, append, remove, getValues, trigger, sensors, handleDragEnd,
+    register, errors, fields, append, remove, getValues, trigger, move,
   }
   return {
     label: "Array",
@@ -201,22 +176,9 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
   )
 }
 
-interface ArrayEditorItemProps {
-  id: string
-  index: number
-  register: UseFormRegister<GeneratorFormInput>
-  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
-  remove: UseFieldArrayRemove
-  getValues: UseFormGetValues<GeneratorFormInput>
-  trigger: UseFormTrigger<GeneratorFormInput>
-}
-
-function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigger }: ArrayEditorItemProps): JSX.Element {
-  const { attributes, listeners, setNodeRef: setSortableNodeRef, transform, transition } = useSortable({ id })
-  const sortableStyle = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  }
+function ArrayEditorItem(
+  { draggableProps, index, register, errors, removeThisRow, getValues, trigger }: RowComponentProps<GeneratorFormInput>
+): JSX.Element {
   const generatorName = getValues().generatorArray[index].name
 
   const setOverwritableTimeout = useOverwritableTimeout()
@@ -226,7 +188,7 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
   )
 
   return (
-    <div data-testid="ArrayEditor-row" ref={setSortableNodeRef} style={sortableStyle}>
+    <div data-testid="ArrayEditor-row">
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
           <TextField
@@ -277,14 +239,14 @@ function ArrayEditorItem({ id, index, register, errors, remove, getValues, trigg
           />
           <Tooltip title="Delete this generator">
             <IconButton
-              onClick={() => { remove(index); trigger() }}
+              onClick={() => { removeThisRow(); trigger() }}
               size="small"
             >
               <Delete fontSize="small"/>
             </IconButton>
           </Tooltip>
           <IconButton
-            {...attributes} {...listeners}
+            {...draggableProps}
             style={{
               cursor: "grab",
               touchAction: "none",
@@ -307,12 +269,11 @@ interface ArrayEditorProps {
   remove: UseFieldArrayRemove
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
+  move: UseFieldArrayMove
   submit: () => void
-  sensors: SensorDescriptor<SensorOptions>[]
-  handleDragEnd: (event: DragEndEvent) => void
 }
 
-function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, submit, sensors, handleDragEnd }: ArrayEditorProps): JSX.Element {
+function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): JSX.Element {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     submit()
@@ -321,24 +282,11 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
   return (
     <form onSubmit={onSubmit}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
-        <DndContext
-          sensors={sensors}
-          collisionDetection={closestCenter}
-          onDragEnd={handleDragEnd}
-          modifiers={[restrictToParentElement]}
-        >
-          <SortableContext
-            items={fields}
-            strategy={verticalListSortingStrategy}
-          >
-            {fields.map((field, index) => (
-              <ArrayEditorItem
-                key={field.id} id={field.id}
-                {...{index, register, errors, remove, getValues, trigger}}
-              />
-            ))}
-          </SortableContext>
-        </DndContext>
+        <SortableFields
+          RowComponent={ArrayEditorItem}
+          Container={({ children }) => <Stack spacing={2}>{children}</Stack>}
+          {...{ register, fields, remove, move, errors, getValues, trigger }}
+        />
         <Button
           variant="outlined"
           onClick={() => append({

@@ -1009,7 +1009,7 @@ $dokka.location:com.github.shwaka.kohomology.model/CopiedName/equals/#kotlin.Any
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/hashCode/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/hash-code.html
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/identifier/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/identifier.html
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/index/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/--index--.html
-$dokka.location:com.github.shwaka.kohomology.model/CopiedName/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/name.html
+$dokka.location:com.github.shwaka.kohomology.model/CopiedName/original/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/original.html
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/shift/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/shift.html
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/to-string.html
 $dokka.location:com.github.shwaka.kohomology.model/CopiedName/toString/#com.github.shwaka.kohomology.util.PrintConfig/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.model/-copied-name/to-string.html
@@ -1428,7 +1428,7 @@ $dokka.location:com.github.shwaka.kohomology.util/ComparablePair/second/#/Pointi
 $dokka.location:com.github.shwaka.kohomology.util/Identifier.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-identifier/-companion/index.html
 $dokka.location:com.github.shwaka.kohomology.util/Identifier///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-identifier/index.html
 $dokka.location:com.github.shwaka.kohomology.util/Identifier/Identifier/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-identifier/-identifier.html
-$dokka.location:com.github.shwaka.kohomology.util/Identifier/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-identifier/name.html
+$dokka.location:com.github.shwaka.kohomology.util/Identifier/value/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-identifier/value.html
 $dokka.location:com.github.shwaka.kohomology.util/InternalPrintConfig.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-internal-print-config/-companion/index.html
 $dokka.location:com.github.shwaka.kohomology.util/InternalPrintConfig.Companion/default/#com.github.shwaka.kohomology.util.PrintConfig/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-internal-print-config/-companion/default.html
 $dokka.location:com.github.shwaka.kohomology.util/InternalPrintConfig///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-internal-print-config/index.html
@@ -1452,7 +1452,7 @@ $dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier.Companion/fr
 $dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier.Companion/fromIntList/#kotlin.collections.List[kotlin.Int]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-partial-identifier/-companion/from-int-list.html
 $dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-partial-identifier/index.html
 $dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier/PartialIdentifier/#kotlin.String/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-partial-identifier/-partial-identifier.html
-$dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-partial-identifier/name.html
+$dokka.location:com.github.shwaka.kohomology.util/PartialIdentifier/value/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-partial-identifier/value.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/index.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/PrintConfig/#com.github.shwaka.kohomology.util.PrintType#kotlin.String#kotlin.String#kotlin.String#com.github.shwaka.kohomology.util.ShowShift/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/-print-config.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/afterCoeff/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/after-coeff.html

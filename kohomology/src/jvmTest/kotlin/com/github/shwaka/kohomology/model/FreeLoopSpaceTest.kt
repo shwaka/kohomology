@@ -275,9 +275,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
             }
             "parse test".config(tags = setOf(parseTag)) {
                 freeLoopSpace.parse("x") shouldBe x
-                freeLoopSpace.parse("sx") shouldBe sx
+                freeLoopSpace.parse("s_1_m2x") shouldBe sx
                 freeLoopSpace.parse("y") shouldBe y
-                freeLoopSpace.parse("sy") shouldBe sy
+                freeLoopSpace.parse("s_1_m2y") shouldBe sy
             }
         }
     }

@@ -17,7 +17,7 @@ public class StringIndeterminateName(name: String, tex: String? = null) : Indete
     // To validate name, Identifier(name) must be called during initialization.
     // (i.e. `by lazy {...}` or `get() = ...` cannot be used)
     override val identifier: Identifier = Identifier(name)
-    public val name: String = identifier.name
+    public val name: String = identifier.value
     public val tex: String = tex ?: name
 
     override fun toString(): String = this.name

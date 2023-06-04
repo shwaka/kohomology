@@ -183,7 +183,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
     // public since this is used in kohomology-js
     public fun getGeneratorsForParser(): List<Pair<String, GVector<D, Monomial<D, I>, S, V>>> {
         return this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
-            Pair(indeterminate.name.identifier.name, generator)
+            Pair(indeterminate.name.identifier.value, generator)
         }
     }
 

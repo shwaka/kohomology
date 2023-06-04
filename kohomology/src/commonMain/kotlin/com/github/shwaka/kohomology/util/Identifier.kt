@@ -22,9 +22,9 @@ private val punctuationCategories: List<CharCategory> = listOf(
     // CharCategory.OTHER_PUNCTUATION
 )
 
-public data class PartialIdentifier(val name: String) {
+public data class PartialIdentifier(val value: String) {
     init {
-        PartialIdentifier.validateName(name)
+        PartialIdentifier.validateName(value)
     }
 
     public companion object {
@@ -41,7 +41,7 @@ public data class PartialIdentifier(val name: String) {
         }
 
         public fun fromIntList(intList: List<Int>): PartialIdentifier {
-            val name = intList.joinToString("_") { PartialIdentifier.fromInt(it).name }
+            val name = intList.joinToString("_") { PartialIdentifier.fromInt(it).value }
             return PartialIdentifier(name)
         }
 
@@ -64,9 +64,9 @@ public data class PartialIdentifier(val name: String) {
     }
 }
 
-public data class Identifier(val name: String) {
+public data class Identifier(val value: String) {
     init {
-        Identifier.validateName(name)
+        Identifier.validateName(value)
     }
 
     public companion object {

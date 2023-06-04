@@ -140,7 +140,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
                 // Here shift is assumed to be non-zero
                 return "s"
             }
-            return when (val shiftIdentifierName = shift.identifier.name) {
+            return when (val shiftIdentifierName = shift.identifier.value) {
                 "1" -> "s"
                 else -> "s_$shiftIdentifierName"
             }
@@ -154,7 +154,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
         ): Identifier {
             val indexString: String = index?.toString() ?: ""
             val shiftString: String = this.getShiftString(shift, showShiftExponent)
-            val originalName = name.identifier.name
+            val originalName = name.identifier.value
             return Identifier("$shiftString$originalName$indexString")
         }
     }

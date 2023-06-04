@@ -17,7 +17,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     // Previously, "0" could not be used as a scalar and "zero" is used for such purpose.
     // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
-    private val gen by charCategoryToken(
+    private val id by charCategoryToken(
         Identifier.firstCharCategoryList,
         PartialIdentifier.charCategoryList,
     )
@@ -35,8 +35,8 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     @Suppress("UNUSED")
     private val ws by regexToken("\\s*", ignore = true)
 
-    private val genParser: Parser<ASTNode> by
-    (gen use { ASTNode.Generator(text) }) or
+    private val idParser: Parser<ASTNode> by
+    (id use { ASTNode.Identifier(text) }) or
         (zero use { ASTNode.Zero })
 
     private val intParser: Parser<Int> by
@@ -58,7 +58,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
         (intParser map { n -> ASTNode.Fraction(n, 1) })
 
     private val termParser: Parser<ASTNode> by
-    fractionParser or genParser or minusParser or parenParser
+    fractionParser or idParser or minusParser or parenParser
 
     private val powerParser: Parser<ASTNode> by
     (termParser and skip(pow) and intParser map { (node, n) -> ASTNode.Power(node, n) }) or

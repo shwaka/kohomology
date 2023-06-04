@@ -90,7 +90,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     ): GVectorOrZero<D, B, S, V> {
         return when (astNode) {
             is ASTNode.Zero -> this.zeroGVector
-            is ASTNode.Generator -> generators.find { it.first == astNode.name }?.second
+            is ASTNode.Identifier -> generators.find { it.first == astNode.name }?.second
                 ?: throw Exception(
                     """
                         Invalid generator name: ${astNode.name}

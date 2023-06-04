@@ -6,6 +6,22 @@ public data class Identifier(val name: String) {
     }
 
     public companion object {
+        public fun format(int: Int): String {
+            return if (int >= 0) {
+                int.toString()
+            } else {
+                // Since "-" is not available in Identifier,
+                // replace it with "m", the initial character of "minus".
+                // Note that -int does not work for Int.MIN_VALUE.
+                val withoutSign = int.toString().removePrefix("-")
+                "m$withoutSign"
+            }
+        }
+
+        public fun format(intList: List<Int>): String {
+            return intList.joinToString("_") { Identifier.format(it) }
+        }
+
         private val alphabeticalCategories: List<CharCategory> = listOf(
             CharCategory.LOWERCASE_LETTER, // Also contains greek letters.
             CharCategory.UPPERCASE_LETTER,

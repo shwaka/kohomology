@@ -1,11 +1,16 @@
 package com.github.shwaka.kohomology.util
 
+import com.github.shwaka.kohomology.myArbList
 import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.checkAll
 
 val identifierTag = NamedTag("Identifier")
 
@@ -18,6 +23,42 @@ data class CharacterData(
 
 class IdentifierTest : FreeSpec({
     tags(identifierTag)
+
+    "test Identifier.format" - {
+        "result of Identifier.format(int) should be valid as successor" {
+            checkAll(Arb.int()) { n ->
+                val formatted = Identifier.format(n)
+                shouldNotThrowAny {
+                    Identifier.validateName("_$formatted")
+                }
+            }
+        }
+
+        "check return value of Identifier.format(int)" {
+            Identifier.format(3) shouldBe "3"
+            Identifier.format(0) shouldBe "0"
+            Identifier.format(-1) shouldBe "m1"
+            Identifier.format(-10) shouldBe "m10"
+        }
+
+        "result of Identifier.format(intList) should be valid as successor" {
+            checkAll(Arb.int(0..5)) { n ->
+                checkAll(myArbList(Arb.int(), n)) { intList ->
+                    val formatted = Identifier.format(intList)
+                    shouldNotThrowAny {
+                        Identifier.validateName("_$formatted")
+                    }
+                }
+            }
+        }
+
+        "check return value of Identifier.format(intList)" {
+            Identifier.format(emptyList()) shouldBe ""
+            Identifier.format(listOf(1, 2, 3)) shouldBe "1_2_3"
+            Identifier.format(listOf(1, -2, -3)) shouldBe "1_m2_m3"
+            Identifier.format(listOf(-1, 2)) shouldBe "m1_2"
+        }
+    }
 
     "test isValidAsFirstChar and isValidAsNonFirstChar" - {
         val latinAlphabets = CharacterData(

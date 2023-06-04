@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
+import com.github.shwaka.kohomology.util.PartialIdentifier
 import com.github.shwaka.kohomology.util.Sign
 
 /**
@@ -9,6 +10,9 @@ import com.github.shwaka.kohomology.util.Sign
  * See [IntDegree] and [MultiDegree] for examples.
  */
 public interface Degree {
+    /** The name of this [Degree] containing only alphanumeric characters and underscore. */
+    public val identifier: PartialIdentifier
+
     /** Returns `true` if the degree is zero. */
     public fun isZero(): Boolean
 

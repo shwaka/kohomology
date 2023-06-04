@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.dg.degree
 
+import com.github.shwaka.kohomology.util.PartialIdentifier
 import com.github.shwaka.kohomology.util.isEven
 
 /** An element of [SuperDegreeGroup]. */
@@ -8,6 +9,8 @@ public sealed class SuperDegree : Degree {
 }
 /** The even element of [SuperDegreeGroup]. */
 public object EvenSuperDegree : SuperDegree() {
+    override val identifier: PartialIdentifier
+        get() = PartialIdentifier("0")
     override fun isEven(): Boolean = true
     override fun isZero(): Boolean = true
     override fun isOne(): Boolean = false
@@ -15,6 +18,8 @@ public object EvenSuperDegree : SuperDegree() {
 }
 /** The odd element of [SuperDegreeGroup]. */
 public object OddSuperDegree : SuperDegree() {
+    override val identifier: PartialIdentifier
+        get() = PartialIdentifier("1")
     override fun isEven(): Boolean = false
     override fun isZero(): Boolean = false
     override fun isOne(): Boolean = true

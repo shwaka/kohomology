@@ -1,9 +1,14 @@
 package com.github.shwaka.kohomology.dg.degree
 
+import com.github.shwaka.kohomology.util.PartialIdentifier
+
 /**
  * Wrapper of [Int] as an element of [IntDegreeGroup].
  */
 public data class IntDegree(val value: Int) : Degree {
+    override val identifier: PartialIdentifier
+        get() = PartialIdentifier.fromInt(value)
+
     override fun isEven(): Boolean {
         return (this.value % 2 == 0)
     }

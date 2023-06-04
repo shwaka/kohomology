@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.dg.degree
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
+import com.github.shwaka.kohomology.util.PartialIdentifier
 import com.github.shwaka.kohomology.util.isEven
 import com.github.shwaka.kohomology.util.isOdd
 
@@ -15,6 +16,9 @@ public class MultiDegree(
     public val constantTerm: Int,
     public val coeffList: IntArray
 ) : Degree {
+    override val identifier: PartialIdentifier
+        get() = PartialIdentifier.fromIntList(coeffList.toList())
+
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->
             if (oddIndices.isNotEmpty()) {

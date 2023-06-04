@@ -115,7 +115,6 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
         return result
     }
 
-
     public companion object {
         public fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(
             printConfig: PrintConfig,

@@ -9,7 +9,6 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.flatMap
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
 
@@ -25,37 +24,35 @@ data class CharacterData(
 class IdentifierTest : FreeSpec({
     tags(identifierTag)
 
-    "test Identifier.format" - {
-        "result of Identifier.format(int) should be valid as successor" {
+    "test PartialIdentifier.fromInt and fromIntList" - {
+        "PartialIdentifier.fromInt(int) should not throw" {
             checkAll(Arb.int()) { n ->
-                val formatted = Identifier.format(n)
                 shouldNotThrowAny {
-                    Identifier.validateName("_$formatted")
+                    PartialIdentifier.fromInt(n)
                 }
             }
         }
 
-        "check return value of Identifier.format(int)" {
-            Identifier.format(3) shouldBe "3"
-            Identifier.format(0) shouldBe "0"
-            Identifier.format(-1) shouldBe "m1"
-            Identifier.format(-10) shouldBe "m10"
+        "check return value of PartialIdentifier.fromInt(int)" {
+            PartialIdentifier.fromInt(3) shouldBe PartialIdentifier("3")
+            PartialIdentifier.fromInt(0) shouldBe PartialIdentifier("0")
+            PartialIdentifier.fromInt(-1) shouldBe PartialIdentifier("m1")
+            PartialIdentifier.fromInt(-10) shouldBe PartialIdentifier("m10")
         }
 
-        "result of Identifier.format(intList) should be valid as successor" {
+        "result of PartialIdentifier.fromIntList(intList) should be valid as successor" {
             checkAll(myArbList(Arb.int(), 0..5)) { intList ->
-                val formatted = Identifier.format(intList)
                 shouldNotThrowAny {
-                    Identifier.validateName("_$formatted")
+                    PartialIdentifier.fromIntList(intList)
                 }
             }
         }
 
-        "check return value of Identifier.format(intList)" {
-            Identifier.format(emptyList()) shouldBe ""
-            Identifier.format(listOf(1, 2, 3)) shouldBe "1_2_3"
-            Identifier.format(listOf(1, -2, -3)) shouldBe "1_m2_m3"
-            Identifier.format(listOf(-1, 2)) shouldBe "m1_2"
+        "check return value of PartialIdentifier.fromIntList(intList)" {
+            PartialIdentifier.fromIntList(emptyList()) shouldBe PartialIdentifier("")
+            PartialIdentifier.fromIntList(listOf(1, 2, 3)) shouldBe PartialIdentifier("1_2_3")
+            PartialIdentifier.fromIntList(listOf(1, -2, -3)) shouldBe PartialIdentifier("1_m2_m3")
+            PartialIdentifier.fromIntList(listOf(-1, 2)) shouldBe PartialIdentifier("m1_2")
         }
     }
 
@@ -110,7 +107,7 @@ class IdentifierTest : FreeSpec({
 
             "isValidAsNonFirstChar should be ${characterData.validAtSuccessor} for ${characterData.name}" {
                 characterData.characters.toList().forAll { char ->
-                    Identifier.isValidAsNonFirstChar(char) shouldBe
+                    PartialIdentifier.isValidChar(char) shouldBe
                         characterData.validAtSuccessor
                 }
             }

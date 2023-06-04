@@ -11,6 +11,7 @@ import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.shwaka.kohomology.util.Identifier
+import com.github.shwaka.kohomology.util.PartialIdentifier
 
 internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     // Previously, "0" could not be used as a scalar and "zero" is used for such purpose.
@@ -18,7 +19,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     private val zero by literalToken("zero")
     private val gen by charCategoryToken(
         Identifier.firstCharCategoryList,
-        Identifier.nonFirstCharCategoryList,
+        PartialIdentifier.charCategoryList,
     )
     private val int by regexToken("\\d+")
     private val lpar by literalToken("(")

@@ -22,6 +22,16 @@ private val punctuationCategories: List<CharCategory> = listOf(
     // CharCategory.OTHER_PUNCTUATION
 )
 
+/**
+ * An identifier for [com.github.shwaka.kohomology.dg.degree.Degree],
+ * which wraps and validates the string property [value].
+ *
+ * This is named as "partial" identifier
+ * since this represents a (non-initial) substring of [Identifier].
+ *
+ * This is used to determine [com.github.shwaka.kohomology.model.CopiedName.identifier]
+ * from its shift degree.
+ */
 public data class PartialIdentifier(val value: String) {
     init {
         PartialIdentifier.validateName(value)
@@ -64,6 +74,14 @@ public data class PartialIdentifier(val value: String) {
     }
 }
 
+/**
+ * An identifier for [com.github.shwaka.kohomology.free.monoid.IndeterminateName],
+ * which wraps and validates the string property [value].
+ *
+ * This is used in [com.github.shwaka.kohomology.free.FreeGAlgebra.getGeneratorsForParser]
+ * to determine the string representation of an instance of
+ * [com.github.shwaka.kohomology.free.monoid.Indeterminate].
+ */
 public data class Identifier(val value: String) {
     init {
         Identifier.validateName(value)

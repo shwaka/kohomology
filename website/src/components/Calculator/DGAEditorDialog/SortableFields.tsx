@@ -12,7 +12,7 @@ export interface RowComponentProps<
   draggableProps: DraggableAttributes | (DraggableAttributes & SyntheticListenerMap)
   register: UseFormRegister<TFieldValues>
   index: number
-  removeThisRow: () => void
+  remove: UseFieldArrayRemove
   errors: FieldErrorsImpl<DeepRequired<TFieldValues>>
   getValues: UseFormGetValues<TFieldValues>
   trigger: UseFormTrigger<TFieldValues>
@@ -25,14 +25,14 @@ interface SortableRowProps<
   RowComponent: (props: RowComponentProps<TFieldValues>) => JSX.Element
   register: UseFormRegister<TFieldValues>
   index: number
-  removeThisRow: () => void
+  remove: UseFieldArrayRemove
   errors: FieldErrorsImpl<DeepRequired<TFieldValues>>
   getValues: UseFormGetValues<TFieldValues>
   trigger: UseFormTrigger<TFieldValues>
 }
 
 function SortableRow<TFieldValues extends FieldValues = FieldValues>(
-  { id, RowComponent, register, index, removeThisRow, errors, getValues, trigger }: SortableRowProps<TFieldValues>
+  { id, RowComponent, register, index, remove, errors, getValues, trigger }: SortableRowProps<TFieldValues>
 ): JSX.Element {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
   const style = {
@@ -43,7 +43,7 @@ function SortableRow<TFieldValues extends FieldValues = FieldValues>(
     draggableProps: { ...attributes, ...listeners },
     register,
     index,
-    removeThisRow,
+    remove,
     errors,
     getValues,
     trigger,
@@ -118,8 +118,7 @@ export function SortableFields<
             <SortableRow
               key={field.id}
               id={field.id}
-              {...{ index, register, errors, getValues, trigger }}
-              removeThisRow={() => remove(index)}
+              {...{ index, register, errors, getValues, trigger, remove }}
               RowComponent={RowComponent}
             />
           ))}

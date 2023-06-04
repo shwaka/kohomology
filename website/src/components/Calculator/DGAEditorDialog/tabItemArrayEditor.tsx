@@ -177,7 +177,7 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
 }
 
 function ArrayEditorItem(
-  { draggableProps, index, register, errors, removeThisRow, getValues, trigger }: RowComponentProps<GeneratorFormInput>
+  { draggableProps, index, register, errors, remove, getValues, trigger }: RowComponentProps<GeneratorFormInput>
 ): JSX.Element {
   const generatorName = getValues().generatorArray[index].name
 
@@ -239,7 +239,7 @@ function ArrayEditorItem(
           />
           <Tooltip title="Delete this generator">
             <IconButton
-              onClick={() => { removeThisRow(); trigger() }}
+              onClick={() => { remove(index); trigger() }}
               size="small"
             >
               <Delete fontSize="small"/>

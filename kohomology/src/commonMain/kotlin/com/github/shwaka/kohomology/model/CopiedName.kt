@@ -16,15 +16,24 @@ import com.github.shwaka.kohomology.util.ShowShift
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
+/**
+ * An implementation of [IndeterminateName] representing a shift or duplicate of [name].
+ *
+ * The option showShiftExponent is provided to the constructor
+ * since necessity to print exponent (i.e. uniqueness of exponents) should be decided
+ * in the caller of the constructor (e.g. FreeLoopSpace).
+ * If it was provided to [PrintConfig], it would be impossible to decide.
+ */
 public class CopiedName<D : Degree, I : IndeterminateName>(
     public val name: I,
     public val shift: D,
     public val index: Int? = null,
+    showShiftExponent: Boolean = true,
 ) : IndeterminateName {
     // CopiedName.identifier is computed during initialization to validate its name.
     // This has no performance effect since CopiedName is created very few times
     // (only in initialization of some DGAlgebras, not their elements).
-    override val identifier: Identifier = CopiedName.getDefaultIdentifier(name, shift, index)
+    override val identifier: Identifier = CopiedName.getIdentifier(name, shift, index, showShiftExponent)
 
     override fun toString(): String {
         return this.toPlain(ShowShift.S_WITH_DEGREE)
@@ -123,20 +132,29 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
             }
         }
 
-        private fun <D : Degree, I : IndeterminateName> getDefaultIdentifier(
+        private fun <D : Degree> getShiftString(shift: D, showShiftExponent: Boolean): String {
+            if (shift.isZero()) {
+                // This must be the first.
+                // Even if showShiftExponent is true, "" should be returned when shift.isZero().
+                return ""
+            } else if (!showShiftExponent) {
+                // Here shift is assumed to be non-zero
+                return "s"
+            }
+            return when (val shiftIdentifierName = shift.identifier.name) {
+                "1" -> "s"
+                else -> "s_$shiftIdentifierName"
+            }
+        }
+
+        private fun <D : Degree, I : IndeterminateName> getIdentifier(
             name: I,
             shift: D,
             index: Int?,
+            showShiftExponent: Boolean,
         ): Identifier {
             val indexString: String = index?.toString() ?: ""
-            val shiftString: String = if (shift.isZero()) {
-                ""
-            } else {
-                when (val shiftIdentifierName = shift.identifier.name) {
-                    "1" -> "s"
-                    else -> "s_$shiftIdentifierName"
-                }
-            }
+            val shiftString: String = this.getShiftString(shift, showShiftExponent)
             val originalName = name.identifier.name
             return Identifier("$shiftString$originalName$indexString")
         }
@@ -146,15 +164,17 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
 public fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
     degreeGroup: DegreeGroup<D>,
     shift: D,
-    index: Int? = null
+    index: Int? = null,
+    showShiftExponent: Boolean = true,
 ): Indeterminate<D, CopiedName<D, I>> {
     val newDegree = degreeGroup.context.run { this@copy.degree - shift }
-    return Indeterminate(CopiedName(this.name, shift, index), newDegree)
+    return Indeterminate(CopiedName(this.name, shift, index, showShiftExponent), newDegree)
 }
 
 public fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
     shift: Int,
-    index: Int? = null
+    index: Int? = null,
+    showShiftExponent: Boolean = true,
 ): Indeterminate<IntDegree, CopiedName<IntDegree, I>> {
-    return this.copy(IntDegreeGroup, IntDegree(shift), index)
+    return this.copy(IntDegreeGroup, IntDegree(shift), index, showShiftExponent)
 }

@@ -35,7 +35,8 @@ private class FreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
     val loopSpaceGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = run {
         val degreeGroup = this.freeDGAlgebra.degreeGroup
         val loopSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
-            list.map { it.copy(degreeGroup, degreeGroup.zero) } + list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegree) }
+            list.map { it.copy(degreeGroup, degreeGroup.zero) } +
+                list.map { it.copy(degreeGroup, this@FreeLoopSpaceFactory.shiftDegree, showShiftExponent = false) }
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, loopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }

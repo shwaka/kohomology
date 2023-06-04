@@ -28,8 +28,10 @@ private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S :
         val dividedLoopSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
             val zero = degreeGroup.zero
             val one = degreeGroup.fromInt(1)
-            list.map { it.copy(degreeGroup, shift = zero, index = 1) } + list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
-                list.map { it.copy(degreeGroup, shift = one, index = 1) } + list.map { it.copy(degreeGroup, shift = one, index = 2) }
+            list.map { it.copy(degreeGroup, shift = zero, index = 1) } +
+                list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
+                list.map { it.copy(degreeGroup, shift = one, index = 1, showShiftExponent = true) } +
+                list.map { it.copy(degreeGroup, shift = one, index = 2, showShiftExponent = true) }
         }
         FreeGAlgebra(this.matrixSpace, degreeGroup, dividedLoopSpaceIndeterminateList, CopiedName.Companion::getInternalPrintConfig)
     }

@@ -16,10 +16,10 @@ import com.github.shwaka.kohomology.util.ShowShift
 
 private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 
-public data class CopiedName<D : Degree, I : IndeterminateName>(
-    val name: I,
-    val shift: D,
-    val index: Int? = null,
+public class CopiedName<D : Degree, I : IndeterminateName>(
+    public val name: I,
+    public val shift: D,
+    public val index: Int? = null,
 ) : IndeterminateName {
     // CopiedName.identifier is computed during initialization to validate its name.
     // This has no performance effect since CopiedName is created very few times
@@ -85,6 +85,27 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
         //   when this.name contains a subscript
         return "$shiftString{${this.name.toString(PrintConfig(PrintType.TEX))}}$indexString"
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as CopiedName<*, *>
+
+        if (name != other.name) return false
+        if (shift != other.shift) return false
+        if (index != other.index) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = name.hashCode()
+        result = 31 * result + shift.hashCode()
+        result = 31 * result + (index ?: 0)
+        return result
+    }
+
 
     public companion object {
         public fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(

@@ -26,5 +26,10 @@ class SuperDegreeTest : FreeSpec({
                 (OddSuperDegree * 2) shouldBe EvenSuperDegree
             }
         }
+
+        "test SuperDegree.identifier.value" {
+            OddSuperDegree.identifier.value shouldBe "1"
+            EvenSuperDegree.identifier.value shouldBe "0"
+        }
     }
 })

@@ -98,5 +98,14 @@ class MultiDegreeTest : FreeSpec({
                 degree.toString() shouldBe "0"
             }
         }
+
+        "test MultiDegree.identifier.value" {
+            degreeGroup.fromList(listOf(0, 0)).identifier.value shouldBe "0_0"
+            degreeGroup.fromList(listOf(0, 2)).identifier.value shouldBe "0_2"
+            degreeGroup.fromList(listOf(1, 0)).identifier.value shouldBe "1_0"
+            degreeGroup.fromList(listOf(1, 2)).identifier.value shouldBe "1_2"
+            degreeGroup.fromList(listOf(1, -2)).identifier.value shouldBe "1_m2"
+            degreeGroup.fromList(listOf(-1, -2)).identifier.value shouldBe "m1_m2"
+        }
     }
 })

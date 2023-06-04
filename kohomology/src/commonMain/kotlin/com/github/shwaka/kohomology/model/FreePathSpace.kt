@@ -31,7 +31,7 @@ private class FreePathSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar
         val pathSpaceIndeterminateList = freeDGAlgebra.indeterminateList.let { list ->
             list.map { it.copy(degreeGroup, shift = zero, index = 1) } +
                 list.map { it.copy(degreeGroup, shift = zero, index = 2) } +
-                list.map { it.copy(degreeGroup, shift = one, showShiftExponent = false) }
+                list.map { it.copy(degreeGroup, shift = one, showShiftExponentInIdentifier = false) }
         }
         val basisComparator: Comparator<Monomial<D, CopiedName<D, I>>> by lazy {
             // compare by the total length in shifted generators

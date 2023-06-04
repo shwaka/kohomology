@@ -19,7 +19,7 @@ private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 /**
  * An implementation of [IndeterminateName] representing a shift or duplicate of [name].
  *
- * The option showShiftExponent is provided to the constructor
+ * The option showShiftExponentInIdentifier is provided to the constructor
  * since necessity to print exponent (i.e. uniqueness of exponents) should be decided
  * in the caller of the constructor (e.g. FreeLoopSpace).
  * If it was provided to [PrintConfig], it would be impossible to decide.
@@ -28,12 +28,12 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
     public val name: I,
     public val shift: D,
     public val index: Int? = null,
-    showShiftExponent: Boolean = true,
+    showShiftExponentInIdentifier: Boolean = true,
 ) : IndeterminateName {
     // CopiedName.identifier is computed during initialization to validate its name.
     // This has no performance effect since CopiedName is created very few times
     // (only in initialization of some DGAlgebras, not their elements).
-    override val identifier: Identifier = CopiedName.getIdentifier(name, shift, index, showShiftExponent)
+    override val identifier: Identifier = CopiedName.getIdentifier(name, shift, index, showShiftExponentInIdentifier)
 
     override fun toString(): String {
         return this.toPlain(ShowShift.S_WITH_DEGREE)
@@ -165,16 +165,16 @@ public fun <D : Degree, I : IndeterminateName> Indeterminate<D, I>.copy(
     degreeGroup: DegreeGroup<D>,
     shift: D,
     index: Int? = null,
-    showShiftExponent: Boolean = true,
+    showShiftExponentInIdentifier: Boolean = true,
 ): Indeterminate<D, CopiedName<D, I>> {
     val newDegree = degreeGroup.context.run { this@copy.degree - shift }
-    return Indeterminate(CopiedName(this.name, shift, index, showShiftExponent), newDegree)
+    return Indeterminate(CopiedName(this.name, shift, index, showShiftExponentInIdentifier), newDegree)
 }
 
 public fun <I : IndeterminateName> Indeterminate<IntDegree, I>.copy(
     shift: Int,
     index: Int? = null,
-    showShiftExponent: Boolean = true,
+    showShiftExponentInIdentifier: Boolean = true,
 ): Indeterminate<IntDegree, CopiedName<IntDegree, I>> {
-    return this.copy(IntDegreeGroup, IntDegree(shift), index, showShiftExponent)
+    return this.copy(IntDegreeGroup, IntDegree(shift), index, showShiftExponentInIdentifier)
 }

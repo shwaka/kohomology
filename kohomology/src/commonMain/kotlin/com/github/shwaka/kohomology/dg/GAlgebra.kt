@@ -94,7 +94,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                 ?: throw Exception(
                     """
                         Invalid generator name: ${astNode.name}
-                        Valid names are: ${generators.map { it.first }}
+                        Valid names are: ${generators.joinToString(", ") { it.first }}
                     """.trimIndent()
                 )
             is ASTNode.Fraction -> {

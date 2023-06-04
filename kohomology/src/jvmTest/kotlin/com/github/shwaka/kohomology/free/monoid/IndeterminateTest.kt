@@ -7,6 +7,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.shouldBe
 
 val indeterminateTag = NamedTag("Indeterminate")
 
@@ -35,5 +36,11 @@ class IndeterminateTest : FreeSpec({
                 }
             }
         }
+    }
+
+    "test StringIndeterminateName.identifier.value" {
+        StringIndeterminateName("x").identifier.value shouldBe "x"
+        StringIndeterminateName("sy", "\\bar{y}").identifier.value shouldBe "sy"
+        StringIndeterminateName("z", "\\{}.@$?-+*/").identifier.value shouldBe "z"
     }
 })

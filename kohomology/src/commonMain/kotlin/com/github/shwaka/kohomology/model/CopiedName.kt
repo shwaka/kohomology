@@ -19,24 +19,12 @@ private typealias MonomialOnCopiedName<D, I> = Monomial<D, CopiedName<D, I>>
 public data class CopiedName<D : Degree, I : IndeterminateName>(
     val name: I,
     val shift: D,
-    val index: Int? = null
+    val index: Int? = null,
 ) : IndeterminateName {
     // CopiedName.identifier is computed during initialization to validate its name.
     // This has no performance effect since CopiedName is created very few times
     // (only in initialization of some DGAlgebras, not their elements).
-    override val identifier: Identifier = run {
-        val indexString: String = this.index?.toString() ?: ""
-        val shiftString: String = if (this.shift.isZero()) {
-            ""
-        } else {
-            when (val shiftIdentifierName = this.shift.identifier.name) {
-                "1" -> "s"
-                else -> "s_$shiftIdentifierName"
-            }
-        }
-        val originalName = this.name.identifier.name
-        Identifier("$shiftString$originalName$indexString")
-    }
+    override val identifier: Identifier = CopiedName.getDefaultIdentifier(name, shift, index)
 
     override fun toString(): String {
         return this.toPlain(ShowShift.S_WITH_DEGREE)
@@ -112,6 +100,24 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
                     basisToString = { monomial -> monomial.toString(printConfig) },
                 )
             }
+        }
+
+        private fun <D : Degree, I : IndeterminateName> getDefaultIdentifier(
+            name: I,
+            shift: D,
+            index: Int?,
+        ): Identifier {
+            val indexString: String = index?.toString() ?: ""
+            val shiftString: String = if (shift.isZero()) {
+                ""
+            } else {
+                when (val shiftIdentifierName = shift.identifier.name) {
+                    "1" -> "s"
+                    else -> "s_$shiftIdentifierName"
+                }
+            }
+            val originalName = name.identifier.name
+            return Identifier("$shiftString$originalName$indexString")
         }
     }
 }

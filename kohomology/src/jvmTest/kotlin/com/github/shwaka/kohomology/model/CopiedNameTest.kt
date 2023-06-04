@@ -166,6 +166,18 @@ class CopiedNameTest : FreeSpec({
 
         CopiedName(
             original = StringIndeterminateName("x"),
+            shift = IntDegree(0),
+            showShiftExponentInIdentifier = true,
+        ).identifier.value shouldBe "x"
+
+        CopiedName(
+            original = StringIndeterminateName("x"),
+            shift = IntDegree(0),
+            showShiftExponentInIdentifier = false,
+        ).identifier.value shouldBe "x"
+
+        CopiedName(
+            original = StringIndeterminateName("x"),
             shift = IntDegree(3),
             showShiftExponentInIdentifier = true,
         ).identifier.value shouldBe "s_3x"
@@ -208,5 +220,17 @@ class CopiedNameTest : FreeSpec({
             index = 2,
             showShiftExponentInIdentifier = false,
         ).identifier.value shouldBe "sz2"
+        CopiedName(
+            original = StringIndeterminateName("z"),
+            shift = multiDegreeGroup.fromList(listOf(0, 0)),
+            index = 2,
+            showShiftExponentInIdentifier = true,
+        ).identifier.value shouldBe "z2"
+        CopiedName(
+            original = StringIndeterminateName("z"),
+            shift = multiDegreeGroup.fromList(listOf(0, 0)),
+            index = 2,
+            showShiftExponentInIdentifier = false,
+        ).identifier.value shouldBe "z2"
     }
 })

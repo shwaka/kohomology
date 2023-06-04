@@ -10,15 +10,15 @@ import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.parser.Parser
-import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
+import com.github.shwaka.kohomology.util.Identifier
 
 internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     // Previously, "0" could not be used as a scalar and "zero" is used for such purpose.
     // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
     private val gen by charCategoryToken(
-        StringIndeterminateName.firstCharCategoryList,
-        StringIndeterminateName.nonFirstCharCategoryList,
+        Identifier.firstCharCategoryList,
+        Identifier.nonFirstCharCategoryList,
     )
     private val int by regexToken("\\d+")
     private val lpar by literalToken("(")

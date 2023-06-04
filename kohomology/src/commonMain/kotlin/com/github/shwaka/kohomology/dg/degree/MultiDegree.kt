@@ -17,7 +17,7 @@ public class MultiDegree(
     public val coeffList: IntArray
 ) : Degree {
     override val identifier: PartialIdentifier
-        get() = PartialIdentifier.fromIntList(coeffList.toList())
+        get() = PartialIdentifier.fromIntList(listOf(constantTerm) + coeffList.toList())
 
     override fun isEven(): Boolean {
         this.coeffList.indices.filter { this.coeffList[it].isOdd() }.let { oddIndices ->

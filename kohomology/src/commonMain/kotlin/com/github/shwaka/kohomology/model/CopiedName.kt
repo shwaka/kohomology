@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.Identifier
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -20,6 +21,23 @@ public data class CopiedName<D : Degree, I : IndeterminateName>(
     val shift: D,
     val index: Int? = null
 ) : IndeterminateName {
+    // CopiedName.identifier is computed during initialization to validate its name.
+    // This has no performance effect since CopiedName is created very few times
+    // (only in initialization of some DGAlgebras, not their elements).
+    override val identifier: Identifier = run {
+        val indexString: String = this.index?.toString() ?: ""
+        val shiftString: String = if (this.shift.isZero()) {
+            ""
+        } else {
+            when (val shiftIdentifierName = this.shift.identifier.name) {
+                "1" -> "s"
+                else -> "s_$shiftIdentifierName"
+            }
+        }
+        val originalName = this.name.identifier.name
+        Identifier("$shiftString$originalName$indexString")
+    }
+
     override fun toString(): String {
         return this.toPlain(ShowShift.S_WITH_DEGREE)
     }

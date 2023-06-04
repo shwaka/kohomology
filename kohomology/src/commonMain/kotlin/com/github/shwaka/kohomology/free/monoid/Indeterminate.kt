@@ -9,11 +9,14 @@ import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 
 public interface IndeterminateName : Printable {
+    public val identifier: Identifier
     public override fun toString(printConfig: PrintConfig): String = this.toString()
 }
 
 public class StringIndeterminateName(name: String, tex: String? = null) : IndeterminateName {
-    private val identifier: Identifier = Identifier(name) // validates name
+    // To validate name, Identifier(name) must be called during initialization.
+    // (i.e. `by lazy {...}` or `get() = ...` cannot be used)
+    override val identifier: Identifier = Identifier(name)
     public val name: String = identifier.name
     public val tex: String = tex ?: name
 

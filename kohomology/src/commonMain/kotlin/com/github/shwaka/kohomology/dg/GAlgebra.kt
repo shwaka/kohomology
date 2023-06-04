@@ -91,7 +91,12 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         return when (astNode) {
             is ASTNode.Zero -> this.zeroGVector
             is ASTNode.Generator -> generators.find { it.first == astNode.name }?.second
-                ?: throw Exception("Invalid generator name: ${astNode.name}")
+                ?: throw Exception(
+                    """
+                        Invalid generator name: ${astNode.name}
+                        Valid names are: ${generators.map { it.first }}
+                    """.trimIndent()
+                )
             is ASTNode.Fraction -> {
                 if (astNode.numerator == 0) {
                     this.zeroGVector

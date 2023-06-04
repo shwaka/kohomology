@@ -98,6 +98,9 @@ export function SortableFields<
     }
   }
 
+  // Container can be
+  // - div (or something similar): draggable region is restricted to it
+  // - React.Fragment: draggable region is restricted to parent element
   return (
     <Container>
       <DndContext

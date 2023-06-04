@@ -12,44 +12,44 @@ val indeterminateTag = NamedTag("Indeterminate")
 data class CharacterData(
     val name: String,
     val characters: String,
-    val beginning: Boolean,
-    val nonBeginning: Boolean,
+    val validAtFirst: Boolean,
+    val validAtSuccessor: Boolean,
 )
 
 class IndeterminateTest : FreeSpec({
     tags(indeterminateTag)
 
-    "test isValidAsBeginningChar and isValidAsNonBeginningChar" - {
+    "test isValidAsFirstChar and isValidAsNonFirstChar" - {
         val latinAlphabets = CharacterData(
             name = "latin alphabets",
             characters = "abcdefghijklmnopqrstuvwxyz",
-            beginning = true,
-            nonBeginning = true,
+            validAtFirst = true,
+            validAtSuccessor = true,
         )
         val greekAlphabets = CharacterData(
             name = "greek alphabets",
             characters = "αβγδεζηθικλμνξοπρστυφχψω",
-            beginning = true,
-            nonBeginning = true,
+            validAtFirst = true,
+            validAtSuccessor = true,
         )
         val numbers = CharacterData(
             name = "numbers",
             characters = "0123456789",
-            beginning = false,
-            nonBeginning = true,
+            validAtFirst = false,
+            validAtSuccessor = true,
         )
         val underscore = CharacterData(
             name = "underscore",
             characters = "_",
-            beginning = true,
-            nonBeginning = true,
+            validAtFirst = true,
+            validAtSuccessor = true,
         )
         val illegalSymbols = CharacterData(
             name = "illegal symbols",
             characters = " +-*/.()[]<>%$\\" +
                 "　" /* U+3000, Ideographic Space (full-width space used in Japanese) */,
-            beginning = false,
-            nonBeginning = false,
+            validAtFirst = false,
+            validAtSuccessor = false,
         )
 
         val characterDataList = listOf(
@@ -61,17 +61,17 @@ class IndeterminateTest : FreeSpec({
         )
 
         for (characterData in characterDataList) {
-            "isValidAsBeginningChar should be ${characterData.beginning} for ${characterData.name}" {
+            "isValidAsFirstChar should be ${characterData.validAtFirst} for ${characterData.name}" {
                 characterData.characters.toList().forAll { char ->
-                    StringIndeterminateName.isValidAsBeginningChar(char) shouldBe
-                        characterData.beginning
+                    StringIndeterminateName.isValidAsFirstChar(char) shouldBe
+                        characterData.validAtFirst
                 }
             }
 
-            "isValidAsNonBeginningChar should be ${characterData.nonBeginning} for ${characterData.name}" {
+            "isValidAsNonFirstChar should be ${characterData.validAtSuccessor} for ${characterData.name}" {
                 characterData.characters.toList().forAll { char ->
-                    StringIndeterminateName.isValidAsNonBeginningChar(char) shouldBe
-                        characterData.nonBeginning
+                    StringIndeterminateName.isValidAsNonFirstChar(char) shouldBe
+                        characterData.validAtSuccessor
                 }
             }
         }

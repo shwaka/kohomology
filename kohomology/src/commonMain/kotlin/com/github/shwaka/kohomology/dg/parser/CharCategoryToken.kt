@@ -4,18 +4,18 @@ import com.github.h0tk3y.betterParse.lexer.Token
 
 internal class CharCategoryToken(
     name: String?,
-    private val beginningCharCategoryList: List<CharCategory>,
-    private val nonBeginningCharCategoryList: List<CharCategory>,
+    private val firstCharCategoryList: List<CharCategory>,
+    private val nonFirstCharCategoryList: List<CharCategory>,
     ignored: Boolean = false,
 ) : Token(name, ignored) {
     override fun match(input: CharSequence, fromIndex: Int): Int {
-        if (input[fromIndex].category !in this.beginningCharCategoryList) {
+        if (input[fromIndex].category !in this.firstCharCategoryList) {
             return 0
         }
         var index = fromIndex + 1
         while (
             (index < input.length) &&
-            (input[index].category in this.nonBeginningCharCategoryList)
+            (input[index].category in this.nonFirstCharCategoryList)
         ) {
             index++
         }
@@ -23,14 +23,14 @@ internal class CharCategoryToken(
     }
 
     override fun toString(): String {
-        return "${name ?: ""} ($beginningCharCategoryList, $nonBeginningCharCategoryList)" +
+        return "${name ?: ""} ($firstCharCategoryList, $nonFirstCharCategoryList)" +
             if (ignored) " [ignorable]" else ""
     }
 }
 
 internal fun charCategoryToken(
-    beginningCharCategoryList: List<CharCategory>,
-    nonBeginningCharCategoryList: List<CharCategory>,
+    firstCharCategoryList: List<CharCategory>,
+    nonFirstCharCategoryList: List<CharCategory>,
 ): CharCategoryToken {
-    return CharCategoryToken(null, beginningCharCategoryList, nonBeginningCharCategoryList)
+    return CharCategoryToken(null, firstCharCategoryList, nonFirstCharCategoryList)
 }

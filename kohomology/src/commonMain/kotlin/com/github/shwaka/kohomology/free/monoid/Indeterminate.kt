@@ -68,32 +68,32 @@ public class StringIndeterminateName(public val name: String, tex: String? = nul
             // CharCategory.OTHER_PUNCTUATION
         )
 
-        internal val beginningCharCategoryList: List<CharCategory> =
+        internal val firstCharCategoryList: List<CharCategory> =
             alphabeticalCategories + punctuationCategories
 
-        internal val nonBeginningCharCategoryList: List<CharCategory> =
+        internal val nonFirstCharCategoryList: List<CharCategory> =
             alphabeticalCategories + punctuationCategories + numericalCategories
 
         // The following functions are internal for test.
-        internal fun isValidAsBeginningChar(char: Char): Boolean {
-            return char.category in this.beginningCharCategoryList
+        internal fun isValidAsFirstChar(char: Char): Boolean {
+            return char.category in this.firstCharCategoryList
         }
 
-        internal fun isValidAsNonBeginningChar(char: Char): Boolean {
-            return char.category in this.nonBeginningCharCategoryList
+        internal fun isValidAsNonFirstChar(char: Char): Boolean {
+            return char.category in this.nonFirstCharCategoryList
         }
 
         internal fun validateName(name: String) {
             require(name.isNotEmpty()) {
                 "Indeterminate name must be non-empty."
             }
-            require(this.isValidAsBeginningChar(name[0])) {
+            require(this.isValidAsFirstChar(name[0])) {
                 "Indeterminate name must start with " +
                     "alphabets (including greeks) or underscore, " +
                     "but ${name[0]} was given."
             }
             for (c in name.drop(1)) {
-                require(this.isValidAsNonBeginningChar(c)) {
+                require(this.isValidAsNonFirstChar(c)) {
                     "Indeterminate name can only contain " +
                         "alphabets (including greeks), numbers or underscore, " +
                         "but $c was given."

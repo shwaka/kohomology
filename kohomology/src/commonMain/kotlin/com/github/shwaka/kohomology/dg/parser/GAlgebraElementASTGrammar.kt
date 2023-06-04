@@ -17,8 +17,8 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
     private val gen by charCategoryToken(
-        StringIndeterminateName.beginningCharCategoryList,
-        StringIndeterminateName.nonBeginningCharCategoryList,
+        StringIndeterminateName.firstCharCategoryList,
+        StringIndeterminateName.nonFirstCharCategoryList,
     )
     private val int by regexToken("\\d+")
     private val lpar by literalToken("(")

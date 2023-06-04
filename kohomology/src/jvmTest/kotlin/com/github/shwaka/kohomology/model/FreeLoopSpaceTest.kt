@@ -177,27 +177,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                     printerSWithDeg(sx) shouldBe "s{x}"
                 }
             }
-            "parse test" - {
-                "parse test without specifying printer".config(tags = setOf(parseTag)) {
-                    freeLoopSpace.parse("x") shouldBe x
-                    freeLoopSpace.parse("sx") shouldBe sx
-                    freeLoopSpace.parse("y") shouldBe y
-                    freeLoopSpace.parse("sy") shouldBe sy
-                }
-                "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
-                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-                    freeLoopSpace.parse("x", printer) shouldBe x
-                    freeLoopSpace.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.parse("y", printer) shouldBe y
-                    freeLoopSpace.parse("sy", printer) shouldBe sy
-                }
-                "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
-                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-                    freeLoopSpace.parse("x", printer) shouldBe x
-                    freeLoopSpace.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.parse("y", printer) shouldBe y
-                    freeLoopSpace.parse("sy", printer) shouldBe sy
-                }
+            "parse test".config(tags = setOf(parseTag)) {
+                freeLoopSpace.parse("x") shouldBe x
+                freeLoopSpace.parse("sx") shouldBe sx
+                freeLoopSpace.parse("y") shouldBe y
+                freeLoopSpace.parse("sy") shouldBe sy
             }
         }
     }
@@ -289,27 +273,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
                     printerSWithDeg(sx) shouldBe "s^{1 + -2S}{x}"
                 }
             }
-            "parse test" - {
-                "parse test without specifying printer".config(tags = setOf(parseTag)) {
-                    freeLoopSpace.parse("x") shouldBe x
-                    freeLoopSpace.parse("s^{1 + -2S}x") shouldBe sx
-                    freeLoopSpace.parse("y") shouldBe y
-                    freeLoopSpace.parse("s^{1 + -2S}y") shouldBe sy
-                }
-                "parse test with Printer(showShift = ShowShift.S)".config(tags = setOf(parseTag)) {
-                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-                    freeLoopSpace.parse("x", printer) shouldBe x
-                    freeLoopSpace.parse("sx", printer) shouldBe sx
-                    freeLoopSpace.parse("y", printer) shouldBe y
-                    freeLoopSpace.parse("sy", printer) shouldBe sy
-                }
-                "parse test with Printer(showShift = ShowShift.S_WITH_DEGREE)".config(tags = setOf(parseTag)) {
-                    val printer = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-                    freeLoopSpace.parse("x", printer) shouldBe x
-                    freeLoopSpace.parse("s^{1 + -2S}x", printer) shouldBe sx
-                    freeLoopSpace.parse("y", printer) shouldBe y
-                    freeLoopSpace.parse("s^{1 + -2S}y", printer) shouldBe sy
-                }
+            "parse test".config(tags = setOf(parseTag)) {
+                freeLoopSpace.parse("x") shouldBe x
+                freeLoopSpace.parse("sx") shouldBe sx
+                freeLoopSpace.parse("y") shouldBe y
+                freeLoopSpace.parse("sy") shouldBe sy
             }
         }
     }

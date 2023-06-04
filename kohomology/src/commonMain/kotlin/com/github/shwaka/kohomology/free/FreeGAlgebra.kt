@@ -178,18 +178,13 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
     }
 
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
-        val plainPrinter = Printer(PrintType.PLAIN)
-        return this.parse(text, plainPrinter)
-    }
-
-    public fun parse(text: String, printer: Printer): GVectorOrZero<D, Monomial<D, I>, S, V> {
-        val generators = this.getGeneratorsForParser(printer)
+        val generators = this.getGeneratorsForParser()
         return this.parse(generators, text)
     }
 
-    public fun getGeneratorsForParser(printer: Printer = Printer(PrintType.PLAIN)): List<Pair<String, GVector<D, Monomial<D, I>, S, V>>> {
+    private fun getGeneratorsForParser(): List<Pair<String, GVector<D, Monomial<D, I>, S, V>>> {
         return this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
-            Pair(printer(indeterminate.name), generator)
+            Pair(indeterminate.name.identifier.name, generator)
         }
     }
 

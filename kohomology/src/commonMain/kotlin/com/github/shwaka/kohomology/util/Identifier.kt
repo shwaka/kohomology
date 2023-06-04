@@ -45,18 +45,18 @@ public data class Identifier(val name: String) {
 
         internal fun validateName(name: String) {
             require(name.isNotEmpty()) {
-                "Indeterminate name must be non-empty."
+                "Identifier name ($name) must be non-empty."
             }
             require(this.isValidAsFirstChar(name[0])) {
-                "Indeterminate name must start with " +
+                "Identifier name ($name) must start with " +
                     "alphabets (including greeks) or underscore, " +
-                    "but ${name[0]} was given."
+                    "but it starts with \"${name[0]}\"."
             }
             for (c in name.drop(1)) {
                 require(this.isValidAsNonFirstChar(c)) {
-                    "Indeterminate name can only contain " +
+                    "Identifier name ($name) can only contain " +
                         "alphabets (including greeks), numbers or underscore, " +
-                        "but $c was given."
+                        "but it contains \"$c\"."
                 }
             }
         }

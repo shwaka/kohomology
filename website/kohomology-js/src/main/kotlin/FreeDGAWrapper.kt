@@ -173,13 +173,13 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     cocycleString: String,
     showBasis: Boolean,
 ): StyledMessageInternal {
-    // Since GAlgebra.parse() is used, this cannot be extended to DGVectorSpace.
-    val printer = Printer(printType = PrintType.PLAIN, showShift = ShowShift.S)
+    // Since GAlgebra.parse() and FreeGAlgebra.getGeneratorsForParser() are used,
+    // the first argument needs to be FreeDGAlgebra and cannot be generalized to DGVectorSpace.
     val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = try {
-        freeDGAlgebra.parse(cocycleString, printer)
+        freeDGAlgebra.parse(cocycleString)
     } catch (e: ParseException) {
         return styledMessage(MessageType.ERROR) {
-            val generatorsString = freeDGAlgebra.getGeneratorsForParser(printer).joinToString(", ") { it.first }
+            val generatorsString = freeDGAlgebra.getGeneratorsForParser().joinToString(", ") { it.first }
             "[Error] Parse failed.\n".text +
                 "Note: Current generators are $generatorsString\n".text +
                 "${e.errorResult}\n".text

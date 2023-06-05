@@ -59,87 +59,13 @@ jobs:
 
   build-website:
     needs: [ prepare-env, build-core, test-core, benchmark-core ]
-    runs-on: ubuntu-20.04
-    env:
-      BENCHMARK_DATA_DIR: benchmark-data
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          fetch-depth: 0
-      - name: "Cache: ~/.gradle/cache"
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-          restore-keys: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
-      - name: "Read cache: ~/.m2/repository"
-        uses: actions/cache@v3
-        # restore mavenLocal repository from 'build-core'
-        with:
-          path: ~/.m2/repository
-          key: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
-      - name: "Save cache: website/kohomology-js/build/js"
-        uses: actions/cache@v3 # for lint-website
-        # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
-        with:
-          # 以下が全て必要
-          # - build/js/packages/kohomology-js
-          # - build/js/packages-imported/kotlin/<version>
-          # - build/js/packages-imported/kotlin-test/<version>
-          # - build/js/packages-imported/kotlin-test-js-runner/<version>
-          path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package-${{ github.sha }}
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Prepare benchmark data and dokka html
-        run: ./scripts/prepare-site.sh
-      - name: Assert samples are working
-        run: ./scripts/run-sample.sh
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ env.NODE_VERSION }}
-      #     cache: 'npm'
-      #     cache-dependency-path: website/package-lock.json
-      - uses: volta-cli/action@v3
-      - name: Assert that volta is used
-        run: |
-          which node
-          node --version
-          which npm
-          npm --version
-        working-directory: website
-      - run: npm ci
-        working-directory: website
-      - name: Typecheck website
-        run: npm run typecheck
-        working-directory: website
-      - name: Test components in website
-        run: npm test -- --verbose
-        working-directory: website
-      - name: Benchmark components
-        run: ./run-benchmark.sh
-        working-directory: website
-      - name: Store benchmark result # This should be run before building website
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          tool: customSmallerIsBetter
-          output-file-path: website/benchmark-result/output.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          gh-pages-branch: benchmark-data-website
-      - name: Build site
-        run: npm run build
-        working-directory: website
-      - name: Upload
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: website/build
+    uses: ./.github/workflows/build-website.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
   lint-core:
     needs: [ prepare-env, build-core ]

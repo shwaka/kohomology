@@ -211,11 +211,19 @@ jobs:
       - name: Test components in website
         run: npm test
         working-directory: website
-      - name: Build site
-        run: npm run build
-        working-directory: website
       - name: Benchmark components
         run: ./run-benchmark.sh
+        working-directory: website
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          tool: customSmallerIsBetter
+          output-file-path: website/benchmark-result/output.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          gh-pages-branch: benchmark-data-website
+      - name: Build site
+        run: npm run build
         working-directory: website
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3

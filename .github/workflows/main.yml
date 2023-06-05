@@ -29,8 +29,6 @@ jobs:
     outputs:
       JAVA_DISTRIBUTION: ${{ env.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ env.JAVA_VERSION }}
-      CACHE_KEY_GRADLE: ${{ runner.os }}-gradle-jvm-${{ steps.setup.outputs.hash-gradle-kts }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ runner.os }}-gradle-jvm-
 
   build-core:
     needs: [ prepare-env ]
@@ -38,8 +36,6 @@ jobs:
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
-      CACHE_KEY_GRADLE: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
 
   test-core:
     needs: [ build-core ]
@@ -94,8 +90,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
-          key: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
-          restore-keys: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
         # restore mavenLocal repository from 'build-core'
@@ -136,8 +132,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
-          key: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
-          restore-keys: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
         # restore mavenLocal repository from 'build-core'

@@ -28,7 +28,14 @@ export class InputJson {
   static async inputValidJson(json: string): Promise<void> {
     const dialog = InputJson.openDialog()
     InputJson.inputAndApplyJson(dialog, json)
-    await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
+    await waitForElementToBeRemoved(
+      dialog,
+      {
+        // In local PC, timeout=800 is enough.
+        // In GitHub Actions, this timed out with the default value (1000).
+        timeout: 2000,
+      },
+    ) // It takes some time to remove the dialog.
   }
 
   static async inputInvalidJson(json: string): Promise<void> {

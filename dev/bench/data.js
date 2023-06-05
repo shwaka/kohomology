@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685951585564,
+  "lastUpdate": 1685953139113,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -55,6 +55,35 @@ window.BENCHMARK_DATA = {
           {
             "name": "renderCalculator",
             "value": 0.418,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "4d25fcea50e9dc9a211763a3c65a1dc64f3ce035",
+          "message": "build: change job names in GitHub Actions",
+          "timestamp": "2023-06-05T17:04:01+09:00",
+          "tree_id": "f934bd048c4fd43d734f60f9e20abb1019acbe66",
+          "url": "https://github.com/shwaka/kohomology/commit/4d25fcea50e9dc9a211763a3c65a1dc64f3ce035"
+        },
+        "date": 1685953138237,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.582,
             "unit": "s/op"
           }
         ]

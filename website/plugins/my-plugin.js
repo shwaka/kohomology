@@ -1,7 +1,18 @@
-const CopyPlugin = require("copy-webpack-plugin")
-const path = require('path')
+// @ts-check
 
-module.exports = function myPlugin(context, options) {
+/* eslint-disable no-undef */ // 'require' is not defined
+/* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
+
+const path = require("path")
+const CopyPlugin = require("copy-webpack-plugin")
+
+/**
+   @param context {import('@docusaurus/types').LoadContext}
+   @param options {import('@docusaurus/types').PluginOptions}
+   @returns { import('@docusaurus/types').Plugin | Promise<import('@docusaurus/types').Plugin> }
+ */
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+function myPlugin(context, options) {
   return {
     name: "my-plugin",
     configureWebpack(config, isServer, utils) {
@@ -42,3 +53,5 @@ module.exports = function myPlugin(context, options) {
     }
   }
 }
+
+module.exports = myPlugin

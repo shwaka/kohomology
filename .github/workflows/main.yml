@@ -209,7 +209,7 @@ jobs:
         run: npm run typecheck
         working-directory: website
       - name: Test components in website
-        run: npm test
+        run: npm test -- --verbose
         working-directory: website
       - name: Benchmark components
         run: ./run-benchmark.sh

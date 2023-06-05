@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685953139113,
+  "lastUpdate": 1685954906957,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -84,6 +84,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "renderCalculator",
             "value": 0.582,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "0aae34766ff9ead73176e1d00f70b693a3e4d43d",
+          "message": "test(website): add --verbose option to `npm test` in GitHub Actions",
+          "timestamp": "2023-06-05T17:35:10+09:00",
+          "tree_id": "6f25b298b367e8a3ea30c7b67b80e41051580bc2",
+          "url": "https://github.com/shwaka/kohomology/commit/0aae34766ff9ead73176e1d00f70b693a3e4d43d"
+        },
+        "date": 1685954906305,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.455,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.269,
             "unit": "s/op"
           }
         ]

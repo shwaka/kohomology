@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685954906957,
+  "lastUpdate": 1685957142581,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -118,6 +118,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.269,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5d4eb3581f8835c59d77fc9d8487dc51b243d8be",
+          "message": "fix: move hashFiles from outputs to steps",
+          "timestamp": "2023-06-05T18:12:07+09:00",
+          "tree_id": "c5b8214a85ab4b7c3abced4c3dc6ba2144896ffe",
+          "url": "https://github.com/shwaka/kohomology/commit/5d4eb3581f8835c59d77fc9d8487dc51b243d8be"
+        },
+        "date": 1685957142070,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.435,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.169,
             "unit": "s/op"
           }
         ]

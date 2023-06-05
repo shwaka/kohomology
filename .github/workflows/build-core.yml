@@ -38,7 +38,8 @@ jobs:
         working-directory: kohomology
     steps:
       - uses: actions/checkout@v3
-      - id: setup-cache-key
+      - name: Setup cache key
+        id: setup-cache-key
         run: |
           {
           echo "CACHE_KEY_GRADLE=${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}"

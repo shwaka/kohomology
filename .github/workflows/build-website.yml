@@ -75,7 +75,8 @@ jobs:
       - name: Prepare benchmark data and dokka html
         run: ./scripts/prepare-site.sh
       - name: Assert samples are working
-        run: ./scripts/run-sample.sh
+        run: ./run-sample.sh
+        working-directory: scripts
       # - name: Use Node.js
       #   uses: actions/setup-node@v3
       #   with:

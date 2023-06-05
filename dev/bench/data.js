@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685969487218,
+  "lastUpdate": 1685970979388,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -288,6 +288,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 3.19,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d6ed26f0246d78135c858b0b4e7099fdbb6a7c49",
+          "message": "build: add benchmark-core.yml",
+          "timestamp": "2023-06-05T21:48:09+09:00",
+          "tree_id": "433c44bad23e821fa2a5b3511d77d2fd94931259",
+          "url": "https://github.com/shwaka/kohomology/commit/d6ed26f0246d78135c858b0b4e7099fdbb6a7c49"
+        },
+        "date": 1685970978259,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.644,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 3.041,
             "unit": "s/op"
           }
         ]

@@ -19,7 +19,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-core:
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -42,7 +42,7 @@ jobs:
           key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
       - name: "Save cache: .gradle, build"
         uses: actions/cache@v3
-        # will be restored in test
+        # will be restored in test-core
         with:
           path: |
             kohomology/.gradle
@@ -66,8 +66,8 @@ jobs:
         # If they were used, then -jvm and -js would be required when writing dependency.
         run: ./gradlew publishToMavenLocal -Dkohomology.disableNative
 
-  test:
-    needs: build
+  test-core:
+    needs: build-core
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -76,7 +76,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: "Cache: ~/.gradle/caches"
         uses: actions/cache@v3
-        with: # use different key from build
+        with: # use different key from build-core
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-test-${{ hashFiles('**/*.gradle.kts') }}
           restore-keys: ${{ runner.os }}-gradle-jvm-test-
@@ -110,8 +110,8 @@ jobs:
           chmod +x codecov
           ./codecov -t ${CODECOV_TOKEN}
 
-  benchmark:
-    needs: build
+  benchmark-core:
+    needs: build-core
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -123,7 +123,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
-        # restore mavenLocal repository from 'build'
+        # restore mavenLocal repository from 'build-core'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
@@ -148,7 +148,7 @@ jobs:
           gh-pages-branch: benchmark-data
 
   generate-site:
-    needs: [ build, test, benchmark ]
+    needs: [ build-core, test-core, benchmark-core ]
     runs-on: ubuntu-20.04
     env:
       BENCHMARK_DATA_DIR: benchmark-data
@@ -165,7 +165,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
-        # restore mavenLocal repository from 'build'
+        # restore mavenLocal repository from 'build-core'
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
@@ -214,7 +214,7 @@ jobs:
       - name: Benchmark components
         run: ./run-benchmark.sh
         working-directory: website
-      - name: Store benchmark result
+      - name: Store benchmark result # This should be run before building website
         uses: benchmark-action/github-action-benchmark@v1
         with:
           tool: customSmallerIsBetter
@@ -231,8 +231,8 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: website/build
 
-  lint-kotlin:
-    needs: [ build ]
+  lint-core:
+    needs: [ build-core ]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

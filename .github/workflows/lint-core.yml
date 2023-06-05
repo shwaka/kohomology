@@ -1,0 +1,27 @@
+name: lint-core
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+
+jobs:
+  lint-core:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: detekt
+        run: ./gradlew detekt
+        working-directory: kohomology

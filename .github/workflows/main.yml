@@ -203,18 +203,11 @@ jobs:
           publish_dir: website/build
 
   lint-core:
-    needs: [ build-core ]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: detekt
-        run: ./gradlew detekt
-        working-directory: kohomology
+    needs: [ prepare-env, build-core ]
+    uses: ./.github/workflows/build-core.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   lint-website:
     needs: [ build-website ]

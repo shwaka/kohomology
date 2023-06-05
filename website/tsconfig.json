@@ -10,7 +10,8 @@
       "@data/*": ["src/data/*"],
       "@theme/*": [ "src/theme/*" ],
       "@site/*": ["*"],
-      "@benchmark/*": ["../benchmark-data/dev/bench/*"]
+      "@benchmark/*": ["../benchmark-data/dev/bench/*"],
+      "@benchmark-website/*": ["../benchmark-data-website/dev/bench/*"]
     },
     "types": [
       "webpack-env",

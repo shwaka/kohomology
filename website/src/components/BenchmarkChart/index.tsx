@@ -1,4 +1,5 @@
 import benchmarkData from "@benchmark/benchmarkData.json"
+import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
 import { Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
 import React, { useRef, useState } from "react"
@@ -99,10 +100,12 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): J
 export function BenchmarkChart(): JSX.Element {
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
+  const bdw: BenchmarkData = benchmarkDataWebsite
 
   return (
     <div>
       <BenchmarkChartOf benchmarkData={bd}/>
+      <BenchmarkChartOf benchmarkData={bdw}/>
     </div>
   )
 }

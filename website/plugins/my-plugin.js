@@ -27,7 +27,7 @@ module.exports = function myPlugin(context, options) {
           new CopyPlugin({
             patterns: [
               { from: "../kohomology/build/dokka/html", to: "dokka" },
-              { from: "../benchmark-data/dev/bench", to: "benchmark"},
+              { from: "../benchmark-data/dev/bench", to: "benchmark"}, // for dedicated page
             ]
           })
         ],
@@ -35,6 +35,7 @@ module.exports = function myPlugin(context, options) {
           alias: {
             "@data": path.resolve(context.siteDir, "src/data"),
             "@benchmark": path.resolve(context.siteDir, "../benchmark-data/dev/bench"),
+            "@benchmark-website": path.resolve(context.siteDir, "../benchmark-data-website/dev/bench"),
           }
         }
       }

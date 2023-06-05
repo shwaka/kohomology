@@ -13,20 +13,20 @@ on:
         description: the distribution of Java
     outputs:
       CACHE_KEY_GRADLE:
-        value: ${{ jobs.build-core.outputs.CACHE_KEY_GRADLE }}
+        value: ${{ jobs.main.outputs.CACHE_KEY_GRADLE }}
         description: the cache key for ~/.gradle/caches
       CACHE_RESTORE_KEYS_GRADLE:
-        value: ${{ jobs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+        value: ${{ jobs.main.outputs.CACHE_RESTORE_KEYS_GRADLE }}
         description: the cache restore-keys for ~/.gradle/caches
       CACHE_KEY_M2:
-        value: ${{ jobs.build-core.outputs.CACHE_KEY_M2 }}
+        value: ${{ jobs.main.outputs.CACHE_KEY_M2 }}
         description: the cache key for ~/.m2/repository
       CACHE_KEY_GRADLE_BUILD:
-        value: ${{ jobs.build-core.outputs.CACHE_KEY_GRADLE_BUILD }}
+        value: ${{ jobs.main.outputs.CACHE_KEY_GRADLE_BUILD }}
         description: the cache key for kohomology/.gradle, kohomology/build
 
 jobs:
-  build-core:
+  main:
     runs-on: ubuntu-20.04
     outputs:
       CACHE_KEY_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE }}

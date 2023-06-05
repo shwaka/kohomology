@@ -1,4 +1,4 @@
-name: test-core
+name: benchmark-core
 
 on:
   workflow_call:
@@ -25,7 +25,7 @@ on:
         description: the cache key for ~/.m2/repository
 
 jobs:
-  test-core:
+  main:
     runs-on: ubuntu-20.04
     defaults:
       run:

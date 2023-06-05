@@ -25,17 +25,14 @@ on:
         description: the cache key for ~/.m2/repository
     outputs:
       CACHE_KEY_KOHOMOLOGY_JS:
-        value: ${{ jobs.build-website.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
+        value: ${{ jobs.main.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
         description: the cache key for website/kohomology-js/build/js
 
 jobs:
-  build-website:
+  main:
     runs-on: ubuntu-20.04
     outputs:
       CACHE_KEY_KOHOMOLOGY_JS: ${{ steps.setup-cache-key.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
-    defaults:
-      run:
-        working-directory: kohomology
     steps:
       - uses: actions/checkout@v3
         with:

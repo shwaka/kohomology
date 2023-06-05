@@ -1,7 +1,7 @@
 import benchmarkData from "@benchmark/benchmarkData.json"
 import { Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
-import React, { useState } from "react"
+import React, { useRef, useState } from "react"
 import { Chart } from "react-chartjs-2"
 import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
@@ -11,15 +11,12 @@ import { ConfigureFilterCommit, useFilterCommit } from "./useFilterCommit"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
-// @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
-const bd: BenchmarkData = benchmarkData
-const dataHandler = new BenchmarkDataHandler(bd)
-
 function Bench(
-  { name, dataset, filterCommit }: {
+  { name, dataset, filterCommit, dataHandler }: {
     name: string
     dataset: BenchWithCommit[]
     filterCommit: (commit: CommitWithDate) => boolean
+    dataHandler: BenchmarkDataHandler
   }
 ): JSX.Element {
   const arg = getChartProps({ name, dataset, dataHandler, filterCommit })
@@ -29,11 +26,12 @@ function Bench(
 }
 
 function Benchset(
-  { benchset, filterCommit, weightArray }: {
+  { benchset, filterCommit, weightArray, dataHandler }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
     filterCommit: (commit: CommitWithDate) => boolean
     weightArray: number[]
+    dataHandler: BenchmarkDataHandler
   }
 ): JSX.Element {
   const getValue = (bench: BenchWithCommit): number => bench.bench.value
@@ -59,6 +57,7 @@ function Benchset(
             name={benchName}
             dataset={benchAverages}
             filterCommit={filterCommit}
+            dataHandler={dataHandler}
           />
         )
       })}
@@ -66,7 +65,9 @@ function Benchset(
   )
 }
 
-export function BenchmarkChart(): JSX.Element {
+function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): JSX.Element {
+  const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
+  const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)
   const { filterCommit, configureFilterCommitProps } = useFilterCommit(dataHandler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
@@ -87,9 +88,21 @@ export function BenchmarkChart(): JSX.Element {
           key={benchsetWithName.name}
           filterCommit={filterCommit}
           weightArray={weightArray}
+          dataHandler={dataHandler}
           {...benchsetWithName}
         />
       ))}
+    </div>
+  )
+}
+
+export function BenchmarkChart(): JSX.Element {
+  // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
+  const bd: BenchmarkData = benchmarkData
+
+  return (
+    <div>
+      <BenchmarkChartOf benchmarkData={bd}/>
     </div>
   )
 }

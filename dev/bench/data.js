@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685967199445,
+  "lastUpdate": 1685968206443,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -220,6 +220,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.195,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "55e828e711cf3df82cb88fc713a2acf3a5fb714e",
+          "message": "build: add lint-core.yml",
+          "timestamp": "2023-06-05T21:15:47+09:00",
+          "tree_id": "fc9f2bbdaff8df52539f4faf7f865f2f11854c7b",
+          "url": "https://github.com/shwaka/kohomology/commit/55e828e711cf3df82cb88fc713a2acf3a5fb714e"
+        },
+        "date": 1685968205418,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.571,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.828,
             "unit": "s/op"
           }
         ]

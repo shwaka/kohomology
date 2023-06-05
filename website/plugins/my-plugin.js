@@ -1,5 +1,5 @@
-const CopyPlugin = require("copy-webpack-plugin");
-const path = require('path');
+const CopyPlugin = require("copy-webpack-plugin")
+const path = require('path')
 
 module.exports = function myPlugin(context, options) {
   return {
@@ -10,7 +10,7 @@ module.exports = function myPlugin(context, options) {
           rules: [
             {
               test: /\.kt$/i,
-              use: 'raw-loader',
+              use: "raw-loader",
             },
             {
               test: /\.worker\.js$/,

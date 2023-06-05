@@ -21,7 +21,7 @@ on:
         description: token for Codecov
 
 jobs:
-  test-core:
+  main:
     runs-on: ubuntu-20.04
     defaults:
       run:

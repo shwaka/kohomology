@@ -57,7 +57,7 @@ jobs:
           path: |
             kohomology/.gradle
             kohomology/build
-          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
+          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE_BUILD }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -97,7 +97,7 @@ jobs:
         # restore mavenLocal repository from 'build-core'
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
+          key: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
       - name: Set up JDK ${{ env.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -139,7 +139,7 @@ jobs:
         # restore mavenLocal repository from 'build-core'
         with:
           path: ~/.m2/repository
-          key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
+          key: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
       - name: "Save cache: website/kohomology-js/build/js"
         uses: actions/cache@v3 # for lint-website
         # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる

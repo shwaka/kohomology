@@ -18,6 +18,12 @@ on:
       CACHE_RESTORE_KEYS_GRADLE:
         value: ${{ jobs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
         description: the cache restore-keys for ~/.gradle/caches
+      CACHE_KEY_M2:
+        value: ${{ jobs.build-core.outputs.CACHE_KEY_M2 }}
+        description: the cache key for ~/.m2/repository
+      CACHE_KEY_GRADLE_BUILD:
+        value: ${{ jobs.build-core.outputs.CACHE_KEY_GRADLE_BUILD }}
+        description: the cache key for kohomology/.gradle, kohomology/build
 
 jobs:
   build-core:
@@ -25,6 +31,8 @@ jobs:
     outputs:
       CACHE_KEY_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE }}
       CACHE_RESTORE_KEYS_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      CACHE_KEY_M2: ${{ steps.setup-cache-key.outputs.CACHE_KEY_M2 }}
+      CACHE_KEY_GRADLE_BUILD: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE_BUILD }}
     defaults:
       run:
         working-directory: kohomology
@@ -32,8 +40,14 @@ jobs:
       - uses: actions/checkout@v3
       - id: setup-cache-key
         run: |
-          echo "CACHE_KEY_GRADLE=${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}" >> "$GITHUB_OUTPUT"
-          echo "CACHE_RESTORE_KEYS_GRADLE=${{ runner.os }}-gradle-jvm-" >> "$GITHUB_OUTPUT"
+          {
+          echo "CACHE_KEY_GRADLE=${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}"
+          echo "CACHE_RESTORE_KEYS_GRADLE=${{ runner.os }}-gradle-jvm-"
+          # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
+          # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
+          echo "CACHE_KEY_M2=${{ runner.os }}-kohomology-maven-local-${{ github.sha }}"
+          echo "CACHE_KEY_GRADLE_BUILD=${{ runner.os }}-gradle-build-${{ github.sha }}"
+          } >> "$GITHUB_OUTPUT"
       - name: "Cache: ~/.gradle/caches"
         uses: actions/cache@v3
         with:
@@ -42,12 +56,10 @@ jobs:
           restore-keys: ${{ steps.setup-cache-key.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       - name: "Save cache: ~/.m2/repository"
         uses: actions/cache@v3
-        # will be restored in 'benchmark' and 'build-website'
+        # will be restored in 'benchmark-core' and 'build-website'
         with:
           path: ~/.m2/repository
-          # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
-          # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
-          key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
+          key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_M2 }}
       - name: "Save cache: .gradle, build"
         uses: actions/cache@v3
         # will be restored in test-core
@@ -55,7 +67,7 @@ jobs:
           path: |
             kohomology/.gradle
             kohomology/build
-          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
+          key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE_BUILD }}
       - name: Set up JDK ${{ inputs.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:

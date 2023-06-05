@@ -1,0 +1,69 @@
+name: build-core
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+      CACHE_KEY_GRADLE:
+        required: true
+        type: string
+        description: the cache key for ~/.gradle/caches
+      CACHE_RESTORE_KEYS_GRADLE:
+        required: true
+        type: string
+        description: the cache restore-keys for ~/.gradle/caches
+
+jobs:
+  build-core:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: kohomology
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Cache: ~/.gradle/caches"
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ inputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ inputs.CACHE_RESTORE_KEYS_GRADLE }}
+      - name: "Save cache: ~/.m2/repository"
+        uses: actions/cache@v3
+        # will be restored in 'benchmark' and 'build-website'
+        with:
+          path: ~/.m2/repository
+          # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
+          # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
+          key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
+      - name: "Save cache: .gradle, build"
+        uses: actions/cache@v3
+        # will be restored in test-core
+        with:
+          path: |
+            kohomology/.gradle
+            kohomology/build
+          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: Download dependencies # Not necessary, but useful to make the log clean
+        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
+      - name: Compile with Gradle
+        run: ./gradlew compileKotlinJvm
+      - name: Install kohomology to MavenLocal
+        # This publication will be saved by actions/cache.
+        # Native publication is not used in later workflows.
+        # Note that publish{Jvm,Js}PublicationToMavenLocal shouldn't be used here.
+        # If they were used, then -jvm and -js would be required when writing dependency.
+        run: ./gradlew publishToMavenLocal -Dkohomology.disableNative

@@ -19,52 +19,24 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-core:
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
-        working-directory: kohomology
+  prepare-env:
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: "Cache: ~/.gradle/caches"
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle-jvm-
-      - name: "Save cache: ~/.m2/repository"
-        uses: actions/cache@v3
-        # will be restored in 'benchmark' and 'build-website'
-        with:
-          path: ~/.m2/repository
-          # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
-          # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101
-          key: ${{ runner.os }}-kohomology-maven-local-${{ github.sha }}
-      - name: "Save cache: .gradle, build"
-        uses: actions/cache@v3
-        # will be restored in test-core
-        with:
-          path: |
-            kohomology/.gradle
-            kohomology/build
-          key: ${{ runner.os }}-gradle-build-${{ github.sha }}
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Download dependencies # Not necessary, but useful to make the log clean
-        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
-      - name: Compile with Gradle
-        run: ./gradlew compileKotlinJvm
-      - name: Install kohomology to MavenLocal
-        # This publication will be saved by actions/cache.
-        # Native publication is not used in later workflows.
-        # Note that publish{Jvm,Js}PublicationToMavenLocal shouldn't be used here.
-        # If they were used, then -jvm and -js would be required when writing dependency.
-        run: ./gradlew publishToMavenLocal -Dkohomology.disableNative
+      - uses: actions/checkout@v2
+    outputs:
+      JAVA_DISTRIBUTION: ${{ env.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ env.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
+      CACHE_RESTORE_KEYS_GRADLE: ${{ runner.os }}-gradle-jvm-
+
+  build-core:
+    needs: [ prepare-env ]
+    uses: ./.github/workflows/build-core.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
+      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
 
   test-core:
     needs: [ build-core ]
@@ -111,7 +83,7 @@ jobs:
           ./codecov -t ${CODECOV_TOKEN}
 
   benchmark-core:
-    needs: [ build-core ]
+    needs: [ prepare-env, build-core ]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -119,8 +91,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle-jvm-
+          key: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
         # restore mavenLocal repository from 'build-core'
@@ -148,7 +120,7 @@ jobs:
           gh-pages-branch: benchmark-data
 
   build-website:
-    needs: [ build-core, test-core, benchmark-core ]
+    needs: [ prepare-env, build-core, test-core, benchmark-core ]
     runs-on: ubuntu-20.04
     env:
       BENCHMARK_DATA_DIR: benchmark-data
@@ -161,8 +133,8 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle-jvm-
+          key: ${{ needs.prepare-env.outputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ needs.prepare-env.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       - name: "Read cache: ~/.m2/repository"
         uses: actions/cache@v3
         # restore mavenLocal repository from 'build-core'

@@ -215,7 +215,7 @@ jobs:
         run: npm run build
         working-directory: website
       - name: Benchmark components
-        run: npm test benchmark.test.tsx -- --verbose --json --outputFile=jestReport.json
+        run: ./run-benchmark.sh
         working-directory: website
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3

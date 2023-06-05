@@ -49,40 +49,13 @@ jobs:
 
   benchmark-core:
     needs: [ prepare-env, build-core ]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      - name: "Cache: ~/.gradle/caches"
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-          restore-keys: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
-      - name: "Read cache: ~/.m2/repository"
-        uses: actions/cache@v3
-        # restore mavenLocal repository from 'build-core'
-        with:
-          path: ~/.m2/repository
-          key: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Run benchmark
-        run: ./gradlew benchmark -DbenchmarkTarget=com.github.shwaka.kohomology.profile.KohomologyBenchmark
-        working-directory: profile
-      - name: Format benchmark result
-        run: ./gradlew formatBenchmarkResult
-        working-directory: profile
-      - name: Store benchmark result
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          tool: customSmallerIsBetter
-          output-file-path: profile/build/kohomology/benchmark/output.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          gh-pages-branch: benchmark-data
+    uses: ./.github/workflows/benchmark-core.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
   build-website:
     needs: [ prepare-env, build-core, test-core, benchmark-core ]

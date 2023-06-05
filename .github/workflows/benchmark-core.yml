@@ -1,0 +1,65 @@
+name: test-core
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+      CACHE_KEY_GRADLE:
+        required: true
+        type: string
+        description: the cache key for ~/.gradle/caches
+      CACHE_RESTORE_KEYS_GRADLE:
+        required: true
+        type: string
+        description: the cache restore-keys for ~/.gradle/caches
+      CACHE_KEY_M2:
+        required: true
+        type: string
+        description: the cache key for ~/.m2/repository
+
+jobs:
+  test-core:
+    runs-on: ubuntu-20.04
+    defaults:
+      run:
+        working-directory: kohomology
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Cache: ~/.gradle/caches"
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ inputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ inputs.CACHE_RESTORE_KEYS_GRADLE }}
+      - name: "Read cache: ~/.m2/repository"
+        uses: actions/cache@v3
+        # restore mavenLocal repository from 'build-core'
+        with:
+          path: ~/.m2/repository
+          key: ${{ inputs.CACHE_KEY_M2 }}
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Run benchmark
+        run: ./gradlew benchmark -DbenchmarkTarget=com.github.shwaka.kohomology.profile.KohomologyBenchmark
+        working-directory: profile
+      - name: Format benchmark result
+        run: ./gradlew formatBenchmarkResult
+        working-directory: profile
+      - name: Store benchmark result
+        uses: benchmark-action/github-action-benchmark@v1
+        with:
+          tool: customSmallerIsBetter
+          output-file-path: profile/build/kohomology/benchmark/output.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          auto-push: true
+          gh-pages-branch: benchmark-data

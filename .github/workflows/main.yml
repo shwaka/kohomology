@@ -67,7 +67,7 @@ jobs:
         run: ./gradlew publishToMavenLocal -Dkohomology.disableNative
 
   test-core:
-    needs: build-core
+    needs: [ build-core ]
     runs-on: ubuntu-20.04
     defaults:
       run:
@@ -111,7 +111,7 @@ jobs:
           ./codecov -t ${CODECOV_TOKEN}
 
   benchmark-core:
-    needs: build-core
+    needs: [ build-core ]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3

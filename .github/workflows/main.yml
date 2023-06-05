@@ -76,29 +76,6 @@ jobs:
 
   lint-website:
     needs: [ build-website ]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v3
-      # - name: Use Node.js
-      #   uses: actions/setup-node@v3
-      #   with:
-      #     node-version: ${{ env.NODE_VERSION }}
-      #     cache: 'npm'
-      #     cache-dependency-path: website/package-lock.json
-      - uses: volta-cli/action@v3
-      - name: "Read cache: website/kohomology-js/build/js"
-        uses: actions/cache@v3 # restore from build-website
-        # actions/download-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
-        with:
-          # 以下が全て必要
-          # - build/js/packages/kohomology-js
-          # - build/js/packages-imported/kotlin/<version>
-          # - build/js/packages-imported/kotlin-test/<version>
-          # - build/js/packages-imported/kotlin-test-js-runner/<version>
-          path: website/kohomology-js/build/js
-          key: ${{ runner.os }}-kohomology-js-node-package-${{ github.sha }}
-      - run: npm ci
-        working-directory: website
-      - name: eslint
-        run: npm run eslint
-        working-directory: website
+    uses: ./.github/workflows/lint-website.yml
+    with:
+      CACHE_KEY_KOHOMOLOGY_JS: ${{ needs.build-website.outputs.CACHE_KEY_KOHOMOLOGY_JS }}

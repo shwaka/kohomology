@@ -6,8 +6,6 @@ env:
   JAVA_VERSION: 8
   # NODE_VERSION: 16.x # node version is specified in package.json by using volta
   # 'env' cannot be used in 'runs-on'(?)
-  SHARED_ARTIFACT_NAME: _internal_artifact
-  SHARED_ARTIFACT_PATH: website/kohomology-js/build/js
 
 on:
   push:
@@ -23,9 +21,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - id: setup
-        run: |
-          echo "hash-gradle-kts=${{ hashFiles('**/*.gradle.kts') }}" >> "$GITHUB_OUTPUT"
     outputs:
       JAVA_DISTRIBUTION: ${{ env.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ env.JAVA_VERSION }}

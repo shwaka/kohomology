@@ -100,6 +100,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): J
 export function BenchmarkChart(): JSX.Element {
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
+  // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bdw: BenchmarkData = benchmarkDataWebsite
 
   return (

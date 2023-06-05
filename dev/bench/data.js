@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685957142581,
+  "lastUpdate": 1685958877903,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -152,6 +152,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.169,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ae32f14a55feadd198c5edd8b7c22ee913bd8321",
+          "message": "build: add double quote in shell script in main.yml",
+          "timestamp": "2023-06-05T18:39:27+09:00",
+          "tree_id": "81cb9b73d58a1664b863e79db5295d2d79a4c925",
+          "url": "https://github.com/shwaka/kohomology/commit/ae32f14a55feadd198c5edd8b7c22ee913bd8321"
+        },
+        "date": 1685958876942,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.688,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 3.183,
             "unit": "s/op"
           }
         ]

@@ -34,7 +34,7 @@ jobs:
           restore-keys: ${{ runner.os }}-gradle-jvm-
       - name: "Save cache: ~/.m2/repository"
         uses: actions/cache@v3
-        # will be restored in 'benchmark' and 'generate-site'
+        # will be restored in 'benchmark' and 'build-website'
         with:
           path: ~/.m2/repository
           # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
@@ -147,7 +147,7 @@ jobs:
           auto-push: true
           gh-pages-branch: benchmark-data
 
-  generate-site:
+  build-website:
     needs: [ build-core, test-core, benchmark-core ]
     runs-on: ubuntu-20.04
     env:
@@ -246,7 +246,7 @@ jobs:
         working-directory: kohomology
 
   lint-website:
-    needs: [ generate-site ]
+    needs: [ build-website ]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v3
@@ -258,7 +258,7 @@ jobs:
       #     cache-dependency-path: website/package-lock.json
       - uses: volta-cli/action@v3
       - name: "Read cache: website/kohomology-js/build/js"
-        uses: actions/cache@v3 # restore from generate-site
+        uses: actions/cache@v3 # restore from build-website
         # actions/download-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
         with:
           # 以下が全て必要

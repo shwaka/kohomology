@@ -23,10 +23,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - id: setup
+        run: |
+          echo "hash-gradle-kts=${{ hashFiles('**/*.gradle.kts') }}" >> "$GITHUB_OUTPUT"
     outputs:
       JAVA_DISTRIBUTION: ${{ env.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ env.JAVA_VERSION }}
-      CACHE_KEY_GRADLE: ${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}
+      CACHE_KEY_GRADLE: ${{ runner.os }}-gradle-jvm-${{ steps.setup.outputs.hash-gradle-kts }}
       CACHE_RESTORE_KEYS_GRADLE: ${{ runner.os }}-gradle-jvm-
 
   build-core:

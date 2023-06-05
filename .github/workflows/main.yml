@@ -38,48 +38,14 @@ jobs:
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   test-core:
-    needs: [ build-core ]
-    runs-on: ubuntu-20.04
-    defaults:
-      run:
-        working-directory: kohomology
-    steps:
-      - uses: actions/checkout@v3
-      - name: "Cache: ~/.gradle/caches"
-        uses: actions/cache@v3
-        with: # use different key from build-core
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-jvm-test-${{ hashFiles('**/*.gradle.kts') }}
-          restore-keys: ${{ runner.os }}-gradle-jvm-test-
-      - name: "Read cache: .gradle, build"
-        uses: actions/cache@v3
-        with:
-          path: |
-            kohomology/.gradle
-            kohomology/build
-          key: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE_BUILD }}
-      - name: Set up JDK ${{ env.JAVA_VERSION }}
-        uses: actions/setup-java@v3
-        with:
-          distribution: ${{ env.JAVA_DISTRIBUTION }}
-          java-version: ${{ env.JAVA_VERSION }}
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-      - name: Download dependencies # Not necessary, but useful to make the log clean
-        run: ./gradlew dependencies --configuration jvmTestRuntimeClasspath --stacktrace
-      - name: Compile with Gradle
-        run: ./gradlew compileKotlinJvm
-      - name: Test with Gradle
-        run: ./gradlew jvmTest -Dkococo.debug
-      - name: Jacoco Test Report
-        run: ./gradlew jacocoTestReport
-      - name: Upload to codecov
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }} # "token not required for public repositories" らしい…？
-        run: |
-          curl -Os https://uploader.codecov.io/latest/linux/codecov
-          chmod +x codecov
-          ./codecov -t "${CODECOV_TOKEN}"
+    needs: [ prepare-env, build-core ]
+    uses: ./.github/workflows/test-core.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE_BUILD: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE_BUILD }}
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
   benchmark-core:
     needs: [ prepare-env, build-core ]

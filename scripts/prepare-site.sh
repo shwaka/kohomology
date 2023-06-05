@@ -7,12 +7,15 @@ ROOT_DIR=$(pwd)
 
 # exapnd benchmark data to the working tree
 cd "$ROOT_DIR"
-DESTINATION=benchmark-data
-echo "--- Expand benchmark data to '$DESTINATION/'---"
-rm -rf "$DESTINATION"
-git read-tree --prefix="$DESTINATION" -u remotes/origin/benchmark-data
-git reset HEAD "$DESTINATION"
-sed "s/window.BENCHMARK_DATA = //" < "$DESTINATION/dev/bench/data.js" > "$DESTINATION/dev/bench/benchmarkData.json"
+for NAME in benchmark-data benchmark-data-website; do
+    DESTINATION=$NAME
+    BRANCH=remotes/origin/$NAME
+    echo "--- Expand benchmark data to '$DESTINATION/'---"
+    rm -rf "$DESTINATION"
+    git read-tree --prefix="$DESTINATION" -u $BRANCH
+    git reset HEAD "$DESTINATION"
+    sed "s/window.BENCHMARK_DATA = //" < "$DESTINATION/dev/bench/data.js" > "$DESTINATION/dev/bench/benchmarkData.json"
+done
 
 # build dokka
 cd "$ROOT_DIR"/kohomology

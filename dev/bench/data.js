@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686027575880,
+  "lastUpdate": 1686029439105,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -458,6 +458,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.318,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "25e217113e5dde092aa554fb1ebe8d87d519e62b",
+          "message": "build: remove unnecessary CACHE_KEY_M2 from called-docs-core.yml",
+          "timestamp": "2023-06-06T14:18:41+09:00",
+          "tree_id": "6fd281dcc7573d1767b1d4d23f240a4cfe5d623c",
+          "url": "https://github.com/shwaka/kohomology/commit/25e217113e5dde092aa554fb1ebe8d87d519e62b"
+        },
+        "date": 1686029438330,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.58,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.838,
             "unit": "s/op"
           }
         ]

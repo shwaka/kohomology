@@ -76,9 +76,6 @@ jobs:
     needs: [ prepare-env, build-core, test-core, benchmark-core, build-kotlin-js, docs-core ]
     uses: ./.github/workflows/called-build-website.yml
     with:
-      CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
-      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}
       CACHE_KEY_DOKKA: ${{ needs.docs-core.outputs.CACHE_KEY_DOKKA }}
 

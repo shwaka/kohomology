@@ -3,18 +3,6 @@ name: build-website
 on:
   workflow_call:
     inputs:
-      CACHE_KEY_GRADLE:
-        required: true
-        type: string
-        description: the cache key for ~/.gradle/caches
-      CACHE_RESTORE_KEYS_GRADLE:
-        required: true
-        type: string
-        description: the cache restore-keys for ~/.gradle/caches
-      CACHE_KEY_M2:
-        required: true
-        type: string
-        description: the cache key for ~/.m2/repository
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
@@ -31,19 +19,8 @@ jobs:
       - uses: actions/checkout@v3
         with:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # This is necessary to read benchmark-data from separate branch.
           fetch-depth: 0
-      - name: "Cache: ~/.gradle/cache"
-        uses: actions/cache@v3
-        with:
-          path: ~/.gradle/caches
-          key: ${{ inputs.CACHE_KEY_GRADLE }}
-          restore-keys: ${{ inputs.CACHE_RESTORE_KEYS_GRADLE }}
-      - name: "Read cache: ~/.m2/repository"
-        uses: actions/cache@v3
-        # restore mavenLocal repository from 'build-core'
-        with:
-          path: ~/.m2/repository
-          key: ${{ inputs.CACHE_KEY_M2 }}
       - name: "Read cache: website/node_modules"
         uses: actions/cache@v3
         with:

@@ -10,7 +10,7 @@ env:
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'scripts/prepare-site.sh', '.github/workflows/main.yml' ]
+    paths: [ 'kohomology/**', 'profile/**', 'website/**', 'scripts/prepare-site.sh', '.github/workflows/main.yml', '.github/workflows/called-*.yml' ]
   # pull_request: # See pull_request.yml for workflows on pull requests
   #   branches: [ main ]
   #   paths: [ 'kohomology/**', 'profile/**', '.github/workflows/gradle.yml' ]

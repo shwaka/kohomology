@@ -1,7 +1,7 @@
 import { Add, Delete, DragHandle } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
-import React, { useCallback } from "react"
+import React, { ReactNode, useCallback } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { generatorArrayToPrettyJson } from "../jsonUtils"
 import { FormData, RowComponentProps, SortableFields } from "./SortableFields"
@@ -261,6 +261,14 @@ function ArrayEditorItem(
   )
 }
 
+function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Element {
+  return (
+    <Stack spacing={2}>
+      {children}
+    </Stack>
+  )
+}
+
 interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>
   errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
@@ -287,7 +295,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
       <Stack spacing={2} sx={{ marginTop: 1 }}>
         <SortableFields
           RowComponent={ArrayEditorItem}
-          Container={({ children }) => <Stack spacing={2}>{children}</Stack>}
+          Container={SortableFieldsContainer}
           {...{ fields, move, formData }}
         />
         <Button

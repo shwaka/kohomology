@@ -75,7 +75,7 @@ jobs:
 
   lint-core:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/called-build-core.yml
+    uses: ./.github/workflows/called-lint-core.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}

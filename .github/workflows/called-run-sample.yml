@@ -1,4 +1,4 @@
-name: run-sample
+name: called-run-sample
 
 on:
   workflow_call:

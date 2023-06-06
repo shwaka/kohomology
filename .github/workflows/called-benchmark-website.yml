@@ -1,4 +1,4 @@
-name: benchmark-website
+name: called-benchmark-website
 
 on:
   workflow_call:

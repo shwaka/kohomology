@@ -1,4 +1,4 @@
-name: lint-website
+name: called-lint-website
 
 on:
   workflow_call:

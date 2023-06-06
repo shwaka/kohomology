@@ -1,4 +1,4 @@
-name: lint-core
+name: called-lint-core
 
 on:
   workflow_call:

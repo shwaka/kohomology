@@ -1,4 +1,4 @@
-name: build-core
+name: called-build-core
 
 on:
   workflow_call:

@@ -1,4 +1,4 @@
-name: benchmark-core
+name: called-benchmark-core
 
 on:
   workflow_call:

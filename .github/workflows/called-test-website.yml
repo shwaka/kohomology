@@ -1,4 +1,4 @@
-name: test-website
+name: called-test-website
 
 on:
   workflow_call:

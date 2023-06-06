@@ -1,4 +1,4 @@
-name: build-website
+name: setup-website
 
 on:
   workflow_call:

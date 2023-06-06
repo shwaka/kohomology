@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686031857860,
+  "lastUpdate": 1686034215265,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -594,6 +594,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.995,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "981450df948a525b9eda20d4699ea0b395d0b18e",
+          "message": "build: remove CACHE_RESTORE_KEYS_GRADLE from the output of called-build-core.yml",
+          "timestamp": "2023-06-06T15:44:02+09:00",
+          "tree_id": "9812a6fe8bd06c9e1c6fe3d37ff1a10878f83cc5",
+          "url": "https://github.com/shwaka/kohomology/commit/981450df948a525b9eda20d4699ea0b395d0b18e"
+        },
+        "date": 1686034214799,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.538,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.368,
             "unit": "s/op"
           }
         ]

@@ -52,8 +52,18 @@ jobs:
       CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
+  build-kotlin-js:
+    needs: [ prepare-env, build-core ]
+    uses: ./.github/workflows/build-kotlin-js.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
+
   build-website:
-    needs: [ prepare-env, build-core, test-core, benchmark-core ]
+    needs: [ prepare-env, build-core, test-core, benchmark-core, build-kotlin-js ]
     uses: ./.github/workflows/build-website.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
@@ -61,6 +71,7 @@ jobs:
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
       CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
+      CACHE_KEY_KOHOMOLOGY_JS: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
 
   lint-core:
     needs: [ prepare-env, build-core ]
@@ -70,7 +81,7 @@ jobs:
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   lint-website:
-    needs: [ build-website ]
+    needs: [ build-kotlin-js ]
     uses: ./.github/workflows/lint-website.yml
     with:
-      CACHE_KEY_KOHOMOLOGY_JS: ${{ needs.build-website.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
+      CACHE_KEY_KOHOMOLOGY_JS: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_KOHOMOLOGY_JS }}

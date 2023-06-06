@@ -19,10 +19,6 @@ on:
         required: true
         type: string
         description: the cache restore-keys for ~/.gradle/caches
-      CACHE_KEY_M2:
-        required: true
-        type: string
-        description: the cache key for ~/.m2/repository
     outputs:
       CACHE_KEY_DOKKA:
         value: ${{ jobs.main.outputs.CACHE_KEY_DOKKA }}
@@ -47,12 +43,6 @@ jobs:
           path: ~/.gradle/caches
           key: ${{ inputs.CACHE_KEY_GRADLE }}
           restore-keys: ${{ inputs.CACHE_RESTORE_KEYS_GRADLE }}
-      - name: "Read cache: ~/.m2/repository"
-        uses: actions/cache@v3
-        # restore mavenLocal repository from 'build-core'
-        with:
-          path: ~/.m2/repository
-          key: ${{ inputs.CACHE_KEY_M2 }}
       - name: "Save cache: kohomology/build/dokka/html"
         uses: actions/cache@v3
         with:

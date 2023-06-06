@@ -60,7 +60,6 @@ jobs:
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
       CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
-      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
   build-kotlin-js:
     needs: [ prepare-env, build-core ]

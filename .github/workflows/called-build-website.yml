@@ -47,23 +47,6 @@ jobs:
           command -v npm
           npm --version
         working-directory: website
-      - name: Typecheck website
-        run: npm run typecheck
-        working-directory: website
-      - name: Test components in website
-        run: npm test -- --verbose
-        working-directory: website
-      - name: Benchmark components
-        run: ./run-benchmark.sh
-        working-directory: website
-      - name: Store benchmark result # This should be run before building website
-        uses: benchmark-action/github-action-benchmark@v1
-        with:
-          tool: customSmallerIsBetter
-          output-file-path: website/benchmark-result/output.json
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          auto-push: true
-          gh-pages-branch: benchmark-data-website
       - name: Build site
         run: npm run build
         working-directory: website

@@ -77,8 +77,14 @@ jobs:
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}
 
+  benchmark-website:
+    needs: [ build-kotlin-js ]
+    uses: ./.github/workflows/called-benchmark-website.yml
+    with:
+      CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}
+
   build-website:
-    needs: [ test-core, benchmark-core, docs-core, build-kotlin-js, test-website ]
+    needs: [ test-core, benchmark-core, docs-core, build-kotlin-js, test-website, benchmark-website ]
     uses: ./.github/workflows/called-build-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}

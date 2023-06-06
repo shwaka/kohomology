@@ -51,7 +51,6 @@ jobs:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
   docs-core:
@@ -61,7 +60,6 @@ jobs:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
 
   setup-website:
     needs: [ prepare-env, build-core ]
@@ -70,7 +68,6 @@ jobs:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
   test-website:

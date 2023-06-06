@@ -15,9 +15,9 @@ on:
       CACHE_KEY_GRADLE:
         value: ${{ jobs.main.outputs.CACHE_KEY_GRADLE }}
         description: the cache key for ~/.gradle/caches
-      CACHE_RESTORE_KEYS_GRADLE:
-        value: ${{ jobs.main.outputs.CACHE_RESTORE_KEYS_GRADLE }}
-        description: the cache restore-keys for ~/.gradle/caches
+      # CACHE_RESTORE_KEYS_GRADLE:
+      #   value: ${{ jobs.main.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      #   description: the cache restore-keys for ~/.gradle/caches
       CACHE_KEY_M2:
         value: ${{ jobs.main.outputs.CACHE_KEY_M2 }}
         description: the cache key for ~/.m2/repository
@@ -30,7 +30,7 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
       CACHE_KEY_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE }}
-      CACHE_RESTORE_KEYS_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_RESTORE_KEYS_GRADLE }}
+      # CACHE_RESTORE_KEYS_GRADLE: ${{ steps.setup-cache-key.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ steps.setup-cache-key.outputs.CACHE_KEY_M2 }}
       CACHE_KEY_GRADLE_BUILD: ${{ steps.setup-cache-key.outputs.CACHE_KEY_GRADLE_BUILD }}
     defaults:
@@ -43,6 +43,8 @@ jobs:
         run: |
           {
           echo "CACHE_KEY_GRADLE=${{ runner.os }}-gradle-jvm-${{ hashFiles('**/*.gradle.kts') }}"
+          # CACHE_RESTORE_KEYS_GRADLE should be used only in build-core
+          # since other called workflows should read cache from build-core in the same run.
           echo "CACHE_RESTORE_KEYS_GRADLE=${{ runner.os }}-gradle-jvm-"
           # Add ${{ github.sha }} to ensure that the result will be always saved to the cache
           # https://qiita.com/yuki0n0/items/d52e1fbbed08bc263101

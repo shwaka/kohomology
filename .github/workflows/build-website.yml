@@ -77,9 +77,9 @@ jobs:
       - uses: volta-cli/action@v3
       - name: Assert that volta is used
         run: |
-          which node
+          command -v node
           node --version
-          which npm
+          command -v npm
           npm --version
         working-directory: website
       - run: npm ci

@@ -27,14 +27,14 @@ jobs:
 
   build-core:
     needs: [ prepare-env ]
-    uses: ./.github/workflows/build-core.yml
+    uses: ./.github/workflows/called-build-core.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   test-core:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/test-core.yml
+    uses: ./.github/workflows/called-test-core.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
@@ -44,7 +44,7 @@ jobs:
 
   benchmark-core:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/benchmark-core.yml
+    uses: ./.github/workflows/called-benchmark-core.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
@@ -54,7 +54,7 @@ jobs:
 
   build-kotlin-js:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/build-kotlin-js.yml
+    uses: ./.github/workflows/called-build-kotlin-js.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
@@ -64,7 +64,7 @@ jobs:
 
   build-website:
     needs: [ prepare-env, build-core, test-core, benchmark-core, build-kotlin-js ]
-    uses: ./.github/workflows/build-website.yml
+    uses: ./.github/workflows/called-build-website.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
@@ -75,13 +75,13 @@ jobs:
 
   lint-core:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/build-core.yml
+    uses: ./.github/workflows/called-build-core.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   lint-website:
     needs: [ build-kotlin-js ]
-    uses: ./.github/workflows/lint-website.yml
+    uses: ./.github/workflows/called-lint-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1685985920987,
+  "lastUpdate": 1686018879907,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -356,6 +356,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 3.001,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "0dd04818fa9a116e02ba0b758ed5cc9917f74ed0",
+          "message": "build: add build-kotlin-js.yml",
+          "timestamp": "2023-06-06T11:21:15+09:00",
+          "tree_id": "a5c868fa390720710c55ed7a1ac0c24c84812254",
+          "url": "https://github.com/shwaka/kohomology/commit/0dd04818fa9a116e02ba0b758ed5cc9917f74ed0"
+        },
+        "date": 1686018879243,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.554,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.508,
             "unit": "s/op"
           }
         ]

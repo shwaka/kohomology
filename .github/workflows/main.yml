@@ -18,6 +18,8 @@ on:
 
 jobs:
   prepare-env:
+    # "${{ env.foo }}" cannot be used in "with" to specify inputs.
+    # As a work-around, we provide it through the output of this job.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2

@@ -3,14 +3,6 @@ name: build-website
 on:
   workflow_call:
     inputs:
-      JAVA_VERSION:
-        required: true
-        type: string
-        description: the version of Java
-      JAVA_DISTRIBUTION:
-        required: true
-        type: string
-        description: the distribution of Java
       CACHE_KEY_GRADLE:
         required: true
         type: string
@@ -27,6 +19,10 @@ on:
         required: true
         type: string
         description: the cache key for website/node_modules
+      CACHE_KEY_DOKKA:
+        required: true
+        type: string
+        description: the cache key for kohomology/build/dokka/html
 
 jobs:
   main:
@@ -53,15 +49,13 @@ jobs:
         with:
           path: website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
-      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
-        uses: actions/setup-java@v3
+      - name: "Read cache: kohomology/build/dokka/html"
+        uses: actions/cache@v3
         with:
-          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
-          java-version: ${{ inputs.JAVA_VERSION }}
+          path: kohomology/build/dokka/html
+          key: ${{ inputs.CACHE_KEY_DOKKA }}
       - name: Prepare benchmark data
         run: ./scripts/prepare-site.sh benchmark-data
-      - name: Prepare dokka html
-        run: ./scripts/prepare-site.sh dokka
       # - name: Use Node.js
       #   uses: actions/setup-node@v3
       #   with:

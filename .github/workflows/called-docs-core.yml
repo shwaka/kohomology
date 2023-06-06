@@ -1,0 +1,67 @@
+name: docs-core
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+      CACHE_KEY_GRADLE:
+        required: true
+        type: string
+        description: the cache key for ~/.gradle/caches
+      CACHE_RESTORE_KEYS_GRADLE:
+        required: true
+        type: string
+        description: the cache restore-keys for ~/.gradle/caches
+      CACHE_KEY_M2:
+        required: true
+        type: string
+        description: the cache key for ~/.m2/repository
+    outputs:
+      CACHE_KEY_DOKKA:
+        value: ${{ jobs.main.outputs.CACHE_KEY_DOKKA }}
+        description: the cache key for kohomology/build/dokka/html
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    outputs:
+      CACHE_KEY_DOKKA: ${{ steps.setup-cache-key.outputs.CACHE_KEY_DOKKA }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup cache key
+        id: setup-cache-key
+        run: |
+          {
+          echo "CACHE_KEY_DOKKA=${{ runner.os }}-kohomology-dokka-${{ github.sha }}"
+          } >> "$GITHUB_OUTPUT"
+      - name: "Cache: ~/.gradle/cache"
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ inputs.CACHE_KEY_GRADLE }}
+          restore-keys: ${{ inputs.CACHE_RESTORE_KEYS_GRADLE }}
+      - name: "Read cache: ~/.m2/repository"
+        uses: actions/cache@v3
+        # restore mavenLocal repository from 'build-core'
+        with:
+          path: ~/.m2/repository
+          key: ${{ inputs.CACHE_KEY_M2 }}
+      - name: "Save cache: kohomology/build/dokka/html"
+        uses: actions/cache@v3
+        with:
+          path: kohomology/build/dokka/html
+          key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_DOKKA }}
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Prepare dokka html
+        run: ./scripts/prepare-site.sh dokka

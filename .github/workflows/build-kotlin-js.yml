@@ -24,22 +24,22 @@ on:
         type: string
         description: the cache key for ~/.m2/repository
     outputs:
-      CACHE_KEY_KOHOMOLOGY_JS:
-        value: ${{ jobs.main.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
-        description: the cache key for website/kohomology-js/build/js
+      CACHE_KEY_NODE_MODULES:
+        value: ${{ jobs.main.outputs.CACHE_KEY_NODE_MODULES }}
+        description: the cache key for website/node_modules
 
 jobs:
   main:
     runs-on: ubuntu-20.04
     outputs:
-      CACHE_KEY_KOHOMOLOGY_JS: ${{ steps.setup-cache-key.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
+      CACHE_KEY_NODE_MODULES: ${{ steps.setup-cache-key.outputs.CACHE_KEY_NODE_MODULES }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup cache key
         id: setup-cache-key
         run: |
           {
-          echo "CACHE_KEY_KOHOMOLOGY_JS=${{ runner.os }}-kohomology-js-node-package-${{ github.sha }}"
+          echo "CACHE_KEY_NODE_MODULES=${{ runner.os }}-kohomology-js-node-modules-${{ github.sha }}"
           } >> "$GITHUB_OUTPUT"
       - name: "Cache: ~/.gradle/cache"
         uses: actions/cache@v3
@@ -53,17 +53,22 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ inputs.CACHE_KEY_M2 }}
-      - name: "Save cache: website/kohomology-js/build/js"
-        uses: actions/cache@v3 # for lint-website
-        # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
+      - name: "Save cache: website/node_modules"
+        uses: actions/cache@v3
         with:
-          # 以下が全て必要
-          # - build/js/packages/kohomology-js
-          # - build/js/packages-imported/kotlin/<version>
-          # - build/js/packages-imported/kotlin-test/<version>
-          # - build/js/packages-imported/kotlin-test-js-runner/<version>
-          path: website/kohomology-js/build/js
-          key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
+          path: website/node_modules
+          key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_NODE_MODULES }}
+      # - name: "Save cache: website/kohomology-js/build/js"
+      #   uses: actions/cache@v3 # for lint-website
+      #   # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
+      #   with:
+      #     # 以下が全て必要
+      #     # - build/js/packages/kohomology-js
+      #     # - build/js/packages-imported/kotlin/<version>
+      #     # - build/js/packages-imported/kotlin-test/<version>
+      #     # - build/js/packages-imported/kotlin-test-js-runner/<version>
+      #     path: website/kohomology-js/build/js
+      #     key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_KOHOMOLOGY_JS }}
       - name: Set up JDK ${{ inputs.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -75,3 +80,6 @@ jobs:
         # ここでやるのが適切かは微妙だけど，Java 環境があるのでついでにやっておく
         run: ./run-sample.sh
         working-directory: scripts
+      - uses: volta-cli/action@v3
+      - run: npm ci
+        working-directory: website

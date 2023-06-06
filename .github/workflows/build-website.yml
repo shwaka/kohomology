@@ -23,10 +23,10 @@ on:
         required: true
         type: string
         description: the cache key for ~/.m2/repository
-      CACHE_KEY_KOHOMOLOGY_JS:
+      CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/kohomology-js/build/js
+        description: the cache key for website/node_modules
 
 jobs:
   main:
@@ -48,17 +48,11 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ inputs.CACHE_KEY_M2 }}
-      - name: "Read cache: website/kohomology-js/build/js"
-        uses: actions/cache@v3 # for lint-website
-        # actions/upload-artifact も使ってみたけど，ファイルが多すぎるせいか5分くらいかかる
+      - name: "Read cache: website/node_modules"
+        uses: actions/cache@v3
         with:
-          # 以下が全て必要
-          # - build/js/packages/kohomology-js
-          # - build/js/packages-imported/kotlin/<version>
-          # - build/js/packages-imported/kotlin-test/<version>
-          # - build/js/packages-imported/kotlin-test-js-runner/<version>
-          path: website/kohomology-js/build/js
-          key: ${{ inputs.CACHE_KEY_KOHOMOLOGY_JS }}
+          path: website/node_modules
+          key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - name: Set up JDK ${{ inputs.JAVA_VERSION }}
         uses: actions/setup-java@v3
         with:
@@ -81,8 +75,6 @@ jobs:
           node --version
           command -v npm
           npm --version
-        working-directory: website
-      - run: npm ci
         working-directory: website
       - name: Typecheck website
         run: npm run typecheck

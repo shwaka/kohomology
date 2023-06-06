@@ -1,0 +1,29 @@
+name: run-sample
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Assert samples are working
+        # No need to import locally installed kohomology from ~/.m2/repository
+        # since the released version is used in the samples.
+        run: ./run-sample.sh
+        working-directory: scripts

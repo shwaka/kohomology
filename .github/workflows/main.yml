@@ -85,8 +85,15 @@ jobs:
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}
 
+  run-sample:
+    needs: [ prepare-env ]
+    uses: ./.github/workflows/called-run-sample.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+
   build-website:
-    needs: [ test-core, benchmark-core, docs-core, build-kotlin-js, test-website, benchmark-website ]
+    needs: [ test-core, benchmark-core, docs-core, build-kotlin-js, test-website, benchmark-website, run-sample ]
     uses: ./.github/workflows/called-build-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}

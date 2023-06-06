@@ -22,7 +22,7 @@ jobs:
     # As a work-around, we provide it through the output of this job.
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
     outputs:
       JAVA_DISTRIBUTION: ${{ env.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ env.JAVA_VERSION }}

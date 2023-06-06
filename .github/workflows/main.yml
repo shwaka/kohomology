@@ -71,8 +71,14 @@ jobs:
       CACHE_RESTORE_KEYS_GRADLE: ${{ needs.build-core.outputs.CACHE_RESTORE_KEYS_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
+  test-website:
+    needs: [ build-kotlin-js ]
+    uses: ./.github/workflows/called-test-website.yml
+    with:
+      CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}
+
   build-website:
-    needs: [ prepare-env, build-core, test-core, benchmark-core, build-kotlin-js, docs-core ]
+    needs: [ test-core, benchmark-core, docs-core, build-kotlin-js, test-website ]
     uses: ./.github/workflows/called-build-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.build-kotlin-js.outputs.CACHE_KEY_NODE_MODULES }}

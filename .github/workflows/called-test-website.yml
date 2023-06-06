@@ -1,0 +1,27 @@
+name: test-website
+
+on:
+  workflow_call:
+    inputs:
+      CACHE_KEY_NODE_MODULES:
+        required: true
+        type: string
+        description: the cache key for website/node_modules
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Read cache: website/node_modules"
+        uses: actions/cache@v3
+        with:
+          path: website/node_modules
+          key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
+      - uses: volta-cli/action@v3
+      - name: Typecheck website
+        run: npm run typecheck
+        working-directory: website
+      - name: Test components in website
+        run: npm test -- --verbose
+        working-directory: website

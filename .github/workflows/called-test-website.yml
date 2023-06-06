@@ -19,9 +19,6 @@ jobs:
           path: website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - uses: volta-cli/action@v3
-      - name: Typecheck website
-        run: npm run typecheck
-        working-directory: website
       - name: Test components in website
         run: npm test -- --verbose
         working-directory: website

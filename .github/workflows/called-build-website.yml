@@ -47,6 +47,10 @@ jobs:
           command -v npm
           npm --version
         working-directory: website
+      - name: Typecheck website
+        # This requires benchmark-data
+        run: npm run typecheck
+        working-directory: website
       - name: Build site
         run: npm run build
         working-directory: website

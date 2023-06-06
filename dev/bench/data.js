@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686034215265,
+  "lastUpdate": 1686044103449,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -628,6 +628,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.368,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5c6ec207feb53b7eea562d04db4eab82fde036ff",
+          "message": "perf(website): add SortableFieldsContainer instead of a lambda (#295)",
+          "timestamp": "2023-06-06T18:24:06+09:00",
+          "tree_id": "082e7b6ab940b0349acac62aea056cd2137994e0",
+          "url": "https://github.com/shwaka/kohomology/commit/5c6ec207feb53b7eea562d04db4eab82fde036ff"
+        },
+        "date": 1686044102876,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.522,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.765,
             "unit": "s/op"
           }
         ]

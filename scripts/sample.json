@@ -1,0 +1,46 @@
+{
+  "DGAlgebraMap": {
+    "expected_outputs": [
+      "a1a2",
+      "a1^2a2^2",
+      "[a1a2]",
+      "dummy"
+    ]
+  },
+  "FreeLoopSpace": {
+    "expected_outputs": [
+      "dsy = -2 xsx = -2 xsx",
+      "H^0(LS^4) = Q[[1]]",
+      "H^1(LS^4) = Q[]",
+      "H^3(LS^4) = Q[[sx]]",
+      "H^16(LS^4) = Q[[1/4 xsy^2 + ysxsy]]"
+    ]
+  },
+  "MultiDegree": {
+    "expected_outputs": [
+      "[[1]]",
+      "[[x], [a]]"
+    ]
+  },
+  "PrintTex": {
+    "expected_outputs": [
+      "H^2(LX) = Q[[a], [b], [sasb]]",
+      "H^{2}(LX) &= \\Q[[{a}], [{b}], [\\bar{a}\\bar{b}]] \\\\"
+    ]
+  },
+  "SphereModel": {
+    "expected_outputs": [
+      "H^0(S^4) = Q[[1]]",
+      "H^1(S^4) = Q[]",
+      "H^4(S^4) = Q[[x]]",
+      "d(x * y) = x^3"
+    ]
+  },
+  "TopPageExample": {
+    "expected_outputs": [
+      "H^0 = Q[[1]]",
+      "H^1 = Q[]",
+      "H^5 = Q[[- ay + bx], [- az + by]]"
+    ]
+  }
+}

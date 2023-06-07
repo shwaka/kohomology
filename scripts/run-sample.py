@@ -1,13 +1,21 @@
-import os, subprocess, platform
+import os, subprocess, platform, json
 from pathlib import Path
-from typing import List
+from typing import List, Dict
 
 def main() -> None:
     sample_dir = get_sample_dir()
     os.chdir(sample_dir)
 
+    failed_sample_list: List[str] = []
     for kotlin_filename in os.listdir(sample_dir / "src/main/kotlin"):
-        run_sample_with_name(kotlin_filename)
+        success = run_sample_in_file(kotlin_filename)
+        if not success:
+            failed_sample_list.append(kotlin_filename)
+    if len(failed_sample_list) > 0:
+        print("[Error] The following samples didn't contain expected outputs:")
+        for kotlin_filename in failed_sample_list:
+            print(kotlin_filename)
+        exit(1)
 
 def get_sample_dir() -> Path:
     git_root_dir: Path = Path(os.popen("git rev-parse --show-toplevel").read().removesuffix("\n"))
@@ -34,9 +42,35 @@ def tee(cmd: str) -> str:
         lines.append(line_decoded)
     return "".join(lines)
 
-def run_sample_with_name(kotlin_filename: str) -> None:
+def run_sample_in_file(kotlin_filename: str) -> bool:
+    print(f"--- Running {kotlin_filename} ---")
     gradlew = get_gradlew_command()
     output = tee(f"{gradlew} run -DsampleName={kotlin_filename}")
+    return validate_output(output, kotlin_filename)
+
+def validate_output(output: str, kotlin_filename: str) -> bool:
+    data = get_data_for_file(kotlin_filename)
+    expected_outputs: List[str] = data["expected_outputs"]
+    missed_lines: List[str] = []
+    for line in expected_outputs:
+        if line not in output:
+            missed_lines.append(line)
+    if len(missed_lines) > 0:
+        print("[Error] The output didn't contain the following expected lines:")
+        for line in missed_lines:
+            print(line)
+    return len(missed_lines) == 0
+
+
+def get_data_for_file(kotlin_filename: str) -> Dict[str, List[str]]:
+    json_file = Path(__file__).parent / "sample.json"
+    with open(json_file) as f:
+        data = json.load(f)
+    sample_name = kotlin_filename.removesuffix(".kt")
+    if sample_name in data:
+        return data[sample_name]
+    else:
+        raise Exception(f"Key {sample_name} is not found in {json_file}")
 
 if __name__ == '__main__':
     main()

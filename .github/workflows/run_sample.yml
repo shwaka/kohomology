@@ -26,6 +26,8 @@ jobs:
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-jvm-${{ matrix.distribution }}-${{ matrix.version }}-${{ hashFiles('**/*.gradle.kts') }}
+        if: matrix.os != 'windows-latest'
+        # caching does not work on Windows (maybe this is because the path contains "~" and "/")
       - name: Setup JDK (${{ matrix.distribution }}, ${{ matrix.version }})
         uses: actions/setup-java@v3
         with:

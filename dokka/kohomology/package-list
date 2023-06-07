@@ -1110,6 +1110,7 @@ $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/elements/#/Po
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/five/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/five.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/four/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/four.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/fromInt/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/from-int.html
+$dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/fromIntPair/#kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/from-int-pair.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/multiply/#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean#com.github.shwaka.kohomology.specific.f2.IntMod2Boolean/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/multiply.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/one/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/one.html
 $dokka.location:com.github.shwaka.kohomology.specific.f2/F2Boolean/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific.f2/-f2-boolean/order.html

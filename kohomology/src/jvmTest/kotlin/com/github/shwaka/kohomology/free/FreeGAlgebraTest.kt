@@ -420,6 +420,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                 freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
                 freeGAlgebra.parse("x * 3 / 2") shouldBe (fromIntPair(3, 2) * x)
                 freeGAlgebra.parse("x^2 - 1/2 * x * y") shouldBe (x.pow(2) - fromIntPair(1, 2) * x * y)
+                freeGAlgebra.parse("1/2") shouldBe (fromIntPair(1, 2) * unit)
+                shouldThrow<ArithmeticException> {
+                    freeGAlgebra.parse("1/0")
+                }
             }
 
             "division" {

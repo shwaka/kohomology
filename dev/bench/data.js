@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686044103449,
+  "lastUpdate": 1686111474892,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -662,6 +662,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.765,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "02029de9456fa261eebc83b559866016704ebe78",
+          "message": "refactor(core): improve error message in IndeterminateList",
+          "timestamp": "2023-06-07T13:10:25+09:00",
+          "tree_id": "0b6c8a21513493747010ae2d49e668009b11abc3",
+          "url": "https://github.com/shwaka/kohomology/commit/02029de9456fa261eebc83b559866016704ebe78"
+        },
+        "date": 1686111474121,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.464,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.544,
             "unit": "s/op"
           }
         ]

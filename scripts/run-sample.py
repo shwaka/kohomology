@@ -2,6 +2,10 @@ import os, subprocess, platform, json
 from pathlib import Path
 from typing import List, Dict
 
+# This script is written in python since
+# - Even when kotlin code is not run at all, this python script can detect it.
+# - python is more useful as a script (without creating any project) than javascript and kotlin
+
 def main() -> None:
     sample_dir = get_sample_dir()
     os.chdir(sample_dir)

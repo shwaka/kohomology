@@ -20,7 +20,9 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldContain
+import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.startWith
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.int
 import io.kotest.property.checkAll
@@ -138,6 +140,18 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
                 val six = field.fromInt(6)
                 (two * 3) shouldBe six
                 (3 * two) shouldBe six
+            }
+            "1 / 0 should throw ArithmeticException whose message starts with containing \"division by zero\"" {
+                val exception = shouldThrow<ArithmeticException> {
+                    field.fromInt(1) / field.fromInt(0)
+                }
+                exception.message should startWith("division by zero")
+            }
+            "fromIntPair(1, 0) should throw ArithmeticException whose message starts with containing \"division by zero\"" {
+                val exception = shouldThrow<ArithmeticException> {
+                    field.fromIntPair(1, 0)
+                }
+                exception.message should startWith("division by zero")
             }
             if (field.characteristic != 3) {
                 "2 / 3 should be equal to 2 * 3^{-1}" {

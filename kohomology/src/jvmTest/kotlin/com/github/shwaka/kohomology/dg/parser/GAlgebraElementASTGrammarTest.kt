@@ -40,6 +40,14 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
             Sum(Identifier("x"), Identifier("y"))
     }
 
+    "\"x + y + z\" should be parsed as Sum(Sum(Identifier(\"x\"), Identifier(\"y\")), Identifier(\"z\"))" {
+        GAlgebraElementASTGrammar.parseToEnd("x + y + z") shouldBe
+            Sum(
+                Sum(Identifier("x"), Identifier("y")),
+                Identifier("z"),
+            )
+    }
+
     "\"x - y\" should be parsed as Subtract(Identifier(\"x\"), Identifier(\"y\"))" {
         GAlgebraElementASTGrammar.parseToEnd("x - y") shouldBe
             Subtract(Identifier("x"), Identifier("y"))
@@ -53,6 +61,22 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     "\"x * y\" should be parsed as Multiply(Identifier(\"x\"), Identifier(\"y\"))" {
         GAlgebraElementASTGrammar.parseToEnd("x * y") shouldBe
             Multiply(Identifier("x"), Identifier("y"))
+    }
+
+    "\"x * y + z\" should be parsed as Sum(Multiply(Identifier(\"x\"), Identifier(\"y\")), Identifier(\"z\"))" {
+        GAlgebraElementASTGrammar.parseToEnd("x * y + z") shouldBe
+            Sum(
+                Multiply(Identifier("x"), Identifier("y")),
+                Identifier("z"),
+            )
+    }
+
+    "\"x + y * z\" should be parsed as Sum(Identifier(\"x\"), Multiply(Identifier(\"y\"), Identifier(\"z\")))" {
+        GAlgebraElementASTGrammar.parseToEnd("x + y * z") shouldBe
+            Sum(
+                Identifier("x"),
+                Multiply(Identifier("y"), Identifier("z")),
+            )
     }
 
     "\"x^3\" should be parsed as Power(Identifier(\"x\"), 3)" {
@@ -81,6 +105,14 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
                     Fraction(1, 2),
                     Identifier("x"),
                 )
+            )
+    }
+
+    "\"(-1/2) * x\" should be parsed as Multiply(UnaryMinus(Fraction(1, 2)), Indeterminate(\"x\"))" {
+        GAlgebraElementASTGrammar.parseToEnd("(-1/2) * x") shouldBe
+            Multiply(
+                UnaryMinus(Fraction(1, 2)),
+                Identifier("x"),
             )
     }
 

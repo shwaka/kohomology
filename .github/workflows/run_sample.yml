@@ -5,7 +5,7 @@ name: Run sample
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'sample/**', '.github/workflows/run_sample.yml', 'scripts/run-sample.sh', 'scripts/run-sample.ps1' ]
+    paths: [ 'kohomology/**', 'sample/**', '.github/workflows/run_sample.yml', 'scripts/run-sample.py', 'scripts/sample.json' ]
   workflow_dispatch:
 
 jobs:

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686160221472,
+  "lastUpdate": 1686162864627,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -764,6 +764,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.014,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "fcac0ac3c45ac927ee6b112ed60cf05aacb039d9",
+          "message": "fix(core): throw ArithmeticException on zero-division in F2Boolean",
+          "timestamp": "2023-06-08T03:17:32+09:00",
+          "tree_id": "c1d817873eecf1d4793512371faf2f22844b2ad3",
+          "url": "https://github.com/shwaka/kohomology/commit/fcac0ac3c45ac927ee6b112ed60cf05aacb039d9"
+        },
+        "date": 1686162863861,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.441,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.531,
             "unit": "s/op"
           }
         ]

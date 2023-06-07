@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.dg.parser
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
+import com.github.h0tk3y.betterParse.parser.ParseException
+import com.github.shwaka.kohomology.dg.parser.ASTNode.Div
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Fraction
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
@@ -9,6 +11,7 @@ import com.github.shwaka.kohomology.dg.parser.ASTNode.Subtract
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Sum
 import com.github.shwaka.kohomology.dg.parser.ASTNode.UnaryMinus
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Zero
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -56,6 +59,14 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     "\"-x\" should be parsed as UnaryMinus(Identifier(\"x\"))" {
         GAlgebraElementASTGrammar.parseToEnd("-x") shouldBe
             UnaryMinus(Identifier("x"))
+    }
+
+    "\"2 * x\" should be parsed as Multiply(Fraction(2, 1), Identifier(\"x\"))" {
+        GAlgebraElementASTGrammar.parseToEnd("2 * x") shouldBe
+            Multiply(
+                Fraction(2, 1),
+                Identifier("x"),
+            )
     }
 
     "\"x * y\" should be parsed as Multiply(Identifier(\"x\"), Identifier(\"y\"))" {
@@ -125,5 +136,27 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
                 ),
                 2,
             )
+    }
+
+    "\"x / 2\" should be parsed as Div(Identifier(\"x\"), 2)" {
+        GAlgebraElementASTGrammar.parseToEnd("x / 2") shouldBe
+            Div(Identifier("x"), 2)
+    }
+
+    "\"2 * x / 3\" should be parsed as Div(Multiply(Fraction(2, 1), Identifier(\"x\")), 3)" {
+        GAlgebraElementASTGrammar.parseToEnd("2 * x / 3") shouldBe
+            Div(
+                Multiply(
+                    Fraction(2, 1),
+                    Identifier("x"),
+                ),
+                3,
+            )
+    }
+
+    "\"x / 2 * 3\" should not be parsed" {
+        shouldThrow<ParseException> {
+            GAlgebraElementASTGrammar.parseToEnd("x / 2 * 3")
+        }
     }
 })

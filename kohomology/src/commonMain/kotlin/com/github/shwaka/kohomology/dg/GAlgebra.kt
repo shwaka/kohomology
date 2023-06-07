@@ -105,6 +105,13 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                     this.context.run { unit * scalar }
                 }
             }
+            is ASTNode.Div -> {
+                val numeratorValue = this.getValueFromASTNode(astNode.numerator, generators)
+                val denominatorValue = this.field.fromInt(astNode.denominator)
+                this.context.run {
+                    numeratorValue * (1 / denominatorValue)
+                }
+            }
             is ASTNode.UnaryMinus -> this.context.run {
                 -this@GAlgebra.getValueFromASTNode(astNode.value, generators)
             }

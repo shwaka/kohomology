@@ -49,7 +49,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     (skip(minus) and parenParser map { ASTNode.UnaryMinus(it) }) or
         (skip(minus) and parser(::mulChain) map { ASTNode.UnaryMinus(it) })
 
-    // The order to take 'or' is important in scalarParser.
+    // The order to take 'or' is important in fractionParser.
     // In "1/2*x", the whole "1/2" should be considered as a scalar.
     // If 'or' is taken in the other order, only "1" is considered as a scalar
     // and a ParseException is thrown at "/".
@@ -69,8 +69,12 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
         ASTNode.Multiply(left, right)
     }
 
+    private val divParser: Parser<ASTNode.Div> by
+    mulChain and skip(div) and intParser map { (node, n) -> ASTNode.Div(node, n) }
+
+    // divParser should be before mulChain
     private val subSumChain: Parser<ASTNode> by
-    leftAssociative(mulChain, plus or minus use { type }) { left, op, right ->
+    leftAssociative(divParser or mulChain, plus or minus use { type }) { left, op, right ->
         when (op) {
             plus -> ASTNode.Sum(left, right)
             minus -> ASTNode.Subtract(left, right)

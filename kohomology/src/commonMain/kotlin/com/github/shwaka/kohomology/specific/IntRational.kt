@@ -180,6 +180,9 @@ public object IntRationalField : Field<IntRational> {
     }
 
     override fun fromIntPair(numerator: Int, denominator: Int): IntRational {
+        if (denominator == 0) {
+            throw ArithmeticException("division by zero")
+        }
         return IntRational(numerator, denominator)
     }
 

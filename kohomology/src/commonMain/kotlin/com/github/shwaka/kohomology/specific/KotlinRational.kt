@@ -214,6 +214,9 @@ public object KotlinRationalField : Field<KotlinRational> {
     }
 
     override fun fromIntPair(numerator: Int, denominator: Int): KotlinRational {
+        if (denominator == 0) {
+            throw ArithmeticException("division by zero")
+        }
         return KotlinRational(numerator, denominator)
     }
 

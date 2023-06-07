@@ -228,6 +228,9 @@ public object JavaRationalField : Field<JavaRational> {
     }
 
     override fun fromIntPair(numerator: Int, denominator: Int): JavaRational {
+        if (denominator == 0) {
+            throw ArithmeticException("division by zero")
+        }
         return JavaRational(numerator, denominator)
     }
 

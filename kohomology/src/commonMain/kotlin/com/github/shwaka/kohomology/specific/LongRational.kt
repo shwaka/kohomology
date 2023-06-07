@@ -186,6 +186,9 @@ public object LongRationalField : Field<LongRational> {
     }
 
     override fun fromIntPair(numerator: Int, denominator: Int): LongRational {
+        if (denominator == 0) {
+            throw ArithmeticException("division by zero")
+        }
         return LongRational(numerator.toLong(), denominator.toLong())
     }
 

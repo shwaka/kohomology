@@ -78,7 +78,7 @@ public object F2Boolean : FiniteField<IntMod2Boolean> {
 
     override fun divide(a: IntMod2Boolean, b: IntMod2Boolean): IntMod2Boolean {
         if (!b.value) {
-            throw Exception("Division by zero")
+            throw ArithmeticException("division by zero")
         }
         return a
     }
@@ -89,6 +89,13 @@ public object F2Boolean : FiniteField<IntMod2Boolean> {
 
     override fun fromInt(n: Int): IntMod2Boolean {
         return IntMod2Boolean(n.mod(2) == 1)
+    }
+
+    override fun fromIntPair(numerator: Int, denominator: Int): IntMod2Boolean {
+        if (denominator == 0) {
+            throw ArithmeticException("division by zero")
+        }
+        return this.fromInt(numerator)
     }
 
     override val zero: IntMod2Boolean = this.fromInt(0)

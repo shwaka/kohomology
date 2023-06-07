@@ -31,7 +31,8 @@ jobs:
         with:
           distribution: ${{ matrix.distribution }}
           java-version: ${{ matrix.version }}
-      - run: ./scripts/run-sample.sh
-        if: matrix.os != 'windows-latest'
-      - run: ./scripts/run-sample.ps1
-        if: matrix.os == 'windows-latest'
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+      - run: python scripts/run-sample.py

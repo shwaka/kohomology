@@ -22,8 +22,11 @@ jobs:
         with:
           distribution: ${{ inputs.JAVA_DISTRIBUTION }}
           java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
       - name: Assert samples are working
         # No need to import locally installed kohomology from ~/.m2/repository
         # since the released version is used in the samples.
-        run: ./run-sample.sh
-        working-directory: scripts
+        run: python scripts/run-sample.py

@@ -8807,7 +8807,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp$ret$3 = tmp0_filterTo;
       tmp$ret$4 = tmp$ret$3;
       var degree0IndeterminateList = tmp$ret$4;
-      throw IllegalArgumentException_init_$Create$('Cannot consider indeterminate of degree zero: ' + degree0IndeterminateList);
+      throw IllegalArgumentException_init_$Create$('Cannot consider indeterminate of degree zero: ' + joinToString$default(degree0IndeterminateList, ', ', null, null, 0, null, null, 62, null));
     } else {
       var tmp$ret$5;
       $l$block_2: {
@@ -8903,7 +8903,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           tmp$ret$13 = tmp0_filterTo_1;
           tmp$ret$14 = tmp$ret$13;
           var negativeIndeterminateList = tmp$ret$14;
-          throw IllegalArgumentException_init_$Create$('Cannot consider a list of indeterminate containing both positive and negative degrees; ' + ('positive: ' + positiveIndeterminateList + ', negative: ' + negativeIndeterminateList));
+          var tmp_3 = 'Cannot consider a list of indeterminate containing both positive and negative degrees.\n' + ('  positive: ' + joinToString$default(positiveIndeterminateList, ', ', null, null, 0, null, null, 62, null) + '}\n');
+          throw IllegalArgumentException_init_$Create$(tmp_3 + ('  negative: ' + joinToString$default(negativeIndeterminateList, ', ', null, null, 0, null, null, 62, null)));
         }
       }
     }
@@ -18403,6 +18404,12 @@ if (typeof Math.log10 === 'undefined') {
     return Math.log(x) * Math.LOG10E;
   };
 }
+if (typeof String.prototype.startsWith === 'undefined') {
+  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
+    position = position || 0;
+    return this.lastIndexOf(searchString, position) === position;
+  }});
+}
 if (typeof String.prototype.endsWith === 'undefined') {
   Object.defineProperty(String.prototype, 'endsWith', {value: function (searchString, position) {
     var subjectString = this.toString();
@@ -18412,12 +18419,6 @@ if (typeof String.prototype.endsWith === 'undefined') {
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }});
-}
-if (typeof String.prototype.startsWith === 'undefined') {
-  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
-    position = position || 0;
-    return this.lastIndexOf(searchString, position) === position;
   }});
 }
 if (typeof Math.imul === 'undefined') {

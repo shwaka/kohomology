@@ -420,11 +420,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                 freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
                 freeGAlgebra.parse("x * 3 / 2") shouldBe (fromIntPair(3, 2) * x)
                 freeGAlgebra.parse("x^2 - 1/2 * x * y") shouldBe (x.pow(2) - fromIntPair(1, 2) * x * y)
-                shouldThrow<ParseException> {
-                    // Currently division is not supported.
-                    // Only fractions of integers are supported (as above).
-                    freeGAlgebra.parse("x / 2")
-                }
+            }
+
+            "division" {
+                freeGAlgebra.parse("x/2") shouldBe (x * fromIntPair(1, 2))
+                freeGAlgebra.parse("-2*y / 3") shouldBe (y * fromIntPair(-2, 3))
             }
         }
     }

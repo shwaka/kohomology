@@ -56,14 +56,6 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     (termParser and skip(pow) and nat map { (node, n) -> ASTNode.Power(node, n.text.toInt()) }) or
         termParser
 
-    // private val mulChain: Parser<ASTNode> by
-    // leftAssociative(powerParser, mul) { left, _, right ->
-    //     ASTNode.Multiply(left, right)
-    // }
-
-    // private val divParser: Parser<ASTNode.Div> by
-    // mulChain and skip(div) and natParser map { (node, n) -> ASTNode.Div(node, n) }
-
     private val mulDivChain: Parser<ASTNode> by
     leftAssociative(powerParser, mul or div use { type }) { left, op, right ->
         when (op) {
@@ -73,7 +65,6 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
         }
     }
 
-    // divParser should be before mulChain
     private val subSumChain: Parser<ASTNode> by
     leftAssociative(mulDivChain, plus or minus use { type }) { left, op, right ->
         when (op) {

@@ -116,9 +116,13 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                     """.trimIndent()
                 )
             is ASTNode.NatNumber -> {
-                val scalar = this.field.fromInt(astNode.value)
-                this.context.run {
-                    scalar * unit
+                if (astNode.value == 0) {
+                    this.zeroGVector
+                } else {
+                    val scalar = this.field.fromInt(astNode.value)
+                    this.context.run {
+                        scalar * unit
+                    }
                 }
             }
             is ASTNode.Divide -> {

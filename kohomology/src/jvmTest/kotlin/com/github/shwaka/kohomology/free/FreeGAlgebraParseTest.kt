@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
 import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
@@ -47,6 +48,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     freeGAlgebra.getValueFromASTNode(
                         Multiply(NatNumber(2), Identifier("x"))
                     ) shouldBe (2 * x)
+                    freeGAlgebra.getValueFromASTNode(
+                        Subtract(Identifier("x"), Identifier("y"))
+                    ) shouldBe (x - y)
                 }
 
                 "minus as an unary operation" {
@@ -98,6 +102,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     freeGAlgebra.parse("x*x - 2*x*y + y*y") shouldBe (x - y).pow(2)
                     freeGAlgebra.parse("(x + y) * (x - y)") shouldBe (x.pow(2) - y.pow(2))
                     freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
+                    freeGAlgebra.parse("(1 + 2 * 10) * (x - y)") shouldBe (21 * (x - y))
                     freeGAlgebra.parse("0 * x") shouldBeSameInstanceAs zeroGVector
                     freeGAlgebra.parse("0 + x") shouldBe x
                 }
@@ -121,9 +126,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     freeGAlgebra.parse("(-(x-y))^3") shouldBe (-x + y).pow(3)
                     freeGAlgebra.parse("(-3)^3") shouldBe (-27 * unit)
                     freeGAlgebra.parse("x^0") shouldBe unit
+                    shouldThrow<ParseException> {
+                        // parentheses on the exponent are not allowed
+                        freeGAlgebra.parse("x^(1+2)")
+                    }
                 }
 
-                "fraction" {
+                "division" {
                     freeGAlgebra.parse("1/2*y") shouldBe (fromIntPair(1, 2) * y)
                     freeGAlgebra.parse("-2/3*x") shouldBe (fromIntPair(-2, 3) * x)
                     freeGAlgebra.parse("- 2 / 3 * x") shouldBe (fromIntPair(-2, 3) * x)
@@ -133,11 +142,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     shouldThrow<ArithmeticException> {
                         freeGAlgebra.parse("1/0")
                     }
-                }
-
-                "division" {
                     freeGAlgebra.parse("x/2") shouldBe (x * fromIntPair(1, 2))
+                    freeGAlgebra.parse("x/(1+2)") shouldBe (x * fromIntPair(1, 3))
                     freeGAlgebra.parse("-2*y / 3") shouldBe (y * fromIntPair(-2, 3))
+                    shouldThrow<ArithmeticException> {
+                        freeGAlgebra.parse("x / y")
+                    }
                 }
             }
         }

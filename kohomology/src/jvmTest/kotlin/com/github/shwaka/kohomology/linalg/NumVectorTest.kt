@@ -141,7 +141,7 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
                 val v = listOf(one, zero).toNumVector()
                 v.dim shouldBe 2
             }
-            "vectorSpace.getZero(3) should be (0, 0, 0)" {
+            "numVectorSpace.getZero(3) should be (0, 0, 0)" {
                 val v = numVectorSpace.getZero(3)
                 val w = listOf(zero, zero, zero).toNumVector()
                 v shouldBe w
@@ -151,7 +151,7 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
                 val w = numVectorSpace.getZero(2)
                 v shouldNotBe w
             }
-            "vectorSpace.fromValueList(emptyList()) and vectorSpace.getZero(0) should return the same element" {
+            "numVectorSpace.fromValueList(emptyList()) and numVectorSpace.getZero(0) should return the same element" {
                 val v = numVectorSpace.fromValueList(emptyList())
                 val w = numVectorSpace.getZero(0)
                 v shouldBe w

@@ -14,6 +14,8 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.dg.getValueFromASTNode
+import com.github.shwaka.kohomology.dg.parser.ASTNode
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.free.monoid.FreeMonoid
 import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
@@ -232,6 +234,14 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
             return FreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
         }
     }
+}
+
+// added for test
+internal fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    FreeGAlgebra<D, I, S, V, M>.getValueFromASTNode(
+    astNode: ASTNode,
+): GVectorOrZero<D, Monomial<D, I>, S, V> {
+    return this.getValueFromASTNode(this.getGeneratorsForParser(), astNode)
 }
 
 private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

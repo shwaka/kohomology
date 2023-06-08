@@ -388,8 +388,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         val (x, y) = freeGAlgebra.generatorList
         freeGAlgebra.context.run {
             "scalar" {
-                freeGAlgebra.parse("zero") shouldBe zeroGVector
-                freeGAlgebra.parse("0") shouldBe zeroGVector
+                freeGAlgebra.parse("zero") shouldBeSameInstanceAs zeroGVector
+                freeGAlgebra.parse("0") shouldBeSameInstanceAs zeroGVector
                 freeGAlgebra.parse("1") shouldBe unit
                 freeGAlgebra.parse("-2") shouldBe (-2 * unit)
             }
@@ -405,7 +405,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                 freeGAlgebra.parse("x*x - 2*x*y + y*y") shouldBe (x - y).pow(2)
                 freeGAlgebra.parse("(x + y) * (x - y)") shouldBe (x.pow(2) - y.pow(2))
                 freeGAlgebra.parse("2 * (x + y)") shouldBe (2 * (x + y))
-                freeGAlgebra.parse("0 * x") shouldBe (0 * x)
+                freeGAlgebra.parse("0 * x") shouldBeSameInstanceAs zeroGVector
                 freeGAlgebra.parse("0 + x") shouldBe x
             }
 

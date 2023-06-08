@@ -39,42 +39,43 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     (id use { ASTNode.Identifier(text) }) or
         (zero use { ASTNode.Zero })
 
-    private val intParser: Parser<Int> by
-    int use { text.toInt() }
+    private val natParser: Parser<ASTNode.NatNumber> by
+    int use { ASTNode.NatNumber(text.toInt()) }
 
     private val parenParser: Parser<ASTNode> by
     skip(lpar) and parser(::rootParser) and skip(rpar)
 
     private val minusParser: Parser<ASTNode.UnaryMinus> by
     (skip(minus) and parenParser map { ASTNode.UnaryMinus(it) }) or
-        (skip(minus) and parser(::mulChain) map { ASTNode.UnaryMinus(it) })
-
-    // The order to take 'or' is important in fractionParser.
-    // In "1/2*x", the whole "1/2" should be considered as a scalar.
-    // If 'or' is taken in the other order, only "1" is considered as a scalar
-    // and a ParseException is thrown at "/".
-    private val fractionParser: Parser<ASTNode.Fraction> by
-    (intParser and skip(div) and intParser map { (p, q) -> ASTNode.Fraction(p, q) }) or
-        (intParser map { n -> ASTNode.Fraction(n, 1) })
+        (skip(minus) and parser(::mulDivChain) map { ASTNode.UnaryMinus(it) })
 
     private val termParser: Parser<ASTNode> by
-    fractionParser or idParser or minusParser or parenParser
+    natParser or idParser or minusParser or parenParser
 
     private val powerParser: Parser<ASTNode> by
-    (termParser and skip(pow) and intParser map { (node, n) -> ASTNode.Power(node, n) }) or
+    (termParser and skip(pow) and natParser map { (node, n) -> ASTNode.Power(node, n.value) }) or
         termParser
 
-    private val mulChain: Parser<ASTNode> by
-    leftAssociative(powerParser, mul) { left, _, right ->
-        ASTNode.Multiply(left, right)
-    }
+    // private val mulChain: Parser<ASTNode> by
+    // leftAssociative(powerParser, mul) { left, _, right ->
+    //     ASTNode.Multiply(left, right)
+    // }
 
-    private val divParser: Parser<ASTNode.Div> by
-    mulChain and skip(div) and intParser map { (node, n) -> ASTNode.Div(node, n) }
+    // private val divParser: Parser<ASTNode.Div> by
+    // mulChain and skip(div) and natParser map { (node, n) -> ASTNode.Div(node, n) }
+
+    private val mulDivChain: Parser<ASTNode> by
+    leftAssociative(powerParser, mul or div use { type }) { left, op, right ->
+        when (op) {
+            mul -> ASTNode.Multiply(left, right)
+            div -> ASTNode.Div(left, right)
+            else -> throw Exception("This can't happen!")
+        }
+    }
 
     // divParser should be before mulChain
     private val subSumChain: Parser<ASTNode> by
-    leftAssociative(divParser or mulChain, plus or minus use { type }) { left, op, right ->
+    leftAssociative(mulDivChain, plus or minus use { type }) { left, op, right ->
         when (op) {
             plus -> ASTNode.Sum(left, right)
             minus -> ASTNode.Subtract(left, right)

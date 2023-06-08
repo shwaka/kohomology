@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.dg.parser
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Div
-import com.github.shwaka.kohomology.dg.parser.ASTNode.Fraction
+import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Power
@@ -33,8 +33,8 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
         GAlgebraElementASTGrammar.parseToEnd("zero") shouldBe Zero
     }
 
-    "\"0\" should be parsed as Fraction(0, 1)" {
-        GAlgebraElementASTGrammar.parseToEnd("0") shouldBe Fraction(0, 1)
+    "\"0\" should be parsed as NatNumber(0)" {
+        GAlgebraElementASTGrammar.parseToEnd("0") shouldBe NatNumber(0)
     }
 
     "\"x\" should be parsed as Identifier(\"x\")" {
@@ -86,10 +86,10 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
             UnaryMinus(Identifier("x"))
     }
 
-    "\"2 * x\" should be parsed as Multiply(Fraction(2, 1), Identifier(\"x\"))" {
+    "\"2 * x\" should be parsed as Multiply(NatNumber(2), Identifier(\"x\"))" {
         GAlgebraElementASTGrammar.parseToEnd("2 * x") shouldBe
             Multiply(
-                Fraction(2, 1),
+                NatNumber(2),
                 Identifier("x"),
             )
     }
@@ -120,34 +120,50 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
             Power(Identifier("x"), 3)
     }
 
-    "\"1/2\" should be parsed as Fraction(1, 2)" {
-        GAlgebraElementASTGrammar.parseToEnd("1/2") shouldBe Fraction(1, 2)
+    "\"1/2\" should be parsed as Div(NatNumber(1), NatNumber(2))" {
+        GAlgebraElementASTGrammar.parseToEnd("1/2") shouldBe
+            Div(
+                NatNumber(1),
+                NatNumber(2),
+            )
     }
 
-    "\"-2/3\" should be parsed as UnaryMinus(Fraction(2, 3))" {
+    "\"-2/3\" should be parsed as UnaryMinus(Div(NatNumber(2), NatNumber(3)))" {
         GAlgebraElementASTGrammar.parseToEnd("-2/3") shouldBe
-            UnaryMinus(Fraction(2, 3))
+            UnaryMinus(
+                Div(
+                    NatNumber(2),
+                    NatNumber(3),
+                )
+            )
     }
 
-    "\"1/0\" should be parsed as Fraction(1, 0)" {
+    "\"1/0\" should be parsed as Div(NatNumber(1), NatNumber(0))" {
         // This is mathematically nonsense, but parser should not throw exception.
-        GAlgebraElementASTGrammar.parseToEnd("1/0") shouldBe Fraction(1, 0)
+        GAlgebraElementASTGrammar.parseToEnd("1/0") shouldBe
+            Div(
+                NatNumber(1),
+                NatNumber(0),
+            )
     }
 
-    "\"-1 / 2 * x\" should be parsed as UnaryMinus(Multiply(Fraction(1, 2), Identifier(x)))" {
+    "\"-1 / 2 * x\" should be parsed as UnaryMinus(Multiply(Div(NatNumber(1), NatNumber(2)), Identifier(x)))" {
         GAlgebraElementASTGrammar.parseToEnd("-1 / 2 * x") shouldBe
             UnaryMinus(
                 Multiply(
-                    Fraction(1, 2),
+                    Div(NatNumber(1), NatNumber(2)),
                     Identifier("x"),
                 )
             )
     }
 
-    "\"(-1/2) * x\" should be parsed as Multiply(UnaryMinus(Fraction(1, 2)), Indeterminate(\"x\"))" {
+    "\"(-1/2) * x\" should be parsed as Multiply(UnaryMinus(Div(NatNumber(1), NatNumber(2))), Indeterminate(\"x\"))" {
         GAlgebraElementASTGrammar.parseToEnd("(-1/2) * x") shouldBe
             Multiply(
-                UnaryMinus(Fraction(1, 2)),
+                UnaryMinus(
+                    Div(NatNumber(1), NatNumber(2)
+                    )
+                ),
                 Identifier("x"),
             )
     }
@@ -163,25 +179,33 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
             )
     }
 
-    "\"x / 2\" should be parsed as Div(Identifier(\"x\"), 2)" {
+    "\"x / 2\" should be parsed as Div(Identifier(\"x\"), NatNumber(2))" {
         GAlgebraElementASTGrammar.parseToEnd("x / 2") shouldBe
-            Div(Identifier("x"), 2)
+            Div(
+                Identifier("x"),
+                NatNumber(2),
+            )
     }
 
-    "\"2 * x / 3\" should be parsed as Div(Multiply(Fraction(2, 1), Identifier(\"x\")), 3)" {
+    "\"2 * x / 3\" should be parsed as Div(Multiply(NatNumber(2), Identifier(\"x\")), NatNumber(3))" {
         GAlgebraElementASTGrammar.parseToEnd("2 * x / 3") shouldBe
             Div(
                 Multiply(
-                    Fraction(2, 1),
+                    NatNumber(2),
                     Identifier("x"),
                 ),
-                3,
+                NatNumber(3),
             )
     }
 
     "\"x / 2 * 3\" should not be parsed" {
-        shouldThrow<ParseException> {
-            GAlgebraElementASTGrammar.parseToEnd("x / 2 * 3")
-        }
+        GAlgebraElementASTGrammar.parseToEnd("x / 2 * 3") shouldBe
+            Multiply(
+                Div(
+                    Identifier("x"),
+                    NatNumber(2),
+                ),
+                NatNumber(3),
+            )
     }
 })

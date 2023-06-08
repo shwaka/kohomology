@@ -115,19 +115,17 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                         Valid names are: ${generators.joinToString(", ") { it.first }}
                     """.trimIndent()
                 )
-            is ASTNode.Fraction -> {
-                if (astNode.numerator == 0) {
-                    this.zeroGVector
-                } else {
-                    val scalar: S = this.field.fromIntPair(astNode.numerator, astNode.denominator)
-                    this.context.run { unit * scalar }
+            is ASTNode.NatNumber -> {
+                val scalar = this.field.fromInt(astNode.value)
+                this.context.run {
+                    scalar * unit
                 }
             }
             is ASTNode.Div -> {
                 val numeratorValue = this.getValueFromASTNode(astNode.numerator, generators)
-                val denominatorValue = this.field.fromInt(astNode.denominator)
+                val denominatorValue = this.getValueFromASTNode(astNode.numerator, generators)
                 this.context.run {
-                    numeratorValue * (1 / denominatorValue)
+                    numeratorValue * (1 / denominatorValue.toScalar())
                 }
             }
             is ASTNode.UnaryMinus -> this.context.run {

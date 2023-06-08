@@ -91,6 +91,25 @@ public class DenseNumVectorSpace<S : Scalar> private constructor(
         return DenseNumVector(valueList, this.field)
     }
 
+    override fun divideByNumVector(a: DenseNumVector<S>, b: DenseNumVector<S>): S? {
+        if (a !in this)
+            throw IllegalContextException("The sparseNumVector $a does not match the context ($this)")
+        if (b !in this)
+            throw IllegalContextException("The sparseNumVector $b does not match the context ($this)")
+        if (a.dim != b.dim)
+            throw InvalidSizeException("Cannot divide numVectors of different dim")
+        if (b.isZero())
+            throw ArithmeticException("Division by zero numVector")
+        val index: Int = b.valueList.withIndex().find { (_, scalar) -> scalar.isNotZero() }?.index
+            ?: throw Exception("This can't happen!")
+        val scalar = this.field.context.run { a.valueList[index] / b.valueList[index] }
+        return if (this.context.run { a == scalar * b }) {
+            scalar
+        } else {
+            null
+        }
+    }
+
     override fun unaryMinusOf(numVector: DenseNumVector<S>): DenseNumVector<S> {
         if (numVector !in this)
             throw IllegalContextException("The denseNumVector $numVector does not match the context ($this)")

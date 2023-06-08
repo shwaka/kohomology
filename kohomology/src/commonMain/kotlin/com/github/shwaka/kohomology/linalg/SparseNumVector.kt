@@ -142,6 +142,28 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
         return SparseNumVector.fromReduced(valueMap, this.field, numVector.dim)
     }
 
+    override fun divideByNumVector(a: SparseNumVector<S>, b: SparseNumVector<S>): S? {
+        if (a !in this)
+            throw IllegalContextException("The sparseNumVector $a does not match the context ($this)")
+        if (b !in this)
+            throw IllegalContextException("The sparseNumVector $b does not match the context ($this)")
+        if (a.dim != b.dim)
+            throw InvalidSizeException("Cannot divide numVectors of different dim")
+        if (b.isZero())
+            throw ArithmeticException("Division by zero numVector")
+        val index: Int = b.valueMap.keys.first()
+        val scalar = this.field.context.run {
+            this@SparseNumVectorSpace.getElement(a, index) /
+                this@SparseNumVectorSpace.getElement(b, index)
+        }
+        return if (this.context.run { a == scalar * b }) {
+            scalar
+        } else {
+            null
+        }
+
+    }
+
     override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {
         if (numVector !in this)
             throw IllegalContextException("The sparseNumVector $numVector does not match the context ($this)")

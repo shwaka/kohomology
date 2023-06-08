@@ -146,6 +146,22 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
         }
     }
 
+    override fun divideByNumVector(a: SetNumVector<S>, b: SetNumVector<S>): S? {
+        if (a !in this)
+            throw IllegalContextException("The sparseNumVector $a does not match the context ($this)")
+        if (b !in this)
+            throw IllegalContextException("The sparseNumVector $b does not match the context ($this)")
+        if (a.dim != b.dim)
+            throw InvalidSizeException("Cannot divide numVectors of different dim")
+        if (b.isZero())
+            throw ArithmeticException("Division by zero numVector")
+        return when {
+            a.isZero() -> this.field.zero
+            a.valueSet == b.valueSet -> this.field.one
+            else -> null
+        }
+    }
+
     override fun unaryMinusOf(numVector: SetNumVector<S>): SetNumVector<S> {
         // Since characteristic 2
         return numVector

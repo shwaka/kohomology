@@ -51,6 +51,8 @@ public interface NumVectorSpace<S : Scalar, V : NumVector<S>> {
     public fun add(a: V, b: V): V
     public fun subtract(a: V, b: V): V
     public fun multiply(scalar: S, numVector: V): V
+    // Since divideByNumVector isn't usual operation, it isn't added to NumVectorContext
+    public fun divideByNumVector(a: V, b: V): S?
     public fun unaryMinusOf(numVector: V): V
     public fun getElement(numVector: V, ind: Int): S
     public fun innerProduct(numVector1: V, numVector2: V): S

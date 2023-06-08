@@ -105,63 +105,6 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         // }
     }
 
-    private fun getValueFromASTNode(
-        generators: List<Pair<String, GVector<D, B, S, V>>>,
-        astNode: ASTNode,
-    ): GVectorOrZero<D, B, S, V> {
-        return when (astNode) {
-            is ASTNode.Zero -> this.zeroGVector
-            is ASTNode.Identifier -> generators.find { it.first == astNode.name }?.second
-                ?: throw Exception(
-                    """
-                        Invalid generator name: ${astNode.name}
-                        Valid names are: ${generators.joinToString(", ") { it.first }}
-                    """.trimIndent()
-                )
-            is ASTNode.NatNumber -> {
-                if (astNode.value == 0) {
-                    this.zeroGVector
-                } else {
-                    val scalar = this.field.fromInt(astNode.value)
-                    this.context.run {
-                        scalar * unit
-                    }
-                }
-            }
-            is ASTNode.Divide -> {
-                val numeratorValue = this.getValueFromASTNode(generators, astNode.numerator)
-                val denominatorValue = this.getValueFromASTNode(generators, astNode.denominator)
-                this.context.run {
-                    numeratorValue * (1 / denominatorValue.toScalar())
-                }
-            }
-            is ASTNode.UnaryMinus -> this.context.run {
-                -this@GAlgebra.getValueFromASTNode(generators, astNode.value)
-            }
-            is ASTNode.Power -> {
-                val baseValue = this.getValueFromASTNode(generators, astNode.base)
-                this.context.run {
-                    baseValue.pow(astNode.exponent)
-                }
-            }
-            is ASTNode.Multiply -> {
-                val leftValue = this.getValueFromASTNode(generators, astNode.left)
-                val rightValue = this.getValueFromASTNode(generators, astNode.right)
-                this.context.run { leftValue * rightValue }
-            }
-            is ASTNode.Subtract -> {
-                val leftValue = this.getValueFromASTNode(generators, astNode.left)
-                val rightValue = this.getValueFromASTNode(generators, astNode.right)
-                this.context.run { leftValue - rightValue }
-            }
-            is ASTNode.Sum -> {
-                val leftValue = this.getValueFromASTNode(generators, astNode.left)
-                val rightValue = this.getValueFromASTNode(generators, astNode.right)
-                this.context.run { leftValue + rightValue }
-            }
-        }
-    }
-
     public fun getIdeal(generators: List<GVector<D, B, S, V>>): SubGVectorSpace<D, B, S, V, M> {
         val generatingSubGVectorSpace = SubGVectorSpace.fromList(
             this.matrixSpace,
@@ -253,4 +196,67 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     GVectorSpace<D, B, S, V> by gVectorSpace {
     override val context: GAlgebraContext<D, B, S, V, M> = GAlgebraContextImpl(this)
     override val underlyingGAlgebra: GAlgebra<D, B, S, V, M> = this
+}
+
+// The function getValueFromASTNode is implemented as an extension function
+// since `internal` cannot be applied to default implementation of methods in an interface.
+internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    GAlgebra<D, B, S, V, M>.getValueFromASTNode(
+    generators: List<Pair<String, GVector<D, B, S, V>>>,
+    astNode: ASTNode,
+): GVectorOrZero<D, B, S, V> {
+    return when (astNode) {
+        is ASTNode.Zero -> this.zeroGVector
+        is ASTNode.Identifier -> generators.find { it.first == astNode.name }?.second
+            ?: throw Exception(
+                """
+                        Invalid generator name: ${astNode.name}
+                        Valid names are: ${generators.joinToString(", ") { it.first }}
+                    """.trimIndent()
+            )
+        is ASTNode.NatNumber -> {
+            if (astNode.value == 0) {
+                this.zeroGVector
+            } else {
+                val scalar = this.field.fromInt(astNode.value)
+                this.context.run {
+                    scalar * unit
+                }
+            }
+        }
+        is ASTNode.Divide -> {
+            val numeratorValue = this.getValueFromASTNode(generators, astNode.numerator)
+            val denominatorValue = this.getValueFromASTNode(generators, astNode.denominator)
+            this.context.run {
+                numeratorValue * (1 / denominatorValue.toScalar())
+            }
+        }
+        is ASTNode.UnaryMinus -> {
+            val valueWithoutMinus = this.getValueFromASTNode(generators, astNode.value)
+            this.context.run {
+                -valueWithoutMinus
+            }
+        }
+        is ASTNode.Power -> {
+            val baseValue = this.getValueFromASTNode(generators, astNode.base)
+            this.context.run {
+                baseValue.pow(astNode.exponent)
+            }
+        }
+        is ASTNode.Multiply -> {
+            val leftValue = this.getValueFromASTNode(generators, astNode.left)
+            val rightValue = this.getValueFromASTNode(generators, astNode.right)
+            this.context.run { leftValue * rightValue }
+        }
+        is ASTNode.Subtract -> {
+            val leftValue = this.getValueFromASTNode(generators, astNode.left)
+            val rightValue = this.getValueFromASTNode(generators, astNode.right)
+            this.context.run { leftValue - rightValue }
+        }
+        is ASTNode.Sum -> {
+            val leftValue = this.getValueFromASTNode(generators, astNode.left)
+            val rightValue = this.getValueFromASTNode(generators, astNode.right)
+            this.context.run { leftValue + rightValue }
+        }
+    }
 }

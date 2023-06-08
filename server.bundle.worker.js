@@ -18561,6 +18561,12 @@ if (typeof Math.log10 === 'undefined') {
     return Math.log(x) * Math.LOG10E;
   };
 }
+if (typeof String.prototype.startsWith === 'undefined') {
+  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
+    position = position || 0;
+    return this.lastIndexOf(searchString, position) === position;
+  }});
+}
 if (typeof String.prototype.endsWith === 'undefined') {
   Object.defineProperty(String.prototype, 'endsWith', {value: function (searchString, position) {
     var subjectString = this.toString();
@@ -18570,12 +18576,6 @@ if (typeof String.prototype.endsWith === 'undefined') {
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }});
-}
-if (typeof String.prototype.startsWith === 'undefined') {
-  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
-    position = position || 0;
-    return this.lastIndexOf(searchString, position) === position;
   }});
 }
 if (typeof Math.imul === 'undefined') {
@@ -19288,6 +19288,22 @@ if (typeof Math.imul === 'undefined') {
     }
     return toList_0(_this__u8e3s4.s(indices.q(), indices.r() + 1 | 0));
   }
+  function find(_this__u8e3s4, predicate) {
+    var tmp$ret$0;
+    $l$block: {
+      // Inline function 'kotlin.collections.firstOrNull' call
+      var tmp0_iterator = _this__u8e3s4.f();
+      while (tmp0_iterator.g()) {
+        var element = tmp0_iterator.h();
+        if (predicate(element)) {
+          tmp$ret$0 = element;
+          break $l$block;
+        }
+      }
+      tmp$ret$0 = null;
+    }
+    return tmp$ret$0;
+  }
   function all_0(_this__u8e3s4, predicate) {
     var tmp;
     if (isInterface(_this__u8e3s4, Collection)) {
@@ -19749,22 +19765,6 @@ if (typeof Math.imul === 'undefined') {
   }
   function distinct(_this__u8e3s4) {
     return toList_0(toMutableSet(_this__u8e3s4));
-  }
-  function find(_this__u8e3s4, predicate) {
-    var tmp$ret$0;
-    $l$block: {
-      // Inline function 'kotlin.collections.firstOrNull' call
-      var tmp0_iterator = _this__u8e3s4.f();
-      while (tmp0_iterator.g()) {
-        var element = tmp0_iterator.h();
-        if (predicate(element)) {
-          tmp$ret$0 = element;
-          break $l$block;
-        }
-      }
-      tmp$ret$0 = null;
-    }
-    return tmp$ret$0;
   }
   function minOrNull(_this__u8e3s4) {
     var iterator = _this__u8e3s4.f();

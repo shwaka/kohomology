@@ -15,114 +15,116 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   //region block: imports
   var imul = Math.imul;
-  var objectMeta = kotlin_kotlin.$_$.f6;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
-  var classMeta = kotlin_kotlin.$_$.n5;
-  var interfaceMeta = kotlin_kotlin.$_$.u5;
-  var lazy = kotlin_kotlin.$_$.x7;
+  var objectMeta = kotlin_kotlin.$_$.g6;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
+  var classMeta = kotlin_kotlin.$_$.o5;
+  var interfaceMeta = kotlin_kotlin.$_$.v5;
+  var lazy = kotlin_kotlin.$_$.y7;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
-  var KProperty1 = kotlin_kotlin.$_$.o6;
-  var getPropertyCallableRef = kotlin_kotlin.$_$.r5;
-  var equals = kotlin_kotlin.$_$.p5;
-  var toString = kotlin_kotlin.$_$.h6;
+  var KProperty1 = kotlin_kotlin.$_$.p6;
+  var getPropertyCallableRef = kotlin_kotlin.$_$.s5;
+  var equals = kotlin_kotlin.$_$.q5;
+  var toString = kotlin_kotlin.$_$.i6;
   var IllegalArgumentException_init_$Create$ = kotlin_kotlin.$_$.d1;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.y7;
-  var joinToString$default = kotlin_kotlin.$_$.h;
-  var trimIndent = kotlin_kotlin.$_$.c7;
-  var Exception_init_$Create$ = kotlin_kotlin.$_$.a1;
-  var parseToEnd = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.h;
   var ArithmeticException_init_$Create$ = kotlin_kotlin.$_$.y;
+  var parseToEnd = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.h;
+  var Exception_init_$Create$ = kotlin_kotlin.$_$.a1;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
+  var joinToString$default = kotlin_kotlin.$_$.h;
+  var trimIndent = kotlin_kotlin.$_$.d7;
   var LinkedHashMap_init_$Create$ = kotlin_kotlin.$_$.u;
-  var Pair = kotlin_kotlin.$_$.m7;
+  var Pair = kotlin_kotlin.$_$.n7;
   var collectionSizeOrDefault = kotlin_kotlin.$_$.g3;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.n;
   var Collection = kotlin_kotlin.$_$.x2;
-  var isInterface = kotlin_kotlin.$_$.w5;
-  var toList = kotlin_kotlin.$_$.w4;
+  var isInterface = kotlin_kotlin.$_$.x5;
+  var toList = kotlin_kotlin.$_$.x4;
   var getKClassFromExpression = kotlin_kotlin.$_$.a;
-  var hashCode = kotlin_kotlin.$_$.t5;
-  var NotImplementedError = kotlin_kotlin.$_$.l7;
-  var flatten = kotlin_kotlin.$_$.y3;
+  var hashCode = kotlin_kotlin.$_$.u5;
+  var NotImplementedError = kotlin_kotlin.$_$.m7;
+  var flatten = kotlin_kotlin.$_$.z3;
   var UnsupportedOperationException_init_$Create$ = kotlin_kotlin.$_$.m1;
   var any = kotlin_kotlin.$_$.d3;
-  var listOf = kotlin_kotlin.$_$.g4;
-  var toList_0 = kotlin_kotlin.$_$.v4;
-  var plus = kotlin_kotlin.$_$.m4;
-  var get_indices = kotlin_kotlin.$_$.a4;
+  var listOf = kotlin_kotlin.$_$.h4;
+  var toList_0 = kotlin_kotlin.$_$.w4;
+  var plus = kotlin_kotlin.$_$.n4;
+  var get_indices = kotlin_kotlin.$_$.b4;
   var ArrayList_init_$Create$_0 = kotlin_kotlin.$_$.o;
   var contentEquals = kotlin_kotlin.$_$.i3;
   var contentHashCode = kotlin_kotlin.$_$.j3;
   var emptyList = kotlin_kotlin.$_$.u3;
-  var get_indices_0 = kotlin_kotlin.$_$.c4;
-  var sum = kotlin_kotlin.$_$.r4;
-  var toIntArray = kotlin_kotlin.$_$.u4;
-  var getStringHashCode = kotlin_kotlin.$_$.s5;
-  var Token = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.j;
-  var charSequenceGet = kotlin_kotlin.$_$.k5;
-  var get_category = kotlin_kotlin.$_$.q6;
-  var charSequenceLength = kotlin_kotlin.$_$.l5;
-  var toInt = kotlin_kotlin.$_$.z6;
-  var Tuple2 = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.n;
+  var get_indices_0 = kotlin_kotlin.$_$.d4;
+  var sum = kotlin_kotlin.$_$.s4;
+  var toIntArray = kotlin_kotlin.$_$.v4;
+  var getStringHashCode = kotlin_kotlin.$_$.t5;
+  var Token = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.k;
+  var charSequenceGet = kotlin_kotlin.$_$.l5;
+  var get_category = kotlin_kotlin.$_$.r6;
+  var charSequenceLength = kotlin_kotlin.$_$.m5;
+  var toInt = kotlin_kotlin.$_$.a7;
+  var TokenMatch = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.j;
+  var Tuple2 = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.o;
   var Grammar = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.g;
-  var literalToken$default = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.o;
+  var literalToken$default = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.p;
   var use = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.f;
   var or = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.d;
   var skip = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.e;
   var parser = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.i;
-  var listOf_0 = kotlin_kotlin.$_$.h4;
+  var listOf_0 = kotlin_kotlin.$_$.i4;
   var AndCombinator = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.a;
   var map = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.c;
   var SeparatedCombinator = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.b;
-  var KProperty0 = kotlin_kotlin.$_$.n6;
+  var KProperty0 = kotlin_kotlin.$_$.o6;
   var Regex_init_$Create$ = kotlin_kotlin.$_$.w;
-  var RuntimeException = kotlin_kotlin.$_$.n7;
+  var RuntimeException = kotlin_kotlin.$_$.o7;
   var RuntimeException_init_$Init$ = kotlin_kotlin.$_$.k1;
-  var captureStack = kotlin_kotlin.$_$.h5;
-  var until = kotlin_kotlin.$_$.m6;
-  var zip = kotlin_kotlin.$_$.c5;
+  var captureStack = kotlin_kotlin.$_$.i5;
+  var until = kotlin_kotlin.$_$.n6;
+  var zip = kotlin_kotlin.$_$.d5;
   var checkIndexOverflow = kotlin_kotlin.$_$.f3;
   var Grouping = kotlin_kotlin.$_$.y2;
   var eachCount = kotlin_kotlin.$_$.t3;
   var distinct = kotlin_kotlin.$_$.r3;
   var NoSuchElementException_init_$Create$ = kotlin_kotlin.$_$.i1;
   var pmap = kotlin_com_github_shwaka_parautil_parautil_parallel.$_$.b;
-  var toList_1 = kotlin_kotlin.$_$.x4;
-  var sorted = kotlin_kotlin.$_$.q4;
-  var sortedWith = kotlin_kotlin.$_$.p4;
-  var withIndex = kotlin_kotlin.$_$.b5;
-  var toMap = kotlin_kotlin.$_$.y4;
-  var Comparator = kotlin_kotlin.$_$.g7;
-  var compareValues = kotlin_kotlin.$_$.d5;
-  var slice = kotlin_kotlin.$_$.n4;
+  var toList_1 = kotlin_kotlin.$_$.y4;
+  var sorted = kotlin_kotlin.$_$.r4;
+  var sortedWith = kotlin_kotlin.$_$.q4;
+  var withIndex = kotlin_kotlin.$_$.c5;
+  var toMap = kotlin_kotlin.$_$.z4;
+  var Comparator = kotlin_kotlin.$_$.h7;
+  var compareValues = kotlin_kotlin.$_$.e5;
+  var slice = kotlin_kotlin.$_$.o4;
   var count = kotlin_kotlin.$_$.q3;
   var IllegalStateException_init_$Create$ = kotlin_kotlin.$_$.f1;
-  var to = kotlin_kotlin.$_$.a8;
-  var mapOf = kotlin_kotlin.$_$.j4;
+  var to = kotlin_kotlin.$_$.b8;
+  var mapOf = kotlin_kotlin.$_$.k4;
   var pmapIndexedNotNull = kotlin_com_github_shwaka_parautil_parautil_parallel.$_$.a;
-  var mapCapacity = kotlin_kotlin.$_$.i4;
+  var mapCapacity = kotlin_kotlin.$_$.j4;
   var LinkedHashMap_init_$Create$_0 = kotlin_kotlin.$_$.t;
   var filterNotNull = kotlin_kotlin.$_$.w3;
-  var toMutableMap = kotlin_kotlin.$_$.z4;
+  var toMutableMap = kotlin_kotlin.$_$.a5;
   var emptyMap = kotlin_kotlin.$_$.v3;
-  var plus_0 = kotlin_kotlin.$_$.l4;
+  var plus_0 = kotlin_kotlin.$_$.m4;
   var IndexOutOfBoundsException_init_$Create$ = kotlin_kotlin.$_$.g1;
-  var last = kotlin_kotlin.$_$.f4;
+  var first = kotlin_kotlin.$_$.y3;
+  var last = kotlin_kotlin.$_$.g4;
   var dropLast = kotlin_kotlin.$_$.s3;
-  var takeLast = kotlin_kotlin.$_$.s4;
-  var take = kotlin_kotlin.$_$.t4;
+  var takeLast = kotlin_kotlin.$_$.t4;
+  var take = kotlin_kotlin.$_$.u4;
   var BigInteger_init_$Create$ = kotlin_com_ionspin_kotlin_bignum.$_$.a;
   var Companion_getInstance = kotlin_com_ionspin_kotlin_bignum.$_$.b;
-  var removePrefix = kotlin_kotlin.$_$.v6;
-  var Char = kotlin_kotlin.$_$.e7;
+  var removePrefix = kotlin_kotlin.$_$.w6;
+  var Char = kotlin_kotlin.$_$.f7;
   var getKClass = kotlin_kotlin.$_$.b;
   var CharCategory_LOWERCASE_LETTER_getInstance = kotlin_kotlin.$_$.e;
   var CharCategory_UPPERCASE_LETTER_getInstance = kotlin_kotlin.$_$.g;
   var CharCategory_OTHER_LETTER_getInstance = kotlin_kotlin.$_$.f;
   var CharCategory_DECIMAL_DIGIT_NUMBER_getInstance = kotlin_kotlin.$_$.d;
   var CharCategory_CONNECTOR_PUNCTUATION_getInstance = kotlin_kotlin.$_$.c;
-  var Enum = kotlin_kotlin.$_$.h7;
-  var toString_0 = kotlin_kotlin.$_$.z7;
-  var compareTo = kotlin_kotlin.$_$.o5;
+  var Enum = kotlin_kotlin.$_$.i7;
+  var toString_0 = kotlin_kotlin.$_$.a8;
+  var compareTo = kotlin_kotlin.$_$.p5;
   //endregion
   //region block: pre-declaration
   function get_field() {
@@ -132,13 +134,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return new GVector(vector, degree, this);
   }
   function fromBasisName(basisName, degree) {
-    var vector = this.m11(degree).v1a(basisName);
+    var vector = this.m11(degree).y1a(basisName);
     return this.q11(vector, degree);
   }
   function getBasis(degree) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.m11(degree).w1a();
+    var tmp0_map = this.m11(degree).z1a();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -182,7 +184,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return flatten(tmp$ret$2);
   }
   function getZero(degree) {
-    var vector = this.m11(degree).y1a();
+    var vector = this.m11(degree).b1b();
     return this.q11(vector, degree);
   }
   function convertToGVector(gVectorOrZero, degree) {
@@ -200,84 +202,92 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   function fromVector_0(vector, degree) {
-    return this.q11(vector, this.n14().zn(degree));
+    return this.q11(vector, this.s14().zn(degree));
   }
   function getBasis_0(degree) {
-    return this.t11(this.n14().zn(degree));
+    return this.t11(this.s14().zn(degree));
   }
   function contains(gVector) {
-    return equals(gVector.z18_1.n11(), this.n11());
+    return equals(gVector.y17_1.n11(), this.n11());
   }
   function add(a, b) {
     if (!this.w11(a))
       throw new IllegalContextException('The gVector ' + a + ' does not match the context');
     if (!this.w11(b))
       throw new IllegalContextException('The gVector ' + b + ' does not match the context');
-    if (!equals(a.y18_1, b.y18_1))
-      throw ArithmeticException_init_$Create$('Cannot add two graded vectors of different degrees: ' + ('deg(' + a + ')=' + a.y18_1 + ' and deg(' + b + ')=' + b.y18_1));
+    if (!equals(a.x17_1, b.x17_1))
+      throw ArithmeticException_init_$Create$('Cannot add two graded vectors of different degrees: ' + ('deg(' + a + ')=' + a.x17_1 + ' and deg(' + b + ')=' + b.x17_1));
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = a.x18_1.b19_1.o14();
+    var tmp0_run = a.w17_1.f19_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.dg.GVectorSpace.add.<anonymous>' call
-    tmp$ret$0 = tmp0_run.a1b(a.x18_1, b.x18_1);
+    tmp$ret$0 = tmp0_run.d1b(a.w17_1, b.w17_1);
     tmp$ret$1 = tmp$ret$0;
     var vector = tmp$ret$1;
-    return this.q11(vector, a.y18_1);
+    return this.q11(vector, a.x17_1);
   }
   function subtract(a, b) {
     if (!this.w11(a))
       throw new IllegalContextException('The gVector ' + a + ' does not match the context');
     if (!this.w11(b))
       throw new IllegalContextException('The gVector ' + b + ' does not match the context');
-    if (!equals(a.y18_1, b.y18_1))
-      throw ArithmeticException_init_$Create$('Cannot subtract a graded vector from another one with a different degree: ' + ('deg(' + a + ')=' + a.y18_1 + ' and deg(' + b + ')=' + b.y18_1));
+    if (!equals(a.x17_1, b.x17_1))
+      throw ArithmeticException_init_$Create$('Cannot subtract a graded vector from another one with a different degree: ' + ('deg(' + a + ')=' + a.x17_1 + ' and deg(' + b + ')=' + b.x17_1));
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = a.x18_1.b19_1.o14();
+    var tmp0_run = a.w17_1.f19_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.dg.GVectorSpace.subtract.<anonymous>' call
-    tmp$ret$0 = tmp0_run.b1b(a.x18_1, b.x18_1);
+    tmp$ret$0 = tmp0_run.e1b(a.w17_1, b.w17_1);
     tmp$ret$1 = tmp$ret$0;
     var vector = tmp$ret$1;
-    return this.q11(vector, a.y18_1);
+    return this.q11(vector, a.x17_1);
   }
   function multiply(scalar, gVector) {
     if (!this.w11(gVector))
       throw new IllegalContextException('The gVector ' + gVector + ' does not match the context');
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = gVector.x18_1.b19_1.o14();
+    var tmp0_run = gVector.w17_1.f19_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.dg.GVectorSpace.multiply.<anonymous>' call
-    tmp$ret$0 = tmp0_run.c1b(scalar, gVector.x18_1);
+    tmp$ret$0 = tmp0_run.f1b(scalar, gVector.w17_1);
     tmp$ret$1 = tmp$ret$0;
     var vector = tmp$ret$1;
-    return this.q11(vector, gVector.y18_1);
+    return this.q11(vector, gVector.x17_1);
   }
-  function get_zeroGVector() {
-    return new ZeroGVector(this);
+  function divideByGVector(a, b) {
+    if (!this.w11(a))
+      throw new IllegalContextException('The gVector ' + a + ' does not match the context');
+    if (!this.w11(b))
+      throw new IllegalContextException('The gVector ' + b + ' does not match the context');
+    if (!equals(a.x17_1, b.x17_1))
+      throw ArithmeticException_init_$Create$('Cannot divide a graded vector by another one with a different degree: ' + ('deg(' + a + ')=' + a.x17_1 + ' and deg(' + b + ')=' + b.x17_1));
+    if (b.op())
+      throw ArithmeticException_init_$Create$('Division by zero gVector');
+    return this.m11(a.x17_1).g1b(a.w17_1, b.w17_1);
   }
   function cohomologyClassOf(cocycle) {
-    return Companion_getInstance_7().l14(this.e11(), cocycle);
+    return Companion_getInstance_7().q14(this.e11(), cocycle);
   }
   function multiply_0(a, b) {
-    return this.f11().w18(a, b);
+    return this.f11().d19(a, b);
   }
   function multiply_1(a, b) {
     var tmp0_subject = a;
     var tmp;
     if (tmp0_subject instanceof ZeroGVector) {
-      tmp = this.c12();
+      tmp = this.d12();
     } else {
       if (tmp0_subject instanceof GVector) {
         var tmp1_subject = b;
         var tmp_0;
         if (tmp1_subject instanceof ZeroGVector) {
-          tmp_0 = this.c12();
+          tmp_0 = this.d12();
         } else {
           if (tmp1_subject instanceof GVector) {
             tmp_0 = this.a12(a, b);
@@ -292,44 +302,57 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
+  function convertToScalar(gVector) {
+    if (gVector.x17_1.z17()) {
+      throw ArithmeticException_init_$Create$('Cannot convert ' + gVector + ' to a scalar since it has non-zero degree ' + gVector.x17_1);
+    }
+    var tmp0_elvis_lhs = this.c12(gVector, this.e12());
+    var tmp;
+    if (tmp0_elvis_lhs == null) {
+      throw ArithmeticException_init_$Create$('Cannot convert ' + gVector + ' to a scalar since it is not of a multiple of the unit');
+    } else {
+      tmp = tmp0_elvis_lhs;
+    }
+    return tmp;
+  }
   function parse(generators, text) {
     var astNode = parseToEnd(GAlgebraElementASTGrammar_getInstance(), text);
-    return getValueFromASTNode(this, astNode, generators);
+    return getValueFromASTNode(this, generators, astNode);
   }
   function plus_1(_this__u8e3s4, other) {
-    return this.p11().x1v(_this__u8e3s4, other);
+    return this.p11().m1w(_this__u8e3s4, other);
   }
   function minus(_this__u8e3s4, other) {
-    return this.p11().y1v(_this__u8e3s4, other);
+    return this.p11().n1w(_this__u8e3s4, other);
   }
   function times(_this__u8e3s4, other) {
-    return this.p11().z1v(_this__u8e3s4, other);
+    return this.p11().o1w(_this__u8e3s4, other);
   }
   function unaryMinus(_this__u8e3s4) {
-    return this.p11().a1w(_this__u8e3s4);
+    return this.p11().p1w(_this__u8e3s4);
   }
   function div(_this__u8e3s4, other) {
-    return this.p11().b1w(_this__u8e3s4, other);
+    return this.p11().q1w(_this__u8e3s4, other);
   }
   function div_0(_this__u8e3s4, other) {
-    return this.p11().b1w(this.p11().zn(_this__u8e3s4), other);
+    return this.p11().q1w(this.p11().zn(_this__u8e3s4), other);
   }
   function inv(_this__u8e3s4) {
-    return this.p11().b1w(this.u12(), _this__u8e3s4);
+    return this.p11().q1w(this.w12(), _this__u8e3s4);
   }
   function toScalar(_this__u8e3s4) {
     return this.p11().zn(_this__u8e3s4);
   }
   function get_zero() {
-    return this.p11().v12();
+    return this.p11().x12();
   }
   function get_one() {
-    return this.p11().u12();
+    return this.p11().w12();
   }
   function sum_0(_this__u8e3s4) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.fold' call
-    var tmp0_fold = this.v12();
+    var tmp0_fold = this.x12();
     var accumulator = tmp0_fold;
     var tmp0_iterator = _this__u8e3s4.f();
     while (tmp0_iterator.g()) {
@@ -337,29 +360,32 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.ScalarContext.sum.<anonymous>' call
       var tmp1__anonymous__uwfjfc = accumulator;
-      tmp$ret$0 = this.e13(tmp1__anonymous__uwfjfc, element);
+      tmp$ret$0 = this.g13(tmp1__anonymous__uwfjfc, element);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
     return tmp$ret$1;
   }
   function plus_2(_this__u8e3s4, other) {
-    return this.j11().s1u(_this__u8e3s4, other);
+    return this.j11().f1v(_this__u8e3s4, other);
   }
   function minus_0(_this__u8e3s4, other) {
-    return this.j11().u1u(_this__u8e3s4, other);
+    return this.j11().h1v(_this__u8e3s4, other);
   }
   function times_0(_this__u8e3s4, scalar) {
-    return this.j11().x1u(scalar, _this__u8e3s4);
+    return this.j11().k1v(scalar, _this__u8e3s4);
+  }
+  function times_1(_this__u8e3s4, numVector) {
+    return this.p13(numVector, _this__u8e3s4);
   }
   function unaryMinus_0(_this__u8e3s4) {
-    return this.j11().z1u(_this__u8e3s4);
+    return this.j11().o1v(_this__u8e3s4);
   }
   function get(_this__u8e3s4, ind) {
-    return this.j11().b1v(_this__u8e3s4, ind);
+    return this.j11().q1v(_this__u8e3s4, ind);
   }
   function plus_3(_this__u8e3s4, other) {
-    return this.t12().x11(_this__u8e3s4, other);
+    return this.v12().x11(_this__u8e3s4, other);
   }
   function plus_4(_this__u8e3s4, other) {
     var tmp0_subject = other;
@@ -374,7 +400,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           tmp_0 = other;
         } else {
           if (tmp1_subject instanceof GVector) {
-            tmp_0 = this.t12().x11(_this__u8e3s4, other);
+            tmp_0 = this.v12().x11(_this__u8e3s4, other);
           } else {
             noWhenBranchMatchedException();
           }
@@ -387,7 +413,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   function minus_1(_this__u8e3s4, other) {
-    return this.t12().y11(_this__u8e3s4, other);
+    return this.v12().y11(_this__u8e3s4, other);
   }
   function minus_2(_this__u8e3s4, other) {
     var tmp0_subject = other;
@@ -399,10 +425,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp1_subject = _this__u8e3s4;
         var tmp_0;
         if (tmp1_subject instanceof ZeroGVector) {
-          tmp_0 = this.t12().z11(this.t12().p11().zn(-1), other);
+          tmp_0 = this.v12().z11(this.v12().p11().zn(-1), other);
         } else {
           if (tmp1_subject instanceof GVector) {
-            tmp_0 = this.t12().y11(_this__u8e3s4, other);
+            tmp_0 = this.v12().y11(_this__u8e3s4, other);
           } else {
             noWhenBranchMatchedException();
           }
@@ -414,27 +440,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
-  function times_1(_this__u8e3s4, scalar) {
-    return this.t12().z11(scalar, _this__u8e3s4);
+  function times_2(_this__u8e3s4, scalar) {
+    return this.v12().z11(scalar, _this__u8e3s4);
   }
-  function times_2(_this__u8e3s4, gVector) {
-    return this.t12().z11(this.t13(_this__u8e3s4), gVector);
+  function times_3(_this__u8e3s4, gVector) {
+    return this.v12().z11(_this__u8e3s4, gVector);
   }
-  function times_3(_this__u8e3s4, scalar) {
+  function times_4(_this__u8e3s4, gVector) {
+    return this.v12().z11(this.x13(_this__u8e3s4), gVector);
+  }
+  function times_5(_this__u8e3s4, scalar) {
     var tmp0_subject = _this__u8e3s4;
     var tmp;
     if (tmp0_subject instanceof ZeroGVector) {
-      tmp = this.t12().c12();
+      tmp = this.v12().d12();
     } else {
       if (tmp0_subject instanceof GVector) {
-        tmp = this.t12().z11(scalar, _this__u8e3s4);
+        tmp = this.v12().z11(scalar, _this__u8e3s4);
       } else {
         noWhenBranchMatchedException();
       }
     }
     return tmp;
   }
-  function times_4(_this__u8e3s4, sign) {
+  function times_6(_this__u8e3s4, sign) {
     var tmp0_subject = sign;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
@@ -443,7 +472,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         tmp = _this__u8e3s4;
         break;
       case 1:
-        tmp = this.v13(_this__u8e3s4);
+        tmp = this.z13(_this__u8e3s4);
         break;
       default:
         noWhenBranchMatchedException();
@@ -451,20 +480,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
-  function times_5(_this__u8e3s4, gVector) {
-    return this.o13(gVector, _this__u8e3s4);
+  function times_7(_this__u8e3s4, gVector) {
+    return this.s13(gVector, _this__u8e3s4);
   }
   function unaryMinus_1(_this__u8e3s4) {
-    return this.t12().z11(this.t13(-1), _this__u8e3s4);
+    return this.v12().z11(this.x13(-1), _this__u8e3s4);
   }
   function unaryMinus_2(_this__u8e3s4) {
     var tmp0_subject = _this__u8e3s4;
     var tmp;
     if (tmp0_subject instanceof ZeroGVector) {
-      tmp = this.t12().c12();
+      tmp = this.v12().d12();
     } else {
       if (tmp0_subject instanceof GVector) {
-        tmp = this.v13(_this__u8e3s4);
+        tmp = this.z13(_this__u8e3s4);
       } else {
         noWhenBranchMatchedException();
       }
@@ -485,7 +514,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.dg.GVectorContext.sum.<anonymous>' call
         var tmp0__anonymous__q1qw7t = accumulator;
         var tmp1__anonymous__uwfjfc = iterator.h();
-        tmp$ret$0 = this.g13(tmp0__anonymous__q1qw7t, tmp1__anonymous__uwfjfc);
+        tmp$ret$0 = this.i13(tmp0__anonymous__q1qw7t, tmp1__anonymous__uwfjfc);
         accumulator = tmp$ret$0;
       }
       tmp$ret$1 = accumulator;
@@ -493,39 +522,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     } else {
       if (degree == null)
         throw IllegalArgumentException_init_$Create$('degree cannot be null when an iterator of GVector is empty');
-      return this.t12().u11(degree);
+      return this.v12().u11(degree);
     }
     return tmp;
   }
   function get_d() {
-    return this.r12().g11();
+    return this.t12().g11();
   }
   function cohomologyClass(_this__u8e3s4) {
-    return this.r12().i11(_this__u8e3s4);
-  }
-  function times_6(_this__u8e3s4, other) {
-    return this.s12().a12(_this__u8e3s4, other);
-  }
-  function times_7(_this__u8e3s4, other) {
-    return this.s12().b12(_this__u8e3s4, other);
+    return this.t12().i11(_this__u8e3s4);
   }
   function times_8(_this__u8e3s4, other) {
-    return this.k12().a12(_this__u8e3s4, other);
+    return this.u12().a12(_this__u8e3s4, other);
+  }
+  function times_9(_this__u8e3s4, other) {
+    return this.u12().b12(_this__u8e3s4, other);
+  }
+  function times_10(_this__u8e3s4, other) {
+    return this.m12().a12(_this__u8e3s4, other);
   }
   function get_unit() {
-    return this.x13().d12();
+    return this.b14().e12();
   }
   function pow(_this__u8e3s4, exponent) {
-    var unit = this.x13().d12();
+    var unit = this.b14().e12();
     var tmp;
     if (exponent === 0) {
       tmp = unit;
     } else if (exponent === 1) {
       tmp = _this__u8e3s4;
     } else if (exponent > 1) {
-      var half = this.y13(_this__u8e3s4, exponent / 2 | 0);
+      var half = this.c14(_this__u8e3s4, exponent / 2 | 0);
       var rem = (exponent % 2 | 0) === 1 ? _this__u8e3s4 : unit;
-      tmp = this.n13(this.n13(half, half), rem);
+      tmp = this.r13(this.r13(half, half), rem);
     } else if (exponent < 0) {
       throw ArithmeticException_init_$Create$('Negative power in an algebra is not defined');
     } else {
@@ -537,14 +566,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp0_subject = _this__u8e3s4;
     var tmp;
     if (tmp0_subject instanceof GVector) {
-      tmp = this.y13(_this__u8e3s4, exponent);
+      tmp = this.c14(_this__u8e3s4, exponent);
     } else {
       if (tmp0_subject instanceof ZeroGVector) {
         var tmp_0;
         if (exponent === 0) {
-          tmp_0 = this.x13().d12();
+          tmp_0 = this.b14().e12();
         } else if (exponent > 0) {
-          tmp_0 = this.x13().c12();
+          tmp_0 = this.b14().d12();
         } else if (exponent < 0) {
           throw ArithmeticException_init_$Create$('Negative power in an algebra is not defined');
         } else {
@@ -557,10 +586,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
+  function toScalar_0(_this__u8e3s4) {
+    var tmp0_subject = _this__u8e3s4;
+    var tmp;
+    if (tmp0_subject instanceof GVector) {
+      tmp = this.b14().g12(_this__u8e3s4);
+    } else {
+      if (tmp0_subject instanceof ZeroGVector) {
+        tmp = this.x12();
+      } else {
+        noWhenBranchMatchedException();
+      }
+    }
+    return tmp;
+  }
   function product(_this__u8e3s4) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.fold' call
-    var tmp0_fold = this.x13().d12();
+    var tmp0_fold = this.b14().e12();
     var accumulator = tmp0_fold;
     var tmp0_iterator = _this__u8e3s4.f();
     while (tmp0_iterator.g()) {
@@ -568,74 +611,77 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GAlgebraContext.product.<anonymous>' call
       var tmp1__anonymous__uwfjfc = accumulator;
-      tmp$ret$0 = this.n13(tmp1__anonymous__uwfjfc, element);
+      tmp$ret$0 = this.r13(tmp1__anonymous__uwfjfc, element);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
     return tmp$ret$1;
   }
   function get_degreeGroup() {
-    return this.u14().n14();
+    return this.z14().s14();
   }
   function invoke(gVector) {
-    if (!this.u14().w11(gVector))
+    if (!this.z14().w11(gVector))
       throw new IllegalContextException('Invalid graded vector is given as an argument for a graded linear map');
-    var linearMap = this.m11(gVector.y18_1);
-    if (!equals(gVector.x18_1.b19_1, linearMap.s19_1))
+    var linearMap = this.m11(gVector.x17_1);
+    if (!equals(gVector.w17_1.f19_1, linearMap.w19_1))
       throw Exception_init_$Create$('Graded linear map contains a bug: getLinearMap returns incorrect linear map');
-    var newVector = linearMap.x19(gVector.x18_1);
+    var newVector = linearMap.b1a(gVector.w17_1);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.n14().o14();
+    var tmp0_run = this.s14().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.dg.GLinearMap.invoke.<anonymous>' call
-    tmp$ret$0 = tmp0_run.r18(gVector.y18_1, this.w14());
+    tmp$ret$0 = tmp0_run.y18(gVector.x17_1, this.b15());
     tmp$ret$1 = tmp$ret$0;
     var newDegree = tmp$ret$1;
-    return this.v14().q11(newVector, newDegree);
+    return this.a15().q11(newVector, newDegree);
   }
   function kernel() {
     var tmp = Companion_getInstance_17();
     var tmp_0 = this.h11();
-    var tmp_1 = this.u14();
+    var tmp_1 = this.z14();
     var tmp_2 = 'Ker(' + this.xb() + ')';
-    return tmp.y19(tmp_0, tmp_1, tmp_2, null, GLinearMap$kernel$lambda(this), 8, null);
+    return tmp.c1a(tmp_0, tmp_1, tmp_2, null, GLinearMap$kernel$lambda(this), 8, null);
   }
   function image() {
     var tmp = Companion_getInstance_17();
     var tmp_0 = this.h11();
-    var tmp_1 = this.v14();
+    var tmp_1 = this.a15();
     var tmp_2 = 'Im(' + this.xb() + ')';
-    return tmp.y19(tmp_0, tmp_1, tmp_2, null, GLinearMap$image$lambda(this), 8, null);
+    return tmp.c1a(tmp_0, tmp_1, tmp_2, null, GLinearMap$image$lambda(this), 8, null);
   }
   function induce(sourceSubQuot, targetSubQuot) {
-    var gLinearMapDegree = this.w14();
+    var gLinearMapDegree = this.b15();
     var tmp = Companion_getInstance_14();
-    var tmp_0 = this.w14();
+    var tmp_0 = this.b15();
     var tmp_1 = this.h11();
     var tmp_2 = this.xb();
-    return tmp.q19(sourceSubQuot, targetSubQuot, tmp_0, tmp_1, tmp_2, GLinearMap$induce$lambda(this, gLinearMapDegree, sourceSubQuot, targetSubQuot));
+    return tmp.u19(sourceSubQuot, targetSubQuot, tmp_0, tmp_1, tmp_2, GLinearMap$induce$lambda(this, gLinearMapDegree, sourceSubQuot, targetSubQuot));
   }
   function ad(gVector) {
-    var matrixSpace = this.u15().h11();
+    var matrixSpace = this.z15().h11();
     var name = 'ad(' + gVector + ')';
     var tmp = Companion_getInstance_9();
-    var tmp_0 = this.u15();
-    return tmp.g17(tmp_0, gVector.y18_1, matrixSpace, name, GLieAlgebraContext$ad$lambda(this, gVector));
+    var tmp_0 = this.z15();
+    return tmp.l17(tmp_0, gVector.x17_1, matrixSpace, name, GLieAlgebraContext$ad$lambda(this, gVector));
   }
   function isNotZero() {
     return !this.op();
   }
   function subspaceContains(gVector) {
-    var subQuotVectorSpace = this.m11(gVector.y18_1);
-    return subQuotVectorSpace.r1d(gVector.x18_1);
+    var subQuotVectorSpace = this.m11(gVector.x17_1);
+    return subQuotVectorSpace.y1d(gVector.w17_1);
+  }
+  function isNotZero_0() {
+    return !this.op();
   }
   function isOdd() {
-    return !this.j1e();
+    return !this.r1e();
   }
   function koszulSign(other) {
-    return Companion_getInstance_45().m1e(this.j1e() ? true : other.j1e());
+    return Companion_getInstance_45().u1e(this.r1e() ? true : other.r1e());
   }
   function get_zero_0() {
     return this.zn(0);
@@ -655,7 +701,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function get_generatorList() {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.u1f();
+    var tmp0_map = this.c1g();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -664,8 +710,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.<get-generatorList>.<anonymous>' call
-      var monomial = Companion_getInstance_31().n1n(this.n14(), this.u1f(), item);
-      tmp$ret$0 = this.s11(monomial, item.z1j_1);
+      var monomial = Companion_getInstance_31().y1n(this.s14(), this.c1g(), item);
+      tmp$ret$0 = this.s11(monomial, item.g1k_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -673,9 +719,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   }
   function getDerivation(valueList, derivationDegree) {
-    if (!(valueList.i() === this.u1f().i()))
-      throw new InvalidSizeException('Invalid size of the list of values of a derivation: ' + ('' + this.u1f().i() + ' is expected but ' + valueList.i() + ' is given'));
-    var tmp0_iterator = zip(this.u1f(), valueList).f();
+    if (!(valueList.i() === this.c1g().i()))
+      throw new InvalidSizeException('Invalid size of the list of values of a derivation: ' + ('' + this.c1g().i() + ' is expected but ' + valueList.i() + ' is given'));
+    var tmp0_iterator = zip(this.c1g(), valueList).f();
     while (tmp0_iterator.g()) {
       var tmp1_loop_parameter = tmp0_iterator.h();
       var indeterminate = tmp1_loop_parameter.w3();
@@ -683,15 +729,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (value instanceof GVector) {
         var tmp$ret$1;
         // Inline function 'kotlin.run' call
-        var tmp0_run = this.n14().o14();
+        var tmp0_run = this.s14().t14();
         // Inline function 'kotlin.contracts.contract' call
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivation.<anonymous>' call
-        tmp$ret$0 = tmp0_run.r18(indeterminate.z1j_1, derivationDegree);
+        tmp$ret$0 = tmp0_run.y18(indeterminate.g1k_1, derivationDegree);
         tmp$ret$1 = tmp$ret$0;
         var expectedValueDegree = tmp$ret$1;
-        if (!equals(value.y18_1, expectedValueDegree))
-          throw IllegalArgumentException_init_$Create$('Illegal degree: the degree of the value of ' + indeterminate + ' must be ' + ('' + indeterminate.z1j_1 + ' + ' + derivationDegree + ' = ' + expectedValueDegree + ', ') + ('but ' + value.y18_1 + ' was given'));
+        if (!equals(value.x17_1, expectedValueDegree))
+          throw IllegalArgumentException_init_$Create$('Illegal degree: the degree of the value of ' + indeterminate + ' must be ' + ('' + indeterminate.g1k_1 + ' + ' + derivationDegree + ' = ' + expectedValueDegree + ', ') + ('but ' + value.x17_1 + ' was given'));
       }
     }
     var tmp$ret$6;
@@ -710,11 +756,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1__anonymous__uwfjfc = checkIndexOverflow(tmp1);
       var tmp$ret$3;
       // Inline function 'kotlin.run' call
-      var tmp0_run_0 = this.n14().o14();
+      var tmp0_run_0 = this.s14().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$2;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivation.<anonymous>.<anonymous>' call
-      tmp$ret$2 = tmp0_run_0.r18(this.u1f().l(tmp1__anonymous__uwfjfc).z1j_1, derivationDegree);
+      tmp$ret$2 = tmp0_run_0.y18(this.c1g().l(tmp1__anonymous__uwfjfc).g1k_1, derivationDegree);
       tmp$ret$3 = tmp$ret$2;
       var valueDegree = tmp$ret$3;
       tmp$ret$4 = this.v11(item, valueDegree);
@@ -726,22 +772,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var name = 'Derivation(' + joinToString$default(valueList, ', ', null, null, 0, null, FreeGAlgebra$getDerivation$lambda, 30, null) + ')';
     var tmp = Companion_getInstance_8();
     var tmp_0 = this.h11();
-    return tmp.e17(this, derivationDegree, tmp_0, name, FreeGAlgebra$getDerivation$lambda_0(this, derivationDegree, gVectorValueList));
+    return tmp.j17(this, derivationDegree, tmp_0, name, FreeGAlgebra$getDerivation$lambda_0(this, derivationDegree, gVectorValueList));
   }
   function getDerivation_0(valueList, derivationDegree) {
-    return this.a1k(valueList, this.n14().zn(derivationDegree));
+    return this.h1k(valueList, this.s14().zn(derivationDegree));
   }
   function getGAlgebraMap(target, valueList) {
-    if (!(valueList.i() === this.u1f().i()))
+    if (!(valueList.i() === this.c1g().i()))
       throw new InvalidSizeException('Invalid size of the list of values of an algebra map');
-    var tmp0_iterator = zip(this.u1f(), valueList).f();
+    var tmp0_iterator = zip(this.c1g(), valueList).f();
     while (tmp0_iterator.g()) {
       var tmp1_loop_parameter = tmp0_iterator.h();
       var indeterminate = tmp1_loop_parameter.w3();
       var value = tmp1_loop_parameter.x3();
       if (value instanceof GVector) {
-        if (!equals(value.y18_1, indeterminate.z1j_1))
-          throw IllegalArgumentException_init_$Create$('Illegal degree: the degree of the value of ' + indeterminate + ' must be ' + indeterminate.z1j_1 + ('but ' + value.y18_1 + ' was given'));
+        if (!equals(value.x17_1, indeterminate.g1k_1))
+          throw IllegalArgumentException_init_$Create$('Illegal degree: the degree of the value of ' + indeterminate + ' must be ' + indeterminate.g1k_1 + ('but ' + value.x17_1 + ' was given'));
       }
     }
     var tmp$ret$2;
@@ -758,7 +804,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1 = index;
       index = tmp1 + 1 | 0;
       var tmp0__anonymous__q1qw7t = checkIndexOverflow(tmp1);
-      var valueDegree = this.u1f().l(tmp0__anonymous__q1qw7t).z1j_1;
+      var valueDegree = this.c1g().l(tmp0__anonymous__q1qw7t).g1k_1;
       tmp$ret$0 = target.v11(item, valueDegree);
       tmp0_mapIndexedTo.a(tmp$ret$0);
     }
@@ -768,13 +814,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var name = 'AlgebraMap(' + joinToString$default(valueList, ', ', null, null, 0, null, FreeGAlgebra$getGAlgebraMap$lambda, 30, null) + ')';
     var tmp = Companion_getInstance_11();
     var tmp_0 = this.h11();
-    return tmp.k18(this, target, tmp_0, name, FreeGAlgebra$getGAlgebraMap$lambda_0(this, target, gVectorValueList));
+    return tmp.r18(this, target, tmp_0, name, FreeGAlgebra$getGAlgebraMap$lambda_0(this, target, gVectorValueList));
   }
   function containsIndeterminate(indeterminateIndex, element) {
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.any' call
-      var tmp0_any = element.x18_1.p1a();
+      var tmp0_any = element.w17_1.t1a();
       if (tmp0_any.p()) {
         tmp$ret$0 = false;
         break $l$block_0;
@@ -791,7 +837,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component1' call
         tmp$ret$2 = element_0.e1();
         var monomial = tmp$ret$2;
-        tmp$ret$3 = monomial.o1n(indeterminateIndex);
+        tmp$ret$3 = monomial.z1n(indeterminateIndex);
         if (tmp$ret$3) {
           tmp$ret$0 = true;
           break $l$block_0;
@@ -802,13 +848,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$0;
   }
   function parse_0(text) {
-    var generators = this.t1k();
-    return this.f12(generators, text);
+    var generators = this.a1l();
+    return this.h12(generators, text);
   }
   function getGeneratorsForParser() {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = zip(this.u1f(), this.v1f());
+    var tmp0_map = zip(this.c1g(), this.d1g());
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -819,7 +865,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getGeneratorsForParser.<anonymous>' call
       var indeterminate = item.w3();
       var generator = item.x3();
-      tmp$ret$0 = new Pair(indeterminate.y1j_1.h1e().p1n_1, generator);
+      tmp$ret$0 = new Pair(indeterminate.f1k_1.p1e().a1o_1, generator);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -829,7 +875,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function convertDegree(degreeMorphism) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.u1f();
+    var tmp0_map = this.c1g();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -838,7 +884,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.convertDegree.<anonymous>' call
-      tmp$ret$0 = item.q1n(degreeMorphism);
+      tmp$ret$0 = item.b1o(degreeMorphism);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -846,22 +892,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var newIndeterminateList = tmp$ret$2;
     var tmp = Companion_getInstance_26();
     var tmp_0 = this.h11();
-    var tmp_1 = degreeMorphism.v14();
-    var newFreeGAlgebra = tmp.h1n(tmp_0, tmp_1, newIndeterminateList, null, 8, null);
-    var freeMonoidMorphism = new FreeMonoidMorphismByDegreeChange(this.i1l(), degreeMorphism);
+    var tmp_1 = degreeMorphism.a15();
+    var newFreeGAlgebra = tmp.s1n(tmp_0, tmp_1, newIndeterminateList, null, 8, null);
+    var freeMonoidMorphism = new FreeMonoidMorphismByDegreeChange(this.p1l(), degreeMorphism);
     var tmp_2 = Companion_getInstance_15();
     var tmp_3 = this.h11();
     var tmp_4 = this.xb() + ' (degree changed)';
-    var gLinearMapWithDegreeChange = tmp_2.h1a(this, newFreeGAlgebra, degreeMorphism, tmp_3, tmp_4, FreeGAlgebra$convertDegree$lambda(freeMonoidMorphism));
+    var gLinearMapWithDegreeChange = tmp_2.l1a(this, newFreeGAlgebra, degreeMorphism, tmp_3, tmp_4, FreeGAlgebra$convertDegree$lambda(freeMonoidMorphism));
     return new Pair(newFreeGAlgebra, gLinearMapWithDegreeChange);
   }
   function toString_1(printConfig) {
-    var tmp = this.u1f();
+    var tmp = this.c1g();
     var indeterminateString = joinToString$default(tmp, ', ', null, null, 0, null, FreeGAlgebra$toString$lambda(printConfig), 30, null);
     return '\u039B(' + indeterminateString + ')';
   }
   function toString_2(printConfig) {
-    var gAlgebraString = this.r1j().r1a(printConfig);
+    var gAlgebraString = this.y1j().v1a(printConfig);
     return '(' + gAlgebraString + ', d)';
   }
   function convertDegree_0(degreeMorphism) {
@@ -870,7 +916,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var changeDegree = tmp0_container.x3();
     var tmp$ret$4;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.v1f();
+    var tmp0_map = this.d1g();
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -881,25 +927,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.free.FreeDGAlgebra.convertDegree.<anonymous>' call
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this.o14();
+      var tmp0_run = this.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.FreeDGAlgebra.convertDegree.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.j12().z14(item);
+      tmp$ret$0 = tmp0_run.l12().e15(item);
       tmp$ret$1 = tmp$ret$0;
       var dv = tmp$ret$1;
-      tmp$ret$2 = changeDegree.o1a(dv);
+      tmp$ret$2 = changeDegree.s1a(dv);
       tmp0_mapTo.a(tmp$ret$2);
     }
     tmp$ret$3 = tmp0_mapTo;
     tmp$ret$4 = tmp$ret$3;
     var differentialValueList = tmp$ret$4;
-    var differential = newFreeGAlgebra.m1k(differentialValueList, 1);
-    var newFreeDGAlgebra = Companion_getInstance_24().j1k(newFreeGAlgebra, differential);
+    var differential = newFreeGAlgebra.t1k(differentialValueList, 1);
+    var newFreeDGAlgebra = Companion_getInstance_24().q1k(newFreeGAlgebra, differential);
     return new Pair(newFreeDGAlgebra, changeDegree);
   }
   function parse_1(text) {
-    return this.x13().i1k(text);
+    return this.b14().p1k(text);
   }
   function listDegreesForAugmentedDegree(augmentedDegree) {
     throw new NotImplementedError('Monoid.listDegreesForAugmentedDegree() is not implemented for a general monoid');
@@ -921,7 +967,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DecomposedSparseRowEchelonForm.prototype = Object.create(RowEchelonForm.prototype);
   DecomposedSparseRowEchelonForm.prototype.constructor = DecomposedSparseRowEchelonForm;
   function getIdentity(dim) {
-    var one = this.p11().u12();
+    var one = this.p11().w12();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.List' call
     var tmp$ret$1;
@@ -944,12 +990,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = list;
     tmp$ret$2 = tmp$ret$1;
     var rowMap = toMap(tmp$ret$2);
-    return this.r1s(rowMap, dim, dim);
+    return this.e1t(rowMap, dim, dim);
   }
   function fromRowList$default(rowList, colCount, $mask0, $handler) {
     if (!(($mask0 & 2) === 0))
       colCount = null;
-    return $handler == null ? this.z1t(rowList, colCount) : $handler(rowList, colCount);
+    return $handler == null ? this.m1u(rowList, colCount) : $handler(rowList, colCount);
   }
   function fromColList(colList, rowCount) {
     var tmp;
@@ -1008,7 +1054,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$5 = tmp0_mapTo;
     tmp$ret$6 = tmp$ret$5;
     var rows = tmp$ret$6;
-    return this.z1t(rows, colCount);
+    return this.m1u(rows, colCount);
   }
   function fromColMap(colMap, rowCount, colCount) {
     var tmp$ret$0;
@@ -1066,20 +1112,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         row.u(colInd, elm);
       }
     }
-    return this.r1s(rowMap, rowCount, colCount);
+    return this.e1t(rowMap, rowCount, colCount);
   }
   function fromNumVectorList(numVectors, dim) {
     if (numVectors.p() ? dim == null : false)
       throw IllegalArgumentException_init_$Create$('Vector list is empty and dim is not specified');
     var tmp0_elvis_lhs = dim;
-    var dimNotNull = tmp0_elvis_lhs == null ? numVectors.l(0).q1t() : tmp0_elvis_lhs;
+    var dimNotNull = tmp0_elvis_lhs == null ? numVectors.l(0).d1u() : tmp0_elvis_lhs;
     var colMap = toMap(pmapIndexedNotNull(numVectors, MatrixSpace$fromNumVectorList$lambda));
-    return this.l1u(colMap, dimNotNull, numVectors.i());
+    return this.y1u(colMap, dimNotNull, numVectors.i());
   }
   function toList_2() {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, this.m1u());
+    var tmp0_map = until(0, this.z1u());
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -1093,7 +1139,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.linalg.Matrix.toList.<anonymous>' call
         var tmp$ret$2;
         // Inline function 'kotlin.collections.map' call
-        var tmp0_map_0 = until(0, this.n1u());
+        var tmp0_map_0 = until(0, this.a1v());
         var tmp$ret$1;
         // Inline function 'kotlin.collections.mapTo' call
         var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -1105,7 +1151,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             inductionVariable_0 = inductionVariable_0 + 1 | 0;
             var tmp$ret$0;
             // Inline function 'com.github.shwaka.kohomology.linalg.Matrix.toList.<anonymous>.<anonymous>' call
-            tmp$ret$0 = this.x1t(item, item_0);
+            tmp$ret$0 = this.k1u(item, item_0);
             tmp0_mapTo_0.a(tmp$ret$0);
           }
            while (!(item_0 === last_0));
@@ -1122,7 +1168,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function toNumVectorList() {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, this.n1u());
+    var tmp0_map = until(0, this.a1v());
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -1137,7 +1183,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp = this.j11();
         var tmp$ret$2;
         // Inline function 'kotlin.collections.map' call
-        var tmp0_map_0 = until(0, this.m1u());
+        var tmp0_map_0 = until(0, this.z1u());
         var tmp$ret$1;
         // Inline function 'kotlin.collections.mapTo' call
         var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -1149,13 +1195,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             inductionVariable_0 = inductionVariable_0 + 1 | 0;
             var tmp$ret$0;
             // Inline function 'com.github.shwaka.kohomology.linalg.Matrix.toNumVectorList.<anonymous>.<anonymous>' call
-            tmp$ret$0 = this.x1t(item_0, item);
+            tmp$ret$0 = this.k1u(item_0, item);
             tmp0_mapTo_0.a(tmp$ret$0);
           }
            while (!(item_0 === last_0));
         tmp$ret$1 = tmp0_mapTo_0;
         tmp$ret$2 = tmp$ret$1;
-        tmp$ret$3 = tmp.r1t(tmp$ret$2);
+        tmp$ret$3 = tmp.e1u(tmp$ret$2);
         tmp0_mapTo.a(tmp$ret$3);
       }
        while (!(item === last));
@@ -1166,7 +1212,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function getOneAtIndex(index, dim) {
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.p11().o14();
+    var tmp0_run = this.p11().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.NumVectorSpace.getOneAtIndex.<anonymous>' call
@@ -1184,7 +1230,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.NumVectorSpace.getOneAtIndex.<anonymous>.<anonymous>' call
-        tmp$ret$0 = item === index ? tmp0_run.u12() : tmp0_run.v12();
+        tmp$ret$0 = item === index ? tmp0_run.w12() : tmp0_run.x12();
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
@@ -1193,39 +1239,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$3 = tmp$ret$2;
     tmp$ret$4 = tmp$ret$3;
     var valueList = tmp$ret$4;
-    return this.r1t(valueList);
+    return this.e1u(valueList);
   }
   function fromReducedValueMap(valueMap, dim) {
-    return this.c1v(valueMap, dim);
+    return this.r1v(valueMap, dim);
   }
   DenseRowEchelonForm.prototype = Object.create(RowEchelonForm.prototype);
   DenseRowEchelonForm.prototype.constructor = DenseRowEchelonForm;
   function toString_5(printType, withSign) {
-    return this.l21(PrintConfig_init_$Create$(printType, null, null, null, null, 30, null), withSign);
+    return this.d22(PrintConfig_init_$Create$(printType, null, null, null, null, 30, null), withSign);
   }
   function toString_6(printConfig) {
-    return this.l21(printConfig, true);
+    return this.d22(printConfig, true);
   }
-  function isNotZero_0() {
+  function isNotZero_1() {
     return !this.op();
   }
   function unaryMinusOf(scalar) {
-    return this.z1v(scalar, this.zn(-1));
+    return this.o1w(scalar, this.zn(-1));
   }
-  function fromIntPair(numerator, denominator) {
-    return this.b1w(this.zn(numerator), this.zn(denominator));
-  }
-  function times_9(_this__u8e3s4, numVector) {
-    return this.h11().s1t(_this__u8e3s4, numVector);
+  function times_11(_this__u8e3s4, numVector) {
+    return this.h11().f1u(_this__u8e3s4, numVector);
   }
   function get_rowEchelonForm(_this__u8e3s4) {
-    return this.h11().v1t(_this__u8e3s4);
+    return this.h11().i1u(_this__u8e3s4);
   }
   function rowSlice(_this__u8e3s4, rowRange) {
-    return this.h11().e1u(_this__u8e3s4, rowRange);
+    return this.h11().r1u(_this__u8e3s4, rowRange);
   }
   function colSlice(_this__u8e3s4, colRange) {
-    return this.h11().g1u(_this__u8e3s4, colRange);
+    return this.h11().t1u(_this__u8e3s4, colRange);
   }
   function join(_this__u8e3s4) {
     if (_this__u8e3s4.p())
@@ -1241,20 +1284,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.linalg.MatrixContext.join.<anonymous>' call
       var tmp0__anonymous__q1qw7t = accumulator;
       var tmp1__anonymous__uwfjfc = iterator.h();
-      tmp$ret$0 = this.h11().c1u(tmp0__anonymous__q1qw7t, tmp1__anonymous__uwfjfc);
+      tmp$ret$0 = this.h11().p1u(tmp0__anonymous__q1qw7t, tmp1__anonymous__uwfjfc);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
     return tmp$ret$1;
   }
   function transpose(_this__u8e3s4) {
-    return this.h11().y1t(_this__u8e3s4);
+    return this.h11().l1u(_this__u8e3s4);
   }
   function computeKernelBasis(_this__u8e3s4) {
-    var rowEchelonForm = this.g1w(_this__u8e3s4);
-    var dim = _this__u8e3s4.n1u();
-    var pivots = rowEchelonForm.y1s();
-    var firstNonZeroIndex = pivots.p() ? _this__u8e3s4.n1u() : pivots.l(0);
+    var rowEchelonForm = this.v1w(_this__u8e3s4);
+    var dim = _this__u8e3s4.a1v();
+    var pivots = rowEchelonForm.l1t();
+    var firstNonZeroIndex = pivots.p() ? _this__u8e3s4.a1v() : pivots.l(0);
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, firstNonZeroIndex);
@@ -1269,14 +1312,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.MatrixContext.computeKernelBasis.<anonymous>' call
-        tmp$ret$0 = _this__u8e3s4.j11().e1v(item, dim);
+        tmp$ret$0 = _this__u8e3s4.j11().t1v(item, dim);
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var trivialVectors = tmp$ret$2;
-    var matrix = rowEchelonForm.x1s();
+    var matrix = rowEchelonForm.k1t();
     var tmp$ret$8;
     // Inline function 'kotlin.collections.map' call
     var tmp1_map = get_indices_0(pivots);
@@ -1307,13 +1350,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             inductionVariable_1 = inductionVariable_1 + 1 | 0;
             var tmp$ret$3;
             // Inline function 'com.github.shwaka.kohomology.linalg.MatrixContext.computeKernelBasis.<anonymous>.<anonymous>' call
-            var numVector = _this__u8e3s4.j11().e1v(item_1, dim);
+            var numVector = _this__u8e3s4.j11().t1v(item_1, dim);
             var inductionVariable_2 = item_0;
             if (0 <= inductionVariable_2)
               do {
                 var q = inductionVariable_2;
                 inductionVariable_2 = inductionVariable_2 + -1 | 0;
-                numVector = this.b13(numVector, this.l13(_this__u8e3s4.j11().e1v(pivots.l(q), dim), matrix.x1t(q, item_1)));
+                numVector = this.d13(numVector, this.p13(_this__u8e3s4.j11().t1v(pivots.l(q), dim), matrix.k1u(q, item_1)));
               }
                while (0 <= inductionVariable_2);
             tmp$ret$3 = numVector;
@@ -1344,81 +1387,90 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Sign.prototype = Object.create(Enum.prototype);
   Sign.prototype.constructor = Sign;
   function get_dim() {
-    return this.o19().i();
+    return this.s19().i();
   }
   function get_field_0() {
     return this.j11().p11();
   }
   function contains_0(vector) {
-    return equals(vector.b19_1, this);
+    return equals(vector.f19_1, this);
   }
   function add_0(a, b) {
-    if (!this.f23(a))
+    if (!this.x23(a))
       throw new IllegalContextException('The vector ' + a + ' is not contained in the vector space ' + this);
-    if (!this.f23(b))
+    if (!this.x23(b))
       throw new IllegalContextException('The vector ' + b + ' is not contained in the vector space ' + this);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.j11().o14();
+    var tmp0_run = this.j11().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.VectorSpace.add.<anonymous>' call
-    tmp$ret$0 = new Vector(tmp0_run.f13(a.a19_1, b.a19_1), this);
+    tmp$ret$0 = new Vector(tmp0_run.h13(a.e19_1, b.e19_1), this);
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   }
   function subtract_0(a, b) {
-    if (!this.f23(a))
+    if (!this.x23(a))
       throw new IllegalContextException('The vector ' + a + ' is not contained in the vector space ' + this);
-    if (!this.f23(b))
+    if (!this.x23(b))
       throw new IllegalContextException('The vector ' + b + ' is not contained in the vector space ' + this);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.j11().o14();
+    var tmp0_run = this.j11().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.VectorSpace.subtract.<anonymous>' call
-    tmp$ret$0 = new Vector(tmp0_run.b13(a.a19_1, b.a19_1), this);
+    tmp$ret$0 = new Vector(tmp0_run.d13(a.e19_1, b.e19_1), this);
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   }
   function multiply_2(scalar, vector) {
-    if (!this.p11().w1u(scalar))
+    if (!this.p11().j1v(scalar))
       throw new IllegalContextException('The scalar ' + scalar + ' does not match the context (' + this.p11() + ')');
-    if (!this.f23(vector))
+    if (!this.x23(vector))
       throw new IllegalContextException('The vector ' + vector + ' is not contained in the vector space ' + this);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.j11().o14();
+    var tmp0_run = this.j11().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.VectorSpace.multiply.<anonymous>' call
-    tmp$ret$0 = new Vector(tmp0_run.l13(vector.a19_1, scalar), vector.b19_1);
+    tmp$ret$0 = new Vector(tmp0_run.p13(vector.e19_1, scalar), vector.f19_1);
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
+  }
+  function divideByVector(a, b) {
+    if (!this.x23(a))
+      throw new IllegalContextException('The vector ' + a + ' is not contained in the vector space ' + this);
+    if (!this.x23(b))
+      throw new IllegalContextException('The vector ' + b + ' is not contained in the vector space ' + this);
+    if (b.op())
+      throw ArithmeticException_init_$Create$('Division by zero vector');
+    return this.j11().m1v(a.e19_1, b.e19_1);
   }
   function fromNumVector(numVector) {
     return new Vector(numVector, this);
   }
   function fromCoeffList(coeffList) {
-    var numVector = this.j11().r1t(coeffList);
-    return this.j23(numVector);
+    var numVector = this.j11().e1u(coeffList);
+    return this.b24(numVector);
   }
   function fromBasisName_0(basisName) {
-    var index = this.c23(basisName);
-    var coeffMap = mapOf(to(index, this.p11().u12()));
-    var numVector = this.j11().f1v(coeffMap, this.q1t());
-    return this.j23(numVector);
+    var index = this.u23(basisName);
+    var coeffMap = mapOf(to(index, this.p11().w12()));
+    var numVector = this.j11().u1v(coeffMap, this.d1u());
+    return this.b24(numVector);
   }
   function get_zeroVector() {
-    return new Vector(this.j11().d1v(this.q1t()), this);
+    return new Vector(this.j11().s1v(this.d1u()), this);
   }
   function getBasis_1() {
-    var zero = this.p11().v12();
-    var one = this.p11().u12();
+    var zero = this.p11().x12();
+    var one = this.p11().w12();
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, this.q1t());
+    var tmp0_map = until(0, this.d1u());
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -1432,7 +1484,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.vectsp.VectorSpace.getBasis.<anonymous>' call
         var tmp$ret$2;
         // Inline function 'kotlin.collections.map' call
-        var tmp0_map_0 = until(0, this.q1t());
+        var tmp0_map_0 = until(0, this.d1u());
         var tmp$ret$1;
         // Inline function 'kotlin.collections.mapTo' call
         var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -1451,7 +1503,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         tmp$ret$1 = tmp0_mapTo_0;
         tmp$ret$2 = tmp$ret$1;
         var coeff = tmp$ret$2;
-        tmp$ret$3 = this.k23(coeff);
+        tmp$ret$3 = this.c24(coeff);
         tmp0_mapTo.a(tmp$ret$3);
       }
        while (!(item === last));
@@ -1460,24 +1512,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$5;
   }
   function plus_5(_this__u8e3s4, other) {
-    return this.e25().g23(_this__u8e3s4, other);
+    return this.w25().y23(_this__u8e3s4, other);
   }
   function minus_3(_this__u8e3s4, other) {
-    return this.e25().h23(_this__u8e3s4, other);
+    return this.w25().z23(_this__u8e3s4, other);
   }
-  function times_10(_this__u8e3s4, scalar) {
-    return this.e25().i23(scalar, _this__u8e3s4);
+  function times_12(_this__u8e3s4, scalar) {
+    return this.w25().a24(scalar, _this__u8e3s4);
   }
-  function times_11(_this__u8e3s4, vector) {
-    return this.e25().i23(_this__u8e3s4, vector);
+  function times_13(_this__u8e3s4, vector) {
+    return this.w25().a24(_this__u8e3s4, vector);
   }
   function unaryMinus_3(_this__u8e3s4) {
-    return new Vector(this.p1w(_this__u8e3s4.a19_1), _this__u8e3s4.b19_1);
+    return new Vector(this.e1x(_this__u8e3s4.e19_1), _this__u8e3s4.f19_1);
   }
   function sum_2(_this__u8e3s4) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.fold' call
-    var tmp0_fold = this.e25().y1a();
+    var tmp0_fold = this.w25().b1b();
     var accumulator = tmp0_fold;
     var tmp0_iterator = _this__u8e3s4.f();
     while (tmp0_iterator.g()) {
@@ -1485,7 +1537,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.VectorContext.sum.<anonymous>' call
       var tmp1__anonymous__uwfjfc = accumulator;
-      tmp$ret$0 = this.a1b(tmp1__anonymous__uwfjfc, element);
+      tmp$ret$0 = this.d1b(tmp1__anonymous__uwfjfc, element);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
@@ -1560,227 +1612,236 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DGAlgebraContext.$metadata$ = interfaceMeta('DGAlgebraContext', [DGMagmaContext, GAlgebraContext]);
   function DGAlgebraContextImpl(dgAlgebra) {
-    this.g12_1 = dgAlgebra;
-    this.h12_1 = new DGMagmaContextImpl(dgAlgebra);
-    this.i12_1 = this.g12_1;
+    this.i12_1 = dgAlgebra;
+    this.j12_1 = new DGMagmaContextImpl(dgAlgebra);
+    this.k12_1 = this.i12_1;
   }
-  DGAlgebraContextImpl.prototype.j12 = function () {
-    return this.h12_1.j12();
+  DGAlgebraContextImpl.prototype.l12 = function () {
+    return this.j12_1.l12();
   };
-  DGAlgebraContextImpl.prototype.k12 = function () {
-    return this.h12_1.l12_1;
-  };
-  DGAlgebraContextImpl.prototype.r12 = function () {
-    return this.h12_1.m12_1;
-  };
-  DGAlgebraContextImpl.prototype.p11 = function () {
-    return this.h12_1.q12_1;
-  };
-  DGAlgebraContextImpl.prototype.s12 = function () {
-    return this.h12_1.n12_1;
+  DGAlgebraContextImpl.prototype.m12 = function () {
+    return this.j12_1.n12_1;
   };
   DGAlgebraContextImpl.prototype.t12 = function () {
-    return this.h12_1.o12_1;
+    return this.j12_1.o12_1;
   };
-  DGAlgebraContextImpl.prototype.j11 = function () {
-    return this.h12_1.p12_1;
+  DGAlgebraContextImpl.prototype.p11 = function () {
+    return this.j12_1.s12_1;
   };
   DGAlgebraContextImpl.prototype.u12 = function () {
-    return this.h12_1.u12();
+    return this.j12_1.p12_1;
   };
   DGAlgebraContextImpl.prototype.v12 = function () {
-    return this.h12_1.v12();
+    return this.j12_1.q12_1;
   };
-  DGAlgebraContextImpl.prototype.w12 = function (_this__u8e3s4) {
-    return this.h12_1.w12(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.j11 = function () {
+    return this.j12_1.r12_1;
   };
-  DGAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.h12_1.x12(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.w12 = function () {
+    return this.j12_1.w12();
   };
-  DGAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.h12_1.y12(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.x12 = function () {
+    return this.j12_1.x12();
   };
-  DGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.h12_1.z12(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4) {
+    return this.j12_1.y12(_this__u8e3s4);
+  };
+  DGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.j12_1.z12(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.h12_1.a13(_this__u8e3s4, other);
+    return this.j12_1.a13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.h12_1.b13(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.j12_1.b13(_this__u8e3s4);
   };
   DGAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
-    return this.h12_1.c13(_this__u8e3s4, other);
+    return this.j12_1.c13(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
-    return this.h12_1.d13(_this__u8e3s4, other);
+    return this.j12_1.d13(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.h12_1.e13(_this__u8e3s4, other);
+    return this.j12_1.e13(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.h12_1.f13(_this__u8e3s4, other);
+    return this.j12_1.f13(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.h12_1.g13(_this__u8e3s4, other);
+    return this.j12_1.g13(_this__u8e3s4, other);
   };
   DGAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
-    return this.h12_1.h13(_this__u8e3s4, other);
+    return this.j12_1.h13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.h12_1.i13(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.j12_1.i13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.h12_1.j13(_this__u8e3s4, degree);
+  DGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, other) {
+    return this.j12_1.j13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.h12_1.k13(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.j12_1.k13(_this__u8e3s4);
   };
-  DGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.h12_1.l13(_this__u8e3s4, scalar);
+  DGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.j12_1.l13(_this__u8e3s4, degree);
   };
-  DGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.h12_1.m13(_this__u8e3s4, scalar);
+  DGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.j12_1.m13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
-    return this.h12_1.n13(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.j12_1.n13(_this__u8e3s4, numVector);
   };
-  DGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.h12_1.o13(_this__u8e3s4, sign);
+  DGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, gVector) {
+    return this.j12_1.o13(_this__u8e3s4, gVector);
   };
   DGAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
-    return this.h12_1.p13(_this__u8e3s4, scalar);
+    return this.j12_1.p13(_this__u8e3s4, scalar);
   };
-  DGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, other) {
-    return this.h12_1.q13(_this__u8e3s4, other);
+  DGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.j12_1.q13(_this__u8e3s4, scalar);
   };
-  DGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, gVector) {
-    return this.h12_1.r13(_this__u8e3s4, gVector);
+  DGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.j12_1.r13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, gVector) {
-    return this.h12_1.s13(_this__u8e3s4, gVector);
+  DGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.j12_1.s13(_this__u8e3s4, sign);
   };
-  DGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.h12_1.t13(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4, scalar) {
+    return this.j12_1.t13(_this__u8e3s4, scalar);
   };
-  DGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.h12_1.u13(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4, other) {
+    return this.j12_1.u13(_this__u8e3s4, other);
   };
-  DGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.h12_1.v13(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4, gVector) {
+    return this.j12_1.v13(_this__u8e3s4, gVector);
   };
-  DGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4) {
-    return this.h12_1.w13(_this__u8e3s4);
+  DGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4, gVector) {
+    return this.j12_1.w13(_this__u8e3s4, gVector);
   };
-  DGAlgebraContextImpl.prototype.x13 = function () {
-    return this.i12_1;
+  DGAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.j12_1.x13(_this__u8e3s4);
+  };
+  DGAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.j12_1.y13(_this__u8e3s4);
+  };
+  DGAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.j12_1.z13(_this__u8e3s4);
+  };
+  DGAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
+    return this.j12_1.a14(_this__u8e3s4);
+  };
+  DGAlgebraContextImpl.prototype.b14 = function () {
+    return this.k12_1;
   };
   DGAlgebraContextImpl.$metadata$ = classMeta('DGAlgebraContextImpl', [DGAlgebraContext, DGMagmaContext]);
   function DGAlgebraImpl$cohomology$delegate$lambda(this$0) {
     return function () {
-      var cohomologyUnit = Companion_getInstance_7().l14(this$0.d14_1, this$0.b14_1.d12());
-      return Companion_getInstance_18().m14(this$0.i14_1, this$0.d14_1, this$0.e14_1, cohomologyUnit, this$0.h14_1);
+      var cohomologyUnit = Companion_getInstance_7().q14(this$0.i14_1, this$0.g14_1.e12());
+      return Companion_getInstance_18().r14(this$0.n14_1, this$0.i14_1, this$0.j14_1, cohomologyUnit, this$0.m14_1);
     };
   }
   function DGAlgebraImpl(underlyingGAlgebra, differential, cohomologyGVectorSpace, cohomologyMultiplication) {
-    this.b14_1 = underlyingGAlgebra;
-    this.c14_1 = differential;
-    this.d14_1 = cohomologyGVectorSpace;
-    this.e14_1 = cohomologyMultiplication;
-    this.f14_1 = new DGAlgebraContextImpl(this);
-    this.g14_1 = this.b14_1.d12();
-    this.h14_1 = this.b14_1.e12();
-    this.i14_1 = this.b14_1.h11();
-    this.j14_1 = this.b14_1.f11();
+    this.g14_1 = underlyingGAlgebra;
+    this.h14_1 = differential;
+    this.i14_1 = cohomologyGVectorSpace;
+    this.j14_1 = cohomologyMultiplication;
+    this.k14_1 = new DGAlgebraContextImpl(this);
+    this.l14_1 = this.g14_1.e12();
+    this.m14_1 = this.g14_1.f12();
+    this.n14_1 = this.g14_1.h11();
+    this.o14_1 = this.g14_1.f11();
     var tmp = this;
-    tmp.k14_1 = lazy(DGAlgebraImpl$cohomology$delegate$lambda(this));
+    tmp.p14_1 = lazy(DGAlgebraImpl$cohomology$delegate$lambda(this));
   }
   DGAlgebraImpl.prototype.g11 = function () {
-    return this.c14_1;
-  };
-  DGAlgebraImpl.prototype.o11 = function () {
-    return this.b14_1.o11();
-  };
-  DGAlgebraImpl.prototype.n14 = function () {
-    return this.b14_1.n14();
-  };
-  DGAlgebraImpl.prototype.p11 = function () {
-    return this.b14_1.p11();
-  };
-  DGAlgebraImpl.prototype.k11 = function () {
-    return this.b14_1.k11();
-  };
-  DGAlgebraImpl.prototype.l11 = function () {
-    return this.b14_1.l11();
-  };
-  DGAlgebraImpl.prototype.xb = function () {
-    return this.b14_1.xb();
-  };
-  DGAlgebraImpl.prototype.j11 = function () {
-    return this.b14_1.j11();
-  };
-  DGAlgebraImpl.prototype.n11 = function () {
-    return this.b14_1.n11();
-  };
-  DGAlgebraImpl.prototype.c12 = function () {
-    return this.b14_1.c12();
-  };
-  DGAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.b14_1.x11(a, b);
-  };
-  DGAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.b14_1.w11(gVector);
-  };
-  DGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.b14_1.v11(gVectorOrZero, degree);
-  };
-  DGAlgebraImpl.prototype.s11 = function (basisName, degree) {
-    return this.b14_1.s11(basisName, degree);
-  };
-  DGAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.b14_1.q11(vector, degree);
-  };
-  DGAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.b14_1.r11(vector, degree);
-  };
-  DGAlgebraImpl.prototype.m11 = function (degree) {
-    return this.b14_1.m11(degree);
-  };
-  DGAlgebraImpl.prototype.t11 = function (degree) {
-    return this.b14_1.t11(degree);
-  };
-  DGAlgebraImpl.prototype.u11 = function (degree) {
-    return this.b14_1.u11(degree);
-  };
-  DGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.b14_1.z11(scalar, gVector);
-  };
-  DGAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.b14_1.y11(a, b);
-  };
-  DGAlgebraImpl.prototype.toString = function () {
-    return this.b14_1.toString();
-  };
-  DGAlgebraImpl.prototype.o14 = function () {
-    return this.f14_1;
-  };
-  DGAlgebraImpl.prototype.d12 = function () {
-    return this.g14_1;
-  };
-  DGAlgebraImpl.prototype.e12 = function () {
     return this.h14_1;
   };
+  DGAlgebraImpl.prototype.o11 = function () {
+    return this.g14_1.o11();
+  };
+  DGAlgebraImpl.prototype.s14 = function () {
+    return this.g14_1.s14();
+  };
+  DGAlgebraImpl.prototype.p11 = function () {
+    return this.g14_1.p11();
+  };
+  DGAlgebraImpl.prototype.k11 = function () {
+    return this.g14_1.k11();
+  };
+  DGAlgebraImpl.prototype.l11 = function () {
+    return this.g14_1.l11();
+  };
+  DGAlgebraImpl.prototype.xb = function () {
+    return this.g14_1.xb();
+  };
+  DGAlgebraImpl.prototype.j11 = function () {
+    return this.g14_1.j11();
+  };
+  DGAlgebraImpl.prototype.n11 = function () {
+    return this.g14_1.n11();
+  };
+  DGAlgebraImpl.prototype.d12 = function () {
+    return this.g14_1.d12();
+  };
+  DGAlgebraImpl.prototype.x11 = function (a, b) {
+    return this.g14_1.x11(a, b);
+  };
+  DGAlgebraImpl.prototype.w11 = function (gVector) {
+    return this.g14_1.w11(gVector);
+  };
+  DGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
+    return this.g14_1.v11(gVectorOrZero, degree);
+  };
+  DGAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.g14_1.c12(a, b);
+  };
+  DGAlgebraImpl.prototype.s11 = function (basisName, degree) {
+    return this.g14_1.s11(basisName, degree);
+  };
+  DGAlgebraImpl.prototype.q11 = function (vector, degree) {
+    return this.g14_1.q11(vector, degree);
+  };
+  DGAlgebraImpl.prototype.r11 = function (vector, degree) {
+    return this.g14_1.r11(vector, degree);
+  };
+  DGAlgebraImpl.prototype.m11 = function (degree) {
+    return this.g14_1.m11(degree);
+  };
+  DGAlgebraImpl.prototype.t11 = function (degree) {
+    return this.g14_1.t11(degree);
+  };
+  DGAlgebraImpl.prototype.u11 = function (degree) {
+    return this.g14_1.u11(degree);
+  };
+  DGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
+    return this.g14_1.z11(scalar, gVector);
+  };
+  DGAlgebraImpl.prototype.y11 = function (a, b) {
+    return this.g14_1.y11(a, b);
+  };
+  DGAlgebraImpl.prototype.toString = function () {
+    return this.g14_1.toString();
+  };
+  DGAlgebraImpl.prototype.t14 = function () {
+    return this.k14_1;
+  };
+  DGAlgebraImpl.prototype.e12 = function () {
+    return this.l14_1;
+  };
+  DGAlgebraImpl.prototype.f12 = function () {
+    return this.m14_1;
+  };
   DGAlgebraImpl.prototype.h11 = function () {
-    return this.i14_1;
+    return this.n14_1;
   };
   DGAlgebraImpl.prototype.f11 = function () {
-    return this.j14_1;
+    return this.o14_1;
   };
   DGAlgebraImpl.prototype.e11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = cohomology$factory();
-    tmp$ret$0 = this.k14_1.f1();
+    tmp$ret$0 = this.p14_1.f1();
     return tmp$ret$0;
   };
   DGAlgebraImpl.$metadata$ = classMeta('DGAlgebraImpl', [DGAlgebra, GVectorSpace]);
@@ -1792,7 +1853,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_1() {
     Companion_instance_1 = this;
   }
-  Companion_1.prototype.p14 = function (source, target, gLinearMap) {
+  Companion_1.prototype.u14 = function (source, target, gLinearMap) {
     return new DGAlgebraMapImpl(source, target, gLinearMap);
   };
   Companion_1.$metadata$ = objectMeta('Companion');
@@ -1806,48 +1867,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DGAlgebraMap.$metadata$ = interfaceMeta('DGAlgebraMap', [DGLinearMap, GAlgebraMap]);
   function DGAlgebraMapImpl(source, target, gLinearMap) {
-    this.q14_1 = source;
-    this.r14_1 = target;
-    this.s14_1 = Companion_getInstance_5().t14(source, target, gLinearMap);
+    this.v14_1 = source;
+    this.w14_1 = target;
+    this.x14_1 = Companion_getInstance_5().y14(source, target, gLinearMap);
   }
-  DGAlgebraMapImpl.prototype.u14 = function () {
-    return this.q14_1;
-  };
-  DGAlgebraMapImpl.prototype.v14 = function () {
-    return this.r14_1;
-  };
-  DGAlgebraMapImpl.prototype.w14 = function () {
-    return this.s14_1.w14();
-  };
-  DGAlgebraMapImpl.prototype.n14 = function () {
-    return this.s14_1.n14();
-  };
-  DGAlgebraMapImpl.prototype.h11 = function () {
-    return this.s14_1.h11();
-  };
-  DGAlgebraMapImpl.prototype.xb = function () {
-    return this.s14_1.xb();
-  };
-  DGAlgebraMapImpl.prototype.m11 = function (degree) {
-    return this.s14_1.m11(degree);
-  };
-  DGAlgebraMapImpl.prototype.x14 = function () {
-    return this.s14_1.x14();
-  };
-  DGAlgebraMapImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.s14_1.y14(sourceSubQuot, targetSubQuot);
-  };
-  DGAlgebraMapImpl.prototype.z14 = function (gVector) {
-    return this.s14_1.z14(gVector);
+  DGAlgebraMapImpl.prototype.z14 = function () {
+    return this.v14_1;
   };
   DGAlgebraMapImpl.prototype.a15 = function () {
-    return this.s14_1.a15();
+    return this.w14_1;
+  };
+  DGAlgebraMapImpl.prototype.b15 = function () {
+    return this.x14_1.b15();
+  };
+  DGAlgebraMapImpl.prototype.s14 = function () {
+    return this.x14_1.s14();
+  };
+  DGAlgebraMapImpl.prototype.h11 = function () {
+    return this.x14_1.h11();
+  };
+  DGAlgebraMapImpl.prototype.xb = function () {
+    return this.x14_1.xb();
+  };
+  DGAlgebraMapImpl.prototype.m11 = function (degree) {
+    return this.x14_1.m11(degree);
+  };
+  DGAlgebraMapImpl.prototype.c15 = function () {
+    return this.x14_1.c15();
+  };
+  DGAlgebraMapImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.x14_1.d15(sourceSubQuot, targetSubQuot);
+  };
+  DGAlgebraMapImpl.prototype.e15 = function (gVector) {
+    return this.x14_1.e15(gVector);
+  };
+  DGAlgebraMapImpl.prototype.f15 = function () {
+    return this.x14_1.f15();
   };
   DGAlgebraMapImpl.$metadata$ = classMeta('DGAlgebraMapImpl', [DGAlgebraMap, DGLinearMap]);
   function Companion_2() {
     Companion_instance_2 = this;
   }
-  Companion_2.prototype.b15 = function (source, gLinearMap) {
+  Companion_2.prototype.g15 = function (source, gLinearMap) {
     return new DGDerivationImpl(source, gLinearMap);
   };
   Companion_2.$metadata$ = objectMeta('Companion');
@@ -1861,54 +1922,54 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DGDerivation.$metadata$ = interfaceMeta('DGDerivation', [DGLinearMap, Derivation]);
   function DGDerivationImpl(source, gLinearMap) {
-    this.c15_1 = source;
-    this.d15_1 = Companion_getInstance_5().t14(source, source, gLinearMap);
-    this.e15_1 = this.c15_1;
+    this.h15_1 = source;
+    this.i15_1 = Companion_getInstance_5().y14(source, source, gLinearMap);
+    this.j15_1 = this.h15_1;
   }
-  DGDerivationImpl.prototype.u14 = function () {
-    return this.c15_1;
+  DGDerivationImpl.prototype.z14 = function () {
+    return this.h15_1;
   };
-  DGDerivationImpl.prototype.w14 = function () {
-    return this.d15_1.w14();
+  DGDerivationImpl.prototype.b15 = function () {
+    return this.i15_1.b15();
   };
-  DGDerivationImpl.prototype.n14 = function () {
-    return this.d15_1.n14();
+  DGDerivationImpl.prototype.s14 = function () {
+    return this.i15_1.s14();
   };
   DGDerivationImpl.prototype.h11 = function () {
-    return this.d15_1.h11();
+    return this.i15_1.h11();
   };
   DGDerivationImpl.prototype.xb = function () {
-    return this.d15_1.xb();
+    return this.i15_1.xb();
   };
   DGDerivationImpl.prototype.m11 = function (degree) {
-    return this.d15_1.m11(degree);
+    return this.i15_1.m11(degree);
   };
-  DGDerivationImpl.prototype.x14 = function () {
-    return this.d15_1.x14();
+  DGDerivationImpl.prototype.c15 = function () {
+    return this.i15_1.c15();
   };
-  DGDerivationImpl.prototype.f15 = function (sourceSubQuot, targetSubQuot) {
-    return this.d15_1.y14(sourceSubQuot, targetSubQuot);
+  DGDerivationImpl.prototype.k15 = function (sourceSubQuot, targetSubQuot) {
+    return this.i15_1.d15(sourceSubQuot, targetSubQuot);
   };
-  DGDerivationImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.f15(sourceSubQuot, targetSubQuot);
+  DGDerivationImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.k15(sourceSubQuot, targetSubQuot);
   };
-  DGDerivationImpl.prototype.g15 = function (gVector) {
-    return this.d15_1.z14(gVector);
+  DGDerivationImpl.prototype.l15 = function (gVector) {
+    return this.i15_1.e15(gVector);
   };
-  DGDerivationImpl.prototype.z14 = function (gVector) {
-    return this.g15(gVector);
+  DGDerivationImpl.prototype.e15 = function (gVector) {
+    return this.l15(gVector);
+  };
+  DGDerivationImpl.prototype.f15 = function () {
+    return this.i15_1.f15();
   };
   DGDerivationImpl.prototype.a15 = function () {
-    return this.d15_1.a15();
-  };
-  DGDerivationImpl.prototype.v14 = function () {
-    return this.e15_1;
+    return this.j15_1;
   };
   DGDerivationImpl.$metadata$ = classMeta('DGDerivationImpl', [DGDerivation, DGLinearMap]);
   function Companion_3() {
     Companion_instance_3 = this;
   }
-  Companion_3.prototype.h15 = function (gLieAlgebra, differential) {
+  Companion_3.prototype.m15 = function (gLieAlgebra, differential) {
     var dgMagma = Companion_getInstance_6().d11(gLieAlgebra, differential);
     return new DGLieAlgebraImpl(gLieAlgebra, differential, dgMagma.e11(), dgMagma.e11().f11());
   };
@@ -1927,185 +1988,191 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DGLieAlgebraContext.$metadata$ = interfaceMeta('DGLieAlgebraContext', [DGMagmaContext, GLieAlgebraContext]);
   function DGLieAlgebraImpl$cohomology$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_19().q15(this$0.n15_1, this$0.k15_1, this$0.l15_1);
+      return Companion_getInstance_19().v15(this$0.s15_1, this$0.p15_1, this$0.q15_1);
     };
   }
   function DGLieAlgebraImpl(underlyingGLieAlgebra, differential, cohomologyGVectorSpace, cohomologyMultiplication) {
-    this.i15_1 = underlyingGLieAlgebra;
-    this.j15_1 = differential;
-    this.k15_1 = cohomologyGVectorSpace;
-    this.l15_1 = cohomologyMultiplication;
-    this.m15_1 = new DGLieAlgebraContextImpl(this);
-    this.n15_1 = this.i15_1.h11();
-    this.o15_1 = this.i15_1.f11();
+    this.n15_1 = underlyingGLieAlgebra;
+    this.o15_1 = differential;
+    this.p15_1 = cohomologyGVectorSpace;
+    this.q15_1 = cohomologyMultiplication;
+    this.r15_1 = new DGLieAlgebraContextImpl(this);
+    this.s15_1 = this.n15_1.h11();
+    this.t15_1 = this.n15_1.f11();
     var tmp = this;
-    tmp.p15_1 = lazy(DGLieAlgebraImpl$cohomology$delegate$lambda(this));
+    tmp.u15_1 = lazy(DGLieAlgebraImpl$cohomology$delegate$lambda(this));
   }
   DGLieAlgebraImpl.prototype.g11 = function () {
-    return this.j15_1;
+    return this.o15_1;
   };
   DGLieAlgebraImpl.prototype.o11 = function () {
-    return this.i15_1.o11();
+    return this.n15_1.o11();
   };
-  DGLieAlgebraImpl.prototype.n14 = function () {
-    return this.i15_1.n14();
+  DGLieAlgebraImpl.prototype.s14 = function () {
+    return this.n15_1.s14();
   };
   DGLieAlgebraImpl.prototype.p11 = function () {
-    return this.i15_1.p11();
+    return this.n15_1.p11();
   };
   DGLieAlgebraImpl.prototype.k11 = function () {
-    return this.i15_1.k11();
+    return this.n15_1.k11();
   };
   DGLieAlgebraImpl.prototype.l11 = function () {
-    return this.i15_1.l11();
+    return this.n15_1.l11();
   };
   DGLieAlgebraImpl.prototype.xb = function () {
-    return this.i15_1.xb();
+    return this.n15_1.xb();
   };
   DGLieAlgebraImpl.prototype.j11 = function () {
-    return this.i15_1.j11();
+    return this.n15_1.j11();
   };
   DGLieAlgebraImpl.prototype.n11 = function () {
-    return this.i15_1.n11();
+    return this.n15_1.n11();
   };
-  DGLieAlgebraImpl.prototype.c12 = function () {
-    return this.i15_1.c12();
+  DGLieAlgebraImpl.prototype.d12 = function () {
+    return this.n15_1.d12();
   };
   DGLieAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.i15_1.x11(a, b);
+    return this.n15_1.x11(a, b);
   };
   DGLieAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.i15_1.w11(gVector);
+    return this.n15_1.w11(gVector);
   };
   DGLieAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.i15_1.v11(gVectorOrZero, degree);
+    return this.n15_1.v11(gVectorOrZero, degree);
+  };
+  DGLieAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.n15_1.c12(a, b);
   };
   DGLieAlgebraImpl.prototype.s11 = function (basisName, degree) {
-    return this.i15_1.s11(basisName, degree);
+    return this.n15_1.s11(basisName, degree);
   };
   DGLieAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.i15_1.q11(vector, degree);
+    return this.n15_1.q11(vector, degree);
   };
   DGLieAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.i15_1.r11(vector, degree);
+    return this.n15_1.r11(vector, degree);
   };
   DGLieAlgebraImpl.prototype.m11 = function (degree) {
-    return this.i15_1.m11(degree);
+    return this.n15_1.m11(degree);
   };
   DGLieAlgebraImpl.prototype.t11 = function (degree) {
-    return this.i15_1.t11(degree);
+    return this.n15_1.t11(degree);
   };
   DGLieAlgebraImpl.prototype.u11 = function (degree) {
-    return this.i15_1.u11(degree);
+    return this.n15_1.u11(degree);
   };
   DGLieAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.i15_1.z11(scalar, gVector);
+    return this.n15_1.z11(scalar, gVector);
   };
   DGLieAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.i15_1.y11(a, b);
+    return this.n15_1.y11(a, b);
   };
   DGLieAlgebraImpl.prototype.toString = function () {
-    return this.i15_1.toString();
+    return this.n15_1.toString();
   };
-  DGLieAlgebraImpl.prototype.o14 = function () {
-    return this.m15_1;
+  DGLieAlgebraImpl.prototype.t14 = function () {
+    return this.r15_1;
   };
   DGLieAlgebraImpl.prototype.h11 = function () {
-    return this.n15_1;
+    return this.s15_1;
   };
   DGLieAlgebraImpl.prototype.f11 = function () {
-    return this.o15_1;
+    return this.t15_1;
   };
   DGLieAlgebraImpl.prototype.e11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = cohomology$factory_0();
-    tmp$ret$0 = this.p15_1.f1();
+    tmp$ret$0 = this.u15_1.f1();
     return tmp$ret$0;
   };
   DGLieAlgebraImpl.$metadata$ = classMeta('DGLieAlgebraImpl', [DGLieAlgebra, GVectorSpace]);
   function DGLieAlgebraContextImpl(dgLieAlgebra) {
-    this.r15_1 = dgLieAlgebra;
-    this.s15_1 = new DGMagmaContextImpl(dgLieAlgebra);
-    this.t15_1 = this.r15_1;
+    this.w15_1 = dgLieAlgebra;
+    this.x15_1 = new DGMagmaContextImpl(dgLieAlgebra);
+    this.y15_1 = this.w15_1;
   }
-  DGLieAlgebraContextImpl.prototype.k12 = function () {
-    return this.s15_1.l12_1;
-  };
-  DGLieAlgebraContextImpl.prototype.r12 = function () {
-    return this.s15_1.m12_1;
-  };
-  DGLieAlgebraContextImpl.prototype.p11 = function () {
-    return this.s15_1.q12_1;
-  };
-  DGLieAlgebraContextImpl.prototype.s12 = function () {
-    return this.s15_1.n12_1;
+  DGLieAlgebraContextImpl.prototype.m12 = function () {
+    return this.x15_1.n12_1;
   };
   DGLieAlgebraContextImpl.prototype.t12 = function () {
-    return this.s15_1.o12_1;
+    return this.x15_1.o12_1;
   };
-  DGLieAlgebraContextImpl.prototype.j11 = function () {
-    return this.s15_1.p12_1;
+  DGLieAlgebraContextImpl.prototype.p11 = function () {
+    return this.x15_1.s12_1;
   };
   DGLieAlgebraContextImpl.prototype.u12 = function () {
-    return this.s15_1.u12();
+    return this.x15_1.p12_1;
   };
   DGLieAlgebraContextImpl.prototype.v12 = function () {
-    return this.s15_1.v12();
+    return this.x15_1.q12_1;
   };
-  DGLieAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.s15_1.x12(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.j11 = function () {
+    return this.x15_1.r12_1;
   };
-  DGLieAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.s15_1.z12(_this__u8e3s4);
+  DGLieAlgebraContextImpl.prototype.w12 = function () {
+    return this.x15_1.w12();
   };
-  DGLieAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.s15_1.a13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.x12 = function () {
+    return this.x15_1.x12();
   };
-  DGLieAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.s15_1.b13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.x15_1.z12(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.s15_1.e13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.x15_1.b13(_this__u8e3s4);
   };
-  DGLieAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.s15_1.f13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.x15_1.c13(_this__u8e3s4, other);
+  };
+  DGLieAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.x15_1.d13(_this__u8e3s4, other);
   };
   DGLieAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.s15_1.g13(_this__u8e3s4, other);
+    return this.x15_1.g13(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.s15_1.i13(_this__u8e3s4);
+  DGLieAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.x15_1.h13(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.s15_1.j13(_this__u8e3s4, degree);
+  DGLieAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.x15_1.i13(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.s15_1.k13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.x15_1.k13(_this__u8e3s4);
   };
-  DGLieAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.s15_1.l13(_this__u8e3s4, scalar);
+  DGLieAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.x15_1.l13(_this__u8e3s4, degree);
   };
-  DGLieAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.s15_1.m13(_this__u8e3s4, scalar);
+  DGLieAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.x15_1.m13(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
-    return this.s15_1.n13(_this__u8e3s4, other);
+  DGLieAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.x15_1.n13(_this__u8e3s4, numVector);
   };
-  DGLieAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.s15_1.o13(_this__u8e3s4, sign);
+  DGLieAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.x15_1.p13(_this__u8e3s4, scalar);
   };
-  DGLieAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.s15_1.t13(_this__u8e3s4);
+  DGLieAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.x15_1.q13(_this__u8e3s4, scalar);
   };
-  DGLieAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.s15_1.u13(_this__u8e3s4);
+  DGLieAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.x15_1.r13(_this__u8e3s4, other);
   };
-  DGLieAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.s15_1.v13(_this__u8e3s4);
+  DGLieAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.x15_1.s13(_this__u8e3s4, sign);
   };
-  DGLieAlgebraContextImpl.prototype.u15 = function () {
-    return this.t15_1;
+  DGLieAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.x15_1.x13(_this__u8e3s4);
+  };
+  DGLieAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.x15_1.y13(_this__u8e3s4);
+  };
+  DGLieAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.x15_1.z13(_this__u8e3s4);
+  };
+  DGLieAlgebraContextImpl.prototype.z15 = function () {
+    return this.y15_1;
   };
   DGLieAlgebraContextImpl.$metadata$ = classMeta('DGLieAlgebraContextImpl', [DGLieAlgebraContext, DGMagmaContext]);
   function cohomology$factory_0() {
@@ -2116,7 +2183,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_4() {
     Companion_instance_4 = this;
   }
-  Companion_4.prototype.t14 = function (source, target, gLinearMap) {
+  Companion_4.prototype.y14 = function (source, target, gLinearMap) {
     return new DGLinearMapImpl(source, target, gLinearMap);
   };
   Companion_4.$metadata$ = objectMeta('Companion');
@@ -2131,15 +2198,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DGLinearMap.$metadata$ = interfaceMeta('DGLinearMap', [GLinearMap]);
   function DGLinearMapImpl$inducedMapOnCohomology$delegate$lambda(this$0) {
     return function () {
-      return this$0.y14(this$0.w15_1.e11(), this$0.x15_1.e11());
+      return this$0.d15(this$0.b16_1.e11(), this$0.c16_1.e11());
     };
   }
   function DGLinearMapImpl(source, target, gLinearMap) {
-    this.w15_1 = source;
-    this.x15_1 = target;
-    this.y15_1 = gLinearMap;
+    this.b16_1 = source;
+    this.c16_1 = target;
+    this.d16_1 = gLinearMap;
     // Inline function 'kotlin.require' call
-    var tmp0_require = equals(this.w15_1.n11(), gLinearMap.u14().n11());
+    var tmp0_require = equals(this.b16_1.n11(), gLinearMap.z14().n11());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp0_require) {
       var tmp$ret$0;
@@ -2149,7 +2216,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
-    var tmp1_require = equals(this.x15_1.n11(), gLinearMap.v14().n11());
+    var tmp1_require = equals(this.c16_1.n11(), gLinearMap.a15().n11());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp1_require) {
       var tmp$ret$1;
@@ -2159,47 +2226,47 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
     var tmp = this;
-    tmp.z15_1 = lazy(DGLinearMapImpl$inducedMapOnCohomology$delegate$lambda(this));
+    tmp.e16_1 = lazy(DGLinearMapImpl$inducedMapOnCohomology$delegate$lambda(this));
   }
-  DGLinearMapImpl.prototype.u14 = function () {
-    return this.w15_1;
-  };
-  DGLinearMapImpl.prototype.v14 = function () {
-    return this.x15_1;
-  };
-  DGLinearMapImpl.prototype.w14 = function () {
-    return this.y15_1.w14();
-  };
-  DGLinearMapImpl.prototype.n14 = function () {
-    return this.y15_1.n14();
-  };
-  DGLinearMapImpl.prototype.h11 = function () {
-    return this.y15_1.h11();
-  };
-  DGLinearMapImpl.prototype.xb = function () {
-    return this.y15_1.xb();
-  };
-  DGLinearMapImpl.prototype.m11 = function (degree) {
-    return this.y15_1.m11(degree);
-  };
-  DGLinearMapImpl.prototype.x14 = function () {
-    return this.y15_1.x14();
-  };
-  DGLinearMapImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.y15_1.y14(sourceSubQuot, targetSubQuot);
-  };
-  DGLinearMapImpl.prototype.z14 = function (gVector) {
-    return this.y15_1.z14(gVector);
+  DGLinearMapImpl.prototype.z14 = function () {
+    return this.b16_1;
   };
   DGLinearMapImpl.prototype.a15 = function () {
-    return this.y15_1.a15();
+    return this.c16_1;
+  };
+  DGLinearMapImpl.prototype.b15 = function () {
+    return this.d16_1.b15();
+  };
+  DGLinearMapImpl.prototype.s14 = function () {
+    return this.d16_1.s14();
+  };
+  DGLinearMapImpl.prototype.h11 = function () {
+    return this.d16_1.h11();
+  };
+  DGLinearMapImpl.prototype.xb = function () {
+    return this.d16_1.xb();
+  };
+  DGLinearMapImpl.prototype.m11 = function (degree) {
+    return this.d16_1.m11(degree);
+  };
+  DGLinearMapImpl.prototype.c15 = function () {
+    return this.d16_1.c15();
+  };
+  DGLinearMapImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.d16_1.d15(sourceSubQuot, targetSubQuot);
+  };
+  DGLinearMapImpl.prototype.e15 = function (gVector) {
+    return this.d16_1.e15(gVector);
+  };
+  DGLinearMapImpl.prototype.f15 = function () {
+    return this.d16_1.f15();
   };
   DGLinearMapImpl.$metadata$ = classMeta('DGLinearMapImpl', [DGLinearMap, GLinearMap]);
   function Companion_5() {
     Companion_instance_5 = this;
   }
   Companion_5.prototype.d11 = function (gMagma, differential) {
-    var dgVectorSpace = Companion_getInstance_7().a16(gMagma, differential);
+    var dgVectorSpace = Companion_getInstance_7().f16(gMagma, differential);
     return new DGMagmaImpl(gMagma, differential, gMagma.f11(), dgVectorSpace.e11());
   };
   Companion_5.$metadata$ = objectMeta('Companion');
@@ -2216,127 +2283,130 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DGMagmaContext.$metadata$ = interfaceMeta('DGMagmaContext', [DGVectorContext, GMagmaContext]);
   function DGMagmaContextImpl(dgMagma) {
-    this.l12_1 = dgMagma;
-    this.m12_1 = this.l12_1;
-    this.n12_1 = this.l12_1;
+    this.n12_1 = dgMagma;
     this.o12_1 = this.n12_1;
-    this.p12_1 = this.n12_1.j11();
-    this.q12_1 = this.n12_1.p11();
+    this.p12_1 = this.n12_1;
+    this.q12_1 = this.p12_1;
+    this.r12_1 = this.p12_1.j11();
+    this.s12_1 = this.p12_1.p11();
   }
-  DGMagmaContextImpl.prototype.k12 = function () {
-    return this.l12_1;
-  };
-  DGMagmaContextImpl.prototype.r12 = function () {
-    return this.m12_1;
-  };
-  DGMagmaContextImpl.prototype.s12 = function () {
+  DGMagmaContextImpl.prototype.m12 = function () {
     return this.n12_1;
   };
   DGMagmaContextImpl.prototype.t12 = function () {
     return this.o12_1;
   };
-  DGMagmaContextImpl.prototype.j11 = function () {
+  DGMagmaContextImpl.prototype.u12 = function () {
     return this.p12_1;
   };
-  DGMagmaContextImpl.prototype.p11 = function () {
+  DGMagmaContextImpl.prototype.v12 = function () {
     return this.q12_1;
+  };
+  DGMagmaContextImpl.prototype.j11 = function () {
+    return this.r12_1;
+  };
+  DGMagmaContextImpl.prototype.p11 = function () {
+    return this.s12_1;
   };
   DGMagmaContextImpl.$metadata$ = classMeta('DGMagmaContextImpl', [DGMagmaContext]);
   function getCohomologyMultiplication($this) {
-    return $this.c16_1.r16($this.d16_1, $this.d16_1, $this.d16_1);
+    return $this.h16_1.w16($this.i16_1, $this.i16_1, $this.i16_1);
   }
   function DGMagmaImpl$cohomology$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_20().q15(this$0.g16_1, this$0.d16_1, getCohomologyMultiplication(this$0));
+      return Companion_getInstance_20().v15(this$0.l16_1, this$0.i16_1, getCohomologyMultiplication(this$0));
     };
   }
   function DGMagmaImpl(gVectorSpace, differential, multiplication, cohomologyGVectorSpace) {
-    this.b16_1 = differential;
-    this.c16_1 = multiplication;
-    this.d16_1 = cohomologyGVectorSpace;
-    this.e16_1 = gVectorSpace;
-    this.f16_1 = new DGMagmaContextImpl(this);
-    this.g16_1 = this.b16_1.h11();
+    this.g16_1 = differential;
+    this.h16_1 = multiplication;
+    this.i16_1 = cohomologyGVectorSpace;
+    this.j16_1 = gVectorSpace;
+    this.k16_1 = new DGMagmaContextImpl(this);
+    this.l16_1 = this.g16_1.h11();
     var tmp = this;
-    tmp.h16_1 = lazy(DGMagmaImpl$cohomology$delegate$lambda(this));
+    tmp.m16_1 = lazy(DGMagmaImpl$cohomology$delegate$lambda(this));
   }
   DGMagmaImpl.prototype.g11 = function () {
-    return this.b16_1;
+    return this.g16_1;
   };
   DGMagmaImpl.prototype.f11 = function () {
-    return this.c16_1;
+    return this.h16_1;
   };
   DGMagmaImpl.prototype.o11 = function () {
-    return this.e16_1.o11();
+    return this.j16_1.o11();
   };
-  DGMagmaImpl.prototype.n14 = function () {
-    return this.e16_1.n14();
+  DGMagmaImpl.prototype.s14 = function () {
+    return this.j16_1.s14();
   };
   DGMagmaImpl.prototype.p11 = function () {
-    return this.e16_1.p11();
+    return this.j16_1.p11();
   };
   DGMagmaImpl.prototype.k11 = function () {
-    return this.e16_1.k11();
+    return this.j16_1.k11();
   };
   DGMagmaImpl.prototype.l11 = function () {
-    return this.e16_1.l11();
+    return this.j16_1.l11();
   };
   DGMagmaImpl.prototype.xb = function () {
-    return this.e16_1.xb();
+    return this.j16_1.xb();
   };
   DGMagmaImpl.prototype.j11 = function () {
-    return this.e16_1.j11();
+    return this.j16_1.j11();
   };
   DGMagmaImpl.prototype.n11 = function () {
-    return this.e16_1.n11();
+    return this.j16_1.n11();
   };
-  DGMagmaImpl.prototype.c12 = function () {
-    return this.e16_1.c12();
+  DGMagmaImpl.prototype.d12 = function () {
+    return this.j16_1.d12();
   };
   DGMagmaImpl.prototype.x11 = function (a, b) {
-    return this.e16_1.x11(a, b);
+    return this.j16_1.x11(a, b);
   };
   DGMagmaImpl.prototype.w11 = function (gVector) {
-    return this.e16_1.w11(gVector);
+    return this.j16_1.w11(gVector);
   };
   DGMagmaImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.e16_1.v11(gVectorOrZero, degree);
+    return this.j16_1.v11(gVectorOrZero, degree);
+  };
+  DGMagmaImpl.prototype.c12 = function (a, b) {
+    return this.j16_1.c12(a, b);
   };
   DGMagmaImpl.prototype.s11 = function (basisName, degree) {
-    return this.e16_1.s11(basisName, degree);
+    return this.j16_1.s11(basisName, degree);
   };
   DGMagmaImpl.prototype.q11 = function (vector, degree) {
-    return this.e16_1.q11(vector, degree);
+    return this.j16_1.q11(vector, degree);
   };
   DGMagmaImpl.prototype.r11 = function (vector, degree) {
-    return this.e16_1.r11(vector, degree);
+    return this.j16_1.r11(vector, degree);
   };
   DGMagmaImpl.prototype.m11 = function (degree) {
-    return this.e16_1.m11(degree);
+    return this.j16_1.m11(degree);
   };
   DGMagmaImpl.prototype.t11 = function (degree) {
-    return this.e16_1.t11(degree);
+    return this.j16_1.t11(degree);
   };
   DGMagmaImpl.prototype.u11 = function (degree) {
-    return this.e16_1.u11(degree);
+    return this.j16_1.u11(degree);
   };
   DGMagmaImpl.prototype.z11 = function (scalar, gVector) {
-    return this.e16_1.z11(scalar, gVector);
+    return this.j16_1.z11(scalar, gVector);
   };
   DGMagmaImpl.prototype.y11 = function (a, b) {
-    return this.e16_1.y11(a, b);
+    return this.j16_1.y11(a, b);
   };
   DGMagmaImpl.prototype.toString = function () {
-    return this.e16_1.toString();
+    return this.j16_1.toString();
   };
-  DGMagmaImpl.prototype.o14 = function () {
-    return this.f16_1;
+  DGMagmaImpl.prototype.t14 = function () {
+    return this.k16_1;
   };
   DGMagmaImpl.prototype.e11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = cohomology$factory_1();
-    tmp$ret$0 = this.h16_1.f1();
+    tmp$ret$0 = this.m16_1.f1();
     return tmp$ret$0;
   };
   DGMagmaImpl.$metadata$ = classMeta('DGMagmaImpl', [DGMagma, GVectorSpace]);
@@ -2349,20 +2419,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var name = 'H(' + gVectorSpace.xb() + ')';
     var tmp = Companion_getInstance_21();
     var tmp_0 = differential.h11();
-    var tmp_1 = differential.a15();
-    var tmp_2 = differential.x14();
-    return tmp.s16(tmp_0, name, gVectorSpace, tmp_1, tmp_2, null, 32, null);
+    var tmp_1 = differential.f15();
+    var tmp_2 = differential.c15();
+    return tmp.x16(tmp_0, name, gVectorSpace, tmp_1, tmp_2, null, 32, null);
   }
   function Companion_6() {
     Companion_instance_6 = this;
   }
-  Companion_6.prototype.a16 = function (gVectorSpace, differential) {
+  Companion_6.prototype.f16 = function (gVectorSpace, differential) {
     var cohomology = getCohomology(Companion_getInstance_7(), gVectorSpace, differential);
     return new DGVectorSpaceImpl(gVectorSpace, differential, cohomology);
   };
-  Companion_6.prototype.l14 = function (cohomology, cocycle) {
+  Companion_6.prototype.q14 = function (cohomology, cocycle) {
     // Inline function 'kotlin.require' call
-    var tmp0_require = cohomology.t16(cocycle);
+    var tmp0_require = cohomology.y16(cocycle);
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp0_require) {
       var tmp$ret$0;
@@ -2371,7 +2441,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var message = tmp$ret$0;
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
-    return cohomology.u16().z14(cocycle);
+    return cohomology.z16().e15(cocycle);
   };
   Companion_6.$metadata$ = objectMeta('Companion');
   var Companion_instance_6;
@@ -2387,80 +2457,83 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DGVectorContext.$metadata$ = interfaceMeta('DGVectorContext', [GVectorContext]);
   function DGVectorSpaceImpl(gVectorSpace, differential, cohomology) {
-    this.v16_1 = differential;
-    this.w16_1 = cohomology;
-    this.x16_1 = gVectorSpace;
-    this.y16_1 = new DGVectorContextImpl(this);
-    this.z16_1 = gVectorSpace.n11();
+    this.a17_1 = differential;
+    this.b17_1 = cohomology;
+    this.c17_1 = gVectorSpace;
+    this.d17_1 = new DGVectorContextImpl(this);
+    this.e17_1 = gVectorSpace.n11();
   }
   DGVectorSpaceImpl.prototype.g11 = function () {
-    return this.v16_1;
+    return this.a17_1;
   };
   DGVectorSpaceImpl.prototype.e11 = function () {
-    return this.w16_1;
+    return this.b17_1;
   };
   DGVectorSpaceImpl.prototype.o11 = function () {
-    return this.x16_1.o11();
+    return this.c17_1.o11();
   };
-  DGVectorSpaceImpl.prototype.n14 = function () {
-    return this.x16_1.n14();
+  DGVectorSpaceImpl.prototype.s14 = function () {
+    return this.c17_1.s14();
   };
   DGVectorSpaceImpl.prototype.p11 = function () {
-    return this.x16_1.p11();
+    return this.c17_1.p11();
   };
   DGVectorSpaceImpl.prototype.k11 = function () {
-    return this.x16_1.k11();
+    return this.c17_1.k11();
   };
   DGVectorSpaceImpl.prototype.l11 = function () {
-    return this.x16_1.l11();
+    return this.c17_1.l11();
   };
   DGVectorSpaceImpl.prototype.xb = function () {
-    return this.x16_1.xb();
+    return this.c17_1.xb();
   };
   DGVectorSpaceImpl.prototype.j11 = function () {
-    return this.x16_1.j11();
+    return this.c17_1.j11();
   };
-  DGVectorSpaceImpl.prototype.c12 = function () {
-    return this.x16_1.c12();
+  DGVectorSpaceImpl.prototype.d12 = function () {
+    return this.c17_1.d12();
   };
   DGVectorSpaceImpl.prototype.x11 = function (a, b) {
-    return this.x16_1.x11(a, b);
+    return this.c17_1.x11(a, b);
   };
   DGVectorSpaceImpl.prototype.w11 = function (gVector) {
-    return this.x16_1.w11(gVector);
+    return this.c17_1.w11(gVector);
   };
   DGVectorSpaceImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.x16_1.v11(gVectorOrZero, degree);
+    return this.c17_1.v11(gVectorOrZero, degree);
+  };
+  DGVectorSpaceImpl.prototype.c12 = function (a, b) {
+    return this.c17_1.c12(a, b);
   };
   DGVectorSpaceImpl.prototype.s11 = function (basisName, degree) {
-    return this.x16_1.s11(basisName, degree);
+    return this.c17_1.s11(basisName, degree);
   };
   DGVectorSpaceImpl.prototype.q11 = function (vector, degree) {
-    return this.x16_1.q11(vector, degree);
+    return this.c17_1.q11(vector, degree);
   };
   DGVectorSpaceImpl.prototype.r11 = function (vector, degree) {
-    return this.x16_1.r11(vector, degree);
+    return this.c17_1.r11(vector, degree);
   };
   DGVectorSpaceImpl.prototype.m11 = function (degree) {
-    return this.x16_1.m11(degree);
+    return this.c17_1.m11(degree);
   };
   DGVectorSpaceImpl.prototype.t11 = function (degree) {
-    return this.x16_1.t11(degree);
+    return this.c17_1.t11(degree);
   };
   DGVectorSpaceImpl.prototype.u11 = function (degree) {
-    return this.x16_1.u11(degree);
+    return this.c17_1.u11(degree);
   };
   DGVectorSpaceImpl.prototype.z11 = function (scalar, gVector) {
-    return this.x16_1.z11(scalar, gVector);
+    return this.c17_1.z11(scalar, gVector);
   };
   DGVectorSpaceImpl.prototype.y11 = function (a, b) {
-    return this.x16_1.y11(a, b);
+    return this.c17_1.y11(a, b);
   };
-  DGVectorSpaceImpl.prototype.o14 = function () {
-    return this.y16_1;
+  DGVectorSpaceImpl.prototype.t14 = function () {
+    return this.d17_1;
   };
   DGVectorSpaceImpl.prototype.n11 = function () {
-    return this.z16_1;
+    return this.e17_1;
   };
   DGVectorSpaceImpl.prototype.toString = function () {
     var name = this.xb();
@@ -2468,81 +2541,84 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   DGVectorSpaceImpl.$metadata$ = classMeta('DGVectorSpaceImpl', [DGVectorSpace, GVectorSpace]);
   function DGVectorContextImpl(dgVectorSpace) {
-    this.a17_1 = dgVectorSpace;
-    this.b17_1 = new GVectorContextImpl(dgVectorSpace);
+    this.f17_1 = dgVectorSpace;
+    this.g17_1 = new GVectorContextImpl(dgVectorSpace);
   }
-  DGVectorContextImpl.prototype.r12 = function () {
-    return this.a17_1;
+  DGVectorContextImpl.prototype.t12 = function () {
+    return this.f17_1;
   };
   DGVectorContextImpl.prototype.p11 = function () {
-    return this.b17_1.p11();
-  };
-  DGVectorContextImpl.prototype.t12 = function () {
-    return this.b17_1.c17_1;
-  };
-  DGVectorContextImpl.prototype.j11 = function () {
-    return this.b17_1.j11();
-  };
-  DGVectorContextImpl.prototype.u12 = function () {
-    return this.b17_1.u12();
+    return this.g17_1.p11();
   };
   DGVectorContextImpl.prototype.v12 = function () {
-    return this.b17_1.v12();
+    return this.g17_1.h17_1;
   };
-  DGVectorContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.b17_1.x12(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.j11 = function () {
+    return this.g17_1.j11();
   };
-  DGVectorContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.b17_1.z12(_this__u8e3s4);
+  DGVectorContextImpl.prototype.w12 = function () {
+    return this.g17_1.w12();
   };
-  DGVectorContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.b17_1.a13(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.x12 = function () {
+    return this.g17_1.x12();
   };
-  DGVectorContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.b17_1.b13(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.g17_1.z12(_this__u8e3s4, other);
   };
-  DGVectorContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.b17_1.e13(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.g17_1.b13(_this__u8e3s4);
   };
-  DGVectorContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.b17_1.f13(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.g17_1.c13(_this__u8e3s4, other);
+  };
+  DGVectorContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.g17_1.d13(_this__u8e3s4, other);
   };
   DGVectorContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.b17_1.g13(_this__u8e3s4, other);
+    return this.g17_1.g13(_this__u8e3s4, other);
   };
-  DGVectorContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.b17_1.i13(_this__u8e3s4);
+  DGVectorContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.g17_1.h13(_this__u8e3s4, other);
   };
-  DGVectorContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.b17_1.j13(_this__u8e3s4, degree);
+  DGVectorContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.g17_1.i13(_this__u8e3s4, other);
   };
-  DGVectorContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.b17_1.k13(_this__u8e3s4, other);
+  DGVectorContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.g17_1.k13(_this__u8e3s4);
   };
-  DGVectorContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.b17_1.l13(_this__u8e3s4, scalar);
+  DGVectorContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.g17_1.l13(_this__u8e3s4, degree);
   };
-  DGVectorContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.b17_1.m13(_this__u8e3s4, scalar);
+  DGVectorContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.g17_1.m13(_this__u8e3s4, other);
   };
-  DGVectorContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.b17_1.o13(_this__u8e3s4, sign);
+  DGVectorContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.g17_1.n13(_this__u8e3s4, numVector);
   };
-  DGVectorContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.b17_1.t13(_this__u8e3s4);
+  DGVectorContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.g17_1.p13(_this__u8e3s4, scalar);
   };
-  DGVectorContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.b17_1.u13(_this__u8e3s4);
+  DGVectorContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.g17_1.q13(_this__u8e3s4, scalar);
   };
-  DGVectorContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.b17_1.v13(_this__u8e3s4);
+  DGVectorContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.g17_1.s13(_this__u8e3s4, sign);
+  };
+  DGVectorContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.g17_1.x13(_this__u8e3s4);
+  };
+  DGVectorContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.g17_1.y13(_this__u8e3s4);
+  };
+  DGVectorContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.g17_1.z13(_this__u8e3s4);
   };
   DGVectorContextImpl.$metadata$ = classMeta('DGVectorContextImpl', [DGVectorContext, GVectorContext]);
   function Companion_7() {
     Companion_instance_7 = this;
   }
-  Companion_7.prototype.e17 = function (source, degree, matrixSpace, name, getGVectors) {
-    var gLinearMap = Companion_getInstance_14().f17(source, source, degree, matrixSpace, name, getGVectors);
+  Companion_7.prototype.j17 = function (source, degree, matrixSpace, name, getGVectors) {
+    var gLinearMap = Companion_getInstance_14().k17(source, source, degree, matrixSpace, name, getGVectors);
     return new DerivationImpl(source, gLinearMap);
   };
   Companion_7.$metadata$ = objectMeta('Companion');
@@ -2558,8 +2634,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_8() {
     Companion_instance_8 = this;
   }
-  Companion_8.prototype.g17 = function (source, degree, matrixSpace, name, getGVectors) {
-    var gLinearMap = Companion_getInstance_14().f17(source, source, degree, matrixSpace, name, getGVectors);
+  Companion_8.prototype.l17 = function (source, degree, matrixSpace, name, getGVectors) {
+    var gLinearMap = Companion_getInstance_14().k17(source, source, degree, matrixSpace, name, getGVectors);
     return new LieDerivationImpl(source, gLinearMap);
   };
   Companion_8.$metadata$ = objectMeta('Companion');
@@ -2575,7 +2651,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_9() {
     Companion_instance_9 = this;
   }
-  Companion_9.prototype.h17 = function (source, gLinearMap) {
+  Companion_9.prototype.m17 = function (source, gLinearMap) {
     return new MagmaDerivationImpl(source, gLinearMap);
   };
   Companion_9.$metadata$ = objectMeta('Companion');
@@ -2589,101 +2665,101 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   MagmaDerivation.$metadata$ = interfaceMeta('MagmaDerivation', [GLinearMap]);
   function DerivationImpl(source, gLinearMap) {
-    this.i17_1 = source;
-    this.j17_1 = Companion_getInstance_10().h17(source, gLinearMap);
-    this.k17_1 = this.i17_1;
+    this.n17_1 = source;
+    this.o17_1 = Companion_getInstance_10().m17(source, gLinearMap);
+    this.p17_1 = this.n17_1;
   }
-  DerivationImpl.prototype.u14 = function () {
-    return this.i17_1;
+  DerivationImpl.prototype.z14 = function () {
+    return this.n17_1;
   };
-  DerivationImpl.prototype.w14 = function () {
-    return this.j17_1.w14();
+  DerivationImpl.prototype.b15 = function () {
+    return this.o17_1.b15();
   };
-  DerivationImpl.prototype.n14 = function () {
-    return this.j17_1.n14();
+  DerivationImpl.prototype.s14 = function () {
+    return this.o17_1.s14();
   };
   DerivationImpl.prototype.h11 = function () {
-    return this.j17_1.h11();
+    return this.o17_1.h11();
   };
   DerivationImpl.prototype.xb = function () {
-    return this.j17_1.xb();
+    return this.o17_1.xb();
   };
   DerivationImpl.prototype.m11 = function (degree) {
-    return this.j17_1.m11(degree);
+    return this.o17_1.m11(degree);
   };
-  DerivationImpl.prototype.x14 = function () {
-    return this.j17_1.x14();
+  DerivationImpl.prototype.c15 = function () {
+    return this.o17_1.c15();
   };
-  DerivationImpl.prototype.f15 = function (sourceSubQuot, targetSubQuot) {
-    return this.j17_1.y14(sourceSubQuot, targetSubQuot);
+  DerivationImpl.prototype.k15 = function (sourceSubQuot, targetSubQuot) {
+    return this.o17_1.d15(sourceSubQuot, targetSubQuot);
   };
-  DerivationImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.f15(sourceSubQuot, targetSubQuot);
+  DerivationImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.k15(sourceSubQuot, targetSubQuot);
   };
-  DerivationImpl.prototype.g15 = function (gVector) {
-    return this.j17_1.z14(gVector);
+  DerivationImpl.prototype.l15 = function (gVector) {
+    return this.o17_1.e15(gVector);
   };
-  DerivationImpl.prototype.z14 = function (gVector) {
-    return this.g15(gVector);
+  DerivationImpl.prototype.e15 = function (gVector) {
+    return this.l15(gVector);
+  };
+  DerivationImpl.prototype.f15 = function () {
+    return this.o17_1.f15();
   };
   DerivationImpl.prototype.a15 = function () {
-    return this.j17_1.a15();
-  };
-  DerivationImpl.prototype.v14 = function () {
-    return this.k17_1;
+    return this.p17_1;
   };
   DerivationImpl.$metadata$ = classMeta('DerivationImpl', [Derivation, MagmaDerivation]);
   function LieDerivationImpl(source, gLinearMap) {
-    this.l17_1 = source;
-    this.m17_1 = Companion_getInstance_10().h17(source, gLinearMap);
-    this.n17_1 = this.l17_1;
+    this.q17_1 = source;
+    this.r17_1 = Companion_getInstance_10().m17(source, gLinearMap);
+    this.s17_1 = this.q17_1;
   }
-  LieDerivationImpl.prototype.u14 = function () {
-    return this.l17_1;
+  LieDerivationImpl.prototype.z14 = function () {
+    return this.q17_1;
   };
-  LieDerivationImpl.prototype.w14 = function () {
-    return this.m17_1.w14();
+  LieDerivationImpl.prototype.b15 = function () {
+    return this.r17_1.b15();
   };
-  LieDerivationImpl.prototype.n14 = function () {
-    return this.m17_1.n14();
+  LieDerivationImpl.prototype.s14 = function () {
+    return this.r17_1.s14();
   };
   LieDerivationImpl.prototype.h11 = function () {
-    return this.m17_1.h11();
+    return this.r17_1.h11();
   };
   LieDerivationImpl.prototype.xb = function () {
-    return this.m17_1.xb();
+    return this.r17_1.xb();
   };
   LieDerivationImpl.prototype.m11 = function (degree) {
-    return this.m17_1.m11(degree);
+    return this.r17_1.m11(degree);
   };
-  LieDerivationImpl.prototype.x14 = function () {
-    return this.m17_1.x14();
+  LieDerivationImpl.prototype.c15 = function () {
+    return this.r17_1.c15();
   };
-  LieDerivationImpl.prototype.f15 = function (sourceSubQuot, targetSubQuot) {
-    return this.m17_1.y14(sourceSubQuot, targetSubQuot);
+  LieDerivationImpl.prototype.k15 = function (sourceSubQuot, targetSubQuot) {
+    return this.r17_1.d15(sourceSubQuot, targetSubQuot);
   };
-  LieDerivationImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.f15(sourceSubQuot, targetSubQuot);
+  LieDerivationImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.k15(sourceSubQuot, targetSubQuot);
   };
-  LieDerivationImpl.prototype.g15 = function (gVector) {
-    return this.m17_1.z14(gVector);
+  LieDerivationImpl.prototype.l15 = function (gVector) {
+    return this.r17_1.e15(gVector);
   };
-  LieDerivationImpl.prototype.z14 = function (gVector) {
-    return this.g15(gVector);
+  LieDerivationImpl.prototype.e15 = function (gVector) {
+    return this.l15(gVector);
+  };
+  LieDerivationImpl.prototype.f15 = function () {
+    return this.r17_1.f15();
   };
   LieDerivationImpl.prototype.a15 = function () {
-    return this.m17_1.a15();
-  };
-  LieDerivationImpl.prototype.v14 = function () {
-    return this.n17_1;
+    return this.s17_1;
   };
   LieDerivationImpl.$metadata$ = classMeta('LieDerivationImpl', [LieDerivation, MagmaDerivation]);
   function MagmaDerivationImpl(source, gLinearMap) {
-    this.o17_1 = source;
-    this.p17_1 = gLinearMap;
-    this.q17_1 = this.o17_1;
+    this.t17_1 = source;
+    this.u17_1 = gLinearMap;
+    this.v17_1 = this.t17_1;
     // Inline function 'kotlin.require' call
-    var tmp0_require = equals(gLinearMap.u14(), this.o17_1);
+    var tmp0_require = equals(gLinearMap.z14(), this.t17_1);
     // Inline function 'kotlin.contracts.contract' call
     // Inline function 'kotlin.require' call
     // Inline function 'kotlin.contracts.contract' call
@@ -2695,7 +2771,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
-    var tmp1_require = equals(gLinearMap.v14(), this.o17_1);
+    var tmp1_require = equals(gLinearMap.a15(), this.t17_1);
     // Inline function 'kotlin.contracts.contract' call
     // Inline function 'kotlin.require' call
     // Inline function 'kotlin.contracts.contract' call
@@ -2707,51 +2783,167 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
   }
-  MagmaDerivationImpl.prototype.u14 = function () {
-    return this.o17_1;
+  MagmaDerivationImpl.prototype.z14 = function () {
+    return this.t17_1;
   };
-  MagmaDerivationImpl.prototype.w14 = function () {
-    return this.p17_1.w14();
+  MagmaDerivationImpl.prototype.b15 = function () {
+    return this.u17_1.b15();
   };
-  MagmaDerivationImpl.prototype.n14 = function () {
-    return this.p17_1.n14();
+  MagmaDerivationImpl.prototype.s14 = function () {
+    return this.u17_1.s14();
   };
   MagmaDerivationImpl.prototype.h11 = function () {
-    return this.p17_1.h11();
+    return this.u17_1.h11();
   };
   MagmaDerivationImpl.prototype.xb = function () {
-    return this.p17_1.xb();
+    return this.u17_1.xb();
   };
   MagmaDerivationImpl.prototype.m11 = function (degree) {
-    return this.p17_1.m11(degree);
+    return this.u17_1.m11(degree);
   };
-  MagmaDerivationImpl.prototype.x14 = function () {
-    return this.p17_1.x14();
+  MagmaDerivationImpl.prototype.c15 = function () {
+    return this.u17_1.c15();
   };
-  MagmaDerivationImpl.prototype.f15 = function (sourceSubQuot, targetSubQuot) {
-    return this.p17_1.y14(sourceSubQuot, targetSubQuot);
+  MagmaDerivationImpl.prototype.k15 = function (sourceSubQuot, targetSubQuot) {
+    return this.u17_1.d15(sourceSubQuot, targetSubQuot);
   };
-  MagmaDerivationImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.f15(sourceSubQuot, targetSubQuot);
+  MagmaDerivationImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.k15(sourceSubQuot, targetSubQuot);
   };
-  MagmaDerivationImpl.prototype.g15 = function (gVector) {
-    return this.p17_1.z14(gVector);
+  MagmaDerivationImpl.prototype.l15 = function (gVector) {
+    return this.u17_1.e15(gVector);
   };
-  MagmaDerivationImpl.prototype.z14 = function (gVector) {
-    return this.g15(gVector);
+  MagmaDerivationImpl.prototype.e15 = function (gVector) {
+    return this.l15(gVector);
+  };
+  MagmaDerivationImpl.prototype.f15 = function () {
+    return this.u17_1.f15();
   };
   MagmaDerivationImpl.prototype.a15 = function () {
-    return this.p17_1.a15();
-  };
-  MagmaDerivationImpl.prototype.v14 = function () {
-    return this.q17_1;
+    return this.v17_1;
   };
   MagmaDerivationImpl.$metadata$ = classMeta('MagmaDerivationImpl', [MagmaDerivation, GLinearMap]);
-  function getValueFromASTNode($this, astNode, generators) {
+  function GAlgebra() {
+  }
+  GAlgebra.$metadata$ = interfaceMeta('GAlgebra', [GMagma]);
+  function GAlgebraContext() {
+  }
+  GAlgebraContext.$metadata$ = interfaceMeta('GAlgebraContext', [GMagmaContext]);
+  function GAlgebraContextImpl(gAlgebra) {
+    this.a18_1 = gAlgebra;
+    this.b18_1 = new GMagmaContextImpl(gAlgebra);
+  }
+  GAlgebraContextImpl.prototype.b14 = function () {
+    return this.a18_1;
+  };
+  GAlgebraContextImpl.prototype.p11 = function () {
+    return this.b18_1.p11();
+  };
+  GAlgebraContextImpl.prototype.u12 = function () {
+    return this.b18_1.c18_1;
+  };
+  GAlgebraContextImpl.prototype.v12 = function () {
+    return this.b18_1.v12();
+  };
+  GAlgebraContextImpl.prototype.j11 = function () {
+    return this.b18_1.j11();
+  };
+  GAlgebraContextImpl.prototype.w12 = function () {
+    return this.b18_1.w12();
+  };
+  GAlgebraContextImpl.prototype.x12 = function () {
+    return this.b18_1.x12();
+  };
+  GAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.b18_1.z12(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
+    return this.b18_1.a13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.b18_1.b13(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.b18_1.c13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.b18_1.d13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
+    return this.b18_1.e13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
+    return this.b18_1.f13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.b18_1.g13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.b18_1.h13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.b18_1.i13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, other) {
+    return this.b18_1.j13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.b18_1.k13(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.b18_1.l13(_this__u8e3s4, degree);
+  };
+  GAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.b18_1.m13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.b18_1.n13(_this__u8e3s4, numVector);
+  };
+  GAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, gVector) {
+    return this.b18_1.o13(_this__u8e3s4, gVector);
+  };
+  GAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.b18_1.p13(_this__u8e3s4, scalar);
+  };
+  GAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.b18_1.q13(_this__u8e3s4, scalar);
+  };
+  GAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.b18_1.r13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.b18_1.s13(_this__u8e3s4, sign);
+  };
+  GAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4, scalar) {
+    return this.b18_1.t13(_this__u8e3s4, scalar);
+  };
+  GAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4, other) {
+    return this.b18_1.u13(_this__u8e3s4, other);
+  };
+  GAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4, gVector) {
+    return this.b18_1.v13(_this__u8e3s4, gVector);
+  };
+  GAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4, gVector) {
+    return this.b18_1.w13(_this__u8e3s4, gVector);
+  };
+  GAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.b18_1.x13(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.b18_1.y13(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.b18_1.z13(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
+    return this.b18_1.a14(_this__u8e3s4);
+  };
+  GAlgebraContextImpl.$metadata$ = classMeta('GAlgebraContextImpl', [GAlgebraContext, GMagmaContext]);
+  function getValueFromASTNode(_this__u8e3s4, generators, astNode) {
     var tmp0_subject = astNode;
     var tmp;
     if (tmp0_subject instanceof Zero) {
-      tmp = $this.c12();
+      tmp = _this__u8e3s4.d12();
     } else {
       if (tmp0_subject instanceof Identifier) {
         var tmp$ret$2;
@@ -2763,8 +2955,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           while (tmp0_iterator.g()) {
             var element = tmp0_iterator.h();
             var tmp$ret$0;
-            // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-            tmp$ret$0 = element.v4_1 === astNode.f18_1;
+            // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+            tmp$ret$0 = element.v4_1 === astNode.q18_1;
             if (tmp$ret$0) {
               tmp$ret$1 = element;
               break $l$block;
@@ -2777,102 +2969,103 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp2_elvis_lhs = tmp1_safe_receiver == null ? null : tmp1_safe_receiver.w4_1;
         var tmp_0;
         if (tmp2_elvis_lhs == null) {
-          throw Exception_init_$Create$(trimIndent('\n                        Invalid generator name: ' + astNode.f18_1 + '\n                        Valid names are: ' + joinToString$default(generators, ', ', null, null, 0, null, GAlgebra$getValueFromASTNode$lambda, 30, null) + '\n                    '));
+          throw Exception_init_$Create$(trimIndent('\n                        Invalid generator name: ' + astNode.q18_1 + '\n                        Valid names are: ' + joinToString$default(generators, ', ', null, null, 0, null, getValueFromASTNode$lambda, 30, null) + '\n                '));
         } else {
           tmp_0 = tmp2_elvis_lhs;
         }
         tmp = tmp_0;
       } else {
-        if (tmp0_subject instanceof Fraction) {
+        if (tmp0_subject instanceof NatNumber) {
           var tmp_1;
-          if (astNode.c18_1 === 0) {
-            tmp_1 = $this.c12();
+          if (astNode.p18_1 === 0) {
+            tmp_1 = _this__u8e3s4.d12();
           } else {
-            var scalar = $this.p11().e18(astNode.c18_1, astNode.d18_1);
+            var scalar = _this__u8e3s4.p11().zn(astNode.p18_1);
             var tmp$ret$4;
             // Inline function 'kotlin.run' call
-            var tmp0_run = $this.o14();
+            var tmp0_run = _this__u8e3s4.t14();
             // Inline function 'kotlin.contracts.contract' call
             var tmp$ret$3;
-            // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-            tmp$ret$3 = tmp0_run.m13(tmp0_run.d12(), scalar);
+            // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+            tmp$ret$3 = tmp0_run.o13(scalar, tmp0_run.e12());
             tmp$ret$4 = tmp$ret$3;
             tmp_1 = tmp$ret$4;
           }
           tmp = tmp_1;
         } else {
-          if (tmp0_subject instanceof Div) {
-            var numeratorValue = getValueFromASTNode($this, astNode.a18_1, generators);
-            var denominatorValue = $this.p11().zn(astNode.b18_1);
+          if (tmp0_subject instanceof Divide) {
+            var numeratorValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.n18_1);
+            var denominatorValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.o18_1);
             var tmp$ret$6;
             // Inline function 'kotlin.run' call
-            var tmp1_run = $this.o14();
+            var tmp1_run = _this__u8e3s4.t14();
             // Inline function 'kotlin.contracts.contract' call
             var tmp$ret$5;
-            // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-            tmp$ret$5 = tmp1_run.p13(numeratorValue, tmp1_run.y12(1, denominatorValue));
+            // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+            tmp$ret$5 = tmp1_run.t13(numeratorValue, tmp1_run.a13(1, tmp1_run.e14(denominatorValue)));
             tmp$ret$6 = tmp$ret$5;
             tmp = tmp$ret$6;
           } else {
             if (tmp0_subject instanceof UnaryMinus) {
+              var valueWithoutMinus = getValueFromASTNode(_this__u8e3s4, generators, astNode.m18_1);
               var tmp$ret$8;
               // Inline function 'kotlin.run' call
-              var tmp2_run = $this.o14();
+              var tmp2_run = _this__u8e3s4.t14();
               // Inline function 'kotlin.contracts.contract' call
               var tmp$ret$7;
-              // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-              tmp$ret$7 = tmp2_run.w13(getValueFromASTNode($this, astNode.z17_1, generators));
+              // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+              tmp$ret$7 = tmp2_run.a14(valueWithoutMinus);
               tmp$ret$8 = tmp$ret$7;
               tmp = tmp$ret$8;
             } else {
               if (tmp0_subject instanceof Power) {
-                var baseValue = getValueFromASTNode($this, astNode.x17_1, generators);
+                var baseValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.k18_1);
                 var tmp$ret$10;
                 // Inline function 'kotlin.run' call
-                var tmp3_run = $this.o14();
+                var tmp3_run = _this__u8e3s4.t14();
                 // Inline function 'kotlin.contracts.contract' call
                 var tmp$ret$9;
-                // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-                tmp$ret$9 = tmp3_run.z13(baseValue, astNode.y17_1);
+                // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+                tmp$ret$9 = tmp3_run.d14(baseValue, astNode.l18_1);
                 tmp$ret$10 = tmp$ret$9;
                 tmp = tmp$ret$10;
               } else {
                 if (tmp0_subject instanceof Multiply) {
-                  var leftValue = getValueFromASTNode($this, astNode.v17_1, generators);
-                  var rightValue = getValueFromASTNode($this, astNode.w17_1, generators);
+                  var leftValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.i18_1);
+                  var rightValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.j18_1);
                   var tmp$ret$12;
                   // Inline function 'kotlin.run' call
-                  var tmp4_run = $this.o14();
+                  var tmp4_run = _this__u8e3s4.t14();
                   // Inline function 'kotlin.contracts.contract' call
                   var tmp$ret$11;
-                  // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-                  tmp$ret$11 = tmp4_run.q13(leftValue, rightValue);
+                  // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+                  tmp$ret$11 = tmp4_run.u13(leftValue, rightValue);
                   tmp$ret$12 = tmp$ret$11;
                   tmp = tmp$ret$12;
                 } else {
                   if (tmp0_subject instanceof Subtract) {
-                    var leftValue_0 = getValueFromASTNode($this, astNode.t17_1, generators);
-                    var rightValue_0 = getValueFromASTNode($this, astNode.u17_1, generators);
+                    var leftValue_0 = getValueFromASTNode(_this__u8e3s4, generators, astNode.g18_1);
+                    var rightValue_0 = getValueFromASTNode(_this__u8e3s4, generators, astNode.h18_1);
                     var tmp$ret$14;
                     // Inline function 'kotlin.run' call
-                    var tmp5_run = $this.o14();
+                    var tmp5_run = _this__u8e3s4.t14();
                     // Inline function 'kotlin.contracts.contract' call
                     var tmp$ret$13;
-                    // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-                    tmp$ret$13 = tmp5_run.d13(leftValue_0, rightValue_0);
+                    // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+                    tmp$ret$13 = tmp5_run.f13(leftValue_0, rightValue_0);
                     tmp$ret$14 = tmp$ret$13;
                     tmp = tmp$ret$14;
                   } else {
                     if (tmp0_subject instanceof Sum) {
-                      var leftValue_1 = getValueFromASTNode($this, astNode.r17_1, generators);
-                      var rightValue_1 = getValueFromASTNode($this, astNode.s17_1, generators);
+                      var leftValue_1 = getValueFromASTNode(_this__u8e3s4, generators, astNode.e18_1);
+                      var rightValue_1 = getValueFromASTNode(_this__u8e3s4, generators, astNode.f18_1);
                       var tmp$ret$16;
                       // Inline function 'kotlin.run' call
-                      var tmp6_run = $this.o14();
+                      var tmp6_run = _this__u8e3s4.t14();
                       // Inline function 'kotlin.contracts.contract' call
                       var tmp$ret$15;
-                      // Inline function 'com.github.shwaka.kohomology.dg.GAlgebra.getValueFromASTNode.<anonymous>' call
-                      tmp$ret$15 = tmp6_run.h13(leftValue_1, rightValue_1);
+                      // Inline function 'com.github.shwaka.kohomology.dg.getValueFromASTNode.<anonymous>' call
+                      tmp$ret$15 = tmp6_run.j13(leftValue_1, rightValue_1);
                       tmp$ret$16 = tmp$ret$15;
                       tmp = tmp$ret$16;
                     } else {
@@ -2888,124 +3081,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
-  function GAlgebra$getValueFromASTNode$lambda(it) {
+  function getValueFromASTNode$lambda(it) {
     return it.v4_1;
   }
-  function GAlgebra() {
-  }
-  GAlgebra.$metadata$ = interfaceMeta('GAlgebra', [GMagma]);
-  function GAlgebraContext() {
-  }
-  GAlgebraContext.$metadata$ = interfaceMeta('GAlgebraContext', [GMagmaContext]);
-  function GAlgebraContextImpl(gAlgebra) {
-    this.g18_1 = gAlgebra;
-    this.h18_1 = new GMagmaContextImpl(gAlgebra);
-  }
-  GAlgebraContextImpl.prototype.x13 = function () {
-    return this.g18_1;
-  };
-  GAlgebraContextImpl.prototype.p11 = function () {
-    return this.h18_1.p11();
-  };
-  GAlgebraContextImpl.prototype.s12 = function () {
-    return this.h18_1.i18_1;
-  };
-  GAlgebraContextImpl.prototype.t12 = function () {
-    return this.h18_1.t12();
-  };
-  GAlgebraContextImpl.prototype.j11 = function () {
-    return this.h18_1.j11();
-  };
-  GAlgebraContextImpl.prototype.u12 = function () {
-    return this.h18_1.u12();
-  };
-  GAlgebraContextImpl.prototype.v12 = function () {
-    return this.h18_1.v12();
-  };
-  GAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.h18_1.x12(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.h18_1.y12(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.h18_1.z12(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.h18_1.a13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.h18_1.b13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
-    return this.h18_1.c13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
-    return this.h18_1.d13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.h18_1.e13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.h18_1.f13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.h18_1.g13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
-    return this.h18_1.h13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.h18_1.i13(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.h18_1.j13(_this__u8e3s4, degree);
-  };
-  GAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.h18_1.k13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.h18_1.l13(_this__u8e3s4, scalar);
-  };
-  GAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.h18_1.m13(_this__u8e3s4, scalar);
-  };
-  GAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
-    return this.h18_1.n13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.h18_1.o13(_this__u8e3s4, sign);
-  };
-  GAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
-    return this.h18_1.p13(_this__u8e3s4, scalar);
-  };
-  GAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, other) {
-    return this.h18_1.q13(_this__u8e3s4, other);
-  };
-  GAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, gVector) {
-    return this.h18_1.r13(_this__u8e3s4, gVector);
-  };
-  GAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, gVector) {
-    return this.h18_1.s13(_this__u8e3s4, gVector);
-  };
-  GAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.h18_1.t13(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.h18_1.u13(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.h18_1.v13(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4) {
-    return this.h18_1.w13(_this__u8e3s4);
-  };
-  GAlgebraContextImpl.$metadata$ = classMeta('GAlgebraContextImpl', [GAlgebraContext, GMagmaContext]);
   function Companion_10() {
     Companion_instance_10 = this;
   }
-  Companion_10.prototype.k18 = function (source, target, matrixSpace, name, getGVectors) {
-    var getLinearMap = Companion_getInstance_14().l18(source, target, 0, matrixSpace, getGVectors);
+  Companion_10.prototype.r18 = function (source, target, matrixSpace, name, getGVectors) {
+    var getLinearMap = Companion_getInstance_14().s18(source, target, 0, matrixSpace, getGVectors);
     return new GAlgebraMapImpl(source, target, matrixSpace, name, getLinearMap);
   };
   Companion_10.$metadata$ = objectMeta('Companion');
@@ -3019,46 +3102,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   GAlgebraMap.$metadata$ = interfaceMeta('GAlgebraMap', [GLinearMap]);
   function GAlgebraMapImpl(source, target, matrixSpace, name, getLinearMap) {
-    this.m18_1 = source;
-    this.n18_1 = target;
-    this.o18_1 = Companion_getInstance_14().p18(source, target, 0, matrixSpace, name, getLinearMap);
+    this.t18_1 = source;
+    this.u18_1 = target;
+    this.v18_1 = Companion_getInstance_14().w18(source, target, 0, matrixSpace, name, getLinearMap);
   }
-  GAlgebraMapImpl.prototype.u14 = function () {
-    return this.m18_1;
-  };
-  GAlgebraMapImpl.prototype.v14 = function () {
-    return this.n18_1;
-  };
-  GAlgebraMapImpl.prototype.w14 = function () {
-    return this.o18_1.w14();
-  };
-  GAlgebraMapImpl.prototype.n14 = function () {
-    return this.o18_1.n14();
-  };
-  GAlgebraMapImpl.prototype.h11 = function () {
-    return this.o18_1.h11();
-  };
-  GAlgebraMapImpl.prototype.xb = function () {
-    return this.o18_1.xb();
-  };
-  GAlgebraMapImpl.prototype.m11 = function (degree) {
-    return this.o18_1.m11(degree);
-  };
-  GAlgebraMapImpl.prototype.x14 = function () {
-    return this.o18_1.x14();
-  };
-  GAlgebraMapImpl.prototype.y14 = function (sourceSubQuot, targetSubQuot) {
-    return this.o18_1.y14(sourceSubQuot, targetSubQuot);
-  };
-  GAlgebraMapImpl.prototype.z14 = function (gVector) {
-    return this.o18_1.z14(gVector);
+  GAlgebraMapImpl.prototype.z14 = function () {
+    return this.t18_1;
   };
   GAlgebraMapImpl.prototype.a15 = function () {
-    return this.o18_1.a15();
+    return this.u18_1;
+  };
+  GAlgebraMapImpl.prototype.b15 = function () {
+    return this.v18_1.b15();
+  };
+  GAlgebraMapImpl.prototype.s14 = function () {
+    return this.v18_1.s14();
+  };
+  GAlgebraMapImpl.prototype.h11 = function () {
+    return this.v18_1.h11();
+  };
+  GAlgebraMapImpl.prototype.xb = function () {
+    return this.v18_1.xb();
+  };
+  GAlgebraMapImpl.prototype.m11 = function (degree) {
+    return this.v18_1.m11(degree);
+  };
+  GAlgebraMapImpl.prototype.c15 = function () {
+    return this.v18_1.c15();
+  };
+  GAlgebraMapImpl.prototype.d15 = function (sourceSubQuot, targetSubQuot) {
+    return this.v18_1.d15(sourceSubQuot, targetSubQuot);
+  };
+  GAlgebraMapImpl.prototype.e15 = function (gVector) {
+    return this.v18_1.e15(gVector);
+  };
+  GAlgebraMapImpl.prototype.f15 = function () {
+    return this.v18_1.f15();
   };
   GAlgebraMapImpl.$metadata$ = classMeta('GAlgebraMapImpl', [GAlgebraMap, GLinearMap]);
   function GBilinearMap_init_$Init$(matrixSpace, source1, source2, target, degree, name, getBilinearMap, $this) {
-    GBilinearMap.call($this, matrixSpace, source1, source2, target, source1.n14().zn(degree), name, getBilinearMap);
+    GBilinearMap.call($this, matrixSpace, source1, source2, target, source1.s14().zn(degree), name, getBilinearMap);
     return $this;
   }
   function GBilinearMap_init_$Create$(matrixSpace, source1, source2, target, degree, name, getBilinearMap) {
@@ -3078,52 +3161,52 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function (p, q) {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.q16_1.o14();
+      var tmp0_run = this$0.v16_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.induce.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.r18(p, q);
+      tmp$ret$0 = tmp0_run.y18(p, q);
       tmp$ret$1 = tmp$ret$0;
       var pPlusQ = tmp$ret$1;
-      return this$0.s18(p, q).t18($source1SubQuot.m11(p), $source2SubQuot.m11(q), $targetSubQuot.m11(pPlusQ));
+      return this$0.z18(p, q).a19($source1SubQuot.m11(p), $source2SubQuot.m11(q), $targetSubQuot.m11(pPlusQ));
     };
   }
   function GBilinearMap(matrixSpace, source1, source2, target, degree, name, getBilinearMap) {
     Companion_getInstance_12();
-    this.i16_1 = matrixSpace;
-    this.j16_1 = source1;
-    this.k16_1 = source2;
-    this.l16_1 = target;
-    this.m16_1 = degree;
-    this.n16_1 = name;
-    this.o16_1 = getBilinearMap;
+    this.n16_1 = matrixSpace;
+    this.o16_1 = source1;
+    this.p16_1 = source2;
+    this.q16_1 = target;
+    this.r16_1 = degree;
+    this.s16_1 = name;
+    this.t16_1 = getBilinearMap;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.p16_1 = tmp$ret$0;
-    this.q16_1 = this.j16_1.n14();
+    tmp.u16_1 = tmp$ret$0;
+    this.v16_1 = this.o16_1.s14();
   }
-  GBilinearMap.prototype.u18 = function () {
-    return this.j16_1;
+  GBilinearMap.prototype.b19 = function () {
+    return this.o16_1;
   };
-  GBilinearMap.prototype.v18 = function () {
-    return this.k16_1;
+  GBilinearMap.prototype.c19 = function () {
+    return this.p16_1;
   };
-  GBilinearMap.prototype.w14 = function () {
-    return this.m16_1;
+  GBilinearMap.prototype.b15 = function () {
+    return this.r16_1;
   };
-  GBilinearMap.prototype.s18 = function (p, q) {
+  GBilinearMap.prototype.z18 = function (p, q) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.p16_1;
+    var tmp0_getOrPut = this.u16_1;
     var tmp1_getOrPut = new Pair(p, q);
     var value = tmp0_getOrPut.t(tmp1_getOrPut);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.get.<anonymous>' call
-      tmp$ret$0 = this.o16_1(p, q);
+      tmp$ret$0 = this.t16_1(p, q);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(tmp1_getOrPut, answer);
       tmp = answer;
@@ -3133,69 +3216,69 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp;
     return tmp$ret$1;
   };
-  GBilinearMap.prototype.w18 = function (gVector1, gVector2) {
+  GBilinearMap.prototype.d19 = function (gVector1, gVector2) {
     // Inline function 'kotlin.require' call
-    var tmp0_require = equals(gVector1.z18_1.n11(), this.j16_1.n11());
+    var tmp0_require = equals(gVector1.y17_1.n11(), this.o16_1.n11());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp0_require) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.invoke.<anonymous>' call
-      tmp$ret$0 = 'Cannot compute the value of the bilinear map ' + this + '; ' + ('the first argument ' + gVector1 + ' should be an element of ' + this.j16_1);
+      tmp$ret$0 = 'Cannot compute the value of the bilinear map ' + this + '; ' + ('the first argument ' + gVector1 + ' should be an element of ' + this.o16_1);
       var message = tmp$ret$0;
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
-    var tmp1_require = equals(gVector2.z18_1.n11(), this.k16_1.n11());
+    var tmp1_require = equals(gVector2.y17_1.n11(), this.p16_1.n11());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp1_require) {
       var tmp$ret$1;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.invoke.<anonymous>' call
-      tmp$ret$1 = 'Cannot compute the value of the bilinear map ' + this + '; ' + ('the second argument ' + gVector2 + ' should be an element of ' + this.k16_1);
+      tmp$ret$1 = 'Cannot compute the value of the bilinear map ' + this + '; ' + ('the second argument ' + gVector2 + ' should be an element of ' + this.p16_1);
       var message_0 = tmp$ret$1;
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
-    var bilinearMap = this.s18(gVector1.y18_1, gVector2.y18_1);
+    var bilinearMap = this.z18(gVector1.x17_1, gVector2.x17_1);
     // Inline function 'kotlin.require' call
-    var tmp2_require = equals(gVector1.x18_1.b19_1, bilinearMap.u18());
+    var tmp2_require = equals(gVector1.w17_1.f19_1, bilinearMap.b19());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp2_require) {
       var tmp$ret$2;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.invoke.<anonymous>' call
-      tmp$ret$2 = 'Graded bilinear map contains a bug: ' + ('gVector1.vector is an element of ' + gVector1.x18_1.b19_1 + ', ') + ('but bilinearMap.source1 is ' + bilinearMap.u18());
+      tmp$ret$2 = 'Graded bilinear map contains a bug: ' + ('gVector1.vector is an element of ' + gVector1.w17_1.f19_1 + ', ') + ('but bilinearMap.source1 is ' + bilinearMap.b19());
       var message_1 = tmp$ret$2;
       throw IllegalArgumentException_init_$Create$(toString(message_1));
     }
     // Inline function 'kotlin.require' call
-    var tmp3_require = equals(gVector2.x18_1.b19_1, bilinearMap.v18());
+    var tmp3_require = equals(gVector2.w17_1.f19_1, bilinearMap.c19());
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp3_require) {
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.invoke.<anonymous>' call
-      tmp$ret$3 = 'Graded bilinear map contains a bug: ' + ('gVector2.vector is an element of ' + gVector2.x18_1.b19_1 + ', ') + ('but bilinearMap.source2 is ' + bilinearMap.v18());
+      tmp$ret$3 = 'Graded bilinear map contains a bug: ' + ('gVector2.vector is an element of ' + gVector2.w17_1.f19_1 + ', ') + ('but bilinearMap.source2 is ' + bilinearMap.c19());
       var message_2 = tmp$ret$3;
       throw IllegalArgumentException_init_$Create$(toString(message_2));
     }
-    var newVector = bilinearMap.c19(gVector1.x18_1, gVector2.x18_1);
+    var newVector = bilinearMap.g19(gVector1.w17_1, gVector2.w17_1);
     var tmp$ret$5;
     // Inline function 'kotlin.run' call
-    var tmp4_run = this.q16_1.o14();
+    var tmp4_run = this.v16_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$4;
     // Inline function 'com.github.shwaka.kohomology.dg.GBilinearMap.invoke.<anonymous>' call
-    tmp$ret$4 = tmp4_run.r18(tmp4_run.r18(gVector1.y18_1, gVector2.y18_1), this.m16_1);
+    tmp$ret$4 = tmp4_run.y18(tmp4_run.y18(gVector1.x17_1, gVector2.x17_1), this.r16_1);
     tmp$ret$5 = tmp$ret$4;
     var newDegree = tmp$ret$5;
-    return this.l16_1.q11(newVector, newDegree);
+    return this.q16_1.q11(newVector, newDegree);
   };
-  GBilinearMap.prototype.r16 = function (source1SubQuot, source2SubQuot, targetSubQuot) {
-    return new GBilinearMap(this.i16_1, source1SubQuot, source2SubQuot, targetSubQuot, this.m16_1, this.n16_1, GBilinearMap$induce$lambda(this, source1SubQuot, source2SubQuot, targetSubQuot));
+  GBilinearMap.prototype.w16 = function (source1SubQuot, source2SubQuot, targetSubQuot) {
+    return new GBilinearMap(this.n16_1, source1SubQuot, source2SubQuot, targetSubQuot, this.r16_1, this.s16_1, GBilinearMap$induce$lambda(this, source1SubQuot, source2SubQuot, targetSubQuot));
   };
   GBilinearMap.prototype.toString = function () {
-    return this.n16_1;
+    return this.s16_1;
   };
   GBilinearMap.$metadata$ = classMeta('GBilinearMap');
   function GLieAlgebra$Companion$invoke$lambda(it) {
-    return Companion_getInstance_44().d19(it);
+    return Companion_getInstance_44().h19(it);
   }
   function GLieAlgebra$Companion$invoke$lambda_0($getMultiplication) {
     return function (p, q) {
@@ -3205,13 +3288,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_12() {
     Companion_instance_12 = this;
   }
-  Companion_12.prototype.e19 = function (matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness) {
-    var gVectorSpace = Companion_getInstance_16().f19(matrixSpace.j11(), degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace);
+  Companion_12.prototype.i19 = function (matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness) {
+    var gVectorSpace = Companion_getInstance_16().j19(matrixSpace.j11(), degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace);
     var bilinearMapName = 'LieBracket(' + name + ')';
     var multiplication = GBilinearMap_init_$Create$(matrixSpace, gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName, GLieAlgebra$Companion$invoke$lambda_0(getMultiplication));
     return new GLieAlgebraImpl(matrixSpace, gVectorSpace, multiplication);
   };
-  Companion_12.prototype.g19 = function (matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, $mask0, $handler) {
+  Companion_12.prototype.k19 = function (matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, $mask0, $handler) {
     if (!(($mask0 & 32) === 0)) {
       getInternalPrintConfig = GLieAlgebra$Companion$invoke$lambda;
     }
@@ -3220,7 +3303,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(($mask0 & 128) === 0)) {
       boundedness = Boundedness_init_$Create$(null, null, 3, null);
     }
-    return this.e19(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness);
+    return this.i19(matrixSpace, degreeGroup, name, getVectorSpace, getMultiplication, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness);
   };
   Companion_12.$metadata$ = objectMeta('Companion');
   var Companion_instance_12;
@@ -3236,7 +3319,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function (degree) {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = this$0.u15().t11(degree);
+      var tmp0_map = this$0.z15().t11(degree);
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -3245,7 +3328,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.dg.GLieAlgebraContext.ad.<anonymous>.<anonymous>' call
-        tmp$ret$0 = this$0.n13($gVector, item);
+        tmp$ret$0 = this$0.r13($gVector, item);
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -3257,164 +3340,170 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   GLieAlgebraContext.$metadata$ = interfaceMeta('GLieAlgebraContext', [GMagmaContext]);
   function GLieAlgebraContextImpl(gLieAlgebra) {
-    this.h19_1 = gLieAlgebra;
-    this.i19_1 = new GMagmaContextImpl(gLieAlgebra);
+    this.l19_1 = gLieAlgebra;
+    this.m19_1 = new GMagmaContextImpl(gLieAlgebra);
   }
-  GLieAlgebraContextImpl.prototype.u15 = function () {
-    return this.h19_1;
+  GLieAlgebraContextImpl.prototype.z15 = function () {
+    return this.l19_1;
   };
   GLieAlgebraContextImpl.prototype.p11 = function () {
-    return this.i19_1.p11();
-  };
-  GLieAlgebraContextImpl.prototype.s12 = function () {
-    return this.i19_1.i18_1;
-  };
-  GLieAlgebraContextImpl.prototype.t12 = function () {
-    return this.i19_1.t12();
-  };
-  GLieAlgebraContextImpl.prototype.j11 = function () {
-    return this.i19_1.j11();
+    return this.m19_1.p11();
   };
   GLieAlgebraContextImpl.prototype.u12 = function () {
-    return this.i19_1.u12();
+    return this.m19_1.c18_1;
   };
   GLieAlgebraContextImpl.prototype.v12 = function () {
-    return this.i19_1.v12();
+    return this.m19_1.v12();
   };
-  GLieAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.i19_1.x12(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.j11 = function () {
+    return this.m19_1.j11();
   };
-  GLieAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.i19_1.z12(_this__u8e3s4);
+  GLieAlgebraContextImpl.prototype.w12 = function () {
+    return this.m19_1.w12();
   };
-  GLieAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.i19_1.a13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.x12 = function () {
+    return this.m19_1.x12();
   };
-  GLieAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.i19_1.b13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.m19_1.z12(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.i19_1.e13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.m19_1.b13(_this__u8e3s4);
   };
-  GLieAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.i19_1.f13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.m19_1.c13(_this__u8e3s4, other);
+  };
+  GLieAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.m19_1.d13(_this__u8e3s4, other);
   };
   GLieAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.i19_1.g13(_this__u8e3s4, other);
+    return this.m19_1.g13(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.i19_1.i13(_this__u8e3s4);
+  GLieAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.m19_1.h13(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.i19_1.j13(_this__u8e3s4, degree);
+  GLieAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.m19_1.i13(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.i19_1.k13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.m19_1.k13(_this__u8e3s4);
   };
-  GLieAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.i19_1.l13(_this__u8e3s4, scalar);
+  GLieAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.m19_1.l13(_this__u8e3s4, degree);
   };
-  GLieAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.i19_1.m13(_this__u8e3s4, scalar);
+  GLieAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.m19_1.m13(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
-    return this.i19_1.n13(_this__u8e3s4, other);
+  GLieAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.m19_1.n13(_this__u8e3s4, numVector);
   };
-  GLieAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.i19_1.o13(_this__u8e3s4, sign);
+  GLieAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.m19_1.p13(_this__u8e3s4, scalar);
   };
-  GLieAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.i19_1.t13(_this__u8e3s4);
+  GLieAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.m19_1.q13(_this__u8e3s4, scalar);
   };
-  GLieAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.i19_1.u13(_this__u8e3s4);
+  GLieAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.m19_1.r13(_this__u8e3s4, other);
   };
-  GLieAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.i19_1.v13(_this__u8e3s4);
+  GLieAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.m19_1.s13(_this__u8e3s4, sign);
+  };
+  GLieAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.m19_1.x13(_this__u8e3s4);
+  };
+  GLieAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.m19_1.y13(_this__u8e3s4);
+  };
+  GLieAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.m19_1.z13(_this__u8e3s4);
   };
   GLieAlgebraContextImpl.$metadata$ = classMeta('GLieAlgebraContextImpl', [GLieAlgebraContext, GMagmaContext]);
   function GLieAlgebraImpl(matrixSpace, gVectorSpace, multiplication) {
-    this.j19_1 = matrixSpace;
-    this.k19_1 = multiplication;
-    this.l19_1 = gVectorSpace;
-    this.m19_1 = new GLieAlgebraContextImpl(this);
-    this.n19_1 = this;
+    this.n19_1 = matrixSpace;
+    this.o19_1 = multiplication;
+    this.p19_1 = gVectorSpace;
+    this.q19_1 = new GLieAlgebraContextImpl(this);
+    this.r19_1 = this;
   }
   GLieAlgebraImpl.prototype.h11 = function () {
-    return this.j19_1;
+    return this.n19_1;
   };
   GLieAlgebraImpl.prototype.f11 = function () {
-    return this.k19_1;
+    return this.o19_1;
   };
   GLieAlgebraImpl.prototype.o11 = function () {
-    return this.l19_1.o11();
+    return this.p19_1.o11();
   };
-  GLieAlgebraImpl.prototype.n14 = function () {
-    return this.l19_1.n14();
+  GLieAlgebraImpl.prototype.s14 = function () {
+    return this.p19_1.s14();
   };
   GLieAlgebraImpl.prototype.p11 = function () {
-    return this.l19_1.p11();
+    return this.p19_1.p11();
   };
   GLieAlgebraImpl.prototype.k11 = function () {
-    return this.l19_1.k11();
+    return this.p19_1.k11();
   };
   GLieAlgebraImpl.prototype.l11 = function () {
-    return this.l19_1.l11();
+    return this.p19_1.l11();
   };
   GLieAlgebraImpl.prototype.xb = function () {
-    return this.l19_1.xb();
+    return this.p19_1.xb();
   };
   GLieAlgebraImpl.prototype.j11 = function () {
-    return this.l19_1.j11();
+    return this.p19_1.j11();
   };
   GLieAlgebraImpl.prototype.n11 = function () {
-    return this.l19_1.n11();
+    return this.p19_1.n11();
   };
-  GLieAlgebraImpl.prototype.c12 = function () {
-    return this.l19_1.c12();
+  GLieAlgebraImpl.prototype.d12 = function () {
+    return this.p19_1.d12();
   };
   GLieAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.l19_1.x11(a, b);
+    return this.p19_1.x11(a, b);
   };
   GLieAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.l19_1.w11(gVector);
+    return this.p19_1.w11(gVector);
   };
   GLieAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.l19_1.v11(gVectorOrZero, degree);
+    return this.p19_1.v11(gVectorOrZero, degree);
+  };
+  GLieAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.p19_1.c12(a, b);
   };
   GLieAlgebraImpl.prototype.s11 = function (basisName, degree) {
-    return this.l19_1.s11(basisName, degree);
+    return this.p19_1.s11(basisName, degree);
   };
   GLieAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.l19_1.q11(vector, degree);
+    return this.p19_1.q11(vector, degree);
   };
   GLieAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.l19_1.r11(vector, degree);
+    return this.p19_1.r11(vector, degree);
   };
   GLieAlgebraImpl.prototype.m11 = function (degree) {
-    return this.l19_1.m11(degree);
+    return this.p19_1.m11(degree);
   };
   GLieAlgebraImpl.prototype.t11 = function (degree) {
-    return this.l19_1.t11(degree);
+    return this.p19_1.t11(degree);
   };
   GLieAlgebraImpl.prototype.u11 = function (degree) {
-    return this.l19_1.u11(degree);
+    return this.p19_1.u11(degree);
   };
   GLieAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.l19_1.z11(scalar, gVector);
+    return this.p19_1.z11(scalar, gVector);
   };
   GLieAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.l19_1.y11(a, b);
+    return this.p19_1.y11(a, b);
   };
   GLieAlgebraImpl.prototype.toString = function () {
-    return this.l19_1.toString();
+    return this.p19_1.toString();
   };
-  GLieAlgebraImpl.prototype.o14 = function () {
-    return this.m19_1;
+  GLieAlgebraImpl.prototype.t14 = function () {
+    return this.q19_1;
   };
   GLieAlgebraImpl.$metadata$ = classMeta('GLieAlgebraImpl', [GLieAlgebra, GVectorSpace]);
   function createGetLinearMap($this, source, target, degree, matrixSpace, getGVectors) {
-    if (!equals(source.n14(), target.n14()))
+    if (!equals(source.s14(), target.s14()))
       throw IllegalArgumentException_init_$Create$('Cannot consider a linear map between graded vector spaces with different degree groups');
     return GLinearMap$Companion$createGetLinearMap$lambda(source, degree, target, getGVectors, matrixSpace);
   }
@@ -3422,11 +3511,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function (k) {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = $source.n14().o14();
+      var tmp0_run = $source.s14().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.Companion.createGetLinearMap.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.r18(k, $degree);
+      tmp$ret$0 = tmp0_run.y18(k, $degree);
       tmp$ret$1 = tmp$ret$0;
       var l = tmp$ret$1;
       var sourceVectorSpace = $source.m11(k);
@@ -3481,7 +3570,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var element_0 = tmp0_iterator_0.h();
           var tmp$ret$5;
           // Inline function 'com.github.shwaka.kohomology.dg.Companion.createGetLinearMap.<anonymous>.<anonymous>' call
-          tmp$ret$5 = !equals(element_0.y18_1, l);
+          tmp$ret$5 = !equals(element_0.x17_1, l);
           if (tmp$ret$5) {
             tmp$ret$4 = true;
             break $l$block_2;
@@ -3493,7 +3582,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         throw IllegalArgumentException_init_$Create$('The value list contains an element with wrong degree');
       }
       var tmp_3;
-      if (!(sourceVectorSpace.o19().i() === gVectorValueList.i())) {
+      if (!(sourceVectorSpace.s19().i() === gVectorValueList.i())) {
         throw new InvalidSizeException('The value list has incompatible size');
       }
       var tmp$ret$8;
@@ -3506,30 +3595,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator_1.h();
         var tmp$ret$6;
         // Inline function 'com.github.shwaka.kohomology.dg.Companion.createGetLinearMap.<anonymous>.<anonymous>' call
-        tmp$ret$6 = item.x18_1;
+        tmp$ret$6 = item.w17_1;
         tmp0_mapTo.a(tmp$ret$6);
       }
       tmp$ret$7 = tmp0_mapTo;
       tmp$ret$8 = tmp$ret$7;
       var valueList = tmp$ret$8;
-      return Companion_getInstance_47().p19(sourceVectorSpace, targetVectorSpace, $matrixSpace, valueList);
+      return Companion_getInstance_47().t19(sourceVectorSpace, targetVectorSpace, $matrixSpace, valueList);
     };
   }
   function Companion_13() {
     Companion_instance_13 = this;
   }
-  Companion_13.prototype.q19 = function (source, target, degree, matrixSpace, name, getLinearMap) {
+  Companion_13.prototype.u19 = function (source, target, degree, matrixSpace, name, getLinearMap) {
     return new GLinearMapImpl(source, target, degree, matrixSpace, name, getLinearMap);
   };
-  Companion_13.prototype.p18 = function (source, target, degree, matrixSpace, name, getLinearMap) {
-    return new GLinearMapImpl(source, target, source.n14().zn(degree), matrixSpace, name, getLinearMap);
+  Companion_13.prototype.w18 = function (source, target, degree, matrixSpace, name, getLinearMap) {
+    return new GLinearMapImpl(source, target, source.s14().zn(degree), matrixSpace, name, getLinearMap);
   };
-  Companion_13.prototype.l18 = function (source, target, degree, matrixSpace, getGVectors) {
-    return createGetLinearMap(this, source, target, source.n14().zn(degree), matrixSpace, getGVectors);
+  Companion_13.prototype.s18 = function (source, target, degree, matrixSpace, getGVectors) {
+    return createGetLinearMap(this, source, target, source.s14().zn(degree), matrixSpace, getGVectors);
   };
-  Companion_13.prototype.f17 = function (source, target, degree, matrixSpace, name, getGVectors) {
+  Companion_13.prototype.k17 = function (source, target, degree, matrixSpace, name, getGVectors) {
     var getLinearMap = createGetLinearMap(this, source, target, degree, matrixSpace, getGVectors);
-    return Companion_getInstance_14().q19(source, target, degree, matrixSpace, name, getLinearMap);
+    return Companion_getInstance_14().u19(source, target, degree, matrixSpace, name, getLinearMap);
   };
   Companion_13.$metadata$ = objectMeta('Companion');
   var Companion_instance_13;
@@ -3540,80 +3629,80 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function GLinearMap$kernel$lambda(this$0) {
     return function (degree) {
-      return this$0.m11(degree).a15();
+      return this$0.m11(degree).f15();
     };
   }
   function GLinearMap$image$lambda(this$0) {
     return function (degree) {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.n14().o14();
+      var tmp0_run = this$0.s14().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GLinearMap.image.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.v19(degree, this$0.w14());
+      tmp$ret$0 = tmp0_run.z19(degree, this$0.b15());
       tmp$ret$1 = tmp$ret$0;
       var sourceDegree = tmp$ret$1;
-      return this$0.m11(sourceDegree).x14();
+      return this$0.m11(sourceDegree).c15();
     };
   }
   function GLinearMap$induce$lambda(this$0, $gLinearMapDegree, $sourceSubQuot, $targetSubQuot) {
     return function (degree) {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.n14().o14();
+      var tmp0_run = this$0.s14().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GLinearMap.induce.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.r18(degree, $gLinearMapDegree);
+      tmp$ret$0 = tmp0_run.y18(degree, $gLinearMapDegree);
       tmp$ret$1 = tmp$ret$0;
       var targetDegree = tmp$ret$1;
-      return this$0.m11(degree).w19($sourceSubQuot.m11(degree), $targetSubQuot.m11(targetDegree));
+      return this$0.m11(degree).a1a($sourceSubQuot.m11(degree), $targetSubQuot.m11(targetDegree));
     };
   }
   function GLinearMap() {
   }
   GLinearMap.$metadata$ = interfaceMeta('GLinearMap');
   function GLinearMapImpl(source, target, degree, matrixSpace, name, getLinearMap) {
-    this.z19_1 = source;
-    this.a1a_1 = target;
-    this.b1a_1 = degree;
-    this.c1a_1 = matrixSpace;
-    this.d1a_1 = name;
-    this.e1a_1 = getLinearMap;
-    if (!equals(this.z19_1.n14(), this.a1a_1.n14()))
+    this.d1a_1 = source;
+    this.e1a_1 = target;
+    this.f1a_1 = degree;
+    this.g1a_1 = matrixSpace;
+    this.h1a_1 = name;
+    this.i1a_1 = getLinearMap;
+    if (!equals(this.d1a_1.s14(), this.e1a_1.s14()))
       throw IllegalArgumentException_init_$Create$('Cannot consider a linear map between graded vector spaces with different degree groups');
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.f1a_1 = tmp$ret$0;
+    tmp.j1a_1 = tmp$ret$0;
   }
-  GLinearMapImpl.prototype.u14 = function () {
-    return this.z19_1;
+  GLinearMapImpl.prototype.z14 = function () {
+    return this.d1a_1;
   };
-  GLinearMapImpl.prototype.v14 = function () {
-    return this.a1a_1;
+  GLinearMapImpl.prototype.a15 = function () {
+    return this.e1a_1;
   };
-  GLinearMapImpl.prototype.w14 = function () {
-    return this.b1a_1;
+  GLinearMapImpl.prototype.b15 = function () {
+    return this.f1a_1;
   };
   GLinearMapImpl.prototype.h11 = function () {
-    return this.c1a_1;
+    return this.g1a_1;
   };
   GLinearMapImpl.prototype.xb = function () {
-    return this.d1a_1;
+    return this.h1a_1;
   };
   GLinearMapImpl.prototype.m11 = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.f1a_1;
+    var tmp0_getOrPut = this.j1a_1;
     var value = tmp0_getOrPut.t(degree);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GLinearMapImpl.get.<anonymous>' call
-      tmp$ret$0 = this.e1a_1(degree);
+      tmp$ret$0 = this.i1a_1(degree);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(degree, answer);
       tmp = answer;
@@ -3624,20 +3713,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   };
   GLinearMapImpl.prototype.toString = function () {
-    return this.d1a_1;
+    return this.h1a_1;
   };
   GLinearMapImpl.$metadata$ = classMeta('GLinearMapImpl', [GLinearMap]);
   function GLinearMapWithDegreeChange$Companion$invoke$lambda($basisMap, $degreeMorphism, $target) {
     return function (basisName, degree) {
       var targetBasisName = $basisMap(basisName);
-      var targetDegree = $degreeMorphism.g1a(degree);
+      var targetDegree = $degreeMorphism.k1a(degree);
       return $target.s11(targetBasisName, targetDegree);
     };
   }
   function Companion_14() {
     Companion_instance_14 = this;
   }
-  Companion_14.prototype.h1a = function (source, target, degreeMorphism, matrixSpace, name, basisMap) {
+  Companion_14.prototype.l1a = function (source, target, degreeMorphism, matrixSpace, name, basisMap) {
     return new GLinearMapWithDegreeChange(source, target, degreeMorphism, matrixSpace, name, GLinearMapWithDegreeChange$Companion$invoke$lambda(basisMap, degreeMorphism, target));
   };
   Companion_14.$metadata$ = objectMeta('Companion');
@@ -3649,26 +3738,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function GLinearMapWithDegreeChange(source, target, degreeMorphism, matrixSpace, name, getValueOnBasis) {
     Companion_getInstance_15();
-    this.i1a_1 = source;
-    this.j1a_1 = target;
-    this.k1a_1 = degreeMorphism;
-    this.l1a_1 = matrixSpace;
-    this.m1a_1 = name;
-    this.n1a_1 = getValueOnBasis;
+    this.m1a_1 = source;
+    this.n1a_1 = target;
+    this.o1a_1 = degreeMorphism;
+    this.p1a_1 = matrixSpace;
+    this.q1a_1 = name;
+    this.r1a_1 = getValueOnBasis;
   }
-  GLinearMapWithDegreeChange.prototype.o1a = function (gVector) {
-    if (!this.i1a_1.w11(gVector))
+  GLinearMapWithDegreeChange.prototype.s1a = function (gVector) {
+    if (!this.m1a_1.w11(gVector))
       throw new IllegalContextException('Invalid graded vector is given as an argument for a graded linear map with degree change');
-    var targetDegree = this.k1a_1.g1a(gVector.y18_1);
+    var targetDegree = this.o1a_1.k1a(gVector.x17_1);
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.j1a_1.o14();
+    var tmp0_run = this.n1a_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange.invoke.<anonymous>' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = toList(gVector.x18_1.p1a());
+    var tmp0_map = toList(gVector.w17_1.t1a());
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -3679,17 +3768,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange.invoke.<anonymous>.<anonymous>' call
       var basisName = item.w3();
       var coeff = item.x3();
-      tmp$ret$0 = tmp0_run.m13(this.n1a_1(basisName, gVector.y18_1), coeff);
+      tmp$ret$0 = tmp0_run.q13(this.r1a_1(basisName, gVector.x17_1), coeff);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
-    tmp$ret$3 = tmp0_run.j13(tmp$ret$2, targetDegree);
+    tmp$ret$3 = tmp0_run.l13(tmp$ret$2, targetDegree);
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   };
   GLinearMapWithDegreeChange.prototype.toString = function () {
-    return this.m1a_1;
+    return this.q1a_1;
   };
   GLinearMapWithDegreeChange.$metadata$ = classMeta('GLinearMapWithDegreeChange');
   function GMagma() {
@@ -3699,113 +3788,119 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   GMagmaContext.$metadata$ = interfaceMeta('GMagmaContext', [GVectorContext]);
   function GMagmaContextImpl(gMagma) {
-    this.i18_1 = gMagma;
-    this.j18_1 = new GVectorContextImpl(gMagma);
+    this.c18_1 = gMagma;
+    this.d18_1 = new GVectorContextImpl(gMagma);
   }
-  GMagmaContextImpl.prototype.s12 = function () {
-    return this.i18_1;
+  GMagmaContextImpl.prototype.u12 = function () {
+    return this.c18_1;
   };
   GMagmaContextImpl.prototype.p11 = function () {
-    return this.j18_1.p11();
-  };
-  GMagmaContextImpl.prototype.t12 = function () {
-    return this.j18_1.c17_1;
-  };
-  GMagmaContextImpl.prototype.j11 = function () {
-    return this.j18_1.j11();
-  };
-  GMagmaContextImpl.prototype.u12 = function () {
-    return this.j18_1.u12();
+    return this.d18_1.p11();
   };
   GMagmaContextImpl.prototype.v12 = function () {
-    return this.j18_1.v12();
+    return this.d18_1.h17_1;
   };
-  GMagmaContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.j18_1.x12(_this__u8e3s4, other);
+  GMagmaContextImpl.prototype.j11 = function () {
+    return this.d18_1.j11();
   };
-  GMagmaContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.j18_1.y12(_this__u8e3s4, other);
+  GMagmaContextImpl.prototype.w12 = function () {
+    return this.d18_1.w12();
   };
-  GMagmaContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.j18_1.z12(_this__u8e3s4);
+  GMagmaContextImpl.prototype.x12 = function () {
+    return this.d18_1.x12();
+  };
+  GMagmaContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.d18_1.z12(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.j18_1.a13(_this__u8e3s4, other);
+    return this.d18_1.a13(_this__u8e3s4, other);
   };
-  GMagmaContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.j18_1.b13(_this__u8e3s4, other);
+  GMagmaContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.d18_1.b13(_this__u8e3s4);
   };
   GMagmaContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
-    return this.j18_1.c13(_this__u8e3s4, other);
+    return this.d18_1.c13(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
-    return this.j18_1.d13(_this__u8e3s4, other);
+    return this.d18_1.d13(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.j18_1.e13(_this__u8e3s4, other);
+    return this.d18_1.e13(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.j18_1.f13(_this__u8e3s4, other);
+    return this.d18_1.f13(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.j18_1.g13(_this__u8e3s4, other);
+    return this.d18_1.g13(_this__u8e3s4, other);
   };
   GMagmaContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
-    return this.j18_1.h13(_this__u8e3s4, other);
+    return this.d18_1.h13(_this__u8e3s4, other);
   };
-  GMagmaContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.j18_1.i13(_this__u8e3s4);
+  GMagmaContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.d18_1.i13(_this__u8e3s4, other);
   };
-  GMagmaContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.j18_1.j13(_this__u8e3s4, degree);
+  GMagmaContextImpl.prototype.j13 = function (_this__u8e3s4, other) {
+    return this.d18_1.j13(_this__u8e3s4, other);
   };
-  GMagmaContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.j18_1.k13(_this__u8e3s4, other);
+  GMagmaContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.d18_1.k13(_this__u8e3s4);
   };
-  GMagmaContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.j18_1.l13(_this__u8e3s4, scalar);
+  GMagmaContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.d18_1.l13(_this__u8e3s4, degree);
   };
-  GMagmaContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.j18_1.m13(_this__u8e3s4, scalar);
+  GMagmaContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.d18_1.m13(_this__u8e3s4, other);
   };
-  GMagmaContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.j18_1.o13(_this__u8e3s4, sign);
+  GMagmaContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.d18_1.n13(_this__u8e3s4, numVector);
+  };
+  GMagmaContextImpl.prototype.o13 = function (_this__u8e3s4, gVector) {
+    return this.d18_1.o13(_this__u8e3s4, gVector);
   };
   GMagmaContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
-    return this.j18_1.p13(_this__u8e3s4, scalar);
+    return this.d18_1.p13(_this__u8e3s4, scalar);
   };
-  GMagmaContextImpl.prototype.r13 = function (_this__u8e3s4, gVector) {
-    return this.j18_1.r13(_this__u8e3s4, gVector);
+  GMagmaContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.d18_1.q13(_this__u8e3s4, scalar);
   };
-  GMagmaContextImpl.prototype.s13 = function (_this__u8e3s4, gVector) {
-    return this.j18_1.s13(_this__u8e3s4, gVector);
+  GMagmaContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.d18_1.s13(_this__u8e3s4, sign);
   };
-  GMagmaContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.j18_1.t13(_this__u8e3s4);
+  GMagmaContextImpl.prototype.t13 = function (_this__u8e3s4, scalar) {
+    return this.d18_1.t13(_this__u8e3s4, scalar);
   };
-  GMagmaContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.j18_1.u13(_this__u8e3s4);
+  GMagmaContextImpl.prototype.v13 = function (_this__u8e3s4, gVector) {
+    return this.d18_1.v13(_this__u8e3s4, gVector);
   };
-  GMagmaContextImpl.prototype.v13 = function (_this__u8e3s4) {
-    return this.j18_1.v13(_this__u8e3s4);
+  GMagmaContextImpl.prototype.w13 = function (_this__u8e3s4, gVector) {
+    return this.d18_1.w13(_this__u8e3s4, gVector);
   };
-  GMagmaContextImpl.prototype.w13 = function (_this__u8e3s4) {
-    return this.j18_1.w13(_this__u8e3s4);
+  GMagmaContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.d18_1.x13(_this__u8e3s4);
+  };
+  GMagmaContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.d18_1.y13(_this__u8e3s4);
+  };
+  GMagmaContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.d18_1.z13(_this__u8e3s4);
+  };
+  GMagmaContextImpl.prototype.a14 = function (_this__u8e3s4) {
+    return this.d18_1.a14(_this__u8e3s4);
   };
   GMagmaContextImpl.$metadata$ = classMeta('GMagmaContextImpl', [GMagmaContext, GVectorContext]);
   function GVector(vector, degree, gVectorSpace) {
-    this.x18_1 = vector;
-    this.y18_1 = degree;
-    this.z18_1 = gVectorSpace;
+    this.w17_1 = vector;
+    this.x17_1 = degree;
+    this.y17_1 = gVectorSpace;
   }
-  GVector.prototype.q1a = function () {
-    return this.x18_1;
+  GVector.prototype.u1a = function () {
+    return this.w17_1;
   };
-  GVector.prototype.w14 = function () {
-    return this.y18_1;
+  GVector.prototype.b15 = function () {
+    return this.x17_1;
   };
   GVector.prototype.op = function () {
-    return this.x18_1.op();
+    return this.w17_1.op();
   };
   GVector.prototype.equals = function (other) {
     if (this === other)
@@ -3818,33 +3913,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!this.x18_1.equals(other.x18_1))
+    if (!this.w17_1.equals(other.w17_1))
       return false;
-    if (!equals(this.y18_1, other.y18_1))
+    if (!equals(this.x17_1, other.x17_1))
       return false;
-    if (!equals(this.z18_1.n11(), other.z18_1.n11()))
+    if (!equals(this.y17_1.n11(), other.y17_1.n11()))
       return false;
     return true;
   };
   GVector.prototype.hashCode = function () {
-    var result = this.x18_1.hashCode();
-    result = imul(31, result) + hashCode(this.y18_1) | 0;
-    result = imul(31, result) + hashCode(this.z18_1) | 0;
+    var result = this.w17_1.hashCode();
+    result = imul(31, result) + hashCode(this.x17_1) | 0;
+    result = imul(31, result) + hashCode(this.y17_1) | 0;
     return result;
   };
   GVector.prototype.toString = function () {
-    return this.r1a(PrintConfig_init_$Create$(null, null, null, null, null, 31, null));
+    return this.v1a(PrintConfig_init_$Create$(null, null, null, null, null, 31, null));
   };
-  GVector.prototype.r1a = function (printConfig) {
-    var internalPrintConfig = this.z18_1.k11()(printConfig);
-    return this.x18_1.s1a(printConfig, internalPrintConfig);
+  GVector.prototype.v1a = function (printConfig) {
+    var internalPrintConfig = this.y17_1.k11()(printConfig);
+    return this.w17_1.w1a(printConfig, internalPrintConfig);
   };
   GVector.$metadata$ = classMeta('GVector', [GVectorOrZero, Printable]);
   function GVectorOrZero() {
   }
   GVectorOrZero.$metadata$ = interfaceMeta('GVectorOrZero');
   function ZeroGVector(gVectorSpace) {
-    this.u1a_1 = gVectorSpace;
+    this.x1a_1 = gVectorSpace;
   }
   ZeroGVector.prototype.op = function () {
     return true;
@@ -3853,7 +3948,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return '0';
   };
   ZeroGVector.prototype.hashCode = function () {
-    return hashCode(this.u1a_1);
+    return hashCode(this.x1a_1);
   };
   ZeroGVector.prototype.equals = function (other) {
     if (this === other)
@@ -3866,13 +3961,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    return equals(this.u1a_1.n11(), other.u1a_1.n11());
+    return equals(this.x1a_1.n11(), other.x1a_1.n11());
   };
   ZeroGVector.$metadata$ = classMeta('ZeroGVector', [GVectorOrZero]);
   function Companion_15() {
     Companion_instance_15 = this;
   }
-  Companion_15.prototype.f19 = function (numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace) {
+  Companion_15.prototype.j19 = function (numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace) {
     return new GVectorSpaceImpl(numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace);
   };
   Companion_15.$metadata$ = objectMeta('Companion');
@@ -3889,111 +3984,118 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   GVectorContext.$metadata$ = interfaceMeta('GVectorContext', [NumVectorContext]);
   function GVectorContextImpl(gVectorSpace) {
-    this.c17_1 = gVectorSpace;
-    this.d17_1 = new NumVectorContextImpl(gVectorSpace.j11());
+    this.h17_1 = gVectorSpace;
+    this.i17_1 = new NumVectorContextImpl(gVectorSpace.j11());
   }
-  GVectorContextImpl.prototype.t12 = function () {
-    return this.c17_1;
+  GVectorContextImpl.prototype.v12 = function () {
+    return this.h17_1;
   };
   GVectorContextImpl.prototype.p11 = function () {
-    return this.d17_1.p11();
+    return this.i17_1.p11();
   };
   GVectorContextImpl.prototype.j11 = function () {
-    return this.d17_1.d1b_1;
+    return this.i17_1.h1b_1;
   };
-  GVectorContextImpl.prototype.u12 = function () {
-    return this.d17_1.u12();
+  GVectorContextImpl.prototype.w12 = function () {
+    return this.i17_1.w12();
   };
-  GVectorContextImpl.prototype.v12 = function () {
-    return this.d17_1.v12();
+  GVectorContextImpl.prototype.x12 = function () {
+    return this.i17_1.x12();
   };
-  GVectorContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.d17_1.x12(_this__u8e3s4, other);
-  };
-  GVectorContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.d17_1.y12(_this__u8e3s4, other);
-  };
-  GVectorContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.d17_1.z12(_this__u8e3s4);
+  GVectorContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.i17_1.z12(_this__u8e3s4, other);
   };
   GVectorContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.d17_1.a13(_this__u8e3s4, other);
+    return this.i17_1.a13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.d17_1.b13(_this__u8e3s4, other);
+  GVectorContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.i17_1.b13(_this__u8e3s4);
   };
-  GVectorContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.d17_1.e13(_this__u8e3s4, other);
+  GVectorContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.i17_1.c13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.d17_1.f13(_this__u8e3s4, other);
+  GVectorContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.i17_1.d13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.d17_1.i13(_this__u8e3s4);
+  GVectorContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.i17_1.g13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.d17_1.k13(_this__u8e3s4, other);
+  GVectorContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.i17_1.h13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.d17_1.l13(_this__u8e3s4, scalar);
+  GVectorContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.i17_1.k13(_this__u8e3s4);
   };
-  GVectorContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.d17_1.t13(_this__u8e3s4);
+  GVectorContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.i17_1.m13(_this__u8e3s4, other);
   };
-  GVectorContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.d17_1.u13(_this__u8e3s4);
+  GVectorContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.i17_1.n13(_this__u8e3s4, numVector);
+  };
+  GVectorContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.i17_1.p13(_this__u8e3s4, scalar);
+  };
+  GVectorContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.i17_1.x13(_this__u8e3s4);
+  };
+  GVectorContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.i17_1.y13(_this__u8e3s4);
   };
   GVectorContextImpl.$metadata$ = classMeta('GVectorContextImpl', [GVectorContext, NumVectorContext]);
   function GVectorSpaceImpl(numVectorSpace, degreeGroup, name, getInternalPrintConfig, listDegreesForAugmentedDegree, boundedness, getVectorSpace) {
-    this.f1b_1 = numVectorSpace;
-    this.g1b_1 = degreeGroup;
-    this.h1b_1 = name;
-    this.i1b_1 = getInternalPrintConfig;
-    this.j1b_1 = listDegreesForAugmentedDegree;
-    this.k1b_1 = boundedness;
-    this.l1b_1 = getVectorSpace;
+    this.j1b_1 = numVectorSpace;
+    this.k1b_1 = degreeGroup;
+    this.l1b_1 = name;
+    this.m1b_1 = getInternalPrintConfig;
+    this.n1b_1 = listDegreesForAugmentedDegree;
+    this.o1b_1 = boundedness;
+    this.p1b_1 = getVectorSpace;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.m1b_1 = tmp$ret$0;
-    this.n1b_1 = new GVectorContextImpl(this);
-    this.o1b_1 = this;
+    tmp.q1b_1 = tmp$ret$0;
+    this.r1b_1 = new GVectorContextImpl(this);
+    this.s1b_1 = this;
+    this.t1b_1 = new ZeroGVector(this);
   }
   GVectorSpaceImpl.prototype.j11 = function () {
-    return this.f1b_1;
-  };
-  GVectorSpaceImpl.prototype.n14 = function () {
-    return this.g1b_1;
-  };
-  GVectorSpaceImpl.prototype.xb = function () {
-    return this.h1b_1;
-  };
-  GVectorSpaceImpl.prototype.k11 = function () {
-    return this.i1b_1;
-  };
-  GVectorSpaceImpl.prototype.l11 = function () {
     return this.j1b_1;
   };
-  GVectorSpaceImpl.prototype.o11 = function () {
+  GVectorSpaceImpl.prototype.s14 = function () {
     return this.k1b_1;
   };
-  GVectorSpaceImpl.prototype.o14 = function () {
+  GVectorSpaceImpl.prototype.xb = function () {
+    return this.l1b_1;
+  };
+  GVectorSpaceImpl.prototype.k11 = function () {
+    return this.m1b_1;
+  };
+  GVectorSpaceImpl.prototype.l11 = function () {
     return this.n1b_1;
   };
-  GVectorSpaceImpl.prototype.n11 = function () {
+  GVectorSpaceImpl.prototype.o11 = function () {
     return this.o1b_1;
+  };
+  GVectorSpaceImpl.prototype.t14 = function () {
+    return this.r1b_1;
+  };
+  GVectorSpaceImpl.prototype.n11 = function () {
+    return this.s1b_1;
+  };
+  GVectorSpaceImpl.prototype.d12 = function () {
+    return this.t1b_1;
   };
   GVectorSpaceImpl.prototype.m11 = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.m1b_1;
+    var tmp0_getOrPut = this.q1b_1;
     var value = tmp0_getOrPut.t(degree);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.GVectorSpaceImpl.get.<anonymous>' call
-      tmp$ret$0 = this.l1b_1(degree);
+      tmp$ret$0 = this.p1b_1(degree);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(degree, answer);
       tmp = answer;
@@ -4004,19 +4106,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   };
   GVectorSpaceImpl.prototype.toString = function () {
-    return this.h1b_1;
+    return this.l1b_1;
   };
   GVectorSpaceImpl.$metadata$ = classMeta('GVectorSpaceImpl', [GVectorSpace]);
   function Companion_16() {
     Companion_instance_16 = this;
   }
-  Companion_16.prototype.p1b = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
+  Companion_16.prototype.u1b = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
     return new SubGVectorSpaceImpl(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace);
   };
-  Companion_16.prototype.y19 = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace, $mask0, $handler) {
+  Companion_16.prototype.c1a = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace, $mask0, $handler) {
     if (!(($mask0 & 8) === 0))
       boundedness = totalGVectorSpace.o11();
-    return this.p1b(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace);
+    return this.u1b(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace);
   };
   Companion_16.$metadata$ = objectMeta('Companion');
   var Companion_instance_16;
@@ -4030,84 +4132,88 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   SubGVectorSpace.$metadata$ = interfaceMeta('SubGVectorSpace', [GVectorSpace]);
   function SubGVectorSpaceImpl$inclusion$delegate$lambda$lambda(this$0) {
     return function (degree) {
-      return this$0.m11(degree).e1c();
+      return this$0.m11(degree).k1c();
     };
   }
   function SubGVectorSpaceImpl$inclusion$delegate$lambda(this$0) {
     return function () {
       var tmp = Companion_getInstance_14();
-      var tmp_0 = this$0.w1b_1.v12();
-      return tmp.q19(this$0, this$0.r1b_1, tmp_0, this$0.q1b_1, 'inclusion', SubGVectorSpaceImpl$inclusion$delegate$lambda$lambda(this$0));
+      var tmp_0 = this$0.b1c_1.x12();
+      return tmp.u19(this$0, this$0.w1b_1, tmp_0, this$0.v1b_1, 'inclusion', SubGVectorSpaceImpl$inclusion$delegate$lambda$lambda(this$0));
     };
   }
   function SubGVectorSpaceImpl$retraction$delegate$lambda$lambda(this$0) {
     return function (degree) {
-      return this$0.m11(degree).f1c();
+      return this$0.m11(degree).l1c();
     };
   }
   function SubGVectorSpaceImpl$retraction$delegate$lambda(this$0) {
     return function () {
       var tmp = Companion_getInstance_14();
-      var tmp_0 = this$0.w1b_1.v12();
-      return tmp.q19(this$0.r1b_1, this$0, tmp_0, this$0.q1b_1, 'inclusion', SubGVectorSpaceImpl$retraction$delegate$lambda$lambda(this$0));
+      var tmp_0 = this$0.b1c_1.x12();
+      return tmp.u19(this$0.w1b_1, this$0, tmp_0, this$0.v1b_1, 'inclusion', SubGVectorSpaceImpl$retraction$delegate$lambda$lambda(this$0));
     };
   }
   function SubGVectorSpaceImpl(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
-    this.q1b_1 = matrixSpace;
-    this.r1b_1 = totalGVectorSpace;
-    this.s1b_1 = name;
-    this.t1b_1 = boundedness;
-    this.u1b_1 = getVectorSpace;
-    this.v1b_1 = this.r1b_1.j11();
-    this.w1b_1 = this.r1b_1.n14();
-    this.x1b_1 = Companion_getInstance_52().g1c(this.r1b_1.k11());
-    this.y1b_1 = this.r1b_1.l11();
+    this.v1b_1 = matrixSpace;
+    this.w1b_1 = totalGVectorSpace;
+    this.x1b_1 = name;
+    this.y1b_1 = boundedness;
+    this.z1b_1 = getVectorSpace;
+    this.a1c_1 = this.w1b_1.j11();
+    this.b1c_1 = this.w1b_1.s14();
+    this.c1c_1 = Companion_getInstance_52().m1c(this.w1b_1.k11());
+    this.d1c_1 = this.w1b_1.l11();
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.z1b_1 = tmp$ret$0;
-    this.a1c_1 = new GVectorContextImpl(this);
-    this.b1c_1 = this;
+    tmp.e1c_1 = tmp$ret$0;
+    this.f1c_1 = new GVectorContextImpl(this);
+    this.g1c_1 = this;
+    this.h1c_1 = new ZeroGVector(this);
     var tmp_0 = this;
-    tmp_0.c1c_1 = lazy(SubGVectorSpaceImpl$inclusion$delegate$lambda(this));
+    tmp_0.i1c_1 = lazy(SubGVectorSpaceImpl$inclusion$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.d1c_1 = lazy(SubGVectorSpaceImpl$retraction$delegate$lambda(this));
+    tmp_1.j1c_1 = lazy(SubGVectorSpaceImpl$retraction$delegate$lambda(this));
   }
   SubGVectorSpaceImpl.prototype.xb = function () {
-    return this.s1b_1;
-  };
-  SubGVectorSpaceImpl.prototype.o11 = function () {
-    return this.t1b_1;
-  };
-  SubGVectorSpaceImpl.prototype.j11 = function () {
-    return this.v1b_1;
-  };
-  SubGVectorSpaceImpl.prototype.n14 = function () {
-    return this.w1b_1;
-  };
-  SubGVectorSpaceImpl.prototype.k11 = function () {
     return this.x1b_1;
   };
-  SubGVectorSpaceImpl.prototype.l11 = function () {
+  SubGVectorSpaceImpl.prototype.o11 = function () {
     return this.y1b_1;
   };
-  SubGVectorSpaceImpl.prototype.o14 = function () {
+  SubGVectorSpaceImpl.prototype.j11 = function () {
     return this.a1c_1;
   };
-  SubGVectorSpaceImpl.prototype.n11 = function () {
+  SubGVectorSpaceImpl.prototype.s14 = function () {
     return this.b1c_1;
+  };
+  SubGVectorSpaceImpl.prototype.k11 = function () {
+    return this.c1c_1;
+  };
+  SubGVectorSpaceImpl.prototype.l11 = function () {
+    return this.d1c_1;
+  };
+  SubGVectorSpaceImpl.prototype.t14 = function () {
+    return this.f1c_1;
+  };
+  SubGVectorSpaceImpl.prototype.n11 = function () {
+    return this.g1c_1;
+  };
+  SubGVectorSpaceImpl.prototype.d12 = function () {
+    return this.h1c_1;
   };
   SubGVectorSpaceImpl.prototype.m11 = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.z1b_1;
+    var tmp0_getOrPut = this.e1c_1;
     var value = tmp0_getOrPut.t(degree);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.SubGVectorSpaceImpl.get.<anonymous>' call
-      tmp$ret$0 = this.u1b_1(degree);
+      tmp$ret$0 = this.z1b_1(degree);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(degree, answer);
       tmp = answer;
@@ -4118,13 +4224,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   };
   SubGVectorSpaceImpl.prototype.toString = function () {
-    return this.s1b_1;
+    return this.x1b_1;
   };
   SubGVectorSpaceImpl.$metadata$ = classMeta('SubGVectorSpaceImpl', [SubGVectorSpace]);
   function Companion_17() {
     Companion_instance_17 = this;
   }
-  Companion_17.prototype.m14 = function (matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative) {
+  Companion_17.prototype.r14 = function (matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative) {
     return new SubQuotGAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative);
   };
   Companion_17.$metadata$ = objectMeta('Companion');
@@ -4138,134 +4244,140 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   SubQuotGAlgebra.$metadata$ = interfaceMeta('SubQuotGAlgebra', [GAlgebra, SubQuotGMagma]);
   function SubQuotGAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative) {
-    this.h1c_1 = matrixSpace;
-    this.i1c_1 = multiplication;
-    this.j1c_1 = unit;
-    this.k1c_1 = isCommutative;
-    this.l1c_1 = subQuotGVectorSpace;
-    this.m1c_1 = new GAlgebraContextImpl(this);
-    this.n1c_1 = this;
+    this.n1c_1 = matrixSpace;
+    this.o1c_1 = multiplication;
+    this.p1c_1 = unit;
+    this.q1c_1 = isCommutative;
+    this.r1c_1 = subQuotGVectorSpace;
+    this.s1c_1 = new GAlgebraContextImpl(this);
+    this.t1c_1 = this;
   }
   SubQuotGAlgebraImpl.prototype.h11 = function () {
-    return this.h1c_1;
+    return this.n1c_1;
   };
   SubQuotGAlgebraImpl.prototype.f11 = function () {
-    return this.i1c_1;
-  };
-  SubQuotGAlgebraImpl.prototype.d12 = function () {
-    return this.j1c_1;
+    return this.o1c_1;
   };
   SubQuotGAlgebraImpl.prototype.e12 = function () {
-    return this.k1c_1;
+    return this.p1c_1;
+  };
+  SubQuotGAlgebraImpl.prototype.f12 = function () {
+    return this.q1c_1;
   };
   SubQuotGAlgebraImpl.prototype.o11 = function () {
-    return this.l1c_1.o11();
+    return this.r1c_1.o11();
   };
-  SubQuotGAlgebraImpl.prototype.n14 = function () {
-    return this.l1c_1.n14();
+  SubQuotGAlgebraImpl.prototype.s14 = function () {
+    return this.r1c_1.s14();
   };
   SubQuotGAlgebraImpl.prototype.p11 = function () {
-    return this.l1c_1.p11();
+    return this.r1c_1.p11();
   };
   SubQuotGAlgebraImpl.prototype.k11 = function () {
-    return this.l1c_1.k11();
+    return this.r1c_1.k11();
   };
   SubQuotGAlgebraImpl.prototype.l11 = function () {
-    return this.l1c_1.l11();
+    return this.r1c_1.l11();
   };
   SubQuotGAlgebraImpl.prototype.xb = function () {
-    return this.l1c_1.xb();
+    return this.r1c_1.xb();
   };
   SubQuotGAlgebraImpl.prototype.j11 = function () {
-    return this.l1c_1.j11();
+    return this.r1c_1.j11();
   };
-  SubQuotGAlgebraImpl.prototype.u16 = function () {
-    return this.l1c_1.u16();
+  SubQuotGAlgebraImpl.prototype.z16 = function () {
+    return this.r1c_1.z16();
   };
   SubQuotGAlgebraImpl.prototype.n11 = function () {
-    return this.l1c_1.n11();
+    return this.r1c_1.n11();
   };
-  SubQuotGAlgebraImpl.prototype.c12 = function () {
-    return this.l1c_1.c12();
+  SubQuotGAlgebraImpl.prototype.d12 = function () {
+    return this.r1c_1.d12();
   };
-  SubQuotGAlgebraImpl.prototype.o1c = function (a, b) {
-    return this.l1c_1.x11(a, b);
+  SubQuotGAlgebraImpl.prototype.u1c = function (a, b) {
+    return this.r1c_1.x11(a, b);
   };
   SubQuotGAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.o1c(a, b);
+    return this.u1c(a, b);
   };
-  SubQuotGAlgebraImpl.prototype.p1c = function (gVector) {
-    return this.l1c_1.w11(gVector);
+  SubQuotGAlgebraImpl.prototype.v1c = function (gVector) {
+    return this.r1c_1.w11(gVector);
   };
   SubQuotGAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.p1c(gVector);
+    return this.v1c(gVector);
   };
-  SubQuotGAlgebraImpl.prototype.q1c = function (gVectorOrZero, degree) {
-    return this.l1c_1.v11(gVectorOrZero, degree);
+  SubQuotGAlgebraImpl.prototype.w1c = function (gVectorOrZero, degree) {
+    return this.r1c_1.v11(gVectorOrZero, degree);
   };
   SubQuotGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.q1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.w1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGAlgebraImpl.prototype.r1c = function (basisName, degree) {
-    return this.l1c_1.s11(basisName, degree);
+  SubQuotGAlgebraImpl.prototype.x1c = function (a, b) {
+    return this.r1c_1.c12(a, b);
+  };
+  SubQuotGAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.x1c(a, b);
+  };
+  SubQuotGAlgebraImpl.prototype.y1c = function (basisName, degree) {
+    return this.r1c_1.s11(basisName, degree);
   };
   SubQuotGAlgebraImpl.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof SubQuotBasis ? basisName : THROW_CCE();
-    return this.r1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGAlgebraImpl.prototype.s1c = function (vector, degree) {
-    return this.l1c_1.q11(vector, degree);
+  SubQuotGAlgebraImpl.prototype.z1c = function (vector, degree) {
+    return this.r1c_1.q11(vector, degree);
   };
   SubQuotGAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.s1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.z1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGAlgebraImpl.prototype.t1c = function (vector, degree) {
-    return this.l1c_1.r11(vector, degree);
+  SubQuotGAlgebraImpl.prototype.a1d = function (vector, degree) {
+    return this.r1c_1.r11(vector, degree);
   };
   SubQuotGAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.t1c(vector, degree);
+    return this.a1d(vector, degree);
   };
   SubQuotGAlgebraImpl.prototype.m11 = function (degree) {
-    return this.l1c_1.m11(degree);
+    return this.r1c_1.m11(degree);
   };
   SubQuotGAlgebraImpl.prototype.t11 = function (degree) {
-    return this.l1c_1.t11(degree);
+    return this.r1c_1.t11(degree);
   };
-  SubQuotGAlgebraImpl.prototype.z1a = function (degree) {
-    return this.l1c_1.z1a(degree);
+  SubQuotGAlgebraImpl.prototype.c1b = function (degree) {
+    return this.r1c_1.c1b(degree);
   };
-  SubQuotGAlgebraImpl.prototype.x1a = function (augmentedDegree) {
-    return this.l1c_1.x1a(augmentedDegree);
+  SubQuotGAlgebraImpl.prototype.a1b = function (augmentedDegree) {
+    return this.r1c_1.a1b(augmentedDegree);
   };
   SubQuotGAlgebraImpl.prototype.u11 = function (degree) {
-    return this.l1c_1.u11(degree);
+    return this.r1c_1.u11(degree);
   };
-  SubQuotGAlgebraImpl.prototype.u1c = function (scalar, gVector) {
-    return this.l1c_1.z11(scalar, gVector);
+  SubQuotGAlgebraImpl.prototype.b1d = function (scalar, gVector) {
+    return this.r1c_1.z11(scalar, gVector);
   };
   SubQuotGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.u1c(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.b1d(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  SubQuotGAlgebraImpl.prototype.t16 = function (gVector) {
-    return this.l1c_1.t16(gVector);
+  SubQuotGAlgebraImpl.prototype.y16 = function (gVector) {
+    return this.r1c_1.y16(gVector);
   };
-  SubQuotGAlgebraImpl.prototype.v1c = function (a, b) {
-    return this.l1c_1.y11(a, b);
+  SubQuotGAlgebraImpl.prototype.c1d = function (a, b) {
+    return this.r1c_1.y11(a, b);
   };
   SubQuotGAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.v1c(a, b);
+    return this.c1d(a, b);
   };
   SubQuotGAlgebraImpl.prototype.toString = function () {
-    return this.l1c_1.toString();
+    return this.r1c_1.toString();
   };
-  SubQuotGAlgebraImpl.prototype.o14 = function () {
-    return this.m1c_1;
+  SubQuotGAlgebraImpl.prototype.t14 = function () {
+    return this.s1c_1;
   };
   SubQuotGAlgebraImpl.$metadata$ = classMeta('SubQuotGAlgebraImpl', [SubQuotGAlgebra, SubQuotGVectorSpace]);
   function Companion_18() {
     Companion_instance_18 = this;
   }
-  Companion_18.prototype.q15 = function (matrixSpace, subQuotGVectorSpace, multiplication) {
+  Companion_18.prototype.v15 = function (matrixSpace, subQuotGVectorSpace, multiplication) {
     return new SubQuotGLieAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication);
   };
   Companion_18.$metadata$ = objectMeta('Companion');
@@ -4279,126 +4391,132 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   SubQuotGLieAlgebra.$metadata$ = interfaceMeta('SubQuotGLieAlgebra', [GLieAlgebra, SubQuotGMagma]);
   function SubQuotGLieAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication) {
-    this.w1c_1 = matrixSpace;
-    this.x1c_1 = multiplication;
-    this.y1c_1 = subQuotGVectorSpace;
-    this.z1c_1 = new GLieAlgebraContextImpl(this);
-    this.a1d_1 = this;
+    this.d1d_1 = matrixSpace;
+    this.e1d_1 = multiplication;
+    this.f1d_1 = subQuotGVectorSpace;
+    this.g1d_1 = new GLieAlgebraContextImpl(this);
+    this.h1d_1 = this;
   }
   SubQuotGLieAlgebraImpl.prototype.h11 = function () {
-    return this.w1c_1;
+    return this.d1d_1;
   };
   SubQuotGLieAlgebraImpl.prototype.f11 = function () {
-    return this.x1c_1;
+    return this.e1d_1;
   };
   SubQuotGLieAlgebraImpl.prototype.o11 = function () {
-    return this.y1c_1.o11();
+    return this.f1d_1.o11();
   };
-  SubQuotGLieAlgebraImpl.prototype.n14 = function () {
-    return this.y1c_1.n14();
+  SubQuotGLieAlgebraImpl.prototype.s14 = function () {
+    return this.f1d_1.s14();
   };
   SubQuotGLieAlgebraImpl.prototype.p11 = function () {
-    return this.y1c_1.p11();
+    return this.f1d_1.p11();
   };
   SubQuotGLieAlgebraImpl.prototype.k11 = function () {
-    return this.y1c_1.k11();
+    return this.f1d_1.k11();
   };
   SubQuotGLieAlgebraImpl.prototype.l11 = function () {
-    return this.y1c_1.l11();
+    return this.f1d_1.l11();
   };
   SubQuotGLieAlgebraImpl.prototype.xb = function () {
-    return this.y1c_1.xb();
+    return this.f1d_1.xb();
   };
   SubQuotGLieAlgebraImpl.prototype.j11 = function () {
-    return this.y1c_1.j11();
+    return this.f1d_1.j11();
   };
-  SubQuotGLieAlgebraImpl.prototype.u16 = function () {
-    return this.y1c_1.u16();
+  SubQuotGLieAlgebraImpl.prototype.z16 = function () {
+    return this.f1d_1.z16();
   };
   SubQuotGLieAlgebraImpl.prototype.n11 = function () {
-    return this.y1c_1.n11();
+    return this.f1d_1.n11();
   };
-  SubQuotGLieAlgebraImpl.prototype.c12 = function () {
-    return this.y1c_1.c12();
+  SubQuotGLieAlgebraImpl.prototype.d12 = function () {
+    return this.f1d_1.d12();
   };
-  SubQuotGLieAlgebraImpl.prototype.o1c = function (a, b) {
-    return this.y1c_1.x11(a, b);
+  SubQuotGLieAlgebraImpl.prototype.u1c = function (a, b) {
+    return this.f1d_1.x11(a, b);
   };
   SubQuotGLieAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.o1c(a, b);
+    return this.u1c(a, b);
   };
-  SubQuotGLieAlgebraImpl.prototype.p1c = function (gVector) {
-    return this.y1c_1.w11(gVector);
+  SubQuotGLieAlgebraImpl.prototype.v1c = function (gVector) {
+    return this.f1d_1.w11(gVector);
   };
   SubQuotGLieAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.p1c(gVector);
+    return this.v1c(gVector);
   };
-  SubQuotGLieAlgebraImpl.prototype.q1c = function (gVectorOrZero, degree) {
-    return this.y1c_1.v11(gVectorOrZero, degree);
+  SubQuotGLieAlgebraImpl.prototype.w1c = function (gVectorOrZero, degree) {
+    return this.f1d_1.v11(gVectorOrZero, degree);
   };
   SubQuotGLieAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.q1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.w1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGLieAlgebraImpl.prototype.r1c = function (basisName, degree) {
-    return this.y1c_1.s11(basisName, degree);
+  SubQuotGLieAlgebraImpl.prototype.x1c = function (a, b) {
+    return this.f1d_1.c12(a, b);
+  };
+  SubQuotGLieAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.x1c(a, b);
+  };
+  SubQuotGLieAlgebraImpl.prototype.y1c = function (basisName, degree) {
+    return this.f1d_1.s11(basisName, degree);
   };
   SubQuotGLieAlgebraImpl.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof SubQuotBasis ? basisName : THROW_CCE();
-    return this.r1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGLieAlgebraImpl.prototype.s1c = function (vector, degree) {
-    return this.y1c_1.q11(vector, degree);
+  SubQuotGLieAlgebraImpl.prototype.z1c = function (vector, degree) {
+    return this.f1d_1.q11(vector, degree);
   };
   SubQuotGLieAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.s1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.z1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGLieAlgebraImpl.prototype.t1c = function (vector, degree) {
-    return this.y1c_1.r11(vector, degree);
+  SubQuotGLieAlgebraImpl.prototype.a1d = function (vector, degree) {
+    return this.f1d_1.r11(vector, degree);
   };
   SubQuotGLieAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.t1c(vector, degree);
+    return this.a1d(vector, degree);
   };
   SubQuotGLieAlgebraImpl.prototype.m11 = function (degree) {
-    return this.y1c_1.m11(degree);
+    return this.f1d_1.m11(degree);
   };
   SubQuotGLieAlgebraImpl.prototype.t11 = function (degree) {
-    return this.y1c_1.t11(degree);
+    return this.f1d_1.t11(degree);
   };
-  SubQuotGLieAlgebraImpl.prototype.z1a = function (degree) {
-    return this.y1c_1.z1a(degree);
+  SubQuotGLieAlgebraImpl.prototype.c1b = function (degree) {
+    return this.f1d_1.c1b(degree);
   };
-  SubQuotGLieAlgebraImpl.prototype.x1a = function (augmentedDegree) {
-    return this.y1c_1.x1a(augmentedDegree);
+  SubQuotGLieAlgebraImpl.prototype.a1b = function (augmentedDegree) {
+    return this.f1d_1.a1b(augmentedDegree);
   };
   SubQuotGLieAlgebraImpl.prototype.u11 = function (degree) {
-    return this.y1c_1.u11(degree);
+    return this.f1d_1.u11(degree);
   };
-  SubQuotGLieAlgebraImpl.prototype.u1c = function (scalar, gVector) {
-    return this.y1c_1.z11(scalar, gVector);
+  SubQuotGLieAlgebraImpl.prototype.b1d = function (scalar, gVector) {
+    return this.f1d_1.z11(scalar, gVector);
   };
   SubQuotGLieAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.u1c(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.b1d(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  SubQuotGLieAlgebraImpl.prototype.t16 = function (gVector) {
-    return this.y1c_1.t16(gVector);
+  SubQuotGLieAlgebraImpl.prototype.y16 = function (gVector) {
+    return this.f1d_1.y16(gVector);
   };
-  SubQuotGLieAlgebraImpl.prototype.v1c = function (a, b) {
-    return this.y1c_1.y11(a, b);
+  SubQuotGLieAlgebraImpl.prototype.c1d = function (a, b) {
+    return this.f1d_1.y11(a, b);
   };
   SubQuotGLieAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.v1c(a, b);
+    return this.c1d(a, b);
   };
   SubQuotGLieAlgebraImpl.prototype.toString = function () {
-    return this.y1c_1.toString();
+    return this.f1d_1.toString();
   };
-  SubQuotGLieAlgebraImpl.prototype.o14 = function () {
-    return this.z1c_1;
+  SubQuotGLieAlgebraImpl.prototype.t14 = function () {
+    return this.g1d_1;
   };
   SubQuotGLieAlgebraImpl.$metadata$ = classMeta('SubQuotGLieAlgebraImpl', [SubQuotGLieAlgebra, SubQuotGVectorSpace]);
   function Companion_19() {
     Companion_instance_19 = this;
   }
-  Companion_19.prototype.q15 = function (matrixSpace, subQuotGVectorSpace, multiplication) {
+  Companion_19.prototype.v15 = function (matrixSpace, subQuotGVectorSpace, multiplication) {
     return new SubQuotGMagmaImpl(matrixSpace, subQuotGVectorSpace, multiplication);
   };
   Companion_19.$metadata$ = objectMeta('Companion');
@@ -4412,137 +4530,143 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   SubQuotGMagma.$metadata$ = interfaceMeta('SubQuotGMagma', [GMagma, SubQuotGVectorSpace]);
   function SubQuotGMagmaImpl(matrixSpace, subQuotGVectorSpace, multiplication) {
-    this.b1d_1 = matrixSpace;
-    this.c1d_1 = multiplication;
-    this.d1d_1 = subQuotGVectorSpace;
-    this.e1d_1 = new GMagmaContextImpl(this);
+    this.i1d_1 = matrixSpace;
+    this.j1d_1 = multiplication;
+    this.k1d_1 = subQuotGVectorSpace;
+    this.l1d_1 = new GMagmaContextImpl(this);
   }
   SubQuotGMagmaImpl.prototype.f11 = function () {
-    return this.c1d_1;
+    return this.j1d_1;
   };
   SubQuotGMagmaImpl.prototype.o11 = function () {
-    return this.d1d_1.o11();
+    return this.k1d_1.o11();
   };
-  SubQuotGMagmaImpl.prototype.n14 = function () {
-    return this.d1d_1.n14();
+  SubQuotGMagmaImpl.prototype.s14 = function () {
+    return this.k1d_1.s14();
   };
   SubQuotGMagmaImpl.prototype.p11 = function () {
-    return this.d1d_1.p11();
+    return this.k1d_1.p11();
   };
   SubQuotGMagmaImpl.prototype.k11 = function () {
-    return this.d1d_1.k11();
+    return this.k1d_1.k11();
   };
   SubQuotGMagmaImpl.prototype.l11 = function () {
-    return this.d1d_1.l11();
+    return this.k1d_1.l11();
   };
   SubQuotGMagmaImpl.prototype.xb = function () {
-    return this.d1d_1.xb();
+    return this.k1d_1.xb();
   };
   SubQuotGMagmaImpl.prototype.j11 = function () {
-    return this.d1d_1.j11();
+    return this.k1d_1.j11();
   };
-  SubQuotGMagmaImpl.prototype.u16 = function () {
-    return this.d1d_1.u16();
+  SubQuotGMagmaImpl.prototype.z16 = function () {
+    return this.k1d_1.z16();
   };
   SubQuotGMagmaImpl.prototype.n11 = function () {
-    return this.d1d_1.n11();
+    return this.k1d_1.n11();
   };
-  SubQuotGMagmaImpl.prototype.c12 = function () {
-    return this.d1d_1.c12();
+  SubQuotGMagmaImpl.prototype.d12 = function () {
+    return this.k1d_1.d12();
   };
-  SubQuotGMagmaImpl.prototype.o1c = function (a, b) {
-    return this.d1d_1.x11(a, b);
+  SubQuotGMagmaImpl.prototype.u1c = function (a, b) {
+    return this.k1d_1.x11(a, b);
   };
   SubQuotGMagmaImpl.prototype.x11 = function (a, b) {
-    return this.o1c(a, b);
+    return this.u1c(a, b);
   };
-  SubQuotGMagmaImpl.prototype.p1c = function (gVector) {
-    return this.d1d_1.w11(gVector);
+  SubQuotGMagmaImpl.prototype.v1c = function (gVector) {
+    return this.k1d_1.w11(gVector);
   };
   SubQuotGMagmaImpl.prototype.w11 = function (gVector) {
-    return this.p1c(gVector);
+    return this.v1c(gVector);
   };
-  SubQuotGMagmaImpl.prototype.q1c = function (gVectorOrZero, degree) {
-    return this.d1d_1.v11(gVectorOrZero, degree);
+  SubQuotGMagmaImpl.prototype.w1c = function (gVectorOrZero, degree) {
+    return this.k1d_1.v11(gVectorOrZero, degree);
   };
   SubQuotGMagmaImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.q1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.w1c(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGMagmaImpl.prototype.r1c = function (basisName, degree) {
-    return this.d1d_1.s11(basisName, degree);
+  SubQuotGMagmaImpl.prototype.x1c = function (a, b) {
+    return this.k1d_1.c12(a, b);
+  };
+  SubQuotGMagmaImpl.prototype.c12 = function (a, b) {
+    return this.x1c(a, b);
+  };
+  SubQuotGMagmaImpl.prototype.y1c = function (basisName, degree) {
+    return this.k1d_1.s11(basisName, degree);
   };
   SubQuotGMagmaImpl.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof SubQuotBasis ? basisName : THROW_CCE();
-    return this.r1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1c(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGMagmaImpl.prototype.s1c = function (vector, degree) {
-    return this.d1d_1.q11(vector, degree);
+  SubQuotGMagmaImpl.prototype.z1c = function (vector, degree) {
+    return this.k1d_1.q11(vector, degree);
   };
   SubQuotGMagmaImpl.prototype.q11 = function (vector, degree) {
-    return this.s1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.z1c(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  SubQuotGMagmaImpl.prototype.t1c = function (vector, degree) {
-    return this.d1d_1.r11(vector, degree);
+  SubQuotGMagmaImpl.prototype.a1d = function (vector, degree) {
+    return this.k1d_1.r11(vector, degree);
   };
   SubQuotGMagmaImpl.prototype.r11 = function (vector, degree) {
-    return this.t1c(vector, degree);
+    return this.a1d(vector, degree);
   };
   SubQuotGMagmaImpl.prototype.m11 = function (degree) {
-    return this.d1d_1.m11(degree);
+    return this.k1d_1.m11(degree);
   };
   SubQuotGMagmaImpl.prototype.t11 = function (degree) {
-    return this.d1d_1.t11(degree);
+    return this.k1d_1.t11(degree);
   };
-  SubQuotGMagmaImpl.prototype.z1a = function (degree) {
-    return this.d1d_1.z1a(degree);
+  SubQuotGMagmaImpl.prototype.c1b = function (degree) {
+    return this.k1d_1.c1b(degree);
   };
-  SubQuotGMagmaImpl.prototype.x1a = function (augmentedDegree) {
-    return this.d1d_1.x1a(augmentedDegree);
+  SubQuotGMagmaImpl.prototype.a1b = function (augmentedDegree) {
+    return this.k1d_1.a1b(augmentedDegree);
   };
   SubQuotGMagmaImpl.prototype.u11 = function (degree) {
-    return this.d1d_1.u11(degree);
+    return this.k1d_1.u11(degree);
   };
-  SubQuotGMagmaImpl.prototype.u1c = function (scalar, gVector) {
-    return this.d1d_1.z11(scalar, gVector);
+  SubQuotGMagmaImpl.prototype.b1d = function (scalar, gVector) {
+    return this.k1d_1.z11(scalar, gVector);
   };
   SubQuotGMagmaImpl.prototype.z11 = function (scalar, gVector) {
-    return this.u1c(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.b1d(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  SubQuotGMagmaImpl.prototype.t16 = function (gVector) {
-    return this.d1d_1.t16(gVector);
+  SubQuotGMagmaImpl.prototype.y16 = function (gVector) {
+    return this.k1d_1.y16(gVector);
   };
-  SubQuotGMagmaImpl.prototype.v1c = function (a, b) {
-    return this.d1d_1.y11(a, b);
+  SubQuotGMagmaImpl.prototype.c1d = function (a, b) {
+    return this.k1d_1.y11(a, b);
   };
   SubQuotGMagmaImpl.prototype.y11 = function (a, b) {
-    return this.v1c(a, b);
+    return this.c1d(a, b);
   };
   SubQuotGMagmaImpl.prototype.toString = function () {
-    return this.d1d_1.toString();
+    return this.k1d_1.toString();
   };
-  SubQuotGMagmaImpl.prototype.o14 = function () {
-    return this.e1d_1;
+  SubQuotGMagmaImpl.prototype.t14 = function () {
+    return this.l1d_1;
   };
   SubQuotGMagmaImpl.$metadata$ = classMeta('SubQuotGMagmaImpl', [SubQuotGMagma, SubQuotGVectorSpace]);
   function SubQuotGVectorSpace$Companion$invoke$lambda($matrixSpace, $totalGVectorSpace, $subspaceGenerator, $quotientGenerator) {
     return function (degree) {
-      return Companion_getInstance_49().f1d($matrixSpace, $totalGVectorSpace.m11(degree), $subspaceGenerator.m11(degree), $quotientGenerator.m11(degree));
+      return Companion_getInstance_49().m1d($matrixSpace, $totalGVectorSpace.m11(degree), $subspaceGenerator.m11(degree), $quotientGenerator.m11(degree));
     };
   }
   function Companion_20() {
     Companion_instance_20 = this;
   }
-  Companion_20.prototype.g1d = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
+  Companion_20.prototype.n1d = function (matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
     return new SubQuotGVectorSpaceImpl(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace);
   };
-  Companion_20.prototype.h1d = function (matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness) {
+  Companion_20.prototype.o1d = function (matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness) {
     var tmp = Companion_getInstance_21();
-    return tmp.g1d(matrixSpace, totalGVectorSpace, name, boundedness, SubQuotGVectorSpace$Companion$invoke$lambda(matrixSpace, totalGVectorSpace, subspaceGenerator, quotientGenerator));
+    return tmp.n1d(matrixSpace, totalGVectorSpace, name, boundedness, SubQuotGVectorSpace$Companion$invoke$lambda(matrixSpace, totalGVectorSpace, subspaceGenerator, quotientGenerator));
   };
-  Companion_20.prototype.s16 = function (matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness, $mask0, $handler) {
+  Companion_20.prototype.x16 = function (matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness, $mask0, $handler) {
     if (!(($mask0 & 32) === 0))
       boundedness = totalGVectorSpace.o11();
-    return this.h1d(matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness);
+    return this.o1d(matrixSpace, name, totalGVectorSpace, subspaceGenerator, quotientGenerator, boundedness);
   };
   Companion_20.$metadata$ = objectMeta('Companion');
   var Companion_instance_20;
@@ -4556,91 +4680,95 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   SubQuotGVectorSpace.$metadata$ = interfaceMeta('SubQuotGVectorSpace', [GVectorSpace]);
   function SubQuotGVectorSpaceImpl$projection$delegate$lambda$lambda(this$0) {
     return function (degree) {
-      return this$0.m11(degree).u16();
+      return this$0.m11(degree).z16();
     };
   }
   function SubQuotGVectorSpaceImpl$projection$delegate$lambda(this$0) {
     return function () {
       var tmp = Companion_getInstance_14();
-      var tmp_0 = this$0.y1d_1.v12();
-      return tmp.q19(this$0.t1d_1, this$0, tmp_0, this$0.s1d_1, 'projection', SubQuotGVectorSpaceImpl$projection$delegate$lambda$lambda(this$0));
+      var tmp_0 = this$0.f1e_1.x12();
+      return tmp.u19(this$0.a1e_1, this$0, tmp_0, this$0.z1d_1, 'projection', SubQuotGVectorSpaceImpl$projection$delegate$lambda$lambda(this$0));
     };
   }
   function SubQuotGVectorSpaceImpl$section$delegate$lambda$lambda(this$0) {
     return function (degree) {
-      return this$0.m11(degree).g1e();
+      return this$0.m11(degree).o1e();
     };
   }
   function SubQuotGVectorSpaceImpl$section$delegate$lambda(this$0) {
     return function () {
       var tmp = Companion_getInstance_14();
-      var tmp_0 = this$0.y1d_1.v12();
-      return tmp.q19(this$0, this$0.t1d_1, tmp_0, this$0.s1d_1, 'section', SubQuotGVectorSpaceImpl$section$delegate$lambda$lambda(this$0));
+      var tmp_0 = this$0.f1e_1.x12();
+      return tmp.u19(this$0, this$0.a1e_1, tmp_0, this$0.z1d_1, 'section', SubQuotGVectorSpaceImpl$section$delegate$lambda$lambda(this$0));
     };
   }
   function SubQuotGVectorSpaceImpl(matrixSpace, totalGVectorSpace, name, boundedness, getVectorSpace) {
-    this.s1d_1 = matrixSpace;
-    this.t1d_1 = totalGVectorSpace;
-    this.u1d_1 = name;
-    this.v1d_1 = boundedness;
-    this.w1d_1 = getVectorSpace;
-    this.x1d_1 = this.t1d_1.j11();
-    this.y1d_1 = this.t1d_1.n14();
-    this.z1d_1 = Companion_getInstance_48().g1c(this.t1d_1.k11());
-    this.a1e_1 = this.t1d_1.l11();
+    this.z1d_1 = matrixSpace;
+    this.a1e_1 = totalGVectorSpace;
+    this.b1e_1 = name;
+    this.c1e_1 = boundedness;
+    this.d1e_1 = getVectorSpace;
+    this.e1e_1 = this.a1e_1.j11();
+    this.f1e_1 = this.a1e_1.s14();
+    this.g1e_1 = Companion_getInstance_48().m1c(this.a1e_1.k11());
+    this.h1e_1 = this.a1e_1.l11();
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.b1e_1 = tmp$ret$0;
-    this.c1e_1 = new GVectorContextImpl(this);
-    this.d1e_1 = this;
+    tmp.i1e_1 = tmp$ret$0;
+    this.j1e_1 = new GVectorContextImpl(this);
+    this.k1e_1 = this;
+    this.l1e_1 = new ZeroGVector(this);
     var tmp_0 = this;
-    tmp_0.e1e_1 = lazy(SubQuotGVectorSpaceImpl$projection$delegate$lambda(this));
+    tmp_0.m1e_1 = lazy(SubQuotGVectorSpaceImpl$projection$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.f1e_1 = lazy(SubQuotGVectorSpaceImpl$section$delegate$lambda(this));
+    tmp_1.n1e_1 = lazy(SubQuotGVectorSpaceImpl$section$delegate$lambda(this));
   }
   SubQuotGVectorSpaceImpl.prototype.xb = function () {
-    return this.u1d_1;
+    return this.b1e_1;
   };
   SubQuotGVectorSpaceImpl.prototype.o11 = function () {
-    return this.v1d_1;
-  };
-  SubQuotGVectorSpaceImpl.prototype.j11 = function () {
-    return this.x1d_1;
-  };
-  SubQuotGVectorSpaceImpl.prototype.n14 = function () {
-    return this.y1d_1;
-  };
-  SubQuotGVectorSpaceImpl.prototype.k11 = function () {
-    return this.z1d_1;
-  };
-  SubQuotGVectorSpaceImpl.prototype.l11 = function () {
-    return this.a1e_1;
-  };
-  SubQuotGVectorSpaceImpl.prototype.o14 = function () {
     return this.c1e_1;
   };
-  SubQuotGVectorSpaceImpl.prototype.n11 = function () {
-    return this.d1e_1;
+  SubQuotGVectorSpaceImpl.prototype.j11 = function () {
+    return this.e1e_1;
   };
-  SubQuotGVectorSpaceImpl.prototype.u16 = function () {
+  SubQuotGVectorSpaceImpl.prototype.s14 = function () {
+    return this.f1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.k11 = function () {
+    return this.g1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.l11 = function () {
+    return this.h1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.t14 = function () {
+    return this.j1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.n11 = function () {
+    return this.k1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.d12 = function () {
+    return this.l1e_1;
+  };
+  SubQuotGVectorSpaceImpl.prototype.z16 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = projection$factory();
-    tmp$ret$0 = this.e1e_1.f1();
+    tmp$ret$0 = this.m1e_1.f1();
     return tmp$ret$0;
   };
   SubQuotGVectorSpaceImpl.prototype.m11 = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.b1e_1;
+    var tmp0_getOrPut = this.i1e_1;
     var value = tmp0_getOrPut.t(degree);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.SubQuotGVectorSpaceImpl.get.<anonymous>' call
-      tmp$ret$0 = this.w1d_1(degree);
+      tmp$ret$0 = this.d1e_1(degree);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(degree, answer);
       tmp = answer;
@@ -4651,12 +4779,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   };
   SubQuotGVectorSpaceImpl.prototype.toString = function () {
-    return this.u1d_1;
+    return this.b1e_1;
   };
   SubQuotGVectorSpaceImpl.$metadata$ = classMeta('SubQuotGVectorSpaceImpl', [SubQuotGVectorSpace]);
   function projection$factory() {
     return getPropertyCallableRef('projection', 1, KProperty1, function (receiver) {
-      return receiver.u16();
+      return receiver.z16();
     }, null);
   }
   function Degree() {
@@ -4667,13 +4795,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DegreeGroup.$metadata$ = interfaceMeta('DegreeGroup');
   function AugmentedDegreeContext(group) {
     DegreeContext.call(this, group);
-    this.r1e_1 = group;
+    this.z1e_1 = group;
   }
-  AugmentedDegreeContext.prototype.s1e = function (degree) {
-    return this.r1e_1.s1e(degree);
+  AugmentedDegreeContext.prototype.a1f = function (degree) {
+    return this.z1e_1.a1f(degree);
   };
-  AugmentedDegreeContext.prototype.t1e = function (_this__u8e3s4) {
-    return this.s1e(_this__u8e3s4);
+  AugmentedDegreeContext.prototype.b1f = function (_this__u8e3s4) {
+    return this.a1f(_this__u8e3s4);
   };
   AugmentedDegreeContext.$metadata$ = classMeta('AugmentedDegreeContext', [AugmentedDegreeGroupOperations], undefined, undefined, undefined, DegreeContext.prototype);
   function AugmentedDegreeGroup() {
@@ -4686,51 +4814,51 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   DegreeMorphism.$metadata$ = interfaceMeta('DegreeMorphism');
   function DegreeContext(group) {
-    this.q18_1 = group;
+    this.x18_1 = group;
   }
-  DegreeContext.prototype.o14 = function () {
-    return this.q18_1.o14();
+  DegreeContext.prototype.t14 = function () {
+    return this.x18_1.t14();
   };
-  DegreeContext.prototype.v12 = function () {
-    return this.q18_1.v12();
+  DegreeContext.prototype.x12 = function () {
+    return this.x18_1.x12();
   };
-  DegreeContext.prototype.n1e = function (degree1, degree2) {
-    return this.q18_1.n1e(degree1, degree2);
+  DegreeContext.prototype.v1e = function (degree1, degree2) {
+    return this.x18_1.v1e(degree1, degree2);
   };
   DegreeContext.prototype.zn = function (n) {
-    return this.q18_1.zn(n);
+    return this.x18_1.zn(n);
   };
-  DegreeContext.prototype.p1e = function (degree, n) {
-    return this.q18_1.p1e(degree, n);
+  DegreeContext.prototype.x1e = function (degree, n) {
+    return this.x18_1.x1e(degree, n);
   };
-  DegreeContext.prototype.o1e = function (degree1, degree2) {
-    return this.q18_1.o1e(degree1, degree2);
+  DegreeContext.prototype.w1e = function (degree1, degree2) {
+    return this.x18_1.w1e(degree1, degree2);
   };
-  DegreeContext.prototype.u1e = function (_this__u8e3s4) {
+  DegreeContext.prototype.c1f = function (_this__u8e3s4) {
     return this.zn(_this__u8e3s4);
   };
-  DegreeContext.prototype.r18 = function (_this__u8e3s4, other) {
-    return this.n1e(_this__u8e3s4, other);
+  DegreeContext.prototype.y18 = function (_this__u8e3s4, other) {
+    return this.v1e(_this__u8e3s4, other);
   };
-  DegreeContext.prototype.v1e = function (_this__u8e3s4, other) {
-    return this.n1e(_this__u8e3s4, this.u1e(other));
+  DegreeContext.prototype.d1f = function (_this__u8e3s4, other) {
+    return this.v1e(_this__u8e3s4, this.c1f(other));
   };
-  DegreeContext.prototype.v19 = function (_this__u8e3s4, other) {
-    return this.o1e(_this__u8e3s4, other);
+  DegreeContext.prototype.z19 = function (_this__u8e3s4, other) {
+    return this.w1e(_this__u8e3s4, other);
   };
-  DegreeContext.prototype.w1e = function (_this__u8e3s4, n) {
-    return this.p1e(_this__u8e3s4, n);
+  DegreeContext.prototype.e1f = function (_this__u8e3s4, n) {
+    return this.x1e(_this__u8e3s4, n);
   };
-  DegreeContext.prototype.x1e = function (_this__u8e3s4, degree) {
-    return this.p1e(degree, _this__u8e3s4);
+  DegreeContext.prototype.f1f = function (_this__u8e3s4, degree) {
+    return this.x1e(degree, _this__u8e3s4);
   };
-  DegreeContext.prototype.y1e = function (_this__u8e3s4) {
-    return this.p1e(_this__u8e3s4, -1);
+  DegreeContext.prototype.g1f = function (_this__u8e3s4) {
+    return this.x1e(_this__u8e3s4, -1);
   };
-  DegreeContext.prototype.z1e = function (_this__u8e3s4) {
+  DegreeContext.prototype.h1f = function (_this__u8e3s4) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.fold' call
-    var tmp0_fold = this.v12();
+    var tmp0_fold = this.x12();
     var accumulator = tmp0_fold;
     var tmp0_iterator = _this__u8e3s4.f();
     while (tmp0_iterator.g()) {
@@ -4738,7 +4866,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.degree.DegreeContext.sum.<anonymous>' call
       var tmp1__anonymous__uwfjfc = accumulator;
-      tmp$ret$0 = this.r18(tmp1__anonymous__uwfjfc, element);
+      tmp$ret$0 = this.y18(tmp1__anonymous__uwfjfc, element);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
@@ -4749,25 +4877,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   AugmentedDegreeGroupOperations.$metadata$ = interfaceMeta('AugmentedDegreeGroupOperations');
   function IntDegree(value) {
-    this.a1f_1 = value;
+    this.i1f_1 = value;
   }
-  IntDegree.prototype.h1e = function () {
-    return Companion_getInstance_42().zn(this.a1f_1);
+  IntDegree.prototype.p1e = function () {
+    return Companion_getInstance_42().zn(this.i1f_1);
   };
-  IntDegree.prototype.j1e = function () {
-    return (this.a1f_1 % 2 | 0) === 0;
+  IntDegree.prototype.r1e = function () {
+    return (this.i1f_1 % 2 | 0) === 0;
   };
   IntDegree.prototype.op = function () {
-    return this.a1f_1 === 0;
+    return this.i1f_1 === 0;
   };
-  IntDegree.prototype.i1e = function () {
-    return this.a1f_1 === 1;
+  IntDegree.prototype.q1e = function () {
+    return this.i1f_1 === 1;
   };
   IntDegree.prototype.toString = function () {
-    return this.a1f_1.toString();
+    return this.i1f_1.toString();
   };
   IntDegree.prototype.hashCode = function () {
-    return this.a1f_1;
+    return this.i1f_1;
   };
   IntDegree.prototype.equals = function (other) {
     if (this === other)
@@ -4775,7 +4903,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof IntDegree))
       return false;
     var tmp0_other_with_cast = other instanceof IntDegree ? other : THROW_CCE();
-    if (!(this.a1f_1 === tmp0_other_with_cast.a1f_1))
+    if (!(this.i1f_1 === tmp0_other_with_cast.i1f_1))
       return false;
     return true;
   };
@@ -4788,43 +4916,43 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function IntDegreeGroup() {
     IntDegreeGroup_instance = this;
     var tmp = this;
-    tmp.c1f_1 = lazy(IntDegreeGroup$context$delegate$lambda(this));
+    tmp.k1f_1 = lazy(IntDegreeGroup$context$delegate$lambda(this));
   }
-  IntDegreeGroup.prototype.o14 = function () {
+  IntDegreeGroup.prototype.t14 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = context$factory();
-    tmp$ret$0 = this.c1f_1.f1();
+    tmp$ret$0 = this.k1f_1.f1();
     return tmp$ret$0;
   };
   IntDegreeGroup.prototype.zn = function (n) {
     return new IntDegree(n);
   };
-  IntDegreeGroup.prototype.d1f = function (degree) {
-    return degree.a1f_1;
+  IntDegreeGroup.prototype.l1f = function (degree) {
+    return degree.i1f_1;
   };
-  IntDegreeGroup.prototype.s1e = function (degree) {
-    return this.d1f(degree instanceof IntDegree ? degree : THROW_CCE());
+  IntDegreeGroup.prototype.a1f = function (degree) {
+    return this.l1f(degree instanceof IntDegree ? degree : THROW_CCE());
   };
-  IntDegreeGroup.prototype.e1f = function (degree1, degree2) {
-    return new IntDegree(degree1.a1f_1 + degree2.a1f_1 | 0);
+  IntDegreeGroup.prototype.m1f = function (degree1, degree2) {
+    return new IntDegree(degree1.i1f_1 + degree2.i1f_1 | 0);
   };
-  IntDegreeGroup.prototype.n1e = function (degree1, degree2) {
+  IntDegreeGroup.prototype.v1e = function (degree1, degree2) {
     var tmp = degree1 instanceof IntDegree ? degree1 : THROW_CCE();
-    return this.e1f(tmp, degree2 instanceof IntDegree ? degree2 : THROW_CCE());
+    return this.m1f(tmp, degree2 instanceof IntDegree ? degree2 : THROW_CCE());
   };
-  IntDegreeGroup.prototype.f1f = function (degree1, degree2) {
-    return new IntDegree(degree1.a1f_1 - degree2.a1f_1 | 0);
+  IntDegreeGroup.prototype.n1f = function (degree1, degree2) {
+    return new IntDegree(degree1.i1f_1 - degree2.i1f_1 | 0);
   };
-  IntDegreeGroup.prototype.o1e = function (degree1, degree2) {
+  IntDegreeGroup.prototype.w1e = function (degree1, degree2) {
     var tmp = degree1 instanceof IntDegree ? degree1 : THROW_CCE();
-    return this.f1f(tmp, degree2 instanceof IntDegree ? degree2 : THROW_CCE());
+    return this.n1f(tmp, degree2 instanceof IntDegree ? degree2 : THROW_CCE());
   };
-  IntDegreeGroup.prototype.g1f = function (degree, n) {
-    return new IntDegree(imul(degree.a1f_1, n));
+  IntDegreeGroup.prototype.o1f = function (degree, n) {
+    return new IntDegree(imul(degree.i1f_1, n));
   };
-  IntDegreeGroup.prototype.p1e = function (degree, n) {
-    return this.g1f(degree instanceof IntDegree ? degree : THROW_CCE(), n);
+  IntDegreeGroup.prototype.x1e = function (degree, n) {
+    return this.o1f(degree instanceof IntDegree ? degree : THROW_CCE(), n);
   };
   IntDegreeGroup.$metadata$ = objectMeta('IntDegreeGroup', [AugmentedDegreeGroup]);
   var IntDegreeGroup_instance;
@@ -4835,37 +4963,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function context$factory() {
     return getPropertyCallableRef('context', 1, KProperty1, function (receiver) {
-      return receiver.o14();
+      return receiver.t14();
     }, null);
   }
   function MultiDegree$isEven$lambda(this$0) {
     return function (it) {
-      return this$0.l1f_1.h1f_1.l(it).toString();
+      return this$0.t1f_1.p1f_1.l(it).toString();
     };
   }
   function MultiDegree(group, constantTerm, coeffList) {
-    this.l1f_1 = group;
-    this.m1f_1 = constantTerm;
-    this.n1f_1 = coeffList;
+    this.t1f_1 = group;
+    this.u1f_1 = constantTerm;
+    this.v1f_1 = coeffList;
   }
-  MultiDegree.prototype.o1f = function () {
-    return this.l1f_1;
+  MultiDegree.prototype.w1f = function () {
+    return this.t1f_1;
   };
-  MultiDegree.prototype.p1f = function () {
-    return this.m1f_1;
+  MultiDegree.prototype.x1f = function () {
+    return this.u1f_1;
   };
-  MultiDegree.prototype.q1f = function () {
-    return this.n1f_1;
+  MultiDegree.prototype.y1f = function () {
+    return this.v1f_1;
   };
-  MultiDegree.prototype.h1e = function () {
-    return Companion_getInstance_42().r1f(plus(listOf(this.m1f_1), toList_0(this.n1f_1)));
+  MultiDegree.prototype.p1e = function () {
+    return Companion_getInstance_42().z1f(plus(listOf(this.u1f_1), toList_0(this.v1f_1)));
   };
-  MultiDegree.prototype.j1e = function () {
+  MultiDegree.prototype.r1e = function () {
     var tmp$ret$4;
     // Inline function 'kotlin.let' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
-    var tmp0_filter = get_indices(this.n1f_1);
+    var tmp0_filter = get_indices(this.v1f_1);
     var tmp$ret$1;
     // Inline function 'kotlin.collections.filterTo' call
     var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -4877,7 +5005,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegree.isEven.<anonymous>' call
-        tmp$ret$0 = isOdd_0(this.n1f_1[element]);
+        tmp$ret$0 = isOdd_0(this.v1f_1[element]);
         if (tmp$ret$0) {
           tmp0_filterTo.a(element);
         }
@@ -4896,15 +5024,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw ArithmeticException_init_$Create$('Cannot determine the parity of ' + this + ', since the coefficients of ' + oddIndeterminateString + ' are odd');
     }
     tmp$ret$4 = tmp;
-    return isEven(this.m1f_1);
+    return isEven(this.u1f_1);
   };
   MultiDegree.prototype.op = function () {
     var tmp;
-    if (this.m1f_1 === 0) {
+    if (this.u1f_1 === 0) {
       var tmp$ret$1;
       $l$block: {
         // Inline function 'kotlin.collections.all' call
-        var tmp0_all = this.n1f_1;
+        var tmp0_all = this.v1f_1;
         var indexedObject = tmp0_all;
         var inductionVariable = 0;
         var last = indexedObject.length;
@@ -4927,13 +5055,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  MultiDegree.prototype.i1e = function () {
+  MultiDegree.prototype.q1e = function () {
     var tmp;
-    if (this.m1f_1 === 1) {
+    if (this.u1f_1 === 1) {
       var tmp$ret$1;
       $l$block: {
         // Inline function 'kotlin.collections.all' call
-        var tmp0_all = this.n1f_1;
+        var tmp0_all = this.v1f_1;
         var indexedObject = tmp0_all;
         var inductionVariable = 0;
         var last = indexedObject.length;
@@ -4965,38 +5093,38 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!this.l1f_1.equals(other.l1f_1))
+    if (!this.t1f_1.equals(other.t1f_1))
       return false;
-    if (!(this.m1f_1 === other.m1f_1))
+    if (!(this.u1f_1 === other.u1f_1))
       return false;
-    if (!contentEquals(this.n1f_1, other.n1f_1))
+    if (!contentEquals(this.v1f_1, other.v1f_1))
       return false;
     return true;
   };
   MultiDegree.prototype.hashCode = function () {
-    var result = this.l1f_1.hashCode();
-    result = imul(31, result) + this.m1f_1 | 0;
-    result = imul(31, result) + contentHashCode(this.n1f_1) | 0;
+    var result = this.t1f_1.hashCode();
+    result = imul(31, result) + this.u1f_1 | 0;
+    result = imul(31, result) + contentHashCode(this.v1f_1) | 0;
     return result;
   };
   MultiDegree.prototype.toString = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.collections.isEmpty' call
-    var tmp0_isEmpty = this.n1f_1;
+    var tmp0_isEmpty = this.v1f_1;
     tmp$ret$0 = tmp0_isEmpty.length === 0;
     if (tmp$ret$0) {
-      return this.m1f_1.toString();
+      return this.u1f_1.toString();
     }
     var tmp;
-    if (!(this.m1f_1 === 0)) {
-      tmp = listOf('' + this.m1f_1);
+    if (!(this.u1f_1 === 0)) {
+      tmp = listOf('' + this.u1f_1);
     } else {
       tmp = emptyList();
     }
     var stringListForConstantTerm = tmp;
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapNotNull' call
-    var tmp1_mapNotNull = get_indices(this.n1f_1);
+    var tmp1_mapNotNull = get_indices(this.v1f_1);
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapNotNullTo' call
     var tmp0_mapNotNullTo = ArrayList_init_$Create$_0();
@@ -5010,16 +5138,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
         var tmp$ret$1;
         // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegree.toString.<anonymous>' call
-        var coeff = this.n1f_1[element];
+        var coeff = this.v1f_1[element];
         switch (coeff) {
           case 0:
             tmp$ret$1 = null;
             break;
           case 1:
-            tmp$ret$1 = this.l1f_1.h1f_1.l(element).s1f_1;
+            tmp$ret$1 = this.t1f_1.p1f_1.l(element).a1g_1;
             break;
           default:
-            tmp$ret$1 = '' + coeff + this.l1f_1.h1f_1.l(element).s1f_1;
+            tmp$ret$1 = '' + coeff + this.t1f_1.p1f_1.l(element).a1g_1;
             break;
         }
         var tmp0_safe_receiver = tmp$ret$1;
@@ -5053,30 +5181,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     };
   }
   function MultiDegreeGroup(indeterminateList) {
-    this.h1f_1 = indeterminateList;
+    this.p1f_1 = indeterminateList;
     var tmp = this;
-    tmp.i1f_1 = lazy(MultiDegreeGroup$context$delegate$lambda(this));
-    this.j1f_1 = this.h1f_1.i() + 1 | 0;
+    tmp.q1f_1 = lazy(MultiDegreeGroup$context$delegate$lambda(this));
+    this.r1f_1 = this.p1f_1.i() + 1 | 0;
     var tmp_0 = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp_0.k1f_1 = tmp$ret$0;
+    tmp_0.s1f_1 = tmp$ret$0;
   }
-  MultiDegreeGroup.prototype.u1f = function () {
-    return this.h1f_1;
+  MultiDegreeGroup.prototype.c1g = function () {
+    return this.p1f_1;
   };
-  MultiDegreeGroup.prototype.o14 = function () {
+  MultiDegreeGroup.prototype.t14 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = context$factory_0();
-    tmp$ret$0 = this.i1f_1.f1();
+    tmp$ret$0 = this.q1f_1.f1();
     return tmp$ret$0;
   };
-  MultiDegreeGroup.prototype.v1f = function () {
+  MultiDegreeGroup.prototype.d1g = function () {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = get_indices_0(this.h1f_1);
+    var tmp0_map = get_indices_0(this.p1f_1);
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -5090,7 +5218,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup.<get-generatorList>.<anonymous>' call
         var tmp$ret$2;
         // Inline function 'kotlin.collections.List' call
-        var tmp0_List = this.h1f_1.i();
+        var tmp0_List = this.p1f_1.i();
         var tmp$ret$1;
         // Inline function 'kotlin.collections.MutableList' call
         var list = ArrayList_init_$Create$(tmp0_List);
@@ -5111,7 +5239,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         tmp$ret$1 = list;
         tmp$ret$2 = tmp$ret$1;
         var coeffList = tmp$ret$2;
-        tmp$ret$3 = this.w1f(0, coeffList);
+        tmp$ret$3 = this.e1g(0, coeffList);
         tmp0_mapTo.a(tmp$ret$3);
       }
        while (!(item === last));
@@ -5121,7 +5249,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   MultiDegreeGroup.prototype.zn = function (n) {
     var tmp = 0;
-    var tmp_0 = this.h1f_1.i();
+    var tmp_0 = this.p1f_1.i();
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
@@ -5133,10 +5261,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return new MultiDegree(this, n, tmp_1);
   };
-  MultiDegreeGroup.prototype.x1f = function (degree) {
+  MultiDegreeGroup.prototype.f1g = function (degree) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = get_indices(degree.n1f_1);
+    var tmp0_map = get_indices(degree.v1f_1);
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -5148,96 +5276,96 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup.augmentation.<anonymous>' call
-        tmp$ret$0 = imul(degree.n1f_1[item], this.h1f_1.l(item).t1f_1);
+        tmp$ret$0 = imul(degree.v1f_1[item], this.p1f_1.l(item).b1g_1);
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
-    return degree.m1f_1 + sum(tmp$ret$2) | 0;
+    return degree.u1f_1 + sum(tmp$ret$2) | 0;
   };
-  MultiDegreeGroup.prototype.s1e = function (degree) {
-    return this.x1f(degree instanceof MultiDegree ? degree : THROW_CCE());
+  MultiDegreeGroup.prototype.a1f = function (degree) {
+    return this.f1g(degree instanceof MultiDegree ? degree : THROW_CCE());
   };
-  MultiDegreeGroup.prototype.y1f = function (degree1, degree2) {
-    if (!degree1.l1f_1.equals(this))
+  MultiDegreeGroup.prototype.g1g = function (degree1, degree2) {
+    if (!degree1.t1f_1.equals(this))
       throw new IllegalContextException('' + degree1 + ' is not an element of ' + this);
-    if (!degree2.l1f_1.equals(this))
+    if (!degree2.t1f_1.equals(this))
       throw new IllegalContextException('' + degree2 + ' is not an element of ' + this);
     var tmp = 0;
-    var tmp_0 = this.h1f_1.i();
+    var tmp_0 = this.p1f_1.i();
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup.add.<anonymous>' call
-      tmp$ret$0 = degree1.n1f_1[tmp_2] + degree2.n1f_1[tmp_2] | 0;
+      tmp$ret$0 = degree1.v1f_1[tmp_2] + degree2.v1f_1[tmp_2] | 0;
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
     }
     var coeffList = tmp_1;
-    return new MultiDegree(this, degree1.m1f_1 + degree2.m1f_1 | 0, coeffList);
+    return new MultiDegree(this, degree1.u1f_1 + degree2.u1f_1 | 0, coeffList);
   };
-  MultiDegreeGroup.prototype.n1e = function (degree1, degree2) {
+  MultiDegreeGroup.prototype.v1e = function (degree1, degree2) {
     var tmp = degree1 instanceof MultiDegree ? degree1 : THROW_CCE();
-    return this.y1f(tmp, degree2 instanceof MultiDegree ? degree2 : THROW_CCE());
+    return this.g1g(tmp, degree2 instanceof MultiDegree ? degree2 : THROW_CCE());
   };
-  MultiDegreeGroup.prototype.z1f = function (degree1, degree2) {
-    if (!degree1.l1f_1.equals(this))
+  MultiDegreeGroup.prototype.h1g = function (degree1, degree2) {
+    if (!degree1.t1f_1.equals(this))
       throw new IllegalContextException('' + degree1 + ' is not an element of ' + this);
-    if (!degree2.l1f_1.equals(this))
+    if (!degree2.t1f_1.equals(this))
       throw new IllegalContextException('' + degree2 + ' is not an element of ' + this);
     var tmp = 0;
-    var tmp_0 = this.h1f_1.i();
+    var tmp_0 = this.p1f_1.i();
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup.subtract.<anonymous>' call
-      tmp$ret$0 = degree1.n1f_1[tmp_2] - degree2.n1f_1[tmp_2] | 0;
+      tmp$ret$0 = degree1.v1f_1[tmp_2] - degree2.v1f_1[tmp_2] | 0;
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
     }
     var coeffList = tmp_1;
-    return new MultiDegree(this, degree1.m1f_1 - degree2.m1f_1 | 0, coeffList);
+    return new MultiDegree(this, degree1.u1f_1 - degree2.u1f_1 | 0, coeffList);
   };
-  MultiDegreeGroup.prototype.o1e = function (degree1, degree2) {
+  MultiDegreeGroup.prototype.w1e = function (degree1, degree2) {
     var tmp = degree1 instanceof MultiDegree ? degree1 : THROW_CCE();
-    return this.z1f(tmp, degree2 instanceof MultiDegree ? degree2 : THROW_CCE());
+    return this.h1g(tmp, degree2 instanceof MultiDegree ? degree2 : THROW_CCE());
   };
-  MultiDegreeGroup.prototype.a1g = function (degree, n) {
-    if (!degree.l1f_1.equals(this))
+  MultiDegreeGroup.prototype.i1g = function (degree, n) {
+    if (!degree.t1f_1.equals(this))
       throw new IllegalContextException('' + degree + ' is not an element of ' + this);
     var tmp = 0;
-    var tmp_0 = this.h1f_1.i();
+    var tmp_0 = this.p1f_1.i();
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup.multiply.<anonymous>' call
-      tmp$ret$0 = imul(degree.n1f_1[tmp_2], n);
+      tmp$ret$0 = imul(degree.v1f_1[tmp_2], n);
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
     }
     var coeffList = tmp_1;
-    return new MultiDegree(this, imul(degree.m1f_1, n), coeffList);
+    return new MultiDegree(this, imul(degree.u1f_1, n), coeffList);
   };
-  MultiDegreeGroup.prototype.p1e = function (degree, n) {
-    return this.a1g(degree instanceof MultiDegree ? degree : THROW_CCE(), n);
+  MultiDegreeGroup.prototype.x1e = function (degree, n) {
+    return this.i1g(degree instanceof MultiDegree ? degree : THROW_CCE(), n);
   };
-  MultiDegreeGroup.prototype.w1f = function (constantTerm, coeffList) {
-    if (!(coeffList.i() === this.h1f_1.i()))
-      throw IllegalArgumentException_init_$Create$('The length of ' + coeffList + ' should be ' + this.h1f_1.i() + ', but ' + coeffList.i() + ' was given');
+  MultiDegreeGroup.prototype.e1g = function (constantTerm, coeffList) {
+    if (!(coeffList.i() === this.p1f_1.i()))
+      throw IllegalArgumentException_init_$Create$('The length of ' + coeffList + ' should be ' + this.p1f_1.i() + ', but ' + coeffList.i() + ' was given');
     return new MultiDegree(this, constantTerm, toIntArray(coeffList));
   };
-  MultiDegreeGroup.prototype.b1g = function (degree) {
-    return degree.l1f_1.equals(this);
+  MultiDegreeGroup.prototype.j1g = function (degree) {
+    return degree.t1f_1.equals(this);
   };
   MultiDegreeGroup.prototype.toString = function () {
-    return 'MultiDegreeGroup(indeterminateList=' + this.h1f_1 + ')';
+    return 'MultiDegreeGroup(indeterminateList=' + this.p1f_1 + ')';
   };
   MultiDegreeGroup.prototype.hashCode = function () {
-    return hashCode(this.h1f_1);
+    return hashCode(this.p1f_1);
   };
   MultiDegreeGroup.prototype.equals = function (other) {
     if (this === other)
@@ -5245,27 +5373,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof MultiDegreeGroup))
       return false;
     var tmp0_other_with_cast = other instanceof MultiDegreeGroup ? other : THROW_CCE();
-    if (!equals(this.h1f_1, tmp0_other_with_cast.h1f_1))
+    if (!equals(this.p1f_1, tmp0_other_with_cast.p1f_1))
       return false;
     return true;
   };
   MultiDegreeGroup.$metadata$ = classMeta('MultiDegreeGroup', [AugmentedDegreeGroup]);
   function DegreeIndeterminate(name, defaultValue) {
-    this.s1f_1 = name;
-    this.t1f_1 = defaultValue;
+    this.a1g_1 = name;
+    this.b1g_1 = defaultValue;
   }
   DegreeIndeterminate.prototype.xb = function () {
-    return this.s1f_1;
+    return this.a1g_1;
   };
-  DegreeIndeterminate.prototype.c1g = function () {
-    return this.t1f_1;
+  DegreeIndeterminate.prototype.k1g = function () {
+    return this.b1g_1;
   };
   DegreeIndeterminate.prototype.toString = function () {
-    return 'DegreeIndeterminate(name=' + this.s1f_1 + ', defaultValue=' + this.t1f_1 + ')';
+    return 'DegreeIndeterminate(name=' + this.a1g_1 + ', defaultValue=' + this.b1g_1 + ')';
   };
   DegreeIndeterminate.prototype.hashCode = function () {
-    var result = getStringHashCode(this.s1f_1);
-    result = imul(result, 31) + this.t1f_1 | 0;
+    var result = getStringHashCode(this.a1g_1);
+    result = imul(result, 31) + this.b1g_1 | 0;
     return result;
   };
   DegreeIndeterminate.prototype.equals = function (other) {
@@ -5274,36 +5402,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof DegreeIndeterminate))
       return false;
     var tmp0_other_with_cast = other instanceof DegreeIndeterminate ? other : THROW_CCE();
-    if (!(this.s1f_1 === tmp0_other_with_cast.s1f_1))
+    if (!(this.a1g_1 === tmp0_other_with_cast.a1g_1))
       return false;
-    if (!(this.t1f_1 === tmp0_other_with_cast.t1f_1))
+    if (!(this.b1g_1 === tmp0_other_with_cast.b1g_1))
       return false;
     return true;
   };
   DegreeIndeterminate.$metadata$ = classMeta('DegreeIndeterminate');
   function MultiDegreeMorphism(source, target, values) {
-    this.d1g_1 = source;
-    this.e1g_1 = target;
-    this.f1g_1 = values;
-    if (!(this.f1g_1.i() === this.d1g_1.h1f_1.i()))
+    this.l1g_1 = source;
+    this.m1g_1 = target;
+    this.n1g_1 = values;
+    if (!(this.n1g_1.i() === this.l1g_1.p1f_1.i()))
       throw IllegalArgumentException_init_$Create$('values.size should be equal to source.indeterminateList.size');
   }
-  MultiDegreeMorphism.prototype.v14 = function () {
-    return this.e1g_1;
+  MultiDegreeMorphism.prototype.a15 = function () {
+    return this.m1g_1;
   };
-  MultiDegreeMorphism.prototype.g1g = function (degree) {
-    if (!this.d1g_1.b1g(degree))
-      throw IllegalArgumentException_init_$Create$('The degree ' + degree + ' is not an element of the group ' + this.d1g_1);
+  MultiDegreeMorphism.prototype.o1g = function (degree) {
+    if (!this.l1g_1.j1g(degree))
+      throw IllegalArgumentException_init_$Create$('The degree ' + degree + ' is not an element of the group ' + this.l1g_1);
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.e1g_1.o14();
+    var tmp0_run = this.m1g_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism.invoke.<anonymous>' call
-    var tmp = this.e1g_1.zn(degree.m1f_1);
+    var tmp = this.m1g_1.zn(degree.u1f_1);
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = get_indices(degree.n1f_1);
+    var tmp0_map = get_indices(degree.v1f_1);
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -5315,37 +5443,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism.invoke.<anonymous>.<anonymous>' call
-        tmp$ret$0 = tmp0_run.x1e(degree.n1f_1[item], this.f1g_1.l(item));
+        tmp$ret$0 = tmp0_run.f1f(degree.v1f_1[item], this.n1g_1.l(item));
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
-    tmp$ret$3 = tmp0_run.r18(tmp, tmp0_run.z1e(tmp$ret$2));
+    tmp$ret$3 = tmp0_run.y18(tmp, tmp0_run.h1f(tmp$ret$2));
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   };
-  MultiDegreeMorphism.prototype.g1a = function (degree) {
-    return this.g1g(degree instanceof MultiDegree ? degree : THROW_CCE());
+  MultiDegreeMorphism.prototype.k1a = function (degree) {
+    return this.o1g(degree instanceof MultiDegree ? degree : THROW_CCE());
   };
   MultiDegreeMorphism.$metadata$ = classMeta('MultiDegreeMorphism', [AugmentedDegreeMorphism]);
   function InclusionFromIntDegreeToMultiDegree(target) {
-    this.h1g_1 = target;
-    this.i1g_1 = IntDegreeGroup_getInstance();
+    this.p1g_1 = target;
+    this.q1g_1 = IntDegreeGroup_getInstance();
   }
-  InclusionFromIntDegreeToMultiDegree.prototype.v14 = function () {
-    return this.h1g_1;
+  InclusionFromIntDegreeToMultiDegree.prototype.a15 = function () {
+    return this.p1g_1;
   };
-  InclusionFromIntDegreeToMultiDegree.prototype.j1g = function (degree) {
-    return this.h1g_1.zn(degree.a1f_1);
+  InclusionFromIntDegreeToMultiDegree.prototype.r1g = function (degree) {
+    return this.p1g_1.zn(degree.i1f_1);
   };
-  InclusionFromIntDegreeToMultiDegree.prototype.g1a = function (degree) {
-    return this.j1g(degree instanceof IntDegree ? degree : THROW_CCE());
+  InclusionFromIntDegreeToMultiDegree.prototype.k1a = function (degree) {
+    return this.r1g(degree instanceof IntDegree ? degree : THROW_CCE());
   };
   InclusionFromIntDegreeToMultiDegree.$metadata$ = classMeta('InclusionFromIntDegreeToMultiDegree', [AugmentedDegreeMorphism]);
   function context$factory_0() {
     return getPropertyCallableRef('context', 1, KProperty1, function (receiver) {
-      return receiver.o14();
+      return receiver.t14();
     }, null);
   }
   function Zero() {
@@ -5359,16 +5487,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Zero_instance;
   }
   function Identifier(name) {
-    this.f18_1 = name;
+    this.q18_1 = name;
   }
   Identifier.prototype.xb = function () {
-    return this.f18_1;
+    return this.q18_1;
   };
   Identifier.prototype.toString = function () {
-    return 'Identifier(name=' + this.f18_1 + ')';
+    return 'Identifier(name=' + this.q18_1 + ')';
   };
   Identifier.prototype.hashCode = function () {
-    return getStringHashCode(this.f18_1);
+    return getStringHashCode(this.q18_1);
   };
   Identifier.prototype.equals = function (other) {
     if (this === other)
@@ -5376,47 +5504,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Identifier))
       return false;
     var tmp0_other_with_cast = other instanceof Identifier ? other : THROW_CCE();
-    if (!(this.f18_1 === tmp0_other_with_cast.f18_1))
+    if (!(this.q18_1 === tmp0_other_with_cast.q18_1))
       return false;
     return true;
   };
   Identifier.$metadata$ = classMeta('Identifier', [ASTNode]);
-  function Fraction(numerator, denominator) {
-    this.c18_1 = numerator;
-    this.d18_1 = denominator;
+  function NatNumber(value) {
+    this.p18_1 = value;
   }
-  Fraction.prototype.toString = function () {
-    return 'Fraction(numerator=' + this.c18_1 + ', denominator=' + this.d18_1 + ')';
+  NatNumber.prototype.toString = function () {
+    return 'NatNumber(value=' + this.p18_1 + ')';
   };
-  Fraction.prototype.hashCode = function () {
-    var result = this.c18_1;
-    result = imul(result, 31) + this.d18_1 | 0;
-    return result;
+  NatNumber.prototype.hashCode = function () {
+    return this.p18_1;
   };
-  Fraction.prototype.equals = function (other) {
+  NatNumber.prototype.equals = function (other) {
     if (this === other)
       return true;
-    if (!(other instanceof Fraction))
+    if (!(other instanceof NatNumber))
       return false;
-    var tmp0_other_with_cast = other instanceof Fraction ? other : THROW_CCE();
-    if (!(this.c18_1 === tmp0_other_with_cast.c18_1))
-      return false;
-    if (!(this.d18_1 === tmp0_other_with_cast.d18_1))
+    var tmp0_other_with_cast = other instanceof NatNumber ? other : THROW_CCE();
+    if (!(this.p18_1 === tmp0_other_with_cast.p18_1))
       return false;
     return true;
   };
-  Fraction.$metadata$ = classMeta('Fraction', [ASTNode]);
+  NatNumber.$metadata$ = classMeta('NatNumber', [ASTNode]);
   function UnaryMinus(value) {
-    this.z17_1 = value;
+    this.m18_1 = value;
   }
-  UnaryMinus.prototype.f1 = function () {
-    return this.z17_1;
-  };
   UnaryMinus.prototype.toString = function () {
-    return 'UnaryMinus(value=' + this.z17_1 + ')';
+    return 'UnaryMinus(value=' + this.m18_1 + ')';
   };
   UnaryMinus.prototype.hashCode = function () {
-    return hashCode(this.z17_1);
+    return hashCode(this.m18_1);
   };
   UnaryMinus.prototype.equals = function (other) {
     if (this === other)
@@ -5424,24 +5544,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof UnaryMinus))
       return false;
     var tmp0_other_with_cast = other instanceof UnaryMinus ? other : THROW_CCE();
-    if (!equals(this.z17_1, tmp0_other_with_cast.z17_1))
+    if (!equals(this.m18_1, tmp0_other_with_cast.m18_1))
       return false;
     return true;
   };
   UnaryMinus.$metadata$ = classMeta('UnaryMinus', [ASTNode]);
   function Power(base, exponent) {
-    this.x17_1 = base;
-    this.y17_1 = exponent;
+    this.k18_1 = base;
+    this.l18_1 = exponent;
   }
-  Power.prototype.k1g = function () {
-    return this.y17_1;
+  Power.prototype.s1g = function () {
+    return this.l18_1;
   };
   Power.prototype.toString = function () {
-    return 'Power(base=' + this.x17_1 + ', exponent=' + this.y17_1 + ')';
+    return 'Power(base=' + this.k18_1 + ', exponent=' + this.l18_1 + ')';
   };
   Power.prototype.hashCode = function () {
-    var result = hashCode(this.x17_1);
-    result = imul(result, 31) + this.y17_1 | 0;
+    var result = hashCode(this.k18_1);
+    result = imul(result, 31) + this.l18_1 | 0;
     return result;
   };
   Power.prototype.equals = function (other) {
@@ -5450,48 +5570,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Power))
       return false;
     var tmp0_other_with_cast = other instanceof Power ? other : THROW_CCE();
-    if (!equals(this.x17_1, tmp0_other_with_cast.x17_1))
+    if (!equals(this.k18_1, tmp0_other_with_cast.k18_1))
       return false;
-    if (!(this.y17_1 === tmp0_other_with_cast.y17_1))
+    if (!(this.l18_1 === tmp0_other_with_cast.l18_1))
       return false;
     return true;
   };
   Power.$metadata$ = classMeta('Power', [ASTNode]);
-  function Div(numerator, denominator) {
-    this.a18_1 = numerator;
-    this.b18_1 = denominator;
+  function Divide(numerator, denominator) {
+    this.n18_1 = numerator;
+    this.o18_1 = denominator;
   }
-  Div.prototype.toString = function () {
-    return 'Div(numerator=' + this.a18_1 + ', denominator=' + this.b18_1 + ')';
+  Divide.prototype.toString = function () {
+    return 'Divide(numerator=' + this.n18_1 + ', denominator=' + this.o18_1 + ')';
   };
-  Div.prototype.hashCode = function () {
-    var result = hashCode(this.a18_1);
-    result = imul(result, 31) + this.b18_1 | 0;
+  Divide.prototype.hashCode = function () {
+    var result = hashCode(this.n18_1);
+    result = imul(result, 31) + hashCode(this.o18_1) | 0;
     return result;
   };
-  Div.prototype.equals = function (other) {
+  Divide.prototype.equals = function (other) {
     if (this === other)
       return true;
-    if (!(other instanceof Div))
+    if (!(other instanceof Divide))
       return false;
-    var tmp0_other_with_cast = other instanceof Div ? other : THROW_CCE();
-    if (!equals(this.a18_1, tmp0_other_with_cast.a18_1))
+    var tmp0_other_with_cast = other instanceof Divide ? other : THROW_CCE();
+    if (!equals(this.n18_1, tmp0_other_with_cast.n18_1))
       return false;
-    if (!(this.b18_1 === tmp0_other_with_cast.b18_1))
+    if (!equals(this.o18_1, tmp0_other_with_cast.o18_1))
       return false;
     return true;
   };
-  Div.$metadata$ = classMeta('Div', [ASTNode]);
+  Divide.$metadata$ = classMeta('Divide', [ASTNode]);
   function Multiply(left, right) {
-    this.v17_1 = left;
-    this.w17_1 = right;
+    this.i18_1 = left;
+    this.j18_1 = right;
   }
   Multiply.prototype.toString = function () {
-    return 'Multiply(left=' + this.v17_1 + ', right=' + this.w17_1 + ')';
+    return 'Multiply(left=' + this.i18_1 + ', right=' + this.j18_1 + ')';
   };
   Multiply.prototype.hashCode = function () {
-    var result = hashCode(this.v17_1);
-    result = imul(result, 31) + hashCode(this.w17_1) | 0;
+    var result = hashCode(this.i18_1);
+    result = imul(result, 31) + hashCode(this.j18_1) | 0;
     return result;
   };
   Multiply.prototype.equals = function (other) {
@@ -5500,23 +5620,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Multiply))
       return false;
     var tmp0_other_with_cast = other instanceof Multiply ? other : THROW_CCE();
-    if (!equals(this.v17_1, tmp0_other_with_cast.v17_1))
+    if (!equals(this.i18_1, tmp0_other_with_cast.i18_1))
       return false;
-    if (!equals(this.w17_1, tmp0_other_with_cast.w17_1))
+    if (!equals(this.j18_1, tmp0_other_with_cast.j18_1))
       return false;
     return true;
   };
   Multiply.$metadata$ = classMeta('Multiply', [ASTNode]);
   function Subtract(left, right) {
-    this.t17_1 = left;
-    this.u17_1 = right;
+    this.g18_1 = left;
+    this.h18_1 = right;
   }
   Subtract.prototype.toString = function () {
-    return 'Subtract(left=' + this.t17_1 + ', right=' + this.u17_1 + ')';
+    return 'Subtract(left=' + this.g18_1 + ', right=' + this.h18_1 + ')';
   };
   Subtract.prototype.hashCode = function () {
-    var result = hashCode(this.t17_1);
-    result = imul(result, 31) + hashCode(this.u17_1) | 0;
+    var result = hashCode(this.g18_1);
+    result = imul(result, 31) + hashCode(this.h18_1) | 0;
     return result;
   };
   Subtract.prototype.equals = function (other) {
@@ -5525,23 +5645,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Subtract))
       return false;
     var tmp0_other_with_cast = other instanceof Subtract ? other : THROW_CCE();
-    if (!equals(this.t17_1, tmp0_other_with_cast.t17_1))
+    if (!equals(this.g18_1, tmp0_other_with_cast.g18_1))
       return false;
-    if (!equals(this.u17_1, tmp0_other_with_cast.u17_1))
+    if (!equals(this.h18_1, tmp0_other_with_cast.h18_1))
       return false;
     return true;
   };
   Subtract.$metadata$ = classMeta('Subtract', [ASTNode]);
   function Sum(left, right) {
-    this.r17_1 = left;
-    this.s17_1 = right;
+    this.e18_1 = left;
+    this.f18_1 = right;
   }
   Sum.prototype.toString = function () {
-    return 'Sum(left=' + this.r17_1 + ', right=' + this.s17_1 + ')';
+    return 'Sum(left=' + this.e18_1 + ', right=' + this.f18_1 + ')';
   };
   Sum.prototype.hashCode = function () {
-    var result = hashCode(this.r17_1);
-    result = imul(result, 31) + hashCode(this.s17_1) | 0;
+    var result = hashCode(this.e18_1);
+    result = imul(result, 31) + hashCode(this.f18_1) | 0;
     return result;
   };
   Sum.prototype.equals = function (other) {
@@ -5550,9 +5670,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Sum))
       return false;
     var tmp0_other_with_cast = other instanceof Sum ? other : THROW_CCE();
-    if (!equals(this.r17_1, tmp0_other_with_cast.r17_1))
+    if (!equals(this.e18_1, tmp0_other_with_cast.e18_1))
       return false;
-    if (!equals(this.s17_1, tmp0_other_with_cast.s17_1))
+    if (!equals(this.f18_1, tmp0_other_with_cast.f18_1))
       return false;
     return true;
   };
@@ -5571,15 +5691,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function CharCategoryToken(name, firstCharCategoryList, nonFirstCharCategoryList, ignored) {
     Token.call(this, name, ignored);
-    this.n1g_1 = firstCharCategoryList;
-    this.o1g_1 = nonFirstCharCategoryList;
+    this.v1g_1 = firstCharCategoryList;
+    this.w1g_1 = nonFirstCharCategoryList;
   }
   CharCategoryToken.prototype.pz = function (input, fromIndex) {
-    if (!this.n1g_1.u1(get_category(charSequenceGet(input, fromIndex)))) {
+    if (!this.v1g_1.u1(get_category(charSequenceGet(input, fromIndex)))) {
       return 0;
     }
     var index = fromIndex + 1 | 0;
-    while (index < charSequenceLength(input) ? this.o1g_1.u1(get_category(charSequenceGet(input, index))) : false) {
+    while (index < charSequenceLength(input) ? this.w1g_1.u1(get_category(charSequenceGet(input, index))) : false) {
       var tmp0 = index;
       index = tmp0 + 1 | 0;
     }
@@ -5587,74 +5707,68 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   CharCategoryToken.prototype.toString = function () {
     var tmp0_elvis_lhs = this.wy_1;
-    return (tmp0_elvis_lhs == null ? '' : tmp0_elvis_lhs) + ' (' + this.n1g_1 + ', ' + this.o1g_1 + ')' + (this.xy_1 ? ' [ignorable]' : '');
+    return (tmp0_elvis_lhs == null ? '' : tmp0_elvis_lhs) + ' (' + this.v1g_1 + ', ' + this.w1g_1 + ')' + (this.xy_1 ? ' [ignorable]' : '');
   };
   CharCategoryToken.$metadata$ = classMeta('CharCategoryToken', undefined, undefined, undefined, undefined, Token.prototype);
   function charCategoryToken(firstCharCategoryList, nonFirstCharCategoryList) {
     return CharCategoryToken_init_$Create$(null, firstCharCategoryList, nonFirstCharCategoryList, false, 8, null);
   }
   function _get_zero__dhgbs3($this) {
-    return $this.bz($this.s1g_1, $this, zero$factory_0());
+    return $this.bz($this.a1h_1, $this, zero$factory_0());
   }
   function _get_id__ndc34g($this) {
-    return $this.bz($this.t1g_1, $this, id$factory_0());
+    return $this.bz($this.b1h_1, $this, id$factory_0());
   }
-  function _get_int__e6adtu($this) {
-    return $this.bz($this.u1g_1, $this, int$factory_0());
+  function _get_nat__e6db4g($this) {
+    return $this.bz($this.c1h_1, $this, nat$factory_0());
   }
   function _get_lpar__d9xvsm($this) {
-    return $this.bz($this.v1g_1, $this, lpar$factory_0());
+    return $this.bz($this.d1h_1, $this, lpar$factory_0());
   }
   function _get_rpar__dd8ncs($this) {
-    return $this.bz($this.w1g_1, $this, rpar$factory_0());
+    return $this.bz($this.e1h_1, $this, rpar$factory_0());
   }
   function _get_mul__e6d2rx($this) {
-    return $this.bz($this.x1g_1, $this, mul$factory_0());
+    return $this.bz($this.f1h_1, $this, mul$factory_0());
   }
   function _get_pow__e6evjt($this) {
-    return $this.bz($this.y1g_1, $this, pow$factory_0());
+    return $this.bz($this.g1h_1, $this, pow$factory_0());
   }
   function _get_div__e6738g($this) {
-    return $this.bz($this.z1g_1, $this, div$factory_0());
+    return $this.bz($this.h1h_1, $this, div$factory_0());
   }
   function _get_minus__e92hlr($this) {
-    return $this.bz($this.a1h_1, $this, minus$factory_0());
+    return $this.bz($this.i1h_1, $this, minus$factory_0());
   }
   function _get_plus__dc2x2p($this) {
-    return $this.bz($this.b1h_1, $this, plus$factory_0());
+    return $this.bz($this.j1h_1, $this, plus$factory_0());
   }
   function _get_ws__ndcdv3($this) {
-    return $this.bz($this.c1h_1, $this, ws$factory_0());
+    return $this.bz($this.k1h_1, $this, ws$factory_0());
   }
   function _get_idParser__4cqmtr($this) {
-    return $this.zy($this.d1h_1, $this, idParser$factory_0());
+    return $this.zy($this.l1h_1, $this, idParser$factory_0());
   }
-  function _get_intParser__8zykt9($this) {
-    return $this.zy($this.e1h_1, $this, intParser$factory_0());
+  function _get_natParser__86xlm9($this) {
+    return $this.zy($this.m1h_1, $this, natParser$factory_0());
   }
   function _get_parenParser__kd1lns($this) {
-    return $this.zy($this.f1h_1, $this, parenParser$factory_0());
+    return $this.zy($this.n1h_1, $this, parenParser$factory_0());
   }
   function _get_minusParser__naumde($this) {
-    return $this.zy($this.g1h_1, $this, minusParser$factory_0());
-  }
-  function _get_fractionParser__maa4x6($this) {
-    return $this.zy($this.h1h_1, $this, fractionParser$factory_0());
+    return $this.zy($this.o1h_1, $this, minusParser$factory_0());
   }
   function _get_termParser__9ktxa8($this) {
-    return $this.zy($this.i1h_1, $this, termParser$factory_0());
+    return $this.zy($this.p1h_1, $this, termParser$factory_0());
   }
   function _get_powerParser__cj0rqr($this) {
-    return $this.zy($this.j1h_1, $this, powerParser$factory_0());
+    return $this.zy($this.q1h_1, $this, powerParser$factory_0());
   }
-  function _get_mulChain__invc36($this) {
-    return $this.zy($this.k1h_1, $this, mulChain$factory_1());
-  }
-  function _get_divParser__19i5a9($this) {
-    return $this.zy($this.l1h_1, $this, divParser$factory_0());
+  function _get_mulDivChain__rkka6b($this) {
+    return $this.zy($this.r1h_1, $this, mulDivChain$factory_1());
   }
   function _get_subSumChain__3rvi9x($this) {
-    return $this.zy($this.m1h_1, $this, subSumChain$factory_0());
+    return $this.zy($this.s1h_1, $this, subSumChain$factory_0());
   }
   function GAlgebraElementASTGrammar$idParser$delegate$lambda($this$null) {
     return new Identifier($this$null.i10());
@@ -5662,8 +5776,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function GAlgebraElementASTGrammar$idParser$delegate$lambda_0($this$null) {
     return Zero_getInstance();
   }
-  function GAlgebraElementASTGrammar$intParser$delegate$lambda($this$null) {
-    return toInt($this$null.i10());
+  function GAlgebraElementASTGrammar$natParser$delegate$lambda($this$null) {
+    return new NatNumber(toInt($this$null.i10()));
   }
   function GAlgebraElementASTGrammar$parenParser$delegate$lambda(_name_for_destructuring_parameter_0__wldtmu) {
     var tmp$ret$0;
@@ -5699,33 +5813,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function GAlgebraElementASTGrammar$minusParser$delegate$lambda_2(it) {
     return new UnaryMinus(it);
   }
-  function GAlgebraElementASTGrammar$fractionParser$delegate$lambda(_name_for_destructuring_parameter_0__wldtmu) {
-    var tmp$ret$0;
-    // Inline function 'kotlin.collections.component1' call
-    tmp$ret$0 = _name_for_destructuring_parameter_0__wldtmu.l(0);
-    var a = tmp$ret$0;
-    return (!(a == null) ? typeof a === 'number' : false) ? a : THROW_CCE();
-  }
-  function GAlgebraElementASTGrammar$fractionParser$delegate$lambda_0(_name_for_destructuring_parameter_0__wldtmu) {
-    var tmp$ret$0;
-    // Inline function 'kotlin.collections.component1' call
-    tmp$ret$0 = _name_for_destructuring_parameter_0__wldtmu.l(0);
-    var a1 = tmp$ret$0;
-    var tmp$ret$1;
-    // Inline function 'kotlin.collections.component2' call
-    tmp$ret$1 = _name_for_destructuring_parameter_0__wldtmu.l(1);
-    var a2 = tmp$ret$1;
-    var tmp = (!(a1 == null) ? typeof a1 === 'number' : false) ? a1 : THROW_CCE();
-    return new Tuple2(tmp, (!(a2 == null) ? typeof a2 === 'number' : false) ? a2 : THROW_CCE());
-  }
-  function GAlgebraElementASTGrammar$fractionParser$delegate$lambda_1(_name_for_destructuring_parameter_0__wldtmu) {
-    var p = _name_for_destructuring_parameter_0__wldtmu.w3();
-    var q = _name_for_destructuring_parameter_0__wldtmu.x3();
-    return new Fraction(p, q);
-  }
-  function GAlgebraElementASTGrammar$fractionParser$delegate$lambda_2(n) {
-    return new Fraction(n, 1);
-  }
   function GAlgebraElementASTGrammar$powerParser$delegate$lambda(_name_for_destructuring_parameter_0__wldtmu) {
     var tmp$ret$0;
     // Inline function 'kotlin.collections.component1' call
@@ -5743,44 +5830,32 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = _name_for_destructuring_parameter_0__wldtmu.l(1);
     var a2 = tmp$ret$1;
     var tmp = (!(a1 == null) ? isInterface(a1, ASTNode) : false) ? a1 : THROW_CCE();
-    return new Tuple2(tmp, (!(a2 == null) ? typeof a2 === 'number' : false) ? a2 : THROW_CCE());
+    return new Tuple2(tmp, a2 instanceof TokenMatch ? a2 : THROW_CCE());
   }
   function GAlgebraElementASTGrammar$powerParser$delegate$lambda_1(_name_for_destructuring_parameter_0__wldtmu) {
     var node = _name_for_destructuring_parameter_0__wldtmu.w3();
     var n = _name_for_destructuring_parameter_0__wldtmu.x3();
-    return new Power(node, n);
+    return new Power(node, toInt(n.i10()));
   }
-  function GAlgebraElementASTGrammar$mulChain$delegate$lambda(left, _anonymous_parameter_1__qggqgd, right) {
-    return new Multiply(left, right);
+  function GAlgebraElementASTGrammar$mulDivChain$delegate$lambda($this$null) {
+    return $this$null.zz_1;
   }
-  function GAlgebraElementASTGrammar$mulChain$delegate$lambda_0($tmp2_leftAssociative) {
+  function GAlgebraElementASTGrammar$mulDivChain$delegate$lambda_0(left, op, right) {
+    var tmp0_subject = op;
+    var tmp;
+    if (equals(tmp0_subject, _get_mul__e6d2rx(GAlgebraElementASTGrammar_getInstance()))) {
+      tmp = new Multiply(left, right);
+    } else if (equals(tmp0_subject, _get_div__e6738g(GAlgebraElementASTGrammar_getInstance()))) {
+      tmp = new Divide(left, right);
+    } else {
+      throw Exception_init_$Create$("This can't happen!");
+    }
+    return tmp;
+  }
+  function GAlgebraElementASTGrammar$mulDivChain$delegate$lambda_1($tmp2_leftAssociative) {
     return function (it) {
       return it.ly($tmp2_leftAssociative);
     };
-  }
-  function GAlgebraElementASTGrammar$divParser$delegate$lambda(_name_for_destructuring_parameter_0__wldtmu) {
-    var tmp$ret$0;
-    // Inline function 'kotlin.collections.component1' call
-    tmp$ret$0 = _name_for_destructuring_parameter_0__wldtmu.l(0);
-    var a = tmp$ret$0;
-    return (!(a == null) ? isInterface(a, ASTNode) : false) ? a : THROW_CCE();
-  }
-  function GAlgebraElementASTGrammar$divParser$delegate$lambda_0(_name_for_destructuring_parameter_0__wldtmu) {
-    var tmp$ret$0;
-    // Inline function 'kotlin.collections.component1' call
-    tmp$ret$0 = _name_for_destructuring_parameter_0__wldtmu.l(0);
-    var a1 = tmp$ret$0;
-    var tmp$ret$1;
-    // Inline function 'kotlin.collections.component2' call
-    tmp$ret$1 = _name_for_destructuring_parameter_0__wldtmu.l(1);
-    var a2 = tmp$ret$1;
-    var tmp = (!(a1 == null) ? isInterface(a1, ASTNode) : false) ? a1 : THROW_CCE();
-    return new Tuple2(tmp, (!(a2 == null) ? typeof a2 === 'number' : false) ? a2 : THROW_CCE());
-  }
-  function GAlgebraElementASTGrammar$divParser$delegate$lambda_1(_name_for_destructuring_parameter_0__wldtmu) {
-    var node = _name_for_destructuring_parameter_0__wldtmu.w3();
-    var n = _name_for_destructuring_parameter_0__wldtmu.x3();
-    return new Div(node, n);
   }
   function GAlgebraElementASTGrammar$subSumChain$delegate$lambda($this$null) {
     return $this$null.zz_1;
@@ -5806,33 +5881,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     GAlgebraElementASTGrammar_instance = this;
     Grammar.call(this);
     var tmp = this;
-    tmp.s1g_1 = this.az(literalToken$default('zero', false, 2, null), this, zero$factory());
-    this.t1g_1 = this.az(charCategoryToken(Companion_getInstance_43().o1h_1, Companion_getInstance_42().b1f_1), this, id$factory());
+    tmp.a1h_1 = this.az(literalToken$default('zero', false, 2, null), this, zero$factory());
+    this.b1h_1 = this.az(charCategoryToken(Companion_getInstance_43().u1h_1, Companion_getInstance_42().j1f_1), this, id$factory());
     var tmp_0 = this;
-    tmp_0.u1g_1 = this.az(regexToken$default('\\d+', false, 2, null), this, int$factory());
+    tmp_0.c1h_1 = this.az(regexToken$default('\\d+', false, 2, null), this, nat$factory());
     var tmp_1 = this;
-    tmp_1.v1g_1 = this.az(literalToken$default('(', false, 2, null), this, lpar$factory());
+    tmp_1.d1h_1 = this.az(literalToken$default('(', false, 2, null), this, lpar$factory());
     var tmp_2 = this;
-    tmp_2.w1g_1 = this.az(literalToken$default(')', false, 2, null), this, rpar$factory());
+    tmp_2.e1h_1 = this.az(literalToken$default(')', false, 2, null), this, rpar$factory());
     var tmp_3 = this;
-    tmp_3.x1g_1 = this.az(literalToken$default('*', false, 2, null), this, mul$factory());
+    tmp_3.f1h_1 = this.az(literalToken$default('*', false, 2, null), this, mul$factory());
     var tmp_4 = this;
-    tmp_4.y1g_1 = this.az(literalToken$default('^', false, 2, null), this, pow$factory());
+    tmp_4.g1h_1 = this.az(literalToken$default('^', false, 2, null), this, pow$factory());
     var tmp_5 = this;
-    tmp_5.z1g_1 = this.az(literalToken$default('/', false, 2, null), this, div$factory());
+    tmp_5.h1h_1 = this.az(literalToken$default('/', false, 2, null), this, div$factory());
     var tmp_6 = this;
-    tmp_6.a1h_1 = this.az(literalToken$default('-', false, 2, null), this, minus$factory());
+    tmp_6.i1h_1 = this.az(literalToken$default('-', false, 2, null), this, minus$factory());
     var tmp_7 = this;
-    tmp_7.b1h_1 = this.az(literalToken$default('+', false, 2, null), this, plus$factory());
-    this.c1h_1 = this.az(regexToken('\\s*', true), this, ws$factory());
+    tmp_7.j1h_1 = this.az(literalToken$default('+', false, 2, null), this, plus$factory());
+    this.k1h_1 = this.az(regexToken('\\s*', true), this, ws$factory());
     var tmp_8 = this;
     var tmp_9 = _get_id__ndc34g(this);
     var tmp_10 = use(tmp_9, GAlgebraElementASTGrammar$idParser$delegate$lambda);
     var tmp_11 = _get_zero__dhgbs3(this);
-    tmp_8.d1h_1 = this.yy(or(tmp_10, use(tmp_11, GAlgebraElementASTGrammar$idParser$delegate$lambda_0)), this, idParser$factory());
+    tmp_8.l1h_1 = this.yy(or(tmp_10, use(tmp_11, GAlgebraElementASTGrammar$idParser$delegate$lambda_0)), this, idParser$factory());
     var tmp_12 = this;
-    var tmp_13 = _get_int__e6adtu(this);
-    tmp_12.e1h_1 = this.yy(use(tmp_13, GAlgebraElementASTGrammar$intParser$delegate$lambda), this, intParser$factory());
+    var tmp_13 = _get_nat__e6db4g(this);
+    tmp_12.m1h_1 = this.yy(use(tmp_13, GAlgebraElementASTGrammar$natParser$delegate$lambda), this, natParser$factory());
     var tmp_14 = this;
     var tmp$ret$1;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
@@ -5846,7 +5921,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp3_and = skip(_get_rpar__dd8ncs(this));
     var tmp_16 = listOf_0([tmp2_and, tmp3_and]);
     tmp$ret$1 = new AndCombinator(tmp_16, GAlgebraElementASTGrammar$parenParser$delegate$lambda_0);
-    tmp_14.f1h_1 = this.yy(tmp$ret$1, this, parenParser$factory());
+    tmp_14.n1h_1 = this.yy(tmp$ret$1, this, parenParser$factory());
     var tmp_17 = this;
     var tmp$ret$2;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
@@ -5859,88 +5934,57 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$3;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
     var tmp2_and_0 = skip(_get_minus__e92hlr(this));
-    var tmp3_and_0 = parser(mulChain$factory(this));
+    var tmp3_and_0 = parser(mulDivChain$factory(this));
     var tmp_21 = listOf_0([tmp2_and_0, tmp3_and_0]);
     tmp$ret$3 = new AndCombinator(tmp_21, GAlgebraElementASTGrammar$minusParser$delegate$lambda_1);
     var tmp_22 = tmp$ret$3;
-    tmp_17.g1h_1 = this.yy(or(tmp_20, map(tmp_22, GAlgebraElementASTGrammar$minusParser$delegate$lambda_2)), this, minusParser$factory());
+    tmp_17.o1h_1 = this.yy(or(tmp_20, map(tmp_22, GAlgebraElementASTGrammar$minusParser$delegate$lambda_2)), this, minusParser$factory());
+    this.p1h_1 = this.yy(or(or(or(_get_natParser__86xlm9(this), _get_idParser__4cqmtr(this)), _get_minusParser__naumde(this)), _get_parenParser__kd1lns(this)), this, termParser$factory());
     var tmp_23 = this;
     var tmp$ret$5;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
     var tmp$ret$4;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
-    var tmp0_and_1 = _get_intParser__8zykt9(this);
-    var tmp1_and_1 = skip(_get_div__e6738g(this));
+    var tmp0_and_1 = _get_termParser__9ktxa8(this);
+    var tmp1_and_1 = skip(_get_pow__e6evjt(this));
     var tmp_24 = listOf_0([tmp0_and_1, tmp1_and_1]);
-    tmp$ret$4 = new AndCombinator(tmp_24, GAlgebraElementASTGrammar$fractionParser$delegate$lambda);
+    tmp$ret$4 = new AndCombinator(tmp_24, GAlgebraElementASTGrammar$powerParser$delegate$lambda);
     var tmp2_and_1 = tmp$ret$4;
-    var tmp3_and_1 = _get_intParser__8zykt9(this);
+    var tmp3_and_1 = _get_nat__e6db4g(this);
     var tmp_25 = plus(tmp2_and_1.zx_1, listOf(tmp3_and_1));
-    tmp$ret$5 = new AndCombinator(tmp_25, GAlgebraElementASTGrammar$fractionParser$delegate$lambda_0);
+    tmp$ret$5 = new AndCombinator(tmp_25, GAlgebraElementASTGrammar$powerParser$delegate$lambda_0);
     var tmp_26 = tmp$ret$5;
-    var tmp_27 = map(tmp_26, GAlgebraElementASTGrammar$fractionParser$delegate$lambda_1);
-    var tmp_28 = _get_intParser__8zykt9(this);
-    tmp_23.h1h_1 = this.yy(or(tmp_27, map(tmp_28, GAlgebraElementASTGrammar$fractionParser$delegate$lambda_2)), this, fractionParser$factory());
-    this.i1h_1 = this.yy(or(or(or(_get_fractionParser__maa4x6(this), _get_idParser__4cqmtr(this)), _get_minusParser__naumde(this)), _get_parenParser__kd1lns(this)), this, termParser$factory());
-    var tmp_29 = this;
+    tmp_23.q1h_1 = this.yy(or(map(tmp_26, GAlgebraElementASTGrammar$powerParser$delegate$lambda_1), _get_termParser__9ktxa8(this)), this, powerParser$factory());
+    var tmp_27 = this;
     var tmp$ret$7;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
-    var tmp$ret$6;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
-    var tmp0_and_2 = _get_termParser__9ktxa8(this);
-    var tmp1_and_2 = skip(_get_pow__e6evjt(this));
-    var tmp_30 = listOf_0([tmp0_and_2, tmp1_and_2]);
-    tmp$ret$6 = new AndCombinator(tmp_30, GAlgebraElementASTGrammar$powerParser$delegate$lambda);
-    var tmp2_and_2 = tmp$ret$6;
-    var tmp3_and_2 = _get_intParser__8zykt9(this);
-    var tmp_31 = plus(tmp2_and_2.zx_1, listOf(tmp3_and_2));
-    tmp$ret$7 = new AndCombinator(tmp_31, GAlgebraElementASTGrammar$powerParser$delegate$lambda_0);
-    var tmp_32 = tmp$ret$7;
-    tmp_29.j1h_1 = this.yy(or(map(tmp_32, GAlgebraElementASTGrammar$powerParser$delegate$lambda_1), _get_termParser__9ktxa8(this)), this, powerParser$factory());
-    var tmp_33 = this;
-    var tmp$ret$9;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.leftAssociative' call
     var tmp0_leftAssociative = _get_powerParser__cj0rqr(this);
-    var tmp1_leftAssociative = _get_mul__e6d2rx(this);
-    var tmp2_leftAssociative = GAlgebraElementASTGrammar$mulChain$delegate$lambda;
+    var tmp_28 = or(_get_mul__e6d2rx(this), _get_div__e6738g(this));
+    var tmp1_leftAssociative = use(tmp_28, GAlgebraElementASTGrammar$mulDivChain$delegate$lambda);
+    var tmp2_leftAssociative = GAlgebraElementASTGrammar$mulDivChain$delegate$lambda_0;
+    var tmp$ret$6;
+    // Inline function 'com.github.h0tk3y.betterParse.combinators.separated' call
+    tmp$ret$6 = new SeparatedCombinator(tmp0_leftAssociative, tmp1_leftAssociative, false);
+    var tmp_29 = tmp$ret$6;
+    tmp$ret$7 = map(tmp_29, GAlgebraElementASTGrammar$mulDivChain$delegate$lambda_1(tmp2_leftAssociative));
+    tmp_27.r1h_1 = this.yy(tmp$ret$7, this, mulDivChain$factory_0());
+    var tmp_30 = this;
+    var tmp$ret$9;
+    // Inline function 'com.github.h0tk3y.betterParse.combinators.leftAssociative' call
+    var tmp0_leftAssociative_0 = _get_mulDivChain__rkka6b(this);
+    var tmp_31 = or(_get_plus__dc2x2p(this), _get_minus__e92hlr(this));
+    var tmp1_leftAssociative_0 = use(tmp_31, GAlgebraElementASTGrammar$subSumChain$delegate$lambda);
+    var tmp2_leftAssociative_0 = GAlgebraElementASTGrammar$subSumChain$delegate$lambda_0;
     var tmp$ret$8;
     // Inline function 'com.github.h0tk3y.betterParse.combinators.separated' call
-    tmp$ret$8 = new SeparatedCombinator(tmp0_leftAssociative, tmp1_leftAssociative, false);
-    var tmp_34 = tmp$ret$8;
-    tmp$ret$9 = map(tmp_34, GAlgebraElementASTGrammar$mulChain$delegate$lambda_0(tmp2_leftAssociative));
-    tmp_33.k1h_1 = this.yy(tmp$ret$9, this, mulChain$factory_0());
-    var tmp_35 = this;
-    var tmp$ret$11;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
-    var tmp$ret$10;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.and' call
-    var tmp0_and_3 = _get_mulChain__invc36(this);
-    var tmp1_and_3 = skip(_get_div__e6738g(this));
-    var tmp_36 = listOf_0([tmp0_and_3, tmp1_and_3]);
-    tmp$ret$10 = new AndCombinator(tmp_36, GAlgebraElementASTGrammar$divParser$delegate$lambda);
-    var tmp2_and_3 = tmp$ret$10;
-    var tmp3_and_3 = _get_intParser__8zykt9(this);
-    var tmp_37 = plus(tmp2_and_3.zx_1, listOf(tmp3_and_3));
-    tmp$ret$11 = new AndCombinator(tmp_37, GAlgebraElementASTGrammar$divParser$delegate$lambda_0);
-    var tmp_38 = tmp$ret$11;
-    tmp_35.l1h_1 = this.yy(map(tmp_38, GAlgebraElementASTGrammar$divParser$delegate$lambda_1), this, divParser$factory());
-    var tmp_39 = this;
-    var tmp$ret$13;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.leftAssociative' call
-    var tmp0_leftAssociative_0 = or(_get_divParser__19i5a9(this), _get_mulChain__invc36(this));
-    var tmp_40 = or(_get_plus__dc2x2p(this), _get_minus__e92hlr(this));
-    var tmp1_leftAssociative_0 = use(tmp_40, GAlgebraElementASTGrammar$subSumChain$delegate$lambda);
-    var tmp2_leftAssociative_0 = GAlgebraElementASTGrammar$subSumChain$delegate$lambda_0;
-    var tmp$ret$12;
-    // Inline function 'com.github.h0tk3y.betterParse.combinators.separated' call
-    tmp$ret$12 = new SeparatedCombinator(tmp0_leftAssociative_0, tmp1_leftAssociative_0, false);
-    var tmp_41 = tmp$ret$12;
-    tmp$ret$13 = map(tmp_41, GAlgebraElementASTGrammar$subSumChain$delegate$lambda_1(tmp2_leftAssociative_0));
-    tmp_39.m1h_1 = this.yy(tmp$ret$13, this, subSumChain$factory());
-    this.n1h_1 = this.yy(_get_subSumChain__3rvi9x(this), this, rootParser$factory_0());
+    tmp$ret$8 = new SeparatedCombinator(tmp0_leftAssociative_0, tmp1_leftAssociative_0, false);
+    var tmp_32 = tmp$ret$8;
+    tmp$ret$9 = map(tmp_32, GAlgebraElementASTGrammar$subSumChain$delegate$lambda_1(tmp2_leftAssociative_0));
+    tmp_30.s1h_1 = this.yy(tmp$ret$9, this, subSumChain$factory());
+    this.t1h_1 = this.yy(_get_subSumChain__3rvi9x(this), this, rootParser$factory_0());
   }
   GAlgebraElementASTGrammar.prototype.sy = function () {
-    return this.zy(this.n1h_1, this, rootParser$factory_1());
+    return this.zy(this.t1h_1, this, rootParser$factory_1());
   };
   GAlgebraElementASTGrammar.$metadata$ = objectMeta('GAlgebraElementASTGrammar', undefined, undefined, undefined, undefined, Grammar.prototype);
   var GAlgebraElementASTGrammar_instance;
@@ -5959,9 +6003,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_id__ndc34g(receiver);
     }, null);
   }
-  function int$factory() {
-    return getPropertyCallableRef('int', 1, KProperty1, function (receiver) {
-      return _get_int__e6adtu(receiver);
+  function nat$factory() {
+    return getPropertyCallableRef('nat', 1, KProperty1, function (receiver) {
+      return _get_nat__e6db4g(receiver);
     }, null);
   }
   function lpar$factory() {
@@ -6009,9 +6053,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_idParser__4cqmtr(receiver);
     }, null);
   }
-  function intParser$factory() {
-    return getPropertyCallableRef('intParser', 1, KProperty1, function (receiver) {
-      return _get_intParser__8zykt9(receiver);
+  function natParser$factory() {
+    return getPropertyCallableRef('natParser', 1, KProperty1, function (receiver) {
+      return _get_natParser__86xlm9(receiver);
     }, null);
   }
   function rootParser$factory($b0) {
@@ -6024,19 +6068,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_parenParser__kd1lns(receiver);
     }, null);
   }
-  function mulChain$factory($b0) {
-    return getPropertyCallableRef('mulChain', 0, KProperty0, function () {
-      return _get_mulChain__invc36($b0);
+  function mulDivChain$factory($b0) {
+    return getPropertyCallableRef('mulDivChain', 0, KProperty0, function () {
+      return _get_mulDivChain__rkka6b($b0);
     }, null);
   }
   function minusParser$factory() {
     return getPropertyCallableRef('minusParser', 1, KProperty1, function (receiver) {
       return _get_minusParser__naumde(receiver);
-    }, null);
-  }
-  function fractionParser$factory() {
-    return getPropertyCallableRef('fractionParser', 1, KProperty1, function (receiver) {
-      return _get_fractionParser__maa4x6(receiver);
     }, null);
   }
   function termParser$factory() {
@@ -6049,14 +6088,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_powerParser__cj0rqr(receiver);
     }, null);
   }
-  function mulChain$factory_0() {
-    return getPropertyCallableRef('mulChain', 1, KProperty1, function (receiver) {
-      return _get_mulChain__invc36(receiver);
-    }, null);
-  }
-  function divParser$factory() {
-    return getPropertyCallableRef('divParser', 1, KProperty1, function (receiver) {
-      return _get_divParser__19i5a9(receiver);
+  function mulDivChain$factory_0() {
+    return getPropertyCallableRef('mulDivChain', 1, KProperty1, function (receiver) {
+      return _get_mulDivChain__rkka6b(receiver);
     }, null);
   }
   function subSumChain$factory() {
@@ -6079,9 +6113,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_id__ndc34g(receiver);
     }, null);
   }
-  function int$factory_0() {
-    return getPropertyCallableRef('int', 1, KProperty1, function (receiver) {
-      return _get_int__e6adtu(receiver);
+  function nat$factory_0() {
+    return getPropertyCallableRef('nat', 1, KProperty1, function (receiver) {
+      return _get_nat__e6db4g(receiver);
     }, null);
   }
   function lpar$factory_0() {
@@ -6129,9 +6163,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_idParser__4cqmtr(receiver);
     }, null);
   }
-  function intParser$factory_0() {
-    return getPropertyCallableRef('intParser', 1, KProperty1, function (receiver) {
-      return _get_intParser__8zykt9(receiver);
+  function natParser$factory_0() {
+    return getPropertyCallableRef('natParser', 1, KProperty1, function (receiver) {
+      return _get_natParser__86xlm9(receiver);
     }, null);
   }
   function parenParser$factory_0() {
@@ -6144,11 +6178,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_minusParser__naumde(receiver);
     }, null);
   }
-  function fractionParser$factory_0() {
-    return getPropertyCallableRef('fractionParser', 1, KProperty1, function (receiver) {
-      return _get_fractionParser__maa4x6(receiver);
-    }, null);
-  }
   function termParser$factory_0() {
     return getPropertyCallableRef('termParser', 1, KProperty1, function (receiver) {
       return _get_termParser__9ktxa8(receiver);
@@ -6159,14 +6188,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_powerParser__cj0rqr(receiver);
     }, null);
   }
-  function mulChain$factory_1() {
-    return getPropertyCallableRef('mulChain', 1, KProperty1, function (receiver) {
-      return _get_mulChain__invc36(receiver);
-    }, null);
-  }
-  function divParser$factory_0() {
-    return getPropertyCallableRef('divParser', 1, KProperty1, function (receiver) {
-      return _get_divParser__19i5a9(receiver);
+  function mulDivChain$factory_1() {
+    return getPropertyCallableRef('mulDivChain', 1, KProperty1, function (receiver) {
+      return _get_mulDivChain__rkka6b(receiver);
     }, null);
   }
   function subSumChain$factory_0() {
@@ -6188,10 +6212,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function RegexToken(name, regex, ignored) {
     Token.call(this, name, ignored);
-    this.r1h_1 = regex;
+    this.x1h_1 = regex;
   }
   RegexToken.prototype.pz = function (input, fromIndex) {
-    var matchResult = this.r1h_1.de(input, fromIndex);
+    var matchResult = this.x1h_1.de(input, fromIndex);
     if (!(matchResult == null) ? matchResult.j6().h5_1 === fromIndex : false) {
       return (matchResult.j6().i5_1 - fromIndex | 0) + 1 | 0;
     }
@@ -6199,7 +6223,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   RegexToken.prototype.toString = function () {
     var tmp0_elvis_lhs = this.wy_1;
-    return (tmp0_elvis_lhs == null ? '' : tmp0_elvis_lhs) + ' [' + this.r1h_1.yd_1 + ']' + (this.xy_1 ? ' [ignorable]' : '');
+    return (tmp0_elvis_lhs == null ? '' : tmp0_elvis_lhs) + ' [' + this.x1h_1.yd_1 + ']' + (this.xy_1 ? ' [ignorable]' : '');
   };
   RegexToken.$metadata$ = classMeta('RegexToken', undefined, undefined, undefined, undefined, Token.prototype);
   function regexToken(pattern, ignore) {
@@ -6223,7 +6247,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_21() {
     Companion_instance_21 = this;
   }
-  Companion_21.prototype.s1h = function (freeDGAlgebra) {
+  Companion_21.prototype.y1h = function (freeDGAlgebra) {
     var factory = new DerivationDGLieAlgebraFactory(freeDGAlgebra);
     return new DerivationDGLieAlgebra(factory);
   };
@@ -6236,165 +6260,171 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DerivationDGLieAlgebra(factory) {
     Companion_getInstance_22();
-    this.t1h_1 = factory;
-    this.u1h_1 = Companion_getInstance_4().h15(factory.a1i_1, factory.b1i_1);
-    this.v1h_1 = this.t1h_1.x1h_1;
-    this.w1h_1 = this.t1h_1.a1i_1;
+    this.z1h_1 = factory;
+    this.a1i_1 = Companion_getInstance_4().m15(factory.g1i_1, factory.h1i_1);
+    this.b1i_1 = this.z1h_1.d1i_1;
+    this.c1i_1 = this.z1h_1.g1i_1;
   }
   DerivationDGLieAlgebra.prototype.o11 = function () {
-    return this.u1h_1.o11();
+    return this.a1i_1.o11();
   };
   DerivationDGLieAlgebra.prototype.e11 = function () {
-    return this.u1h_1.e11();
+    return this.a1i_1.e11();
   };
-  DerivationDGLieAlgebra.prototype.o14 = function () {
-    return this.u1h_1.o14();
+  DerivationDGLieAlgebra.prototype.t14 = function () {
+    return this.a1i_1.t14();
   };
-  DerivationDGLieAlgebra.prototype.n14 = function () {
-    return this.u1h_1.n14();
+  DerivationDGLieAlgebra.prototype.s14 = function () {
+    return this.a1i_1.s14();
   };
   DerivationDGLieAlgebra.prototype.g11 = function () {
-    return this.u1h_1.g11();
+    return this.a1i_1.g11();
   };
   DerivationDGLieAlgebra.prototype.p11 = function () {
-    return this.u1h_1.p11();
+    return this.a1i_1.p11();
   };
   DerivationDGLieAlgebra.prototype.k11 = function () {
-    return this.u1h_1.k11();
+    return this.a1i_1.k11();
   };
   DerivationDGLieAlgebra.prototype.l11 = function () {
-    return this.u1h_1.l11();
+    return this.a1i_1.l11();
   };
   DerivationDGLieAlgebra.prototype.h11 = function () {
-    return this.u1h_1.h11();
+    return this.a1i_1.h11();
   };
   DerivationDGLieAlgebra.prototype.f11 = function () {
-    return this.u1h_1.f11();
+    return this.a1i_1.f11();
   };
   DerivationDGLieAlgebra.prototype.xb = function () {
-    return this.u1h_1.xb();
+    return this.a1i_1.xb();
   };
   DerivationDGLieAlgebra.prototype.j11 = function () {
-    return this.u1h_1.j11();
+    return this.a1i_1.j11();
   };
   DerivationDGLieAlgebra.prototype.n11 = function () {
-    return this.u1h_1.n11();
+    return this.a1i_1.n11();
   };
-  DerivationDGLieAlgebra.prototype.c12 = function () {
-    return this.u1h_1.c12();
+  DerivationDGLieAlgebra.prototype.d12 = function () {
+    return this.a1i_1.d12();
   };
-  DerivationDGLieAlgebra.prototype.c1i = function (a, b) {
-    return this.u1h_1.x11(a, b);
+  DerivationDGLieAlgebra.prototype.i1i = function (a, b) {
+    return this.a1i_1.x11(a, b);
   };
   DerivationDGLieAlgebra.prototype.x11 = function (a, b) {
-    return this.c1i(a, b);
+    return this.i1i(a, b);
   };
-  DerivationDGLieAlgebra.prototype.d1i = function (cocycle) {
-    return this.u1h_1.i11(cocycle);
+  DerivationDGLieAlgebra.prototype.j1i = function (cocycle) {
+    return this.a1i_1.i11(cocycle);
   };
   DerivationDGLieAlgebra.prototype.i11 = function (cocycle) {
-    return this.d1i(cocycle);
+    return this.j1i(cocycle);
   };
-  DerivationDGLieAlgebra.prototype.e1i = function (gVector) {
-    return this.u1h_1.w11(gVector);
+  DerivationDGLieAlgebra.prototype.k1i = function (gVector) {
+    return this.a1i_1.w11(gVector);
   };
   DerivationDGLieAlgebra.prototype.w11 = function (gVector) {
-    return this.e1i(gVector);
+    return this.k1i(gVector);
   };
-  DerivationDGLieAlgebra.prototype.f1i = function (gVectorOrZero, degree) {
-    return this.u1h_1.v11(gVectorOrZero, degree);
+  DerivationDGLieAlgebra.prototype.l1i = function (gVectorOrZero, degree) {
+    return this.a1i_1.v11(gVectorOrZero, degree);
   };
   DerivationDGLieAlgebra.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.f1i(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.l1i(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationDGLieAlgebra.prototype.g1i = function (basisName, degree) {
-    return this.u1h_1.s11(basisName, degree);
+  DerivationDGLieAlgebra.prototype.m1i = function (a, b) {
+    return this.a1i_1.c12(a, b);
+  };
+  DerivationDGLieAlgebra.prototype.c12 = function (a, b) {
+    return this.m1i(a, b);
+  };
+  DerivationDGLieAlgebra.prototype.n1i = function (basisName, degree) {
+    return this.a1i_1.s11(basisName, degree);
   };
   DerivationDGLieAlgebra.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof DirectSumBasis ? basisName : THROW_CCE();
-    return this.g1i(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.n1i(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationDGLieAlgebra.prototype.h1i = function (vector, degree) {
-    return this.u1h_1.q11(vector, degree);
+  DerivationDGLieAlgebra.prototype.o1i = function (vector, degree) {
+    return this.a1i_1.q11(vector, degree);
   };
   DerivationDGLieAlgebra.prototype.q11 = function (vector, degree) {
-    return this.h1i(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.o1i(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationDGLieAlgebra.prototype.i1i = function (vector, degree) {
-    return this.u1h_1.r11(vector, degree);
+  DerivationDGLieAlgebra.prototype.p1i = function (vector, degree) {
+    return this.a1i_1.r11(vector, degree);
   };
   DerivationDGLieAlgebra.prototype.r11 = function (vector, degree) {
-    return this.i1i(vector, degree);
+    return this.p1i(vector, degree);
   };
   DerivationDGLieAlgebra.prototype.m11 = function (degree) {
-    return this.u1h_1.m11(degree);
+    return this.a1i_1.m11(degree);
   };
   DerivationDGLieAlgebra.prototype.t11 = function (degree) {
-    return this.u1h_1.t11(degree);
+    return this.a1i_1.t11(degree);
   };
   DerivationDGLieAlgebra.prototype.u11 = function (degree) {
-    return this.u1h_1.u11(degree);
+    return this.a1i_1.u11(degree);
   };
-  DerivationDGLieAlgebra.prototype.j1i = function (scalar, gVector) {
-    return this.u1h_1.z11(scalar, gVector);
+  DerivationDGLieAlgebra.prototype.q1i = function (scalar, gVector) {
+    return this.a1i_1.z11(scalar, gVector);
   };
   DerivationDGLieAlgebra.prototype.z11 = function (scalar, gVector) {
-    return this.j1i(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.q1i(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  DerivationDGLieAlgebra.prototype.k1i = function (a, b) {
-    return this.u1h_1.a12(a, b);
+  DerivationDGLieAlgebra.prototype.r1i = function (a, b) {
+    return this.a1i_1.a12(a, b);
   };
   DerivationDGLieAlgebra.prototype.a12 = function (a, b) {
-    return this.k1i(a, b);
+    return this.r1i(a, b);
   };
-  DerivationDGLieAlgebra.prototype.l1i = function (a, b) {
-    return this.u1h_1.b12(a, b);
+  DerivationDGLieAlgebra.prototype.s1i = function (a, b) {
+    return this.a1i_1.b12(a, b);
   };
   DerivationDGLieAlgebra.prototype.b12 = function (a, b) {
-    return this.l1i(a, b);
+    return this.s1i(a, b);
   };
-  DerivationDGLieAlgebra.prototype.m1i = function (a, b) {
-    return this.u1h_1.y11(a, b);
+  DerivationDGLieAlgebra.prototype.t1i = function (a, b) {
+    return this.a1i_1.y11(a, b);
   };
   DerivationDGLieAlgebra.prototype.y11 = function (a, b) {
-    return this.m1i(a, b);
+    return this.t1i(a, b);
   };
-  DerivationDGLieAlgebra.prototype.r1a = function (printConfig) {
-    var gLieAlgebraString = this.w1h_1.r1a(printConfig);
+  DerivationDGLieAlgebra.prototype.v1a = function (printConfig) {
+    var gLieAlgebraString = this.c1i_1.v1a(printConfig);
     return '(' + gLieAlgebraString + ', d)';
   };
   DerivationDGLieAlgebra.prototype.toString = function () {
-    return '(' + this.w1h_1 + ', d)';
+    return '(' + this.c1i_1 + ', d)';
   };
   DerivationDGLieAlgebra.$metadata$ = classMeta('DerivationDGLieAlgebra', [DGLieAlgebra, Printable]);
   function DerivationDGLieAlgebraFactory(freeDGAlgebra) {
-    this.x1h_1 = freeDGAlgebra;
-    this.y1h_1 = this.x1h_1.h11();
-    this.z1h_1 = this.x1h_1.n14();
-    this.a1i_1 = Companion_getInstance_23().q1i(this.x1h_1);
+    this.d1i_1 = freeDGAlgebra;
+    this.e1i_1 = this.d1i_1.h11();
+    this.f1i_1 = this.d1i_1.s14();
+    this.g1i_1 = Companion_getInstance_23().x1i(this.d1i_1);
     var tmp = this;
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.a1i_1.o14();
+    var tmp0_run = this.g1i_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.DerivationDGLieAlgebraFactory.differential.<anonymous>' call
-    var differentialAsGVector = this.a1i_1.r1i(this.x1h_1.g11());
-    tmp$ret$0 = tmp0_run.v15(differentialAsGVector);
+    var differentialAsGVector = this.g1i_1.y1i(this.d1i_1.g11());
+    tmp$ret$0 = tmp0_run.a16(differentialAsGVector);
     tmp$ret$1 = tmp$ret$0;
-    tmp.b1i_1 = tmp$ret$1;
+    tmp.h1i_1 = tmp$ret$1;
   }
-  DerivationDGLieAlgebraFactory.prototype.s1i = function () {
-    return this.x1h_1;
+  DerivationDGLieAlgebraFactory.prototype.z1i = function () {
+    return this.d1i_1;
   };
-  DerivationDGLieAlgebraFactory.prototype.u15 = function () {
-    return this.a1i_1;
+  DerivationDGLieAlgebraFactory.prototype.z15 = function () {
+    return this.g1i_1;
   };
   DerivationDGLieAlgebraFactory.$metadata$ = classMeta('DerivationDGLieAlgebraFactory');
   function Companion_22() {
     Companion_instance_22 = this;
   }
-  Companion_22.prototype.q1i = function (freeGAlgebra) {
+  Companion_22.prototype.x1i = function (freeGAlgebra) {
     var factory = new DerivationGLieAlgebraFactory(freeGAlgebra);
     return new DerivationGLieAlgebra(factory);
   };
@@ -6407,149 +6437,155 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DerivationGLieAlgebraFactory$getVectorSpace$ref($boundThis) {
     var l = function (p0) {
-      return $boundThis.y1i(p0);
+      return $boundThis.f1j(p0);
     };
     l.callableName = 'getVectorSpace';
     return l;
   }
   function DerivationGLieAlgebraFactory$getMultiplication$ref($boundThis) {
     var l = function (p0, p1) {
-      return $boundThis.z1i(p0, p1);
+      return $boundThis.g1j(p0, p1);
     };
     l.callableName = 'getMultiplication';
     return l;
   }
   function DerivationGLieAlgebraFactory$getInternalPrintConfig$ref($boundThis) {
     var l = function (p0) {
-      return $boundThis.a1j(p0);
+      return $boundThis.h1j(p0);
     };
     l.callableName = 'getInternalPrintConfig';
     return l;
   }
   function DerivationGLieAlgebra(factory) {
     Companion_getInstance_23();
-    this.n1i_1 = factory;
+    this.u1i_1 = factory;
     var tmp = this;
     var tmp_0 = Companion_getInstance_13();
     var tmp_1 = DerivationGLieAlgebraFactory$getVectorSpace$ref(factory);
     var tmp_2 = DerivationGLieAlgebraFactory$getMultiplication$ref(factory);
     var tmp_3 = DerivationGLieAlgebraFactory$getInternalPrintConfig$ref(factory);
-    tmp.o1i_1 = tmp_0.g19(factory.u1i_1, factory.v1i_1, factory.w1i_1, tmp_1, tmp_2, tmp_3, null, null, 192, null);
-    this.p1i_1 = this.n1i_1.t1i_1;
+    tmp.v1i_1 = tmp_0.k19(factory.b1j_1, factory.c1j_1, factory.d1j_1, tmp_1, tmp_2, tmp_3, null, null, 192, null);
+    this.w1i_1 = this.u1i_1.a1j_1;
   }
   DerivationGLieAlgebra.prototype.o11 = function () {
-    return this.o1i_1.o11();
+    return this.v1i_1.o11();
   };
-  DerivationGLieAlgebra.prototype.o14 = function () {
-    return this.o1i_1.o14();
+  DerivationGLieAlgebra.prototype.t14 = function () {
+    return this.v1i_1.t14();
   };
-  DerivationGLieAlgebra.prototype.n14 = function () {
-    return this.o1i_1.n14();
+  DerivationGLieAlgebra.prototype.s14 = function () {
+    return this.v1i_1.s14();
   };
   DerivationGLieAlgebra.prototype.p11 = function () {
-    return this.o1i_1.p11();
+    return this.v1i_1.p11();
   };
   DerivationGLieAlgebra.prototype.k11 = function () {
-    return this.o1i_1.k11();
+    return this.v1i_1.k11();
   };
   DerivationGLieAlgebra.prototype.l11 = function () {
-    return this.o1i_1.l11();
+    return this.v1i_1.l11();
   };
   DerivationGLieAlgebra.prototype.h11 = function () {
-    return this.o1i_1.h11();
+    return this.v1i_1.h11();
   };
   DerivationGLieAlgebra.prototype.f11 = function () {
-    return this.o1i_1.f11();
+    return this.v1i_1.f11();
   };
   DerivationGLieAlgebra.prototype.xb = function () {
-    return this.o1i_1.xb();
+    return this.v1i_1.xb();
   };
   DerivationGLieAlgebra.prototype.j11 = function () {
-    return this.o1i_1.j11();
+    return this.v1i_1.j11();
   };
   DerivationGLieAlgebra.prototype.n11 = function () {
-    return this.o1i_1.n11();
+    return this.v1i_1.n11();
   };
-  DerivationGLieAlgebra.prototype.c12 = function () {
-    return this.o1i_1.c12();
+  DerivationGLieAlgebra.prototype.d12 = function () {
+    return this.v1i_1.d12();
   };
-  DerivationGLieAlgebra.prototype.c1i = function (a, b) {
-    return this.o1i_1.x11(a, b);
+  DerivationGLieAlgebra.prototype.i1i = function (a, b) {
+    return this.v1i_1.x11(a, b);
   };
   DerivationGLieAlgebra.prototype.x11 = function (a, b) {
-    return this.c1i(a, b);
+    return this.i1i(a, b);
   };
-  DerivationGLieAlgebra.prototype.e1i = function (gVector) {
-    return this.o1i_1.w11(gVector);
+  DerivationGLieAlgebra.prototype.k1i = function (gVector) {
+    return this.v1i_1.w11(gVector);
   };
   DerivationGLieAlgebra.prototype.w11 = function (gVector) {
-    return this.e1i(gVector);
+    return this.k1i(gVector);
   };
-  DerivationGLieAlgebra.prototype.f1i = function (gVectorOrZero, degree) {
-    return this.o1i_1.v11(gVectorOrZero, degree);
+  DerivationGLieAlgebra.prototype.l1i = function (gVectorOrZero, degree) {
+    return this.v1i_1.v11(gVectorOrZero, degree);
   };
   DerivationGLieAlgebra.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.f1i(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.l1i(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationGLieAlgebra.prototype.g1i = function (basisName, degree) {
-    return this.o1i_1.s11(basisName, degree);
+  DerivationGLieAlgebra.prototype.m1i = function (a, b) {
+    return this.v1i_1.c12(a, b);
+  };
+  DerivationGLieAlgebra.prototype.c12 = function (a, b) {
+    return this.m1i(a, b);
+  };
+  DerivationGLieAlgebra.prototype.n1i = function (basisName, degree) {
+    return this.v1i_1.s11(basisName, degree);
   };
   DerivationGLieAlgebra.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof DirectSumBasis ? basisName : THROW_CCE();
-    return this.g1i(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.n1i(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationGLieAlgebra.prototype.h1i = function (vector, degree) {
-    return this.o1i_1.q11(vector, degree);
+  DerivationGLieAlgebra.prototype.o1i = function (vector, degree) {
+    return this.v1i_1.q11(vector, degree);
   };
   DerivationGLieAlgebra.prototype.q11 = function (vector, degree) {
-    return this.h1i(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.o1i(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  DerivationGLieAlgebra.prototype.i1i = function (vector, degree) {
-    return this.o1i_1.r11(vector, degree);
+  DerivationGLieAlgebra.prototype.p1i = function (vector, degree) {
+    return this.v1i_1.r11(vector, degree);
   };
   DerivationGLieAlgebra.prototype.r11 = function (vector, degree) {
-    return this.i1i(vector, degree);
+    return this.p1i(vector, degree);
   };
   DerivationGLieAlgebra.prototype.m11 = function (degree) {
-    return this.o1i_1.m11(degree);
+    return this.v1i_1.m11(degree);
   };
   DerivationGLieAlgebra.prototype.t11 = function (degree) {
-    return this.o1i_1.t11(degree);
+    return this.v1i_1.t11(degree);
   };
   DerivationGLieAlgebra.prototype.u11 = function (degree) {
-    return this.o1i_1.u11(degree);
+    return this.v1i_1.u11(degree);
   };
-  DerivationGLieAlgebra.prototype.j1i = function (scalar, gVector) {
-    return this.o1i_1.z11(scalar, gVector);
+  DerivationGLieAlgebra.prototype.q1i = function (scalar, gVector) {
+    return this.v1i_1.z11(scalar, gVector);
   };
   DerivationGLieAlgebra.prototype.z11 = function (scalar, gVector) {
-    return this.j1i(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.q1i(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  DerivationGLieAlgebra.prototype.k1i = function (a, b) {
-    return this.o1i_1.a12(a, b);
+  DerivationGLieAlgebra.prototype.r1i = function (a, b) {
+    return this.v1i_1.a12(a, b);
   };
   DerivationGLieAlgebra.prototype.a12 = function (a, b) {
-    return this.k1i(a, b);
+    return this.r1i(a, b);
   };
-  DerivationGLieAlgebra.prototype.l1i = function (a, b) {
-    return this.o1i_1.b12(a, b);
+  DerivationGLieAlgebra.prototype.s1i = function (a, b) {
+    return this.v1i_1.b12(a, b);
   };
   DerivationGLieAlgebra.prototype.b12 = function (a, b) {
-    return this.l1i(a, b);
+    return this.s1i(a, b);
   };
-  DerivationGLieAlgebra.prototype.m1i = function (a, b) {
-    return this.o1i_1.y11(a, b);
+  DerivationGLieAlgebra.prototype.t1i = function (a, b) {
+    return this.v1i_1.y11(a, b);
   };
   DerivationGLieAlgebra.prototype.y11 = function (a, b) {
-    return this.m1i(a, b);
+    return this.t1i(a, b);
   };
   DerivationGLieAlgebra.prototype.toString = function () {
-    return this.o1i_1.toString();
+    return this.v1i_1.toString();
   };
-  DerivationGLieAlgebra.prototype.r1i = function (derivation) {
+  DerivationGLieAlgebra.prototype.y1i = function (derivation) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.p1i_1.v1f();
+    var tmp0_map = this.w1i_1.d1g();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -6558,17 +6594,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebra.derivationToGVector.<anonymous>' call
-      tmp$ret$0 = derivation.z14(item).x18_1;
+      tmp$ret$0 = derivation.e15(item).w17_1;
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var valueList = tmp$ret$2;
-    var vector = this.n1i_1.y1i(derivation.w14()).l1j(valueList);
-    return this.h1i(vector, derivation.w14());
+    var vector = this.u1i_1.f1j(derivation.b15()).s1j(valueList);
+    return this.o1i(vector, derivation.b15());
   };
-  DerivationGLieAlgebra.prototype.r1a = function (printConfig) {
-    var tmp0_subject = printConfig.m1j_1;
+  DerivationGLieAlgebra.prototype.v1a = function (printConfig) {
+    var tmp0_subject = printConfig.t1j_1;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
     switch (tmp0) {
@@ -6583,24 +6619,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         break;
     }
     var der = tmp;
-    return der + '(' + this.p1i_1.r1j().r1a(printConfig) + ')';
+    return der + '(' + this.w1i_1.y1j().v1a(printConfig) + ')';
   };
   DerivationGLieAlgebra.$metadata$ = classMeta('DerivationGLieAlgebra', [GLieAlgebra, Printable]);
   function generateGetValue($this, target) {
     return DerivationGLieAlgebraFactory$generateGetValue$lambda($this, target);
   }
   function toDerivation(_this__u8e3s4, $this) {
-    var freeGAlgebra = $this.t1i_1;
-    var size = freeGAlgebra.u1f().i();
-    var basisDegree = _this__u8e3s4.t1j_1.w14();
-    var index = _this__u8e3s4.s1j_1;
+    var freeGAlgebra = $this.a1j_1;
+    var size = freeGAlgebra.c1g().i();
+    var basisDegree = _this__u8e3s4.a1k_1.b15();
+    var index = _this__u8e3s4.z1j_1;
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = freeGAlgebra.n14().o14();
+    var tmp0_run = freeGAlgebra.s14().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.toDerivation.<anonymous>' call
-    tmp$ret$0 = tmp0_run.v19(basisDegree, freeGAlgebra.u1f().l(index).z1j_1);
+    tmp$ret$0 = tmp0_run.z19(basisDegree, freeGAlgebra.c1g().l(index).g1k_1);
     tmp$ret$1 = tmp$ret$0;
     var derivationDegree = tmp$ret$1;
     var tmp$ret$4;
@@ -6619,9 +6655,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.toDerivation.<anonymous>' call
         var tmp;
         if (item === index) {
-          tmp = freeGAlgebra.s11(_this__u8e3s4.t1j_1, basisDegree);
+          tmp = freeGAlgebra.s11(_this__u8e3s4.a1k_1, basisDegree);
         } else {
-          tmp = freeGAlgebra.c12();
+          tmp = freeGAlgebra.d12();
         }
         tmp$ret$2 = tmp;
         tmp0_mapTo.a(tmp$ret$2);
@@ -6630,18 +6666,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$3 = tmp0_mapTo;
     tmp$ret$4 = tmp$ret$3;
     var valueList = tmp$ret$4;
-    return freeGAlgebra.a1k(valueList, derivationDegree);
+    return freeGAlgebra.h1k(valueList, derivationDegree);
   }
   function DerivationGLieAlgebraFactory$getInternalPrintConfig$lambda($indeterminateList, $p) {
     return function (directSumBasis) {
-      var from = $indeterminateList.l(directSumBasis.s1j_1);
-      var to = directSumBasis.t1j_1;
-      return '(' + $p.d1k(from) + ', ' + $p.d1k(to) + ')';
+      var from = $indeterminateList.l(directSumBasis.z1j_1);
+      var to = directSumBasis.a1k_1;
+      return '(' + $p.k1k(from) + ', ' + $p.k1k(to) + ')';
     };
   }
   function DerivationGLieAlgebraFactory$getInternalPrintConfig$ref_0($boundThis) {
     var l = function (p0) {
-      return $boundThis.a1j(p0);
+      return $boundThis.h1j(p0);
     };
     l.callableName = 'getInternalPrintConfig';
     return l;
@@ -6650,18 +6686,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function (derivationBasis1, derivationBasis2) {
       var derivation1 = toDerivation(derivationBasis1, this$0);
       var derivation2 = toDerivation(derivationBasis2, this$0);
-      var sign = derivation1.w14().l1e(derivation2.w14());
+      var sign = derivation1.b15().t1e(derivation2.b15());
       var tmp$ret$7;
       // Inline function 'kotlin.collections.map' call
       var tmp$ret$4;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.t1i_1.o14();
+      var tmp0_run = this$0.a1j_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.generateGetValue.<anonymous>.<anonymous>' call
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = this$0.t1i_1.v1f();
+      var tmp0_map = this$0.a1j_1.d1g();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -6670,7 +6706,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.generateGetValue.<anonymous>.<anonymous>.<anonymous>' call
-        tmp$ret$0 = tmp0_run.c13(derivation1.z14(derivation2.z14(item)), tmp0_run.r13(sign, derivation2.z14(derivation1.z14(item))));
+        tmp$ret$0 = tmp0_run.e13(derivation1.e15(derivation2.e15(item)), tmp0_run.v13(sign, derivation2.e15(derivation1.e15(item))));
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -6686,42 +6722,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item_0 = tmp0_iterator_0.h();
         var tmp$ret$5;
         // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.generateGetValue.<anonymous>.<anonymous>' call
-        tmp$ret$5 = item_0.x18_1;
+        tmp$ret$5 = item_0.w17_1;
         tmp0_mapTo_0.a(tmp$ret$5);
       }
       tmp$ret$6 = tmp0_mapTo_0;
       tmp$ret$7 = tmp$ret$6;
       var valueList = tmp$ret$7;
-      return $target.l1j(valueList);
+      return $target.s1j(valueList);
     };
   }
   function DerivationGLieAlgebraFactory(freeGAlgebra) {
-    this.t1i_1 = freeGAlgebra;
-    this.u1i_1 = this.t1i_1.h11();
-    this.v1i_1 = this.t1i_1.n14();
-    this.w1i_1 = 'Der(' + this.t1i_1.xb() + ')';
+    this.a1j_1 = freeGAlgebra;
+    this.b1j_1 = this.a1j_1.h11();
+    this.c1j_1 = this.a1j_1.s14();
+    this.d1j_1 = 'Der(' + this.a1j_1.xb() + ')';
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.x1i_1 = tmp$ret$0;
+    tmp.e1j_1 = tmp$ret$0;
   }
-  DerivationGLieAlgebraFactory.prototype.e1k = function () {
-    return this.t1i_1;
+  DerivationGLieAlgebraFactory.prototype.l1k = function () {
+    return this.a1j_1;
   };
-  DerivationGLieAlgebraFactory.prototype.n14 = function () {
-    return this.v1i_1;
+  DerivationGLieAlgebraFactory.prototype.s14 = function () {
+    return this.c1j_1;
   };
-  DerivationGLieAlgebraFactory.prototype.a1j = function (printConfig) {
+  DerivationGLieAlgebraFactory.prototype.h1j = function (printConfig) {
     var p = Printer_init_$Create$(printConfig);
-    var indeterminateList = this.t1i_1.u1f();
+    var indeterminateList = this.a1j_1.c1g();
     var tmp = DerivationGLieAlgebraFactory$getInternalPrintConfig$lambda(indeterminateList, p);
     return InternalPrintConfig_init_$Create$(null, tmp, null, 5, null);
   };
-  DerivationGLieAlgebraFactory.prototype.y1i = function (derivationDegree) {
+  DerivationGLieAlgebraFactory.prototype.f1j = function (derivationDegree) {
     var tmp$ret$9;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = this.x1i_1;
+    var tmp0_getOrPut = this.e1j_1;
     var value = tmp0_getOrPut.t(derivationDegree);
     var tmp;
     if (value == null) {
@@ -6729,7 +6765,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.getVectorSpace.<anonymous>' call
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = this.t1i_1.u1f();
+      var tmp0_map = this.a1j_1.c1g();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -6738,7 +6774,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.getVectorSpace.<anonymous>.<anonymous>' call
-        tmp$ret$0 = item.z1j_1;
+        tmp$ret$0 = item.g1k_1;
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -6746,7 +6782,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var generatorDegreeList = tmp$ret$2;
       var tmp$ret$7;
       // Inline function 'kotlin.run' call
-      var tmp1_run = this.v1i_1.o14();
+      var tmp1_run = this.c1j_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$6;
       // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.getVectorSpace.<anonymous>.<anonymous>' call
@@ -6760,7 +6796,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item_0 = tmp0_iterator_0.h();
         var tmp$ret$3;
         // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.getVectorSpace.<anonymous>.<anonymous>.<anonymous>' call
-        tmp$ret$3 = this.t1i_1.m11(tmp1_run.r18(item_0, derivationDegree));
+        tmp$ret$3 = this.a1j_1.m11(tmp1_run.y18(item_0, derivationDegree));
         tmp0_mapTo_0.a(tmp$ret$3);
       }
       tmp$ret$4 = tmp0_mapTo_0;
@@ -6768,7 +6804,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp$ret$6 = tmp$ret$5;
       tmp$ret$7 = tmp$ret$6;
       var vectorSpaceList = tmp$ret$7;
-      var tmp_0 = this.t1i_1.h11();
+      var tmp_0 = this.a1j_1.h11();
       tmp$ret$8 = DirectSum_init_$Create$(vectorSpaceList, tmp_0, DerivationGLieAlgebraFactory$getInternalPrintConfig$ref_0(this));
       var answer = tmp$ret$8;
       tmp0_getOrPut.u(derivationDegree, answer);
@@ -6779,24 +6815,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$9 = tmp;
     return tmp$ret$9;
   };
-  DerivationGLieAlgebraFactory.prototype.z1i = function (derivationDegree1, derivationDegree2) {
-    var source1 = this.y1i(derivationDegree1);
-    var source2 = this.y1i(derivationDegree2);
+  DerivationGLieAlgebraFactory.prototype.g1j = function (derivationDegree1, derivationDegree2) {
+    var source1 = this.f1j(derivationDegree1);
+    var source2 = this.f1j(derivationDegree2);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.v1i_1.o14();
+    var tmp0_run = this.c1j_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.DerivationGLieAlgebraFactory.getMultiplication.<anonymous>' call
-    tmp$ret$0 = tmp0_run.r18(derivationDegree1, derivationDegree2);
+    tmp$ret$0 = tmp0_run.y18(derivationDegree1, derivationDegree2);
     tmp$ret$1 = tmp$ret$0;
-    var target = this.y1i(tmp$ret$1);
-    return ValueBilinearMap_init_$Create$(source1, source2, target, this.u1i_1, generateGetValue(this, target));
+    var target = this.f1j(tmp$ret$1);
+    return ValueBilinearMap_init_$Create$(source1, source2, target, this.b1j_1, generateGetValue(this, target));
   };
   DerivationGLieAlgebraFactory.$metadata$ = classMeta('DerivationGLieAlgebraFactory');
   function InternalPrintConfig$Companion$default$ref($boundThis) {
     var l = function (p0) {
-      return $boundThis.d19(p0);
+      return $boundThis.h19(p0);
     };
     l.callableName = 'default';
     return l;
@@ -6813,7 +6849,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.Companion.fromList.<anonymous>.<anonymous>' call
-        tmp$ret$0 = $this$null.i1k(item.h1k_1);
+        tmp$ret$0 = $this$null.p1k(item.o1k_1);
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -6824,21 +6860,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_23() {
     Companion_instance_23 = this;
   }
-  Companion_23.prototype.j1k = function (gAlgebra, differential) {
+  Companion_23.prototype.q1k = function (gAlgebra, differential) {
     return new FreeDGAlgebraImpl(gAlgebra, differential);
   };
-  Companion_23.prototype.k1k = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueList) {
-    var freeGAlgebra = Companion_getInstance_26().l1k(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig);
+  Companion_23.prototype.r1k = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig, getDifferentialValueList) {
+    var freeGAlgebra = Companion_getInstance_26().s1k(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = freeGAlgebra.o14();
+    var tmp0_run = freeGAlgebra.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.Companion.fromList.<anonymous>' call
-    tmp$ret$0 = getDifferentialValueList(tmp0_run, freeGAlgebra.v1f());
+    tmp$ret$0 = getDifferentialValueList(tmp0_run, freeGAlgebra.d1g());
     tmp$ret$1 = tmp$ret$0;
     var valueList = tmp$ret$1;
-    var differential = freeGAlgebra.m1k(valueList, 1);
+    var differential = freeGAlgebra.t1k(valueList, 1);
     var inductionVariable = 0;
     var last = valueList.i() - 1 | 0;
     if (inductionVariable <= last)
@@ -6870,7 +6906,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
               inductionVariable_0 = inductionVariable_0 + 1 | 0;
               var tmp$ret$3;
               // Inline function 'com.github.shwaka.kohomology.free.Companion.fromList.<anonymous>' call
-              tmp$ret$3 = freeGAlgebra.n1k(element, value);
+              tmp$ret$3 = freeGAlgebra.u1k(element, value);
               if (tmp$ret$3) {
                 tmp$ret$2 = true;
                 break $l$block_0;
@@ -6882,18 +6918,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         if (tmp$ret$2) {
           throw IllegalArgumentException_init_$Create$('The generator list of a FreeDGAlgebra should be sorted along a Sullivan filtration');
         }
-        var dValue = differential.z14(value);
-        if (dValue.t1a())
+        var dValue = differential.e15(value);
+        if (dValue.z17())
           throw IllegalArgumentException_init_$Create$('d(' + indeterminateList.l(i) + ') must be a cocycle, ' + ('but your input is ' + value + ' with d(d(' + indeterminateList.l(i) + ')) = d(' + value + ') = ' + dValue + ' (!= 0)'));
       }
        while (inductionVariable <= last);
     return new FreeDGAlgebraImpl(freeGAlgebra, differential);
   };
-  Companion_23.prototype.o1k = function (matrixSpace, degreeGroup, indeterminateList, getDifferentialValueList) {
+  Companion_23.prototype.v1k = function (matrixSpace, degreeGroup, indeterminateList, getDifferentialValueList) {
     var tmp = Companion_getInstance_24();
-    return tmp.k1k(matrixSpace, degreeGroup, indeterminateList, InternalPrintConfig$Companion$default$ref(Companion_getInstance_44()), getDifferentialValueList);
+    return tmp.r1k(matrixSpace, degreeGroup, indeterminateList, InternalPrintConfig$Companion$default$ref(Companion_getInstance_44()), getDifferentialValueList);
   };
-  Companion_23.prototype.p1k = function (matrixSpace, degreeGroup, generatorList) {
+  Companion_23.prototype.w1k = function (matrixSpace, degreeGroup, generatorList) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -6904,17 +6940,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.Companion.fromList.<anonymous>' call
-      tmp$ret$0 = Indeterminate_0(item.f1k_1, item.g1k_1);
+      tmp$ret$0 = Indeterminate_0(item.m1k_1, item.n1k_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var indeterminateList = tmp$ret$2;
     var getDifferentialValueList = FreeDGAlgebra$Companion$fromList$lambda(generatorList);
-    return Companion_getInstance_24().o1k(matrixSpace, degreeGroup, indeterminateList, getDifferentialValueList);
+    return Companion_getInstance_24().v1k(matrixSpace, degreeGroup, indeterminateList, getDifferentialValueList);
   };
-  Companion_23.prototype.q1k = function (matrixSpace, generatorList) {
-    return Companion_getInstance_24().p1k(matrixSpace, IntDegreeGroup_getInstance(), generatorList);
+  Companion_23.prototype.x1k = function (matrixSpace, generatorList) {
+    return Companion_getInstance_24().w1k(matrixSpace, IntDegreeGroup_getInstance(), generatorList);
   };
   Companion_23.$metadata$ = objectMeta('Companion');
   var Companion_instance_23;
@@ -6929,7 +6965,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_24() {
     Companion_instance_24 = this;
   }
-  Companion_24.prototype.u1k = function (name, degree, differentialValue) {
+  Companion_24.prototype.b1l = function (name, degree, differentialValue) {
     return new GeneratorOfFreeDGA(name, new IntDegree(degree), differentialValue);
   };
   Companion_24.$metadata$ = objectMeta('Companion');
@@ -6941,26 +6977,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function GeneratorOfFreeDGA(name, degree, differentialValue) {
     Companion_getInstance_25();
-    this.f1k_1 = name;
-    this.g1k_1 = degree;
-    this.h1k_1 = differentialValue;
+    this.m1k_1 = name;
+    this.n1k_1 = degree;
+    this.o1k_1 = differentialValue;
   }
   GeneratorOfFreeDGA.prototype.xb = function () {
-    return this.f1k_1;
+    return this.m1k_1;
   };
-  GeneratorOfFreeDGA.prototype.w14 = function () {
-    return this.g1k_1;
+  GeneratorOfFreeDGA.prototype.b15 = function () {
+    return this.n1k_1;
   };
-  GeneratorOfFreeDGA.prototype.v1k = function () {
-    return this.h1k_1;
+  GeneratorOfFreeDGA.prototype.c1l = function () {
+    return this.o1k_1;
   };
   GeneratorOfFreeDGA.prototype.toString = function () {
-    return 'GeneratorOfFreeDGA(name=' + this.f1k_1 + ', degree=' + this.g1k_1 + ', differentialValue=' + this.h1k_1 + ')';
+    return 'GeneratorOfFreeDGA(name=' + this.m1k_1 + ', degree=' + this.n1k_1 + ', differentialValue=' + this.o1k_1 + ')';
   };
   GeneratorOfFreeDGA.prototype.hashCode = function () {
-    var result = getStringHashCode(this.f1k_1);
-    result = imul(result, 31) + hashCode(this.g1k_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.h1k_1) | 0;
+    var result = getStringHashCode(this.m1k_1);
+    result = imul(result, 31) + hashCode(this.n1k_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.o1k_1) | 0;
     return result;
   };
   GeneratorOfFreeDGA.prototype.equals = function (other) {
@@ -6969,11 +7005,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof GeneratorOfFreeDGA))
       return false;
     var tmp0_other_with_cast = other instanceof GeneratorOfFreeDGA ? other : THROW_CCE();
-    if (!(this.f1k_1 === tmp0_other_with_cast.f1k_1))
+    if (!(this.m1k_1 === tmp0_other_with_cast.m1k_1))
       return false;
-    if (!equals(this.g1k_1, tmp0_other_with_cast.g1k_1))
+    if (!equals(this.n1k_1, tmp0_other_with_cast.n1k_1))
       return false;
-    if (!(this.h1k_1 === tmp0_other_with_cast.h1k_1))
+    if (!(this.o1k_1 === tmp0_other_with_cast.o1k_1))
       return false;
     return true;
   };
@@ -6985,12 +7021,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = dgAlgebra$factory();
-    tmp$ret$0 = $this.g1l_1.f1();
+    tmp$ret$0 = $this.n1l_1.f1();
     return tmp$ret$0;
   }
   function FreeDGAlgebraImpl$dgAlgebra$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_1().c11(this$0.w1k_1, this$0.x1k_1);
+      return Companion_getInstance_1().c11(this$0.d1l_1, this$0.e1l_1);
     };
   }
   function FreeDGAlgebraImpl$cohomology$delegate$lambda(this$0) {
@@ -6999,350 +7035,374 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     };
   }
   function FreeDGAlgebraImpl(underlyingGAlgebra, differential) {
-    this.w1k_1 = underlyingGAlgebra;
-    this.x1k_1 = differential;
-    this.y1k_1 = new FreeDGAlgebraContextImpl(this);
-    this.z1k_1 = this.w1k_1.d12();
-    this.a1l_1 = true;
-    this.b1l_1 = this.w1k_1.h11();
-    this.c1l_1 = this.w1k_1.f11();
-    this.d1l_1 = this.w1k_1.n14();
-    this.e1l_1 = this.w1k_1.u1f();
-    this.f1l_1 = this.w1k_1.i1l();
+    this.d1l_1 = underlyingGAlgebra;
+    this.e1l_1 = differential;
+    this.f1l_1 = new FreeDGAlgebraContextImpl(this);
+    this.g1l_1 = this.d1l_1.e12();
+    this.h1l_1 = true;
+    this.i1l_1 = this.d1l_1.h11();
+    this.j1l_1 = this.d1l_1.f11();
+    this.k1l_1 = this.d1l_1.s14();
+    this.l1l_1 = this.d1l_1.c1g();
+    this.m1l_1 = this.d1l_1.p1l();
     var tmp = this;
-    tmp.g1l_1 = lazy(FreeDGAlgebraImpl$dgAlgebra$delegate$lambda(this));
+    tmp.n1l_1 = lazy(FreeDGAlgebraImpl$dgAlgebra$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.h1l_1 = lazy(FreeDGAlgebraImpl$cohomology$delegate$lambda(this));
+    tmp_0.o1l_1 = lazy(FreeDGAlgebraImpl$cohomology$delegate$lambda(this));
   }
-  FreeDGAlgebraImpl.prototype.r1j = function () {
-    return this.w1k_1;
+  FreeDGAlgebraImpl.prototype.y1j = function () {
+    return this.d1l_1;
   };
   FreeDGAlgebraImpl.prototype.g11 = function () {
-    return this.x1k_1;
+    return this.e1l_1;
   };
   FreeDGAlgebraImpl.prototype.o11 = function () {
-    return this.w1k_1.o11();
+    return this.d1l_1.o11();
   };
   FreeDGAlgebraImpl.prototype.p11 = function () {
-    return this.w1k_1.p11();
+    return this.d1l_1.p11();
   };
   FreeDGAlgebraImpl.prototype.k11 = function () {
-    return this.w1k_1.k11();
+    return this.d1l_1.k11();
   };
   FreeDGAlgebraImpl.prototype.l11 = function () {
-    return this.w1k_1.l11();
+    return this.d1l_1.l11();
   };
   FreeDGAlgebraImpl.prototype.xb = function () {
-    return this.w1k_1.xb();
+    return this.d1l_1.xb();
   };
   FreeDGAlgebraImpl.prototype.j11 = function () {
-    return this.w1k_1.j11();
+    return this.d1l_1.j11();
   };
   FreeDGAlgebraImpl.prototype.n11 = function () {
-    return this.w1k_1.n11();
+    return this.d1l_1.n11();
   };
-  FreeDGAlgebraImpl.prototype.c12 = function () {
-    return this.w1k_1.c12();
+  FreeDGAlgebraImpl.prototype.d12 = function () {
+    return this.d1l_1.d12();
   };
-  FreeDGAlgebraImpl.prototype.j1l = function (a, b) {
-    return this.w1k_1.x11(a, b);
+  FreeDGAlgebraImpl.prototype.q1l = function (a, b) {
+    return this.d1l_1.x11(a, b);
   };
   FreeDGAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.j1l(a, b);
+    return this.q1l(a, b);
   };
-  FreeDGAlgebraImpl.prototype.k1l = function (a, b) {
-    return this.j1l(a, b);
+  FreeDGAlgebraImpl.prototype.r1l = function (a, b) {
+    return this.q1l(a, b);
   };
-  FreeDGAlgebraImpl.prototype.l1l = function (gVector) {
-    return this.w1k_1.w11(gVector);
+  FreeDGAlgebraImpl.prototype.s1l = function (gVector) {
+    return this.d1l_1.w11(gVector);
   };
   FreeDGAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.l1l(gVector);
+    return this.s1l(gVector);
   };
-  FreeDGAlgebraImpl.prototype.m1l = function (gVector) {
-    return this.l1l(gVector);
+  FreeDGAlgebraImpl.prototype.t1l = function (gVector) {
+    return this.s1l(gVector);
   };
-  FreeDGAlgebraImpl.prototype.n1l = function (gVectorOrZero, degree) {
-    return this.w1k_1.v11(gVectorOrZero, degree);
+  FreeDGAlgebraImpl.prototype.u1l = function (gVectorOrZero, degree) {
+    return this.d1l_1.v11(gVectorOrZero, degree);
   };
   FreeDGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.n1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.u1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.o1l = function (gVectorOrZero, degree) {
-    return this.n1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeDGAlgebraImpl.prototype.v1l = function (gVectorOrZero, degree) {
+    return this.u1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.p1l = function (basisName, degree) {
-    return this.w1k_1.s11(basisName, degree);
+  FreeDGAlgebraImpl.prototype.w1l = function (a, b) {
+    return this.d1l_1.c12(a, b);
+  };
+  FreeDGAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.w1l(a, b);
+  };
+  FreeDGAlgebraImpl.prototype.x1l = function (a, b) {
+    return this.w1l(a, b);
+  };
+  FreeDGAlgebraImpl.prototype.y1l = function (basisName, degree) {
+    return this.d1l_1.s11(basisName, degree);
   };
   FreeDGAlgebraImpl.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.q1l = function (basisName, degree) {
+  FreeDGAlgebraImpl.prototype.z1l = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.r1l = function (vector, degree) {
-    return this.w1k_1.q11(vector, degree);
+  FreeDGAlgebraImpl.prototype.a1m = function (vector, degree) {
+    return this.d1l_1.q11(vector, degree);
   };
   FreeDGAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.r1l(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.a1m(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.s1l = function (vector, degree) {
-    return this.r1l(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeDGAlgebraImpl.prototype.b1m = function (vector, degree) {
+    return this.a1m(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeDGAlgebraImpl.prototype.t1l = function (vector, degree) {
-    return this.w1k_1.r11(vector, degree);
+  FreeDGAlgebraImpl.prototype.c1m = function (vector, degree) {
+    return this.d1l_1.r11(vector, degree);
   };
   FreeDGAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.t1l(vector, degree);
+    return this.c1m(vector, degree);
   };
-  FreeDGAlgebraImpl.prototype.u1l = function (vector, degree) {
-    return this.t1l(vector, degree);
+  FreeDGAlgebraImpl.prototype.d1m = function (vector, degree) {
+    return this.c1m(vector, degree);
   };
   FreeDGAlgebraImpl.prototype.m11 = function (degree) {
-    return this.w1k_1.m11(degree);
+    return this.d1l_1.m11(degree);
   };
   FreeDGAlgebraImpl.prototype.t11 = function (degree) {
-    return this.w1k_1.t11(degree);
+    return this.d1l_1.t11(degree);
   };
   FreeDGAlgebraImpl.prototype.u11 = function (degree) {
-    return this.w1k_1.u11(degree);
+    return this.d1l_1.u11(degree);
   };
-  FreeDGAlgebraImpl.prototype.v1l = function (scalar, gVector) {
-    return this.w1k_1.z11(scalar, gVector);
+  FreeDGAlgebraImpl.prototype.e1m = function (scalar, gVector) {
+    return this.d1l_1.z11(scalar, gVector);
   };
   FreeDGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.v1l(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.e1m(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeDGAlgebraImpl.prototype.w1l = function (scalar, gVector) {
-    return this.v1l(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  FreeDGAlgebraImpl.prototype.f1m = function (scalar, gVector) {
+    return this.e1m(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeDGAlgebraImpl.prototype.x1l = function (a, b) {
-    return this.w1k_1.y11(a, b);
+  FreeDGAlgebraImpl.prototype.g1m = function (a, b) {
+    return this.d1l_1.y11(a, b);
   };
   FreeDGAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.x1l(a, b);
+    return this.g1m(a, b);
   };
-  FreeDGAlgebraImpl.prototype.y1l = function (a, b) {
-    return this.x1l(a, b);
+  FreeDGAlgebraImpl.prototype.h1m = function (a, b) {
+    return this.g1m(a, b);
   };
-  FreeDGAlgebraImpl.prototype.o14 = function () {
-    return this.y1k_1;
-  };
-  FreeDGAlgebraImpl.prototype.d12 = function () {
-    return this.z1k_1;
+  FreeDGAlgebraImpl.prototype.t14 = function () {
+    return this.f1l_1;
   };
   FreeDGAlgebraImpl.prototype.e12 = function () {
-    return this.a1l_1;
+    return this.g1l_1;
+  };
+  FreeDGAlgebraImpl.prototype.f12 = function () {
+    return this.h1l_1;
   };
   FreeDGAlgebraImpl.prototype.h11 = function () {
-    return this.b1l_1;
+    return this.i1l_1;
   };
   FreeDGAlgebraImpl.prototype.f11 = function () {
-    return this.c1l_1;
+    return this.j1l_1;
   };
-  FreeDGAlgebraImpl.prototype.n14 = function () {
-    return this.d1l_1;
+  FreeDGAlgebraImpl.prototype.s14 = function () {
+    return this.k1l_1;
   };
-  FreeDGAlgebraImpl.prototype.u1f = function () {
-    return this.e1l_1;
+  FreeDGAlgebraImpl.prototype.c1g = function () {
+    return this.l1l_1;
   };
-  FreeDGAlgebraImpl.prototype.i1l = function () {
-    return this.f1l_1;
+  FreeDGAlgebraImpl.prototype.p1l = function () {
+    return this.m1l_1;
   };
   FreeDGAlgebraImpl.prototype.e11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = cohomology$factory_2();
-    tmp$ret$0 = this.h1l_1.f1();
+    tmp$ret$0 = this.o1l_1.f1();
     return tmp$ret$0;
   };
   FreeDGAlgebraImpl.prototype.toString = function () {
-    return '(' + this.w1k_1 + ', d)';
+    return '(' + this.d1l_1 + ', d)';
   };
   FreeDGAlgebraImpl.$metadata$ = classMeta('FreeDGAlgebraImpl', [FreeDGAlgebra, GVectorSpace, Printable]);
   function FreeDGAlgebraContextImpl(dgAlgebra) {
-    this.z1l_1 = dgAlgebra;
-    this.a1m_1 = new DGAlgebraContextImpl(dgAlgebra);
-    this.b1m_1 = this.z1l_1;
+    this.i1m_1 = dgAlgebra;
+    this.j1m_1 = new DGAlgebraContextImpl(dgAlgebra);
+    this.k1m_1 = this.i1m_1;
   }
-  FreeDGAlgebraContextImpl.prototype.j12 = function () {
-    return this.a1m_1.j12();
+  FreeDGAlgebraContextImpl.prototype.l12 = function () {
+    return this.j1m_1.l12();
   };
-  FreeDGAlgebraContextImpl.prototype.k12 = function () {
-    return this.a1m_1.k12();
-  };
-  FreeDGAlgebraContextImpl.prototype.r12 = function () {
-    return this.a1m_1.r12();
-  };
-  FreeDGAlgebraContextImpl.prototype.p11 = function () {
-    return this.a1m_1.p11();
-  };
-  FreeDGAlgebraContextImpl.prototype.s12 = function () {
-    return this.a1m_1.s12();
+  FreeDGAlgebraContextImpl.prototype.m12 = function () {
+    return this.j1m_1.m12();
   };
   FreeDGAlgebraContextImpl.prototype.t12 = function () {
-    return this.a1m_1.t12();
+    return this.j1m_1.t12();
   };
-  FreeDGAlgebraContextImpl.prototype.j11 = function () {
-    return this.a1m_1.j11();
+  FreeDGAlgebraContextImpl.prototype.p11 = function () {
+    return this.j1m_1.p11();
   };
   FreeDGAlgebraContextImpl.prototype.u12 = function () {
-    return this.a1m_1.u12();
-  };
-  FreeDGAlgebraContextImpl.prototype.d12 = function () {
-    return this.a1m_1.d12();
+    return this.j1m_1.u12();
   };
   FreeDGAlgebraContextImpl.prototype.v12 = function () {
-    return this.a1m_1.v12();
+    return this.j1m_1.v12();
   };
-  FreeDGAlgebraContextImpl.prototype.c1m = function (_this__u8e3s4) {
-    return this.a1m_1.w12(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.j11 = function () {
+    return this.j1m_1.j11();
   };
-  FreeDGAlgebraContextImpl.prototype.w12 = function (_this__u8e3s4) {
-    return this.c1m(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.w12 = function () {
+    return this.j1m_1.w12();
   };
-  FreeDGAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.a1m_1.x12(_this__u8e3s4, other);
+  FreeDGAlgebraContextImpl.prototype.e12 = function () {
+    return this.j1m_1.e12();
   };
-  FreeDGAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.a1m_1.y12(_this__u8e3s4, other);
+  FreeDGAlgebraContextImpl.prototype.x12 = function () {
+    return this.j1m_1.x12();
   };
-  FreeDGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.a1m_1.z12(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.l1m = function (_this__u8e3s4) {
+    return this.j1m_1.y12(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4) {
+    return this.l1m(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.j1m_1.z12(_this__u8e3s4, other);
   };
   FreeDGAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.a1m_1.a13(_this__u8e3s4, other);
+    return this.j1m_1.a13(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.a1m_1.b13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.d1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.c13(_this__u8e3s4, other);
+  FreeDGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.j1m_1.b13(_this__u8e3s4);
   };
   FreeDGAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
-    return this.d1m(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.e1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.d13(_this__u8e3s4, other);
+    return this.j1m_1.c13(_this__u8e3s4, other);
   };
   FreeDGAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
-    return this.e1m(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.a1m_1.e13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.a1m_1.f13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.f1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.g13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.f1m(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.g1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.h13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
-    return this.g1m(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.h1m = function (_this__u8e3s4, exponent) {
-    return this.a1m_1.y13(_this__u8e3s4, exponent);
-  };
-  FreeDGAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4, exponent) {
-    return this.h1m(_this__u8e3s4, exponent);
-  };
-  FreeDGAlgebraContextImpl.prototype.i1m = function (_this__u8e3s4, exponent) {
-    return this.a1m_1.z13(_this__u8e3s4, exponent);
-  };
-  FreeDGAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4, exponent) {
-    return this.i1m(_this__u8e3s4, exponent);
-  };
-  FreeDGAlgebraContextImpl.prototype.j1m = function (_this__u8e3s4) {
-    return this.a1m_1.a14(_this__u8e3s4);
-  };
-  FreeDGAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
-    return this.j1m(_this__u8e3s4);
-  };
-  FreeDGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.a1m_1.i13(_this__u8e3s4);
-  };
-  FreeDGAlgebraContextImpl.prototype.k1m = function (_this__u8e3s4, degree) {
-    return this.a1m_1.j13(_this__u8e3s4, degree);
-  };
-  FreeDGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.k1m(_this__u8e3s4, (degree == null ? true : isInterface(degree, Degree)) ? degree : THROW_CCE());
-  };
-  FreeDGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.a1m_1.k13(_this__u8e3s4, other);
-  };
-  FreeDGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.a1m_1.l13(_this__u8e3s4, scalar);
-  };
-  FreeDGAlgebraContextImpl.prototype.l1m = function (_this__u8e3s4, scalar) {
-    return this.a1m_1.m13(_this__u8e3s4, scalar);
-  };
-  FreeDGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.l1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+    return this.j1m_1.d13(_this__u8e3s4, other);
   };
   FreeDGAlgebraContextImpl.prototype.m1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.n13(_this__u8e3s4, other);
+    return this.j1m_1.e13(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
+  FreeDGAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
     return this.m1m(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.n1m = function (_this__u8e3s4, sign) {
-    return this.a1m_1.o13(_this__u8e3s4, sign);
+  FreeDGAlgebraContextImpl.prototype.n1m = function (_this__u8e3s4, other) {
+    return this.j1m_1.f13(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.n1m(_this__u8e3s4, sign);
+  FreeDGAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
+    return this.n1m(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.o1m = function (_this__u8e3s4, scalar) {
-    return this.a1m_1.p13(_this__u8e3s4, scalar);
+  FreeDGAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.j1m_1.g13(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
-    return this.o1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  FreeDGAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.j1m_1.h13(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.o1m = function (_this__u8e3s4, other) {
+    return this.j1m_1.i13(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.o1m(_this__u8e3s4, other);
   };
   FreeDGAlgebraContextImpl.prototype.p1m = function (_this__u8e3s4, other) {
-    return this.a1m_1.q13(_this__u8e3s4, other);
+    return this.j1m_1.j13(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, other) {
+  FreeDGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, other) {
     return this.p1m(_this__u8e3s4, other);
   };
-  FreeDGAlgebraContextImpl.prototype.q1m = function (_this__u8e3s4, gVector) {
-    return this.a1m_1.r13(_this__u8e3s4, gVector);
+  FreeDGAlgebraContextImpl.prototype.q1m = function (_this__u8e3s4, exponent) {
+    return this.j1m_1.c14(_this__u8e3s4, exponent);
   };
-  FreeDGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, gVector) {
-    return this.q1m(_this__u8e3s4, gVector);
+  FreeDGAlgebraContextImpl.prototype.c14 = function (_this__u8e3s4, exponent) {
+    return this.q1m(_this__u8e3s4, exponent);
   };
-  FreeDGAlgebraContextImpl.prototype.r1m = function (_this__u8e3s4, gVector) {
-    return this.a1m_1.s13(_this__u8e3s4, gVector);
+  FreeDGAlgebraContextImpl.prototype.r1m = function (_this__u8e3s4, exponent) {
+    return this.j1m_1.d14(_this__u8e3s4, exponent);
   };
-  FreeDGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, gVector) {
-    return this.r1m(_this__u8e3s4, gVector);
-  };
-  FreeDGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.a1m_1.t13(_this__u8e3s4);
-  };
-  FreeDGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.a1m_1.u13(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.d14 = function (_this__u8e3s4, exponent) {
+    return this.r1m(_this__u8e3s4, exponent);
   };
   FreeDGAlgebraContextImpl.prototype.s1m = function (_this__u8e3s4) {
-    return this.a1m_1.v13(_this__u8e3s4);
+    return this.j1m_1.f14(_this__u8e3s4);
   };
-  FreeDGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
+  FreeDGAlgebraContextImpl.prototype.f14 = function (_this__u8e3s4) {
     return this.s1m(_this__u8e3s4);
   };
-  FreeDGAlgebraContextImpl.prototype.t1m = function (_this__u8e3s4) {
-    return this.a1m_1.w13(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.j1m_1.k13(_this__u8e3s4);
   };
-  FreeDGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4) {
-    return this.t1m(_this__u8e3s4);
+  FreeDGAlgebraContextImpl.prototype.t1m = function (_this__u8e3s4, degree) {
+    return this.j1m_1.l13(_this__u8e3s4, degree);
   };
-  FreeDGAlgebraContextImpl.prototype.x13 = function () {
-    return this.b1m_1;
+  FreeDGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.t1m(_this__u8e3s4, (degree == null ? true : isInterface(degree, Degree)) ? degree : THROW_CCE());
+  };
+  FreeDGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.j1m_1.m13(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.j1m_1.n13(_this__u8e3s4, numVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.u1m = function (_this__u8e3s4, gVector) {
+    return this.j1m_1.o13(_this__u8e3s4, gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, gVector) {
+    return this.u1m(isInterface(_this__u8e3s4, Scalar) ? _this__u8e3s4 : THROW_CCE(), gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.j1m_1.p13(_this__u8e3s4, scalar);
+  };
+  FreeDGAlgebraContextImpl.prototype.v1m = function (_this__u8e3s4, scalar) {
+    return this.j1m_1.q13(_this__u8e3s4, scalar);
+  };
+  FreeDGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.v1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  };
+  FreeDGAlgebraContextImpl.prototype.w1m = function (_this__u8e3s4, other) {
+    return this.j1m_1.r13(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.w1m(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.x1m = function (_this__u8e3s4, sign) {
+    return this.j1m_1.s13(_this__u8e3s4, sign);
+  };
+  FreeDGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.x1m(_this__u8e3s4, sign);
+  };
+  FreeDGAlgebraContextImpl.prototype.y1m = function (_this__u8e3s4, scalar) {
+    return this.j1m_1.t13(_this__u8e3s4, scalar);
+  };
+  FreeDGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4, scalar) {
+    return this.y1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  };
+  FreeDGAlgebraContextImpl.prototype.z1m = function (_this__u8e3s4, other) {
+    return this.j1m_1.u13(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4, other) {
+    return this.z1m(_this__u8e3s4, other);
+  };
+  FreeDGAlgebraContextImpl.prototype.a1n = function (_this__u8e3s4, gVector) {
+    return this.j1m_1.v13(_this__u8e3s4, gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4, gVector) {
+    return this.a1n(_this__u8e3s4, gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.b1n = function (_this__u8e3s4, gVector) {
+    return this.j1m_1.w13(_this__u8e3s4, gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4, gVector) {
+    return this.b1n(_this__u8e3s4, gVector);
+  };
+  FreeDGAlgebraContextImpl.prototype.c1n = function (_this__u8e3s4) {
+    return this.j1m_1.e14(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.e14 = function (_this__u8e3s4) {
+    return this.c1n(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.j1m_1.x13(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.j1m_1.y13(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.d1n = function (_this__u8e3s4) {
+    return this.j1m_1.z13(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.d1n(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.e1n = function (_this__u8e3s4) {
+    return this.j1m_1.a14(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
+    return this.e1n(_this__u8e3s4);
+  };
+  FreeDGAlgebraContextImpl.prototype.b14 = function () {
+    return this.k1m_1;
   };
   FreeDGAlgebraContextImpl.$metadata$ = classMeta('FreeDGAlgebraContextImpl', [FreeDGAlgebraContext, DGAlgebraContext]);
   function dgAlgebra$factory() {
@@ -7357,7 +7417,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function InternalPrintConfig$Companion$default$ref_0($boundThis) {
     var l = function (p0) {
-      return $boundThis.d19(p0);
+      return $boundThis.h19(p0);
     };
     l.callableName = 'default';
     return l;
@@ -7365,7 +7425,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function getDerivationValue($this, valueList, monomial, valueDegree) {
     var tmp$ret$9;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = $this.i1l().b1n(monomial);
+    var tmp0_map = $this.p1l().m1n(monomial);
     var tmp$ret$8;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -7376,7 +7436,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivationValue.<anonymous>' call
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map_0 = get_indices_0($this.u1f());
+      var tmp0_map_0 = get_indices_0($this.c1g());
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -7388,31 +7448,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           inductionVariable = inductionVariable + 1 | 0;
           var tmp$ret$0;
           // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivationValue.<anonymous>.<anonymous>' call
-          tmp$ret$0 = item_0 === item.g1n_1 ? item.e1n_1 - 1 | 0 : 0;
+          tmp$ret$0 = item_0 === item.r1n_1 ? item.p1n_1 - 1 | 0 : 0;
           tmp0_mapTo_0.a(tmp$ret$0);
         }
          while (!(item_0 === last));
       tmp$ret$1 = tmp0_mapTo_0;
       tmp$ret$2 = tmp$ret$1;
       var derivedSeparatedExponentList = tmp$ret$2;
-      var derivedSeparatedMonomial = Monomial_init_$Create$($this.n14(), $this.u1f(), derivedSeparatedExponentList);
+      var derivedSeparatedMonomial = Monomial_init_$Create$($this.s14(), $this.c1g(), derivedSeparatedExponentList);
       var tmp$ret$4;
       // Inline function 'kotlin.run' call
-      var tmp1_run = $this.o14();
+      var tmp1_run = $this.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivationValue.<anonymous>.<anonymous>' call
-      tmp$ret$3 = tmp1_run.n13(tmp1_run.s13(item.e1n_1, $this.s11(derivedSeparatedMonomial, derivedSeparatedMonomial.w14())), valueList.l(item.g1n_1));
+      tmp$ret$3 = tmp1_run.r13(tmp1_run.w13(item.p1n_1, $this.s11(derivedSeparatedMonomial, derivedSeparatedMonomial.b15())), valueList.l(item.r1n_1));
       tmp$ret$4 = tmp$ret$3;
       var derivedSeparatedGVector = tmp$ret$4;
-      var remainingGVector = $this.s11(item.c1n_1, item.c1n_1.w14());
+      var remainingGVector = $this.s11(item.n1n_1, item.n1n_1.b15());
       var tmp$ret$6;
       // Inline function 'kotlin.run' call
-      var tmp2_run = $this.o14();
+      var tmp2_run = $this.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$5;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivationValue.<anonymous>.<anonymous>' call
-      tmp$ret$5 = tmp2_run.o13(tmp2_run.n13(derivedSeparatedGVector, remainingGVector), item.f1n_1);
+      tmp$ret$5 = tmp2_run.s13(tmp2_run.r13(derivedSeparatedGVector, remainingGVector), item.q1n_1);
       tmp$ret$6 = tmp$ret$5;
       tmp$ret$7 = tmp$ret$6;
       tmp0_mapTo.a(tmp$ret$7);
@@ -7422,24 +7482,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var terms = tmp$ret$9;
     var tmp$ret$11;
     // Inline function 'kotlin.run' call
-    var tmp1_run_0 = $this.o14();
+    var tmp1_run_0 = $this.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$10;
     // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivationValue.<anonymous>' call
-    tmp$ret$10 = tmp1_run_0.j13(terms, valueDegree);
+    tmp$ret$10 = tmp1_run_0.l13(terms, valueDegree);
     tmp$ret$11 = tmp$ret$10;
     return tmp$ret$11;
   }
   function getAlgebraMapValue($this, target, valueList, monomial) {
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = target.o14();
+    var tmp0_run = target.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getAlgebraMapValue.<anonymous>' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.mapIndexed' call
-    var tmp0_mapIndexed = monomial.w1j_1;
+    var tmp0_mapIndexed = monomial.d1k_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapIndexedTo' call
     var tmp0_mapIndexedTo = ArrayList_init_$Create$(tmp0_mapIndexed.length);
@@ -7455,31 +7515,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1 = index;
       index = tmp1 + 1 | 0;
       var tmp1__anonymous__uwfjfc = tmp1;
-      tmp$ret$0 = tmp0_run.y13(valueList.l(tmp1__anonymous__uwfjfc), item);
+      tmp$ret$0 = tmp0_run.c14(valueList.l(tmp1__anonymous__uwfjfc), item);
       tmp0_mapIndexedTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapIndexedTo;
     tmp$ret$2 = tmp$ret$1;
-    tmp$ret$3 = tmp0_run.a14(tmp$ret$2);
+    tmp$ret$3 = tmp0_run.f14(tmp$ret$2);
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   }
   function Companion_25() {
     Companion_instance_25 = this;
   }
-  Companion_25.prototype.l1k = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) {
+  Companion_25.prototype.s1k = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) {
     return new FreeGAlgebraImpl(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig);
   };
-  Companion_25.prototype.h1n = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig, $mask0, $handler) {
+  Companion_25.prototype.s1n = function (matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig, $mask0, $handler) {
     if (!(($mask0 & 8) === 0)) {
       getInternalPrintConfig = InternalPrintConfig$Companion$default$ref_0(Companion_getInstance_44());
     }
-    return this.l1k(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig);
+    return this.s1k(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig);
   };
-  Companion_25.prototype.i1n = function (matrixSpace, indeterminateList) {
+  Companion_25.prototype.t1n = function (matrixSpace, indeterminateList) {
     var tmp = Companion_getInstance_26();
     var tmp_0 = IntDegreeGroup_getInstance();
-    return tmp.h1n(matrixSpace, tmp_0, indeterminateList, null, 8, null);
+    return tmp.s1n(matrixSpace, tmp_0, indeterminateList, null, 8, null);
   };
   Companion_25.$metadata$ = objectMeta('Companion');
   var Companion_instance_25;
@@ -7496,16 +7556,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var sourceVectorSpace = this$0.m11(k);
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.n14().o14();
+      var tmp0_run = this$0.s14().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebra.getDerivation.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.r18(k, $derivationDegree);
+      tmp$ret$0 = tmp0_run.y18(k, $derivationDegree);
       tmp$ret$1 = tmp$ret$0;
       var targetDegree = tmp$ret$1;
       var tmp$ret$4;
       // Inline function 'kotlin.collections.map' call
-      var tmp1_map = sourceVectorSpace.o19();
+      var tmp1_map = sourceVectorSpace.s19();
       var tmp$ret$3;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp1_map, 10));
@@ -7530,7 +7590,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var sourceVectorSpace = this$0.m11(k);
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = sourceVectorSpace.o19();
+      var tmp0_map = sourceVectorSpace.s19();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -7550,12 +7610,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeGAlgebra$convertDegree$lambda($freeMonoidMorphism) {
     return function (monomial) {
-      return $freeMonoidMorphism.m1n(monomial);
+      return $freeMonoidMorphism.x1n(monomial);
     };
   }
   function FreeGAlgebra$toString$lambda($printConfig) {
     return function (it) {
-      return it.r1a($printConfig);
+      return it.v1a($printConfig);
     };
   }
   function FreeGAlgebra() {
@@ -7582,33 +7642,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_instance_26;
   }
   function _no_name_provided__qut3iv($tmp0_groupingBy) {
-    this.r1n_1 = $tmp0_groupingBy;
+    this.c1o_1 = $tmp0_groupingBy;
   }
   _no_name_provided__qut3iv.prototype.a1 = function () {
-    return this.r1n_1.f();
+    return this.c1o_1.f();
   };
-  _no_name_provided__qut3iv.prototype.s1n = function (element) {
+  _no_name_provided__qut3iv.prototype.d1o = function (element) {
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.FreeGAlgebraImpl.<anonymous>' call
     tmp$ret$0 = element;
     return tmp$ret$0;
   };
   _no_name_provided__qut3iv.prototype.b1 = function (element) {
-    return this.s1n(element instanceof Indeterminate ? element : THROW_CCE());
+    return this.d1o(element instanceof Indeterminate ? element : THROW_CCE());
   };
   _no_name_provided__qut3iv.$metadata$ = classMeta(undefined, [Grouping]);
   function FreeGAlgebraImpl(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig) {
     Companion_getInstance_27();
-    this.t1n_1 = degreeGroup;
-    this.u1n_1 = indeterminateList;
-    this.v1n_1 = Companion_getInstance_28().y1n(matrixSpace, degreeGroup, new FreeMonoid(degreeGroup, indeterminateList), getName(Companion_getInstance_27(), indeterminateList), getInternalPrintConfig);
+    this.e1o_1 = degreeGroup;
+    this.f1o_1 = indeterminateList;
+    this.g1o_1 = Companion_getInstance_28().j1o(matrixSpace, degreeGroup, new FreeMonoid(degreeGroup, indeterminateList), getName(Companion_getInstance_27(), indeterminateList), getInternalPrintConfig);
     var tmp$ret$8;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$4;
     // Inline function 'kotlin.collections.filter' call
     var tmp$ret$0;
     // Inline function 'kotlin.collections.groupingBy' call
-    var tmp0_groupingBy = this.u1n_1;
+    var tmp0_groupingBy = this.f1o_1;
     tmp$ret$0 = new _no_name_provided__qut3iv(tmp0_groupingBy);
     var tmp1_filter = eachCount(tmp$ret$0);
     var tmp$ret$3;
@@ -7657,345 +7717,378 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var message = tmp$ret$9;
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
-    this.w1n_1 = new FreeGAlgebraContextImpl(this);
-    this.x1n_1 = this;
+    this.h1o_1 = new FreeGAlgebraContextImpl(this);
+    this.i1o_1 = this;
   }
-  FreeGAlgebraImpl.prototype.n14 = function () {
-    return this.t1n_1;
+  FreeGAlgebraImpl.prototype.s14 = function () {
+    return this.e1o_1;
   };
-  FreeGAlgebraImpl.prototype.u1f = function () {
-    return this.u1n_1;
+  FreeGAlgebraImpl.prototype.c1g = function () {
+    return this.f1o_1;
   };
   FreeGAlgebraImpl.prototype.o11 = function () {
-    return this.v1n_1.o11();
+    return this.g1o_1.o11();
   };
   FreeGAlgebraImpl.prototype.p11 = function () {
-    return this.v1n_1.p11();
+    return this.g1o_1.p11();
   };
   FreeGAlgebraImpl.prototype.k11 = function () {
-    return this.v1n_1.k11();
+    return this.g1o_1.k11();
   };
-  FreeGAlgebraImpl.prototype.e12 = function () {
-    return this.v1n_1.e12();
+  FreeGAlgebraImpl.prototype.f12 = function () {
+    return this.g1o_1.f12();
   };
   FreeGAlgebraImpl.prototype.l11 = function () {
-    return this.v1n_1.l11();
+    return this.g1o_1.l11();
   };
   FreeGAlgebraImpl.prototype.h11 = function () {
-    return this.v1n_1.h11();
+    return this.g1o_1.h11();
   };
-  FreeGAlgebraImpl.prototype.i1l = function () {
-    return this.v1n_1.i1l();
+  FreeGAlgebraImpl.prototype.p1l = function () {
+    return this.g1o_1.p1l();
   };
   FreeGAlgebraImpl.prototype.f11 = function () {
-    return this.v1n_1.f11();
+    return this.g1o_1.f11();
   };
   FreeGAlgebraImpl.prototype.xb = function () {
-    return this.v1n_1.xb();
+    return this.g1o_1.xb();
   };
   FreeGAlgebraImpl.prototype.j11 = function () {
-    return this.v1n_1.j11();
+    return this.g1o_1.j11();
   };
   FreeGAlgebraImpl.prototype.n11 = function () {
-    return this.v1n_1.n11();
+    return this.g1o_1.n11();
+  };
+  FreeGAlgebraImpl.prototype.e12 = function () {
+    return this.g1o_1.e12();
   };
   FreeGAlgebraImpl.prototype.d12 = function () {
-    return this.v1n_1.d12();
+    return this.g1o_1.d12();
   };
-  FreeGAlgebraImpl.prototype.c12 = function () {
-    return this.v1n_1.c12();
-  };
-  FreeGAlgebraImpl.prototype.j1l = function (a, b) {
-    return this.v1n_1.x11(a, b);
+  FreeGAlgebraImpl.prototype.q1l = function (a, b) {
+    return this.g1o_1.x11(a, b);
   };
   FreeGAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.j1l(a, b);
+    return this.q1l(a, b);
   };
-  FreeGAlgebraImpl.prototype.k1l = function (a, b) {
-    return this.j1l(a, b);
+  FreeGAlgebraImpl.prototype.r1l = function (a, b) {
+    return this.q1l(a, b);
   };
-  FreeGAlgebraImpl.prototype.l1l = function (gVector) {
-    return this.v1n_1.w11(gVector);
+  FreeGAlgebraImpl.prototype.s1l = function (gVector) {
+    return this.g1o_1.w11(gVector);
   };
   FreeGAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.l1l(gVector);
+    return this.s1l(gVector);
   };
-  FreeGAlgebraImpl.prototype.m1l = function (gVector) {
-    return this.l1l(gVector);
+  FreeGAlgebraImpl.prototype.t1l = function (gVector) {
+    return this.s1l(gVector);
   };
-  FreeGAlgebraImpl.prototype.n1l = function (gVectorOrZero, degree) {
-    return this.v1n_1.v11(gVectorOrZero, degree);
+  FreeGAlgebraImpl.prototype.u1l = function (gVectorOrZero, degree) {
+    return this.g1o_1.v11(gVectorOrZero, degree);
   };
   FreeGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.n1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.u1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.o1l = function (gVectorOrZero, degree) {
-    return this.n1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeGAlgebraImpl.prototype.v1l = function (gVectorOrZero, degree) {
+    return this.u1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.p1l = function (basisName, degree) {
-    return this.v1n_1.s11(basisName, degree);
+  FreeGAlgebraImpl.prototype.k1o = function (gVector) {
+    return this.g1o_1.g12(gVector);
+  };
+  FreeGAlgebraImpl.prototype.g12 = function (gVector) {
+    return this.k1o(gVector);
+  };
+  FreeGAlgebraImpl.prototype.l1o = function (gVector) {
+    return this.k1o(gVector);
+  };
+  FreeGAlgebraImpl.prototype.w1l = function (a, b) {
+    return this.g1o_1.c12(a, b);
+  };
+  FreeGAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.w1l(a, b);
+  };
+  FreeGAlgebraImpl.prototype.x1l = function (a, b) {
+    return this.w1l(a, b);
+  };
+  FreeGAlgebraImpl.prototype.y1l = function (basisName, degree) {
+    return this.g1o_1.s11(basisName, degree);
   };
   FreeGAlgebraImpl.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.q1l = function (basisName, degree) {
+  FreeGAlgebraImpl.prototype.z1l = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.y1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.r1l = function (vector, degree) {
-    return this.v1n_1.q11(vector, degree);
+  FreeGAlgebraImpl.prototype.a1m = function (vector, degree) {
+    return this.g1o_1.q11(vector, degree);
   };
   FreeGAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.r1l(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.a1m(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.s1l = function (vector, degree) {
-    return this.r1l(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeGAlgebraImpl.prototype.b1m = function (vector, degree) {
+    return this.a1m(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeGAlgebraImpl.prototype.t1l = function (vector, degree) {
-    return this.v1n_1.r11(vector, degree);
+  FreeGAlgebraImpl.prototype.c1m = function (vector, degree) {
+    return this.g1o_1.r11(vector, degree);
   };
   FreeGAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.t1l(vector, degree);
+    return this.c1m(vector, degree);
   };
-  FreeGAlgebraImpl.prototype.u1l = function (vector, degree) {
-    return this.t1l(vector, degree);
+  FreeGAlgebraImpl.prototype.d1m = function (vector, degree) {
+    return this.c1m(vector, degree);
   };
   FreeGAlgebraImpl.prototype.m11 = function (degree) {
-    return this.v1n_1.m11(degree);
+    return this.g1o_1.m11(degree);
   };
   FreeGAlgebraImpl.prototype.t11 = function (degree) {
-    return this.v1n_1.t11(degree);
+    return this.g1o_1.t11(degree);
   };
   FreeGAlgebraImpl.prototype.u11 = function (degree) {
-    return this.v1n_1.u11(degree);
+    return this.g1o_1.u11(degree);
   };
-  FreeGAlgebraImpl.prototype.v1l = function (scalar, gVector) {
-    return this.v1n_1.z11(scalar, gVector);
+  FreeGAlgebraImpl.prototype.e1m = function (scalar, gVector) {
+    return this.g1o_1.z11(scalar, gVector);
   };
   FreeGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.v1l(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.e1m(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeGAlgebraImpl.prototype.w1l = function (scalar, gVector) {
-    return this.v1l(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  FreeGAlgebraImpl.prototype.f1m = function (scalar, gVector) {
+    return this.e1m(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeGAlgebraImpl.prototype.z1n = function (a, b) {
-    return this.v1n_1.a12(a, b);
+  FreeGAlgebraImpl.prototype.m1o = function (a, b) {
+    return this.g1o_1.a12(a, b);
   };
   FreeGAlgebraImpl.prototype.a12 = function (a, b) {
-    return this.z1n(a, b);
+    return this.m1o(a, b);
   };
-  FreeGAlgebraImpl.prototype.a1o = function (a, b) {
-    return this.z1n(a, b);
+  FreeGAlgebraImpl.prototype.n1o = function (a, b) {
+    return this.m1o(a, b);
   };
-  FreeGAlgebraImpl.prototype.b1o = function (a, b) {
-    return this.v1n_1.b12(a, b);
+  FreeGAlgebraImpl.prototype.o1o = function (a, b) {
+    return this.g1o_1.b12(a, b);
   };
   FreeGAlgebraImpl.prototype.b12 = function (a, b) {
-    return this.b1o(a, b);
+    return this.o1o(a, b);
   };
-  FreeGAlgebraImpl.prototype.c1o = function (a, b) {
-    return this.b1o(a, b);
+  FreeGAlgebraImpl.prototype.p1o = function (a, b) {
+    return this.o1o(a, b);
   };
-  FreeGAlgebraImpl.prototype.d1o = function (generators, text) {
-    return this.v1n_1.f12(generators, text);
+  FreeGAlgebraImpl.prototype.q1o = function (generators, text) {
+    return this.g1o_1.h12(generators, text);
   };
-  FreeGAlgebraImpl.prototype.f12 = function (generators, text) {
-    return this.d1o(generators, text);
+  FreeGAlgebraImpl.prototype.h12 = function (generators, text) {
+    return this.q1o(generators, text);
   };
-  FreeGAlgebraImpl.prototype.e1o = function (generators, text) {
-    return this.d1o(generators, text);
+  FreeGAlgebraImpl.prototype.r1o = function (generators, text) {
+    return this.q1o(generators, text);
   };
-  FreeGAlgebraImpl.prototype.x1l = function (a, b) {
-    return this.v1n_1.y11(a, b);
+  FreeGAlgebraImpl.prototype.g1m = function (a, b) {
+    return this.g1o_1.y11(a, b);
   };
   FreeGAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.x1l(a, b);
+    return this.g1m(a, b);
   };
-  FreeGAlgebraImpl.prototype.y1l = function (a, b) {
-    return this.x1l(a, b);
+  FreeGAlgebraImpl.prototype.h1m = function (a, b) {
+    return this.g1m(a, b);
   };
   FreeGAlgebraImpl.prototype.toString = function () {
-    return this.v1n_1.toString();
+    return this.g1o_1.toString();
   };
-  FreeGAlgebraImpl.prototype.o14 = function () {
-    return this.w1n_1;
+  FreeGAlgebraImpl.prototype.t14 = function () {
+    return this.h1o_1;
   };
-  FreeGAlgebraImpl.prototype.r1j = function () {
-    return this.x1n_1;
+  FreeGAlgebraImpl.prototype.y1j = function () {
+    return this.i1o_1;
   };
   FreeGAlgebraImpl.$metadata$ = classMeta('FreeGAlgebraImpl', [FreeGAlgebra, MonoidGAlgebra, Printable]);
   function FreeGAlgebraContextImpl(gAlgebra) {
-    this.f1o_1 = gAlgebra;
-    this.g1o_1 = new GAlgebraContextImpl(gAlgebra);
+    this.s1o_1 = gAlgebra;
+    this.t1o_1 = new GAlgebraContextImpl(gAlgebra);
   }
-  FreeGAlgebraContextImpl.prototype.x13 = function () {
-    return this.f1o_1;
+  FreeGAlgebraContextImpl.prototype.b14 = function () {
+    return this.s1o_1;
   };
   FreeGAlgebraContextImpl.prototype.p11 = function () {
-    return this.g1o_1.p11();
-  };
-  FreeGAlgebraContextImpl.prototype.s12 = function () {
-    return this.g1o_1.s12();
-  };
-  FreeGAlgebraContextImpl.prototype.t12 = function () {
-    return this.g1o_1.t12();
-  };
-  FreeGAlgebraContextImpl.prototype.j11 = function () {
-    return this.g1o_1.j11();
+    return this.t1o_1.p11();
   };
   FreeGAlgebraContextImpl.prototype.u12 = function () {
-    return this.g1o_1.u12();
-  };
-  FreeGAlgebraContextImpl.prototype.d12 = function () {
-    return this.g1o_1.d12();
+    return this.t1o_1.u12();
   };
   FreeGAlgebraContextImpl.prototype.v12 = function () {
-    return this.g1o_1.v12();
+    return this.t1o_1.v12();
   };
-  FreeGAlgebraContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.g1o_1.x12(_this__u8e3s4, other);
+  FreeGAlgebraContextImpl.prototype.j11 = function () {
+    return this.t1o_1.j11();
   };
-  FreeGAlgebraContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.g1o_1.y12(_this__u8e3s4, other);
+  FreeGAlgebraContextImpl.prototype.w12 = function () {
+    return this.t1o_1.w12();
   };
-  FreeGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.g1o_1.z12(_this__u8e3s4);
+  FreeGAlgebraContextImpl.prototype.e12 = function () {
+    return this.t1o_1.e12();
+  };
+  FreeGAlgebraContextImpl.prototype.x12 = function () {
+    return this.t1o_1.x12();
+  };
+  FreeGAlgebraContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.t1o_1.z12(_this__u8e3s4, other);
   };
   FreeGAlgebraContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.g1o_1.a13(_this__u8e3s4, other);
+    return this.t1o_1.a13(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.g1o_1.b13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.d1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.c13(_this__u8e3s4, other);
+  FreeGAlgebraContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.t1o_1.b13(_this__u8e3s4);
   };
   FreeGAlgebraContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
-    return this.d1m(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.e1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.d13(_this__u8e3s4, other);
+    return this.t1o_1.c13(_this__u8e3s4, other);
   };
   FreeGAlgebraContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
-    return this.e1m(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.g1o_1.e13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.g1o_1.f13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.f1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.g13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
-    return this.f1m(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.g1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.h13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
-    return this.g1m(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.h1m = function (_this__u8e3s4, exponent) {
-    return this.g1o_1.y13(_this__u8e3s4, exponent);
-  };
-  FreeGAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4, exponent) {
-    return this.h1m(_this__u8e3s4, exponent);
-  };
-  FreeGAlgebraContextImpl.prototype.i1m = function (_this__u8e3s4, exponent) {
-    return this.g1o_1.z13(_this__u8e3s4, exponent);
-  };
-  FreeGAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4, exponent) {
-    return this.i1m(_this__u8e3s4, exponent);
-  };
-  FreeGAlgebraContextImpl.prototype.j1m = function (_this__u8e3s4) {
-    return this.g1o_1.a14(_this__u8e3s4);
-  };
-  FreeGAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
-    return this.j1m(_this__u8e3s4);
-  };
-  FreeGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.g1o_1.i13(_this__u8e3s4);
-  };
-  FreeGAlgebraContextImpl.prototype.k1m = function (_this__u8e3s4, degree) {
-    return this.g1o_1.j13(_this__u8e3s4, degree);
-  };
-  FreeGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, degree) {
-    return this.k1m(_this__u8e3s4, (degree == null ? true : isInterface(degree, Degree)) ? degree : THROW_CCE());
-  };
-  FreeGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.g1o_1.k13(_this__u8e3s4, other);
-  };
-  FreeGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.g1o_1.l13(_this__u8e3s4, scalar);
-  };
-  FreeGAlgebraContextImpl.prototype.l1m = function (_this__u8e3s4, scalar) {
-    return this.g1o_1.m13(_this__u8e3s4, scalar);
-  };
-  FreeGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, scalar) {
-    return this.l1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+    return this.t1o_1.d13(_this__u8e3s4, other);
   };
   FreeGAlgebraContextImpl.prototype.m1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.n13(_this__u8e3s4, other);
+    return this.t1o_1.e13(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, other) {
+  FreeGAlgebraContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
     return this.m1m(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.n1m = function (_this__u8e3s4, sign) {
-    return this.g1o_1.o13(_this__u8e3s4, sign);
+  FreeGAlgebraContextImpl.prototype.n1m = function (_this__u8e3s4, other) {
+    return this.t1o_1.f13(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, sign) {
-    return this.n1m(_this__u8e3s4, sign);
+  FreeGAlgebraContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
+    return this.n1m(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.o1m = function (_this__u8e3s4, scalar) {
-    return this.g1o_1.p13(_this__u8e3s4, scalar);
+  FreeGAlgebraContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.t1o_1.g13(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
-    return this.o1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  FreeGAlgebraContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.t1o_1.h13(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.o1m = function (_this__u8e3s4, other) {
+    return this.t1o_1.i13(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.i13 = function (_this__u8e3s4, other) {
+    return this.o1m(_this__u8e3s4, other);
   };
   FreeGAlgebraContextImpl.prototype.p1m = function (_this__u8e3s4, other) {
-    return this.g1o_1.q13(_this__u8e3s4, other);
+    return this.t1o_1.j13(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, other) {
+  FreeGAlgebraContextImpl.prototype.j13 = function (_this__u8e3s4, other) {
     return this.p1m(_this__u8e3s4, other);
   };
-  FreeGAlgebraContextImpl.prototype.q1m = function (_this__u8e3s4, gVector) {
-    return this.g1o_1.r13(_this__u8e3s4, gVector);
+  FreeGAlgebraContextImpl.prototype.q1m = function (_this__u8e3s4, exponent) {
+    return this.t1o_1.c14(_this__u8e3s4, exponent);
   };
-  FreeGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, gVector) {
-    return this.q1m(_this__u8e3s4, gVector);
+  FreeGAlgebraContextImpl.prototype.c14 = function (_this__u8e3s4, exponent) {
+    return this.q1m(_this__u8e3s4, exponent);
   };
-  FreeGAlgebraContextImpl.prototype.r1m = function (_this__u8e3s4, gVector) {
-    return this.g1o_1.s13(_this__u8e3s4, gVector);
+  FreeGAlgebraContextImpl.prototype.r1m = function (_this__u8e3s4, exponent) {
+    return this.t1o_1.d14(_this__u8e3s4, exponent);
   };
-  FreeGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, gVector) {
-    return this.r1m(_this__u8e3s4, gVector);
-  };
-  FreeGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.g1o_1.t13(_this__u8e3s4);
-  };
-  FreeGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.g1o_1.u13(_this__u8e3s4);
+  FreeGAlgebraContextImpl.prototype.d14 = function (_this__u8e3s4, exponent) {
+    return this.r1m(_this__u8e3s4, exponent);
   };
   FreeGAlgebraContextImpl.prototype.s1m = function (_this__u8e3s4) {
-    return this.g1o_1.v13(_this__u8e3s4);
+    return this.t1o_1.f14(_this__u8e3s4);
   };
-  FreeGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4) {
+  FreeGAlgebraContextImpl.prototype.f14 = function (_this__u8e3s4) {
     return this.s1m(_this__u8e3s4);
   };
-  FreeGAlgebraContextImpl.prototype.t1m = function (_this__u8e3s4) {
-    return this.g1o_1.w13(_this__u8e3s4);
+  FreeGAlgebraContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.t1o_1.k13(_this__u8e3s4);
   };
-  FreeGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4) {
-    return this.t1m(_this__u8e3s4);
+  FreeGAlgebraContextImpl.prototype.t1m = function (_this__u8e3s4, degree) {
+    return this.t1o_1.l13(_this__u8e3s4, degree);
+  };
+  FreeGAlgebraContextImpl.prototype.l13 = function (_this__u8e3s4, degree) {
+    return this.t1m(_this__u8e3s4, (degree == null ? true : isInterface(degree, Degree)) ? degree : THROW_CCE());
+  };
+  FreeGAlgebraContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.t1o_1.m13(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.t1o_1.n13(_this__u8e3s4, numVector);
+  };
+  FreeGAlgebraContextImpl.prototype.u1m = function (_this__u8e3s4, gVector) {
+    return this.t1o_1.o13(_this__u8e3s4, gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.o13 = function (_this__u8e3s4, gVector) {
+    return this.u1m(isInterface(_this__u8e3s4, Scalar) ? _this__u8e3s4 : THROW_CCE(), gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.t1o_1.p13(_this__u8e3s4, scalar);
+  };
+  FreeGAlgebraContextImpl.prototype.v1m = function (_this__u8e3s4, scalar) {
+    return this.t1o_1.q13(_this__u8e3s4, scalar);
+  };
+  FreeGAlgebraContextImpl.prototype.q13 = function (_this__u8e3s4, scalar) {
+    return this.v1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  };
+  FreeGAlgebraContextImpl.prototype.w1m = function (_this__u8e3s4, other) {
+    return this.t1o_1.r13(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.r13 = function (_this__u8e3s4, other) {
+    return this.w1m(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.x1m = function (_this__u8e3s4, sign) {
+    return this.t1o_1.s13(_this__u8e3s4, sign);
+  };
+  FreeGAlgebraContextImpl.prototype.s13 = function (_this__u8e3s4, sign) {
+    return this.x1m(_this__u8e3s4, sign);
+  };
+  FreeGAlgebraContextImpl.prototype.y1m = function (_this__u8e3s4, scalar) {
+    return this.t1o_1.t13(_this__u8e3s4, scalar);
+  };
+  FreeGAlgebraContextImpl.prototype.t13 = function (_this__u8e3s4, scalar) {
+    return this.y1m(_this__u8e3s4, isInterface(scalar, Scalar) ? scalar : THROW_CCE());
+  };
+  FreeGAlgebraContextImpl.prototype.z1m = function (_this__u8e3s4, other) {
+    return this.t1o_1.u13(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.u13 = function (_this__u8e3s4, other) {
+    return this.z1m(_this__u8e3s4, other);
+  };
+  FreeGAlgebraContextImpl.prototype.a1n = function (_this__u8e3s4, gVector) {
+    return this.t1o_1.v13(_this__u8e3s4, gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.v13 = function (_this__u8e3s4, gVector) {
+    return this.a1n(_this__u8e3s4, gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.b1n = function (_this__u8e3s4, gVector) {
+    return this.t1o_1.w13(_this__u8e3s4, gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.w13 = function (_this__u8e3s4, gVector) {
+    return this.b1n(_this__u8e3s4, gVector);
+  };
+  FreeGAlgebraContextImpl.prototype.c1n = function (_this__u8e3s4) {
+    return this.t1o_1.e14(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.e14 = function (_this__u8e3s4) {
+    return this.c1n(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.t1o_1.x13(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.t1o_1.y13(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.d1n = function (_this__u8e3s4) {
+    return this.t1o_1.z13(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.z13 = function (_this__u8e3s4) {
+    return this.d1n(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.e1n = function (_this__u8e3s4) {
+    return this.t1o_1.a14(_this__u8e3s4);
+  };
+  FreeGAlgebraContextImpl.prototype.a14 = function (_this__u8e3s4) {
+    return this.e1n(_this__u8e3s4);
   };
   FreeGAlgebraContextImpl.$metadata$ = classMeta('FreeGAlgebraContextImpl', [FreeGAlgebraContext, GAlgebraContext]);
   function Companion_27() {
     Companion_instance_27 = this;
   }
-  Companion_27.prototype.y1n = function (matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig) {
+  Companion_27.prototype.j1o = function (matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig) {
     return MonoidGAlgebraImpl_init_$Create$(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig);
   };
   Companion_27.$metadata$ = objectMeta('Companion');
@@ -8016,139 +8109,145 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return MonoidGAlgebraImpl_init_$Init$(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig, Object.create(MonoidGAlgebraImpl.prototype));
   }
   function MonoidGAlgebraImpl(factory) {
-    this.h1o_1 = factory.w1o_1;
-    this.i1o_1 = factory.q1o_1;
-    this.j1o_1 = factory.x1o_1;
-    this.k1o_1 = factory.y1o_1;
-    this.l1o_1 = factory.s1o_1.e12();
-    this.m1o_1 = factory.s1o_1;
-    this.n1o_1 = new GAlgebraContextImpl(this);
-    this.o1o_1 = factory.w1o_1;
-    this.p1o_1 = this;
+    this.u1o_1 = factory.j1p_1;
+    this.v1o_1 = factory.d1p_1;
+    this.w1o_1 = factory.k1p_1;
+    this.x1o_1 = factory.l1p_1;
+    this.y1o_1 = factory.f1p_1.f12();
+    this.z1o_1 = factory.f1p_1;
+    this.a1p_1 = new GAlgebraContextImpl(this);
+    this.b1p_1 = factory.j1p_1;
+    this.c1p_1 = this;
   }
   MonoidGAlgebraImpl.prototype.o11 = function () {
-    return this.h1o_1.o11();
+    return this.u1o_1.o11();
   };
-  MonoidGAlgebraImpl.prototype.n14 = function () {
-    return this.h1o_1.n14();
+  MonoidGAlgebraImpl.prototype.s14 = function () {
+    return this.u1o_1.s14();
   };
   MonoidGAlgebraImpl.prototype.p11 = function () {
-    return this.h1o_1.p11();
+    return this.u1o_1.p11();
   };
   MonoidGAlgebraImpl.prototype.k11 = function () {
-    return this.h1o_1.k11();
+    return this.u1o_1.k11();
   };
   MonoidGAlgebraImpl.prototype.l11 = function () {
-    return this.h1o_1.l11();
+    return this.u1o_1.l11();
   };
   MonoidGAlgebraImpl.prototype.xb = function () {
-    return this.h1o_1.xb();
+    return this.u1o_1.xb();
   };
   MonoidGAlgebraImpl.prototype.j11 = function () {
-    return this.h1o_1.j11();
+    return this.u1o_1.j11();
   };
-  MonoidGAlgebraImpl.prototype.c12 = function () {
-    return this.h1o_1.c12();
+  MonoidGAlgebraImpl.prototype.d12 = function () {
+    return this.u1o_1.d12();
   };
-  MonoidGAlgebraImpl.prototype.k1l = function (a, b) {
-    return this.h1o_1.x11(a, b);
+  MonoidGAlgebraImpl.prototype.r1l = function (a, b) {
+    return this.u1o_1.x11(a, b);
   };
   MonoidGAlgebraImpl.prototype.x11 = function (a, b) {
-    return this.k1l(a, b);
+    return this.r1l(a, b);
   };
-  MonoidGAlgebraImpl.prototype.m1l = function (gVector) {
-    return this.h1o_1.w11(gVector);
+  MonoidGAlgebraImpl.prototype.t1l = function (gVector) {
+    return this.u1o_1.w11(gVector);
   };
   MonoidGAlgebraImpl.prototype.w11 = function (gVector) {
-    return this.m1l(gVector);
+    return this.t1l(gVector);
   };
-  MonoidGAlgebraImpl.prototype.o1l = function (gVectorOrZero, degree) {
-    return this.h1o_1.v11(gVectorOrZero, degree);
+  MonoidGAlgebraImpl.prototype.v1l = function (gVectorOrZero, degree) {
+    return this.u1o_1.v11(gVectorOrZero, degree);
   };
   MonoidGAlgebraImpl.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.o1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.v1l(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  MonoidGAlgebraImpl.prototype.q1l = function (basisName, degree) {
-    return this.h1o_1.s11(basisName, degree);
+  MonoidGAlgebraImpl.prototype.x1l = function (a, b) {
+    return this.u1o_1.c12(a, b);
+  };
+  MonoidGAlgebraImpl.prototype.c12 = function (a, b) {
+    return this.x1l(a, b);
+  };
+  MonoidGAlgebraImpl.prototype.z1l = function (basisName, degree) {
+    return this.u1o_1.s11(basisName, degree);
   };
   MonoidGAlgebraImpl.prototype.s11 = function (basisName, degree) {
     var tmp = isInterface(basisName, MonoidElement) ? basisName : THROW_CCE();
-    return this.q1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.z1l(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  MonoidGAlgebraImpl.prototype.s1l = function (vector, degree) {
-    return this.h1o_1.q11(vector, degree);
+  MonoidGAlgebraImpl.prototype.b1m = function (vector, degree) {
+    return this.u1o_1.q11(vector, degree);
   };
   MonoidGAlgebraImpl.prototype.q11 = function (vector, degree) {
-    return this.s1l(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.b1m(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  MonoidGAlgebraImpl.prototype.u1l = function (vector, degree) {
-    return this.h1o_1.r11(vector, degree);
+  MonoidGAlgebraImpl.prototype.d1m = function (vector, degree) {
+    return this.u1o_1.r11(vector, degree);
   };
   MonoidGAlgebraImpl.prototype.r11 = function (vector, degree) {
-    return this.u1l(vector, degree);
+    return this.d1m(vector, degree);
   };
   MonoidGAlgebraImpl.prototype.m11 = function (degree) {
-    return this.h1o_1.m11(degree);
+    return this.u1o_1.m11(degree);
   };
   MonoidGAlgebraImpl.prototype.t11 = function (degree) {
-    return this.h1o_1.t11(degree);
+    return this.u1o_1.t11(degree);
   };
   MonoidGAlgebraImpl.prototype.u11 = function (degree) {
-    return this.h1o_1.u11(degree);
+    return this.u1o_1.u11(degree);
   };
-  MonoidGAlgebraImpl.prototype.w1l = function (scalar, gVector) {
-    return this.h1o_1.z11(scalar, gVector);
+  MonoidGAlgebraImpl.prototype.f1m = function (scalar, gVector) {
+    return this.u1o_1.z11(scalar, gVector);
   };
   MonoidGAlgebraImpl.prototype.z11 = function (scalar, gVector) {
-    return this.w1l(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.f1m(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  MonoidGAlgebraImpl.prototype.y1l = function (a, b) {
-    return this.h1o_1.y11(a, b);
+  MonoidGAlgebraImpl.prototype.h1m = function (a, b) {
+    return this.u1o_1.y11(a, b);
   };
   MonoidGAlgebraImpl.prototype.y11 = function (a, b) {
-    return this.y1l(a, b);
+    return this.h1m(a, b);
   };
   MonoidGAlgebraImpl.prototype.toString = function () {
-    return this.h1o_1.toString();
+    return this.u1o_1.toString();
   };
   MonoidGAlgebraImpl.prototype.h11 = function () {
-    return this.i1o_1;
+    return this.v1o_1;
   };
   MonoidGAlgebraImpl.prototype.f11 = function () {
-    return this.j1o_1;
-  };
-  MonoidGAlgebraImpl.prototype.d12 = function () {
-    return this.k1o_1;
+    return this.w1o_1;
   };
   MonoidGAlgebraImpl.prototype.e12 = function () {
-    return this.l1o_1;
+    return this.x1o_1;
   };
-  MonoidGAlgebraImpl.prototype.i1l = function () {
-    return this.m1o_1;
+  MonoidGAlgebraImpl.prototype.f12 = function () {
+    return this.y1o_1;
   };
-  MonoidGAlgebraImpl.prototype.o14 = function () {
-    return this.n1o_1;
+  MonoidGAlgebraImpl.prototype.p1l = function () {
+    return this.z1o_1;
+  };
+  MonoidGAlgebraImpl.prototype.t14 = function () {
+    return this.a1p_1;
   };
   MonoidGAlgebraImpl.prototype.n11 = function () {
-    return this.o1o_1;
+    return this.b1p_1;
   };
   MonoidGAlgebraImpl.$metadata$ = classMeta('MonoidGAlgebraImpl', [MonoidGAlgebra, GVectorSpace]);
   function getBasisNames($this, degree) {
-    return $this.s1o_1.z1o(degree);
+    return $this.f1p_1.m1p(degree);
   }
   function getVectorSpace($this, degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = $this.v1o_1;
+    var tmp0_getOrPut = $this.i1p_1;
     var value = tmp0_getOrPut.t(degree);
     var tmp;
     if (value == null) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.MonoidGAlgebraFactory.getVectorSpace.<anonymous>' call
       var tmp_0 = Companion_getInstance_55();
-      var tmp_1 = $this.q1o_1.j11();
+      var tmp_1 = $this.d1p_1.j11();
       var tmp_2 = getBasisNames($this, degree);
-      tmp$ret$0 = tmp_0.a1p(tmp_1, tmp_2, null, 4, null);
+      tmp$ret$0 = tmp_0.n1p(tmp_1, tmp_2, null, 4, null);
       var answer = tmp$ret$0;
       tmp0_getOrPut.u(degree, answer);
       tmp = answer;
@@ -8159,27 +8258,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   }
   function getVectorSpace_0($this, degree) {
-    return getVectorSpace($this, $this.r1o_1.zn(degree));
+    return getVectorSpace($this, $this.e1p_1.zn(degree));
   }
   function getMultiplication($this, p, q) {
     var source1 = getVectorSpace($this, p);
     var source2 = getVectorSpace($this, q);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.r1o_1.o14();
+    var tmp0_run = $this.e1p_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.MonoidGAlgebraFactory.getMultiplication.<anonymous>' call
-    tmp$ret$0 = tmp0_run.r18(p, q);
+    tmp$ret$0 = tmp0_run.y18(p, q);
     tmp$ret$1 = tmp$ret$0;
     var target = getVectorSpace($this, tmp$ret$1);
-    return ValueBilinearMap_init_$Create$(source1, source2, target, $this.q1o_1, generateGetValue_0($this, target));
+    return ValueBilinearMap_init_$Create$(source1, source2, target, $this.d1p_1, generateGetValue_0($this, target));
   }
   function generateGetValue_0($this, target) {
     return MonoidGAlgebraFactory$generateGetValue$lambda($this, target);
   }
   function listDegreesForAugmentedDegree_0($this, augmentedDegree) {
-    return $this.s1o_1.b1p(augmentedDegree);
+    return $this.f1p_1.o1p(augmentedDegree);
   }
   function MonoidGAlgebraFactory$listDegreesForAugmentedDegree$ref($boundThis) {
     var l = function (p0) {
@@ -8204,20 +8303,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function (monoidElement1, monoidElement2) {
       var tmp$ret$3;
       // Inline function 'kotlin.let' call
-      var tmp0_let = this$0.s1o_1.c1p(monoidElement1, monoidElement2);
+      var tmp0_let = this$0.f1p_1.p1p(monoidElement1, monoidElement2);
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$2;
       // Inline function 'com.github.shwaka.kohomology.free.MonoidGAlgebraFactory.generateGetValue.<anonymous>.<anonymous>' call
       var tmp0_subject = tmp0_let;
       var tmp;
       if (tmp0_subject instanceof Zero_0) {
-        tmp = $target.y1a();
+        tmp = $target.b1b();
       } else {
         if (tmp0_subject instanceof Signed) {
           var tmp1_container = tmp0_let;
           var monoidElement = tmp1_container.w3();
           var sign = tmp1_container.x3();
-          var vectorWithoutSign = $target.v1a(monoidElement);
+          var vectorWithoutSign = $target.y1a(monoidElement);
           var tmp2_subject = sign;
           var tmp0 = tmp2_subject.a2_1;
           var tmp_0;
@@ -8228,11 +8327,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             case 1:
               var tmp$ret$1;
               // Inline function 'kotlin.run' call
-              var tmp0_run = $target.o14();
+              var tmp0_run = $target.t14();
               // Inline function 'kotlin.contracts.contract' call
               var tmp$ret$0;
               // Inline function 'com.github.shwaka.kohomology.free.MonoidGAlgebraFactory.generateGetValue.<anonymous>.<anonymous>.<anonymous>' call
-              tmp$ret$0 = tmp0_run.f1p(vectorWithoutSign);
+              tmp$ret$0 = tmp0_run.s1p(vectorWithoutSign);
               tmp$ret$1 = tmp$ret$0;
 
               tmp_0 = tmp$ret$1;
@@ -8252,29 +8351,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     };
   }
   function MonoidGAlgebraFactory(matrixSpace, degreeGroup, monoid, name, getInternalPrintConfig) {
-    this.q1o_1 = matrixSpace;
-    this.r1o_1 = degreeGroup;
-    this.s1o_1 = monoid;
-    this.t1o_1 = name;
-    this.u1o_1 = getInternalPrintConfig;
+    this.d1p_1 = matrixSpace;
+    this.e1p_1 = degreeGroup;
+    this.f1p_1 = monoid;
+    this.g1p_1 = name;
+    this.h1p_1 = getInternalPrintConfig;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.v1o_1 = tmp$ret$0;
+    tmp.i1p_1 = tmp$ret$0;
     var tmp_0 = this;
     var tmp_1 = Companion_getInstance_16();
-    var tmp_2 = this.q1o_1.j11();
+    var tmp_2 = this.d1p_1.j11();
     var tmp_3 = MonoidGAlgebraFactory$listDegreesForAugmentedDegree$ref(this);
-    var tmp_4 = this.s1o_1.o11();
-    tmp_0.w1o_1 = tmp_1.f19(tmp_2, this.r1o_1, this.t1o_1, this.u1o_1, tmp_3, tmp_4, MonoidGAlgebraFactory$getVectorSpace$ref(this));
+    var tmp_4 = this.f1p_1.o11();
+    tmp_0.j1p_1 = tmp_1.j19(tmp_2, this.e1p_1, this.g1p_1, this.h1p_1, tmp_3, tmp_4, MonoidGAlgebraFactory$getVectorSpace$ref(this));
     var tmp_5 = this;
-    var tmp_6 = 'Multiplication(' + this.t1o_1 + ')';
-    tmp_5.x1o_1 = GBilinearMap_init_$Create$(this.q1o_1, this.w1o_1, this.w1o_1, this.w1o_1, 0, tmp_6, MonoidGAlgebraFactory$multiplication$lambda(this));
-    this.y1o_1 = this.w1o_1.r11(getVectorSpace_0(this, 0).v1a(this.s1o_1.d12()), 0);
+    var tmp_6 = 'Multiplication(' + this.g1p_1 + ')';
+    tmp_5.k1p_1 = GBilinearMap_init_$Create$(this.d1p_1, this.j1p_1, this.j1p_1, this.j1p_1, 0, tmp_6, MonoidGAlgebraFactory$multiplication$lambda(this));
+    this.l1p_1 = this.j1p_1.r11(getVectorSpace_0(this, 0).y1a(this.f1p_1.e12()), 0);
   }
   MonoidGAlgebraFactory.prototype.h11 = function () {
-    return this.q1o_1;
+    return this.d1p_1;
   };
   MonoidGAlgebraFactory.$metadata$ = classMeta('MonoidGAlgebraFactory');
   function Companion_28() {
@@ -8305,11 +8404,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = monomialListGeneratorWithAugmentedDegree$factory();
-    tmp$ret$0 = $this.a1n_1.f1();
+    tmp$ret$0 = $this.l1n_1.f1();
     return tmp$ret$0;
   }
   function listElementsForAugmentedDegree($this, augmentedDegree) {
-    var elementListWithIntDegree = _get_monomialListGeneratorWithAugmentedDegree__ota534($this).k1p(new IntDegree(augmentedDegree));
+    var elementListWithIntDegree = _get_monomialListGeneratorWithAugmentedDegree__ota534($this).x1p(new IntDegree(augmentedDegree));
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -8320,7 +8419,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listElementsForAugmentedDegree.<anonymous>' call
-      tmp$ret$0 = new Monomial($this.u1m_1, $this.v1m_1, item.w1j_1);
+      tmp$ret$0 = new Monomial($this.f1n_1, $this.g1n_1, item.d1k_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -8328,40 +8427,40 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   }
   function separate($this, monomial, index) {
-    var separatedExponent = monomial.w1j_1[index];
+    var separatedExponent = monomial.d1k_1[index];
     if (separatedExponent === 0)
       return null;
     var tmp = 0;
-    var tmp_0 = monomial.w1j_1.length;
+    var tmp_0 = monomial.d1k_1.length;
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.separate.<anonymous>' call
-      tmp$ret$0 = tmp_2 === index ? 0 : monomial.w1j_1[tmp_2];
+      tmp$ret$0 = tmp_2 === index ? 0 : monomial.d1k_1[tmp_2];
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
     }
     var remainingExponentList = tmp_1;
-    var remainingMonomial = new Monomial($this.u1m_1, $this.v1m_1, remainingExponentList);
-    var separatedIndeterminate = $this.v1m_1.l(index);
+    var remainingMonomial = new Monomial($this.f1n_1, $this.g1n_1, remainingExponentList);
+    var separatedIndeterminate = $this.g1n_1.l(index);
     var tmp_3 = 0;
-    var tmp_4 = monomial.w1j_1.length;
+    var tmp_4 = monomial.d1k_1.length;
     var tmp_5 = new Int32Array(tmp_4);
     while (tmp_3 < tmp_4) {
       var tmp_6 = tmp_3;
       var tmp$ret$1;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.separate.<anonymous>' call
-      tmp$ret$1 = tmp_6 === index ? monomial.w1j_1[tmp_6] : 0;
+      tmp$ret$1 = tmp_6 === index ? monomial.d1k_1[tmp_6] : 0;
       tmp_5[tmp_6] = tmp$ret$1;
       tmp_3 = tmp_3 + 1 | 0;
     }
     var separatedExponentList = tmp_5;
-    var multipliedMonomialOrZero = $this.q1p(new Monomial($this.u1m_1, $this.v1m_1, separatedExponentList), remainingMonomial);
+    var multipliedMonomialOrZero = $this.d1q(new Monomial($this.f1n_1, $this.g1n_1, separatedExponentList), remainingMonomial);
     var tmp0_subject = multipliedMonomialOrZero;
     var tmp_7;
     if (tmp0_subject instanceof Signed) {
-      tmp_7 = multipliedMonomialOrZero.e1p_1;
+      tmp_7 = multipliedMonomialOrZero.r1p_1;
     } else {
       if (tmp0_subject instanceof Zero_0) {
         throw Exception_init_$Create$("This can't happen!");
@@ -8374,19 +8473,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeMonoid$indeterminateList$delegate$lambda(this$0) {
     return function () {
-      return this$0.v1m_1.r1p();
+      return this$0.g1n_1.e1q();
     };
   }
   function FreeMonoid$boundedness$delegate$lambda(this$0) {
     return function () {
       var tmp;
-      if (this$0.v1m_1.t1p()) {
-        tmp = this$0.v1m_1.s1p();
+      if (this$0.g1n_1.g1q()) {
+        tmp = this$0.g1n_1.f1q();
       } else {
         tmp = null;
       }
       var bound = tmp;
-      var tmp0_subject = this$0.v1m_1;
+      var tmp0_subject = this$0.g1n_1;
       var tmp_0;
       if (tmp0_subject instanceof PositiveIndeterminateList) {
         tmp_0 = new Boundedness(bound, 0);
@@ -8402,25 +8501,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0) {
     return function (indeterminate) {
-      return Indeterminate_1(indeterminate.y1j_1, this$0.u1m_1.s1e(indeterminate.z1j_1));
+      return Indeterminate_1(indeterminate.f1k_1, this$0.f1n_1.a1f(indeterminate.g1k_1));
     };
   }
   function FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this$0) {
     return function () {
-      var indeterminateRawList = this$0.v1m_1.u1p(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
-      var indeterminateListWithAugDeg = Companion_getInstance_30().v1p(IntDegreeGroup_getInstance(), indeterminateRawList);
+      var indeterminateRawList = this$0.g1n_1.h1q(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
+      var indeterminateListWithAugDeg = Companion_getInstance_30().i1q(IntDegreeGroup_getInstance(), indeterminateRawList);
       return new MonomialListGenerator(IntDegreeGroup_getInstance(), indeterminateListWithAugDeg);
     };
   }
   function FreeMonoid(degreeGroup, indeterminateList) {
     Companion_getInstance_29();
-    this.u1m_1 = degreeGroup;
-    this.v1m_1 = Companion_getInstance_30().v1p(this.u1m_1, indeterminateList);
+    this.f1n_1 = degreeGroup;
+    this.g1n_1 = Companion_getInstance_30().i1q(this.f1n_1, indeterminateList);
     var tmp = this;
-    tmp.w1m_1 = lazy(FreeMonoid$indeterminateList$delegate$lambda(this));
+    tmp.h1n_1 = lazy(FreeMonoid$indeterminateList$delegate$lambda(this));
     var tmp_0 = this;
     var tmp_1 = 0;
-    var tmp_2 = this.v1m_1.i();
+    var tmp_2 = this.g1n_1.i();
     var tmp_3 = new Int32Array(tmp_2);
     while (tmp_1 < tmp_2) {
       var tmp_4 = tmp_1;
@@ -8430,48 +8529,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp_3[tmp_4] = tmp$ret$0;
       tmp_1 = tmp_1 + 1 | 0;
     }
-    tmp_0.x1m_1 = new Monomial(this.u1m_1, this.v1m_1, tmp_3);
-    this.y1m_1 = true;
+    tmp_0.i1n_1 = new Monomial(this.f1n_1, this.g1n_1, tmp_3);
+    this.j1n_1 = true;
     var tmp_5 = this;
-    tmp_5.z1m_1 = lazy(FreeMonoid$boundedness$delegate$lambda(this));
+    tmp_5.k1n_1 = lazy(FreeMonoid$boundedness$delegate$lambda(this));
     var tmp_6 = this;
-    tmp_6.a1n_1 = lazy(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this));
+    tmp_6.l1n_1 = lazy(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this));
   }
-  FreeMonoid.prototype.n14 = function () {
-    return this.u1m_1;
+  FreeMonoid.prototype.s14 = function () {
+    return this.f1n_1;
   };
-  FreeMonoid.prototype.u1f = function () {
+  FreeMonoid.prototype.c1g = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = indeterminateList$factory();
-    tmp$ret$0 = this.w1m_1.f1();
+    tmp$ret$0 = this.h1n_1.f1();
     return tmp$ret$0;
   };
-  FreeMonoid.prototype.d12 = function () {
-    return this.x1m_1;
-  };
   FreeMonoid.prototype.e12 = function () {
-    return this.y1m_1;
+    return this.i1n_1;
+  };
+  FreeMonoid.prototype.f12 = function () {
+    return this.j1n_1;
   };
   FreeMonoid.prototype.o11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = boundedness$factory();
-    tmp$ret$0 = this.z1m_1.f1();
+    tmp$ret$0 = this.k1n_1.f1();
     return tmp$ret$0;
   };
-  FreeMonoid.prototype.w1p = function (exponentList) {
-    return new Monomial(this.u1m_1, this.v1m_1, exponentList);
+  FreeMonoid.prototype.j1q = function (exponentList) {
+    return new Monomial(this.f1n_1, this.g1n_1, exponentList);
   };
-  FreeMonoid.prototype.q1p = function (monoidElement1, monoidElement2) {
-    var size = this.v1m_1.i();
-    var exponentList = addExponentLists(this, monoidElement1.w1j_1, monoidElement2.w1j_1);
+  FreeMonoid.prototype.d1q = function (monoidElement1, monoidElement2) {
+    var size = this.g1n_1.i();
+    var exponentList = addExponentLists(this, monoidElement1.d1k_1, monoidElement2.d1k_1);
     var inductionVariable = 0;
     if (inductionVariable < size)
       do {
         var i = inductionVariable;
         inductionVariable = inductionVariable + 1 | 0;
-        if (this.v1m_1.l(i).z1j_1.k1e() ? exponentList[i] >= 2 : false)
+        if (this.g1n_1.l(i).g1k_1.s1e() ? exponentList[i] >= 2 : false)
           return Zero_getInstance_0();
       }
        while (inductionVariable < size);
@@ -8481,13 +8580,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       do {
         var i_0 = inductionVariable_0;
         inductionVariable_0 = inductionVariable_0 + 1 | 0;
-        if (this.v1m_1.l(i_0).z1j_1.k1e() ? monoidElement1.w1j_1[i_0] === 1 : false) {
+        if (this.g1n_1.l(i_0).g1k_1.s1e() ? monoidElement1.d1k_1[i_0] === 1 : false) {
           var inductionVariable_1 = 0;
           if (inductionVariable_1 < i_0)
             do {
               var j = inductionVariable_1;
               inductionVariable_1 = inductionVariable_1 + 1 | 0;
-              if (this.v1m_1.l(j).z1j_1.k1e() ? monoidElement2.w1j_1[j] === 1 : false) {
+              if (this.g1n_1.l(j).g1k_1.s1e() ? monoidElement2.d1k_1[j] === 1 : false) {
                 sign = sign.t5();
               }
             }
@@ -8495,15 +8594,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         }
       }
        while (inductionVariable_0 < size);
-    var monomial = new Monomial(this.u1m_1, this.v1m_1, exponentList);
+    var monomial = new Monomial(this.f1n_1, this.g1n_1, exponentList);
     return new Signed(monomial, sign);
   };
-  FreeMonoid.prototype.c1p = function (monoidElement1, monoidElement2) {
+  FreeMonoid.prototype.p1p = function (monoidElement1, monoidElement2) {
     var tmp = monoidElement1 instanceof Monomial ? monoidElement1 : THROW_CCE();
-    return this.q1p(tmp, monoidElement2 instanceof Monomial ? monoidElement2 : THROW_CCE());
+    return this.d1q(tmp, monoidElement2 instanceof Monomial ? monoidElement2 : THROW_CCE());
   };
-  FreeMonoid.prototype.z1o = function (degree) {
-    var augmentedDegree = this.u1m_1.s1e(degree);
+  FreeMonoid.prototype.m1p = function (degree) {
+    var augmentedDegree = this.f1n_1.a1f(degree);
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
     var tmp0_filter = listElementsForAugmentedDegree(this, augmentedDegree);
@@ -8515,7 +8614,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var element = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listElements.<anonymous>' call
-      tmp$ret$0 = equals(element.w14(), degree);
+      tmp$ret$0 = equals(element.b15(), degree);
       if (tmp$ret$0) {
         tmp0_filterTo.a(element);
       }
@@ -8524,7 +8623,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$2 = tmp$ret$1;
     return tmp$ret$2;
   };
-  FreeMonoid.prototype.b1p = function (augmentedDegree) {
+  FreeMonoid.prototype.o1p = function (augmentedDegree) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = listElementsForAugmentedDegree(this, augmentedDegree);
@@ -8536,17 +8635,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listDegreesForAugmentedDegree.<anonymous>' call
-      tmp$ret$0 = item.w14();
+      tmp$ret$0 = item.b15();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     return distinct(tmp$ret$2);
   };
-  FreeMonoid.prototype.b1n = function (monomial) {
+  FreeMonoid.prototype.m1n = function (monomial) {
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapNotNull' call
-    var tmp0_mapNotNull = this.v1m_1.n1p_1;
+    var tmp0_mapNotNull = this.g1n_1.a1q_1;
     var tmp$ret$2;
     // Inline function 'kotlin.collections.mapNotNullTo' call
     var tmp0_mapNotNullTo = ArrayList_init_$Create$_0();
@@ -8578,40 +8677,40 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$3;
   };
   FreeMonoid.prototype.toString = function () {
-    var indeterminateListString = this.v1m_1.a1q(', ', null, 2, null);
+    var indeterminateListString = this.g1n_1.n1q(', ', null, 2, null);
     return 'FreeMonoid(' + indeterminateListString + ')';
   };
   FreeMonoid.$metadata$ = classMeta('FreeMonoid', [Monoid]);
   function MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index) {
-    this.c1n_1 = remainingMonomial;
-    this.d1n_1 = separatedIndeterminate;
-    this.e1n_1 = separatedExponent;
-    this.f1n_1 = sign;
-    this.g1n_1 = index;
-    if (this.e1n_1 <= 0)
+    this.n1n_1 = remainingMonomial;
+    this.o1n_1 = separatedIndeterminate;
+    this.p1n_1 = separatedExponent;
+    this.q1n_1 = sign;
+    this.r1n_1 = index;
+    if (this.p1n_1 <= 0)
       throw Exception_init_$Create$('separatedExponent must be positive');
   }
-  MonomialSeparation.prototype.b1q = function () {
-    return this.c1n_1;
+  MonomialSeparation.prototype.o1q = function () {
+    return this.n1n_1;
   };
-  MonomialSeparation.prototype.c1q = function () {
-    return this.e1n_1;
+  MonomialSeparation.prototype.p1q = function () {
+    return this.p1n_1;
   };
-  MonomialSeparation.prototype.d1q = function () {
-    return this.f1n_1;
+  MonomialSeparation.prototype.q1q = function () {
+    return this.q1n_1;
   };
-  MonomialSeparation.prototype.e1q = function () {
-    return this.g1n_1;
+  MonomialSeparation.prototype.r1q = function () {
+    return this.r1n_1;
   };
   MonomialSeparation.prototype.toString = function () {
-    return 'MonomialSeparation(remainingMonomial=' + this.c1n_1 + ', separatedIndeterminate=' + this.d1n_1 + ', separatedExponent=' + this.e1n_1 + ', sign=' + this.f1n_1 + ', index=' + this.g1n_1 + ')';
+    return 'MonomialSeparation(remainingMonomial=' + this.n1n_1 + ', separatedIndeterminate=' + this.o1n_1 + ', separatedExponent=' + this.p1n_1 + ', sign=' + this.q1n_1 + ', index=' + this.r1n_1 + ')';
   };
   MonomialSeparation.prototype.hashCode = function () {
-    var result = this.c1n_1.hashCode();
-    result = imul(result, 31) + this.d1n_1.hashCode() | 0;
-    result = imul(result, 31) + this.e1n_1 | 0;
-    result = imul(result, 31) + this.f1n_1.hashCode() | 0;
-    result = imul(result, 31) + this.g1n_1 | 0;
+    var result = this.n1n_1.hashCode();
+    result = imul(result, 31) + this.o1n_1.hashCode() | 0;
+    result = imul(result, 31) + this.p1n_1 | 0;
+    result = imul(result, 31) + this.q1n_1.hashCode() | 0;
+    result = imul(result, 31) + this.r1n_1 | 0;
     return result;
   };
   MonomialSeparation.prototype.equals = function (other) {
@@ -8620,32 +8719,32 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof MonomialSeparation))
       return false;
     var tmp0_other_with_cast = other instanceof MonomialSeparation ? other : THROW_CCE();
-    if (!this.c1n_1.equals(tmp0_other_with_cast.c1n_1))
+    if (!this.n1n_1.equals(tmp0_other_with_cast.n1n_1))
       return false;
-    if (!this.d1n_1.equals(tmp0_other_with_cast.d1n_1))
+    if (!this.o1n_1.equals(tmp0_other_with_cast.o1n_1))
       return false;
-    if (!(this.e1n_1 === tmp0_other_with_cast.e1n_1))
+    if (!(this.p1n_1 === tmp0_other_with_cast.p1n_1))
       return false;
-    if (!this.f1n_1.equals(tmp0_other_with_cast.f1n_1))
+    if (!this.q1n_1.equals(tmp0_other_with_cast.q1n_1))
       return false;
-    if (!(this.g1n_1 === tmp0_other_with_cast.g1n_1))
+    if (!(this.r1n_1 === tmp0_other_with_cast.r1n_1))
       return false;
     return true;
   };
   MonomialSeparation.$metadata$ = classMeta('MonomialSeparation');
   function FreeMonoidMorphismByDegreeChange(source, degreeMorphism) {
-    this.j1n_1 = source;
-    this.k1n_1 = degreeMorphism;
+    this.u1n_1 = source;
+    this.v1n_1 = degreeMorphism;
     var tmp = this;
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange.target.<anonymous>' call
-    var targetDegreeGroup = this.k1n_1.v14();
+    var targetDegreeGroup = this.v1n_1.a15();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.j1n_1.u1f();
+    var tmp0_map = this.u1n_1.c1g();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -8654,7 +8753,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange.target.<anonymous>.<anonymous>' call
-      tmp$ret$0 = item.q1n(this.k1n_1);
+      tmp$ret$0 = item.b1o(this.v1n_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -8662,28 +8761,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var targetIndeterminateList = tmp$ret$2;
     tmp$ret$3 = new FreeMonoid(targetDegreeGroup, targetIndeterminateList);
     tmp$ret$4 = tmp$ret$3;
-    tmp.l1n_1 = tmp$ret$4;
+    tmp.w1n_1 = tmp$ret$4;
   }
-  FreeMonoidMorphismByDegreeChange.prototype.u14 = function () {
-    return this.j1n_1;
+  FreeMonoidMorphismByDegreeChange.prototype.z14 = function () {
+    return this.u1n_1;
   };
-  FreeMonoidMorphismByDegreeChange.prototype.f1q = function () {
-    return this.k1n_1;
+  FreeMonoidMorphismByDegreeChange.prototype.s1q = function () {
+    return this.v1n_1;
   };
-  FreeMonoidMorphismByDegreeChange.prototype.m1n = function (monoidElement) {
-    return this.l1n_1.w1p(monoidElement.w1j_1);
+  FreeMonoidMorphismByDegreeChange.prototype.x1n = function (monoidElement) {
+    return this.w1n_1.j1q(monoidElement.d1k_1);
   };
   FreeMonoidMorphismByDegreeChange.$metadata$ = classMeta('FreeMonoidMorphismByDegreeChange', [MonoidMorphismWithDegreeChange]);
   function listMonomialsInternal($this, degree, index) {
-    if (index < 0 ? true : index > $this.h1p_1.i())
+    if (index < 0 ? true : index > $this.u1p_1.i())
       throw Exception_init_$Create$("This can't happen! (illegal index: " + index + ')');
-    if (index === $this.h1p_1.i()) {
-      return degree.op() ? listOf($this.j1p_1) : emptyList();
+    if (index === $this.u1p_1.i()) {
+      return degree.op() ? listOf($this.w1p_1) : emptyList();
     }
     var cacheKey = new Pair(degree, index);
     var tmp$ret$7;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = $this.i1p_1;
+    var tmp0_getOrPut = $this.v1p_1;
     var value = tmp0_getOrPut.t(cacheKey);
     var tmp;
     if (value == null) {
@@ -8691,15 +8790,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>' call
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = $this.g1p_1.o14();
+      var tmp0_run = $this.t1p_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.v19(degree, $this.h1p_1.l(index).z1j_1);
+      tmp$ret$0 = tmp0_run.z19(degree, $this.u1p_1.l(index).g1k_1);
       tmp$ret$1 = tmp$ret$0;
       var newDegree = tmp$ret$1;
       var tmp_0;
-      if ($this.h1p_1.h1q(newDegree)) {
+      if ($this.u1p_1.u1q(newDegree)) {
         var tmp$ret$5;
         // Inline function 'kotlin.collections.mapNotNull' call
         var tmp1_mapNotNull = listMonomialsInternal($this, newDegree, index);
@@ -8713,7 +8812,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
           var tmp$ret$2;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>.<anonymous>' call
-          tmp$ret$2 = element.g1q(index);
+          tmp$ret$2 = element.t1q(index);
           var tmp0_safe_receiver = tmp$ret$2;
           if (tmp0_safe_receiver == null)
             null;
@@ -8744,16 +8843,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$7;
   }
   function MonomialListGenerator(degreeGroup, indeterminateList) {
-    this.g1p_1 = degreeGroup;
-    this.h1p_1 = indeterminateList;
+    this.t1p_1 = degreeGroup;
+    this.u1p_1 = indeterminateList;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.i1p_1 = tmp$ret$0;
+    tmp.v1p_1 = tmp$ret$0;
     var tmp_0 = this;
     var tmp_1 = 0;
-    var tmp_2 = this.h1p_1.i();
+    var tmp_2 = this.u1p_1.i();
     var tmp_3 = new Int32Array(tmp_2);
     while (tmp_1 < tmp_2) {
       var tmp_4 = tmp_1;
@@ -8763,23 +8862,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp_3[tmp_4] = tmp$ret$1;
       tmp_1 = tmp_1 + 1 | 0;
     }
-    tmp_0.j1p_1 = new Monomial(this.g1p_1, this.h1p_1, tmp_3);
+    tmp_0.w1p_1 = new Monomial(this.t1p_1, this.u1p_1, tmp_3);
   }
-  MonomialListGenerator.prototype.n14 = function () {
-    return this.g1p_1;
+  MonomialListGenerator.prototype.s14 = function () {
+    return this.t1p_1;
   };
-  MonomialListGenerator.prototype.u1f = function () {
-    return this.h1p_1;
+  MonomialListGenerator.prototype.c1g = function () {
+    return this.u1p_1;
   };
-  MonomialListGenerator.prototype.k1p = function (degree) {
-    if (!this.h1p_1.h1q(degree))
+  MonomialListGenerator.prototype.x1p = function (degree) {
+    if (!this.u1p_1.u1q(degree))
       return emptyList();
     return listMonomialsInternal(this, degree, 0);
   };
   MonomialListGenerator.$metadata$ = classMeta('MonomialListGenerator');
   function indeterminateList$factory() {
     return getPropertyCallableRef('indeterminateList', 1, KProperty1, function (receiver) {
-      return receiver.u1f();
+      return receiver.c1g();
     }, null);
   }
   function boundedness$factory() {
@@ -8802,28 +8901,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return StringIndeterminateName_init_$Init$(name, tex, $mask0, $marker, Object.create(StringIndeterminateName.prototype));
   }
   function StringIndeterminateName(name, tex) {
-    this.i1q_1 = new Identifier_0(name);
-    this.j1q_1 = this.i1q_1.p1n_1;
+    this.v1q_1 = new Identifier_0(name);
+    this.w1q_1 = this.v1q_1.a1o_1;
     var tmp = this;
     var tmp0_elvis_lhs = tex;
-    tmp.k1q_1 = tmp0_elvis_lhs == null ? name : tmp0_elvis_lhs;
+    tmp.x1q_1 = tmp0_elvis_lhs == null ? name : tmp0_elvis_lhs;
   }
-  StringIndeterminateName.prototype.h1e = function () {
-    return this.i1q_1;
+  StringIndeterminateName.prototype.p1e = function () {
+    return this.v1q_1;
   };
   StringIndeterminateName.prototype.toString = function () {
-    return this.j1q_1;
+    return this.w1q_1;
   };
-  StringIndeterminateName.prototype.r1a = function (printConfig) {
-    var tmp0_subject = printConfig.m1j_1;
+  StringIndeterminateName.prototype.v1a = function (printConfig) {
+    var tmp0_subject = printConfig.t1j_1;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
     switch (tmp0) {
       case 0:
-        tmp = this.j1q_1;
+        tmp = this.w1q_1;
         break;
       case 1:
-        tmp = this.k1q_1;
+        tmp = this.x1q_1;
         break;
       default:
         noWhenBranchMatchedException();
@@ -8840,40 +8939,40 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!(this.j1q_1 === other.j1q_1))
+    if (!(this.w1q_1 === other.w1q_1))
       return false;
-    if (!(this.k1q_1 === other.k1q_1))
+    if (!(this.x1q_1 === other.x1q_1))
       return false;
     return true;
   };
   StringIndeterminateName.prototype.hashCode = function () {
-    var result = getStringHashCode(this.j1q_1);
-    result = imul(31, result) + getStringHashCode(this.k1q_1) | 0;
+    var result = getStringHashCode(this.w1q_1);
+    result = imul(31, result) + getStringHashCode(this.x1q_1) | 0;
     return result;
   };
   StringIndeterminateName.$metadata$ = classMeta('StringIndeterminateName', [IndeterminateName]);
   function Indeterminate(name, degree) {
-    this.y1j_1 = name;
-    this.z1j_1 = degree;
+    this.f1k_1 = name;
+    this.g1k_1 = degree;
   }
   Indeterminate.prototype.xb = function () {
-    return this.y1j_1;
+    return this.f1k_1;
   };
-  Indeterminate.prototype.w14 = function () {
-    return this.z1j_1;
+  Indeterminate.prototype.b15 = function () {
+    return this.g1k_1;
   };
   Indeterminate.prototype.toString = function () {
-    return toString(this.y1j_1);
+    return toString(this.f1k_1);
   };
-  Indeterminate.prototype.r1a = function (printConfig) {
-    return this.y1j_1.r1a(printConfig);
+  Indeterminate.prototype.v1a = function (printConfig) {
+    return this.f1k_1.v1a(printConfig);
   };
-  Indeterminate.prototype.q1n = function (degreeMorphism) {
-    return new Indeterminate(this.y1j_1, degreeMorphism.g1a(this.z1j_1));
+  Indeterminate.prototype.b1o = function (degreeMorphism) {
+    return new Indeterminate(this.f1k_1, degreeMorphism.k1a(this.g1k_1));
   };
   Indeterminate.prototype.hashCode = function () {
-    var result = hashCode(this.y1j_1);
-    result = imul(result, 31) + hashCode(this.z1j_1) | 0;
+    var result = hashCode(this.f1k_1);
+    result = imul(result, 31) + hashCode(this.g1k_1) | 0;
     return result;
   };
   Indeterminate.prototype.equals = function (other) {
@@ -8882,9 +8981,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Indeterminate))
       return false;
     var tmp0_other_with_cast = other instanceof Indeterminate ? other : THROW_CCE();
-    if (!equals(this.y1j_1, tmp0_other_with_cast.y1j_1))
+    if (!equals(this.f1k_1, tmp0_other_with_cast.f1k_1))
       return false;
-    if (!equals(this.z1j_1, tmp0_other_with_cast.z1j_1))
+    if (!equals(this.g1k_1, tmp0_other_with_cast.g1k_1))
       return false;
     return true;
   };
@@ -8901,10 +9000,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_29() {
     Companion_instance_29 = this;
   }
-  Companion_29.prototype.v1p = function (degreeGroup, indeterminateList) {
+  Companion_29.prototype.i1q = function (degreeGroup, indeterminateList) {
     var tmp$ret$16;
     // Inline function 'kotlin.run' call
-    var tmp0_run = degreeGroup.o14();
+    var tmp0_run = degreeGroup.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$15;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>' call
@@ -8927,7 +9026,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element = tmp0_iterator.h();
         var tmp$ret$1;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-        tmp$ret$1 = tmp0_run.t1e(element.z1j_1) === 0;
+        tmp$ret$1 = tmp0_run.b1f(element.g1k_1) === 0;
         if (tmp$ret$1) {
           tmp$ret$0 = true;
           break $l$block_0;
@@ -8946,7 +9045,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element_0 = tmp0_iterator_0.h();
         var tmp$ret$2;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-        tmp$ret$2 = tmp0_run.t1e(element_0.z1j_1) === 0;
+        tmp$ret$2 = tmp0_run.b1f(element_0.g1k_1) === 0;
         if (tmp$ret$2) {
           tmp0_filterTo.a(element_0);
         }
@@ -8974,7 +9073,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var element_1 = tmp0_iterator_1.h();
           var tmp$ret$6;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-          tmp$ret$6 = tmp0_run.t1e(element_1.z1j_1) > 0;
+          tmp$ret$6 = tmp0_run.b1f(element_1.g1k_1) > 0;
           if (!tmp$ret$6) {
             tmp$ret$5 = false;
             break $l$block_2;
@@ -9003,7 +9102,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var element_2 = tmp0_iterator_2.h();
             var tmp$ret$8;
             // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-            tmp$ret$8 = tmp0_run.t1e(element_2.z1j_1) < 0;
+            tmp$ret$8 = tmp0_run.b1f(element_2.g1k_1) < 0;
             if (!tmp$ret$8) {
               tmp$ret$7 = false;
               break $l$block_4;
@@ -9024,7 +9123,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var element_3 = tmp0_iterator_3.h();
             var tmp$ret$9;
             // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-            tmp$ret$9 = tmp0_run.t1e(element_3.z1j_1) > 0;
+            tmp$ret$9 = tmp0_run.b1f(element_3.g1k_1) > 0;
             if (tmp$ret$9) {
               tmp0_filterTo_0.a(element_3);
             }
@@ -9042,7 +9141,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             var element_4 = tmp0_iterator_4.h();
             var tmp$ret$12;
             // Inline function 'com.github.shwaka.kohomology.free.monoid.Companion.from.<anonymous>.<anonymous>' call
-            tmp$ret$12 = tmp0_run.t1e(element_4.z1j_1) < 0;
+            tmp$ret$12 = tmp0_run.b1f(element_4.g1k_1) < 0;
             if (tmp$ret$12) {
               tmp0_filterTo_1.a(element_4);
             }
@@ -9071,7 +9170,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       $l$block_0: {
         // Inline function 'kotlin.collections.all' call
-        var tmp0_all = this$0.m1p_1;
+        var tmp0_all = this$0.z1p_1;
         var tmp;
         if (isInterface(tmp0_all, Collection)) {
           tmp = tmp0_all.p();
@@ -9087,7 +9186,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var element = tmp0_iterator.h();
           var tmp$ret$1;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.isOddOnly$delegate.<anonymous>.<anonymous>' call
-          tmp$ret$1 = isOdd_0(this$0.l1p_1.s1e(element.z1j_1));
+          tmp$ret$1 = isOdd_0(this$0.y1p_1.a1f(element.g1k_1));
           if (!tmp$ret$1) {
             tmp$ret$0 = false;
             break $l$block_0;
@@ -9102,7 +9201,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = this$0.m1p_1;
+      var tmp0_map = this$0.z1p_1;
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -9111,7 +9210,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.degreeSumAsInt$delegate.<anonymous>.<anonymous>' call
-        tmp$ret$0 = this$0.l1p_1.s1e(item.z1j_1);
+        tmp$ret$0 = this$0.y1p_1.a1f(item.g1k_1);
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -9121,33 +9220,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function IndeterminateList(degreeGroup, rawList) {
     Companion_getInstance_30();
-    this.l1p_1 = degreeGroup;
-    this.m1p_1 = rawList;
-    this.n1p_1 = get_indices_0(this.m1p_1);
+    this.y1p_1 = degreeGroup;
+    this.z1p_1 = rawList;
+    this.a1q_1 = get_indices_0(this.z1p_1);
     var tmp = this;
-    tmp.o1p_1 = lazy(IndeterminateList$isOddOnly$delegate$lambda(this));
+    tmp.b1q_1 = lazy(IndeterminateList$isOddOnly$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.p1p_1 = lazy(IndeterminateList$degreeSumAsInt$delegate$lambda(this));
+    tmp_0.c1q_1 = lazy(IndeterminateList$degreeSumAsInt$delegate$lambda(this));
   }
-  IndeterminateList.prototype.n14 = function () {
-    return this.l1p_1;
+  IndeterminateList.prototype.s14 = function () {
+    return this.y1p_1;
   };
-  IndeterminateList.prototype.l1q = function () {
-    return this.m1p_1;
+  IndeterminateList.prototype.y1q = function () {
+    return this.z1p_1;
   };
-  IndeterminateList.prototype.r1p = function () {
-    return this.m1p_1;
+  IndeterminateList.prototype.e1q = function () {
+    return this.z1p_1;
   };
   IndeterminateList.prototype.i = function () {
-    return this.m1p_1.i();
+    return this.z1p_1.i();
   };
-  IndeterminateList.prototype.m1q = function (list) {
-    return zip(this.m1p_1, list);
+  IndeterminateList.prototype.z1q = function (list) {
+    return zip(this.z1p_1, list);
   };
-  IndeterminateList.prototype.u1p = function (transform) {
+  IndeterminateList.prototype.h1q = function (transform) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.m1p_1;
+    var tmp0_map = this.z1p_1;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -9160,7 +9259,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   };
-  IndeterminateList.prototype.n1q = function (transform) {
+  IndeterminateList.prototype.a1r = function (transform) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.List' call
     var tmp0_List = this.i();
@@ -9177,7 +9276,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.MutableList.<anonymous>' call
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.mapIndexed.<anonymous>' call
-        tmp$ret$0 = transform(index, this.m1p_1.l(index));
+        tmp$ret$0 = transform(index, this.z1p_1.l(index));
         list.a(tmp$ret$0);
       }
        while (inductionVariable < tmp0_List);
@@ -9186,28 +9285,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   };
   IndeterminateList.prototype.l = function (index) {
-    return this.m1p_1.l(index);
+    return this.z1p_1.l(index);
   };
-  IndeterminateList.prototype.o1q = function (separator, transform) {
-    return joinToString$default(this.m1p_1, separator, null, null, 0, null, transform, 30, null);
+  IndeterminateList.prototype.b1r = function (separator, transform) {
+    return joinToString$default(this.z1p_1, separator, null, null, 0, null, transform, 30, null);
   };
-  IndeterminateList.prototype.a1q = function (separator, transform, $mask0, $handler) {
+  IndeterminateList.prototype.n1q = function (separator, transform, $mask0, $handler) {
     if (!(($mask0 & 2) === 0))
       transform = null;
-    return this.o1q(separator, transform);
+    return this.b1r(separator, transform);
   };
-  IndeterminateList.prototype.t1p = function () {
+  IndeterminateList.prototype.g1q = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = isOddOnly$factory();
-    tmp$ret$0 = this.o1p_1.f1();
+    tmp$ret$0 = this.b1q_1.f1();
     return tmp$ret$0;
   };
-  IndeterminateList.prototype.s1p = function () {
+  IndeterminateList.prototype.f1q = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = degreeSumAsInt$factory();
-    tmp$ret$0 = this.p1p_1.f1();
+    tmp$ret$0 = this.c1q_1.f1();
     return tmp$ret$0;
   };
   IndeterminateList.prototype.equals = function (other) {
@@ -9221,36 +9320,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.m1p_1, other.m1p_1))
+    if (!equals(this.z1p_1, other.z1p_1))
       return false;
     return true;
   };
   IndeterminateList.prototype.hashCode = function () {
-    return hashCode(this.m1p_1);
+    return hashCode(this.z1p_1);
   };
   IndeterminateList.$metadata$ = classMeta('IndeterminateList');
   function PositiveIndeterminateList(degreeGroup, rawList) {
     IndeterminateList.call(this, degreeGroup, rawList);
     var tmp$ret$0;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.l1p_1.o14();
+    var tmp0_run = this.y1p_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp0_iterator = rawList.f();
     while (tmp0_iterator.g()) {
       var indeterminate = tmp0_iterator.h();
-      if (tmp0_run.t1e(indeterminate.z1j_1) <= 0)
+      if (tmp0_run.b1f(indeterminate.g1k_1) <= 0)
         throw IllegalArgumentException_init_$Create$('The degree of an indeterminate in PositiveIndeterminateList must be positive');
     }
     tmp$ret$0 = Unit_getInstance();
   }
-  PositiveIndeterminateList.prototype.h1q = function (degree) {
+  PositiveIndeterminateList.prototype.u1q = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.l1p_1.o14();
+    var tmp0_run = this.y1p_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.PositiveIndeterminateList.isAllowedDegree.<anonymous>' call
-    tmp$ret$0 = tmp0_run.t1e(degree) >= 0;
+    tmp$ret$0 = tmp0_run.b1f(degree) >= 0;
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   };
@@ -9259,36 +9358,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     IndeterminateList.call(this, degreeGroup, rawList);
     var tmp$ret$0;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.l1p_1.o14();
+    var tmp0_run = this.y1p_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp0_iterator = rawList.f();
     while (tmp0_iterator.g()) {
       var indeterminate = tmp0_iterator.h();
-      if (tmp0_run.t1e(indeterminate.z1j_1) >= 0)
+      if (tmp0_run.b1f(indeterminate.g1k_1) >= 0)
         throw IllegalArgumentException_init_$Create$('The degree of an indeterminate in NegativeIndeterminateList must be negative');
     }
     tmp$ret$0 = Unit_getInstance();
   }
-  NegativeIndeterminateList.prototype.h1q = function (degree) {
+  NegativeIndeterminateList.prototype.u1q = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.l1p_1.o14();
+    var tmp0_run = this.y1p_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.NegativeIndeterminateList.isAllowedDegree.<anonymous>' call
-    tmp$ret$0 = tmp0_run.t1e(degree) <= 0;
+    tmp$ret$0 = tmp0_run.b1f(degree) <= 0;
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   };
   NegativeIndeterminateList.$metadata$ = classMeta('NegativeIndeterminateList', undefined, undefined, undefined, undefined, IndeterminateList.prototype);
   function isOddOnly$factory() {
     return getPropertyCallableRef('isOddOnly', 1, KProperty1, function (receiver) {
-      return receiver.t1p();
+      return receiver.g1q();
     }, null);
   }
   function degreeSumAsInt$factory() {
     return getPropertyCallableRef('degreeSumAsInt', 1, KProperty1, function (receiver) {
-      return receiver.s1p();
+      return receiver.f1q();
     }, null);
   }
   function MonoidElement() {
@@ -9313,21 +9412,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Signed(value, sign) {
     SignedOrZero.call(this);
-    this.d1p_1 = value;
-    this.e1p_1 = sign;
+    this.q1p_1 = value;
+    this.r1p_1 = sign;
   }
   Signed.prototype.w3 = function () {
-    return this.d1p_1;
+    return this.q1p_1;
   };
   Signed.prototype.x3 = function () {
-    return this.e1p_1;
+    return this.r1p_1;
   };
   Signed.prototype.toString = function () {
-    return 'Signed(value=' + this.d1p_1 + ', sign=' + this.e1p_1 + ')';
+    return 'Signed(value=' + this.q1p_1 + ', sign=' + this.r1p_1 + ')';
   };
   Signed.prototype.hashCode = function () {
-    var result = this.d1p_1 == null ? 0 : hashCode(this.d1p_1);
-    result = imul(result, 31) + this.e1p_1.hashCode() | 0;
+    var result = this.q1p_1 == null ? 0 : hashCode(this.q1p_1);
+    result = imul(result, 31) + this.r1p_1.hashCode() | 0;
     return result;
   };
   Signed.prototype.equals = function (other) {
@@ -9336,9 +9435,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Signed))
       return false;
     var tmp0_other_with_cast = other instanceof Signed ? other : THROW_CCE();
-    if (!equals(this.d1p_1, tmp0_other_with_cast.d1p_1))
+    if (!equals(this.q1p_1, tmp0_other_with_cast.q1p_1))
       return false;
-    if (!this.e1p_1.equals(tmp0_other_with_cast.e1p_1))
+    if (!this.r1p_1.equals(tmp0_other_with_cast.r1p_1))
       return false;
     return true;
   };
@@ -9347,7 +9446,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   MonoidMorphismWithDegreeChange.$metadata$ = interfaceMeta('MonoidMorphismWithDegreeChange');
   function Monomial_init_$Init$(degreeGroup, indeterminateList, exponentList, $this) {
-    Monomial.call($this, degreeGroup, Companion_getInstance_30().v1p(degreeGroup, indeterminateList), toIntArray(exponentList));
+    Monomial.call($this, degreeGroup, Companion_getInstance_30().i1q(degreeGroup, indeterminateList), toIntArray(exponentList));
     return $this;
   }
   function Monomial_init_$Create$(degreeGroup, indeterminateList, exponentList) {
@@ -9356,7 +9455,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_30() {
     Companion_instance_30 = this;
   }
-  Companion_30.prototype.n1n = function (degreeGroup, indeterminateList, indeterminate) {
+  Companion_30.prototype.y1n = function (degreeGroup, indeterminateList, indeterminate) {
     var index = indeterminateList.j2(indeterminate);
     if (index === -1)
       throw NoSuchElementException_init_$Create$('Indeterminate ' + indeterminate + ' is not contained in the indeterminate list ' + indeterminateList);
@@ -9387,18 +9486,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Monomial$degree$delegate$lambda$lambda($tmp0_run, this$0) {
     return function (i, indeterminate) {
-      return $tmp0_run.w1e(indeterminate.z1j_1, this$0.w1j_1[i]);
+      return $tmp0_run.e1f(indeterminate.g1k_1, this$0.d1k_1[i]);
     };
   }
   function Monomial$degree$delegate$lambda(this$0) {
     return function () {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.u1j_1.o14();
+      var tmp0_run = this$0.b1k_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.degree$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.z1e(this$0.v1j_1.n1q(Monomial$degree$delegate$lambda$lambda(tmp0_run, this$0)));
+      tmp$ret$0 = tmp0_run.h1f(this$0.c1k_1.a1r(Monomial$degree$delegate$lambda$lambda(tmp0_run, this$0)));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
@@ -9415,7 +9514,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         case 1:
           var tmp$ret$0;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp2__anonymous__z9zvc9 = indeterminate.y1j_1;
+          var tmp2__anonymous__z9zvc9 = indeterminate.f1k_1;
           tmp$ret$0 = toString(tmp2__anonymous__z9zvc9);
 
           tmp = tmp$ret$0;
@@ -9439,7 +9538,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var exponentStr = tmp_0;
           var tmp$ret$1;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp3__anonymous__ufb84q = indeterminate.y1j_1;
+          var tmp3__anonymous__ufb84q = indeterminate.f1k_1;
           tmp$ret$1 = toString(tmp3__anonymous__ufb84q);
 
           tmp = tmp$ret$1 + '^' + exponentStr;
@@ -9460,8 +9559,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         case 1:
           var tmp$ret$0;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp2__anonymous__z9zvc9 = indeterminate.y1j_1;
-          tmp$ret$0 = tmp2__anonymous__z9zvc9.r1a($printConfig);
+          var tmp2__anonymous__z9zvc9 = indeterminate.f1k_1;
+          tmp$ret$0 = tmp2__anonymous__z9zvc9.v1a($printConfig);
 
           tmp = tmp$ret$0;
           break;
@@ -9484,8 +9583,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var exponentStr = tmp_0;
           var tmp$ret$1;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp3__anonymous__ufb84q = indeterminate.y1j_1;
-          tmp$ret$1 = tmp3__anonymous__ufb84q.r1a($printConfig);
+          var tmp3__anonymous__ufb84q = indeterminate.f1k_1;
+          tmp$ret$1 = tmp3__anonymous__ufb84q.v1a($printConfig);
 
           tmp = tmp$ret$1 + '^' + exponentStr;
           break;
@@ -9503,7 +9602,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         case 0:
           throw Exception_init_$Create$("This can't happen!");
         case 1:
-          tmp = $indeterminateNameToString(indeterminate.y1j_1);
+          tmp = $indeterminateNameToString(indeterminate.f1k_1);
           break;
         default:
           var tmp1_subject = $printType;
@@ -9522,7 +9621,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           }
 
           var exponentStr = tmp_0;
-          tmp = $indeterminateNameToString(indeterminate.y1j_1) + '^' + exponentStr;
+          tmp = $indeterminateNameToString(indeterminate.f1k_1) + '^' + exponentStr;
           break;
       }
       return tmp;
@@ -9530,43 +9629,43 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Monomial(degreeGroup, indeterminateList, exponentList) {
     Companion_getInstance_31();
-    this.u1j_1 = degreeGroup;
-    this.v1j_1 = indeterminateList;
-    this.w1j_1 = exponentList;
-    if (!(this.v1j_1.i() === this.w1j_1.length))
+    this.b1k_1 = degreeGroup;
+    this.c1k_1 = indeterminateList;
+    this.d1k_1 = exponentList;
+    if (!(this.c1k_1.i() === this.d1k_1.length))
       throw new InvalidSizeException('Invalid size of the exponent list');
     var tmp = this;
-    tmp.x1j_1 = lazy(Monomial$degree$delegate$lambda(this));
+    tmp.e1k_1 = lazy(Monomial$degree$delegate$lambda(this));
   }
-  Monomial.prototype.z1q = function () {
-    return this.w1j_1;
+  Monomial.prototype.m1r = function () {
+    return this.d1k_1;
   };
-  Monomial.prototype.w14 = function () {
+  Monomial.prototype.b15 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = degree$factory();
-    tmp$ret$0 = this.x1j_1.f1();
+    tmp$ret$0 = this.e1k_1.f1();
     return tmp$ret$0;
   };
-  Monomial.prototype.g1q = function (index) {
-    if (this.v1j_1.l(index).z1j_1.k1e() ? this.w1j_1[index] === 1 : false)
+  Monomial.prototype.t1q = function (index) {
+    if (this.c1k_1.l(index).g1k_1.s1e() ? this.d1k_1[index] === 1 : false)
       return null;
     var tmp = 0;
-    var tmp_0 = this.v1j_1.i();
+    var tmp_0 = this.c1k_1.i();
     var tmp_1 = new Int32Array(tmp_0);
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.increaseExponentAtIndex.<anonymous>' call
-      tmp$ret$0 = tmp_2 === index ? this.w1j_1[tmp_2] + 1 | 0 : this.w1j_1[tmp_2];
+      tmp$ret$0 = tmp_2 === index ? this.d1k_1[tmp_2] + 1 | 0 : this.d1k_1[tmp_2];
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
     }
     var newExponents = tmp_1;
-    return new Monomial(this.u1j_1, this.v1j_1, newExponents);
+    return new Monomial(this.b1k_1, this.c1k_1, newExponents);
   };
-  Monomial.prototype.o1n = function (indeterminateIndex) {
-    return this.w1j_1[indeterminateIndex] > 0;
+  Monomial.prototype.z1n = function (indeterminateIndex) {
+    return this.d1k_1[indeterminateIndex] > 0;
   };
   Monomial.prototype.toString = function () {
     var tmp$ret$3;
@@ -9575,7 +9674,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1_toString = PrintType_PLAIN_getInstance();
       var tmp$ret$2;
       // Inline function 'kotlin.collections.filter' call
-      var tmp0_filter = this.v1j_1.m1q(toList_0(this.w1j_1));
+      var tmp0_filter = this.c1k_1.z1q(toList_0(this.d1k_1));
       var tmp$ret$1;
       // Inline function 'kotlin.collections.filterTo' call
       var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -9601,14 +9700,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp$ret$3;
   };
-  Monomial.prototype.r1a = function (printConfig) {
+  Monomial.prototype.v1a = function (printConfig) {
     var tmp$ret$3;
     $l$block: {
       // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString' call
-      var tmp1_toString = printConfig.m1j_1;
+      var tmp1_toString = printConfig.t1j_1;
       var tmp$ret$2;
       // Inline function 'kotlin.collections.filter' call
-      var tmp0_filter = this.v1j_1.m1q(toList_0(this.w1j_1));
+      var tmp0_filter = this.c1k_1.z1q(toList_0(this.d1k_1));
       var tmp$ret$1;
       // Inline function 'kotlin.collections.filterTo' call
       var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -9645,35 +9744,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!this.v1j_1.equals(other.v1j_1))
+    if (!this.c1k_1.equals(other.c1k_1))
       return false;
-    if (!contentEquals(this.w1j_1, other.w1j_1))
+    if (!contentEquals(this.d1k_1, other.d1k_1))
       return false;
     return true;
   };
   Monomial.prototype.hashCode = function () {
-    var result = this.v1j_1.hashCode();
-    result = imul(31, result) + contentHashCode(this.w1j_1) | 0;
+    var result = this.c1k_1.hashCode();
+    result = imul(31, result) + contentHashCode(this.d1k_1) | 0;
     return result;
   };
   Monomial.$metadata$ = classMeta('Monomial', [MonoidElement]);
   function degree$factory() {
     return getPropertyCallableRef('degree', 1, KProperty1, function (receiver) {
-      return receiver.w14();
+      return receiver.b15();
     }, null);
   }
   function _get_data__d5abxd($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = data$factory();
-    tmp$ret$0 = $this.m1r_1.f1();
+    tmp$ret$0 = $this.z1r_1.f1();
     return tmp$ret$0;
   }
   function _get_dataList__i79k6b($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = dataList$factory();
-    tmp$ret$0 = $this.n1r_1.f1();
+    tmp$ret$0 = $this.a1s_1.f1();
     return tmp$ret$0;
   }
   function computeData($this) {
@@ -9688,7 +9787,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return pmap(tmp, DecomposedSparseRowEchelonForm$computeDataList$lambda($this));
   }
   function computeBlockList($this) {
-    var originalRowMap = $this.u1r_1.r1r_1;
+    var originalRowMap = $this.h1s_1.e1s_1;
     var rowIndices = sorted(toList_1(originalRowMap.i3()));
     var tmp$ret$10;
     // Inline function 'kotlin.collections.map' call
@@ -9750,11 +9849,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1_loop_parameter = tmp0_iterator_1.h();
       var i = tmp1_loop_parameter.w3();
       var j = tmp1_loop_parameter.x3();
-      unionFind.e1s(i, j);
+      unionFind.r1s(i, j);
     }
     var tmp$ret$16;
     // Inline function 'kotlin.collections.map' call
-    var tmp2_map = unionFind.f1s();
+    var tmp2_map = unionFind.s1s();
     var tmp$ret$15;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo_1 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp2_map, 10));
@@ -9805,7 +9904,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DecomposedSparseRowEchelonForm.computePivots.<anonymous>' call
       var tmp1__anonymous__uwfjfc = accumulator;
-      tmp$ret$0 = plus(tmp1__anonymous__uwfjfc, element.h1s_1);
+      tmp$ret$0 = plus(tmp1__anonymous__uwfjfc, element.u1s_1);
       accumulator = tmp$ret$0;
     }
     tmp$ret$1 = accumulator;
@@ -9821,7 +9920,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var data = tmp0_iterator.h();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.iterator' call
-      var tmp0_iterator_0 = data.g1s_1;
+      var tmp0_iterator_0 = data.t1s_1;
       tmp$ret$1 = tmp0_iterator_0.d1().f();
       var tmp1_iterator = tmp$ret$1;
       while (tmp1_iterator.g()) {
@@ -9834,7 +9933,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component2' call
         tmp$ret$3 = tmp2_loop_parameter.f1();
         var row = tmp$ret$3;
-        var pivot = data.h1s_1.l(rowIndInBlock);
+        var pivot = data.u1s_1.l(rowIndInBlock);
         var rowInd = pivots.j2(pivot);
         if (rowInd === -1)
           throw Exception_init_$Create$("This can't happen!");
@@ -9852,7 +9951,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp0_iterator = dataList.f();
     while (tmp0_iterator.g()) {
       var data = tmp0_iterator.h();
-      var reducedRowMapOfData = $this.l1r_1.j1s(data.g1s_1, data.h1s_1);
+      var reducedRowMapOfData = $this.y1r_1.w1s(data.t1s_1, data.u1s_1);
       var tmp$ret$1;
       // Inline function 'kotlin.collections.iterator' call
       tmp$ret$1 = reducedRowMapOfData.d1().f();
@@ -9867,7 +9966,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component2' call
         tmp$ret$3 = tmp2_loop_parameter.f1();
         var row = tmp$ret$3;
-        var pivot = data.h1s_1.l(rowIndInBlock);
+        var pivot = data.u1s_1.l(rowIndInBlock);
         var rowInd = pivots.j2(pivot);
         if (rowInd === -1)
           throw Exception_init_$Create$("This can't happen!");
@@ -9878,10 +9977,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return rowMap;
   }
   function sam$kotlin_Comparator$0(function_0) {
-    this.k1s_1 = function_0;
+    this.x1s_1 = function_0;
   }
   sam$kotlin_Comparator$0.prototype.x = function (a, b) {
-    return this.k1s_1(a, b);
+    return this.x1s_1(a, b);
   };
   sam$kotlin_Comparator$0.prototype.compare = function (a, b) {
     return this.x(a, b);
@@ -9899,7 +9998,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DecomposedSparseRowEchelonForm$computeDataList$lambda(this$0) {
     return function (block) {
-      return this$0.l1r_1.l1s(block, this$0.k1r_1);
+      return this$0.y1r_1.y1s(block, this$0.x1r_1);
     };
   }
   function DecomposedSparseRowEchelonForm$computeBlockList$lambda(a, b) {
@@ -9945,26 +10044,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DecomposedSparseRowEchelonForm(matrixSpace, originalMatrix) {
     RowEchelonForm.call(this, matrixSpace, originalMatrix);
-    this.j1r_1 = originalMatrix.p1r_1;
-    this.k1r_1 = originalMatrix.q1r_1;
-    this.l1r_1 = matrixSpace.p1s();
+    this.w1r_1 = originalMatrix.c1s_1;
+    this.x1r_1 = originalMatrix.d1s_1;
+    this.y1r_1 = matrixSpace.c1t();
     var tmp = this;
-    tmp.m1r_1 = lazy(DecomposedSparseRowEchelonForm$data$delegate$lambda(this));
+    tmp.z1r_1 = lazy(DecomposedSparseRowEchelonForm$data$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.n1r_1 = lazy(DecomposedSparseRowEchelonForm$dataList$delegate$lambda(this));
+    tmp_0.a1s_1 = lazy(DecomposedSparseRowEchelonForm$dataList$delegate$lambda(this));
   }
-  DecomposedSparseRowEchelonForm.prototype.q1s = function () {
-    return this.h11().r1s(_get_data__d5abxd(this).g1s_1, this.j1r_1, this.k1r_1);
+  DecomposedSparseRowEchelonForm.prototype.d1t = function () {
+    return this.h11().e1t(_get_data__d5abxd(this).t1s_1, this.w1r_1, this.x1r_1);
   };
-  DecomposedSparseRowEchelonForm.prototype.s1s = function () {
-    return _get_data__d5abxd(this).h1s_1;
+  DecomposedSparseRowEchelonForm.prototype.f1t = function () {
+    return _get_data__d5abxd(this).u1s_1;
   };
-  DecomposedSparseRowEchelonForm.prototype.t1s = function () {
+  DecomposedSparseRowEchelonForm.prototype.g1t = function () {
     throw new NotImplementedError('Computation of sign is not implemented for DecomposedSparseRowEchelonForm');
   };
-  DecomposedSparseRowEchelonForm.prototype.u1s = function () {
-    var reducedRowMap = computeReducedRowMapForRowEchelonForm(this, _get_dataList__i79k6b(this), this.s1s());
-    return this.h11().r1s(reducedRowMap, this.j1r_1, this.k1r_1);
+  DecomposedSparseRowEchelonForm.prototype.h1t = function () {
+    var reducedRowMap = computeReducedRowMapForRowEchelonForm(this, _get_dataList__i79k6b(this), this.f1t());
+    return this.h11().e1t(reducedRowMap, this.w1r_1, this.x1r_1);
   };
   DecomposedSparseRowEchelonForm.$metadata$ = classMeta('DecomposedSparseRowEchelonForm', undefined, undefined, undefined, undefined, RowEchelonForm.prototype);
   function data$factory() {
@@ -9983,16 +10082,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.z1s_1 = tmp$ret$0;
+    tmp.m1t_1 = tmp$ret$0;
   }
-  Companion_31.prototype.a1t = function (numVectorSpace) {
-    if (this.z1s_1.c3(numVectorSpace)) {
-      var tmp = this.z1s_1.t(numVectorSpace);
+  Companion_31.prototype.n1t = function (numVectorSpace) {
+    if (this.m1t_1.c3(numVectorSpace)) {
+      var tmp = this.m1t_1.t(numVectorSpace);
       return tmp instanceof DenseMatrixSpace ? tmp : THROW_CCE();
     } else {
       var matrixSpace = new DenseMatrixSpace(numVectorSpace);
       // Inline function 'kotlin.collections.set' call
-      var tmp0_set = this.z1s_1;
+      var tmp0_set = this.m1t_1;
       tmp0_set.u(numVectorSpace, matrixSpace);
       return matrixSpace;
     }
@@ -10005,36 +10104,36 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_instance_31;
   }
   function DenseMatrixSpace$fromNumVectorList$lambda(v) {
-    return v.r1p();
+    return v.e1q();
   }
   function DenseMatrixSpace(numVectorSpace) {
     Companion_getInstance_32();
-    this.d1t_1 = numVectorSpace;
-    this.e1t_1 = this.d1t_1.g1t_1;
-    this.f1t_1 = new MatrixContextImpl(this);
+    this.q1t_1 = numVectorSpace;
+    this.r1t_1 = this.q1t_1.t1t_1;
+    this.s1t_1 = new MatrixContextImpl(this);
   }
   DenseMatrixSpace.prototype.j11 = function () {
-    return this.d1t_1;
+    return this.q1t_1;
   };
   DenseMatrixSpace.prototype.p11 = function () {
-    return this.e1t_1;
+    return this.r1t_1;
   };
-  DenseMatrixSpace.prototype.o14 = function () {
-    return this.f1t_1;
+  DenseMatrixSpace.prototype.t14 = function () {
+    return this.s1t_1;
   };
-  DenseMatrixSpace.prototype.i1t = function (matrix) {
-    return equals(matrix.j1t_1, this.d1t_1);
+  DenseMatrixSpace.prototype.v1t = function (matrix) {
+    return equals(matrix.w1t_1, this.q1t_1);
   };
-  DenseMatrixSpace.prototype.o1t = function (matrix, numVector) {
-    if (!this.i1t(matrix))
+  DenseMatrixSpace.prototype.b1u = function (matrix, numVector) {
+    if (!this.v1t(matrix))
       throw new IllegalContextException('The denseMatrix ' + matrix + ' does not match the context (' + this + ')');
-    if (!this.d1t_1.p1t(numVector))
-      throw new IllegalContextException('The numVector ' + numVector + ' does not match the context (' + this.d1t_1 + ')');
-    if (!(matrix.m1t_1 === numVector.q1t()))
+    if (!this.q1t_1.c1u(numVector))
+      throw new IllegalContextException('The numVector ' + numVector + ' does not match the context (' + this.q1t_1 + ')');
+    if (!(matrix.z1t_1 === numVector.d1u()))
       throw new InvalidSizeException('Cannot multiply matrix and vector: matrix.colCount != vector.dim');
     var tmp$ret$7;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = matrix.k1t_1;
+    var tmp0_map = matrix.x1t_1;
     var tmp$ret$6;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10045,13 +10144,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.multiply.<anonymous>' call
       var tmp$ret$4;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this.e1t_1.o14();
+      var tmp0_run = this.r1t_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.multiply.<anonymous>.<anonymous>' call
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map_0 = zip(item, numVector.b1t_1);
+      var tmp0_map_0 = zip(item, numVector.o1t_1);
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -10060,12 +10159,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item_0 = tmp0_iterator_0.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.multiply.<anonymous>.<anonymous>.<anonymous>' call
-        tmp$ret$0 = tmp0_run.k13(item_0.v4_1, item_0.w4_1);
+        tmp$ret$0 = tmp0_run.m13(item_0.v4_1, item_0.w4_1);
         tmp0_mapTo_0.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo_0;
       tmp$ret$2 = tmp$ret$1;
-      tmp$ret$3 = tmp0_run.i13(tmp$ret$2);
+      tmp$ret$3 = tmp0_run.k13(tmp$ret$2);
       tmp$ret$4 = tmp$ret$3;
       tmp$ret$5 = tmp$ret$4;
       tmp0_mapTo.a(tmp$ret$5);
@@ -10073,14 +10172,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$6 = tmp0_mapTo;
     tmp$ret$7 = tmp$ret$6;
     var valueList = tmp$ret$7;
-    return this.d1t_1.r1t(valueList);
+    return this.q1t_1.e1u(valueList);
   };
-  DenseMatrixSpace.prototype.s1t = function (matrix, numVector) {
+  DenseMatrixSpace.prototype.f1u = function (matrix, numVector) {
     var tmp = matrix instanceof DenseMatrix ? matrix : THROW_CCE();
-    return this.o1t(tmp, numVector instanceof DenseNumVector ? numVector : THROW_CCE());
+    return this.b1u(tmp, numVector instanceof DenseNumVector ? numVector : THROW_CCE());
   };
-  DenseMatrixSpace.prototype.t1t = function (matrix) {
-    var tmp0_safe_receiver = matrix.n1t_1;
+  DenseMatrixSpace.prototype.g1u = function (matrix) {
+    var tmp0_safe_receiver = matrix.a1u_1;
     if (tmp0_safe_receiver == null)
       null;
     else {
@@ -10090,15 +10189,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return tmp0_safe_receiver;
     }
     var rowEchelonForm = new DenseRowEchelonForm(this, matrix);
-    matrix.u1t(rowEchelonForm);
+    matrix.h1u(rowEchelonForm);
     return rowEchelonForm;
   };
-  DenseMatrixSpace.prototype.v1t = function (matrix) {
-    return this.t1t(matrix instanceof DenseMatrix ? matrix : THROW_CCE());
+  DenseMatrixSpace.prototype.i1u = function (matrix) {
+    return this.g1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE());
   };
-  DenseMatrixSpace.prototype.w1t = function (matrix) {
-    var rowCount = matrix.m1t_1;
-    var colCount = matrix.l1t_1;
+  DenseMatrixSpace.prototype.j1u = function (matrix) {
+    var rowCount = matrix.z1t_1;
+    var colCount = matrix.y1t_1;
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, rowCount);
@@ -10127,7 +10226,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             inductionVariable_0 = inductionVariable_0 + 1 | 0;
             var tmp$ret$0;
             // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.computeTranspose.<anonymous>.<anonymous>' call
-            tmp$ret$0 = matrix.x1t(item_0, item);
+            tmp$ret$0 = matrix.k1u(item_0, item);
             tmp0_mapTo_0.a(tmp$ret$0);
           }
            while (!(item_0 === last_0));
@@ -10140,13 +10239,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$4 = tmp0_mapTo;
     tmp$ret$5 = tmp$ret$4;
     var rowList = tmp$ret$5;
-    var tmp0_numVectorSpace = this.d1t_1;
+    var tmp0_numVectorSpace = this.q1t_1;
     return new DenseMatrix(tmp0_numVectorSpace, rowList, rowCount, colCount);
   };
-  DenseMatrixSpace.prototype.y1t = function (matrix) {
-    return this.w1t(matrix instanceof DenseMatrix ? matrix : THROW_CCE());
+  DenseMatrixSpace.prototype.l1u = function (matrix) {
+    return this.j1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE());
   };
-  DenseMatrixSpace.prototype.z1t = function (rowList, colCount) {
+  DenseMatrixSpace.prototype.m1u = function (rowList, colCount) {
     var rowCount = rowList.i();
     var tmp;
     var tmp$ret$0;
@@ -10162,9 +10261,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }
     }
     var colCountNonNull = tmp;
-    return new DenseMatrix(this.d1t_1, rowList, rowCount, colCountNonNull);
+    return new DenseMatrix(this.q1t_1, rowList, rowCount, colCountNonNull);
   };
-  DenseMatrixSpace.prototype.r1s = function (rowMap, rowCount, colCount) {
+  DenseMatrixSpace.prototype.e1t = function (rowMap, rowCount, colCount) {
     var tmp$ret$8;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, rowCount);
@@ -10197,7 +10296,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
               // Inline function 'kotlin.collections.MutableList.<anonymous>' call
               var tmp$ret$0;
               // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.fromRowMap.<anonymous>.<anonymous>' call
-              tmp$ret$0 = this.e1t_1.v12();
+              tmp$ret$0 = this.r1t_1.x12();
               list.a(tmp$ret$0);
             }
              while (inductionVariable_0 < colCount);
@@ -10220,7 +10319,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
               var tmp$ret$3;
               // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.fromRowMap.<anonymous>.<anonymous>' call
               var tmp0_elvis_lhs = row.t(item_0);
-              tmp$ret$3 = tmp0_elvis_lhs == null ? this.e1t_1.v12() : tmp0_elvis_lhs;
+              tmp$ret$3 = tmp0_elvis_lhs == null ? this.r1t_1.x12() : tmp0_elvis_lhs;
               tmp0_mapTo_0.a(tmp$ret$3);
             }
              while (!(item_0 === last_0));
@@ -10235,14 +10334,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$7 = tmp0_mapTo;
     tmp$ret$8 = tmp$ret$7;
     var rowList = tmp$ret$8;
-    return this.z1t(rowList, colCount);
+    return this.m1u(rowList, colCount);
   };
-  DenseMatrixSpace.prototype.b1u = function (matrix1, matrix2) {
-    if (!(matrix1.l1t_1 === matrix2.l1t_1))
+  DenseMatrixSpace.prototype.o1u = function (matrix1, matrix2) {
+    if (!(matrix1.y1t_1 === matrix2.y1t_1))
       throw new InvalidSizeException('Cannot join two matrices of different row counts');
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = zip(matrix1.k1t_1, matrix2.k1t_1);
+    var tmp0_map = zip(matrix1.x1t_1, matrix2.x1t_1);
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10259,25 +10358,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var rowList = tmp$ret$2;
-    var rowCount = matrix1.l1t_1;
-    var colCount = matrix1.m1t_1 + matrix2.m1t_1 | 0;
-    return new DenseMatrix(this.d1t_1, rowList, rowCount, colCount);
+    var rowCount = matrix1.y1t_1;
+    var colCount = matrix1.z1t_1 + matrix2.z1t_1 | 0;
+    return new DenseMatrix(this.q1t_1, rowList, rowCount, colCount);
   };
-  DenseMatrixSpace.prototype.c1u = function (matrix1, matrix2) {
+  DenseMatrixSpace.prototype.p1u = function (matrix1, matrix2) {
     var tmp = matrix1 instanceof DenseMatrix ? matrix1 : THROW_CCE();
-    return this.b1u(tmp, matrix2 instanceof DenseMatrix ? matrix2 : THROW_CCE());
+    return this.o1u(tmp, matrix2 instanceof DenseMatrix ? matrix2 : THROW_CCE());
   };
-  DenseMatrixSpace.prototype.d1u = function (matrix, rowRange) {
-    var rowList = slice(matrix.k1t_1, rowRange);
-    return this.z1t(rowList, matrix.m1t_1);
+  DenseMatrixSpace.prototype.q1u = function (matrix, rowRange) {
+    var rowList = slice(matrix.x1t_1, rowRange);
+    return this.m1u(rowList, matrix.z1t_1);
   };
-  DenseMatrixSpace.prototype.e1u = function (matrix, rowRange) {
-    return this.d1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE(), rowRange);
+  DenseMatrixSpace.prototype.r1u = function (matrix, rowRange) {
+    return this.q1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE(), rowRange);
   };
-  DenseMatrixSpace.prototype.f1u = function (matrix, colRange) {
+  DenseMatrixSpace.prototype.s1u = function (matrix, colRange) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = matrix.k1t_1;
+    var tmp0_map = matrix.x1t_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10292,28 +10391,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var rowList = tmp$ret$2;
-    return this.z1t(rowList, count(colRange));
+    return this.m1u(rowList, count(colRange));
   };
-  DenseMatrixSpace.prototype.g1u = function (matrix, colRange) {
-    return this.f1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE(), colRange);
+  DenseMatrixSpace.prototype.t1u = function (matrix, colRange) {
+    return this.s1u(matrix instanceof DenseMatrix ? matrix : THROW_CCE(), colRange);
   };
   DenseMatrixSpace.prototype.toString = function () {
-    return 'DenseMatrixSpace(' + this.e1t_1 + ')';
+    return 'DenseMatrixSpace(' + this.r1t_1 + ')';
   };
-  DenseMatrixSpace.prototype.h1u = function (numVectors, dim) {
+  DenseMatrixSpace.prototype.u1u = function (numVectors, dim) {
     if (numVectors.p() ? dim == null : false)
       throw IllegalArgumentException_init_$Create$('Vector list is empty and dim is not specified');
     var colList = pmap(numVectors, DenseMatrixSpace$fromNumVectorList$lambda);
-    return this.i1u(colList, dim);
+    return this.v1u(colList, dim);
   };
-  DenseMatrixSpace.prototype.j1u = function (numVectors, dim) {
-    return this.h1u(numVectors, dim);
+  DenseMatrixSpace.prototype.w1u = function (numVectors, dim) {
+    return this.u1u(numVectors, dim);
   };
   DenseMatrixSpace.$metadata$ = classMeta('DenseMatrixSpace', [MatrixSpace]);
   function toStringTable($this) {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = $this.k1t_1;
+    var tmp0_map = $this.x1t_1;
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10346,15 +10445,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return StringTable_init_$Create$(tmp, null, 2, null);
   }
   function DenseMatrix(numVectorSpace, rowList, rowCount, colCount) {
-    this.j1t_1 = numVectorSpace;
-    this.k1t_1 = rowList;
-    this.l1t_1 = rowCount;
-    this.m1t_1 = colCount;
-    this.n1t_1 = null;
+    this.w1t_1 = numVectorSpace;
+    this.x1t_1 = rowList;
+    this.y1t_1 = rowCount;
+    this.z1t_1 = colCount;
+    this.a1u_1 = null;
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.any' call
-      var tmp0_any = this.k1t_1;
+      var tmp0_any = this.x1t_1;
       var tmp;
       if (isInterface(tmp0_any, Collection)) {
         tmp = tmp0_any.p();
@@ -10370,7 +10469,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element = tmp0_iterator.h();
         var tmp$ret$1;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrix.<anonymous>' call
-        tmp$ret$1 = !(element.i() === this.m1t_1);
+        tmp$ret$1 = !(element.i() === this.z1t_1);
         if (tmp$ret$1) {
           tmp$ret$0 = true;
           break $l$block_0;
@@ -10382,30 +10481,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw new InvalidSizeException('The length of each row must be equal to colCount');
   }
   DenseMatrix.prototype.j11 = function () {
-    return this.j1t_1;
+    return this.w1t_1;
   };
-  DenseMatrix.prototype.m1u = function () {
-    return this.l1t_1;
+  DenseMatrix.prototype.z1u = function () {
+    return this.y1t_1;
   };
-  DenseMatrix.prototype.n1u = function () {
-    return this.m1t_1;
+  DenseMatrix.prototype.a1v = function () {
+    return this.z1t_1;
   };
-  DenseMatrix.prototype.u1t = function (value) {
-    if (!(this.n1t_1 == null))
+  DenseMatrix.prototype.h1u = function (value) {
+    if (!(this.a1u_1 == null))
       throw IllegalStateException_init_$Create$('Cannot assign rowEchelonForm twice');
-    this.n1t_1 = value;
+    this.a1u_1 = value;
   };
   DenseMatrix.prototype.toString = function () {
     return toStringTable(this).toString();
   };
-  DenseMatrix.prototype.x1t = function (rowInd, colInd) {
-    return this.k1t_1.l(rowInd).l(colInd);
+  DenseMatrix.prototype.k1u = function (rowInd, colInd) {
+    return this.x1t_1.l(rowInd).l(colInd);
   };
   DenseMatrix.prototype.hashCode = function () {
-    var result = hashCode(this.j1t_1);
-    result = imul(result, 31) + hashCode(this.k1t_1) | 0;
-    result = imul(result, 31) + this.l1t_1 | 0;
-    result = imul(result, 31) + this.m1t_1 | 0;
+    var result = hashCode(this.w1t_1);
+    result = imul(result, 31) + hashCode(this.x1t_1) | 0;
+    result = imul(result, 31) + this.y1t_1 | 0;
+    result = imul(result, 31) + this.z1t_1 | 0;
     return result;
   };
   DenseMatrix.prototype.equals = function (other) {
@@ -10414,13 +10513,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof DenseMatrix))
       return false;
     var tmp0_other_with_cast = other instanceof DenseMatrix ? other : THROW_CCE();
-    if (!equals(this.j1t_1, tmp0_other_with_cast.j1t_1))
+    if (!equals(this.w1t_1, tmp0_other_with_cast.w1t_1))
       return false;
-    if (!equals(this.k1t_1, tmp0_other_with_cast.k1t_1))
+    if (!equals(this.x1t_1, tmp0_other_with_cast.x1t_1))
       return false;
-    if (!(this.l1t_1 === tmp0_other_with_cast.l1t_1))
+    if (!(this.y1t_1 === tmp0_other_with_cast.y1t_1))
       return false;
-    if (!(this.m1t_1 === tmp0_other_with_cast.m1t_1))
+    if (!(this.z1t_1 === tmp0_other_with_cast.z1t_1))
       return false;
     return true;
   };
@@ -10431,16 +10530,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.p1u_1 = tmp$ret$0;
+    tmp.c1v_1 = tmp$ret$0;
   }
-  Companion_32.prototype.q1u = function (field) {
-    if (this.p1u_1.c3(field)) {
-      var tmp = this.p1u_1.t(field);
+  Companion_32.prototype.d1v = function (field) {
+    if (this.c1v_1.c3(field)) {
+      var tmp = this.c1v_1.t(field);
       return tmp instanceof DenseNumVectorSpace ? tmp : THROW_CCE();
     } else {
       var numVectorSpace = new DenseNumVectorSpace(field);
       // Inline function 'kotlin.collections.set' call
-      var tmp0_set = this.p1u_1;
+      var tmp0_set = this.c1v_1;
       tmp0_set.u(field, numVectorSpace);
       return numVectorSpace;
     }
@@ -10454,24 +10553,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DenseNumVectorSpace(field) {
     Companion_getInstance_33();
-    this.g1t_1 = field;
-    this.h1t_1 = new NumVectorContextImpl(this);
+    this.t1t_1 = field;
+    this.u1t_1 = new NumVectorContextImpl(this);
   }
   DenseNumVectorSpace.prototype.p11 = function () {
-    return this.g1t_1;
+    return this.t1t_1;
   };
-  DenseNumVectorSpace.prototype.o14 = function () {
-    return this.h1t_1;
+  DenseNumVectorSpace.prototype.t14 = function () {
+    return this.u1t_1;
   };
-  DenseNumVectorSpace.prototype.p1t = function (numVector) {
-    return equals(numVector.c1t_1, this.g1t_1);
+  DenseNumVectorSpace.prototype.c1u = function (numVector) {
+    return equals(numVector.p1t_1, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.r1u = function (a, b) {
-    if (!this.p1t(a))
+  DenseNumVectorSpace.prototype.e1v = function (a, b) {
+    if (!this.c1u(a))
       throw new IllegalContextException('The denseNumVector ' + a + ' does not match the context (' + this + ')');
-    if (!this.p1t(b))
+    if (!this.c1u(b))
       throw new IllegalContextException('The denseNumVector ' + b + ' does not match the context (' + this + ')');
-    if (!(a.q1t() === b.q1t()))
+    if (!(a.d1u() === b.d1u()))
       throw new InvalidSizeException('Cannot add numVectors of different dim');
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableListOf' call
@@ -10479,33 +10578,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var result = tmp$ret$0;
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.g1t_1.o14();
+    var tmp0_run = this.t1t_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var inductionVariable = 0;
-    var last = a.b1t_1.i() - 1 | 0;
+    var last = a.o1t_1.i() - 1 | 0;
     var tmp;
     if (inductionVariable <= last) {
       do {
         var i = inductionVariable;
         inductionVariable = inductionVariable + 1 | 0;
-        result.a(tmp0_run.e13(a.b1t_1.l(i), b.b1t_1.l(i)));
+        result.a(tmp0_run.g13(a.o1t_1.l(i), b.o1t_1.l(i)));
       }
        while (inductionVariable <= last);
       tmp = Unit_getInstance();
     }
     tmp$ret$1 = tmp;
-    return new DenseNumVector(result, this.g1t_1);
+    return new DenseNumVector(result, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.s1u = function (a, b) {
+  DenseNumVectorSpace.prototype.f1v = function (a, b) {
     var tmp = a instanceof DenseNumVector ? a : THROW_CCE();
-    return this.r1u(tmp, b instanceof DenseNumVector ? b : THROW_CCE());
+    return this.e1v(tmp, b instanceof DenseNumVector ? b : THROW_CCE());
   };
-  DenseNumVectorSpace.prototype.t1u = function (a, b) {
-    if (!this.p1t(a))
+  DenseNumVectorSpace.prototype.g1v = function (a, b) {
+    if (!this.c1u(a))
       throw new IllegalContextException('The denseNumVector ' + a + ' does not match the context (' + this + ')');
-    if (!this.p1t(b))
+    if (!this.c1u(b))
       throw new IllegalContextException('The denseNumVector ' + b + ' does not match the context (' + this + ')');
-    if (!(a.q1t() === b.q1t()))
+    if (!(a.d1u() === b.d1u()))
       throw new InvalidSizeException('Cannot subtract numVectors of different dim');
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableListOf' call
@@ -10513,41 +10612,41 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var result = tmp$ret$0;
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.g1t_1.o14();
+    var tmp0_run = this.t1t_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var inductionVariable = 0;
-    var last = a.b1t_1.i() - 1 | 0;
+    var last = a.o1t_1.i() - 1 | 0;
     var tmp;
     if (inductionVariable <= last) {
       do {
         var i = inductionVariable;
         inductionVariable = inductionVariable + 1 | 0;
-        result.a(tmp0_run.a13(a.b1t_1.l(i), b.b1t_1.l(i)));
+        result.a(tmp0_run.c13(a.o1t_1.l(i), b.o1t_1.l(i)));
       }
        while (inductionVariable <= last);
       tmp = Unit_getInstance();
     }
     tmp$ret$1 = tmp;
-    return new DenseNumVector(result, this.g1t_1);
+    return new DenseNumVector(result, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.u1u = function (a, b) {
+  DenseNumVectorSpace.prototype.h1v = function (a, b) {
     var tmp = a instanceof DenseNumVector ? a : THROW_CCE();
-    return this.t1u(tmp, b instanceof DenseNumVector ? b : THROW_CCE());
+    return this.g1v(tmp, b instanceof DenseNumVector ? b : THROW_CCE());
   };
-  DenseNumVectorSpace.prototype.v1u = function (scalar, numVector) {
-    if (!this.p1t(numVector))
+  DenseNumVectorSpace.prototype.i1v = function (scalar, numVector) {
+    if (!this.c1u(numVector))
       throw new IllegalContextException('The denseNumVector ' + numVector + ' does not match the context (' + this + ')');
-    if (!this.g1t_1.w1u(scalar))
-      throw new IllegalContextException('The scalar ' + scalar + ' does not match the context (field = ' + this.g1t_1 + ')');
+    if (!this.t1t_1.j1v(scalar))
+      throw new IllegalContextException('The scalar ' + scalar + ' does not match the context (field = ' + this.t1t_1 + ')');
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.g1t_1.o14();
+    var tmp0_run = this.t1t_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.multiply.<anonymous>' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = numVector.b1t_1;
+    var tmp0_map = numVector.o1t_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10556,7 +10655,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.multiply.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.k13(item, scalar);
+      tmp$ret$0 = tmp0_run.m13(item, scalar);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -10564,24 +10663,92 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$3 = tmp$ret$2;
     tmp$ret$4 = tmp$ret$3;
     var valueList = tmp$ret$4;
-    return new DenseNumVector(valueList, this.g1t_1);
+    return new DenseNumVector(valueList, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.x1u = function (scalar, numVector) {
+  DenseNumVectorSpace.prototype.k1v = function (scalar, numVector) {
     var tmp = isInterface(scalar, Scalar) ? scalar : THROW_CCE();
-    return this.v1u(tmp, numVector instanceof DenseNumVector ? numVector : THROW_CCE());
+    return this.i1v(tmp, numVector instanceof DenseNumVector ? numVector : THROW_CCE());
   };
-  DenseNumVectorSpace.prototype.y1u = function (numVector) {
-    if (!this.p1t(numVector))
+  DenseNumVectorSpace.prototype.l1v = function (a, b) {
+    if (!this.c1u(a))
+      throw new IllegalContextException('The sparseNumVector ' + a + ' does not match the context (' + this + ')');
+    if (!this.c1u(b))
+      throw new IllegalContextException('The sparseNumVector ' + b + ' does not match the context (' + this + ')');
+    if (!(a.d1u() === b.d1u()))
+      throw new InvalidSizeException('Cannot divide numVectors of different dim');
+    if (b.op())
+      throw ArithmeticException_init_$Create$('Division by zero numVector');
+    var tmp$ret$2;
+    // Inline function 'kotlin.collections.find' call
+    var tmp0_find = withIndex(b.o1t_1);
+    var tmp$ret$1;
+    $l$block: {
+      // Inline function 'kotlin.collections.firstOrNull' call
+      var tmp0_iterator = tmp0_find.f();
+      while (tmp0_iterator.g()) {
+        var element = tmp0_iterator.h();
+        var tmp$ret$0;
+        // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.divideByNumVector.<anonymous>' call
+        var scalar = element.x3();
+        tmp$ret$0 = scalar.z17();
+        if (tmp$ret$0) {
+          tmp$ret$1 = element;
+          break $l$block;
+        }
+      }
+      tmp$ret$1 = null;
+    }
+    tmp$ret$2 = tmp$ret$1;
+    var tmp0_safe_receiver = tmp$ret$2;
+    var tmp1_elvis_lhs = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.u3_1;
+    var tmp;
+    if (tmp1_elvis_lhs == null) {
+      throw Exception_init_$Create$("This can't happen!");
+    } else {
+      tmp = tmp1_elvis_lhs;
+    }
+    var index = tmp;
+    var tmp$ret$4;
+    // Inline function 'kotlin.run' call
+    var tmp1_run = this.t1t_1.t14();
+    // Inline function 'kotlin.contracts.contract' call
+    var tmp$ret$3;
+    // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.divideByNumVector.<anonymous>' call
+    tmp$ret$3 = tmp1_run.z12(a.o1t_1.l(index), b.o1t_1.l(index));
+    tmp$ret$4 = tmp$ret$3;
+    var scalar_0 = tmp$ret$4;
+    var tmp_0;
+    var tmp$ret$6;
+    // Inline function 'kotlin.run' call
+    var tmp2_run = this.u1t_1;
+    // Inline function 'kotlin.contracts.contract' call
+    var tmp$ret$5;
+    // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.divideByNumVector.<anonymous>' call
+    tmp$ret$5 = a.equals(tmp2_run.n13(scalar_0, b));
+    tmp$ret$6 = tmp$ret$5;
+    if (tmp$ret$6) {
+      tmp_0 = scalar_0;
+    } else {
+      tmp_0 = null;
+    }
+    return tmp_0;
+  };
+  DenseNumVectorSpace.prototype.m1v = function (a, b) {
+    var tmp = a instanceof DenseNumVector ? a : THROW_CCE();
+    return this.l1v(tmp, b instanceof DenseNumVector ? b : THROW_CCE());
+  };
+  DenseNumVectorSpace.prototype.n1v = function (numVector) {
+    if (!this.c1u(numVector))
       throw new IllegalContextException('The denseNumVector ' + numVector + ' does not match the context (' + this + ')');
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.g1t_1.o14();
+    var tmp0_run = this.t1t_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.unaryMinusOf.<anonymous>' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = numVector.b1t_1;
+    var tmp0_map = numVector.o1t_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -10590,7 +10757,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.unaryMinusOf.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.u13(item);
+      tmp$ret$0 = tmp0_run.y13(item);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -10598,21 +10765,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$3 = tmp$ret$2;
     tmp$ret$4 = tmp$ret$3;
     var valueList = tmp$ret$4;
-    return new DenseNumVector(valueList, this.g1t_1);
+    return new DenseNumVector(valueList, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.z1u = function (numVector) {
-    return this.y1u(numVector instanceof DenseNumVector ? numVector : THROW_CCE());
+  DenseNumVectorSpace.prototype.o1v = function (numVector) {
+    return this.n1v(numVector instanceof DenseNumVector ? numVector : THROW_CCE());
   };
-  DenseNumVectorSpace.prototype.a1v = function (numVector, ind) {
-    return numVector.b1t_1.l(ind);
+  DenseNumVectorSpace.prototype.p1v = function (numVector, ind) {
+    return numVector.o1t_1.l(ind);
   };
-  DenseNumVectorSpace.prototype.b1v = function (numVector, ind) {
-    return this.a1v(numVector instanceof DenseNumVector ? numVector : THROW_CCE(), ind);
+  DenseNumVectorSpace.prototype.q1v = function (numVector, ind) {
+    return this.p1v(numVector instanceof DenseNumVector ? numVector : THROW_CCE(), ind);
   };
-  DenseNumVectorSpace.prototype.r1t = function (valueList) {
-    return new DenseNumVector(valueList, this.g1t_1);
+  DenseNumVectorSpace.prototype.e1u = function (valueList) {
+    return new DenseNumVector(valueList, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.c1v = function (valueMap, dim) {
+  DenseNumVectorSpace.prototype.r1v = function (valueMap, dim) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, dim);
@@ -10628,16 +10795,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.fromValueMap.<anonymous>' call
         var tmp0_elvis_lhs = valueMap.t(item);
-        tmp$ret$0 = tmp0_elvis_lhs == null ? this.g1t_1.v12() : tmp0_elvis_lhs;
+        tmp$ret$0 = tmp0_elvis_lhs == null ? this.t1t_1.x12() : tmp0_elvis_lhs;
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var valueList = tmp$ret$2;
-    return new DenseNumVector(valueList, this.g1t_1);
+    return new DenseNumVector(valueList, this.t1t_1);
   };
-  DenseNumVectorSpace.prototype.d1v = function (dim) {
+  DenseNumVectorSpace.prototype.s1v = function (dim) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.List' call
     var tmp$ret$1;
@@ -10653,34 +10820,34 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.MutableList.<anonymous>' call
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVectorSpace.getZero.<anonymous>' call
-        tmp$ret$0 = this.g1t_1.v12();
+        tmp$ret$0 = this.t1t_1.x12();
         list.a(tmp$ret$0);
       }
        while (inductionVariable < dim);
     tmp$ret$1 = list;
     tmp$ret$2 = tmp$ret$1;
     var valueList = tmp$ret$2;
-    return this.r1t(valueList);
+    return this.e1u(valueList);
   };
   DenseNumVectorSpace.prototype.toString = function () {
-    return 'DenseNumVectorSpace(' + this.g1t_1 + ')';
+    return 'DenseNumVectorSpace(' + this.t1t_1 + ')';
   };
   DenseNumVectorSpace.$metadata$ = classMeta('DenseNumVectorSpace', [NumVectorSpace]);
   function DenseNumVector(valueList, field) {
-    this.b1t_1 = valueList;
-    this.c1t_1 = field;
+    this.o1t_1 = valueList;
+    this.p1t_1 = field;
   }
-  DenseNumVector.prototype.g1v = function () {
-    return this.b1t_1;
+  DenseNumVector.prototype.v1v = function () {
+    return this.o1t_1;
   };
-  DenseNumVector.prototype.q1t = function () {
-    return this.b1t_1.i();
+  DenseNumVector.prototype.d1u = function () {
+    return this.o1t_1.i();
   };
   DenseNumVector.prototype.op = function () {
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.all' call
-      var tmp0_all = this.b1t_1;
+      var tmp0_all = this.o1t_1;
       var tmp;
       if (isInterface(tmp0_all, Collection)) {
         tmp = tmp0_all.p();
@@ -10706,13 +10873,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp$ret$0;
   };
-  DenseNumVector.prototype.r1p = function () {
-    return this.b1t_1;
+  DenseNumVector.prototype.e1q = function () {
+    return this.o1t_1;
   };
-  DenseNumVector.prototype.h1v = function () {
+  DenseNumVector.prototype.w1v = function () {
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapIndexedNotNull' call
-    var tmp0_mapIndexedNotNull = this.b1t_1;
+    var tmp0_mapIndexedNotNull = this.o1t_1;
     var tmp$ret$2;
     // Inline function 'kotlin.collections.mapIndexedNotNullTo' call
     var tmp1_mapIndexedNotNullTo = ArrayList_init_$Create$_0();
@@ -10727,7 +10894,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp0__anonymous__q1qw7t = checkIndexOverflow(tmp1);
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseNumVector.toMap.<anonymous>' call
-      tmp$ret$0 = item.t1a() ? new Pair(tmp0__anonymous__q1qw7t, item) : null;
+      tmp$ret$0 = item.z17() ? new Pair(tmp0__anonymous__q1qw7t, item) : null;
       var tmp0_safe_receiver = tmp$ret$0;
       if (tmp0_safe_receiver == null)
         null;
@@ -10744,11 +10911,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return toMap(tmp$ret$3);
   };
   DenseNumVector.prototype.toString = function () {
-    return 'DenseNumVector(valueList=' + this.b1t_1 + ', field=' + this.c1t_1 + ')';
+    return 'DenseNumVector(valueList=' + this.o1t_1 + ', field=' + this.p1t_1 + ')';
   };
   DenseNumVector.prototype.hashCode = function () {
-    var result = hashCode(this.b1t_1);
-    result = imul(result, 31) + hashCode(this.c1t_1) | 0;
+    var result = hashCode(this.o1t_1);
+    result = imul(result, 31) + hashCode(this.p1t_1) | 0;
     return result;
   };
   DenseNumVector.prototype.equals = function (other) {
@@ -10757,9 +10924,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof DenseNumVector))
       return false;
     var tmp0_other_with_cast = other instanceof DenseNumVector ? other : THROW_CCE();
-    if (!equals(this.b1t_1, tmp0_other_with_cast.b1t_1))
+    if (!equals(this.o1t_1, tmp0_other_with_cast.o1t_1))
       return false;
-    if (!equals(this.c1t_1, tmp0_other_with_cast.c1t_1))
+    if (!equals(this.p1t_1, tmp0_other_with_cast.p1t_1))
       return false;
     return true;
   };
@@ -10768,21 +10935,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = data$factory_0();
-    tmp$ret$0 = $this.r1v_1.f1();
+    tmp$ret$0 = $this.g1w_1.f1();
     return tmp$ret$0;
   }
   function RowEchelonFormData(matrix, pivots, exchangeCount) {
-    this.t1v_1 = matrix;
-    this.u1v_1 = pivots;
-    this.v1v_1 = exchangeCount;
+    this.i1w_1 = matrix;
+    this.j1w_1 = pivots;
+    this.k1w_1 = exchangeCount;
   }
   RowEchelonFormData.prototype.toString = function () {
-    return 'RowEchelonFormData(matrix=' + this.t1v_1 + ', pivots=' + this.u1v_1 + ', exchangeCount=' + this.v1v_1 + ')';
+    return 'RowEchelonFormData(matrix=' + this.i1w_1 + ', pivots=' + this.j1w_1 + ', exchangeCount=' + this.k1w_1 + ')';
   };
   RowEchelonFormData.prototype.hashCode = function () {
-    var result = hashCode(this.t1v_1);
-    result = imul(result, 31) + hashCode(this.u1v_1) | 0;
-    result = imul(result, 31) + this.v1v_1 | 0;
+    var result = hashCode(this.i1w_1);
+    result = imul(result, 31) + hashCode(this.j1w_1) | 0;
+    result = imul(result, 31) + this.k1w_1 | 0;
     return result;
   };
   RowEchelonFormData.prototype.equals = function (other) {
@@ -10791,11 +10958,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof RowEchelonFormData))
       return false;
     var tmp0_other_with_cast = other instanceof RowEchelonFormData ? other : THROW_CCE();
-    if (!equals(this.t1v_1, tmp0_other_with_cast.t1v_1))
+    if (!equals(this.i1w_1, tmp0_other_with_cast.i1w_1))
       return false;
-    if (!equals(this.u1v_1, tmp0_other_with_cast.u1v_1))
+    if (!equals(this.j1w_1, tmp0_other_with_cast.j1w_1))
       return false;
-    if (!(this.v1v_1 === tmp0_other_with_cast.v1v_1))
+    if (!(this.k1w_1 === tmp0_other_with_cast.k1w_1))
       return false;
     return true;
   };
@@ -10858,7 +11025,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function minus_4(_this__u8e3s4, $this, other) {
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.s1v_1.o14();
+    var tmp0_run = $this.h1w_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.minus.<anonymous>' call
@@ -10875,7 +11042,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.minus.<anonymous>.<anonymous>' call
       var a = item.w3();
       var b = item.x3();
-      tmp$ret$0 = tmp0_run.a13(a, b);
+      tmp$ret$0 = tmp0_run.c13(a, b);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -10884,10 +11051,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   }
-  function times_12(_this__u8e3s4, $this, other) {
+  function times_14(_this__u8e3s4, $this, other) {
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.s1v_1.o14();
+    var tmp0_run = $this.h1w_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.times.<anonymous>' call
@@ -10901,7 +11068,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.times.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.k13(item, other);
+      tmp$ret$0 = tmp0_run.m13(item, other);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -10916,7 +11083,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var scalarMatrix = _this__u8e3s4;
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.s1v_1.o14();
+    var tmp0_run = $this.h1w_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.eliminateOtherRows.<anonymous>' call
@@ -10935,7 +11102,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.eliminateOtherRows.<anonymous>.<anonymous>' call
         var tmp0_subject = item;
-        tmp$ret$0 = tmp0_subject === rowInd ? scalarMatrix.l(rowInd) : minus_4(scalarMatrix.l(item), $this, times_12(scalarMatrix.l(rowInd), $this, tmp0_run.x12(scalarMatrix.l(item).l(colInd), scalarMatrix.l(rowInd).l(colInd))));
+        tmp$ret$0 = tmp0_subject === rowInd ? scalarMatrix.l(rowInd) : minus_4(scalarMatrix.l(item), $this, times_14(scalarMatrix.l(rowInd), $this, tmp0_run.z12(scalarMatrix.l(item).l(colInd), scalarMatrix.l(rowInd).l(colInd))));
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
@@ -10952,7 +11119,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       do {
         var i = inductionVariable;
         inductionVariable = inductionVariable + 1 | 0;
-        if (_this__u8e3s4.l(i).l(colInd).t1a())
+        if (_this__u8e3s4.l(i).l(colInd).z17())
           return i;
       }
        while (inductionVariable < last);
@@ -10962,11 +11129,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.h11().o14();
+      var tmp0_run = this$0.h11().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.data$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = rowEchelonForm(this$0.u1r_1.r1p(), this$0);
+      tmp$ret$0 = rowEchelonForm(this$0.h1s_1.e1q(), this$0);
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
@@ -10974,25 +11141,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function DenseRowEchelonForm(matrixSpace, originalMatrix) {
     RowEchelonForm.call(this, matrixSpace, originalMatrix);
     var tmp = this;
-    tmp.r1v_1 = lazy(DenseRowEchelonForm$data$delegate$lambda(this));
-    this.s1v_1 = matrixSpace.e1t_1;
+    tmp.g1w_1 = lazy(DenseRowEchelonForm$data$delegate$lambda(this));
+    this.h1w_1 = matrixSpace.r1t_1;
   }
-  DenseRowEchelonForm.prototype.q1s = function () {
+  DenseRowEchelonForm.prototype.d1t = function () {
     var tmp = this.h11();
-    var tmp_0 = _get_data__d5abxd_0(this).t1v_1;
-    return tmp.a1u(tmp_0, null, 2, null);
+    var tmp_0 = _get_data__d5abxd_0(this).i1w_1;
+    return tmp.n1u(tmp_0, null, 2, null);
   };
-  DenseRowEchelonForm.prototype.s1s = function () {
-    return _get_data__d5abxd_0(this).u1v_1;
+  DenseRowEchelonForm.prototype.f1t = function () {
+    return _get_data__d5abxd_0(this).j1w_1;
   };
-  DenseRowEchelonForm.prototype.t1s = function () {
-    return Companion_getInstance_45().w1v(_get_data__d5abxd_0(this).v1v_1);
+  DenseRowEchelonForm.prototype.g1t = function () {
+    return Companion_getInstance_45().l1w(_get_data__d5abxd_0(this).k1w_1);
   };
-  DenseRowEchelonForm.prototype.u1s = function () {
-    var rowCount = this.u1r_1.l1t_1;
-    var rank = this.y1s().i();
-    var rowEchelonMatrix = _get_data__d5abxd_0(this).t1v_1;
-    var one = this.h11().p11().u12();
+  DenseRowEchelonForm.prototype.h1t = function () {
+    var rowCount = this.h1s_1.y1t_1;
+    var rank = this.l1t().i();
+    var rowEchelonMatrix = _get_data__d5abxd_0(this).i1w_1;
+    var one = this.h11().p11().w12();
     var tmp$ret$4;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, rowCount);
@@ -11007,14 +11174,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$2;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.computeReducedRowEchelonForm.<anonymous>' call
-        var a = item < rank ? rowEchelonMatrix.l(item).l(this.y1s().l(item)) : one;
+        var a = item < rank ? rowEchelonMatrix.l(item).l(this.l1t().l(item)) : one;
         var tmp$ret$1;
         // Inline function 'kotlin.run' call
-        var tmp0_run = this.s1v_1.o14();
+        var tmp0_run = this.h1w_1.t14();
         // Inline function 'kotlin.contracts.contract' call
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.computeReducedRowEchelonForm.<anonymous>.<anonymous>' call
-        tmp$ret$0 = times_12(rowEchelonMatrix.l(item), this, tmp0_run.z12(a));
+        tmp$ret$0 = times_14(rowEchelonMatrix.l(item), this, tmp0_run.b13(a));
         tmp$ret$1 = tmp$ret$0;
         tmp$ret$2 = tmp$ret$1;
         tmp0_mapTo.a(tmp$ret$2);
@@ -11028,10 +11195,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       do {
         var i = inductionVariable_0;
         inductionVariable_0 = inductionVariable_0 + 1 | 0;
-        rawReducedMatrix = eliminateOtherRows(rawReducedMatrix, this, i, this.y1s().l(i));
+        rawReducedMatrix = eliminateOtherRows(rawReducedMatrix, this, i, this.l1t().l(i));
       }
        while (inductionVariable_0 < rank);
-    return this.h11().z1t(rawReducedMatrix, this.u1r_1.m1t_1);
+    return this.h11().m1u(rawReducedMatrix, this.h1s_1.z1t_1);
   };
   DenseRowEchelonForm.$metadata$ = classMeta('DenseRowEchelonForm', undefined, undefined, undefined, undefined, RowEchelonForm.prototype);
   function data$factory_0() {
@@ -11043,10 +11210,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   ScalarContext.$metadata$ = interfaceMeta('ScalarContext');
   function ScalarContextImpl(field) {
-    this.c1w_1 = field;
+    this.r1w_1 = field;
   }
   ScalarContextImpl.prototype.p11 = function () {
-    return this.c1w_1;
+    return this.r1w_1;
   };
   ScalarContextImpl.$metadata$ = classMeta('ScalarContextImpl', [ScalarContext]);
   function Scalar() {
@@ -11056,7 +11223,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   Field.$metadata$ = interfaceMeta('Field');
   function MatrixSpace$fromNumVectorList$lambda(i, v) {
-    return v.op() ? null : new Pair(i, v.h1v());
+    return v.op() ? null : new Pair(i, v.w1v());
   }
   function MatrixSpace() {
   }
@@ -11065,116 +11232,116 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = augmentedOriginalMatrix$factory();
-    tmp$ret$0 = $this.z1r_1.f1();
+    tmp$ret$0 = $this.m1s_1.f1();
     return tmp$ret$0;
   }
   function RowEchelonForm$matrix$delegate$lambda(this$0) {
     return function () {
-      return this$0.q1s();
+      return this$0.d1t();
     };
   }
   function RowEchelonForm$reducedMatrix$delegate$lambda(this$0) {
     return function () {
-      return this$0.u1s();
+      return this$0.h1t();
     };
   }
   function RowEchelonForm$pivots$delegate$lambda(this$0) {
     return function () {
-      return this$0.s1s();
+      return this$0.f1t();
     };
   }
   function RowEchelonForm$sign$delegate$lambda(this$0) {
     return function () {
-      return this$0.t1s();
+      return this$0.g1t();
     };
   }
   function RowEchelonForm$augmentedOriginalMatrix$delegate$lambda(this$0) {
     return function () {
-      var rowCount = this$0.u1r_1.m1u();
+      var rowCount = this$0.h1s_1.z1u();
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.h11().o14();
+      var tmp0_run = this$0.h11().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.RowEchelonForm.augmentedOriginalMatrix$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.f1w(listOf_0([this$0.u1r_1, this$0.h11().k1u(rowCount)]));
+      tmp$ret$0 = tmp0_run.u1w(listOf_0([this$0.h1s_1, this$0.h11().x1u(rowCount)]));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
   }
   function RowEchelonForm$transformation$delegate$lambda(this$0) {
     return function () {
-      var originalColCount = this$0.u1r_1.n1u();
-      var augmentedColCount = _get_augmentedOriginalMatrix__gimylt(this$0).n1u();
+      var originalColCount = this$0.h1s_1.a1v();
+      var augmentedColCount = _get_augmentedOriginalMatrix__gimylt(this$0).a1v();
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.h11().o14();
+      var tmp0_run = this$0.h11().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.RowEchelonForm.transformation$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.h1w(tmp0_run.g1w(_get_augmentedOriginalMatrix__gimylt(this$0)).w1s(), until(originalColCount, augmentedColCount));
+      tmp$ret$0 = tmp0_run.w1w(tmp0_run.v1w(_get_augmentedOriginalMatrix__gimylt(this$0)).j1t(), until(originalColCount, augmentedColCount));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
   }
   function RowEchelonForm$reducedTransformation$delegate$lambda(this$0) {
     return function () {
-      var originalColCount = this$0.u1r_1.n1u();
-      var augmentedColCount = _get_augmentedOriginalMatrix__gimylt(this$0).n1u();
+      var originalColCount = this$0.h1s_1.a1v();
+      var augmentedColCount = _get_augmentedOriginalMatrix__gimylt(this$0).a1v();
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.h11().o14();
+      var tmp0_run = this$0.h11().t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.RowEchelonForm.reducedTransformation$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.h1w(tmp0_run.g1w(_get_augmentedOriginalMatrix__gimylt(this$0)).x1s(), until(originalColCount, augmentedColCount));
+      tmp$ret$0 = tmp0_run.w1w(tmp0_run.v1w(_get_augmentedOriginalMatrix__gimylt(this$0)).k1t(), until(originalColCount, augmentedColCount));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
   }
   function RowEchelonForm(matrixSpace, originalMatrix) {
-    this.t1r_1 = matrixSpace;
-    this.u1r_1 = originalMatrix;
+    this.g1s_1 = matrixSpace;
+    this.h1s_1 = originalMatrix;
     var tmp = this;
-    tmp.v1r_1 = lazy(RowEchelonForm$matrix$delegate$lambda(this));
+    tmp.i1s_1 = lazy(RowEchelonForm$matrix$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.w1r_1 = lazy(RowEchelonForm$reducedMatrix$delegate$lambda(this));
+    tmp_0.j1s_1 = lazy(RowEchelonForm$reducedMatrix$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.x1r_1 = lazy(RowEchelonForm$pivots$delegate$lambda(this));
+    tmp_1.k1s_1 = lazy(RowEchelonForm$pivots$delegate$lambda(this));
     var tmp_2 = this;
-    tmp_2.y1r_1 = lazy(RowEchelonForm$sign$delegate$lambda(this));
+    tmp_2.l1s_1 = lazy(RowEchelonForm$sign$delegate$lambda(this));
     var tmp_3 = this;
-    tmp_3.z1r_1 = lazy(RowEchelonForm$augmentedOriginalMatrix$delegate$lambda(this));
+    tmp_3.m1s_1 = lazy(RowEchelonForm$augmentedOriginalMatrix$delegate$lambda(this));
     var tmp_4 = this;
-    tmp_4.a1s_1 = lazy(RowEchelonForm$transformation$delegate$lambda(this));
+    tmp_4.n1s_1 = lazy(RowEchelonForm$transformation$delegate$lambda(this));
     var tmp_5 = this;
-    tmp_5.b1s_1 = lazy(RowEchelonForm$reducedTransformation$delegate$lambda(this));
+    tmp_5.o1s_1 = lazy(RowEchelonForm$reducedTransformation$delegate$lambda(this));
   }
   RowEchelonForm.prototype.h11 = function () {
-    return this.t1r_1;
+    return this.g1s_1;
   };
-  RowEchelonForm.prototype.v1s = function () {
-    return this.u1r_1;
+  RowEchelonForm.prototype.i1t = function () {
+    return this.h1s_1;
   };
-  RowEchelonForm.prototype.w1s = function () {
+  RowEchelonForm.prototype.j1t = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = matrix$factory();
-    tmp$ret$0 = this.v1r_1.f1();
+    tmp$ret$0 = this.i1s_1.f1();
     return tmp$ret$0;
   };
-  RowEchelonForm.prototype.x1s = function () {
+  RowEchelonForm.prototype.k1t = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = reducedMatrix$factory();
-    tmp$ret$0 = this.w1r_1.f1();
+    tmp$ret$0 = this.j1s_1.f1();
     return tmp$ret$0;
   };
-  RowEchelonForm.prototype.y1s = function () {
+  RowEchelonForm.prototype.l1t = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = pivots$factory();
-    tmp$ret$0 = this.x1r_1.f1();
+    tmp$ret$0 = this.k1s_1.f1();
     return tmp$ret$0;
   };
   RowEchelonForm.$metadata$ = classMeta('RowEchelonForm');
@@ -11182,56 +11349,59 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   MatrixContext.$metadata$ = interfaceMeta('MatrixContext', [NumVectorContext]);
   function MatrixContextImpl(matrixSpace) {
-    this.n1w_1 = matrixSpace;
-    this.o1w_1 = new NumVectorContextImpl(matrixSpace.j11());
+    this.c1x_1 = matrixSpace;
+    this.d1x_1 = new NumVectorContextImpl(matrixSpace.j11());
   }
   MatrixContextImpl.prototype.h11 = function () {
-    return this.n1w_1;
+    return this.c1x_1;
   };
   MatrixContextImpl.prototype.p11 = function () {
-    return this.o1w_1.p11();
+    return this.d1x_1.p11();
   };
   MatrixContextImpl.prototype.j11 = function () {
-    return this.o1w_1.d1b_1;
+    return this.d1x_1.h1b_1;
   };
-  MatrixContextImpl.prototype.u12 = function () {
-    return this.o1w_1.u12();
+  MatrixContextImpl.prototype.w12 = function () {
+    return this.d1x_1.w12();
   };
-  MatrixContextImpl.prototype.v12 = function () {
-    return this.o1w_1.v12();
+  MatrixContextImpl.prototype.x12 = function () {
+    return this.d1x_1.x12();
   };
-  MatrixContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.o1w_1.x12(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.d1x_1.z12(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.m1w = function (_this__u8e3s4, ind) {
-    return this.o1w_1.m1w(_this__u8e3s4, ind);
+  MatrixContextImpl.prototype.b1x = function (_this__u8e3s4, ind) {
+    return this.d1x_1.b1x(_this__u8e3s4, ind);
   };
-  MatrixContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.o1w_1.z12(_this__u8e3s4);
+  MatrixContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.d1x_1.b13(_this__u8e3s4);
   };
-  MatrixContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.o1w_1.a13(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.d1x_1.c13(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.o1w_1.b13(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.d1x_1.d13(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.o1w_1.e13(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.d1x_1.g13(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.o1w_1.f13(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.d1x_1.h13(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.o1w_1.i13(_this__u8e3s4);
+  MatrixContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.d1x_1.k13(_this__u8e3s4);
   };
-  MatrixContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.o1w_1.k13(_this__u8e3s4, other);
+  MatrixContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.d1x_1.m13(_this__u8e3s4, other);
   };
-  MatrixContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.o1w_1.l13(_this__u8e3s4, scalar);
+  MatrixContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.d1x_1.n13(_this__u8e3s4, numVector);
   };
-  MatrixContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.o1w_1.u13(_this__u8e3s4);
+  MatrixContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.d1x_1.p13(_this__u8e3s4, scalar);
+  };
+  MatrixContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.d1x_1.y13(_this__u8e3s4);
   };
   MatrixContextImpl.$metadata$ = classMeta('MatrixContextImpl', [MatrixContext, NumVectorContext]);
   function Matrix() {
@@ -11239,17 +11409,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Matrix.$metadata$ = interfaceMeta('Matrix');
   function matrix$factory() {
     return getPropertyCallableRef('matrix', 1, KProperty1, function (receiver) {
-      return receiver.w1s();
+      return receiver.j1t();
     }, null);
   }
   function reducedMatrix$factory() {
     return getPropertyCallableRef('reducedMatrix', 1, KProperty1, function (receiver) {
-      return receiver.x1s();
+      return receiver.k1t();
     }, null);
   }
   function pivots$factory() {
     return getPropertyCallableRef('pivots', 1, KProperty1, function (receiver) {
-      return receiver.y1s();
+      return receiver.l1t();
     }, null);
   }
   function augmentedOriginalMatrix$factory() {
@@ -11264,47 +11434,47 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   NumVectorContext.$metadata$ = interfaceMeta('NumVectorContext', [ScalarContext]);
   function NumVectorContextImpl(numVectorSpace) {
-    this.d1b_1 = numVectorSpace;
-    this.e1b_1 = new ScalarContextImpl(numVectorSpace.p11());
+    this.h1b_1 = numVectorSpace;
+    this.i1b_1 = new ScalarContextImpl(numVectorSpace.p11());
   }
   NumVectorContextImpl.prototype.j11 = function () {
-    return this.d1b_1;
+    return this.h1b_1;
   };
   NumVectorContextImpl.prototype.p11 = function () {
-    return this.e1b_1.c1w_1;
+    return this.i1b_1.r1w_1;
   };
-  NumVectorContextImpl.prototype.u12 = function () {
-    return this.e1b_1.u12();
+  NumVectorContextImpl.prototype.w12 = function () {
+    return this.i1b_1.w12();
   };
-  NumVectorContextImpl.prototype.v12 = function () {
-    return this.e1b_1.v12();
+  NumVectorContextImpl.prototype.x12 = function () {
+    return this.i1b_1.x12();
   };
-  NumVectorContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.e1b_1.x12(_this__u8e3s4, other);
-  };
-  NumVectorContextImpl.prototype.y12 = function (_this__u8e3s4, other) {
-    return this.e1b_1.y12(_this__u8e3s4, other);
-  };
-  NumVectorContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.e1b_1.z12(_this__u8e3s4);
+  NumVectorContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.i1b_1.z12(_this__u8e3s4, other);
   };
   NumVectorContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.e1b_1.a13(_this__u8e3s4, other);
+    return this.i1b_1.a13(_this__u8e3s4, other);
   };
-  NumVectorContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.e1b_1.e13(_this__u8e3s4, other);
+  NumVectorContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.i1b_1.b13(_this__u8e3s4);
   };
-  NumVectorContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.e1b_1.i13(_this__u8e3s4);
+  NumVectorContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.i1b_1.c13(_this__u8e3s4, other);
   };
-  NumVectorContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.e1b_1.k13(_this__u8e3s4, other);
+  NumVectorContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.i1b_1.g13(_this__u8e3s4, other);
   };
-  NumVectorContextImpl.prototype.t13 = function (_this__u8e3s4) {
-    return this.e1b_1.t13(_this__u8e3s4);
+  NumVectorContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.i1b_1.k13(_this__u8e3s4);
   };
-  NumVectorContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.e1b_1.u13(_this__u8e3s4);
+  NumVectorContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.i1b_1.m13(_this__u8e3s4, other);
+  };
+  NumVectorContextImpl.prototype.x13 = function (_this__u8e3s4) {
+    return this.i1b_1.x13(_this__u8e3s4);
+  };
+  NumVectorContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.i1b_1.y13(_this__u8e3s4);
   };
   NumVectorContextImpl.$metadata$ = classMeta('NumVectorContextImpl', [NumVectorContext, ScalarContext]);
   function NumVector() {
@@ -11312,7 +11482,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   NumVector.$metadata$ = interfaceMeta('NumVector');
   function SparseMatrixSpace_init_$Init$(numVectorSpace, sparseRowEchelonFormCalculator, $mask0, $marker, $this) {
     if (!(($mask0 & 2) === 0))
-      sparseRowEchelonFormCalculator = new InPlaceSparseRowEchelonFormCalculator(numVectorSpace.q1w_1);
+      sparseRowEchelonFormCalculator = new InPlaceSparseRowEchelonFormCalculator(numVectorSpace.f1x_1);
     SparseMatrixSpace.call($this, numVectorSpace, sparseRowEchelonFormCalculator);
     return $this;
   }
@@ -11325,16 +11495,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.s1w_1 = tmp$ret$0;
+    tmp.h1x_1 = tmp$ret$0;
   }
-  Companion_33.prototype.t1w = function (numVectorSpace) {
-    if (this.s1w_1.c3(numVectorSpace)) {
-      var tmp = this.s1w_1.t(numVectorSpace);
+  Companion_33.prototype.i1x = function (numVectorSpace) {
+    if (this.h1x_1.c3(numVectorSpace)) {
+      var tmp = this.h1x_1.t(numVectorSpace);
       return tmp instanceof SparseMatrixSpace ? tmp : THROW_CCE();
     } else {
       var matrixSpace = SparseMatrixSpace_init_$Create$(numVectorSpace, null, 2, null);
       // Inline function 'kotlin.collections.set' call
-      var tmp0_set = this.s1w_1;
+      var tmp0_set = this.h1x_1;
       tmp0_set.u(numVectorSpace, matrixSpace);
       return matrixSpace;
     }
@@ -11349,13 +11519,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function SparseMatrixSpace(numVectorSpace, sparseRowEchelonFormCalculator) {
     Companion_getInstance_34();
     AbstractSparseMatrixSpace.call(this, numVectorSpace);
-    this.x1w_1 = sparseRowEchelonFormCalculator;
+    this.m1x_1 = sparseRowEchelonFormCalculator;
   }
-  SparseMatrixSpace.prototype.p1s = function () {
-    return this.x1w_1;
+  SparseMatrixSpace.prototype.c1t = function () {
+    return this.m1x_1;
   };
-  SparseMatrixSpace.prototype.y1w = function (matrix) {
-    var tmp0_safe_receiver = matrix.s1r_1;
+  SparseMatrixSpace.prototype.n1x = function (matrix) {
+    var tmp0_safe_receiver = matrix.f1s_1;
     if (tmp0_safe_receiver == null)
       null;
     else {
@@ -11365,11 +11535,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return tmp0_safe_receiver;
     }
     var rowEchelonForm = new SparseRowEchelonForm(this, matrix);
-    matrix.z1w(rowEchelonForm);
+    matrix.o1x(rowEchelonForm);
     return rowEchelonForm;
   };
-  SparseMatrixSpace.prototype.v1t = function (matrix) {
-    return this.y1w(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
+  SparseMatrixSpace.prototype.i1u = function (matrix) {
+    return this.n1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
   };
   SparseMatrixSpace.prototype.toString = function () {
     return 'SparseMatrixSpace(' + this.p11() + ')';
@@ -11377,7 +11547,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   SparseMatrixSpace.$metadata$ = classMeta('SparseMatrixSpace', undefined, undefined, undefined, undefined, AbstractSparseMatrixSpace.prototype);
   function DecomposedSparseMatrixSpace_init_$Init$(numVectorSpace, sparseRowEchelonFormCalculator, $mask0, $marker, $this) {
     if (!(($mask0 & 2) === 0))
-      sparseRowEchelonFormCalculator = new InPlaceSparseRowEchelonFormCalculator(numVectorSpace.q1w_1);
+      sparseRowEchelonFormCalculator = new InPlaceSparseRowEchelonFormCalculator(numVectorSpace.f1x_1);
     DecomposedSparseMatrixSpace.call($this, numVectorSpace, sparseRowEchelonFormCalculator);
     return $this;
   }
@@ -11390,16 +11560,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.g1x_1 = tmp$ret$0;
+    tmp.v1x_1 = tmp$ret$0;
   }
-  Companion_34.prototype.t1w = function (numVectorSpace) {
-    if (this.g1x_1.c3(numVectorSpace)) {
-      var tmp = this.g1x_1.t(numVectorSpace);
+  Companion_34.prototype.i1x = function (numVectorSpace) {
+    if (this.v1x_1.c3(numVectorSpace)) {
+      var tmp = this.v1x_1.t(numVectorSpace);
       return tmp instanceof DecomposedSparseMatrixSpace ? tmp : THROW_CCE();
     } else {
       var matrixSpace = DecomposedSparseMatrixSpace_init_$Create$(numVectorSpace, null, 2, null);
       // Inline function 'kotlin.collections.set' call
-      var tmp0_set = this.g1x_1;
+      var tmp0_set = this.v1x_1;
       tmp0_set.u(numVectorSpace, matrixSpace);
       return matrixSpace;
     }
@@ -11414,13 +11584,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function DecomposedSparseMatrixSpace(numVectorSpace, sparseRowEchelonFormCalculator) {
     Companion_getInstance_35();
     AbstractSparseMatrixSpace.call(this, numVectorSpace);
-    this.k1x_1 = sparseRowEchelonFormCalculator;
+    this.z1x_1 = sparseRowEchelonFormCalculator;
   }
-  DecomposedSparseMatrixSpace.prototype.p1s = function () {
-    return this.k1x_1;
+  DecomposedSparseMatrixSpace.prototype.c1t = function () {
+    return this.z1x_1;
   };
-  DecomposedSparseMatrixSpace.prototype.y1w = function (matrix) {
-    var tmp0_safe_receiver = matrix.s1r_1;
+  DecomposedSparseMatrixSpace.prototype.n1x = function (matrix) {
+    var tmp0_safe_receiver = matrix.f1s_1;
     if (tmp0_safe_receiver == null)
       null;
     else {
@@ -11430,11 +11600,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return tmp0_safe_receiver;
     }
     var rowEchelonForm = new DecomposedSparseRowEchelonForm(this, matrix);
-    matrix.z1w(rowEchelonForm);
+    matrix.o1x(rowEchelonForm);
     return rowEchelonForm;
   };
-  DecomposedSparseMatrixSpace.prototype.v1t = function (matrix) {
-    return this.y1w(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
+  DecomposedSparseMatrixSpace.prototype.i1u = function (matrix) {
+    return this.n1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
   };
   DecomposedSparseMatrixSpace.prototype.toString = function () {
     return 'DecomposedSparseMatrixSpace(' + this.p11() + ')';
@@ -11442,7 +11612,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DecomposedSparseMatrixSpace.$metadata$ = classMeta('DecomposedSparseMatrixSpace', undefined, undefined, undefined, undefined, AbstractSparseMatrixSpace.prototype);
   function AbstractSparseMatrixSpace$field$delegate$lambda(this$0) {
     return function () {
-      return this$0.j11().q1w_1;
+      return this$0.j11().f1x_1;
     };
   }
   function AbstractSparseMatrixSpace$context$delegate$lambda(this$0) {
@@ -11451,48 +11621,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     };
   }
   function AbstractSparseMatrixSpace(numVectorSpace) {
-    this.m1s_1 = numVectorSpace;
+    this.z1s_1 = numVectorSpace;
     var tmp = this;
-    tmp.n1s_1 = lazy(AbstractSparseMatrixSpace$field$delegate$lambda(this));
+    tmp.a1t_1 = lazy(AbstractSparseMatrixSpace$field$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.o1s_1 = lazy(AbstractSparseMatrixSpace$context$delegate$lambda(this));
+    tmp_0.b1t_1 = lazy(AbstractSparseMatrixSpace$context$delegate$lambda(this));
   }
   AbstractSparseMatrixSpace.prototype.j11 = function () {
-    return this.m1s_1;
+    return this.z1s_1;
   };
   AbstractSparseMatrixSpace.prototype.p11 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = field$factory();
-    tmp$ret$0 = this.n1s_1.f1();
+    tmp$ret$0 = this.a1t_1.f1();
     return tmp$ret$0;
   };
-  AbstractSparseMatrixSpace.prototype.o14 = function () {
+  AbstractSparseMatrixSpace.prototype.t14 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = context$factory_1();
-    tmp$ret$0 = this.o1s_1.f1();
+    tmp$ret$0 = this.b1t_1.f1();
     return tmp$ret$0;
   };
-  AbstractSparseMatrixSpace.prototype.a1x = function (matrix) {
-    return equals(matrix.o1r_1, this.j11());
+  AbstractSparseMatrixSpace.prototype.p1x = function (matrix) {
+    return equals(matrix.b1s_1, this.j11());
   };
-  AbstractSparseMatrixSpace.prototype.b1x = function (matrix, numVector) {
-    if (!this.a1x(matrix))
+  AbstractSparseMatrixSpace.prototype.q1x = function (matrix, numVector) {
+    if (!this.p1x(matrix))
       throw new IllegalContextException('The sparseMatrix ' + matrix + ' does not match the context (' + this + ')');
-    if (!this.j11().l1x(numVector))
+    if (!this.j11().a1y(numVector))
       throw new IllegalContextException('The numVector ' + numVector + ' does not match the context (' + this.j11() + ')');
-    if (!(matrix.q1r_1 === numVector.o1x_1))
+    if (!(matrix.d1s_1 === numVector.d1y_1))
       throw new InvalidSizeException('Cannot multiply matrix and vector: matrix.colCount != vector.dim');
     var tmp$ret$13;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.p11().o14();
+    var tmp0_run = this.p11().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$12;
     // Inline function 'com.github.shwaka.kohomology.linalg.AbstractSparseMatrixSpace.multiply.<anonymous>' call
     var tmp$ret$11;
     // Inline function 'kotlin.collections.mapValues' call
-    var tmp0_mapValues = matrix.r1r_1;
+    var tmp0_mapValues = matrix.e1s_1;
     var tmp$ret$10;
     // Inline function 'kotlin.collections.mapValuesTo' call
     var tmp1_mapValuesTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues.i()));
@@ -11533,13 +11703,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component2' call
         tmp$ret$4 = item.f1();
         var elm = tmp$ret$4;
-        var it = numVector.m1x_1.t(colInd);
-        tmp$ret$5 = (it == null ? true : equals(it, tmp0_run.v12())) ? null : tmp0_run.k13(elm, it);
+        var it = numVector.b1y_1.t(colInd);
+        tmp$ret$5 = (it == null ? true : equals(it, tmp0_run.x12())) ? null : tmp0_run.m13(elm, it);
         tmp0_mapTo.a(tmp$ret$5);
       }
       tmp$ret$6 = tmp0_mapTo;
       tmp$ret$7 = tmp$ret$6;
-      tmp$ret$8 = tmp0_run.i13(filterNotNull(tmp$ret$7));
+      tmp$ret$8 = tmp0_run.k13(filterNotNull(tmp$ret$7));
       tmp1_mapValuesTo.u(tmp, tmp$ret$8);
     }
     tmp$ret$9 = tmp1_mapValuesTo;
@@ -11548,22 +11718,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$12 = tmp$ret$11;
     tmp$ret$13 = tmp$ret$12;
     var valueMap = tmp$ret$13;
-    return Companion_getInstance_37().p1x(valueMap, this.p11(), matrix.p1r_1);
+    return Companion_getInstance_37().e1y(valueMap, this.p11(), matrix.c1s_1);
   };
-  AbstractSparseMatrixSpace.prototype.s1t = function (matrix, numVector) {
+  AbstractSparseMatrixSpace.prototype.f1u = function (matrix, numVector) {
     var tmp = matrix instanceof SparseMatrix ? matrix : THROW_CCE();
-    return this.b1x(tmp, numVector instanceof SparseNumVector ? numVector : THROW_CCE());
+    return this.q1x(tmp, numVector instanceof SparseNumVector ? numVector : THROW_CCE());
   };
-  AbstractSparseMatrixSpace.prototype.c1x = function (matrix) {
-    var rowCount = matrix.q1r_1;
-    var colCount = matrix.p1r_1;
+  AbstractSparseMatrixSpace.prototype.r1x = function (matrix) {
+    var rowCount = matrix.d1s_1;
+    var colCount = matrix.c1s_1;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
     var rowMap = tmp$ret$0;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.iterator' call
-    var tmp0_iterator = matrix.r1r_1;
+    var tmp0_iterator = matrix.e1s_1;
     tmp$ret$1 = tmp0_iterator.d1().f();
     var tmp0_iterator_0 = tmp$ret$1;
     while (tmp0_iterator_0.g()) {
@@ -11615,10 +11785,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCount);
   };
-  AbstractSparseMatrixSpace.prototype.y1t = function (matrix) {
-    return this.c1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
+  AbstractSparseMatrixSpace.prototype.l1u = function (matrix) {
+    return this.r1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE());
   };
-  AbstractSparseMatrixSpace.prototype.z1t = function (rowList, colCount) {
+  AbstractSparseMatrixSpace.prototype.m1u = function (rowList, colCount) {
     var rowCount = rowList.i();
     var tmp;
     var tmp$ret$0;
@@ -11698,16 +11868,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var rowMap = toMap(tmp$ret$8);
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCountNonNull);
   };
-  AbstractSparseMatrixSpace.prototype.r1s = function (rowMap, rowCount, colCount) {
+  AbstractSparseMatrixSpace.prototype.e1t = function (rowMap, rowCount, colCount) {
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCount);
   };
-  AbstractSparseMatrixSpace.prototype.d1x = function (matrix1, matrix2) {
-    if (!(matrix1.p1r_1 === matrix2.p1r_1))
+  AbstractSparseMatrixSpace.prototype.s1x = function (matrix1, matrix2) {
+    if (!(matrix1.c1s_1 === matrix2.c1s_1))
       throw new InvalidSizeException('Cannot join two matrices of different row counts');
-    var rowMap = toMutableMap(matrix1.r1r_1);
+    var rowMap = toMutableMap(matrix1.e1s_1);
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
-    var tmp0_iterator = matrix2.r1r_1;
+    var tmp0_iterator = matrix2.e1s_1;
     tmp$ret$0 = tmp0_iterator.d1().f();
     var tmp0_iterator_0 = tmp$ret$0;
     while (tmp0_iterator_0.g()) {
@@ -11722,7 +11892,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var row2 = tmp$ret$2;
       var tmp$ret$5;
       // Inline function 'kotlin.collections.getOrElse' call
-      var tmp1_getOrElse = matrix1.r1r_1;
+      var tmp1_getOrElse = matrix1.e1s_1;
       var tmp0_elvis_lhs = tmp1_getOrElse.t(rowInd2);
       var tmp;
       if (tmp0_elvis_lhs == null) {
@@ -11755,7 +11925,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component1' call
         tmp$ret$6 = element.e1();
         var colInd = tmp$ret$6;
-        tmp$ret$7 = colInd + matrix1.q1r_1 | 0;
+        tmp$ret$7 = colInd + matrix1.d1s_1 | 0;
         var tmp_0 = tmp$ret$7;
         var tmp$ret$8;
         // Inline function 'kotlin.collections.mapKeysTo.<anonymous>' call
@@ -11769,22 +11939,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.collections.set' call
       rowMap.u(rowInd2, newRow);
     }
-    var rowCount = matrix1.p1r_1;
-    var colCount = matrix1.q1r_1 + matrix2.q1r_1 | 0;
+    var rowCount = matrix1.c1s_1;
+    var colCount = matrix1.d1s_1 + matrix2.d1s_1 | 0;
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCount);
   };
-  AbstractSparseMatrixSpace.prototype.c1u = function (matrix1, matrix2) {
+  AbstractSparseMatrixSpace.prototype.p1u = function (matrix1, matrix2) {
     var tmp = matrix1 instanceof SparseMatrix ? matrix1 : THROW_CCE();
-    return this.d1x(tmp, matrix2 instanceof SparseMatrix ? matrix2 : THROW_CCE());
+    return this.s1x(tmp, matrix2 instanceof SparseMatrix ? matrix2 : THROW_CCE());
   };
-  AbstractSparseMatrixSpace.prototype.e1x = function (matrix, rowRange) {
+  AbstractSparseMatrixSpace.prototype.t1x = function (matrix, rowRange) {
     var rowCount = count(rowRange);
-    var colCount = matrix.q1r_1;
+    var colCount = matrix.d1s_1;
     var tmp$ret$8;
     // Inline function 'kotlin.collections.mapKeys' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filterKeys' call
-    var tmp0_filterKeys = matrix.r1r_1;
+    var tmp0_filterKeys = matrix.e1s_1;
     var result = LinkedHashMap_init_$Create$();
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
@@ -11831,17 +12001,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var rowMap = tmp$ret$8;
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCount);
   };
-  AbstractSparseMatrixSpace.prototype.e1u = function (matrix, rowRange) {
-    return this.e1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE(), rowRange);
+  AbstractSparseMatrixSpace.prototype.r1u = function (matrix, rowRange) {
+    return this.t1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE(), rowRange);
   };
-  AbstractSparseMatrixSpace.prototype.f1x = function (matrix, colRange) {
-    var rowCount = matrix.p1r_1;
+  AbstractSparseMatrixSpace.prototype.u1x = function (matrix, colRange) {
+    var rowCount = matrix.c1s_1;
     var colCount = count(colRange);
     var tmp$ret$18;
     // Inline function 'kotlin.collections.filterValues' call
     var tmp$ret$14;
     // Inline function 'kotlin.collections.mapValues' call
-    var tmp0_mapValues = matrix.r1r_1;
+    var tmp0_mapValues = matrix.e1s_1;
     var tmp$ret$13;
     // Inline function 'kotlin.collections.mapValuesTo' call
     var tmp1_mapValuesTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues.i()));
@@ -11937,14 +12107,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var rowMap = tmp$ret$18;
     return new SparseMatrix(this.j11(), rowMap, rowCount, colCount);
   };
-  AbstractSparseMatrixSpace.prototype.g1u = function (matrix, colRange) {
-    return this.f1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE(), colRange);
+  AbstractSparseMatrixSpace.prototype.t1u = function (matrix, colRange) {
+    return this.u1x(matrix instanceof SparseMatrix ? matrix : THROW_CCE(), colRange);
   };
   AbstractSparseMatrixSpace.$metadata$ = classMeta('AbstractSparseMatrixSpace', [MatrixSpace]);
   function toStringTable_0($this) {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, $this.p1r_1);
+    var tmp0_map = until(0, $this.c1s_1);
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -11958,7 +12128,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'com.github.shwaka.kohomology.linalg.SparseMatrix.toStringTable.<anonymous>' call
         var tmp$ret$2;
         // Inline function 'kotlin.collections.map' call
-        var tmp0_map_0 = until(0, $this.q1r_1);
+        var tmp0_map_0 = until(0, $this.d1s_1);
         var tmp$ret$1;
         // Inline function 'kotlin.collections.mapTo' call
         var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -11970,7 +12140,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             inductionVariable_0 = inductionVariable_0 + 1 | 0;
             var tmp$ret$0;
             // Inline function 'com.github.shwaka.kohomology.linalg.SparseMatrix.toStringTable.<anonymous>.<anonymous>' call
-            tmp$ret$0 = toString($this.x1t(item, item_0));
+            tmp$ret$0 = toString($this.k1u(item, item_0));
             tmp0_mapTo_0.a(tmp$ret$0);
           }
            while (!(item_0 === last_0));
@@ -11986,9 +12156,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return StringTable_init_$Create$(valueList, null, 2, null);
   }
   function SparseMatrix(numVectorSpace, rowMap, rowCount, colCount) {
-    this.o1r_1 = numVectorSpace;
-    this.p1r_1 = rowCount;
-    this.q1r_1 = colCount;
+    this.b1s_1 = numVectorSpace;
+    this.c1s_1 = rowCount;
+    this.d1s_1 = colCount;
     var tmp = this;
     var tmp$ret$12;
     // Inline function 'kotlin.collections.filterValues' call
@@ -12025,7 +12195,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp$ret$3;
         // Inline function 'com.github.shwaka.kohomology.linalg.SparseMatrix.rowMap.<anonymous>.<anonymous>' call
         var tmp0__anonymous__q1qw7t = entry.f1();
-        tmp$ret$3 = tmp0__anonymous__q1qw7t.t1a();
+        tmp$ret$3 = tmp0__anonymous__q1qw7t.z17();
         if (tmp$ret$3) {
           result.u(entry.e1(), entry.f1());
         }
@@ -12057,11 +12227,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }
     }
     tmp$ret$12 = result_0;
-    tmp.r1r_1 = tmp$ret$12;
-    this.s1r_1 = null;
+    tmp.e1s_1 = tmp$ret$12;
+    this.f1s_1 = null;
     var tmp$ret$13;
     // Inline function 'kotlin.collections.iterator' call
-    var tmp0_iterator_2 = this.r1r_1;
+    var tmp0_iterator_2 = this.e1s_1;
     tmp$ret$13 = tmp0_iterator_2.d1().f();
     var tmp0_iterator_3 = tmp$ret$13;
     while (tmp0_iterator_3.g()) {
@@ -12076,8 +12246,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var row_0 = tmp$ret$15;
       if (rowInd < 0)
         throw IllegalArgumentException_init_$Create$('The row index ' + rowInd + ' cannot be negative');
-      if (rowInd >= this.p1r_1)
-        throw IllegalArgumentException_init_$Create$('The row index ' + rowInd + ' cannot be larger than the rowCount (= ' + this.p1r_1 + ') for the matrix');
+      if (rowInd >= this.c1s_1)
+        throw IllegalArgumentException_init_$Create$('The row index ' + rowInd + ' cannot be larger than the rowCount (= ' + this.c1s_1 + ') for the matrix');
       var tmp$ret$16;
       // Inline function 'kotlin.collections.iterator' call
       tmp$ret$16 = row_0.d1().f();
@@ -12090,33 +12260,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var colInd = tmp$ret$17;
         if (colInd < 0)
           throw IllegalArgumentException_init_$Create$('The col index ' + colInd + ' cannot be negative');
-        if (colInd >= this.q1r_1)
-          throw IllegalArgumentException_init_$Create$('The col index ' + colInd + ' cannot be larger than the colCount (= ' + this.q1r_1 + ') for the matrix');
+        if (colInd >= this.d1s_1)
+          throw IllegalArgumentException_init_$Create$('The col index ' + colInd + ' cannot be larger than the colCount (= ' + this.d1s_1 + ') for the matrix');
       }
     }
   }
   SparseMatrix.prototype.j11 = function () {
-    return this.o1r_1;
+    return this.b1s_1;
   };
-  SparseMatrix.prototype.m1u = function () {
-    return this.p1r_1;
+  SparseMatrix.prototype.z1u = function () {
+    return this.c1s_1;
   };
-  SparseMatrix.prototype.n1u = function () {
-    return this.q1r_1;
+  SparseMatrix.prototype.a1v = function () {
+    return this.d1s_1;
   };
-  SparseMatrix.prototype.q1x = function () {
-    return this.r1r_1;
+  SparseMatrix.prototype.f1y = function () {
+    return this.e1s_1;
   };
-  SparseMatrix.prototype.z1w = function (value) {
-    if (!(this.s1r_1 == null))
+  SparseMatrix.prototype.o1x = function (value) {
+    if (!(this.f1s_1 == null))
       throw IllegalStateException_init_$Create$('Cannot assign rowEchelonForm twice');
-    this.s1r_1 = value;
+    this.f1s_1 = value;
   };
   SparseMatrix.prototype.toString = function () {
     return toStringTable_0(this).toString();
   };
-  SparseMatrix.prototype.x1t = function (rowInd, colInd) {
-    var tmp0_safe_receiver = this.r1r_1.t(rowInd);
+  SparseMatrix.prototype.k1u = function (rowInd, colInd) {
+    var tmp0_safe_receiver = this.e1s_1.t(rowInd);
     if (tmp0_safe_receiver == null)
       null;
     else {
@@ -12141,9 +12311,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     if (rowInd < 0 ? true : colInd < 0)
       throw IndexOutOfBoundsException_init_$Create$('Index for matrix cannot be negative');
-    if (rowInd >= this.p1r_1 ? true : colInd >= this.q1r_1)
-      throw IndexOutOfBoundsException_init_$Create$('Given index (' + rowInd + ', ' + colInd + ') is not contained in the size (' + this.p1r_1 + ', ' + this.q1r_1 + ')');
-    return this.o1r_1.q1w_1.v12();
+    if (rowInd >= this.c1s_1 ? true : colInd >= this.d1s_1)
+      throw IndexOutOfBoundsException_init_$Create$('Given index (' + rowInd + ', ' + colInd + ') is not contained in the size (' + this.c1s_1 + ', ' + this.d1s_1 + ')');
+    return this.b1s_1.f1x_1.x12();
   };
   SparseMatrix.prototype.equals = function (other) {
     if (this === other)
@@ -12154,21 +12324,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.o1r_1, other.o1r_1))
+    if (!equals(this.b1s_1, other.b1s_1))
       return false;
-    if (!(this.p1r_1 === other.p1r_1))
+    if (!(this.c1s_1 === other.c1s_1))
       return false;
-    if (!(this.q1r_1 === other.q1r_1))
+    if (!(this.d1s_1 === other.d1s_1))
       return false;
-    if (!equals(this.r1r_1, other.r1r_1))
+    if (!equals(this.e1s_1, other.e1s_1))
       return false;
     return true;
   };
   SparseMatrix.prototype.hashCode = function () {
-    var result = hashCode(this.o1r_1);
-    result = imul(31, result) + this.p1r_1 | 0;
-    result = imul(31, result) + this.q1r_1 | 0;
-    result = imul(31, result) + hashCode(this.r1r_1) | 0;
+    var result = hashCode(this.b1s_1);
+    result = imul(31, result) + this.c1s_1 | 0;
+    result = imul(31, result) + this.d1s_1 | 0;
+    result = imul(31, result) + hashCode(this.e1s_1) | 0;
     return result;
   };
   SparseMatrix.$metadata$ = classMeta('SparseMatrix', [Matrix]);
@@ -12179,7 +12349,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function context$factory_1() {
     return getPropertyCallableRef('context', 1, KProperty1, function (receiver) {
-      return receiver.o14();
+      return receiver.t14();
     }, null);
   }
   function Companion_35() {
@@ -12188,16 +12358,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.r1x_1 = tmp$ret$0;
+    tmp.g1y_1 = tmp$ret$0;
   }
-  Companion_35.prototype.q1u = function (field) {
-    if (this.r1x_1.c3(field)) {
-      var tmp = this.r1x_1.t(field);
+  Companion_35.prototype.d1v = function (field) {
+    if (this.g1y_1.c3(field)) {
+      var tmp = this.g1y_1.t(field);
       return tmp instanceof SparseNumVectorSpace ? tmp : THROW_CCE();
     } else {
       var numVectorSpace = new SparseNumVectorSpace(field);
       // Inline function 'kotlin.collections.set' call
-      var tmp0_set = this.r1x_1;
+      var tmp0_set = this.g1y_1;
       tmp0_set.u(field, numVectorSpace);
       return numVectorSpace;
     }
@@ -12211,33 +12381,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SparseNumVectorSpace(field) {
     Companion_getInstance_36();
-    this.q1w_1 = field;
-    this.r1w_1 = new NumVectorContextImpl(this);
+    this.f1x_1 = field;
+    this.g1x_1 = new NumVectorContextImpl(this);
   }
   SparseNumVectorSpace.prototype.p11 = function () {
-    return this.q1w_1;
+    return this.f1x_1;
   };
-  SparseNumVectorSpace.prototype.o14 = function () {
-    return this.r1w_1;
+  SparseNumVectorSpace.prototype.t14 = function () {
+    return this.g1x_1;
   };
-  SparseNumVectorSpace.prototype.l1x = function (numVector) {
-    return equals(numVector.n1x_1, this.q1w_1);
+  SparseNumVectorSpace.prototype.a1y = function (numVector) {
+    return equals(numVector.c1y_1, this.f1x_1);
   };
-  SparseNumVectorSpace.prototype.s1x = function (a, b) {
-    if (!this.l1x(a))
+  SparseNumVectorSpace.prototype.h1y = function (a, b) {
+    if (!this.a1y(a))
       throw new IllegalContextException('The sparseNumVector ' + a + ' does not match the context (' + this + ')');
-    if (!this.l1x(b))
+    if (!this.a1y(b))
       throw new IllegalContextException('The sparseNumVector ' + b + ' does not match the context (' + this + ')');
-    if (!(a.o1x_1 === b.o1x_1))
+    if (!(a.d1y_1 === b.d1y_1))
       throw new InvalidSizeException('Cannot add numVectors of different dim');
-    var valueMap = toMutableMap(a.m1x_1);
+    var valueMap = toMutableMap(a.b1y_1);
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.q1w_1.o14();
+    var tmp0_run = this.f1x_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
-    var tmp0_iterator = b.m1x_1;
+    var tmp0_iterator = b.b1y_1;
     tmp$ret$0 = tmp0_iterator.d1().f();
     var tmp0_iterator_0 = tmp$ret$0;
     while (tmp0_iterator_0.g()) {
@@ -12252,31 +12422,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var value = tmp$ret$2;
       // Inline function 'kotlin.collections.set' call
       var valueFromA = valueMap.t(i);
-      var tmp1_set = valueFromA == null ? value : tmp0_run.e13(valueFromA, value);
+      var tmp1_set = valueFromA == null ? value : tmp0_run.g13(valueFromA, value);
       valueMap.u(i, tmp1_set);
     }
     tmp$ret$3 = Unit_getInstance();
-    return Companion_getInstance_37().p1x(valueMap, this.q1w_1, a.o1x_1);
+    return Companion_getInstance_37().e1y(valueMap, this.f1x_1, a.d1y_1);
   };
-  SparseNumVectorSpace.prototype.s1u = function (a, b) {
+  SparseNumVectorSpace.prototype.f1v = function (a, b) {
     var tmp = a instanceof SparseNumVector ? a : THROW_CCE();
-    return this.s1x(tmp, b instanceof SparseNumVector ? b : THROW_CCE());
+    return this.h1y(tmp, b instanceof SparseNumVector ? b : THROW_CCE());
   };
-  SparseNumVectorSpace.prototype.t1x = function (a, b) {
-    if (!this.l1x(a))
+  SparseNumVectorSpace.prototype.i1y = function (a, b) {
+    if (!this.a1y(a))
       throw new IllegalContextException('The sparseNumVector ' + a + ' does not match the context (' + this + ')');
-    if (!this.l1x(b))
+    if (!this.a1y(b))
       throw new IllegalContextException('The sparseNumVector ' + b + ' does not match the context (' + this + ')');
-    if (!(a.o1x_1 === b.o1x_1))
+    if (!(a.d1y_1 === b.d1y_1))
       throw new InvalidSizeException('Cannot add numVectors of different dim');
-    var valueMap = toMutableMap(a.m1x_1);
+    var valueMap = toMutableMap(a.b1y_1);
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.q1w_1.o14();
+    var tmp0_run = this.f1x_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
-    var tmp0_iterator = b.m1x_1;
+    var tmp0_iterator = b.b1y_1;
     tmp$ret$0 = tmp0_iterator.d1().f();
     var tmp0_iterator_0 = tmp$ret$0;
     while (tmp0_iterator_0.g()) {
@@ -12291,37 +12461,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var value = tmp$ret$2;
       // Inline function 'kotlin.collections.set' call
       var valueFromA = valueMap.t(i);
-      var tmp1_set = valueFromA == null ? tmp0_run.u13(value) : tmp0_run.a13(valueFromA, value);
+      var tmp1_set = valueFromA == null ? tmp0_run.y13(value) : tmp0_run.c13(valueFromA, value);
       valueMap.u(i, tmp1_set);
     }
     tmp$ret$3 = Unit_getInstance();
-    return Companion_getInstance_37().p1x(valueMap, this.q1w_1, a.o1x_1);
+    return Companion_getInstance_37().e1y(valueMap, this.f1x_1, a.d1y_1);
   };
-  SparseNumVectorSpace.prototype.u1u = function (a, b) {
+  SparseNumVectorSpace.prototype.h1v = function (a, b) {
     var tmp = a instanceof SparseNumVector ? a : THROW_CCE();
-    return this.t1x(tmp, b instanceof SparseNumVector ? b : THROW_CCE());
+    return this.i1y(tmp, b instanceof SparseNumVector ? b : THROW_CCE());
   };
-  SparseNumVectorSpace.prototype.u1x = function (scalar, numVector) {
-    if (!this.l1x(numVector))
+  SparseNumVectorSpace.prototype.j1y = function (scalar, numVector) {
+    if (!this.a1y(numVector))
       throw new IllegalContextException('The sparseNumVector ' + numVector + ' does not match the context (' + this + ')');
-    if (!this.q1w_1.w1u(scalar))
-      throw new IllegalContextException('The scalar ' + scalar + ' does not match the context (field = ' + this.q1w_1 + ')');
+    if (!this.f1x_1.j1v(scalar))
+      throw new IllegalContextException('The scalar ' + scalar + ' does not match the context (field = ' + this.f1x_1 + ')');
     if (scalar.op()) {
       var tmp = Companion_getInstance_37();
       var tmp$ret$0;
       // Inline function 'kotlin.collections.mapOf' call
       tmp$ret$0 = emptyMap();
-      return tmp.p1x(tmp$ret$0, this.q1w_1, numVector.o1x_1);
+      return tmp.e1y(tmp$ret$0, this.f1x_1, numVector.d1y_1);
     }
     var tmp$ret$8;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.q1w_1.o14();
+    var tmp0_run = this.f1x_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$7;
     // Inline function 'com.github.shwaka.kohomology.linalg.SparseNumVectorSpace.multiply.<anonymous>' call
     var tmp$ret$6;
     // Inline function 'kotlin.collections.mapValues' call
-    var tmp0_mapValues = numVector.m1x_1;
+    var tmp0_mapValues = numVector.b1y_1;
     var tmp$ret$5;
     // Inline function 'kotlin.collections.mapValuesTo' call
     var tmp1_mapValuesTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues.i()));
@@ -12341,7 +12511,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.collections.component2' call
       tmp$ret$2 = element.f1();
       var value = tmp$ret$2;
-      tmp$ret$3 = tmp0_run.k13(scalar, value);
+      tmp$ret$3 = tmp0_run.m13(scalar, value);
       tmp1_mapValuesTo.u(tmp_0, tmp$ret$3);
     }
     tmp$ret$4 = tmp1_mapValuesTo;
@@ -12350,24 +12520,63 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$7 = tmp$ret$6;
     tmp$ret$8 = tmp$ret$7;
     var valueMap = tmp$ret$8;
-    return Companion_getInstance_37().v1x(valueMap, this.q1w_1, numVector.o1x_1);
+    return Companion_getInstance_37().k1y(valueMap, this.f1x_1, numVector.d1y_1);
   };
-  SparseNumVectorSpace.prototype.x1u = function (scalar, numVector) {
+  SparseNumVectorSpace.prototype.k1v = function (scalar, numVector) {
     var tmp = isInterface(scalar, Scalar) ? scalar : THROW_CCE();
-    return this.u1x(tmp, numVector instanceof SparseNumVector ? numVector : THROW_CCE());
+    return this.j1y(tmp, numVector instanceof SparseNumVector ? numVector : THROW_CCE());
   };
-  SparseNumVectorSpace.prototype.w1x = function (numVector) {
-    if (!this.l1x(numVector))
+  SparseNumVectorSpace.prototype.l1y = function (a, b) {
+    if (!this.a1y(a))
+      throw new IllegalContextException('The sparseNumVector ' + a + ' does not match the context (' + this + ')');
+    if (!this.a1y(b))
+      throw new IllegalContextException('The sparseNumVector ' + b + ' does not match the context (' + this + ')');
+    if (!(a.d1y_1 === b.d1y_1))
+      throw new InvalidSizeException('Cannot divide numVectors of different dim');
+    if (b.op())
+      throw ArithmeticException_init_$Create$('Division by zero numVector');
+    var index = first(b.b1y_1.i3());
+    var tmp$ret$1;
+    // Inline function 'kotlin.run' call
+    var tmp0_run = this.f1x_1.t14();
+    // Inline function 'kotlin.contracts.contract' call
+    var tmp$ret$0;
+    // Inline function 'com.github.shwaka.kohomology.linalg.SparseNumVectorSpace.divideByNumVector.<anonymous>' call
+    tmp$ret$0 = tmp0_run.z12(this.m1y(a, index), this.m1y(b, index));
+    tmp$ret$1 = tmp$ret$0;
+    var scalar = tmp$ret$1;
+    var tmp;
+    var tmp$ret$3;
+    // Inline function 'kotlin.run' call
+    var tmp1_run = this.g1x_1;
+    // Inline function 'kotlin.contracts.contract' call
+    var tmp$ret$2;
+    // Inline function 'com.github.shwaka.kohomology.linalg.SparseNumVectorSpace.divideByNumVector.<anonymous>' call
+    tmp$ret$2 = a.equals(tmp1_run.n13(scalar, b));
+    tmp$ret$3 = tmp$ret$2;
+    if (tmp$ret$3) {
+      tmp = scalar;
+    } else {
+      tmp = null;
+    }
+    return tmp;
+  };
+  SparseNumVectorSpace.prototype.m1v = function (a, b) {
+    var tmp = a instanceof SparseNumVector ? a : THROW_CCE();
+    return this.l1y(tmp, b instanceof SparseNumVector ? b : THROW_CCE());
+  };
+  SparseNumVectorSpace.prototype.n1y = function (numVector) {
+    if (!this.a1y(numVector))
       throw new IllegalContextException('The sparseNumVector ' + numVector + ' does not match the context (' + this + ')');
     var tmp$ret$7;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.q1w_1.o14();
+    var tmp0_run = this.f1x_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$6;
     // Inline function 'com.github.shwaka.kohomology.linalg.SparseNumVectorSpace.unaryMinusOf.<anonymous>' call
     var tmp$ret$5;
     // Inline function 'kotlin.collections.mapValues' call
-    var tmp0_mapValues = numVector.m1x_1;
+    var tmp0_mapValues = numVector.b1y_1;
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapValuesTo' call
     var tmp1_mapValuesTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues.i()));
@@ -12387,7 +12596,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.collections.component2' call
       tmp$ret$1 = element.f1();
       var value = tmp$ret$1;
-      tmp$ret$2 = tmp0_run.u13(value);
+      tmp$ret$2 = tmp0_run.y13(value);
       tmp1_mapValuesTo.u(tmp, tmp$ret$2);
     }
     tmp$ret$3 = tmp1_mapValuesTo;
@@ -12396,13 +12605,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$6 = tmp$ret$5;
     tmp$ret$7 = tmp$ret$6;
     var valueMap = tmp$ret$7;
-    return Companion_getInstance_37().v1x(valueMap, this.q1w_1, numVector.o1x_1);
+    return Companion_getInstance_37().k1y(valueMap, this.f1x_1, numVector.d1y_1);
   };
-  SparseNumVectorSpace.prototype.z1u = function (numVector) {
-    return this.w1x(numVector instanceof SparseNumVector ? numVector : THROW_CCE());
+  SparseNumVectorSpace.prototype.o1v = function (numVector) {
+    return this.n1y(numVector instanceof SparseNumVector ? numVector : THROW_CCE());
   };
-  SparseNumVectorSpace.prototype.x1x = function (numVector, ind) {
-    var tmp0_safe_receiver = numVector.m1x_1.t(ind);
+  SparseNumVectorSpace.prototype.m1y = function (numVector, ind) {
+    var tmp0_safe_receiver = numVector.b1y_1.t(ind);
     if (tmp0_safe_receiver == null)
       null;
     else {
@@ -12411,12 +12620,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.contracts.contract' call
       return tmp0_safe_receiver;
     }
-    return this.q1w_1.v12();
+    return this.f1x_1.x12();
   };
-  SparseNumVectorSpace.prototype.b1v = function (numVector, ind) {
-    return this.x1x(numVector instanceof SparseNumVector ? numVector : THROW_CCE(), ind);
+  SparseNumVectorSpace.prototype.q1v = function (numVector, ind) {
+    return this.m1y(numVector instanceof SparseNumVector ? numVector : THROW_CCE(), ind);
   };
-  SparseNumVectorSpace.prototype.r1t = function (valueList) {
+  SparseNumVectorSpace.prototype.e1u = function (valueList) {
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
@@ -12427,35 +12636,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var i = index;
       index = index + 1 | 0;
       var value = iterator.h();
-      if (value.t1a()) {
+      if (value.z17()) {
         // Inline function 'kotlin.collections.set' call
         valueMap.u(i, value);
       }
     }
-    return Companion_getInstance_37().p1x(valueMap, this.q1w_1, valueList.i());
+    return Companion_getInstance_37().e1y(valueMap, this.f1x_1, valueList.i());
   };
-  SparseNumVectorSpace.prototype.c1v = function (valueMap, dim) {
-    return Companion_getInstance_37().p1x(valueMap, this.q1w_1, dim);
+  SparseNumVectorSpace.prototype.r1v = function (valueMap, dim) {
+    return Companion_getInstance_37().e1y(valueMap, this.f1x_1, dim);
   };
-  SparseNumVectorSpace.prototype.f1v = function (valueMap, dim) {
+  SparseNumVectorSpace.prototype.u1v = function (valueMap, dim) {
     // Inline function 'com.github.shwaka.kococo.debugOnly' call
-    return Companion_getInstance_37().v1x(valueMap, this.q1w_1, dim);
+    return Companion_getInstance_37().k1y(valueMap, this.f1x_1, dim);
   };
-  SparseNumVectorSpace.prototype.d1v = function (dim) {
+  SparseNumVectorSpace.prototype.s1v = function (dim) {
     var tmp = Companion_getInstance_37();
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mapOf' call
     tmp$ret$0 = emptyMap();
-    return tmp.p1x(tmp$ret$0, this.q1w_1, dim);
+    return tmp.e1y(tmp$ret$0, this.f1x_1, dim);
   };
   SparseNumVectorSpace.prototype.toString = function () {
-    return 'SparseNumVectorSpace(' + this.q1w_1 + ')';
+    return 'SparseNumVectorSpace(' + this.f1x_1 + ')';
   };
   SparseNumVectorSpace.$metadata$ = classMeta('SparseNumVectorSpace', [NumVectorSpace]);
   function Companion_36() {
     Companion_instance_36 = this;
   }
-  Companion_36.prototype.p1x = function (valueMap, field, dim) {
+  Companion_36.prototype.e1y = function (valueMap, field, dim) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filterValues' call
     var result = LinkedHashMap_init_$Create$();
@@ -12468,7 +12677,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$1;
       // Inline function 'com.github.shwaka.kohomology.linalg.Companion.invoke.<anonymous>' call
       var tmp0__anonymous__q1qw7t = entry.f1();
-      tmp$ret$1 = tmp0__anonymous__q1qw7t.t1a();
+      tmp$ret$1 = tmp0__anonymous__q1qw7t.z17();
       if (tmp$ret$1) {
         result.u(entry.e1(), entry.f1());
       }
@@ -12477,7 +12686,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var filteredValueMap = tmp$ret$2;
     return new SparseNumVector(filteredValueMap, field, dim);
   };
-  Companion_36.prototype.v1x = function (valueMap, field, dim) {
+  Companion_36.prototype.k1y = function (valueMap, field, dim) {
     return new SparseNumVector(valueMap, field, dim);
   };
   Companion_36.$metadata$ = objectMeta('Companion');
@@ -12489,24 +12698,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SparseNumVector(valueMap, field, dim) {
     Companion_getInstance_37();
-    this.m1x_1 = valueMap;
-    this.n1x_1 = field;
-    this.o1x_1 = dim;
+    this.b1y_1 = valueMap;
+    this.c1y_1 = field;
+    this.d1y_1 = dim;
   }
-  SparseNumVector.prototype.y1x = function () {
-    return this.m1x_1;
+  SparseNumVector.prototype.o1y = function () {
+    return this.b1y_1;
   };
   SparseNumVector.prototype.p11 = function () {
-    return this.n1x_1;
+    return this.c1y_1;
   };
-  SparseNumVector.prototype.q1t = function () {
-    return this.o1x_1;
+  SparseNumVector.prototype.d1u = function () {
+    return this.d1y_1;
   };
   SparseNumVector.prototype.op = function () {
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.all' call
-      var tmp0_all = this.m1x_1;
+      var tmp0_all = this.b1y_1;
       if (tmp0_all.p()) {
         tmp$ret$0 = true;
         break $l$block_0;
@@ -12534,7 +12743,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$0;
   };
   SparseNumVector.prototype.toString = function () {
-    return 'SparseNumVector(valueMap=' + this.m1x_1 + ', field=' + this.n1x_1 + ', dim=' + this.o1x_1 + ')';
+    return 'SparseNumVector(valueMap=' + this.b1y_1 + ', field=' + this.c1y_1 + ', dim=' + this.d1y_1 + ')';
   };
   SparseNumVector.prototype.equals = function (other) {
     if (this === other)
@@ -12545,24 +12754,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.m1x_1, other.m1x_1))
+    if (!equals(this.b1y_1, other.b1y_1))
       return false;
-    if (!equals(this.n1x_1, other.n1x_1))
+    if (!equals(this.c1y_1, other.c1y_1))
       return false;
-    if (!(this.o1x_1 === other.o1x_1))
+    if (!(this.d1y_1 === other.d1y_1))
       return false;
     return true;
   };
   SparseNumVector.prototype.hashCode = function () {
-    var result = hashCode(this.m1x_1);
-    result = imul(31, result) + hashCode(this.n1x_1) | 0;
-    result = imul(31, result) + this.o1x_1 | 0;
+    var result = hashCode(this.b1y_1);
+    result = imul(31, result) + hashCode(this.c1y_1) | 0;
+    result = imul(31, result) + this.d1y_1 | 0;
     return result;
   };
-  SparseNumVector.prototype.r1p = function () {
+  SparseNumVector.prototype.e1q = function () {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, this.o1x_1);
+    var tmp0_map = until(0, this.d1y_1);
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -12574,8 +12783,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.linalg.SparseNumVector.toList.<anonymous>' call
-        var tmp0_elvis_lhs = this.m1x_1.t(item);
-        tmp$ret$0 = tmp0_elvis_lhs == null ? this.n1x_1.v12() : tmp0_elvis_lhs;
+        var tmp0_elvis_lhs = this.b1y_1.t(item);
+        tmp$ret$0 = tmp0_elvis_lhs == null ? this.c1y_1.x12() : tmp0_elvis_lhs;
         tmp0_mapTo.a(tmp$ret$0);
       }
        while (!(item === last));
@@ -12583,42 +12792,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$2 = tmp$ret$1;
     return tmp$ret$2;
   };
-  SparseNumVector.prototype.h1v = function () {
-    return this.m1x_1;
+  SparseNumVector.prototype.w1v = function () {
+    return this.b1y_1;
   };
   SparseNumVector.$metadata$ = classMeta('SparseNumVector', [NumVector]);
   function _get_data__d5abxd_1($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = data$factory_1();
-    tmp$ret$0 = $this.l1y_1.f1();
+    tmp$ret$0 = $this.b1z_1.f1();
     return tmp$ret$0;
   }
   function SparseRowEchelonForm$data$delegate$lambda(this$0) {
     return function () {
-      return this$0.k1y_1.l1s(this$0.u1r_1.r1r_1, this$0.j1y_1);
+      return this$0.a1z_1.y1s(this$0.h1s_1.e1s_1, this$0.z1y_1);
     };
   }
   function SparseRowEchelonForm(matrixSpace, originalMatrix) {
     RowEchelonForm.call(this, matrixSpace, originalMatrix);
-    this.i1y_1 = originalMatrix.p1r_1;
-    this.j1y_1 = originalMatrix.q1r_1;
-    this.k1y_1 = matrixSpace.p1s();
+    this.y1y_1 = originalMatrix.c1s_1;
+    this.z1y_1 = originalMatrix.d1s_1;
+    this.a1z_1 = matrixSpace.c1t();
     var tmp = this;
-    tmp.l1y_1 = lazy(SparseRowEchelonForm$data$delegate$lambda(this));
+    tmp.b1z_1 = lazy(SparseRowEchelonForm$data$delegate$lambda(this));
   }
-  SparseRowEchelonForm.prototype.q1s = function () {
-    return this.h11().r1s(_get_data__d5abxd_1(this).g1s_1, this.i1y_1, this.j1y_1);
+  SparseRowEchelonForm.prototype.d1t = function () {
+    return this.h11().e1t(_get_data__d5abxd_1(this).t1s_1, this.y1y_1, this.z1y_1);
   };
-  SparseRowEchelonForm.prototype.s1s = function () {
-    return _get_data__d5abxd_1(this).h1s_1;
+  SparseRowEchelonForm.prototype.f1t = function () {
+    return _get_data__d5abxd_1(this).u1s_1;
   };
-  SparseRowEchelonForm.prototype.t1s = function () {
-    return Companion_getInstance_45().w1v(_get_data__d5abxd_1(this).i1s_1);
+  SparseRowEchelonForm.prototype.g1t = function () {
+    return Companion_getInstance_45().l1w(_get_data__d5abxd_1(this).v1s_1);
   };
-  SparseRowEchelonForm.prototype.u1s = function () {
-    var reducedRowMap = this.k1y_1.j1s(_get_data__d5abxd_1(this).g1s_1, _get_data__d5abxd_1(this).h1s_1);
-    return this.h11().r1s(reducedRowMap, this.i1y_1, this.j1y_1);
+  SparseRowEchelonForm.prototype.h1t = function () {
+    var reducedRowMap = this.a1z_1.w1s(_get_data__d5abxd_1(this).t1s_1, _get_data__d5abxd_1(this).u1s_1);
+    return this.h11().e1t(reducedRowMap, this.y1y_1, this.z1y_1);
   };
   SparseRowEchelonForm.$metadata$ = classMeta('SparseRowEchelonForm', undefined, undefined, undefined, undefined, RowEchelonForm.prototype);
   function data$factory_1() {
@@ -12673,7 +12882,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function subtract_1(_this__u8e3s4, $this, other, scalar) {
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.m1y_1.o14();
+    var tmp0_run = $this.c1z_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
@@ -12692,10 +12901,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var valueFromThis = _this__u8e3s4.t(i);
       if (valueFromThis == null) {
         // Inline function 'kotlin.collections.set' call
-        var tmp0_set = tmp0_run.k13(tmp0_run.u13(value), scalar);
+        var tmp0_set = tmp0_run.m13(tmp0_run.y13(value), scalar);
         _this__u8e3s4.u(i, tmp0_set);
       } else {
-        var newValue = tmp0_run.a13(valueFromThis, tmp0_run.k13(value, scalar));
+        var newValue = tmp0_run.c13(valueFromThis, tmp0_run.m13(value, scalar));
         if (newValue.op()) {
           _this__u8e3s4.u9(i);
         } else {
@@ -12712,7 +12921,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     } else {
       var tmp$ret$0;
       // Inline function 'kotlin.run' call
-      var tmp0_run = $this.m1y_1.o14();
+      var tmp0_run = $this.c1z_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       replace(_this__u8e3s4, $this, InPlaceSparseRowEchelonFormCalculator$multiply$lambda(tmp0_run, scalar));
       tmp$ret$0 = Unit_getInstance();
@@ -12732,7 +12941,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$('Cannot eliminate since the element at (' + rowInd + ', ' + colInd + ') is zero');
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp0_run = $this.m1y_1.o14();
+    var tmp0_run = $this.c1z_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'kotlin.collections.iterator' call
@@ -12752,7 +12961,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (!(i === rowInd)) {
         var coeff = row.t(colInd);
         if (!(coeff == null)) {
-          subtract_1(row, $this, mainRow, tmp0_run.x12(coeff, elm));
+          subtract_1(row, $this, mainRow, tmp0_run.z12(coeff, elm));
           if (row.p()) {
             mapIterator.x7();
           }
@@ -12801,7 +13010,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           // Inline function 'kotlin.let' call
           // Inline function 'kotlin.contracts.contract' call
           var tmp_0;
-          if (tmp0_safe_receiver.t1a()) {
+          if (tmp0_safe_receiver.z17()) {
             return i;
           }
           tmp$ret$3 = tmp_0;
@@ -12815,13 +13024,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function InPlaceSparseRowEchelonFormCalculator$multiply$lambda($tmp0_run, $scalar) {
     return function (_anonymous_parameter_0__qggqh8, value) {
-      return $tmp0_run.k13(value, $scalar);
+      return $tmp0_run.m13(value, $scalar);
     };
   }
   function InPlaceSparseRowEchelonFormCalculator(field) {
-    this.m1y_1 = field;
+    this.c1z_1 = field;
   }
-  InPlaceSparseRowEchelonFormCalculator.prototype.l1s = function (matrix, colCount) {
+  InPlaceSparseRowEchelonFormCalculator.prototype.y1s = function (matrix, colCount) {
     var currentColInd = 0;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableListOf' call
@@ -12849,7 +13058,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return new SparseRowEchelonFormData(currentMatrix, pivots, exchangeCount);
   };
-  InPlaceSparseRowEchelonFormCalculator.prototype.j1s = function (rowEchelonRowMap, pivots) {
+  InPlaceSparseRowEchelonFormCalculator.prototype.w1s = function (rowEchelonRowMap, pivots) {
     var rank = pivots.i();
     var reducedRowMap = toMutableMapDeeply(rowEchelonRowMap, this);
     var tmp$ret$0;
@@ -12876,11 +13085,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var elm = tmp;
       var tmp$ret$4;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this.m1y_1.o14();
+      var tmp0_run = this.c1z_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.linalg.InPlaceSparseRowEchelonFormCalculator.reduce.<anonymous>' call
-      tmp$ret$3 = tmp0_run.z12(elm);
+      tmp$ret$3 = tmp0_run.b13(elm);
       tmp$ret$4 = tmp$ret$3;
       var elmInv = tmp$ret$4;
       multiply_3(row, this, elmInv);
@@ -12897,20 +13106,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   InPlaceSparseRowEchelonFormCalculator.$metadata$ = classMeta('InPlaceSparseRowEchelonFormCalculator', [SparseRowEchelonFormCalculator]);
   function SparseRowEchelonFormData(rowMap, pivots, exchangeCount) {
-    this.g1s_1 = rowMap;
-    this.h1s_1 = pivots;
-    this.i1s_1 = exchangeCount;
+    this.t1s_1 = rowMap;
+    this.u1s_1 = pivots;
+    this.v1s_1 = exchangeCount;
   }
-  SparseRowEchelonFormData.prototype.y1s = function () {
-    return this.h1s_1;
+  SparseRowEchelonFormData.prototype.l1t = function () {
+    return this.u1s_1;
   };
   SparseRowEchelonFormData.prototype.toString = function () {
-    return 'SparseRowEchelonFormData(rowMap=' + this.g1s_1 + ', pivots=' + this.h1s_1 + ', exchangeCount=' + this.i1s_1 + ')';
+    return 'SparseRowEchelonFormData(rowMap=' + this.t1s_1 + ', pivots=' + this.u1s_1 + ', exchangeCount=' + this.v1s_1 + ')';
   };
   SparseRowEchelonFormData.prototype.hashCode = function () {
-    var result = hashCode(this.g1s_1);
-    result = imul(result, 31) + hashCode(this.h1s_1) | 0;
-    result = imul(result, 31) + this.i1s_1 | 0;
+    var result = hashCode(this.t1s_1);
+    result = imul(result, 31) + hashCode(this.u1s_1) | 0;
+    result = imul(result, 31) + this.v1s_1 | 0;
     return result;
   };
   SparseRowEchelonFormData.prototype.equals = function (other) {
@@ -12919,11 +13128,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof SparseRowEchelonFormData))
       return false;
     var tmp0_other_with_cast = other instanceof SparseRowEchelonFormData ? other : THROW_CCE();
-    if (!equals(this.g1s_1, tmp0_other_with_cast.g1s_1))
+    if (!equals(this.t1s_1, tmp0_other_with_cast.t1s_1))
       return false;
-    if (!equals(this.h1s_1, tmp0_other_with_cast.h1s_1))
+    if (!equals(this.u1s_1, tmp0_other_with_cast.u1s_1))
       return false;
-    if (!(this.i1s_1 === tmp0_other_with_cast.i1s_1))
+    if (!(this.v1s_1 === tmp0_other_with_cast.v1s_1))
       return false;
     return true;
   };
@@ -12934,7 +13143,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     } else if (!showShiftExponent) {
       return 's';
     }
-    var shiftIdentifierName = shift.h1e().n1y_1;
+    var shiftIdentifierName = shift.p1e().d1z_1;
     return shiftIdentifierName === '1' ? 's' : 's_' + shiftIdentifierName;
   }
   function getIdentifier($this, original, shift, index, showShiftExponent) {
@@ -12942,27 +13151,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp1_elvis_lhs = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.toString();
     var indexString = tmp1_elvis_lhs == null ? '' : tmp1_elvis_lhs;
     var shiftString = getShiftString($this, shift, showShiftExponent);
-    var originalName = original.h1e().p1n_1;
+    var originalName = original.p1e().a1o_1;
     return new Identifier_0(shiftString + originalName + indexString);
   }
   function CopiedName$Companion$getInternalPrintConfig$lambda(coeff, withSign) {
-    return coeff.e1w(PrintType_PLAIN_getInstance(), withSign);
+    return coeff.t1w(PrintType_PLAIN_getInstance(), withSign);
   }
   function CopiedName$Companion$getInternalPrintConfig$lambda_0($printConfig) {
     return function (monomial) {
-      return monomial.r1a($printConfig);
+      return monomial.v1a($printConfig);
     };
   }
   function CopiedName$Companion$getInternalPrintConfig$lambda_1(coeff, withSign) {
-    return coeff.e1w(PrintType_TEX_getInstance(), withSign);
+    return coeff.t1w(PrintType_TEX_getInstance(), withSign);
   }
   function CopiedName$Companion$getInternalPrintConfig$lambda_2($printConfig) {
     return function (monomial) {
-      return monomial.r1a($printConfig);
+      return monomial.v1a($printConfig);
     };
   }
   function toPlain($this, showShift) {
-    var tmp0_safe_receiver = $this.q1y_1;
+    var tmp0_safe_receiver = $this.g1z_1;
     var tmp1_elvis_lhs = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.toString();
     var indexString = tmp1_elvis_lhs == null ? '' : tmp1_elvis_lhs;
     var tmp2_subject = showShift;
@@ -12970,19 +13179,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp;
     switch (tmp0) {
       case 0:
-        tmp = $this.p1y_1.op() ? '' : '_';
+        tmp = $this.f1z_1.op() ? '' : '_';
         break;
       case 1:
-        tmp = $this.p1y_1.op() ? '' : 's';
+        tmp = $this.f1z_1.op() ? '' : 's';
         break;
       case 2:
         var tmp_0;
-        if ($this.p1y_1.op()) {
+        if ($this.f1z_1.op()) {
           tmp_0 = '';
-        } else if ($this.p1y_1.i1e()) {
+        } else if ($this.f1z_1.q1e()) {
           tmp_0 = 's';
         } else {
-          var shiftStr = toString($this.p1y_1);
+          var shiftStr = toString($this.f1z_1);
           var tmp_1;
           if (shiftStr.length === 1) {
             tmp_1 = 's^' + shiftStr;
@@ -13000,10 +13209,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     var shiftString = tmp;
     var tmp_2 = PrintType_PLAIN_getInstance();
-    return shiftString + $this.o1y_1.r1a(PrintConfig_init_$Create$(tmp_2, null, null, null, null, 30, null)) + indexString;
+    return shiftString + $this.e1z_1.v1a(PrintConfig_init_$Create$(tmp_2, null, null, null, null, 30, null)) + indexString;
   }
   function toTex($this, showShift) {
-    var tmp0_safe_receiver = $this.q1y_1;
+    var tmp0_safe_receiver = $this.g1z_1;
     var tmp1_safe_receiver = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.toString();
     var tmp;
     if (tmp1_safe_receiver == null) {
@@ -13025,13 +13234,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp_0;
     switch (tmp0) {
       case 0:
-        tmp_0 = $this.p1y_1.op() ? '' : '\\bar';
+        tmp_0 = $this.f1z_1.op() ? '' : '\\bar';
         break;
       case 1:
-        tmp_0 = $this.p1y_1.op() ? '' : 's';
+        tmp_0 = $this.f1z_1.op() ? '' : 's';
         break;
       case 2:
-        tmp_0 = $this.p1y_1.op() ? '' : $this.p1y_1.i1e() ? 's' : 's^{' + $this.p1y_1 + '}';
+        tmp_0 = $this.f1z_1.op() ? '' : $this.f1z_1.q1e() ? 's' : 's^{' + $this.f1z_1 + '}';
         break;
       default:
         noWhenBranchMatchedException();
@@ -13039,13 +13248,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     var shiftString = tmp_0;
     var tmp_1 = PrintType_TEX_getInstance();
-    return shiftString + '{' + $this.o1y_1.r1a(PrintConfig_init_$Create$(tmp_1, null, null, null, null, 30, null)) + '}' + indexString;
+    return shiftString + '{' + $this.e1z_1.v1a(PrintConfig_init_$Create$(tmp_1, null, null, null, null, 30, null)) + '}' + indexString;
   }
   function Companion_37() {
     Companion_instance_37 = this;
   }
-  Companion_37.prototype.s1y = function (printConfig) {
-    var tmp0_subject = printConfig.m1j_1;
+  Companion_37.prototype.i1z = function (printConfig) {
+    var tmp0_subject = printConfig.t1j_1;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
     switch (tmp0) {
@@ -13074,27 +13283,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function CopiedName(original, shift, index, showShiftExponentInIdentifier) {
     Companion_getInstance_38();
-    this.o1y_1 = original;
-    this.p1y_1 = shift;
-    this.q1y_1 = index;
-    this.r1y_1 = getIdentifier(Companion_getInstance_38(), this.o1y_1, this.p1y_1, this.q1y_1, showShiftExponentInIdentifier);
+    this.e1z_1 = original;
+    this.f1z_1 = shift;
+    this.g1z_1 = index;
+    this.h1z_1 = getIdentifier(Companion_getInstance_38(), this.e1z_1, this.f1z_1, this.g1z_1, showShiftExponentInIdentifier);
   }
-  CopiedName.prototype.h1e = function () {
-    return this.r1y_1;
+  CopiedName.prototype.p1e = function () {
+    return this.h1z_1;
   };
   CopiedName.prototype.toString = function () {
     return toPlain(this, ShowShift_S_WITH_DEGREE_getInstance());
   };
-  CopiedName.prototype.r1a = function (printConfig) {
-    var tmp0_subject = printConfig.m1j_1;
+  CopiedName.prototype.v1a = function (printConfig) {
+    var tmp0_subject = printConfig.t1j_1;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
     switch (tmp0) {
       case 0:
-        tmp = toPlain(this, printConfig.q1j_1);
+        tmp = toPlain(this, printConfig.x1j_1);
         break;
       case 1:
-        tmp = toTex(this, printConfig.q1j_1);
+        tmp = toTex(this, printConfig.x1j_1);
         break;
       default:
         noWhenBranchMatchedException();
@@ -13111,19 +13320,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.o1y_1, other.o1y_1))
+    if (!equals(this.e1z_1, other.e1z_1))
       return false;
-    if (!equals(this.p1y_1, other.p1y_1))
+    if (!equals(this.f1z_1, other.f1z_1))
       return false;
-    if (!(this.q1y_1 == other.q1y_1))
+    if (!(this.g1z_1 == other.g1z_1))
       return false;
     return true;
   };
   CopiedName.prototype.hashCode = function () {
-    var result = hashCode(this.o1y_1);
-    result = imul(31, result) + hashCode(this.p1y_1) | 0;
+    var result = hashCode(this.e1z_1);
+    result = imul(31, result) + hashCode(this.f1z_1) | 0;
     var tmp = imul(31, result);
-    var tmp0_elvis_lhs = this.q1y_1;
+    var tmp0_elvis_lhs = this.g1z_1;
     result = tmp + (tmp0_elvis_lhs == null ? 0 : tmp0_elvis_lhs) | 0;
     return result;
   };
@@ -13131,14 +13340,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function copy(_this__u8e3s4, degreeGroup, shift, index, showShiftExponentInIdentifier) {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = degreeGroup.o14();
+    var tmp0_run = degreeGroup.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.model.copy.<anonymous>' call
-    tmp$ret$0 = tmp0_run.v19(_this__u8e3s4.z1j_1, shift);
+    tmp$ret$0 = tmp0_run.z19(_this__u8e3s4.g1k_1, shift);
     tmp$ret$1 = tmp$ret$0;
     var newDegree = tmp$ret$1;
-    return new Indeterminate(new CopiedName(_this__u8e3s4.y1j_1, shift, index, showShiftExponentInIdentifier), newDegree);
+    return new Indeterminate(new CopiedName(_this__u8e3s4.f1k_1, shift, index, showShiftExponentInIdentifier), newDegree);
   }
   function copy$default(_this__u8e3s4, degreeGroup, shift, index, showShiftExponentInIdentifier, $mask0, $handler) {
     if (!(($mask0 & 4) === 0))
@@ -13150,7 +13359,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_38() {
     Companion_instance_38 = this;
   }
-  Companion_38.prototype.t1y = function (freeDGAlgebra) {
+  Companion_38.prototype.j1z = function (freeDGAlgebra) {
     return new CyclicModel(new CyclicModelFactory(freeDGAlgebra, StringIndeterminateName_init_$Create$('u', null, 2, null)));
   };
   Companion_38.$metadata$ = objectMeta('Companion');
@@ -13162,242 +13371,266 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function CyclicModel$inclusion$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_2().p14(this$0.b1z_1.u1y_1, this$0, this$0.b1z_1.a1z_1);
+      return Companion_getInstance_2().u14(this$0.r1z_1.k1z_1, this$0, this$0.r1z_1.q1z_1);
     };
   }
   function CyclicModel(factory) {
     Companion_getInstance_39();
-    this.b1z_1 = factory;
-    this.c1z_1 = Companion_getInstance_1().c11(factory.x1y_1, factory.y1y_1);
-    this.d1z_1 = new FreeDGAlgebraContextImpl(this);
-    this.e1z_1 = this.b1z_1.u1y_1.n14();
-    this.f1z_1 = this.b1z_1.x1y_1;
-    this.g1z_1 = this.b1z_1.x1y_1.u1f();
-    this.h1z_1 = this.b1z_1.x1y_1.i1l();
-    this.i1z_1 = this.b1z_1.z1y_1;
+    this.r1z_1 = factory;
+    this.s1z_1 = Companion_getInstance_1().c11(factory.n1z_1, factory.o1z_1);
+    this.t1z_1 = new FreeDGAlgebraContextImpl(this);
+    this.u1z_1 = this.r1z_1.k1z_1.s14();
+    this.v1z_1 = this.r1z_1.n1z_1;
+    this.w1z_1 = this.r1z_1.n1z_1.c1g();
+    this.x1z_1 = this.r1z_1.n1z_1.p1l();
+    this.y1z_1 = this.r1z_1.p1z_1;
     var tmp = this;
-    tmp.j1z_1 = lazy(CyclicModel$inclusion$delegate$lambda(this));
+    tmp.z1z_1 = lazy(CyclicModel$inclusion$delegate$lambda(this));
   }
   CyclicModel.prototype.o11 = function () {
-    return this.c1z_1.o11();
+    return this.s1z_1.o11();
   };
   CyclicModel.prototype.e11 = function () {
-    return this.c1z_1.e11();
+    return this.s1z_1.e11();
   };
   CyclicModel.prototype.g11 = function () {
-    return this.c1z_1.g11();
+    return this.s1z_1.g11();
   };
   CyclicModel.prototype.p11 = function () {
-    return this.c1z_1.p11();
+    return this.s1z_1.p11();
   };
   CyclicModel.prototype.k11 = function () {
-    return this.c1z_1.k11();
+    return this.s1z_1.k11();
   };
-  CyclicModel.prototype.e12 = function () {
-    return this.c1z_1.e12();
+  CyclicModel.prototype.f12 = function () {
+    return this.s1z_1.f12();
   };
   CyclicModel.prototype.l11 = function () {
-    return this.c1z_1.l11();
+    return this.s1z_1.l11();
   };
   CyclicModel.prototype.h11 = function () {
-    return this.c1z_1.h11();
+    return this.s1z_1.h11();
   };
   CyclicModel.prototype.f11 = function () {
-    return this.c1z_1.f11();
+    return this.s1z_1.f11();
   };
   CyclicModel.prototype.xb = function () {
-    return this.c1z_1.xb();
+    return this.s1z_1.xb();
   };
   CyclicModel.prototype.j11 = function () {
-    return this.c1z_1.j11();
+    return this.s1z_1.j11();
   };
   CyclicModel.prototype.n11 = function () {
-    return this.c1z_1.n11();
+    return this.s1z_1.n11();
+  };
+  CyclicModel.prototype.e12 = function () {
+    return this.s1z_1.e12();
   };
   CyclicModel.prototype.d12 = function () {
-    return this.c1z_1.d12();
+    return this.s1z_1.d12();
   };
-  CyclicModel.prototype.c12 = function () {
-    return this.c1z_1.c12();
-  };
-  CyclicModel.prototype.k1z = function (a, b) {
-    return this.c1z_1.x11(a, b);
+  CyclicModel.prototype.a20 = function (a, b) {
+    return this.s1z_1.x11(a, b);
   };
   CyclicModel.prototype.x11 = function (a, b) {
-    return this.k1z(a, b);
+    return this.a20(a, b);
   };
-  CyclicModel.prototype.k1l = function (a, b) {
-    return this.k1z(a, b);
+  CyclicModel.prototype.r1l = function (a, b) {
+    return this.a20(a, b);
   };
-  CyclicModel.prototype.j1l = function (a, b) {
-    return this.k1z(a, b);
+  CyclicModel.prototype.q1l = function (a, b) {
+    return this.a20(a, b);
   };
-  CyclicModel.prototype.l1z = function (cocycle) {
-    return this.c1z_1.i11(cocycle);
+  CyclicModel.prototype.b20 = function (cocycle) {
+    return this.s1z_1.i11(cocycle);
   };
   CyclicModel.prototype.i11 = function (cocycle) {
-    return this.l1z(cocycle);
+    return this.b20(cocycle);
   };
-  CyclicModel.prototype.m1z = function (cocycle) {
-    return this.l1z(cocycle);
+  CyclicModel.prototype.c20 = function (cocycle) {
+    return this.b20(cocycle);
   };
-  CyclicModel.prototype.n1z = function (gVector) {
-    return this.c1z_1.w11(gVector);
+  CyclicModel.prototype.d20 = function (gVector) {
+    return this.s1z_1.w11(gVector);
   };
   CyclicModel.prototype.w11 = function (gVector) {
-    return this.n1z(gVector);
+    return this.d20(gVector);
   };
-  CyclicModel.prototype.m1l = function (gVector) {
-    return this.n1z(gVector);
+  CyclicModel.prototype.t1l = function (gVector) {
+    return this.d20(gVector);
   };
-  CyclicModel.prototype.l1l = function (gVector) {
-    return this.n1z(gVector);
+  CyclicModel.prototype.s1l = function (gVector) {
+    return this.d20(gVector);
   };
-  CyclicModel.prototype.o1z = function (gVectorOrZero, degree) {
-    return this.c1z_1.v11(gVectorOrZero, degree);
+  CyclicModel.prototype.e20 = function (gVectorOrZero, degree) {
+    return this.s1z_1.v11(gVectorOrZero, degree);
   };
   CyclicModel.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.o1l = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  CyclicModel.prototype.v1l = function (gVectorOrZero, degree) {
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.n1l = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  CyclicModel.prototype.u1l = function (gVectorOrZero, degree) {
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.p1z = function (basisName, degree) {
-    return this.c1z_1.s11(basisName, degree);
+  CyclicModel.prototype.f20 = function (gVector) {
+    return this.s1z_1.g12(gVector);
+  };
+  CyclicModel.prototype.g12 = function (gVector) {
+    return this.f20(gVector);
+  };
+  CyclicModel.prototype.l1o = function (gVector) {
+    return this.f20(gVector);
+  };
+  CyclicModel.prototype.k1o = function (gVector) {
+    return this.f20(gVector);
+  };
+  CyclicModel.prototype.g20 = function (a, b) {
+    return this.s1z_1.c12(a, b);
+  };
+  CyclicModel.prototype.c12 = function (a, b) {
+    return this.g20(a, b);
+  };
+  CyclicModel.prototype.x1l = function (a, b) {
+    return this.g20(a, b);
+  };
+  CyclicModel.prototype.w1l = function (a, b) {
+    return this.g20(a, b);
+  };
+  CyclicModel.prototype.h20 = function (basisName, degree) {
+    return this.s1z_1.s11(basisName, degree);
   };
   CyclicModel.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1z(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.h20(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.q1l = function (basisName, degree) {
+  CyclicModel.prototype.z1l = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1z(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.h20(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.p1l = function (basisName, degree) {
-    return this.p1z(basisName, isInterface(degree, Degree) ? degree : THROW_CCE());
+  CyclicModel.prototype.y1l = function (basisName, degree) {
+    return this.h20(basisName, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.q1z = function (vector, degree) {
-    return this.c1z_1.q11(vector, degree);
+  CyclicModel.prototype.i20 = function (vector, degree) {
+    return this.s1z_1.q11(vector, degree);
   };
   CyclicModel.prototype.q11 = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.s1l = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  CyclicModel.prototype.b1m = function (vector, degree) {
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.r1l = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  CyclicModel.prototype.a1m = function (vector, degree) {
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  CyclicModel.prototype.r1z = function (vector, degree) {
-    return this.c1z_1.r11(vector, degree);
+  CyclicModel.prototype.j20 = function (vector, degree) {
+    return this.s1z_1.r11(vector, degree);
   };
   CyclicModel.prototype.r11 = function (vector, degree) {
-    return this.r1z(vector, degree);
+    return this.j20(vector, degree);
   };
-  CyclicModel.prototype.u1l = function (vector, degree) {
-    return this.r1z(vector, degree);
+  CyclicModel.prototype.d1m = function (vector, degree) {
+    return this.j20(vector, degree);
   };
-  CyclicModel.prototype.t1l = function (vector, degree) {
-    return this.r1z(vector, degree);
+  CyclicModel.prototype.c1m = function (vector, degree) {
+    return this.j20(vector, degree);
   };
   CyclicModel.prototype.m11 = function (degree) {
-    return this.c1z_1.m11(degree);
+    return this.s1z_1.m11(degree);
   };
   CyclicModel.prototype.t11 = function (degree) {
-    return this.c1z_1.t11(degree);
+    return this.s1z_1.t11(degree);
   };
   CyclicModel.prototype.u11 = function (degree) {
-    return this.c1z_1.u11(degree);
+    return this.s1z_1.u11(degree);
   };
-  CyclicModel.prototype.s1z = function (scalar, gVector) {
-    return this.c1z_1.z11(scalar, gVector);
+  CyclicModel.prototype.k20 = function (scalar, gVector) {
+    return this.s1z_1.z11(scalar, gVector);
   };
   CyclicModel.prototype.z11 = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  CyclicModel.prototype.w1l = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  CyclicModel.prototype.f1m = function (scalar, gVector) {
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  CyclicModel.prototype.v1l = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  CyclicModel.prototype.e1m = function (scalar, gVector) {
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  CyclicModel.prototype.t1z = function (a, b) {
-    return this.c1z_1.a12(a, b);
+  CyclicModel.prototype.l20 = function (a, b) {
+    return this.s1z_1.a12(a, b);
   };
   CyclicModel.prototype.a12 = function (a, b) {
-    return this.t1z(a, b);
+    return this.l20(a, b);
   };
-  CyclicModel.prototype.a1o = function (a, b) {
-    return this.t1z(a, b);
+  CyclicModel.prototype.n1o = function (a, b) {
+    return this.l20(a, b);
   };
-  CyclicModel.prototype.z1n = function (a, b) {
-    return this.t1z(a, b);
+  CyclicModel.prototype.m1o = function (a, b) {
+    return this.l20(a, b);
   };
-  CyclicModel.prototype.u1z = function (a, b) {
-    return this.c1z_1.b12(a, b);
+  CyclicModel.prototype.m20 = function (a, b) {
+    return this.s1z_1.b12(a, b);
   };
   CyclicModel.prototype.b12 = function (a, b) {
-    return this.u1z(a, b);
+    return this.m20(a, b);
   };
-  CyclicModel.prototype.c1o = function (a, b) {
-    return this.u1z(a, b);
+  CyclicModel.prototype.p1o = function (a, b) {
+    return this.m20(a, b);
   };
-  CyclicModel.prototype.b1o = function (a, b) {
-    return this.u1z(a, b);
+  CyclicModel.prototype.o1o = function (a, b) {
+    return this.m20(a, b);
   };
-  CyclicModel.prototype.v1z = function (generators, text) {
-    return this.c1z_1.f12(generators, text);
+  CyclicModel.prototype.n20 = function (generators, text) {
+    return this.s1z_1.h12(generators, text);
   };
-  CyclicModel.prototype.f12 = function (generators, text) {
-    return this.v1z(generators, text);
+  CyclicModel.prototype.h12 = function (generators, text) {
+    return this.n20(generators, text);
   };
-  CyclicModel.prototype.e1o = function (generators, text) {
-    return this.v1z(generators, text);
+  CyclicModel.prototype.r1o = function (generators, text) {
+    return this.n20(generators, text);
   };
-  CyclicModel.prototype.d1o = function (generators, text) {
-    return this.v1z(generators, text);
+  CyclicModel.prototype.q1o = function (generators, text) {
+    return this.n20(generators, text);
   };
-  CyclicModel.prototype.w1z = function (a, b) {
-    return this.c1z_1.y11(a, b);
+  CyclicModel.prototype.o20 = function (a, b) {
+    return this.s1z_1.y11(a, b);
   };
   CyclicModel.prototype.y11 = function (a, b) {
-    return this.w1z(a, b);
+    return this.o20(a, b);
   };
-  CyclicModel.prototype.y1l = function (a, b) {
-    return this.w1z(a, b);
+  CyclicModel.prototype.h1m = function (a, b) {
+    return this.o20(a, b);
   };
-  CyclicModel.prototype.x1l = function (a, b) {
-    return this.w1z(a, b);
+  CyclicModel.prototype.g1m = function (a, b) {
+    return this.o20(a, b);
   };
-  CyclicModel.prototype.o14 = function () {
-    return this.d1z_1;
+  CyclicModel.prototype.t14 = function () {
+    return this.t1z_1;
   };
-  CyclicModel.prototype.n14 = function () {
-    return this.e1z_1;
+  CyclicModel.prototype.s14 = function () {
+    return this.u1z_1;
   };
-  CyclicModel.prototype.r1j = function () {
-    return this.f1z_1;
+  CyclicModel.prototype.y1j = function () {
+    return this.v1z_1;
   };
-  CyclicModel.prototype.u1f = function () {
-    return this.g1z_1;
+  CyclicModel.prototype.c1g = function () {
+    return this.w1z_1;
   };
-  CyclicModel.prototype.i1l = function () {
-    return this.h1z_1;
+  CyclicModel.prototype.p1l = function () {
+    return this.x1z_1;
   };
   CyclicModel.prototype.toString = function () {
-    return '(' + this.f1z_1 + ', d)';
+    return '(' + this.v1z_1 + ', d)';
   };
   CyclicModel.$metadata$ = classMeta('CyclicModel', [FreeDGAlgebra, DGAlgebra]);
   function CyclicModelFactory(freeDGAlgebra, periodicity) {
-    this.u1y_1 = freeDGAlgebra;
-    this.v1y_1 = periodicity;
+    this.k1z_1 = freeDGAlgebra;
+    this.l1z_1 = periodicity;
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.any' call
-      var tmp0_any = this.u1y_1.u1f();
+      var tmp0_any = this.k1z_1.c1g();
       var tmp;
       if (isInterface(tmp0_any, Collection)) {
         tmp = tmp0_any.p();
@@ -13413,7 +13646,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element = tmp0_iterator.h();
         var tmp$ret$1;
         // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>' call
-        tmp$ret$1 = equals(element.y1j_1, this.v1y_1);
+        tmp$ret$1 = equals(element.f1k_1, this.l1z_1);
         if (tmp$ret$1) {
           tmp$ret$0 = true;
           break $l$block_0;
@@ -13422,22 +13655,22 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp$ret$0 = false;
     }
     if (tmp$ret$0) {
-      throw IllegalArgumentException_init_$Create$('The free DGA ' + this.u1y_1 + " contains an indeterminate '" + this.v1y_1 + "', " + 'which is given as the generator for periodicity');
+      throw IllegalArgumentException_init_$Create$('The free DGA ' + this.k1z_1 + " contains an indeterminate '" + this.l1z_1 + "', " + 'which is given as the generator for periodicity');
     }
-    this.w1y_1 = this.u1y_1.h11();
+    this.m1z_1 = this.k1z_1.h11();
     var tmp_0 = this;
     var tmp$ret$6;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$5;
     // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.cyclicGAlgebra.<anonymous>' call
-    var degreeGroup = this.u1y_1.n14();
-    var tmp_1 = new Indeterminate(this.v1y_1, degreeGroup.zn(2));
-    var tmp_2 = degreeGroup.v12();
+    var degreeGroup = this.k1z_1.s14();
+    var tmp_1 = new Indeterminate(this.l1z_1, degreeGroup.zn(2));
+    var tmp_2 = degreeGroup.x12();
     var tmp_3 = listOf(copy$default(tmp_1, degreeGroup, tmp_2, null, false, 12, null));
     var tmp$ret$4;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.u1y_1.u1f();
+    var tmp0_map = this.k1z_1.c1g();
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -13448,7 +13681,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.cyclicGAlgebra.<anonymous>.<anonymous>' call
       var tmp_4 = degreeGroup.zn(1);
       var tmp_5 = copy$default(item, degreeGroup, tmp_4, null, false, 12, null);
-      var tmp_6 = degreeGroup.v12();
+      var tmp_6 = degreeGroup.x12();
       tmp$ret$2 = listOf_0([tmp_5, copy$default(item, degreeGroup, tmp_6, null, false, 12, null)]);
       tmp0_mapTo.a(tmp$ret$2);
     }
@@ -13456,18 +13689,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$4 = tmp$ret$3;
     var loopSpaceIndeterminateList = plus(tmp_3, flatten(tmp$ret$4));
     var tmp_7 = Companion_getInstance_26();
-    tmp$ret$5 = tmp_7.h1n(this.w1y_1, degreeGroup, loopSpaceIndeterminateList, null, 8, null);
+    tmp$ret$5 = tmp_7.s1n(this.m1z_1, degreeGroup, loopSpaceIndeterminateList, null, 8, null);
     tmp$ret$6 = tmp$ret$5;
-    tmp_0.x1y_1 = tmp$ret$6;
-    var n = this.u1y_1.u1f().i();
-    var cyclicGeneratorList = this.x1y_1.v1f();
+    tmp_0.n1z_1 = tmp$ret$6;
+    var n = this.k1z_1.c1g().i();
+    var cyclicGeneratorList = this.n1z_1.d1g();
     var tmp_8 = this;
     var tmp$ret$11;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$10;
     // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>' call
-    var tmp_9 = listOf(this.x1y_1.c12());
+    var tmp_9 = listOf(this.n1z_1.d12());
     var tmp$ret$9;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map_0 = until(0, n);
@@ -13482,16 +13715,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$7;
         // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>.<anonymous>' call
-        tmp$ret$7 = listOf_0([this.x1y_1.c12(), cyclicGeneratorList.l(imul(2, item_0) + 1 | 0)]);
+        tmp$ret$7 = listOf_0([this.n1z_1.d12(), cyclicGeneratorList.l(imul(2, item_0) + 1 | 0)]);
         tmp0_mapTo_0.a(tmp$ret$7);
       }
        while (!(item_0 === last));
     tmp$ret$8 = tmp0_mapTo_0;
     tmp$ret$9 = tmp$ret$8;
     var suspensionValueList = plus(tmp_9, flatten(tmp$ret$9));
-    tmp$ret$10 = this.x1y_1.m1k(suspensionValueList, -1);
+    tmp$ret$10 = this.n1z_1.t1k(suspensionValueList, -1);
     tmp$ret$11 = tmp$ret$10;
-    tmp_8.z1y_1 = tmp$ret$11;
+    tmp_8.p1z_1 = tmp$ret$11;
     var tmp_10 = this;
     var tmp$ret$14;
     // Inline function 'kotlin.collections.map' call
@@ -13513,15 +13746,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
        while (!(item_1 === last_0));
     tmp$ret$13 = tmp0_mapTo_1;
     tmp$ret$14 = tmp$ret$13;
-    tmp_10.a1z_1 = this.u1y_1.s1k(this.x1y_1, tmp$ret$14);
+    tmp_10.q1z_1 = this.k1z_1.z1k(this.n1z_1, tmp$ret$14);
     var tmp$ret$23;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$22;
     // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>' call
     var u = cyclicGeneratorList.l(0);
-    var baseSpaceGeneratorList = this.u1y_1.v1f();
-    var tmp_11 = listOf(this.x1y_1.c12());
+    var baseSpaceGeneratorList = this.k1z_1.d1g();
+    var tmp_11 = listOf(this.n1z_1.d12());
     var tmp$ret$21;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$20;
@@ -13534,20 +13767,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>.<anonymous>' call
       var tmp$ret$16;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this.u1y_1.o14();
+      var tmp0_run = this.k1z_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$15;
       // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>.<anonymous>.<anonymous>' call
-      tmp$ret$15 = tmp0_run.j12().z14(item_2);
+      tmp$ret$15 = tmp0_run.l12().e15(item_2);
       tmp$ret$16 = tmp$ret$15;
       var dv = tmp$ret$16;
       var tmp$ret$18;
       // Inline function 'kotlin.run' call
-      var tmp1_run = this.x1y_1.o14();
+      var tmp1_run = this.n1z_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$17;
       // Inline function 'com.github.shwaka.kohomology.model.CyclicModelFactory.<anonymous>.<anonymous>.<anonymous>' call
-      tmp$ret$17 = listOf_0([tmp1_run.v13(this.z1y_1.z14(this.a1z_1.z14(dv))), tmp1_run.g13(this.a1z_1.z14(dv), tmp1_run.n13(u, this.z1y_1.z14(this.a1z_1.z14(item_2))))]);
+      tmp$ret$17 = listOf_0([tmp1_run.z13(this.p1z_1.e15(this.q1z_1.e15(dv))), tmp1_run.i13(this.q1z_1.e15(dv), tmp1_run.r13(u, this.p1z_1.e15(this.q1z_1.e15(item_2))))]);
       tmp$ret$18 = tmp$ret$17;
       tmp$ret$19 = tmp$ret$18;
       tmp0_mapTo_2.a(tmp$ret$19);
@@ -13557,35 +13790,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$22 = plus(tmp_11, flatten(tmp$ret$21));
     tmp$ret$23 = tmp$ret$22;
     var differentialValueList = tmp$ret$23;
-    this.y1y_1 = this.x1y_1.m1k(differentialValueList, 1);
+    this.o1z_1 = this.n1z_1.t1k(differentialValueList, 1);
   }
-  CyclicModelFactory.prototype.s1i = function () {
-    return this.u1y_1;
+  CyclicModelFactory.prototype.z1i = function () {
+    return this.k1z_1;
   };
-  CyclicModelFactory.prototype.x1z = function () {
-    return this.v1y_1;
+  CyclicModelFactory.prototype.p20 = function () {
+    return this.l1z_1;
   };
   CyclicModelFactory.prototype.h11 = function () {
-    return this.w1y_1;
+    return this.m1z_1;
   };
-  CyclicModelFactory.prototype.y1z = function () {
-    return this.x1y_1;
+  CyclicModelFactory.prototype.q20 = function () {
+    return this.n1z_1;
   };
-  CyclicModelFactory.prototype.z1z = function () {
-    return this.z1y_1;
+  CyclicModelFactory.prototype.r20 = function () {
+    return this.p1z_1;
   };
-  CyclicModelFactory.prototype.a20 = function () {
-    return this.a1z_1;
+  CyclicModelFactory.prototype.s20 = function () {
+    return this.q1z_1;
   };
   CyclicModelFactory.$metadata$ = classMeta('CyclicModelFactory');
   function withShiftDegreeForMultiDegree($this, freeDGAlgebra) {
-    var degreeGroup = freeDGAlgebra.n14();
+    var degreeGroup = freeDGAlgebra.s14();
     if (!(degreeGroup instanceof MultiDegreeGroup))
       throw new NotImplementedError('not supported!');
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.any' call
-      var tmp0_any = degreeGroup.h1f_1;
+      var tmp0_any = degreeGroup.p1f_1;
       var tmp;
       if (isInterface(tmp0_any, Collection)) {
         tmp = tmp0_any.p();
@@ -13601,7 +13834,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element = tmp0_iterator.h();
         var tmp$ret$1;
         // Inline function 'com.github.shwaka.kohomology.model.Companion.withShiftDegreeForMultiDegree.<anonymous>' call
-        tmp$ret$1 = element.s1f_1 === 'S';
+        tmp$ret$1 = element.a1g_1 === 'S';
         if (tmp$ret$1) {
           tmp$ret$0 = true;
           break $l$block_0;
@@ -13611,39 +13844,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     if (tmp$ret$0)
       throw IllegalArgumentException_init_$Create$('indeterminateList cannot contain an indeterminate of name "S"');
-    var newDegreeGroup = new MultiDegreeGroup(plus(degreeGroup.h1f_1, listOf(new DegreeIndeterminate('S', 0))));
+    var newDegreeGroup = new MultiDegreeGroup(plus(degreeGroup.p1f_1, listOf(new DegreeIndeterminate('S', 0))));
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp1_run = newDegreeGroup.o14();
+    var tmp1_run = newDegreeGroup.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$2;
     // Inline function 'com.github.shwaka.kohomology.model.Companion.withShiftDegreeForMultiDegree.<anonymous>' call
-    var s = last(newDegreeGroup.v1f());
-    tmp$ret$2 = tmp1_run.v1e(tmp1_run.x1e(-2, s), 1);
+    var s = last(newDegreeGroup.d1g());
+    tmp$ret$2 = tmp1_run.d1f(tmp1_run.f1f(-2, s), 1);
     tmp$ret$3 = tmp$ret$2;
     var shiftDegree = tmp$ret$3;
-    var degreeMorphism = new MultiDegreeMorphism(degreeGroup, newDegreeGroup, dropLast(newDegreeGroup.v1f(), 1));
-    var tmp0_container = freeDGAlgebra.r1k(degreeMorphism);
+    var degreeMorphism = new MultiDegreeMorphism(degreeGroup, newDegreeGroup, dropLast(newDegreeGroup.d1g(), 1));
+    var tmp0_container = freeDGAlgebra.y1k(degreeMorphism);
     var newFreeDGAlgebra = tmp0_container.w3();
     return FreeLoopSpace_init_$Create$(newFreeDGAlgebra, shiftDegree);
   }
   function withShiftDegreeForIntDegree($this, freeDGAlgebra) {
-    var degreeGroup = freeDGAlgebra.n14();
+    var degreeGroup = freeDGAlgebra.s14();
     if (!(degreeGroup instanceof IntDegreeGroup))
       throw new NotImplementedError('not supported!');
     var newDegreeGroup = new MultiDegreeGroup(listOf(new DegreeIndeterminate('S', 0)));
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = newDegreeGroup.o14();
+    var tmp0_run = newDegreeGroup.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.model.Companion.withShiftDegreeForIntDegree.<anonymous>' call
-    var s = last(newDegreeGroup.v1f());
-    tmp$ret$0 = tmp0_run.v1e(tmp0_run.x1e(-2, s), 1);
+    var s = last(newDegreeGroup.d1g());
+    tmp$ret$0 = tmp0_run.d1f(tmp0_run.f1f(-2, s), 1);
     tmp$ret$1 = tmp$ret$0;
     var shiftDegree = tmp$ret$1;
     var degreeMorphism = new InclusionFromIntDegreeToMultiDegree(newDegreeGroup);
-    var tmp0_container = freeDGAlgebra.r1k(degreeMorphism);
+    var tmp0_container = freeDGAlgebra.y1k(degreeMorphism);
     var newFreeDGAlgebra = tmp0_container.w3();
     return FreeLoopSpace_init_$Create$(newFreeDGAlgebra, shiftDegree);
   }
@@ -13656,10 +13889,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Companion_39() {
     Companion_instance_39 = this;
-    this.b20_1 = 'S';
+    this.t20_1 = 'S';
   }
-  Companion_39.prototype.c20 = function (freeDGAlgebra) {
-    var tmp0_subject = freeDGAlgebra.n14();
+  Companion_39.prototype.u20 = function (freeDGAlgebra) {
+    var tmp0_subject = freeDGAlgebra.s14();
     var tmp;
     if (tmp0_subject instanceof IntDegreeGroup) {
       tmp = withShiftDegreeForIntDegree(this, isInterface(freeDGAlgebra, FreeDGAlgebra) ? freeDGAlgebra : THROW_CCE());
@@ -13681,261 +13914,285 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeLoopSpace$inclusion$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_2().p14(this$0.k20_1.d20_1, this$0, this$0.k20_1.j20_1);
+      return Companion_getInstance_2().u14(this$0.c21_1.v20_1, this$0, this$0.c21_1.b21_1);
     };
   }
   function FreeLoopSpace(factory) {
     Companion_getInstance_40();
-    this.k20_1 = factory;
-    this.l20_1 = Companion_getInstance_1().c11(factory.g20_1, factory.h20_1);
-    this.m20_1 = new FreeDGAlgebraContextImpl(this);
-    this.n20_1 = this.k20_1.d20_1.n14();
-    this.o20_1 = this.k20_1.g20_1;
-    this.p20_1 = this.k20_1.g20_1.u1f();
-    this.q20_1 = this.k20_1.g20_1.i1l();
-    this.r20_1 = Companion_getInstance_3().b15(this, this.k20_1.i20_1);
+    this.c21_1 = factory;
+    this.d21_1 = Companion_getInstance_1().c11(factory.y20_1, factory.z20_1);
+    this.e21_1 = new FreeDGAlgebraContextImpl(this);
+    this.f21_1 = this.c21_1.v20_1.s14();
+    this.g21_1 = this.c21_1.y20_1;
+    this.h21_1 = this.c21_1.y20_1.c1g();
+    this.i21_1 = this.c21_1.y20_1.p1l();
+    this.j21_1 = Companion_getInstance_3().g15(this, this.c21_1.a21_1);
     var tmp = this;
-    tmp.s20_1 = lazy(FreeLoopSpace$inclusion$delegate$lambda(this));
-    this.t20_1 = this.k20_1.f20_1;
-    this.u20_1 = this.k20_1.d20_1;
+    tmp.k21_1 = lazy(FreeLoopSpace$inclusion$delegate$lambda(this));
+    this.l21_1 = this.c21_1.x20_1;
+    this.m21_1 = this.c21_1.v20_1;
   }
   FreeLoopSpace.prototype.o11 = function () {
-    return this.l20_1.o11();
+    return this.d21_1.o11();
   };
   FreeLoopSpace.prototype.e11 = function () {
-    return this.l20_1.e11();
+    return this.d21_1.e11();
   };
   FreeLoopSpace.prototype.g11 = function () {
-    return this.l20_1.g11();
+    return this.d21_1.g11();
   };
   FreeLoopSpace.prototype.p11 = function () {
-    return this.l20_1.p11();
+    return this.d21_1.p11();
   };
   FreeLoopSpace.prototype.k11 = function () {
-    return this.l20_1.k11();
+    return this.d21_1.k11();
   };
-  FreeLoopSpace.prototype.e12 = function () {
-    return this.l20_1.e12();
+  FreeLoopSpace.prototype.f12 = function () {
+    return this.d21_1.f12();
   };
   FreeLoopSpace.prototype.l11 = function () {
-    return this.l20_1.l11();
+    return this.d21_1.l11();
   };
   FreeLoopSpace.prototype.h11 = function () {
-    return this.l20_1.h11();
+    return this.d21_1.h11();
   };
   FreeLoopSpace.prototype.f11 = function () {
-    return this.l20_1.f11();
+    return this.d21_1.f11();
   };
   FreeLoopSpace.prototype.xb = function () {
-    return this.l20_1.xb();
+    return this.d21_1.xb();
   };
   FreeLoopSpace.prototype.j11 = function () {
-    return this.l20_1.j11();
+    return this.d21_1.j11();
   };
   FreeLoopSpace.prototype.n11 = function () {
-    return this.l20_1.n11();
+    return this.d21_1.n11();
+  };
+  FreeLoopSpace.prototype.e12 = function () {
+    return this.d21_1.e12();
   };
   FreeLoopSpace.prototype.d12 = function () {
-    return this.l20_1.d12();
+    return this.d21_1.d12();
   };
-  FreeLoopSpace.prototype.c12 = function () {
-    return this.l20_1.c12();
-  };
-  FreeLoopSpace.prototype.k1z = function (a, b) {
-    return this.l20_1.x11(a, b);
+  FreeLoopSpace.prototype.a20 = function (a, b) {
+    return this.d21_1.x11(a, b);
   };
   FreeLoopSpace.prototype.x11 = function (a, b) {
-    return this.k1z(a, b);
+    return this.a20(a, b);
   };
-  FreeLoopSpace.prototype.k1l = function (a, b) {
-    return this.k1z(a, b);
+  FreeLoopSpace.prototype.r1l = function (a, b) {
+    return this.a20(a, b);
   };
-  FreeLoopSpace.prototype.j1l = function (a, b) {
-    return this.k1z(a, b);
+  FreeLoopSpace.prototype.q1l = function (a, b) {
+    return this.a20(a, b);
   };
-  FreeLoopSpace.prototype.l1z = function (cocycle) {
-    return this.l20_1.i11(cocycle);
+  FreeLoopSpace.prototype.b20 = function (cocycle) {
+    return this.d21_1.i11(cocycle);
   };
   FreeLoopSpace.prototype.i11 = function (cocycle) {
-    return this.l1z(cocycle);
+    return this.b20(cocycle);
   };
-  FreeLoopSpace.prototype.m1z = function (cocycle) {
-    return this.l1z(cocycle);
+  FreeLoopSpace.prototype.c20 = function (cocycle) {
+    return this.b20(cocycle);
   };
-  FreeLoopSpace.prototype.n1z = function (gVector) {
-    return this.l20_1.w11(gVector);
+  FreeLoopSpace.prototype.d20 = function (gVector) {
+    return this.d21_1.w11(gVector);
   };
   FreeLoopSpace.prototype.w11 = function (gVector) {
-    return this.n1z(gVector);
+    return this.d20(gVector);
   };
-  FreeLoopSpace.prototype.m1l = function (gVector) {
-    return this.n1z(gVector);
+  FreeLoopSpace.prototype.t1l = function (gVector) {
+    return this.d20(gVector);
   };
-  FreeLoopSpace.prototype.l1l = function (gVector) {
-    return this.n1z(gVector);
+  FreeLoopSpace.prototype.s1l = function (gVector) {
+    return this.d20(gVector);
   };
-  FreeLoopSpace.prototype.o1z = function (gVectorOrZero, degree) {
-    return this.l20_1.v11(gVectorOrZero, degree);
+  FreeLoopSpace.prototype.e20 = function (gVectorOrZero, degree) {
+    return this.d21_1.v11(gVectorOrZero, degree);
   };
   FreeLoopSpace.prototype.v11 = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.o1l = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeLoopSpace.prototype.v1l = function (gVectorOrZero, degree) {
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.n1l = function (gVectorOrZero, degree) {
-    return this.o1z(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeLoopSpace.prototype.u1l = function (gVectorOrZero, degree) {
+    return this.e20(gVectorOrZero, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.p1z = function (basisName, degree) {
-    return this.l20_1.s11(basisName, degree);
+  FreeLoopSpace.prototype.f20 = function (gVector) {
+    return this.d21_1.g12(gVector);
+  };
+  FreeLoopSpace.prototype.g12 = function (gVector) {
+    return this.f20(gVector);
+  };
+  FreeLoopSpace.prototype.l1o = function (gVector) {
+    return this.f20(gVector);
+  };
+  FreeLoopSpace.prototype.k1o = function (gVector) {
+    return this.f20(gVector);
+  };
+  FreeLoopSpace.prototype.g20 = function (a, b) {
+    return this.d21_1.c12(a, b);
+  };
+  FreeLoopSpace.prototype.c12 = function (a, b) {
+    return this.g20(a, b);
+  };
+  FreeLoopSpace.prototype.x1l = function (a, b) {
+    return this.g20(a, b);
+  };
+  FreeLoopSpace.prototype.w1l = function (a, b) {
+    return this.g20(a, b);
+  };
+  FreeLoopSpace.prototype.h20 = function (basisName, degree) {
+    return this.d21_1.s11(basisName, degree);
   };
   FreeLoopSpace.prototype.s11 = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1z(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.h20(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.q1l = function (basisName, degree) {
+  FreeLoopSpace.prototype.z1l = function (basisName, degree) {
     var tmp = basisName instanceof Monomial ? basisName : THROW_CCE();
-    return this.p1z(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.h20(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.p1l = function (basisName, degree) {
-    return this.p1z(basisName, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeLoopSpace.prototype.y1l = function (basisName, degree) {
+    return this.h20(basisName, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.q1z = function (vector, degree) {
-    return this.l20_1.q11(vector, degree);
+  FreeLoopSpace.prototype.i20 = function (vector, degree) {
+    return this.d21_1.q11(vector, degree);
   };
   FreeLoopSpace.prototype.q11 = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.s1l = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeLoopSpace.prototype.b1m = function (vector, degree) {
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.r1l = function (vector, degree) {
-    return this.q1z(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
+  FreeLoopSpace.prototype.a1m = function (vector, degree) {
+    return this.i20(vector, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
-  FreeLoopSpace.prototype.r1z = function (vector, degree) {
-    return this.l20_1.r11(vector, degree);
+  FreeLoopSpace.prototype.j20 = function (vector, degree) {
+    return this.d21_1.r11(vector, degree);
   };
   FreeLoopSpace.prototype.r11 = function (vector, degree) {
-    return this.r1z(vector, degree);
+    return this.j20(vector, degree);
   };
-  FreeLoopSpace.prototype.u1l = function (vector, degree) {
-    return this.r1z(vector, degree);
+  FreeLoopSpace.prototype.d1m = function (vector, degree) {
+    return this.j20(vector, degree);
   };
-  FreeLoopSpace.prototype.t1l = function (vector, degree) {
-    return this.r1z(vector, degree);
+  FreeLoopSpace.prototype.c1m = function (vector, degree) {
+    return this.j20(vector, degree);
   };
   FreeLoopSpace.prototype.m11 = function (degree) {
-    return this.l20_1.m11(degree);
+    return this.d21_1.m11(degree);
   };
   FreeLoopSpace.prototype.t11 = function (degree) {
-    return this.l20_1.t11(degree);
+    return this.d21_1.t11(degree);
   };
   FreeLoopSpace.prototype.u11 = function (degree) {
-    return this.l20_1.u11(degree);
+    return this.d21_1.u11(degree);
   };
-  FreeLoopSpace.prototype.s1z = function (scalar, gVector) {
-    return this.l20_1.z11(scalar, gVector);
+  FreeLoopSpace.prototype.k20 = function (scalar, gVector) {
+    return this.d21_1.z11(scalar, gVector);
   };
   FreeLoopSpace.prototype.z11 = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeLoopSpace.prototype.w1l = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  FreeLoopSpace.prototype.f1m = function (scalar, gVector) {
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeLoopSpace.prototype.v1l = function (scalar, gVector) {
-    return this.s1z(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
+  FreeLoopSpace.prototype.e1m = function (scalar, gVector) {
+    return this.k20(isInterface(scalar, Scalar) ? scalar : THROW_CCE(), gVector);
   };
-  FreeLoopSpace.prototype.t1z = function (a, b) {
-    return this.l20_1.a12(a, b);
+  FreeLoopSpace.prototype.l20 = function (a, b) {
+    return this.d21_1.a12(a, b);
   };
   FreeLoopSpace.prototype.a12 = function (a, b) {
-    return this.t1z(a, b);
+    return this.l20(a, b);
   };
-  FreeLoopSpace.prototype.a1o = function (a, b) {
-    return this.t1z(a, b);
+  FreeLoopSpace.prototype.n1o = function (a, b) {
+    return this.l20(a, b);
   };
-  FreeLoopSpace.prototype.z1n = function (a, b) {
-    return this.t1z(a, b);
+  FreeLoopSpace.prototype.m1o = function (a, b) {
+    return this.l20(a, b);
   };
-  FreeLoopSpace.prototype.u1z = function (a, b) {
-    return this.l20_1.b12(a, b);
+  FreeLoopSpace.prototype.m20 = function (a, b) {
+    return this.d21_1.b12(a, b);
   };
   FreeLoopSpace.prototype.b12 = function (a, b) {
-    return this.u1z(a, b);
+    return this.m20(a, b);
   };
-  FreeLoopSpace.prototype.c1o = function (a, b) {
-    return this.u1z(a, b);
+  FreeLoopSpace.prototype.p1o = function (a, b) {
+    return this.m20(a, b);
   };
-  FreeLoopSpace.prototype.b1o = function (a, b) {
-    return this.u1z(a, b);
+  FreeLoopSpace.prototype.o1o = function (a, b) {
+    return this.m20(a, b);
   };
-  FreeLoopSpace.prototype.v1z = function (generators, text) {
-    return this.l20_1.f12(generators, text);
+  FreeLoopSpace.prototype.n20 = function (generators, text) {
+    return this.d21_1.h12(generators, text);
   };
-  FreeLoopSpace.prototype.f12 = function (generators, text) {
-    return this.v1z(generators, text);
+  FreeLoopSpace.prototype.h12 = function (generators, text) {
+    return this.n20(generators, text);
   };
-  FreeLoopSpace.prototype.e1o = function (generators, text) {
-    return this.v1z(generators, text);
+  FreeLoopSpace.prototype.r1o = function (generators, text) {
+    return this.n20(generators, text);
   };
-  FreeLoopSpace.prototype.d1o = function (generators, text) {
-    return this.v1z(generators, text);
+  FreeLoopSpace.prototype.q1o = function (generators, text) {
+    return this.n20(generators, text);
   };
-  FreeLoopSpace.prototype.w1z = function (a, b) {
-    return this.l20_1.y11(a, b);
+  FreeLoopSpace.prototype.o20 = function (a, b) {
+    return this.d21_1.y11(a, b);
   };
   FreeLoopSpace.prototype.y11 = function (a, b) {
-    return this.w1z(a, b);
+    return this.o20(a, b);
   };
-  FreeLoopSpace.prototype.y1l = function (a, b) {
-    return this.w1z(a, b);
+  FreeLoopSpace.prototype.h1m = function (a, b) {
+    return this.o20(a, b);
   };
-  FreeLoopSpace.prototype.x1l = function (a, b) {
-    return this.w1z(a, b);
+  FreeLoopSpace.prototype.g1m = function (a, b) {
+    return this.o20(a, b);
   };
-  FreeLoopSpace.prototype.o14 = function () {
-    return this.m20_1;
+  FreeLoopSpace.prototype.t14 = function () {
+    return this.e21_1;
   };
-  FreeLoopSpace.prototype.n14 = function () {
-    return this.n20_1;
+  FreeLoopSpace.prototype.s14 = function () {
+    return this.f21_1;
   };
-  FreeLoopSpace.prototype.r1j = function () {
-    return this.o20_1;
+  FreeLoopSpace.prototype.y1j = function () {
+    return this.g21_1;
   };
-  FreeLoopSpace.prototype.u1f = function () {
-    return this.p20_1;
+  FreeLoopSpace.prototype.c1g = function () {
+    return this.h21_1;
   };
-  FreeLoopSpace.prototype.i1l = function () {
-    return this.q20_1;
+  FreeLoopSpace.prototype.p1l = function () {
+    return this.i21_1;
   };
   FreeLoopSpace.prototype.toString = function () {
-    return '(' + this.o20_1 + ', d)';
+    return '(' + this.g21_1 + ', d)';
   };
   FreeLoopSpace.$metadata$ = classMeta('FreeLoopSpace', [FreeDGAlgebra, DGAlgebra]);
   function CopiedName$Companion$getInternalPrintConfig$ref($boundThis) {
     var l = function (p0) {
-      return $boundThis.s1y(p0);
+      return $boundThis.i1z(p0);
     };
     l.callableName = 'getInternalPrintConfig';
     return l;
   }
   function FreeLoopSpaceFactory(freeDGAlgebra, shiftDegree) {
-    this.d20_1 = freeDGAlgebra;
-    this.e20_1 = this.d20_1.h11();
+    this.v20_1 = freeDGAlgebra;
+    this.w20_1 = this.v20_1.h11();
     var tmp = this;
     var tmp0_elvis_lhs = shiftDegree;
-    tmp.f20_1 = tmp0_elvis_lhs == null ? this.d20_1.n14().zn(1) : tmp0_elvis_lhs;
+    tmp.x20_1 = tmp0_elvis_lhs == null ? this.v20_1.s14().zn(1) : tmp0_elvis_lhs;
     var tmp_0 = this;
     var tmp$ret$9;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$8;
     // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.loopSpaceGAlgebra.<anonymous>' call
-    var degreeGroup = this.d20_1.n14();
-    var shift = this.f20_1;
+    var degreeGroup = this.v20_1.s14();
+    var shift = this.x20_1;
     var tmp$ret$7;
     // Inline function 'kotlin.let' call
-    var tmp0_let = this.d20_1.u1f();
+    var tmp0_let = this.v20_1.c1g();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$6;
     // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.loopSpaceGAlgebra.<anonymous>.<anonymous>' call
@@ -13949,7 +14206,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.loopSpaceGAlgebra.<anonymous>.<anonymous>.<anonymous>' call
-      var tmp_1 = degreeGroup.v12();
+      var tmp_1 = degreeGroup.x12();
       tmp$ret$0 = copy$default(item, degreeGroup, tmp_1, null, false, 12, null);
       tmp0_mapTo.a(tmp$ret$0);
     }
@@ -13975,11 +14232,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$7 = tmp$ret$6;
     var loopSpaceIndeterminateList = tmp$ret$7;
     var tmp_3 = Companion_getInstance_26();
-    tmp$ret$8 = tmp_3.l1k(this.e20_1, degreeGroup, loopSpaceIndeterminateList, CopiedName$Companion$getInternalPrintConfig$ref(Companion_getInstance_38()));
+    tmp$ret$8 = tmp_3.s1k(this.w20_1, degreeGroup, loopSpaceIndeterminateList, CopiedName$Companion$getInternalPrintConfig$ref(Companion_getInstance_38()));
     tmp$ret$9 = tmp$ret$8;
-    tmp_0.g20_1 = tmp$ret$9;
-    var n = this.d20_1.u1f().i();
-    var loopSpaceGeneratorList = this.g20_1.v1f();
+    tmp_0.y20_1 = tmp$ret$9;
+    var n = this.v20_1.c1g().i();
+    var loopSpaceGeneratorList = this.y20_1.d1g();
     var tmp_4 = this;
     var tmp$ret$16;
     // Inline function 'kotlin.run' call
@@ -13988,11 +14245,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>' call
     var tmp$ret$11;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.d20_1.n14().o14();
+    var tmp0_run = this.v20_1.s14().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$10;
     // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>' call
-    tmp$ret$10 = tmp0_run.y1e(this.f20_1);
+    tmp$ret$10 = tmp0_run.g1f(this.x20_1);
     tmp$ret$11 = tmp$ret$10;
     var suspensionDegree = tmp$ret$11;
     var tmp_5 = takeLast(loopSpaceGeneratorList, n);
@@ -14011,23 +14268,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.MutableList.<anonymous>' call
         var tmp$ret$12;
         // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>' call
-        tmp$ret$12 = this.g20_1.c12();
+        tmp$ret$12 = this.y20_1.d12();
         list.a(tmp$ret$12);
       }
        while (inductionVariable < n);
     tmp$ret$13 = list;
     tmp$ret$14 = tmp$ret$13;
     var suspensionValueList = plus(tmp_5, tmp$ret$14);
-    tmp$ret$15 = this.g20_1.a1k(suspensionValueList, suspensionDegree);
+    tmp$ret$15 = this.y20_1.h1k(suspensionValueList, suspensionDegree);
     tmp$ret$16 = tmp$ret$15;
-    tmp_4.i20_1 = tmp$ret$16;
-    this.j20_1 = this.d20_1.s1k(this.g20_1, take(loopSpaceGeneratorList, n));
+    tmp_4.a21_1 = tmp$ret$16;
+    this.b21_1 = this.v20_1.z1k(this.y20_1, take(loopSpaceGeneratorList, n));
     var tmp$ret$30;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$29;
     // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>' call
-    var baseSpaceGeneratorList = this.d20_1.v1f();
+    var baseSpaceGeneratorList = this.v20_1.d1g();
     var tmp$ret$21;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$20;
@@ -14040,11 +14297,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>' call
       var tmp$ret$18;
       // Inline function 'kotlin.run' call
-      var tmp0_run_0 = this.d20_1.o14();
+      var tmp0_run_0 = this.v20_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$17;
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>.<anonymous>' call
-      tmp$ret$17 = this.j20_1.z14(tmp0_run_0.j12().z14(item_1));
+      tmp$ret$17 = this.b21_1.e15(tmp0_run_0.l12().e15(item_1));
       tmp$ret$18 = tmp$ret$17;
       tmp$ret$19 = tmp$ret$18;
       tmp0_mapTo_1.a(tmp$ret$19);
@@ -14064,20 +14321,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>' call
       var tmp$ret$23;
       // Inline function 'kotlin.run' call
-      var tmp0_run_1 = this.d20_1.o14();
+      var tmp0_run_1 = this.v20_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$22;
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>.<anonymous>' call
-      tmp$ret$22 = tmp0_run_1.j12().z14(item_2);
+      tmp$ret$22 = tmp0_run_1.l12().e15(item_2);
       tmp$ret$23 = tmp$ret$22;
       var dv = tmp$ret$23;
       var tmp$ret$25;
       // Inline function 'kotlin.run' call
-      var tmp1_run = this.g20_1.o14();
+      var tmp1_run = this.y20_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$24;
       // Inline function 'com.github.shwaka.kohomology.model.FreeLoopSpaceFactory.<anonymous>.<anonymous>.<anonymous>' call
-      tmp$ret$24 = tmp1_run.v13(this.i20_1.z14(this.j20_1.z14(dv)));
+      tmp$ret$24 = tmp1_run.z13(this.a21_1.e15(this.b21_1.e15(dv)));
       tmp$ret$25 = tmp$ret$24;
       tmp$ret$26 = tmp$ret$25;
       tmp0_mapTo_2.a(tmp$ret$26);
@@ -14088,50 +14345,50 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$29 = plus(valueList1, valueList2);
     tmp$ret$30 = tmp$ret$29;
     var differentialValueList = tmp$ret$30;
-    this.h20_1 = this.g20_1.m1k(differentialValueList, 1);
+    this.z20_1 = this.y20_1.t1k(differentialValueList, 1);
   }
-  FreeLoopSpaceFactory.prototype.s1i = function () {
-    return this.d20_1;
+  FreeLoopSpaceFactory.prototype.z1i = function () {
+    return this.v20_1;
   };
   FreeLoopSpaceFactory.prototype.h11 = function () {
-    return this.e20_1;
+    return this.w20_1;
   };
-  FreeLoopSpaceFactory.prototype.v20 = function () {
-    return this.f20_1;
+  FreeLoopSpaceFactory.prototype.n21 = function () {
+    return this.x20_1;
   };
-  FreeLoopSpaceFactory.prototype.w20 = function () {
-    return this.g20_1;
+  FreeLoopSpaceFactory.prototype.o21 = function () {
+    return this.y20_1;
   };
-  FreeLoopSpaceFactory.prototype.z1z = function () {
-    return this.i20_1;
+  FreeLoopSpaceFactory.prototype.r20 = function () {
+    return this.a21_1;
   };
-  FreeLoopSpaceFactory.prototype.a20 = function () {
-    return this.j20_1;
+  FreeLoopSpaceFactory.prototype.s20 = function () {
+    return this.b21_1;
   };
   FreeLoopSpaceFactory.$metadata$ = classMeta('FreeLoopSpaceFactory');
   function Companion_40() {
     Companion_instance_40 = this;
   }
-  Companion_40.prototype.x20 = function (numerator, denominator) {
+  Companion_40.prototype.p21 = function (numerator, denominator) {
     if (numerator.op())
-      return KotlinRationalField_getInstance().a21_1;
+      return KotlinRationalField_getInstance().s21_1;
     if (numerator.equals(denominator))
-      return KotlinRationalField_getInstance().b21_1;
+      return KotlinRationalField_getInstance().t21_1;
     var red = reduce(numerator, denominator);
     return new KotlinRational(red.v4_1, red.w4_1);
   };
-  Companion_40.prototype.g21 = function (numerator, denominator) {
-    return Companion_getInstance_41().x20(BigInteger_init_$Create$(numerator), BigInteger_init_$Create$(denominator));
+  Companion_40.prototype.y21 = function (numerator, denominator) {
+    return Companion_getInstance_41().p21(BigInteger_init_$Create$(numerator), BigInteger_init_$Create$(denominator));
   };
-  Companion_40.prototype.h21 = function (numerator, denominator) {
+  Companion_40.prototype.z21 = function (numerator, denominator) {
     if (numerator.op())
-      return KotlinRationalField_getInstance().a21_1;
+      return KotlinRationalField_getInstance().s21_1;
     if (numerator.equals(denominator))
-      return KotlinRationalField_getInstance().b21_1;
+      return KotlinRationalField_getInstance().t21_1;
     // Inline function 'com.github.shwaka.kococo.debugOnly' call
     return new KotlinRational(numerator, denominator);
   };
-  Companion_40.prototype.i21 = function (numerator, denominator) {
+  Companion_40.prototype.a22 = function (numerator, denominator) {
     // Inline function 'com.github.shwaka.kococo.debugOnly' call
     return new KotlinRational(BigInteger_init_$Create$(numerator), BigInteger_init_$Create$(denominator));
   };
@@ -14143,38 +14400,38 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_instance_40;
   }
   function toStringWithoutSign($this) {
-    var numeratorAbs = $this.j21_1.np();
-    return $this.j21_1.equals(Companion_getInstance().gp_1) ? '0' : $this.k21_1.equals(Companion_getInstance().hp_1) ? numeratorAbs.toString() : '' + numeratorAbs + '/' + $this.k21_1;
+    var numeratorAbs = $this.b22_1.np();
+    return $this.b22_1.equals(Companion_getInstance().gp_1) ? '0' : $this.c22_1.equals(Companion_getInstance().hp_1) ? numeratorAbs.toString() : '' + numeratorAbs + '/' + $this.c22_1;
   }
   function toTexWithoutSign($this) {
-    var numeratorAbs = $this.j21_1.np();
-    return $this.j21_1.equals(Companion_getInstance().gp_1) ? '0' : $this.k21_1.equals(Companion_getInstance().hp_1) ? numeratorAbs.toString() : '\\frac{' + numeratorAbs + '}{' + $this.k21_1 + '}';
+    var numeratorAbs = $this.b22_1.np();
+    return $this.b22_1.equals(Companion_getInstance().gp_1) ? '0' : $this.c22_1.equals(Companion_getInstance().hp_1) ? numeratorAbs.toString() : '\\frac{' + numeratorAbs + '}{' + $this.c22_1 + '}';
   }
   function toTex_0($this) {
     var tmp;
-    if ($this.j21_1.equals(Companion_getInstance().gp_1)) {
+    if ($this.b22_1.equals(Companion_getInstance().gp_1)) {
       tmp = '0';
-    } else if ($this.k21_1.equals(Companion_getInstance().hp_1)) {
-      tmp = $this.j21_1.toString();
+    } else if ($this.c22_1.equals(Companion_getInstance().hp_1)) {
+      tmp = $this.b22_1.toString();
     } else {
-      var sign = $this.j21_1.ko() ? '-' : '';
-      tmp = sign + '\\frac{' + $this.j21_1.np() + '}{' + $this.k21_1 + '}';
+      var sign = $this.b22_1.ko() ? '-' : '';
+      tmp = sign + '\\frac{' + $this.b22_1.np() + '}{' + $this.c22_1 + '}';
     }
     return tmp;
   }
   function KotlinRational(numerator, denominator) {
     Companion_getInstance_41();
-    this.j21_1 = numerator;
-    this.k21_1 = denominator;
+    this.b22_1 = numerator;
+    this.c22_1 = denominator;
   }
   KotlinRational.prototype.op = function () {
-    return this.j21_1.op();
+    return this.b22_1.op();
   };
-  KotlinRational.prototype.d1w = function () {
-    return this.j21_1.lo() ? true : this.j21_1.op();
+  KotlinRational.prototype.s1w = function () {
+    return this.b22_1.lo() ? true : this.b22_1.op();
   };
-  KotlinRational.prototype.l21 = function (printConfig, withSign) {
-    var tmp0_subject = printConfig.m1j_1;
+  KotlinRational.prototype.d22 = function (printConfig, withSign) {
+    var tmp0_subject = printConfig.t1j_1;
     var tmp0 = tmp0_subject.a2_1;
     var tmp;
     switch (tmp0) {
@@ -14191,7 +14448,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   };
   KotlinRational.prototype.toString = function () {
-    return this.j21_1.equals(Companion_getInstance().gp_1) ? '0' : this.k21_1.equals(Companion_getInstance().hp_1) ? this.j21_1.toString() : '' + this.j21_1 + '/' + this.k21_1;
+    return this.b22_1.equals(Companion_getInstance().gp_1) ? '0' : this.c22_1.equals(Companion_getInstance().hp_1) ? this.b22_1.toString() : '' + this.b22_1 + '/' + this.c22_1;
   };
   KotlinRational.prototype.equals = function (other) {
     if (this === other)
@@ -14204,93 +14461,87 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!this.j21_1.equals(other.j21_1))
+    if (!this.b22_1.equals(other.b22_1))
       return false;
-    if (!this.k21_1.equals(other.k21_1))
+    if (!this.c22_1.equals(other.c22_1))
       return false;
     return true;
   };
   KotlinRational.prototype.hashCode = function () {
-    var result = this.j21_1.hashCode();
-    result = imul(31, result) + this.k21_1.hashCode() | 0;
+    var result = this.b22_1.hashCode();
+    result = imul(31, result) + this.c22_1.hashCode() | 0;
     return result;
   };
   KotlinRational.$metadata$ = classMeta('KotlinRational', [Scalar]);
   function KotlinRationalField() {
     KotlinRationalField_instance = this;
-    this.y20_1 = 0;
-    this.z20_1 = new ScalarContextImpl(this);
-    this.a21_1 = this.zn(0);
-    this.b21_1 = this.zn(1);
-    this.c21_1 = this.zn(2);
-    this.d21_1 = this.zn(3);
-    this.e21_1 = this.zn(4);
-    this.f21_1 = this.zn(5);
+    this.q21_1 = 0;
+    this.r21_1 = new ScalarContextImpl(this);
+    this.s21_1 = this.zn(0);
+    this.t21_1 = this.zn(1);
+    this.u21_1 = this.zn(2);
+    this.v21_1 = this.zn(3);
+    this.w21_1 = this.zn(4);
+    this.x21_1 = this.zn(5);
   }
-  KotlinRationalField.prototype.o14 = function () {
-    return this.z20_1;
+  KotlinRationalField.prototype.t14 = function () {
+    return this.r21_1;
   };
-  KotlinRationalField.prototype.m21 = function (scalar) {
+  KotlinRationalField.prototype.e22 = function (scalar) {
     return true;
   };
-  KotlinRationalField.prototype.w1u = function (scalar) {
-    return this.m21(scalar instanceof KotlinRational ? scalar : THROW_CCE());
+  KotlinRationalField.prototype.j1v = function (scalar) {
+    return this.e22(scalar instanceof KotlinRational ? scalar : THROW_CCE());
   };
-  KotlinRationalField.prototype.n21 = function (a, b) {
-    var numerator = a.j21_1.qo(b.k21_1).oo(b.j21_1.qo(a.k21_1));
-    var denominator = a.k21_1.qo(b.k21_1);
-    return Companion_getInstance_41().x20(numerator, denominator);
+  KotlinRationalField.prototype.f22 = function (a, b) {
+    var numerator = a.b22_1.qo(b.c22_1).oo(b.b22_1.qo(a.c22_1));
+    var denominator = a.c22_1.qo(b.c22_1);
+    return Companion_getInstance_41().p21(numerator, denominator);
   };
-  KotlinRationalField.prototype.x1v = function (a, b) {
+  KotlinRationalField.prototype.m1w = function (a, b) {
     var tmp = a instanceof KotlinRational ? a : THROW_CCE();
-    return this.n21(tmp, b instanceof KotlinRational ? b : THROW_CCE());
+    return this.f22(tmp, b instanceof KotlinRational ? b : THROW_CCE());
   };
-  KotlinRationalField.prototype.o21 = function (a, b) {
-    var numerator = a.j21_1.qo(b.k21_1).po(b.j21_1.qo(a.k21_1));
-    var denominator = a.k21_1.qo(b.k21_1);
-    return Companion_getInstance_41().x20(numerator, denominator);
+  KotlinRationalField.prototype.g22 = function (a, b) {
+    var numerator = a.b22_1.qo(b.c22_1).po(b.b22_1.qo(a.c22_1));
+    var denominator = a.c22_1.qo(b.c22_1);
+    return Companion_getInstance_41().p21(numerator, denominator);
   };
-  KotlinRationalField.prototype.y1v = function (a, b) {
+  KotlinRationalField.prototype.n1w = function (a, b) {
     var tmp = a instanceof KotlinRational ? a : THROW_CCE();
-    return this.o21(tmp, b instanceof KotlinRational ? b : THROW_CCE());
+    return this.g22(tmp, b instanceof KotlinRational ? b : THROW_CCE());
   };
-  KotlinRationalField.prototype.p21 = function (a, b) {
-    return Companion_getInstance_41().x20(a.j21_1.qo(b.j21_1), a.k21_1.qo(b.k21_1));
+  KotlinRationalField.prototype.h22 = function (a, b) {
+    return Companion_getInstance_41().p21(a.b22_1.qo(b.b22_1), a.c22_1.qo(b.c22_1));
   };
-  KotlinRationalField.prototype.z1v = function (a, b) {
+  KotlinRationalField.prototype.o1w = function (a, b) {
     var tmp = a instanceof KotlinRational ? a : THROW_CCE();
-    return this.p21(tmp, b instanceof KotlinRational ? b : THROW_CCE());
+    return this.h22(tmp, b instanceof KotlinRational ? b : THROW_CCE());
   };
-  KotlinRationalField.prototype.q21 = function (a, b) {
-    if (b.equals(Companion_getInstance_41().g21(0, 1))) {
+  KotlinRationalField.prototype.i22 = function (a, b) {
+    if (b.equals(Companion_getInstance_41().y21(0, 1))) {
       throw ArithmeticException_init_$Create$('division by zero (KotlinRational(0, 1))');
     }
-    return Companion_getInstance_41().x20(a.j21_1.qo(b.k21_1), a.k21_1.qo(b.j21_1));
+    return Companion_getInstance_41().p21(a.b22_1.qo(b.c22_1), a.c22_1.qo(b.b22_1));
   };
-  KotlinRationalField.prototype.b1w = function (a, b) {
+  KotlinRationalField.prototype.q1w = function (a, b) {
     var tmp = a instanceof KotlinRational ? a : THROW_CCE();
-    return this.q21(tmp, b instanceof KotlinRational ? b : THROW_CCE());
+    return this.i22(tmp, b instanceof KotlinRational ? b : THROW_CCE());
   };
-  KotlinRationalField.prototype.r21 = function (scalar) {
-    return Companion_getInstance_41().h21(scalar.j21_1.t5(), scalar.k21_1);
+  KotlinRationalField.prototype.j22 = function (scalar) {
+    return Companion_getInstance_41().z21(scalar.b22_1.t5(), scalar.c22_1);
   };
-  KotlinRationalField.prototype.a1w = function (scalar) {
-    return this.r21(scalar instanceof KotlinRational ? scalar : THROW_CCE());
+  KotlinRationalField.prototype.p1w = function (scalar) {
+    return this.j22(scalar instanceof KotlinRational ? scalar : THROW_CCE());
   };
   KotlinRationalField.prototype.zn = function (n) {
-    return Companion_getInstance_41().i21(n, 1);
+    return Companion_getInstance_41().a22(n, 1);
   };
-  KotlinRationalField.prototype.e18 = function (numerator, denominator) {
-    if (denominator === 0) {
-      throw ArithmeticException_init_$Create$('division by zero');
-    }
-    return Companion_getInstance_41().g21(numerator, denominator);
+  KotlinRationalField.prototype.x12 = function () {
+    return this.s21_1;
   };
-  KotlinRationalField.prototype.v12 = function () {
-    return this.a21_1;
-  };
-  KotlinRationalField.prototype.u12 = function () {
-    return this.b21_1;
+  KotlinRationalField.prototype.w12 = function () {
+    return this.t21_1;
   };
   KotlinRationalField.prototype.toString = function () {
     return 'RationalField';
@@ -14413,11 +14664,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (properties_initialized_Rational_kt_ue1234) {
     } else {
       properties_initialized_Rational_kt_ue1234 = true;
-      DenseNumVectorSpaceOverRational = Companion_getInstance_33().q1u(KotlinRationalField_getInstance());
-      DenseMatrixSpaceOverRational = Companion_getInstance_32().a1t(get_DenseNumVectorSpaceOverRational());
-      SparseNumVectorSpaceOverRational = Companion_getInstance_36().q1u(KotlinRationalField_getInstance());
-      SparseMatrixSpaceOverRational = Companion_getInstance_34().t1w(get_SparseNumVectorSpaceOverRational());
-      DecomposedSparseMatrixSpaceOverRational = Companion_getInstance_35().t1w(get_SparseNumVectorSpaceOverRational());
+      DenseNumVectorSpaceOverRational = Companion_getInstance_33().d1v(KotlinRationalField_getInstance());
+      DenseMatrixSpaceOverRational = Companion_getInstance_32().n1t(get_DenseNumVectorSpaceOverRational());
+      SparseNumVectorSpaceOverRational = Companion_getInstance_36().d1v(KotlinRationalField_getInstance());
+      SparseMatrixSpaceOverRational = Companion_getInstance_34().i1x(get_SparseNumVectorSpaceOverRational());
+      DecomposedSparseMatrixSpaceOverRational = Companion_getInstance_35().i1x(get_SparseNumVectorSpaceOverRational());
       DenseNumVectorSpaceOverBigRational$delegate = DenseNumVectorSpaceOverRational$factory();
       DenseMatrixSpaceOverBigRational$delegate = DenseMatrixSpaceOverRational$factory();
       SparseNumVectorSpaceOverBigRational$delegate = SparseNumVectorSpaceOverRational$factory();
@@ -14441,11 +14692,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   var punctuationCategories;
   function PartialIdentifier$Companion$fromIntList$lambda(it) {
-    return Companion_getInstance_42().zn(it).n1y_1;
+    return Companion_getInstance_42().zn(it).d1z_1;
   }
   function Companion_41() {
     Companion_instance_41 = this;
-    this.b1f_1 = plus(plus(get_alphabeticalCategories(), get_punctuationCategories()), get_numericalCategories());
+    this.j1f_1 = plus(plus(get_alphabeticalCategories(), get_punctuationCategories()), get_numericalCategories());
   }
   Companion_41.prototype.zn = function (int) {
     var tmp;
@@ -14457,14 +14708,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  Companion_41.prototype.r1f = function (intList) {
+  Companion_41.prototype.z1f = function (intList) {
     var name = joinToString$default(intList, '_', null, null, 0, null, PartialIdentifier$Companion$fromIntList$lambda, 30, null);
     return new PartialIdentifier(name);
   };
-  Companion_41.prototype.s21 = function (char) {
-    return this.b1f_1.u1(get_category(char));
+  Companion_41.prototype.k22 = function (char) {
+    return this.j1f_1.u1(get_category(char));
   };
-  Companion_41.prototype.t21 = function (name, className) {
+  Companion_41.prototype.l22 = function (name, className) {
     var indexedObject = name;
     var inductionVariable = 0;
     var last = indexedObject.length;
@@ -14472,7 +14723,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var c = charSequenceGet(indexedObject, inductionVariable);
       inductionVariable = inductionVariable + 1 | 0;
       // Inline function 'kotlin.require' call
-      var tmp0_require = this.s21(c);
+      var tmp0_require = this.k22(c);
       // Inline function 'kotlin.contracts.contract' call
       if (!tmp0_require) {
         var tmp$ret$0;
@@ -14484,10 +14735,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }
     }
   };
-  Companion_41.prototype.u21 = function (name, className, $mask0, $handler) {
+  Companion_41.prototype.m22 = function (name, className, $mask0, $handler) {
     if (!(($mask0 & 2) === 0))
       className = getKClass(PartialIdentifier).pb();
-    return this.t21(name, className);
+    return this.l22(name, className);
   };
   Companion_41.$metadata$ = objectMeta('Companion');
   var Companion_instance_41;
@@ -14498,15 +14749,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function PartialIdentifier(value) {
     Companion_getInstance_42();
-    this.n1y_1 = value;
+    this.d1z_1 = value;
     var tmp = Companion_getInstance_42();
-    tmp.u21(this.n1y_1, null, 2, null);
+    tmp.m22(this.d1z_1, null, 2, null);
   }
   PartialIdentifier.prototype.toString = function () {
-    return 'PartialIdentifier(value=' + this.n1y_1 + ')';
+    return 'PartialIdentifier(value=' + this.d1z_1 + ')';
   };
   PartialIdentifier.prototype.hashCode = function () {
-    return getStringHashCode(this.n1y_1);
+    return getStringHashCode(this.d1z_1);
   };
   PartialIdentifier.prototype.equals = function (other) {
     if (this === other)
@@ -14514,19 +14765,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof PartialIdentifier))
       return false;
     var tmp0_other_with_cast = other instanceof PartialIdentifier ? other : THROW_CCE();
-    if (!(this.n1y_1 === tmp0_other_with_cast.n1y_1))
+    if (!(this.d1z_1 === tmp0_other_with_cast.d1z_1))
       return false;
     return true;
   };
   PartialIdentifier.$metadata$ = classMeta('PartialIdentifier');
   function Companion_42() {
     Companion_instance_42 = this;
-    this.o1h_1 = plus(get_alphabeticalCategories(), get_punctuationCategories());
+    this.u1h_1 = plus(get_alphabeticalCategories(), get_punctuationCategories());
   }
-  Companion_42.prototype.v21 = function (char) {
-    return this.o1h_1.u1(get_category(char));
+  Companion_42.prototype.n22 = function (char) {
+    return this.u1h_1.u1(get_category(char));
   };
-  Companion_42.prototype.w21 = function (name) {
+  Companion_42.prototype.o22 = function (name) {
     // Inline function 'kotlin.require' call
     var tmp$ret$0;
     // Inline function 'kotlin.text.isNotEmpty' call
@@ -14541,7 +14792,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
-    var tmp1_require = this.v21(charSequenceGet(name, 0));
+    var tmp1_require = this.n22(charSequenceGet(name, 0));
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp1_require) {
       var tmp$ret$2;
@@ -14550,7 +14801,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var message_0 = tmp$ret$2;
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
-    Companion_getInstance_42().t21(name, getKClass(Identifier_0).pb());
+    Companion_getInstance_42().l22(name, getKClass(Identifier_0).pb());
   };
   Companion_42.$metadata$ = objectMeta('Companion');
   var Companion_instance_42;
@@ -14561,17 +14812,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Identifier_0(value) {
     Companion_getInstance_43();
-    this.p1n_1 = value;
-    Companion_getInstance_43().w21(this.p1n_1);
+    this.a1o_1 = value;
+    Companion_getInstance_43().o22(this.a1o_1);
   }
   Identifier_0.prototype.f1 = function () {
-    return this.p1n_1;
+    return this.a1o_1;
   };
   Identifier_0.prototype.toString = function () {
-    return 'Identifier(value=' + this.p1n_1 + ')';
+    return 'Identifier(value=' + this.a1o_1 + ')';
   };
   Identifier_0.prototype.hashCode = function () {
-    return getStringHashCode(this.p1n_1);
+    return getStringHashCode(this.a1o_1);
   };
   Identifier_0.prototype.equals = function (other) {
     if (this === other)
@@ -14579,7 +14830,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Identifier_0))
       return false;
     var tmp0_other_with_cast = other instanceof Identifier_0 ? other : THROW_CCE();
-    if (!(this.p1n_1 === tmp0_other_with_cast.p1n_1))
+    if (!(this.a1o_1 === tmp0_other_with_cast.a1o_1))
       return false;
     return true;
   };
@@ -14618,21 +14869,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return PrintConfig_init_$Init$(printType, beforeSign, afterSign, afterCoeff, showShift, $mask0, $marker, Object.create(PrintConfig.prototype));
   }
   function PrintConfig(printType, beforeSign, afterSign, afterCoeff, showShift) {
-    this.m1j_1 = printType;
-    this.n1j_1 = beforeSign;
-    this.o1j_1 = afterSign;
-    this.p1j_1 = afterCoeff;
-    this.q1j_1 = showShift;
+    this.t1j_1 = printType;
+    this.u1j_1 = beforeSign;
+    this.v1j_1 = afterSign;
+    this.w1j_1 = afterCoeff;
+    this.x1j_1 = showShift;
   }
   PrintConfig.prototype.toString = function () {
-    return 'PrintConfig(printType=' + this.m1j_1 + ', beforeSign=' + this.n1j_1 + ', afterSign=' + this.o1j_1 + ', afterCoeff=' + this.p1j_1 + ', showShift=' + this.q1j_1 + ')';
+    return 'PrintConfig(printType=' + this.t1j_1 + ', beforeSign=' + this.u1j_1 + ', afterSign=' + this.v1j_1 + ', afterCoeff=' + this.w1j_1 + ', showShift=' + this.x1j_1 + ')';
   };
   PrintConfig.prototype.hashCode = function () {
-    var result = this.m1j_1.hashCode();
-    result = imul(result, 31) + getStringHashCode(this.n1j_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.o1j_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.p1j_1) | 0;
-    result = imul(result, 31) + this.q1j_1.hashCode() | 0;
+    var result = this.t1j_1.hashCode();
+    result = imul(result, 31) + getStringHashCode(this.u1j_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.v1j_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.w1j_1) | 0;
+    result = imul(result, 31) + this.x1j_1.hashCode() | 0;
     return result;
   };
   PrintConfig.prototype.equals = function (other) {
@@ -14641,15 +14892,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof PrintConfig))
       return false;
     var tmp0_other_with_cast = other instanceof PrintConfig ? other : THROW_CCE();
-    if (!this.m1j_1.equals(tmp0_other_with_cast.m1j_1))
+    if (!this.t1j_1.equals(tmp0_other_with_cast.t1j_1))
       return false;
-    if (!(this.n1j_1 === tmp0_other_with_cast.n1j_1))
+    if (!(this.u1j_1 === tmp0_other_with_cast.u1j_1))
       return false;
-    if (!(this.o1j_1 === tmp0_other_with_cast.o1j_1))
+    if (!(this.v1j_1 === tmp0_other_with_cast.v1j_1))
       return false;
-    if (!(this.p1j_1 === tmp0_other_with_cast.p1j_1))
+    if (!(this.w1j_1 === tmp0_other_with_cast.w1j_1))
       return false;
-    if (!this.q1j_1.equals(tmp0_other_with_cast.q1j_1))
+    if (!this.x1j_1.equals(tmp0_other_with_cast.x1j_1))
       return false;
     return true;
   };
@@ -14719,27 +14970,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Printer_init_$Init$_1(printType, beforeSign, afterSign, afterCoeff, showShift, $mask0, $marker, Object.create(Printer.prototype));
   }
   function Printer(printConfig, value) {
-    this.b1k_1 = printConfig;
-    this.c1k_1 = value;
+    this.i1k_1 = printConfig;
+    this.j1k_1 = value;
   }
   Printer.prototype.toString = function () {
-    return this.c1k_1;
+    return this.j1k_1;
   };
-  Printer.prototype.d1k = function (printable) {
+  Printer.prototype.k1k = function (printable) {
     var tmp0_safe_receiver = printable;
-    var tmp1_elvis_lhs = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.r1a(this.b1k_1);
+    var tmp1_elvis_lhs = tmp0_safe_receiver == null ? null : tmp0_safe_receiver.v1a(this.i1k_1);
     var stringFromPrintable = tmp1_elvis_lhs == null ? 'null' : tmp1_elvis_lhs;
-    return this.c1k_1 + stringFromPrintable;
+    return this.j1k_1 + stringFromPrintable;
   };
   Printer.$metadata$ = classMeta('Printer');
   function InternalPrintConfig$Companion$default$lambda($printConfig) {
     return function (coeff, withSign) {
-      return coeff.l21($printConfig, withSign);
+      return coeff.d22($printConfig, withSign);
     };
   }
   function InternalPrintConfig$Companion$default$lambda_0($printConfig) {
     return function (it) {
-      return it.r1a($printConfig);
+      return it.v1a($printConfig);
     };
   }
   function InternalPrintConfig_init_$Init$(coeffToString, basisToString, basisComparator, $mask0, $marker, $this) {
@@ -14760,7 +15011,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_43() {
     Companion_instance_43 = this;
   }
-  Companion_43.prototype.d19 = function (printConfig) {
+  Companion_43.prototype.h19 = function (printConfig) {
     var tmp = InternalPrintConfig$Companion$default$lambda(printConfig);
     var tmp_0 = InternalPrintConfig$Companion$default$lambda_0(printConfig);
     return InternalPrintConfig_init_$Create$(tmp, tmp_0, null, 4, null);
@@ -14773,27 +15024,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_instance_43;
   }
   function InternalPrintConfig$_init_$lambda_u75kft(coeff, withSign) {
-    return coeff.e1w(PrintType_PLAIN_getInstance(), withSign);
+    return coeff.t1w(PrintType_PLAIN_getInstance(), withSign);
   }
   function InternalPrintConfig$_init_$lambda_u75kft_0(it) {
     return toString_0(it);
   }
   function InternalPrintConfig(coeffToString, basisToString, basisComparator) {
     Companion_getInstance_44();
-    this.x21_1 = coeffToString;
-    this.y21_1 = basisToString;
-    this.z21_1 = basisComparator;
+    this.p22_1 = coeffToString;
+    this.q22_1 = basisToString;
+    this.r22_1 = basisComparator;
   }
-  InternalPrintConfig.prototype.a22 = function () {
-    return this.z21_1;
+  InternalPrintConfig.prototype.s22 = function () {
+    return this.r22_1;
   };
   InternalPrintConfig.prototype.toString = function () {
-    return 'InternalPrintConfig(coeffToString=' + this.x21_1 + ', basisToString=' + this.y21_1 + ', basisComparator=' + this.z21_1 + ')';
+    return 'InternalPrintConfig(coeffToString=' + this.p22_1 + ', basisToString=' + this.q22_1 + ', basisComparator=' + this.r22_1 + ')';
   };
   InternalPrintConfig.prototype.hashCode = function () {
-    var result = hashCode(this.x21_1);
-    result = imul(result, 31) + hashCode(this.y21_1) | 0;
-    result = imul(result, 31) + (this.z21_1 == null ? 0 : hashCode(this.z21_1)) | 0;
+    var result = hashCode(this.p22_1);
+    result = imul(result, 31) + hashCode(this.q22_1) | 0;
+    result = imul(result, 31) + (this.r22_1 == null ? 0 : hashCode(this.r22_1)) | 0;
     return result;
   };
   InternalPrintConfig.prototype.equals = function (other) {
@@ -14802,11 +15053,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof InternalPrintConfig))
       return false;
     var tmp0_other_with_cast = other instanceof InternalPrintConfig ? other : THROW_CCE();
-    if (!equals(this.x21_1, tmp0_other_with_cast.x21_1))
+    if (!equals(this.p22_1, tmp0_other_with_cast.p22_1))
       return false;
-    if (!equals(this.y21_1, tmp0_other_with_cast.y21_1))
+    if (!equals(this.q22_1, tmp0_other_with_cast.q22_1))
       return false;
-    if (!equals(this.z21_1, tmp0_other_with_cast.z21_1))
+    if (!equals(this.r22_1, tmp0_other_with_cast.r22_1))
       return false;
     return true;
   };
@@ -14832,7 +15083,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_44() {
     Companion_instance_44 = this;
   }
-  Companion_44.prototype.w1v = function (n) {
+  Companion_44.prototype.l1w = function (n) {
     var tmp;
     if (isEven(n)) {
       tmp = Sign_PLUS_getInstance();
@@ -14841,7 +15092,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  Companion_44.prototype.m1e = function (even) {
+  Companion_44.prototype.u1e = function (even) {
     var tmp;
     if (even) {
       tmp = Sign_PLUS_getInstance();
@@ -14869,7 +15120,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Sign(name, ordinal, intValue) {
     Enum.call(this, name, ordinal);
-    this.z1p_1 = intValue;
+    this.m1q_1 = intValue;
   }
   Sign.prototype.t5 = function () {
     var tmp0_subject = this;
@@ -14912,13 +15163,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return StringTable_init_$Init$(data, paren, $mask0, $marker, Object.create(StringTable.prototype));
   }
   function StringTable(data, paren) {
-    this.b22_1 = data;
-    this.c22_1 = paren;
+    this.t22_1 = data;
+    this.u22_1 = paren;
   }
   StringTable.prototype.toString = function () {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.b22_1;
+    var tmp0_map = this.t22_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -14933,8 +15184,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var rowStringList = tmp$ret$2;
-    var joinedRowStrings = joinToString$default(rowStringList, this.c22_1.l22_1, null, null, 0, null, null, 62, null);
-    return this.c22_1.g22_1 + ' ' + joinedRowStrings + ' ' + this.c22_1.k22_1;
+    var joinedRowStrings = joinToString$default(rowStringList, this.u22_1.d23_1, null, null, 0, null, null, 62, null);
+    return this.u22_1.y22_1 + ' ' + joinedRowStrings + ' ' + this.u22_1.c23_1;
   };
   StringTable.$metadata$ = classMeta('StringTable');
   function Paren_init_$Init$(upperLeft, left, lowerLeft, leftOneRow, upperRight, right, lowerRight, rightOneRow, separator, $mask0, $marker, $this) {
@@ -14963,29 +15214,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Paren_init_$Init$(upperLeft, left, lowerLeft, leftOneRow, upperRight, right, lowerRight, rightOneRow, separator, $mask0, $marker, Object.create(Paren.prototype));
   }
   function Paren(upperLeft, left, lowerLeft, leftOneRow, upperRight, right, lowerRight, rightOneRow, separator) {
-    this.d22_1 = upperLeft;
-    this.e22_1 = left;
-    this.f22_1 = lowerLeft;
-    this.g22_1 = leftOneRow;
-    this.h22_1 = upperRight;
-    this.i22_1 = right;
-    this.j22_1 = lowerRight;
-    this.k22_1 = rightOneRow;
-    this.l22_1 = separator;
+    this.v22_1 = upperLeft;
+    this.w22_1 = left;
+    this.x22_1 = lowerLeft;
+    this.y22_1 = leftOneRow;
+    this.z22_1 = upperRight;
+    this.a23_1 = right;
+    this.b23_1 = lowerRight;
+    this.c23_1 = rightOneRow;
+    this.d23_1 = separator;
   }
   Paren.prototype.toString = function () {
-    return 'Paren(upperLeft=' + this.d22_1 + ', left=' + this.e22_1 + ', lowerLeft=' + this.f22_1 + ', leftOneRow=' + this.g22_1 + ', upperRight=' + this.h22_1 + ', right=' + this.i22_1 + ', lowerRight=' + this.j22_1 + ', rightOneRow=' + this.k22_1 + ', separator=' + this.l22_1 + ')';
+    return 'Paren(upperLeft=' + this.v22_1 + ', left=' + this.w22_1 + ', lowerLeft=' + this.x22_1 + ', leftOneRow=' + this.y22_1 + ', upperRight=' + this.z22_1 + ', right=' + this.a23_1 + ', lowerRight=' + this.b23_1 + ', rightOneRow=' + this.c23_1 + ', separator=' + this.d23_1 + ')';
   };
   Paren.prototype.hashCode = function () {
-    var result = getStringHashCode(this.d22_1);
-    result = imul(result, 31) + getStringHashCode(this.e22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.f22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.g22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.h22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.i22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.j22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.k22_1) | 0;
-    result = imul(result, 31) + getStringHashCode(this.l22_1) | 0;
+    var result = getStringHashCode(this.v22_1);
+    result = imul(result, 31) + getStringHashCode(this.w22_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.x22_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.y22_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.z22_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.a23_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.b23_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.c23_1) | 0;
+    result = imul(result, 31) + getStringHashCode(this.d23_1) | 0;
     return result;
   };
   Paren.prototype.equals = function (other) {
@@ -14994,23 +15245,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof Paren))
       return false;
     var tmp0_other_with_cast = other instanceof Paren ? other : THROW_CCE();
-    if (!(this.d22_1 === tmp0_other_with_cast.d22_1))
+    if (!(this.v22_1 === tmp0_other_with_cast.v22_1))
       return false;
-    if (!(this.e22_1 === tmp0_other_with_cast.e22_1))
+    if (!(this.w22_1 === tmp0_other_with_cast.w22_1))
       return false;
-    if (!(this.f22_1 === tmp0_other_with_cast.f22_1))
+    if (!(this.x22_1 === tmp0_other_with_cast.x22_1))
       return false;
-    if (!(this.g22_1 === tmp0_other_with_cast.g22_1))
+    if (!(this.y22_1 === tmp0_other_with_cast.y22_1))
       return false;
-    if (!(this.h22_1 === tmp0_other_with_cast.h22_1))
+    if (!(this.z22_1 === tmp0_other_with_cast.z22_1))
       return false;
-    if (!(this.i22_1 === tmp0_other_with_cast.i22_1))
+    if (!(this.a23_1 === tmp0_other_with_cast.a23_1))
       return false;
-    if (!(this.j22_1 === tmp0_other_with_cast.j22_1))
+    if (!(this.b23_1 === tmp0_other_with_cast.b23_1))
       return false;
-    if (!(this.k22_1 === tmp0_other_with_cast.k22_1))
+    if (!(this.c23_1 === tmp0_other_with_cast.c23_1))
       return false;
-    if (!(this.l22_1 === tmp0_other_with_cast.l22_1))
+    if (!(this.d23_1 === tmp0_other_with_cast.d23_1))
       return false;
     return true;
   };
@@ -15024,11 +15275,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   }
   function UnionFind(size) {
-    this.c1s_1 = size;
+    this.p1s_1 = size;
     var tmp = this;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.MutableList' call
-    var tmp0_MutableList = this.c1s_1;
+    var tmp0_MutableList = this.p1s_1;
     var list = ArrayList_init_$Create$(tmp0_MutableList);
     // Inline function 'kotlin.repeat' call
     // Inline function 'kotlin.contracts.contract' call
@@ -15045,29 +15296,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       }
        while (inductionVariable < tmp0_MutableList);
     tmp$ret$1 = list;
-    tmp.d1s_1 = tmp$ret$1;
+    tmp.q1s_1 = tmp$ret$1;
   }
-  UnionFind.prototype.m22 = function (index) {
+  UnionFind.prototype.e23 = function (index) {
     var tmp;
-    if (this.d1s_1.l(index) === index) {
+    if (this.q1s_1.l(index) === index) {
       tmp = index;
     } else {
-      this.d1s_1.t8(index, this.m22(this.d1s_1.l(index)));
-      tmp = this.d1s_1.l(index);
+      this.q1s_1.t8(index, this.e23(this.q1s_1.l(index)));
+      tmp = this.q1s_1.l(index);
     }
     return tmp;
   };
-  UnionFind.prototype.e1s = function (index1, index2) {
-    var root1 = this.m22(index1);
-    var root2 = this.m22(index2);
+  UnionFind.prototype.r1s = function (index1, index2) {
+    var root1 = this.e23(index1);
+    var root2 = this.e23(index2);
     if (!(root1 === root2)) {
-      this.d1s_1.t8(root1, root2);
+      this.q1s_1.t8(root1, root2);
     }
   };
-  UnionFind.prototype.f1s = function () {
+  UnionFind.prototype.s1s = function () {
     var tmp$ret$4;
     // Inline function 'kotlin.collections.groupBy' call
-    var tmp0_groupBy = until(0, this.c1s_1);
+    var tmp0_groupBy = until(0, this.p1s_1);
     var tmp$ret$3;
     // Inline function 'kotlin.collections.groupByTo' call
     var tmp0_groupByTo = LinkedHashMap_init_$Create$();
@@ -15079,7 +15330,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.util.UnionFind.groups.<anonymous>' call
-        tmp$ret$0 = this.m22(element);
+        tmp$ret$0 = this.e23(element);
         var key = tmp$ret$0;
         var tmp$ret$2;
         // Inline function 'kotlin.collections.getOrPut' call
@@ -15166,7 +15417,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function getInducedMap($this, bilinearMap, source1SubQuot, source2SubQuot, targetSubQuot) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = source1SubQuot.w1a();
+    var tmp0_map = source1SubQuot.z1a();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15175,7 +15426,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.getInducedMap.<anonymous>' call
-      tmp$ret$0 = source1SubQuot.g1e().x19(item);
+      tmp$ret$0 = source1SubQuot.o1e().b1a(item);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -15183,7 +15434,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var basisLift1 = tmp$ret$2;
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp1_map = source2SubQuot.w1a();
+    var tmp1_map = source2SubQuot.z1a();
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp1_map, 10));
@@ -15192,7 +15443,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item_0 = tmp0_iterator_0.h();
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.getInducedMap.<anonymous>' call
-      tmp$ret$3 = source2SubQuot.g1e().x19(item_0);
+      tmp$ret$3 = source2SubQuot.o1e().b1a(item_0);
       tmp0_mapTo_0.a(tmp$ret$3);
     }
     tmp$ret$4 = tmp0_mapTo_0;
@@ -15218,7 +15469,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item_2 = tmp0_iterator_2.h();
         var tmp$ret$6;
         // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.getInducedMap.<anonymous>.<anonymous>' call
-        tmp$ret$6 = targetSubQuot.u16().x19(bilinearMap.c19(item_1, item_2));
+        tmp$ret$6 = targetSubQuot.z16().b1a(bilinearMap.g19(item_1, item_2));
         tmp0_mapTo_2.a(tmp$ret$6);
       }
       tmp$ret$7 = tmp0_mapTo_2;
@@ -15234,7 +15485,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function ValueBilinearMap_init_$Init$(source1, source2, target, matrixSpace, getValue, $this) {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = source1.o19();
+    var tmp0_map = source1.s19();
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15245,7 +15496,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'com.github.shwaka.kohomology.vectsp.ValueBilinearMap.<init>.<anonymous>' call
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map_0 = source2.o19();
+      var tmp0_map_0 = source2.s19();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo_0 = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map_0, 10));
@@ -15282,31 +15533,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function ValueBilinearMap(source1, source2, target, matrixSpace, values) {
     Companion_getInstance_46();
-    this.n22_1 = source1;
-    this.o22_1 = source2;
-    this.p22_1 = target;
-    this.q22_1 = matrixSpace;
-    this.r22_1 = values;
+    this.f23_1 = source1;
+    this.g23_1 = source2;
+    this.h23_1 = target;
+    this.i23_1 = matrixSpace;
+    this.j23_1 = values;
   }
-  ValueBilinearMap.prototype.u18 = function () {
-    return this.n22_1;
+  ValueBilinearMap.prototype.b19 = function () {
+    return this.f23_1;
   };
-  ValueBilinearMap.prototype.v18 = function () {
-    return this.o22_1;
+  ValueBilinearMap.prototype.c19 = function () {
+    return this.g23_1;
   };
   ValueBilinearMap.prototype.h11 = function () {
-    return this.q22_1;
+    return this.i23_1;
   };
-  ValueBilinearMap.prototype.c19 = function (vector1, vector2) {
+  ValueBilinearMap.prototype.g19 = function (vector1, vector2) {
     var tmp$ret$15;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.p22_1.o14();
+    var tmp0_run = this.h23_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$14;
     // Inline function 'com.github.shwaka.kohomology.vectsp.ValueBilinearMap.invoke.<anonymous>' call
     var tmp$ret$13;
     // Inline function 'kotlin.collections.mapValues' call
-    var tmp0_mapValues = vector1.a19_1.h1v();
+    var tmp0_mapValues = vector1.e19_1.w1v();
     var tmp$ret$12;
     // Inline function 'kotlin.collections.mapValuesTo' call
     var tmp1_mapValuesTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues.i()));
@@ -15332,7 +15583,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var coeff1 = tmp$ret$2;
       var tmp$ret$9;
       // Inline function 'kotlin.collections.mapValues' call
-      var tmp0_mapValues_0 = vector2.a19_1.h1v();
+      var tmp0_mapValues_0 = vector2.e19_1.w1v();
       var tmp$ret$8;
       // Inline function 'kotlin.collections.mapValuesTo' call
       var tmp1_mapValuesTo_0 = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapValues_0.i()));
@@ -15356,39 +15607,39 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.component2' call
         tmp$ret$5 = element_0.f1();
         var coeff2 = tmp$ret$5;
-        tmp$ret$6 = tmp0_run.s22(tmp0_run.s22(this.r22_1.l(ind1).l(ind2), coeff1), coeff2);
+        tmp$ret$6 = tmp0_run.k23(tmp0_run.k23(this.j23_1.l(ind1).l(ind2), coeff1), coeff2);
         tmp1_mapValuesTo_0.u(tmp_0, tmp$ret$6);
       }
       tmp$ret$7 = tmp1_mapValuesTo_0;
       tmp$ret$8 = tmp$ret$7;
       tmp$ret$9 = tmp$ret$8;
-      tmp$ret$10 = tmp0_run.t22(tmp$ret$9.j3());
+      tmp$ret$10 = tmp0_run.l23(tmp$ret$9.j3());
       tmp1_mapValuesTo.u(tmp, tmp$ret$10);
     }
     tmp$ret$11 = tmp1_mapValuesTo;
     tmp$ret$12 = tmp$ret$11;
     tmp$ret$13 = tmp$ret$12;
-    tmp$ret$14 = tmp0_run.t22(tmp$ret$13.j3());
+    tmp$ret$14 = tmp0_run.l23(tmp$ret$13.j3());
     tmp$ret$15 = tmp$ret$14;
     return tmp$ret$15;
   };
-  ValueBilinearMap.prototype.t18 = function (source1SubQuot, source2SubQuot, targetSubQuot) {
+  ValueBilinearMap.prototype.a19 = function (source1SubQuot, source2SubQuot, targetSubQuot) {
     return getInducedMap(Companion_getInstance_46(), this, source1SubQuot, source2SubQuot, targetSubQuot);
   };
   ValueBilinearMap.$metadata$ = classMeta('ValueBilinearMap', [BilinearMap]);
   function DirectSumBasis(index, basisName) {
-    this.s1j_1 = index;
-    this.t1j_1 = basisName;
+    this.z1j_1 = index;
+    this.a1k_1 = basisName;
   }
-  DirectSumBasis.prototype.u22 = function () {
-    return this.t1j_1;
+  DirectSumBasis.prototype.m23 = function () {
+    return this.a1k_1;
   };
   DirectSumBasis.prototype.toString = function () {
-    return 'DirectSumBasis(index=' + this.s1j_1 + ', basisName=' + this.t1j_1 + ')';
+    return 'DirectSumBasis(index=' + this.z1j_1 + ', basisName=' + this.a1k_1 + ')';
   };
   DirectSumBasis.prototype.hashCode = function () {
-    var result = this.s1j_1;
-    result = imul(result, 31) + (this.t1j_1 == null ? 0 : hashCode(this.t1j_1)) | 0;
+    var result = this.z1j_1;
+    result = imul(result, 31) + (this.a1k_1 == null ? 0 : hashCode(this.a1k_1)) | 0;
     return result;
   };
   DirectSumBasis.prototype.equals = function (other) {
@@ -15397,9 +15648,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof DirectSumBasis))
       return false;
     var tmp0_other_with_cast = other instanceof DirectSumBasis ? other : THROW_CCE();
-    if (!(this.s1j_1 === tmp0_other_with_cast.s1j_1))
+    if (!(this.z1j_1 === tmp0_other_with_cast.z1j_1))
       return false;
-    if (!equals(this.t1j_1, tmp0_other_with_cast.t1j_1))
+    if (!equals(this.a1k_1, tmp0_other_with_cast.a1k_1))
       return false;
     return true;
   };
@@ -15408,7 +15659,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisNameToIndex$factory();
-    tmp$ret$0 = $this.f1j_1.f1();
+    tmp$ret$0 = $this.m1j_1.f1();
     return tmp$ret$0;
   }
   function DirectSum_init_$Init$(vectorSpaceList, matrixSpace, getInternalPrintConfig, $this) {
@@ -15422,14 +15673,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = inclusionList$factory();
-    tmp$ret$0 = $this.j1j_1.f1();
+    tmp$ret$0 = $this.q1j_1.f1();
     return tmp$ret$0;
   }
   function DirectSum$basisNameToIndex$delegate$lambda(this$0) {
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.mapIndexed' call
-      var tmp0_mapIndexed = this$0.c1j_1;
+      var tmp0_mapIndexed = this$0.j1j_1;
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapIndexedTo' call
       var tmp0_mapIndexedTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_mapIndexed, 10));
@@ -15452,10 +15703,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function DirectSum$inclusionList$delegate$lambda(this$0) {
     return function () {
-      var one = this$0.h1j_1.p11().u12();
+      var one = this$0.o1j_1.p11().w12();
       var tmp$ret$8;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = until(0, this$0.i1j_1);
+      var tmp0_map = until(0, this$0.p1j_1);
       var tmp$ret$7;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15481,14 +15732,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
               inductionVariable_0 = inductionVariable_0 + 1 | 0;
               var tmp$ret$0;
               // Inline function 'com.github.shwaka.kohomology.vectsp.DirectSum.inclusionList$delegate.<anonymous>.<anonymous>.<anonymous>' call
-              tmp$ret$0 = this$0.g1j_1.l(item_0).q1t();
+              tmp$ret$0 = this$0.n1j_1.l(item_0).d1u();
               tmp0_mapTo_0.a(tmp$ret$0);
             }
              while (!(item_0 === last_0));
           tmp$ret$1 = tmp0_mapTo_0;
           tmp$ret$2 = tmp$ret$1;
           var accumulatedDim = sum(tmp$ret$2);
-          var currentDim = this$0.g1j_1.l(item).q1t();
+          var currentDim = this$0.n1j_1.l(item).d1u();
           var tmp$ret$5;
           // Inline function 'kotlin.collections.map' call
           var tmp1_map = until(0, currentDim);
@@ -15510,8 +15761,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           tmp$ret$4 = tmp0_mapTo_1;
           tmp$ret$5 = tmp$ret$4;
           var rowMap = toMap(tmp$ret$5);
-          var matrix = this$0.h1j_1.r1s(rowMap, this$0.q1t(), currentDim);
-          tmp$ret$6 = Companion_getInstance_47().v22(this$0.g1j_1.l(item), this$0, this$0.h1j_1, matrix);
+          var matrix = this$0.o1j_1.e1t(rowMap, this$0.d1u(), currentDim);
+          tmp$ret$6 = Companion_getInstance_47().n23(this$0.n1j_1.l(item), this$0, this$0.o1j_1, matrix);
           tmp0_mapTo.a(tmp$ret$6);
         }
          while (!(item === last));
@@ -15524,7 +15775,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$4;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = until(0, this$0.i1j_1);
+      var tmp0_map = until(0, this$0.p1j_1);
       var tmp$ret$3;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15538,14 +15789,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           // Inline function 'com.github.shwaka.kohomology.vectsp.DirectSum.projectionList$delegate.<anonymous>.<anonymous>' call
           var tmp$ret$1;
           // Inline function 'kotlin.run' call
-          var tmp0_run = this$0.h1j_1.o14();
+          var tmp0_run = this$0.o1j_1.t14();
           // Inline function 'kotlin.contracts.contract' call
           var tmp$ret$0;
           // Inline function 'com.github.shwaka.kohomology.vectsp.DirectSum.projectionList$delegate.<anonymous>.<anonymous>.<anonymous>' call
-          tmp$ret$0 = tmp0_run.k1w(_get_inclusionList__tlg4i1(this$0).l(item).u19_1);
+          tmp$ret$0 = tmp0_run.z1w(_get_inclusionList__tlg4i1(this$0).l(item).y19_1);
           tmp$ret$1 = tmp$ret$0;
           var matrix = tmp$ret$1;
-          tmp$ret$2 = Companion_getInstance_47().v22(this$0, this$0.g1j_1.l(item), this$0.h1j_1, matrix);
+          tmp$ret$2 = Companion_getInstance_47().n23(this$0, this$0.n1j_1.l(item), this$0.o1j_1, matrix);
           tmp0_mapTo.a(tmp$ret$2);
         }
          while (!(item === last));
@@ -15558,33 +15809,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return toString(it);
   }
   function DirectSum(factory) {
-    this.b1j_1 = factory.z22_1;
-    this.c1j_1 = factory.a23_1;
-    this.d1j_1 = factory.y22_1;
-    this.e1j_1 = new VectorContextImpl(this);
+    this.i1j_1 = factory.r23_1;
+    this.j1j_1 = factory.s23_1;
+    this.k1j_1 = factory.q23_1;
+    this.l1j_1 = new VectorContextImpl(this);
     var tmp = this;
-    tmp.f1j_1 = lazy(DirectSum$basisNameToIndex$delegate$lambda(this));
-    this.g1j_1 = factory.w22_1;
-    this.h1j_1 = factory.x22_1;
-    this.i1j_1 = this.g1j_1.i();
+    tmp.m1j_1 = lazy(DirectSum$basisNameToIndex$delegate$lambda(this));
+    this.n1j_1 = factory.o23_1;
+    this.o1j_1 = factory.p23_1;
+    this.p1j_1 = this.n1j_1.i();
     var tmp_0 = this;
-    tmp_0.j1j_1 = lazy(DirectSum$inclusionList$delegate$lambda(this));
+    tmp_0.q1j_1 = lazy(DirectSum$inclusionList$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.k1j_1 = lazy(DirectSum$projectionList$delegate$lambda(this));
+    tmp_1.r1j_1 = lazy(DirectSum$projectionList$delegate$lambda(this));
   }
   DirectSum.prototype.j11 = function () {
-    return this.b1j_1;
+    return this.i1j_1;
   };
-  DirectSum.prototype.o19 = function () {
-    return this.c1j_1;
+  DirectSum.prototype.s19 = function () {
+    return this.j1j_1;
   };
   DirectSum.prototype.k11 = function () {
-    return this.d1j_1;
+    return this.k1j_1;
   };
-  DirectSum.prototype.o14 = function () {
-    return this.e1j_1;
+  DirectSum.prototype.t14 = function () {
+    return this.l1j_1;
   };
-  DirectSum.prototype.b23 = function (basisName) {
+  DirectSum.prototype.t23 = function (basisName) {
     var tmp0_elvis_lhs = _get_basisNameToIndex__26cf4t(this).t(basisName);
     var tmp;
     if (tmp0_elvis_lhs == null) {
@@ -15594,25 +15845,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  DirectSum.prototype.c23 = function (basisName) {
-    return this.b23(basisName instanceof DirectSumBasis ? basisName : THROW_CCE());
+  DirectSum.prototype.u23 = function (basisName) {
+    return this.t23(basisName instanceof DirectSumBasis ? basisName : THROW_CCE());
   };
-  DirectSum.prototype.d23 = function () {
-    return this.g1j_1;
+  DirectSum.prototype.v23 = function () {
+    return this.n1j_1;
   };
   DirectSum.prototype.h11 = function () {
-    return this.h1j_1;
+    return this.o1j_1;
   };
-  DirectSum.prototype.e23 = function (index) {
+  DirectSum.prototype.w23 = function (index) {
     if (index < 0)
       throw IndexOutOfBoundsException_init_$Create$('index must be non-negative');
-    if (index >= this.i1j_1)
+    if (index >= this.p1j_1)
       throw IndexOutOfBoundsException_init_$Create$('index must be smaller than the number of vector spaces in the direct sum');
     return _get_inclusionList__tlg4i1(this).l(index);
   };
-  DirectSum.prototype.l1j = function (vectorList) {
-    if (!(vectorList.i() === this.i1j_1))
-      throw IllegalArgumentException_init_$Create$('The size (' + vectorList.i() + ') of vectorList must be equal to the number (' + this.i1j_1 + ') of vector spaces in the direct sum');
+  DirectSum.prototype.s1j = function (vectorList) {
+    if (!(vectorList.i() === this.p1j_1))
+      throw IllegalArgumentException_init_$Create$('The size (' + vectorList.i() + ') of vectorList must be equal to the number (' + this.p1j_1 + ') of vector spaces in the direct sum');
     var tmp$ret$2;
     // Inline function 'kotlin.collections.mapIndexed' call
     var tmp$ret$1;
@@ -15627,7 +15878,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1 = index;
       index = tmp1 + 1 | 0;
       var tmp0__anonymous__q1qw7t = checkIndexOverflow(tmp1);
-      tmp$ret$0 = this.e23(tmp0__anonymous__q1qw7t).x19(item);
+      tmp$ret$0 = this.w23(tmp0__anonymous__q1qw7t).b1a(item);
       tmp0_mapIndexedTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapIndexedTo;
@@ -15635,27 +15886,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var vectorListInDirectSum = tmp$ret$2;
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp1_run = this.e1j_1;
+    var tmp1_run = this.l1j_1;
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.vectsp.DirectSum.fromVectorList.<anonymous>' call
-    tmp$ret$3 = tmp1_run.t22(vectorListInDirectSum);
+    tmp$ret$3 = tmp1_run.l23(vectorListInDirectSum);
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   };
   DirectSum.prototype.toString = function () {
-    return 'DirectSum(' + joinToString$default(this.g1j_1, ', ', null, null, 0, null, DirectSum$toString$lambda, 30, null) + ')';
+    return 'DirectSum(' + joinToString$default(this.n1j_1, ', ', null, null, 0, null, DirectSum$toString$lambda, 30, null) + ')';
   };
   DirectSum.$metadata$ = classMeta('DirectSum', [VectorSpace]);
   function DirectSumFactory(vectorSpaceList, matrixSpace, getInternalPrintConfig) {
-    this.w22_1 = vectorSpaceList;
-    this.x22_1 = matrixSpace;
-    this.y22_1 = getInternalPrintConfig;
-    this.z22_1 = this.x22_1.j11();
+    this.o23_1 = vectorSpaceList;
+    this.p23_1 = matrixSpace;
+    this.q23_1 = getInternalPrintConfig;
+    this.r23_1 = this.p23_1.j11();
     var tmp = this;
     var tmp$ret$5;
     // Inline function 'kotlin.collections.mapIndexed' call
-    var tmp0_mapIndexed = this.w22_1;
+    var tmp0_mapIndexed = this.o23_1;
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapIndexedTo' call
     var tmp0_mapIndexedTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_mapIndexed, 10));
@@ -15670,7 +15921,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp1__anonymous__uwfjfc = checkIndexOverflow(tmp1);
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = item.o19();
+      var tmp0_map = item.s19();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15689,7 +15940,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     tmp$ret$4 = tmp0_mapIndexedTo;
     tmp$ret$5 = tmp$ret$4;
-    tmp.a23_1 = flatten(tmp$ret$5);
+    tmp.s23_1 = flatten(tmp$ret$5);
   }
   DirectSumFactory.$metadata$ = classMeta('DirectSumFactory');
   function basisNameToIndex$factory() {
@@ -15705,16 +15956,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_46() {
     Companion_instance_46 = this;
   }
-  Companion_46.prototype.v22 = function (source, target, matrixSpace, matrix) {
+  Companion_46.prototype.n23 = function (source, target, matrixSpace, matrix) {
     return new LinearMap(matrixSpace, source, target, matrix);
   };
-  Companion_46.prototype.p19 = function (source, target, matrixSpace, vectors) {
-    if (!(vectors.i() === source.q1t()))
+  Companion_46.prototype.t19 = function (source, target, matrixSpace, vectors) {
+    if (!(vectors.i() === source.d1u()))
       throw new InvalidSizeException('The number of vectors must be the same as the dimension of the source vector space');
     var tmp0_iterator = vectors.f();
     while (tmp0_iterator.g()) {
       var vector = tmp0_iterator.h();
-      if (!equals(vector.b19_1, target))
+      if (!equals(vector.f19_1, target))
         throw IllegalArgumentException_init_$Create$('The vector space for each vector must be the same as the target vector space');
     }
     var tmp$ret$2;
@@ -15727,13 +15978,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator_0.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.fromVectors.<anonymous>' call
-      tmp$ret$0 = item.l23();
+      tmp$ret$0 = item.d24();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var numVectors = tmp$ret$2;
-    var matrix = matrixSpace.j1u(numVectors, target.q1t());
+    var matrix = matrixSpace.w1u(numVectors, target.d1u());
     return new LinearMap(matrixSpace, source, target, matrix);
   };
   Companion_46.$metadata$ = objectMeta('Companion');
@@ -15745,53 +15996,53 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function LinearMap(matrixSpace, source, target, matrix) {
     Companion_getInstance_47();
-    this.r19_1 = matrixSpace;
-    this.s19_1 = source;
-    this.t19_1 = target;
-    this.u19_1 = matrix;
+    this.v19_1 = matrixSpace;
+    this.w19_1 = source;
+    this.x19_1 = target;
+    this.y19_1 = matrix;
     // Inline function 'kotlin.require' call
-    var tmp0_require = this.u19_1.n1u() === this.s19_1.q1t();
+    var tmp0_require = this.y19_1.a1v() === this.w19_1.d1u();
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp0_require) {
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.<anonymous>' call
-      tmp$ret$0 = 'The matrix has ' + this.u19_1.n1u() + ' columns, ' + ('but the source vector space has dimension ' + this.s19_1.q1t() + '.');
+      tmp$ret$0 = 'The matrix has ' + this.y19_1.a1v() + ' columns, ' + ('but the source vector space has dimension ' + this.w19_1.d1u() + '.');
       var message = tmp$ret$0;
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
-    var tmp1_require = this.u19_1.m1u() === this.t19_1.q1t();
+    var tmp1_require = this.y19_1.z1u() === this.x19_1.d1u();
     // Inline function 'kotlin.contracts.contract' call
     if (!tmp1_require) {
       var tmp$ret$1;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.<anonymous>' call
-      tmp$ret$1 = 'The matrix has ' + this.u19_1.m1u() + ' rows, ' + ('but the target vector space has dimension ' + this.t19_1.q1t() + '.');
+      tmp$ret$1 = 'The matrix has ' + this.y19_1.z1u() + ' rows, ' + ('but the target vector space has dimension ' + this.x19_1.d1u() + '.');
       var message_0 = tmp$ret$1;
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
   }
-  LinearMap.prototype.u14 = function () {
-    return this.s19_1;
+  LinearMap.prototype.z14 = function () {
+    return this.w19_1;
   };
-  LinearMap.prototype.v14 = function () {
-    return this.t19_1;
+  LinearMap.prototype.a15 = function () {
+    return this.x19_1;
   };
-  LinearMap.prototype.w1s = function () {
-    return this.u19_1;
+  LinearMap.prototype.j1t = function () {
+    return this.y19_1;
   };
-  LinearMap.prototype.x19 = function (vector) {
-    if (!this.s19_1.f23(vector))
-      throw IllegalArgumentException_init_$Create$('Invalid vector is given as an argument of LinearMap: ' + vector + ' is not an element of ' + this.s19_1);
+  LinearMap.prototype.b1a = function (vector) {
+    if (!this.w19_1.x23(vector))
+      throw IllegalArgumentException_init_$Create$('Invalid vector is given as an argument of LinearMap: ' + vector + ' is not an element of ' + this.w19_1);
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.r19_1.o14();
+    var tmp0_run = this.v19_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.invoke.<anonymous>' call
-    tmp$ret$0 = tmp0_run.i1w(this.u19_1, vector.a19_1);
+    tmp$ret$0 = tmp0_run.x1w(this.y19_1, vector.e19_1);
     tmp$ret$1 = tmp$ret$0;
     var numVector = tmp$ret$1;
-    return this.t19_1.j23(numVector);
+    return this.x19_1.b24(numVector);
   };
   LinearMap.prototype.equals = function (other) {
     if (this === other)
@@ -15804,28 +16055,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.s19_1, other.s19_1))
+    if (!equals(this.w19_1, other.w19_1))
       return false;
-    if (!equals(this.t19_1, other.t19_1))
+    if (!equals(this.x19_1, other.x19_1))
       return false;
-    if (!equals(this.u19_1, other.u19_1))
+    if (!equals(this.y19_1, other.y19_1))
       return false;
     return true;
   };
   LinearMap.prototype.hashCode = function () {
-    var result = hashCode(this.s19_1);
-    result = imul(31, result) + hashCode(this.t19_1) | 0;
-    result = imul(31, result) + hashCode(this.u19_1) | 0;
+    var result = hashCode(this.w19_1);
+    result = imul(31, result) + hashCode(this.x19_1) | 0;
+    result = imul(31, result) + hashCode(this.y19_1) | 0;
     return result;
   };
-  LinearMap.prototype.m23 = function () {
+  LinearMap.prototype.e24 = function () {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.r19_1.o14();
+    var tmp0_run = this.v19_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.kernelBasis.<anonymous>' call
-    tmp$ret$0 = tmp0_run.l1w(this.u19_1);
+    tmp$ret$0 = tmp0_run.a1x(this.y19_1);
     tmp$ret$1 = tmp$ret$0;
     var numVectorList = tmp$ret$1;
     var tmp$ret$4;
@@ -15838,18 +16089,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$2;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.kernelBasis.<anonymous>' call
-      tmp$ret$2 = this.s19_1.j23(item);
+      tmp$ret$2 = this.w19_1.b24(item);
       tmp0_mapTo.a(tmp$ret$2);
     }
     tmp$ret$3 = tmp0_mapTo;
     tmp$ret$4 = tmp$ret$3;
     return tmp$ret$4;
   };
-  LinearMap.prototype.a15 = function () {
-    return Companion_getInstance_51().n23(this.r19_1, this.s19_1, this.m23());
+  LinearMap.prototype.f15 = function () {
+    return Companion_getInstance_51().f24(this.v19_1, this.w19_1, this.e24());
   };
-  LinearMap.prototype.o23 = function () {
-    var numVectorList = this.u19_1.o1u();
+  LinearMap.prototype.g24 = function () {
+    var numVectorList = this.y19_1.b1v();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -15860,20 +16111,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.imageGenerator.<anonymous>' call
-      tmp$ret$0 = this.t19_1.j23(item);
+      tmp$ret$0 = this.x19_1.b24(item);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     return tmp$ret$2;
   };
-  LinearMap.prototype.x14 = function () {
-    return Companion_getInstance_51().n23(this.r19_1, this.t19_1, this.o23());
+  LinearMap.prototype.c15 = function () {
+    return Companion_getInstance_51().f24(this.v19_1, this.x19_1, this.g24());
   };
-  LinearMap.prototype.w19 = function (sourceSubQuot, targetSubQuot) {
+  LinearMap.prototype.a1a = function (sourceSubQuot, targetSubQuot) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = sourceSubQuot.w1a();
+    var tmp0_map = sourceSubQuot.z1a();
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -15882,7 +16133,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.induce.<anonymous>' call
-      tmp$ret$0 = sourceSubQuot.g1e().x19(item);
+      tmp$ret$0 = sourceSubQuot.o1e().b1a(item);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -15898,31 +16149,31 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item_0 = tmp0_iterator_0.h();
       var tmp$ret$3;
       // Inline function 'com.github.shwaka.kohomology.vectsp.LinearMap.induce.<anonymous>' call
-      tmp$ret$3 = targetSubQuot.u16().x19(this.x19(item_0));
+      tmp$ret$3 = targetSubQuot.z16().b1a(this.b1a(item_0));
       tmp0_mapTo_0.a(tmp$ret$3);
     }
     tmp$ret$4 = tmp0_mapTo_0;
     tmp$ret$5 = tmp$ret$4;
     var vectors = tmp$ret$5;
-    return Companion_getInstance_47().p19(sourceSubQuot, targetSubQuot, this.r19_1, vectors);
+    return Companion_getInstance_47().t19(sourceSubQuot, targetSubQuot, this.v19_1, vectors);
   };
   LinearMap.$metadata$ = classMeta('LinearMap');
   function SubQuotBasis$Companion$convertGetInternalPrintConfig$lambda$lambda($printer) {
     return function (basisName) {
-      return '[' + $printer.d1k(basisName.p23_1) + ']';
+      return '[' + $printer.k1k(basisName.h24_1) + ']';
     };
   }
   function SubQuotBasis$Companion$convertGetInternalPrintConfig$lambda($getInternalPrintConfig) {
     return function (printConfig) {
       var internalPrintConfig = $getInternalPrintConfig(printConfig);
       var printer = Printer_init_$Create$(printConfig);
-      return new InternalPrintConfig(internalPrintConfig.x21_1, SubQuotBasis$Companion$convertGetInternalPrintConfig$lambda$lambda(printer), null);
+      return new InternalPrintConfig(internalPrintConfig.p22_1, SubQuotBasis$Companion$convertGetInternalPrintConfig$lambda$lambda(printer), null);
     };
   }
   function Companion_47() {
     Companion_instance_47 = this;
   }
-  Companion_47.prototype.g1c = function (getInternalPrintConfig) {
+  Companion_47.prototype.m1c = function (getInternalPrintConfig) {
     return SubQuotBasis$Companion$convertGetInternalPrintConfig$lambda(getInternalPrintConfig);
   };
   Companion_47.$metadata$ = objectMeta('Companion');
@@ -15934,13 +16185,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubQuotBasis(vector) {
     Companion_getInstance_48();
-    this.p23_1 = vector;
+    this.h24_1 = vector;
   }
   SubQuotBasis.prototype.toString = function () {
-    return '[' + this.p23_1 + ']';
+    return '[' + this.h24_1 + ']';
   };
   SubQuotBasis.prototype.hashCode = function () {
-    return this.p23_1.hashCode();
+    return this.h24_1.hashCode();
   };
   SubQuotBasis.prototype.equals = function (other) {
     if (this === other)
@@ -15948,7 +16199,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof SubQuotBasis))
       return false;
     var tmp0_other_with_cast = other instanceof SubQuotBasis ? other : THROW_CCE();
-    if (!this.p23_1.equals(tmp0_other_with_cast.p23_1))
+    if (!this.h24_1.equals(tmp0_other_with_cast.h24_1))
       return false;
     return true;
   };
@@ -15957,14 +16208,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisNameToIndex$factory_0();
-    tmp$ret$0 = $this.o1d_1.f1();
+    tmp$ret$0 = $this.v1d_1.f1();
     return tmp$ret$0;
   }
   function Companion_48() {
     Companion_instance_48 = this;
   }
-  Companion_48.prototype.f1d = function (matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator) {
-    var factory = new SubQuotFactory(matrixSpace, totalVectorSpace, subspaceGenerator.q23(), quotientGenerator.q23());
+  Companion_48.prototype.m1d = function (matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator) {
+    var factory = new SubQuotFactory(matrixSpace, totalVectorSpace, subspaceGenerator.i24(), quotientGenerator.i24());
     return new SubQuotVectorSpace(factory);
   };
   Companion_48.$metadata$ = objectMeta('Companion');
@@ -15978,7 +16229,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.mapIndexed' call
-      var tmp0_mapIndexed = this$0.k1d_1;
+      var tmp0_mapIndexed = this$0.r1d_1;
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapIndexedTo' call
       var tmp0_mapIndexedTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_mapIndexed, 10));
@@ -16001,12 +16252,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubQuotVectorSpace$projection$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_47().v22(this$0.i1d_1.s23_1, this$0, this$0.i1d_1.r23_1, this$0.i1d_1.y23_1);
+      return Companion_getInstance_47().n23(this$0.p1d_1.k24_1, this$0, this$0.p1d_1.j24_1, this$0.p1d_1.q24_1);
     };
   }
   function SubQuotVectorSpace$section$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_47().v22(this$0, this$0.i1d_1.s23_1, this$0.i1d_1.r23_1, this$0.i1d_1.z23_1);
+      return Companion_getInstance_47().n23(this$0, this$0.p1d_1.k24_1, this$0.p1d_1.j24_1, this$0.p1d_1.r24_1);
     };
   }
   function SubQuotVectorSpace$toString$lambda(it) {
@@ -16014,32 +16265,32 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubQuotVectorSpace(factory) {
     Companion_getInstance_49();
-    this.i1d_1 = factory;
-    this.j1d_1 = this.i1d_1.v23_1;
-    this.k1d_1 = this.i1d_1.w23_1;
-    this.l1d_1 = Companion_getInstance_48().g1c(this.i1d_1.s23_1.k11());
-    this.m1d_1 = new VectorContextImpl(this);
-    this.n1d_1 = this.i1d_1.s23_1;
+    this.p1d_1 = factory;
+    this.q1d_1 = this.p1d_1.n24_1;
+    this.r1d_1 = this.p1d_1.o24_1;
+    this.s1d_1 = Companion_getInstance_48().m1c(this.p1d_1.k24_1.k11());
+    this.t1d_1 = new VectorContextImpl(this);
+    this.u1d_1 = this.p1d_1.k24_1;
     var tmp = this;
-    tmp.o1d_1 = lazy(SubQuotVectorSpace$basisNameToIndex$delegate$lambda(this));
+    tmp.v1d_1 = lazy(SubQuotVectorSpace$basisNameToIndex$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.p1d_1 = lazy(SubQuotVectorSpace$projection$delegate$lambda(this));
+    tmp_0.w1d_1 = lazy(SubQuotVectorSpace$projection$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.q1d_1 = lazy(SubQuotVectorSpace$section$delegate$lambda(this));
+    tmp_1.x1d_1 = lazy(SubQuotVectorSpace$section$delegate$lambda(this));
   }
   SubQuotVectorSpace.prototype.j11 = function () {
-    return this.j1d_1;
+    return this.q1d_1;
   };
-  SubQuotVectorSpace.prototype.o19 = function () {
-    return this.k1d_1;
+  SubQuotVectorSpace.prototype.s19 = function () {
+    return this.r1d_1;
   };
   SubQuotVectorSpace.prototype.k11 = function () {
-    return this.l1d_1;
+    return this.s1d_1;
   };
-  SubQuotVectorSpace.prototype.o14 = function () {
-    return this.m1d_1;
+  SubQuotVectorSpace.prototype.t14 = function () {
+    return this.t1d_1;
   };
-  SubQuotVectorSpace.prototype.c24 = function (basisName) {
+  SubQuotVectorSpace.prototype.u24 = function (basisName) {
     var tmp0_elvis_lhs = _get_basisNameToIndex__26cf4t_0(this).t(basisName);
     var tmp;
     if (tmp0_elvis_lhs == null) {
@@ -16049,35 +16300,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  SubQuotVectorSpace.prototype.c23 = function (basisName) {
-    return this.c24(basisName instanceof SubQuotBasis ? basisName : THROW_CCE());
+  SubQuotVectorSpace.prototype.u23 = function (basisName) {
+    return this.u24(basisName instanceof SubQuotBasis ? basisName : THROW_CCE());
   };
-  SubQuotVectorSpace.prototype.u16 = function () {
+  SubQuotVectorSpace.prototype.z16 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = projection$factory_0();
-    tmp$ret$0 = this.p1d_1.f1();
+    tmp$ret$0 = this.w1d_1.f1();
     return tmp$ret$0;
   };
-  SubQuotVectorSpace.prototype.g1e = function () {
+  SubQuotVectorSpace.prototype.o1e = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = section$factory();
-    tmp$ret$0 = this.q1d_1.f1();
+    tmp$ret$0 = this.x1d_1.f1();
     return tmp$ret$0;
   };
-  SubQuotVectorSpace.prototype.r1d = function (vector) {
-    return this.i1d_1.r1d(vector);
+  SubQuotVectorSpace.prototype.y1d = function (vector) {
+    return this.p1d_1.y1d(vector);
   };
   SubQuotVectorSpace.prototype.toString = function () {
-    var basisNamesString = joinToString$default(this.k1d_1, ', ', null, null, 0, null, SubQuotVectorSpace$toString$lambda, 30, null);
+    var basisNamesString = joinToString$default(this.r1d_1, ', ', null, null, 0, null, SubQuotVectorSpace$toString$lambda, 30, null);
     return 'SubQuotVectorSpace(' + basisNamesString + ')';
   };
   SubQuotVectorSpace.$metadata$ = classMeta('SubQuotVectorSpace', [VectorSpace]);
   function Companion_49() {
     Companion_instance_49 = this;
   }
-  Companion_49.prototype.d24 = function (_this__u8e3s4, vectors, dim) {
+  Companion_49.prototype.v24 = function (_this__u8e3s4, vectors, dim) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -16088,13 +16339,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.fromVectors.<anonymous>' call
-      tmp$ret$0 = item.l23();
+      tmp$ret$0 = item.d24();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var numVectorList = tmp$ret$2;
-    return _this__u8e3s4.j1u(numVectorList, dim);
+    return _this__u8e3s4.w1u(numVectorList, dim);
   };
   Companion_49.$metadata$ = objectMeta('Companion');
   var Companion_instance_49;
@@ -16105,21 +16356,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubQuotFactory(matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator) {
     Companion_getInstance_50();
-    this.r23_1 = matrixSpace;
-    this.s23_1 = totalVectorSpace;
-    this.t23_1 = subspaceGenerator;
-    this.u23_1 = quotientGenerator;
-    this.v23_1 = this.r23_1.j11();
-    var tmp0_iterator = plus(this.t23_1, this.u23_1).f();
+    this.j24_1 = matrixSpace;
+    this.k24_1 = totalVectorSpace;
+    this.l24_1 = subspaceGenerator;
+    this.m24_1 = quotientGenerator;
+    this.n24_1 = this.j24_1.j11();
+    var tmp0_iterator = plus(this.l24_1, this.m24_1).f();
     while (tmp0_iterator.g()) {
       var vector = tmp0_iterator.h();
       // Inline function 'kotlin.require' call
-      var tmp0_require = this.s23_1.f23(vector);
+      var tmp0_require = this.k24_1.x23(vector);
       // Inline function 'kotlin.contracts.contract' call
       if (!tmp0_require) {
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-        tmp$ret$0 = 'The vector ' + vector + ' is not contained in the vector space ' + this.s23_1;
+        tmp$ret$0 = 'The vector ' + vector + ' is not contained in the vector space ' + this.k24_1;
         var message = tmp$ret$0;
         throw IllegalArgumentException_init_$Create$(toString(message));
       }
@@ -16127,29 +16378,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'com.github.shwaka.kococo.debugOnly' call
     var tmp$ret$2;
     // Inline function 'kotlin.run' call
-    var tmp1_run = this.r23_1.o14();
+    var tmp1_run = this.j24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$1;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-    var quotientMatrix = Companion_getInstance_50().d24(tmp1_run.h11(), this.u23_1, this.s23_1.q1t());
-    var subspaceMatrix = Companion_getInstance_50().d24(tmp1_run.h11(), this.t23_1, this.s23_1.q1t());
-    var id = tmp1_run.h11().k1u(this.s23_1.q1t());
-    tmp$ret$1 = tmp1_run.f1w(listOf_0([quotientMatrix, subspaceMatrix, id]));
+    var quotientMatrix = Companion_getInstance_50().v24(tmp1_run.h11(), this.m24_1, this.k24_1.d1u());
+    var subspaceMatrix = Companion_getInstance_50().v24(tmp1_run.h11(), this.l24_1, this.k24_1.d1u());
+    var id = tmp1_run.h11().x1u(this.k24_1.d1u());
+    tmp$ret$1 = tmp1_run.u1w(listOf_0([quotientMatrix, subspaceMatrix, id]));
     tmp$ret$2 = tmp$ret$1;
     var joinedMatrix = tmp$ret$2;
     var tmp$ret$4;
     // Inline function 'kotlin.run' call
-    var tmp2_run = this.r23_1.o14();
+    var tmp2_run = this.j24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-    tmp$ret$3 = tmp2_run.g1w(joinedMatrix);
+    tmp$ret$3 = tmp2_run.v1w(joinedMatrix);
     tmp$ret$4 = tmp$ret$3;
     var rowEchelonForm = tmp$ret$4;
     var tmp = this;
     var tmp$ret$7;
     // Inline function 'kotlin.collections.filter' call
-    var tmp3_filter = rowEchelonForm.y1s();
+    var tmp3_filter = rowEchelonForm.l1t();
     var tmp$ret$6;
     // Inline function 'kotlin.collections.filterTo' call
     var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -16158,18 +16409,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var element = tmp0_iterator_0.h();
       var tmp$ret$5;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-      tmp$ret$5 = element < this.u23_1.i();
+      tmp$ret$5 = element < this.m24_1.i();
       if (tmp$ret$5) {
         tmp0_filterTo.a(element);
       }
     }
     tmp$ret$6 = tmp0_filterTo;
     tmp$ret$7 = tmp$ret$6;
-    tmp.a24_1 = tmp$ret$7.i();
+    tmp.s24_1 = tmp$ret$7.i();
     var tmp_0 = this;
     var tmp$ret$10;
     // Inline function 'kotlin.collections.filter' call
-    var tmp4_filter = rowEchelonForm.y1s();
+    var tmp4_filter = rowEchelonForm.l1t();
     var tmp$ret$9;
     // Inline function 'kotlin.collections.filterTo' call
     var tmp0_filterTo_0 = ArrayList_init_$Create$_0();
@@ -16178,15 +16429,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var element_0 = tmp0_iterator_1.h();
       var tmp$ret$8;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-      tmp$ret$8 = this.u23_1.i() <= element_0 ? element_0 < (this.u23_1.i() + this.t23_1.i() | 0) : false;
+      tmp$ret$8 = this.m24_1.i() <= element_0 ? element_0 < (this.m24_1.i() + this.l24_1.i() | 0) : false;
       if (tmp$ret$8) {
         tmp0_filterTo_0.a(element_0);
       }
     }
     tmp$ret$9 = tmp0_filterTo_0;
     tmp$ret$10 = tmp$ret$9;
-    tmp_0.b24_1 = tmp$ret$10.i();
-    var basisIndices = slice(rowEchelonForm.y1s(), until(this.a24_1, this.a24_1 + this.b24_1 | 0));
+    tmp_0.t24_1 = tmp$ret$10.i();
+    var basisIndices = slice(rowEchelonForm.l1t(), until(this.s24_1, this.s24_1 + this.t24_1 | 0));
     var tmp_1 = this;
     var tmp$ret$16;
     // Inline function 'kotlin.collections.map' call
@@ -16200,7 +16451,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator_2.h();
       var tmp$ret$11;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-      tmp$ret$11 = this.t23_1.l(item - this.u23_1.i() | 0);
+      tmp$ret$11 = this.l24_1.l(item - this.m24_1.i() | 0);
       tmp0_mapTo.a(tmp$ret$11);
     }
     tmp$ret$12 = tmp0_mapTo;
@@ -16219,29 +16470,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     tmp$ret$15 = tmp0_mapTo_0;
     tmp$ret$16 = tmp$ret$15;
-    tmp_1.w23_1 = tmp$ret$16;
+    tmp_1.o24_1 = tmp$ret$16;
     var tmp_2 = this;
     var tmp$ret$18;
     // Inline function 'kotlin.run' call
-    var tmp6_run = this.r23_1.o14();
+    var tmp6_run = this.j24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$17;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-    var size = rowEchelonForm.x1s().n1u();
-    var dim = this.s23_1.q1t();
-    tmp$ret$17 = tmp6_run.h1w(rowEchelonForm.x1s(), until(size - dim | 0, size));
+    var size = rowEchelonForm.k1t().a1v();
+    var dim = this.k24_1.d1u();
+    tmp$ret$17 = tmp6_run.w1w(rowEchelonForm.k1t(), until(size - dim | 0, size));
     tmp$ret$18 = tmp$ret$17;
-    tmp_2.x23_1 = tmp$ret$18;
+    tmp_2.p24_1 = tmp$ret$18;
     var tmp_3 = this;
     var tmp$ret$20;
     // Inline function 'kotlin.run' call
-    var tmp7_run = this.r23_1.o14();
+    var tmp7_run = this.j24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$19;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-    tmp$ret$19 = tmp7_run.j1w(this.x23_1, until(this.a24_1, this.a24_1 + this.b24_1 | 0));
+    tmp$ret$19 = tmp7_run.y1w(this.p24_1, until(this.s24_1, this.s24_1 + this.t24_1 | 0));
     tmp$ret$20 = tmp$ret$19;
-    tmp_3.y23_1 = tmp$ret$20;
+    tmp_3.q24_1 = tmp$ret$20;
     var tmp_4 = this;
     var tmp_5 = Companion_getInstance_50();
     var tmp$ret$23;
@@ -16254,29 +16505,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item_1 = tmp0_iterator_4.h();
       var tmp$ret$21;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.<anonymous>' call
-      tmp$ret$21 = this.t23_1.l(item_1 - this.u23_1.i() | 0);
+      tmp$ret$21 = this.l24_1.l(item_1 - this.m24_1.i() | 0);
       tmp0_mapTo_1.a(tmp$ret$21);
     }
     tmp$ret$22 = tmp0_mapTo_1;
     tmp$ret$23 = tmp$ret$22;
-    tmp_4.z23_1 = tmp_5.d24(this.r23_1, tmp$ret$23, this.s23_1.q1t());
+    tmp_4.r24_1 = tmp_5.v24(this.j24_1, tmp$ret$23, this.k24_1.d1u());
   }
   SubQuotFactory.prototype.h11 = function () {
-    return this.r23_1;
+    return this.j24_1;
   };
-  SubQuotFactory.prototype.e24 = function () {
-    return this.s23_1;
+  SubQuotFactory.prototype.w24 = function () {
+    return this.k24_1;
   };
-  SubQuotFactory.prototype.r1d = function (vector) {
+  SubQuotFactory.prototype.y1d = function (vector) {
     var tmp$ret$3;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.r23_1.o14();
+    var tmp0_run = this.j24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$2;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.subspaceContains.<anonymous>' call
-    var numVector = tmp0_run.i1w(this.x23_1, vector.a19_1);
-    var start = this.a24_1 + this.b24_1 | 0;
-    var limit = this.s23_1.q1t();
+    var numVector = tmp0_run.x1w(this.p24_1, vector.e19_1);
+    var start = this.s24_1 + this.t24_1 | 0;
+    var limit = this.k24_1.d1u();
     var tmp$ret$0;
     $l$block_0: {
       // Inline function 'kotlin.collections.all' call
@@ -16299,7 +16550,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           inductionVariable = inductionVariable + 1 | 0;
           var tmp$ret$1;
           // Inline function 'com.github.shwaka.kohomology.vectsp.SubQuotFactory.subspaceContains.<anonymous>.<anonymous>' call
-          tmp$ret$1 = tmp0_run.m1w(numVector, element).op();
+          tmp$ret$1 = tmp0_run.b1x(numVector, element).op();
           if (!tmp$ret$1) {
             tmp$ret$0 = false;
             break $l$block_0;
@@ -16320,18 +16571,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function projection$factory_0() {
     return getPropertyCallableRef('projection', 1, KProperty1, function (receiver) {
-      return receiver.u16();
+      return receiver.z16();
     }, null);
   }
   function section$factory() {
     return getPropertyCallableRef('section', 1, KProperty1, function (receiver) {
-      return receiver.g1e();
+      return receiver.o1e();
     }, null);
   }
   function Companion_50() {
     Companion_instance_50 = this;
   }
-  Companion_50.prototype.n23 = function (matrixSpace, totalVectorSpace, generator) {
+  Companion_50.prototype.f24 = function (matrixSpace, totalVectorSpace, generator) {
     var factory = new SubFactory(matrixSpace, totalVectorSpace, generator);
     return new SubVectorSpaceImpl(factory);
   };
@@ -16347,20 +16598,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   SubVectorSpace.$metadata$ = interfaceMeta('SubVectorSpace', [VectorSpace]);
   function SubBasis$Companion$convertGetInternalPrintConfig$lambda$lambda($printer) {
     return function (basisName) {
-      return '(' + $printer.d1k(basisName.f24_1) + ')';
+      return '(' + $printer.k1k(basisName.x24_1) + ')';
     };
   }
   function SubBasis$Companion$convertGetInternalPrintConfig$lambda($getInternalPrintConfig) {
     return function (printConfig) {
       var internalPrintConfig = $getInternalPrintConfig(printConfig);
       var printer = Printer_init_$Create$(printConfig);
-      return new InternalPrintConfig(internalPrintConfig.x21_1, SubBasis$Companion$convertGetInternalPrintConfig$lambda$lambda(printer), null);
+      return new InternalPrintConfig(internalPrintConfig.p22_1, SubBasis$Companion$convertGetInternalPrintConfig$lambda$lambda(printer), null);
     };
   }
   function Companion_51() {
     Companion_instance_51 = this;
   }
-  Companion_51.prototype.g1c = function (getInternalPrintConfig) {
+  Companion_51.prototype.m1c = function (getInternalPrintConfig) {
     return SubBasis$Companion$convertGetInternalPrintConfig$lambda(getInternalPrintConfig);
   };
   Companion_51.$metadata$ = objectMeta('Companion');
@@ -16372,13 +16623,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubBasis(vector) {
     Companion_getInstance_52();
-    this.f24_1 = vector;
+    this.x24_1 = vector;
   }
   SubBasis.prototype.toString = function () {
-    return '(' + this.f24_1 + ')';
+    return '(' + this.x24_1 + ')';
   };
   SubBasis.prototype.hashCode = function () {
-    return this.f24_1.hashCode();
+    return this.x24_1.hashCode();
   };
   SubBasis.prototype.equals = function (other) {
     if (this === other)
@@ -16386,7 +16637,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof SubBasis))
       return false;
     var tmp0_other_with_cast = other instanceof SubBasis ? other : THROW_CCE();
-    if (!this.f24_1.equals(tmp0_other_with_cast.f24_1))
+    if (!this.x24_1.equals(tmp0_other_with_cast.x24_1))
       return false;
     return true;
   };
@@ -16395,27 +16646,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = rowEchelonForm$factory();
-    tmp$ret$0 = $this.k24_1.f1();
+    tmp$ret$0 = $this.c25_1.f1();
     return tmp$ret$0;
   }
   function _get_basisIndices__7ymdcu($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisIndices$factory();
-    tmp$ret$0 = $this.m24_1.f1();
+    tmp$ret$0 = $this.e25_1.f1();
     return tmp$ret$0;
   }
   function _get_transformationMatrix__anz1r3($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = transformationMatrix$factory();
-    tmp$ret$0 = $this.n24_1.f1();
+    tmp$ret$0 = $this.f25_1.f1();
     return tmp$ret$0;
   }
   function Companion_52() {
     Companion_instance_52 = this;
   }
-  Companion_52.prototype.d24 = function (_this__u8e3s4, vectors, dim) {
+  Companion_52.prototype.v24 = function (_this__u8e3s4, vectors, dim) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -16426,13 +16677,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Companion.fromVectors.<anonymous>' call
-      tmp$ret$0 = item.l23();
+      tmp$ret$0 = item.d24();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var numVectorList = tmp$ret$2;
-    return _this__u8e3s4.j1u(numVectorList, dim);
+    return _this__u8e3s4.w1u(numVectorList, dim);
   };
   Companion_52.$metadata$ = objectMeta('Companion');
   var Companion_instance_52;
@@ -16445,7 +16696,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$3;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.g24_1.o14();
+      var tmp0_run = this$0.y24_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$2;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.rowEchelonForm$delegate.<anonymous>.<anonymous>' call
@@ -16454,12 +16705,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.rowEchelonForm$delegate.<anonymous>.<anonymous>.<anonymous>' call
-      var subspaceMatrix = Companion_getInstance_53().d24(tmp0_run.h11(), this$0.i24_1, this$0.h24_1.q1t());
-      var id = tmp0_run.h11().k1u(this$0.h24_1.q1t());
-      tmp$ret$0 = tmp0_run.f1w(listOf_0([subspaceMatrix, id]));
+      var subspaceMatrix = Companion_getInstance_53().v24(tmp0_run.h11(), this$0.a25_1, this$0.z24_1.d1u());
+      var id = tmp0_run.h11().x1u(this$0.z24_1.d1u());
+      tmp$ret$0 = tmp0_run.u1w(listOf_0([subspaceMatrix, id]));
       tmp$ret$1 = tmp$ret$0;
       var joinedMatrix = tmp$ret$1;
-      tmp$ret$2 = tmp0_run.g1w(joinedMatrix);
+      tmp$ret$2 = tmp0_run.v1w(joinedMatrix);
       tmp$ret$3 = tmp$ret$2;
       return tmp$ret$3;
     };
@@ -16468,7 +16719,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.filter' call
-      var tmp0_filter = _get_rowEchelonForm__ymu65r(this$0).y1s();
+      var tmp0_filter = _get_rowEchelonForm__ymu65r(this$0).l1t();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.filterTo' call
       var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -16477,7 +16728,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var element = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.dim$delegate.<anonymous>.<anonymous>' call
-        tmp$ret$0 = element < this$0.i24_1.i();
+        tmp$ret$0 = element < this$0.a25_1.i();
         if (tmp$ret$0) {
           tmp0_filterTo.a(element);
         }
@@ -16489,67 +16740,67 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubFactory$basisIndices$delegate$lambda(this$0) {
     return function () {
-      return slice(_get_rowEchelonForm__ymu65r(this$0).y1s(), until(0, this$0.q1t()));
+      return slice(_get_rowEchelonForm__ymu65r(this$0).l1t(), until(0, this$0.d1u()));
     };
   }
   function SubFactory$transformationMatrix$delegate$lambda(this$0) {
     return function () {
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.g24_1.o14();
+      var tmp0_run = this$0.y24_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.transformationMatrix$delegate.<anonymous>.<anonymous>' call
-      var size = _get_rowEchelonForm__ymu65r(this$0).x1s().n1u();
-      var dim = this$0.h24_1.q1t();
-      tmp$ret$0 = tmp0_run.h1w(_get_rowEchelonForm__ymu65r(this$0).x1s(), until(size - dim | 0, size));
+      var size = _get_rowEchelonForm__ymu65r(this$0).k1t().a1v();
+      var dim = this$0.z24_1.d1u();
+      tmp$ret$0 = tmp0_run.w1w(_get_rowEchelonForm__ymu65r(this$0).k1t(), until(size - dim | 0, size));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
   }
   function SubFactory(matrixSpace, totalVectorSpace, generator) {
     Companion_getInstance_53();
-    this.g24_1 = matrixSpace;
-    this.h24_1 = totalVectorSpace;
-    this.i24_1 = generator;
-    this.j24_1 = this.g24_1.j11();
+    this.y24_1 = matrixSpace;
+    this.z24_1 = totalVectorSpace;
+    this.a25_1 = generator;
+    this.b25_1 = this.y24_1.j11();
     var tmp = this;
-    tmp.k24_1 = lazy(SubFactory$rowEchelonForm$delegate$lambda(this));
+    tmp.c25_1 = lazy(SubFactory$rowEchelonForm$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.l24_1 = lazy(SubFactory$dim$delegate$lambda(this));
+    tmp_0.d25_1 = lazy(SubFactory$dim$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.m24_1 = lazy(SubFactory$basisIndices$delegate$lambda(this));
+    tmp_1.e25_1 = lazy(SubFactory$basisIndices$delegate$lambda(this));
     var tmp_2 = this;
-    tmp_2.n24_1 = lazy(SubFactory$transformationMatrix$delegate$lambda(this));
-    var tmp0_iterator = this.i24_1.f();
+    tmp_2.f25_1 = lazy(SubFactory$transformationMatrix$delegate$lambda(this));
+    var tmp0_iterator = this.a25_1.f();
     while (tmp0_iterator.g()) {
       var vector = tmp0_iterator.h();
       // Inline function 'kotlin.require' call
-      var tmp0_require = this.h24_1.f23(vector);
+      var tmp0_require = this.z24_1.x23(vector);
       // Inline function 'kotlin.contracts.contract' call
       if (!tmp0_require) {
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.<anonymous>' call
-        tmp$ret$0 = 'The vector ' + vector + ' is not contained in the vector space ' + this.h24_1;
+        tmp$ret$0 = 'The vector ' + vector + ' is not contained in the vector space ' + this.z24_1;
         var message = tmp$ret$0;
         throw IllegalArgumentException_init_$Create$(toString(message));
       }
     }
   }
-  SubFactory.prototype.e24 = function () {
-    return this.h24_1;
+  SubFactory.prototype.w24 = function () {
+    return this.z24_1;
   };
-  SubFactory.prototype.q23 = function () {
-    return this.i24_1;
+  SubFactory.prototype.i24 = function () {
+    return this.a25_1;
   };
-  SubFactory.prototype.q1t = function () {
+  SubFactory.prototype.d1u = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = dim$factory();
-    tmp$ret$0 = this.l24_1.f1();
+    tmp$ret$0 = this.d25_1.f1();
     return tmp$ret$0;
   };
-  SubFactory.prototype.o24 = function () {
+  SubFactory.prototype.g25 = function () {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$2;
@@ -16563,7 +16814,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.getBasisNames.<anonymous>' call
-      tmp$ret$0 = this.i24_1.l(item);
+      tmp$ret$0 = this.a25_1.l(item);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -16584,7 +16835,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$5 = tmp$ret$4;
     return tmp$ret$5;
   };
-  SubFactory.prototype.p24 = function () {
+  SubFactory.prototype.h25 = function () {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = _get_basisIndices__7ymdcu(this);
@@ -16596,21 +16847,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.getInclusionMatrix.<anonymous>' call
-      tmp$ret$0 = this.i24_1.l(item).l23();
+      tmp$ret$0 = this.a25_1.l(item).d24();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
-    return this.g24_1.j1u(tmp$ret$2, this.h24_1.q1t());
+    return this.y24_1.w1u(tmp$ret$2, this.z24_1.d1u());
   };
-  SubFactory.prototype.q24 = function () {
+  SubFactory.prototype.i25 = function () {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.g24_1.o14();
+    var tmp0_run = this.y24_1.t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.vectsp.SubFactory.getRetractionMatrix.<anonymous>' call
-    tmp$ret$0 = tmp0_run.j1w(_get_transformationMatrix__anz1r3(this), until(0, this.q1t()));
+    tmp$ret$0 = tmp0_run.y1w(_get_transformationMatrix__anz1r3(this), until(0, this.d1u()));
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   };
@@ -16619,19 +16870,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisNameToIndex$factory_1();
-    tmp$ret$0 = $this.y24_1.f1();
+    tmp$ret$0 = $this.q25_1.f1();
     return tmp$ret$0;
   }
   function SubVectorSpaceImpl$basisNames$delegate$lambda(this$0) {
     return function () {
-      return this$0.r24_1.o24();
+      return this$0.j25_1.g25();
     };
   }
   function SubVectorSpaceImpl$basisNameToIndex$delegate$lambda(this$0) {
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.mapIndexed' call
-      var tmp0_mapIndexed = this$0.o19();
+      var tmp0_mapIndexed = this$0.s19();
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapIndexedTo' call
       var tmp0_mapIndexedTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_mapIndexed, 10));
@@ -16654,53 +16905,53 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SubVectorSpaceImpl$inclusion$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_47().v22(this$0, this$0.r24_1.h24_1, this$0.r24_1.g24_1, this$0.r24_1.p24());
+      return Companion_getInstance_47().n23(this$0, this$0.j25_1.z24_1, this$0.j25_1.y24_1, this$0.j25_1.h25());
     };
   }
   function SubVectorSpaceImpl$retraction$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_47().v22(this$0.r24_1.h24_1, this$0, this$0.r24_1.g24_1, this$0.r24_1.q24());
+      return Companion_getInstance_47().n23(this$0.j25_1.z24_1, this$0, this$0.j25_1.y24_1, this$0.j25_1.i25());
     };
   }
   function SubVectorSpaceImpl$toString$lambda(it) {
     return it.toString();
   }
   function SubVectorSpaceImpl(factory) {
-    this.r24_1 = factory;
-    this.s24_1 = this.r24_1.j24_1;
+    this.j25_1 = factory;
+    this.k25_1 = this.j25_1.b25_1;
     var tmp = this;
-    tmp.t24_1 = lazy(SubVectorSpaceImpl$basisNames$delegate$lambda(this));
-    this.u24_1 = this.r24_1.h24_1;
-    this.v24_1 = this.r24_1.i24_1;
-    this.w24_1 = Companion_getInstance_52().g1c(this.u24_1.k11());
-    this.x24_1 = new VectorContextImpl(this);
+    tmp.l25_1 = lazy(SubVectorSpaceImpl$basisNames$delegate$lambda(this));
+    this.m25_1 = this.j25_1.z24_1;
+    this.n25_1 = this.j25_1.a25_1;
+    this.o25_1 = Companion_getInstance_52().m1c(this.m25_1.k11());
+    this.p25_1 = new VectorContextImpl(this);
     var tmp_0 = this;
-    tmp_0.y24_1 = lazy(SubVectorSpaceImpl$basisNameToIndex$delegate$lambda(this));
+    tmp_0.q25_1 = lazy(SubVectorSpaceImpl$basisNameToIndex$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.z24_1 = lazy(SubVectorSpaceImpl$inclusion$delegate$lambda(this));
+    tmp_1.r25_1 = lazy(SubVectorSpaceImpl$inclusion$delegate$lambda(this));
     var tmp_2 = this;
-    tmp_2.a25_1 = lazy(SubVectorSpaceImpl$retraction$delegate$lambda(this));
+    tmp_2.s25_1 = lazy(SubVectorSpaceImpl$retraction$delegate$lambda(this));
   }
   SubVectorSpaceImpl.prototype.j11 = function () {
-    return this.s24_1;
+    return this.k25_1;
   };
-  SubVectorSpaceImpl.prototype.o19 = function () {
+  SubVectorSpaceImpl.prototype.s19 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisNames$factory();
-    tmp$ret$0 = this.t24_1.f1();
+    tmp$ret$0 = this.l25_1.f1();
     return tmp$ret$0;
   };
-  SubVectorSpaceImpl.prototype.q23 = function () {
-    return this.v24_1;
+  SubVectorSpaceImpl.prototype.i24 = function () {
+    return this.n25_1;
   };
   SubVectorSpaceImpl.prototype.k11 = function () {
-    return this.w24_1;
+    return this.o25_1;
   };
-  SubVectorSpaceImpl.prototype.o14 = function () {
-    return this.x24_1;
+  SubVectorSpaceImpl.prototype.t14 = function () {
+    return this.p25_1;
   };
-  SubVectorSpaceImpl.prototype.b25 = function (basisName) {
+  SubVectorSpaceImpl.prototype.t25 = function (basisName) {
     var tmp0_elvis_lhs = _get_basisNameToIndex__26cf4t_1(this).t(basisName);
     var tmp;
     if (tmp0_elvis_lhs == null) {
@@ -16710,25 +16961,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   };
-  SubVectorSpaceImpl.prototype.c23 = function (basisName) {
-    return this.b25(basisName instanceof SubBasis ? basisName : THROW_CCE());
+  SubVectorSpaceImpl.prototype.u23 = function (basisName) {
+    return this.t25(basisName instanceof SubBasis ? basisName : THROW_CCE());
   };
-  SubVectorSpaceImpl.prototype.e1c = function () {
+  SubVectorSpaceImpl.prototype.k1c = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = inclusion$factory();
-    tmp$ret$0 = this.z24_1.f1();
+    tmp$ret$0 = this.r25_1.f1();
     return tmp$ret$0;
   };
-  SubVectorSpaceImpl.prototype.f1c = function () {
+  SubVectorSpaceImpl.prototype.l1c = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = retraction$factory();
-    tmp$ret$0 = this.a25_1.f1();
+    tmp$ret$0 = this.s25_1.f1();
     return tmp$ret$0;
   };
   SubVectorSpaceImpl.prototype.toString = function () {
-    var tmp = this.o19();
+    var tmp = this.s19();
     var basisNamesString = joinToString$default(tmp, ', ', null, null, 0, null, SubVectorSpaceImpl$toString$lambda, 30, null);
     return 'SubVectorSpace(' + basisNamesString + ')';
   };
@@ -16740,7 +16991,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function dim$factory() {
     return getPropertyCallableRef('dim', 1, KProperty1, function (receiver) {
-      return receiver.q1t();
+      return receiver.d1u();
     }, null);
   }
   function basisIndices$factory() {
@@ -16755,7 +17006,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function basisNames$factory() {
     return getPropertyCallableRef('basisNames', 1, KProperty1, function (receiver) {
-      return receiver.o19();
+      return receiver.s19();
     }, null);
   }
   function basisNameToIndex$factory_1() {
@@ -16765,20 +17016,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function inclusion$factory() {
     return getPropertyCallableRef('inclusion', 1, KProperty1, function (receiver) {
-      return receiver.e1c();
+      return receiver.k1c();
     }, null);
   }
   function retraction$factory() {
     return getPropertyCallableRef('retraction', 1, KProperty1, function (receiver) {
-      return receiver.f1c();
+      return receiver.l1c();
     }, null);
   }
   function BasisName() {
   }
   BasisName.$metadata$ = interfaceMeta('BasisName', [Printable]);
   function firstTermToString($this, coeff, basisName, printConfig, internalPrintConfig) {
-    var basisNameString = internalPrintConfig.y21_1(basisName);
-    var coeffString = internalPrintConfig.x21_1(coeff, true);
+    var basisNameString = internalPrintConfig.q22_1(basisName);
+    var coeffString = internalPrintConfig.p22_1(coeff, true);
     if (basisNameString === '1') {
       return coeffString;
     }
@@ -16787,21 +17038,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       case '1':
         return basisNameString;
       case '-1':
-        return '-' + printConfig.o1j_1 + basisNameString;
+        return '-' + printConfig.v1j_1 + basisNameString;
       default:
-        return coeffString + printConfig.p1j_1 + basisNameString;
+        return coeffString + printConfig.w1j_1 + basisNameString;
     }
   }
   function nonFirstTermToString($this, coeff, basisName, printConfig, internalPrintConfig) {
-    var basisNameString = internalPrintConfig.y21_1(basisName);
-    var coeffString = internalPrintConfig.x21_1(coeff, false);
-    var sign = coeff.d1w() ? '+' : '-';
+    var basisNameString = internalPrintConfig.q22_1(basisName);
+    var coeffString = internalPrintConfig.p22_1(coeff, false);
+    var sign = coeff.s1w() ? '+' : '-';
     if (basisNameString === '1') {
-      return printConfig.n1j_1 + sign + printConfig.o1j_1 + coeffString;
+      return printConfig.u1j_1 + sign + printConfig.v1j_1 + coeffString;
     }
     var tmp0_subject = coeffString;
-    var str = tmp0_subject === '1' ? basisNameString : coeffString + printConfig.p1j_1 + basisNameString;
-    return printConfig.n1j_1 + sign + printConfig.o1j_1 + str;
+    var str = tmp0_subject === '1' ? basisNameString : coeffString + printConfig.w1j_1 + basisNameString;
+    return printConfig.u1j_1 + sign + printConfig.v1j_1 + str;
   }
   function Companion_53() {
     Companion_instance_53 = this;
@@ -16814,10 +17065,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_instance_53;
   }
   function sam$kotlin_Comparator$0_0(function_0) {
-    this.c25_1 = function_0;
+    this.u25_1 = function_0;
   }
   sam$kotlin_Comparator$0_0.prototype.x = function (a, b) {
-    return this.c25_1(a, b);
+    return this.u25_1(a, b);
   };
   sam$kotlin_Comparator$0_0.prototype.compare = function (a, b) {
     return this.x(a, b);
@@ -16851,27 +17102,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Vector(numVector, vectorSpace) {
     Companion_getInstance_54();
-    this.a19_1 = numVector;
-    this.b19_1 = vectorSpace;
-    if (!(this.a19_1.q1t() === this.b19_1.q1t()))
+    this.e19_1 = numVector;
+    this.f19_1 = vectorSpace;
+    if (!(this.e19_1.d1u() === this.f19_1.d1u()))
       throw new InvalidSizeException('Dimension of the numerical vector does not match the dimension of the vector space');
   }
-  Vector.prototype.d25 = function () {
-    return this.a19_1;
+  Vector.prototype.v25 = function () {
+    return this.e19_1;
   };
-  Vector.prototype.e25 = function () {
-    return this.b19_1;
+  Vector.prototype.w25 = function () {
+    return this.f19_1;
   };
-  Vector.prototype.l23 = function () {
-    return this.a19_1;
+  Vector.prototype.d24 = function () {
+    return this.e19_1;
   };
   Vector.prototype.op = function () {
-    return this.a19_1.op();
+    return this.e19_1.op();
   };
-  Vector.prototype.p1a = function () {
+  Vector.prototype.t1a = function () {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.mapKeys' call
-    var tmp0_mapKeys = this.a19_1.h1v();
+    var tmp0_mapKeys = this.e19_1.w1v();
     var tmp$ret$4;
     // Inline function 'kotlin.collections.mapKeysTo' call
     var tmp1_mapKeysTo = LinkedHashMap_init_$Create$_0(mapCapacity(tmp0_mapKeys.i()));
@@ -16887,7 +17138,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.collections.component1' call
       tmp$ret$0 = element.e1();
       var index = tmp$ret$0;
-      tmp$ret$1 = this.b19_1.o19().l(index);
+      tmp$ret$1 = this.f19_1.s19().l(index);
       var tmp = tmp$ret$1;
       var tmp$ret$2;
       // Inline function 'kotlin.collections.mapKeysTo.<anonymous>' call
@@ -16910,34 +17161,34 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.a19_1, other.a19_1))
+    if (!equals(this.e19_1, other.e19_1))
       return false;
-    if (!equals(this.b19_1, other.b19_1))
+    if (!equals(this.f19_1, other.f19_1))
       return false;
     return true;
   };
   Vector.prototype.hashCode = function () {
-    var result = hashCode(this.a19_1);
-    result = imul(31, result) + hashCode(this.b19_1) | 0;
+    var result = hashCode(this.e19_1);
+    result = imul(31, result) + hashCode(this.f19_1) | 0;
     return result;
   };
   Vector.prototype.toString = function () {
-    return this.r1a(PrintConfig_init_$Create$(null, null, null, null, null, 31, null));
+    return this.v1a(PrintConfig_init_$Create$(null, null, null, null, null, 31, null));
   };
-  Vector.prototype.r1a = function (printConfig) {
-    var internalPrintConfig = this.b19_1.k11()(printConfig);
-    return this.s1a(printConfig, internalPrintConfig);
+  Vector.prototype.v1a = function (printConfig) {
+    var internalPrintConfig = this.f19_1.k11()(printConfig);
+    return this.w1a(printConfig, internalPrintConfig);
   };
-  Vector.prototype.s1a = function (printConfig, internalPrintConfig) {
+  Vector.prototype.w1a = function (printConfig, internalPrintConfig) {
     var tmp$ret$5;
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$4;
     // Inline function 'com.github.shwaka.kohomology.vectsp.Vector.print.<anonymous>' call
-    var coeffList = this.a19_1.r1p();
+    var coeffList = this.e19_1.e1q();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
-    var tmp0_filter = zip(coeffList, this.b19_1.o19());
+    var tmp0_filter = zip(coeffList, this.f19_1.s19());
     var tmp$ret$1;
     // Inline function 'kotlin.collections.filterTo' call
     var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -16947,7 +17198,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.vectsp.Vector.print.<anonymous>.<anonymous>' call
       var coeff = element.w3();
-      tmp$ret$0 = coeff.t1a();
+      tmp$ret$0 = coeff.z17();
       if (tmp$ret$0) {
         tmp0_filterTo.a(element);
       }
@@ -16956,12 +17207,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$2 = tmp$ret$1;
     var basisWithCoeff = tmp$ret$2;
     var tmp;
-    if (internalPrintConfig.z21_1 == null) {
+    if (internalPrintConfig.r22_1 == null) {
       tmp = basisWithCoeff;
     } else {
       var tmp$ret$3;
       // Inline function 'kotlin.comparisons.compareBy' call
-      var tmp1_compareBy = internalPrintConfig.z21_1;
+      var tmp1_compareBy = internalPrintConfig.r22_1;
       var tmp_0 = Vector$print$lambda(tmp1_compareBy);
       tmp$ret$3 = new sam$kotlin_Comparator$0_0(tmp_0);
       tmp = sortedWith(basisWithCoeff, tmp$ret$3);
@@ -16981,7 +17232,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Vector.$metadata$ = classMeta('Vector', [Printable]);
   function InternalPrintConfig$Companion$default$ref_1($boundThis) {
     var l = function (p0) {
-      return $boundThis.d19(p0);
+      return $boundThis.h19(p0);
     };
     l.callableName = 'default';
     return l;
@@ -16989,14 +17240,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_54() {
     Companion_instance_54 = this;
   }
-  Companion_54.prototype.f25 = function (numVectorSpace, basisNames, getInternalPrintConfig) {
+  Companion_54.prototype.x25 = function (numVectorSpace, basisNames, getInternalPrintConfig) {
     return new VectorSpaceImpl(numVectorSpace, basisNames, getInternalPrintConfig);
   };
-  Companion_54.prototype.a1p = function (numVectorSpace, basisNames, getInternalPrintConfig, $mask0, $handler) {
+  Companion_54.prototype.n1p = function (numVectorSpace, basisNames, getInternalPrintConfig, $mask0, $handler) {
     if (!(($mask0 & 4) === 0)) {
       getInternalPrintConfig = InternalPrintConfig$Companion$default$ref_1(Companion_getInstance_44());
     }
-    return this.f25(numVectorSpace, basisNames, getInternalPrintConfig);
+    return this.x25(numVectorSpace, basisNames, getInternalPrintConfig);
   };
   Companion_54.$metadata$ = objectMeta('Companion');
   var Companion_instance_54;
@@ -17015,14 +17266,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = basisNameToIndex$factory_2();
-    tmp$ret$0 = $this.k25_1.f1();
+    tmp$ret$0 = $this.c26_1.f1();
     return tmp$ret$0;
   }
   function VectorSpaceImpl$basisNameToIndex$delegate$lambda(this$0) {
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.mapIndexed' call
-      var tmp0_mapIndexed = this$0.h25_1;
+      var tmp0_mapIndexed = this$0.z25_1;
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapIndexedTo' call
       var tmp0_mapIndexedTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_mapIndexed, 10));
@@ -17047,26 +17298,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return toString(it);
   }
   function VectorSpaceImpl(numVectorSpace, basisNames, getInternalPrintConfig) {
-    this.g25_1 = numVectorSpace;
-    this.h25_1 = basisNames;
-    this.i25_1 = getInternalPrintConfig;
-    this.j25_1 = new VectorContextImpl(this);
+    this.y25_1 = numVectorSpace;
+    this.z25_1 = basisNames;
+    this.a26_1 = getInternalPrintConfig;
+    this.b26_1 = new VectorContextImpl(this);
     var tmp = this;
-    tmp.k25_1 = lazy(VectorSpaceImpl$basisNameToIndex$delegate$lambda(this));
+    tmp.c26_1 = lazy(VectorSpaceImpl$basisNameToIndex$delegate$lambda(this));
   }
   VectorSpaceImpl.prototype.j11 = function () {
-    return this.g25_1;
+    return this.y25_1;
   };
-  VectorSpaceImpl.prototype.o19 = function () {
-    return this.h25_1;
+  VectorSpaceImpl.prototype.s19 = function () {
+    return this.z25_1;
   };
   VectorSpaceImpl.prototype.k11 = function () {
-    return this.i25_1;
+    return this.a26_1;
   };
-  VectorSpaceImpl.prototype.o14 = function () {
-    return this.j25_1;
+  VectorSpaceImpl.prototype.t14 = function () {
+    return this.b26_1;
   };
-  VectorSpaceImpl.prototype.c23 = function (basisName) {
+  VectorSpaceImpl.prototype.u23 = function (basisName) {
     var tmp0_elvis_lhs = _get_basisNameToIndex__26cf4t_2(this).t(basisName);
     var tmp;
     if (tmp0_elvis_lhs == null) {
@@ -17087,76 +17338,79 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.g25_1, other.j11()))
+    if (!equals(this.y25_1, other.j11()))
       return false;
-    if (!(this.q1t() === other.q1t()))
+    if (!(this.d1u() === other.d1u()))
       return false;
-    if (!equals(this.h25_1, other.o19()))
+    if (!equals(this.z25_1, other.s19()))
       return false;
     return true;
   };
   VectorSpaceImpl.prototype.hashCode = function () {
-    var result = hashCode(this.g25_1);
-    result = imul(31, result) + this.q1t() | 0;
-    result = imul(31, result) + hashCode(this.h25_1) | 0;
+    var result = hashCode(this.y25_1);
+    result = imul(31, result) + this.d1u() | 0;
+    result = imul(31, result) + hashCode(this.z25_1) | 0;
     return result;
   };
   VectorSpaceImpl.prototype.toString = function () {
-    var basisNamesString = joinToString$default(this.h25_1, ', ', null, null, 0, null, VectorSpaceImpl$toString$lambda, 30, null);
+    var basisNamesString = joinToString$default(this.z25_1, ', ', null, null, 0, null, VectorSpaceImpl$toString$lambda, 30, null);
     return 'VectorSpace(' + basisNamesString + ')';
   };
   VectorSpaceImpl.$metadata$ = classMeta('VectorSpaceImpl', [VectorSpace]);
   function VectorContextImpl(vectorSpace) {
-    this.l25_1 = vectorSpace;
-    this.m25_1 = new NumVectorContextImpl(vectorSpace.j11());
+    this.d26_1 = vectorSpace;
+    this.e26_1 = new NumVectorContextImpl(vectorSpace.j11());
   }
-  VectorContextImpl.prototype.e25 = function () {
-    return this.l25_1;
+  VectorContextImpl.prototype.w25 = function () {
+    return this.d26_1;
   };
   VectorContextImpl.prototype.p11 = function () {
-    return this.m25_1.p11();
+    return this.e26_1.p11();
   };
   VectorContextImpl.prototype.j11 = function () {
-    return this.m25_1.d1b_1;
+    return this.e26_1.h1b_1;
   };
-  VectorContextImpl.prototype.u12 = function () {
-    return this.m25_1.u12();
+  VectorContextImpl.prototype.w12 = function () {
+    return this.e26_1.w12();
   };
-  VectorContextImpl.prototype.v12 = function () {
-    return this.m25_1.v12();
+  VectorContextImpl.prototype.x12 = function () {
+    return this.e26_1.x12();
   };
-  VectorContextImpl.prototype.x12 = function (_this__u8e3s4, other) {
-    return this.m25_1.x12(_this__u8e3s4, other);
+  VectorContextImpl.prototype.z12 = function (_this__u8e3s4, other) {
+    return this.e26_1.z12(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.z12 = function (_this__u8e3s4) {
-    return this.m25_1.z12(_this__u8e3s4);
+  VectorContextImpl.prototype.b13 = function (_this__u8e3s4) {
+    return this.e26_1.b13(_this__u8e3s4);
   };
-  VectorContextImpl.prototype.a13 = function (_this__u8e3s4, other) {
-    return this.m25_1.a13(_this__u8e3s4, other);
+  VectorContextImpl.prototype.c13 = function (_this__u8e3s4, other) {
+    return this.e26_1.c13(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.b13 = function (_this__u8e3s4, other) {
-    return this.m25_1.b13(_this__u8e3s4, other);
+  VectorContextImpl.prototype.d13 = function (_this__u8e3s4, other) {
+    return this.e26_1.d13(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.e13 = function (_this__u8e3s4, other) {
-    return this.m25_1.e13(_this__u8e3s4, other);
+  VectorContextImpl.prototype.g13 = function (_this__u8e3s4, other) {
+    return this.e26_1.g13(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.f13 = function (_this__u8e3s4, other) {
-    return this.m25_1.f13(_this__u8e3s4, other);
+  VectorContextImpl.prototype.h13 = function (_this__u8e3s4, other) {
+    return this.e26_1.h13(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.i13 = function (_this__u8e3s4) {
-    return this.m25_1.i13(_this__u8e3s4);
+  VectorContextImpl.prototype.k13 = function (_this__u8e3s4) {
+    return this.e26_1.k13(_this__u8e3s4);
   };
-  VectorContextImpl.prototype.k13 = function (_this__u8e3s4, other) {
-    return this.m25_1.k13(_this__u8e3s4, other);
+  VectorContextImpl.prototype.m13 = function (_this__u8e3s4, other) {
+    return this.e26_1.m13(_this__u8e3s4, other);
   };
-  VectorContextImpl.prototype.l13 = function (_this__u8e3s4, scalar) {
-    return this.m25_1.l13(_this__u8e3s4, scalar);
+  VectorContextImpl.prototype.n13 = function (_this__u8e3s4, numVector) {
+    return this.e26_1.n13(_this__u8e3s4, numVector);
   };
-  VectorContextImpl.prototype.u13 = function (_this__u8e3s4) {
-    return this.m25_1.u13(_this__u8e3s4);
+  VectorContextImpl.prototype.p13 = function (_this__u8e3s4, scalar) {
+    return this.e26_1.p13(_this__u8e3s4, scalar);
   };
-  VectorContextImpl.prototype.p1w = function (_this__u8e3s4) {
-    return this.m25_1.p1w(_this__u8e3s4);
+  VectorContextImpl.prototype.y13 = function (_this__u8e3s4) {
+    return this.e26_1.y13(_this__u8e3s4);
+  };
+  VectorContextImpl.prototype.e1x = function (_this__u8e3s4) {
+    return this.e26_1.e1x(_this__u8e3s4);
   };
   VectorContextImpl.$metadata$ = classMeta('VectorContextImpl', [VectorContext, NumVectorContext]);
   function basisNameToIndex$factory_2() {
@@ -17165,79 +17419,85 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }, null);
   }
   //region block: post-declaration
-  DGAlgebraContextImpl.prototype.y13 = pow;
-  DGAlgebraContextImpl.prototype.z13 = pow_0;
-  DGAlgebraContextImpl.prototype.a14 = product;
-  DGAlgebraContextImpl.prototype.d12 = get_unit;
+  DGAlgebraContextImpl.prototype.c14 = pow;
+  DGAlgebraContextImpl.prototype.d14 = pow_0;
+  DGAlgebraContextImpl.prototype.e14 = toScalar_0;
+  DGAlgebraContextImpl.prototype.f14 = product;
+  DGAlgebraContextImpl.prototype.e12 = get_unit;
   DGAlgebraImpl.prototype.i11 = cohomologyClassOf;
   DGAlgebraImpl.prototype.a12 = multiply_0;
   DGAlgebraImpl.prototype.b12 = multiply_1;
-  DGAlgebraImpl.prototype.f12 = parse;
+  DGAlgebraImpl.prototype.g12 = convertToScalar;
+  DGAlgebraImpl.prototype.h12 = parse;
   DGLieAlgebraImpl.prototype.i11 = cohomologyClassOf;
   DGLieAlgebraImpl.prototype.a12 = multiply_0;
   DGLieAlgebraImpl.prototype.b12 = multiply_1;
-  DGLieAlgebraContextImpl.prototype.v15 = ad;
-  DGMagmaContextImpl.prototype.n13 = times_8;
-  DGMagmaContextImpl.prototype.m13 = times_1;
-  DGMagmaContextImpl.prototype.s13 = times_2;
-  DGMagmaContextImpl.prototype.p13 = times_3;
-  DGMagmaContextImpl.prototype.o13 = times_4;
-  DGMagmaContextImpl.prototype.r13 = times_5;
-  DGMagmaContextImpl.prototype.l13 = times_0;
-  DGMagmaContextImpl.prototype.k13 = times;
-  DGMagmaContextImpl.prototype.q13 = times_7;
-  DGMagmaContextImpl.prototype.j12 = get_d;
-  DGMagmaContextImpl.prototype.w12 = cohomologyClass;
-  DGMagmaContextImpl.prototype.g13 = plus_3;
-  DGMagmaContextImpl.prototype.h13 = plus_4;
-  DGMagmaContextImpl.prototype.f13 = plus_2;
-  DGMagmaContextImpl.prototype.e13 = plus_1;
-  DGMagmaContextImpl.prototype.c13 = minus_1;
-  DGMagmaContextImpl.prototype.d13 = minus_2;
-  DGMagmaContextImpl.prototype.b13 = minus_0;
-  DGMagmaContextImpl.prototype.a13 = minus;
-  DGMagmaContextImpl.prototype.v13 = unaryMinus_1;
-  DGMagmaContextImpl.prototype.w13 = unaryMinus_2;
-  DGMagmaContextImpl.prototype.u13 = unaryMinus;
-  DGMagmaContextImpl.prototype.j13 = sum_1;
-  DGMagmaContextImpl.prototype.i13 = sum_0;
-  DGMagmaContextImpl.prototype.x12 = div;
-  DGMagmaContextImpl.prototype.y12 = div_0;
-  DGMagmaContextImpl.prototype.z12 = inv;
-  DGMagmaContextImpl.prototype.t13 = toScalar;
-  DGMagmaContextImpl.prototype.v12 = get_zero;
-  DGMagmaContextImpl.prototype.u12 = get_one;
+  DGLieAlgebraContextImpl.prototype.a16 = ad;
+  DGMagmaContextImpl.prototype.r13 = times_10;
+  DGMagmaContextImpl.prototype.q13 = times_2;
+  DGMagmaContextImpl.prototype.o13 = times_3;
+  DGMagmaContextImpl.prototype.w13 = times_4;
+  DGMagmaContextImpl.prototype.t13 = times_5;
+  DGMagmaContextImpl.prototype.s13 = times_6;
+  DGMagmaContextImpl.prototype.v13 = times_7;
+  DGMagmaContextImpl.prototype.p13 = times_0;
+  DGMagmaContextImpl.prototype.n13 = times_1;
+  DGMagmaContextImpl.prototype.m13 = times;
+  DGMagmaContextImpl.prototype.u13 = times_9;
+  DGMagmaContextImpl.prototype.l12 = get_d;
+  DGMagmaContextImpl.prototype.y12 = cohomologyClass;
+  DGMagmaContextImpl.prototype.i13 = plus_3;
+  DGMagmaContextImpl.prototype.j13 = plus_4;
+  DGMagmaContextImpl.prototype.h13 = plus_2;
+  DGMagmaContextImpl.prototype.g13 = plus_1;
+  DGMagmaContextImpl.prototype.e13 = minus_1;
+  DGMagmaContextImpl.prototype.f13 = minus_2;
+  DGMagmaContextImpl.prototype.d13 = minus_0;
+  DGMagmaContextImpl.prototype.c13 = minus;
+  DGMagmaContextImpl.prototype.z13 = unaryMinus_1;
+  DGMagmaContextImpl.prototype.a14 = unaryMinus_2;
+  DGMagmaContextImpl.prototype.y13 = unaryMinus;
+  DGMagmaContextImpl.prototype.l13 = sum_1;
+  DGMagmaContextImpl.prototype.k13 = sum_0;
+  DGMagmaContextImpl.prototype.z12 = div;
+  DGMagmaContextImpl.prototype.a13 = div_0;
+  DGMagmaContextImpl.prototype.b13 = inv;
+  DGMagmaContextImpl.prototype.x13 = toScalar;
+  DGMagmaContextImpl.prototype.x12 = get_zero;
+  DGMagmaContextImpl.prototype.w12 = get_one;
   DGMagmaImpl.prototype.i11 = cohomologyClassOf;
   DGMagmaImpl.prototype.a12 = multiply_0;
   DGMagmaImpl.prototype.b12 = multiply_1;
   DGVectorSpaceImpl.prototype.i11 = cohomologyClassOf;
-  GAlgebraContextImpl.prototype.d12 = get_unit;
-  GAlgebraContextImpl.prototype.y13 = pow;
-  GAlgebraContextImpl.prototype.z13 = pow_0;
-  GAlgebraContextImpl.prototype.a14 = product;
-  GLieAlgebraContextImpl.prototype.v15 = ad;
+  GAlgebraContextImpl.prototype.e12 = get_unit;
+  GAlgebraContextImpl.prototype.c14 = pow;
+  GAlgebraContextImpl.prototype.d14 = pow_0;
+  GAlgebraContextImpl.prototype.e14 = toScalar_0;
+  GAlgebraContextImpl.prototype.f14 = product;
+  GLieAlgebraContextImpl.prototype.a16 = ad;
   GLieAlgebraImpl.prototype.a12 = multiply_0;
   GLieAlgebraImpl.prototype.b12 = multiply_1;
-  GLinearMapImpl.prototype.n14 = get_degreeGroup;
-  GLinearMapImpl.prototype.z14 = invoke;
-  GLinearMapImpl.prototype.a15 = kernel;
-  GLinearMapImpl.prototype.x14 = image;
-  GLinearMapImpl.prototype.y14 = induce;
-  GMagmaContextImpl.prototype.n13 = times_6;
-  GMagmaContextImpl.prototype.q13 = times_7;
-  GVector.prototype.t1a = isNotZero;
-  GVectorContextImpl.prototype.g13 = plus_3;
-  GVectorContextImpl.prototype.h13 = plus_4;
-  GVectorContextImpl.prototype.c13 = minus_1;
-  GVectorContextImpl.prototype.d13 = minus_2;
-  GVectorContextImpl.prototype.m13 = times_1;
-  GVectorContextImpl.prototype.s13 = times_2;
-  GVectorContextImpl.prototype.p13 = times_3;
-  GVectorContextImpl.prototype.o13 = times_4;
-  GVectorContextImpl.prototype.r13 = times_5;
-  GVectorContextImpl.prototype.v13 = unaryMinus_1;
-  GVectorContextImpl.prototype.w13 = unaryMinus_2;
-  GVectorContextImpl.prototype.j13 = sum_1;
+  GLinearMapImpl.prototype.s14 = get_degreeGroup;
+  GLinearMapImpl.prototype.e15 = invoke;
+  GLinearMapImpl.prototype.f15 = kernel;
+  GLinearMapImpl.prototype.c15 = image;
+  GLinearMapImpl.prototype.d15 = induce;
+  GMagmaContextImpl.prototype.r13 = times_8;
+  GMagmaContextImpl.prototype.u13 = times_9;
+  GVector.prototype.z17 = isNotZero;
+  GVectorContextImpl.prototype.i13 = plus_3;
+  GVectorContextImpl.prototype.j13 = plus_4;
+  GVectorContextImpl.prototype.e13 = minus_1;
+  GVectorContextImpl.prototype.f13 = minus_2;
+  GVectorContextImpl.prototype.q13 = times_2;
+  GVectorContextImpl.prototype.o13 = times_3;
+  GVectorContextImpl.prototype.w13 = times_4;
+  GVectorContextImpl.prototype.t13 = times_5;
+  GVectorContextImpl.prototype.s13 = times_6;
+  GVectorContextImpl.prototype.v13 = times_7;
+  GVectorContextImpl.prototype.z13 = unaryMinus_1;
+  GVectorContextImpl.prototype.a14 = unaryMinus_2;
+  GVectorContextImpl.prototype.l13 = sum_1;
   GVectorSpaceImpl.prototype.p11 = get_field;
   GVectorSpaceImpl.prototype.q11 = fromVector;
   GVectorSpaceImpl.prototype.r11 = fromVector_0;
@@ -17249,7 +17509,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   GVectorSpaceImpl.prototype.x11 = add;
   GVectorSpaceImpl.prototype.y11 = subtract;
   GVectorSpaceImpl.prototype.z11 = multiply;
-  GVectorSpaceImpl.prototype.c12 = get_zeroGVector;
+  GVectorSpaceImpl.prototype.c12 = divideByGVector;
   SubGVectorSpaceImpl.prototype.p11 = get_field;
   SubGVectorSpaceImpl.prototype.q11 = fromVector;
   SubGVectorSpaceImpl.prototype.r11 = fromVector_0;
@@ -17261,179 +17521,189 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   SubGVectorSpaceImpl.prototype.x11 = add;
   SubGVectorSpaceImpl.prototype.y11 = subtract;
   SubGVectorSpaceImpl.prototype.z11 = multiply;
-  SubGVectorSpaceImpl.prototype.c12 = get_zeroGVector;
+  SubGVectorSpaceImpl.prototype.c12 = divideByGVector;
+  SubQuotGAlgebraImpl.prototype.g12 = convertToScalar;
   SubQuotGAlgebraImpl.prototype.a12 = multiply_0;
   SubQuotGAlgebraImpl.prototype.b12 = multiply_1;
   SubQuotGLieAlgebraImpl.prototype.a12 = multiply_0;
   SubQuotGLieAlgebraImpl.prototype.b12 = multiply_1;
   SubQuotGMagmaImpl.prototype.a12 = multiply_0;
   SubQuotGMagmaImpl.prototype.b12 = multiply_1;
-  SubQuotGVectorSpaceImpl.prototype.t16 = subspaceContains;
+  SubQuotGVectorSpaceImpl.prototype.y16 = subspaceContains;
   SubQuotGVectorSpaceImpl.prototype.p11 = get_field;
   SubQuotGVectorSpaceImpl.prototype.q11 = fromVector;
   SubQuotGVectorSpaceImpl.prototype.r11 = fromVector_0;
   SubQuotGVectorSpaceImpl.prototype.s11 = fromBasisName;
   SubQuotGVectorSpaceImpl.prototype.t11 = getBasis;
-  SubQuotGVectorSpaceImpl.prototype.z1a = getBasis_0;
-  SubQuotGVectorSpaceImpl.prototype.x1a = getBasisForAugmentedDegree;
+  SubQuotGVectorSpaceImpl.prototype.c1b = getBasis_0;
+  SubQuotGVectorSpaceImpl.prototype.a1b = getBasisForAugmentedDegree;
   SubQuotGVectorSpaceImpl.prototype.u11 = getZero;
   SubQuotGVectorSpaceImpl.prototype.v11 = convertToGVector;
   SubQuotGVectorSpaceImpl.prototype.w11 = contains;
   SubQuotGVectorSpaceImpl.prototype.x11 = add;
   SubQuotGVectorSpaceImpl.prototype.y11 = subtract;
   SubQuotGVectorSpaceImpl.prototype.z11 = multiply;
-  SubQuotGVectorSpaceImpl.prototype.c12 = get_zeroGVector;
-  IntDegree.prototype.k1e = isOdd;
-  IntDegree.prototype.l1e = koszulSign;
-  IntDegreeGroup.prototype.v12 = get_zero_0;
-  MultiDegree.prototype.k1e = isOdd;
-  MultiDegree.prototype.l1e = koszulSign;
-  MultiDegreeGroup.prototype.v12 = get_zero_0;
-  FreeDGAlgebraImpl.prototype.r1a = toString_2;
-  FreeDGAlgebraImpl.prototype.r1k = convertDegree_0;
+  SubQuotGVectorSpaceImpl.prototype.c12 = divideByGVector;
+  IntDegree.prototype.z17 = isNotZero_0;
+  IntDegree.prototype.s1e = isOdd;
+  IntDegree.prototype.t1e = koszulSign;
+  IntDegreeGroup.prototype.x12 = get_zero_0;
+  MultiDegree.prototype.z17 = isNotZero_0;
+  MultiDegree.prototype.s1e = isOdd;
+  MultiDegree.prototype.t1e = koszulSign;
+  MultiDegreeGroup.prototype.x12 = get_zero_0;
+  FreeDGAlgebraImpl.prototype.v1a = toString_2;
+  FreeDGAlgebraImpl.prototype.y1k = convertDegree_0;
   FreeDGAlgebraImpl.prototype.i11 = cohomologyClassOf;
   FreeDGAlgebraImpl.prototype.a12 = multiply_0;
   FreeDGAlgebraImpl.prototype.b12 = multiply_1;
-  FreeDGAlgebraImpl.prototype.f12 = parse;
-  FreeDGAlgebraImpl.prototype.i1k = parse_0;
-  FreeDGAlgebraImpl.prototype.v1f = get_generatorList;
-  FreeDGAlgebraImpl.prototype.a1k = getDerivation;
-  FreeDGAlgebraImpl.prototype.m1k = getDerivation_0;
-  FreeDGAlgebraImpl.prototype.s1k = getGAlgebraMap;
-  FreeDGAlgebraImpl.prototype.n1k = containsIndeterminate;
-  FreeDGAlgebraImpl.prototype.t1k = getGeneratorsForParser;
-  FreeDGAlgebraContextImpl.prototype.i1k = parse_1;
-  FreeGAlgebraImpl.prototype.v1f = get_generatorList;
-  FreeGAlgebraImpl.prototype.a1k = getDerivation;
-  FreeGAlgebraImpl.prototype.m1k = getDerivation_0;
-  FreeGAlgebraImpl.prototype.n1k = containsIndeterminate;
-  FreeGAlgebraImpl.prototype.i1k = parse_0;
-  FreeGAlgebraImpl.prototype.t1k = getGeneratorsForParser;
-  FreeGAlgebraImpl.prototype.r1k = convertDegree;
-  FreeGAlgebraImpl.prototype.r1a = toString_1;
-  FreeGAlgebraContextImpl.prototype.i1k = parse_1;
-  MonoidGAlgebraImpl.prototype.f12 = parse;
+  FreeDGAlgebraImpl.prototype.g12 = convertToScalar;
+  FreeDGAlgebraImpl.prototype.h12 = parse;
+  FreeDGAlgebraImpl.prototype.p1k = parse_0;
+  FreeDGAlgebraImpl.prototype.d1g = get_generatorList;
+  FreeDGAlgebraImpl.prototype.h1k = getDerivation;
+  FreeDGAlgebraImpl.prototype.t1k = getDerivation_0;
+  FreeDGAlgebraImpl.prototype.z1k = getGAlgebraMap;
+  FreeDGAlgebraImpl.prototype.u1k = containsIndeterminate;
+  FreeDGAlgebraImpl.prototype.a1l = getGeneratorsForParser;
+  FreeDGAlgebraContextImpl.prototype.p1k = parse_1;
+  FreeGAlgebraImpl.prototype.d1g = get_generatorList;
+  FreeGAlgebraImpl.prototype.h1k = getDerivation;
+  FreeGAlgebraImpl.prototype.t1k = getDerivation_0;
+  FreeGAlgebraImpl.prototype.u1k = containsIndeterminate;
+  FreeGAlgebraImpl.prototype.p1k = parse_0;
+  FreeGAlgebraImpl.prototype.a1l = getGeneratorsForParser;
+  FreeGAlgebraImpl.prototype.y1k = convertDegree;
+  FreeGAlgebraImpl.prototype.v1a = toString_1;
+  FreeGAlgebraContextImpl.prototype.p1k = parse_1;
+  MonoidGAlgebraImpl.prototype.g12 = convertToScalar;
+  MonoidGAlgebraImpl.prototype.h12 = parse;
   MonoidGAlgebraImpl.prototype.a12 = multiply_0;
   MonoidGAlgebraImpl.prototype.b12 = multiply_1;
-  DenseMatrixSpace.prototype.a1u = fromRowList$default;
-  DenseMatrixSpace.prototype.k1u = getIdentity;
-  DenseMatrixSpace.prototype.i1u = fromColList;
-  DenseMatrixSpace.prototype.l1u = fromColMap;
-  DenseMatrix.prototype.r1p = toList_2;
-  DenseMatrix.prototype.o1u = toNumVectorList;
-  DenseNumVectorSpace.prototype.e1v = getOneAtIndex;
-  DenseNumVectorSpace.prototype.f1v = fromReducedValueMap;
-  ScalarContextImpl.prototype.e13 = plus_1;
-  ScalarContextImpl.prototype.a13 = minus;
-  ScalarContextImpl.prototype.k13 = times;
-  ScalarContextImpl.prototype.u13 = unaryMinus;
-  ScalarContextImpl.prototype.x12 = div;
-  ScalarContextImpl.prototype.y12 = div_0;
-  ScalarContextImpl.prototype.z12 = inv;
-  ScalarContextImpl.prototype.t13 = toScalar;
-  ScalarContextImpl.prototype.v12 = get_zero;
-  ScalarContextImpl.prototype.u12 = get_one;
-  ScalarContextImpl.prototype.i13 = sum_0;
-  MatrixContextImpl.prototype.i1w = times_9;
-  MatrixContextImpl.prototype.g1w = get_rowEchelonForm;
-  MatrixContextImpl.prototype.j1w = rowSlice;
-  MatrixContextImpl.prototype.h1w = colSlice;
-  MatrixContextImpl.prototype.f1w = join;
-  MatrixContextImpl.prototype.k1w = transpose;
-  MatrixContextImpl.prototype.l1w = computeKernelBasis;
-  NumVectorContextImpl.prototype.f13 = plus_2;
-  NumVectorContextImpl.prototype.b13 = minus_0;
-  NumVectorContextImpl.prototype.l13 = times_0;
-  NumVectorContextImpl.prototype.p1w = unaryMinus_0;
-  NumVectorContextImpl.prototype.m1w = get;
-  AbstractSparseMatrixSpace.prototype.a1u = fromRowList$default;
-  AbstractSparseMatrixSpace.prototype.k1u = getIdentity;
-  AbstractSparseMatrixSpace.prototype.l1u = fromColMap;
-  AbstractSparseMatrixSpace.prototype.j1u = fromNumVectorList;
-  SparseMatrixSpace.prototype.a1u = fromRowList$default;
-  SparseMatrixSpace.prototype.k1u = getIdentity;
-  SparseMatrixSpace.prototype.l1u = fromColMap;
-  SparseMatrixSpace.prototype.j1u = fromNumVectorList;
-  DecomposedSparseMatrixSpace.prototype.a1u = fromRowList$default;
-  DecomposedSparseMatrixSpace.prototype.k1u = getIdentity;
-  DecomposedSparseMatrixSpace.prototype.l1u = fromColMap;
-  DecomposedSparseMatrixSpace.prototype.j1u = fromNumVectorList;
-  SparseMatrix.prototype.o1u = toNumVectorList;
-  SparseNumVectorSpace.prototype.e1v = getOneAtIndex;
-  CyclicModel.prototype.r1a = toString_2;
-  CyclicModel.prototype.r1k = convertDegree_0;
-  CyclicModel.prototype.i1k = parse_0;
-  CyclicModel.prototype.v1f = get_generatorList;
-  CyclicModel.prototype.a1k = getDerivation;
-  CyclicModel.prototype.m1k = getDerivation_0;
-  CyclicModel.prototype.s1k = getGAlgebraMap;
-  CyclicModel.prototype.n1k = containsIndeterminate;
-  CyclicModel.prototype.t1k = getGeneratorsForParser;
-  FreeLoopSpace.prototype.r1a = toString_2;
-  FreeLoopSpace.prototype.r1k = convertDegree_0;
-  FreeLoopSpace.prototype.i1k = parse_0;
-  FreeLoopSpace.prototype.v1f = get_generatorList;
-  FreeLoopSpace.prototype.a1k = getDerivation;
-  FreeLoopSpace.prototype.m1k = getDerivation_0;
-  FreeLoopSpace.prototype.s1k = getGAlgebraMap;
-  FreeLoopSpace.prototype.n1k = containsIndeterminate;
-  FreeLoopSpace.prototype.t1k = getGeneratorsForParser;
-  KotlinRational.prototype.t1a = isNotZero_0;
-  KotlinRational.prototype.e1w = toString_5;
-  KotlinRational.prototype.r1a = toString_6;
-  DirectSumBasis.prototype.r1a = toString_4;
-  DirectSum.prototype.q1t = get_dim;
+  DenseMatrixSpace.prototype.n1u = fromRowList$default;
+  DenseMatrixSpace.prototype.x1u = getIdentity;
+  DenseMatrixSpace.prototype.v1u = fromColList;
+  DenseMatrixSpace.prototype.y1u = fromColMap;
+  DenseMatrix.prototype.e1q = toList_2;
+  DenseMatrix.prototype.b1v = toNumVectorList;
+  DenseNumVectorSpace.prototype.t1v = getOneAtIndex;
+  DenseNumVectorSpace.prototype.u1v = fromReducedValueMap;
+  ScalarContextImpl.prototype.g13 = plus_1;
+  ScalarContextImpl.prototype.c13 = minus;
+  ScalarContextImpl.prototype.m13 = times;
+  ScalarContextImpl.prototype.y13 = unaryMinus;
+  ScalarContextImpl.prototype.z12 = div;
+  ScalarContextImpl.prototype.a13 = div_0;
+  ScalarContextImpl.prototype.b13 = inv;
+  ScalarContextImpl.prototype.x13 = toScalar;
+  ScalarContextImpl.prototype.x12 = get_zero;
+  ScalarContextImpl.prototype.w12 = get_one;
+  ScalarContextImpl.prototype.k13 = sum_0;
+  MatrixContextImpl.prototype.x1w = times_11;
+  MatrixContextImpl.prototype.v1w = get_rowEchelonForm;
+  MatrixContextImpl.prototype.y1w = rowSlice;
+  MatrixContextImpl.prototype.w1w = colSlice;
+  MatrixContextImpl.prototype.u1w = join;
+  MatrixContextImpl.prototype.z1w = transpose;
+  MatrixContextImpl.prototype.a1x = computeKernelBasis;
+  NumVectorContextImpl.prototype.h13 = plus_2;
+  NumVectorContextImpl.prototype.d13 = minus_0;
+  NumVectorContextImpl.prototype.p13 = times_0;
+  NumVectorContextImpl.prototype.n13 = times_1;
+  NumVectorContextImpl.prototype.e1x = unaryMinus_0;
+  NumVectorContextImpl.prototype.b1x = get;
+  AbstractSparseMatrixSpace.prototype.n1u = fromRowList$default;
+  AbstractSparseMatrixSpace.prototype.x1u = getIdentity;
+  AbstractSparseMatrixSpace.prototype.y1u = fromColMap;
+  AbstractSparseMatrixSpace.prototype.w1u = fromNumVectorList;
+  SparseMatrixSpace.prototype.n1u = fromRowList$default;
+  SparseMatrixSpace.prototype.x1u = getIdentity;
+  SparseMatrixSpace.prototype.y1u = fromColMap;
+  SparseMatrixSpace.prototype.w1u = fromNumVectorList;
+  DecomposedSparseMatrixSpace.prototype.n1u = fromRowList$default;
+  DecomposedSparseMatrixSpace.prototype.x1u = getIdentity;
+  DecomposedSparseMatrixSpace.prototype.y1u = fromColMap;
+  DecomposedSparseMatrixSpace.prototype.w1u = fromNumVectorList;
+  SparseMatrix.prototype.b1v = toNumVectorList;
+  SparseNumVectorSpace.prototype.t1v = getOneAtIndex;
+  CyclicModel.prototype.v1a = toString_2;
+  CyclicModel.prototype.y1k = convertDegree_0;
+  CyclicModel.prototype.p1k = parse_0;
+  CyclicModel.prototype.d1g = get_generatorList;
+  CyclicModel.prototype.h1k = getDerivation;
+  CyclicModel.prototype.t1k = getDerivation_0;
+  CyclicModel.prototype.z1k = getGAlgebraMap;
+  CyclicModel.prototype.u1k = containsIndeterminate;
+  CyclicModel.prototype.a1l = getGeneratorsForParser;
+  FreeLoopSpace.prototype.v1a = toString_2;
+  FreeLoopSpace.prototype.y1k = convertDegree_0;
+  FreeLoopSpace.prototype.p1k = parse_0;
+  FreeLoopSpace.prototype.d1g = get_generatorList;
+  FreeLoopSpace.prototype.h1k = getDerivation;
+  FreeLoopSpace.prototype.t1k = getDerivation_0;
+  FreeLoopSpace.prototype.z1k = getGAlgebraMap;
+  FreeLoopSpace.prototype.u1k = containsIndeterminate;
+  FreeLoopSpace.prototype.a1l = getGeneratorsForParser;
+  KotlinRational.prototype.z17 = isNotZero_1;
+  KotlinRational.prototype.t1w = toString_5;
+  KotlinRational.prototype.v1a = toString_6;
+  DirectSumBasis.prototype.v1a = toString_4;
+  DirectSum.prototype.d1u = get_dim;
   DirectSum.prototype.p11 = get_field_0;
-  DirectSum.prototype.f23 = contains_0;
-  DirectSum.prototype.g23 = add_0;
-  DirectSum.prototype.h23 = subtract_0;
-  DirectSum.prototype.i23 = multiply_2;
-  DirectSum.prototype.j23 = fromNumVector;
-  DirectSum.prototype.k23 = fromCoeffList;
-  DirectSum.prototype.v1a = fromBasisName_0;
-  DirectSum.prototype.y1a = get_zeroVector;
-  DirectSum.prototype.w1a = getBasis_1;
-  SubQuotBasis.prototype.r1a = toString_4;
-  SubQuotVectorSpace.prototype.q1t = get_dim;
+  DirectSum.prototype.x23 = contains_0;
+  DirectSum.prototype.y23 = add_0;
+  DirectSum.prototype.z23 = subtract_0;
+  DirectSum.prototype.a24 = multiply_2;
+  DirectSum.prototype.g1b = divideByVector;
+  DirectSum.prototype.b24 = fromNumVector;
+  DirectSum.prototype.c24 = fromCoeffList;
+  DirectSum.prototype.y1a = fromBasisName_0;
+  DirectSum.prototype.b1b = get_zeroVector;
+  DirectSum.prototype.z1a = getBasis_1;
+  SubQuotBasis.prototype.v1a = toString_4;
+  SubQuotVectorSpace.prototype.d1u = get_dim;
   SubQuotVectorSpace.prototype.p11 = get_field_0;
-  SubQuotVectorSpace.prototype.f23 = contains_0;
-  SubQuotVectorSpace.prototype.g23 = add_0;
-  SubQuotVectorSpace.prototype.h23 = subtract_0;
-  SubQuotVectorSpace.prototype.i23 = multiply_2;
-  SubQuotVectorSpace.prototype.j23 = fromNumVector;
-  SubQuotVectorSpace.prototype.k23 = fromCoeffList;
-  SubQuotVectorSpace.prototype.v1a = fromBasisName_0;
-  SubQuotVectorSpace.prototype.y1a = get_zeroVector;
-  SubQuotVectorSpace.prototype.w1a = getBasis_1;
-  SubBasis.prototype.r1a = toString_4;
-  SubVectorSpaceImpl.prototype.q1t = get_dim;
+  SubQuotVectorSpace.prototype.x23 = contains_0;
+  SubQuotVectorSpace.prototype.y23 = add_0;
+  SubQuotVectorSpace.prototype.z23 = subtract_0;
+  SubQuotVectorSpace.prototype.a24 = multiply_2;
+  SubQuotVectorSpace.prototype.g1b = divideByVector;
+  SubQuotVectorSpace.prototype.b24 = fromNumVector;
+  SubQuotVectorSpace.prototype.c24 = fromCoeffList;
+  SubQuotVectorSpace.prototype.y1a = fromBasisName_0;
+  SubQuotVectorSpace.prototype.b1b = get_zeroVector;
+  SubQuotVectorSpace.prototype.z1a = getBasis_1;
+  SubBasis.prototype.v1a = toString_4;
+  SubVectorSpaceImpl.prototype.d1u = get_dim;
   SubVectorSpaceImpl.prototype.p11 = get_field_0;
-  SubVectorSpaceImpl.prototype.f23 = contains_0;
-  SubVectorSpaceImpl.prototype.g23 = add_0;
-  SubVectorSpaceImpl.prototype.h23 = subtract_0;
-  SubVectorSpaceImpl.prototype.i23 = multiply_2;
-  SubVectorSpaceImpl.prototype.j23 = fromNumVector;
-  SubVectorSpaceImpl.prototype.k23 = fromCoeffList;
-  SubVectorSpaceImpl.prototype.v1a = fromBasisName_0;
-  SubVectorSpaceImpl.prototype.y1a = get_zeroVector;
-  SubVectorSpaceImpl.prototype.w1a = getBasis_1;
-  VectorSpaceImpl.prototype.q1t = get_dim;
+  SubVectorSpaceImpl.prototype.x23 = contains_0;
+  SubVectorSpaceImpl.prototype.y23 = add_0;
+  SubVectorSpaceImpl.prototype.z23 = subtract_0;
+  SubVectorSpaceImpl.prototype.a24 = multiply_2;
+  SubVectorSpaceImpl.prototype.g1b = divideByVector;
+  SubVectorSpaceImpl.prototype.b24 = fromNumVector;
+  SubVectorSpaceImpl.prototype.c24 = fromCoeffList;
+  SubVectorSpaceImpl.prototype.y1a = fromBasisName_0;
+  SubVectorSpaceImpl.prototype.b1b = get_zeroVector;
+  SubVectorSpaceImpl.prototype.z1a = getBasis_1;
+  VectorSpaceImpl.prototype.d1u = get_dim;
   VectorSpaceImpl.prototype.p11 = get_field_0;
-  VectorSpaceImpl.prototype.f23 = contains_0;
-  VectorSpaceImpl.prototype.g23 = add_0;
-  VectorSpaceImpl.prototype.h23 = subtract_0;
-  VectorSpaceImpl.prototype.i23 = multiply_2;
-  VectorSpaceImpl.prototype.j23 = fromNumVector;
-  VectorSpaceImpl.prototype.k23 = fromCoeffList;
-  VectorSpaceImpl.prototype.v1a = fromBasisName_0;
-  VectorSpaceImpl.prototype.y1a = get_zeroVector;
-  VectorSpaceImpl.prototype.w1a = getBasis_1;
-  VectorContextImpl.prototype.a1b = plus_5;
-  VectorContextImpl.prototype.b1b = minus_3;
-  VectorContextImpl.prototype.s22 = times_10;
-  VectorContextImpl.prototype.c1b = times_11;
-  VectorContextImpl.prototype.f1p = unaryMinus_3;
-  VectorContextImpl.prototype.t22 = sum_2;
+  VectorSpaceImpl.prototype.x23 = contains_0;
+  VectorSpaceImpl.prototype.y23 = add_0;
+  VectorSpaceImpl.prototype.z23 = subtract_0;
+  VectorSpaceImpl.prototype.a24 = multiply_2;
+  VectorSpaceImpl.prototype.g1b = divideByVector;
+  VectorSpaceImpl.prototype.b24 = fromNumVector;
+  VectorSpaceImpl.prototype.c24 = fromCoeffList;
+  VectorSpaceImpl.prototype.y1a = fromBasisName_0;
+  VectorSpaceImpl.prototype.b1b = get_zeroVector;
+  VectorSpaceImpl.prototype.z1a = getBasis_1;
+  VectorContextImpl.prototype.d1b = plus_5;
+  VectorContextImpl.prototype.e1b = minus_3;
+  VectorContextImpl.prototype.k23 = times_12;
+  VectorContextImpl.prototype.f1b = times_13;
+  VectorContextImpl.prototype.s1p = unaryMinus_3;
+  VectorContextImpl.prototype.l23 = sum_2;
   //endregion
   //region block: exports
   _.$_$ = _.$_$ || {};
@@ -17485,37 +17755,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
   var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.h;
   var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
-  var plus = kotlin_kotlin.$_$.m4;
+  var plus = kotlin_kotlin.$_$.n4;
   var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
   var get_SparseMatrixSpaceOverRational = kotlin_com_github_shwaka_kohomology_kohomology.$_$.f;
-  var lazy = kotlin_kotlin.$_$.x7;
+  var lazy = kotlin_kotlin.$_$.y7;
   var joinToString$default = kotlin_kotlin.$_$.h;
   var FreeDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.e;
-  var isInterface = kotlin_kotlin.$_$.w5;
-  var classMeta = kotlin_kotlin.$_$.n5;
+  var isInterface = kotlin_kotlin.$_$.x5;
+  var classMeta = kotlin_kotlin.$_$.o5;
   var IntDegreeGroup = kotlin_com_github_shwaka_kohomology_kohomology.$_$.a;
   var ShowShift_BAR_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.i;
   var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
   var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
-  var ParseException = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.m;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.y7;
+  var ParseException = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.n;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
   var GVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.b;
   var ZeroGVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.c;
   var dropLast = kotlin_kotlin.$_$.s3;
   var collectionSizeOrDefault = kotlin_kotlin.$_$.g3;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.n;
-  var flatten = kotlin_kotlin.$_$.y3;
-  var last = kotlin_kotlin.$_$.f4;
+  var flatten = kotlin_kotlin.$_$.z3;
+  var last = kotlin_kotlin.$_$.g4;
   var endsWith$default = kotlin_kotlin.$_$.j;
   var startsWith$default = kotlin_kotlin.$_$.l;
   var Printable = kotlin_com_github_shwaka_kohomology_kohomology.$_$.g;
-  var KProperty1 = kotlin_kotlin.$_$.o6;
-  var getPropertyCallableRef = kotlin_kotlin.$_$.r5;
-  var NoMatchingToken = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.l;
+  var KProperty1 = kotlin_kotlin.$_$.p6;
+  var getPropertyCallableRef = kotlin_kotlin.$_$.s5;
+  var NoMatchingToken = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.m;
   var Collection = kotlin_kotlin.$_$.x2;
-  var AlternativesFailure = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.k;
-  var prependIndent = kotlin_kotlin.$_$.u6;
-  var objectMeta = kotlin_kotlin.$_$.f6;
+  var AlternativesFailure = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.l;
+  var prependIndent = kotlin_kotlin.$_$.v6;
+  var objectMeta = kotlin_kotlin.$_$.g6;
   var PluginGeneratedSerialDescriptor = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.v;
   var StringSerializer_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.i;
   var IntSerializer_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.h;
@@ -17523,20 +17793,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var typeParametersSerializers = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.s;
   var GeneratedSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.t;
   var throwMissingFieldException = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.x;
-  var getStringHashCode = kotlin_kotlin.$_$.s5;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
+  var getStringHashCode = kotlin_kotlin.$_$.t5;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
   var JsonTransformingSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.d;
-  var to = kotlin_kotlin.$_$.a8;
-  var mapOf = kotlin_kotlin.$_$.k4;
+  var to = kotlin_kotlin.$_$.b8;
+  var mapOf = kotlin_kotlin.$_$.l4;
   var JsonObject = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.c;
   var JsonArray = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.b;
   var Default_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.a;
   var ListSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.j;
   var Companion_getInstance_3 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
-  var Enum = kotlin_kotlin.$_$.h7;
+  var Enum = kotlin_kotlin.$_$.i7;
   var copyToArray = kotlin_kotlin.$_$.p3;
-  var listOf = kotlin_kotlin.$_$.g4;
-  var Exception = kotlin_kotlin.$_$.i7;
+  var listOf = kotlin_kotlin.$_$.h4;
+  var Exception = kotlin_kotlin.$_$.j7;
   var Indeterminate = kotlin_com_github_shwaka_kohomology_kohomology.$_$.d;
   var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
   //endregion
@@ -17558,21 +17828,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = freeLoopSpace$factory();
-    tmp$ret$0 = $this.o25_1.f1();
+    tmp$ret$0 = $this.g26_1.f1();
     return tmp$ret$0;
   }
   function _get_cyclicModel__pgehsx($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = cyclicModel$factory();
-    tmp$ret$0 = $this.p25_1.f1();
+    tmp$ret$0 = $this.h26_1.f1();
     return tmp$ret$0;
   }
   function _get_derivationLieAlgebra__ahlx7w($this) {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = derivationLieAlgebra$factory();
-    tmp$ret$0 = $this.q25_1.f1();
+    tmp$ret$0 = $this.i26_1.f1();
     return tmp$ret$0;
   }
   function getDGVectorSpace($this, name) {
@@ -17580,7 +17850,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp;
     switch (tmp0_subject) {
       case 'self':
-        tmp = $this.n25_1;
+        tmp = $this.f26_1;
         break;
       case 'freeLoopSpace':
         tmp = _get_freeLoopSpace__mpio85($this);
@@ -17598,21 +17868,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeDGAWrapper$freeLoopSpace$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance().c20(this$0.n25_1);
+      return Companion_getInstance().u20(this$0.f26_1);
     };
   }
   function FreeDGAWrapper$cyclicModel$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_0().t1y(this$0.n25_1);
+      return Companion_getInstance_0().j1z(this$0.f26_1);
     };
   }
   function FreeDGAWrapper$derivationLieAlgebra$delegate$lambda(this$0) {
     return function () {
-      return Companion_getInstance_1().s1h(this$0.n25_1);
+      return Companion_getInstance_1().y1h(this$0.f26_1);
     };
   }
   function FreeDGAWrapper$dgaInfo$lambda(it) {
-    return '\\deg{' + it.y1j_1 + '} = ' + it.z1j_1;
+    return '\\deg{' + it.f1k_1 + '} = ' + it.g1k_1;
   }
   function FreeDGAWrapper$dgaInfo$lambda_0(this$0) {
     return function (it) {
@@ -17620,63 +17890,63 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var p = Printer_init_$Create$(tmp, null, null, null, null, 30, null);
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = this$0.n25_1.o14();
+      var tmp0_run = this$0.f26_1.t14();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'FreeDGAWrapper.dgaInfo.<anonymous>.<anonymous>' call
-      tmp$ret$0 = 'd' + it + ' = ' + p.d1k(tmp0_run.j12().z14(it));
+      tmp$ret$0 = 'd' + it + ' = ' + p.k1k(tmp0_run.l12().e15(it));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
   }
   function FreeDGAWrapper$dgaInfo$lambda_1($freeDGAString) {
     return function ($this$styledMessage) {
-      return plus($this$styledMessage.r25('(\\Lambda V, d) = '), $this$styledMessage.r25($freeDGAString));
+      return plus($this$styledMessage.j26('(\\Lambda V, d) = '), $this$styledMessage.j26($freeDGAString));
     };
   }
   function FreeDGAWrapper$dgaInfo$lambda_2($degreeString) {
     return function ($this$styledMessage) {
-      return $this$styledMessage.r25($degreeString);
+      return $this$styledMessage.j26($degreeString);
     };
   }
   function FreeDGAWrapper$dgaInfo$lambda_3($differentialString) {
     return function ($this$styledMessage) {
-      return $this$styledMessage.r25($differentialString);
+      return $this$styledMessage.j26($differentialString);
     };
   }
   function FreeDGAWrapper$computeCohomologyDim$lambda($degree, $dim) {
     return function ($this$styledMessage) {
-      return $this$styledMessage.r25('\\mathrm{dim}H^{' + $degree + '} = ' + $dim);
+      return $this$styledMessage.j26('\\mathrm{dim}H^{' + $degree + '} = ' + $dim);
     };
   }
   function FreeDGAWrapper$computeCohomologyClass$lambda($targetName) {
     return function ($this$styledMessage) {
-      return $this$styledMessage.s25('Cannot compute class for ' + $targetName);
+      return $this$styledMessage.k26('Cannot compute class for ' + $targetName);
     };
   }
   function FreeDGAWrapper(json) {
-    this.n25_1 = Companion_getInstance_2().q1k(get_SparseMatrixSpaceOverRational(), jsonToGeneratorList(json));
+    this.f26_1 = Companion_getInstance_2().x1k(get_SparseMatrixSpaceOverRational(), jsonToGeneratorList(json));
     var tmp = this;
-    tmp.o25_1 = lazy(FreeDGAWrapper$freeLoopSpace$delegate$lambda(this));
+    tmp.g26_1 = lazy(FreeDGAWrapper$freeLoopSpace$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.p25_1 = lazy(FreeDGAWrapper$cyclicModel$delegate$lambda(this));
+    tmp_0.h26_1 = lazy(FreeDGAWrapper$cyclicModel$delegate$lambda(this));
     var tmp_1 = this;
-    tmp_1.q25_1 = lazy(FreeDGAWrapper$derivationLieAlgebra$delegate$lambda(this));
+    tmp_1.i26_1 = lazy(FreeDGAWrapper$derivationLieAlgebra$delegate$lambda(this));
   }
   FreeDGAWrapper.prototype.dgaInfo = function () {
-    var freeDGAString = this.n25_1.toString();
-    var tmp = this.n25_1.u1f();
+    var freeDGAString = this.f26_1.toString();
+    var tmp = this.f26_1.c1g();
     var degreeString = joinToString$default(tmp, ', ', null, null, 0, null, FreeDGAWrapper$dgaInfo$lambda, 30, null);
-    var tmp_0 = this.n25_1.v1f();
+    var tmp_0 = this.f26_1.d1g();
     var differentialString = joinToString$default(tmp_0, ', ', null, null, 0, null, FreeDGAWrapper$dgaInfo$lambda_0(this), 30, null);
     var tmp$ret$2;
     // Inline function 'kotlin.arrayOf' call
     var tmp_1 = MessageType_SUCCESS_getInstance();
-    var tmp_2 = styledMessage(tmp_1, FreeDGAWrapper$dgaInfo$lambda_1(freeDGAString)).v25();
+    var tmp_2 = styledMessage(tmp_1, FreeDGAWrapper$dgaInfo$lambda_1(freeDGAString)).n26();
     var tmp_3 = MessageType_SUCCESS_getInstance();
-    var tmp_4 = styledMessage(tmp_3, FreeDGAWrapper$dgaInfo$lambda_2(degreeString)).v25();
+    var tmp_4 = styledMessage(tmp_3, FreeDGAWrapper$dgaInfo$lambda_2(degreeString)).n26();
     var tmp_5 = MessageType_SUCCESS_getInstance();
-    var tmp0_arrayOf = [tmp_2, tmp_4, styledMessage(tmp_5, FreeDGAWrapper$dgaInfo$lambda_3(differentialString)).v25()];
+    var tmp0_arrayOf = [tmp_2, tmp_4, styledMessage(tmp_5, FreeDGAWrapper$dgaInfo$lambda_3(differentialString)).n26()];
     var tmp$ret$1;
     // Inline function 'kotlin.js.unsafeCast' call
     var tmp$ret$0;
@@ -17688,37 +17958,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   FreeDGAWrapper.prototype.computationHeader = function (targetName, minDegree, maxDegree) {
     var targetDGVectorSpace = getDGVectorSpace(this, targetName);
-    return computationHeader(targetDGVectorSpace, minDegree, maxDegree).v25();
+    return computationHeader(targetDGVectorSpace, minDegree, maxDegree).n26();
   };
   FreeDGAWrapper.prototype.computeCohomology = function (targetName, degree) {
     var targetDGVectorSpace = getDGVectorSpace(this, targetName);
-    return computeCohomology(targetDGVectorSpace, degree).v25();
+    return computeCohomology(targetDGVectorSpace, degree).n26();
   };
   FreeDGAWrapper.prototype.computeCohomologyDim = function (targetName, degree) {
     var targetDGVectorSpace = getDGVectorSpace(this, targetName);
     var dim = getBasis(targetDGVectorSpace, degree).i();
     var tmp = MessageType_SUCCESS_getInstance();
-    return styledMessage(tmp, FreeDGAWrapper$computeCohomologyDim$lambda(degree, dim)).v25();
+    return styledMessage(tmp, FreeDGAWrapper$computeCohomologyDim$lambda(degree, dim)).n26();
   };
   FreeDGAWrapper.prototype.computeCohomologyClass = function (targetName, cocycleString, showBasis) {
     var targetDGVectorSpace = getDGVectorSpace(this, targetName);
     var tmp;
     if (isInterface(targetDGVectorSpace, FreeDGAlgebra)) {
-      tmp = computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).v25();
+      tmp = computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).n26();
     } else {
       var tmp_0 = MessageType_ERROR_getInstance();
-      tmp = styledMessage(tmp_0, FreeDGAWrapper$computeCohomologyClass$lambda(targetName)).v25();
+      tmp = styledMessage(tmp_0, FreeDGAWrapper$computeCohomologyClass$lambda(targetName)).n26();
     }
     return tmp;
   };
   FreeDGAWrapper.$metadata$ = classMeta('FreeDGAWrapper');
   function getBasis(dgVectorSpace, degree) {
     var tmp;
-    var tmp_0 = dgVectorSpace.n14();
+    var tmp_0 = dgVectorSpace.s14();
     if (tmp_0 instanceof IntDegreeGroup) {
-      tmp = dgVectorSpace.e11().z1a(degree);
+      tmp = dgVectorSpace.e11().c1b(degree);
     } else {
-      tmp = dgVectorSpace.e11().x1a(degree);
+      tmp = dgVectorSpace.e11().a1b(degree);
     }
     return tmp;
   }
@@ -17739,7 +18009,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function computeCohomologyClass(freeDGAlgebra, cocycleString, showBasis) {
     var tmp;
     try {
-      tmp = freeDGAlgebra.i1k(cocycleString);
+      tmp = freeDGAlgebra.p1k(cocycleString);
     } catch ($p) {
       var tmp_0;
       if ($p instanceof ParseException) {
@@ -17770,19 +18040,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var p = Printer_init_$Create$(tmp, null, null, null, ShowShift_BAR_getInstance(), 14, null);
     var tmp$ret$2;
     // Inline function 'kotlin.run' call
-    var tmp0_run = freeDGAlgebra.o14();
+    var tmp0_run = freeDGAlgebra.t14();
     // Inline function 'kotlin.contracts.contract' call
-    if (tmp0_run.j12().z14(cocycle).t1a()) {
+    if (tmp0_run.l12().e15(cocycle).z17()) {
       var tmp_0 = MessageType_ERROR_getInstance();
       return styledMessage(tmp_0, computeCohomologyClass$lambda_1(p, cocycle, tmp0_run));
     }
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run_0 = freeDGAlgebra.n14().o14();
+    var tmp0_run_0 = freeDGAlgebra.s14().t14();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'computeCohomologyClass.<anonymous>.<anonymous>' call
-    tmp$ret$0 = tmp0_run_0.s1e(cocycle.y18_1);
+    tmp$ret$0 = tmp0_run_0.a1f(cocycle.x17_1);
     tmp$ret$1 = tmp$ret$0;
     var degree = tmp$ret$1;
     var tmp_1 = MessageType_SUCCESS_getInstance();
@@ -17792,9 +18062,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function ($this$styledMessage) {
       var tmp;
       if ($basis.p()) {
-        tmp = $this$styledMessage.r25('0');
+        tmp = $this$styledMessage.j26('0');
       } else {
-        var tmp_0 = $this$styledMessage.r25('\\mathbb{Q}\\{');
+        var tmp_0 = $this$styledMessage.j26('\\mathbb{Q}\\{');
         var tmp$ret$2;
         // Inline function 'kotlin.collections.map' call
         var tmp0_map = dropLast($basis, 1);
@@ -17806,15 +18076,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var item = tmp0_iterator.h();
           var tmp$ret$0;
           // Inline function 'computeCohomologyInternal.<anonymous>.<anonymous>' call
-          tmp$ret$0 = $this$styledMessage.r25($p.d1k(item) + ',\\ ');
+          tmp$ret$0 = $this$styledMessage.j26($p.k1k(item) + ',\\ ');
           tmp0_mapTo.a(tmp$ret$0);
         }
         tmp$ret$1 = tmp0_mapTo;
         tmp$ret$2 = tmp$ret$1;
-        tmp = plus(plus(plus(tmp_0, flatten(tmp$ret$2)), $this$styledMessage.r25($p.d1k(last($basis)))), $this$styledMessage.r25('\\}'));
+        tmp = plus(plus(plus(tmp_0, flatten(tmp$ret$2)), $this$styledMessage.j26($p.k1k(last($basis)))), $this$styledMessage.j26('\\}'));
       }
       var vectorSpace = tmp;
-      return plus($this$styledMessage.r25('H^{' + $degree + '} =\\ '), vectorSpace);
+      return plus($this$styledMessage.j26('H^{' + $degree + '} =\\ '), vectorSpace);
     };
   }
   function computationHeader$lambda($dgVectorSpace, $minDegree, $maxDegree) {
@@ -17823,7 +18093,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       if (isInterface($dgVectorSpace, Printable)) {
         var tmp_0 = PrintType_TEX_getInstance();
         var p = Printer_init_$Create$(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
-        var dgVectorSpaceString = p.d1k($dgVectorSpace);
+        var dgVectorSpaceString = p.k1k($dgVectorSpace);
         var tmp_1;
         var tmp_2;
         if (startsWith$default(dgVectorSpaceString, '(', false, 2, null)) {
@@ -17832,16 +18102,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           tmp_2 = false;
         }
         if (tmp_2) {
-          tmp_1 = $this$styledMessage.r25('H^n' + p.d1k($dgVectorSpace));
+          tmp_1 = $this$styledMessage.j26('H^n' + p.k1k($dgVectorSpace));
         } else {
-          tmp_1 = $this$styledMessage.r25('H^n(' + p.d1k($dgVectorSpace) + ')');
+          tmp_1 = $this$styledMessage.j26('H^n(' + p.k1k($dgVectorSpace) + ')');
         }
         tmp = tmp_1;
       } else {
-        tmp = $this$styledMessage.s25('H^n(' + $dgVectorSpace + ')');
+        tmp = $this$styledMessage.k26('H^n(' + $dgVectorSpace + ')');
       }
       var printed = tmp;
-      return plus(plus(plus($this$styledMessage.s25('Computing '), printed), $this$styledMessage.s25(' for ')), $this$styledMessage.r25('' + $minDegree + ' \\leq n \\leq ' + $maxDegree));
+      return plus(plus(plus($this$styledMessage.k26('Computing '), printed), $this$styledMessage.k26(' for ')), $this$styledMessage.j26('' + $minDegree + ' \\leq n \\leq ' + $maxDegree));
     };
   }
   function computeCohomologyClass$lambda$lambda(it) {
@@ -17849,29 +18119,29 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function computeCohomologyClass$lambda($freeDGAlgebra, $e) {
     return function ($this$styledMessage) {
-      var tmp = $freeDGAlgebra.t1k();
+      var tmp = $freeDGAlgebra.a1l();
       var generatorsString = joinToString$default(tmp, ', ', null, null, 0, null, computeCohomologyClass$lambda$lambda, 30, null);
-      return plus(plus($this$styledMessage.s25('[Error] Parse failed.\n'), $this$styledMessage.s25('Note: Current generators are ' + generatorsString + '\n')), $this$styledMessage.s25('' + $e.t10_1 + '\n'));
+      return plus(plus($this$styledMessage.k26('[Error] Parse failed.\n'), $this$styledMessage.k26('Note: Current generators are ' + generatorsString + '\n')), $this$styledMessage.k26('' + $e.t10_1 + '\n'));
     };
   }
   function computeCohomologyClass$lambda_0($this$styledMessage) {
-    return $this$styledMessage.s25('The cocycle is zero.');
+    return $this$styledMessage.k26('The cocycle is zero.');
   }
   function computeCohomologyClass$lambda_1($p, $cocycle, $tmp0_run) {
     return function ($this$styledMessage) {
-      return plus(plus($this$styledMessage.r25($p.d1k($cocycle)), $this$styledMessage.s25(' is not a cocycle: ')), $this$styledMessage.r25('d(' + $p.d1k($cocycle) + ') = ' + $p.d1k($tmp0_run.j12().z14($cocycle))));
+      return plus(plus($this$styledMessage.j26($p.k1k($cocycle)), $this$styledMessage.k26(' is not a cocycle: ')), $this$styledMessage.j26('d(' + $p.k1k($cocycle) + ') = ' + $p.k1k($tmp0_run.l12().e15($cocycle))));
     };
   }
   function computeCohomologyClass$lambda_2($showBasis, $freeDGAlgebra, $degree, $p, $cocycle, $tmp0_run) {
     return function ($this$styledMessage) {
       var tmp;
       if ($showBasis) {
-        tmp = computeCohomologyInternal($freeDGAlgebra, $degree).u25_1;
+        tmp = computeCohomologyInternal($freeDGAlgebra, $degree).m26_1;
       } else {
-        tmp = $this$styledMessage.r25('H^' + $degree);
+        tmp = $this$styledMessage.j26('H^' + $degree);
       }
       var cohomologyString = tmp;
-      return plus($this$styledMessage.r25('[' + $p.d1k($cocycle) + '] = ' + $p.d1k($tmp0_run.w12($cocycle)) + ' \\in '), cohomologyString);
+      return plus($this$styledMessage.j26('[' + $p.k1k($cocycle) + '] = ' + $p.k1k($tmp0_run.y12($cocycle)) + ' \\in '), cohomologyString);
     };
   }
   function freeLoopSpace$factory() {
@@ -17952,7 +18222,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion() {
     Companion_instance = this;
   }
-  Companion.prototype.w25 = function () {
+  Companion.prototype.o26 = function () {
     return $serializer_getInstance();
   };
   Companion.$metadata$ = objectMeta('Companion');
@@ -17968,10 +18238,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp0_serialDesc.ui('name', false);
     tmp0_serialDesc.ui('degree', false);
     tmp0_serialDesc.ui('differentialValue', false);
-    this.x25_1 = tmp0_serialDesc;
+    this.p26_1 = tmp0_serialDesc;
   }
   $serializer.prototype.cg = function () {
-    return this.x25_1;
+    return this.p26_1;
   };
   $serializer.prototype.ri = function () {
     var tmp$ret$2;
@@ -17987,7 +18257,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   };
   $serializer.prototype.dg = function (decoder) {
-    var tmp0_desc = this.x25_1;
+    var tmp0_desc = this.p26_1;
     var tmp1_flag = true;
     var tmp2_index = 0;
     var tmp3_bitMask0 = 0;
@@ -18037,11 +18307,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function SerializableGenerator_init_$Init$(seen1, name, degree, differentialValue, serializationConstructorMarker, $this) {
     if (!(7 === (7 & seen1))) {
-      throwMissingFieldException(seen1, 7, $serializer_getInstance().x25_1);
+      throwMissingFieldException(seen1, 7, $serializer_getInstance().p26_1);
     }
-    $this.y25_1 = name;
-    $this.z25_1 = degree;
-    $this.a26_1 = differentialValue;
+    $this.q26_1 = name;
+    $this.r26_1 = degree;
+    $this.s26_1 = differentialValue;
     return $this;
   }
   function SerializableGenerator_init_$Create$(seen1, name, degree, differentialValue, serializationConstructorMarker) {
@@ -18050,21 +18320,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function SerializableGenerator() {
   }
   SerializableGenerator.prototype.xb = function () {
-    return this.y25_1;
+    return this.q26_1;
   };
-  SerializableGenerator.prototype.w14 = function () {
-    return this.z25_1;
+  SerializableGenerator.prototype.b15 = function () {
+    return this.r26_1;
   };
-  SerializableGenerator.prototype.v1k = function () {
-    return this.a26_1;
+  SerializableGenerator.prototype.c1l = function () {
+    return this.s26_1;
   };
   SerializableGenerator.prototype.toString = function () {
-    return 'SerializableGenerator(name=' + this.y25_1 + ', degree=' + this.z25_1 + ', differentialValue=' + this.a26_1 + ')';
+    return 'SerializableGenerator(name=' + this.q26_1 + ', degree=' + this.r26_1 + ', differentialValue=' + this.s26_1 + ')';
   };
   SerializableGenerator.prototype.hashCode = function () {
-    var result = getStringHashCode(this.y25_1);
-    result = imul(result, 31) + this.z25_1 | 0;
-    result = imul(result, 31) + getStringHashCode(this.a26_1) | 0;
+    var result = getStringHashCode(this.q26_1);
+    result = imul(result, 31) + this.r26_1 | 0;
+    result = imul(result, 31) + getStringHashCode(this.s26_1) | 0;
     return result;
   };
   SerializableGenerator.prototype.equals = function (other) {
@@ -18073,18 +18343,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof SerializableGenerator))
       return false;
     var tmp0_other_with_cast = other instanceof SerializableGenerator ? other : THROW_CCE();
-    if (!(this.y25_1 === tmp0_other_with_cast.y25_1))
+    if (!(this.q26_1 === tmp0_other_with_cast.q26_1))
       return false;
-    if (!(this.z25_1 === tmp0_other_with_cast.z25_1))
+    if (!(this.r26_1 === tmp0_other_with_cast.r26_1))
       return false;
-    if (!(this.a26_1 === tmp0_other_with_cast.a26_1))
+    if (!(this.s26_1 === tmp0_other_with_cast.s26_1))
       return false;
     return true;
   };
   SerializableGenerator.$metadata$ = classMeta('SerializableGenerator', undefined, undefined, {0: $serializer_getInstance});
   function GeneratorSerializer() {
     GeneratorSerializer_instance = this;
-    JsonTransformingSerializer.call(this, Companion_getInstance_5().w25());
+    JsonTransformingSerializer.call(this, Companion_getInstance_5().o26());
   }
   GeneratorSerializer.prototype.hl = function (element) {
     var tmp;
@@ -18117,7 +18387,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'jsonToGeneratorList.<anonymous>' call
-      tmp$ret$0 = Companion_getInstance_3().u1k(item.y25_1, item.z25_1, item.a26_1);
+      tmp$ret$0 = Companion_getInstance_3().b1l(item.q26_1, item.r26_1, item.s26_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -18125,42 +18395,42 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   }
   function StyledStringKt(stringType, content) {
-    this.c26_1 = stringType;
-    this.d26_1 = content;
+    this.u26_1 = stringType;
+    this.v26_1 = content;
   }
-  StyledStringKt.prototype.e26 = function () {
-    return this.c26_1;
+  StyledStringKt.prototype.w26 = function () {
+    return this.u26_1;
   };
   StyledStringKt.prototype.cl = function () {
-    return this.d26_1;
+    return this.v26_1;
   };
   StyledStringKt.$metadata$ = classMeta('StyledStringKt');
   Object.defineProperty(StyledStringKt.prototype, 'stringType', {
     configurable: true,
-    get: StyledStringKt.prototype.e26
+    get: StyledStringKt.prototype.w26
   });
   Object.defineProperty(StyledStringKt.prototype, 'content', {
     configurable: true,
     get: StyledStringKt.prototype.cl
   });
   function StyledMessageKt(messageType, strings) {
-    this.f26_1 = messageType;
-    this.g26_1 = strings;
+    this.x26_1 = messageType;
+    this.y26_1 = strings;
   }
-  StyledMessageKt.prototype.h26 = function () {
-    return this.f26_1;
+  StyledMessageKt.prototype.z26 = function () {
+    return this.x26_1;
   };
-  StyledMessageKt.prototype.i26 = function () {
-    return this.g26_1;
+  StyledMessageKt.prototype.a27 = function () {
+    return this.y26_1;
   };
   StyledMessageKt.$metadata$ = classMeta('StyledMessageKt');
   Object.defineProperty(StyledMessageKt.prototype, 'messageType', {
     configurable: true,
-    get: StyledMessageKt.prototype.h26
+    get: StyledMessageKt.prototype.z26
   });
   Object.defineProperty(StyledMessageKt.prototype, 'strings', {
     configurable: true,
-    get: StyledMessageKt.prototype.i26
+    get: StyledMessageKt.prototype.a27
   });
   var StringType_TEXT_instance;
   var StringType_MATH_instance;
@@ -18174,15 +18444,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function StringType(name, ordinal, typeName) {
     Enum.call(this, name, ordinal);
-    this.l26_1 = typeName;
+    this.d27_1 = typeName;
   }
   StringType.$metadata$ = classMeta('StringType', undefined, undefined, undefined, undefined, Enum.prototype);
   function StyledStringInternal(stringType, content) {
-    this.m26_1 = stringType;
-    this.n26_1 = content;
+    this.e27_1 = stringType;
+    this.f27_1 = content;
   }
-  StyledStringInternal.prototype.v25 = function () {
-    return new StyledStringKt(this.m26_1.l26_1, this.n26_1);
+  StyledStringInternal.prototype.n26 = function () {
+    return new StyledStringKt(this.e27_1.d27_1, this.f27_1);
   };
   StyledStringInternal.$metadata$ = classMeta('StyledStringInternal');
   var MessageType_SUCCESS_instance;
@@ -18197,19 +18467,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function MessageType(name, ordinal, typeName) {
     Enum.call(this, name, ordinal);
-    this.q26_1 = typeName;
+    this.i27_1 = typeName;
   }
   MessageType.$metadata$ = classMeta('MessageType', undefined, undefined, undefined, undefined, Enum.prototype);
   function StyledMessageInternal(messageType, strings) {
-    this.t25_1 = messageType;
-    this.u25_1 = strings;
+    this.l26_1 = messageType;
+    this.m26_1 = strings;
   }
-  StyledMessageInternal.prototype.v25 = function () {
+  StyledMessageInternal.prototype.n26 = function () {
     var tmp$ret$3;
     // Inline function 'kotlin.collections.toTypedArray' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.u25_1;
+    var tmp0_map = this.m26_1;
     var tmp$ret$1;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -18218,7 +18488,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'StyledMessageInternal.export.<anonymous>' call
-      tmp$ret$0 = item.v25();
+      tmp$ret$0 = item.n26();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -18226,16 +18496,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp1_toTypedArray = tmp$ret$2;
     tmp$ret$3 = copyToArray(tmp1_toTypedArray);
     var strings = tmp$ret$3;
-    return new StyledMessageKt(this.t25_1.q26_1, strings);
+    return new StyledMessageKt(this.l26_1.i27_1, strings);
   };
   StyledMessageInternal.$metadata$ = classMeta('StyledMessageInternal');
   function StyledStringListBuilder() {
     StyledStringListBuilder_instance = this;
   }
-  StyledStringListBuilder.prototype.s25 = function (_this__u8e3s4) {
+  StyledStringListBuilder.prototype.k26 = function (_this__u8e3s4) {
     return listOf(new StyledStringInternal(StringType_TEXT_getInstance(), _this__u8e3s4));
   };
-  StyledStringListBuilder.prototype.r25 = function (_this__u8e3s4) {
+  StyledStringListBuilder.prototype.j26 = function (_this__u8e3s4) {
     return listOf(new StyledStringInternal(StringType_MATH_getInstance(), _this__u8e3s4));
   };
   StyledStringListBuilder.$metadata$ = objectMeta('StyledStringListBuilder');
@@ -18265,40 +18535,40 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return MessageType_ERROR_instance;
   }
   function ValidationResult(type, message) {
-    this.r26_1 = type;
-    this.s26_1 = message;
+    this.j27_1 = type;
+    this.k27_1 = message;
   }
-  ValidationResult.prototype.t26 = function () {
-    return this.r26_1;
+  ValidationResult.prototype.l27 = function () {
+    return this.j27_1;
   };
   ValidationResult.prototype.s1 = function () {
-    return this.s26_1;
+    return this.k27_1;
   };
   ValidationResult.prototype.component1 = function () {
-    return this.r26_1;
+    return this.j27_1;
   };
   ValidationResult.prototype.component2 = function () {
-    return this.s26_1;
+    return this.k27_1;
   };
   ValidationResult.prototype.copy = function (type, message) {
-    return this.u26(type === void 1 ? this.r26_1 : type, message === void 1 ? this.s26_1 : message);
+    return this.m27(type === void 1 ? this.j27_1 : type, message === void 1 ? this.k27_1 : message);
   };
-  ValidationResult.prototype.u26 = function (type, message) {
+  ValidationResult.prototype.m27 = function (type, message) {
     return new ValidationResult(type, message);
   };
-  ValidationResult.prototype.v26 = function (type, message, $mask0, $handler) {
+  ValidationResult.prototype.n27 = function (type, message, $mask0, $handler) {
     if (!(($mask0 & 1) === 0))
-      type = this.r26_1;
+      type = this.j27_1;
     if (!(($mask0 & 2) === 0))
-      message = this.s26_1;
-    return this.u26(type, message);
+      message = this.k27_1;
+    return this.m27(type, message);
   };
   ValidationResult.prototype.toString = function () {
-    return 'ValidationResult(type=' + this.r26_1 + ', message=' + this.s26_1 + ')';
+    return 'ValidationResult(type=' + this.j27_1 + ', message=' + this.k27_1 + ')';
   };
   ValidationResult.prototype.hashCode = function () {
-    var result = getStringHashCode(this.r26_1);
-    result = imul(result, 31) + getStringHashCode(this.s26_1) | 0;
+    var result = getStringHashCode(this.j27_1);
+    result = imul(result, 31) + getStringHashCode(this.k27_1) | 0;
     return result;
   };
   ValidationResult.prototype.equals = function (other) {
@@ -18307,16 +18577,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (!(other instanceof ValidationResult))
       return false;
     var tmp0_other_with_cast = other instanceof ValidationResult ? other : THROW_CCE();
-    if (!(this.r26_1 === tmp0_other_with_cast.r26_1))
+    if (!(this.j27_1 === tmp0_other_with_cast.j27_1))
       return false;
-    if (!(this.s26_1 === tmp0_other_with_cast.s26_1))
+    if (!(this.k27_1 === tmp0_other_with_cast.k27_1))
       return false;
     return true;
   };
   ValidationResult.$metadata$ = classMeta('ValidationResult');
   Object.defineProperty(ValidationResult.prototype, 'type', {
     configurable: true,
-    get: ValidationResult.prototype.t26
+    get: ValidationResult.prototype.l27
   });
   Object.defineProperty(ValidationResult.prototype, 'message', {
     configurable: true,
@@ -18325,12 +18595,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function validateJson(json) {
     try {
       new FreeDGAWrapper(json);
-      return (new Success()).v25();
+      return (new Success()).n26();
     } catch ($p) {
       if ($p instanceof Exception) {
         var tmp0_elvis_lhs = $p.message;
         var message = tmp0_elvis_lhs == null ? $p.toString() : tmp0_elvis_lhs;
-        return (new Error_0(message)).v25();
+        return (new Error_0(message)).n26();
       } else {
         throw $p;
       }
@@ -18347,7 +18617,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       // Inline function 'kotlin.let' call
       // Inline function 'kotlin.contracts.contract' call
-      return tmp0_safe_receiver.v25();
+      return tmp0_safe_receiver.n26();
     }
     var tmp1_safe_receiver = assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator);
     if (tmp1_safe_receiver == null)
@@ -18356,9 +18626,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$1;
       // Inline function 'kotlin.let' call
       // Inline function 'kotlin.contracts.contract' call
-      return tmp1_safe_receiver.v25();
+      return tmp1_safe_receiver.n26();
     }
-    return (new Success()).v25();
+    return (new Success()).n26();
   }
   var ValidationResultType_SUCCESS_instance;
   var ValidationResultType_ERROR_instance;
@@ -18372,7 +18642,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function ValidationResultType(name, ordinal, typeName) {
     Enum.call(this, name, ordinal);
-    this.a27_1 = typeName;
+    this.s27_1 = typeName;
   }
   ValidationResultType.$metadata$ = classMeta('ValidationResultType', undefined, undefined, undefined, undefined, Enum.prototype);
   function Success() {
@@ -18384,11 +18654,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   Error_0.$metadata$ = classMeta('Error', undefined, undefined, undefined, undefined, ValidationResultInternal.prototype);
   function ValidationResultInternal(type, message) {
-    this.w26_1 = type;
-    this.x26_1 = message;
+    this.o27_1 = type;
+    this.p27_1 = message;
   }
-  ValidationResultInternal.prototype.v25 = function () {
-    return new ValidationResult(this.w26_1.a27_1, this.x26_1);
+  ValidationResultInternal.prototype.n26 = function () {
+    return new ValidationResult(this.o27_1.s27_1, this.p27_1);
   };
   ValidationResultInternal.$metadata$ = classMeta('ValidationResultInternal');
   function getErrorMessageForPreviousGenerators(generatorList) {
@@ -18406,7 +18676,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'assertDegreeOfDifferentialValue.<anonymous>' call
-      tmp$ret$0 = Indeterminate(item.f1k_1, item.g1k_1);
+      tmp$ret$0 = Indeterminate(item.m1k_1, item.n1k_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -18414,7 +18684,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var indeterminateList = tmp$ret$2;
     var tmp;
     try {
-      tmp = Companion_getInstance_4().i1n(get_SparseMatrixSpaceOverRational(), indeterminateList);
+      tmp = Companion_getInstance_4().t1n(get_SparseMatrixSpaceOverRational(), indeterminateList);
     } catch ($p) {
       var tmp_0;
       if ($p instanceof Exception) {
@@ -18426,10 +18696,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp = tmp_0;
     }
     var freeGAlgebra = tmp;
-    var differentialValue = currentGenerator.h1k_1;
+    var differentialValue = currentGenerator.o1k_1;
     var tmp_1;
     try {
-      tmp_1 = freeGAlgebra.i1k(differentialValue);
+      tmp_1 = freeGAlgebra.p1k(differentialValue);
     } catch ($p) {
       var tmp_2;
       if ($p instanceof ParseException) {
@@ -18453,25 +18723,25 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp_1 = tmp_2;
     }
     var gVector = tmp_1;
-    var expectedDegree = currentGenerator.g1k_1.a1f_1 + 1 | 0;
+    var expectedDegree = currentGenerator.n1k_1.i1f_1 + 1 | 0;
     var tmp_4;
     if (gVector instanceof GVector) {
-      tmp_4 = !(gVector.y18_1.a1f_1 === expectedDegree);
+      tmp_4 = !(gVector.x17_1.i1f_1 === expectedDegree);
     } else {
       tmp_4 = false;
     }
     if (tmp_4) {
-      var name = currentGenerator.f1k_1;
-      var message_2 = 'The degree of d(' + name + ') is expected to be deg(' + name + ')+1=' + expectedDegree + ', ' + ('but the given value ' + differentialValue + ' has degree ' + gVector.y18_1.a1f_1 + '.');
+      var name = currentGenerator.m1k_1;
+      var message_2 = 'The degree of d(' + name + ') is expected to be deg(' + name + ')+1=' + expectedDegree + ', ' + ('but the given value ' + differentialValue + ' has degree ' + gVector.x17_1.i1f_1 + '.');
       return new Error_0(message_2);
     }
     return null;
   }
   function assertSquareOfDifferentialIsZero(generatorList, currentGenerator) {
-    var differentialValue = currentGenerator.h1k_1;
+    var differentialValue = currentGenerator.o1k_1;
     var tmp;
     try {
-      tmp = Companion_getInstance_2().q1k(get_SparseMatrixSpaceOverRational(), generatorList);
+      tmp = Companion_getInstance_2().x1k(get_SparseMatrixSpaceOverRational(), generatorList);
     } catch ($p) {
       var tmp_0;
       if ($p instanceof Exception) {
@@ -18485,15 +18755,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var freeDGAlgebra = tmp;
     var tmp$ret$0;
     // Inline function 'kotlin.run' call
-    var tmp0_run = freeDGAlgebra.o14();
+    var tmp0_run = freeDGAlgebra.t14();
     // Inline function 'kotlin.contracts.contract' call
-    var gVector = freeDGAlgebra.i1k(differentialValue);
+    var gVector = freeDGAlgebra.p1k(differentialValue);
     var tmp_1;
     if (gVector instanceof ZeroGVector) {
       tmp_1 = null;
     } else {
       if (gVector instanceof GVector) {
-        var gVectorWhichShouldBeZero = tmp0_run.j12().z14(gVector);
+        var gVectorWhichShouldBeZero = tmp0_run.l12().e15(gVector);
         var tmp0_subject = gVectorWhichShouldBeZero.op();
         var tmp_2;
         switch (tmp0_subject) {
@@ -18501,7 +18771,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             tmp_2 = null;
             break;
           case false:
-            tmp_2 = new Error_0('d(d(' + currentGenerator.f1k_1 + ')) must be zero, but was ' + gVectorWhichShouldBeZero);
+            tmp_2 = new Error_0('d(d(' + currentGenerator.m1k_1 + ')) must be zero, but was ' + gVectorWhichShouldBeZero);
             break;
           default:
             noWhenBranchMatchedException();
@@ -18515,7 +18785,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp_1;
   }
   function getErrorMessageForPreviousGenerators$lambda(it) {
-    return it.f1k_1;
+    return it.m1k_1;
   }
   function ValidationResultType_SUCCESS_getInstance() {
     ValidationResultType_initEntries();
@@ -18561,12 +18831,6 @@ if (typeof Math.log10 === 'undefined') {
     return Math.log(x) * Math.LOG10E;
   };
 }
-if (typeof String.prototype.startsWith === 'undefined') {
-  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
-    position = position || 0;
-    return this.lastIndexOf(searchString, position) === position;
-  }});
-}
 if (typeof String.prototype.endsWith === 'undefined') {
   Object.defineProperty(String.prototype, 'endsWith', {value: function (searchString, position) {
     var subjectString = this.toString();
@@ -18576,6 +18840,12 @@ if (typeof String.prototype.endsWith === 'undefined') {
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
+  }});
+}
+if (typeof String.prototype.startsWith === 'undefined') {
+  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
+    position = position || 0;
+    return this.lastIndexOf(searchString, position) === position;
   }});
 }
 if (typeof Math.imul === 'undefined') {
@@ -29955,119 +30225,120 @@ if (typeof Math.imul === 'undefined') {
   _.$_$.v3 = emptyMap;
   _.$_$.w3 = filterNotNull;
   _.$_$.x3 = first_0;
-  _.$_$.y3 = flatten;
-  _.$_$.z3 = getValue;
-  _.$_$.a4 = get_indices_0;
-  _.$_$.b4 = get_indices;
-  _.$_$.c4 = get_indices_1;
-  _.$_$.d4 = get_lastIndex_1;
-  _.$_$.e4 = lastOrNull;
-  _.$_$.f4 = last;
-  _.$_$.g4 = listOf_1;
-  _.$_$.h4 = listOf;
-  _.$_$.i4 = mapCapacity;
-  _.$_$.j4 = mapOf_1;
-  _.$_$.k4 = mapOf;
-  _.$_$.l4 = plus_0;
-  _.$_$.m4 = plus;
-  _.$_$.n4 = slice;
-  _.$_$.o4 = slice_0;
-  _.$_$.p4 = sortedWith;
-  _.$_$.q4 = sorted;
-  _.$_$.r4 = sum;
-  _.$_$.s4 = takeLast;
-  _.$_$.t4 = take;
-  _.$_$.u4 = toIntArray;
-  _.$_$.v4 = toList;
-  _.$_$.w4 = toList_1;
-  _.$_$.x4 = toList_0;
-  _.$_$.y4 = toMap;
-  _.$_$.z4 = toMutableMap;
-  _.$_$.a5 = toULongArray;
-  _.$_$.b5 = withIndex;
-  _.$_$.c5 = zip;
-  _.$_$.d5 = compareValues;
-  _.$_$.e5 = println;
-  _.$_$.f5 = arrayIterator;
-  _.$_$.g5 = booleanArray;
-  _.$_$.h5 = captureStack;
-  _.$_$.i5 = charArrayOf_0;
-  _.$_$.j5 = charArray;
-  _.$_$.k5 = charSequenceGet;
-  _.$_$.l5 = charSequenceLength;
-  _.$_$.m5 = charSequenceSubSequence;
-  _.$_$.n5 = classMeta;
-  _.$_$.o5 = compareTo_0;
-  _.$_$.p5 = equals_0;
-  _.$_$.q5 = fillArrayVal;
-  _.$_$.r5 = getPropertyCallableRef;
-  _.$_$.s5 = getStringHashCode;
-  _.$_$.t5 = hashCode_0;
-  _.$_$.u5 = interfaceMeta;
-  _.$_$.v5 = isCharSequence;
-  _.$_$.w5 = isInterface;
-  _.$_$.x5 = isNumber;
-  _.$_$.y5 = isObject;
-  _.$_$.z5 = longArrayOf_0;
-  _.$_$.a6 = longArray;
-  _.$_$.b6 = numberToChar;
-  _.$_$.c6 = numberToDouble;
-  _.$_$.d6 = numberToInt;
-  _.$_$.e6 = numberToLong;
-  _.$_$.f6 = objectMeta;
-  _.$_$.g6 = toLong_0;
-  _.$_$.h6 = toString_3;
-  _.$_$.i6 = abs_0;
-  _.$_$.j6 = abs;
-  _.$_$.k6 = coerceAtLeast;
-  _.$_$.l6 = coerceAtMost;
-  _.$_$.m6 = until;
-  _.$_$.n6 = KProperty0;
-  _.$_$.o6 = KProperty1;
-  _.$_$.p6 = Sequence;
-  _.$_$.q6 = get_category;
-  _.$_$.r6 = concatToString;
-  _.$_$.s6 = contains_3;
-  _.$_$.t6 = get_lastIndex_2;
-  _.$_$.u6 = prependIndent;
-  _.$_$.v6 = removePrefix;
-  _.$_$.w6 = reversed_0;
-  _.$_$.x6 = substring;
-  _.$_$.y6 = toIntOrNull;
-  _.$_$.z6 = toInt;
-  _.$_$.a7 = toLong;
-  _.$_$.b7 = toString_0;
-  _.$_$.c7 = trimIndent;
-  _.$_$.d7 = Annotation;
-  _.$_$.e7 = Char_0;
-  _.$_$.f7 = Comparable;
-  _.$_$.g7 = Comparator;
-  _.$_$.h7 = Enum;
-  _.$_$.i7 = Exception;
-  _.$_$.j7 = IllegalArgumentException;
-  _.$_$.k7 = Long;
-  _.$_$.l7 = NotImplementedError;
-  _.$_$.m7 = Pair;
-  _.$_$.n7 = RuntimeException;
-  _.$_$.o7 = THROW_CCE;
-  _.$_$.p7 = Triple;
-  _.$_$.q7 = UByte;
-  _.$_$.r7 = UIntArray;
-  _.$_$.s7 = UInt;
-  _.$_$.t7 = ULongArray;
-  _.$_$.u7 = ULong;
-  _.$_$.v7 = UShort;
-  _.$_$.w7 = ensureNotNull;
-  _.$_$.x7 = lazy;
-  _.$_$.y7 = noWhenBranchMatchedException;
-  _.$_$.z7 = toString_2;
-  _.$_$.a8 = to;
-  _.$_$.b8 = uintCompare;
-  _.$_$.c8 = uintDivide;
-  _.$_$.d8 = uintRemainder;
-  _.$_$.e8 = ulongCompare;
-  _.$_$.f8 = ulongDivide;
-  _.$_$.g8 = ulongRemainder;
+  _.$_$.y3 = first;
+  _.$_$.z3 = flatten;
+  _.$_$.a4 = getValue;
+  _.$_$.b4 = get_indices_0;
+  _.$_$.c4 = get_indices;
+  _.$_$.d4 = get_indices_1;
+  _.$_$.e4 = get_lastIndex_1;
+  _.$_$.f4 = lastOrNull;
+  _.$_$.g4 = last;
+  _.$_$.h4 = listOf_1;
+  _.$_$.i4 = listOf;
+  _.$_$.j4 = mapCapacity;
+  _.$_$.k4 = mapOf_1;
+  _.$_$.l4 = mapOf;
+  _.$_$.m4 = plus_0;
+  _.$_$.n4 = plus;
+  _.$_$.o4 = slice;
+  _.$_$.p4 = slice_0;
+  _.$_$.q4 = sortedWith;
+  _.$_$.r4 = sorted;
+  _.$_$.s4 = sum;
+  _.$_$.t4 = takeLast;
+  _.$_$.u4 = take;
+  _.$_$.v4 = toIntArray;
+  _.$_$.w4 = toList;
+  _.$_$.x4 = toList_1;
+  _.$_$.y4 = toList_0;
+  _.$_$.z4 = toMap;
+  _.$_$.a5 = toMutableMap;
+  _.$_$.b5 = toULongArray;
+  _.$_$.c5 = withIndex;
+  _.$_$.d5 = zip;
+  _.$_$.e5 = compareValues;
+  _.$_$.f5 = println;
+  _.$_$.g5 = arrayIterator;
+  _.$_$.h5 = booleanArray;
+  _.$_$.i5 = captureStack;
+  _.$_$.j5 = charArrayOf_0;
+  _.$_$.k5 = charArray;
+  _.$_$.l5 = charSequenceGet;
+  _.$_$.m5 = charSequenceLength;
+  _.$_$.n5 = charSequenceSubSequence;
+  _.$_$.o5 = classMeta;
+  _.$_$.p5 = compareTo_0;
+  _.$_$.q5 = equals_0;
+  _.$_$.r5 = fillArrayVal;
+  _.$_$.s5 = getPropertyCallableRef;
+  _.$_$.t5 = getStringHashCode;
+  _.$_$.u5 = hashCode_0;
+  _.$_$.v5 = interfaceMeta;
+  _.$_$.w5 = isCharSequence;
+  _.$_$.x5 = isInterface;
+  _.$_$.y5 = isNumber;
+  _.$_$.z5 = isObject;
+  _.$_$.a6 = longArrayOf_0;
+  _.$_$.b6 = longArray;
+  _.$_$.c6 = numberToChar;
+  _.$_$.d6 = numberToDouble;
+  _.$_$.e6 = numberToInt;
+  _.$_$.f6 = numberToLong;
+  _.$_$.g6 = objectMeta;
+  _.$_$.h6 = toLong_0;
+  _.$_$.i6 = toString_3;
+  _.$_$.j6 = abs_0;
+  _.$_$.k6 = abs;
+  _.$_$.l6 = coerceAtLeast;
+  _.$_$.m6 = coerceAtMost;
+  _.$_$.n6 = until;
+  _.$_$.o6 = KProperty0;
+  _.$_$.p6 = KProperty1;
+  _.$_$.q6 = Sequence;
+  _.$_$.r6 = get_category;
+  _.$_$.s6 = concatToString;
+  _.$_$.t6 = contains_3;
+  _.$_$.u6 = get_lastIndex_2;
+  _.$_$.v6 = prependIndent;
+  _.$_$.w6 = removePrefix;
+  _.$_$.x6 = reversed_0;
+  _.$_$.y6 = substring;
+  _.$_$.z6 = toIntOrNull;
+  _.$_$.a7 = toInt;
+  _.$_$.b7 = toLong;
+  _.$_$.c7 = toString_0;
+  _.$_$.d7 = trimIndent;
+  _.$_$.e7 = Annotation;
+  _.$_$.f7 = Char_0;
+  _.$_$.g7 = Comparable;
+  _.$_$.h7 = Comparator;
+  _.$_$.i7 = Enum;
+  _.$_$.j7 = Exception;
+  _.$_$.k7 = IllegalArgumentException;
+  _.$_$.l7 = Long;
+  _.$_$.m7 = NotImplementedError;
+  _.$_$.n7 = Pair;
+  _.$_$.o7 = RuntimeException;
+  _.$_$.p7 = THROW_CCE;
+  _.$_$.q7 = Triple;
+  _.$_$.r7 = UByte;
+  _.$_$.s7 = UIntArray;
+  _.$_$.t7 = UInt;
+  _.$_$.u7 = ULongArray;
+  _.$_$.v7 = ULong;
+  _.$_$.w7 = UShort;
+  _.$_$.x7 = ensureNotNull;
+  _.$_$.y7 = lazy;
+  _.$_$.z7 = noWhenBranchMatchedException;
+  _.$_$.a8 = toString_2;
+  _.$_$.b8 = to;
+  _.$_$.c8 = uintCompare;
+  _.$_$.d8 = uintDivide;
+  _.$_$.e8 = uintRemainder;
+  _.$_$.f8 = ulongCompare;
+  _.$_$.g8 = ulongDivide;
+  _.$_$.h8 = ulongRemainder;
   //endregion
   return _;
 }));
@@ -30091,43 +30362,43 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   //region block: imports
   var imul = Math.imul;
-  var get_indices = kotlin_kotlin.$_$.c4;
+  var get_indices = kotlin_kotlin.$_$.d4;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.o;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
   var IllegalArgumentException_init_$Create$ = kotlin_kotlin.$_$.b1;
-  var isInterface = kotlin_kotlin.$_$.w5;
+  var isInterface = kotlin_kotlin.$_$.x5;
   var emptyList = kotlin_kotlin.$_$.u3;
-  var classMeta = kotlin_kotlin.$_$.n5;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.y7;
-  var listOf = kotlin_kotlin.$_$.g4;
-  var plus = kotlin_kotlin.$_$.m4;
-  var toString = kotlin_kotlin.$_$.h6;
+  var classMeta = kotlin_kotlin.$_$.o5;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
+  var listOf = kotlin_kotlin.$_$.h4;
+  var plus = kotlin_kotlin.$_$.n4;
+  var toString = kotlin_kotlin.$_$.i6;
   var IllegalArgumentException_init_$Create$_0 = kotlin_kotlin.$_$.d1;
   var NoSuchElementException_init_$Create$ = kotlin_kotlin.$_$.h1;
   var first = kotlin_kotlin.$_$.x3;
   var LinkedHashSet_init_$Create$ = kotlin_kotlin.$_$.v;
-  var lazy = kotlin_kotlin.$_$.x7;
+  var lazy = kotlin_kotlin.$_$.y7;
   var HashSet_init_$Create$ = kotlin_kotlin.$_$.s;
-  var KProperty1 = kotlin_kotlin.$_$.o6;
-  var getPropertyCallableRef = kotlin_kotlin.$_$.r5;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
-  var isCharSequence = kotlin_kotlin.$_$.v5;
-  var charSequenceLength = kotlin_kotlin.$_$.l5;
-  var get_lastIndex = kotlin_kotlin.$_$.t6;
-  var charSequenceGet = kotlin_kotlin.$_$.k5;
-  var Char = kotlin_kotlin.$_$.e7;
+  var KProperty1 = kotlin_kotlin.$_$.p6;
+  var getPropertyCallableRef = kotlin_kotlin.$_$.s5;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
+  var isCharSequence = kotlin_kotlin.$_$.w5;
+  var charSequenceLength = kotlin_kotlin.$_$.m5;
+  var get_lastIndex = kotlin_kotlin.$_$.u6;
+  var charSequenceGet = kotlin_kotlin.$_$.l5;
+  var Char = kotlin_kotlin.$_$.f7;
   var _Char___init__impl__6a9atx = kotlin_kotlin.$_$.n1;
-  var equals = kotlin_kotlin.$_$.p5;
+  var equals = kotlin_kotlin.$_$.q5;
   var startsWith$default = kotlin_kotlin.$_$.m;
-  var charSequenceSubSequence = kotlin_kotlin.$_$.m5;
-  var hashCode = kotlin_kotlin.$_$.t5;
+  var charSequenceSubSequence = kotlin_kotlin.$_$.n5;
+  var hashCode = kotlin_kotlin.$_$.u5;
   var AbstractIterator = kotlin_kotlin.$_$.v2;
-  var Sequence = kotlin_kotlin.$_$.p6;
-  var interfaceMeta = kotlin_kotlin.$_$.u5;
+  var Sequence = kotlin_kotlin.$_$.q6;
+  var interfaceMeta = kotlin_kotlin.$_$.v5;
   var getKClassFromExpression = kotlin_kotlin.$_$.a;
-  var Exception = kotlin_kotlin.$_$.i7;
+  var Exception = kotlin_kotlin.$_$.j7;
   var Exception_init_$Init$ = kotlin_kotlin.$_$.z;
-  var captureStack = kotlin_kotlin.$_$.h5;
+  var captureStack = kotlin_kotlin.$_$.i5;
   //endregion
   //region block: pre-declaration
   CharToken.prototype = Object.create(Token.prototype);
@@ -31183,12 +31454,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   _.$_$.g = Grammar;
   _.$_$.h = parseToEnd;
   _.$_$.i = parser;
-  _.$_$.j = Token;
-  _.$_$.k = AlternativesFailure;
-  _.$_$.l = NoMatchingToken;
-  _.$_$.m = ParseException;
-  _.$_$.n = Tuple2;
-  _.$_$.o = literalToken$default;
+  _.$_$.j = TokenMatch;
+  _.$_$.k = Token;
+  _.$_$.l = AlternativesFailure;
+  _.$_$.m = NoMatchingToken;
+  _.$_$.n = ParseException;
+  _.$_$.o = Tuple2;
+  _.$_$.p = literalToken$default;
   //endregion
   return _;
 }));
@@ -31292,62 +31564,62 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   //region block: imports
   var imul = Math.imul;
   var log10 = Math.log10;
-  var interfaceMeta = kotlin_kotlin.$_$.u5;
-  var Long = kotlin_kotlin.$_$.k7;
+  var interfaceMeta = kotlin_kotlin.$_$.v5;
+  var Long = kotlin_kotlin.$_$.l7;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
   var ArithmeticException_init_$Create$ = kotlin_kotlin.$_$.y;
   var RuntimeException_init_$Create$ = kotlin_kotlin.$_$.l1;
-  var toString = kotlin_kotlin.$_$.h6;
+  var toString = kotlin_kotlin.$_$.i6;
   var IllegalStateException_init_$Create$ = kotlin_kotlin.$_$.f1;
-  var ensureNotNull = kotlin_kotlin.$_$.w7;
+  var ensureNotNull = kotlin_kotlin.$_$.x7;
   var DoubleCompanionObject_getInstance = kotlin_kotlin.$_$.p2;
   var FloatCompanionObject_getInstance = kotlin_kotlin.$_$.q2;
   var _Char___init__impl__6a9atx = kotlin_kotlin.$_$.n1;
-  var contains = kotlin_kotlin.$_$.s6;
+  var contains = kotlin_kotlin.$_$.t6;
   var contains$default = kotlin_kotlin.$_$.i;
-  var get_lastIndex = kotlin_kotlin.$_$.t6;
-  var charSequenceGet = kotlin_kotlin.$_$.k5;
-  var Char = kotlin_kotlin.$_$.e7;
-  var equals = kotlin_kotlin.$_$.p5;
-  var charSequenceLength = kotlin_kotlin.$_$.l5;
-  var charArrayOf = kotlin_kotlin.$_$.i5;
+  var get_lastIndex = kotlin_kotlin.$_$.u6;
+  var charSequenceGet = kotlin_kotlin.$_$.l5;
+  var Char = kotlin_kotlin.$_$.f7;
+  var equals = kotlin_kotlin.$_$.q5;
+  var charSequenceLength = kotlin_kotlin.$_$.m5;
+  var charArrayOf = kotlin_kotlin.$_$.j5;
   var split$default = kotlin_kotlin.$_$.k;
-  var toLong = kotlin_kotlin.$_$.g6;
-  var listOf = kotlin_kotlin.$_$.h4;
-  var toLong_0 = kotlin_kotlin.$_$.a7;
-  var numberToLong = kotlin_kotlin.$_$.e6;
-  var objectMeta = kotlin_kotlin.$_$.f6;
-  var Enum = kotlin_kotlin.$_$.h7;
-  var classMeta = kotlin_kotlin.$_$.n5;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.y7;
-  var Triple = kotlin_kotlin.$_$.p7;
-  var numberToDouble = kotlin_kotlin.$_$.c6;
-  var until = kotlin_kotlin.$_$.m6;
-  var substring = kotlin_kotlin.$_$.x6;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
-  var abs = kotlin_kotlin.$_$.j6;
-  var Pair = kotlin_kotlin.$_$.m7;
-  var isNumber = kotlin_kotlin.$_$.x5;
+  var toLong = kotlin_kotlin.$_$.h6;
+  var listOf = kotlin_kotlin.$_$.i4;
+  var toLong_0 = kotlin_kotlin.$_$.b7;
+  var numberToLong = kotlin_kotlin.$_$.f6;
+  var objectMeta = kotlin_kotlin.$_$.g6;
+  var Enum = kotlin_kotlin.$_$.i7;
+  var classMeta = kotlin_kotlin.$_$.o5;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
+  var Triple = kotlin_kotlin.$_$.q7;
+  var numberToDouble = kotlin_kotlin.$_$.d6;
+  var until = kotlin_kotlin.$_$.n6;
+  var substring = kotlin_kotlin.$_$.y6;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
+  var abs = kotlin_kotlin.$_$.k6;
+  var Pair = kotlin_kotlin.$_$.n7;
+  var isNumber = kotlin_kotlin.$_$.y5;
   var getKClassFromExpression = kotlin_kotlin.$_$.a;
-  var isObject = kotlin_kotlin.$_$.y5;
-  var hashCode = kotlin_kotlin.$_$.t5;
+  var isObject = kotlin_kotlin.$_$.z5;
+  var hashCode = kotlin_kotlin.$_$.u5;
   var IntCompanionObject_getInstance = kotlin_kotlin.$_$.r2;
-  var abs_0 = kotlin_kotlin.$_$.i6;
+  var abs_0 = kotlin_kotlin.$_$.j6;
   var StringBuilder_init_$Create$ = kotlin_kotlin.$_$.x;
-  var Comparable = kotlin_kotlin.$_$.f7;
+  var Comparable = kotlin_kotlin.$_$.g7;
   var getKClass = kotlin_kotlin.$_$.b;
   var PrimitiveClasses_getInstance = kotlin_kotlin.$_$.s2;
   var NumberFormatException_init_$Create$ = kotlin_kotlin.$_$.j1;
   var IllegalArgumentException_init_$Create$ = kotlin_kotlin.$_$.d1;
   var _ULongArray___get_size__impl__ju6dtr = kotlin_kotlin.$_$.m2;
-  var ULongArray = kotlin_kotlin.$_$.t7;
-  var numberToInt = kotlin_kotlin.$_$.d6;
-  var UByte = kotlin_kotlin.$_$.q7;
-  var UShort = kotlin_kotlin.$_$.v7;
-  var UInt = kotlin_kotlin.$_$.s7;
-  var ULong = kotlin_kotlin.$_$.u7;
+  var ULongArray = kotlin_kotlin.$_$.u7;
+  var numberToInt = kotlin_kotlin.$_$.e6;
+  var UByte = kotlin_kotlin.$_$.r7;
+  var UShort = kotlin_kotlin.$_$.w7;
+  var UInt = kotlin_kotlin.$_$.t7;
+  var ULong = kotlin_kotlin.$_$.v7;
   var ULongArray__hashCode_impl_aze4wa = kotlin_kotlin.$_$.i2;
-  var UIntArray = kotlin_kotlin.$_$.r7;
+  var UIntArray = kotlin_kotlin.$_$.s7;
   var UIntArray__hashCode_impl_hr7ost = kotlin_kotlin.$_$.x1;
   var _ULong___init__impl__c78o9k = kotlin_kotlin.$_$.d2;
   var _UInt___init__impl__l7qpdl = kotlin_kotlin.$_$.s1;
@@ -31359,35 +31631,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var UIntArray__get_impl_gp5kza = kotlin_kotlin.$_$.w1;
   var _UIntArray___get_storage__impl__92a0v0 = kotlin_kotlin.$_$.c2;
   var copyOfRange = kotlin_kotlin.$_$.l3;
-  var uintCompare = kotlin_kotlin.$_$.b8;
+  var uintCompare = kotlin_kotlin.$_$.c8;
   var _ULong___get_data__impl__fggpzb = kotlin_kotlin.$_$.e2;
   var UIntArray__set_impl_7f2zu2 = kotlin_kotlin.$_$.a2;
-  var println = kotlin_kotlin.$_$.e5;
+  var println = kotlin_kotlin.$_$.f5;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.o;
   var UIntArray__iterator_impl_tkdv7k = kotlin_kotlin.$_$.z1;
-  var uintDivide = kotlin_kotlin.$_$.c8;
-  var uintRemainder = kotlin_kotlin.$_$.d8;
-  var ulongDivide = kotlin_kotlin.$_$.f8;
-  var ulongCompare = kotlin_kotlin.$_$.e8;
+  var uintDivide = kotlin_kotlin.$_$.d8;
+  var uintRemainder = kotlin_kotlin.$_$.e8;
+  var ulongDivide = kotlin_kotlin.$_$.g8;
+  var ulongCompare = kotlin_kotlin.$_$.f8;
   var ULongArray__iterator_impl_cq4d2h = kotlin_kotlin.$_$.k2;
   var ULongArray__get_impl_pr71q9 = kotlin_kotlin.$_$.h2;
-  var longArrayOf = kotlin_kotlin.$_$.z5;
+  var longArrayOf = kotlin_kotlin.$_$.a6;
   var _ULongArray___init__impl__twm1l3 = kotlin_kotlin.$_$.g2;
   var _ULongArray___get_storage__impl__28e64j = kotlin_kotlin.$_$.n2;
   var copyOfRange_0 = kotlin_kotlin.$_$.m3;
   var ULongArray__isEmpty_impl_c3yngu = kotlin_kotlin.$_$.j2;
-  var longArray = kotlin_kotlin.$_$.a6;
+  var longArray = kotlin_kotlin.$_$.b6;
   var arrayCopy = kotlin_kotlin.$_$.e3;
   var ULongArray__set_impl_z19mvh = kotlin_kotlin.$_$.l2;
-  var plus = kotlin_kotlin.$_$.m4;
-  var toULongArray = kotlin_kotlin.$_$.a5;
-  var slice = kotlin_kotlin.$_$.o4;
+  var plus = kotlin_kotlin.$_$.n4;
+  var toULongArray = kotlin_kotlin.$_$.b5;
+  var slice = kotlin_kotlin.$_$.p4;
   var _ULongArray___init__impl__twm1l3_0 = kotlin_kotlin.$_$.f2;
-  var ulongRemainder = kotlin_kotlin.$_$.g8;
+  var ulongRemainder = kotlin_kotlin.$_$.h8;
   var copyOf = kotlin_kotlin.$_$.n3;
-  var toString_0 = kotlin_kotlin.$_$.b7;
-  var isCharSequence = kotlin_kotlin.$_$.v5;
-  var reversed = kotlin_kotlin.$_$.w6;
+  var toString_0 = kotlin_kotlin.$_$.c7;
+  var isCharSequence = kotlin_kotlin.$_$.w5;
+  var reversed = kotlin_kotlin.$_$.x6;
   var _UShort___get_data__impl__g0245 = kotlin_kotlin.$_$.o2;
   var _UByte___get_data__impl__jof9qr = kotlin_kotlin.$_$.r1;
   var Companion_getInstance = kotlin_kotlin.$_$.t2;
@@ -37832,52 +38104,52 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   //region block: imports
   var imul = Math.imul;
-  var interfaceMeta = kotlin_kotlin.$_$.u5;
-  var captureStack = kotlin_kotlin.$_$.h5;
-  var classMeta = kotlin_kotlin.$_$.n5;
+  var interfaceMeta = kotlin_kotlin.$_$.v5;
+  var captureStack = kotlin_kotlin.$_$.i5;
+  var classMeta = kotlin_kotlin.$_$.o5;
   var IllegalArgumentException_init_$Init$ = kotlin_kotlin.$_$.c1;
   var IllegalArgumentException_init_$Init$_0 = kotlin_kotlin.$_$.e1;
-  var IllegalArgumentException = kotlin_kotlin.$_$.j7;
+  var IllegalArgumentException = kotlin_kotlin.$_$.k7;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
   var Iterator = kotlin_kotlin.$_$.a3;
   var Iterable = kotlin_kotlin.$_$.z2;
-  var objectMeta = kotlin_kotlin.$_$.f6;
+  var objectMeta = kotlin_kotlin.$_$.g6;
   var getKClassFromExpression = kotlin_kotlin.$_$.a;
-  var ensureNotNull = kotlin_kotlin.$_$.w7;
-  var getStringHashCode = kotlin_kotlin.$_$.s5;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
-  var toIntOrNull = kotlin_kotlin.$_$.y6;
+  var ensureNotNull = kotlin_kotlin.$_$.x7;
+  var getStringHashCode = kotlin_kotlin.$_$.t5;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
+  var toIntOrNull = kotlin_kotlin.$_$.z6;
   var IllegalArgumentException_init_$Create$ = kotlin_kotlin.$_$.d1;
-  var toString = kotlin_kotlin.$_$.h6;
-  var equals = kotlin_kotlin.$_$.p5;
-  var hashCode = kotlin_kotlin.$_$.t5;
+  var toString = kotlin_kotlin.$_$.i6;
+  var equals = kotlin_kotlin.$_$.q5;
+  var hashCode = kotlin_kotlin.$_$.u5;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.o;
   var ArrayList = kotlin_kotlin.$_$.w2;
   var ArrayList_init_$Create$_0 = kotlin_kotlin.$_$.p;
   var List = kotlin_kotlin.$_$.b3;
-  var isInterface = kotlin_kotlin.$_$.w5;
-  var isObject = kotlin_kotlin.$_$.y5;
+  var isInterface = kotlin_kotlin.$_$.x5;
+  var isObject = kotlin_kotlin.$_$.z5;
   var copyToArray = kotlin_kotlin.$_$.p3;
   var HashSet_init_$Create$ = kotlin_kotlin.$_$.r;
   var contentHashCode = kotlin_kotlin.$_$.k3;
   var HashMap_init_$Create$ = kotlin_kotlin.$_$.q;
   var ArrayList_init_$Create$_1 = kotlin_kotlin.$_$.n;
-  var arrayIterator = kotlin_kotlin.$_$.f5;
-  var fillArrayVal = kotlin_kotlin.$_$.q5;
-  var booleanArray = kotlin_kotlin.$_$.g5;
-  var lazy = kotlin_kotlin.$_$.x7;
+  var arrayIterator = kotlin_kotlin.$_$.g5;
+  var fillArrayVal = kotlin_kotlin.$_$.r5;
+  var booleanArray = kotlin_kotlin.$_$.h5;
+  var lazy = kotlin_kotlin.$_$.y7;
   var contentEquals = kotlin_kotlin.$_$.h3;
   var joinToString$default = kotlin_kotlin.$_$.h;
-  var KProperty1 = kotlin_kotlin.$_$.o6;
-  var getPropertyCallableRef = kotlin_kotlin.$_$.r5;
+  var KProperty1 = kotlin_kotlin.$_$.p6;
+  var getPropertyCallableRef = kotlin_kotlin.$_$.s5;
   var IllegalStateException_init_$Create$ = kotlin_kotlin.$_$.f1;
-  var charSequenceLength = kotlin_kotlin.$_$.l5;
-  var lastOrNull = kotlin_kotlin.$_$.e4;
-  var get_lastIndex = kotlin_kotlin.$_$.d4;
+  var charSequenceLength = kotlin_kotlin.$_$.m5;
+  var lastOrNull = kotlin_kotlin.$_$.f4;
+  var get_lastIndex = kotlin_kotlin.$_$.e4;
   var Map = kotlin_kotlin.$_$.c3;
   var emptyMap = kotlin_kotlin.$_$.v3;
-  var Annotation = kotlin_kotlin.$_$.d7;
-  var get_indices = kotlin_kotlin.$_$.b4;
+  var Annotation = kotlin_kotlin.$_$.e7;
+  var get_indices = kotlin_kotlin.$_$.c4;
   var IndexOutOfBoundsException_init_$Create$ = kotlin_kotlin.$_$.g1;
   //endregion
   //region block: pre-declaration
@@ -39101,17 +39373,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   'use strict';
   //region block: imports
   var imul = Math.imul;
-  var objectMeta = kotlin_kotlin.$_$.f6;
-  var toString = kotlin_kotlin.$_$.h6;
+  var objectMeta = kotlin_kotlin.$_$.g6;
+  var toString = kotlin_kotlin.$_$.i6;
   var IllegalStateException_init_$Create$ = kotlin_kotlin.$_$.f1;
   var StringFormat = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.c1;
-  var classMeta = kotlin_kotlin.$_$.n5;
+  var classMeta = kotlin_kotlin.$_$.o5;
   var Decoder = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.q;
   var CompositeDecoder = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.p;
-  var interfaceMeta = kotlin_kotlin.$_$.u5;
-  var THROW_CCE = kotlin_kotlin.$_$.o7;
-  var equals = kotlin_kotlin.$_$.p5;
-  var hashCode = kotlin_kotlin.$_$.t5;
+  var interfaceMeta = kotlin_kotlin.$_$.v5;
+  var THROW_CCE = kotlin_kotlin.$_$.p7;
+  var equals = kotlin_kotlin.$_$.q5;
+  var hashCode = kotlin_kotlin.$_$.u5;
   var joinToString$default = kotlin_kotlin.$_$.h;
   var List = kotlin_kotlin.$_$.b3;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
@@ -39119,48 +39391,48 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var _Char___init__impl__6a9atx = kotlin_kotlin.$_$.n1;
   var Map = kotlin_kotlin.$_$.c3;
   var getKClassFromExpression = kotlin_kotlin.$_$.a;
-  var getStringHashCode = kotlin_kotlin.$_$.s5;
-  var toInt = kotlin_kotlin.$_$.z6;
+  var getStringHashCode = kotlin_kotlin.$_$.t5;
+  var toInt = kotlin_kotlin.$_$.a7;
   var IllegalArgumentException_init_$Create$ = kotlin_kotlin.$_$.d1;
-  var isInterface = kotlin_kotlin.$_$.w5;
+  var isInterface = kotlin_kotlin.$_$.x5;
   var KSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.a1;
   var get_EmptySerializersModule = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.y;
-  var captureStack = kotlin_kotlin.$_$.h5;
+  var captureStack = kotlin_kotlin.$_$.i5;
   var SerializationException = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.b1;
   var SerializationException_init_$Init$ = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.b;
-  var coerceAtLeast = kotlin_kotlin.$_$.k6;
-  var coerceAtMost = kotlin_kotlin.$_$.l6;
-  var numberToChar = kotlin_kotlin.$_$.b6;
+  var coerceAtLeast = kotlin_kotlin.$_$.l6;
+  var coerceAtMost = kotlin_kotlin.$_$.m6;
+  var numberToChar = kotlin_kotlin.$_$.c6;
   var LinkedHashMap_init_$Create$ = kotlin_kotlin.$_$.u;
   var ArrayList_init_$Create$ = kotlin_kotlin.$_$.o;
-  var concatToString = kotlin_kotlin.$_$.r6;
+  var concatToString = kotlin_kotlin.$_$.s6;
   var copyOf = kotlin_kotlin.$_$.o3;
-  var charSequenceGet = kotlin_kotlin.$_$.k5;
-  var Char = kotlin_kotlin.$_$.e7;
+  var charSequenceGet = kotlin_kotlin.$_$.l5;
+  var Char = kotlin_kotlin.$_$.f7;
   var Char__toInt_impl_vasixd = kotlin_kotlin.$_$.q1;
-  var charArray = kotlin_kotlin.$_$.j5;
-  var last = kotlin_kotlin.$_$.f4;
+  var charArray = kotlin_kotlin.$_$.k5;
+  var last = kotlin_kotlin.$_$.g4;
   var AbstractPolymorphicSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.r;
   var getKClass = kotlin_kotlin.$_$.b;
   var DeserializationStrategy = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.z;
   var Companion_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.g;
   var ENUM_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.d;
   var AbstractDecoder = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.m;
-  var IllegalArgumentException = kotlin_kotlin.$_$.j7;
+  var IllegalArgumentException = kotlin_kotlin.$_$.k7;
   var decodeSequentially = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.o;
   var decodeCollectionSize = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.n;
   var decodeSerializableElement$default = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.a;
-  var fillArrayVal = kotlin_kotlin.$_$.q5;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.y7;
+  var fillArrayVal = kotlin_kotlin.$_$.r5;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
   var NamedValueDecoder = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.u;
   var PolymorphicKind = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.k;
   var LIST_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.e;
   var PrimitiveKind = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.l;
   var MAP_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.f;
-  var getValue = kotlin_kotlin.$_$.z3;
+  var getValue = kotlin_kotlin.$_$.a4;
   var jsonCachedSerialNames = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.w;
-  var toList = kotlin_kotlin.$_$.x4;
-  var Enum = kotlin_kotlin.$_$.h7;
+  var toList = kotlin_kotlin.$_$.y4;
+  var Enum = kotlin_kotlin.$_$.i7;
   //endregion
   //region block: pre-declaration
   Default.prototype = Object.create(Json.prototype);

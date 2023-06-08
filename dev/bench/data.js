@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686186481184,
+  "lastUpdate": 1686196362884,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -832,6 +832,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.529,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1ec969a87ff090bdb5ea4dd8157d1d3f153e80c2",
+          "message": "feat(core): add GAlgebra.convertToScalar",
+          "timestamp": "2023-06-08T12:20:56+09:00",
+          "tree_id": "ac35e43b6b79d2171de3462ce343855bfc914891",
+          "url": "https://github.com/shwaka/kohomology/commit/1ec969a87ff090bdb5ea4dd8157d1d3f153e80c2"
+        },
+        "date": 1686196361809,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.689,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.322,
             "unit": "s/op"
           }
         ]

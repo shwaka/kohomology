@@ -21,11 +21,13 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
-    "parse test" - {
+    "parse test with polynomial ring" - {
         val indeterminateList = listOf(
             Indeterminate("x", 2),
             Indeterminate("y", 2),
@@ -150,6 +152,34 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     }
                 }
             }
+        }
+    }
+
+    "parse test with truncated polynomial ring" {
+        val n = 5
+        val indeterminateList = listOf(
+            Indeterminate("x", 2),
+            Indeterminate("y", 2),
+        )
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+        val (x, y) = freeGAlgebra.generatorList
+        val ideal = freeGAlgebra.context.run {
+            freeGAlgebra.getIdeal(listOf(x.pow(n), y.pow(n)))
+        }
+        val quotGAlgebra = freeGAlgebra.getQuotientByIdeal(ideal)
+        val proj = quotGAlgebra.projection
+        val generators = freeGAlgebra.generatorList.map { gVector ->
+            Pair(
+                gVector.toString(),
+                proj(gVector),
+            )
+        }
+        freeGAlgebra.context.run {
+            quotGAlgebra.parse(generators, "x * y") shouldBe proj(x * y)
+            quotGAlgebra.parse(generators, "x^${n - 1}").isZero().shouldBeFalse()
+            quotGAlgebra.parse(generators, "x^$n").isZero().shouldBeTrue()
+            quotGAlgebra.parse(generators, "x^$n + x^${n - 1} * y") shouldBe
+                proj(x.pow(n - 1) * y)
         }
     }
 }

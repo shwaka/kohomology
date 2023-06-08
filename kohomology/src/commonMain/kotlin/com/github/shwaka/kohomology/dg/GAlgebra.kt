@@ -201,7 +201,7 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
 // The function getValueFromASTNode is implemented as an extension function
 // since `internal` cannot be applied to default implementation of methods in an interface.
 internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    GAlgebra<D, B, S, V, M>.getValueFromASTNode(
+GAlgebra<D, B, S, V, M>.getValueFromASTNode(
     generators: List<Pair<String, GVector<D, B, S, V>>>,
     astNode: ASTNode,
 ): GVectorOrZero<D, B, S, V> {
@@ -212,7 +212,7 @@ internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matri
                 """
                         Invalid generator name: ${astNode.name}
                         Valid names are: ${generators.joinToString(", ") { it.first }}
-                    """.trimIndent()
+                """.trimIndent()
             )
         is ASTNode.NatNumber -> {
             if (astNode.value == 0) {

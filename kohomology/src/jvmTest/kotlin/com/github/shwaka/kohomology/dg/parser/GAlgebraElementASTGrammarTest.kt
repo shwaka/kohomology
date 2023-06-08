@@ -3,9 +3,9 @@ package com.github.shwaka.kohomology.dg.parser
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
-import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
+import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Power
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Subtract
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Sum
@@ -161,7 +161,9 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
         GAlgebraElementASTGrammar.parseToEnd("(-1/2) * x") shouldBe
             Multiply(
                 UnaryMinus(
-                    Divide(NatNumber(1), NatNumber(2)
+                    Divide(
+                        NatNumber(1),
+                        NatNumber(2),
                     )
                 ),
                 Identifier("x"),

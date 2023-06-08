@@ -2,9 +2,9 @@ package com.github.shwaka.kohomology.free
 
 import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
-import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
+import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Power
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Subtract
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Sum

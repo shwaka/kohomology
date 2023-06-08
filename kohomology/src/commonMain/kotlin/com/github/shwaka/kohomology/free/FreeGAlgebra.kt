@@ -238,7 +238,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
 
 // added for test
 internal fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    FreeGAlgebra<D, I, S, V, M>.getValueFromASTNode(
+FreeGAlgebra<D, I, S, V, M>.getValueFromASTNode(
     astNode: ASTNode,
 ): GVectorOrZero<D, Monomial<D, I>, S, V> {
     return this.getValueFromASTNode(this.getGeneratorsForParser(), astNode)

@@ -161,7 +161,6 @@ public class SparseNumVectorSpace<S : Scalar> private constructor(
         } else {
             null
         }
-
     }
 
     override fun unaryMinusOf(numVector: SparseNumVector<S>): SparseNumVector<S> {

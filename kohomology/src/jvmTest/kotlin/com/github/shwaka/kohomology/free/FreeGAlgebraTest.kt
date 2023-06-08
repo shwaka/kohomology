@@ -30,6 +30,7 @@ import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.shouldContain
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 import io.kotest.property.exhaustive.map
@@ -388,7 +389,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         freeGAlgebra.context.run {
             "scalar" {
                 freeGAlgebra.parse("zero") shouldBe zeroGVector
-                freeGAlgebra.parse("0") shouldBe zeroGVector
+                freeGAlgebra.parse("0") shouldBe (0 * unit)
                 freeGAlgebra.parse("1") shouldBe unit
                 freeGAlgebra.parse("-2") shouldBe (-2 * unit)
             }

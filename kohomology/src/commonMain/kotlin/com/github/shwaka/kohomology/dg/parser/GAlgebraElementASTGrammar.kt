@@ -21,7 +21,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
         Identifier.firstCharCategoryList,
         PartialIdentifier.charCategoryList,
     )
-    private val int by regexToken("\\d+")
+    private val nat by regexToken("\\d+")
     private val lpar by literalToken("(")
     private val rpar by literalToken(")")
     private val mul by literalToken("*")
@@ -40,7 +40,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
         (zero use { ASTNode.Zero })
 
     private val natParser: Parser<ASTNode.NatNumber> by
-    int use { ASTNode.NatNumber(text.toInt()) }
+    nat use { ASTNode.NatNumber(text.toInt()) }
 
     private val parenParser: Parser<ASTNode> by
     skip(lpar) and parser(::rootParser) and skip(rpar)
@@ -53,7 +53,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     natParser or idParser or minusParser or parenParser
 
     private val powerParser: Parser<ASTNode> by
-    (termParser and skip(pow) and natParser map { (node, n) -> ASTNode.Power(node, n.value) }) or
+    (termParser and skip(pow) and nat map { (node, n) -> ASTNode.Power(node, n.text.toInt()) }) or
         termParser
 
     // private val mulChain: Parser<ASTNode> by

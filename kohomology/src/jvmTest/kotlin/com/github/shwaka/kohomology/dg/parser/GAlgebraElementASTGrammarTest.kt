@@ -11,15 +11,23 @@ import com.github.shwaka.kohomology.dg.parser.ASTNode.Subtract
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Sum
 import com.github.shwaka.kohomology.dg.parser.ASTNode.UnaryMinus
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Zero
+import com.github.shwaka.kohomology.util.IdentifierTest
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
 val gAlgebraElementASTGrammarTag = NamedTag("GAlgebraElementASTGrammar")
 
 class GAlgebraElementASTGrammarTest : FreeSpec({
     tags(gAlgebraElementASTGrammarTag)
+
+    "empty exception should not be parsed" {
+        shouldThrow<ParseException> {
+            GAlgebraElementASTGrammar.parseToEnd("")
+        }
+    }
 
     "\"zero\" should be parsed as Zero" {
         GAlgebraElementASTGrammar.parseToEnd("zero") shouldBe Zero
@@ -31,6 +39,23 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
 
     "\"x\" should be parsed as Identifier(\"x\")" {
         GAlgebraElementASTGrammar.parseToEnd("x") shouldBe Identifier("x")
+    }
+
+    "test valid identifiers" {
+        IdentifierTest.validNameList.forAll { name ->
+            GAlgebraElementASTGrammar.parseToEnd(name) shouldBe Identifier(name)
+        }
+    }
+
+    "test invalid identifiers" {
+        // IdentifierTest.invalidNameList cannot be used here
+        listOf(
+            "1a", "0x",
+        ).forAll { name ->
+            shouldThrow<ParseException> {
+                GAlgebraElementASTGrammar.parseToEnd(name)
+            }
+        }
     }
 
     "\"x + y\" should be parsed as Sum(Identifier(\"x\"), Identifier(\"y\"))" {

@@ -191,6 +191,52 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
                 v[1] shouldBe one
                 v[2] shouldBe (-two)
             }
+            "numVectorSpace.divideByNumVector((2, 4), (1, 2)) should return 2" {
+                numVectorSpace.divideByNumVector(
+                    listOf(two, four).toNumVector(),
+                    listOf(one, two).toNumVector(),
+                ) shouldBe two
+            }
+            "numVectorSpace.divideByNumVector((0, -3), (0, 1)) should return -3" {
+                numVectorSpace.divideByNumVector(
+                    listOf(zero, -three).toNumVector(),
+                    listOf(zero, one).toNumVector(),
+                ) shouldBe -three
+            }
+            "numVectorSpace.divideByNumVector((0, 0), (1, 2)) should return 0" {
+                numVectorSpace.divideByNumVector(
+                    listOf(zero, zero).toNumVector(),
+                    listOf(one, two).toNumVector(),
+                ) shouldBe zero
+            }
+            "numVectorSpace.divideByNumVector((1, 0), (0, 1)) should return null" {
+                numVectorSpace.divideByNumVector(
+                    listOf(one, zero).toNumVector(),
+                    listOf(zero, one).toNumVector(),
+                ) shouldBe null
+            }
+            "numVectorSpace.divideByNumVector((3, 5), (1, 2)) should return null" {
+                numVectorSpace.divideByNumVector(
+                    listOf(three, five).toNumVector(),
+                    listOf(one, two).toNumVector(),
+                ) shouldBe null
+            }
+            "numVectorSpace.divideByNumVector((2, 4), (0, 0)) should throw ArithmeticException" {
+                shouldThrow<ArithmeticException> {
+                    numVectorSpace.divideByNumVector(
+                        listOf(two, four).toNumVector(),
+                        listOf(zero, zero).toNumVector(),
+                    )
+                }
+            }
+            "numVectorSpace.divideByNumVector((0, 0), (0, 0)) should throw ArithmeticException" {
+                shouldThrow<ArithmeticException> {
+                    numVectorSpace.divideByNumVector(
+                        listOf(zero, zero).toNumVector(),
+                        listOf(zero, zero).toNumVector(),
+                    )
+                }
+            }
         }
     }
 }

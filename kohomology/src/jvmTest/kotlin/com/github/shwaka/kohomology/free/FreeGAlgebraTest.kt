@@ -140,6 +140,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 l.product() shouldBe unit
             }
         }
+        "test toScalar()" {
+            val (x, _) = freeGAlgebra.generatorList
+            freeGAlgebra.context.run {
+                unit.toScalar() shouldBe one
+                (2 * unit).toScalar() shouldBe two
+                shouldThrow<ArithmeticException> {
+                    x.toScalar()
+                }
+                shouldThrow<ArithmeticException> {
+                    (0 * x).toScalar()
+                }
+                zeroGVector.toScalar() shouldBe zero
+            }
+        }
         "boundedness should be Boundedness(upperBound=null, lowerBound=0)" {
             val expected = if (generatorDegree > 0) {
                 Boundedness(upperBound = null, lowerBound = 0)

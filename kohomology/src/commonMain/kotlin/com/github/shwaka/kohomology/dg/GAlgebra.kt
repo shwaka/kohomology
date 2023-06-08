@@ -47,6 +47,12 @@ public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumV
             }
         }
     }
+    public fun GVectorOrZero<D, B, S, V>.toScalar(): S {
+        return when (this) {
+            is GVector -> this@GAlgebraContext.gAlgebra.convertToScalar(this)
+            is ZeroGVector -> zero
+        }
+    }
     public fun Iterable<GVector<D, B, S, V>>.product(): GVector<D, B, S, V> {
         return this.fold(this@GAlgebraContext.gAlgebra.unit) { acc, x -> acc * x }
     }
@@ -68,6 +74,18 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         return GAlgebraMap(this, this, this.matrixSpace, "id") { degree ->
             this[degree].getIdentity(this.matrixSpace)
         }
+    }
+
+    public fun convertToScalar(gVector: GVector<D, B, S, V>): S {
+        if (gVector.degree.isNotZero()) {
+            throw ArithmeticException(
+                "Cannot convert $gVector to a scalar since it has non-zero degree ${gVector.degree}"
+            )
+        }
+        return this.divideByGVector(gVector, this.unit)
+            ?: throw ArithmeticException(
+                "Cannot convert $gVector to a scalar since it is not of a multiple of the unit"
+            )
     }
 
     public fun parse(generators: List<Pair<String, GVector<D, B, S, V>>>, text: String): GVectorOrZero<D, B, S, V> {

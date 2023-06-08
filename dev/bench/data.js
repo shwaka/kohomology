@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686196362884,
+  "lastUpdate": 1686207441206,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -866,6 +866,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.322,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d6149503428d863074bd23ab0f07c1231dc66c72",
+          "message": "test(core): add parser test with QuotGAlgebra",
+          "timestamp": "2023-06-08T15:50:51+09:00",
+          "tree_id": "3fc052a1114627b23166239913a5e7351decc3e3",
+          "url": "https://github.com/shwaka/kohomology/commit/d6149503428d863074bd23ab0f07c1231dc66c72"
+        },
+        "date": 1686207440457,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.459,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.594,
             "unit": "s/op"
           }
         ]

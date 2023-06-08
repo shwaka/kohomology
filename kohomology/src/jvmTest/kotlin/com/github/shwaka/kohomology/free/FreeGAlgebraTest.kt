@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.checkGAlgebraAxioms

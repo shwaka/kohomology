@@ -397,7 +397,9 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         return this[a.degree].divideByVector(a.vector, b.vector)
     }
 
-    public val zeroGVector: ZeroGVector<D, B, S, V> get() = ZeroGVector(this)
+    // Since zeroGVector should be the same instance on every access,
+    // implementation cannot be given in get() method.
+    public val zeroGVector: ZeroGVector<D, B, S, V>
 
     public fun <M : Matrix<S, V>> isBasis(
         gVectorList: List<GVector<D, B, S, V>>,
@@ -440,6 +442,7 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
     override val context: GVectorContext<D, B, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
+    override val zeroGVector: ZeroGVector<D, B, S, V> = ZeroGVector(this)
 
     override fun get(degree: D): VectorSpace<B, S, V> {
         return this.cache.getOrPut(degree) {

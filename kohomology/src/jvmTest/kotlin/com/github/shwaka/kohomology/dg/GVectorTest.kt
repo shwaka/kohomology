@@ -27,6 +27,9 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
             (0 until degree).map { "v$it" }
         }
         gVectorSpace.context.run {
+            "the instance of ZeroGVector should be unique" {
+                gVectorSpace.zeroGVector shouldBeSameInstanceAs gVectorSpace.zeroGVector
+            }
             "fromCoeffMap() should give the same gVector as fromCoeffList()" {
                 val v1 = gVectorSpace.fromCoeffList(listOf(zero, one, two), 3)
                 val v2 = gVectorSpace.fromCoeffMap(mapOf(1 to one, 2 to two), 3)

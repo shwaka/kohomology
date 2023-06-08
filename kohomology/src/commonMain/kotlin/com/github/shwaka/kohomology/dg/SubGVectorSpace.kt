@@ -97,6 +97,7 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
+    override val zeroGVector: ZeroGVector<D, SubBasis<B, S, V>, S, V> = ZeroGVector(this)
     override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
         GLinearMap(
             source = this,
@@ -149,6 +150,7 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
     override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
+    override val zeroGVector: ZeroGVector<D, SubBasis<B, S, V>, S, V> = ZeroGVector(this)
     override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
         GLinearMap(
             source = this,

@@ -51,6 +51,33 @@ fun <S : Scalar, V : NumVector<S>> gVectorTest(numVectorSpace: NumVectorSpace<S,
                 (v * Sign.MINUS) shouldBe -v
                 (Sign.MINUS * v) shouldBe -v
             }
+            "gVectorSpace.divideByGVector((2, 4), (1, 2)) should be 2" {
+                gVectorSpace.divideByGVector(
+                    gVectorSpace.fromCoeffList(listOf(two, four), 2),
+                    gVectorSpace.fromCoeffList(listOf(one, two), 2),
+                ) shouldBe two
+            }
+            "gVectorSpace.divideByGVector((1, 0), (0, 1)) should be null" {
+                gVectorSpace.divideByGVector(
+                    gVectorSpace.fromCoeffList(listOf(one, zero), 2),
+                    gVectorSpace.fromCoeffList(listOf(zero, one), 2),
+                ) shouldBe null
+            }
+            "gVectorSpace.divideByGVector((0, 0), (1, 2)) should be 0" {
+                gVectorSpace.divideByGVector(
+                    gVectorSpace.fromCoeffList(listOf(zero, zero), 2),
+                    gVectorSpace.fromCoeffList(listOf(one, two), 2),
+                ) shouldBe zero
+            }
+            "gVectorSpace.divideByGVector((2, 4), (0, 0)) should throw ArithmeticException" {
+                shouldThrow<ArithmeticException> {
+                    gVectorSpace.divideByGVector(
+                        gVectorSpace.fromCoeffList(listOf(two, four), 2),
+                        gVectorSpace.fromCoeffList(listOf(zero, zero), 2),
+                    )
+                }
+            }
+
             "(0, 0).isZero() should be true" {
                 val v = gVectorSpace.fromCoeffList(listOf(zero, zero), 2)
                 v.isZero().shouldBeTrue()

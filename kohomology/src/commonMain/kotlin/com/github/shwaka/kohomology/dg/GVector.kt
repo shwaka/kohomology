@@ -381,6 +381,22 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         return this.fromVector(vector, gVector.degree)
     }
 
+    // Since divideByGVector isn't usual operation, it isn't added to GVectorContext
+    public fun divideByGVector(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): S? {
+        if (a !in this)
+            throw IllegalContextException("The gVector $a does not match the context")
+        if (b !in this)
+            throw IllegalContextException("The gVector $b does not match the context")
+        if (a.degree != b.degree)
+            throw ArithmeticException(
+                "Cannot divide a graded vector by another one with a different degree: " +
+                    "deg($a)=${a.degree} and deg($b)=${b.degree}"
+            )
+        if (b.isZero())
+            throw ArithmeticException("Division by zero gVector")
+        return this[a.degree].divideByVector(a.vector, b.vector)
+    }
+
     public val zeroGVector: ZeroGVector<D, B, S, V> get() = ZeroGVector(this)
 
     public fun <M : Matrix<S, V>> isBasis(

@@ -68,7 +68,7 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     leftAssociative(powerParser, mul or div use { type }) { left, op, right ->
         when (op) {
             mul -> ASTNode.Multiply(left, right)
-            div -> ASTNode.Div(left, right)
+            div -> ASTNode.Divide(left, right)
             else -> throw Exception("This can't happen!")
         }
     }

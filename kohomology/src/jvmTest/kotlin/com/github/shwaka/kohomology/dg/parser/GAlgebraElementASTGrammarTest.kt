@@ -2,7 +2,7 @@ package com.github.shwaka.kohomology.dg.parser
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.parser.ParseException
-import com.github.shwaka.kohomology.dg.parser.ASTNode.Div
+import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
 import com.github.shwaka.kohomology.dg.parser.ASTNode.NatNumber
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
@@ -122,7 +122,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
 
     "\"1/2\" should be parsed as Div(NatNumber(1), NatNumber(2))" {
         GAlgebraElementASTGrammar.parseToEnd("1/2") shouldBe
-            Div(
+            Divide(
                 NatNumber(1),
                 NatNumber(2),
             )
@@ -131,7 +131,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     "\"-2/3\" should be parsed as UnaryMinus(Div(NatNumber(2), NatNumber(3)))" {
         GAlgebraElementASTGrammar.parseToEnd("-2/3") shouldBe
             UnaryMinus(
-                Div(
+                Divide(
                     NatNumber(2),
                     NatNumber(3),
                 )
@@ -141,7 +141,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     "\"1/0\" should be parsed as Div(NatNumber(1), NatNumber(0))" {
         // This is mathematically nonsense, but parser should not throw exception.
         GAlgebraElementASTGrammar.parseToEnd("1/0") shouldBe
-            Div(
+            Divide(
                 NatNumber(1),
                 NatNumber(0),
             )
@@ -151,7 +151,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
         GAlgebraElementASTGrammar.parseToEnd("-1 / 2 * x") shouldBe
             UnaryMinus(
                 Multiply(
-                    Div(NatNumber(1), NatNumber(2)),
+                    Divide(NatNumber(1), NatNumber(2)),
                     Identifier("x"),
                 )
             )
@@ -161,7 +161,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
         GAlgebraElementASTGrammar.parseToEnd("(-1/2) * x") shouldBe
             Multiply(
                 UnaryMinus(
-                    Div(NatNumber(1), NatNumber(2)
+                    Divide(NatNumber(1), NatNumber(2)
                     )
                 ),
                 Identifier("x"),
@@ -181,7 +181,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
 
     "\"x / 2\" should be parsed as Div(Identifier(\"x\"), NatNumber(2))" {
         GAlgebraElementASTGrammar.parseToEnd("x / 2") shouldBe
-            Div(
+            Divide(
                 Identifier("x"),
                 NatNumber(2),
             )
@@ -189,7 +189,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
 
     "\"2 * x / 3\" should be parsed as Div(Multiply(NatNumber(2), Identifier(\"x\")), NatNumber(3))" {
         GAlgebraElementASTGrammar.parseToEnd("2 * x / 3") shouldBe
-            Div(
+            Divide(
                 Multiply(
                     NatNumber(2),
                     Identifier("x"),
@@ -201,7 +201,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     "\"x / 2 * 3\" should not be parsed" {
         GAlgebraElementASTGrammar.parseToEnd("x / 2 * 3") shouldBe
             Multiply(
-                Div(
+                Divide(
                     Identifier("x"),
                     NatNumber(2),
                 ),

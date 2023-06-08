@@ -121,7 +121,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                     scalar * unit
                 }
             }
-            is ASTNode.Div -> {
+            is ASTNode.Divide -> {
                 val numeratorValue = this.getValueFromASTNode(astNode.numerator, generators)
                 val denominatorValue = this.getValueFromASTNode(astNode.denominator, generators)
                 this.context.run {

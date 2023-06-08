@@ -71,6 +71,21 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
                 (2 * v) shouldBe expected
                 (two * v) shouldBe expected
             }
+            val (a, b, c) = vectorSpace.getBasis()
+            "vectorSpace.divideByVector(2(a + b), a + b) should be 2" {
+                vectorSpace.divideByVector(2 * (a + b), a + b) shouldBe two
+            }
+            "vectorSpace.divideByVector(2(a + b), a + b + c) should be null" {
+                vectorSpace.divideByVector(2 * (a + b), a + b + c) shouldBe null
+            }
+            "vectorSpace.divideByVector(zeroVector, a + b + c) should be 0" {
+                vectorSpace.divideByVector(zeroVector, a + b + c) shouldBe zero
+            }
+            "vectorSpace.divideByVector(2(a + b), zeroVector) should throw ArithmeticException" {
+                shouldThrow<ArithmeticException> {
+                    vectorSpace.divideByVector(2 * (a + b), zeroVector) shouldBe two
+                }
+            }
             "listOf(v, v, w).sum() should be 2 * v + w" {
                 val v = vectorSpace.fromCoeffList(listOf(one, two, three))
                 val w = vectorSpace.fromCoeffList(listOf(one / two, -three / five, four / three))

@@ -272,6 +272,17 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         }
     }
 
+    // Since divideByVector isn't usual operation, it isn't added to VectorContext
+    public fun divideByVector(a: Vector<B, S, V>, b: Vector<B, S, V>): S? {
+        if (a !in this)
+            throw IllegalContextException("The vector $a is not contained in the vector space $this")
+        if (b !in this)
+            throw IllegalContextException("The vector $b is not contained in the vector space $this")
+        if (b.isZero())
+            throw ArithmeticException("Division by zero vector")
+        return this.numVectorSpace.divideByNumVector(a.numVector, b.numVector)
+    }
+
     public fun fromNumVector(numVector: V): Vector<B, S, V> {
         return Vector(numVector, this)
     }

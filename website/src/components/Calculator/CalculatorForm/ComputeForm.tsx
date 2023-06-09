@@ -150,6 +150,7 @@ function isSupported(targetName: TargetName, computationType: ComputationType): 
     case "self":
     case "freeLoopSpace":
     case "cyclic":
+    case "idealQuot":
       return true
     case "derivation":
       switch (computationType) {

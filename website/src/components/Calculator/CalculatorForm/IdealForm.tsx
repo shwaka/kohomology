@@ -58,7 +58,7 @@ export function IdealForm({ setIdealJson, idealInfo }: IdealFormProms): JSX.Elem
 
   return (
     <div>
-      <Alert severity="error">
+      <Alert severity="warning">
         This is an experimental feature
         and may contain some bugs!
       </Alert>

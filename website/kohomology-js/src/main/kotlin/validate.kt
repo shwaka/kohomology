@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 
 @ExperimentalJsExport
@@ -138,4 +139,15 @@ fun validateDifferentialValueOfTheLast(
         return it.export()
     }
     return ValidationResultInternal.Success().export()
+}
+
+@ExperimentalJsExport
+@JsExport
+fun validateGeneratorName(generatorName: String): ValidationResult {
+    return try {
+        StringIndeterminateName(generatorName)
+        ValidationResultInternal.Success().export()
+    } catch (e: IllegalArgumentException) {
+        ValidationResultInternal.Error(e.message ?: e.toString()).export()
+    }
 }

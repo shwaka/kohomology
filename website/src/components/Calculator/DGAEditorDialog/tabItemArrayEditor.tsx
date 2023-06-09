@@ -1,6 +1,6 @@
 import { Add, Delete, DragHandle } from "@mui/icons-material"
 import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import { validateDifferentialValueOfTheLast } from "kohomology-js"
+import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
 import React, { ReactNode, useCallback } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { generatorArrayToPrettyJson } from "../jsonUtils"
@@ -198,6 +198,14 @@ function ArrayEditorItem(
               `generatorArray.${index}.name` as const,
               {
                 required: "Please enter the name.",
+                validate: (value: string) => {
+                  const validationResult = validateGeneratorName(value)
+                  if (validationResult.type === "success") {
+                    return true
+                  } else {
+                    return validationResult.message
+                  }
+                },
                 onChange: triggerWithDelay,
               }
             )}

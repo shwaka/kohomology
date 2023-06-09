@@ -1,19 +1,58 @@
-import { Alert, Button } from "@mui/material"
-import React, { useCallback } from "react"
+import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
+import React, { useCallback, useState } from "react"
 import { StringField, useStringField } from "./StringField"
+
+interface IdealFormDialogProps {
+  open: boolean
+  setIdealJson: (idealJson: string) => void
+  closeDialog: () => void
+}
+
+function IdealFormDialog({ open, setIdealJson, closeDialog }: IdealFormDialogProps): JSX.Element {
+  const [idealJson, idealJsonFieldProps] =
+    useStringField({ label: "ideal as json", defaultValue: "[]", width: 200 })
+
+  const submit = useCallback((): void => {
+    setIdealJson(idealJson)
+    closeDialog()
+  }, [setIdealJson, idealJson, closeDialog])
+
+  return (
+    <Dialog
+      open={open}
+      onClose={closeDialog}
+    >
+      <DialogContent>
+        <StringField {...idealJsonFieldProps}/>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={submit}
+          variant="contained"
+          sx={{ textTransform: "none" }}
+        >
+          Apply
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+}
 
 interface IdealFormProms {
   setIdealJson: (idealJson: string) => void
 }
 
 export function IdealForm({ setIdealJson }: IdealFormProms): JSX.Element {
-  const [idealJson, idealJsonFieldProps] =
-    useStringField({ label: "ideal as json", defaultValue: "[]", width: 200 })
+  const [open, setOpen] = useState(false)
 
-  const handleSubmit = useCallback((event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault()
-    setIdealJson(idealJson)
-  }, [idealJson, setIdealJson])
+  const openDialog = useCallback((): void => {
+    setOpen(true)
+  }, [setOpen])
+
+  const closeDialog = useCallback((): void => {
+    setOpen(false)
+  }, [setOpen])
+
   return (
     <div>
       <Alert severity="error">
@@ -21,10 +60,17 @@ export function IdealForm({ setIdealJson }: IdealFormProms): JSX.Element {
         and may contain some bugs!
       </Alert>
 
-      <form onSubmit={handleSubmit}>
-        <StringField {...idealJsonFieldProps}/>
-        <Button type="submit" sx={{ textTransform: "none" }}>Set ideal</Button>
-      </form>
+      <Button
+        onClick={openDialog}
+        variant="contained"
+        sx={{ textTransform: "none" }}
+      >
+        Edit ideal
+      </Button>
+
+      <IdealFormDialog
+        {...{open, setIdealJson, closeDialog}}
+      />
     </div>
   )
 }

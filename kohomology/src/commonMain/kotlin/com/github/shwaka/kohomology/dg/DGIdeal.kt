@@ -9,8 +9,7 @@ import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 
 public interface DGIdeal<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     SubDGVectorSpace<D, B, S, V, M>,
-    Ideal<D, B, S, V, M>
-{
+    Ideal<D, B, S, V, M> {
     override val totalGVectorSpace: DGAlgebra<D, B, S, V, M>
 
     public companion object {

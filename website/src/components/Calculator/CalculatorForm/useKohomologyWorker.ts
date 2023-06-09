@@ -12,6 +12,7 @@ interface UseKohomologyWorkerArgs {
 interface UseKohomologyWorkerResult {
   json: string
   setJson: (json: string) => void
+  setIdealJson: (idealJson: string) => void
   dgaInfo: StyledMessage[]
   workerInfo: WorkerInfo
   postMessage: (input: WorkerInput) => void
@@ -37,6 +38,14 @@ export function useKohomologyWorker({
     postMessage(inputUpdate)
   }, [postMessage])
 
+  const setIdealJson = useCallback((newIdealJson: string): void => {
+    const inputUpdate: WorkerInput = {
+      command: "updateIdealJson",
+      idealJson: newIdealJson,
+    }
+    postMessage(inputUpdate)
+  }, [postMessage])
+
   useEffect(() => {
     addListener("useKohomologyWorker", onmessage)
   }, [addListener, onmessage])
@@ -52,10 +61,11 @@ export function useKohomologyWorker({
   // initialization
   useEffect(() => {
     setJson(defaultJson)
-  }, [setJson, defaultJson])
+    setIdealJson("[]")
+  }, [setJson, defaultJson, setIdealJson])
 
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
 
-  return { json, setJson, dgaInfo, workerInfo, postMessage, restart }
+  return { json, setJson, setIdealJson, dgaInfo, workerInfo, postMessage, restart }
 }

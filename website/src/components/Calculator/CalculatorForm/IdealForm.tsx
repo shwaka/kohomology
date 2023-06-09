@@ -1,5 +1,7 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import React, { useCallback, useState } from "react"
+import { ShowStyledMessage } from "../styled/components"
+import { StyledMessage } from "../styled/message"
 import { StringField, useStringField } from "./StringField"
 
 interface IdealFormDialogProps {
@@ -40,9 +42,10 @@ function IdealFormDialog({ open, setIdealJson, closeDialog }: IdealFormDialogPro
 
 interface IdealFormProms {
   setIdealJson: (idealJson: string) => void
+  idealInfo: StyledMessage
 }
 
-export function IdealForm({ setIdealJson }: IdealFormProms): JSX.Element {
+export function IdealForm({ setIdealJson, idealInfo }: IdealFormProms): JSX.Element {
   const [open, setOpen] = useState(false)
 
   const openDialog = useCallback((): void => {
@@ -59,6 +62,10 @@ export function IdealForm({ setIdealJson }: IdealFormProms): JSX.Element {
         This is an experimental feature
         and may contain some bugs!
       </Alert>
+
+      <ShowStyledMessage
+        styledMessage={idealInfo}
+      />
 
       <Button
         onClick={openDialog}

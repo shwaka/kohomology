@@ -57,6 +57,7 @@ export type WorkerState = {
   json: string
   idealJson: string
   dgaInfo: StyledMessage[]
+  idealInfo: StyledMessage
   workerInfo: WorkerInfo
 }
 export type UpdateState = OutputFromState<WorkerState>

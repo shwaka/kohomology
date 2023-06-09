@@ -14,6 +14,7 @@ interface UseKohomologyWorkerResult {
   setJson: (json: string) => void
   setIdealJson: (idealJson: string) => void
   dgaInfo: StyledMessage[]
+  idealInfo: StyledMessage
   workerInfo: WorkerInfo
   postMessage: (input: WorkerInput) => void
   restart: () => void
@@ -28,7 +29,7 @@ export function useKohomologyWorker({
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)
   // const [worker, setWorker] = useState(() => new KohomologyWorker())
 
-  const { postMessage, addListener, addRestartListener, restart, state: { json, dgaInfo, workerInfo } } = useWorker(kohomologyWorkerContext)
+  const { postMessage, addListener, addRestartListener, restart, state: { json, dgaInfo, idealInfo, workerInfo } } = useWorker(kohomologyWorkerContext)
 
   const setJson = useCallback((newJson: string): void => {
     const inputUpdate: WorkerInput = {
@@ -67,5 +68,5 @@ export function useKohomologyWorker({
   // worker.onmessage = onmessage
   // const postMessage = worker.postMessage.bind(worker)
 
-  return { json, setJson, setIdealJson, dgaInfo, workerInfo, postMessage, restart }
+  return { json, setJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart }
 }

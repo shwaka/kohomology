@@ -1,4 +1,5 @@
 import com.github.h0tk3y.betterParse.parser.ParseException
+import com.github.shwaka.kohomology.dg.DGIdeal
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
@@ -40,6 +41,12 @@ class FreeDGAWrapper(json: String) {
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
     private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
+    private var dgIdeal: DGIdeal<
+        IntDegree,
+        Monomial<IntDegree, StringIndeterminateName>,
+        Rational,
+        SparseNumVector<Rational>, SparseMatrix<Rational>
+        >? = null
     private var quotDGAlgebra: QuotDGAlgebra<
         IntDegree,
         Monomial<IntDegree, StringIndeterminateName>,
@@ -71,6 +78,7 @@ class FreeDGAWrapper(json: String) {
             }
         }
         val dgIdeal = this.freeDGAlgebra.getDGIdeal(generators)
+        this.dgIdeal = dgIdeal
         this.quotDGAlgebra = this.freeDGAlgebra.getQuotientByIdeal(dgIdeal)
     }
 
@@ -96,6 +104,14 @@ class FreeDGAWrapper(json: String) {
                 differentialString.math
             }.export(),
         )
+    }
+
+    fun idealInfo(): StyledMessageKt {
+        val dgIdeal = this.dgIdeal ?: throw Exception("Ideal is not set")
+        val generatorString = dgIdeal.generatorList.joinToString(", ")
+        return styledMessage(MessageType.SUCCESS) {
+            "($generatorString)".math
+        }.export()
     }
 
     fun computationHeader(targetName: String, minDegree: Int, maxDegree: Int): StyledMessageKt {

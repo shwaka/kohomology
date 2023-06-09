@@ -105,14 +105,14 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         // }
     }
 
-    public fun getIdeal(generatorList: List<GVector<D, B, S, V>>): SubGVectorSpace<D, B, S, V, M> {
+    public fun getIdeal(generatorList: List<GVector<D, B, S, V>>): Ideal<D, B, S, V, M> {
         val generatingSubGVectorSpace = SubGVectorSpace.fromList(
             this.matrixSpace,
             this,
             "IdealGenerator($generatorList)",
             generatorList,
         )
-        return if (this.isCommutative) {
+        val idealAsSubGVectorSpace = if (this.isCommutative) {
             // If commutative, then it is enough to consider the image of I⊗A.
             this.multiplication.image(source1Sub = generatingSubGVectorSpace)
         } else {
@@ -124,6 +124,11 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
                 source2Sub = rightIdeal,
             )
         }
+        return Ideal(
+            totalGAlgebra = this,
+            subGVectorSpace = idealAsSubGVectorSpace,
+            generatorList = generatorList,
+        )
     }
 
     public fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): QuotGAlgebra<D, B, S, V, M> {

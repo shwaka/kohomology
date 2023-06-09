@@ -35,9 +35,9 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
         return DGAlgebraMap(this, this, gAlgebraMap)
     }
 
-    public fun getDGIdeal(generators: List<GVector<D, B, S, V>>): SubDGVectorSpace<D, B, S, V, M> {
-        val idealWithoutD = this.getIdeal(generators)
-        for (gVector in generators) {
+    public fun getDGIdeal(generatorList: List<GVector<D, B, S, V>>): DGIdeal<D, B, S, V, M> {
+        val idealWithoutD = this.getIdeal(generatorList)
+        for (gVector in generatorList) {
             this.context.run {
                 require(
                     idealWithoutD.subspaceContains(d(gVector))
@@ -47,9 +47,14 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
                 }
             }
         }
-        return SubDGVectorSpace(
+        val idealAsSubDGVectorSpace = SubDGVectorSpace(
             totalDGVectorSpace = this,
             subGVectorSpace = idealWithoutD,
+        )
+        return DGIdeal(
+            totalDGAlgebra = this,
+            subDGVectorSpace = idealAsSubDGVectorSpace,
+            generatorList = generatorList,
         )
     }
 

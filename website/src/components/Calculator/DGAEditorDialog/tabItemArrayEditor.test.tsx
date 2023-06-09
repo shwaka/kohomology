@@ -128,6 +128,24 @@ describe("useTabItemArrayEditor", () => {
       testUtil.expectSingleError(errorMessage)
     })
 
+    test("name starting with number", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("name", 1, "1y")
+      await testUtil.submit()
+      const errorMessage = "must start with alphabets"
+      testUtil.expectSingleError(errorMessage)
+    })
+
+    test("name containing invalid character", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("name", 1, "y-")
+      await testUtil.submit()
+      const errorMessage = "can only contain alphabets"
+      testUtil.expectSingleError(errorMessage)
+    })
+
     test("empty degree", async () => {
       const testUtil = new ArrayEditorTestUtil()
       testUtil.expectInitialState()

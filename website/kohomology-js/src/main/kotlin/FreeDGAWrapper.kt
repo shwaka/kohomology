@@ -2,18 +2,24 @@ import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.QuotDGAlgebra
 import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
+import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.linalg.SparseMatrix
+import com.github.shwaka.kohomology.linalg.SparseNumVector
 import com.github.shwaka.kohomology.model.CyclicModel
 import com.github.shwaka.kohomology.model.FreeLoopSpace
+import com.github.shwaka.kohomology.specific.Rational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
@@ -34,6 +40,13 @@ class FreeDGAWrapper(json: String) {
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
     private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
+    private val quotDGAlgebra: QuotDGAlgebra<
+        IntDegree,
+        Monomial<IntDegree, StringIndeterminateName>,
+        Rational,
+        SparseNumVector<Rational>,
+        SparseMatrix<Rational>
+        >? = null
 
     private fun getDGVectorSpace(name: String): DGVectorSpace<*, *, *, *, *> {
         return when (name) {
@@ -41,8 +54,24 @@ class FreeDGAWrapper(json: String) {
             "freeLoopSpace" -> this.freeLoopSpace
             "cyclic" -> this.cyclicModel
             "derivation" -> this.derivationLieAlgebra
+            "idealQuot" -> this.quotDGAlgebra ?: throw Exception("ideal is not set")
             else -> throw Exception("Invalid name: $name")
         }
+    }
+
+    fun setIdeal(idealJson: String) {
+        val generators = jsonToIdealGenerators(idealJson).map { generatorString ->
+            freeDGAlgebra.parse(generatorString)
+        }.mapNotNull { gVectorOrZero ->
+            // filterIsInstance<GVector<...>>() may be more suitable,
+            // but this requires long type arguments
+            when (gVectorOrZero) {
+                is GVector -> gVectorOrZero
+                is ZeroGVector -> null
+            }
+        }
+        val dgIdeal = freeDGAlgebra.getDGIdeal(generators)
+        freeDGAlgebra.getQuotientByIdeal(dgIdeal)
     }
 
     fun dgaInfo(): Array<StyledMessageKt> {

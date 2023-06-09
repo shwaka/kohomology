@@ -13,6 +13,7 @@ import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useJsonFromURLQuery } from "./urlQuery"
 import { useKohomologyWorker } from "./useKohomologyWorker"
+import { IdealForm } from "./IdealForm"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -28,10 +29,11 @@ export function CalculatorForm(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
   const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
-  const { json, setJson, dgaInfo, workerInfo, postMessage, restart } = useKohomologyWorker({
-    defaultJson: defaultDGAJson,
-    onmessage: (_) => undefined, // previously this was used to pass setState
-  })
+  const { json, setJson, setIdealJson, dgaInfo, workerInfo, postMessage, restart } =
+    useKohomologyWorker({
+      defaultJson: defaultDGAJson,
+      onmessage: (_) => undefined, // previously this was used to pass setState
+    })
 
   const [targetName, setTargetName] = useState<TargetName>("self")
   const { usageDialogProps, usageButtonProps } = useUsage()
@@ -92,6 +94,9 @@ export function CalculatorForm(): JSX.Element {
           )}
         </RadioGroup>
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
+        {targetName === "idealQuot" && (
+          <IdealForm setIdealJson={setIdealJson}/>
+        )}
       </StackItem>
       <StackItem>
         <ComputeForm

@@ -178,8 +178,8 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
     }
 
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
-        val generators = this.getGeneratorsForParser()
-        return this.parse(generators, text)
+        val generatorList = this.getGeneratorsForParser()
+        return this.parse(generatorList, text)
     }
 
     // public since this is used in kohomology-js

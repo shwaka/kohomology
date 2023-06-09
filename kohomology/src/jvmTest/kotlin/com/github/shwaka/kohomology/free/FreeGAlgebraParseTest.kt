@@ -168,17 +168,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
         }
         val quotGAlgebra = freeGAlgebra.getQuotientByIdeal(ideal)
         val proj = quotGAlgebra.projection
-        val generators = freeGAlgebra.generatorList.map { gVector ->
+        val generatorList = freeGAlgebra.generatorList.map { gVector ->
             Pair(
                 gVector.toString(),
                 proj(gVector),
             )
         }
         freeGAlgebra.context.run {
-            quotGAlgebra.parse(generators, "x * y") shouldBe proj(x * y)
-            quotGAlgebra.parse(generators, "x^${n - 1}").isZero().shouldBeFalse()
-            quotGAlgebra.parse(generators, "x^$n").isZero().shouldBeTrue()
-            quotGAlgebra.parse(generators, "x^$n + x^${n - 1} * y") shouldBe
+            quotGAlgebra.parse(generatorList, "x * y") shouldBe proj(x * y)
+            quotGAlgebra.parse(generatorList, "x^${n - 1}").isZero().shouldBeFalse()
+            quotGAlgebra.parse(generatorList, "x^$n").isZero().shouldBeTrue()
+            quotGAlgebra.parse(generatorList, "x^$n + x^${n - 1} * y") shouldBe
                 proj(x.pow(n - 1) * y)
         }
     }

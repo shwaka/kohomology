@@ -360,15 +360,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
         "quotient of model in FHT Section 12 (a) Example 7 (p.147)" - {
             val freeDGAlgebra = pullbackOfHopfFibrationOverS4(matrixSpace)
             val (a, b, x, y, z) = freeDGAlgebra.generatorList
-            val ideal = freeDGAlgebra.context.run {
-                freeDGAlgebra.getDGIdeal(
-                    listOf(a.pow(2), b.pow(2), x, z)
-                )
+            val idealGeneratorList = freeDGAlgebra.context.run {
+                listOf(a.pow(2), b.pow(2), x, z)
             }
+            val ideal = freeDGAlgebra.getDGIdeal(idealGeneratorList)
 
             "ideal.name should be DGIdeal(a^2, b^2, x, z)" {
                 ideal.name shouldBe "DGIdeal(a^2, b^2, x, z)"
                 ideal.toString() shouldBe "DGIdeal(a^2, b^2, x, z)"
+            }
+
+            "ideal.generatorList should be the same as the argument of getDGIdeal" {
+                ideal.generatorList shouldBe idealGeneratorList
             }
 
             // subQuotDGAlgebra should be quasi-isomorphic to freeDGAlgebra

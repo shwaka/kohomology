@@ -315,9 +315,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
-  function parse(generators, text) {
+  function parse(generatorList, text) {
     var astNode = parseToEnd(GAlgebraElementASTGrammar_getInstance(), text);
-    return getValueFromASTNode(this, generators, astNode);
+    return getValueFromASTNode(this, generatorList, astNode);
   }
   function plus_1(_this__u8e3s4, other) {
     return this.p11().m1w(_this__u8e3s4, other);
@@ -848,8 +848,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$0;
   }
   function parse_0(text) {
-    var generators = this.a1l();
-    return this.h12(generators, text);
+    var generatorList = this.a1l();
+    return this.h12(generatorList, text);
   }
   function getGeneratorsForParser() {
     var tmp$ret$2;
@@ -2939,7 +2939,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.b18_1.a14(_this__u8e3s4);
   };
   GAlgebraContextImpl.$metadata$ = classMeta('GAlgebraContextImpl', [GAlgebraContext, GMagmaContext]);
-  function getValueFromASTNode(_this__u8e3s4, generators, astNode) {
+  function getValueFromASTNode(_this__u8e3s4, generatorList, astNode) {
     var tmp0_subject = astNode;
     var tmp;
     if (tmp0_subject instanceof Zero) {
@@ -2951,7 +2951,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp$ret$1;
         $l$block: {
           // Inline function 'kotlin.collections.firstOrNull' call
-          var tmp0_iterator = generators.f();
+          var tmp0_iterator = generatorList.f();
           while (tmp0_iterator.g()) {
             var element = tmp0_iterator.h();
             var tmp$ret$0;
@@ -2969,7 +2969,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var tmp2_elvis_lhs = tmp1_safe_receiver == null ? null : tmp1_safe_receiver.w4_1;
         var tmp_0;
         if (tmp2_elvis_lhs == null) {
-          throw Exception_init_$Create$(trimIndent('\n                        Invalid generator name: ' + astNode.q18_1 + '\n                        Valid names are: ' + joinToString$default(generators, ', ', null, null, 0, null, getValueFromASTNode$lambda, 30, null) + '\n                '));
+          throw Exception_init_$Create$(trimIndent('\n                        Invalid generator name: ' + astNode.q18_1 + '\n                        Valid names are: ' + joinToString$default(generatorList, ', ', null, null, 0, null, getValueFromASTNode$lambda, 30, null) + '\n                '));
         } else {
           tmp_0 = tmp2_elvis_lhs;
         }
@@ -2994,8 +2994,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           tmp = tmp_1;
         } else {
           if (tmp0_subject instanceof Divide) {
-            var numeratorValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.n18_1);
-            var denominatorValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.o18_1);
+            var numeratorValue = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.n18_1);
+            var denominatorValue = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.o18_1);
             var tmp$ret$6;
             // Inline function 'kotlin.run' call
             var tmp1_run = _this__u8e3s4.t14();
@@ -3007,7 +3007,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
             tmp = tmp$ret$6;
           } else {
             if (tmp0_subject instanceof UnaryMinus) {
-              var valueWithoutMinus = getValueFromASTNode(_this__u8e3s4, generators, astNode.m18_1);
+              var valueWithoutMinus = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.m18_1);
               var tmp$ret$8;
               // Inline function 'kotlin.run' call
               var tmp2_run = _this__u8e3s4.t14();
@@ -3019,7 +3019,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
               tmp = tmp$ret$8;
             } else {
               if (tmp0_subject instanceof Power) {
-                var baseValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.k18_1);
+                var baseValue = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.k18_1);
                 var tmp$ret$10;
                 // Inline function 'kotlin.run' call
                 var tmp3_run = _this__u8e3s4.t14();
@@ -3031,8 +3031,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                 tmp = tmp$ret$10;
               } else {
                 if (tmp0_subject instanceof Multiply) {
-                  var leftValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.i18_1);
-                  var rightValue = getValueFromASTNode(_this__u8e3s4, generators, astNode.j18_1);
+                  var leftValue = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.i18_1);
+                  var rightValue = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.j18_1);
                   var tmp$ret$12;
                   // Inline function 'kotlin.run' call
                   var tmp4_run = _this__u8e3s4.t14();
@@ -3044,8 +3044,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                   tmp = tmp$ret$12;
                 } else {
                   if (tmp0_subject instanceof Subtract) {
-                    var leftValue_0 = getValueFromASTNode(_this__u8e3s4, generators, astNode.g18_1);
-                    var rightValue_0 = getValueFromASTNode(_this__u8e3s4, generators, astNode.h18_1);
+                    var leftValue_0 = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.g18_1);
+                    var rightValue_0 = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.h18_1);
                     var tmp$ret$14;
                     // Inline function 'kotlin.run' call
                     var tmp5_run = _this__u8e3s4.t14();
@@ -3057,8 +3057,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
                     tmp = tmp$ret$14;
                   } else {
                     if (tmp0_subject instanceof Sum) {
-                      var leftValue_1 = getValueFromASTNode(_this__u8e3s4, generators, astNode.e18_1);
-                      var rightValue_1 = getValueFromASTNode(_this__u8e3s4, generators, astNode.f18_1);
+                      var leftValue_1 = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.e18_1);
+                      var rightValue_1 = getValueFromASTNode(_this__u8e3s4, generatorList, astNode.f18_1);
                       var tmp$ret$16;
                       // Inline function 'kotlin.run' call
                       var tmp6_run = _this__u8e3s4.t14();
@@ -7875,14 +7875,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   FreeGAlgebraImpl.prototype.p1o = function (a, b) {
     return this.o1o(a, b);
   };
-  FreeGAlgebraImpl.prototype.q1o = function (generators, text) {
-    return this.g1o_1.h12(generators, text);
+  FreeGAlgebraImpl.prototype.q1o = function (generatorList, text) {
+    return this.g1o_1.h12(generatorList, text);
   };
-  FreeGAlgebraImpl.prototype.h12 = function (generators, text) {
-    return this.q1o(generators, text);
+  FreeGAlgebraImpl.prototype.h12 = function (generatorList, text) {
+    return this.q1o(generatorList, text);
   };
-  FreeGAlgebraImpl.prototype.r1o = function (generators, text) {
-    return this.q1o(generators, text);
+  FreeGAlgebraImpl.prototype.r1o = function (generatorList, text) {
+    return this.q1o(generatorList, text);
   };
   FreeGAlgebraImpl.prototype.g1m = function (a, b) {
     return this.g1o_1.y11(a, b);
@@ -13581,17 +13581,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   CyclicModel.prototype.o1o = function (a, b) {
     return this.m20(a, b);
   };
-  CyclicModel.prototype.n20 = function (generators, text) {
-    return this.s1z_1.h12(generators, text);
+  CyclicModel.prototype.n20 = function (generatorList, text) {
+    return this.s1z_1.h12(generatorList, text);
   };
-  CyclicModel.prototype.h12 = function (generators, text) {
-    return this.n20(generators, text);
+  CyclicModel.prototype.h12 = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
-  CyclicModel.prototype.r1o = function (generators, text) {
-    return this.n20(generators, text);
+  CyclicModel.prototype.r1o = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
-  CyclicModel.prototype.q1o = function (generators, text) {
-    return this.n20(generators, text);
+  CyclicModel.prototype.q1o = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
   CyclicModel.prototype.o20 = function (a, b) {
     return this.s1z_1.y11(a, b);
@@ -14126,17 +14126,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   FreeLoopSpace.prototype.o1o = function (a, b) {
     return this.m20(a, b);
   };
-  FreeLoopSpace.prototype.n20 = function (generators, text) {
-    return this.d21_1.h12(generators, text);
+  FreeLoopSpace.prototype.n20 = function (generatorList, text) {
+    return this.d21_1.h12(generatorList, text);
   };
-  FreeLoopSpace.prototype.h12 = function (generators, text) {
-    return this.n20(generators, text);
+  FreeLoopSpace.prototype.h12 = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
-  FreeLoopSpace.prototype.r1o = function (generators, text) {
-    return this.n20(generators, text);
+  FreeLoopSpace.prototype.r1o = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
-  FreeLoopSpace.prototype.q1o = function (generators, text) {
-    return this.n20(generators, text);
+  FreeLoopSpace.prototype.q1o = function (generatorList, text) {
+    return this.n20(generatorList, text);
   };
   FreeLoopSpace.prototype.o20 = function (a, b) {
     return this.d21_1.y11(a, b);

@@ -29,6 +29,7 @@ function CalculatorImpl(): JSX.Element {
           defaultState={{
             // This is a dummy and shouldn't be used.
             json: "[]",
+            idealJson: "[]",
             dgaInfo: [],
             workerInfo: { status: "idle"},
           }}

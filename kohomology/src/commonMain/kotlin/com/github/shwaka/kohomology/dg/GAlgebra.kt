@@ -109,7 +109,7 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
         val generatingSubGVectorSpace = SubGVectorSpace.fromList(
             this.matrixSpace,
             this,
-            "Ideal($generatorList)",
+            "IdealGenerator($generatorList)",
             generatorList,
         )
         return if (this.isCommutative) {

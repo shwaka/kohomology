@@ -186,6 +186,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 val ideal = freeGAlgebra.getIdeal(listOf(x * y))
                 val quotientGAlgebra = freeGAlgebra.getQuotientByIdeal(ideal)
                 val proj = quotientGAlgebra.projection
+                quotientGAlgebra.name shouldBe "Λ(x, y)/Ideal(xy)"
+                quotientGAlgebra.toString() shouldBe "Λ(x, y)/Ideal(xy)"
                 quotientGAlgebra[0].dim shouldBe 1
                 (1..10).forAll { n ->
                     quotientGAlgebra[n * generatorDegree].dim shouldBe 2

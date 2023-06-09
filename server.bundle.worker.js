@@ -17717,14 +17717,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   _.$_$.h = PrintType_TEX_getInstance;
   _.$_$.i = ShowShift_BAR_getInstance;
   _.$_$.j = Printer_init_$Create$;
-  _.$_$.k = PrintConfig_init_$Create$;
-  _.$_$.l = Printer_init_$Create$_0;
-  _.$_$.m = Companion_getInstance_22;
-  _.$_$.n = Companion_getInstance_24;
-  _.$_$.o = Companion_getInstance_26;
-  _.$_$.p = Companion_getInstance_25;
-  _.$_$.q = Companion_getInstance_39;
-  _.$_$.r = Companion_getInstance_40;
+  _.$_$.k = StringIndeterminateName_init_$Create$;
+  _.$_$.l = PrintConfig_init_$Create$;
+  _.$_$.m = Printer_init_$Create$_0;
+  _.$_$.n = Companion_getInstance_22;
+  _.$_$.o = Companion_getInstance_24;
+  _.$_$.p = Companion_getInstance_26;
+  _.$_$.q = Companion_getInstance_25;
+  _.$_$.r = Companion_getInstance_39;
+  _.$_$.s = Companion_getInstance_40;
   //endregion
   return _;
 }));
@@ -17750,13 +17751,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var imul = Math.imul;
   var Unit_getInstance = kotlin_kotlin.$_$.u2;
   var Exception_init_$Create$ = kotlin_kotlin.$_$.a1;
-  var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
-  var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.q;
-  var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
+  var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.s;
+  var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
+  var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
   var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.h;
-  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
+  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
   var plus = kotlin_kotlin.$_$.n4;
-  var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
+  var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
   var get_SparseMatrixSpaceOverRational = kotlin_com_github_shwaka_kohomology_kohomology.$_$.f;
   var lazy = kotlin_kotlin.$_$.y7;
   var joinToString$default = kotlin_kotlin.$_$.h;
@@ -17765,7 +17766,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var classMeta = kotlin_kotlin.$_$.o5;
   var IntDegreeGroup = kotlin_com_github_shwaka_kohomology_kohomology.$_$.a;
   var ShowShift_BAR_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.i;
-  var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
+  var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
   var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
   var ParseException = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.n;
   var noWhenBranchMatchedException = kotlin_kotlin.$_$.z7;
@@ -17802,13 +17803,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var JsonArray = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.b;
   var Default_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.a;
   var ListSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.j;
-  var Companion_getInstance_3 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
+  var Companion_getInstance_3 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.q;
   var Enum = kotlin_kotlin.$_$.i7;
   var copyToArray = kotlin_kotlin.$_$.p3;
   var listOf = kotlin_kotlin.$_$.h4;
   var Exception = kotlin_kotlin.$_$.j7;
+  var StringIndeterminateName_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
+  var IllegalArgumentException = kotlin_kotlin.$_$.k7;
   var Indeterminate = kotlin_com_github_shwaka_kohomology_kohomology.$_$.d;
-  var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
+  var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
   //endregion
   //region block: pre-declaration
   GeneratorSerializer.prototype = Object.create(JsonTransformingSerializer.prototype);
@@ -18630,6 +18633,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return (new Success()).n26();
   }
+  function validateGeneratorName(generatorName) {
+    var tmp;
+    try {
+      StringIndeterminateName_init_$Create$(generatorName, null, 2, null);
+      tmp = (new Success()).n26();
+    } catch ($p) {
+      var tmp_0;
+      if ($p instanceof IllegalArgumentException) {
+        var tmp0_elvis_lhs = $p.message;
+        tmp_0 = (new Error_0(tmp0_elvis_lhs == null ? $p.toString() : tmp0_elvis_lhs)).n26();
+      } else {
+        throw $p;
+      }
+      tmp = tmp_0;
+    }
+    return tmp;
+  }
   var ValidationResultType_SUCCESS_instance;
   var ValidationResultType_ERROR_instance;
   var ValidationResultType_entriesInitialized;
@@ -18806,6 +18826,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     _.ValidationResult = ValidationResult;
     _.validateJson = validateJson;
     _.validateDifferentialValueOfTheLast = validateDifferentialValueOfTheLast;
+    _.validateGeneratorName = validateGeneratorName;
   }
   $jsExportAll$(_);
   //endregion
@@ -18831,6 +18852,12 @@ if (typeof Math.log10 === 'undefined') {
     return Math.log(x) * Math.LOG10E;
   };
 }
+if (typeof String.prototype.startsWith === 'undefined') {
+  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
+    position = position || 0;
+    return this.lastIndexOf(searchString, position) === position;
+  }});
+}
 if (typeof String.prototype.endsWith === 'undefined') {
   Object.defineProperty(String.prototype, 'endsWith', {value: function (searchString, position) {
     var subjectString = this.toString();
@@ -18840,12 +18867,6 @@ if (typeof String.prototype.endsWith === 'undefined') {
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }});
-}
-if (typeof String.prototype.startsWith === 'undefined') {
-  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
-    position = position || 0;
-    return this.lastIndexOf(searchString, position) === position;
   }});
 }
 if (typeof Math.imul === 'undefined') {

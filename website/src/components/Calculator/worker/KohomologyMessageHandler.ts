@@ -33,6 +33,7 @@ export class KohomologyMessageHandler {
       switch (input.command) {
         case "updateJson":
           this.updateJson(input.json)
+          this.updateIdealJson("[]")
           this.showDgaInfo()
           this.showIdealInfo()
           break

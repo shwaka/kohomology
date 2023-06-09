@@ -166,6 +166,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
             freeGAlgebra.context.run {
                 val ideal = freeGAlgebra.getIdeal(listOf(x, y.pow(2)))
                 val incl = ideal.inclusion
+                ideal.name shouldBe "Ideal(x, y^2)"
+                ideal.toString() shouldBe "Ideal(x, y^2)"
                 ideal[0].dim shouldBe 0
                 ideal[generatorDegree].dim shouldBe 1
                 ideal[2 * generatorDegree].dim shouldBe 3

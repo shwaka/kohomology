@@ -40,7 +40,7 @@ class FreeDGAWrapper(json: String) {
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
     private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
-    private val quotDGAlgebra: QuotDGAlgebra<
+    private var quotDGAlgebra: QuotDGAlgebra<
         IntDegree,
         Monomial<IntDegree, StringIndeterminateName>,
         Rational,
@@ -61,7 +61,7 @@ class FreeDGAWrapper(json: String) {
 
     fun setIdeal(idealJson: String) {
         val generators = jsonToIdealGenerators(idealJson).map { generatorString ->
-            freeDGAlgebra.parse(generatorString)
+            this.freeDGAlgebra.parse(generatorString)
         }.mapNotNull { gVectorOrZero ->
             // filterIsInstance<GVector<...>>() may be more suitable,
             // but this requires long type arguments
@@ -70,8 +70,8 @@ class FreeDGAWrapper(json: String) {
                 is ZeroGVector -> null
             }
         }
-        val dgIdeal = freeDGAlgebra.getDGIdeal(generators)
-        freeDGAlgebra.getQuotientByIdeal(dgIdeal)
+        val dgIdeal = this.freeDGAlgebra.getDGIdeal(generators)
+        this.quotDGAlgebra = this.freeDGAlgebra.getQuotientByIdeal(dgIdeal)
     }
 
     fun dgaInfo(): Array<StyledMessageKt> {

@@ -15,6 +15,10 @@ type UpdateJsonCommand = {
   command: "updateJson"
   json: string
 }
+type UpdateIdealJsonCommand = {
+  command: "updateIdealJson"
+  idealJson: string
+}
 type ComputeCohomologyComamnd = {
   command: "computeCohomology"
   targetName: TargetName
@@ -30,7 +34,7 @@ type ComputeCohomologyClassCommand = {
 }
 type NoArgCommand = never // previously { command: "dgaInfo" }
 
-export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
+export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
 
 // outputs
 export const outputCommands = ["printMessages", "notifyInfo"] as const
@@ -51,6 +55,7 @@ export type WorkerInfo = {
 
 export type WorkerState = {
   json: string
+  idealJson: string
   dgaInfo: StyledMessage[]
   workerInfo: WorkerInfo
 }

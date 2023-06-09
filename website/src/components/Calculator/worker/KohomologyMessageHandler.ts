@@ -35,6 +35,9 @@ export class KohomologyMessageHandler {
           this.updateJson(input.json)
           this.showDgaInfo()
           break
+        case "updateIdealJson":
+          this.updateIdealJson(input.idealJson)
+          break
         case "computeCohomology":
           this.computeCohomology(input.targetName, input.minDegree, input.maxDegree, input.showCohomology)
           break
@@ -68,6 +71,17 @@ export class KohomologyMessageHandler {
       this.dgaWrapper = null
       throw error
     }
+  }
+
+  private updateIdealJson(idealJson: string): void {
+    assertNotNull(this.dgaWrapper, "dgaWrapper is null")
+    this.dgaWrapper.setIdeal(idealJson)
+    const output: WorkerOutput = {
+      command: "updateState",
+      key: "idealJson",
+      value: idealJson,
+    }
+    this.postMessage(output)
   }
 
   private sendMessages(messages: StyledMessage | StyledMessage[]): void {

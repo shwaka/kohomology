@@ -7,14 +7,14 @@ import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { StringField, useStringField } from "./StringField"
 
-interface UseIdealFormDialogArgs {
+interface UseIdealEditorDialogArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
 }
 
-interface UseIdealFormDialogReturnValue {
+interface UseIdealEditorDialogReturnValue {
   openDialog: () => void
-  idealFormDialogProps: IdealFormDialogProps
+  idealEditorDialogProps: IdealEditorDialogProps
 }
 
 interface Generator {
@@ -99,7 +99,7 @@ function IdealEditor({ register, getValues, errors, trigger, control }: IdealEdi
   return (
     <div>
       <SortableFields
-        RowComponent={IdealFormDialogItem}
+        RowComponent={IdealEditorItem}
         Container={SortableFieldsContainer}
         {...{ fields, move, formData }}
       />
@@ -115,10 +115,10 @@ function IdealEditor({ register, getValues, errors, trigger, control }: IdealEdi
   )
 }
 
-function useIdealFormDialog({
+function useIdealEditorDialog({
   idealJson,
   setIdealJson,
-}: UseIdealFormDialogArgs): UseIdealFormDialogReturnValue {
+}: UseIdealEditorDialogArgs): UseIdealEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
   const { idealEditorProps, getOnSubmit, beforeOpen } = useIdealEditor({ idealJson, setIdealJson })
 
@@ -135,18 +135,18 @@ function useIdealFormDialog({
     getOnSubmit(closeDialog)
   }, [getOnSubmit, closeDialog])
 
-  const idealFormDialogProps: IdealFormDialogProps = useMemo(() => ({
+  const idealEditorDialogProps: IdealEditorDialogProps = useMemo(() => ({
     open, onSubmit, closeDialog,
     idealEditorProps,
   }), [open, onSubmit, closeDialog, idealEditorProps])
 
   return {
     openDialog,
-    idealFormDialogProps,
+    idealEditorDialogProps,
   }
 }
 
-function IdealFormDialogItem(
+function IdealEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<IdealFormInput>
 ): JSX.Element {
   return (
@@ -190,17 +190,17 @@ function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Ele
   )
 }
 
-interface IdealFormDialogProps {
+interface IdealEditorDialogProps {
   open: boolean
   onSubmit: () => void
   closeDialog: () => void
   idealEditorProps: IdealEditorProps
 }
 
-function IdealFormDialog({
+function IdealEditorDialog({
   open, onSubmit, closeDialog,
   idealEditorProps,
-}: IdealFormDialogProps): JSX.Element {
+}: IdealEditorDialogProps): JSX.Element {
   return (
     <Dialog
       open={open}
@@ -229,7 +229,7 @@ interface IdealConfigProps {
 }
 
 export function IdealConfig({ setIdealJson, idealInfo, idealJson }: IdealConfigProps): JSX.Element {
-  const { openDialog, idealFormDialogProps } = useIdealFormDialog({ setIdealJson, idealJson })
+  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson })
 
   return (
     <div>
@@ -250,7 +250,7 @@ export function IdealConfig({ setIdealJson, idealInfo, idealJson }: IdealConfigP
         Edit ideal
       </Button>
 
-      <IdealFormDialog {...idealFormDialogProps}/>
+      <IdealEditorDialog {...idealEditorDialogProps}/>
     </div>
   )
 }

@@ -18,34 +18,40 @@ export interface FormData<
 
 export interface RowComponentProps<
   TFieldValues extends FieldValues = FieldValues,
+  TExternalData = never,
 > {
   draggableProps: DraggableAttributes | (DraggableAttributes & SyntheticListenerMap)
   index: number
   formData: FormData<TFieldValues>
+  externalData: TExternalData | undefined
 }
 
 interface SortableRowProps<
   TFieldValues extends FieldValues = FieldValues,
+  TExternalData = never,
 > {
   id: string
-  RowComponent: (props: RowComponentProps<TFieldValues>) => JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => JSX.Element
   index: number
   formData: FormData<TFieldValues>
+  externalData: TExternalData | undefined
 }
 
-function SortableRow<TFieldValues extends FieldValues = FieldValues>(
-  { id, RowComponent, index, formData }: SortableRowProps<TFieldValues>
+function SortableRow<TFieldValues extends FieldValues = FieldValues, TExternalData = never>(
+  { id, RowComponent, index, formData, externalData }: SortableRowProps<TFieldValues, TExternalData>
 ): JSX.Element {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
   }
-  const rowComponentProps: RowComponentProps<TFieldValues> = {
+  const rowComponentProps: RowComponentProps<TFieldValues, TExternalData> = {
     draggableProps: { ...attributes, ...listeners },
     index,
-    formData
+    formData,
+    externalData,
   }
+
   return (
     <div ref={setNodeRef} style={style}>
       <RowComponent
@@ -59,19 +65,22 @@ export interface SortableFieldsProps<
   TFieldValues extends FieldValues = FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
   // TKeyName extends string = "id" // directly specify "id" to avoid error (why error?)
+  TExternalData = never,
 > {
   fields: FieldArrayWithId<TFieldValues, TFieldArrayName, "id">[]
   move: UseFieldArrayMove
   formData: FormData<TFieldValues>
-  RowComponent: (props: RowComponentProps<TFieldValues>) => JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => JSX.Element
   Container: (props: { children: ReactNode}) => JSX.Element
+  externalData?: TExternalData
 }
 export function SortableFields<
   TFieldValues extends FieldValues = FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
   // TKeyName extends string = "id"
+  TExternalData = never,
 >(
-  { fields, move, formData, RowComponent, Container }: SortableFieldsProps<TFieldValues, TFieldArrayName>
+  { fields, move, formData, RowComponent, Container, externalData }: SortableFieldsProps<TFieldValues, TFieldArrayName, TExternalData>
 ): JSX.Element {
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -117,8 +126,7 @@ export function SortableFields<
             <SortableRow
               key={field.id}
               id={field.id}
-              {...{ index, formData }}
-              RowComponent={RowComponent}
+              {...{ index, formData, RowComponent, externalData }}
             />
           ))}
         </SortableContext>

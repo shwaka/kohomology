@@ -3,8 +3,8 @@ import { Alert, Button, IconButton, Stack, TextField, Tooltip } from "@mui/mater
 import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
 import React, { ReactNode, useCallback } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { generatorArrayToPrettyJson } from "../jsonUtils"
 import { FormData, RowComponentProps, SortableFields } from "../SortableFields"
+import { generatorArrayToPrettyJson } from "../jsonUtils"
 import { TabItem } from "./TabDialog"
 import { useOverwritableTimeout } from "./useOverwritableTimeout"
 

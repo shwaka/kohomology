@@ -5,7 +5,7 @@ import { Control, DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray
 import { FormData, RowComponentProps, SortableFields } from "../DGAEditorDialog/SortableFields"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
-import { StringField, useStringField } from "./StringField"
+import { IdealEditor, IdealEditorProps, useIdealEditor } from "./IdealEditor"
 
 interface UseIdealEditorDialogArgs {
   idealJson: string
@@ -15,104 +15,6 @@ interface UseIdealEditorDialogArgs {
 interface UseIdealEditorDialogReturnValue {
   openDialog: () => void
   idealEditorDialogProps: IdealEditorDialogProps
-}
-
-interface Generator {
-  text: string
-}
-
-interface IdealFormInput {
-  generatorArray: Generator[]
-}
-
-function jsonToGeneratorArray(json: string): Generator[] {
-  const arr = JSON.parse(json) as string[]
-  return arr.map((text) => ({ text }))
-}
-
-function generatorArrayToJson(generatorArray: Generator[]): string {
-  const arr = generatorArray.map(({ text }) => text)
-  return JSON.stringify(arr)
-}
-
-interface UseIdealEditorArgs {
-  idealJson: string
-  setIdealJson: (idealJson: string) => void
-}
-
-interface UseIdealEditorReturnValue {
-  idealEditorProps: IdealEditorProps
-  getOnSubmit: (closeDialog: () => void) => void
-  beforeOpen: () => void
-}
-
-function useIdealEditor({ idealJson, setIdealJson }: UseIdealEditorArgs): UseIdealEditorReturnValue {
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
-    mode: "onBlur",
-    reValidateMode: "onBlur",
-    criteriaMode: "all",
-    defaultValues: {
-      generatorArray: jsonToGeneratorArray(idealJson)
-    }
-  })
-
-  const getOnSubmit = useCallback((closeDialog: () => void): void => {
-    handleSubmit(
-      ({ generatorArray }) => {
-        setIdealJson(generatorArrayToJson(generatorArray))
-        closeDialog()
-      }
-    )()
-  }, [setIdealJson, handleSubmit])
-
-  const beforeOpen = useCallback((): void => {
-    const generatorArray = jsonToGeneratorArray(idealJson)
-    reset({ generatorArray })
-  }, [idealJson, reset])
-
-  const idealEditorProps: IdealEditorProps = {
-    register, getValues, errors, trigger, control,
-  }
-
-  return {
-    idealEditorProps, getOnSubmit, beforeOpen,
-  }
-}
-
-interface IdealEditorProps {
-  register: UseFormRegister<IdealFormInput>
-  getValues: UseFormGetValues<IdealFormInput>
-  errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
-  trigger: UseFormTrigger<IdealFormInput>
-  control: Control<IdealFormInput>
-}
-
-function IdealEditor({ register, getValues, errors, trigger, control }: IdealEditorProps): JSX.Element {
-  const { fields, append, remove, move } = useFieldArray({
-    control,
-    name: "generatorArray",
-  })
-  const formData: FormData<IdealFormInput> = {
-    register, remove, errors, getValues, trigger,
-  }
-
-  return (
-    <div>
-      <SortableFields
-        RowComponent={IdealEditorItem}
-        Container={SortableFieldsContainer}
-        {...{ fields, move, formData }}
-      />
-      <Button
-        variant="outlined"
-        onClick={() => append({ text: "" })}
-        startIcon={<Add/>}
-        sx={{ textTransform: "none" }}
-      >
-        Add a generator
-      </Button>
-    </div>
-  )
 }
 
 function useIdealEditorDialog({
@@ -144,50 +46,6 @@ function useIdealEditorDialog({
     openDialog,
     idealEditorDialogProps,
   }
-}
-
-function IdealEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<IdealFormInput>
-): JSX.Element {
-  return (
-    <Stack direction="row" spacing={1}>
-      <TextField
-        label="generator"
-        sx={{ width: 200 }} size="small"
-        {...register(
-          `generatorArray.${index}.text` as const,
-          {
-            required: "Please enter the generator.",
-          }
-        )}
-      />
-      <Tooltip title="Delete this generator">
-        <IconButton
-          onClick={() => { remove(index); trigger() }}
-          size="small"
-        >
-          <Delete fontSize="small"/>
-        </IconButton>
-      </Tooltip>
-      <IconButton
-        {...draggableProps}
-        style={{
-          cursor: "grab",
-          touchAction: "none",
-        }}
-      >
-        <DragHandle/>
-      </IconButton>
-    </Stack>
-  )
-}
-
-function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Element {
-  return (
-    <Stack spacing={2}>
-      {children}
-    </Stack>
-  )
 }
 
 interface IdealEditorDialogProps {

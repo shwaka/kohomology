@@ -89,6 +89,7 @@ export function IdealEditor({ register, getValues, errors, trigger, control }: I
       <SortableFields
         RowComponent={IdealEditorItem}
         Container={SortableFieldsContainer}
+        externalData={undefined}
         {...{ fields, move, formData }}
       />
       <Button

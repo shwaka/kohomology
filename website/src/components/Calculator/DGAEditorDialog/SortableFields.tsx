@@ -65,22 +65,22 @@ export interface SortableFieldsProps<
   TFieldValues extends FieldValues = FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
   // TKeyName extends string = "id" // directly specify "id" to avoid error (why error?)
-  TExternalDataNoUndef = never,
+  TExternalData = undefined,
 > {
   fields: FieldArrayWithId<TFieldValues, TFieldArrayName, "id">[]
   move: UseFieldArrayMove
   formData: FormData<TFieldValues>
-  RowComponent: (props: RowComponentProps<TFieldValues, TExternalDataNoUndef | undefined>) => JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => JSX.Element
   Container: (props: { children: ReactNode}) => JSX.Element
-  externalData?: TExternalDataNoUndef
+  externalData: TExternalData
 }
 export function SortableFields<
   TFieldValues extends FieldValues = FieldValues,
   TFieldArrayName extends FieldArrayPath<TFieldValues> = FieldArrayPath<TFieldValues>,
   // TKeyName extends string = "id"
-  TExternalDataNoUndef = never,
+  TExternalData = undefined,
 >(
-  { fields, move, formData, RowComponent, Container, externalData }: SortableFieldsProps<TFieldValues, TFieldArrayName, TExternalDataNoUndef>
+  { fields, move, formData, RowComponent, Container, externalData }: SortableFieldsProps<TFieldValues, TFieldArrayName, TExternalData>
 ): JSX.Element {
   const sensors = useSensors(
     useSensor(PointerSensor),

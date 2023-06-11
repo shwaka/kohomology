@@ -304,6 +304,7 @@ function ArrayEditor({ register, errors, fields, append, remove, getValues, trig
         <SortableFields
           RowComponent={ArrayEditorItem}
           Container={SortableFieldsContainer}
+          externalData={undefined}
           {...{ fields, move, formData }}
         />
         <Button

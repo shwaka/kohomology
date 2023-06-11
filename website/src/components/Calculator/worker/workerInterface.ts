@@ -59,7 +59,6 @@ export type WorkerState = {
   dgaInfo: StyledMessage[]
   idealInfo: StyledMessage
   workerInfo: WorkerInfo
-  validateIdealGenerator: (generator: string) => true | string
 }
 export type UpdateState = OutputFromState<WorkerState>
 

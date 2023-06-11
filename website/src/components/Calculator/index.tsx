@@ -33,7 +33,6 @@ function CalculatorImpl(): JSX.Element {
             idealJson: "[]",
             dgaInfo: [],
             idealInfo: fromString("success", ""),
-            validateIdealGenerator: () => true,
             workerInfo: { status: "idle"},
           }}
         >

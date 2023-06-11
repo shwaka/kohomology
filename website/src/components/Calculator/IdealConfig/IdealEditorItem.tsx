@@ -2,7 +2,7 @@ import { Delete, DragHandle } from "@mui/icons-material"
 import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldErrorsImpl } from "react-hook-form"
-import { RowComponentProps } from "../DGAEditorDialog/SortableFields"
+import { RowComponentProps } from "../SortableFields"
 import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
 
 export interface Generator {

@@ -2,7 +2,7 @@ import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
 import { Control, DeepRequired, FieldErrorsImpl, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { FormData, SortableFields } from "../DGAEditorDialog/SortableFields"
+import { FormData, SortableFields } from "../SortableFields"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
 function jsonToGeneratorArray(json: string): Generator[] {

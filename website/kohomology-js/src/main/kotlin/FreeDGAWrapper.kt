@@ -66,6 +66,11 @@ class FreeDGAWrapper(json: String) {
         }
     }
 
+    fun tryParseIdealGeneratorString(generatorString: String) {
+        // for validation
+        this.freeDGAlgebra.parse(generatorString)
+    }
+
     fun setIdeal(idealJson: String) {
         val generators = jsonToIdealGenerators(idealJson).map { generatorString ->
             this.freeDGAlgebra.parse(generatorString)

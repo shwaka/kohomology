@@ -1,10 +1,8 @@
-import { Add, Delete, DragHandle } from "@mui/icons-material"
-import { Alert, Button, Dialog, DialogActions, DialogContent, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import React, { ReactNode, useCallback, useMemo, useState } from "react"
-import { Control, DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { FormData, RowComponentProps, SortableFields } from "../DGAEditorDialog/SortableFields"
-import { ShowStyledMessage } from "../styled/components"
-import { StyledMessage } from "../styled/message"
+import { Add } from "@mui/icons-material"
+import { Button, Stack } from "@mui/material"
+import React, { ReactNode, useCallback } from "react"
+import { Control, DeepRequired, FieldErrorsImpl, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { FormData, SortableFields } from "../DGAEditorDialog/SortableFields"
 import { Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
 function jsonToGeneratorArray(json: string): Generator[] {

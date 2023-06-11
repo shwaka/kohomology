@@ -1,10 +1,7 @@
-import { Add, Delete, DragHandle } from "@mui/icons-material"
-import { Alert, Button, Dialog, DialogActions, DialogContent, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import React, { ReactNode, useCallback, useMemo, useState } from "react"
-import { Control, DeepRequired, FieldArrayWithId, FieldErrorsImpl, useFieldArray, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { FormData, RowComponentProps, SortableFields } from "../DGAEditorDialog/SortableFields"
-import { ShowStyledMessage } from "../styled/components"
-import { StyledMessage } from "../styled/message"
+import { Delete, DragHandle } from "@mui/icons-material"
+import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import React from "react"
+import { RowComponentProps } from "../DGAEditorDialog/SortableFields"
 
 export interface Generator {
   text: string

@@ -4,6 +4,7 @@ import React, { useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { sphere } from "../DGAEditorDialog/examples"
+import { IdealConfig } from "../IdealConfig"
 import { ShowStyledMessage } from "../styled/components"
 import { targetNames, TargetName } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
@@ -13,7 +14,6 @@ import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useJsonFromURLQuery } from "./urlQuery"
 import { useKohomologyWorker } from "./useKohomologyWorker"
-import { IdealConfig } from "../IdealConfig"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

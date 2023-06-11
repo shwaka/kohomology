@@ -29,7 +29,7 @@ export function CalculatorForm(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
   const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
-  const { json, setJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart } =
+  const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart } =
     useKohomologyWorker({
       defaultJson: defaultDGAJson,
       onmessage: (_) => undefined, // previously this was used to pass setState
@@ -96,7 +96,7 @@ export function CalculatorForm(): JSX.Element {
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
         {targetName === "idealQuot" && (
           <IdealForm
-            {...{setIdealJson, idealInfo}}
+            {...{setIdealJson, idealInfo, idealJson }}
           />
         )}
       </StackItem>

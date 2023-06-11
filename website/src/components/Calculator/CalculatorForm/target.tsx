@@ -12,6 +12,8 @@ function getComplexAsString(targetName: TargetName): string {
       return "\\Lambda u \\otimes\\Lambda V \\otimes \\Lambda \\overline{V}"
     case "derivation":
       return "\\mathrm{Der}(\\Lambda V)"
+    case "idealQuot":
+      return "\\Lambda V / I"
   }
 }
 
@@ -43,6 +45,8 @@ function getTopologicalInvariantAsString(targetName: TargetName): string {
       return "H^*_{S^1}(LX)"
     case "derivation":
       return "\\pi_{-*}(\\mathrm{aut}_1(X))\\otimes\\mathbb{Q}"
+    case "idealQuot":
+      return "H^*(\\Lambda V / I)"
   }
 }
 

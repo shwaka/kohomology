@@ -6,6 +6,7 @@ import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 import { CalculatorForm } from "./CalculatorForm"
 import { MessageBoxForWorker } from "./MessageBoxForWorker"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
+import { fromString } from "./styled/message"
 import { useCustomTheme } from "./useCustomTheme"
 
 function CalculatorImpl(): JSX.Element {
@@ -29,7 +30,9 @@ function CalculatorImpl(): JSX.Element {
           defaultState={{
             // This is a dummy and shouldn't be used.
             json: "[]",
+            idealJson: "[]",
             dgaInfo: [],
+            idealInfo: fromString("success", ""),
             workerInfo: { status: "idle"},
           }}
         >

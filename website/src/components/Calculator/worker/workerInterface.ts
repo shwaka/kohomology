@@ -1,7 +1,7 @@
 import { OutputFromState } from "../WorkerContext"
 import { StyledMessage } from "../styled/message"
 
-export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation"] as const
+export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "idealQuot"] as const
 export type TargetName = (typeof targetNames)[number]
 
 // inputs
@@ -14,6 +14,10 @@ export type ShowCohomology = (typeof showCohomologyCandidates)[number]
 type UpdateJsonCommand = {
   command: "updateJson"
   json: string
+}
+type UpdateIdealJsonCommand = {
+  command: "updateIdealJson"
+  idealJson: string
 }
 type ComputeCohomologyComamnd = {
   command: "computeCohomology"
@@ -30,7 +34,7 @@ type ComputeCohomologyClassCommand = {
 }
 type NoArgCommand = never // previously { command: "dgaInfo" }
 
-export type WorkerInput = UpdateJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
+export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
 
 // outputs
 export const outputCommands = ["printMessages", "notifyInfo"] as const
@@ -51,7 +55,9 @@ export type WorkerInfo = {
 
 export type WorkerState = {
   json: string
+  idealJson: string
   dgaInfo: StyledMessage[]
+  idealInfo: StyledMessage
   workerInfo: WorkerInfo
 }
 export type UpdateState = OutputFromState<WorkerState>

@@ -179,13 +179,13 @@ function IdealFormDialog({
   )
 }
 
-interface IdealFormProms {
+interface IdealConfigProms {
   setIdealJson: (idealJson: string) => void
   idealInfo: StyledMessage
   idealJson: string
 }
 
-export function IdealForm({ setIdealJson, idealInfo, idealJson }: IdealFormProms): JSX.Element {
+export function IdealConfig({ setIdealJson, idealInfo, idealJson }: IdealFormProms): JSX.Element {
   const { openDialog, idealFormDialogProps } = useIdealFormDialog({ setIdealJson, idealJson })
 
   return (

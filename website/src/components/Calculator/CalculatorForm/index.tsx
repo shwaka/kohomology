@@ -13,7 +13,7 @@ import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useJsonFromURLQuery } from "./urlQuery"
 import { useKohomologyWorker } from "./useKohomologyWorker"
-import { IdealForm } from "./IdealForm"
+import { IdealConfig } from "./IdealConfig"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -95,7 +95,7 @@ export function CalculatorForm(): JSX.Element {
         </RadioGroup>
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
         {targetName === "idealQuot" && (
-          <IdealForm
+          <IdealConfig
             {...{setIdealJson, idealInfo, idealJson }}
           />
         )}

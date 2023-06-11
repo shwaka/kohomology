@@ -1,8 +1,38 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useMemo, useState } from "react"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
 import { StringField, useStringField } from "./StringField"
+
+interface UseIdealFormDialogArgs {
+  setIdealJson: (idealJson: string) => void
+}
+
+interface UseIdealFormDialogReturnValue {
+  openDialog: () => void
+  idealFormDialogProps: IdealFormDialogProps
+}
+
+function useIdealFormDialog({ setIdealJson }: UseIdealFormDialogArgs): UseIdealFormDialogReturnValue {
+  const [open, setOpen] = useState(false)
+
+  const openDialog = useCallback((): void => {
+    setOpen(true)
+  }, [setOpen])
+
+  const closeDialog = useCallback((): void => {
+    setOpen(false)
+  }, [setOpen])
+
+  const idealFormDialogProps: IdealFormDialogProps = useMemo(() => ({
+    open, setIdealJson, closeDialog,
+  }), [open, setIdealJson, closeDialog])
+
+  return {
+    openDialog,
+    idealFormDialogProps,
+  }
+}
 
 interface IdealFormDialogProps {
   open: boolean
@@ -46,15 +76,7 @@ interface IdealFormProms {
 }
 
 export function IdealForm({ setIdealJson, idealInfo }: IdealFormProms): JSX.Element {
-  const [open, setOpen] = useState(false)
-
-  const openDialog = useCallback((): void => {
-    setOpen(true)
-  }, [setOpen])
-
-  const closeDialog = useCallback((): void => {
-    setOpen(false)
-  }, [setOpen])
+  const { openDialog, idealFormDialogProps } = useIdealFormDialog({ setIdealJson })
 
   return (
     <div>
@@ -75,9 +97,7 @@ export function IdealForm({ setIdealJson, idealInfo }: IdealFormProms): JSX.Elem
         Edit ideal
       </Button>
 
-      <IdealFormDialog
-        {...{open, setIdealJson, closeDialog}}
-      />
+      <IdealFormDialog {...idealFormDialogProps}/>
     </div>
   )
 }

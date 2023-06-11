@@ -3,7 +3,7 @@ import { Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
 import { Control, DeepRequired, FieldErrorsImpl, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { FormData, SortableFields } from "../DGAEditorDialog/SortableFields"
-import { Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
+import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
 function jsonToGeneratorArray(json: string): Generator[] {
   const arr = JSON.parse(json) as string[]
@@ -18,6 +18,7 @@ function generatorArrayToJson(generatorArray: Generator[]): string {
 interface UseIdealEditorArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
+  validateGenerator: (generator: string) => true | string
 }
 
 interface UseIdealEditorReturnValue {
@@ -26,7 +27,7 @@ interface UseIdealEditorReturnValue {
   beforeOpen: () => void
 }
 
-export function useIdealEditor({ idealJson, setIdealJson }: UseIdealEditorArgs): UseIdealEditorReturnValue {
+export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: UseIdealEditorArgs): UseIdealEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -51,7 +52,7 @@ export function useIdealEditor({ idealJson, setIdealJson }: UseIdealEditorArgs):
   }, [idealJson, reset])
 
   const idealEditorProps: IdealEditorProps = {
-    register, getValues, errors, trigger, control,
+    register, getValues, errors, trigger, control, validateGenerator,
   }
 
   return {
@@ -73,9 +74,10 @@ export interface IdealEditorProps {
   errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
   trigger: UseFormTrigger<IdealFormInput>
   control: Control<IdealFormInput>
+  validateGenerator: (generator: string) => true | string
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, control }: IdealEditorProps): JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator }: IdealEditorProps): JSX.Element {
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",
@@ -84,13 +86,14 @@ export function IdealEditor({ register, getValues, errors, trigger, control }: I
     register, remove, errors, getValues, trigger,
   }
 
+  const externalData: ExternalData = { validateGenerator }
+
   return (
     <div>
       <SortableFields
         RowComponent={IdealEditorItem}
         Container={SortableFieldsContainer}
-        externalData={undefined}
-        {...{ fields, move, formData }}
+        {...{ fields, move, formData, externalData }}
       />
       <Button
         variant="outlined"

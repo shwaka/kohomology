@@ -1,6 +1,6 @@
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { useState } from "react"
+import React, { useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { sphere } from "../DGAEditorDialog/examples"
@@ -42,6 +42,10 @@ export function CalculatorForm(): JSX.Element {
   })
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
+
+  const validateIdealGenerator = useCallback((generator: string): true | string => {
+    return true
+  }, [])
 
   return (
     <Stack
@@ -96,7 +100,7 @@ export function CalculatorForm(): JSX.Element {
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
         {targetName === "idealQuot" && (
           <IdealConfig
-            {...{setIdealJson, idealInfo, idealJson }}
+            {...{setIdealJson, idealInfo, idealJson, validateGenerator: validateIdealGenerator }}
           />
         )}
       </StackItem>

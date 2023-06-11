@@ -1,8 +1,9 @@
 import { Delete, DragHandle } from "@mui/icons-material"
 import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import React from "react"
+import React, { useCallback } from "react"
 import { DeepRequired, FieldErrorsImpl } from "react-hook-form"
 import { RowComponentProps } from "../DGAEditorDialog/SortableFields"
+import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
 
 export interface Generator {
   text: string
@@ -10,6 +11,10 @@ export interface Generator {
 
 export interface IdealFormInput {
   generatorArray: Generator[]
+}
+
+export interface ExternalData {
+  validateGenerator: (generator: string) => true | string
 }
 
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): JSX.Element | undefined {
@@ -29,8 +34,14 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
 }
 
 export function IdealEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<IdealFormInput>
+  { draggableProps, index, formData: { register, errors, remove, getValues, trigger }, externalData: { validateGenerator } }: RowComponentProps<IdealFormInput, ExternalData>
 ): JSX.Element {
+  const setOverwritableTimeout = useOverwritableTimeout()
+  const triggerWithDelay = useCallback(
+    () => setOverwritableTimeout(async () => await trigger(), 1000),
+    [setOverwritableTimeout, trigger]
+  )
+
   return (
     <Stack spacing={1}>
       <Stack direction="row" spacing={1}>
@@ -41,6 +52,8 @@ export function IdealEditorItem(
             `generatorArray.${index}.text` as const,
             {
               required: "Please enter the generator.",
+              validate: validateGenerator,
+              onChange: triggerWithDelay,
             }
           )}
         />

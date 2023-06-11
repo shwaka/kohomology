@@ -44,6 +44,7 @@ export function CalculatorForm(): JSX.Element {
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
   const validateIdealGenerator = useCallback((generator: string): true | string => {
+    // This is a temporary implementation and should be implemented later.
     return true
   }, [])
 

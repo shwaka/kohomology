@@ -92,8 +92,8 @@ export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenera
   return (
     <div>
       <Alert severity="warning">
-        This is an experimental feature
-        and may contain some bugs!
+        Currently, computation for ΛV/I is an experimental feature!
+        Its UI is bad and it may contain some bugs.
       </Alert>
 
       <ShowStyledMessage

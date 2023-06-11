@@ -35,11 +35,18 @@ function generatorArrayToJson(generatorArray: Generator[]): string {
   return JSON.stringify(arr)
 }
 
-function useIdealFormDialog({
-  idealJson,
-  setIdealJson,
-}: UseIdealFormDialogArgs): UseIdealFormDialogReturnValue {
-  const [open, setOpen] = useState(false)
+interface UseIdealEditorArgs {
+  idealJson: string
+  setIdealJson: (idealJson: string) => void
+}
+
+interface UseIdealEditorReturnValue {
+  idealEditorProps: IdealEditorProps
+  getOnSubmit: (closeDialog: () => void) => void
+  beforeOpen: () => void
+}
+
+function useIdealEditor({ idealJson, setIdealJson }: UseIdealEditorArgs): UseIdealEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -49,29 +56,89 @@ function useIdealFormDialog({
     }
   })
 
-  const openDialog = useCallback((): void => {
-    const generatorArray = jsonToGeneratorArray(idealJson)
-    reset({ generatorArray })
-    setOpen(true)
-  }, [setOpen, idealJson, reset])
-
-  const closeDialog = useCallback((): void => {
-    setOpen(false)
-  }, [setOpen])
-
-  const onSubmit = useCallback((): void => {
+  const getOnSubmit = useCallback((closeDialog: () => void): void => {
     handleSubmit(
       ({ generatorArray }) => {
         setIdealJson(generatorArrayToJson(generatorArray))
         closeDialog()
       }
     )()
-  }, [closeDialog, setIdealJson, handleSubmit])
+  }, [setIdealJson, handleSubmit])
+
+  const beforeOpen = useCallback((): void => {
+    const generatorArray = jsonToGeneratorArray(idealJson)
+    reset({ generatorArray })
+  }, [idealJson, reset])
+
+  const idealEditorProps: IdealEditorProps = {
+    register, getValues, errors, trigger, control,
+  }
+
+  return {
+    idealEditorProps, getOnSubmit, beforeOpen,
+  }
+}
+
+interface IdealEditorProps {
+  register: UseFormRegister<IdealFormInput>
+  getValues: UseFormGetValues<IdealFormInput>
+  errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
+  trigger: UseFormTrigger<IdealFormInput>
+  control: Control<IdealFormInput>
+}
+
+function IdealEditor({ register, getValues, errors, trigger, control }: IdealEditorProps): JSX.Element {
+  const { fields, append, remove, move } = useFieldArray({
+    control,
+    name: "generatorArray",
+  })
+  const formData: FormData<IdealFormInput> = {
+    register, remove, errors, getValues, trigger,
+  }
+
+  return (
+    <div>
+      <SortableFields
+        RowComponent={IdealFormDialogItem}
+        Container={SortableFieldsContainer}
+        {...{ fields, move, formData }}
+      />
+      <Button
+        variant="outlined"
+        onClick={() => append({ text: "" })}
+        startIcon={<Add/>}
+        sx={{ textTransform: "none" }}
+      >
+        Add a generator
+      </Button>
+    </div>
+  )
+}
+
+function useIdealFormDialog({
+  idealJson,
+  setIdealJson,
+}: UseIdealFormDialogArgs): UseIdealFormDialogReturnValue {
+  const [open, setOpen] = useState(false)
+  const { idealEditorProps, getOnSubmit, beforeOpen } = useIdealEditor({ idealJson, setIdealJson })
+
+  const openDialog = useCallback((): void => {
+    beforeOpen()
+    setOpen(true)
+  }, [setOpen, beforeOpen])
+
+  const closeDialog = useCallback((): void => {
+    setOpen(false)
+  }, [setOpen])
+
+  const onSubmit = useCallback((): void => {
+    getOnSubmit(closeDialog)
+  }, [getOnSubmit, closeDialog])
 
   const idealFormDialogProps: IdealFormDialogProps = useMemo(() => ({
     open, onSubmit, closeDialog,
-    register, getValues, errors, trigger, control,
-  }), [open, onSubmit, closeDialog, register, getValues, errors, trigger, control])
+    idealEditorProps,
+  }), [open, onSubmit, closeDialog, idealEditorProps])
 
   return {
     openDialog,
@@ -127,44 +194,20 @@ interface IdealFormDialogProps {
   open: boolean
   onSubmit: () => void
   closeDialog: () => void
-  register: UseFormRegister<IdealFormInput>
-  getValues: UseFormGetValues<IdealFormInput>
-  errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
-  trigger: UseFormTrigger<IdealFormInput>
-  control: Control<IdealFormInput>
+  idealEditorProps: IdealEditorProps
 }
 
 function IdealFormDialog({
   open, onSubmit, closeDialog,
-  register, getValues, errors, trigger, control,
+  idealEditorProps,
 }: IdealFormDialogProps): JSX.Element {
-  const { fields, append, remove, move } = useFieldArray({
-    control,
-    name: "generatorArray",
-  })
-  const formData: FormData<IdealFormInput> = {
-    register, remove, errors, getValues, trigger
-  }
-
   return (
     <Dialog
       open={open}
       onClose={closeDialog}
     >
       <DialogContent>
-        <SortableFields
-          RowComponent={IdealFormDialogItem}
-          Container={SortableFieldsContainer}
-          {...{ fields, move, formData }}
-        />
-        <Button
-          variant="outlined"
-          onClick={() => append({ text: "" })}
-          startIcon={<Add/>}
-          sx={{ textTransform: "none" }}
-        >
-          Add a generator
-        </Button>
+        <IdealEditor {...idealEditorProps}/>
       </DialogContent>
       <DialogActions>
         <Button
@@ -179,13 +222,13 @@ function IdealFormDialog({
   )
 }
 
-interface IdealConfigProms {
+interface IdealConfigProps {
   setIdealJson: (idealJson: string) => void
   idealInfo: StyledMessage
   idealJson: string
 }
 
-export function IdealConfig({ setIdealJson, idealInfo, idealJson }: IdealFormProms): JSX.Element {
+export function IdealConfig({ setIdealJson, idealInfo, idealJson }: IdealConfigProps): JSX.Element {
   const { openDialog, idealFormDialogProps } = useIdealFormDialog({ setIdealJson, idealJson })
 
   return (

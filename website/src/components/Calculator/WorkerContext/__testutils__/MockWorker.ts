@@ -7,7 +7,8 @@ export class MockWorker<WI, WO> {
   constructor(
     getWorkerImpl: (callbackData: CallbackData<WI, WO>) => WorkerImpl<WI, WO>,
   ) {
-    this.onmessage = (_) => { throw new Error("MyWorker is not initialized") }
+    // this.onmessage will be set from the user of MockWorker.
+    this.onmessage = (_) => { throw new Error("MockWorker is not initialized") }
     this.exposed = expose<WI, WO>(
       this._onmessage.bind(this),
       getWorkerImpl,

@@ -1,7 +1,7 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper } from "kohomology-js"
-import { fromString, StyledMessage } from "../styled/message"
 import { UpdateWorkerState } from "../WorkerContext/expose"
+import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState } from "./workerInterface"
 

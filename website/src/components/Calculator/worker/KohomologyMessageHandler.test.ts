@@ -1,7 +1,7 @@
-import { formatStyledMessage } from "../styled/message"
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "../WorkerContext/expose"
+import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { SendMessage, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
+import { WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
 function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState>): asserts output is MessageSendOutput<WorkerOutput> {
   expect(output.type).toBe("output")

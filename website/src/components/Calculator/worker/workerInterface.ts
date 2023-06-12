@@ -1,4 +1,3 @@
-import { OutputFromState } from "../WorkerContext"
 import { StyledMessage } from "../styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "idealQuot"] as const

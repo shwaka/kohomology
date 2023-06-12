@@ -1,5 +1,4 @@
 import React, { Context, createContext, ReactNode, useRef, useState } from "react"
-import { StateFromOutput } from "./StateFromOutput"
 import { WorkerWrapper } from "./WorkerWrapper"
 
 type OmitIfEmpty<T, K extends string | number | symbol> =

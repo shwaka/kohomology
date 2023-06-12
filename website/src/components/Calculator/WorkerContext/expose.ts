@@ -1,5 +1,19 @@
-export interface CallbackData<WI, WO> {
+type OutputFromState<S, K = keyof S> = K extends keyof S ? {
+  type: "updateState"
+  key: K
+  value: S[K]
+} : never
+
+export type MessageOutput<WO, WS> =
+  | {
+    type: "output"
+    value: WO
+  }
+  | OutputFromState<WS>
+
+export interface CallbackData<WI, WO, WS> {
   postWorkerOutput: (output: WO) => void
+  updateState: <K extends keyof WS>(key: K, value: WS[K]) => void
 }
 
 export interface WorkerImpl<WI, WO> {
@@ -10,14 +24,34 @@ export interface ExposedWorkerImpl<WI, WO> {
   onmessage: (event: MessageEvent<WI>) => void
 }
 
-export function expose<WI, WO>(
-  postMessage: (output: WO) => void,
-  getWorkerImpl: (callbackData: CallbackData<WI, WO>) => WorkerImpl<WI, WO>
+export function expose<WI, WO, WS>(
+  postMessage: (output: MessageOutput<WO, WS>) => void,
+  getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO>
 ): ExposedWorkerImpl<WI, WO> {
   const postWorkerOutput = (output: WO): void => {
+    postMessage({
+      type: "output",
+      value: output,
+    })
+  }
+  const updateState = <K extends keyof WS>(key: K, value: WS[K]): void => {
+    // The following cast is unsafe.
+    // For example, if
+    //   type WS = { foo: string, bar: number }
+    //   type K = "foo" | "bar"
+    // then we have
+    //   WS[K] = string | number
+    // Hence this compiles:
+    //   const key: "foo" | "bar" = "foo"
+    //   updateState(key, 1)
+    const output = {
+      type: "updateState",
+      key,
+      value,
+    } as unknown as OutputFromState<WS>
     postMessage(output)
   }
-  const workerImpl = getWorkerImpl({ postWorkerOutput })
+  const workerImpl = getWorkerImpl({ postWorkerOutput, updateState })
   const onmessage = (event: MessageEvent<WI>): void => {
     workerImpl.onWorkerInput(event.data)
   }

@@ -1,4 +1,4 @@
-import { CallbackData } from "../expose"
+import { CallbackData, WorkerImpl } from "../expose"
 import { MockWorker } from "./MockWorker"
 
 export interface MyWorkerInput {
@@ -13,7 +13,7 @@ export type MyWorkerOutput = {
   value: number
 }
 
-class MyWorkerImpl {
+class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void
 
@@ -40,10 +40,7 @@ class MyWorkerImpl {
 export class MyWorker extends MockWorker<MyWorkerInput, MyWorkerOutput> {
   constructor() {
     super(({ postWorkerOutput }) => {
-      const impl = new MyWorkerImpl({ postWorkerOutput })
-      return {
-        onWorkerInput: (input) => impl.onWorkerInput(input)
-      }
+      return new MyWorkerImpl({ postWorkerOutput })
     })
   }
 }

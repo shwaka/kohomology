@@ -1,9 +1,9 @@
 import { MockWorker } from "../../WorkerContext/__testutils__/MockWorker"
-import { CallbackData } from "../../WorkerContext/expose"
+import { CallbackData, WorkerImpl } from "../../WorkerContext/expose"
 import { KohomologyMessageHandler } from "../KohomologyMessageHandler"
 import { WorkerInput, WorkerOutput } from "../workerInterface"
 
-class KohomologyWorkerImpl {
+class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerOutput> {
   messageHandler: KohomologyMessageHandler
 
   constructor({ postWorkerOutput }: CallbackData<WorkerInput, WorkerOutput>) {
@@ -28,10 +28,7 @@ class KohomologyWorkerImpl {
 export default class KohomologyWorker extends MockWorker<WorkerInput, WorkerOutput> {
   constructor() {
     super(({ postWorkerOutput }) => {
-      const impl = new KohomologyWorkerImpl({ postWorkerOutput })
-      return {
-        onWorkerInput: (input) => impl.onWorkerInput(input),
-      }
+      return new KohomologyWorkerImpl({ postWorkerOutput })
     })
   }
 }

@@ -7,36 +7,36 @@ type OmitIfEmpty<T, K extends string | number | symbol> =
     ? (Record<string, never> extends S ? Omit<T, K> : T)
     : T
 
-interface ProviderProps<WO> {
+interface ProviderProps<WO, WS> {
   createWorker: () => Worker
-  defaultState: StateFromOutput<WO>
+  defaultState: WS
   children: ReactNode
 }
 
-type StateAndSetState<WO> = [
-  StateFromOutput<WO>,
-  React.Dispatch<React.SetStateAction<StateFromOutput<WO>>>,
+type StateAndSetState<WS> = [
+  WS,
+  React.Dispatch<React.SetStateAction<WS>>,
 ]
 
-type StateContext<WO> = Context<StateAndSetState<WO>>
+type StateContext<WS> = Context<StateAndSetState<WS>>
 
-export type WorkerContext<WI, WO> = {
-  reactContext: Context<WorkerWrapper<WI, WO>>
-  stateContext: StateContext<WO>
-  Provider: (props: OmitIfEmpty<ProviderProps<WO>, "defaultState">) => JSX.Element
+export type WorkerContext<WI, WO, WS> = {
+  reactContext: Context<WorkerWrapper<WI, WO, WS>>
+  stateContext: StateContext<WS>
+  Provider: (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element
 }
 
-function WorkerContextProvider<WI, WO>(
+function WorkerContextProvider<WI, WO, WS>(
   props: {
-    context: Context<WorkerWrapper<WI, WO>>
-    stateContext: StateContext<WO>
-  } & ProviderProps<WO>
+    context: Context<WorkerWrapper<WI, WO, WS>>
+    stateContext: StateContext<WS>
+  } & ProviderProps<WO, WS>
 ): JSX.Element {
-  const wrapperRef = useRef<WorkerWrapper<WI, WO> | null>(null)
+  const wrapperRef = useRef<WorkerWrapper<WI, WO, WS> | null>(null)
   if (wrapperRef.current === null) {
     wrapperRef.current = new WorkerWrapper(props.createWorker)
   }
-  const stateAndSetState = useState<StateFromOutput<WO>>(props.defaultState)
+  const stateAndSetState = useState<WS>(props.defaultState)
 
   const CurrentContext = props.context
   const StateContext = props.stateContext
@@ -50,14 +50,14 @@ function WorkerContextProvider<WI, WO>(
   )
 }
 
-function createProvider<WI, WO>(
-  reactContext: Context<WorkerWrapper<WI, WO>>,
-  stateContext: StateContext<WO>,
-): ((props: OmitIfEmpty<ProviderProps<WO>, "defaultState">) => JSX.Element) {
-  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WO>, "defaultState">): JSX.Element =>  {
-    // If props does not contain defaultState, then StateFromOutput<WO> is empty.
-    const defaultState: StateFromOutput<WO> =
-      "defaultState" in props ? props.defaultState : ({} as StateFromOutput<WO>)
+function createProvider<WI, WO, WS>(
+  reactContext: Context<WorkerWrapper<WI, WO, WS>>,
+  stateContext: StateContext<WS>,
+): ((props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element) {
+  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">): JSX.Element =>  {
+    // If props does not contain defaultState, then WS is empty.
+    const defaultState: WS =
+      "defaultState" in props ? props.defaultState : ({} as WS)
     return (
       <WorkerContextProvider
         context={reactContext}
@@ -72,10 +72,10 @@ function createProvider<WI, WO>(
   return WorkerContextProviderCurried
 }
 
-export function createWorkerContext<WI, WO>(): WorkerContext<WI, WO> {
-  const reactContext = createContext<WorkerWrapper<WI, WO>>(WorkerWrapper.default())
-  const stateContext = createContext<StateAndSetState<WO>>([
-    undefined as unknown as StateFromOutput<WO>,
+export function createWorkerContext<WI, WO, WS>(): WorkerContext<WI, WO, WS> {
+  const reactContext = createContext<WorkerWrapper<WI, WO, WS>>(WorkerWrapper.default())
+  const stateContext = createContext<StateAndSetState<WS>>([
+    undefined as unknown as WS,
     (_value) => { throw new Error("Not wrapped by provider") },
   ])
   const Provider = createProvider(reactContext, stateContext)

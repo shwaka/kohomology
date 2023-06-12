@@ -1,13 +1,34 @@
 import React, { useEffect, useState } from "react"
+import { MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"
-import { MyWorkerOutput } from "./MyWorker"
+import { MyWorkerOutput, MyWorkerState } from "./MyWorker"
 import { myWorkerContext } from "./myWorkerContext"
 
-function ShowWorkerOutputLog({ log, testid }: { log: MyWorkerOutput[], testid: string }): JSX.Element {
+function ShowWorkerOutputLog({ log, testid }: {
+  log: MessageOutput<MyWorkerOutput, MyWorkerState>[]
+  testid: string
+}): JSX.Element {
   return (
     <div data-testid={testid}>
       {log.map((workerOutput, index) => (
-        <div key={index}>{"result" in workerOutput ? workerOutput.result : "no result"}</div>
+        <div key={index}>
+          {workerOutput.type === "output" ? workerOutput.value.result : "no result"}
+        </div>
+      ))}
+    </div>
+  )
+}
+
+function ShowWorkerOutputLogFromListener({ log, testid }: {
+  log: MyWorkerOutput[]
+  testid: string
+}): JSX.Element {
+  return (
+    <div data-testid={testid}>
+      {log.map((workerOutput, index) => (
+        <div key={index}>
+          {workerOutput.result}
+        </div>
       ))}
     </div>
   )
@@ -32,7 +53,10 @@ export function MyComponent(): JSX.Element {
         Add 3
       </button>
       <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
-      <ShowWorkerOutputLog log={workerOutputLogFromListener} testid="show-log-from-listener"/>
+      <ShowWorkerOutputLogFromListener
+        log={workerOutputLogFromListener}
+        testid="show-log-from-listener"
+      />
       <div data-testid="show-state-value">{`stateValue=${value}`}</div>
     </div>
   )

@@ -1,39 +1,38 @@
 import { useCallback, useContext, useEffect } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
-import { ExtractUpdateState, StateFromOutput } from "./StateFromOutput"
 import { WorkerContext } from "./WorkerContext"
+import { MessageOutput, MessageOutputUpdateState } from "./expose"
 
-function isUpdateState<WO>(output: WO): output is ExtractUpdateState<WO> {
-  return ("command" in output) &&
-    ((output as unknown as { command: unknown }).command === "updateState")
+function isUpdateState<WO, WS>(output: MessageOutput<WO, WS>): output is MessageOutputUpdateState<WS> {
+  return (output.type === "updateState")
 }
 
-function getPartialStateFromOutput<WO>(output: WO): StateFromOutput<WO> | null {
+function getPartialStateFromOutput<WO, WS>(output: MessageOutput<WO, WS>): Partial<WS> | null {
   if (!isUpdateState(output)){
     return null
   }
   return {
     [output.key]: output.value
-  } as StateFromOutput<WO>
+  } as Partial<WS>
 }
 
-export interface UseWorkerReturnValue<WI, WO> {
+export interface UseWorkerReturnValue<WI, WO, WS> {
   postMessage: (message: WI) => void
-  workerOutputLog: WO[]
+  workerOutputLog: MessageOutput<WO, WS>[]
   addListener: (key: string, onmessage: (workerOutput: WO) => void) => void
   restart: () => void
   addRestartListener: (key: string, onRestart: () => void) => void
-  state: StateFromOutput<WO>
+  state: WS
 }
 
-export function useWorker<WI, WO>(
-  context: WorkerContext<WI, WO>
-): UseWorkerReturnValue<WI, WO> {
+export function useWorker<WI, WO, WS>(
+  context: WorkerContext<WI, WO, WS>
+): UseWorkerReturnValue<WI, WO, WS> {
   const wrapper = useContext(context.reactContext)
   const [state, setState] = useContext(context.stateContext)
   useEffect(() => {
-    wrapper.subscribe("__set_worker_state__", (workerOutput: WO): void => {
-      const partialState: StateFromOutput<WO> | null = getPartialStateFromOutput(workerOutput)
+    wrapper.subscribe("__set_worker_state__", (workerOutput: MessageOutput<WO, WS>): void => {
+      const partialState: Partial<WS> | null = getPartialStateFromOutput(workerOutput)
       if (partialState === null) {
         return
       }
@@ -60,7 +59,7 @@ export function useWorker<WI, WO>(
     [wrapper]
   )
 
-  const workerOutputLog: WO[] = useSyncExternalStore(subscribe, getSnapshot)
+  const workerOutputLog: MessageOutput<WO, WS>[] = useSyncExternalStore(subscribe, getSnapshot)
 
   const postMessage = useCallback(
     (workerInput: WI): void => {
@@ -71,7 +70,14 @@ export function useWorker<WI, WO>(
 
   const addListener = useCallback(
     (key: string, onmessage: (workerOutput: WO) => void): void => {
-      wrapper.subscribe(key, onmessage)
+      wrapper.subscribe(
+        key,
+        (output) => {
+          if (output.type === "output") {
+            onmessage(output.value)
+          }
+        }
+      )
     },
     [wrapper]
   )

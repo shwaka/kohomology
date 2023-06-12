@@ -1,4 +1,4 @@
-type OutputFromState<S, K = keyof S> = K extends keyof S ? {
+export type MessageOutputUpdateState<S, K = keyof S> = K extends keyof S ? {
   type: "updateState"
   key: K
   value: S[K]
@@ -9,11 +9,13 @@ export type MessageOutput<WO, WS> =
     type: "output"
     value: WO
   }
-  | OutputFromState<WS>
+  | MessageOutputUpdateState<WS>
+
+export type UpdateWorkerState<WS> = <K extends keyof WS>(key: K, value: WS[K]) => void
 
 export interface CallbackData<WI, WO, WS> {
   postWorkerOutput: (output: WO) => void
-  updateState: <K extends keyof WS>(key: K, value: WS[K]) => void
+  updateState: UpdateWorkerState<WS>
 }
 
 export interface WorkerImpl<WI, WO> {
@@ -48,7 +50,7 @@ export function expose<WI, WO, WS>(
       type: "updateState",
       key,
       value,
-    } as unknown as OutputFromState<WS>
+    } as unknown as MessageOutputUpdateState<WS>
     postMessage(output)
   }
   const workerImpl = getWorkerImpl({ postWorkerOutput, updateState })

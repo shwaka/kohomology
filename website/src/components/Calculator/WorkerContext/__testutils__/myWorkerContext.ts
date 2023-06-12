@@ -1,4 +1,4 @@
 import { createWorkerContext } from "../WorkerContext"
-import { MyWorkerInput, MyWorkerOutput } from "./MyWorker"
+import { MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorker"
 
-export const myWorkerContext = createWorkerContext<MyWorkerInput, MyWorkerOutput>()
+export const myWorkerContext = createWorkerContext<MyWorkerInput, MyWorkerOutput, MyWorkerState>()

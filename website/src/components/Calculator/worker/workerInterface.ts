@@ -1,4 +1,3 @@
-import { OutputFromState } from "../WorkerContext"
 import { StyledMessage } from "../styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "idealQuot"] as const
@@ -60,6 +59,5 @@ export type WorkerState = {
   idealInfo: StyledMessage
   workerInfo: WorkerInfo
 }
-export type UpdateState = OutputFromState<WorkerState>
 
-export type WorkerOutput = SendMessage | UpdateState
+export type WorkerOutput = SendMessage

@@ -1,24 +1,32 @@
+import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "../WorkerContext/expose"
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { SendMessage, UpdateState, WorkerInput, WorkerOutput } from "./workerInterface"
+import { WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
-function expectSendMessage(output: WorkerOutput): asserts output is SendMessage {
-  expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
+function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState>): asserts output is MessageSendOutput<WorkerOutput> {
+  expect(output.type).toBe("output")
+  // expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
 }
 
-function expectUpdateState(output: WorkerOutput): asserts output is UpdateState {
-  expect(output.command).toBeOneOf(["updateState"])
+function expectUpdateState(output: MessageOutput<WorkerOutput, WorkerState>): asserts output is MessageOutputUpdateState<WorkerState> {
+  expect(output.type).toBe("updateState")
+  // expect(output.command).toBeOneOf(["updateState"])
 }
 
-function expectUpdateStateOfKey(output: WorkerOutput, key: UpdateState["key"]): asserts output is UpdateState {
+function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState>, key: keyof WorkerState): asserts output is MessageOutputUpdateState<WorkerState> {
   expectUpdateState(output)
   expect(output.key).toBe(key)
 }
 
 test("computeCohomology", () => {
-  const outputs: WorkerOutput[] = []
+  const outputs: MessageOutput<WorkerOutput, WorkerState>[] = []
   const messageHandler = new KohomologyMessageHandler(
-    (output) => { outputs.push(output) },
+    (output) => { outputs.push({ type: "output", value: output }) },
+    (key, value) => {
+      // See comments in updateState in expose.ts for this cast.
+      const output = { type: "updateState", key, value } as MessageOutputUpdateState<WorkerState>
+      outputs.push(output)
+    },
     (_) => { return },
     (_) => { return },
   )
@@ -58,15 +66,15 @@ test("computeCohomology", () => {
   expectSendMessage(messageOutput1)
 
   // check first message
-  expect(messageOutput0.messages.length).toBe(1)
-  expect(messageOutput0.messages[0].strings[0].content).toEqual("Computing ")
+  expect(messageOutput0.value.messages.length).toBe(1)
+  expect(messageOutput0.value.messages[0].strings[0].content).toEqual("Computing ")
   // check second message
-  expect(messageOutput1.messages.length).toBe(maxDegree + 1)
-  expect(formatStyledMessage(messageOutput0.messages[0])).toEqual(`Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq ${maxDegree}`)
-  expect(formatStyledMessage(messageOutput1.messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
-  expect(formatStyledMessage(messageOutput1.messages[1])).toEqual("H^{1} =\\ 0")
-  expect(formatStyledMessage(messageOutput1.messages[2])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+  expect(messageOutput1.value.messages.length).toBe(maxDegree + 1)
+  expect(formatStyledMessage(messageOutput0.value.messages[0])).toEqual(`Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq ${maxDegree}`)
+  expect(formatStyledMessage(messageOutput1.value.messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
+  expect(formatStyledMessage(messageOutput1.value.messages[1])).toEqual("H^{1} =\\ 0")
+  expect(formatStyledMessage(messageOutput1.value.messages[2])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
   for (let degree = 3; degree <= maxDegree; degree++) {
-    expect(formatStyledMessage(messageOutput1.messages[degree])).toEqual(`H^{${degree}} =\\ 0`)
+    expect(formatStyledMessage(messageOutput1.value.messages[degree])).toEqual(`H^{${degree}} =\\ 0`)
   }
 })

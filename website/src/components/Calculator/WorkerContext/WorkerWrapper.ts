@@ -1,14 +1,15 @@
 import { isInJest } from "@site/src/utils/isInJest"
+import { MessageOutput } from "./expose"
 
-export class WorkerWrapper<WI, WO> {
-  private readonly onmessageFunctions: Map<string, (workerOutput: WO) => void> = new Map()
+export class WorkerWrapper<WI, WO, WS> {
+  private readonly onmessageFunctions: Map<string, (workerOutput: MessageOutput<WO, WS>) => void> = new Map()
   private readonly onRestartFunctions: Map<string, () => void> = new Map()
   private worker: Worker
-  public workerOutputLog: WO[] = []
+  public workerOutputLog: MessageOutput<WO, WS>[] = []
 
   constructor(private createWorker: () => Worker) {
     this.worker = this.createWorker()
-    this.worker.onmessage = (e: MessageEvent<WO>): void => this.onmessage(e.data)
+    this.worker.onmessage = (e: MessageEvent<MessageOutput<WO, WS>>): void => this.onmessage(e.data)
   }
 
   private log(...args: unknown[]): void {
@@ -18,7 +19,7 @@ export class WorkerWrapper<WI, WO> {
     }
   }
 
-  subscribe(key: string, onmessage: (workerOutput: WO) => void): void {
+  subscribe(key: string, onmessage: (workerOutput: MessageOutput<WO, WS>) => void): void {
     this.onmessageFunctions.set(key, onmessage)
     this.log(`subscribe: ${key}`)
   }
@@ -40,7 +41,7 @@ export class WorkerWrapper<WI, WO> {
     this.worker.postMessage(workerInput)
   }
 
-  onmessage(workerOutput: WO): void {
+  onmessage(workerOutput: MessageOutput<WO, WS>): void {
     this.workerOutputLog = [...this.workerOutputLog, workerOutput]
     this.onmessageFunctions.forEach((func) => func(workerOutput))
   }
@@ -53,11 +54,11 @@ export class WorkerWrapper<WI, WO> {
   restart(): void {
     this.worker.terminate()
     this.worker = this.createWorker()
-    this.worker.onmessage = (e: MessageEvent<WO>): void => this.onmessage(e.data)
+    this.worker.onmessage = (e: MessageEvent<MessageOutput<WO, WS>>): void => this.onmessage(e.data)
     this.onRestartFunctions.forEach((func) => func())
   }
 
-  static default<WI, WO>(): WorkerWrapper<WI, WO> {
+  static default<WI, WO, WS>(): WorkerWrapper<WI, WO, WS> {
     return new WorkerWrapper(() => {
       return {} as Worker // dummy object
       // throw new Error("The default WorkerWrapper is used")

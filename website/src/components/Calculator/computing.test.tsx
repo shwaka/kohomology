@@ -1,9 +1,10 @@
 import { useLocation } from "@docusaurus/router"
 import { act, fireEvent, render } from "@testing-library/react"
 import React from "react"
+import { MessageOutput } from "./WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
-import { WorkerOutput } from "./worker/workerInterface"
+import { WorkerOutput, WorkerState } from "./worker/workerInterface"
 import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -12,7 +13,7 @@ mockUseLocation.mockReturnValue({
 })
 
 class OnmessageCapturer {
-  queue: [(workerOutput: WorkerOutput) => void, WorkerOutput][]
+  queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState>) => void, MessageOutput<WorkerOutput, WorkerState>][]
   enabled: boolean
 
   constructor() {
@@ -51,7 +52,7 @@ class OnmessageCapturer {
     }
   }
 
-  add(onmessage: (workerOutput: WorkerOutput) => void, workerOutput: WorkerOutput): void {
+  add(onmessage: (workerOutput: MessageOutput<WorkerOutput, WorkerState>) => void, workerOutput: MessageOutput<WorkerOutput, WorkerState>): void {
     if (this.enabled) {
       this.queue.push([onmessage, workerOutput])
     } else {
@@ -68,7 +69,7 @@ jest.mock("./WorkerContext/WorkerWrapper", () => {
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 
   // TODO: copy the object OriginalWorkerWrapper with its prototype
-  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: WorkerOutput): void {
+  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<WorkerOutput, WorkerState>): void {
     capturer.add(originalOnmessage.bind(this), workerOutput)
   }
 

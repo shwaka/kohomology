@@ -1,15 +1,15 @@
+import { MockWorker } from "../../WorkerContext/__testutils__/MockWorker"
+import { CallbackData, WorkerImpl } from "../../WorkerContext/expose"
 import { KohomologyMessageHandler } from "../KohomologyMessageHandler"
-import { WorkerInput, WorkerOutput } from "../workerInterface"
+import { WorkerInput, WorkerOutput, WorkerState } from "../workerInterface"
 
-// - KohomologyWorker.postMessage corresponds to KohomologyMessageHandler.onmessage
-// - KohomologyWorker.onmessage corresponds to KohomologyMessageHandler.postMessage
-export default class KohomologyWorker {
-  onmessage: (e: MessageEvent<WorkerOutput>) => void
+class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerOutput> {
   messageHandler: KohomologyMessageHandler
-  constructor() {
-    this.onmessage = (_) => { throw new Error("WebWorker is not initialized") } // This will be set outside of this module.
+
+  constructor({ postWorkerOutput, updateState }: CallbackData<WorkerInput, WorkerOutput, WorkerState>) {
     this.messageHandler = new KohomologyMessageHandler(
-      (output) => this.onmessage({ data: output } as MessageEvent<WorkerOutput>),
+      postWorkerOutput,
+      updateState,
       (_message) => {
         // console.log(_message)
         return
@@ -21,13 +21,15 @@ export default class KohomologyWorker {
     )
   }
 
-  postMessage(input: WorkerInput): void {
+  onWorkerInput(input: WorkerInput): void {
     this.messageHandler.onmessage(input)
   }
+}
 
-  terminate(): void {
-    this.onmessage = (_) => {
-      throw new Error("WebWorker is already terminated")
-    }
+export default class KohomologyWorker extends MockWorker<WorkerInput, WorkerOutput, WorkerState> {
+  constructor() {
+    super((callbackData) => {
+      return new KohomologyWorkerImpl(callbackData)
+    })
   }
 }

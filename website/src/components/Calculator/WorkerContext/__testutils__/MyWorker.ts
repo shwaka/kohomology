@@ -1,35 +1,43 @@
+import { CallbackData, UpdateWorkerState, WorkerImpl } from "../expose"
+import { MockWorker } from "./MockWorker"
+
 export interface MyWorkerInput {
   value: number
 }
 
 export type MyWorkerOutput = {
   result: string
-} | {
-  command: "updateState"
-  key: "value"
+}
+
+export type MyWorkerState = {
   value: number
 }
 
-export class MyWorker {
+class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput> {
   value: number
-  onmessage: (e: MessageEvent<MyWorkerOutput>) => void
+  postWorkerOutput: (output: MyWorkerOutput) => void
+  updateState: UpdateWorkerState<MyWorkerState>
 
-  constructor() {
+  constructor({ postWorkerOutput, updateState }: CallbackData<MyWorkerInput, MyWorkerOutput, MyWorkerState>) {
     this.value = 0
-    this.onmessage = (_) => { throw new Error("MyWorker is not initialized") }
+    this.postWorkerOutput = postWorkerOutput
+    this.updateState = updateState
   }
 
-  postMessage(input: MyWorkerInput): void {
+  onWorkerInput(input: MyWorkerInput): void {
     this.value += input.value
-    const outputUpdateState: MyWorkerOutput = {
-      command: "updateState",
-      key: "value",
-      value: this.value,
-    }
-    this.onmessage({ data: outputUpdateState } as MessageEvent<MyWorkerOutput>)
+    this.updateState("value", this.value)
     const output: MyWorkerOutput = {
       result: `value=${this.value}`
     }
-    this.onmessage({ data: output } as MessageEvent<MyWorkerOutput>)
+    this.postWorkerOutput(output)
+  }
+}
+
+export class MyWorker extends MockWorker<MyWorkerInput, MyWorkerOutput, MyWorkerState> {
+  constructor() {
+    super((callbackData) => {
+      return new MyWorkerImpl(callbackData)
+    })
   }
 }

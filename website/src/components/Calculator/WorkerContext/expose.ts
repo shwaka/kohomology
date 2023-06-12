@@ -1,3 +1,8 @@
+export type MessageSendOutput<WO> = {
+  type: "output"
+  value: WO
+}
+
 export type MessageOutputUpdateState<S, K = keyof S> = K extends keyof S ? {
   type: "updateState"
   key: K
@@ -5,10 +10,7 @@ export type MessageOutputUpdateState<S, K = keyof S> = K extends keyof S ? {
 } : never
 
 export type MessageOutput<WO, WS> =
-  | {
-    type: "output"
-    value: WO
-  }
+  | MessageSendOutput<WO>
   | MessageOutputUpdateState<WS>
 
 export type UpdateWorkerState<WS> = <K extends keyof WS>(key: K, value: WS[K]) => void

@@ -60,6 +60,5 @@ export type WorkerState = {
   idealInfo: StyledMessage
   workerInfo: WorkerInfo
 }
-export type UpdateState = OutputFromState<WorkerState>
 
-export type WorkerOutput = SendMessage | UpdateState
+export type WorkerOutput = SendMessage

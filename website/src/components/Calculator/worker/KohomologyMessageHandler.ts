@@ -1,17 +1,20 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper } from "kohomology-js"
 import { fromString, StyledMessage } from "../styled/message"
+import { UpdateWorkerState } from "../WorkerContext/expose"
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState } from "./workerInterface"
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
   private log: (...messages: unknown[]) => void
   private error: (...messages: unknown[]) => void
   private readonly postMessage: (output: WorkerOutput) => void
+  private readonly updateState: UpdateWorkerState<WorkerState>
 
   constructor(
     postMessage: (output: WorkerOutput) => void,
+    updateState: UpdateWorkerState<WorkerState>,
     log?: (...messages: unknown[]) => void,
     error?: (...messages: unknown[]) => void,
   ) {
@@ -21,6 +24,10 @@ export class KohomologyMessageHandler {
     this.postMessage = (output: WorkerOutput): void => {
       this.log("WorkerOutput", output)
       postMessage(output)
+    }
+    this.updateState = (key, value) => {
+      this.log("updateState", key, value)
+      updateState(key, value)
     }
 
     this.log("new KohomologyMessageHandler()")
@@ -64,12 +71,7 @@ export class KohomologyMessageHandler {
   private updateJson(json: string): void {
     try {
       this.dgaWrapper = new FreeDGAWrapper(json)
-      const output: WorkerOutput = {
-        command: "updateState",
-        key: "json",
-        value: json,
-      }
-      this.postMessage(output)
+      this.updateState("json", json)
     } catch (error: unknown) {
       this.dgaWrapper = null
       throw error
@@ -79,12 +81,7 @@ export class KohomologyMessageHandler {
   private updateIdealJson(idealJson: string): void {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.dgaWrapper.setIdeal(idealJson)
-    const output: WorkerOutput = {
-      command: "updateState",
-      key: "idealJson",
-      value: idealJson,
-    }
-    this.postMessage(output)
+    this.updateState("idealJson", idealJson)
   }
 
   private sendMessages(messages: StyledMessage | StyledMessage[]): void {
@@ -104,12 +101,7 @@ export class KohomologyMessageHandler {
   }
 
   private notifyInfo(workerInfo: WorkerInfo): void {
-    const output: WorkerOutput = {
-      command: "updateState",
-      key: "workerInfo",
-      value: workerInfo,
-    }
-    this.postMessage(output)
+    this.updateState("workerInfo", workerInfo)
   }
 
   private computeCohomology(
@@ -159,30 +151,15 @@ export class KohomologyMessageHandler {
   private showDgaInfo(): void {
     if (this.dgaWrapper === null) {
       const message = "[Error] Your DGA contains errors. Please fix them."
-      const output: WorkerOutput = {
-        command: "updateState",
-        key: "dgaInfo",
-        value: [fromString("error", message)],
-      }
-      this.postMessage(output)
+      this.updateState("dgaInfo", [fromString("error", message)])
     } else {
-      const output: WorkerOutput = {
-        command: "updateState",
-        key: "dgaInfo",
-        value: this.dgaWrapper.dgaInfo().map(toStyledMessage),
-      }
-      this.postMessage(output)
+      this.updateState("dgaInfo", this.dgaWrapper.dgaInfo().map(toStyledMessage))
     }
   }
 
   private showIdealInfo(): void {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
-    const output: WorkerOutput = {
-      command: "updateState",
-      key: "idealInfo",
-      value: toStyledMessage(this.dgaWrapper.idealInfo()),
-    }
-    this.postMessage(output)
+    this.updateState("idealInfo", toStyledMessage(this.dgaWrapper.idealInfo()))
   }
 }
 

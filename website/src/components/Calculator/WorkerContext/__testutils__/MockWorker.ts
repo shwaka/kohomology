@@ -22,4 +22,10 @@ export class MockWorker<WI, WO> {
   private _onmessage(output: WO): void {
     this.onmessage({ data: output } as MessageEvent<WO>)
   }
+
+  terminate(): void {
+    this.onmessage = (_) => {
+      throw new Error("MockWorker is already terminated")
+    }
+  }
 }

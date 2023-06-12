@@ -34,10 +34,4 @@ export default class KohomologyWorker extends MockWorker<WorkerInput, WorkerOutp
       }
     })
   }
-
-  terminate(): void {
-    this.onmessage = (_) => {
-      throw new Error("WebWorker is already terminated")
-    }
-  }
 }

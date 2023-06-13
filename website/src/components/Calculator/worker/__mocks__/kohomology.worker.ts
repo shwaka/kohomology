@@ -22,7 +22,9 @@ class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerOutput, Work
     )
     this.workerFunc = {
       validateIdealGenerator: (generator: string) =>
-        this.messageHandler.validateIdealGenerator(generator)
+        this.messageHandler.validateIdealGenerator(generator),
+      validateIdealGeneratorArray: (generatorArray: string[]) =>
+        this.messageHandler.validateIdealGeneratorArray(generatorArray),
     }
   }
 

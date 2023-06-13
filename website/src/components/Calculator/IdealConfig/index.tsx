@@ -1,4 +1,5 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
+import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useCallback, useMemo, useState } from "react"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
@@ -8,6 +9,7 @@ interface UseIdealEditorDialogArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
 interface UseIdealEditorDialogReturnValue {
@@ -19,9 +21,10 @@ function useIdealEditorDialog({
   idealJson,
   setIdealJson,
   validateGenerator,
+  validateGeneratorArray,
 }: UseIdealEditorDialogArgs): UseIdealEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  const { idealEditorProps, getOnSubmit, beforeOpen } = useIdealEditor({ idealJson, setIdealJson, validateGenerator })
+  const { idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit } = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
 
   const openDialog = useCallback((): void => {
     beforeOpen()
@@ -36,10 +39,26 @@ function useIdealEditorDialog({
     getOnSubmit(closeDialog)
   }, [getOnSubmit, closeDialog])
 
+  const canQuit = useCallback((): boolean => {
+    const confirmPrompt: string | undefined = preventQuit()
+    if (confirmPrompt === undefined) {
+      return true
+    }
+    return window.confirm(confirmPrompt)
+  }, [preventQuit])
+
+  const tryToQuit = useCallback((): void => {
+    if (!canQuit()) {
+      return
+    }
+    closeDialog()
+  }, [canQuit, closeDialog])
+
   const idealEditorDialogProps: IdealEditorDialogProps = useMemo(() => ({
-    open, onSubmit, closeDialog,
+    open, onSubmit, tryToQuit,
     idealEditorProps,
-  }), [open, onSubmit, closeDialog, idealEditorProps])
+    disableSubmit,
+  }), [open, onSubmit, tryToQuit, idealEditorProps, disableSubmit])
 
   return {
     openDialog,
@@ -50,18 +69,24 @@ function useIdealEditorDialog({
 interface IdealEditorDialogProps {
   open: boolean
   onSubmit: () => void
-  closeDialog: () => void
+  tryToQuit: () => void
   idealEditorProps: IdealEditorProps
+  disableSubmit: () => boolean
 }
 
 function IdealEditorDialog({
-  open, onSubmit, closeDialog,
+  open, onSubmit, tryToQuit,
   idealEditorProps,
+  disableSubmit,
 }: IdealEditorDialogProps): JSX.Element {
+  const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
       open={open}
-      onClose={closeDialog}
+      onClose={tryToQuit}
+      maxWidth="sm"
+      fullWidth={true}
+      PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogContent>
         <IdealEditor {...idealEditorProps}/>
@@ -71,8 +96,12 @@ function IdealEditorDialog({
           onClick={onSubmit}
           variant="contained"
           sx={{ textTransform: "none" }}
+          disabled={disableSubmit()}
         >
           Apply
+        </Button>
+        <Button onClick={tryToQuit} variant="outlined">
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>
@@ -84,10 +113,11 @@ interface IdealConfigProps {
   idealInfo: StyledMessage
   idealJson: string
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator }: IdealConfigProps): JSX.Element {
-  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator })
+export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): JSX.Element {
+  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator, validateGeneratorArray })
 
   return (
     <div>

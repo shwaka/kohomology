@@ -71,7 +71,12 @@ class FreeDGAWrapper(json: String) {
         this.freeDGAlgebra.parse(generatorString)
     }
 
-    fun setIdeal(idealJson: String) {
+    private fun createIdeal(idealJson: String): DGIdeal<
+        IntDegree,
+        Monomial<IntDegree, StringIndeterminateName>,
+        Rational,
+        SparseNumVector<Rational>, SparseMatrix<Rational>
+        > {
         val generators = jsonToIdealGenerators(idealJson).map { generatorString ->
             this.freeDGAlgebra.parse(generatorString)
         }.mapNotNull { gVectorOrZero ->
@@ -82,9 +87,18 @@ class FreeDGAWrapper(json: String) {
                 is ZeroGVector -> null
             }
         }
-        val dgIdeal = this.freeDGAlgebra.getDGIdeal(generators)
+        return this.freeDGAlgebra.getDGIdeal(generators)
+    }
+
+    fun setIdeal(idealJson: String) {
+        val dgIdeal = this.createIdeal(idealJson)
         this.dgIdeal = dgIdeal
         this.quotDGAlgebra = this.freeDGAlgebra.getQuotientByIdeal(dgIdeal)
+    }
+
+    fun tryCreateIdeal(idealJson: String) {
+        // for validation
+        this.createIdeal(idealJson)
     }
 
     fun dgaInfo(): Array<StyledMessageKt> {

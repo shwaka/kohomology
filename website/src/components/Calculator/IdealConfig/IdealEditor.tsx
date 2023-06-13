@@ -1,7 +1,7 @@
 import { Add } from "@mui/icons-material"
-import { Button, Stack } from "@mui/material"
+import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
-import { Control, DeepRequired, FieldErrorsImpl, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { FormData, SortableFields } from "../SortableFields"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
@@ -19,15 +19,18 @@ interface UseIdealEditorArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
 interface UseIdealEditorReturnValue {
   idealEditorProps: IdealEditorProps
   getOnSubmit: (closeDialog: () => void) => void
   beforeOpen: () => void
+  disableSubmit: () => boolean
+  preventQuit: () => string | undefined
 }
 
-export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: UseIdealEditorArgs): UseIdealEditorReturnValue {
+export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray }: UseIdealEditorArgs): UseIdealEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -52,11 +55,24 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: U
   }, [idealJson, reset])
 
   const idealEditorProps: IdealEditorProps = {
-    register, getValues, errors, trigger, control, validateGenerator,
+    register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray,
   }
 
+  const disableSubmit = useCallback((): boolean => {
+    return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
+  }, [errors])
+
+  const preventQuit = useCallback((): string | undefined =>  {
+    const generatorArray = getValues().generatorArray
+    if (generatorArrayToJson(generatorArray) !== idealJson) {
+      return "Your input is not saved. Are you sure you want to quit?"
+    } else {
+      return undefined
+    }
+  }, [getValues, idealJson])
+
   return {
-    idealEditorProps, getOnSubmit, beforeOpen,
+    idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit,
   }
 }
 
@@ -68,6 +84,27 @@ function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Ele
   )
 }
 
+function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): JSX.Element | undefined {
+  // Same as getGlobalError in tabItemArrayEditor.tsx
+  const fieldError: FieldError | undefined = errors.dummy
+  if (fieldError === undefined) {
+    return undefined
+  }
+  const types: MultipleFieldErrors | undefined = fieldError.types
+  if (types === undefined) {
+    return undefined
+  }
+  return (
+    <React.Fragment>
+      {Object.entries(types).map(([errorType, message]) => (
+        <Alert severity="error" key={errorType}>
+          {message}
+        </Alert>
+      ))}
+    </React.Fragment>
+  )
+}
+
 export interface IdealEditorProps {
   register: UseFormRegister<IdealFormInput>
   getValues: UseFormGetValues<IdealFormInput>
@@ -75,9 +112,10 @@ export interface IdealEditorProps {
   trigger: UseFormTrigger<IdealFormInput>
   control: Control<IdealFormInput>
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator }: IdealEditorProps): JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray }: IdealEditorProps): JSX.Element {
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",
@@ -90,19 +128,28 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
 
   return (
     <div>
-      <SortableFields
-        RowComponent={IdealEditorItem}
-        Container={SortableFieldsContainer}
-        {...{ fields, move, formData, externalData }}
-      />
-      <Button
-        variant="outlined"
-        onClick={() => append({ text: "" })}
-        startIcon={<Add/>}
-        sx={{ textTransform: "none" }}
-      >
-        Add a generator
-      </Button>
+      <Stack spacing={2} sx={{ marginTop: 1 }}>
+        <SortableFields
+          RowComponent={IdealEditorItem}
+          Container={SortableFieldsContainer}
+          {...{ fields, move, formData, externalData }}
+        />
+        <Button
+          variant="outlined"
+          onClick={() => append({ text: "" })}
+          startIcon={<Add/>}
+          sx={{ textTransform: "none" }}
+        >
+          Add a generator
+        </Button>
+        <input
+          hidden value="dummy"
+          {...register("dummy", {
+            validate: (_) => validateGeneratorArray(getValues().generatorArray.map((generator) => generator.text)),
+          })}
+        />
+        {getGlobalError(errors)}
+      </Stack>
     </div>
   )
 }

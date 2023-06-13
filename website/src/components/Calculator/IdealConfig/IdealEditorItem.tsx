@@ -10,6 +10,7 @@ export interface Generator {
 }
 
 export interface IdealFormInput {
+  dummy: "dummy"
   generatorArray: Generator[]
 }
 
@@ -47,7 +48,7 @@ export function IdealEditorItem(
       <Stack direction="row" spacing={1}>
         <TextField
           label="generator"
-          sx={{ width: 200 }} size="small"
+          sx={{ width: 300 }} size="small"
           {...register(
             `generatorArray.${index}.text` as const,
             {

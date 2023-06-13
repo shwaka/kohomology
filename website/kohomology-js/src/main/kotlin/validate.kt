@@ -165,3 +165,17 @@ fun validateIdealGeneratorString(
         ValidationResultInternal.Error(e.message ?: e.toString()).export()
     }
 }
+
+@ExperimentalJsExport
+@JsExport
+fun validateIdealJson(
+    freeDGAWrapper: FreeDGAWrapper,
+    idealJson: String,
+): ValidationResult {
+    return try {
+        freeDGAWrapper.tryCreateIdeal(idealJson)
+        ValidationResultInternal.Success().export()
+    } catch (e: Exception) {
+        ValidationResultInternal.Error(e.message ?: e.toString()).export()
+    }
+}

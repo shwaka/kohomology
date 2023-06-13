@@ -64,4 +64,5 @@ export type WorkerOutput = SendMessage
 
 export type WorkerFunc = {
   validateIdealGenerator: (generator: string) => true | string
+  validateIdealGeneratorArray: (generatorArray: string[]) => true | string
 }

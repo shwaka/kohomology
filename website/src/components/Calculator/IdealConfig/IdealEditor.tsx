@@ -25,6 +25,7 @@ interface UseIdealEditorReturnValue {
   idealEditorProps: IdealEditorProps
   getOnSubmit: (closeDialog: () => void) => void
   beforeOpen: () => void
+  disableSubmit: () => boolean
 }
 
 export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: UseIdealEditorArgs): UseIdealEditorReturnValue {
@@ -55,8 +56,12 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: U
     register, getValues, errors, trigger, control, validateGenerator,
   }
 
+  const disableSubmit = useCallback((): boolean => {
+    return (errors.generatorArray !== undefined)
+  }, [errors])
+
   return {
-    idealEditorProps, getOnSubmit, beforeOpen,
+    idealEditorProps, getOnSubmit, beforeOpen, disableSubmit,
   }
 }
 

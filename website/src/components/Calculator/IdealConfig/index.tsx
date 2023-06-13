@@ -21,7 +21,7 @@ function useIdealEditorDialog({
   validateGenerator,
 }: UseIdealEditorDialogArgs): UseIdealEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  const { idealEditorProps, getOnSubmit, beforeOpen } = useIdealEditor({ idealJson, setIdealJson, validateGenerator })
+  const { idealEditorProps, getOnSubmit, beforeOpen, disableSubmit } = useIdealEditor({ idealJson, setIdealJson, validateGenerator })
 
   const openDialog = useCallback((): void => {
     beforeOpen()
@@ -39,7 +39,8 @@ function useIdealEditorDialog({
   const idealEditorDialogProps: IdealEditorDialogProps = useMemo(() => ({
     open, onSubmit, closeDialog,
     idealEditorProps,
-  }), [open, onSubmit, closeDialog, idealEditorProps])
+    disableSubmit,
+  }), [open, onSubmit, closeDialog, idealEditorProps, disableSubmit])
 
   return {
     openDialog,
@@ -52,11 +53,13 @@ interface IdealEditorDialogProps {
   onSubmit: () => void
   closeDialog: () => void
   idealEditorProps: IdealEditorProps
+  disableSubmit: () => boolean
 }
 
 function IdealEditorDialog({
   open, onSubmit, closeDialog,
   idealEditorProps,
+  disableSubmit,
 }: IdealEditorDialogProps): JSX.Element {
   return (
     <Dialog
@@ -71,6 +74,7 @@ function IdealEditorDialog({
           onClick={onSubmit}
           variant="contained"
           sx={{ textTransform: "none" }}
+          disabled={disableSubmit()}
         >
           Apply
         </Button>
@@ -87,7 +91,7 @@ interface IdealConfigProps {
 }
 
 export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator }: IdealConfigProps): JSX.Element {
-  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator })
+  const { openDialog, idealEditorDialogProps, disableSubmit } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator })
 
   return (
     <div>

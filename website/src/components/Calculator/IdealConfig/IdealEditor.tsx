@@ -1,7 +1,7 @@
 import { Add } from "@mui/icons-material"
-import { Button, Stack } from "@mui/material"
+import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
-import { Control, DeepRequired, FieldErrorsImpl, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { FormData, SortableFields } from "../SortableFields"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
@@ -84,6 +84,27 @@ function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Ele
   )
 }
 
+function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): JSX.Element | undefined {
+  // Same as getGlobalError in tabItemArrayEditor.tsx
+  const fieldError: FieldError | undefined = errors.dummy
+  if (fieldError === undefined) {
+    return undefined
+  }
+  const types: MultipleFieldErrors | undefined = fieldError.types
+  if (types === undefined) {
+    return undefined
+  }
+  return (
+    <React.Fragment>
+      {Object.entries(types).map(([errorType, message]) => (
+        <Alert severity="error" key={errorType}>
+          {message}
+        </Alert>
+      ))}
+    </React.Fragment>
+  )
+}
+
 export interface IdealEditorProps {
   register: UseFormRegister<IdealFormInput>
   getValues: UseFormGetValues<IdealFormInput>
@@ -127,6 +148,7 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
             validate: (_) => validateGeneratorArray(getValues().generatorArray.map((generator) => generator.text)),
           })}
         />
+        {getGlobalError(errors)}
       </Stack>
     </div>
   )

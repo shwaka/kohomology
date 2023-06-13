@@ -21,7 +21,8 @@ class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerOutput, Work
       },
     )
     this.workerFunc = {
-      dummy: () => undefined,
+      validateIdealGenerator: (generator: string) =>
+        this.messageHandler.validateIdealGenerator(generator)
     }
   }
 

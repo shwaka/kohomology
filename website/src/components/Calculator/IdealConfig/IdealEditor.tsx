@@ -18,7 +18,7 @@ function generatorArrayToJson(generatorArray: Generator[]): string {
 interface UseIdealEditorArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
-  validateGenerator: (generator: string) => true | string
+  validateGenerator: (generator: string) => Promise<true | string>
 }
 
 interface UseIdealEditorReturnValue {
@@ -74,7 +74,7 @@ export interface IdealEditorProps {
   errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
   trigger: UseFormTrigger<IdealFormInput>
   control: Control<IdealFormInput>
-  validateGenerator: (generator: string) => true | string
+  validateGenerator: (generator: string) => Promise<true | string>
 }
 
 export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator }: IdealEditorProps): JSX.Element {

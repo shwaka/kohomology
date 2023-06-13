@@ -7,7 +7,7 @@ import { IdealEditor, IdealEditorProps, useIdealEditor } from "./IdealEditor"
 interface UseIdealEditorDialogArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
-  validateGenerator: (generator: string) => true | string
+  validateGenerator: (generator: string) => Promise<true | string>
 }
 
 interface UseIdealEditorDialogReturnValue {
@@ -83,7 +83,7 @@ interface IdealConfigProps {
   setIdealJson: (idealJson: string) => void
   idealInfo: StyledMessage
   idealJson: string
-  validateGenerator: (generator: string) => true | string
+  validateGenerator: (generator: string) => Promise<true | string>
 }
 
 export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator }: IdealConfigProps): JSX.Element {

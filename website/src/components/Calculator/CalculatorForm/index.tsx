@@ -29,7 +29,7 @@ export function CalculatorForm(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
   const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
 
-  const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart } =
+  const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({
       defaultJson: defaultDGAJson,
       onmessage: (_) => undefined, // previously this was used to pass setState
@@ -43,10 +43,9 @@ export function CalculatorForm(): JSX.Element {
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA(json)
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
-  const validateIdealGenerator = useCallback((generator: string): true | string => {
-    // This is a temporary implementation and should be implemented later.
-    return true
-  }, [])
+  const validateIdealGenerator = useCallback(async (generator: string): Promise<true | string> => {
+    return await runAsync("validateIdealGenerator", [generator])
+  }, [runAsync])
 
   return (
     <Stack

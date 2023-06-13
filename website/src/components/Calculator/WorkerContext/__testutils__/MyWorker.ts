@@ -17,15 +17,22 @@ export type MyWorkerFunc = {
   add: (value: number) => number
 }
 
-class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput> {
+class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput, MyWorkerFunc> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void
   updateState: UpdateWorkerState<MyWorkerState>
+  workerFunc: MyWorkerFunc
 
   constructor({ postWorkerOutput, updateState }: CallbackData<MyWorkerInput, MyWorkerOutput, MyWorkerState>) {
     this.value = 0
     this.postWorkerOutput = postWorkerOutput
     this.updateState = updateState
+    this.workerFunc = {
+      add: (value: number): number => {
+        this.value += value
+        return this.value
+      }
+    }
   }
 
   onWorkerInput(input: MyWorkerInput): void {
@@ -38,7 +45,7 @@ class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput> {
   }
 }
 
-export class MyWorker extends MockWorker<MyWorkerInput, MyWorkerOutput, MyWorkerState> {
+export class MyWorker extends MockWorker<MyWorkerInput, MyWorkerOutput, MyWorkerState, MyWorkerFunc> {
   constructor() {
     super((callbackData) => {
       return new MyWorkerImpl(callbackData)

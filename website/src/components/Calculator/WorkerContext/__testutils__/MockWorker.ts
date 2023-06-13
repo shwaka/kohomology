@@ -1,26 +1,26 @@
-import { CallbackData, expose, ExposedWorkerImpl, MessageInput, MessageOutput, WorkerImpl } from "../expose"
+import { CallbackData, expose, ExposedWorkerImpl, MessageInput, MessageOutput, WFBase, WorkerImpl } from "../expose"
 
-export class MockWorker<WI, WO, WS> {
-  onmessage: (e: MessageEvent<MessageOutput<WO, WS>>) => void
-  private exposed: ExposedWorkerImpl<WI, WO>
+export class MockWorker<WI, WO, WS, WF extends WFBase> {
+  onmessage: (e: MessageEvent<MessageOutput<WO, WS, WF>>) => void
+  private exposed: ExposedWorkerImpl<WI, WO, WF>
 
   constructor(
-    getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO>,
+    getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO, WF>,
   ) {
     // this.onmessage will be set from the user of MockWorker.
     this.onmessage = (_) => { throw new Error("MockWorker is not initialized") }
-    this.exposed = expose<WI, WO, WS>(
+    this.exposed = expose<WI, WO, WS, WF>(
       this._onmessage.bind(this),
       getWorkerImpl,
     )
   }
 
-  postMessage(input: MessageInput<WI>): void {
-    this.exposed.onmessage({ data: input } as MessageEvent<MessageInput<WI>>)
+  postMessage(input: MessageInput<WI, WF>): void {
+    this.exposed.onmessage({ data: input } as MessageEvent<MessageInput<WI, WF>>)
   }
 
-  private _onmessage(output: MessageOutput<WO, WS>): void {
-    this.onmessage({ data: output } as MessageEvent<MessageOutput<WO, WS>>)
+  private _onmessage(output: MessageOutput<WO, WS, WF>): void {
+    this.onmessage({ data: output } as MessageEvent<MessageOutput<WO, WS, WF>>)
   }
 
   terminate(): void {

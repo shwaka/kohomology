@@ -61,3 +61,7 @@ export type WorkerState = {
 }
 
 export type WorkerOutput = SendMessage
+
+export type WorkerFunc = {
+  validateIdealGenerator: (generator: string) => true | string
+}

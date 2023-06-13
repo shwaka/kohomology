@@ -1,13 +1,13 @@
 import { useCallback, useContext, useEffect } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
 import { WorkerContext } from "./WorkerContext"
-import { MessageOutput, MessageOutputUpdateState } from "./expose"
+import { MessageInput, MessageInputCallFunc, MessageOutput, MessageOutputUpdateState, WFBase } from "./expose"
 
-function isUpdateState<WO, WS>(output: MessageOutput<WO, WS>): output is MessageOutputUpdateState<WS> {
+function isUpdateState<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, WF>): output is MessageOutputUpdateState<WS> {
   return (output.type === "updateState")
 }
 
-function getPartialStateFromOutput<WO, WS>(output: MessageOutput<WO, WS>): Partial<WS> | null {
+function getPartialStateFromOutput<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, WF>): Partial<WS> | null {
   if (!isUpdateState(output)){
     return null
   }
@@ -16,22 +16,26 @@ function getPartialStateFromOutput<WO, WS>(output: MessageOutput<WO, WS>): Parti
   } as Partial<WS>
 }
 
-export interface UseWorkerReturnValue<WI, WO, WS> {
+export type RunAsync<WF extends WFBase> =
+  <K extends keyof WF>(key: K, args: Parameters<WF[K]>) => Promise<ReturnType<WF[K]>>
+
+export interface UseWorkerReturnValue<WI, WO, WS, WF extends WFBase> {
   postMessage: (message: WI) => void
-  workerOutputLog: MessageOutput<WO, WS>[]
+  workerOutputLog: MessageOutput<WO, WS, WF>[]
   addListener: (key: string, onmessage: (workerOutput: WO) => void) => void
   restart: () => void
   addRestartListener: (key: string, onRestart: () => void) => void
   state: WS
+  runAsync: RunAsync<WF>
 }
 
-export function useWorker<WI, WO, WS>(
-  context: WorkerContext<WI, WO, WS>
-): UseWorkerReturnValue<WI, WO, WS> {
+export function useWorker<WI, WO, WS, WF extends WFBase>(
+  context: WorkerContext<WI, WO, WS, WF>
+): UseWorkerReturnValue<WI, WO, WS, WF> {
   const wrapper = useContext(context.reactContext)
   const [state, setState] = useContext(context.stateContext)
   useEffect(() => {
-    wrapper.subscribe("__set_worker_state__", (workerOutput: MessageOutput<WO, WS>): void => {
+    wrapper.subscribe("__set_worker_state__", (workerOutput: MessageOutput<WO, WS, WF>): void => {
       const partialState: Partial<WS> | null = getPartialStateFromOutput(workerOutput)
       if (partialState === null) {
         return
@@ -59,11 +63,15 @@ export function useWorker<WI, WO, WS>(
     [wrapper]
   )
 
-  const workerOutputLog: MessageOutput<WO, WS>[] = useSyncExternalStore(subscribe, getSnapshot)
+  const workerOutputLog: MessageOutput<WO, WS, WF>[] = useSyncExternalStore(subscribe, getSnapshot)
 
   const postMessage = useCallback(
     (workerInput: WI): void => {
-      wrapper.postMessage(workerInput)
+      const message: MessageInput<WI, WF> = {
+        type: "input",
+        value: workerInput,
+      }
+      wrapper.postMessage(message)
     },
     [wrapper]
   )
@@ -95,6 +103,27 @@ export function useWorker<WI, WO, WS>(
     [wrapper]
   )
 
+  const runAsync: RunAsync<WF> = useCallback(async (key, args) => {
+    const id = generateId()
+    const input: MessageInputCallFunc<WF> = {
+      type: "callFunc",
+      key, args, id,
+    }
+    const subscribeKey = `runAsync-${id}`
+    wrapper.postMessage(input)
+    return new Promise((resolve, _reject) => {
+      wrapper.subscribe(
+        subscribeKey,
+        (output) => {
+          if ((output.type === "funcResult") && (output.key === key) && (output.id === id)) {
+            wrapper.unsubscribe(subscribeKey)
+            resolve(output.result)
+          }
+        }
+      )
+    })
+  }, [wrapper])
+
   return {
     postMessage,
     workerOutputLog,
@@ -102,5 +131,18 @@ export function useWorker<WI, WO, WS>(
     restart,
     addRestartListener,
     state,
+    runAsync,
   }
+}
+
+const characters = "0123456789abcdef"
+
+function generateId(): string {
+  const n = 20
+  const charactersLength = characters.length
+  const resultArray: string[] = []
+  for (let i = 0; i < n; i++) {
+    resultArray.push(characters.charAt(Math.floor(Math.random() * charactersLength)))
+  }
+  return resultArray.join("")
 }

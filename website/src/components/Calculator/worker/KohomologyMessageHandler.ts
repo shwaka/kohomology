@@ -1,5 +1,5 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { FreeDGAWrapper } from "kohomology-js"
+import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString } from "kohomology-js"
 import { UpdateWorkerState } from "../WorkerContext/expose"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
@@ -25,9 +25,9 @@ export class KohomologyMessageHandler {
       this.log("WorkerOutput", output)
       postMessage(output)
     }
-    this.updateState = (key, value) => {
-      this.log("updateState", key, value)
-      updateState(key, value)
+    this.updateState = (...args) => {
+      this.log("updateState", ...args)
+      updateState(...args)
     }
 
     this.log("new KohomologyMessageHandler()")
@@ -160,6 +160,19 @@ export class KohomologyMessageHandler {
   private showIdealInfo(): void {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.updateState("idealInfo", toStyledMessage(this.dgaWrapper.idealInfo()))
+  }
+
+  public validateIdealGenerator(generator: string): true | string {
+    assertNotNull(this.dgaWrapper, "dgaWrapper is null")
+    const result: ValidationResult = validateIdealGeneratorString(this.dgaWrapper, generator)
+    switch (result.type){
+      case "success":
+        return true
+      case "error":
+        return result.message
+      default:
+        throw new Error("This can't happen!")
+    }
   }
 }
 

@@ -1,4 +1,4 @@
 import { createWorkerContext } from "./WorkerContext"
-import { WorkerInput, WorkerOutput, WorkerState } from "./worker/workerInterface"
+import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./worker/workerInterface"
 
-export const kohomologyWorkerContext = createWorkerContext<WorkerInput, WorkerOutput, WorkerState>()
+export const kohomologyWorkerContext = createWorkerContext<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>()

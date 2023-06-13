@@ -4,7 +4,7 @@ import React from "react"
 import { MessageOutput } from "./WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
-import { WorkerOutput, WorkerState } from "./worker/workerInterface"
+import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
 import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -13,7 +13,7 @@ mockUseLocation.mockReturnValue({
 })
 
 class OnmessageCapturer {
-  queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState>) => void, MessageOutput<WorkerOutput, WorkerState>][]
+  queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, MessageOutput<WorkerOutput, WorkerState, WorkerFunc>][]
   enabled: boolean
 
   constructor() {
@@ -52,7 +52,7 @@ class OnmessageCapturer {
     }
   }
 
-  add(onmessage: (workerOutput: MessageOutput<WorkerOutput, WorkerState>) => void, workerOutput: MessageOutput<WorkerOutput, WorkerState>): void {
+  add(onmessage: (workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): void {
     if (this.enabled) {
       this.queue.push([onmessage, workerOutput])
     } else {
@@ -69,7 +69,7 @@ jest.mock("./WorkerContext/WorkerWrapper", () => {
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 
   // TODO: copy the object OriginalWorkerWrapper with its prototype
-  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<WorkerOutput, WorkerState>): void {
+  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): void {
     capturer.add(originalOnmessage.bind(this), workerOutput)
   }
 

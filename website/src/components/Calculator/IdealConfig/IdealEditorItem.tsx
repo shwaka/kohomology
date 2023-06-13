@@ -14,7 +14,7 @@ export interface IdealFormInput {
 }
 
 export interface ExternalData {
-  validateGenerator: (generator: string) => true | string
+  validateGenerator: (generator: string) => Promise<true | string>
 }
 
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): JSX.Element | undefined {

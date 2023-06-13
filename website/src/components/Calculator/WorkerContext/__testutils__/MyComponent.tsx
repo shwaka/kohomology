@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
 import { MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"
-import { MyWorkerOutput, MyWorkerState } from "./MyWorker"
+import { MyWorkerFunc, MyWorkerOutput, MyWorkerState } from "./MyWorker"
 import { myWorkerContext } from "./myWorkerContext"
 
 function ShowWorkerOutputLog({ log, testid }: {
-  log: MessageOutput<MyWorkerOutput, MyWorkerState>[]
+  log: MessageOutput<MyWorkerOutput, MyWorkerState, MyWorkerFunc>[]
   testid: string
 }): JSX.Element {
   return (

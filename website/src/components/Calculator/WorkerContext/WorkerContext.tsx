@@ -1,5 +1,6 @@
 import React, { Context, createContext, ReactNode, useRef, useState } from "react"
 import { WorkerWrapper } from "./WorkerWrapper"
+import { WFBase } from "./expose"
 
 type OmitIfEmpty<T, K extends string | number | symbol> =
   T extends { [_ in K]: infer S}
@@ -19,19 +20,19 @@ type StateAndSetState<WS> = [
 
 type StateContext<WS> = Context<StateAndSetState<WS>>
 
-export type WorkerContext<WI, WO, WS> = {
-  reactContext: Context<WorkerWrapper<WI, WO, WS>>
+export type WorkerContext<WI, WO, WS, WF extends WFBase> = {
+  reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>
   stateContext: StateContext<WS>
   Provider: (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element
 }
 
-function WorkerContextProvider<WI, WO, WS>(
+function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
   props: {
-    context: Context<WorkerWrapper<WI, WO, WS>>
+    context: Context<WorkerWrapper<WI, WO, WS, WF>>
     stateContext: StateContext<WS>
   } & ProviderProps<WO, WS>
 ): JSX.Element {
-  const wrapperRef = useRef<WorkerWrapper<WI, WO, WS> | null>(null)
+  const wrapperRef = useRef<WorkerWrapper<WI, WO, WS, WF> | null>(null)
   if (wrapperRef.current === null) {
     wrapperRef.current = new WorkerWrapper(props.createWorker)
   }
@@ -49,8 +50,8 @@ function WorkerContextProvider<WI, WO, WS>(
   )
 }
 
-function createProvider<WI, WO, WS>(
-  reactContext: Context<WorkerWrapper<WI, WO, WS>>,
+function createProvider<WI, WO, WS, WF extends WFBase>(
+  reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>,
   stateContext: StateContext<WS>,
 ): ((props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element) {
   const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">): JSX.Element =>  {
@@ -71,8 +72,8 @@ function createProvider<WI, WO, WS>(
   return WorkerContextProviderCurried
 }
 
-export function createWorkerContext<WI, WO, WS>(): WorkerContext<WI, WO, WS> {
-  const reactContext = createContext<WorkerWrapper<WI, WO, WS>>(WorkerWrapper.default())
+export function createWorkerContext<WI, WO, WS, WF extends WFBase>(): WorkerContext<WI, WO, WS, WF> {
+  const reactContext = createContext<WorkerWrapper<WI, WO, WS, WF>>(WorkerWrapper.default())
   const stateContext = createContext<StateAndSetState<WS>>([
     undefined as unknown as WS,
     (_value) => { throw new Error("Not wrapped by provider") },

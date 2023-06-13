@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
 import { WorkerContext } from "./WorkerContext"
-import { MessageInput, MessageOutput, MessageOutputUpdateState, WFBase } from "./expose"
+import { MessageInput, MessageInputCallFunc, MessageOutput, MessageOutputUpdateState, WFBase } from "./expose"
 
 function isUpdateState<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, WF>): output is MessageOutputUpdateState<WS> {
   return (output.type === "updateState")
@@ -16,6 +16,9 @@ function getPartialStateFromOutput<WO, WS, WF extends WFBase>(output: MessageOut
   } as Partial<WS>
 }
 
+export type RunAsync<WF extends WFBase> =
+  <K extends keyof WF>(key: K, args: Parameters<WF[K]>) => Promise<ReturnType<WF[K]>>
+
 export interface UseWorkerReturnValue<WI, WO, WS, WF extends WFBase> {
   postMessage: (message: WI) => void
   workerOutputLog: MessageOutput<WO, WS, WF>[]
@@ -23,6 +26,7 @@ export interface UseWorkerReturnValue<WI, WO, WS, WF extends WFBase> {
   restart: () => void
   addRestartListener: (key: string, onRestart: () => void) => void
   state: WS
+  runAsync: RunAsync<WF>
 }
 
 export function useWorker<WI, WO, WS, WF extends WFBase>(
@@ -99,6 +103,27 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
     [wrapper]
   )
 
+  const runAsync: RunAsync<WF> = useCallback(async (key, args) => {
+    const id = generateId()
+    const input: MessageInputCallFunc<WF> = {
+      type: "callFunc",
+      key, args, id,
+    }
+    const subscribeKey = `runAsync-${id}`
+    wrapper.postMessage(input)
+    return new Promise((resolve, _reject) => {
+      wrapper.subscribe(
+        subscribeKey,
+        (output) => {
+          if ((output.type === "funcResult") && (output.key === key) && (output.id === id)) {
+            wrapper.unsubscribe(subscribeKey)
+            resolve(output.result)
+          }
+        }
+      )
+    })
+  }, [wrapper])
+
   return {
     postMessage,
     workerOutputLog,
@@ -106,5 +131,18 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
     restart,
     addRestartListener,
     state,
+    runAsync,
   }
+}
+
+const characters = "0123456789abcdef"
+
+function generateId(): string {
+  const n = 20
+  const charactersLength = characters.length
+  const resultArray: string[] = []
+  for (let i = 0; i < n; i++) {
+    characters.charAt(Math.floor(Math.random() * charactersLength))
+  }
+  return resultArray.join()
 }

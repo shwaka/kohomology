@@ -26,6 +26,7 @@ interface UseIdealEditorReturnValue {
   getOnSubmit: (closeDialog: () => void) => void
   beforeOpen: () => void
   disableSubmit: () => boolean
+  preventQuit: () => string | undefined
 }
 
 export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: UseIdealEditorArgs): UseIdealEditorReturnValue {
@@ -60,8 +61,17 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: U
     return (errors.generatorArray !== undefined)
   }, [errors])
 
+  const preventQuit = useCallback((): string | undefined =>  {
+    const generatorArray = getValues().generatorArray
+    if (generatorArrayToJson(generatorArray) !== idealJson) {
+      return "Your input is not saved. Are you sure you want to quit?"
+    } else {
+      return undefined
+    }
+  }, [getValues, idealJson])
+
   return {
-    idealEditorProps, getOnSubmit, beforeOpen, disableSubmit,
+    idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit,
   }
 }
 

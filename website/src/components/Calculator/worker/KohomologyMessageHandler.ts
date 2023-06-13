@@ -25,9 +25,9 @@ export class KohomologyMessageHandler {
       this.log("WorkerOutput", output)
       postMessage(output)
     }
-    this.updateState = (key, value) => {
-      this.log("updateState", key, value)
-      updateState(key, value)
+    this.updateState = (...args) => {
+      this.log("updateState", ...args)
+      updateState(...args)
     }
 
     this.log("new KohomologyMessageHandler()")

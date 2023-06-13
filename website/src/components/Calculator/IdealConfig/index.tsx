@@ -93,6 +93,9 @@ function IdealEditorDialog({
         >
           Apply
         </Button>
+        <Button onClick={tryToQuit} variant="outlined">
+          Cancel
+        </Button>
       </DialogActions>
     </Dialog>
   )

@@ -105,19 +105,21 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
 
   return (
     <div>
-      <SortableFields
-        RowComponent={IdealEditorItem}
-        Container={SortableFieldsContainer}
-        {...{ fields, move, formData, externalData }}
-      />
-      <Button
-        variant="outlined"
-        onClick={() => append({ text: "" })}
-        startIcon={<Add/>}
-        sx={{ textTransform: "none" }}
-      >
-        Add a generator
-      </Button>
+      <Stack spacing={2} sx={{ marginTop: 1 }}>
+        <SortableFields
+          RowComponent={IdealEditorItem}
+          Container={SortableFieldsContainer}
+          {...{ fields, move, formData, externalData }}
+        />
+        <Button
+          variant="outlined"
+          onClick={() => append({ text: "" })}
+          startIcon={<Add/>}
+          sx={{ textTransform: "none" }}
+        >
+          Add a generator
+        </Button>
+      </Stack>
     </div>
   )
 }

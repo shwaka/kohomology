@@ -1,4 +1,5 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
+import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useCallback, useMemo, useState } from "react"
 import { ShowStyledMessage } from "../styled/components"
 import { StyledMessage } from "../styled/message"
@@ -76,10 +77,14 @@ function IdealEditorDialog({
   idealEditorProps,
   disableSubmit,
 }: IdealEditorDialogProps): JSX.Element {
+  const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
       open={open}
       onClose={tryToQuit}
+      maxWidth="sm"
+      fullWidth={true}
+      PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogContent>
         <IdealEditor {...idealEditorProps}/>

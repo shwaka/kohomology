@@ -47,7 +47,7 @@ export function IdealEditorItem(
       <Stack direction="row" spacing={1}>
         <TextField
           label="generator"
-          sx={{ width: 200 }} size="small"
+          sx={{ width: 300 }} size="small"
           {...register(
             `generatorArray.${index}.text` as const,
             {

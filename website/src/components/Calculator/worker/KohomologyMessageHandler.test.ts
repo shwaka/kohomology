@@ -1,25 +1,25 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "../WorkerContext/expose"
 import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
-import { WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
+import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
-function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState>): asserts output is MessageSendOutput<WorkerOutput> {
+function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageSendOutput<WorkerOutput> {
   expect(output.type).toBe("output")
   // expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
 }
 
-function expectUpdateState(output: MessageOutput<WorkerOutput, WorkerState>): asserts output is MessageOutputUpdateState<WorkerState> {
+function expectUpdateState(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageOutputUpdateState<WorkerState> {
   expect(output.type).toBe("updateState")
   // expect(output.command).toBeOneOf(["updateState"])
 }
 
-function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState>, key: keyof WorkerState): asserts output is MessageOutputUpdateState<WorkerState> {
+function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>, key: keyof WorkerState): asserts output is MessageOutputUpdateState<WorkerState> {
   expectUpdateState(output)
   expect(output.key).toBe(key)
 }
 
 test("computeCohomology", () => {
-  const outputs: MessageOutput<WorkerOutput, WorkerState>[] = []
+  const outputs: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>[] = []
   const messageHandler = new KohomologyMessageHandler(
     (output) => { outputs.push({ type: "output", value: output }) },
     (key, value) => {

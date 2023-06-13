@@ -1,5 +1,5 @@
 import { isInJest } from "@site/src/utils/isInJest"
-import { MessageOutput } from "./expose"
+import { MessageInput, MessageOutput } from "./expose"
 
 export class WorkerWrapper<WI, WO, WS> {
   private readonly onmessageFunctions: Map<string, (workerOutput: MessageOutput<WO, WS>) => void> = new Map()
@@ -37,7 +37,7 @@ export class WorkerWrapper<WI, WO, WS> {
     this.onRestartFunctions.delete(key)
   }
 
-  postMessage(workerInput: WI): void {
+  postMessage(workerInput: MessageInput<WI>): void {
     this.worker.postMessage(workerInput)
   }
 

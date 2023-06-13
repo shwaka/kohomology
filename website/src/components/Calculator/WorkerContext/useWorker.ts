@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect } from "react"
 import { useSyncExternalStore } from "use-sync-external-store/shim" // for React < 18
 import { WorkerContext } from "./WorkerContext"
-import { MessageOutput, MessageOutputUpdateState } from "./expose"
+import { MessageInput, MessageOutput, MessageOutputUpdateState } from "./expose"
 
 function isUpdateState<WO, WS>(output: MessageOutput<WO, WS>): output is MessageOutputUpdateState<WS> {
   return (output.type === "updateState")
@@ -63,7 +63,11 @@ export function useWorker<WI, WO, WS>(
 
   const postMessage = useCallback(
     (workerInput: WI): void => {
-      wrapper.postMessage(workerInput)
+      const message: MessageInput<WI> = {
+        type: "input",
+        value: workerInput,
+      }
+      wrapper.postMessage(message)
     },
     [wrapper]
   )

@@ -1,3 +1,10 @@
+export type MessageSendInput<WI> = {
+  type: "input"
+  value: WI
+}
+
+export type MessageInput<WI> = MessageSendInput<WI>
+
 export type MessageSendOutput<WO> = {
   type: "output"
   value: WO
@@ -28,7 +35,7 @@ export interface WorkerImpl<WI, WO> {
 }
 
 export interface ExposedWorkerImpl<WI, WO> {
-  onmessage: (event: MessageEvent<WI>) => void
+  onmessage: (event: MessageEvent<MessageInput<WI>>) => void
 }
 
 type UpdateStateArgs<WS, K = keyof WS> =
@@ -58,8 +65,8 @@ export function expose<WI, WO, WS>(
     postMessage(output)
   }
   const workerImpl = getWorkerImpl({ postWorkerOutput, updateState })
-  const onmessage = (event: MessageEvent<WI>): void => {
-    workerImpl.onWorkerInput(event.data)
+  const onmessage = (event: MessageEvent<MessageInput<WI>>): void => {
+    workerImpl.onWorkerInput(event.data.value)
   }
   return {
     onmessage,

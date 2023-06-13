@@ -1,4 +1,4 @@
-import { CallbackData, expose, ExposedWorkerImpl, MessageOutput, WorkerImpl } from "../expose"
+import { CallbackData, expose, ExposedWorkerImpl, MessageInput, MessageOutput, WorkerImpl } from "../expose"
 
 export class MockWorker<WI, WO, WS> {
   onmessage: (e: MessageEvent<MessageOutput<WO, WS>>) => void
@@ -15,8 +15,8 @@ export class MockWorker<WI, WO, WS> {
     )
   }
 
-  postMessage(input: WI): void {
-    this.exposed.onmessage({ data: input } as MessageEvent<WI>)
+  postMessage(input: MessageInput<WI>): void {
+    this.exposed.onmessage({ data: input } as MessageEvent<MessageInput<WI>>)
   }
 
   private _onmessage(output: MessageOutput<WO, WS>): void {

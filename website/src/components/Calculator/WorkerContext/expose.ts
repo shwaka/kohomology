@@ -5,7 +5,7 @@ export type MessageSendInput<WI> = {
   value: WI
 }
 
-type WFBase = Record<string | number | symbol, (...args: unknown[]) => unknown>
+export type WFBase = Record<string | number | symbol, (...args: unknown[]) => unknown>
 
 export type MessageInputCallFunc<WF extends WFBase> =
   {

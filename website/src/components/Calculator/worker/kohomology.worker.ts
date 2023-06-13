@@ -13,7 +13,8 @@ const exposed = expose<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>(
     return {
       onWorkerInput: (input) => messageHandler.onmessage(input),
       workerFunc: {
-        dummy: () => undefined
+        validateIdealGenerator: (generator: string) =>
+          messageHandler.validateIdealGenerator(generator),
       },
     }
   }

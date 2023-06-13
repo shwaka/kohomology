@@ -20394,6 +20394,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var imul = Math.imul;
   var Unit_getInstance = kotlin_kotlin.$_$.g3;
   var Exception_init_$Create$ = kotlin_kotlin.$_$.h1;
+  var collectionSizeOrDefault = kotlin_kotlin.$_$.d4;
+  var ArrayList_init_$Create$ = kotlin_kotlin.$_$.q;
+  var ArrayList_init_$Create$_0 = kotlin_kotlin.$_$.r;
+  var noWhenBranchMatchedException = kotlin_kotlin.$_$.ja;
+  var ZeroGVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.c;
+  var GVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.b;
   var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.s;
   var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
   var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
@@ -20403,12 +20409,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
   var get_SparseMatrixSpaceOverRational = kotlin_com_github_shwaka_kohomology_kohomology.$_$.f;
   var lazy = kotlin_kotlin.$_$.ia;
-  var collectionSizeOrDefault = kotlin_kotlin.$_$.d4;
-  var ArrayList_init_$Create$ = kotlin_kotlin.$_$.q;
-  var ArrayList_init_$Create$_0 = kotlin_kotlin.$_$.r;
-  var noWhenBranchMatchedException = kotlin_kotlin.$_$.ja;
-  var ZeroGVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.c;
-  var GVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.b;
   var joinToString$default = kotlin_kotlin.$_$.k;
   var FreeDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.e;
   var isInterface = kotlin_kotlin.$_$.n7;
@@ -20532,6 +20532,64 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
+  function createIdeal($this, idealJson) {
+    var tmp$ret$6;
+    // Inline function 'kotlin.collections.mapNotNull' call
+    var tmp$ret$2;
+    // Inline function 'kotlin.collections.map' call
+    var tmp0_map = jsonToIdealGenerators(idealJson);
+    var tmp$ret$1;
+    // Inline function 'kotlin.collections.mapTo' call
+    var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
+    var tmp0_iterator = tmp0_map.g();
+    while (tmp0_iterator.h()) {
+      var item = tmp0_iterator.i();
+      var tmp$ret$0;
+      // Inline function 'FreeDGAWrapper.createIdeal.<anonymous>' call
+      tmp$ret$0 = $this.c2l_1.a1y(item);
+      tmp0_mapTo.a(tmp$ret$0);
+    }
+    tmp$ret$1 = tmp0_mapTo;
+    tmp$ret$2 = tmp$ret$1;
+    var tmp1_mapNotNull = tmp$ret$2;
+    var tmp$ret$5;
+    // Inline function 'kotlin.collections.mapNotNullTo' call
+    var tmp0_mapNotNullTo = ArrayList_init_$Create$_0();
+    // Inline function 'kotlin.collections.forEach' call
+    var tmp0_iterator_0 = tmp1_mapNotNull.g();
+    while (tmp0_iterator_0.h()) {
+      var element = tmp0_iterator_0.i();
+      // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
+      var tmp$ret$3;
+      // Inline function 'FreeDGAWrapper.createIdeal.<anonymous>' call
+      var tmp0_subject = element;
+      var tmp;
+      if (tmp0_subject instanceof GVector) {
+        tmp = element;
+      } else {
+        if (tmp0_subject instanceof ZeroGVector) {
+          tmp = null;
+        } else {
+          noWhenBranchMatchedException();
+        }
+      }
+      tmp$ret$3 = tmp;
+      var tmp0_safe_receiver = tmp$ret$3;
+      if (tmp0_safe_receiver == null)
+        null;
+      else {
+        var tmp$ret$4;
+        // Inline function 'kotlin.let' call
+        // Inline function 'kotlin.contracts.contract' call
+        tmp0_mapNotNullTo.a(tmp0_safe_receiver);
+        tmp$ret$4 = Unit_getInstance();
+      }
+    }
+    tmp$ret$5 = tmp0_mapNotNullTo;
+    tmp$ret$6 = tmp$ret$5;
+    var generators = tmp$ret$6;
+    return $this.c2l_1.n1a(generators);
+  }
   function FreeDGAWrapper$freeLoopSpace$delegate$lambda(this$0) {
     return function () {
       return Companion_getInstance().o2e(this$0.c2l_1);
@@ -20610,64 +20668,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     this.c2l_1.a1y(generatorString);
   };
   FreeDGAWrapper.prototype.setIdeal = function (idealJson) {
-    var tmp$ret$6;
-    // Inline function 'kotlin.collections.mapNotNull' call
-    var tmp$ret$2;
-    // Inline function 'kotlin.collections.map' call
-    var tmp0_map = jsonToIdealGenerators(idealJson);
-    var tmp$ret$1;
-    // Inline function 'kotlin.collections.mapTo' call
-    var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
-    var tmp0_iterator = tmp0_map.g();
-    while (tmp0_iterator.h()) {
-      var item = tmp0_iterator.i();
-      var tmp$ret$0;
-      // Inline function 'FreeDGAWrapper.setIdeal.<anonymous>' call
-      tmp$ret$0 = this.c2l_1.a1y(item);
-      tmp0_mapTo.a(tmp$ret$0);
-    }
-    tmp$ret$1 = tmp0_mapTo;
-    tmp$ret$2 = tmp$ret$1;
-    var tmp1_mapNotNull = tmp$ret$2;
-    var tmp$ret$5;
-    // Inline function 'kotlin.collections.mapNotNullTo' call
-    var tmp0_mapNotNullTo = ArrayList_init_$Create$_0();
-    // Inline function 'kotlin.collections.forEach' call
-    var tmp0_iterator_0 = tmp1_mapNotNull.g();
-    while (tmp0_iterator_0.h()) {
-      var element = tmp0_iterator_0.i();
-      // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
-      var tmp$ret$3;
-      // Inline function 'FreeDGAWrapper.setIdeal.<anonymous>' call
-      var tmp0_subject = element;
-      var tmp;
-      if (tmp0_subject instanceof GVector) {
-        tmp = element;
-      } else {
-        if (tmp0_subject instanceof ZeroGVector) {
-          tmp = null;
-        } else {
-          noWhenBranchMatchedException();
-        }
-      }
-      tmp$ret$3 = tmp;
-      var tmp0_safe_receiver = tmp$ret$3;
-      if (tmp0_safe_receiver == null)
-        null;
-      else {
-        var tmp$ret$4;
-        // Inline function 'kotlin.let' call
-        // Inline function 'kotlin.contracts.contract' call
-        tmp0_mapNotNullTo.a(tmp0_safe_receiver);
-        tmp$ret$4 = Unit_getInstance();
-      }
-    }
-    tmp$ret$5 = tmp0_mapNotNullTo;
-    tmp$ret$6 = tmp$ret$5;
-    var generators = tmp$ret$6;
-    var dgIdeal = this.c2l_1.n1a(generators);
+    var dgIdeal = createIdeal(this, idealJson);
     this.g2l_1 = dgIdeal;
     this.h2l_1 = this.c2l_1.u1a(dgIdeal);
+  };
+  FreeDGAWrapper.prototype.tryCreateIdeal = function (idealJson) {
+    createIdeal(this, idealJson);
   };
   FreeDGAWrapper.prototype.dgaInfo = function () {
     var freeDGAString = this.c2l_1.toString();
@@ -21429,6 +21435,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp;
   }
+  function validateIdealJson(freeDGAWrapper, idealJson) {
+    var tmp;
+    try {
+      freeDGAWrapper.tryCreateIdeal(idealJson);
+      tmp = (new Success()).m2l();
+    } catch ($p) {
+      var tmp_0;
+      if ($p instanceof Exception) {
+        var tmp0_elvis_lhs = $p.message;
+        tmp_0 = (new Error_0(tmp0_elvis_lhs == null ? $p.toString() : tmp0_elvis_lhs)).m2l();
+      } else {
+        throw $p;
+      }
+      tmp = tmp_0;
+    }
+    return tmp;
+  }
   var ValidationResultType_SUCCESS_instance;
   var ValidationResultType_ERROR_instance;
   var ValidationResultType_entriesInitialized;
@@ -21607,6 +21630,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     _.validateDifferentialValueOfTheLast = validateDifferentialValueOfTheLast;
     _.validateGeneratorName = validateGeneratorName;
     _.validateIdealGeneratorString = validateIdealGeneratorString;
+    _.validateIdealJson = validateIdealJson;
   }
   $jsExportAll$(_);
   //endregion
@@ -48526,10 +48550,10 @@ for(let degree=minDegree;degree<=maxDegree;degree++){switch(showCohomology){// D
 // then the Calculator significantly slows down.
 // This is because this.sendMessages(...) causes re-render of the component Calculator.
 case"basis":styledMessages.push(toStyledMessage(this.dgaWrapper.computeCohomology(targetName,degree)));break;case"dim":styledMessages.push(toStyledMessage(this.dgaWrapper.computeCohomologyDim(targetName,degree)));break;}const currentTime=new Date().getTime();// in millisecond
-if(currentTime-previousTime>500){previousTime=currentTime;this.sendMessages(styledMessages);const progress=(degree-minDegree+1)/(maxDegree-minDegree+1);this.notifyInfo({status:"computing",progress});styledMessages=[];}}this.sendMessages(styledMessages);}computeCohomologyClass(targetName,cocycleString,showBasis){assertNotNull(this.dgaWrapper,"dgaWrapper is null");this.notifyInfo({status:"computing",progress:null});this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName,cocycleString,showBasis)));}showDgaInfo(){if(this.dgaWrapper===null){const message="[Error] Your DGA contains errors. Please fix them.";this.updateState("dgaInfo",[fromString("error",message)]);}else{this.updateState("dgaInfo",this.dgaWrapper.dgaInfo().map(toStyledMessage));}}showIdealInfo(){assertNotNull(this.dgaWrapper,"dgaWrapper is null");this.updateState("idealInfo",toStyledMessage(this.dgaWrapper.idealInfo()));}validateIdealGenerator(generator){assertNotNull(this.dgaWrapper,"dgaWrapper is null");const result=(0,kohomology_js.validateIdealGeneratorString)(this.dgaWrapper,generator);switch(result.type){case"success":return true;case"error":return result.message;default:throw new Error("This can't happen!");}}}function assertNotNull(value,errorMessage){if(value===null){throw new Error(errorMessage);}}
+if(currentTime-previousTime>500){previousTime=currentTime;this.sendMessages(styledMessages);const progress=(degree-minDegree+1)/(maxDegree-minDegree+1);this.notifyInfo({status:"computing",progress});styledMessages=[];}}this.sendMessages(styledMessages);}computeCohomologyClass(targetName,cocycleString,showBasis){assertNotNull(this.dgaWrapper,"dgaWrapper is null");this.notifyInfo({status:"computing",progress:null});this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName,cocycleString,showBasis)));}showDgaInfo(){if(this.dgaWrapper===null){const message="[Error] Your DGA contains errors. Please fix them.";this.updateState("dgaInfo",[fromString("error",message)]);}else{this.updateState("dgaInfo",this.dgaWrapper.dgaInfo().map(toStyledMessage));}}showIdealInfo(){assertNotNull(this.dgaWrapper,"dgaWrapper is null");this.updateState("idealInfo",toStyledMessage(this.dgaWrapper.idealInfo()));}validateIdealGenerator(generator){assertNotNull(this.dgaWrapper,"dgaWrapper is null");const result=(0,kohomology_js.validateIdealGeneratorString)(this.dgaWrapper,generator);switch(result.type){case"success":return true;case"error":return result.message;default:throw new Error("This can't happen!");}}validateIdealGeneratorArray(generatorArray){assertNotNull(this.dgaWrapper,"dgaWrapper is null");const json=JSON.stringify(generatorArray);const result=(0,kohomology_js.validateIdealJson)(this.dgaWrapper,json);switch(result.type){case"success":return true;case"error":return result.message;default:throw new Error("This can't happen!");}}}function assertNotNull(value,errorMessage){if(value===null){throw new Error(errorMessage);}}
 ;// CONCATENATED MODULE: ./node_modules/babel-loader/lib/index.js??ruleSet[1].rules[5].use[0]!./src/components/Calculator/worker/kohomology.worker.ts
 // eslint-disable-next-line no-restricted-globals
-const ctx=self;const exposed=expose(ctx.postMessage.bind(ctx),({postWorkerOutput,updateState})=>{const messageHandler=new KohomologyMessageHandler(postWorkerOutput,updateState);return{onWorkerInput:input=>messageHandler.onmessage(input),workerFunc:{validateIdealGenerator:generator=>messageHandler.validateIdealGenerator(generator)}};});onmessage=exposed.onmessage;
+const ctx=self;const exposed=expose(ctx.postMessage.bind(ctx),({postWorkerOutput,updateState})=>{const messageHandler=new KohomologyMessageHandler(postWorkerOutput,updateState);return{onWorkerInput:input=>messageHandler.onmessage(input),workerFunc:{validateIdealGenerator:generator=>messageHandler.validateIdealGenerator(generator),validateIdealGeneratorArray:generatorArray=>messageHandler.validateIdealGeneratorArray(generatorArray)}};});onmessage=exposed.onmessage;
 })();
 
 /******/ })()

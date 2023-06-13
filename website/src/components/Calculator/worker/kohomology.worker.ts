@@ -14,6 +14,8 @@ const exposed = expose<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>(
       workerFunc: {
         validateIdealGenerator: (generator: string) =>
           messageHandler.validateIdealGenerator(generator),
+        validateIdealGeneratorArray: (generatorArray: string[]) =>
+          messageHandler.validateIdealGeneratorArray(generatorArray),
       },
     }
   }

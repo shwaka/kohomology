@@ -1,9 +1,25 @@
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+
 export type MessageSendInput<WI> = {
   type: "input"
   value: WI
 }
 
-export type MessageInput<WI> = MessageSendInput<WI>
+type WFBase = Record<string | number | symbol, (...args: unknown[]) => unknown>
+
+export type MessageInputCallFunc<WF extends WFBase> =
+  {
+    [K in keyof WF]: {
+      type: "callFunc"
+      key: K
+      args: Parameters<WF[K]>
+      id: string
+    }
+  }[keyof WF]
+
+export type MessageInput<WI, WF extends WFBase> =
+  | MessageSendInput<WI>
+  | MessageInputCallFunc<WF>
 
 export type MessageSendOutput<WO> = {
   type: "output"
@@ -19,9 +35,20 @@ export type MessageOutputUpdateState<WS> =
     }
   }[keyof WS]
 
-export type MessageOutput<WO, WS> =
+export type MessageOutputFuncResult<WF extends WFBase> =
+  {
+    [K in keyof WF]: {
+      type: "funcResult"
+      key: K
+      result: ReturnType<WF[K]>
+      id: string
+    }
+  }[keyof WF]
+
+export type MessageOutput<WO, WS, WF extends WFBase> =
   | MessageSendOutput<WO>
   | MessageOutputUpdateState<WS>
+  | MessageOutputFuncResult<WF>
 
 export type UpdateWorkerState<WS> = <K extends keyof WS>(...args: UpdateStateArgs<WS, K>) => void
 
@@ -30,12 +57,13 @@ export interface CallbackData<WI, WO, WS> {
   updateState: UpdateWorkerState<WS>
 }
 
-export interface WorkerImpl<WI, WO> {
+export interface WorkerImpl<WI, WO, WF> {
   onWorkerInput: (input: WI) => void
+  workerFunc: WF
 }
 
-export interface ExposedWorkerImpl<WI, WO> {
-  onmessage: (event: MessageEvent<MessageInput<WI>>) => void
+export interface ExposedWorkerImpl<WI, WO, WF extends WFBase> {
+  onmessage: (event: MessageEvent<MessageInput<WI, WF>>) => void
 }
 
 type UpdateStateArgs<WS, K = keyof WS> =
@@ -43,10 +71,10 @@ type UpdateStateArgs<WS, K = keyof WS> =
     ? [K, WS[K]]
     : never
 
-export function expose<WI, WO, WS>(
-  postMessage: (output: MessageOutput<WO, WS>) => void,
-  getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO>
-): ExposedWorkerImpl<WI, WO> {
+export function expose<WI, WO, WS, WF extends WFBase>(
+  postMessage: (output: MessageOutput<WO, WS, WF>) => void,
+  getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO, WF>
+): ExposedWorkerImpl<WI, WO, WF> {
   const postWorkerOutput = (output: WO): void => {
     postMessage({
       type: "output",
@@ -65,8 +93,28 @@ export function expose<WI, WO, WS>(
     postMessage(output)
   }
   const workerImpl = getWorkerImpl({ postWorkerOutput, updateState })
-  const onmessage = (event: MessageEvent<MessageInput<WI>>): void => {
-    workerImpl.onWorkerInput(event.data.value)
+  const call = (input: MessageInputCallFunc<WF>): void => {
+    const result = workerImpl.workerFunc[input.key](...input.args)
+    const output: MessageOutputFuncResult<WF> = {
+      type: "funcResult",
+      key: input.key,
+      result: result as MessageOutputFuncResult<WF>["result"],
+      id: input.id,
+    }
+    postMessage(output)
+  }
+  const onmessage = (event: MessageEvent<MessageInput<WI, WF>>): void => {
+    const input: MessageInput<WI, WF> = event.data
+    switch (input.type){
+      case "input":
+        workerImpl.onWorkerInput(input.value)
+        return
+      case "callFunc":
+        call(input)
+        return
+      default:
+        throw new ExhaustivityError(input, "onmessage is not exhaustive!")
+    }
   }
   return {
     onmessage,

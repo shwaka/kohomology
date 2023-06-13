@@ -13,6 +13,10 @@ export type MyWorkerState = {
   value: number
 }
 
+export type MyWorkerFunc = {
+  add: (value: number) => number
+}
+
 class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void

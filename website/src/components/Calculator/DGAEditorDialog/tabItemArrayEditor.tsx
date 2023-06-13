@@ -200,10 +200,13 @@ function ArrayEditorItem(
                 required: "Please enter the name.",
                 validate: (value: string) => {
                   const validationResult = validateGeneratorName(value)
-                  if (validationResult.type === "success") {
-                    return true
-                  } else {
-                    return validationResult.message
+                  switch (validationResult.type) {
+                    case "success":
+                      return true
+                    case "error":
+                      return validationResult.message
+                    default:
+                      throw new Error("This can't happen!")
                   }
                 },
                 onChange: triggerWithDelay,

@@ -142,7 +142,7 @@ function generateId(): string {
   const charactersLength = characters.length
   const resultArray: string[] = []
   for (let i = 0; i < n; i++) {
-    characters.charAt(Math.floor(Math.random() * charactersLength))
+    resultArray.push(characters.charAt(Math.floor(Math.random() * charactersLength)))
   }
-  return resultArray.join()
+  return resultArray.join("")
 }

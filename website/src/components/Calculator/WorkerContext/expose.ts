@@ -5,7 +5,9 @@ export type MessageSendInput<WI> = {
   value: WI
 }
 
-export type WFBase = Record<string | number | symbol, (...args: unknown[]) => unknown>
+// The type of args must be any (not unknown, unknown[]).
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export type WFBase = Record<string | number | symbol, (...args: any) => unknown>
 
 export type MessageInputCallFunc<WF extends WFBase> =
   {

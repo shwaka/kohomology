@@ -47,6 +47,10 @@ export function CalculatorForm(): JSX.Element {
     return await runAsync("validateIdealGenerator", [generator])
   }, [runAsync])
 
+  const validateIdealGeneratorArray = useCallback(async (generatorArray: string[]): Promise<true | string> => {
+    return await runAsync("validateIdealGeneratorArray", [generatorArray])
+  }, [runAsync])
+
   return (
     <Stack
       direction="column"
@@ -100,7 +104,11 @@ export function CalculatorForm(): JSX.Element {
         <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
         {targetName === "idealQuot" && (
           <IdealConfig
-            {...{setIdealJson, idealInfo, idealJson, validateGenerator: validateIdealGenerator }}
+            {...{
+              setIdealJson, idealInfo, idealJson,
+              validateGenerator: validateIdealGenerator,
+              validateGeneratorArray: validateIdealGeneratorArray,
+            }}
           />
         )}
       </StackItem>

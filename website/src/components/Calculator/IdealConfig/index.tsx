@@ -9,6 +9,7 @@ interface UseIdealEditorDialogArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
 interface UseIdealEditorDialogReturnValue {
@@ -20,9 +21,10 @@ function useIdealEditorDialog({
   idealJson,
   setIdealJson,
   validateGenerator,
+  validateGeneratorArray,
 }: UseIdealEditorDialogArgs): UseIdealEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  const { idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit } = useIdealEditor({ idealJson, setIdealJson, validateGenerator })
+  const { idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit } = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
 
   const openDialog = useCallback((): void => {
     beforeOpen()
@@ -111,10 +113,11 @@ interface IdealConfigProps {
   idealInfo: StyledMessage
   idealJson: string
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator }: IdealConfigProps): JSX.Element {
-  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator })
+export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): JSX.Element {
+  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator, validateGeneratorArray })
 
   return (
     <div>

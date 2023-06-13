@@ -19,6 +19,7 @@ interface UseIdealEditorArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
 interface UseIdealEditorReturnValue {
@@ -29,7 +30,7 @@ interface UseIdealEditorReturnValue {
   preventQuit: () => string | undefined
 }
 
-export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: UseIdealEditorArgs): UseIdealEditorReturnValue {
+export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray }: UseIdealEditorArgs): UseIdealEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -54,11 +55,11 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator }: U
   }, [idealJson, reset])
 
   const idealEditorProps: IdealEditorProps = {
-    register, getValues, errors, trigger, control, validateGenerator,
+    register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray,
   }
 
   const disableSubmit = useCallback((): boolean => {
-    return (errors.generatorArray !== undefined)
+    return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
   }, [errors])
 
   const preventQuit = useCallback((): string | undefined =>  {
@@ -90,9 +91,10 @@ export interface IdealEditorProps {
   trigger: UseFormTrigger<IdealFormInput>
   control: Control<IdealFormInput>
   validateGenerator: (generator: string) => Promise<true | string>
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator }: IdealEditorProps): JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray }: IdealEditorProps): JSX.Element {
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",
@@ -119,6 +121,12 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
         >
           Add a generator
         </Button>
+        <input
+          hidden value="dummy"
+          {...register("dummy", {
+            validate: (_) => validateGeneratorArray(getValues().generatorArray.map((generator) => generator.text)),
+          })}
+        />
       </Stack>
     </div>
   )

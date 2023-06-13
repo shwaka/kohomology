@@ -10,6 +10,7 @@ export interface Generator {
 }
 
 export interface IdealFormInput {
+  dummy: "dummy"
   generatorArray: Generator[]
 }
 

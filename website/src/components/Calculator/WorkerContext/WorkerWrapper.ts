@@ -26,6 +26,7 @@ export class WorkerWrapper<WI, WO, WS, WF extends WFBase> {
 
   unsubscribe(key: string): void {
     this.onmessageFunctions.delete(key)
+    this.log(`unsubscribe: ${key}`)
   }
 
   subscribeRestart(key: string, onRestart: () => void): void {

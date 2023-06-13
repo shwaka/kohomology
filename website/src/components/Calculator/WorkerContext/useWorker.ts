@@ -26,7 +26,7 @@ export interface UseWorkerReturnValue<WI, WO, WS, WF extends WFBase> {
 }
 
 export function useWorker<WI, WO, WS, WF extends WFBase>(
-  context: WorkerContext<WI, WO, WS>
+  context: WorkerContext<WI, WO, WS, WF>
 ): UseWorkerReturnValue<WI, WO, WS, WF> {
   const wrapper = useContext(context.reactContext)
   const [state, setState] = useContext(context.stateContext)

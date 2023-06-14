@@ -162,7 +162,7 @@ class FreeDGAWrapper(json: String) {
         return when (val targetDGVectorSpace = this.getDGVectorSpace(targetName)) {
             is FreeDGAlgebra<*, *, *, *, *> ->
                 computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).export()
-            is QuotDGAlgebra<*, *, *, *, *> ->{
+            is QuotDGAlgebra<*, *, *, *, *> -> {
                 targetDGVectorSpace as MyQuotDGAlgebra
                 computeCohomologyClassInQuotient(
                     this.freeDGAlgebra,
@@ -247,7 +247,7 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 }
 
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    getCocycle(
+getCocycle(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycleString: String,
 ): Either<StyledMessageInternal, GVectorOrZero<D, Monomial<D, I>, S, V>> {
@@ -267,7 +267,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
 }
 
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    computeCohomologyClass(
+computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycleString: String,
     showBasis: Boolean,
@@ -282,7 +282,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
 }
 
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    computeCohomologyClassInQuotient(
+computeCohomologyClassInQuotient(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     quotDGAlgebra: QuotDGAlgebra<D, Monomial<D, I>, S, V, M>,
     cocycleString: String,
@@ -302,7 +302,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
 }
 
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    computeCohomologyClass(
+computeCohomologyClass(
     dgAlgebra: DGAlgebra<D, B, S, V, M>,
     cocycle: GVector<D, B, S, V>,
     showBasis: Boolean,

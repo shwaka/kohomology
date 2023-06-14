@@ -232,30 +232,43 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     }
 }
 
-private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    getCocycle(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycleString: String,
-    showBasis: Boolean,
-): StyledMessageInternal {
+): Either<StyledMessageInternal, GVectorOrZero<D, Monomial<D, I>, S, V>> {
     // Since GAlgebra.parse() and FreeGAlgebra.getGeneratorsForParser() are used,
     // the first argument needs to be FreeDGAlgebra and cannot be generalized to DGVectorSpace.
-    val cocycle: GVectorOrZero<D, Monomial<D, I>, S, V> = try {
-        freeDGAlgebra.parse(cocycleString)
+    return try {
+        Either.Right(freeDGAlgebra.parse(cocycleString))
     } catch (e: ParseException) {
-        return styledMessage(MessageType.ERROR) {
+        val message = styledMessage(MessageType.ERROR) {
             val generatorsString = freeDGAlgebra.getGeneratorsForParser().joinToString(", ") { it.first }
             "[Error] Parse failed.\n".text +
                 "Note: Current generators are $generatorsString\n".text +
                 "${e.errorResult}\n".text
         }
-    }
-    return when (cocycle) {
-        is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }
-        is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle, showBasis)
+        Either.Left(message)
     }
 }
 
-private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyClass(
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    computeCohomologyClass(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    cocycleString: String,
+    showBasis: Boolean,
+): StyledMessageInternal {
+    return when (val cocycleOrMessage = getCocycle(freeDGAlgebra, cocycleString)) {
+        is Either.Left -> cocycleOrMessage.value
+        is Either.Right -> when (val cocycle = cocycleOrMessage.value) {
+            is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }
+            is GVector -> computeCohomologyClass(freeDGAlgebra, cocycle, showBasis)
+        }
+    }
+}
+
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    computeCohomologyClass(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     cocycle: GVector<D, Monomial<D, I>, S, V>,
     showBasis: Boolean,

@@ -1,10 +1,12 @@
 import com.github.h0tk3y.betterParse.parser.ParseException
+import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGIdeal
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
 import com.github.shwaka.kohomology.dg.QuotDGAlgebra
 import com.github.shwaka.kohomology.dg.ZeroGVector
+import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
@@ -30,6 +32,21 @@ import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
+typealias MyDGIdeal = DGIdeal<
+    IntDegree,
+    Monomial<IntDegree, StringIndeterminateName>,
+    Rational,
+    SparseNumVector<Rational>, SparseMatrix<Rational>
+    >
+
+typealias MyQuotDGAlgebra = QuotDGAlgebra<
+    IntDegree,
+    Monomial<IntDegree, StringIndeterminateName>,
+    Rational,
+    SparseNumVector<Rational>,
+    SparseMatrix<Rational>
+    >
+
 @ExperimentalJsExport
 @JsExport
 @Suppress("UNUSED")
@@ -41,19 +58,8 @@ class FreeDGAWrapper(json: String) {
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }
     private val derivationLieAlgebra by lazy { DerivationDGLieAlgebra(freeDGAlgebra) }
-    private var dgIdeal: DGIdeal<
-        IntDegree,
-        Monomial<IntDegree, StringIndeterminateName>,
-        Rational,
-        SparseNumVector<Rational>, SparseMatrix<Rational>
-        >? = null
-    private var quotDGAlgebra: QuotDGAlgebra<
-        IntDegree,
-        Monomial<IntDegree, StringIndeterminateName>,
-        Rational,
-        SparseNumVector<Rational>,
-        SparseMatrix<Rational>
-        >? = null
+    private var dgIdeal: MyDGIdeal? = null
+    private var quotDGAlgebra: MyQuotDGAlgebra? = null
 
     private fun getDGVectorSpace(name: String): DGVectorSpace<*, *, *, *, *> {
         return when (name) {
@@ -153,11 +159,19 @@ class FreeDGAWrapper(json: String) {
     }
 
     fun computeCohomologyClass(targetName: String, cocycleString: String, showBasis: Boolean): StyledMessageKt {
-        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
-        return if (targetDGVectorSpace is FreeDGAlgebra<*, *, *, *, *>) {
-            computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).export()
-        } else {
-            styledMessage(MessageType.ERROR) {
+        return when (val targetDGVectorSpace = this.getDGVectorSpace(targetName)) {
+            is FreeDGAlgebra<*, *, *, *, *> ->
+                computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).export()
+            is QuotDGAlgebra<*, *, *, *, *> ->{
+                targetDGVectorSpace as MyQuotDGAlgebra
+                computeCohomologyClassInQuotient(
+                    this.freeDGAlgebra,
+                    targetDGVectorSpace,
+                    cocycleString,
+                    showBasis
+                ).export()
+            }
+            else -> styledMessage(MessageType.ERROR) {
                 "Cannot compute class for $targetName".text
             }.export()
         }
@@ -268,24 +282,50 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
 }
 
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    computeCohomologyClass(
+    computeCohomologyClassInQuotient(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
-    cocycle: GVector<D, Monomial<D, I>, S, V>,
+    quotDGAlgebra: QuotDGAlgebra<D, Monomial<D, I>, S, V, M>,
+    cocycleString: String,
     showBasis: Boolean,
 ): StyledMessageInternal {
+    return when (val cocycleOrMessage = getCocycle(freeDGAlgebra, cocycleString)) {
+        is Either.Left -> cocycleOrMessage.value
+        is Either.Right -> when (val cocycle = cocycleOrMessage.value) {
+            is ZeroGVector -> styledMessage(MessageType.SUCCESS) { "The cocycle is zero.".text }
+            is GVector -> {
+                val proj = quotDGAlgebra.projection
+                val quotCocycle = proj(cocycle)
+                computeCohomologyClass(quotDGAlgebra, quotCocycle, showBasis)
+            }
+        }
+    }
+}
+
+private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    computeCohomologyClass(
+    dgAlgebra: DGAlgebra<D, B, S, V, M>,
+    cocycle: GVector<D, B, S, V>,
+    showBasis: Boolean,
+): StyledMessageInternal {
+    val degreeGroup = dgAlgebra.degreeGroup
+    if (degreeGroup !is AugmentedDegreeGroup) {
+        return styledMessage(MessageType.ERROR) {
+            "Internal error: degreeGroup is not AugmentedDegreeGroup.".text
+        }
+    }
     val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-    freeDGAlgebra.context.run {
+    dgAlgebra.context.run {
         if (d(cocycle).isNotZero()) {
             return styledMessage(MessageType.ERROR) {
                 p(cocycle).math + " is not a cocycle: ".text + "d(${p(cocycle)}) = ${p(d(cocycle))}".math
             }
         }
-        val degree = freeDGAlgebra.degreeGroup.context.run {
+        val degree = degreeGroup.context.run {
             augmentation(cocycle.degree)
         }
         return styledMessage(MessageType.SUCCESS) {
             val cohomologyString = if (showBasis) {
-                computeCohomologyInternal(freeDGAlgebra, degree).strings
+                computeCohomologyInternal(dgAlgebra, degree).strings
             } else {
                 "H^$degree".math
             }

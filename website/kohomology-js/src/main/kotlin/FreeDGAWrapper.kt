@@ -162,7 +162,7 @@ class FreeDGAWrapper(json: String) {
         return when (val targetDGVectorSpace = this.getDGVectorSpace(targetName)) {
             is FreeDGAlgebra<*, *, *, *, *> ->
                 computeCohomologyClass(targetDGVectorSpace, cocycleString, showBasis).export()
-            is QuotDGAlgebra<*, *, *, *, *> -> {
+            is QuotDGAlgebra<*, *, *, *, *> -> @Suppress("UNCHECKED_CAST") {
                 targetDGVectorSpace as MyQuotDGAlgebra
                 computeCohomologyClassInQuotient(
                     this.freeDGAlgebra,

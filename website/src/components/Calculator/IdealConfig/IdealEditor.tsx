@@ -145,7 +145,14 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
         <input
           hidden value="dummy"
           {...register("dummy", {
-            validate: (_) => validateGeneratorArray(getValues().generatorArray.map((generator) => generator.text)),
+            validate: (_) => {
+              if (errors.generatorArray === undefined) {
+                const generatorArray = getValues().generatorArray.map((generator) => generator.text)
+                return validateGeneratorArray(generatorArray)
+              } else {
+                return true
+              }
+            },
           })}
         />
         {getGlobalError(errors)}

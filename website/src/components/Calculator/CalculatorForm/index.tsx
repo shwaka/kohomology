@@ -1,6 +1,6 @@
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { useCallback, useState } from "react"
+import React, { Fragment, useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { sphere } from "../DGAEditorDialog/examples"
@@ -11,9 +11,11 @@ import { targetNames, TargetName } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
+import { ShowError } from "./ShowError"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
+import { useMutableArray } from "./useMutableArray"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -26,6 +28,8 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 }
 
 export function CalculatorForm(): JSX.Element {
+  const { array: errorMessages, push: addErrorMessage } = useMutableArray<string>()
+
   const dgaQueryResult = useJsonFromURLQuery()
   const defaultDGAJson = (dgaQueryResult.type === "success") ? dgaQueryResult.value : sphere(2)
 
@@ -34,6 +38,15 @@ export function CalculatorForm(): JSX.Element {
     (targetNameQueryResult.type === "success")
       ? targetNameQueryResult.value
       : "self"
+
+  useEffect(() => {
+    if (dgaQueryResult.type === "error") {
+      addErrorMessage(dgaQueryResult.message)
+    }
+    if (targetNameQueryResult.type === "error") {
+      addErrorMessage(targetNameQueryResult.message)
+    }
+  }, [addErrorMessage, dgaQueryResult, targetNameQueryResult])
 
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({
@@ -58,76 +71,79 @@ export function CalculatorForm(): JSX.Element {
   }, [runAsync])
 
   return (
-    <Stack
-      direction="column"
-      spacing={2}
-      divider={<Divider orientation="horizontal"/>}
-      sx={{ width: 400, margin: 1 }}
-    >
-      <StackItem>
-        <Stack
-          direction="row"
-          spacing={2}
-        >
-          <UsageButton {...usageButtonProps}/>
-          <UsageDialog {...usageDialogProps}/>
-          <RestartButton {...restartButtonProps}/>
-          <RestartDialog {...restartDialogProps}/>
-        </Stack>
-      </StackItem>
-      <StackItem data-testid="CalculatorForm-StackItem-DGA">
-        Input a Sullivan model of a space <TeX math="X"/>:
-        <div>
-          {dgaInfo.map((styledMessage, index) => (
-            <ShowStyledMessage styledMessage={styledMessage} key={index}/>
-          ))}
-        </div>
-        <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
-          <Button
-            variant="contained" size="small"
-            onClick={openDialog}
-            sx={{ textTransform: "none" }}>
-            Edit DGA
-          </Button>
-          <TabDialog {...tabDialogProps}/>
-          <ShareDGAButton {...shareDGAButtonProps}/>
-          <ShareDGADialog {...shareDGADialogProps}/>
-        </Stack>
-      </StackItem>
-      <StackItem>
-        <RadioGroup
-          row
-          value={targetName}
-          onChange={(event) => setTargetName(event.target.value as typeof targetName)}
-        >
-          {targetNames.map((targetNameForLabel) =>
-            <FormControlLabel
-              key={targetNameForLabel} value={targetNameForLabel}
-              control={<Radio size="small"/>}
-              label={<TopologicalInvariantAsTex targetName={targetNameForLabel}/>}/>
+    <Fragment>
+      <ShowError messages={errorMessages}/>
+      <Stack
+        direction="column"
+        spacing={2}
+        divider={<Divider orientation="horizontal"/>}
+        sx={{ width: 400, margin: 1 }}
+      >
+        <StackItem>
+          <Stack
+            direction="row"
+            spacing={2}
+          >
+            <UsageButton {...usageButtonProps}/>
+            <UsageDialog {...usageDialogProps}/>
+            <RestartButton {...restartButtonProps}/>
+            <RestartDialog {...restartDialogProps}/>
+          </Stack>
+        </StackItem>
+        <StackItem data-testid="CalculatorForm-StackItem-DGA">
+          Input a Sullivan model of a space <TeX math="X"/>:
+      <div>
+        {dgaInfo.map((styledMessage, index) => (
+          <ShowStyledMessage styledMessage={styledMessage} key={index}/>
+        ))}
+      </div>
+      <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
+        <Button
+          variant="contained" size="small"
+          onClick={openDialog}
+          sx={{ textTransform: "none" }}>
+          Edit DGA
+        </Button>
+        <TabDialog {...tabDialogProps}/>
+        <ShareDGAButton {...shareDGAButtonProps}/>
+        <ShareDGADialog {...shareDGADialogProps}/>
+      </Stack>
+        </StackItem>
+        <StackItem>
+          <RadioGroup
+            row
+            value={targetName}
+            onChange={(event) => setTargetName(event.target.value as typeof targetName)}
+          >
+            {targetNames.map((targetNameForLabel) =>
+              <FormControlLabel
+                key={targetNameForLabel} value={targetNameForLabel}
+                control={<Radio size="small"/>}
+                label={<TopologicalInvariantAsTex targetName={targetNameForLabel}/>}/>
+            )}
+          </RadioGroup>
+          <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
+          {targetName === "idealQuot" && (
+            <IdealConfig
+              {...{
+                setIdealJson, idealInfo, idealJson,
+                validateGenerator: validateIdealGenerator,
+                validateGeneratorArray: validateIdealGeneratorArray,
+              }}
+            />
           )}
-        </RadioGroup>
-        <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
-        {targetName === "idealQuot" && (
-          <IdealConfig
-            {...{
-              setIdealJson, idealInfo, idealJson,
-              validateGenerator: validateIdealGenerator,
-              validateGeneratorArray: validateIdealGeneratorArray,
+        </StackItem>
+        <StackItem>
+          <ComputeForm
+            targetName={targetName}
+            postMessageToWorker={(message) => {
+              // setWorkerInfo({ status: "computing", progress: null })
+              postMessage(message)
             }}
+            workerInfo={workerInfo}
           />
-        )}
-      </StackItem>
-      <StackItem>
-        <ComputeForm
-          targetName={targetName}
-          postMessageToWorker={(message) => {
-            // setWorkerInfo({ status: "computing", progress: null })
-            postMessage(message)
-          }}
-          workerInfo={workerInfo}
-        />
-      </StackItem>
-    </Stack>
+        </StackItem>
+      </Stack>
+    </Fragment>
   )
 }

@@ -42,13 +42,12 @@ interface CreateURLSearchParamsArgs {
 
 export function createURLSearchParams(
   { dgaJson, format }: CreateURLSearchParamsArgs
-): URLSearchParams | null {
+): URLSearchParams {
   const urlSearchParams = new URLSearchParams()
   const paramForDga = getParamForDga(dgaJson, format)
-  if (paramForDga === null) {
-    return null
+  if (paramForDga !== null) {
+    const [key, value] = paramForDga
+    urlSearchParams.append(key, value)
   }
-  const [key, value] = paramForDga
-  urlSearchParams.append(key, value)
   return urlSearchParams
 }

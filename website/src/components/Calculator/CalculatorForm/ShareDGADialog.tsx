@@ -45,8 +45,7 @@ function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
   const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
   const domainUrl = useDomainUrl()
   const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
-  const url = (urlSearchParams !== null) ?
-    `${domainUrl}${pageUrl}?${urlSearchParams.toString()}` : "Error"
+  const url = `${domainUrl}${pageUrl}?${urlSearchParams.toString()}`
   return (
     <React.Fragment>
       <TextField

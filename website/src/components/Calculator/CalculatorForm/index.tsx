@@ -12,7 +12,7 @@ import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
-import { useJsonFromURLQuery } from "../urlQuery"
+import { useJsonFromURLQuery, useTargetNameFromURLQuery } from "../urlQuery"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
@@ -26,8 +26,14 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 }
 
 export function CalculatorForm(): JSX.Element {
-  const queryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (queryResult.type === "success") ? queryResult.value : sphere(2)
+  const dgaQueryResult = useJsonFromURLQuery()
+  const defaultDGAJson = (dgaQueryResult.type === "success") ? dgaQueryResult.value : sphere(2)
+
+  const targetNameQueryResult = useTargetNameFromURLQuery()
+  const defaultTargetName: TargetName =
+    (targetNameQueryResult.type === "success")
+      ? targetNameQueryResult.value
+      : "self"
 
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({
@@ -35,7 +41,7 @@ export function CalculatorForm(): JSX.Element {
       onmessage: (_) => undefined, // previously this was used to pass setState
     })
 
-  const [targetName, setTargetName] = useState<TargetName>("self")
+  const [targetName, setTargetName] = useState<TargetName>(defaultTargetName)
   const { usageDialogProps, usageButtonProps } = useUsage()
   const { restartDialogProps, restartButtonProps } = useRestart(() => {
     restart()

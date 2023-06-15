@@ -102,22 +102,22 @@ export function CalculatorForm(): JSX.Element {
         </StackItem>
         <StackItem data-testid="CalculatorForm-StackItem-DGA">
           Input a Sullivan model of a space <TeX math="X"/>:
-      <div>
-        {dgaInfo.map((styledMessage, index) => (
-          <ShowStyledMessage styledMessage={styledMessage} key={index}/>
-        ))}
-      </div>
-      <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
-        <Button
-          variant="contained" size="small"
-          onClick={openDialog}
-          sx={{ textTransform: "none" }}>
+          <div>
+            {dgaInfo.map((styledMessage, index) => (
+              <ShowStyledMessage styledMessage={styledMessage} key={index}/>
+            ))}
+          </div>
+          <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
+            <Button
+              variant="contained" size="small"
+              onClick={openDialog}
+              sx={{ textTransform: "none" }}>
           Edit DGA
-        </Button>
-        <TabDialog {...tabDialogProps}/>
-        <ShareDGAButton {...shareDGAButtonProps}/>
-        <ShareDGADialog {...shareDGADialogProps}/>
-      </Stack>
+            </Button>
+            <TabDialog {...tabDialogProps}/>
+            <ShareDGAButton {...shareDGAButtonProps}/>
+            <ShareDGADialog {...shareDGADialogProps}/>
+          </Stack>
         </StackItem>
         <StackItem>
           <RadioGroup

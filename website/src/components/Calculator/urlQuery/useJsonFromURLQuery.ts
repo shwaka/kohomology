@@ -4,8 +4,7 @@ import { URLQueryResult } from "./URLQueryResult"
 import { dsvToJson } from "./dotSeparatedValues"
 import { useURLSearchParams } from "./useURLSearchParams"
 
-function useDgaJsonFromURLQuery(): string | null {
-  const urlSearchParams = useURLSearchParams()
+function getDgaJsonFromURLQuery(urlSearchParams: URLSearchParams): string | null {
   const dgaJson: string | null = urlSearchParams.get(ParamName.dgaJson)
   if (dgaJson !== null) {
     return dgaJson
@@ -18,13 +17,14 @@ function useDgaJsonFromURLQuery(): string | null {
 }
 
 export function useJsonFromURLQuery(): URLQueryResult<string> {
-  const dgaJson: string | null = useDgaJsonFromURLQuery()
-  if (dgaJson === null) {
-    return {
-      type: "unspecified",
-    }
-  }
+  const urlSearchParams = useURLSearchParams()
   try {
+    const dgaJson: string | null = getDgaJsonFromURLQuery(urlSearchParams)
+    if (dgaJson === null) {
+      return {
+        type: "unspecified",
+      }
+    }
     return {
       type: "success",
       value: prettifyDGAJson(dgaJson),
@@ -34,6 +34,11 @@ export function useJsonFromURLQuery(): URLQueryResult<string> {
       return {
         type: "error",
         message: `[Error] Invalid JSON is given as URL parameter.\n${e.message}`
+      }
+    } else if (e instanceof Error){
+      return {
+        type: "error",
+        message: e.message,
       }
     } else {
       console.error(e)

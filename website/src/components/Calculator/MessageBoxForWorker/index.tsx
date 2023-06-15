@@ -3,19 +3,12 @@ import "katex/dist/katex.min.css"
 import { useWorker } from "../WorkerContext"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { fromString, StyledMessage } from "../styled/message"
-import { useJsonFromURLQuery } from "../urlQuery"
 import { WorkerOutput } from "../worker/workerInterface"
 import { MessageBox } from "./MessageBox"
 
 export function MessageBoxForWorker(): JSX.Element {
-  const queryResult = useJsonFromURLQuery()
   const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
-  if (queryResult.type === "error") {
-    initialMessageArray.push(
-      fromString("error", queryResult.message)
-    )
-  }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
 
   const addMessages = useCallback((addedMessages: StyledMessage | StyledMessage[]): void => {

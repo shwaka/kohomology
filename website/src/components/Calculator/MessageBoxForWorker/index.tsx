@@ -1,9 +1,9 @@
 import React, { useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
-import { useJsonFromURLQuery } from "../CalculatorForm/urlQuery"
 import { useWorker } from "../WorkerContext"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { fromString, StyledMessage } from "../styled/message"
+import { useJsonFromURLQuery } from "../urlQuery"
 import { WorkerOutput } from "../worker/workerInterface"
 import { MessageBox } from "./MessageBox"
 

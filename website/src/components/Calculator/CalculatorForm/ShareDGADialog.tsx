@@ -3,7 +3,7 @@ import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from
 import { useDomainUrl } from "@site/src/utils/useDomainUrl"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
-import { createURLSearchParams } from "./urlQuery"
+import { createURLSearchParams } from "../urlQuery"
 
 export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void

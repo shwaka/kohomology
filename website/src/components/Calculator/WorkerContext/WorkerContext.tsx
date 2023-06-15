@@ -7,7 +7,7 @@ type OmitIfEmpty<T, K extends string | number | symbol> =
     ? (Record<string, never> extends S ? Omit<T, K> : T)
     : T
 
-interface ProviderProps<WO, WS> {
+interface ProviderProps<WS> {
   createWorker: () => Worker
   defaultState: WS
   children: ReactNode
@@ -23,14 +23,14 @@ type StateContext<WS> = Context<StateAndSetState<WS>>
 export type WorkerContext<WI, WO, WS, WF extends WFBase> = {
   reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>
   stateContext: StateContext<WS>
-  Provider: (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element
+  Provider: (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => JSX.Element
 }
 
 function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
   props: {
     context: Context<WorkerWrapper<WI, WO, WS, WF>>
     stateContext: StateContext<WS>
-  } & ProviderProps<WO, WS>
+  } & ProviderProps<WS>
 ): JSX.Element {
   const wrapperRef = useRef<WorkerWrapper<WI, WO, WS, WF> | null>(null)
   if (wrapperRef.current === null) {
@@ -53,8 +53,8 @@ function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
 function createProvider<WI, WO, WS, WF extends WFBase>(
   reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>,
   stateContext: StateContext<WS>,
-): ((props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">) => JSX.Element) {
-  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WO, WS>, "defaultState">): JSX.Element =>  {
+): ((props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => JSX.Element) {
+  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): JSX.Element =>  {
     // If props does not contain defaultState, then WS is empty.
     const defaultState: WS =
       "defaultState" in props ? props.defaultState : ({} as WS)

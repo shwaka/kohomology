@@ -46,7 +46,17 @@ export function CalculatorForm(): JSX.Element {
     if (targetNameQueryResult.type === "error") {
       addErrorMessage(targetNameQueryResult.message)
     }
-  }, [addErrorMessage, dgaQueryResult, targetNameQueryResult])
+  }, [
+    addErrorMessage,
+    // dgaQueryResult cannot be directly added here
+    // since it is an object and changes on every render.
+    dgaQueryResult.type,
+    // @ts-expect-error since `message` exists only on URLQueryResultParseError
+    dgaQueryResult.message,
+    targetNameQueryResult.type,
+    // @ts-expect-error since `message` exists only on URLQueryResultParseError
+    targetNameQueryResult.message,
+  ])
 
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({

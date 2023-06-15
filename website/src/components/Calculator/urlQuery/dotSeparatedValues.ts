@@ -34,7 +34,7 @@ export function dsvToJson(dsv: string): string {
   const arrFromDsv = dsv.split(".")
   const n = arrFromDsv.length / 3
   if (arrFromDsv.length % 3 !== 0) {
-    throw new Error(`Invalid data from URL: "${arrFromDsv}"\nIts length must be divisible by 3, but it was ${arrFromDsv.length}`)
+    throw new Error(`Invalid data from URL: "${arrFromDsv}"\nIts length must be divisible by 3, but was ${arrFromDsv.length}`)
   }
   const result: [string, number, string][] = []
   for (let i = 0; i < n; i++) {

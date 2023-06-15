@@ -2,10 +2,10 @@ import { CallbackData, expose, ExposedWorkerImpl, MessageInput, MessageOutput, W
 
 export class MockWorker<WI, WO, WS, WF extends WFBase> {
   onmessage: (e: MessageEvent<MessageOutput<WO, WS, WF>>) => void
-  private exposed: ExposedWorkerImpl<WI, WO, WF>
+  private exposed: ExposedWorkerImpl<WI, WF>
 
   constructor(
-    getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO, WF>,
+    getWorkerImpl: (callbackData: CallbackData<WO, WS>) => WorkerImpl<WI, WF>,
   ) {
     // this.onmessage will be set from the user of MockWorker.
     this.onmessage = (_) => { throw new Error("MockWorker is not initialized") }

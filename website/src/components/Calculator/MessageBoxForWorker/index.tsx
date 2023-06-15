@@ -11,9 +11,9 @@ export function MessageBoxForWorker(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
   const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
-  if (queryResult.type === "parseError") {
+  if (queryResult.type === "error") {
     initialMessageArray.push(
-      fromString("error", queryResult.errorMessage)
+      fromString("error", queryResult.message)
     )
   }
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)

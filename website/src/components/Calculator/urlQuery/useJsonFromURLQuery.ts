@@ -1,4 +1,5 @@
 import { prettifyDGAJson } from "../jsonUtils"
+import { URLQueryResult } from "./URLQueryResult"
 import { dsvToJson } from "./dotSeparatedValues"
 import { useURLSearchParams } from "./useURLSearchParams"
 
@@ -15,23 +16,7 @@ function useDgaJsonFromURLQuery(): string | null {
   return null
 }
 
-interface QueryResultSuccess {
-  type: "success"
-  json: string
-}
-
-interface QueryResultUnspecified {
-  type: "unspecified"
-}
-
-interface QueryResultParseError {
-  type: "parseError"
-  errorMessage: string
-}
-
-export type QueryResult = QueryResultSuccess | QueryResultUnspecified | QueryResultParseError
-
-export function useJsonFromURLQuery(): QueryResult {
+export function useJsonFromURLQuery(): URLQueryResult<string> {
   const dgaJson: string | null = useDgaJsonFromURLQuery()
   if (dgaJson === null) {
     return {
@@ -41,19 +26,19 @@ export function useJsonFromURLQuery(): QueryResult {
   try {
     return {
       type: "success",
-      json: prettifyDGAJson(dgaJson),
+      value: prettifyDGAJson(dgaJson),
     }
   } catch (e) {
     if (e instanceof SyntaxError) {
       return {
-        type: "parseError",
-        errorMessage: `[Error] Invalid JSON is given as URL parameter.\n${e.message}`
+        type: "error",
+        message: `[Error] Invalid JSON is given as URL parameter.\n${e.message}`
       }
     } else {
       console.error(e)
       return {
-        type: "parseError",
-        errorMessage: "[Error] Some error occurred while parsing URL parameter"
+        type: "error",
+        message: "[Error] Some error occurred while parsing URL parameter"
       }
     }
   }

@@ -27,7 +27,7 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 
 export function CalculatorForm(): JSX.Element {
   const queryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (queryResult.type === "success") ? queryResult.json : sphere(2)
+  const defaultDGAJson = (queryResult.type === "success") ? queryResult.value : sphere(2)
 
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({

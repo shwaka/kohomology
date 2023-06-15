@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686830035665,
+  "lastUpdate": 1686847423307,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1274,6 +1274,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.471,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "0e6c904797d4e9a4d50c1f8cbc3da0e64089b040",
+          "message": "feat(website): update docusaurus from 2.2.0 to 2.4.1",
+          "timestamp": "2023-06-16T01:35:55+09:00",
+          "tree_id": "a1e60c7443c54348b0397d85a80abc23392fa240",
+          "url": "https://github.com/shwaka/kohomology/commit/0e6c904797d4e9a4d50c1f8cbc3da0e64089b040"
+        },
+        "date": 1686847422162,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.495,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.698,
             "unit": "s/op"
           }
         ]

@@ -1,16 +1,6 @@
-import { useLocation } from "@docusaurus/router"
-import { useMemo } from "react"
 import { compressJson, prettifyDGAJson } from "../jsonUtils"
 import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
-
-function useQuery(): URLSearchParams {
-  // https://v5.reactrouter.com/web/example/query-parameters
-  const { search } = useLocation()
-  return useMemo(
-    () => new URLSearchParams(search),
-    [search]
-  )
-}
+import { useURLSearchParams } from "./useURLSearchParams"
 
 type EncodingFormat = "json" | "dsv" | "auto"
 
@@ -63,7 +53,7 @@ export function createURLSearchParams(
 }
 
 function useDgaJsonFromURLQuery(): string | null {
-  const urlSearchParams = useQuery()
+  const urlSearchParams = useURLSearchParams()
   const dgaJson: string | null = urlSearchParams.get("dgaJson")
   if (dgaJson !== null) {
     return dgaJson

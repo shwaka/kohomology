@@ -85,7 +85,10 @@ function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Ele
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): JSX.Element | undefined {
-  // Same as getGlobalError in tabItemArrayEditor.tsx
+  if (errors.generatorArray !== undefined) {
+    return undefined
+  }
+  // The following is the same as getGlobalError in tabItemArrayEditor.tsx
   const fieldError: FieldError | undefined = errors.dummy
   if (fieldError === undefined) {
     return undefined
@@ -146,12 +149,8 @@ export function IdealEditor({ register, getValues, errors, trigger, control, val
           hidden value="dummy"
           {...register("dummy", {
             validate: (_) => {
-              if (errors.generatorArray === undefined) {
-                const generatorArray = getValues().generatorArray.map((generator) => generator.text)
-                return validateGeneratorArray(generatorArray)
-              } else {
-                return true
-              }
+              const generatorArray = getValues().generatorArray.map((generator) => generator.text)
+              return validateGeneratorArray(generatorArray)
             },
           })}
         />

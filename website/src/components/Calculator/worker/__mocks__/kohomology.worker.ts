@@ -3,11 +3,11 @@ import { CallbackData, WorkerImpl } from "../../WorkerContext/expose"
 import { KohomologyMessageHandler } from "../KohomologyMessageHandler"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "../workerInterface"
 
-class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerOutput, WorkerFunc> {
+class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc> {
   messageHandler: KohomologyMessageHandler
   workerFunc: WorkerFunc
 
-  constructor({ postWorkerOutput, updateState }: CallbackData<WorkerInput, WorkerOutput, WorkerState>) {
+  constructor({ postWorkerOutput, updateState }: CallbackData<WorkerOutput, WorkerState>) {
     this.messageHandler = new KohomologyMessageHandler(
       postWorkerOutput,
       updateState,

@@ -17,13 +17,13 @@ export type MyWorkerFunc = {
   add: (value: number) => number
 }
 
-class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerOutput, MyWorkerFunc> {
+class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void
   updateState: UpdateWorkerState<MyWorkerState>
   workerFunc: MyWorkerFunc
 
-  constructor({ postWorkerOutput, updateState }: CallbackData<MyWorkerInput, MyWorkerOutput, MyWorkerState>) {
+  constructor({ postWorkerOutput, updateState }: CallbackData<MyWorkerOutput, MyWorkerState>) {
     this.value = 0
     this.postWorkerOutput = postWorkerOutput
     this.updateState = updateState

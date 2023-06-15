@@ -54,17 +54,17 @@ export type MessageOutput<WO, WS, WF extends WFBase> =
 
 export type UpdateWorkerState<WS> = <K extends keyof WS>(...args: UpdateStateArgs<WS, K>) => void
 
-export interface CallbackData<WI, WO, WS> {
+export interface CallbackData<WO, WS> {
   postWorkerOutput: (output: WO) => void
   updateState: UpdateWorkerState<WS>
 }
 
-export interface WorkerImpl<WI, WO, WF> {
+export interface WorkerImpl<WI, WF> {
   onWorkerInput: (input: WI) => void
   workerFunc: WF
 }
 
-export interface ExposedWorkerImpl<WI, WO, WF extends WFBase> {
+export interface ExposedWorkerImpl<WI, WF extends WFBase> {
   onmessage: (event: MessageEvent<MessageInput<WI, WF>>) => void
 }
 
@@ -75,8 +75,8 @@ type UpdateStateArgs<WS, K = keyof WS> =
 
 export function expose<WI, WO, WS, WF extends WFBase>(
   postMessage: (output: MessageOutput<WO, WS, WF>) => void,
-  getWorkerImpl: (callbackData: CallbackData<WI, WO, WS>) => WorkerImpl<WI, WO, WF>
-): ExposedWorkerImpl<WI, WO, WF> {
+  getWorkerImpl: (callbackData: CallbackData<WO, WS>) => WorkerImpl<WI, WF>
+): ExposedWorkerImpl<WI, WF> {
   const postWorkerOutput = (output: WO): void => {
     postMessage({
       type: "output",

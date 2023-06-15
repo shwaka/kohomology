@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686746669657,
+  "lastUpdate": 1686806854876,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1138,6 +1138,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.1,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "d09b5ce61aa8474fcc8cf893922fca2f71a66cb4",
+          "message": "Merge pull request #306 from shwaka/ideal-on-website\n\nIdeal on website",
+          "timestamp": "2023-06-15T14:19:48+09:00",
+          "tree_id": "433f4454ae3fba5010cd6b4682f039159079a40f",
+          "url": "https://github.com/shwaka/kohomology/commit/d09b5ce61aa8474fcc8cf893922fca2f71a66cb4"
+        },
+        "date": 1686806854414,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.516,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.724,
             "unit": "s/op"
           }
         ]

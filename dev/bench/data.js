@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686826134388,
+  "lastUpdate": 1686830035665,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1240,6 +1240,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.924,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "bbefd0ba326c42ecf34817a693b3b67726296ea2",
+          "message": "fix(website): fix test for invalid url query by adding expectSnackbarToContainHTML",
+          "timestamp": "2023-06-15T20:46:08+09:00",
+          "tree_id": "a5a548caa25daf166c8671c0574a595f95553e8d",
+          "url": "https://github.com/shwaka/kohomology/commit/bbefd0ba326c42ecf34817a693b3b67726296ea2"
+        },
+        "date": 1686830034622,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.755,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.471,
             "unit": "s/op"
           }
         ]

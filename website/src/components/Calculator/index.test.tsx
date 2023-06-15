@@ -2,7 +2,7 @@ import { useLocation } from "@docusaurus/router"
 import { render, screen } from "@testing-library/react"
 import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
-import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -116,7 +116,7 @@ test("url query with invalid json", async () => {
   })
   render(<Calculator/>)
   expectInitialState()
-  expectResultsToContainHTML(
+  expectSnackbarToContainHTML(
     [
       "[Error] Invalid JSON is given as URL parameter.",
     ]

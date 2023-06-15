@@ -84,3 +84,10 @@ export function selectComputationTarget(targetName: TargetName): void {
   ))
   fireEvent.click(input)
 }
+
+export function expectSnackbarToContainHTML(htmlToBeContained: string[]): void {
+  const snackbar = screen.getByRole("presentation")
+  for (const html of htmlToBeContained) {
+    expect(snackbar).toContainHTML(html)
+  }
+}

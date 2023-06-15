@@ -1,24 +1,25 @@
 import { compressJson, prettifyDGAJson } from "../jsonUtils"
 import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
+import { ParamName } from "./ParamName"
 import { useURLSearchParams } from "./useURLSearchParams"
 
 type EncodingFormat = "json" | "dsv" | "auto"
 
-function getParam(dgaJson: string, format: EncodingFormat): ["dgaJson" | "dgaDsv", string] | null {
+function getParam(dgaJson: string, format: EncodingFormat): [ParamName, string] | null {
   switch (format) {
     case "json": {
       const compressedJson: string | null = compressJson(dgaJson)
       if (compressedJson === null) {
         return null
       }
-      return ["dgaJson", compressedJson]
+      return [ParamName.dgaJson, compressedJson]
     }
     case "dsv": {
       const dsv: string | null = jsonToDSV(dgaJson)
       if (dsv === null) {
         return null
       }
-      return ["dgaDsv", dsv]
+      return [ParamName.dgaDsv, dsv]
     }
     case "auto": {
       const paramsForDsv = getParam(dgaJson, "dsv")

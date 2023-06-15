@@ -2,14 +2,15 @@ import { prettifyDGAJson } from "../jsonUtils"
 import { URLQueryResult } from "./URLQueryResult"
 import { dsvToJson } from "./dotSeparatedValues"
 import { useURLSearchParams } from "./useURLSearchParams"
+import { ParamName } from "./ParamName"
 
 function useDgaJsonFromURLQuery(): string | null {
   const urlSearchParams = useURLSearchParams()
-  const dgaJson: string | null = urlSearchParams.get("dgaJson")
+  const dgaJson: string | null = urlSearchParams.get(ParamName.dgaJson)
   if (dgaJson !== null) {
     return dgaJson
   }
-  const dgaDsv: string | null = urlSearchParams.get("dgaDsv")
+  const dgaDsv: string | null = urlSearchParams.get(ParamName.dgaDsv)
   if (dgaDsv !== null) {
     return dsvToJson(dgaDsv)
   }

@@ -30,7 +30,12 @@ export function ShowError({ messages }: { messages: string[] }): JSX.Element {
         elevation={6}
       >
         {messages.map((message, index) => (
-          <div key={index}>{message}</div>
+          <div
+            key={index}
+            style={{ whiteSpace: "pre-wrap" }}
+          >
+            {message}
+          </div>
         ))}
       </Alert>
     </Snackbar>

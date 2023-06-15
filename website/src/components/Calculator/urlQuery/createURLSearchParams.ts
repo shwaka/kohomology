@@ -1,4 +1,5 @@
 import { compressJson, prettifyDGAJson } from "../jsonUtils"
+import { TargetName } from "../worker/workerInterface"
 import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
 import { ParamName } from "./ParamName"
 import { useURLSearchParams } from "./useURLSearchParams"
@@ -38,10 +39,11 @@ function getParamForDga(dgaJson: string, format: EncodingFormat): [ParamName, st
 interface CreateURLSearchParamsArgs {
   dgaJson: string
   format: EncodingFormat
+  targetName: TargetName
 }
 
 export function createURLSearchParams(
-  { dgaJson, format }: CreateURLSearchParamsArgs
+  { dgaJson, format, targetName }: CreateURLSearchParamsArgs
 ): URLSearchParams {
   const urlSearchParams = new URLSearchParams()
   const paramForDga = getParamForDga(dgaJson, format)
@@ -49,5 +51,6 @@ export function createURLSearchParams(
     const [key, value] = paramForDga
     urlSearchParams.append(key, value)
   }
+  urlSearchParams.append(ParamName.taretName, targetName)
   return urlSearchParams
 }

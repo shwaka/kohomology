@@ -4,6 +4,7 @@ import { useDomainUrl } from "@site/src/utils/useDomainUrl"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 import { createURLSearchParams } from "../urlQuery"
+import { TargetName } from "../worker/workerInterface"
 
 export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void
@@ -41,8 +42,8 @@ function CopyToClipBoardButton({ text }: { text: string }): JSX.Element {
   )
 }
 
-function ShareDGADialogContent({ dgaJson }: { dgaJson: string }): JSX.Element {
-  const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto" })
+function ShareDGADialogContent({ dgaJson, targetName }: { dgaJson: string, targetName: TargetName }): JSX.Element {
+  const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto", targetName })
   const domainUrl = useDomainUrl()
   const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
   const url = `${domainUrl}${pageUrl}?${urlSearchParams.toString()}`
@@ -66,9 +67,10 @@ export interface ShareDGADialogProps {
   open: boolean
   setOpen: (open: boolean) => void
   dgaJson: string
+  targetName: TargetName
 }
 
-export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps): JSX.Element {
+export function ShareDGADialog({ open, setOpen, dgaJson, targetName }: ShareDGADialogProps): JSX.Element {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
@@ -77,7 +79,7 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
       PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogContent>
-        <ShareDGADialogContent dgaJson={dgaJson}/>
+        <ShareDGADialogContent dgaJson={dgaJson} targetName={targetName}/>
       </DialogContent>
       <DialogActions>
         <Button
@@ -91,9 +93,14 @@ export function ShareDGADialog({ open, setOpen, dgaJson }: ShareDGADialogProps):
   )
 }
 
-export function useShareDGA(dgaJson: string): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps} {
+interface UseShareDGAArgs {
+  dgaJson: string
+  targetName: TargetName
+}
+
+export function useShareDGA({ dgaJson, targetName }: UseShareDGAArgs): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps} {
   const [open, setOpen] = useState(false)
-  const shareDGADialogProps: ShareDGADialogProps = { open, setOpen, dgaJson }
+  const shareDGADialogProps: ShareDGADialogProps = { open, setOpen, dgaJson, targetName }
   const shareDGAButtonProps: ShareDGAButtonProps = { setOpen }
   return { shareDGADialogProps, shareDGAButtonProps }
 }

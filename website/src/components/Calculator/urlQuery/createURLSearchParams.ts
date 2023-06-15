@@ -1,8 +1,7 @@
-import { compressJson, prettifyDGAJson } from "../jsonUtils"
+import { compressJson } from "../jsonUtils"
 import { TargetName } from "../worker/workerInterface"
-import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
 import { ParamName } from "./ParamName"
-import { useURLSearchParams } from "./useURLSearchParams"
+import { jsonToDSV } from "./dotSeparatedValues"
 
 type EncodingFormat = "json" | "dsv" | "auto"
 

@@ -1,12 +1,13 @@
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { Fragment, useCallback, useEffect, useState } from "react"
+import React, { Fragment, useCallback, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { sphere } from "../DGAEditorDialog/examples"
 import { IdealConfig } from "../IdealConfig"
 import { ShowStyledMessage } from "../styled/components"
 import { useJsonFromURLQuery, useTargetNameFromURLQuery } from "../urlQuery"
+import { useValueOfURLQueryResult } from "../urlQuery/useValueOfURLQueryResult"
 import { targetNames, TargetName } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
@@ -30,33 +31,17 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
 export function CalculatorForm(): JSX.Element {
   const { array: errorMessages, push: addErrorMessage } = useMutableArray<string>()
 
-  const dgaQueryResult = useJsonFromURLQuery()
-  const defaultDGAJson = (dgaQueryResult.type === "success") ? dgaQueryResult.value : sphere(2)
-
-  const targetNameQueryResult = useTargetNameFromURLQuery()
-  const defaultTargetName: TargetName =
-    (targetNameQueryResult.type === "success")
-      ? targetNameQueryResult.value
-      : "self"
-
-  useEffect(() => {
-    if (dgaQueryResult.type === "error") {
-      addErrorMessage(dgaQueryResult.message)
-    }
-    if (targetNameQueryResult.type === "error") {
-      addErrorMessage(targetNameQueryResult.message)
-    }
-  }, [
+  const defaultDGAJson = useValueOfURLQueryResult(
+    useJsonFromURLQuery(),
+    sphere(2),
     addErrorMessage,
-    // dgaQueryResult cannot be directly added here
-    // since it is an object and changes on every render.
-    dgaQueryResult.type,
-    // @ts-expect-error since `message` exists only on URLQueryResultParseError
-    dgaQueryResult.message,
-    targetNameQueryResult.type,
-    // @ts-expect-error since `message` exists only on URLQueryResultParseError
-    targetNameQueryResult.message,
-  ])
+  )
+
+  const defaultTargetName: TargetName = useValueOfURLQueryResult(
+    useTargetNameFromURLQuery(),
+    "self",
+    addErrorMessage,
+  )
 
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({

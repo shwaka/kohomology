@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686806854876,
+  "lastUpdate": 1686822126406,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1172,6 +1172,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.724,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "3dc11c4f4b40aae5e98d4eb5352b3b8239fe4ba4",
+          "message": "refactor(website): remove unused type parameter from ProviderProps in WorkerContext.tsx",
+          "timestamp": "2023-06-15T18:34:27+09:00",
+          "tree_id": "fe98e9f6eac0f21b038717a68e1258df376eabdc",
+          "url": "https://github.com/shwaka/kohomology/commit/3dc11c4f4b40aae5e98d4eb5352b3b8239fe4ba4"
+        },
+        "date": 1686822125574,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.472,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.715,
             "unit": "s/op"
           }
         ]

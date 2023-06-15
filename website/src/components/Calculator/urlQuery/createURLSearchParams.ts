@@ -5,7 +5,7 @@ import { useURLSearchParams } from "./useURLSearchParams"
 
 type EncodingFormat = "json" | "dsv" | "auto"
 
-function getParam(dgaJson: string, format: EncodingFormat): [ParamName, string] | null {
+function getParamForDga(dgaJson: string, format: EncodingFormat): [ParamName, string] | null {
   switch (format) {
     case "json": {
       const compressedJson: string | null = compressJson(dgaJson)
@@ -22,11 +22,11 @@ function getParam(dgaJson: string, format: EncodingFormat): [ParamName, string] 
       return [ParamName.dgaDsv, dsv]
     }
     case "auto": {
-      const paramsForDsv = getParam(dgaJson, "dsv")
+      const paramsForDsv = getParamForDga(dgaJson, "dsv")
       if (paramsForDsv !== null) {
         return paramsForDsv
       }
-      const paramsForJson = getParam(dgaJson, "json")
+      const paramsForJson = getParamForDga(dgaJson, "json")
       if (paramsForJson !== null) {
         return paramsForJson
       }
@@ -44,11 +44,11 @@ export function createURLSearchParams(
   { dgaJson, format }: CreateURLSearchParamsArgs
 ): URLSearchParams | null {
   const urlSearchParams = new URLSearchParams()
-  const param = getParam(dgaJson, format)
-  if (param === null) {
+  const paramForDga = getParamForDga(dgaJson, format)
+  if (paramForDga === null) {
     return null
   }
-  const [key, value] = param
+  const [key, value] = paramForDga
   urlSearchParams.append(key, value)
   return urlSearchParams
 }

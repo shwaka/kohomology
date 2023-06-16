@@ -16,6 +16,7 @@ import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
+import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (
@@ -36,6 +37,12 @@ export function CalculatorForm(): JSX.Element {
     addErrorMessage,
   )
 
+  const defaultIdealJson = useValueOfURLQueryResult(
+    useIdealJsonFromURLQuery(),
+    "[]",
+    addErrorMessage,
+  )
+
   const defaultTargetName: TargetName = useValueOfURLQueryResult(
     useTargetNameFromURLQuery(),
     "self",
@@ -45,6 +52,7 @@ export function CalculatorForm(): JSX.Element {
   const { json, setJson, idealJson, setIdealJson, dgaInfo, idealInfo, workerInfo, postMessage, restart, runAsync } =
     useKohomologyWorker({
       defaultJson: defaultDGAJson,
+      defaultIdealJson,
       onmessage: (_) => undefined, // previously this was used to pass setState
     })
 

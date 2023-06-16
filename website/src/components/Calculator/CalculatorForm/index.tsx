@@ -53,7 +53,7 @@ export function CalculatorForm(): JSX.Element {
   const { restartDialogProps, restartButtonProps } = useRestart(() => {
     restart()
   })
-  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA({ dgaJson: json, targetName })
+  const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA({ dgaJson: json, idealJson, targetName })
   const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
   const validateIdealGenerator = useCallback(async (generator: string): Promise<true | string> => {

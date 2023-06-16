@@ -2,10 +2,11 @@ import { compressJson } from "../jsonUtils"
 import { TargetName } from "../worker/workerInterface"
 import { ParamName } from "./ParamName"
 import { dgaJsonToDsv } from "./dgaDsv"
+import { idealJsonToDsv } from "./idealDsv"
 
-type EncodingFormat = "json" | "dsv" | "auto"
+type DgaEncodingFormat = "json" | "dsv" | "auto"
 
-function getParamForDga(dgaJson: string, format: EncodingFormat): [ParamName, string] | null {
+function getParamForDga(dgaJson: string, format: DgaEncodingFormat): [ParamName, string] | null {
   switch (format) {
     case "json": {
       const compressedJson: string | null = compressJson(dgaJson)
@@ -37,18 +38,23 @@ function getParamForDga(dgaJson: string, format: EncodingFormat): [ParamName, st
 
 interface CreateURLSearchParamsArgs {
   dgaJson: string
-  format: EncodingFormat
+  format: DgaEncodingFormat
+  idealJson: string
   targetName: TargetName
 }
 
 export function createURLSearchParams(
-  { dgaJson, format, targetName }: CreateURLSearchParamsArgs
+  { dgaJson, format, idealJson, targetName }: CreateURLSearchParamsArgs
 ): URLSearchParams {
   const urlSearchParams = new URLSearchParams()
   const paramForDga = getParamForDga(dgaJson, format)
   if (paramForDga !== null) {
     const [key, value] = paramForDga
     urlSearchParams.append(key, value)
+  }
+  const idealDsv = idealJsonToDsv(idealJson)
+  if (idealDsv !== null) {
+    urlSearchParams.append(ParamName.idealDsv, idealDsv)
   }
   urlSearchParams.append(ParamName.taretName, targetName)
   return urlSearchParams

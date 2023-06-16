@@ -20,30 +20,39 @@ function validateArrFromJson(arrFromJson: unknown): arrFromJson is [string, numb
   return true
 }
 
+function tupleArrayToStringArray(tupleArray: [string, number, string][]): string[] {
+  return tupleArray.map(
+    ([name, degree, differentialValue]) => [name, degree.toString(), differentialValue]
+  ).flat()
+}
+
 export function dgaJsonToDsv(json: string): string | null {
   const arrFromJson: unknown = JSON.parse(json)
   if (!validateArrFromJson(arrFromJson)) {
     return null
   }
-  const stringArray: string[] = arrFromJson.map(
-    ([name, degree, differentialValue]) => [name, degree.toString(), differentialValue]
-  ).flat()
+  const stringArray: string[] = tupleArrayToStringArray(arrFromJson)
   return DSV.stringify(stringArray)
 }
 
-export function dgaDsvToJson(dsv: string): string {
-  const arrFromDsv = DSV.parse(dsv)
-  const n = arrFromDsv.length / 3
-  if (arrFromDsv.length % 3 !== 0) {
-    throw new Error(`Invalid data from URL: "${arrFromDsv}"\nIts length must be divisible by 3, but was ${arrFromDsv.length}`)
+function stringArrayToTupleArray(stringArray: string[]): [string, number, string][] {
+  const n = stringArray.length / 3
+  if (stringArray.length % 3 !== 0) {
+    throw new Error(`Invalid data from URL: "${stringArray}"\nIts length must be divisible by 3, but was ${stringArray.length}`)
   }
   const result: [string, number, string][] = []
   for (let i = 0; i < n; i++) {
     result.push([
-      arrFromDsv[3 * i],
-      parseInt(arrFromDsv[3 * i + 1]),
-      arrFromDsv[3 * i + 2],
+      stringArray[3 * i],
+      parseInt(stringArray[3 * i + 1]),
+      stringArray[3 * i + 2],
     ])
   }
-  return JSON.stringify(result)
+  return result
+}
+
+export function dgaDsvToJson(dsv: string): string {
+  const arrFromDsv: string[] = DSV.parse(dsv)
+  const tupleArray = stringArrayToTupleArray(arrFromDsv)
+  return JSON.stringify(tupleArray)
 }

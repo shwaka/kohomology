@@ -1,10 +1,10 @@
 import { DSV } from "./DSV"
 
-function validateArrFromJson(arrFromJson: unknown): arrFromJson is [string, number, string][] {
-  if (!Array.isArray(arrFromJson)) {
+function isTupleArray(value: unknown): value is [string, number, string][] {
+  if (!Array.isArray(value)) {
     return false
   }
-  for (const elm of arrFromJson) {
+  for (const elm of value) {
     if ((!Array.isArray(elm)) ||
       (elm.length !== 3) ||
       (typeof elm[0] !== "string") ||
@@ -28,7 +28,7 @@ function tupleArrayToStringArray(tupleArray: [string, number, string][]): string
 
 export function dgaJsonToDsv(json: string): string | null {
   const arrFromJson: unknown = JSON.parse(json)
-  if (!validateArrFromJson(arrFromJson)) {
+  if (!isTupleArray(arrFromJson)) {
     return null
   }
   const stringArray: string[] = tupleArrayToStringArray(arrFromJson)

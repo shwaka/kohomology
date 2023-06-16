@@ -7,6 +7,7 @@ import { sphere } from "../DGAEditorDialog/examples"
 import { IdealConfig } from "../IdealConfig"
 import { ShowStyledMessage } from "../styled/components"
 import { useJsonFromURLQuery, useTargetNameFromURLQuery, useValueOfURLQueryResult } from "../urlQuery"
+import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
 import { targetNames, TargetName } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
@@ -16,7 +17,6 @@ import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
-import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
   return (

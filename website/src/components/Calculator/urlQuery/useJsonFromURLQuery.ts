@@ -1,7 +1,7 @@
 import { prettifyDGAJson } from "../jsonUtils"
 import { ParamName } from "./ParamName"
 import { URLQueryResult } from "./URLQueryResult"
-import { dsvToJson } from "./dotSeparatedValues"
+import { dgaDsvToJson } from "./dotSeparatedValues"
 import { useURLSearchParams } from "./useURLSearchParams"
 
 function getDgaJsonFromURLQuery(urlSearchParams: URLSearchParams): string | null {
@@ -11,7 +11,7 @@ function getDgaJsonFromURLQuery(urlSearchParams: URLSearchParams): string | null
   }
   const dgaDsv: string | null = urlSearchParams.get(ParamName.dgaDsv)
   if (dgaDsv !== null) {
-    return dsvToJson(dgaDsv)
+    return dgaDsvToJson(dgaDsv)
   }
   return null
 }

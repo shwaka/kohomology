@@ -26,7 +26,7 @@ function validateArrFromJson(arrFromJson: unknown): arrFromJson is [string, numb
   return true
 }
 
-export function jsonToDsv(json: string): string | null {
+export function dgaJsonToDsv(json: string): string | null {
   const arrFromJson: unknown = JSON.parse(json)
   if (!validateArrFromJson(arrFromJson)) {
     return null
@@ -37,7 +37,7 @@ export function jsonToDsv(json: string): string | null {
   return DSV.stringify(stringArray)
 }
 
-export function dsvToJson(dsv: string): string {
+export function dgaDsvToJson(dsv: string): string {
   const arrFromDsv = DSV.parse(dsv)
   const n = arrFromDsv.length / 3
   if (arrFromDsv.length % 3 !== 0) {

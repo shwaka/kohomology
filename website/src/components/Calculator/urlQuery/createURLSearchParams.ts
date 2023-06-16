@@ -1,7 +1,7 @@
 import { compressJson } from "../jsonUtils"
 import { TargetName } from "../worker/workerInterface"
 import { ParamName } from "./ParamName"
-import { jsonToDsv } from "./dotSeparatedValues"
+import { dgaJsonToDsv } from "./dotSeparatedValues"
 
 type EncodingFormat = "json" | "dsv" | "auto"
 
@@ -15,7 +15,7 @@ function getParamForDga(dgaJson: string, format: EncodingFormat): [ParamName, st
       return [ParamName.dgaJson, compressedJson]
     }
     case "dsv": {
-      const dsv: string | null = jsonToDsv(dgaJson)
+      const dsv: string | null = dgaJsonToDsv(dgaJson)
       if (dsv === null) {
         return null
       }

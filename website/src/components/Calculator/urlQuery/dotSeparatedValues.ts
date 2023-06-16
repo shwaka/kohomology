@@ -31,13 +31,14 @@ export function jsonToDsv(json: string): string | null {
   if (!validateArrFromJson(arrFromJson)) {
     return null
   }
-  return arrFromJson.map(
-    ([name, degree, differentialValue]) => `${name}.${degree}.${differentialValue}`
-  ).join(".")
+  const stringArray: string[] = arrFromJson.map(
+    ([name, degree, differentialValue]) => [name, degree.toString(), differentialValue]
+  ).flat()
+  return DSV.stringify(stringArray)
 }
 
 export function dsvToJson(dsv: string): string {
-  const arrFromDsv = dsv.split(".")
+  const arrFromDsv = DSV.parse(dsv)
   const n = arrFromDsv.length / 3
   if (arrFromDsv.length % 3 !== 0) {
     throw new Error(`Invalid data from URL: "${arrFromDsv}"\nIts length must be divisible by 3, but was ${arrFromDsv.length}`)

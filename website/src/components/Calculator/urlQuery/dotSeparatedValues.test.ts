@@ -1,11 +1,11 @@
-import { dsvToJson, jsonToDSV } from "./dotSeparatedValues"
+import { dsvToJson, jsonToDsv } from "./dotSeparatedValues"
 
-test("jsonToDSV with valid json", () => {
+test("jsonToDsv with valid json", () => {
   const json = `[
   ["x", 2, "0"],
   ["y", 3, "x^2"]
 ]`
-  expect(jsonToDSV(json)).toBe("x.2.0.y.3.x^2")
+  expect(jsonToDsv(json)).toBe("x.2.0.y.3.x^2")
 })
 
 test("dsvToJson with valid dsv", () => {

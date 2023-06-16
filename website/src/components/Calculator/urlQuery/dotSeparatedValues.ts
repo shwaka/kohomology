@@ -20,7 +20,7 @@ function validateArrFromJson(arrFromJson: unknown): arrFromJson is [string, numb
   return true
 }
 
-export function jsonToDSV(json: string): string | null {
+export function jsonToDsv(json: string): string | null {
   const arrFromJson: unknown = JSON.parse(json)
   if (!validateArrFromJson(arrFromJson)) {
     return null

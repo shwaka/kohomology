@@ -49,6 +49,18 @@ You can change the place by editing `build.gradle.kts`.
 - Bump version to `1.0` with a git tag `v1.0` and publish it: `./bump-version.sh release 1.0`
 - Bump version to `1.0-SNAPSHOT`: `./bump-versin.sh snapshot 1.0`
 
+For example, you can publish `v1.0` with the following command:
+
+1. `./bump-version.sh release 1.0` in `kohomology/scripts/` answering "y" to all questions.
+    - This will create a release commit in `kohomology/`.
+    - This will publish to the repository in `maven/`.
+2. Commit and push in `maven/`.
+    - This should be done before pushing `kohomology/`.
+3. `./bump-version.sh snapshot 1.1` in `scripts/`.
+    - Some workflows in this repository requires the current version to be snapshot.
+      This is because the website should use the latest version (including snapshot) of the kotlin library.
+4. `git push` in `kohomology/`
+
 ### Benchmark
 ```bash
 cd kohomology/kohomology

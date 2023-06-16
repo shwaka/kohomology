@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686847423307,
+  "lastUpdate": 1686893108882,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1308,6 +1308,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.698,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "fdbbfef4e1822ab812f1df52bef1ca55335114e6",
+          "message": "fix(website): update @tsconfig/docusaurus from 1.0.4 to 1.0.7 (close #307)",
+          "timestamp": "2023-06-16T14:17:19+09:00",
+          "tree_id": "4341185b3e5200c3688a7b5eebf11c5306f02cd2",
+          "url": "https://github.com/shwaka/kohomology/commit/fdbbfef4e1822ab812f1df52bef1ca55335114e6"
+        },
+        "date": 1686893108371,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.601,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.811,
             "unit": "s/op"
           }
         ]

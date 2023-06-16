@@ -1,4 +1,5 @@
-import { DSV, dgaDsvToJson, dgaJsonToDsv } from "./dotSeparatedValues"
+import { DSV } from "./DSV"
+import { dgaDsvToJson, dgaJsonToDsv } from "./dgaDsv"
 
 test("DSV.parse", () => {
   const dsv = "x.2.0.y.3.x^2"

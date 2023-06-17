@@ -27,6 +27,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
         val numVectorSpace = matrixSpace.numVectorSpace
         val gVectorSpace = GVectorSpace.fromStringBasisNamesWithIntDegree(numVectorSpace, "V") { degree ->
             // V[n] = span{v0, v1,..., v{n-1}}
+            // dim(V[n]) = n
             (0 until degree).map { "v$it" }
         }
         val gLinearMap = GLinearMap(gVectorSpace, gVectorSpace, 1, matrixSpace, "f") { degree ->
@@ -113,6 +114,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
             "image()[n] should be of dimension (n - 1)" {
                 (1 until 20).forAll { degree ->
                     gLinearMap.image()[degree].dim shouldBe (degree - 1)
+                }
+            }
+            "cokernel() should be a quotient of gVectorSpace" {
+                gLinearMap.cokernel().totalGVectorSpace shouldBe gVectorSpace
+            }
+            "cokernel()[n] should be a quotient of gVectorSpace[n]" {
+                (-20 until 20).forAll { degree ->
+                    gLinearMap.cokernel()[degree].totalVectorSpace shouldBe gVectorSpace[degree]
+                }
+            }
+            "cokernel()[n] should be of dimension 1" {
+                (1 until 20).forAll { degree ->
+                    gLinearMap.cokernel()[degree].dim shouldBe 1
                 }
             }
             "test addition of two GLinearMap's" {

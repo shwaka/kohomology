@@ -122,6 +122,10 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return SubVectorSpace(this.matrixSpace, this.target, generator = this.imageGenerator())
     }
 
+    public fun cokernel(): QuotVectorSpace<BT, S, V, M> {
+        return QuotVectorSpace(this.matrixSpace, this.target, quotientGenerator = this.image())
+    }
+
     public fun imageContains(vector: Vector<BT, S, V>): Boolean {
         if (vector !in this.target)
             throw IllegalArgumentException("Invalid vector is given: $vector is not an element of ${this.target}")

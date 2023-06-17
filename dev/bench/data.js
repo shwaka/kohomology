@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686921300536,
+  "lastUpdate": 1686999794539,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1444,6 +1444,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.815,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "405c4588137a81c0ac3d222d9876319f17c34c55",
+          "message": "test(core): add test for GLinearMap.cokernel()",
+          "timestamp": "2023-06-17T19:53:29+09:00",
+          "tree_id": "34b8de1792a2236bd7587e9671cec7c30e14aa0e",
+          "url": "https://github.com/shwaka/kohomology/commit/405c4588137a81c0ac3d222d9876319f17c34c55"
+        },
+        "date": 1686999793728,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.465,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.678,
             "unit": "s/op"
           }
         ]

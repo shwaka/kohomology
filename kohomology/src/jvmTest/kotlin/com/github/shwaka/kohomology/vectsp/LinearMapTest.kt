@@ -108,6 +108,27 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 f.imageContains(v).shouldBeTrue()
                 f.imageContains(w).shouldBeFalse()
             }
+            "cokernel test" {
+                val matrix = matrixSpace.fromRowList(
+                    listOf(
+                        listOf(one, two),
+                        listOf(-one, -two),
+                    )
+                )
+                val f = LinearMap.fromMatrix(vectorSpace1, vectorSpace2, matrixSpace, matrix)
+                val (a, b) = vectorSpace1.getBasis()
+                val (x, y) = vectorSpace2.getBasis()
+                val cokernelQuotVectorSpace = f.cokernel()
+                cokernelQuotVectorSpace.totalVectorSpace shouldBe vectorSpace2
+                cokernelQuotVectorSpace.dim shouldBe 1
+                val proj = cokernelQuotVectorSpace.projection
+                proj(f(a)).isZero().shouldBeTrue()
+                proj(f(b)).isZero().shouldBeTrue()
+                vectorSpace2.context.run {
+                    proj(x - y).isZero().shouldBeTrue()
+                    proj(x).isZero().shouldBeFalse()
+                }
+            }
             "(zero map).isZero() should be true" {
                 val f = LinearMap.getZero(vectorSpace1, vectorSpace2, matrixSpace)
                 f.isZero().shouldBeTrue()

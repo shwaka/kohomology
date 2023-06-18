@@ -359,7 +359,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     }
     val differentialString = freeDGAlgebra.generatorList.joinToString(", ") {
         freeDGAlgebra.context.run {
-            "d$it = ${p(d(it))}"
+            "d${p(it)} = ${p(d(it))}"
         }
     }
     return arrayOf(

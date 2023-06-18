@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.QuotDGAlgebra
 import com.github.shwaka.kohomology.dg.checkDGAlgebraAxioms
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.dg.withTrivialDifferential
 import com.github.shwaka.kohomology.example.pullbackOfHopfFibrationOverS4
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.example.sphereWithMultiDegree
@@ -242,6 +243,32 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             }
             "freeDGAlgebra.cohomology.isCommutative should be true" {
                 freeDGAlgebra.cohomology.isCommutative.shouldBeTrue()
+            }
+            "check dimensions of freeDGAlgebra.cohomology.withTrivialDifferential()" {
+                val cohomologyAsDGA = freeDGAlgebra.cohomology.withTrivialDifferential()
+                (0 until (sphereDim * 3)).forAll { n ->
+                    val expectedDim = when (n) {
+                        0, sphereDim -> 1
+                        else -> 0
+                    }
+                    cohomologyAsDGA.cohomology[n].dim shouldBe expectedDim
+                }
+            }
+            "check formality" {
+                val cohomologyAsDGA = freeDGAlgebra.cohomology.withTrivialDifferential()
+                val topClass = cohomologyAsDGA.cocycleRepresentativeOf(
+                    cohomologyAsDGA.cohomology.getBasis(sphereDim)[0]
+                )
+                val dgaMap = freeDGAlgebra.getDGAlgebraMap(
+                    cohomologyAsDGA,
+                    listOf(
+                        topClass,
+                        cohomologyAsDGA.zeroGVector,
+                    )
+                )
+                (0 until (sphereDim * 3)).forAll { n ->
+                    dgaMap.inducedMapOnCohomology[n].isIsomorphism().shouldBeTrue()
+                }
             }
         }
     }

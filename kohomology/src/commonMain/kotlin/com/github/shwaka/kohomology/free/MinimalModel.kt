@@ -65,7 +65,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     val isomorphismUpTo: Int,
 ) {
     public companion object {
-        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
             isomorphismUpTo: Int,
         ): MinimalModel<B, S, V, M> {

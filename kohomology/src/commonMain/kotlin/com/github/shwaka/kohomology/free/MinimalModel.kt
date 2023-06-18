@@ -49,7 +49,10 @@ public data class MMIndeterminateName(
             MMIndeterminateType.COCHAIN -> "w"
         }
         return when (this.totalNumberInDegree) {
-            1 -> "${char}_${this.degree}"
+            1 -> when (printConfig.printType) {
+                PrintType.PLAIN -> "${char}_${this.degree}"
+                PrintType.TEX -> "${char}_{${this.degree}}"
+            }
             else -> when (printConfig.printType) {
                 PrintType.PLAIN -> "${char}_${this.degree}_${this.index}"
                 PrintType.TEX -> "${char}_{${this.degree},${this.index}}"

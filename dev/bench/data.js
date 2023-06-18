@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687103805999,
+  "lastUpdate": 1687104435598,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1614,6 +1614,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.015,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "aa1dfe20b8c0f2ef06c127fd7efd1f90c7573e23",
+          "message": "fix(core): add braces to MMIndeterminateName.toString() with PrintType.TEX",
+          "timestamp": "2023-06-19T01:00:43+09:00",
+          "tree_id": "018307ab2c292b2831ed75a10129e764bcb9bbda",
+          "url": "https://github.com/shwaka/kohomology/commit/aa1dfe20b8c0f2ef06c127fd7efd1f90c7573e23"
+        },
+        "date": 1687104434772,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.48,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.824,
             "unit": "s/op"
           }
         ]

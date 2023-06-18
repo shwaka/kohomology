@@ -243,7 +243,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
             changeDegree(dv)
         }
         val differential = newFreeGAlgebra.getDerivation(differentialValueList, 1)
-        val newFreeDGAlgebra = FreeDGAlgebra.fromList(newFreeGAlgebra, differential)
+        val newFreeDGAlgebra = FreeDGAlgebra(newFreeGAlgebra, differential)
         return Pair(newFreeDGAlgebra, changeDegree)
     }
 
@@ -253,7 +253,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
     }
 
     public companion object {
-        public fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromList(
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: FreeGAlgebra<D, I, S, V, M>,
             differential: Derivation<D, Monomial<D, I>, S, V, M>,
         ): FreeDGAlgebra<D, I, S, V, M> {

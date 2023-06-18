@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687101818552,
+  "lastUpdate": 1687103805999,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1580,6 +1580,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.711,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "060b052944c9068abfe5ab8f626a893c1412d3fb",
+          "message": "test(core): check the number of generators of the minimal model of S^3∨S^3",
+          "timestamp": "2023-06-19T00:49:25+09:00",
+          "tree_id": "7043d74f4cc36a6f5b2fae4393bab3262e5ddab3",
+          "url": "https://github.com/shwaka/kohomology/commit/060b052944c9068abfe5ab8f626a893c1412d3fb"
+        },
+        "date": 1687103805239,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.553,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.015,
             "unit": "s/op"
           }
         ]

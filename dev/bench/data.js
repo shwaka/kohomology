@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687061037645,
+  "lastUpdate": 1687063858634,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1512,6 +1512,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.515,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a44e6849a1bdd05b9740c5b5780b72c8ba90fe5a",
+          "message": "refactor(core): add MinimalModel.getDGAlgebraMap",
+          "timestamp": "2023-06-18T13:44:30+09:00",
+          "tree_id": "035624f047ac1998799c438935166ca38a68a701",
+          "url": "https://github.com/shwaka/kohomology/commit/a44e6849a1bdd05b9740c5b5780b72c8ba90fe5a"
+        },
+        "date": 1687063857647,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.475,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.756,
             "unit": "s/op"
           }
         ]

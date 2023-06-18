@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
+import com.github.shwaka.kohomology.free.MinimalModel
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
@@ -108,27 +109,7 @@ class FreeDGAWrapper(json: String) {
     }
 
     fun dgaInfo(): Array<StyledMessageKt> {
-        val freeDGAString = this.freeDGAlgebra.toString()
-        val degreeString = this.freeDGAlgebra.indeterminateList.joinToString(", ") {
-            "\\deg{${it.name}} = ${it.degree}"
-        }
-        val differentialString = this.freeDGAlgebra.generatorList.joinToString(", ") {
-            val p = Printer(printType = PrintType.TEX)
-            this.freeDGAlgebra.context.run {
-                "d$it = ${p(d(it))}"
-            }
-        }
-        return arrayOf(
-            styledMessage(MessageType.SUCCESS) {
-                "(\\Lambda V, d) = ".math + freeDGAString.math
-            }.export(),
-            styledMessage(MessageType.SUCCESS) {
-                degreeString.math
-            }.export(),
-            styledMessage(MessageType.SUCCESS) {
-                differentialString.math
-            }.export(),
-        )
+        return getDGAInfo(this.freeDGAlgebra)
     }
 
     fun idealInfo(): StyledMessageKt {
@@ -175,6 +156,38 @@ class FreeDGAWrapper(json: String) {
                 "Cannot compute class for $targetName".text
             }.export()
         }
+    }
+
+    fun computeMinimalModel(targetName: String, isomorphismUpTo: Int): Array<StyledMessageKt> {
+        if (targetName == "freeLoopSpace") {
+            return arrayOf(
+                styledMessage(MessageType.ERROR) {
+                    "Minimal model of free loop space is currently not supported.".text
+                }.export()
+            )
+        }
+        val targetDGVectorSpace = this.getDGVectorSpace(targetName)
+        if (targetDGVectorSpace !is DGAlgebra<*, *, *, *, *>) {
+            return arrayOf(
+                styledMessage(MessageType.ERROR) {
+                    "Minimal model can be computed only for DGAs.".text
+                }.export()
+            )
+        }
+        if (targetDGVectorSpace.degreeGroup != IntDegreeGroup) {
+            return arrayOf(
+                styledMessage(MessageType.ERROR) {
+                    "Internal error! This can't happen!".text
+                }.export()
+            )
+        }
+        @Suppress("UNCHECKED_CAST")
+        targetDGVectorSpace as DGAlgebra<IntDegree, *, *, *, *>
+        val minimalModel = MinimalModel.of(
+            targetDGAlgebra = targetDGVectorSpace,
+            isomorphismUpTo = isomorphismUpTo
+        )
+        return getDGAInfo(minimalModel.freeDGAlgebra)
     }
 }
 
@@ -332,4 +345,31 @@ computeCohomologyClass(
             "[${p(cocycle)}] = ${p(cocycle.cohomologyClass())} \\in ".math + cohomologyString
         }
     }
+}
+
+@ExperimentalJsExport
+private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAInfo(
+    freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+): Array<StyledMessageKt> {
+    val freeDGAString = freeDGAlgebra.toString()
+    val degreeString = freeDGAlgebra.indeterminateList.joinToString(", ") {
+        "\\deg{${it.name}} = ${it.degree}"
+    }
+    val differentialString = freeDGAlgebra.generatorList.joinToString(", ") {
+        val p = Printer(printType = PrintType.TEX)
+        freeDGAlgebra.context.run {
+            "d$it = ${p(d(it))}"
+        }
+    }
+    return arrayOf(
+        styledMessage(MessageType.SUCCESS) {
+            "(\\Lambda V, d) = ".math + freeDGAString.math
+        }.export(),
+        styledMessage(MessageType.SUCCESS) {
+            degreeString.math
+        }.export(),
+        styledMessage(MessageType.SUCCESS) {
+            differentialString.math
+        }.export(),
+    )
 }

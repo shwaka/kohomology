@@ -108,7 +108,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
 }
 
 public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    GAlgebra<D, B, S, V, M>.withTrivialDifferential(): DGAlgebra<D, B, S, V, M> {
+GAlgebra<D, B, S, V, M>.withTrivialDifferential(): DGAlgebra<D, B, S, V, M> {
     val differential = Derivation.getZero(this, this.degreeGroup.fromInt(1))
     return DGAlgebra(
         gAlgebra = this,

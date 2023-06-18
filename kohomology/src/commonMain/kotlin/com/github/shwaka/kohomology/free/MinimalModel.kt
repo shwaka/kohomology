@@ -210,8 +210,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             IntDegree,
             Monomial<IntDegree, MMIndeterminateName>,
             Monomial<IntDegree, MMIndeterminateName>,
-            S, V, M>
-        {
+            S, V, M> {
             val valueList = currentFreeGAlgebra.generatorList.slice(
                 previousFreeGAlgebra.generatorList.indices
             )

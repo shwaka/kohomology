@@ -37,7 +37,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
                 (0..isomorphismUpTo).forAll { degree ->
                     minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
                 }
-
             }
         }
     }

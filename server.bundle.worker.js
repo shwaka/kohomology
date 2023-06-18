@@ -10583,23 +10583,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp1_subject = this.a23_1;
     var tmp_0;
     if (tmp1_subject === 1) {
-      tmp_0 = char + '_' + this.y22_1;
-    } else {
       var tmp2_subject = printConfig.l1x_1;
       var tmp0_0 = tmp2_subject.d2_1;
       var tmp_1;
       switch (tmp0_0) {
         case 0:
-          tmp_1 = char + '_' + this.y22_1 + '_' + this.z22_1;
+          tmp_1 = char + '_' + this.y22_1;
           break;
         case 1:
-          tmp_1 = char + '_{' + this.y22_1 + ',' + this.z22_1 + '}';
+          tmp_1 = char + '_{' + this.y22_1 + '}';
           break;
         default:
           noWhenBranchMatchedException();
           break;
       }
       tmp_0 = tmp_1;
+    } else {
+      var tmp3_subject = printConfig.l1x_1;
+      var tmp0_1 = tmp3_subject.d2_1;
+      var tmp_2;
+      switch (tmp0_1) {
+        case 0:
+          tmp_2 = char + '_' + this.y22_1 + '_' + this.z22_1;
+          break;
+        case 1:
+          tmp_2 = char + '_{' + this.y22_1 + ',' + this.z22_1 + '}';
+          break;
+        default:
+          noWhenBranchMatchedException();
+          break;
+      }
+      tmp_0 = tmp_2;
     }
     return tmp_0;
   };

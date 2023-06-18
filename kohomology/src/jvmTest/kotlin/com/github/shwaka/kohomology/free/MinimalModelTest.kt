@@ -157,6 +157,53 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
                 minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
             }
         }
+        "check dimension of minimalModel.freeDGAlgebra[degree]" {
+            // Mathematically, this can be easily computed as follows:
+            // Write N = 2n + 1.
+            // By considering the Serre spectral sequence for the fibration
+            //   Ω(S^N∨S^N) → P(S^N∨S^N) → S^N∨S^N,
+            // it is easy to show that H^*(Ω(S^N∨S^N)) is the polynomial algebra with
+            //   dim H^{2kn}(Ω(S^N∨S^N)) = 2^k.
+            // Hence the number of generators in each degree can be computed
+            // as in WedgeGeneratorCalculator.
+            (0..isomorphismUpTo).forAll { degree ->
+                val expected = when {
+                    (degree == 1) -> 0 // This must be excluded from the case degree = 2 * k * n + 1
+                    ((degree - 1) % (2 * n) == 0) -> {
+                        // when degree = 2 * k * n + 1
+                        val k = (degree - 1) / (2 * n)
+                        WedgeGeneratorCalculator.get(k)
+                    }
+                    else -> 0
+                }
+                minimalModel.freeDGAlgebra.generatorList.filter {
+                    it.degree == IntDegree(degree)
+                }.size shouldBe expected
+            }
+        }
+
+    }
+}
+
+private object WedgeGeneratorCalculator {
+    // Computes the number sequence {a_k} defined by
+    //   a_k = (1/k)Σ_{d|k} μ(k/d) 2^d
+    // where μ is the Möbius function (https://en.wikipedia.org/wiki/M%C3%B6bius_function).
+    // This is equivalent to
+    //   Σ_{d|k} d a_d = 2^k
+    private val values: MutableMap<Int, Int> = mutableMapOf()
+
+    fun get(k: Int): Int {
+        this.values[k]?.let { return it }
+        var temp: Int = 2.pow(k)
+        for (d in 1 until k) {
+            if (k % d == 0) {
+                temp -= d * this.get(d)
+            }
+        }
+        val result = temp / k
+        this.values[k] = result
+        return result
     }
 }
 

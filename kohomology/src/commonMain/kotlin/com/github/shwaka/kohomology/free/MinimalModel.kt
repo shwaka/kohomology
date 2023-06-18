@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
+import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -114,8 +115,17 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 )
             val matrixSpace = minimalModel.targetDGAlgebra.matrixSpace
             val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+            val incl = this.getInclusion(minimalModel.freeDGAlgebra, freeGAlgebra)
+            val differentialValueList: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> =
+                minimalModel.freeDGAlgebra.generatorList.map {
+                    incl(minimalModel.freeDGAlgebra.differential(it))
+                } + List(cocyclesToHit.size) {
+                    freeGAlgebra.getZero(degree + 1)
+                } + cochainsToKill.map {
+                    incl(it)
+                }
             val differential = freeGAlgebra.getDerivation(
-                valueList = TODO(),
+                valueList = differentialValueList,
                 derivationDegree = 1,
             )
             val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
@@ -184,6 +194,21 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                     )
                     Indeterminate(name, degree)
                 }
+        }
+
+        private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInclusion(
+            previousFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
+            currentFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
+        ): GAlgebraMap<
+            IntDegree,
+            Monomial<IntDegree, MMIndeterminateName>,
+            Monomial<IntDegree, MMIndeterminateName>,
+            S, V, M>
+        {
+            val valueList = currentFreeGAlgebra.generatorList.slice(
+                previousFreeGAlgebra.generatorList.indices
+            )
+            return previousFreeGAlgebra.getGAlgebraMap(currentFreeGAlgebra, valueList)
         }
     }
 }

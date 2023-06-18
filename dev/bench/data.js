@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1686999794539,
+  "lastUpdate": 1687061037645,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1478,6 +1478,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.678,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "31537a19508ba54956308771b19a6b62c5cd0825",
+          "message": "test(core): add test for minimal model of CP^2#CP^2",
+          "timestamp": "2023-06-18T12:56:47+09:00",
+          "tree_id": "75aea612c3be29ed6f6a0258b407d77e9c42b13d",
+          "url": "https://github.com/shwaka/kohomology/commit/31537a19508ba54956308771b19a6b62c5cd0825"
+        },
+        "date": 1687061036598,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.679,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.515,
             "unit": "s/op"
           }
         ]

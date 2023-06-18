@@ -144,19 +144,71 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
   )
 }
 
-type ComputationType = "cohomology" | "class"
+function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): JSX.Element {
+  const [isomorphismUpTo, isomorphismUpToFieldProps] = useNumberField({ label: "", defaultValue: 10 })
+  const computeMinimalModel = useCallback(
+    (event: React.FormEvent<HTMLFormElement>): void => {
+      event.preventDefault()
+      const input: WorkerInput = {
+        command: "computeMinimalModel",
+        targetName: targetName,
+        isomorphismUpTo,
+      }
+      postMessageToWorker(input)
+    },
+    [targetName, isomorphismUpTo, postMessageToWorker]
+  )
+  if (!visible) {
+    return <React.Fragment></React.Fragment>
+  }
+
+  const supported = isSupported(targetName, "minimal")
+  const { computing, workerProgress } = destructureWorkerInfo(workerInfo)
+
+  return (
+    <form onSubmit={computeMinimalModel} data-testid="ComputeMinimalModel">
+      <Stack spacing={1}>
+        <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
+          {"Compute minimal model until degree"}
+          <NumberField {...isomorphismUpToFieldProps}/>
+        </Stack>
+        <ButtonWithProgress
+          type="submit" variant="contained" disabled={!supported}
+          computing={computing} progress={workerProgress}
+        />
+        { !supported &&
+          <Alert severity="info">
+            Currently, this type of computation is not supported.
+          </Alert>
+        }
+      </Stack>
+    </form>
+  )
+}
+
+type ComputationType = "cohomology" | "class" | "minimal"
 function isSupported(targetName: TargetName, computationType: ComputationType): boolean {
   switch (targetName) {
     case "self":
-    case "freeLoopSpace":
     case "cyclic":
     case "idealQuot":
       return true
+    case "freeLoopSpace":
+      switch (computationType) {
+        case "cohomology":
+        case "class":
+          return true
+        case "minimal":
+          return false
+      }
+    // Disable no-fallthrough since it is false-positive
+    // eslint-disable-next-line no-fallthrough
     case "derivation":
       switch (computationType) {
         case "cohomology":
           return true
         case "class":
+        case "minimal":
           return false
       }
   }
@@ -178,6 +230,7 @@ export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: Com
       <Tabs value={computationType} onChange={handleChange}>
         <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }}/>
         <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }}/>
+        <Tab value="minimal" label="Minimal model" sx={{ textTransform: "none" }}/>
       </Tabs>
       <ComputeCohomologyForm
         targetName={targetName}
@@ -189,6 +242,12 @@ export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: Com
         targetName={targetName}
         postMessageToWorker={postMessageToWorker}
         visible={computationType === "class"}
+        workerInfo={workerInfo}
+      />
+      <ComputeMinimalModelForm
+        targetName={targetName}
+        postMessageToWorker={postMessageToWorker}
+        visible={computationType === "minimal"}
         workerInfo={workerInfo}
       />
     </React.Fragment>

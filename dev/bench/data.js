@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687063858634,
+  "lastUpdate": 1687101818552,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1546,6 +1546,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.756,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "9f17f45f4e972aee9fa2e3d96fe3d38e605d22e4",
+          "message": "fix(website): use printer correctly in getDGAInfo",
+          "timestamp": "2023-06-19T00:16:58+09:00",
+          "tree_id": "79cbf47fb940d784b3c7c4c8661e506520c84568",
+          "url": "https://github.com/shwaka/kohomology/commit/9f17f45f4e972aee9fa2e3d96fe3d38e605d22e4"
+        },
+        "date": 1687101818037,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.455,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.711,
             "unit": "s/op"
           }
         ]

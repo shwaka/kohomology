@@ -105,13 +105,13 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             val degree = minimalModel.isomorphismUpTo + 1
             val targetDGAlgebra = minimalModel.targetDGAlgebra
             val cocyclesToHit = this.getCocyclesToHit(minimalModel)
-            val cochainsToKill = this.getCochainsToKill(minimalModel)
+            val cocyclesToKill = this.getCocyclesToKill(minimalModel)
             val indeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> =
                 this.getIndeterminateList(
                     degree = degree,
                     previousIndeterminateList = minimalModel.freeDGAlgebra.indeterminateList,
                     numberOfCocyclesToHit = cocyclesToHit.size,
-                    numberOfCochainsToKill = cochainsToKill.size
+                    numberOfCocyclesToKill = cocyclesToKill.size
                 )
             val matrixSpace = minimalModel.targetDGAlgebra.matrixSpace
             val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
@@ -121,7 +121,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                     incl(minimalModel.freeDGAlgebra.differential(it))
                 } + List(cocyclesToHit.size) {
                     freeGAlgebra.getZero(degree + 1)
-                } + cochainsToKill.map {
+                } + cocyclesToKill.map {
                     incl(it)
                 }
             val differential = freeGAlgebra.getDerivation(
@@ -130,7 +130,15 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             )
             val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
                 FreeDGAlgebra(freeGAlgebra, differential)
-            val dgAlgebraMap = freeDGAlgebra.getDGAlgebraMap(targetDGAlgebra, TODO())
+            val dgAlgebraMapValueList = minimalModel.freeDGAlgebra.generatorList.map {
+                minimalModel.dgAlgebraMap(it)
+            } + cocyclesToHit + cocyclesToKill.map { cocycleToKill ->
+                val targetCoboundary = minimalModel.dgAlgebraMap(cocycleToKill)
+                val boundingTargetCochain = minimalModel.targetDGAlgebra.differential.findPreimage(targetCoboundary)
+                    ?: throw IllegalStateException("This can't happen! Failed to find preimage of d.")
+                boundingTargetCochain
+            }
+            val dgAlgebraMap = freeDGAlgebra.getDGAlgebraMap(targetDGAlgebra, dgAlgebraMapValueList)
             return MinimalModel(
                 targetDGAlgebra = targetDGAlgebra,
                 freeDGAlgebra = freeDGAlgebra,
@@ -154,11 +162,10 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 }
         }
 
-        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCochainsToKill(
+        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCocyclesToKill(
             minimalModel: MinimalModel<B, S, V, M>,
         ): List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> {
             val degree = minimalModel.isomorphismUpTo + 1
-            val targetDGAlgebra = minimalModel.targetDGAlgebra
             val inducedMapOnCohomology = minimalModel.dgAlgebraMap.inducedMapOnCohomology
             val kernel = inducedMapOnCohomology.kernel()
             val incl = kernel.inclusion
@@ -173,7 +180,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             degree: Int,
             previousIndeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>>,
             numberOfCocyclesToHit: Int,
-            numberOfCochainsToKill: Int,
+            numberOfCocyclesToKill: Int,
         ): List<Indeterminate<IntDegree, MMIndeterminateName>> {
             return previousIndeterminateList +
                 (0 until numberOfCocyclesToHit).map { index ->
@@ -185,11 +192,11 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                     )
                     Indeterminate(name, degree)
                 } +
-                (0 until numberOfCochainsToKill).map { index ->
+                (0 until numberOfCocyclesToKill).map { index ->
                     val name = MMIndeterminateName(
                         degree = degree,
                         index = index,
-                        totalNumberInDegree = numberOfCochainsToKill,
+                        totalNumberInDegree = numberOfCocyclesToKill,
                         type = MMIndeterminateType.COCHAIN,
                     )
                     Indeterminate(name, degree)

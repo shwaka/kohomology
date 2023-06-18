@@ -101,6 +101,19 @@ public interface Derivation<D : Degree, B : BasisName, S : Scalar, V : NumVector
             val gLinearMap = GLinearMap.fromGVectors(source, source, degree, matrixSpace, name, getGVectors)
             return DerivationImpl(source, gLinearMap)
         }
+
+        public fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            source: GAlgebra<D, B, S, V, M>,
+            degree: D,
+        ): Derivation<D, B, S, V, M> {
+            val gLinearMap = GLinearMap.getZero(
+                matrixSpace = source.matrixSpace,
+                source = source,
+                target = source,
+                degree = degree,
+            )
+            return DerivationImpl(source, gLinearMap)
+        }
     }
 }
 

@@ -109,7 +109,7 @@ class FreeDGAWrapper(json: String) {
     }
 
     fun dgaInfo(): Array<StyledMessageKt> {
-        return getDGAInfo(this.freeDGAlgebra)
+        return getDGAInfo(this.freeDGAlgebra, "V")
     }
 
     fun idealInfo(): StyledMessageKt {
@@ -187,7 +187,7 @@ class FreeDGAWrapper(json: String) {
             targetDGAlgebra = targetDGVectorSpace,
             isomorphismUpTo = isomorphismUpTo
         )
-        return getDGAInfo(minimalModel.freeDGAlgebra)
+        return getDGAInfo(minimalModel.freeDGAlgebra, "W")
     }
 }
 
@@ -350,20 +350,21 @@ computeCohomologyClass(
 @ExperimentalJsExport
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAInfo(
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
+    generatingVectorSpaceName: String,
 ): Array<StyledMessageKt> {
-    val freeDGAString = freeDGAlgebra.toString()
+    val p = Printer(printType = PrintType.TEX)
+    val freeDGAString = p(freeDGAlgebra)
     val degreeString = freeDGAlgebra.indeterminateList.joinToString(", ") {
-        "\\deg{${it.name}} = ${it.degree}"
+        "\\deg{${p(it.name)}} = ${it.degree}"
     }
     val differentialString = freeDGAlgebra.generatorList.joinToString(", ") {
-        val p = Printer(printType = PrintType.TEX)
         freeDGAlgebra.context.run {
             "d$it = ${p(d(it))}"
         }
     }
     return arrayOf(
         styledMessage(MessageType.SUCCESS) {
-            "(\\Lambda V, d) = ".math + freeDGAString.math
+            "(\\Lambda $generatingVectorSpaceName, d) = ".math + freeDGAString.math
         }.export(),
         styledMessage(MessageType.SUCCESS) {
             degreeString.math

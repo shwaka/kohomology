@@ -15,6 +15,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 val minimalModelTag = NamedTag("MinimalModel")
 
@@ -74,6 +75,48 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
             (0..isomorphismUpTo).forAll { degree ->
                 minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
             }
+        }
+    }
+
+    "minimal model of non-formal DGA" - {
+        // dgAlgebra = (Λ(x, y, z)/(yz), dz=xy) with |x|, |y|, |z| odd
+        // This is non-formal since the triple Massey product
+        //   <[x], [x], [y]> = [xz]
+        // is non-trivial.
+        val indeterminateList = listOf(
+            Indeterminate("x", 3),
+            Indeterminate("y", 5),
+            Indeterminate("z", 7),
+        )
+        val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y, z) ->
+            mapOf(
+                z to x * y,
+            )
+        }
+        val dgIdeal = freeDGAlgebra.context.run {
+            val (_, y, z) = freeDGAlgebra.generatorList
+            freeDGAlgebra.getDGIdeal(listOf(y * z))
+        }
+        val dgAlgebra = freeDGAlgebra.getQuotientByIdeal(dgIdeal)
+        val isomorphismUpTo = 20
+        val minimalModel = MinimalModel(dgAlgebra, isomorphismUpTo)
+        val minimalModelOfCohomology = MinimalModel(
+            dgAlgebra.cohomology.withTrivialDifferential(),
+            isomorphismUpTo,
+        )
+        "minimalModel.dgAlgebraMap should be quasi-isomorphism up to $isomorphismUpTo" {
+            (0..isomorphismUpTo).forAll { degree ->
+                minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
+            }
+        }
+        "minimalModelOfCohomology.dgAlgebraMap should be quasi-isomorphism up to $isomorphismUpTo" {
+            (0..isomorphismUpTo).forAll { degree ->
+                minimalModelOfCohomology.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
+            }
+        }
+        "two minimal models should be different since dgAlgebra is not formal" {
+            minimalModel.freeDGAlgebra.generatorList.size shouldNotBe
+                minimalModelOfCohomology.freeDGAlgebra.generatorList.size
         }
     }
 }

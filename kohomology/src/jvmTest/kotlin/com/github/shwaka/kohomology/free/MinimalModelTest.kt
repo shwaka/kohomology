@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.withTrivialDifferential
 import com.github.shwaka.kohomology.example.sphere
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -37,6 +38,41 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
                 (0..isomorphismUpTo).forAll { degree ->
                     minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
                 }
+            }
+        }
+    }
+
+    "minimal model of CP^2#CP2" - {
+        val polynomialAlgebra = FreeGAlgebra(
+            matrixSpace,
+            listOf(
+                Indeterminate("a", 2),
+                Indeterminate("b", 2),
+            )
+        )
+        val idealGenerator = polynomialAlgebra.context.run {
+            val (a, b) = polynomialAlgebra.generatorList
+            listOf(a * b, a.pow(2) - b.pow(2))
+        }
+        val ideal = polynomialAlgebra.getIdeal(idealGenerator)
+        val cohomologyAsDGA = polynomialAlgebra.getQuotientByIdeal(ideal).withTrivialDifferential()
+        val isomorphismUpTo = 10
+        val minimalModel = MinimalModel(
+            targetDGAlgebra = cohomologyAsDGA,
+            isomorphismUpTo = isomorphismUpTo,
+        )
+        "the number of generators should be 4" {
+            minimalModel.freeDGAlgebra.generatorList.size shouldBe 4
+        }
+        "the degrees of generators should be 2, 2, 3, 3" {
+            minimalModel.freeDGAlgebra.generatorList[0].degree shouldBe IntDegree(2)
+            minimalModel.freeDGAlgebra.generatorList[1].degree shouldBe IntDegree(2)
+            minimalModel.freeDGAlgebra.generatorList[2].degree shouldBe IntDegree(3)
+            minimalModel.freeDGAlgebra.generatorList[3].degree shouldBe IntDegree(3)
+        }
+        "should be quasi-isomorphism up to degree $isomorphismUpTo" {
+            (0..isomorphismUpTo).forAll { degree ->
+                minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
             }
         }
     }

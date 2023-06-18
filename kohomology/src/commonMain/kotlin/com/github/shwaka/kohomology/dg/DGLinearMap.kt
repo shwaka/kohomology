@@ -187,6 +187,16 @@ public interface DGLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Sca
             val gLinearMap = GLinearMap.fromGVectors(source, target, degree, matrixSpace, name, getGVectors)
             return DGLinearMap(source, target, gLinearMap)
         }
+
+        public fun <D : Degree, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getZero(
+            source: DGVectorSpace<D, BS, S, V, M>,
+            target: DGVectorSpace<D, BT, S, V, M>,
+            degree: D,
+            matrixSpace: MatrixSpace<S, V, M>,
+        ): DGLinearMap<D, BS, BT, S, V, M> {
+            val gLinearMap = GLinearMap.getZero(matrixSpace, source, target, degree)
+            return DGLinearMap(source, target, gLinearMap)
+        }
     }
 }
 

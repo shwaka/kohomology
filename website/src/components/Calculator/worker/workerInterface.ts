@@ -4,7 +4,13 @@ export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "id
 export type TargetName = (typeof targetNames)[number]
 
 // inputs
-export const inputCommands = ["updateJson", "computeCohomology", "dgaInfo", "computeCohomologyClass"] as const
+export const inputCommands = [
+  "updateJson",
+  "computeCohomology",
+  "dgaInfo",
+  "computeCohomologyClass",
+  "computeMinimalModel",
+] as const
 export type InputCommand = (typeof inputCommands)[number]
 
 export const showCohomologyCandidates = ["basis", "dim"] as const
@@ -31,9 +37,14 @@ type ComputeCohomologyClassCommand = {
   cocycleString: string
   showBasis: boolean
 }
+type ComputeMinimalModelCommand = {
+  command: "computeMinimalModel"
+  targetName: TargetName
+  isomorphismUpTo: number
+}
 type NoArgCommand = never // previously { command: "dgaInfo" }
 
-export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | NoArgCommand
+export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | ComputeMinimalModelCommand | NoArgCommand
 
 // outputs
 export const outputCommands = ["printMessages", "notifyInfo"] as const

@@ -54,6 +54,9 @@ export class KohomologyMessageHandler {
         case "computeCohomologyClass":
           this.computeCohomologyClass(input.targetName, input.cocycleString, input.showBasis)
           break
+        case "computeMinimalModel":
+          this.computeMinimalModel(input.targetName, input.isomorphismUpTo)
+          break
         default:
           throw new ExhaustivityError(input, `Invalid command: ${input}`)
       }
@@ -146,6 +149,12 @@ export class KohomologyMessageHandler {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.notifyInfo({ status: "computing", progress: null })
     this.sendMessages(toStyledMessage(this.dgaWrapper.computeCohomologyClass(targetName, cocycleString, showBasis)))
+  }
+
+  private computeMinimalModel(targetName: TargetName, isomorphismUpTo: number): void {
+    assertNotNull(this.dgaWrapper, "dgaWrapper is null")
+    this.notifyInfo({ status: "computing", progress: null })
+    this.sendMessages(this.dgaWrapper.computeMinimalModel(targetName, isomorphismUpTo).map(toStyledMessage))
   }
 
   private showDgaInfo(): void {

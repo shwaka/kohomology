@@ -149,12 +149,24 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
         if (valueList.size != this.indeterminateList.size)
             throw InvalidSizeException("Invalid size of the list of values of an algebra map")
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
-            if (value is GVector) {
-                if (value.degree != indeterminate.degree)
-                    throw IllegalArgumentException(
+            when (value) {
+                is GVector -> {
+                    require(value in target) {
+                        "Cannot construct GAlgebraMap " +
+                            "since the given value $value is not an element of $target"
+                    }
+                    require(value.degree == indeterminate.degree) {
                         "Illegal degree: the degree of the value of $indeterminate must be ${indeterminate.degree}" +
                             "but ${value.degree} was given"
-                    )
+                    }
+                }
+                is ZeroGVector -> {
+                    require(value.gVectorSpace == target) {
+                        "Cannot construct GAlgebraMap " +
+                            "since zeroGVector.gVectorSpace is ${value.gVectorSpace}, " +
+                            "but should be $target"
+                    }
+                }
             }
         }
         val gVectorValueList = valueList.mapIndexed { index, gVectorOrZero ->

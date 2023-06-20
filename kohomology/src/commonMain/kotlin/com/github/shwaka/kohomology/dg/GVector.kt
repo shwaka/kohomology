@@ -342,6 +342,10 @@ public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVect
         return gVector.gVectorSpace.underlyingGVectorSpace == this.underlyingGVectorSpace
     }
 
+    public operator fun contains(gVector: ZeroGVector<D, B, S, V>): Boolean {
+        return gVector.gVectorSpace.underlyingGVectorSpace == this.underlyingGVectorSpace
+    }
+
     public fun add(a: GVector<D, B, S, V>, b: GVector<D, B, S, V>): GVector<D, B, S, V> {
         if (a !in this)
             throw IllegalContextException("The gVector $a does not match the context")

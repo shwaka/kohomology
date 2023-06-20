@@ -82,10 +82,9 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                     }
                 }
                 is ZeroGVector -> {
-                    require(value.gVectorSpace == this) {
+                    require(value in this) {
                         "Cannot construct Derivation " +
-                            "since zeroGVector.gVectorSpace is ${value.gVectorSpace}, " +
-                            "but should be $this"
+                            "since zeroGVector.gVectorSpace is not an element of $this"
                     }
                 }
             }
@@ -161,10 +160,9 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                     }
                 }
                 is ZeroGVector -> {
-                    require(value.gVectorSpace == target) {
+                    require(value in target) {
                         "Cannot construct GAlgebraMap " +
-                            "since zeroGVector.gVectorSpace is ${value.gVectorSpace}, " +
-                            "but should be $target"
+                            "since zeroGVector.gVectorSpace is not an element of $target"
                     }
                 }
             }

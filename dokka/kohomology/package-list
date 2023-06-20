@@ -724,6 +724,11 @@ $dokka.location:com.github.shwaka.kohomology.free/GeneratorOfFreeDGA/GeneratorOf
 $dokka.location:com.github.shwaka.kohomology.free/GeneratorOfFreeDGA/degree/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generator-of-free-d-g-a/degree.html
 $dokka.location:com.github.shwaka.kohomology.free/GeneratorOfFreeDGA/differentialValue/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generator-of-free-d-g-a/differential-value.html
 $dokka.location:com.github.shwaka.kohomology.free/GeneratorOfFreeDGA/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generator-of-free-d-g-a/name.html
+$dokka.location:com.github.shwaka.kohomology.free/GenericMinimalModel///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generic-minimal-model/index.html
+$dokka.location:com.github.shwaka.kohomology.free/GenericMinimalModel/dgAlgebraMap/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generic-minimal-model/dg-algebra-map.html
+$dokka.location:com.github.shwaka.kohomology.free/GenericMinimalModel/freeDGAlgebra/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generic-minimal-model/free-d-g-algebra.html
+$dokka.location:com.github.shwaka.kohomology.free/GenericMinimalModel/isomorphismUpTo/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generic-minimal-model/isomorphism-up-to.html
+$dokka.location:com.github.shwaka.kohomology.free/GenericMinimalModel/targetDGAlgebra/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-generic-minimal-model/target-d-g-algebra.html
 $dokka.location:com.github.shwaka.kohomology.free/MMIndeterminateName///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-m-m-indeterminate-name/index.html
 $dokka.location:com.github.shwaka.kohomology.free/MMIndeterminateName/MMIndeterminateName/#kotlin.Int#kotlin.Int#kotlin.Int#com.github.shwaka.kohomology.free.MMIndeterminateType/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-m-m-indeterminate-name/-m-m-indeterminate-name.html
 $dokka.location:com.github.shwaka.kohomology.free/MMIndeterminateName/degree/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.free/-m-m-indeterminate-name/degree.html

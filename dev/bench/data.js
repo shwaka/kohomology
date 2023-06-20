@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687104435598,
+  "lastUpdate": 1687250937448,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1648,6 +1648,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.824,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "77aba183ef6af872ccc77567c55b9800c77b4449",
+          "message": "refactor(core): improve error messages in GLinearMap.invoke and FreeGAlgebra.getDerivation",
+          "timestamp": "2023-06-20T17:31:30+09:00",
+          "tree_id": "993977c10a803208e6dc2739116ed1cff15b1e58",
+          "url": "https://github.com/shwaka/kohomology/commit/77aba183ef6af872ccc77567c55b9800c77b4449"
+        },
+        "date": 1687250936276,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.711,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.433,
             "unit": "s/op"
           }
         ]

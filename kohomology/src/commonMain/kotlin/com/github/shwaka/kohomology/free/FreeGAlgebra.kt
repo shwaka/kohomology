@@ -73,7 +73,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                     }
                     require(value in this) {
                         "Cannot construct Derivation " +
-                            "since the given value $value is not an element of $this"
+                            "since the given value $value is not an element of $this, but of ${value.gVectorSpace}"
                     }
                     require(value.degree == expectedValueDegree) {
                         "Illegal degree: the degree of the value of $indeterminate must be " +
@@ -84,7 +84,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                 is ZeroGVector -> {
                     require(value in this) {
                         "Cannot construct Derivation " +
-                            "since zeroGVector.gVectorSpace is not an element of $this"
+                            "since zeroGVector.gVectorSpace is not an element of $this, but of ${value.gVectorSpace}"
                     }
                 }
             }
@@ -152,7 +152,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                 is GVector -> {
                     require(value in target) {
                         "Cannot construct GAlgebraMap " +
-                            "since the given value $value is not an element of $target"
+                            "since the given value $value is not an element of $target, but of ${value.gVectorSpace}"
                     }
                     require(value.degree == indeterminate.degree) {
                         "Illegal degree: the degree of the value of $indeterminate must be ${indeterminate.degree}" +
@@ -162,7 +162,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                 is ZeroGVector -> {
                     require(value in target) {
                         "Cannot construct GAlgebraMap " +
-                            "since zeroGVector.gVectorSpace is not an element of $target"
+                            "since zeroGVector.gVectorSpace is not an element of $target, but of ${value.gVectorSpace}"
                     }
                 }
             }

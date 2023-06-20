@@ -31,7 +31,7 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
 
     public operator fun invoke(gVector: GVector<D, BS, S, V>): GVector<D, BT, S, V> {
         require(gVector in this.source) {
-            "Cannot evaluate $this by $gVector since it is not an element of ${this.source}"
+            "Cannot evaluate $this by $gVector since it is not an element of ${this.source}, but of ${gVector.gVectorSpace}"
         }
         val linearMap = this[gVector.degree]
         require(gVector.vector.vectorSpace == linearMap.source) {

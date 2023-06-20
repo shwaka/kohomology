@@ -30,11 +30,13 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
     }
 
     public operator fun invoke(gVector: GVector<D, BS, S, V>): GVector<D, BT, S, V> {
-        if (gVector !in this.source)
-            throw IllegalContextException("Invalid graded vector is given as an argument for a graded linear map")
+        require(gVector in this.source) {
+            "Cannot evaluate $this by $gVector since it is not an element of ${this.source}"
+        }
         val linearMap = this[gVector.degree]
-        if (gVector.vector.vectorSpace != linearMap.source)
-            throw Exception("Graded linear map contains a bug: getLinearMap returns incorrect linear map")
+        require(gVector.vector.vectorSpace == linearMap.source) {
+            "Graded linear map contains a bug: getLinearMap returns incorrect linear map"
+        }
         val newVector = linearMap(gVector.vector)
         val newDegree = this.degreeGroup.context.run { gVector.degree + this@GLinearMap.degree }
         return this.target.fromVector(newVector, newDegree)

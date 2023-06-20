@@ -19,6 +19,45 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     val dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M>,
     val isomorphismUpTo: Int,
 ) {
+    public fun computeNext(): MinimalModel<B, S, V, M> {
+        val degree = this.isomorphismUpTo + 1
+        val targetDGAlgebra = this.targetDGAlgebra
+        val cocyclesToHit = MinimalModel.getCocyclesToHit(this)
+        val cocyclesToKill = MinimalModel.getCocyclesToKill(this)
+        val indeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> =
+            MinimalModel.getIndeterminateList(
+                degree = degree,
+                previousIndeterminateList = this.freeDGAlgebra.indeterminateList,
+                numberOfCocyclesToHit = cocyclesToHit.size,
+                numberOfCocyclesToKill = cocyclesToKill.size
+            )
+        val matrixSpace = this.targetDGAlgebra.matrixSpace
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+        val differential = MinimalModel.getDifferential(
+            degree = degree,
+            previousFreeDGAlgebra = this.freeDGAlgebra,
+            currentFreeGAlgebra = freeGAlgebra,
+            numberOfCocyclesToHit = cocyclesToHit.size,
+            cocyclesToKill = cocyclesToKill,
+        )
+        val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
+            FreeDGAlgebra(freeGAlgebra, differential)
+        val dgAlgebraMap = MinimalModel.getDGAlgebraMap(
+            targetDGAlgebra = targetDGAlgebra,
+            previousFreeDGAlgebra = this.freeDGAlgebra,
+            previousDGAlgebraMap = this.dgAlgebraMap,
+            currentFreeDGAlgebra = freeDGAlgebra,
+            cocyclesToHit = cocyclesToHit,
+            cocyclesToKill = cocyclesToKill,
+        )
+        return MinimalModel(
+            targetDGAlgebra = targetDGAlgebra,
+            freeDGAlgebra = freeDGAlgebra,
+            dgAlgebraMap = dgAlgebraMap,
+            isomorphismUpTo = degree,
+        )
+    }
+
     public companion object {
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
@@ -35,7 +74,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             }
             var minimalModel = this.getInitial(targetDGAlgebra)
             while (minimalModel.isomorphismUpTo < isomorphismUpTo) {
-                minimalModel = this.computeNext(minimalModel)
+                minimalModel = minimalModel.computeNext()
             }
             return minimalModel
         }
@@ -52,47 +91,6 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 freeDGAlgebra = freeDGAlgebra,
                 dgAlgebraMap = dgAlgebraMap,
                 isomorphismUpTo = 1,
-            )
-        }
-
-        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeNext(
-            minimalModel: MinimalModel<B, S, V, M>
-        ): MinimalModel<B, S, V, M> {
-            val degree = minimalModel.isomorphismUpTo + 1
-            val targetDGAlgebra = minimalModel.targetDGAlgebra
-            val cocyclesToHit = this.getCocyclesToHit(minimalModel)
-            val cocyclesToKill = this.getCocyclesToKill(minimalModel)
-            val indeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> =
-                this.getIndeterminateList(
-                    degree = degree,
-                    previousIndeterminateList = minimalModel.freeDGAlgebra.indeterminateList,
-                    numberOfCocyclesToHit = cocyclesToHit.size,
-                    numberOfCocyclesToKill = cocyclesToKill.size
-                )
-            val matrixSpace = minimalModel.targetDGAlgebra.matrixSpace
-            val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
-            val differential = this.getDifferential(
-                degree = degree,
-                previousFreeDGAlgebra = minimalModel.freeDGAlgebra,
-                currentFreeGAlgebra = freeGAlgebra,
-                numberOfCocyclesToHit = cocyclesToHit.size,
-                cocyclesToKill = cocyclesToKill,
-            )
-            val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
-                FreeDGAlgebra(freeGAlgebra, differential)
-            val dgAlgebraMap = this.getDGAlgebraMap(
-                targetDGAlgebra = targetDGAlgebra,
-                previousFreeDGAlgebra = minimalModel.freeDGAlgebra,
-                previousDGAlgebraMap = minimalModel.dgAlgebraMap,
-                currentFreeDGAlgebra = freeDGAlgebra,
-                cocyclesToHit = cocyclesToHit,
-                cocyclesToKill = cocyclesToKill,
-            )
-            return MinimalModel(
-                targetDGAlgebra = targetDGAlgebra,
-                freeDGAlgebra = freeDGAlgebra,
-                dgAlgebraMap = dgAlgebraMap,
-                isomorphismUpTo = degree,
             )
         }
 

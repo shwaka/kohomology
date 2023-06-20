@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorOrZero
+import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.AugmentationDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
@@ -65,16 +66,28 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
                     "${this.indeterminateList.size} is expected but ${valueList.size} is given"
             )
         for ((indeterminate, value) in this.indeterminateList.zip(valueList)) {
-            if (value is GVector) {
-                val expectedValueDegree = this.degreeGroup.context.run {
-                    indeterminate.degree + derivationDegree
-                }
-                if (value.degree != expectedValueDegree)
-                    throw IllegalArgumentException(
+            when (value) {
+                is GVector -> {
+                    val expectedValueDegree = this.degreeGroup.context.run {
+                        indeterminate.degree + derivationDegree
+                    }
+                    require(value in this) {
+                        "Cannot construct Derivation " +
+                            "since the given value $value is not an element of $this"
+                    }
+                    require(value.degree == expectedValueDegree) {
                         "Illegal degree: the degree of the value of $indeterminate must be " +
                             "${indeterminate.degree} + $derivationDegree = $expectedValueDegree, " +
                             "but ${value.degree} was given"
-                    )
+                    }
+                }
+                is ZeroGVector -> {
+                    require(value.gVectorSpace == this) {
+                        "Cannot construct Derivation " +
+                            "since zeroGVector.gVectorSpace is ${value.gVectorSpace}, " +
+                            "but should be $this"
+                    }
+                }
             }
         }
         val gVectorValueList = valueList.mapIndexed { index, gVectorOrZero ->

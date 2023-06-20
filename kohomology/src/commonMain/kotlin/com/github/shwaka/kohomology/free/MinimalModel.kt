@@ -2,11 +2,7 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
-import com.github.shwaka.kohomology.dg.Derivation
-import com.github.shwaka.kohomology.dg.GAlgebraMap
-import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -14,113 +10,23 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    val targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
-    val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-    val dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M>,
-    val isomorphismUpTo: Int,
-) {
+    override val targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
+    override val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
+    override val dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M>,
+    override val isomorphismUpTo: Int,
+) : GenericMinimalModel<MMIndeterminateName, B, S, V, M> {
     public fun computeNext(): MinimalModel<B, S, V, M> {
-        return MinimalModel(
-            targetDGAlgebra = this.targetDGAlgebra,
-            freeDGAlgebra = this.nextFreeDGAlgebra,
-            dgAlgebraMap = this.nextDGAlgebraMap,
-            isomorphismUpTo = this.isomorphismUpTo + 1,
+        val calculator = NextMMCalculator(
+            convertIndeterminate = { it },
+            getIndeterminateName = { degree, index, totalNumberInDegree, type ->
+                MMIndeterminateName(degree, index, totalNumberInDegree, type)
+            },
+            minimalModel = this,
+            createNextMinimalModel = { targetDGAlgebra, freeDGAlgebra, dgAlgebraMap, isomorphismUpTo ->
+                MinimalModel(targetDGAlgebra, freeDGAlgebra, dgAlgebraMap, isomorphismUpTo)
+            }
         )
-    }
-
-    private val cocyclesToHit: List<GVector<IntDegree, B, S, V>> by lazy {
-        val degree = this.isomorphismUpTo + 1
-        val targetDGAlgebra = this.targetDGAlgebra
-        val inducedMapOnCohomology = this.dgAlgebraMap.inducedMapOnCohomology
-        val cokernel = inducedMapOnCohomology.cokernel()
-        val section = cokernel.section
-        cokernel.getBasis(degree)
-            .map { cokernelCohomologyClass -> section(cokernelCohomologyClass) }
-            .map { cohomologyClass ->
-                targetDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
-            }
-    }
-
-    private val cocyclesToKill: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> by lazy {
-        val degree = this.isomorphismUpTo + 1
-        val inducedMapOnCohomology = this.dgAlgebraMap.inducedMapOnCohomology
-        val kernel = inducedMapOnCohomology.kernel()
-        val incl = kernel.inclusion
-        kernel.getBasis(degree + 1)
-            .map { kernelCohomologyClass -> incl(kernelCohomologyClass) }
-            .map { cohomologyClass ->
-                this.freeDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
-            }
-    }
-
-    private val nextIndeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> by lazy {
-        val degree = this.isomorphismUpTo + 1
-        this.freeDGAlgebra.indeterminateList +
-            (0 until this.cocyclesToHit.size).map { index ->
-                val name = MMIndeterminateName(
-                    degree = degree,
-                    index = index,
-                    totalNumberInDegree = this.cocyclesToHit.size,
-                    type = MMIndeterminateType.COCYCLE,
-                )
-                Indeterminate(name, degree)
-            } +
-            (0 until this.cocyclesToKill.size).map { index ->
-                val name = MMIndeterminateName(
-                    degree = degree,
-                    index = index,
-                    totalNumberInDegree = this.cocyclesToKill.size,
-                    type = MMIndeterminateType.COCHAIN,
-                )
-                Indeterminate(name, degree)
-            }
-    }
-
-    private val nextFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M> by lazy {
-        FreeGAlgebra(this.freeDGAlgebra.matrixSpace, this.nextIndeterminateList)
-    }
-
-    private val inclusionToNext: GAlgebraMap<
-        IntDegree,
-        Monomial<IntDegree, MMIndeterminateName>,
-        Monomial<IntDegree, MMIndeterminateName>,
-        S, V, M> by lazy {
-        val valueList = this.nextFreeGAlgebra.generatorList.slice(
-            this.freeDGAlgebra.generatorList.indices
-        )
-        this.freeDGAlgebra.getGAlgebraMap(this.nextFreeGAlgebra, valueList)
-    }
-
-    private val nextDifferential: Derivation<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V, M> by lazy {
-        val incl = this.inclusionToNext
-        val differentialValueList: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> =
-            this.freeDGAlgebra.generatorList.map {
-                incl(this.freeDGAlgebra.differential(it))
-            } + List(this.cocyclesToHit.size) {
-                this.nextFreeGAlgebra.getZero(this.isomorphismUpTo + 2)
-            } + this.cocyclesToKill.map {
-                incl(it)
-            }
-        this.nextFreeGAlgebra.getDerivation(
-            valueList = differentialValueList,
-            derivationDegree = 1,
-        )
-    }
-
-    private val nextFreeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> by lazy {
-        FreeDGAlgebra(this.nextFreeGAlgebra, this.nextDifferential)
-    }
-
-    private val nextDGAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M> by lazy {
-        val dgAlgebraMapValueList = this.freeDGAlgebra.generatorList.map {
-            this.dgAlgebraMap(it)
-        } + this.cocyclesToHit + this.cocyclesToKill.map { cocycleToKill ->
-            val targetCoboundary = this.dgAlgebraMap(cocycleToKill)
-            val boundingTargetCochain = targetDGAlgebra.differential.findPreimage(targetCoboundary)
-                ?: throw IllegalStateException("This can't happen! Failed to find preimage of d.")
-            boundingTargetCochain
-        }
-        this.nextFreeDGAlgebra.getDGAlgebraMap(targetDGAlgebra, dgAlgebraMapValueList)
+        return calculator.nextMinimalModel
     }
 
     public companion object {

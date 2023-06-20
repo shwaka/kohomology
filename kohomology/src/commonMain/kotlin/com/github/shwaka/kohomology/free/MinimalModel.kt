@@ -22,14 +22,12 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     public fun computeNext(): MinimalModel<B, S, V, M> {
         val degree = this.isomorphismUpTo + 1
         val targetDGAlgebra = this.targetDGAlgebra
-        val cocyclesToHit = MinimalModel.getCocyclesToHit(this)
-        val cocyclesToKill = MinimalModel.getCocyclesToKill(this)
         val indeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> =
             MinimalModel.getIndeterminateList(
                 degree = degree,
                 previousIndeterminateList = this.freeDGAlgebra.indeterminateList,
-                numberOfCocyclesToHit = cocyclesToHit.size,
-                numberOfCocyclesToKill = cocyclesToKill.size
+                numberOfCocyclesToHit = this.cocyclesToHit.size,
+                numberOfCocyclesToKill = this.cocyclesToKill.size
             )
         val matrixSpace = this.targetDGAlgebra.matrixSpace
         val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
@@ -37,8 +35,8 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             degree = degree,
             previousFreeDGAlgebra = this.freeDGAlgebra,
             currentFreeGAlgebra = freeGAlgebra,
-            numberOfCocyclesToHit = cocyclesToHit.size,
-            cocyclesToKill = cocyclesToKill,
+            numberOfCocyclesToHit = this.cocyclesToHit.size,
+            cocyclesToKill = this.cocyclesToKill,
         )
         val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
             FreeDGAlgebra(freeGAlgebra, differential)
@@ -47,8 +45,8 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             previousFreeDGAlgebra = this.freeDGAlgebra,
             previousDGAlgebraMap = this.dgAlgebraMap,
             currentFreeDGAlgebra = freeDGAlgebra,
-            cocyclesToHit = cocyclesToHit,
-            cocyclesToKill = cocyclesToKill,
+            cocyclesToHit = this.cocyclesToHit,
+            cocyclesToKill = this.cocyclesToKill,
         )
         return MinimalModel(
             targetDGAlgebra = targetDGAlgebra,
@@ -56,6 +54,31 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             dgAlgebraMap = dgAlgebraMap,
             isomorphismUpTo = degree,
         )
+    }
+
+    private val cocyclesToHit: List<GVector<IntDegree, B, S, V>> by lazy {
+        val degree = this.isomorphismUpTo + 1
+        val targetDGAlgebra = this.targetDGAlgebra
+        val inducedMapOnCohomology = this.dgAlgebraMap.inducedMapOnCohomology
+        val cokernel = inducedMapOnCohomology.cokernel()
+        val section = cokernel.section
+        cokernel.getBasis(degree)
+            .map { cokernelCohomologyClass -> section(cokernelCohomologyClass) }
+            .map { cohomologyClass ->
+                targetDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
+            }
+    }
+
+    private val cocyclesToKill: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> by lazy {
+        val degree = this.isomorphismUpTo + 1
+        val inducedMapOnCohomology = this.dgAlgebraMap.inducedMapOnCohomology
+        val kernel = inducedMapOnCohomology.kernel()
+        val incl = kernel.inclusion
+        kernel.getBasis(degree + 1)
+            .map { kernelCohomologyClass -> incl(kernelCohomologyClass) }
+            .map { cohomologyClass ->
+                this.freeDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
+            }
     }
 
     public companion object {
@@ -92,35 +115,6 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 dgAlgebraMap = dgAlgebraMap,
                 isomorphismUpTo = 1,
             )
-        }
-
-        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCocyclesToHit(
-            minimalModel: MinimalModel<B, S, V, M>,
-        ): List<GVector<IntDegree, B, S, V>> {
-            val degree = minimalModel.isomorphismUpTo + 1
-            val targetDGAlgebra = minimalModel.targetDGAlgebra
-            val inducedMapOnCohomology = minimalModel.dgAlgebraMap.inducedMapOnCohomology
-            val cokernel = inducedMapOnCohomology.cokernel()
-            val section = cokernel.section
-            return cokernel.getBasis(degree)
-                .map { cokernelCohomologyClass -> section(cokernelCohomologyClass) }
-                .map { cohomologyClass ->
-                    targetDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
-                }
-        }
-
-        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCocyclesToKill(
-            minimalModel: MinimalModel<B, S, V, M>,
-        ): List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> {
-            val degree = minimalModel.isomorphismUpTo + 1
-            val inducedMapOnCohomology = minimalModel.dgAlgebraMap.inducedMapOnCohomology
-            val kernel = inducedMapOnCohomology.kernel()
-            val incl = kernel.inclusion
-            return kernel.getBasis(degree + 1)
-                .map { kernelCohomologyClass -> incl(kernelCohomologyClass) }
-                .map { cohomologyClass ->
-                    minimalModel.freeDGAlgebra.cocycleRepresentativeOf(cohomologyClass)
-                }
         }
 
         private fun getIndeterminateList(

@@ -20,21 +20,11 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     val isomorphismUpTo: Int,
 ) {
     public fun computeNext(): MinimalModel<B, S, V, M> {
-        val degree = this.isomorphismUpTo + 1
-        val targetDGAlgebra = this.targetDGAlgebra
-        val dgAlgebraMap = MinimalModel.getDGAlgebraMap(
-            targetDGAlgebra = targetDGAlgebra,
-            previousFreeDGAlgebra = this.freeDGAlgebra,
-            previousDGAlgebraMap = this.dgAlgebraMap,
-            currentFreeDGAlgebra = this.nextFreeDGAlgebra,
-            cocyclesToHit = this.cocyclesToHit,
-            cocyclesToKill = this.cocyclesToKill,
-        )
         return MinimalModel(
-            targetDGAlgebra = targetDGAlgebra,
+            targetDGAlgebra = this.targetDGAlgebra,
             freeDGAlgebra = this.nextFreeDGAlgebra,
-            dgAlgebraMap = dgAlgebraMap,
-            isomorphismUpTo = degree,
+            dgAlgebraMap = this.nextDGAlgebraMap,
+            isomorphismUpTo = this.isomorphismUpTo + 1,
         )
     }
 
@@ -121,6 +111,18 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
         FreeDGAlgebra(this.nextFreeGAlgebra, this.nextDifferential)
     }
 
+    private val nextDGAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M> by lazy {
+        val dgAlgebraMapValueList = this.freeDGAlgebra.generatorList.map {
+            this.dgAlgebraMap(it)
+        } + this.cocyclesToHit + this.cocyclesToKill.map { cocycleToKill ->
+            val targetCoboundary = this.dgAlgebraMap(cocycleToKill)
+            val boundingTargetCochain = targetDGAlgebra.differential.findPreimage(targetCoboundary)
+                ?: throw IllegalStateException("This can't happen! Failed to find preimage of d.")
+            boundingTargetCochain
+        }
+        this.nextFreeDGAlgebra.getDGAlgebraMap(targetDGAlgebra, dgAlgebraMapValueList)
+    }
+
     public companion object {
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
@@ -155,25 +157,6 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 dgAlgebraMap = dgAlgebraMap,
                 isomorphismUpTo = 1,
             )
-        }
-
-        private fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDGAlgebraMap(
-            targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
-            previousFreeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-            previousDGAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M>,
-            currentFreeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-            cocyclesToHit: List<GVector<IntDegree, B, S, V>>,
-            cocyclesToKill: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>>,
-        ): DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M> {
-            val dgAlgebraMapValueList = previousFreeDGAlgebra.generatorList.map {
-                previousDGAlgebraMap(it)
-            } + cocyclesToHit + cocyclesToKill.map { cocycleToKill ->
-                val targetCoboundary = previousDGAlgebraMap(cocycleToKill)
-                val boundingTargetCochain = targetDGAlgebra.differential.findPreimage(targetCoboundary)
-                    ?: throw IllegalStateException("This can't happen! Failed to find preimage of d.")
-                boundingTargetCochain
-            }
-            return currentFreeDGAlgebra.getDGAlgebraMap(targetDGAlgebra, dgAlgebraMapValueList)
         }
     }
 }

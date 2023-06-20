@@ -24,15 +24,8 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
         val targetDGAlgebra = this.targetDGAlgebra
         val matrixSpace = this.targetDGAlgebra.matrixSpace
         val freeGAlgebra = FreeGAlgebra(matrixSpace, this.nextIndeterminateList)
-        val differential = MinimalModel.getDifferential(
-            degree = degree,
-            previousFreeDGAlgebra = this.freeDGAlgebra,
-            currentFreeGAlgebra = freeGAlgebra,
-            numberOfCocyclesToHit = this.cocyclesToHit.size,
-            cocyclesToKill = this.cocyclesToKill,
-        )
         val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
-            FreeDGAlgebra(freeGAlgebra, differential)
+            FreeDGAlgebra(freeGAlgebra, this.nextDifferential)
         val dgAlgebraMap = MinimalModel.getDGAlgebraMap(
             targetDGAlgebra = targetDGAlgebra,
             previousFreeDGAlgebra = this.freeDGAlgebra,
@@ -97,6 +90,37 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             }
     }
 
+    private val nextFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M> by lazy {
+        FreeGAlgebra(this.freeDGAlgebra.matrixSpace, this.nextIndeterminateList)
+    }
+
+    private val inclusionToNext: GAlgebraMap<
+        IntDegree,
+        Monomial<IntDegree, MMIndeterminateName>,
+        Monomial<IntDegree, MMIndeterminateName>,
+        S, V, M> by lazy {
+        val valueList = this.nextFreeGAlgebra.generatorList.slice(
+            this.freeDGAlgebra.generatorList.indices
+        )
+        this.freeDGAlgebra.getGAlgebraMap(this.nextFreeGAlgebra, valueList)
+    }
+
+    private val nextDifferential: Derivation<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V, M> by lazy {
+        val incl = this.inclusionToNext
+        val differentialValueList: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> =
+            this.freeDGAlgebra.generatorList.map {
+                incl(this.freeDGAlgebra.differential(it))
+            } + List(this.cocyclesToHit.size) {
+                this.nextFreeGAlgebra.getZero(this.isomorphismUpTo + 2)
+            } + cocyclesToKill.map {
+                incl(it)
+            }
+        this.nextFreeGAlgebra.getDerivation(
+            valueList = differentialValueList,
+            derivationDegree = 1,
+        )
+    }
+
     public companion object {
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
@@ -130,45 +154,6 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 freeDGAlgebra = freeDGAlgebra,
                 dgAlgebraMap = dgAlgebraMap,
                 isomorphismUpTo = 1,
-            )
-        }
-
-        private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInclusion(
-            previousFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-            currentFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-        ): GAlgebraMap<
-            IntDegree,
-            Monomial<IntDegree, MMIndeterminateName>,
-            Monomial<IntDegree, MMIndeterminateName>,
-            S,
-            V,
-            M
-            > {
-            val valueList = currentFreeGAlgebra.generatorList.slice(
-                previousFreeGAlgebra.generatorList.indices
-            )
-            return previousFreeGAlgebra.getGAlgebraMap(currentFreeGAlgebra, valueList)
-        }
-
-        private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getDifferential(
-            degree: Int,
-            previousFreeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-            currentFreeGAlgebra: FreeGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
-            numberOfCocyclesToHit: Int,
-            cocyclesToKill: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>>,
-        ): Derivation<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V, M> {
-            val incl = this.getInclusion(previousFreeDGAlgebra, currentFreeGAlgebra)
-            val differentialValueList: List<GVector<IntDegree, Monomial<IntDegree, MMIndeterminateName>, S, V>> =
-                previousFreeDGAlgebra.generatorList.map {
-                    incl(previousFreeDGAlgebra.differential(it))
-                } + List(numberOfCocyclesToHit) {
-                    currentFreeGAlgebra.getZero(degree + 1)
-                } + cocyclesToKill.map {
-                    incl(it)
-                }
-            return currentFreeGAlgebra.getDerivation(
-                valueList = differentialValueList,
-                derivationDegree = 1,
             )
         }
 

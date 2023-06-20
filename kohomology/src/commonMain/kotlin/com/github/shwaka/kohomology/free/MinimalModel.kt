@@ -22,10 +22,8 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     public fun computeNext(): MinimalModel<B, S, V, M> {
         val degree = this.isomorphismUpTo + 1
         val targetDGAlgebra = this.targetDGAlgebra
-        val matrixSpace = this.targetDGAlgebra.matrixSpace
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, this.nextIndeterminateList)
         val freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M> =
-            FreeDGAlgebra(freeGAlgebra, this.nextDifferential)
+            FreeDGAlgebra(this.nextFreeGAlgebra, this.nextDifferential)
         val dgAlgebraMap = MinimalModel.getDGAlgebraMap(
             targetDGAlgebra = targetDGAlgebra,
             previousFreeDGAlgebra = this.freeDGAlgebra,
@@ -112,7 +110,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 incl(this.freeDGAlgebra.differential(it))
             } + List(this.cocyclesToHit.size) {
                 this.nextFreeGAlgebra.getZero(this.isomorphismUpTo + 2)
-            } + cocyclesToKill.map {
+            } + this.cocyclesToKill.map {
                 incl(it)
             }
         this.nextFreeGAlgebra.getDerivation(

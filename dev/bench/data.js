@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687281689776,
+  "lastUpdate": 1687283910660,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1716,6 +1716,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.082,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a7ea3aab1be43b022f7e3d022f57d285f4d866cb",
+          "message": "refactor(core): add NextMMCalculator",
+          "timestamp": "2023-06-21T02:50:26+09:00",
+          "tree_id": "63eb7cc7ba26ae30de2684398aa2604dbe77f2ee",
+          "url": "https://github.com/shwaka/kohomology/commit/a7ea3aab1be43b022f7e3d022f57d285f4d866cb"
+        },
+        "date": 1687283910049,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.637,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.488,
             "unit": "s/op"
           }
         ]

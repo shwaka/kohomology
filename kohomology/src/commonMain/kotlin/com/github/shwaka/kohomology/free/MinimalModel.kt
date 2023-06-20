@@ -22,15 +22,8 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     public fun computeNext(): MinimalModel<B, S, V, M> {
         val degree = this.isomorphismUpTo + 1
         val targetDGAlgebra = this.targetDGAlgebra
-        val indeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> =
-            MinimalModel.getIndeterminateList(
-                degree = degree,
-                previousIndeterminateList = this.freeDGAlgebra.indeterminateList,
-                numberOfCocyclesToHit = this.cocyclesToHit.size,
-                numberOfCocyclesToKill = this.cocyclesToKill.size
-            )
         val matrixSpace = this.targetDGAlgebra.matrixSpace
-        val freeGAlgebra = FreeGAlgebra(matrixSpace, indeterminateList)
+        val freeGAlgebra = FreeGAlgebra(matrixSpace, this.nextIndeterminateList)
         val differential = MinimalModel.getDifferential(
             degree = degree,
             previousFreeDGAlgebra = this.freeDGAlgebra,
@@ -81,6 +74,29 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
             }
     }
 
+    private val nextIndeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>> by lazy {
+        val degree = this.isomorphismUpTo + 1
+        this.freeDGAlgebra.indeterminateList +
+            (0 until this.cocyclesToHit.size).map { index ->
+                val name = MMIndeterminateName(
+                    degree = degree,
+                    index = index,
+                    totalNumberInDegree = this.cocyclesToHit.size,
+                    type = MMIndeterminateType.COCYCLE,
+                )
+                Indeterminate(name, degree)
+            } +
+            (0 until this.cocyclesToKill.size).map { index ->
+                val name = MMIndeterminateName(
+                    degree = degree,
+                    index = index,
+                    totalNumberInDegree = this.cocyclesToKill.size,
+                    type = MMIndeterminateType.COCHAIN,
+                )
+                Indeterminate(name, degree)
+            }
+    }
+
     public companion object {
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
@@ -115,33 +131,6 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
                 dgAlgebraMap = dgAlgebraMap,
                 isomorphismUpTo = 1,
             )
-        }
-
-        private fun getIndeterminateList(
-            degree: Int,
-            previousIndeterminateList: List<Indeterminate<IntDegree, MMIndeterminateName>>,
-            numberOfCocyclesToHit: Int,
-            numberOfCocyclesToKill: Int,
-        ): List<Indeterminate<IntDegree, MMIndeterminateName>> {
-            return previousIndeterminateList +
-                (0 until numberOfCocyclesToHit).map { index ->
-                    val name = MMIndeterminateName(
-                        degree = degree,
-                        index = index,
-                        totalNumberInDegree = numberOfCocyclesToHit,
-                        type = MMIndeterminateType.COCYCLE,
-                    )
-                    Indeterminate(name, degree)
-                } +
-                (0 until numberOfCocyclesToKill).map { index ->
-                    val name = MMIndeterminateName(
-                        degree = degree,
-                        index = index,
-                        totalNumberInDegree = numberOfCocyclesToKill,
-                        type = MMIndeterminateType.COCHAIN,
-                    )
-                    Indeterminate(name, degree)
-                }
         }
 
         private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInclusion(

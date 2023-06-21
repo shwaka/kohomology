@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687283910660,
+  "lastUpdate": 1687344526592,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1750,6 +1750,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.488,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "dc8b83e4462cb9af34717d644e074ae8f948da5f",
+          "message": "test(core): fix MinimalModelTest to use MinimalModel.of instead of CohomologicalMinimalModel.of",
+          "timestamp": "2023-06-21T19:39:21+09:00",
+          "tree_id": "45759862d322e3ef1bbfbc24dd752e9d1f6b0209",
+          "url": "https://github.com/shwaka/kohomology/commit/dc8b83e4462cb9af34717d644e074ae8f948da5f"
+        },
+        "date": 1687344524998,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.541,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.124,
             "unit": "s/op"
           }
         ]

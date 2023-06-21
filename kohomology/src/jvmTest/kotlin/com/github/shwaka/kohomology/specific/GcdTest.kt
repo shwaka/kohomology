@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.specific
 
 import com.ionspin.kotlin.bignum.integer.BigInteger
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -31,6 +32,28 @@ fun <N> gcdTest(
                     fromInt(a),
                     fromInt(b),
                 ).isPositive().shouldBeTrue()
+            }
+        }
+    }
+
+    "gcd(n, 0) should throw ArithmeticException" {
+        checkAll(Arb.int()) { n ->
+            shouldThrow<ArithmeticException> {
+                gcdFunction(
+                    fromInt(n),
+                    fromInt(0),
+                )
+            }
+        }
+    }
+
+    "gcd(0, n) should throw ArithmeticException" {
+        checkAll(Arb.int()) { n ->
+            shouldThrow<ArithmeticException> {
+                gcdFunction(
+                    fromInt(0),
+                    fromInt(n),
+                )
             }
         }
     }

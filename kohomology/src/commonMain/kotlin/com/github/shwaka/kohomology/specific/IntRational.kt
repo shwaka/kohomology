@@ -10,14 +10,13 @@ import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
-import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
 // This is `internal` for test
 internal fun intGcd(a: Int, b: Int): Int {
     if (a == 0 || b == 0) {
-        throw Exception("gcd not defined for 0")
+        throw ArithmeticException("gcd not defined for 0")
     }
     val aAbs = a.absoluteValue
     val bAbs = b.absoluteValue

@@ -17,7 +17,7 @@ import kotlin.math.sign
 // This is `internal` for test
 internal fun longGcd(a: Long, b: Long): Long {
     if (a == 0L || b == 0L) {
-        throw Exception("gcd not defined for 0")
+        throw ArithmeticException("gcd not defined for 0")
     }
     val aAbs = a.absoluteValue
     val bAbs = b.absoluteValue

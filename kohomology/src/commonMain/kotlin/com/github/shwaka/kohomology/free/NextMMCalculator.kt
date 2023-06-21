@@ -30,7 +30,7 @@ internal abstract class AbstractNextMMCalculator<
     V : NumVector<S>,
     M : Matrix<S, V>,
     MMNext : GenericMinimalModel<INext, B, S, V, M>>(
-    private val minimalModel: GenericMinimalModel<I, B, S, V, M>,
+    protected val minimalModel: GenericMinimalModel<I, B, S, V, M>,
 ) {
     abstract fun getIndeterminateName(
         degree: Int,
@@ -38,6 +38,9 @@ internal abstract class AbstractNextMMCalculator<
         totalNumberInDegree: Int,
         type: MMIndeterminateType
     ): INext
+
+    abstract fun getNextIsomorphismUpTo(): Int
+    abstract fun getDegreeToAddIndeterminate(): Int
 
     abstract fun convertIndeterminate(
         indeterminate: Indeterminate<IntDegree, I>
@@ -55,12 +58,12 @@ internal abstract class AbstractNextMMCalculator<
             this.minimalModel.targetDGAlgebra,
             this.nextFreeDGAlgebra,
             this.nextDGAlgebraMap,
-            this.minimalModel.isomorphismUpTo + 1,
+            this.getNextIsomorphismUpTo(),
         )
     }
 
     private val cocyclesToHit: List<GVector<IntDegree, B, S, V>> by lazy {
-        val degree = this.minimalModel.isomorphismUpTo + 1
+        val degree = this.getDegreeToAddIndeterminate()
         val targetDGAlgebra = this.minimalModel.targetDGAlgebra
         val inducedMapOnCohomology = this.minimalModel.dgAlgebraMap.inducedMapOnCohomology
         val cokernel = inducedMapOnCohomology.cokernel()
@@ -73,7 +76,7 @@ internal abstract class AbstractNextMMCalculator<
     }
 
     private val cocyclesToKill: List<GVector<IntDegree, Monomial<IntDegree, I>, S, V>> by lazy {
-        val degree = this.minimalModel.isomorphismUpTo + 1
+        val degree = this.getDegreeToAddIndeterminate()
         val inducedMapOnCohomology = this.minimalModel.dgAlgebraMap.inducedMapOnCohomology
         val kernel = inducedMapOnCohomology.kernel()
         val incl = kernel.inclusion
@@ -85,7 +88,7 @@ internal abstract class AbstractNextMMCalculator<
     }
 
     private val nextIndeterminateList: List<Indeterminate<IntDegree, INext>> by lazy {
-        val degree = this.minimalModel.isomorphismUpTo + 1
+        val degree = this.getDegreeToAddIndeterminate()
         this.minimalModel.freeDGAlgebra.indeterminateList.map(this::convertIndeterminate) +
             (0 until this.cocyclesToHit.size).map { index ->
                 val name = this.getIndeterminateName(
@@ -123,12 +126,13 @@ internal abstract class AbstractNextMMCalculator<
     }
 
     private val nextDifferential: Derivation<IntDegree, Monomial<IntDegree, INext>, S, V, M> by lazy {
+        val degree = this.getDegreeToAddIndeterminate() + 1
         val incl = this.inclusionToNext
         val differentialValueList: List<GVector<IntDegree, Monomial<IntDegree, INext>, S, V>> =
             this.minimalModel.freeDGAlgebra.generatorList.map {
                 incl(this.minimalModel.freeDGAlgebra.differential(it))
             } + List(this.cocyclesToHit.size) {
-                this.nextFreeGAlgebra.getZero(this.minimalModel.isomorphismUpTo + 2)
+                this.nextFreeGAlgebra.getZero(degree)
             } + this.cocyclesToKill.map {
                 incl(it)
             }

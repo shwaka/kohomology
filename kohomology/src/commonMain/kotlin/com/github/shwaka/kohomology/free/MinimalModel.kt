@@ -22,6 +22,14 @@ private class NextMMCalculator<B : BasisName, S : Scalar, V : NumVector<S>, M : 
         return MMIndeterminateName(degree, index, totalNumberInDegree, type)
     }
 
+    override fun getNextIsomorphismUpTo(): Int {
+        return this.minimalModel.isomorphismUpTo + 1
+    }
+
+    override fun getDegreeToAddIndeterminate(): Int {
+        return this.minimalModel.isomorphismUpTo + 1
+    }
+
     override fun convertIndeterminate(
         indeterminate: Indeterminate<IntDegree, MMIndeterminateName>
     ): Indeterminate<IntDegree, MMIndeterminateName> {

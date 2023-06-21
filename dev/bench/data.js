@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687345860683,
+  "lastUpdate": 1687356337013,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1818,6 +1818,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.89,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b8753f3b9c8ff20fca35d9b2c65cd4c57b548662",
+          "message": "test(core): improve GcdTest by using Arb.int",
+          "timestamp": "2023-06-21T22:56:36+09:00",
+          "tree_id": "b70149a871b1c1545b651338e9d6c7e27fbf6496",
+          "url": "https://github.com/shwaka/kohomology/commit/b8753f3b9c8ff20fca35d9b2c65cd4c57b548662"
+        },
+        "date": 1687356336480,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.568,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.92,
             "unit": "s/op"
           }
         ]

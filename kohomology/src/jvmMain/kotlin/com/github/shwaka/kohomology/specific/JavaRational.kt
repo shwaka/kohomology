@@ -9,28 +9,28 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import java.math.BigInteger
 
-private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
+private fun javaGcd(a: BigInteger, b: BigInteger): BigInteger {
     if (a == BigInteger.ZERO || b == BigInteger.ZERO) {
         throw ArithmeticException("gcd not defined for 0")
     }
     val aAbs = a.abs()
     val bAbs = b.abs()
     return if (aAbs >= bAbs) {
-        gcdInternal(aAbs, bAbs)
+        javaGcdInternal(aAbs, bAbs)
     } else {
-        gcdInternal(bAbs, aAbs)
+        javaGcdInternal(bAbs, aAbs)
     }
 }
 
-private tailrec fun gcdInternal(a: BigInteger, b: BigInteger): BigInteger {
+private tailrec fun javaGcdInternal(a: BigInteger, b: BigInteger): BigInteger {
     // arguments should satisfy a >= b >= 0
     if (b == BigInteger.ZERO) return a
-    return gcdInternal(b, a % b)
+    return javaGcdInternal(b, a % b)
 }
 
 private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInteger, BigInteger> {
     if (numerator == BigInteger.ZERO) return Pair(BigInteger.ZERO, BigInteger.ONE)
-    val g = gcd(numerator, denominator)
+    val g = javaGcd(numerator, denominator)
     // Since there is no method such as BigInteger.times(other: Int),
     // we cannot write numerator * denominator.signum() / g.
     val num = when (denominator.signum()) {
@@ -102,7 +102,7 @@ public class JavaRational private constructor(public val numerator: BigInteger, 
                 if (denominator != BigInteger.ONE)
                     throw IllegalArgumentException("numerator is zero, but denominator is not one")
             } else {
-                val gcd = gcd(numerator, denominator)
+                val gcd = javaGcd(numerator, denominator)
                 if (gcd != BigInteger.ONE)
                     throw IllegalArgumentException("not reduced")
             }

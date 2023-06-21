@@ -14,28 +14,28 @@ import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
-private fun gcd(a: Long, b: Long): Long {
+private fun longGcd(a: Long, b: Long): Long {
     if (a == 0L || b == 0L) {
         throw Exception("gcd not defined for 0")
     }
     val aAbs = a.absoluteValue
     val bAbs = b.absoluteValue
     return if (aAbs >= bAbs) {
-        gcdInternal(aAbs, bAbs)
+        longGcdInternal(aAbs, bAbs)
     } else {
-        gcdInternal(bAbs, aAbs)
+        longGcdInternal(bAbs, aAbs)
     }
 }
 
-private tailrec fun gcdInternal(a: Long, b: Long): Long {
+private tailrec fun longGcdInternal(a: Long, b: Long): Long {
     // arguments should satisfy a >= b >= 0
     if (b == 0L) return a
-    return gcdInternal(b, a % b)
+    return longGcdInternal(b, a % b)
 }
 
 private fun reduce(numerator: Long, denominator: Long): Pair<Long, Long> {
     if (numerator == 0L) return Pair(0, 1)
-    val g = gcd(numerator, denominator)
+    val g = longGcd(numerator, denominator)
     val num = numerator * denominator.sign / g
     val den = denominator.absoluteValue / g
     return Pair(num, den)

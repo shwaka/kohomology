@@ -25,7 +25,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
         "minimal model of ${2 * n}-sphere" - {
             val cohomologyAsDGA = sphere(matrixSpace, 2 * n).cohomology.withTrivialDifferential()
             val isomorphismUpTo = 5 * n
-            val minimalModel = MinimalModel.of(
+            val minimalModel = CohomologicalMinimalModel.of(
                 targetDGAlgebra = cohomologyAsDGA,
                 isomorphismUpTo = isomorphismUpTo,
             )
@@ -59,7 +59,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
         val ideal = polynomialAlgebra.getIdeal(idealGenerator)
         val cohomologyAsDGA = polynomialAlgebra.getQuotientByIdeal(ideal).withTrivialDifferential()
         val isomorphismUpTo = 10
-        val minimalModel = MinimalModel.of(
+        val minimalModel = CohomologicalMinimalModel.of(
             targetDGAlgebra = cohomologyAsDGA,
             isomorphismUpTo = isomorphismUpTo,
         )
@@ -100,8 +100,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
         }
         val dgAlgebra = freeDGAlgebra.getQuotientByIdeal(dgIdeal)
         val isomorphismUpTo = 20
-        val minimalModel = MinimalModel.of(dgAlgebra, isomorphismUpTo)
-        val minimalModelOfCohomology = MinimalModel.of(
+        val minimalModel = CohomologicalMinimalModel.of(dgAlgebra, isomorphismUpTo)
+        val minimalModelOfCohomology = CohomologicalMinimalModel.of(
             dgAlgebra.cohomology.withTrivialDifferential(),
             isomorphismUpTo,
         )
@@ -137,7 +137,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
         val ideal = exteriorAlgebra.getIdeal(idealGenerator)
         val cohomologyAsDGA = exteriorAlgebra.getQuotientByIdeal(ideal).withTrivialDifferential()
         val isomorphismUpTo = 10 * n
-        val minimalModel = MinimalModel.of(
+        val minimalModel = CohomologicalMinimalModel.of(
             targetDGAlgebra = cohomologyAsDGA,
             isomorphismUpTo = isomorphismUpTo,
         )

@@ -17,7 +17,22 @@ public interface MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : M
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
             isomorphismUpTo: Int,
         ): MinimalModel<B, S, V, M> {
-            return CohomologicalMinimalModel.of(targetDGAlgebra, isomorphismUpTo)
+            if (
+                (targetDGAlgebra.boundedness.lowerBound != null) &&
+                (targetDGAlgebra.boundedness.lowerBound == 0)
+            ) {
+                return CohomologicalMinimalModel.of(targetDGAlgebra, isomorphismUpTo)
+            }
+            if (
+                (targetDGAlgebra.boundedness.upperBound != null) &&
+                (targetDGAlgebra.boundedness.upperBound == 0)
+            ) {
+                return HomologicalMinimalModel.of(targetDGAlgebra, isomorphismUpTo)
+            }
+            throw IllegalArgumentException(
+                "Cannot compute minimal model of $targetDGAlgebra " +
+                    "since it is not concentrated in non-positive or non-negative degrees"
+            )
         }
     }
 }

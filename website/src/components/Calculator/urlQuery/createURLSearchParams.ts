@@ -53,7 +53,7 @@ export function createURLSearchParams(
     urlSearchParams.append(key, value)
   }
   const idealDsv = idealJsonToDsv(idealJson)
-  if (idealDsv !== null) {
+  if ((idealDsv !== null) && (idealDsv !== "")) {
     urlSearchParams.append(ParamName.idealDsv, idealDsv)
   }
   urlSearchParams.append(ParamName.taretName, targetName)

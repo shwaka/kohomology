@@ -9,7 +9,8 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.ionspin.kotlin.bignum.integer.BigInteger
 
-private fun gcd(a: BigInteger, b: BigInteger): BigInteger {
+// This is `internal` for test
+internal fun gcd(a: BigInteger, b: BigInteger): BigInteger {
     if (a == BigInteger.ZERO || b == BigInteger.ZERO) {
         throw ArithmeticException("gcd not defined for 0")
     }

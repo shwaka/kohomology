@@ -14,7 +14,8 @@ import kotlin.Exception
 import kotlin.math.absoluteValue
 import kotlin.math.sign
 
-private fun intGcd(a: Int, b: Int): Int {
+// This is `internal` for test
+internal fun intGcd(a: Int, b: Int): Int {
     if (a == 0 || b == 0) {
         throw Exception("gcd not defined for 0")
     }

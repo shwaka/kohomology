@@ -21,20 +21,8 @@ public interface GenericMinimalModel<I : IndeterminateName, B : BasisName, S : S
     public val isomorphismUpTo: Int
 }
 
-private typealias GetIndeterminateName<INext> =
-    (degree: Int, index: Int, totalNumberInDegree: Int, type: MMIndeterminateType) -> INext
-private typealias ConvertIndeterminate<I, INext> =
-    (indeterminate: Indeterminate<IntDegree, I>) -> Indeterminate<IntDegree, INext>
-private typealias CreateNextMinimalModel<INext, B, S, V, M, MMNext> =
-    (
-        targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
-        freeDGAlgebra: FreeDGAlgebra<IntDegree, INext, S, V, M>,
-        dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, INext>, B, S, V, M>,
-        isomorphismUpTo: Int,
-    ) -> MMNext
-
 // This is added to distinguish I and INext in the type level.
-internal class NextMMCalculator<
+internal abstract class AbstractNextMMCalculator<
     I : IndeterminateName,
     INext : IndeterminateName,
     B : BasisName,
@@ -42,11 +30,26 @@ internal class NextMMCalculator<
     V : NumVector<S>,
     M : Matrix<S, V>,
     MMNext : GenericMinimalModel<INext, B, S, V, M>>(
-    private val convertIndeterminate: ConvertIndeterminate<I, INext>,
-    private val getIndeterminateName: GetIndeterminateName<INext>,
     private val minimalModel: GenericMinimalModel<I, B, S, V, M>,
-    private val createNextMinimalModel: CreateNextMinimalModel<INext, B, S, V, M, MMNext>,
 ) {
+    abstract fun getIndeterminateName(
+        degree: Int,
+        index: Int,
+        totalNumberInDegree: Int,
+        type: MMIndeterminateType
+    ): INext
+
+    abstract fun convertIndeterminate(
+        indeterminate: Indeterminate<IntDegree, I>
+    ): Indeterminate<IntDegree, INext>
+
+    abstract fun createNextMinimalModel(
+        targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
+        freeDGAlgebra: FreeDGAlgebra<IntDegree, INext, S, V, M>,
+        dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, INext>, B, S, V, M>,
+        isomorphismUpTo: Int,
+    ): MMNext
+
     val nextMinimalModel: MMNext by lazy {
         this.createNextMinimalModel(
             this.minimalModel.targetDGAlgebra,
@@ -83,7 +86,7 @@ internal class NextMMCalculator<
 
     private val nextIndeterminateList: List<Indeterminate<IntDegree, INext>> by lazy {
         val degree = this.minimalModel.isomorphismUpTo + 1
-        this.minimalModel.freeDGAlgebra.indeterminateList.map(this.convertIndeterminate) +
+        this.minimalModel.freeDGAlgebra.indeterminateList.map(this::convertIndeterminate) +
             (0 until this.cocyclesToHit.size).map { index ->
                 val name = this.getIndeterminateName(
                     degree,

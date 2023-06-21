@@ -3,11 +3,40 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
+
+private class NextMMCalculator<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    minimalModel: MinimalModel<B, S, V, M>,
+) : AbstractNextMMCalculator<MMIndeterminateName, MMIndeterminateName, B, S, V, M, MinimalModel<B, S, V, M>>(minimalModel) {
+    override fun getIndeterminateName(
+        degree: Int,
+        index: Int,
+        totalNumberInDegree: Int,
+        type: MMIndeterminateType
+    ): MMIndeterminateName {
+        return MMIndeterminateName(degree, index, totalNumberInDegree, type)
+    }
+
+    override fun convertIndeterminate(
+        indeterminate: Indeterminate<IntDegree, MMIndeterminateName>
+    ): Indeterminate<IntDegree, MMIndeterminateName> {
+        return indeterminate
+    }
+
+    override fun createNextMinimalModel(
+        targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
+        freeDGAlgebra: FreeDGAlgebra<IntDegree, MMIndeterminateName, S, V, M>,
+        dgAlgebraMap: DGAlgebraMap<IntDegree, Monomial<IntDegree, MMIndeterminateName>, B, S, V, M>,
+        isomorphismUpTo: Int
+    ): MinimalModel<B, S, V, M> {
+        return MinimalModel(targetDGAlgebra, freeDGAlgebra, dgAlgebraMap, isomorphismUpTo)
+    }
+}
 
 public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
@@ -16,16 +45,7 @@ public data class MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : 
     override val isomorphismUpTo: Int,
 ) : GenericMinimalModel<MMIndeterminateName, B, S, V, M> {
     public fun computeNext(): MinimalModel<B, S, V, M> {
-        val calculator = NextMMCalculator(
-            convertIndeterminate = { it },
-            getIndeterminateName = { degree, index, totalNumberInDegree, type ->
-                MMIndeterminateName(degree, index, totalNumberInDegree, type)
-            },
-            minimalModel = this,
-            createNextMinimalModel = { targetDGAlgebra, freeDGAlgebra, dgAlgebraMap, isomorphismUpTo ->
-                MinimalModel(targetDGAlgebra, freeDGAlgebra, dgAlgebraMap, isomorphismUpTo)
-            }
-        )
+        val calculator = NextMMCalculator(this)
         return calculator.nextMinimalModel
     }
 

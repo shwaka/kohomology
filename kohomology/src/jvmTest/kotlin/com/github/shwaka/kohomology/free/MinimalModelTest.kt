@@ -182,6 +182,45 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
             }
         }
     }
+
+    "minimal model of non-positively graded dga" - {
+        // minimal model of S^{2n+1}∨S^{2n+1}, but with n < 0
+        val n = -3
+        val exteriorAlgebra = FreeGAlgebra(
+            matrixSpace,
+            listOf(
+                Indeterminate("x", 2 * n + 1),
+                Indeterminate("y", 2 * n + 1),
+            )
+        )
+        val idealGenerator = exteriorAlgebra.context.run {
+            val (x, y) = exteriorAlgebra.generatorList
+            listOf(x * y)
+        }
+        val ideal = exteriorAlgebra.getIdeal(idealGenerator)
+        val cohomologyAsDGA = exteriorAlgebra.getQuotientByIdeal(ideal).withTrivialDifferential()
+        val isomorphismUpTo = 10 * n
+        val minimalModel = MinimalModel.of(
+            targetDGAlgebra = cohomologyAsDGA,
+            isomorphismUpTo = isomorphismUpTo,
+        )
+        "check the numbers of generators in lower degrees" {
+            minimalModel.freeDGAlgebra.generatorList.filter {
+                it.degree == IntDegree(2 * n + 1)
+            }.size shouldBe 2
+            minimalModel.freeDGAlgebra.generatorList.filter {
+                it.degree == IntDegree(4 * n + 1)
+            }.size shouldBe 1
+            minimalModel.freeDGAlgebra.generatorList.filter {
+                it.degree == IntDegree(6 * n + 1)
+            }.size shouldBe 2
+        }
+        "should be quasi-isomorphism up to degree $isomorphismUpTo" {
+            (isomorphismUpTo..0).forAll { degree ->
+                minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
+            }
+        }
+    }
 }
 
 private object WedgeGeneratorCalculator {

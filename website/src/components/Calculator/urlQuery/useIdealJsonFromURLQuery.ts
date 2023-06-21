@@ -5,10 +5,10 @@ import { useURLSearchParams } from "./useURLSearchParams"
 
 function getIdealJsonFromURLQuery(urlSearchParams: URLSearchParams): string | null {
   const idealDsv: string | null = urlSearchParams.get(ParamName.idealDsv)
-  if (idealDsv !== null) {
-    return idealDsvToJson(idealDsv)
+  if ((idealDsv === null) || (idealDsv === "")) {
+    return null
   }
-  return null
+  return idealDsvToJson(idealDsv)
 }
 
 export function useIdealJsonFromURLQuery(): URLQueryResult<string> {

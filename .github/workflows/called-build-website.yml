@@ -49,7 +49,7 @@ jobs:
         working-directory: website
       - name: Typecheck website
         # This requires benchmark-data
-        run: npm run typecheck
+        run: npm run tsc
         working-directory: website
       - name: Build site
         run: npm run build

@@ -216,6 +216,26 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     }
 }
 
+private fun <T> List<T>.joinToStyledMathString(
+    separator: String,
+    transform: (T) -> String,
+): List<StyledStringInternal> {
+    if (this.isEmpty()) {
+        return emptyList()
+    }
+    return this.dropLast(1).map {
+        StyledStringInternal(
+            StringType.MATH,
+            transform(it) + separator,
+        )
+    } + listOf(
+        StyledStringInternal(
+            StringType.MATH,
+            transform(this.last()),
+        )
+    )
+}
+
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
@@ -236,8 +256,9 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             // katex は + などの二項演算の部分でしか改行してくれない (See displayMode in https://katex.org/docs/options.html)
             // "," の部分で改行できるように要素を分ける
             "\\mathbb{Q}\\{".math +
-                basis.dropLast(1).map { "${p(it)},\\ ".math }.flatten() +
-                p(basis.last()).math + // 最後の要素だけは "," を追加しない
+                basis.joinToStyledMathString(",\\ ") { p(it) } +
+                // basis.dropLast(1).map { "${p(it)},\\ ".math }.flatten() +
+                // p(basis.last()).math + // 最後の要素だけは "," を追加しない
                 "\\}".math
         }
         "H^{$degree} =\\ ".math + vectorSpace

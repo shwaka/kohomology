@@ -18,6 +18,14 @@ public interface MinimalModel<B : BasisName, S : Scalar, V : NumVector<S>, M : M
 
     public fun computeNext(): MinimalModel<B, S, V, M>
 
+    public fun toProgress(targetIsomorphismUpTo: Int): MinimalModelProgress {
+        return MinimalModelProgress(
+            currentIsomorphismUpTo = this.isomorphismUpTo,
+            targetIsomorphismUpTo = targetIsomorphismUpTo,
+            currentNumberOfGenerators = this.freeDGAlgebra.generatorList.size,
+        )
+    }
+
     public companion object {
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,

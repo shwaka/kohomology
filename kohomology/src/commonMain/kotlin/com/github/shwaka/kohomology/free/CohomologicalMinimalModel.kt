@@ -57,14 +57,10 @@ public data class CohomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVe
                 "The 1-st cohomology of targetDGAlgebra must be 0 (i.e. 1-connected)"
             }
             var minimalModel = this.getInitial(targetDGAlgebra)
+            reportProgress(minimalModel.toProgress(isomorphismUpTo))
             while (minimalModel.isomorphismUpTo < isomorphismUpTo) {
-                val progress = MinimalModelProgress(
-                    currentIsomorphismUpTo = minimalModel.isomorphismUpTo,
-                    targetIsomorphismUpTo = isomorphismUpTo,
-                    currentNumberOfGenerators = minimalModel.freeDGAlgebra.generatorList.size,
-                )
-                reportProgress(progress)
                 minimalModel = minimalModel.computeNext()
+                reportProgress(minimalModel.toProgress(isomorphismUpTo))
             }
             return minimalModel
         }

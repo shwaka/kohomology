@@ -54,14 +54,10 @@ public data class HomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVect
                 "targetDGAlgebra[0].dim must be 1 (i.e. contains only the unit)"
             }
             var minimalModel = this.getInitial(targetDGAlgebra)
+            reportProgress(minimalModel.toProgress(isomorphismUpTo))
             while (minimalModel.isomorphismUpTo > isomorphismUpTo) {
-                val progress = MinimalModelProgress(
-                    currentIsomorphismUpTo = minimalModel.isomorphismUpTo,
-                    targetIsomorphismUpTo = isomorphismUpTo,
-                    currentNumberOfGenerators = minimalModel.freeDGAlgebra.generatorList.size,
-                )
-                reportProgress(progress)
                 minimalModel = minimalModel.computeNext()
+                reportProgress(minimalModel.toProgress(isomorphismUpTo))
             }
             return minimalModel
         }

@@ -16,18 +16,19 @@ internal fun javaGcd(a: BigInteger, b: BigInteger): BigInteger {
     }
     val aAbs = a.abs()
     val bAbs = b.abs()
-    return if (aAbs >= bAbs) {
-        javaGcdInternal(aAbs, bAbs)
-    } else {
-        javaGcdInternal(bAbs, aAbs)
-    }
+    return aAbs.gcd(bAbs)
+    // return if (aAbs >= bAbs) {
+    //     javaGcdInternal(aAbs, bAbs)
+    // } else {
+    //     javaGcdInternal(bAbs, aAbs)
+    // }
 }
 
-private tailrec fun javaGcdInternal(a: BigInteger, b: BigInteger): BigInteger {
-    // arguments should satisfy a >= b >= 0
-    if (b == BigInteger.ZERO) return a
-    return javaGcdInternal(b, a % b)
-}
+// private tailrec fun javaGcdInternal(a: BigInteger, b: BigInteger): BigInteger {
+//     // arguments should satisfy a >= b >= 0
+//     if (b == BigInteger.ZERO) return a
+//     return javaGcdInternal(b, a % b)
+// }
 
 private fun reduce(numerator: BigInteger, denominator: BigInteger): Pair<BigInteger, BigInteger> {
     if (numerator == BigInteger.ZERO) return Pair(BigInteger.ZERO, BigInteger.ONE)

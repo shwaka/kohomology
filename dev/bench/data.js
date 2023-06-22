@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687395022868,
+  "lastUpdate": 1687426321410,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1954,6 +1954,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.708,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "35ab74d0e41b22349e3feb73298da069c371b731",
+          "message": "feat(website): allow line breaks after comma in getDGAInfo",
+          "timestamp": "2023-06-22T18:20:09+09:00",
+          "tree_id": "8c8af27038c897484e04b0b665832df862286e8b",
+          "url": "https://github.com/shwaka/kohomology/commit/35ab74d0e41b22349e3feb73298da069c371b731"
+        },
+        "date": 1687426320683,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.473,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.82,
             "unit": "s/op"
           }
         ]

@@ -15,6 +15,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -218,6 +219,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
         "should be quasi-isomorphism up to degree $isomorphismUpTo" {
             (isomorphismUpTo..0).forAll { degree ->
                 minimalModel.dgAlgebraMap.inducedMapOnCohomology[degree].isIsomorphism().shouldBeTrue()
+            }
+        }
+    }
+
+    "test progress reporting" - {
+        val n = 3
+        "progress reporting for minimal model of S^${2 * n}" - {
+            val cohomologyAsDGA = sphere(matrixSpace, 2 * n).cohomology.withTrivialDifferential()
+            val isomorphismUpTo = 5 * n
+            val progressList = mutableListOf<MinimalModelProgress>()
+            MinimalModel.of(
+                targetDGAlgebra = cohomologyAsDGA,
+                isomorphismUpTo = isomorphismUpTo,
+            ) { progress ->
+                progressList.add(progress)
+            }
+
+            "progressList.size should be ${isomorphismUpTo - 1}" {
+                progressList shouldHaveSize (isomorphismUpTo - 1)
+            }
+
+            "check elements of progressList" {
+                progressList shouldBe (1 until isomorphismUpTo).map { k ->
+                    MinimalModelProgress(
+                        currentIsomorphismUpTo = k,
+                        targetIsomorphismUpTo = isomorphismUpTo,
+                        currentNumberOfGenerators = when {
+                            (k < 2 * n) -> 0
+                            (k < 4 * n - 1) -> 1
+                            else -> 2
+                        }
+                    )
+                }
             }
         }
     }

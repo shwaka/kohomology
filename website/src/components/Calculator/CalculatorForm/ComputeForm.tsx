@@ -1,6 +1,7 @@
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
 import React, { useCallback, useState } from "react"
+import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../worker/workerInterface"
 import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
@@ -158,6 +159,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
     },
     [targetName, isomorphismUpTo, postMessageToWorker]
   )
+
   if (!visible) {
     return <React.Fragment></React.Fragment>
   }

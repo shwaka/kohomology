@@ -157,14 +157,14 @@ export class KohomologyMessageHandler {
     const reportProgress = (
       currentIsomorphismUpTo: number,
       targetIsomorphismUpTo: number,
-      currentNumberOfGenerators: number
+      currentNumberOfGenerators: number,
     ): void => {
-      console.log(
-        "MinimalModelProgress:",
-        currentIsomorphismUpTo,
-        targetIsomorphismUpTo,
-        currentNumberOfGenerators,
-      )
+      this.updateState("workerInfo", {
+        status: "computing",
+        progress: (targetIsomorphismUpTo !== 0)
+          ? (currentIsomorphismUpTo / targetIsomorphismUpTo)
+          : 1
+      })
     }
     this.sendMessages(this.dgaWrapper.computeMinimalModel(targetName, isomorphismUpTo, reportProgress).map(toStyledMessage))
   }

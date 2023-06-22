@@ -63,6 +63,12 @@ export type WorkerInfo = {
   progress: number | null // should be between 0 and 1
 }
 
+export type MinimalModelProgress = {
+  currentIsomorphismUpTo: number
+  targetIsomorphismUpTo: number
+  currentNumberOfGenerators: number
+}
+
 export type WorkerState = {
   json: string
   idealJson: string

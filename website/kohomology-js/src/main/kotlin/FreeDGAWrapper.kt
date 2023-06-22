@@ -216,6 +216,10 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     }
 }
 
+// To allow line breaks after `separator`, each element forms a single StyledStringInternal.
+// Ref: "displayMode" in https://katex.org/docs/options.html:
+// > In inline mode, KaTeX allows line breaks after outermost relations (like = or <)
+// > or binary operators (like + or \times), the same as TeX.
 private fun <T> List<T>.joinToStyledMathString(
     separator: String,
     transform: (T) -> String,
@@ -231,7 +235,7 @@ private fun <T> List<T>.joinToStyledMathString(
     } + listOf(
         StyledStringInternal(
             StringType.MATH,
-            transform(this.last()),
+            transform(this.last()), // Don't add `separator` for the last element.
         )
     )
 }
@@ -253,12 +257,8 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         val vectorSpace: List<StyledStringInternal> = if (basis.isEmpty()) {
             "0".math
         } else {
-            // katex は + などの二項演算の部分でしか改行してくれない (See displayMode in https://katex.org/docs/options.html)
-            // "," の部分で改行できるように要素を分ける
             "\\mathbb{Q}\\{".math +
                 basis.joinToStyledMathString(",\\ ") { p(it) } +
-                // basis.dropLast(1).map { "${p(it)},\\ ".math }.flatten() +
-                // p(basis.last()).math + // 最後の要素だけは "," を追加しない
                 "\\}".math
         }
         "H^{$degree} =\\ ".math + vectorSpace

@@ -12,10 +12,11 @@ export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
 function destructureWorkerInfo(
   workerInfo: WorkerInfo
-): { computing: boolean, workerProgress: number | null } {
+): { computing: boolean, workerProgress: number | null, message: string | undefined } {
   const computing = (workerInfo.status === "computing")
   const workerProgress: number | null = (workerInfo.status === "computing") ? workerInfo.progress : null
-  return { computing, workerProgress }
+  const message: string | undefined = (workerInfo.status === "computing") ? workerInfo.message : undefined
+  return { computing, workerProgress, message }
 }
 
 // Tab を切り替えたても minDegree, maxDegree, cocycleString の値が保持されるために
@@ -165,7 +166,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
   }
 
   const supported = isSupported(targetName, "minimal")
-  const { computing, workerProgress } = destructureWorkerInfo(workerInfo)
+  const { computing, workerProgress, message } = destructureWorkerInfo(workerInfo)
 
   return (
     <form onSubmit={computeMinimalModel} data-testid="ComputeMinimalModel">
@@ -176,7 +177,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
         </Stack>
         <ButtonWithProgress
           type="submit" variant="contained" disabled={!supported}
-          computing={computing} progress={workerProgress}
+          computing={computing} progress={workerProgress} message={message}
         />
         { !supported &&
           <Alert severity="info">

@@ -1,4 +1,4 @@
-import { Button, CircularProgress } from "@mui/material"
+import { Button, CircularProgress, Stack } from "@mui/material"
 import React, { ComponentProps } from "react"
 
 function CircularProgressFromNullable({ value }: { value: number | null }): JSX.Element {
@@ -35,18 +35,22 @@ function getLabel(computing: boolean, progressPercent: number | null): string {
 type ButtonWithProgressProps = ComponentProps<typeof Button> & {
   computing: boolean
   progress: number | null
+  message?: string
 }
 
-export function ButtonWithProgress({ computing, progress, ...buttonProps }: ButtonWithProgressProps): JSX.Element {
+export function ButtonWithProgress({ computing, progress, message, ...buttonProps }: ButtonWithProgressProps): JSX.Element {
   const disabled: boolean = buttonProps.disabled ?? false
   const progressPercent: number | null = toPercent(progress)
   return (
-    <Button
-      {...buttonProps}
-      disabled={disabled || computing}
-    >
-      {getLabel(computing, progressPercent)}
-      {computing && <CircularProgressFromNullable value={progressPercent}/>}
-    </Button>
+    <Stack>
+      <Button
+        {...buttonProps}
+        disabled={disabled || computing}
+      >
+        {getLabel(computing, progressPercent)}
+        {computing && <CircularProgressFromNullable value={progressPercent}/>}
+      </Button>
+      {message}
+    </Stack>
   )
 }

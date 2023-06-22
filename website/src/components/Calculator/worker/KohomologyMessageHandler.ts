@@ -163,7 +163,9 @@ export class KohomologyMessageHandler {
         status: "computing",
         progress: (targetIsomorphismUpTo !== 0)
           ? (currentIsomorphismUpTo / targetIsomorphismUpTo)
-          : 1
+          : 1,
+        message: `Completed degree ${currentIsomorphismUpTo}/${targetIsomorphismUpTo}, ` +
+          `Generators: ${currentNumberOfGenerators}`,
       })
     }
     this.sendMessages(this.dgaWrapper.computeMinimalModel(targetName, isomorphismUpTo, reportProgress).map(toStyledMessage))

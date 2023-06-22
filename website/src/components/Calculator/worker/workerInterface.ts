@@ -61,6 +61,7 @@ export type WorkerInfo = {
 } | {
   status: "computing"
   progress: number | null // should be between 0 and 1
+  message?: string
 }
 
 export type MinimalModelProgress = {

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687394072674,
+  "lastUpdate": 1687395022868,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1920,6 +1920,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.943,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "cba1b695032b1684116c448d5ee74f7c044d3a72",
+          "message": "perf(core): use java.math.BigInteger (seems to be implemented with binary GCD) in JavaRational",
+          "timestamp": "2023-06-22T09:43:07+09:00",
+          "tree_id": "442eafbbb0cf8fda94c83560c8aa71ca3ed8e046",
+          "url": "https://github.com/shwaka/kohomology/commit/cba1b695032b1684116c448d5ee74f7c044d3a72"
+        },
+        "date": 1687395022089,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.451,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.708,
             "unit": "s/op"
           }
         ]

@@ -45,6 +45,7 @@ public data class HomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVect
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
             isomorphismUpTo: Int,
+            reportProgress: (MinimalModelProgress) -> Unit,
         ): HomologicalMinimalModel<B, S, V, M> {
             require(targetDGAlgebra.boundedness.upperBound == 0) {
                 "targetDGAlgebra must be bounded above by 0"
@@ -54,6 +55,12 @@ public data class HomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVect
             }
             var minimalModel = this.getInitial(targetDGAlgebra)
             while (minimalModel.isomorphismUpTo > isomorphismUpTo) {
+                val progress = MinimalModelProgress(
+                    currentIsomorphismUpTo = minimalModel.isomorphismUpTo,
+                    targetIsomorphismUpTo = isomorphismUpTo,
+                    currentNumberOfGenerators = minimalModel.freeDGAlgebra.generatorList.size,
+                )
+                reportProgress(progress)
                 minimalModel = minimalModel.computeNext()
             }
             return minimalModel

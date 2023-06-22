@@ -45,6 +45,7 @@ public data class CohomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVe
         public fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> of(
             targetDGAlgebra: DGAlgebra<IntDegree, B, S, V, M>,
             isomorphismUpTo: Int,
+            reportProgress: (MinimalModelProgress) -> Unit,
         ): CohomologicalMinimalModel<B, S, V, M> {
             require(targetDGAlgebra.boundedness.lowerBound == 0) {
                 "targetDGAlgebra must be bounded below by 0"
@@ -57,6 +58,12 @@ public data class CohomologicalMinimalModel<B : BasisName, S : Scalar, V : NumVe
             }
             var minimalModel = this.getInitial(targetDGAlgebra)
             while (minimalModel.isomorphismUpTo < isomorphismUpTo) {
+                val progress = MinimalModelProgress(
+                    currentIsomorphismUpTo = minimalModel.isomorphismUpTo,
+                    targetIsomorphismUpTo = isomorphismUpTo,
+                    currentNumberOfGenerators = minimalModel.freeDGAlgebra.generatorList.size,
+                )
+                reportProgress(progress)
                 minimalModel = minimalModel.computeNext()
             }
             return minimalModel

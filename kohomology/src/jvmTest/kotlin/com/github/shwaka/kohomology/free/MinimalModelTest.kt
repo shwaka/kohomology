@@ -236,12 +236,12 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> minimalModelTest(matrixSpac
                 progressList.add(progress)
             }
 
-            "progressList.size should be ${isomorphismUpTo - 1}" {
-                progressList shouldHaveSize (isomorphismUpTo - 1)
+            "progressList.size should be $isomorphismUpTo" {
+                progressList shouldHaveSize isomorphismUpTo
             }
 
             "check elements of progressList" {
-                progressList shouldBe (1 until isomorphismUpTo).map { k ->
+                progressList shouldBe (1..isomorphismUpTo).map { k ->
                     MinimalModelProgress(
                         currentIsomorphismUpTo = k,
                         targetIsomorphismUpTo = isomorphismUpTo,

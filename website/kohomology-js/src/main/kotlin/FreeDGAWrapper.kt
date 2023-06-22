@@ -388,24 +388,24 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     generatingVectorSpaceName: String,
 ): Array<StyledMessageKt> {
     val p = Printer(printType = PrintType.TEX)
-    val freeDGAString = p(freeDGAlgebra)
-    val degreeString = freeDGAlgebra.indeterminateList.joinToString(", ") {
-        "\\deg{${p(it.name)}} = ${it.degree}"
-    }
-    val differentialString = freeDGAlgebra.generatorList.joinToString(", ") {
-        freeDGAlgebra.context.run {
-            "d${p(it)} = ${p(d(it))}"
-        }
-    }
     return arrayOf(
         styledMessage(MessageType.SUCCESS) {
-            "(\\Lambda $generatingVectorSpaceName, d) = ".math + freeDGAString.math
+            "(\\Lambda $generatingVectorSpaceName, d) = ".math +
+                "(\\Lambda(".math +
+                freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") { p(it) } +
+                "), d)".math
         }.export(),
         styledMessage(MessageType.SUCCESS) {
-            degreeString.math
+            freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") {
+                "\\deg{${p(it.name)}} = ${it.degree}"
+            }
         }.export(),
         styledMessage(MessageType.SUCCESS) {
-            differentialString.math
+            freeDGAlgebra.context.run {
+                freeDGAlgebra.generatorList.joinToStyledMathString(",\\ ") {
+                    "d${p(it)} = ${p(d(it))}"
+                }
+            }
         }.export(),
     )
 }

@@ -154,7 +154,19 @@ export class KohomologyMessageHandler {
   private computeMinimalModel(targetName: TargetName, isomorphismUpTo: number): void {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     this.notifyInfo({ status: "computing", progress: null })
-    this.sendMessages(this.dgaWrapper.computeMinimalModel(targetName, isomorphismUpTo).map(toStyledMessage))
+    const reportProgress = (
+      currentIsomorphismUpTo: number,
+      targetIsomorphismUpTo: number,
+      currentNumberOfGenerators: number
+    ): void => {
+      console.log(
+        "MinimalModelProgress:",
+        currentIsomorphismUpTo,
+        targetIsomorphismUpTo,
+        currentNumberOfGenerators,
+      )
+    }
+    this.sendMessages(this.dgaWrapper.computeMinimalModel(targetName, isomorphismUpTo, reportProgress).map(toStyledMessage))
   }
 
   private showDgaInfo(): void {

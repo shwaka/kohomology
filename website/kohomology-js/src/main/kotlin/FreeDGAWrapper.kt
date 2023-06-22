@@ -158,7 +158,15 @@ class FreeDGAWrapper(json: String) {
         }
     }
 
-    fun computeMinimalModel(targetName: String, isomorphismUpTo: Int): Array<StyledMessageKt> {
+    fun computeMinimalModel(
+        targetName: String,
+        isomorphismUpTo: Int,
+        reportProgress: (
+            currentIsomorphismUpTo: Int,
+            targetIsomorphismUpTo: Int,
+            currentNumberOfGenerators: Int,
+        ) -> Unit
+    ): Array<StyledMessageKt> {
         if (targetName == "freeLoopSpace") {
             return arrayOf(
                 styledMessage(MessageType.ERROR) {
@@ -185,8 +193,14 @@ class FreeDGAWrapper(json: String) {
         targetDGVectorSpace as DGAlgebra<IntDegree, *, *, *, *>
         val minimalModel = MinimalModel.of(
             targetDGAlgebra = targetDGVectorSpace,
-            isomorphismUpTo = isomorphismUpTo
-        )
+            isomorphismUpTo = isomorphismUpTo,
+        ) { progress ->
+            reportProgress(
+                progress.currentIsomorphismUpTo,
+                progress.targetIsomorphismUpTo,
+                progress.currentNumberOfGenerators,
+            )
+        }
         return getDGAInfo(minimalModel.freeDGAlgebra, "W")
     }
 }

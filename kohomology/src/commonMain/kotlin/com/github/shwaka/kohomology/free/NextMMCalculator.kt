@@ -158,3 +158,36 @@ internal abstract class AbstractNextMMCalculator<
         this.nextFreeDGAlgebra.getDGAlgebraMap(this.minimalModel.targetDGAlgebra, dgAlgebraMapValueList)
     }
 }
+
+internal abstract class NextMMCalculator<
+    B : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    MMNext : GenericMinimalModel<MMIndeterminateName, B, S, V, M>,
+    >(minimalModel: GenericMinimalModel<MMIndeterminateName, B, S, V, M>) :
+    AbstractNextMMCalculator<
+        MMIndeterminateName,
+        MMIndeterminateName,
+        B,
+        S,
+        V,
+        M,
+        MMNext,
+        >(minimalModel) {
+
+    final override fun getIndeterminateName(
+        degree: Int,
+        index: Int,
+        totalNumberInDegree: Int,
+        type: MMIndeterminateType
+    ): MMIndeterminateName {
+        return MMIndeterminateName(degree, index, totalNumberInDegree, type)
+    }
+
+    final override fun convertIndeterminate(
+        indeterminate: Indeterminate<IntDegree, MMIndeterminateName>
+    ): Indeterminate<IntDegree, MMIndeterminateName> {
+        return indeterminate
+    }
+}

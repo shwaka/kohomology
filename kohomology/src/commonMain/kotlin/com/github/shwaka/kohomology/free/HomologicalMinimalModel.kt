@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.degree.IntDegree
-import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -12,28 +11,13 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 
 private class HomologicalNextMMCalculator<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     minimalModel: HomologicalMinimalModel<B, S, V, M>,
-) : AbstractNextMMCalculator<MMIndeterminateName, MMIndeterminateName, B, S, V, M, HomologicalMinimalModel<B, S, V, M>>(minimalModel) {
-    override fun getIndeterminateName(
-        degree: Int,
-        index: Int,
-        totalNumberInDegree: Int,
-        type: MMIndeterminateType
-    ): MMIndeterminateName {
-        return MMIndeterminateName(degree, index, totalNumberInDegree, type)
-    }
-
+) : NextMMCalculator<B, S, V, M, HomologicalMinimalModel<B, S, V, M>>(minimalModel) {
     override fun getNextIsomorphismUpTo(): Int {
         return this.minimalModel.isomorphismUpTo - 1
     }
 
     override fun getDegreeToAddIndeterminate(): Int {
         return this.minimalModel.isomorphismUpTo - 2
-    }
-
-    override fun convertIndeterminate(
-        indeterminate: Indeterminate<IntDegree, MMIndeterminateName>
-    ): Indeterminate<IntDegree, MMIndeterminateName> {
-        return indeterminate
     }
 
     override fun createNextMinimalModel(

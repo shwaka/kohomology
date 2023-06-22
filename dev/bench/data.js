@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687426321410,
+  "lastUpdate": 1687426821741,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -1988,6 +1988,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.82,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5305e7f6b6507aec3b10ed00f47b76704500e571",
+          "message": "build(website): add \"tsc\" and \"tsc-watch\" to \"scripts\" in package.json",
+          "timestamp": "2023-06-22T18:33:10+09:00",
+          "tree_id": "88f8ea771889118fb8e1fca3d67596ff4b56cc39",
+          "url": "https://github.com/shwaka/kohomology/commit/5305e7f6b6507aec3b10ed00f47b76704500e571"
+        },
+        "date": 1687426821206,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.565,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.943,
             "unit": "s/op"
           }
         ]

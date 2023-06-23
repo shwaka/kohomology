@@ -201,7 +201,17 @@ class FreeDGAWrapper(json: String) {
                 progress.currentNumberOfGenerators,
             )
         }
-        return getDGAInfo(minimalModel.freeDGAlgebra, "W")
+        return arrayOf(
+            styledMessage(MessageType.SUCCESS) {
+                val p = Printer(PrintType.TEX)
+                "The minimal model of ".text +
+                    when (targetDGVectorSpace) {
+                        is Printable -> p(targetDGVectorSpace).math
+                        else -> targetDGVectorSpace.toString().text
+                    } +
+                    " is".text
+            }.export()
+        ) + getDGAInfo(minimalModel.freeDGAlgebra, "W")
     }
 }
 

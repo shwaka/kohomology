@@ -22024,12 +22024,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.x;
   var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.w;
   var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
+  var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
+  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
+  var Printable = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
+  var isInterface = kotlin_kotlin.$_$.n7;
+  var plus = kotlin_kotlin.$_$.s5;
   var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.s;
   var get_SparseMatrixSpaceOverRational = kotlin_com_github_shwaka_kohomology_kohomology.$_$.i;
   var lazy = kotlin_kotlin.$_$.ia;
   var joinToString$default = kotlin_kotlin.$_$.k;
   var QuotDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.e;
-  var isInterface = kotlin_kotlin.$_$.n7;
   var FreeDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.h;
   var DGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.c;
   var IntDegreeGroup_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.q;
@@ -22039,17 +22043,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var dropLast = kotlin_kotlin.$_$.w4;
   var last = kotlin_kotlin.$_$.l5;
   var listOf = kotlin_kotlin.$_$.m5;
-  var plus = kotlin_kotlin.$_$.s5;
-  var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
   var ShowShift_BAR_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
   var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
-  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
+  var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
   var ParseException = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.n;
   var AugmentedDegreeGroup = kotlin_com_github_shwaka_kohomology_kohomology.$_$.a;
-  var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
   var endsWith$default = kotlin_kotlin.$_$.m;
   var startsWith$default = kotlin_kotlin.$_$.o;
-  var Printable = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
   var KProperty1 = kotlin_kotlin.$_$.n8;
   var getPropertyCallableRef = kotlin_kotlin.$_$.b7;
   var NoMatchingToken = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.m;
@@ -22302,6 +22302,21 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return Unit_getInstance();
     };
   }
+  function FreeDGAWrapper$computeMinimalModel$lambda_3($targetDGVectorSpace) {
+    return function ($this$styledMessage) {
+      var tmp = PrintType_TEX_getInstance();
+      var p = Printer_init_$Create$(tmp, null, null, null, null, 30, null);
+      var tmp_0 = $this$styledMessage.a2p('The minimal model of ');
+      var tmp0_subject = $targetDGVectorSpace;
+      var tmp_1;
+      if (isInterface(tmp0_subject, Printable)) {
+        tmp_1 = $this$styledMessage.z2o(p.g20($targetDGVectorSpace));
+      } else {
+        tmp_1 = $this$styledMessage.a2p($targetDGVectorSpace.toString());
+      }
+      return plus(plus(tmp_0, tmp_1), $this$styledMessage.a2p(' is'));
+    };
+  }
   function FreeDGAWrapper(json) {
     this.t2o_1 = Companion_getInstance_2().v20(get_SparseMatrixSpaceOverRational(), jsonToGeneratorList(json));
     var tmp = this;
@@ -22424,7 +22439,26 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       THROW_CCE();
     var tmp_2 = Companion_getInstance_3();
     var minimalModel = tmp_2.w1v(targetDGVectorSpace, isomorphismUpTo, FreeDGAWrapper$computeMinimalModel$lambda_2(reportProgress));
-    return getDGAInfo(minimalModel.f1w(), 'W');
+    var tmp$ret$13;
+    // Inline function 'kotlin.collections.plus' call
+    var tmp$ret$11;
+    // Inline function 'kotlin.arrayOf' call
+    var tmp_3 = MessageType_SUCCESS_getInstance();
+    var tmp3_arrayOf = [styledMessage(tmp_3, FreeDGAWrapper$computeMinimalModel$lambda_3(targetDGVectorSpace)).d2p()];
+    var tmp$ret$10;
+    // Inline function 'kotlin.js.unsafeCast' call
+    var tmp$ret$9;
+    // Inline function 'kotlin.js.asDynamic' call
+    tmp$ret$9 = tmp3_arrayOf;
+    tmp$ret$10 = tmp$ret$9;
+    tmp$ret$11 = tmp$ret$10;
+    var tmp4_plus = tmp$ret$11;
+    var tmp5_plus = getDGAInfo(minimalModel.f1w(), 'W');
+    var tmp$ret$12;
+    // Inline function 'kotlin.js.asDynamic' call
+    tmp$ret$12 = tmp4_plus;
+    tmp$ret$13 = tmp$ret$12.concat(tmp5_plus);
+    return tmp$ret$13;
   };
   FreeDGAWrapper.$metadata$ = classMeta('FreeDGAWrapper');
   function getBasis(dgVectorSpace, degree) {
@@ -22461,7 +22495,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function computeCohomologyInternal(dgVectorSpace, degree) {
     var tmp = PrintType_TEX_getInstance();
-    var p = Printer_init_$Create$(PrintConfig_init_$Create$(tmp, null, null, null, ShowShift_BAR_getInstance(), 14, null));
+    var p = Printer_init_$Create$_0(PrintConfig_init_$Create$(tmp, null, null, null, ShowShift_BAR_getInstance(), 14, null));
     var basis = getBasis(dgVectorSpace, degree);
     var tmp_0 = MessageType_SUCCESS_getInstance();
     return styledMessage(tmp_0, computeCohomologyInternal$lambda(basis, degree, p));
@@ -22551,7 +22585,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return styledMessage(tmp, computeCohomologyClass$lambda_0);
     }
     var tmp_0 = PrintType_TEX_getInstance();
-    var p = Printer_init_$Create$_0(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
+    var p = Printer_init_$Create$(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
     var tmp$ret$2;
     // Inline function 'kotlin.run' call
     var tmp0_run = dgAlgebra.e1a();
@@ -22574,7 +22608,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function getDGAInfo(freeDGAlgebra, generatingVectorSpaceName) {
     var tmp = PrintType_TEX_getInstance();
-    var p = Printer_init_$Create$_0(tmp, null, null, null, null, 30, null);
+    var p = Printer_init_$Create$(tmp, null, null, null, null, 30, null);
     var tmp$ret$2;
     // Inline function 'kotlin.arrayOf' call
     var tmp_0 = MessageType_SUCCESS_getInstance();
@@ -22615,7 +22649,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp;
       if (isInterface($dgVectorSpace, Printable)) {
         var tmp_0 = PrintType_TEX_getInstance();
-        var p = Printer_init_$Create$_0(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
+        var p = Printer_init_$Create$(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
         var dgVectorSpaceString = p.g20($dgVectorSpace);
         var tmp_1;
         var tmp_2;
@@ -23471,6 +23505,12 @@ if (typeof Math.log10 === 'undefined') {
     return Math.log(x) * Math.LOG10E;
   };
 }
+if (typeof String.prototype.startsWith === 'undefined') {
+  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
+    position = position || 0;
+    return this.lastIndexOf(searchString, position) === position;
+  }});
+}
 if (typeof String.prototype.endsWith === 'undefined') {
   Object.defineProperty(String.prototype, 'endsWith', {value: function (searchString, position) {
     var subjectString = this.toString();
@@ -23480,12 +23520,6 @@ if (typeof String.prototype.endsWith === 'undefined') {
     position -= searchString.length;
     var lastIndex = subjectString.indexOf(searchString, position);
     return lastIndex !== -1 && lastIndex === position;
-  }});
-}
-if (typeof String.prototype.startsWith === 'undefined') {
-  Object.defineProperty(String.prototype, 'startsWith', {value: function (searchString, position) {
-    position = position || 0;
-    return this.lastIndexOf(searchString, position) === position;
   }});
 }
 if (typeof Math.imul === 'undefined') {
@@ -35043,6 +35077,12 @@ if (typeof Math.imul === 'undefined') {
   function contentHashCode(_this__u8e3s4) {
     return contentHashCodeInternal(_this__u8e3s4);
   }
+  function plus_2(_this__u8e3s4, elements) {
+    var tmp$ret$0;
+    // Inline function 'kotlin.js.asDynamic' call
+    tmp$ret$0 = _this__u8e3s4;
+    return tmp$ret$0.concat(elements);
+  }
   function asList(_this__u8e3s4) {
     var tmp$ret$1;
     // Inline function 'kotlin.js.unsafeCast' call
@@ -35051,12 +35091,6 @@ if (typeof Math.imul === 'undefined') {
     tmp$ret$0 = _this__u8e3s4;
     tmp$ret$1 = tmp$ret$0;
     return new ArrayList(tmp$ret$1);
-  }
-  function plus_2(_this__u8e3s4, elements) {
-    var tmp$ret$0;
-    // Inline function 'kotlin.js.asDynamic' call
-    tmp$ret$0 = _this__u8e3s4;
-    return tmp$ret$0.concat(elements);
   }
   function sort_0(_this__u8e3s4) {
     if (_this__u8e3s4.length > 1) {

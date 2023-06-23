@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687431268641,
+  "lastUpdate": 1687538609592,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2056,6 +2056,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.393,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f2cbd36f7a440a943154efdb0897d4bd876d4279",
+          "message": "feat(website): improve message in computation of minimal model",
+          "timestamp": "2023-06-23T19:31:48+09:00",
+          "tree_id": "797edf0685bf8add244136a6f8fe216f8a4ea0ac",
+          "url": "https://github.com/shwaka/kohomology/commit/f2cbd36f7a440a943154efdb0897d4bd876d4279"
+        },
+        "date": 1687538608537,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.471,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.701,
             "unit": "s/op"
           }
         ]

@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.h0tk3y.betterParse.parser.ParseException
+import com.github.shwaka.kohomology.dg.InvalidIdentifierException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
@@ -150,6 +151,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     shouldThrow<ArithmeticException> {
                         freeGAlgebra.parse("x / y")
                     }
+                }
+
+                "invalid identifier" {
+                    val exception = shouldThrow<InvalidIdentifierException> {
+                        freeGAlgebra.parse("a")
+                    }
+                    exception.identifierName shouldBe "a"
+                    exception.validIdentifierNames shouldBe listOf("x", "y")
                 }
             }
         }

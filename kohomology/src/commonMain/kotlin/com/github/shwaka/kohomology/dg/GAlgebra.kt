@@ -203,6 +203,16 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val underlyingGAlgebra: GAlgebra<D, B, S, V, M> = this
 }
 
+public class InvalidIdentifierException(
+    public val identifierName: String,
+    public val validIdentifierNames: List<String>,
+) : Exception(
+    """
+        Invalid generator name: $identifierName
+        Valid names are: ${validIdentifierNames.joinToString(", ")}
+    """.trimIndent()
+)
+
 // The function getValueFromASTNode is implemented as an extension function
 // since `internal` cannot be applied to default implementation of methods in an interface.
 internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
@@ -213,11 +223,9 @@ GAlgebra<D, B, S, V, M>.getValueFromASTNode(
     return when (astNode) {
         is ASTNode.Zero -> this.zeroGVector
         is ASTNode.Identifier -> generatorList.find { it.first == astNode.name }?.second
-            ?: throw Exception(
-                """
-                        Invalid generator name: ${astNode.name}
-                        Valid names are: ${generatorList.joinToString(", ") { it.first }}
-                """.trimIndent()
+            ?: throw InvalidIdentifierException(
+                identifierName = astNode.name,
+                validIdentifierNames = generatorList.map { it.first },
             )
         is ASTNode.NatNumber -> {
             if (astNode.value == 0) {

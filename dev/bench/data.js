@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1687538609592,
+  "lastUpdate": 1688546998515,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2090,6 +2090,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.701,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f248f2677e74d6414e113e503bf947f4ed19f733",
+          "message": "feat(website): improve error message in Calculator",
+          "timestamp": "2023-07-05T17:39:06+09:00",
+          "tree_id": "a802f87c1950bd6fa76af960174ebe9f3ec96b19",
+          "url": "https://github.com/shwaka/kohomology/commit/f248f2677e74d6414e113e503bf947f4ed19f733"
+        },
+        "date": 1688546997405,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.723,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.596,
             "unit": "s/op"
           }
         ]

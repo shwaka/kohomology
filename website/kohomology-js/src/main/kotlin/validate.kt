@@ -1,5 +1,6 @@
 import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.GVector
+import com.github.shwaka.kohomology.dg.InvalidIdentifierException
 import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
@@ -79,6 +80,13 @@ private fun assertDegreeOfDifferentialValue(
             "Failed to parse the value \"$differentialValue\" of the differential " +
                 "with the following error message:\n${e.format()}"
         }
+        return ValidationResultInternal.Error(message)
+    } catch (e: InvalidIdentifierException) {
+        val message = """
+            Invalid generator name: ${e.identifierName}
+            Valid names are: ${e.validIdentifierNames.joinToString(", ")}
+            Note: The generator "${e.identifierName}" must be defined ABOVE this.
+        """.trimIndent()
         return ValidationResultInternal.Error(message)
     } catch (e: Exception) {
         val message: String = e.message ?: e.toString()

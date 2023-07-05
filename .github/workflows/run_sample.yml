@@ -5,7 +5,9 @@ name: Run sample
 on:
   push:
     branches: [ main ]
-    paths: [ 'kohomology/**', 'sample/**', '.github/workflows/run_sample.yml', 'scripts/run-sample.py', 'scripts/sample.json' ]
+    # Samples are built with the released (non-SNAPSHOT) version of kohomology.
+    # So this workflow should not be run when 'kohomology/**' is edited.
+    paths: [ 'sample/**', '.github/workflows/run_sample.yml', 'scripts/run-sample.py', 'scripts/sample.json' ]
   workflow_dispatch:
 
 jobs:

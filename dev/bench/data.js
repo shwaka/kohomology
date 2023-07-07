@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1688546998515,
+  "lastUpdate": 1688722255728,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2124,6 +2124,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.596,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "02057e76102cdfc652d011a0ddb521b8ec932581",
+          "message": "refactor(core): make GVectorSpace implement Printable (close #309)",
+          "timestamp": "2023-07-07T18:24:15+09:00",
+          "tree_id": "b1ffb8fcd14c41e7ac84f3c75cd86e86671172af",
+          "url": "https://github.com/shwaka/kohomology/commit/02057e76102cdfc652d011a0ddb521b8ec932581"
+        },
+        "date": 1688722254819,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.495,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.902,
             "unit": "s/op"
           }
         ]

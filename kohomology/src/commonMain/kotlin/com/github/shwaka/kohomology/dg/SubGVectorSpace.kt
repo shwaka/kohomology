@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubBasis
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
@@ -131,6 +132,10 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     }
 
     override fun toString(): String {
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
         return this.name
     }
 }
@@ -184,7 +189,12 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
     }
 
     override fun toString(): String {
-        return this.name
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        val totalString = this.totalGVectorSpace.toString(printConfig)
+        return "WholeSubGVectorSpace($totalString)"
     }
 }
 

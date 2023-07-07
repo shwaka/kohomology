@@ -32,7 +32,7 @@ import com.github.shwaka.kohomology.model.FreePathSpace
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
@@ -371,8 +371,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M>,
     override val differential: Derivation<D, Monomial<D, I>, S, V, M>,
 ) : FreeDGAlgebra<D, I, S, V, M>,
-    GVectorSpace<D, Monomial<D, I>, S, V> by underlyingGAlgebra,
-    Printable {
+    GVectorSpace<D, Monomial<D, I>, S, V> by underlyingGAlgebra {
     override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContextImpl(this)
     override val unit: GVector<D, Monomial<D, I>, S, V> = underlyingGAlgebra.unit
     override val isCommutative: Boolean = true
@@ -389,6 +388,10 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     }
 
     override fun toString(): String {
-        return "(${this.underlyingGAlgebra}, d)"
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return "(${this.underlyingGAlgebra.toString(printConfig)}, d)"
     }
 }

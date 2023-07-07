@@ -235,11 +235,6 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
         return this.convertDegree(degreeMorphism)
     }
 
-    override fun toString(printConfig: PrintConfig): String {
-        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
-        return "Λ($indeterminateString)"
-    }
-
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
@@ -279,8 +274,7 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
         FreeMonoid(degreeGroup, indeterminateList),
         FreeGAlgebraImpl.getName(indeterminateList),
         getInternalPrintConfig,
-    ),
-    Printable {
+    ) {
     init {
         val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList
             .groupingBy { it }
@@ -293,6 +287,11 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
     }
     override val context: FreeGAlgebraContext<D, I, S, V, M> = FreeGAlgebraContextImpl(this)
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = this
+
+    override fun toString(printConfig: PrintConfig): String {
+        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
+        return "Λ($indeterminateString)"
+    }
 
     companion object {
         private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {

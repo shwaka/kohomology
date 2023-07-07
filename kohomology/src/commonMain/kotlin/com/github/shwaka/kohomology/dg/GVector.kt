@@ -175,7 +175,7 @@ internal class GVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val gVectorSpace: GVectorSpace<D, B, S, V>,
 ) : GVectorContext<D, B, S, V>, NumVectorContext<S, V> by NumVectorContextImpl(gVectorSpace.numVectorSpace)
 
-public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> {
+public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> : Printable {
     public val numVectorSpace: NumVectorSpace<S, V>
     public val degreeGroup: DegreeGroup<D>
     public val name: String
@@ -455,6 +455,10 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     }
 
     override fun toString(): String {
+        return this.name
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
         return this.name
     }
 }

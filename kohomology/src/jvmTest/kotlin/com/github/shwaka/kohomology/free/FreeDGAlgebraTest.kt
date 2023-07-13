@@ -414,6 +414,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
             "quotDGAlgebra.name should be Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z)" {
                 quotDGAlgebra.name shouldBe "Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z)"
                 quotDGAlgebra.toString() shouldBe "Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z)"
+                quotDGAlgebra.toString(PrintConfig(PrintType.TEX)) shouldBe
+                    "Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z)"
             }
 
             checkDGAlgebraAxioms(quotDGAlgebra, 0..15)

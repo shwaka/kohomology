@@ -18,6 +18,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import io.kotest.assertions.throwables.shouldNotThrowAny
@@ -190,6 +191,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 val proj = quotientGAlgebra.projection
                 quotientGAlgebra.name shouldBe "Λ(x, y)/Ideal(xy)"
                 quotientGAlgebra.toString() shouldBe "Λ(x, y)/Ideal(xy)"
+                quotientGAlgebra.toString(PrintConfig(PrintType.TEX)) shouldBe "Λ(x, y)/Ideal(xy)"
                 quotientGAlgebra[0].dim shouldBe 1
                 (1..10).forAll { n ->
                     quotientGAlgebra[n * generatorDegree].dim shouldBe 2

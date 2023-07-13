@@ -123,9 +123,15 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     }
 
     override fun get(degree: D): SubVectorSpace<B, S, V, M> {
-        return this.cache.getOrPut(degree) {
+        val result = this.cache.getOrPut(degree) {
             this.getVectorSpace(degree)
         }
+        if (result.totalVectorSpace != this.totalGVectorSpace[degree]) {
+            throw IllegalStateException(
+                "The vector space $result must be contained in ${this.totalGVectorSpace[degree]}"
+            )
+        }
+        return result
     }
     override fun get(degree: Int): SubVectorSpace<B, S, V, M> {
         return this[this.degreeGroup.fromInt(degree)]

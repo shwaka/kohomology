@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -83,6 +84,31 @@ subGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
                     subGVectorSpace.subspaceContains(v + w).shouldBeTrue()
                     subGVectorSpace.subspaceContains(u - w).shouldBeTrue()
                     subGVectorSpace.subspaceContains(u + w).shouldBeFalse()
+                }
+            }
+        }
+    }
+
+    "invalid subVectorSpace" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
+        val wrongTotalVectorSpace = VectorSpace(numVectorSpace, listOf("a", "b"))
+        val subVectorSpace = SubVectorSpace(matrixSpace, wrongTotalVectorSpace, emptyList())
+        val totalGVectorSpace = GVectorSpace(
+            numVectorSpace,
+            IntDegreeGroup,
+            "V",
+        ) { _ -> totalVectorSpace }
+        val subGVectorSpace = SubGVectorSpace(
+            matrixSpace,
+            totalGVectorSpace,
+            "V",
+        ) { _ -> subVectorSpace }
+
+        "getting a component should throw IllegalStateException" {
+            (-10..10).forAll { degree ->
+                shouldThrow<IllegalStateException> {
+                    subGVectorSpace[degree]
                 }
             }
         }

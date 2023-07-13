@@ -5,8 +5,8 @@
 const config = {
   extends: ["@commitlint/config-conventional"],
   rules: {
-    // "scope-empty": [2, "never"], // scope is not required
-    "scope-enum": [2, "always", ["core", "website", "profile"]],
+    "scope-empty": [2, "never"], // scope is required
+    "scope-enum": [2, "always", ["core", "website", "profile", "misc"]],
     "header-max-length": [0],
   },
 }

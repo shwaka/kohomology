@@ -6,9 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
 
 public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GLieAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>,
@@ -20,28 +18,6 @@ public interface SubQuotGLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : N
             multiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
         ): SubQuotGLieAlgebra<D, B, S, V, M> {
             return SubQuotGLieAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication)
-        }
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalGVectorSpace: GVectorSpace<D, B, S, V>,
-            name: String,
-            boundedness: Boundedness = totalGVectorSpace.boundedness,
-            getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-            getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-        ): SubQuotGLieAlgebra<D, B, S, V, M> {
-            val subQuotGMagma = SubQuotGMagma(
-                matrixSpace,
-                totalGVectorSpace,
-                name,
-                boundedness,
-                getVectorSpace,
-                getMultiplication,
-            )
-            return SubQuotGLieAlgebraImpl(
-                matrixSpace,
-                subQuotGMagma,
-                subQuotGMagma.multiplication,
-            )
         }
     }
 }

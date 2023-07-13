@@ -33,41 +33,20 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            totalGVectorSpace: GVectorSpace<D, B, S, V>,
-            name: String,
-            boundedness: Boundedness = totalGVectorSpace.boundedness,
-            getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-        ): SubQuotGVectorSpace<D, B, S, V, M> {
-            return SubQuotGVectorSpaceImpl(
-                matrixSpace,
-                totalGVectorSpace,
-                name,
-                boundedness,
-                getVectorSpace
-            )
-        }
-
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
             name: String,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
             boundedness: Boundedness = totalGVectorSpace.boundedness,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
-            return SubQuotGVectorSpace(
+            return SubQuotGVectorSpaceImpl(
                 matrixSpace,
                 totalGVectorSpace,
+                subspaceGenerator = subspaceGenerator,
+                quotientGenerator = quotientGenerator,
                 name = name,
                 boundedness = boundedness,
-            ) { degree ->
-                SubQuotVectorSpace(
-                    matrixSpace,
-                    totalGVectorSpace[degree],
-                    subspaceGenerator = subspaceGenerator[degree],
-                    quotientGenerator = quotientGenerator[degree],
-                )
-            }
+            )
         }
     }
 }
@@ -75,9 +54,10 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
 private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
+    private val subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
+    private val quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
     override val name: String,
     override val boundedness: Boundedness,
-    private val getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
 ) : SubQuotGVectorSpace<D, B, S, V, M> {
     override val numVectorSpace: NumVectorSpace<S, V> = totalGVectorSpace.numVectorSpace
     override val degreeGroup: DegreeGroup<D> = totalGVectorSpace.degreeGroup
@@ -114,7 +94,12 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
 
     override fun get(degree: D): SubQuotVectorSpace<B, S, V, M> {
         return this.cache.getOrPut(degree) {
-            this.getVectorSpace(degree)
+            SubQuotVectorSpace(
+                matrixSpace,
+                totalGVectorSpace[degree],
+                subspaceGenerator = subspaceGenerator[degree],
+                quotientGenerator = quotientGenerator[degree],
+            )
         }
     }
     override fun get(degree: Int): SubQuotVectorSpace<B, S, V, M> {

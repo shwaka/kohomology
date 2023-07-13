@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
+import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -23,24 +23,30 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "sub-quotient graded vector space test" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
-        val subQuotVectorSpace = run {
-            val (u, v, w) = totalVectorSpace.getBasis()
-            totalVectorSpace.context.run {
-                val subspaceGenerator = listOf(u + v, v + w)
-                val quotientGenerator = listOf(u + 2 * v + w)
-                SubQuotVectorSpace(matrixSpace, totalVectorSpace, subspaceGenerator, quotientGenerator)
-            }
-        }
         val totalGVectorSpace = GVectorSpace(
             numVectorSpace,
             IntDegreeGroup,
             "V",
         ) { _ -> totalVectorSpace }
+        val subspaceGenerator = totalVectorSpace.context.run {
+            val (u, v, w) = totalVectorSpace.getBasis()
+            SubGVectorSpace(matrixSpace, totalGVectorSpace, "V1") { _ ->
+                SubVectorSpace(matrixSpace, totalVectorSpace, listOf(u + v, v + w))
+            }
+        }
+        val quotientGenerator = totalVectorSpace.context.run {
+            val (u, v, w) = totalVectorSpace.getBasis()
+            SubGVectorSpace(matrixSpace, totalGVectorSpace, "V1") { _ ->
+                SubVectorSpace(matrixSpace, totalVectorSpace, listOf(u + 2 * v + w))
+            }
+        }
         val subQuotGVectorSpace = SubQuotGVectorSpace(
             matrixSpace,
-            totalGVectorSpace,
             "W",
-        ) { _ -> subQuotVectorSpace }
+            totalGVectorSpace,
+            subspaceGenerator,
+            quotientGenerator,
+        )
 
         "check subQuotGVectorSpace.totalGVectorSpace" {
             subQuotGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace

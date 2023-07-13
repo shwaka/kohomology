@@ -6,10 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import com.github.shwaka.kohomology.vectsp.SubQuotVectorSpace
-import com.github.shwaka.kohomology.vectsp.Vector
 
 public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GAlgebra<D, SubQuotBasis<B, S, V>, S, V, M>,
@@ -23,28 +20,6 @@ public interface SubQuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumV
             isCommutative: Boolean = false,
         ): SubQuotGAlgebra<D, B, S, V, M> {
             return SubQuotGAlgebraImpl(matrixSpace, subQuotGVectorSpace, multiplication, unit, isCommutative)
-        }
-
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalGVectorSpace: GVectorSpace<D, B, S, V>,
-            name: String,
-            getVectorSpace: (D) -> SubQuotVectorSpace<B, S, V, M>,
-            getMultiplication: (D, D) -> BilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M>,
-            unitVector: Vector<SubQuotBasis<B, S, V>, S, V>,
-            isCommutative: Boolean = false,
-            boundedness: Boundedness = totalGVectorSpace.boundedness,
-        ): SubQuotGAlgebra<D, B, S, V, M> {
-            val subQuotGMagma = SubQuotGMagma(
-                matrixSpace,
-                totalGVectorSpace,
-                name,
-                boundedness,
-                getVectorSpace,
-                getMultiplication,
-            )
-            val unit = subQuotGMagma.fromVector(unitVector, 0)
-            return SubQuotGAlgebraImpl(matrixSpace, subQuotGMagma, subQuotGMagma.multiplication, unit, isCommutative)
         }
     }
 }

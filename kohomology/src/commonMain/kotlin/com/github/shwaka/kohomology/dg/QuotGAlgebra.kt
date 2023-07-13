@@ -6,10 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.QuotBasis
-import com.github.shwaka.kohomology.vectsp.QuotVectorSpace
-import com.github.shwaka.kohomology.vectsp.Vector
 
 public interface QuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GAlgebra<D, QuotBasis<B, S, V>, S, V, M>,
@@ -23,28 +20,6 @@ public interface QuotGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVect
             isCommutative: Boolean = false,
         ): QuotGAlgebra<D, B, S, V, M> {
             return QuotGAlgebraImpl(matrixSpace, quotGVectorSpace, multiplication, unit, isCommutative)
-        }
-
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalGVectorSpace: GVectorSpace<D, B, S, V>,
-            name: String,
-            getVectorSpace: (D) -> QuotVectorSpace<B, S, V, M>,
-            getMultiplication: (D, D) -> BilinearMap<QuotBasis<B, S, V>, QuotBasis<B, S, V>, QuotBasis<B, S, V>, S, V, M>,
-            unitVector: Vector<QuotBasis<B, S, V>, S, V>,
-            isCommutative: Boolean = false,
-            boundedness: Boundedness = totalGVectorSpace.boundedness,
-        ): QuotGAlgebra<D, B, S, V, M> {
-            val quotGMagma = QuotGMagma(
-                matrixSpace,
-                totalGVectorSpace,
-                name,
-                boundedness,
-                getVectorSpace,
-                getMultiplication,
-            )
-            val unit = quotGMagma.fromVector(unitVector, 0)
-            return QuotGAlgebraImpl(matrixSpace, quotGMagma, quotGMagma.multiplication, unit, isCommutative)
         }
     }
 }

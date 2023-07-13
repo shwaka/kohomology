@@ -6,9 +6,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.QuotBasis
-import com.github.shwaka.kohomology.vectsp.QuotVectorSpace
 
 public interface QuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, QuotBasis<B, S, V>, S, V, M>,
@@ -20,38 +18,6 @@ public interface QuotGMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector
             multiplication: GBilinearMap<QuotBasis<B, S, V>, QuotBasis<B, S, V>, QuotBasis<B, S, V>, D, S, V, M>,
         ): QuotGMagma<D, B, S, V, M> {
             return QuotGMagmaImpl(matrixSpace, quotGVectorSpace, multiplication)
-        }
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            totalGVectorSpace: GVectorSpace<D, B, S, V>,
-            name: String,
-            boundedness: Boundedness = totalGVectorSpace.boundedness,
-            getVectorSpace: (D) -> QuotVectorSpace<B, S, V, M>,
-            getMultiplication: (D, D) -> BilinearMap<QuotBasis<B, S, V>, QuotBasis<B, S, V>, QuotBasis<B, S, V>, S, V, M>,
-        ): QuotGMagma<D, B, S, V, M> {
-            val quotGVectorSpace = QuotGVectorSpace(
-                matrixSpace,
-                totalGVectorSpace,
-                name,
-                boundedness,
-                getVectorSpace,
-            )
-            val multiplication: GBilinearMap<QuotBasis<B, S, V>, QuotBasis<B, S, V>, QuotBasis<B, S, V>, D, S, V, M> by lazy {
-                val bilinearMapName = "Multiplication($name)"
-                GBilinearMap(
-                    matrixSpace,
-                    quotGVectorSpace,
-                    quotGVectorSpace,
-                    quotGVectorSpace,
-                    0,
-                    bilinearMapName,
-                ) { p, q -> getMultiplication(p, q) }
-            }
-            return QuotGMagmaImpl(
-                matrixSpace,
-                quotGVectorSpace,
-                multiplication
-            )
         }
     }
 }

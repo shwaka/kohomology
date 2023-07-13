@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.vectsp.QuotVectorSpace
+import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -22,23 +22,22 @@ quotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "quotient graded vector space test" - {
         val numVectorSpace = matrixSpace.numVectorSpace
         val totalVectorSpace = VectorSpace(numVectorSpace, listOf("u", "v", "w"))
-        val quotVectorSpace = run {
+        val subVectorSpace = totalVectorSpace.context.run {
             val (u, v, _) = totalVectorSpace.getBasis()
-            totalVectorSpace.context.run {
-                val quotientGenerator = listOf(u + v, u, v)
-                QuotVectorSpace(matrixSpace, totalVectorSpace, quotientGenerator)
-            }
+            SubVectorSpace(matrixSpace, totalVectorSpace, listOf(u + v, u, v))
         }
         val totalGVectorSpace = GVectorSpace(
             numVectorSpace,
             IntDegreeGroup,
             "V",
         ) { _ -> totalVectorSpace }
+        val subGVectorSpace = SubGVectorSpace(matrixSpace, totalGVectorSpace, "W") { _ -> subVectorSpace}
         val quotGVectorSpace = QuotGVectorSpace(
             matrixSpace,
-            totalGVectorSpace,
             "W",
-        ) { _ -> quotVectorSpace }
+            totalGVectorSpace,
+            subGVectorSpace,
+        )
 
         "check quotGVectorSpace.totalGVectorSpace" {
             quotGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace

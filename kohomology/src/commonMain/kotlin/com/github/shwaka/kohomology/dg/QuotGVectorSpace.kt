@@ -32,7 +32,7 @@ public interface QuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Num
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
             boundedness: Boundedness = totalGVectorSpace.boundedness,
-            name: String = "${totalGVectorSpace.name}/${quotientGenerator.name}"
+            name: String = "${totalGVectorSpace.name}/${quotientGenerator.name}",
         ): QuotGVectorSpace<D, B, S, V, M> {
             return QuotGVectorSpaceImpl(matrixSpace, totalGVectorSpace, quotientGenerator, boundedness, name)
         }

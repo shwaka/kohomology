@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689327355291,
+  "lastUpdate": 1689331825766,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2260,6 +2260,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.445,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e4a758f3b1fd78ab3a726ea81393ff250d639381",
+          "message": "test(core): add test for quotDGAlgebra.cohomology.name (failing)",
+          "timestamp": "2023-07-14T18:50:24+09:00",
+          "tree_id": "5eec8541a2acd157cc9fa725d40f7b00bcd90531",
+          "url": "https://github.com/shwaka/kohomology/commit/e4a758f3b1fd78ab3a726ea81393ff250d639381"
+        },
+        "date": 1689331824703,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.479,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.734,
             "unit": "s/op"
           }
         ]

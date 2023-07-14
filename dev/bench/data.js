@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689350699580,
+  "lastUpdate": 1689351740120,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2328,6 +2328,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.293,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "40aa9256c4b8925dc76f37e9dd9ab44721e5ce8b",
+          "message": "fix(website): handle index correctly in ParenParser",
+          "timestamp": "2023-07-15T01:13:48+09:00",
+          "tree_id": "a4c501217ca417570dd8ba1ed8aa1f6f609032e5",
+          "url": "https://github.com/shwaka/kohomology/commit/40aa9256c4b8925dc76f37e9dd9ab44721e5ce8b"
+        },
+        "date": 1689351739576,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.635,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.363,
             "unit": "s/op"
           }
         ]

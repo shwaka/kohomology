@@ -5,6 +5,8 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 
@@ -89,15 +91,7 @@ public interface DGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVec
             gVectorSpace: GVectorSpace<D, B, S, V>,
             differential: GLinearMap<D, B, B, S, V, M>,
         ): SubQuotGVectorSpace<D, B, S, V, M> {
-            // SubQuotGVectorSpaceImpl has cache
-            val name = "H(${gVectorSpace.name})"
-            return SubQuotGVectorSpace(
-                differential.matrixSpace,
-                name = name,
-                totalGVectorSpace = gVectorSpace,
-                subspaceGenerator = differential.kernel(),
-                quotientGenerator = differential.image(),
-            )
+            return Cohomology(gVectorSpace, differential)
         }
 
         internal fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getCohomologyClass(
@@ -129,5 +123,24 @@ internal class DGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
     override fun toString(): String {
         val name = this.name
         return "($name, d)"
+    }
+}
+
+private class Cohomology<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    private val gVectorSpace: GVectorSpace<D, B, S, V>,
+    differential: GLinearMap<D, B, B, S, V, M>,
+) : SubQuotGVectorSpace<D, B, S, V, M> by SubQuotGVectorSpace(
+    differential.matrixSpace,
+    totalGVectorSpace = gVectorSpace,
+    subspaceGenerator = differential.kernel(),
+    quotientGenerator = differential.image(),
+    name = "H(${gVectorSpace.name})"
+) {
+    override fun toString(): String {
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return "H(${this.gVectorSpace.toString(printConfig)})"
     }
 }

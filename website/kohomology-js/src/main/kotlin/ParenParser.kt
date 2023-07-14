@@ -23,7 +23,7 @@ object ParenParser {
 
     private fun isSurroundedByParen(text: String): Boolean {
         val positionClose: Int? = this.findParenClose(text, 0)
-        return (positionClose == text.length)
+        return (positionClose == text.length - 1)
     }
 
     fun removeSurroundingParen(text: String): String {

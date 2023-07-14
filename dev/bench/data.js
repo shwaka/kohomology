@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689247805432,
+  "lastUpdate": 1689327355291,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2226,6 +2226,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.847,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "3c2f2811a49c91fb6648ebed149a9eeddca4d7a6",
+          "message": "test(core): fix FreeDGAlgebraTest",
+          "timestamp": "2023-07-14T18:29:17+09:00",
+          "tree_id": "fb6891ef9659a7e36bfb5844b143bce93d8a6fbe",
+          "url": "https://github.com/shwaka/kohomology/commit/3c2f2811a49c91fb6648ebed149a9eeddca4d7a6"
+        },
+        "date": 1689327354731,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.689,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.445,
             "unit": "s/op"
           }
         ]

@@ -36,7 +36,7 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         }
         val quotientGenerator = totalVectorSpace.context.run {
             val (u, v, w) = totalVectorSpace.getBasis()
-            SubGVectorSpace(matrixSpace, totalGVectorSpace, "V1") { _ ->
+            SubGVectorSpace(matrixSpace, totalGVectorSpace, "V2") { _ ->
                 SubVectorSpace(matrixSpace, totalVectorSpace, listOf(u + 2 * v + w))
             }
         }
@@ -47,6 +47,10 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             subspaceGenerator,
             quotientGenerator,
         )
+
+        "subQuotGVectorSpace.name should be V1/V2" {
+            subQuotGVectorSpace.name shouldBe "V1/V2"
+        }
 
         "check subQuotGVectorSpace.totalGVectorSpace" {
             subQuotGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace

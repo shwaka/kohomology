@@ -290,12 +290,8 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     return styledMessage(MessageType.SUCCESS) {
         val printed = if (dgVectorSpace is Printable) {
             val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-            val dgVectorSpaceString = p(dgVectorSpace)
-            if (dgVectorSpaceString.startsWith("(") && dgVectorSpaceString.endsWith(")")) {
-                "H^n${p(dgVectorSpace)}".math
-            } else {
-                "H^n(${p(dgVectorSpace)})".math
-            }
+            val dgVectorSpaceWithoutParen: String = ParenParser.removeSurroundingParen(p(dgVectorSpace))
+            "H^n($dgVectorSpaceWithoutParen)".math
         } else {
             "H^n($dgVectorSpace)".text
         }

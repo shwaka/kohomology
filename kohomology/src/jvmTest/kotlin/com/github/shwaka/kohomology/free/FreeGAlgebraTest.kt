@@ -191,7 +191,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
                 val proj = quotientGAlgebra.projection
                 quotientGAlgebra.name shouldBe "Λ(x, y)/Ideal(xy)"
                 quotientGAlgebra.toString() shouldBe "Λ(x, y)/Ideal(xy)"
-                quotientGAlgebra.toString(PrintConfig(PrintType.TEX)) shouldBe "Λ(x, y)/Ideal(xy)"
+                quotientGAlgebra.toString(PrintConfig(PrintType.TEX)) shouldBe "Λ(x, y)/\\mathrm{Ideal}(xy)"
                 quotientGAlgebra[0].dim shouldBe 1
                 (1..10).forAll { n ->
                     quotientGAlgebra[n * generatorDegree].dim shouldBe 2

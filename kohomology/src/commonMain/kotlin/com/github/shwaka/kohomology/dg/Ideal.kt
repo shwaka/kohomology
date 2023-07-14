@@ -4,6 +4,9 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface Ideal<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -40,12 +43,36 @@ private class IdealImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>,
     }
 
     override val name: String
-        get() {
-            val generatorsString = generatorList.joinToString(", ")
-            return "Ideal($generatorsString)"
-        }
+        get() = this.toString()
 
     override fun toString(): String {
-        return this.name
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return idealToString(
+            "Ideal",
+            generatorList,
+            printConfig,
+        )
+    }
+}
+
+internal fun idealToString(
+    className: String,
+    generatorList: List<Printable>,
+    printConfig: PrintConfig
+): String {
+    return when (printConfig.printType) {
+        PrintType.PLAIN -> {
+            val generatorsString = generatorList.joinToString(", ")
+            "$className($generatorsString)"
+        }
+        PrintType.TEX -> {
+            val generatorsString = generatorList.joinToString(", ") {
+                it.toString(printConfig)
+            }
+            "\\mathrm{$className}($generatorsString)"
+        }
     }
 }

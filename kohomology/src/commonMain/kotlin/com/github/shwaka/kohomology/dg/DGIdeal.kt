@@ -4,6 +4,8 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 
@@ -50,12 +52,17 @@ private class DGIdealImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     }
 
     override val name: String
-        get() {
-            val generatorsString = generatorList.joinToString(", ")
-            return "DGIdeal($generatorsString)"
-        }
+        get() = this.toString()
 
     override fun toString(): String {
-        return this.name
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return idealToString(
+            "DGIdeal",
+            generatorList,
+            printConfig,
+        )
     }
 }

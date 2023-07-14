@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689331825766,
+  "lastUpdate": 1689350699580,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2294,6 +2294,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.734,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "26b63721a5f1638bec0fe735b7bbaf87be703cb1",
+          "message": "feat(core): add private class Cohomology and override toString",
+          "timestamp": "2023-07-15T00:55:23+09:00",
+          "tree_id": "1469329658c51650dbf873872a949e3f25fec13c",
+          "url": "https://github.com/shwaka/kohomology/commit/26b63721a5f1638bec0fe735b7bbaf87be703cb1"
+        },
+        "date": 1689350698403,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.725,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.293,
             "unit": "s/op"
           }
         ]

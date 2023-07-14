@@ -38,6 +38,10 @@ quotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             subGVectorSpace,
         )
 
+        "quotGVectorSpace.name should be V/W" {
+            quotGVectorSpace.name shouldBe "V/W"
+        }
+
         "check quotGVectorSpace.totalGVectorSpace" {
             quotGVectorSpace.totalGVectorSpace shouldBe totalGVectorSpace
         }

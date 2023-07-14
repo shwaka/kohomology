@@ -97,6 +97,8 @@ private class QuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Nu
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return this.name
+        val total = this.totalGVectorSpace.toString(printConfig)
+        val quot = this.quotientGenerator.toString(printConfig)
+        return "$total/$quot"
     }
 }

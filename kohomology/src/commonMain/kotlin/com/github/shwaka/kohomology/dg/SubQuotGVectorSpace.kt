@@ -111,6 +111,8 @@ private class SubQuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V :
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return this.name
+        val sub = this.subspaceGenerator.toString(printConfig)
+        val quot = this.quotientGenerator.toString(printConfig)
+        return "$sub/$quot"
     }
 }

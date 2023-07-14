@@ -8,6 +8,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import io.kotest.assertions.throwables.shouldThrow
@@ -68,6 +70,15 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> dgVectorSpaceTest(matrixSpa
         checkRequirementsForDGVectorSpace(dgVectorSpace)
 
         dgVectorSpace.context.run {
+            "dgVectorSpace.cohomology.name should be H(V)" {
+                dgVectorSpace.cohomology.name shouldBe "H(V)"
+            }
+
+            "test dgVectorSpace.cohomology.toString()" {
+                dgVectorSpace.cohomology.toString() shouldBe "H(V)"
+                dgVectorSpace.cohomology.toString(PrintConfig(PrintType.TEX)) shouldBe "H(V)"
+            }
+
             "dimension of the cohomology should be the same as that of the dg vector space" {
                 (-10 until 10).forAll { degree ->
                     dgVectorSpace.cohomology[degree].dim shouldBe dgVectorSpace[degree].dim

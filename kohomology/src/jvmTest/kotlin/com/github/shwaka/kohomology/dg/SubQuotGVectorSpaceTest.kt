@@ -42,7 +42,6 @@ subQuotGVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
         }
         val subQuotGVectorSpace = SubQuotGVectorSpace(
             matrixSpace,
-            "W",
             totalGVectorSpace,
             subspaceGenerator,
             quotientGenerator,

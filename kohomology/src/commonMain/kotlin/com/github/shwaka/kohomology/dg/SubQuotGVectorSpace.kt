@@ -33,11 +33,11 @@ public interface SubQuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : 
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            name: String,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             subspaceGenerator: SubGVectorSpace<D, B, S, V, M>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
             boundedness: Boundedness = totalGVectorSpace.boundedness,
+            name: String = "${subspaceGenerator.name}/${quotientGenerator.name}",
         ): SubQuotGVectorSpace<D, B, S, V, M> {
             return SubQuotGVectorSpaceImpl(
                 matrixSpace,

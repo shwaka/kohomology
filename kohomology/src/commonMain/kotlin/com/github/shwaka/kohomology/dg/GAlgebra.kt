@@ -134,7 +134,6 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
     public fun getQuotientByIdeal(ideal: SubGVectorSpace<D, B, S, V, M>): QuotGAlgebra<D, B, S, V, M> {
         val quotGVectorSpace = QuotGVectorSpace(
             this.matrixSpace,
-            name = "${this.name}/${ideal.name}",
             totalGVectorSpace = this,
             quotientGenerator = ideal,
         )

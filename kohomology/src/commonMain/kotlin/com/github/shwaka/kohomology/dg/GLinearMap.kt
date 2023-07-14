@@ -134,9 +134,9 @@ public interface GLinearMap<D : Degree, BS : BasisName, BT : BasisName, S : Scal
     public fun cokernel(): QuotGVectorSpace<D, BT, S, V, M> {
         return QuotGVectorSpace(
             this.matrixSpace,
-            "Coker(${this.name})",
             this.target,
             this.image(),
+            name = "Coker(${this.name})",
         )
     }
 

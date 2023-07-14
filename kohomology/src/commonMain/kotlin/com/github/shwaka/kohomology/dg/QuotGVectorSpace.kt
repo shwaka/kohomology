@@ -29,12 +29,12 @@ public interface QuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Num
     public companion object {
         public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
-            name: String,
             totalGVectorSpace: GVectorSpace<D, B, S, V>,
             quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
             boundedness: Boundedness = totalGVectorSpace.boundedness,
+            name: String = "${totalGVectorSpace.name}/${quotientGenerator.name}"
         ): QuotGVectorSpace<D, B, S, V, M> {
-            return QuotGVectorSpaceImpl(matrixSpace, totalGVectorSpace, name, boundedness, quotientGenerator)
+            return QuotGVectorSpaceImpl(matrixSpace, totalGVectorSpace, quotientGenerator, boundedness, name)
         }
     }
 }
@@ -42,9 +42,9 @@ public interface QuotGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Num
 private class QuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val totalGVectorSpace: GVectorSpace<D, B, S, V>,
-    override val name: String,
-    override val boundedness: Boundedness,
     private val quotientGenerator: SubGVectorSpace<D, B, S, V, M>,
+    override val boundedness: Boundedness,
+    override val name: String,
 ) : QuotGVectorSpace<D, B, S, V, M> {
     override val numVectorSpace: NumVectorSpace<S, V> = totalGVectorSpace.numVectorSpace
     override val degreeGroup: DegreeGroup<D> = totalGVectorSpace.degreeGroup

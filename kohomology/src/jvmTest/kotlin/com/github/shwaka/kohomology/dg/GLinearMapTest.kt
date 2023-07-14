@@ -19,6 +19,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.kotest.matchers.string.shouldContain
 
 val gLinearMapTag = NamedTag("GLinearMap")
 
@@ -103,6 +104,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                     }
                 }
             }
+            "image().name should contain \"Im\"" {
+                gLinearMap.image().name shouldContain "Im"
+            }
             "image() shouldBe a subspace of gVectorSpace" {
                 gLinearMap.image().totalGVectorSpace shouldBe gVectorSpace
             }
@@ -115,6 +119,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> gLinearMapTest(matrixSpace:
                 (1 until 20).forAll { degree ->
                     gLinearMap.image()[degree].dim shouldBe (degree - 1)
                 }
+            }
+            "cokernel().name should contain \"Coker\"" {
+                gLinearMap.cokernel().name shouldContain "Coker"
             }
             "cokernel() should be a quotient of gVectorSpace" {
                 gLinearMap.cokernel().totalGVectorSpace shouldBe gVectorSpace

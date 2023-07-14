@@ -418,6 +418,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> quotientTest(matrixSpace: M
                     "(Λ(a, b, x, y, z), d)/\\mathrm{DGIdeal}(a^{2}, b^{2}, x, z)"
             }
 
+            "quotDGAlgebra.cohomology.name should be H(Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z))" {
+                quotDGAlgebra.cohomology.name shouldBe "H(Λ(a, b, x, y, z)/DGIdeal(a^2, b^2, x, z))"
+                quotDGAlgebra.cohomology.toString() shouldBe
+                    "H((Λ(a, b, x, y, z), d)/DGIdeal(a^2, b^2, x, z))"
+                quotDGAlgebra.cohomology.toString(PrintConfig(PrintType.TEX)) shouldBe
+                    "H((Λ(a, b, x, y, z), d)/\\mathrm{DGIdeal}(a^{2}, b^{2}, x, z))"
+            }
+
             checkDGAlgebraAxioms(quotDGAlgebra, 0..15)
             freeDGAlgebra.context.run {
                 quotDGAlgebra.context.run {

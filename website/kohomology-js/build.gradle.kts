@@ -3,6 +3,7 @@ plugins {
     kotlin("multiplatform") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+    id("io.kotest.multiplatform") version "5.0.2"
 }
 
 group = "me.shun"
@@ -31,6 +32,7 @@ kotlin {
                 }
             }
         }
+        nodejs {}
     }
     sourceSets {
         val jsMain by getting {
@@ -38,6 +40,15 @@ kotlin {
                 // testImplementation(kotlin("test-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
                 implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
+            }
+        }
+
+        val jsTest by getting {
+            dependencies {
+                val version = "5.4.1"
+                implementation("io.kotest:kotest-framework-engine:$version")
+                // implementation("io.kotest:kotest-assertions-core:$version")
+                // implementation("io.kotest:kotest-property:$version")
             }
         }
     }

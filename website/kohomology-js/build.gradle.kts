@@ -1,6 +1,6 @@
 plugins {
     val kotlinVersion = "1.7.21"
-    kotlin("js") version kotlinVersion
+    kotlin("multiplatform") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
 }
@@ -12,12 +12,6 @@ repositories {
     mavenLocal() // install kohomology from mavenLocal
     mavenCentral()
     maven { url = uri("https://shwaka.github.io/maven/") }
-}
-
-dependencies {
-    testImplementation(kotlin("test-js"))
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-    implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
 }
 
 kotlin {
@@ -35,6 +29,15 @@ kotlin {
                     useChromeHeadless()
                     webpackConfig.cssSupport.enabled = true
                 }
+            }
+        }
+    }
+    sourceSets {
+        val jsMain by getting {
+            dependencies {
+                // testImplementation(kotlin("test-js"))
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+                implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
             }
         }
     }

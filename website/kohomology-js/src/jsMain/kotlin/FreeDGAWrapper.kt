@@ -284,13 +284,9 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     maxDegree: Int,
 ): StyledMessageInternal {
     return styledMessage(MessageType.SUCCESS) {
-        val printed = if (dgVectorSpace is Printable) {
-            val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
-            val dgVectorSpaceWithoutParen: String = ParenParser.removeSurroundingParen(p(dgVectorSpace))
-            "H^n($dgVectorSpaceWithoutParen)".math
-        } else {
-            "H^n($dgVectorSpace)".text
-        }
+        val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+        val dgVectorSpaceWithoutParen: String = ParenParser.removeSurroundingParen(p(dgVectorSpace))
+        val printed = "H^n($dgVectorSpaceWithoutParen)".math
         "Computing ".text + printed + " for ".text +
             "$minDegree \\leq n \\leq $maxDegree".math
     }

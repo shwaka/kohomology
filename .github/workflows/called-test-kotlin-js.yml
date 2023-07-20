@@ -1,0 +1,46 @@
+name: called-test-kotlin-js
+
+on:
+  workflow_call:
+    inputs:
+      JAVA_VERSION:
+        required: true
+        type: string
+        description: the version of Java
+      JAVA_DISTRIBUTION:
+        required: true
+        type: string
+        description: the distribution of Java
+      CACHE_KEY_GRADLE:
+        required: true
+        type: string
+        description: the cache key for ~/.gradle/caches
+      CACHE_KEY_M2:
+        required: true
+        type: string
+        description: the cache key for ~/.m2/repository
+
+jobs:
+  main:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Cache: ~/.gradle/cache"
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ inputs.CACHE_KEY_GRADLE }}
+      - name: "Read cache: ~/.m2/repository"
+        uses: actions/cache@v3
+        # restore mavenLocal repository from 'build-core'
+        with:
+          path: ~/.m2/repository
+          key: ${{ inputs.CACHE_KEY_M2 }}
+      - name: Set up JDK ${{ inputs.JAVA_VERSION }}
+        uses: actions/setup-java@v3
+        with:
+          distribution: ${{ inputs.JAVA_DISTRIBUTION }}
+          java-version: ${{ inputs.JAVA_VERSION }}
+      - name: Test kohomology-js
+        run: ./gradlew jsTest
+        working-directory: website/kohomology-js

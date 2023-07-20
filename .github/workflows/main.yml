@@ -70,14 +70,23 @@ jobs:
       CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
       CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
 
+  test-kotlin-js:
+    needs: [ prepare-env, build-core ]
+    uses: ./.github/workflows/called-kotlin-js.yml
+    with:
+      JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
+      JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
+      CACHE_KEY_GRADLE: ${{ needs.build-core.outputs.CACHE_KEY_GRADLE }}
+      CACHE_KEY_M2: ${{ needs.build-core.outputs.CACHE_KEY_M2 }}
+
   test-website:
-    needs: [ setup-website ]
+    needs: [ setup-website, test-kotlin-js ]
     uses: ./.github/workflows/called-test-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.setup-website.outputs.CACHE_KEY_NODE_MODULES }}
 
   benchmark-website:
-    needs: [ setup-website ]
+    needs: [ setup-website, test-kotlin-js ]
     uses: ./.github/workflows/called-benchmark-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.setup-website.outputs.CACHE_KEY_NODE_MODULES }}

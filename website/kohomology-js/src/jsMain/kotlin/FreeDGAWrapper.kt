@@ -78,6 +78,7 @@ class FreeDGAWrapper(json: String) {
         this.freeDGAlgebra.parse(generatorString)
     }
 
+    @kotlinx.serialization.ExperimentalSerializationApi
     private fun createIdeal(idealJson: String): DGIdeal<
         IntDegree,
         Monomial<IntDegree, StringIndeterminateName>,
@@ -97,12 +98,14 @@ class FreeDGAWrapper(json: String) {
         return this.freeDGAlgebra.getDGIdeal(generators)
     }
 
+    @kotlinx.serialization.ExperimentalSerializationApi
     fun setIdeal(idealJson: String) {
         val dgIdeal = this.createIdeal(idealJson)
         this.dgIdeal = dgIdeal
         this.quotDGAlgebra = this.freeDGAlgebra.getQuotientByIdeal(dgIdeal)
     }
 
+    @kotlinx.serialization.ExperimentalSerializationApi
     fun tryCreateIdeal(idealJson: String) {
         // for validation
         this.createIdeal(idealJson)

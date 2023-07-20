@@ -176,6 +176,7 @@ fun validateIdealGeneratorString(
 
 @ExperimentalJsExport
 @JsExport
+@kotlinx.serialization.ExperimentalSerializationApi
 fun validateIdealJson(
     freeDGAWrapper: FreeDGAWrapper,
     idealJson: String,

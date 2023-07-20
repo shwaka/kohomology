@@ -40,6 +40,7 @@ fun jsonToGeneratorList(json: String): List<GeneratorOfFreeDGA<IntDegree>> {
     }
 }
 
+@kotlinx.serialization.ExperimentalSerializationApi
 fun jsonToIdealGenerators(json: String): List<String> {
     return Json.decodeFromString<List<String>>(json)
 }

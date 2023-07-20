@@ -38,11 +38,11 @@ public data class MMIndeterminateName(
         }
         return when (this.totalNumberInDegree) {
             1 -> when (printConfig.printType) {
-                PrintType.PLAIN -> "${char}_${this.degree}"
+                PrintType.PLAIN, PrintType.CODE -> "${char}_${this.degree}"
                 PrintType.TEX -> "${char}_{${this.degree}}"
             }
             else -> when (printConfig.printType) {
-                PrintType.PLAIN -> "${char}_${this.degree}_${this.index}"
+                PrintType.PLAIN, PrintType.CODE -> "${char}_${this.degree}_${this.index}"
                 PrintType.TEX -> "${char}_{${this.degree},${this.index}}"
             }
         }

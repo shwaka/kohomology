@@ -41,7 +41,7 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
 
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> this.toPlain(printConfig.showShift)
+            PrintType.PLAIN, PrintType.CODE -> this.toPlain(printConfig.showShift)
             PrintType.TEX -> this.toTex(printConfig.showShift)
         }
     }

@@ -110,7 +110,7 @@ public class KotlinRational private constructor(public val numerator: BigInteger
 
     override fun toString(printConfig: PrintConfig, withSign: Boolean): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> if (withSign) this.toString() else this.toStringWithoutSign()
+            PrintType.PLAIN, PrintType.CODE -> if (withSign) this.toString() else this.toStringWithoutSign()
             PrintType.TEX -> if (withSign) this.toTex() else this.toTexWithoutSign()
         }
     }

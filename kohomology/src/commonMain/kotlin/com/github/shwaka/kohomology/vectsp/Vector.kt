@@ -26,7 +26,7 @@ public class StringBasisName(public val name: String, tex: String? = null) : Bas
     override fun toString(): String = this.name
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
-            PrintType.PLAIN -> this.name
+            PrintType.PLAIN, PrintType.CODE -> this.name
             PrintType.TEX -> this.tex
         }
     }

@@ -13,6 +13,9 @@ public data class DualBasisName<B : BasisName>(public val originalBasisName: B) 
         return when (printConfig.printType) {
             PrintType.PLAIN -> "$originalString*"
             PrintType.TEX -> "$originalString^*"
+            PrintType.CODE -> throw UnsupportedOperationException(
+                "DualBasisName does not support PrintType.CODE"
+            )
         }
     }
 }
@@ -35,6 +38,9 @@ internal fun <B : BasisName, S : PrintableWithSign> InternalPrintConfig<B, S>.du
             when (printConfig.printType) {
                 PrintType.PLAIN -> "$originalString*"
                 PrintType.TEX -> "$originalString^*"
+                PrintType.CODE -> throw UnsupportedOperationException(
+                    "DualBasisName does not support PrintType.CODE"
+                )
             }
         },
         basisComparator = this.basisComparator?.let { basisComparatorNonNull ->

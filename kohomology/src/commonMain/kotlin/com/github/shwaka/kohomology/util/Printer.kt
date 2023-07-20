@@ -1,7 +1,7 @@
 package com.github.shwaka.kohomology.util
 
 public enum class PrintType {
-    PLAIN, TEX
+    PLAIN, TEX, CODE
 }
 
 public interface Printable {

@@ -99,7 +99,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
                 1 -> indeterminateNameToString(indeterminate.name)
                 else -> {
                     val exponentStr = when (printType) {
-                        PrintType.PLAIN -> exponent.toString()
+                        PrintType.PLAIN, PrintType.CODE -> exponent.toString()
                         PrintType.TEX -> "{$exponent}"
                     }
                     "${indeterminateNameToString(indeterminate.name)}^$exponentStr"

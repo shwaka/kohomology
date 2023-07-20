@@ -74,5 +74,8 @@ internal fun idealToString(
             }
             "\\mathrm{$className}($generatorsString)"
         }
+        PrintType.CODE -> throw UnsupportedOperationException(
+            "$className does not support PrintType.CODE"
+        )
     }
 }

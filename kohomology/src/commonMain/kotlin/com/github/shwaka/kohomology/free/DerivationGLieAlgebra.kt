@@ -146,6 +146,9 @@ public class DerivationGLieAlgebra<D : Degree, I : IndeterminateName, S : Scalar
         val der = when (printConfig.printType) {
             PrintType.PLAIN -> "Der"
             PrintType.TEX -> "\\mathrm{Der}"
+            PrintType.CODE -> throw UnsupportedOperationException(
+                "DerivationGLieAlgebra does not support PrintType.CODE"
+            )
         }
         return "$der(${this.freeGAlgebra.underlyingGAlgebra.toString(printConfig)})"
     }

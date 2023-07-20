@@ -26,7 +26,7 @@ sealed class ValidationResultInternal(
     val type: ValidationResultType,
     val message: String,
 ) {
-    class Success() : ValidationResultInternal(ValidationResultType.SUCCESS, "")
+    class Success : ValidationResultInternal(ValidationResultType.SUCCESS, "")
     class Error(message: String) : ValidationResultInternal(ValidationResultType.ERROR, message)
 
     @ExperimentalJsExport

@@ -5266,6 +5266,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var generatorsString_0 = joinToString$default(generatorList, ', ', null, null, 0, null, idealToString$lambda(printConfig), 30, null);
         tmp = '\\mathrm{' + className + '}(' + generatorsString_0 + ')';
         break;
+      case 2:
+        throw UnsupportedOperationException_init_$Create$(className + ' does not support PrintType.CODE');
       default:
         noWhenBranchMatchedException();
         break;
@@ -9165,6 +9167,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       case 1:
         tmp = '\\mathrm{Der}';
         break;
+      case 2:
+        throw UnsupportedOperationException_init_$Create$('DerivationGLieAlgebra does not support PrintType.CODE');
       default:
         noWhenBranchMatchedException();
         break;
@@ -10920,6 +10924,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp_1;
       switch (tmp0_0) {
         case 0:
+        case 2:
           tmp_1 = char + '_' + this.o25_1;
           break;
         case 1:
@@ -10936,6 +10941,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp_2;
       switch (tmp0_1) {
         case 0:
+        case 2:
           tmp_2 = char + '_' + this.o25_1 + '_' + this.p25_1;
           break;
         case 1:
@@ -12327,6 +12333,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp;
     switch (tmp0) {
       case 0:
+      case 2:
         tmp = this.y27_1;
         break;
       case 1:
@@ -12933,6 +12940,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var tmp_0;
           switch (tmp0) {
             case 0:
+            case 2:
               tmp_0 = exponent.toString();
               break;
             case 1:
@@ -12978,6 +12986,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var tmp_0;
           switch (tmp0) {
             case 0:
+            case 2:
               tmp_0 = exponent.toString();
               break;
             case 1:
@@ -13018,6 +13027,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var tmp_0;
           switch (tmp0) {
             case 0:
+            case 2:
               tmp_0 = exponent.toString();
               break;
             case 1:
@@ -16574,18 +16584,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var originalName = original.v1s().e24_1;
     return new Identifier_0(shiftString + originalName + indexString);
   }
-  function CopiedName$Companion$getInternalPrintConfig$lambda(coeff, withSign) {
-    return coeff.u2d(PrintType_PLAIN_getInstance(), withSign);
-  }
-  function CopiedName$Companion$getInternalPrintConfig$lambda_0($printConfig) {
-    return function (monomial) {
-      return monomial.l1e($printConfig);
+  function CopiedName$Companion$getInternalPrintConfig$lambda($printConfig) {
+    return function (coeff, withSign) {
+      return coeff.u2d($printConfig.u1n_1, withSign);
     };
   }
-  function CopiedName$Companion$getInternalPrintConfig$lambda_1(coeff, withSign) {
-    return coeff.u2d(PrintType_TEX_getInstance(), withSign);
-  }
-  function CopiedName$Companion$getInternalPrintConfig$lambda_2($printConfig) {
+  function CopiedName$Companion$getInternalPrintConfig$lambda_0($printConfig) {
     return function (monomial) {
       return monomial.l1e($printConfig);
     };
@@ -16674,25 +16678,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Companion_instance_46 = this;
   }
   Companion_46.prototype.k2g = function (printConfig) {
-    var tmp0_subject = printConfig.u1n_1;
-    var tmp0 = tmp0_subject.d2_1;
-    var tmp;
-    switch (tmp0) {
-      case 0:
-        var tmp_0 = CopiedName$Companion$getInternalPrintConfig$lambda;
-        var tmp_1 = CopiedName$Companion$getInternalPrintConfig$lambda_0(printConfig);
-        tmp = InternalPrintConfig_init_$Create$(tmp_0, tmp_1, null, 4, null);
-        break;
-      case 1:
-        var tmp_2 = CopiedName$Companion$getInternalPrintConfig$lambda_1;
-        var tmp_3 = CopiedName$Companion$getInternalPrintConfig$lambda_2(printConfig);
-        tmp = InternalPrintConfig_init_$Create$(tmp_2, tmp_3, null, 4, null);
-        break;
-      default:
-        noWhenBranchMatchedException();
-        break;
-    }
-    return tmp;
+    var tmp = CopiedName$Companion$getInternalPrintConfig$lambda(printConfig);
+    var tmp_0 = CopiedName$Companion$getInternalPrintConfig$lambda_0(printConfig);
+    return InternalPrintConfig_init_$Create$(tmp, tmp_0, null, 4, null);
   };
   Companion_46.$metadata$ = objectMeta('Companion');
   var Companion_instance_46;
@@ -16720,6 +16708,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp;
     switch (tmp0) {
       case 0:
+      case 2:
         tmp = toPlain(this, printConfig.y1n_1);
         break;
       case 1:
@@ -18002,6 +17991,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp;
     switch (tmp0) {
       case 0:
+      case 2:
         tmp = withSign ? this.toString() : toStringWithoutSign(this);
         break;
       case 1:
@@ -18473,6 +18463,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   PrintConfig.$metadata$ = classMeta('PrintConfig');
   var PrintType_PLAIN_instance;
   var PrintType_TEX_instance;
+  var PrintType_CODE_instance;
   var PrintType_entriesInitialized;
   function PrintType_initEntries() {
     if (PrintType_entriesInitialized)
@@ -18480,6 +18471,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     PrintType_entriesInitialized = true;
     PrintType_PLAIN_instance = new PrintType('PLAIN', 0);
     PrintType_TEX_instance = new PrintType('TEX', 1);
+    PrintType_CODE_instance = new PrintType('CODE', 2);
   }
   function PrintType(name, ordinal) {
     Enum.call(this, name, ordinal);

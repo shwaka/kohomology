@@ -1531,6 +1531,9 @@ $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/afterSign/#/Pointi
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/beforeSign/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/before-sign.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/printType/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/print-type.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintConfig/showShift/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-config/show-shift.html
+$dokka.location:com.github.shwaka.kohomology.util/PrintType.CODE///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-c-o-d-e/index.html
+$dokka.location:com.github.shwaka.kohomology.util/PrintType.CODE/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-c-o-d-e/name.html
+$dokka.location:com.github.shwaka.kohomology.util/PrintType.CODE/ordinal/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-c-o-d-e/ordinal.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintType.PLAIN///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-p-l-a-i-n/index.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintType.PLAIN/name/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-p-l-a-i-n/name.html
 $dokka.location:com.github.shwaka.kohomology.util/PrintType.PLAIN/ordinal/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-print-type/-p-l-a-i-n/ordinal.html

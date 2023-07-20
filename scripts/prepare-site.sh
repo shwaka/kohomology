@@ -34,7 +34,8 @@ function prepare_kohomology_js() {
     # build kohomology-js
     cd "$ROOT_DIR"/website/kohomology-js
     echo "--- build kohomology-js ---"
-    ./gradlew build
+    # ./gradlew build # `./gradlew build` contains `./gradlew jsTest`
+    ./gradlew assemble
 }
 
 case "$command" in

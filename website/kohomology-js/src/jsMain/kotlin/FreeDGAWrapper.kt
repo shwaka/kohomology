@@ -27,7 +27,6 @@ import com.github.shwaka.kohomology.specific.Rational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
-import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName

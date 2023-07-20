@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689850384228,
+  "lastUpdate": 1689850793659,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2464,6 +2464,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.087,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a5dea5ca123d9f4434ccd4831956ecc0be8e9f41",
+          "message": "build(website): run `./gradlew assemble` instead of `./gradlwe build` in prepare-site.sh",
+          "timestamp": "2023-07-20T19:49:39+09:00",
+          "tree_id": "782ac876fda90324f9a95afab1f3e325c1a0328b",
+          "url": "https://github.com/shwaka/kohomology/commit/a5dea5ca123d9f4434ccd4831956ecc0be8e9f41"
+        },
+        "date": 1689850792772,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.48,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.771,
             "unit": "s/op"
           }
         ]

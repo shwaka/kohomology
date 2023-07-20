@@ -72,7 +72,7 @@ jobs:
 
   test-kotlin-js:
     needs: [ prepare-env, build-core ]
-    uses: ./.github/workflows/called-kotlin-js.yml
+    uses: ./.github/workflows/called-test-kotlin-js.yml
     with:
       JAVA_DISTRIBUTION: ${{ needs.prepare-env.outputs.JAVA_DISTRIBUTION }}
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}

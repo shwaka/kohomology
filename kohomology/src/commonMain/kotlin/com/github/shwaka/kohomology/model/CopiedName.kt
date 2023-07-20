@@ -119,16 +119,10 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
         public fun <D : Degree, I : IndeterminateName, S : Scalar> getInternalPrintConfig(
             printConfig: PrintConfig,
         ): InternalPrintConfig<MonomialOnCopiedName<D, I>, S> {
-            return when (printConfig.printType) {
-                PrintType.PLAIN -> InternalPrintConfig(
-                    coeffToString = { coeff, withSign -> coeff.toString(PrintType.PLAIN, withSign) },
-                    basisToString = { monomial -> monomial.toString(printConfig) }
-                )
-                PrintType.TEX -> InternalPrintConfig(
-                    coeffToString = { coeff, withSign -> coeff.toString(PrintType.TEX, withSign) },
-                    basisToString = { monomial -> monomial.toString(printConfig) },
-                )
-            }
+            return InternalPrintConfig(
+                coeffToString = { coeff, withSign -> coeff.toString(printConfig.printType, withSign) },
+                basisToString = { monomial -> monomial.toString(printConfig) }
+            )
         }
 
         private fun <D : Degree> getShiftString(shift: D, showShiftExponent: Boolean): String {

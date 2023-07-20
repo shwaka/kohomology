@@ -11,4 +11,10 @@ class ParenParserTest {
     fun removeOnlySurroundingParen() {
         assertEquals("(foo)(bar)", ParenParser.removeSurroundingParen("(foo)(bar)"))
     }
+
+    @Test
+    fun failingTest() {
+        // added to confirm the workflow fails
+        assertEquals(1, 2)
+    }
 }

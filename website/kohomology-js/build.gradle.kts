@@ -40,6 +40,11 @@ kotlin {
                 implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
             }
         }
+        val jsTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
     }
 }
 

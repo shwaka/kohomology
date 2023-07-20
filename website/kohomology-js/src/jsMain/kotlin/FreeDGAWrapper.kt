@@ -205,11 +205,7 @@ class FreeDGAWrapper(json: String) {
             styledMessage(MessageType.SUCCESS) {
                 val p = Printer(PrintType.TEX)
                 "The minimal model of ".text +
-                    when (targetDGVectorSpace) {
-                        is Printable -> p(targetDGVectorSpace).math
-                        else -> targetDGVectorSpace.toString().text
-                    } +
-                    " is".text
+                    p(targetDGVectorSpace).math + " is".text
             }.export()
         ) + getDGAInfo(minimalModel.freeDGAlgebra, "W")
     }

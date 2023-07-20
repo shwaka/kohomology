@@ -22224,21 +22224,20 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   _.$_$.h = Indeterminate_0;
   _.$_$.i = FreeDGAlgebra;
   _.$_$.j = get_SparseMatrixSpaceOverRational;
-  _.$_$.k = Printable;
-  _.$_$.l = PrintType_TEX_getInstance;
-  _.$_$.m = ShowShift_BAR_getInstance;
-  _.$_$.n = Printer_init_$Create$;
-  _.$_$.o = StringIndeterminateName_init_$Create$;
-  _.$_$.p = PrintConfig_init_$Create$;
-  _.$_$.q = Printer_init_$Create$_0;
-  _.$_$.r = IntDegreeGroup_getInstance;
-  _.$_$.s = Companion_getInstance_29;
-  _.$_$.t = Companion_getInstance_31;
-  _.$_$.u = Companion_getInstance_33;
-  _.$_$.v = Companion_getInstance_32;
-  _.$_$.w = Companion_getInstance_36;
-  _.$_$.x = Companion_getInstance_48;
-  _.$_$.y = Companion_getInstance_49;
+  _.$_$.k = PrintType_TEX_getInstance;
+  _.$_$.l = ShowShift_BAR_getInstance;
+  _.$_$.m = Printer_init_$Create$;
+  _.$_$.n = StringIndeterminateName_init_$Create$;
+  _.$_$.o = PrintConfig_init_$Create$;
+  _.$_$.p = Printer_init_$Create$_0;
+  _.$_$.q = IntDegreeGroup_getInstance;
+  _.$_$.r = Companion_getInstance_29;
+  _.$_$.s = Companion_getInstance_31;
+  _.$_$.t = Companion_getInstance_33;
+  _.$_$.u = Companion_getInstance_32;
+  _.$_$.v = Companion_getInstance_36;
+  _.$_$.w = Companion_getInstance_48;
+  _.$_$.x = Companion_getInstance_49;
   //endregion
   return _;
 }));
@@ -22275,31 +22274,30 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var noWhenBranchMatchedException = kotlin_kotlin.$_$.ja;
   var ZeroGVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.g;
   var GVector = kotlin_com_github_shwaka_kohomology_kohomology.$_$.d;
-  var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.y;
-  var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.x;
-  var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.s;
-  var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
-  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.q;
-  var Printable = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
-  var isInterface = kotlin_kotlin.$_$.l7;
+  var Companion_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.x;
+  var Companion_getInstance_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.w;
+  var Companion_getInstance_1 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
+  var PrintType_TEX_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.k;
+  var Printer_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
   var plus = kotlin_kotlin.$_$.q5;
-  var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.t;
+  var Companion_getInstance_2 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.s;
   var get_SparseMatrixSpaceOverRational = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
   var lazy = kotlin_kotlin.$_$.ia;
   var joinToString$default = kotlin_kotlin.$_$.k;
   var QuotDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.f;
+  var isInterface = kotlin_kotlin.$_$.l7;
   var FreeDGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.i;
   var DGAlgebra = kotlin_com_github_shwaka_kohomology_kohomology.$_$.c;
-  var IntDegreeGroup_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.r;
-  var Companion_getInstance_3 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.w;
+  var IntDegreeGroup_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.q;
+  var Companion_getInstance_3 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.v;
   var IntDegreeGroup = kotlin_com_github_shwaka_kohomology_kohomology.$_$.b;
   var emptyList = kotlin_kotlin.$_$.x4;
   var dropLast = kotlin_kotlin.$_$.u4;
   var last = kotlin_kotlin.$_$.j5;
   var listOf = kotlin_kotlin.$_$.k5;
-  var ShowShift_BAR_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
-  var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.p;
-  var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
+  var ShowShift_BAR_getInstance = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
+  var PrintConfig_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
+  var Printer_init_$Create$_0 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.m;
   var ParseException = kotlin_com_github_h0tk3y_betterParse_better_parse.$_$.n;
   var AugmentedDegreeGroup = kotlin_com_github_shwaka_kohomology_kohomology.$_$.a;
   var KProperty1 = kotlin_kotlin.$_$.l8;
@@ -22331,7 +22329,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var JsonArray = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.b;
   var Default_getInstance = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_json.$_$.a;
   var ListSerializer = kotlin_org_jetbrains_kotlinx_kotlinx_serialization_core.$_$.m;
-  var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.v;
+  var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.u;
   var List = kotlin_kotlin.$_$.p3;
   var getKClass = kotlin_kotlin.$_$.e;
   var PrimitiveClasses_getInstance = kotlin_kotlin.$_$.b3;
@@ -22343,10 +22341,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var Enum = kotlin_kotlin.$_$.o9;
   var copyToArray = kotlin_kotlin.$_$.r4;
   var Exception = kotlin_kotlin.$_$.p9;
-  var StringIndeterminateName_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.o;
+  var StringIndeterminateName_init_$Create$ = kotlin_com_github_shwaka_kohomology_kohomology.$_$.n;
   var IllegalArgumentException = kotlin_kotlin.$_$.q9;
   var Indeterminate = kotlin_com_github_shwaka_kohomology_kohomology.$_$.h;
-  var Companion_getInstance_5 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.u;
+  var Companion_getInstance_5 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.t;
   var trimIndent = kotlin_kotlin.$_$.j9;
   var InvalidIdentifierException = kotlin_com_github_shwaka_kohomology_kohomology.$_$.e;
   //endregion
@@ -22567,15 +22565,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function ($this$styledMessage) {
       var tmp = PrintType_TEX_getInstance();
       var p = Printer_init_$Create$(tmp, null, null, null, null, 30, null);
-      var tmp_0 = $this$styledMessage.d2p('The minimal model of ');
-      var tmp0_subject = $targetDGVectorSpace;
-      var tmp_1;
-      if (isInterface(tmp0_subject, Printable)) {
-        tmp_1 = $this$styledMessage.c2p(p.k20($targetDGVectorSpace));
-      } else {
-        tmp_1 = $this$styledMessage.d2p($targetDGVectorSpace.toString());
-      }
-      return plus(plus(tmp_0, tmp_1), $this$styledMessage.d2p(' is'));
+      return plus(plus($this$styledMessage.d2p('The minimal model of '), $this$styledMessage.c2p(p.k20($targetDGVectorSpace))), $this$styledMessage.d2p(' is'));
     };
   }
   function FreeDGAWrapper(json) {
@@ -22907,16 +22897,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function computationHeader$lambda($dgVectorSpace, $minDegree, $maxDegree) {
     return function ($this$styledMessage) {
-      var tmp;
-      if (isInterface($dgVectorSpace, Printable)) {
-        var tmp_0 = PrintType_TEX_getInstance();
-        var p = Printer_init_$Create$(tmp_0, null, null, null, ShowShift_BAR_getInstance(), 14, null);
-        var dgVectorSpaceWithoutParen = ParenParser_getInstance().j2p(p.k20($dgVectorSpace));
-        tmp = $this$styledMessage.c2p('H^n(' + dgVectorSpaceWithoutParen + ')');
-      } else {
-        tmp = $this$styledMessage.d2p('H^n(' + $dgVectorSpace + ')');
-      }
-      var printed = tmp;
+      var tmp = PrintType_TEX_getInstance();
+      var p = Printer_init_$Create$(tmp, null, null, null, ShowShift_BAR_getInstance(), 14, null);
+      var dgVectorSpaceWithoutParen = ParenParser_getInstance().j2p(p.k20($dgVectorSpace));
+      var printed = $this$styledMessage.c2p('H^n(' + dgVectorSpaceWithoutParen + ')');
       return plus(plus(plus($this$styledMessage.d2p('Computing '), printed), $this$styledMessage.d2p(' for ')), $this$styledMessage.c2p('' + $minDegree + ' \\leq n \\leq ' + $maxDegree));
     };
   }

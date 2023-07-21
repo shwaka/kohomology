@@ -93,7 +93,11 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
             .filter { (_, exponent) -> exponent != 0 }
         if (indeterminateAndExponentList.isEmpty())
             return "1"
-        return indeterminateAndExponentList.joinToString("") { (indeterminate, exponent) ->
+        val separator = when (printType) {
+            PrintType.PLAIN, PrintType.TEX -> ""
+            PrintType.CODE -> " * "
+        }
+        return indeterminateAndExponentList.joinToString(separator) { (indeterminate, exponent) ->
             when (exponent) {
                 0 -> throw Exception("This can't happen!")
                 1 -> indeterminateNameToString(indeterminate.name)

@@ -312,6 +312,20 @@ class FreeMonoidTest : FreeSpec({
         xy2.toString(printConfigForTex) shouldBe "XY^{2}"
     }
 
+    "toString() test with PrintType.CODE" {
+        val printConfigForCode = PrintConfig(PrintType.CODE)
+        val indeterminateList = listOf(
+            Indeterminate("x", "X", 2),
+            Indeterminate("y", "Y", 2),
+        )
+        val x = Monomial(indeterminateList, listOf(1, 0))
+        x.toString(printConfigForCode) shouldBe "x"
+        val xy = Monomial(indeterminateList, listOf(1, 1))
+        xy.toString(printConfigForCode) shouldBe "x * y"
+        val xy2 = Monomial(indeterminateList, listOf(1, 2))
+        xy2.toString(printConfigForCode) shouldBe "x * y^2"
+    }
+
     "Indeterminate.convertDegree() test" {
         val degreeGroup = MultiDegreeGroup(
             listOf(

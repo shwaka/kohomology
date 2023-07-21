@@ -13114,7 +13114,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         tmp$ret$3 = '1';
         break $l$block;
       }
-      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, '', null, null, 0, null, Monomial$toString$lambda(tmp1_toString), 30, null);
+      var tmp0_subject = tmp1_toString;
+      var tmp0 = tmp0_subject.d2_1;
+      var tmp;
+      switch (tmp0) {
+        case 0:
+        case 1:
+          tmp = '';
+          break;
+        case 2:
+          tmp = ' * ';
+          break;
+        default:
+          noWhenBranchMatchedException();
+          break;
+      }
+      var separator = tmp;
+      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, separator, null, null, 0, null, Monomial$toString$lambda(tmp1_toString), 30, null);
     }
     return tmp$ret$3;
   };
@@ -13147,7 +13163,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         tmp$ret$3 = '1';
         break $l$block;
       }
-      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, '', null, null, 0, null, Monomial$toString$lambda_0(printConfig, tmp1_toString), 30, null);
+      var tmp0_subject = tmp1_toString;
+      var tmp0 = tmp0_subject.d2_1;
+      var tmp;
+      switch (tmp0) {
+        case 0:
+        case 1:
+          tmp = '';
+          break;
+        case 2:
+          tmp = ' * ';
+          break;
+        default:
+          noWhenBranchMatchedException();
+          break;
+      }
+      var separator = tmp;
+      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, separator, null, null, 0, null, Monomial$toString$lambda_0(printConfig, tmp1_toString), 30, null);
     }
     return tmp$ret$3;
   };
@@ -21429,6 +21461,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (basisNameString === '1') {
       return coeffString;
     }
+    var productSymbol = getProductSymbol(Companion_getInstance_66(), printConfig.u1n_1);
     var tmp0_subject = coeffString;
     switch (tmp0_subject) {
       case '1':
@@ -21436,7 +21469,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       case '-1':
         return '-' + printConfig.w1n_1 + basisNameString;
       default:
-        return coeffString + printConfig.x1n_1 + basisNameString;
+        return coeffString + printConfig.x1n_1 + productSymbol + basisNameString;
     }
   }
   function nonFirstTermToString($this, coeff, basisName, printConfig, internalPrintConfig) {
@@ -21446,9 +21479,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (basisNameString === '1') {
       return printConfig.v1n_1 + sign + printConfig.w1n_1 + coeffString;
     }
+    var productSymbol = getProductSymbol(Companion_getInstance_66(), printConfig.u1n_1);
     var tmp0_subject = coeffString;
-    var str = tmp0_subject === '1' ? basisNameString : coeffString + printConfig.x1n_1 + basisNameString;
+    var str = tmp0_subject === '1' ? basisNameString : coeffString + printConfig.x1n_1 + productSymbol + basisNameString;
     return printConfig.v1n_1 + sign + printConfig.w1n_1 + str;
+  }
+  function getProductSymbol($this, printType) {
+    var tmp0_subject = printType;
+    var tmp0 = tmp0_subject.d2_1;
+    var tmp;
+    switch (tmp0) {
+      case 0:
+      case 1:
+        tmp = '';
+        break;
+      case 2:
+        tmp = '* ';
+        break;
+      default:
+        noWhenBranchMatchedException();
+        break;
+    }
+    return tmp;
   }
   function Companion_65() {
     Companion_instance_65 = this;

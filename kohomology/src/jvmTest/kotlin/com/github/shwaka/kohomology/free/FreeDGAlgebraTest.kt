@@ -201,6 +201,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
             "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
                 freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
             }
+            "FreeDGAlgebra.fromJson(freeDGAlgebra.toJson()) should recover freeDGAlgebra" {
+                val freeDGAlgebraFromJson = FreeDGAlgebra.fromJson(matrixSpace, freeDGAlgebra.toJson())
+                freeDGAlgebraFromJson.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
+            }
         }
     }
 }
@@ -279,6 +283,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
             }
             "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
                 freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
+            }
+            "FreeDGAlgebra.fromJson(freeDGAlgebra.toJson()) should recover freeDGAlgebra" {
+                val freeDGAlgebraFromJson = FreeDGAlgebra.fromJson(matrixSpace, freeDGAlgebra.toJson())
+                freeDGAlgebraFromJson.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
             }
         }
     }
@@ -390,6 +398,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
             }
             "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
                 freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
+            }
+            "FreeDGAlgebra.fromJson(freeDGAlgebra.toJson()) should recover freeDGAlgebra" {
+                val freeDGAlgebraFromJson = FreeDGAlgebra.fromJson(matrixSpace, freeDGAlgebra.toJson())
+                freeDGAlgebraFromJson.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
             }
         }
     }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689927219239,
+  "lastUpdate": 1689933409899,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2600,6 +2600,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.723,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e13ca5cdeab1c32a2362f0f13cb1f54e88dd37e9",
+          "message": "test(core): add tests for serialization of GeneratorOfFreeDGA",
+          "timestamp": "2023-07-21T18:49:25+09:00",
+          "tree_id": "32e674ea2cbad90c22a185a04a1a8185838dc59d",
+          "url": "https://github.com/shwaka/kohomology/commit/e13ca5cdeab1c32a2362f0f13cb1f54e88dd37e9"
+        },
+        "date": 1689933409040,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.611,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.246,
             "unit": "s/op"
           }
         ]

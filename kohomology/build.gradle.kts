@@ -5,7 +5,9 @@ group = "com.github.shwaka.kohomology"
 version = "0.13-SNAPSHOT"
 
 plugins {
-    kotlin("multiplatform") version "1.7.21"
+    val kotlinVersion = "1.7.21"
+    kotlin("multiplatform") version kotlinVersion
+    id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
     id("io.kotest") version "0.2.6"
     // id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
     id("io.gitlab.arturbosch.detekt") version "1.22.0"
@@ -73,6 +75,8 @@ kotlin {
                 implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
                 implementation("com.ionspin.kotlin:bignum:0.2.8")
+
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 
                 // kococo
                 val kococoVersion = "0.1"

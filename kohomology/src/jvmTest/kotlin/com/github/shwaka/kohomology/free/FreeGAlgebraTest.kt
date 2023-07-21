@@ -413,6 +413,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
                 texPrinter(x * y.pow(2)) shouldBe "XY^{2}"
                 texPrinter(freeGAlgebra) shouldBe "Λ(X, Y)"
             }
+
+            "code printer test" {
+                val codePrinter = Printer(PrintType.CODE)
+
+                unit.toString() shouldBe "1"
+                (2 * unit).toString() shouldBe "2"
+                codePrinter(x) shouldBe "x"
+                codePrinter(x * y) shouldBe "x * y"
+                codePrinter(2 * x * y) shouldBe "2 * x * y"
+                codePrinter(fromIntPair(1, 2) * x * y) shouldBe "1/2 * x * y"
+                codePrinter(x * y.pow(2)) shouldBe "x * y^2"
+                codePrinter(freeGAlgebra) shouldBe "Λ(x, y)"
+            }
         }
     }
 }

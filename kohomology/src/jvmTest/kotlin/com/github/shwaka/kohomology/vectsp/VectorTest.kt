@@ -151,18 +151,47 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
                     texPrinter(v) shouldBe "0"
                 }
-                "(-a).toString() should be \"- a\"" {
+                "(-a) should be printed as \"- a\"" {
                     val v = vectorSpace.fromCoeffList(listOf(-one, zero, zero))
-                    v.toString() shouldBe "- a"
+                    texPrinter(v) shouldBe "- a"
                 }
-                "((-2)b).toString() should be \"-2 b\"" {
+                "((-2)b) should be printed as \"-2 b\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, -two, zero))
-                    v.toString() shouldBe "-2 b"
+                    texPrinter(v) shouldBe "-2 b"
                 }
                 "listOf(a, b) should be printed as \"[a, b]\"" {
                     val a = vectorSpace.fromCoeffList(listOf(one, zero, zero))
                     val b = vectorSpace.fromCoeffList(listOf(zero, one, zero))
                     texPrinter(listOf(a, b)) shouldBe "[a, b]"
+                }
+            }
+            "code printer" - {
+                val vectorSpace = VectorSpace(numVectorSpace, listOf("a", "b", "c"))
+                val codePrinter = Printer(PrintType.CODE)
+                "(2a + 3b + 4c) should be printed as \"2 * a + 3 * b + 4 * c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(two, three, four))
+                    codePrinter(v) shouldBe "2 * a + 3 * b + 4 * c"
+                }
+                "(a + (1/2)b + (-1/3)c)should be printed as \"a + (1 / 2) * b - (1 / 3) c\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
+                    codePrinter(v) shouldBe "a + (1 / 2) b - (1 / 3) c"
+                }
+                "(0a + 0b + 0c) should be printed as \"0\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))
+                    codePrinter(v) shouldBe "0"
+                }
+                "(-a) should be printed as \"- a\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(-one, zero, zero))
+                    codePrinter(v) shouldBe "- a"
+                }
+                "((-2)b) should be printed as \"-2 * b\"" {
+                    val v = vectorSpace.fromCoeffList(listOf(zero, -two, zero))
+                    codePrinter(v) shouldBe "-2 * b"
+                }
+                "listOf(a, b) should be printed as \"[a, b]\"" {
+                    val a = vectorSpace.fromCoeffList(listOf(one, zero, zero))
+                    val b = vectorSpace.fromCoeffList(listOf(zero, one, zero))
+                    codePrinter(listOf(a, b)) shouldBe "[a, b]"
                 }
             }
             "printer with comparator" - {

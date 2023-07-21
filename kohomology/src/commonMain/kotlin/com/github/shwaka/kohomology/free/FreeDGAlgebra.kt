@@ -227,6 +227,34 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         )
     }
 
+    public fun <I_ : IndeterminateName> isNaivelyIsomorphic(other: FreeDGAlgebra<D, I_, S, V, M>): Boolean {
+        if (this.matrixSpace != other.matrixSpace)
+            return false
+        if (this.indeterminateList.size != other.indeterminateList.size)
+            return false
+        for (i in this.indeterminateList.indices) {
+            if (this.indeterminateList[i].degree != other.indeterminateList[i].degree) {
+                return false
+            }
+        }
+        val f = this.getGAlgebraMap(other, other.generatorList)
+        // By the above conditions, f is an isomorphism of *graded* algebras.
+        // Next we check that f is an isomorphism of *DG* algebras.
+        // This can be also achieved by
+        //   try { this.getDGAlgebraMap(other, other.generatorList) }
+        // but we avoid this since getDGAlgebraMap can throw an exception by another reason.
+        for (i in this.indeterminateList.indices) {
+            val x = this.generatorList[i]
+            val dx = this.context.run { d(x) }
+            val fdx = f(dx)
+            val dfx = other.context.run { d(f(x)) }
+            if (fdx != dfx) {
+                return false
+            }
+        }
+        return true
+    }
+
     public override fun <D_ : Degree> convertDegree(
         degreeMorphism: AugmentedDegreeMorphism<D, D_>
     ): Pair<FreeDGAlgebra<D_, I, S, V, M>, GLinearMapWithDegreeChange<D, Monomial<D, I>, D_, Monomial<D_, I>, S, V, M>> {

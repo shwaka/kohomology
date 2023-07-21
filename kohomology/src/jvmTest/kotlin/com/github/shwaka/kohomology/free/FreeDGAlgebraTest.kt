@@ -625,6 +625,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(parseDifferentialValueTest(matrixSpace))
     include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
+    include(quotientTest(matrixSpace))
 })
 
 class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({

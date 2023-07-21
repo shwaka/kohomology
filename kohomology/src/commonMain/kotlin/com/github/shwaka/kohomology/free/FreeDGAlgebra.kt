@@ -397,7 +397,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 }
 
 public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M>.toJson(): String {
+FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M>.toJson(): String {
     val printer = Printer(PrintConfig(PrintType.CODE))
     val generatorList = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
         val differentialValue = this.context.run { d(generator) }

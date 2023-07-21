@@ -611,6 +611,27 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toIntDegreeTest(matrixSpace
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> serializationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "serialization" - {
+        "serialize trivial dga" {
+            val indeterminateList = emptyList<Indeterminate<IntDegree, StringIndeterminateName>>()
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { mapOf() }
+            freeDGAlgebra.toJson() shouldBe """[]"""
+        }
+
+        "serialize S^2" {
+            val indeterminateList = listOf(
+                Indeterminate("x", 2),
+                Indeterminate("y", 3),
+            )
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (x, y) ->
+                mapOf(y to x.pow(2))
+            }
+            freeDGAlgebra.toJson() shouldBe """[["x",2,"0"],["y",3,"x^2"]]"""
+        }
+    }
+}
+
 class FreeDGAlgebraTest : FreeSpec({
     tags(freeDGAlgebraTag, rationalTag)
 
@@ -626,6 +647,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
     include(quotientTest(matrixSpace))
+    include(serializationTest(matrixSpace))
 })
 
 class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
@@ -643,4 +665,5 @@ class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
     include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
     include(quotientTest(matrixSpace))
+    include(serializationTest(matrixSpace))
 })

@@ -36,6 +36,9 @@ import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.int
+import io.kotest.property.checkAll
 
 val freeDGAlgebraTag = NamedTag("FreeDGAlgebra")
 
@@ -194,6 +197,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> oddSphereModelTest(matrixSp
             "freeDGAlgebra.cohomology.isCommutative should be true" {
                 freeDGAlgebra.cohomology.isCommutative.shouldBeTrue()
             }
+            "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
+                freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
+            }
         }
     }
 }
@@ -269,6 +275,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> evenSphereModelTest(matrixS
                 (0 until (sphereDim * 3)).forAll { n ->
                     dgaMap.inducedMapOnCohomology[n].isIsomorphism().shouldBeTrue()
                 }
+            }
+            "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
+                freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
             }
         }
     }
@@ -378,6 +387,60 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> pullbackOfHopfFibrationOver
                 val f = freeDGAlgebra.leftMultiplicationByCocycle(a * y - b * x).inducedMapOnCohomology
                 f(bClass) shouldBe topClass
             }
+            "freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra) should be true" {
+                freeDGAlgebra.isNaivelyIsomorphic(freeDGAlgebra).shouldBeTrue()
+            }
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isNaivelyIsomorphicTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "test isNaivelyIsomorphic" - {
+        "sphere(n).isNaivelyIsomorphic(sphere(n)) should be true" {
+            (1..20).forAll { n ->
+                // To create different instances,
+                // sphere() is called twice intentionally
+                sphere(matrixSpace, n).isNaivelyIsomorphic(sphere(matrixSpace, n)).shouldBeTrue()
+            }
+        }
+
+        "sphere(n).isNaivelyIsomorphic(sphere(m)) should be true iff n = m" {
+            val range = 1..10
+            checkAll(Arb.int(range), Arb.int(range)) { n, m ->
+                if (n == m) {
+                    sphere(matrixSpace, n).isNaivelyIsomorphic(sphere(matrixSpace, m)).shouldBeTrue()
+                } else {
+                    sphere(matrixSpace, n).isNaivelyIsomorphic(sphere(matrixSpace, m)).shouldBeFalse()
+                }
+            }
+        }
+
+        "isNaivelyIsomorphic should return true even if the names of generators are different" {
+            val indeterminateList1 = listOf(
+                Indeterminate("x", 2),
+                Indeterminate("y", 3),
+            )
+            val indeterminateList2 = listOf(
+                Indeterminate("foo", 2),
+                Indeterminate("bar", 3),
+            )
+            val freeDGAlgebra1 = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList1) { mapOf() }
+            val freeDGAlgebra2 = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList2) { mapOf() }
+            freeDGAlgebra1.isNaivelyIsomorphic(freeDGAlgebra2).shouldBeTrue()
+        }
+
+        "isNaivelyIsomorphic should return false if the orders of generators are different" {
+            val indeterminateList1 = listOf(
+                Indeterminate("x", 2),
+                Indeterminate("y", 3),
+            )
+            val indeterminateList2 = listOf(
+                Indeterminate("y", 3),
+                Indeterminate("x", 2),
+            )
+            val freeDGAlgebra1 = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList1) { mapOf() }
+            val freeDGAlgebra2 = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList2) { mapOf() }
+            freeDGAlgebra1.isNaivelyIsomorphic(freeDGAlgebra2).shouldBeFalse()
         }
     }
 }
@@ -646,6 +709,7 @@ class FreeDGAlgebraTest : FreeSpec({
     include(parseDifferentialValueTest(matrixSpace))
     include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
+    include(isNaivelyIsomorphicTest(matrixSpace))
     include(quotientTest(matrixSpace))
     include(serializationTest(matrixSpace))
 })
@@ -664,6 +728,7 @@ class FreeDGAlgebraTestWithDecomposedSparseMatrixSpace : FreeSpec({
     include(parseDifferentialValueTest(matrixSpace))
     include(printerTest(matrixSpace))
     include(toIntDegreeTest(matrixSpace))
+    include(isNaivelyIsomorphicTest(matrixSpace))
     include(quotientTest(matrixSpace))
     include(serializationTest(matrixSpace))
 })

@@ -32,6 +32,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.shouldBe
@@ -691,6 +692,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> serializationTest(matrixSpa
                 mapOf(y to x.pow(2))
             }
             freeDGAlgebra.toJson() shouldBe """[["x",2,"0"],["y",3,"x^2"]]"""
+        }
+    }
+
+    "deserialization" - {
+        "deserialize trivial dga" {
+            val json = """[]"""
+            val freeDGAlgebra = FreeDGAlgebra.fromJson(matrixSpace, json)
+            freeDGAlgebra.indeterminateList.shouldBeEmpty()
+        }
+
+        "deserialize S^2" {
+            val json = """[["x",2,"0"],["y",3,"x^2"]]"""
+            val freeDGAlgebra = FreeDGAlgebra.fromJson(matrixSpace, json)
+            freeDGAlgebra.indeterminateList shouldHaveSize 2
+            freeDGAlgebra.isNaivelyIsomorphic(sphere(matrixSpace, 2)).shouldBeTrue()
         }
     }
 }

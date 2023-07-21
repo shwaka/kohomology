@@ -48,14 +48,6 @@ internal class FreeDGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : S
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M> = dgAlgebra
 }
 
-public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val differentialValue: String) {
-    public companion object {
-        public operator fun invoke(name: String, degree: Int, differentialValue: String): GeneratorOfFreeDGA<IntDegree> {
-            return GeneratorOfFreeDGA(name, IntDegree(degree), differentialValue)
-        }
-    }
-}
-
 private typealias GetDifferentialValueList<D, I, S, V, M> =
     FreeGAlgebraContext<D, I, S, V, M>.(List<GVector<D, Monomial<D, I>, S, V>>) -> List<GVectorOrZero<D, Monomial<D, I>, S, V>>
 

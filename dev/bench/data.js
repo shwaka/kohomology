@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689854132916,
+  "lastUpdate": 1689927219239,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2566,6 +2566,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.821,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "63cb0f09c80f05e9cb565833a33a1610a62e7e0d",
+          "message": "feat(core): support PrintType.CODE in Monomial.toString",
+          "timestamp": "2023-07-21T17:07:14+09:00",
+          "tree_id": "ea6fabb764bc77107bdf97669d3ff4fc1ccf2f3d",
+          "url": "https://github.com/shwaka/kohomology/commit/63cb0f09c80f05e9cb565833a33a1610a62e7e0d"
+        },
+        "date": 1689927218425,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.486,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.723,
             "unit": "s/op"
           }
         ]

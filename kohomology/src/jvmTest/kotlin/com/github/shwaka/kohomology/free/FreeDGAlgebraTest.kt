@@ -705,6 +705,18 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> serializationTest(matrixSpa
             }
             freeDGAlgebra.toJson() shouldBe """[["x",2,"0"],["y",3,"x^2"]]"""
         }
+
+        "serialize freeDGAlgebra with complicated differential" {
+            val indeterminateList = listOf(
+                Indeterminate("a", 2),
+                Indeterminate("b", 2),
+                Indeterminate("c", 3),
+            )
+            val freeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (a, b, c) ->
+                mapOf(c to 2 * a.pow(2) - fromIntPair(1, 2) * a * b)
+            }
+            freeDGAlgebra.toJson() shouldBe """[["a",2,"0"],["b",2,"0"],["c",3,"2 * a^2 - 1/2 * a * b"]]"""
+        }
     }
 
     "deserialization" - {
@@ -719,6 +731,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> serializationTest(matrixSpa
             val freeDGAlgebra = FreeDGAlgebra.fromJson(matrixSpace, json)
             freeDGAlgebra.indeterminateList shouldHaveSize 2
             freeDGAlgebra.isNaivelyIsomorphic(sphere(matrixSpace, 2)).shouldBeTrue()
+        }
+        "deserialize freeDGAlgebra with complicated differential" {
+            val json = """[["a",2,"0"],["b",2,"0"],["c",3,"2 * a^2 - 1/2 * a * b"]]"""
+            val freeDGAlgebra = FreeDGAlgebra.fromJson(matrixSpace, json)
+            val indeterminateList = listOf(
+                Indeterminate("a", 2),
+                Indeterminate("b", 2),
+                Indeterminate("c", 3),
+            )
+            val expectedFreeDGAlgebra = FreeDGAlgebra.fromMap(matrixSpace, indeterminateList) { (a, b, c) ->
+                mapOf(c to 2 * a.pow(2) - fromIntPair(1, 2) * a * b)
+            }
+            freeDGAlgebra.isNaivelyIsomorphic(expectedFreeDGAlgebra).shouldBeTrue()
         }
     }
 }

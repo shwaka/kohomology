@@ -150,10 +150,11 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
                 //   But this generality is currently excessive.
                 return coeffString
             }
+            val productSymbol = Vector.getProductSymbol(printConfig.printType)
             return when (coeffString) {
                 "1" -> basisNameString
                 "-1" -> "-${printConfig.afterSign}$basisNameString"
-                else -> "$coeffString${printConfig.afterCoeff}$basisNameString"
+                else -> "$coeffString${printConfig.afterCoeff}$productSymbol$basisNameString"
             }
         }
 
@@ -170,11 +171,19 @@ public class Vector<B : BasisName, S : Scalar, V : NumVector<S>>(
                 // See the comment in firstTermToString
                 return "${printConfig.beforeSign}$sign${printConfig.afterSign}$coeffString"
             }
+            val productSymbol = Vector.getProductSymbol(printConfig.printType)
             val str = when (coeffString) {
                 "1" -> basisNameString
-                else -> "$coeffString${printConfig.afterCoeff}$basisNameString"
+                else -> "$coeffString${printConfig.afterCoeff}$productSymbol$basisNameString"
             }
             return "${printConfig.beforeSign}$sign${printConfig.afterSign}$str"
+        }
+
+        private fun getProductSymbol(printType: PrintType): String {
+            return when (printType) {
+                PrintType.PLAIN, PrintType.TEX -> ""
+                PrintType.CODE -> "* "
+            }
         }
     }
 }

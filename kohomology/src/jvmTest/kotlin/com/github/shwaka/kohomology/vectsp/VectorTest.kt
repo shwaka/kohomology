@@ -172,9 +172,9 @@ fun <S : Scalar, V : NumVector<S>> printerTest(numVectorSpace: NumVectorSpace<S,
                     val v = vectorSpace.fromCoeffList(listOf(two, three, four))
                     codePrinter(v) shouldBe "2 * a + 3 * b + 4 * c"
                 }
-                "(a + (1/2)b + (-1/3)c)should be printed as \"a + (1 / 2) * b - (1 / 3) c\"" {
+                "(a + (1/2)b + (-1/3)c)should be printed as \"a + 1/2 * b - 1/3 * c\"" {
                     val v = vectorSpace.fromCoeffList(listOf(one, one / two, -one / three))
-                    codePrinter(v) shouldBe "a + (1 / 2) b - (1 / 3) c"
+                    codePrinter(v) shouldBe "a + 1/2 * b - 1/3 * c"
                 }
                 "(0a + 0b + 0c) should be printed as \"0\"" {
                     val v = vectorSpace.fromCoeffList(listOf(zero, zero, zero))

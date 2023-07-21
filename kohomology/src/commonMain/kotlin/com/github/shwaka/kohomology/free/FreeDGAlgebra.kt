@@ -33,6 +33,7 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
@@ -356,7 +357,29 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
             return FreeDGAlgebra.fromList(matrixSpace, IntDegreeGroup, generatorList)
         }
+
+        public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromJson(
+            matrixSpace: MatrixSpace<S, V, M>,
+            json: String,
+        ): FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M> {
+            val generatorList = jsonToGeneratorList(json)
+            return FreeDGAlgebra.fromList(matrixSpace, generatorList)
+        }
     }
+}
+
+public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
+    FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M>.toJson(): String {
+    val printer = Printer(PrintConfig(PrintType.CODE))
+    val generatorList = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
+        val differentialValue = this.context.run { d(generator) }
+        GeneratorOfFreeDGA(
+            name = indeterminate.name.name,
+            degree = indeterminate.degree,
+            differentialValue = printer(differentialValue),
+        )
+    }
+    return generatorListToJson(generatorList)
 }
 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (

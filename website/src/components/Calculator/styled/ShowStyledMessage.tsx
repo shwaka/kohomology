@@ -55,14 +55,14 @@ function getStyle(messageType: MessageType): CSSProperties {
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
   const divClass = "show-styled-message"
-  const { optionsButtonProps } = useOptionsButton(divClass)
+  const { optionsButtonProps, open } = useOptionsButton(divClass)
   return (
     <div
       className={divClass}
       data-styled-message={formatStyledMessage(styledMessage)}
       style={{
         ...getStyle(styledMessage.messageType),
-        position: "relative"
+        position: "relative",
       }}
     >
       {styledMessage.strings.map((styledString, index) => (

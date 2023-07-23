@@ -4,6 +4,7 @@ import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 
 interface UseOptionsButtonReturnValue {
   optionsButtonProps: OptionsButtonProps
+  open: boolean
 }
 
 export function useOptionsButton(containerClass: string): UseOptionsButtonReturnValue {
@@ -19,7 +20,7 @@ export function useOptionsButton(containerClass: string): UseOptionsButtonReturn
   const optionsButtonProps: OptionsButtonProps = {
     containerClass, handleClick, handleClose, open, anchorEl,
   }
-  return { optionsButtonProps }
+  return { optionsButtonProps, open }
 }
 
 interface OptionsButtonProps {

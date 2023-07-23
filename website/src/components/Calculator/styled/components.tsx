@@ -3,6 +3,8 @@ import React from "react"
 import "katex/dist/katex.min.css"
 import { formatStyledMessage, MessageType, StyledMessage, StyledString } from "./message"
 import styles from "./styles.module.scss"
+import { IconButton } from "@mui/material"
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")
@@ -52,10 +54,23 @@ function getStyle(messageType: MessageType): string {
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
   const style: string = getStyle(styledMessage.messageType)
   return (
-    <div className={style} data-styled-message={formatStyledMessage(styledMessage)}>
+    <div
+      className={style}
+      data-styled-message={formatStyledMessage(styledMessage)}
+      style={{ position: "relative" }}
+    >
       {styledMessage.strings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>
       ))}
+      <IconButton
+        size="small"
+        sx={{
+          paddingTop: 0, paddingBottom: 0,
+          position: "absolute", bottom: "4px", right: 0,
+        }}
+      >
+        <MoreHorizIcon fontSize="small"/>
+      </IconButton>
     </div>
   )
 }

@@ -183,6 +183,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceOfEvenSphereTe
                 freeLoopSpace.parse("y") shouldBe y
                 freeLoopSpace.parse("sy") shouldBe sy
             }
+            "freeLoopSpace.isNaivelyIsomorphic(freeLoopSpace) should be true" {
+                freeLoopSpace.isNaivelyIsomorphic(freeLoopSpace).shouldBeTrue()
+            }
+            "freeLoopSpace.fromJson(freeLoopSpace.toJson()) should recover freeLoopSpace" {
+                val freeDGAlgebraFromJson = FreeDGAlgebra.fromJson(matrixSpace, freeLoopSpace.toJson())
+                freeDGAlgebraFromJson.isNaivelyIsomorphic(freeLoopSpace).shouldBeTrue()
+            }
         }
     }
 }
@@ -278,6 +285,13 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeLoopSpaceWithShiftDegre
                 freeLoopSpace.parse("sx") shouldBe sx
                 freeLoopSpace.parse("y") shouldBe y
                 freeLoopSpace.parse("sy") shouldBe sy
+            }
+            "freeLoopSpace.isNaivelyIsomorphic(freeLoopSpace) should be true" {
+                freeLoopSpace.isNaivelyIsomorphic(freeLoopSpace).shouldBeTrue()
+            }
+            "freeLoopSpace.fromJson(freeLoopSpace.toJson()) should recover freeLoopSpace" {
+                val freeDGAlgebraFromJson = FreeDGAlgebra.fromJson(matrixSpace, freeLoopSpace.toJson())
+                freeDGAlgebraFromJson.isNaivelyIsomorphic(freeLoopSpace.toIntDegree().first).shouldBeTrue()
             }
         }
     }

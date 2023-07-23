@@ -1,7 +1,7 @@
 import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useCallback, useMemo, useState } from "react"
-import { ShowStyledMessage } from "../styled/components"
+import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { StyledMessage } from "../styled/message"
 import { IdealEditor, IdealEditorProps, useIdealEditor } from "./IdealEditor"
 

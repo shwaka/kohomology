@@ -1,6 +1,6 @@
 import { Paper } from "@mui/material"
 import React from "react"
-import { ShowStyledMessage } from "../styled/components"
+import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { StyledMessage } from "../styled/message"
 import { useScrollToBottom } from "../useScrollToBottom"
 

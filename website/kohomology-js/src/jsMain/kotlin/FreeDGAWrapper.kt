@@ -31,6 +31,12 @@ import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
+import styled.MessageType
+import styled.StringType
+import styled.StyledMessageInternal
+import styled.StyledMessageKt
+import styled.StyledStringInternal
+import styled.styledMessage
 
 typealias MyDGIdeal = DGIdeal<
     IntDegree,

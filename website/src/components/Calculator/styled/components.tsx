@@ -1,7 +1,7 @@
 import TeX from "@matejmazur/react-katex"
 import React from "react"
 import "katex/dist/katex.min.css"
-import { formatStyledMessage, StyledMessage, StyledString } from "./message"
+import { formatStyledMessage, MessageType, StyledMessage, StyledString } from "./message"
 import styles from "./styles.module.scss"
 
 function Text({ content }: { content: string } ): JSX.Element {
@@ -40,16 +40,17 @@ function ShowStyledString({ styledString }: { styledString: StyledString }): JSX
   }
 }
 
-export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
-  let style: string
-  switch (styledMessage.messageType) {
+function getStyle(messageType: MessageType): string {
+  switch (messageType) {
     case "success":
-      style = styles.messageSuccess
-      break
+      return styles.messageSuccess
     case "error":
-      style = styles.messageError
-      break
+      return styles.messageError
   }
+}
+
+export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
+  const style: string = getStyle(styledMessage.messageType)
   return (
     <div className={style} data-styled-message={formatStyledMessage(styledMessage)}>
       {styledMessage.strings.map((styledString, index) => (

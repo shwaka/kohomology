@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1689936431878,
+  "lastUpdate": 1690120045078,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2668,6 +2668,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.354,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "09cd38aa1c92ae8fc786ea0687f1a6df36cd0762",
+          "message": "refactor(website): add function getStyle to components.tsx",
+          "timestamp": "2023-07-23T22:33:01+09:00",
+          "tree_id": "85c4dbf7db865eb9b45827229e218755ad4d8502",
+          "url": "https://github.com/shwaka/kohomology/commit/09cd38aa1c92ae8fc786ea0687f1a6df36cd0762"
+        },
+        "date": 1690120044625,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.488,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.803,
             "unit": "s/op"
           }
         ]

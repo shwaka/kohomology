@@ -273,6 +273,20 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         return this.convertDegree(degreeMorphism)
     }
 
+    public fun toJson(): String {
+        val intFreeDGA = this.toIntDegree().first
+        val printer = Printer(PrintConfig(PrintType.CODE))
+        val generatorList = intFreeDGA.indeterminateList.zip(intFreeDGA.generatorList).map { (indeterminate, generator) ->
+            val differentialValue = intFreeDGA.context.run { d(generator) }
+            GeneratorOfFreeDGA(
+                name = indeterminate.name.identifier.value,
+                degree = indeterminate.degree,
+                differentialValue = printer(differentialValue),
+            )
+        }
+        return generatorListToJson(generatorList)
+    }
+
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             gAlgebra: FreeGAlgebra<D, I, S, V, M>,
@@ -394,20 +408,6 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
             return FreeDGAlgebra.fromList(matrixSpace, generatorList)
         }
     }
-}
-
-public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-FreeDGAlgebra<IntDegree, StringIndeterminateName, S, V, M>.toJson(): String {
-    val printer = Printer(PrintConfig(PrintType.CODE))
-    val generatorList = this.indeterminateList.zip(this.generatorList).map { (indeterminate, generator) ->
-        val differentialValue = this.context.run { d(generator) }
-        GeneratorOfFreeDGA(
-            name = indeterminate.name.name,
-            degree = indeterminate.degree,
-            differentialValue = printer(differentialValue),
-        )
-    }
-    return generatorListToJson(generatorList)
 }
 
 internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> (

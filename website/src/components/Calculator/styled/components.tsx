@@ -1,8 +1,7 @@
 import TeX from "@matejmazur/react-katex"
-import React from "react"
+import React, { CSSProperties } from "react"
 import "katex/dist/katex.min.css"
 import { formatStyledMessage, MessageType, StyledMessage, StyledString } from "./message"
-import styles from "./styles.module.scss"
 import { IconButton } from "@mui/material"
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 
@@ -42,22 +41,27 @@ function ShowStyledString({ styledString }: { styledString: StyledString }): JSX
   }
 }
 
-function getStyle(messageType: MessageType): string {
+function getStyle(messageType: MessageType): CSSProperties {
+  const borderBottom = "1px solid lightGray"
   switch (messageType) {
     case "success":
-      return styles.messageSuccess
+      return { borderBottom }
     case "error":
-      return styles.messageError
+      return {
+        background: "peachpuff",
+        borderBottom,
+      }
   }
 }
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
-  const style: string = getStyle(styledMessage.messageType)
   return (
     <div
-      className={style}
       data-styled-message={formatStyledMessage(styledMessage)}
-      style={{ position: "relative" }}
+      style={{
+        ...getStyle(styledMessage.messageType),
+        position: "relative"
+      }}
     >
       {styledMessage.strings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>

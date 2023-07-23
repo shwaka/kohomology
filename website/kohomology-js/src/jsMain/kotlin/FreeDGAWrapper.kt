@@ -58,9 +58,9 @@ typealias MyQuotDGAlgebra = QuotDGAlgebra<
 @JsExport
 @Suppress("UNUSED")
 class FreeDGAWrapper(json: String) {
-    private val freeDGAlgebra = FreeDGAlgebra.fromList(
+    private val freeDGAlgebra = FreeDGAlgebra.fromJson(
         SparseMatrixSpaceOverRational,
-        jsonToGeneratorList(json)
+        json
     )
     private val freeLoopSpace by lazy { FreeLoopSpace.withShiftDegree(freeDGAlgebra) }
     private val cyclicModel by lazy { CyclicModel(freeDGAlgebra) }

@@ -2,6 +2,8 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.json.Json
@@ -11,6 +13,14 @@ import kotlinx.serialization.json.JsonObject
 import kotlinx.serialization.json.JsonTransformingSerializer
 
 public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D, val differentialValue: String) {
+    public fun toIndeterminate(): Indeterminate<D, StringIndeterminateName> {
+        return Indeterminate(
+            name = this.name,
+            tex = this.name,
+            degree = this.degree,
+        )
+    }
+
     public companion object {
         public operator fun invoke(name: String, degree: Int, differentialValue: String): GeneratorOfFreeDGA<IntDegree> {
             return GeneratorOfFreeDGA(name, IntDegree(degree), differentialValue)

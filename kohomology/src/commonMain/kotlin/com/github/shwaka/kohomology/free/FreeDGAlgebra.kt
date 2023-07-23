@@ -392,7 +392,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
             degreeGroup: AugmentedDegreeGroup<D>,
             generatorList: List<GeneratorOfFreeDGA<D>>
         ): FreeDGAlgebra<D, StringIndeterminateName, S, V, M> {
-            val indeterminateList = generatorList.map { Indeterminate(it.name, it.degree) }
+            val indeterminateList = generatorList.map { it.toIndeterminate() }
             val getDifferentialValueList: GetDifferentialValueList<D, StringIndeterminateName, S, V, M> = {
                 generatorList.map { parse(it.differentialValue) }
             }

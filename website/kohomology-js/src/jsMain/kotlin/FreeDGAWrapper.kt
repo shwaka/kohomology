@@ -31,6 +31,7 @@ import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
+import styled.MessageOptionsInternal
 import styled.MessageType
 import styled.StringType
 import styled.StyledMessageInternal
@@ -393,6 +394,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>,
     generatingVectorSpaceName: String,
 ): Array<StyledMessageKt> {
+    val dgaJson: String = freeDGAlgebra.toJson()
     val p = Printer(printType = PrintType.TEX)
     return arrayOf(
         styledMessage(MessageType.SUCCESS) {
@@ -400,7 +402,7 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
                 "(\\Lambda(".math +
                 freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") { p(it) } +
                 "), d)".math
-        }.export(),
+        }.withOptions(MessageOptionsInternal(dgaJson = dgaJson)).export(),
         styledMessage(MessageType.SUCCESS) {
             freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") {
                 "\\deg{${p(it.name)}} = ${it.degree}"

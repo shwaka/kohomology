@@ -16,7 +16,7 @@ public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D
     public fun toIndeterminate(): Indeterminate<D, StringIndeterminateName> {
         return Indeterminate(
             name = this.name,
-            tex = this.name,
+            tex = GeneratorOfFreeDGA.convertNameToTex(this.name),
             degree = this.degree,
         )
     }
@@ -24,6 +24,20 @@ public data class GeneratorOfFreeDGA<D : Degree>(val name: String, val degree: D
     public companion object {
         public operator fun invoke(name: String, degree: Int, differentialValue: String): GeneratorOfFreeDGA<IntDegree> {
             return GeneratorOfFreeDGA(name, IntDegree(degree), differentialValue)
+        }
+
+        private fun convertNameToTex(name: String): String {
+            // v_1_2 -> v_{1,2}
+            // v_1_2_3 -> v_{1,2,3}
+            val underscoreCount = name.count { it == '_' }
+            if (underscoreCount <= 1) {
+                return name
+            }
+            return name
+                .replaceFirst("_", "{") // to avoid replacing "_{" with ",{"
+                .replace("_", ",")
+                .replace("{", "_{") + // to avoid replacing "_{" with ",{"
+                "}"
         }
     }
 }

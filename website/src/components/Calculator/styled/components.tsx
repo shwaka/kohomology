@@ -55,8 +55,10 @@ function getStyle(messageType: MessageType): CSSProperties {
 }
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
+  const divClass = "show-styled-message"
   return (
     <div
+      className={divClass}
       data-styled-message={formatStyledMessage(styledMessage)}
       style={{
         ...getStyle(styledMessage.messageType),
@@ -71,6 +73,10 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
         sx={{
           paddingTop: 0, paddingBottom: 0,
           position: "absolute", bottom: "4px", right: 0,
+          visibility: "hidden",
+          [`.${divClass}:hover &`]: {
+            visibility: "visible",
+          },
         }}
       >
         <MoreHorizIcon fontSize="small"/>

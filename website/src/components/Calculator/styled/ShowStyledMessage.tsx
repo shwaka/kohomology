@@ -40,16 +40,17 @@ function ShowStyledString({ styledString }: { styledString: StyledString }): JSX
   }
 }
 
-function getStyle(messageType: MessageType): CSSProperties {
-  const borderBottom = "1px solid lightGray"
+function getStyleForBackground(messageType: MessageType, open: boolean): CSSProperties {
+  if (open) {
+    return {
+      background: "aquamarine"
+    }
+  }
   switch (messageType) {
     case "success":
-      return { borderBottom }
+      return {}
     case "error":
-      return {
-        background: "peachpuff",
-        borderBottom,
-      }
+      return { background: "peachpuff" }
   }
 }
 
@@ -61,8 +62,9 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
       className={divClass}
       data-styled-message={formatStyledMessage(styledMessage)}
       style={{
-        ...getStyle(styledMessage.messageType),
-        position: "relative",
+        ...getStyleForBackground(styledMessage.messageType, open),
+        borderBottom: "1px solid lightGray",
+        position: "relative", // to be used in IconButton in OptionsButton
       }}
     >
       {styledMessage.strings.map((styledString, index) => (

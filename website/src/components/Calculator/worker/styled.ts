@@ -1,7 +1,7 @@
-import { StyledStringKt, StyledMessageKt } from "kohomology-js"
+import { styled } from "kohomology-js"
 import { MessageType, messageTypes, StringType, stringTypes, StyledMessage, StyledString } from "../styled/message"
 
-export function toStyledString(styledStringKt: StyledStringKt): StyledString {
+export function toStyledString(styledStringKt: styled.StyledStringKt): StyledString {
   const stringType: string = styledStringKt.stringType
   if (!(stringTypes as readonly string[]).includes(stringType)) {
     throw new Error(`Invalid stringType: ${stringType}`)
@@ -12,7 +12,7 @@ export function toStyledString(styledStringKt: StyledStringKt): StyledString {
   }
 }
 
-export function toStyledMessage(styledMessageKt: StyledMessageKt): StyledMessage {
+export function toStyledMessage(styledMessageKt: styled.StyledMessageKt): StyledMessage {
   const messageType: string = styledMessageKt.messageType
   if (!(messageTypes as readonly string[]).includes(messageType)) {
     throw new Error(`Invalid messageType: ${messageType}`)

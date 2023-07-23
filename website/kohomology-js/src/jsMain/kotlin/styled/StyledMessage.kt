@@ -6,6 +6,7 @@ package styled
 class StyledMessageKt(
     val messageType: String,
     val strings: Array<StyledStringKt>,
+    val options: MessageOptionsKt,
 )
 
 enum class MessageType(val typeName: String) {
@@ -16,11 +17,20 @@ enum class MessageType(val typeName: String) {
 class StyledMessageInternal(
     val messageType: MessageType,
     val strings: List<StyledStringInternal>,
+    val options: MessageOptionsInternal = MessageOptionsInternal(),
 ) {
     @ExperimentalJsExport
     fun export(): StyledMessageKt {
         val strings = this.strings.map { it.export() }.toTypedArray()
-        return StyledMessageKt(this.messageType.typeName, strings)
+        return StyledMessageKt(this.messageType.typeName, strings, options.export())
+    }
+
+    fun withOptions(newOptions: MessageOptionsInternal): StyledMessageInternal {
+        return StyledMessageInternal(
+            messageType = this.messageType,
+            strings = this.strings,
+            options = newOptions,
+        )
     }
 }
 

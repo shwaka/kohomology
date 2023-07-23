@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690120045078,
+  "lastUpdate": 1690127970894,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2702,6 +2702,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.803,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ecdf70a7639fa80f36e61dd8c8f4621f080ec5a2",
+          "message": "feat(core): convert GeneratorOfFreeDGA.name to a valid tex code",
+          "timestamp": "2023-07-24T00:48:10+09:00",
+          "tree_id": "bc2d07954afa2e7a472a494bb0a48125816cd111",
+          "url": "https://github.com/shwaka/kohomology/commit/ecdf70a7639fa80f36e61dd8c8f4621f080ec5a2"
+        },
+        "date": 1690127970420,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.606,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.88,
             "unit": "s/op"
           }
         ]

@@ -2,8 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import React, { CSSProperties } from "react"
 import "katex/dist/katex.min.css"
 import { formatStyledMessage, MessageType, StyledMessage, StyledString } from "./message"
-import { IconButton } from "@mui/material"
-import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
+import { OptionsButton, useOptionsButton } from "./OptionsButton"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")
@@ -56,6 +55,7 @@ function getStyle(messageType: MessageType): CSSProperties {
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
   const divClass = "show-styled-message"
+  const { optionsButtonProps } = useOptionsButton(divClass)
   return (
     <div
       className={divClass}
@@ -68,19 +68,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
       {styledMessage.strings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>
       ))}
-      <IconButton
-        size="small"
-        sx={{
-          paddingTop: 0, paddingBottom: 0,
-          position: "absolute", bottom: "4px", right: 0,
-          visibility: "hidden",
-          [`.${divClass}:hover &`]: {
-            visibility: "visible",
-          },
-        }}
-      >
-        <MoreHorizIcon fontSize="small"/>
-      </IconButton>
+      <OptionsButton {...optionsButtonProps}/>
     </div>
   )
 }

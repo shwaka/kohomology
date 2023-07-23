@@ -1,3 +1,5 @@
+import { MessageOptions } from "./options"
+
 export const stringTypes = ["text", "math"] as const
 export type StringType = typeof stringTypes[number]
 
@@ -12,6 +14,7 @@ export type MessageType = typeof messageTypes[number]
 export interface StyledMessage {
   readonly messageType: MessageType
   readonly strings: StyledString[]
+  readonly options: MessageOptions
 }
 
 export function formatStyledMessage(styledMessage: StyledMessage): string {
@@ -23,8 +26,12 @@ export function fromString(messageType: MessageType, str: string): StyledMessage
     stringType: "text",
     content: str,
   }
+  const options: MessageOptions = {
+    dgaJson: null,
+  }
   return {
     messageType: messageType,
-    strings: [styledString]
+    strings: [styledString],
+    options: options,
   }
 }

@@ -1,5 +1,6 @@
 import { styled } from "kohomology-js"
 import { MessageType, messageTypes, StringType, stringTypes, StyledMessage, StyledString } from "../styled/message"
+import { MessageOptions } from "../styled/options"
 
 export function toStyledString(styledStringKt: styled.StyledStringKt): StyledString {
   const stringType: string = styledStringKt.stringType
@@ -12,6 +13,12 @@ export function toStyledString(styledStringKt: styled.StyledStringKt): StyledStr
   }
 }
 
+export function toMessageOptions(messageOptionsKt: styled.MessageOptionsKt): MessageOptions {
+  return {
+    dgaJson: messageOptionsKt.dgaJson ?? null,
+  }
+}
+
 export function toStyledMessage(styledMessageKt: styled.StyledMessageKt): StyledMessage {
   const messageType: string = styledMessageKt.messageType
   if (!(messageTypes as readonly string[]).includes(messageType)) {
@@ -19,6 +26,7 @@ export function toStyledMessage(styledMessageKt: styled.StyledMessageKt): Styled
   }
   return {
     messageType: messageType as MessageType,
-    strings: styledMessageKt.strings.map(toStyledString)
+    strings: styledMessageKt.strings.map(toStyledString),
+    options: toMessageOptions(styledMessageKt.options),
   }
 }

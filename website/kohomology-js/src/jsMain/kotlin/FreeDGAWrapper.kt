@@ -292,13 +292,20 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     minDegree: Int,
     maxDegree: Int,
 ): StyledMessageInternal {
+    val options: MessageOptionsInternal = if (dgVectorSpace is FreeDGAlgebra<*, *, *, *, *>) {
+        MessageOptionsInternal(
+            dgaJson = dgVectorSpace.toJson(),
+        )
+    } else {
+        MessageOptionsInternal()
+    }
     return styledMessage(MessageType.SUCCESS) {
         val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
         val dgVectorSpaceWithoutParen: String = ParenParser.removeSurroundingParen(p(dgVectorSpace))
         val printed = "H^n($dgVectorSpaceWithoutParen)".math
         "Computing ".text + printed + " for ".text +
             "$minDegree \\leq n \\leq $maxDegree".math
-    }
+    }.withOptions(options)
 }
 
 private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>

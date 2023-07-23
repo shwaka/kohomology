@@ -1,13 +1,14 @@
 import React, { Fragment, useState } from "react"
 import { IconButton, Menu, MenuItem } from "@mui/material"
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
+import { MessageOptions } from "./options"
 
 interface UseOptionsButtonReturnValue {
   optionsButtonProps: OptionsButtonProps
   open: boolean
 }
 
-export function useOptionsButton(containerClass: string): UseOptionsButtonReturnValue {
+export function useOptionsButton(containerClass: string, options: MessageOptions): UseOptionsButtonReturnValue {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
@@ -18,7 +19,7 @@ export function useOptionsButton(containerClass: string): UseOptionsButtonReturn
   }
 
   const optionsButtonProps: OptionsButtonProps = {
-    containerClass, handleClick, handleClose, open, anchorEl,
+    containerClass, handleClick, handleClose, open, anchorEl, options,
   }
   return { optionsButtonProps, open }
 }
@@ -29,9 +30,10 @@ interface OptionsButtonProps {
   handleClose: () => void
   open: boolean
   anchorEl: HTMLElement | null
+  options: MessageOptions
 }
 
-export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl }: OptionsButtonProps): JSX.Element {
+export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options }: OptionsButtonProps): JSX.Element {
   return (
     <Fragment>
       <IconButton
@@ -53,10 +55,29 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
         open={open}
         onClose={handleClose}
       >
-        <MenuItem onClick={handleClose}>
-          {'"copy json" button will be added here'}
-        </MenuItem>
+        <MenuItemCopyDgaJson
+          dgaJson={options.dgaJson}
+          handleClose={handleClose}
+        />
       </Menu>
     </Fragment>
+  )
+}
+
+function MenuItemCopyDgaJson({ dgaJson, handleClose }: { dgaJson: string | null, handleClose: () => void }): JSX.Element {
+  const copyDgaJson = (): void => {
+    if (dgaJson !== null) {
+      navigator.clipboard.writeText(dgaJson)
+      console.log("Copied:", dgaJson)
+    }
+    handleClose()
+  }
+  return (
+    <MenuItem
+      onClick={copyDgaJson}
+      disabled={dgaJson === null}
+    >
+      Copy this DGA as JSON
+    </MenuItem>
   )
 }

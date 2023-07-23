@@ -56,7 +56,7 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
   const divClass = "show-styled-message"
-  const { optionsButtonProps, open } = useOptionsButton(divClass)
+  const { optionsButtonProps, open } = useOptionsButton(divClass, styledMessage.options)
   return (
     <div
       className={divClass}

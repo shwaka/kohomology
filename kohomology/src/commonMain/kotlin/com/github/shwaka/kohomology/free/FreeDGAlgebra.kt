@@ -34,6 +34,7 @@ import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
+import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
@@ -275,7 +276,12 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
 
     public fun toJson(): String {
         val intFreeDGA = this.toIntDegree().first
-        val printer = Printer(PrintConfig(PrintType.CODE))
+        val printer = Printer(
+            PrintConfig(
+                printType = PrintType.CODE,
+                showShift = ShowShift.S,
+            )
+        )
         val generatorList = intFreeDGA.indeterminateList.zip(intFreeDGA.generatorList).map { (indeterminate, generator) ->
             val differentialValue = intFreeDGA.context.run { d(generator) }
             GeneratorOfFreeDGA(

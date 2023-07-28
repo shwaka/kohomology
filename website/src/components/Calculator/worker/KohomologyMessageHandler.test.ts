@@ -1,5 +1,4 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "../WorkerContext/expose"
-import { formatStyledMessage } from "../styled/message"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
@@ -70,11 +69,11 @@ test("computeCohomology", () => {
   expect(messageOutput0.value.messages[0].strings[0].content).toEqual("Computing ")
   // check second message
   expect(messageOutput1.value.messages.length).toBe(maxDegree + 1)
-  expect(formatStyledMessage(messageOutput0.value.messages[0])).toEqual(`Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq ${maxDegree}`)
-  expect(formatStyledMessage(messageOutput1.value.messages[0])).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
-  expect(formatStyledMessage(messageOutput1.value.messages[1])).toEqual("H^{1} =\\ 0")
-  expect(formatStyledMessage(messageOutput1.value.messages[2])).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
+  expect(messageOutput0.value.messages[0].plainString).toEqual(`Computing H^n(Λ(x, y), d) for 0 \\leq n \\leq ${maxDegree}`)
+  expect(messageOutput1.value.messages[0].plainString).toEqual("H^{0} =\\ \\mathbb{Q}\\{[1]\\}")
+  expect(messageOutput1.value.messages[1].plainString).toEqual("H^{1} =\\ 0")
+  expect(messageOutput1.value.messages[2].plainString).toEqual("H^{2} =\\ \\mathbb{Q}\\{[x]\\}")
   for (let degree = 3; degree <= maxDegree; degree++) {
-    expect(formatStyledMessage(messageOutput1.value.messages[degree])).toEqual(`H^{${degree}} =\\ 0`)
+    expect(messageOutput1.value.messages[degree].plainString).toEqual(`H^{${degree}} =\\ 0`)
   }
 })

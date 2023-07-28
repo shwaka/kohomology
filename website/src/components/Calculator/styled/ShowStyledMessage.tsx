@@ -2,7 +2,7 @@ import TeX from "@matejmazur/react-katex"
 import React, { CSSProperties } from "react"
 import "katex/dist/katex.min.css"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
-import { formatStyledMessage, MessageType, StyledMessage, StyledString } from "./message"
+import { MessageType, StyledMessage, StyledString } from "./message"
 
 function Text({ content }: { content: string } ): JSX.Element {
   const lines = content.split("\n")
@@ -60,7 +60,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
   return (
     <div
       className={divClass}
-      data-styled-message={formatStyledMessage(styledMessage)}
+      data-styled-message={styledMessage.plainString}
       style={{
         ...getStyleForBackground(styledMessage.messageType, open),
         borderBottom: "1px solid lightGray",

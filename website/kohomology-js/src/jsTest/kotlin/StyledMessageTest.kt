@@ -18,7 +18,7 @@ class StyledMessageTest {
         val styledMessageKt = styledMessage(MessageType.SUCCESS) {
             "x = \\cos\\theta".math + "y = \\sin\\theta".math
         }.export()
-        assertEquals(styledMessageKt.plainString, "\$x = \\cos\\theta\$\$y = \\sin\\theta\$")
+        assertEquals(styledMessageKt.plainString, "\$x = \\cos\\theta\$ \$y = \\sin\\theta\$")
     }
 
     @Test

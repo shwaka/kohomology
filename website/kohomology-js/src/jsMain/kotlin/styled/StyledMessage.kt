@@ -23,12 +23,7 @@ class StyledMessageInternal(
     @ExperimentalJsExport
     fun export(): StyledMessageKt {
         val strings = this.strings.map { it.export() }.toTypedArray()
-        val plainString = this.strings.joinToString("") { styledString ->
-            when (styledString.stringType) {
-                StringType.TEXT -> styledString.content
-                StringType.MATH -> "\$${styledString.content}\$"
-            }
-        }
+        val plainString = this.getPlainString()
         return StyledMessageKt(
             messageType = this.messageType.typeName,
             strings = strings,
@@ -43,6 +38,30 @@ class StyledMessageInternal(
             strings = this.strings,
             options = newOptions,
         )
+    }
+
+    private fun getPlainString(): String {
+        if (this.strings.isEmpty()) {
+            return ""
+        }
+        val space = StyledStringInternal(StringType.TEXT, " ")
+        val stringsWithSpaces: MutableList<StyledStringInternal> = mutableListOf(this.strings.first())
+        for (i in 1 until this.strings.size) {
+            // Avoid $x = 1$$y = 2$, by replacing it with $x = 1$ $y = 2$
+            if (
+                (this.strings[i - 1].stringType == StringType.MATH) &&
+                (this.strings[i].stringType == StringType.MATH)
+            ) {
+                stringsWithSpaces.add(space)
+            }
+            stringsWithSpaces.add(this.strings[i])
+        }
+        return stringsWithSpaces.joinToString("") { styledString ->
+            when (styledString.stringType) {
+                StringType.TEXT -> styledString.content
+                StringType.MATH -> "\$${styledString.content}\$"
+            }
+        }
     }
 }
 

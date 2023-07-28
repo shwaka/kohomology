@@ -1,4 +1,4 @@
-import { Alert, Button, Dialog, DialogActions, DialogContent } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useCallback, useMemo, useState } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
@@ -121,11 +121,6 @@ export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenera
 
   return (
     <div>
-      <Alert severity="warning">
-        Currently, computation for ΛV/I is an experimental feature!
-        Its UI is bad and it may contain some bugs.
-      </Alert>
-
       <ShowStyledMessage
         styledMessage={idealInfo}
       />

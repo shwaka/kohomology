@@ -19,9 +19,9 @@ test("Calculator", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing H^n(Λ(x, y), d) for",
-      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
+      "Computing $H^n(Λ(x, y), d)$ for",
+      "$H^{0} =\\ $$\\mathbb{Q}\\{$$[1]$$\\}$",
+      "$H^{2} =\\ $$\\mathbb{Q}\\{$$[x]$$\\}$"
     ],
   )
   expectComputeCohomologyButtonToContain("Compute")
@@ -37,9 +37,9 @@ test("restart", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing H^n(Λ(x, y), d) for",
-      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{2} =\\ \\mathbb{Q}\\{[x]\\}"
+      "Computing $H^n(Λ(x, y), d)$ for",
+      "$H^{0} =\\ $$\\mathbb{Q}\\{$$[1]$$\\}$",
+      "$H^{2} =\\ $$\\mathbb{Q}\\{$$[x]$$\\}$"
     ],
   )
   expectComputeCohomologyButtonToContain("Compute")
@@ -59,9 +59,9 @@ test("input json", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing H^n(Λ(x, y, z), d) for",
-      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
+      "Computing $H^n(Λ(x, y, z), d)$ for",
+      "$H^{0} =\\ $$\\mathbb{Q}\\{$$[1]$$\\}$",
+      "$H^{3} =\\ $$\\mathbb{Q}\\{$$[x],\\ $$[y]$$\\}$",
     ]
   )
   expectComputeCohomologyButtonToContain("Compute")
@@ -84,10 +84,10 @@ test("compute cohomology of LX", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d) for",
-      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{1} =\\ \\mathbb{Q}\\{[\\bar{x}]\\}",
-      "H^{2} =\\ \\mathbb{Q}\\{[{x}]\\}",
+      "Computing $H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)$ for",
+      "$H^{0} =\\ $$\\mathbb{Q}\\{$$[1]$$\\}$",
+      "$H^{1} =\\ $$\\mathbb{Q}\\{$$[\\bar{x}]$$\\}$",
+      "$H^{2} =\\ $$\\mathbb{Q}\\{$$[{x}]$$\\}$",
     ]
   )
   expectComputeCohomologyButtonToContain("Compute")
@@ -102,9 +102,9 @@ test("url query", async () => {
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing H^n(Λ(x, y, z), d) for",
-      "H^{0} =\\ \\mathbb{Q}\\{[1]\\}",
-      "H^{3} =\\ \\mathbb{Q}\\{[x],\\ [y]\\}",
+      "Computing $H^n(Λ(x, y, z), d)$ for",
+      "$H^{0} =\\ $$\\mathbb{Q}\\{$$[1]$$\\}$",
+      "$H^{3} =\\ $$\\mathbb{Q}\\{$$[x],\\ $$[y]$$\\}$",
     ]
   )
   expectComputeCohomologyButtonToContain("Compute")

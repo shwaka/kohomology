@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690127970894,
+  "lastUpdate": 1690543717972,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2736,6 +2736,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.88,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "4e9ddf0bc4c1dd3462a71cdf5b0f2dcfb738081e",
+          "message": "test(website): fix Calculator/index.test.ts and KohomologyMessageHandler.test.ts by replacing \"$$\" with \"$ $\"",
+          "timestamp": "2023-07-28T20:20:57+09:00",
+          "tree_id": "242e39aae948cd3b8a51569be0fbe9470207c95e",
+          "url": "https://github.com/shwaka/kohomology/commit/4e9ddf0bc4c1dd3462a71cdf5b0f2dcfb738081e"
+        },
+        "date": 1690543717074,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.741,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.454,
             "unit": "s/op"
           }
         ]

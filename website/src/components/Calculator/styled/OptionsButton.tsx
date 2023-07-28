@@ -55,8 +55,9 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
         open={open}
         onClose={handleClose}
       >
-        <MenuItemCopyDgaJson
-          dgaJson={options.dgaJson}
+        <MenuItemCopyText
+          text={options.dgaJson}
+          label="Copy this DGA as JSON"
           handleClose={handleClose}
         />
       </Menu>
@@ -64,20 +65,26 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
   )
 }
 
-function MenuItemCopyDgaJson({ dgaJson, handleClose }: { dgaJson: string | null, handleClose: () => void }): JSX.Element {
-  const copyDgaJson = (): void => {
-    if (dgaJson !== null) {
-      navigator.clipboard.writeText(dgaJson)
-      console.log("Copied:", dgaJson)
+interface MenuItemCopyTextProps {
+  text: string | null
+  label: string
+  handleClose: () => void
+}
+
+function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): JSX.Element {
+  const copyText = (): void => {
+    if (text !== null) {
+      navigator.clipboard.writeText(text)
+      console.log("Copied:", text)
     }
     handleClose()
   }
   return (
     <MenuItem
-      onClick={copyDgaJson}
-      disabled={dgaJson === null}
+      onClick={copyText}
+      disabled={text === null}
     >
-      Copy this DGA as JSON
+      {label}
     </MenuItem>
   )
 }

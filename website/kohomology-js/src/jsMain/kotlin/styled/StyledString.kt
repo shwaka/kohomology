@@ -14,8 +14,8 @@ enum class StringType(val typeName: String) {
 }
 
 class StyledStringInternal(
-    private val stringType: StringType,
-    private val content: String,
+    val stringType: StringType,
+    val content: String,
 ) {
     @ExperimentalJsExport
     fun export(): StyledStringKt {

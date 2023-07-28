@@ -14,6 +14,7 @@ export type MessageType = typeof messageTypes[number]
 export interface StyledMessage {
   readonly messageType: MessageType
   readonly strings: StyledString[]
+  readonly plainString: string
   readonly options: MessageOptions
 }
 
@@ -32,6 +33,7 @@ export function fromString(messageType: MessageType, str: string): StyledMessage
   return {
     messageType: messageType,
     strings: [styledString],
+    plainString: str,
     options: options,
   }
 }

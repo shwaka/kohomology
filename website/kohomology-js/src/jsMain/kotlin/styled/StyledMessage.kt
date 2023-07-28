@@ -6,6 +6,7 @@ package styled
 class StyledMessageKt(
     val messageType: String,
     val strings: Array<StyledStringKt>,
+    val plainString: String,
     val options: MessageOptionsKt,
 )
 
@@ -22,7 +23,13 @@ class StyledMessageInternal(
     @ExperimentalJsExport
     fun export(): StyledMessageKt {
         val strings = this.strings.map { it.export() }.toTypedArray()
-        return StyledMessageKt(this.messageType.typeName, strings, options.export())
+        val plainString = this.strings.joinToString { it.content }
+        return StyledMessageKt(
+            messageType = this.messageType.typeName,
+            strings = strings,
+            plainString = plainString,
+            options = options.export(),
+        )
     }
 
     fun withOptions(newOptions: MessageOptionsInternal): StyledMessageInternal {

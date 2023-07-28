@@ -27,6 +27,7 @@ export function toStyledMessage(styledMessageKt: styled.StyledMessageKt): Styled
   return {
     messageType: messageType as MessageType,
     strings: styledMessageKt.strings.map(toStyledString),
+    plainString: styledMessageKt.plainString,
     options: toMessageOptions(styledMessageKt.options),
   }
 }

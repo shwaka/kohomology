@@ -16,6 +16,7 @@ export function toStyledString(styledStringKt: styled.StyledStringKt): StyledStr
 export function toMessageOptions(messageOptionsKt: styled.MessageOptionsKt): MessageOptions {
   return {
     dgaJson: messageOptionsKt.dgaJson ?? null,
+    plainString: messageOptionsKt.plainString,
   }
 }
 

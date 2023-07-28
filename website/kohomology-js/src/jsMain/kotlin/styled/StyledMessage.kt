@@ -28,7 +28,7 @@ class StyledMessageInternal(
             messageType = this.messageType.typeName,
             strings = strings,
             plainString = plainString,
-            options = options.export(),
+            options = options.export(plainString),
         )
     }
 

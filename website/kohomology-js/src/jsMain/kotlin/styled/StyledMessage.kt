@@ -23,7 +23,7 @@ class StyledMessageInternal(
     @ExperimentalJsExport
     fun export(): StyledMessageKt {
         val strings = this.strings.map { it.export() }.toTypedArray()
-        val plainString = this.strings.joinToString { it.content }
+        val plainString = this.strings.joinToString("") { it.content }
         return StyledMessageKt(
             messageType = this.messageType.typeName,
             strings = strings,

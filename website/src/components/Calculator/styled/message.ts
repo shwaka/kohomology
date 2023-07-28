@@ -25,6 +25,7 @@ export function fromString(messageType: MessageType, str: string): StyledMessage
   }
   const options: MessageOptions = {
     dgaJson: null,
+    plainString: str,
   }
   return {
     messageType: messageType,

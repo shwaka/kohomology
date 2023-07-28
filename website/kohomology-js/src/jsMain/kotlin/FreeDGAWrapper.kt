@@ -123,9 +123,15 @@ class FreeDGAWrapper(json: String) {
 
     fun idealInfo(): StyledMessageKt {
         val dgIdeal = this.dgIdeal ?: throw Exception("Ideal is not set")
+        val prefix = "I = "
+        if (dgIdeal.generatorList.isEmpty()) {
+            return styledMessage(MessageType.SUCCESS) {
+                "${prefix}0".math
+            }.export()
+        }
         val generatorString = dgIdeal.generatorList.joinToString(", ")
         return styledMessage(MessageType.SUCCESS) {
-            "($generatorString)".math
+            "$prefix($generatorString)".math
         }.export()
     }
 

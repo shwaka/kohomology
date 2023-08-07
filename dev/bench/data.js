@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1690543717972,
+  "lastUpdate": 1691403250979,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2770,6 +2770,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.454,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5b553a0e7b131363ae38f717430d47c3a7cb05a2",
+          "message": "refactor(core): remove unused (fake) constructor of GAlgebra (#283)",
+          "timestamp": "2023-08-07T19:05:47+09:00",
+          "tree_id": "a7e7e5a8e633acf72bd6149bc656134709afff42",
+          "url": "https://github.com/shwaka/kohomology/commit/5b553a0e7b131363ae38f717430d47c3a7cb05a2"
+        },
+        "date": 1691403250411,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.593,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.001,
             "unit": "s/op"
           }
         ]

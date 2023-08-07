@@ -2,19 +2,13 @@ package com.github.shwaka.kohomology.dg
 
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.shwaka.kohomology.dg.degree.Degree
-import com.github.shwaka.kohomology.dg.degree.DegreeGroup
 import com.github.shwaka.kohomology.dg.parser.ASTNode
 import com.github.shwaka.kohomology.dg.parser.GAlgebraElementASTGrammar
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.util.InternalPrintConfig
-import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.BilinearMap
-import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagmaContext<D, B, S, V, M> {
@@ -159,32 +153,6 @@ public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S
             unit: GVector<D, B, S, V>,
             isCommutative: Boolean = false,
         ): GAlgebra<D, B, S, V, M> {
-            return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit, isCommutative)
-        }
-        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
-            matrixSpace: MatrixSpace<S, V, M>,
-            degreeGroup: DegreeGroup<D>,
-            name: String,
-            getVectorSpace: (D) -> VectorSpace<B, S, V>,
-            getMultiplication: (D, D) -> BilinearMap<B, B, B, S, V, M>,
-            unitVector: Vector<B, S, V>,
-            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S>,
-            isCommutative: Boolean = false,
-            listDegreesForAugmentedDegree: ((Int) -> List<D>)? = null,
-            boundedness: Boundedness = Boundedness(),
-        ): GAlgebra<D, B, S, V, M> {
-            val gVectorSpace = GVectorSpace(
-                matrixSpace.numVectorSpace,
-                degreeGroup,
-                name,
-                getInternalPrintConfig,
-                listDegreesForAugmentedDegree,
-                boundedness,
-                getVectorSpace
-            )
-            val bilinearMapName = "Multiplication($name)"
-            val multiplication = GBilinearMap(matrixSpace, gVectorSpace, gVectorSpace, gVectorSpace, 0, bilinearMapName) { p, q -> getMultiplication(p, q) }
-            val unit = gVectorSpace.fromVector(unitVector, 0)
             return GAlgebraImpl(matrixSpace, gVectorSpace, multiplication, unit, isCommutative)
         }
     }

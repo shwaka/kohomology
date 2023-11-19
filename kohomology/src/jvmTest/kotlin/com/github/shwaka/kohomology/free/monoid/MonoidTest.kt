@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.free
+package com.github.shwaka.kohomology.free.monoid
 
 import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
@@ -7,16 +7,6 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.forAll
-import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
-import com.github.shwaka.kohomology.free.monoid.FreeGMonoidMorphismByDegreeChange
-import com.github.shwaka.kohomology.free.monoid.Indeterminate
-import com.github.shwaka.kohomology.free.monoid.GMonoidFromList
-import com.github.shwaka.kohomology.free.monoid.Monomial
-import com.github.shwaka.kohomology.free.monoid.Signed
-import com.github.shwaka.kohomology.free.monoid.SignedOrZero
-import com.github.shwaka.kohomology.free.monoid.SimpleGMonoidElement
-import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
-import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Sign

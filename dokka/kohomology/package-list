@@ -1,5 +1,26 @@
 $dokka.format:html-v1
 $dokka.linkExtension:html
+$dokka.location:com.github.shwaka.kohomology.bar////PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/index.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/index.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/CyclicGroup/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/-cyclic-group.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/elements/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/elements.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/invert/#com.github.shwaka.kohomology.bar.CyclicGroupElement/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/invert.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/multiply/#com.github.shwaka.kohomology.bar.CyclicGroupElement#com.github.shwaka.kohomology.bar.CyclicGroupElement/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/multiply.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/order.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroup/unit/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group/unit.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroupElement///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group-element/index.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroupElement/CyclicGroupElement/#kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group-element/-cyclic-group-element.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroupElement/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group-element/order.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroupElement/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group-element/to-string.html
+$dokka.location:com.github.shwaka.kohomology.bar/CyclicGroupElement/value/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-cyclic-group-element/value.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteGroup///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-group/index.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteGroup/invert/#TypeParam(bounds=[com.github.shwaka.kohomology.bar.FiniteMonoidElement])/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-group/invert.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoid///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid/index.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoid/elements/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid/elements.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoid/multiply/#TypeParam(bounds=[com.github.shwaka.kohomology.bar.FiniteMonoidElement])#TypeParam(bounds=[com.github.shwaka.kohomology.bar.FiniteMonoidElement])/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid/multiply.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoid/size/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid/size.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoid/unit/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid/unit.html
+$dokka.location:com.github.shwaka.kohomology.bar/FiniteMonoidElement///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.bar/-finite-monoid-element/index.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree////PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/index.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/AugmentationDegreeMorphism///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-augmentation-degree-morphism/index.html
 $dokka.location:com.github.shwaka.kohomology.dg.degree/AugmentationDegreeMorphism/AugmentationDegreeMorphism/#com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup[TypeParam(bounds=[com.github.shwaka.kohomology.dg.degree.Degree])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.dg.degree/-augmentation-degree-morphism/-augmentation-degree-morphism.html
@@ -1820,6 +1841,7 @@ $dokka.location:com.github.shwaka.kohomology.vectsp/VectorSpace/multiply/#TypePa
 $dokka.location:com.github.shwaka.kohomology.vectsp/VectorSpace/numVectorSpace/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.vectsp/-vector-space/num-vector-space.html
 $dokka.location:com.github.shwaka.kohomology.vectsp/VectorSpace/subtract/#com.github.shwaka.kohomology.vectsp.Vector[TypeParam(bounds=[com.github.shwaka.kohomology.vectsp.BasisName]),TypeParam(bounds=[com.github.shwaka.kohomology.linalg.Scalar]),TypeParam(bounds=[com.github.shwaka.kohomology.linalg.NumVector[TypeParam(bounds=[com.github.shwaka.kohomology.linalg.Scalar])]])]#com.github.shwaka.kohomology.vectsp.Vector[TypeParam(bounds=[com.github.shwaka.kohomology.vectsp.BasisName]),TypeParam(bounds=[com.github.shwaka.kohomology.linalg.Scalar]),TypeParam(bounds=[com.github.shwaka.kohomology.linalg.NumVector[TypeParam(bounds=[com.github.shwaka.kohomology.linalg.Scalar])]])]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.vectsp/-vector-space/subtract.html
 $dokka.location:com.github.shwaka.kohomology.vectsp/VectorSpace/zeroVector/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.vectsp/-vector-space/zero-vector.html
+com.github.shwaka.kohomology.bar
 com.github.shwaka.kohomology.dg
 com.github.shwaka.kohomology.dg.degree
 com.github.shwaka.kohomology.example

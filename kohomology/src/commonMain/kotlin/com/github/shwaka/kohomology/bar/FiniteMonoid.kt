@@ -10,3 +10,7 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
     public val size: Int
         get() = elements.size
 }
+
+public interface FiniteGroup<E : FiniteMonoidElement> : FiniteMonoid<E> {
+    public fun invert(monoidElement: E): E
+}

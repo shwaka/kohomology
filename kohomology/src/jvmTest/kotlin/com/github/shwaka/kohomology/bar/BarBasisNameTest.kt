@@ -76,5 +76,13 @@ class BarBasisNameTest : FreeSpec({
                 cyclicGroup.getAllBarBasisName(n) shouldHaveSize 5.pow(n)
             }
         }
+
+        "cyclicGroup.getAllBarBasisName(n) should throw IllegalArgumentException if n < 0" {
+            (-5..-1).forAll { n ->
+                shouldThrow<IllegalArgumentException> {
+                    cyclicGroup.getAllBarBasisName(n)
+                }
+            }
+        }
     }
 })

@@ -64,6 +64,7 @@ public class BarBasisName<E : FiniteMonoidElement>(
 }
 
 public fun <E : FiniteMonoidElement> FiniteMonoid<E>.getAllBarBasisName(size: Int): List<BarBasisName<E>> {
+    require(size >= 0) { "size must be non-negative, but was $size" }
     val elementLists: List<List<E>> = directProductOfFamily(List(size) { this.elements })
     return elementLists.map { elementList ->
         BarBasisName(this, elementList)

@@ -50,4 +50,8 @@ class DirectProductOfFamilyTest : FreeSpec({
         )
         directProductOfFamily(listOf(list1, list2, list3)) shouldBe expected
     }
+
+    "directProductOfFamily(emptyList()) should be listOf(emptyList())" {
+        directProductOfFamily<Int>(emptyList()) shouldBe listOf(emptyList())
+    }
 })

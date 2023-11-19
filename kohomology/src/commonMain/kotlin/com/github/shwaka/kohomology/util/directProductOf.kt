@@ -30,9 +30,6 @@ public fun <A : Comparable<A>, B : Comparable<B>> comparableDirectProductOf(
 public fun <T> directProductOfFamily(
     collections: Collection<Collection<T>>
 ): List<List<T>> {
-    if (collections.isEmpty()) {
-        return emptyList()
-    }
     var result: List<List<T>> = listOf(emptyList())
     for (collection in collections) {
         result = result.flatMap { partial: List<T> ->

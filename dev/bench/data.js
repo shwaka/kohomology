@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1691403250979,
+  "lastUpdate": 1700385489698,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2804,6 +2804,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.001,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f7fc70a470dec9f68c596ddf0b189f27a58fa2ef",
+          "message": "refactor(core): rename Monoid to GMonoid",
+          "timestamp": "2023-11-19T18:12:06+09:00",
+          "tree_id": "1f58cda37ae83f6d0a4b8a1bc7f50b073007bc4b",
+          "url": "https://github.com/shwaka/kohomology/commit/f7fc70a470dec9f68c596ddf0b189f27a58fa2ef"
+        },
+        "date": 1700385489142,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.417,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.475,
             "unit": "s/op"
           }
         ]

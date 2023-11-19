@@ -1143,7 +1143,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp_0 = this.u1j();
     var tmp_1 = degreeMorphism.r1n();
     var newFreeGAlgebra = tmp.a2d(tmp_0, tmp_1, newIndeterminateList, null, 8, null);
-    var freeMonoidMorphism = new FreeMonoidMorphismByDegreeChange(this.v2a(), degreeMorphism);
+    var freeMonoidMorphism = new FreeGMonoidMorphismByDegreeChange(this.v2a(), degreeMorphism);
     var tmp_2 = Companion_getInstance_16();
     var tmp_3 = this.u1j();
     var tmp_4 = this.zc() + ' (degree changed)';
@@ -1250,10 +1250,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function listDegreesForAugmentedDegree(augmentedDegree) {
     throw new NotImplementedError('Monoid.listDegreesForAugmentedDegree() is not implemented for a general monoid');
   }
-  PositiveIndeterminateList.prototype = Object.create(IndeterminateList.prototype);
-  PositiveIndeterminateList.prototype.constructor = PositiveIndeterminateList;
-  NegativeIndeterminateList.prototype = Object.create(IndeterminateList.prototype);
-  NegativeIndeterminateList.prototype.constructor = NegativeIndeterminateList;
   function toString_2(printConfig) {
     return toString(this);
   }
@@ -1261,6 +1257,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   Zero_0.prototype.constructor = Zero_0;
   Signed.prototype = Object.create(SignedOrZero.prototype);
   Signed.prototype.constructor = Signed;
+  PositiveIndeterminateList.prototype = Object.create(IndeterminateList.prototype);
+  PositiveIndeterminateList.prototype.constructor = PositiveIndeterminateList;
+  NegativeIndeterminateList.prototype = Object.create(IndeterminateList.prototype);
+  NegativeIndeterminateList.prototype.constructor = NegativeIndeterminateList;
   DecomposedSparseRowEchelonForm.prototype = Object.create(RowEchelonForm.prototype);
   DecomposedSparseRowEchelonForm.prototype.constructor = DecomposedSparseRowEchelonForm;
   function getIdentity(dim) {
@@ -10314,7 +10314,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     Companion_getInstance_33();
     this.l2d_1 = degreeGroup;
     this.m2d_1 = indeterminateList;
-    this.n2d_1 = Companion_getInstance_38().q2d(matrixSpace, degreeGroup, new FreeMonoid(degreeGroup, indeterminateList), getName(Companion_getInstance_33(), indeterminateList), getInternalPrintConfig);
+    this.n2d_1 = Companion_getInstance_38().q2d(matrixSpace, degreeGroup, new FreeGMonoid(degreeGroup, indeterminateList), getName(Companion_getInstance_33(), indeterminateList), getInternalPrintConfig);
     var tmp$ret$8;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$4;
@@ -11502,7 +11502,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.j2f_1.h1k(basisName, degree);
   };
   MonoidGAlgebraImpl.prototype.h1k = function (basisName, degree) {
-    var tmp = isInterface(basisName, MonoidElement) ? basisName : THROW_CCE();
+    var tmp = isInterface(basisName, GMonoidElement) ? basisName : THROW_CCE();
     return this.h2b(tmp, isInterface(degree, Degree) ? degree : THROW_CCE());
   };
   MonoidGAlgebraImpl.prototype.j2b = function (vector, degree) {
@@ -12161,7 +12161,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.addExponentLists.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.addExponentLists.<anonymous>' call
       tmp$ret$0 = exponentList1[tmp_2] + exponentList2[tmp_2] | 0;
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
@@ -12186,7 +12186,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp0_iterator.g()) {
       var item = tmp0_iterator.h();
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listElementsForAugmentedDegree.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.listElementsForAugmentedDegree.<anonymous>' call
       tmp$ret$0 = new Monomial($this.n2c_1, $this.o2c_1, item.e29_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
@@ -12204,7 +12204,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp < tmp_0) {
       var tmp_2 = tmp;
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.separate.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.separate.<anonymous>' call
       tmp$ret$0 = tmp_2 === index ? 0 : monomial.e29_1[tmp_2];
       tmp_1[tmp_2] = tmp$ret$0;
       tmp = tmp + 1 | 0;
@@ -12218,7 +12218,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp_3 < tmp_4) {
       var tmp_6 = tmp_3;
       var tmp$ret$1;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.separate.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.separate.<anonymous>' call
       tmp$ret$1 = tmp_6 === index ? monomial.e29_1[tmp_6] : 0;
       tmp_5[tmp_6] = tmp$ret$1;
       tmp_3 = tmp_3 + 1 | 0;
@@ -12239,12 +12239,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var sign = tmp_7;
     return new MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index);
   }
-  function FreeMonoid$indeterminateList$delegate$lambda(this$0) {
+  function FreeGMonoid$indeterminateList$delegate$lambda(this$0) {
     return function () {
       return this$0.o2c_1.u2g();
     };
   }
-  function FreeMonoid$boundedness$delegate$lambda(this$0) {
+  function FreeGMonoid$boundedness$delegate$lambda(this$0) {
     return function () {
       var tmp;
       if (this$0.o2c_1.w2g()) {
@@ -12267,24 +12267,24 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return tmp_0;
     };
   }
-  function FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0) {
+  function FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0) {
     return function (indeterminate) {
       return Indeterminate_2(indeterminate.g29_1, this$0.n2c_1.a1j(indeterminate.h29_1));
     };
   }
-  function FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this$0) {
+  function FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this$0) {
     return function () {
-      var indeterminateRawList = this$0.o2c_1.x2g(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
+      var indeterminateRawList = this$0.o2c_1.x2g(FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
       var indeterminateListWithAugDeg = Companion_getInstance_40().y2g(IntDegreeGroup_getInstance(), indeterminateRawList);
       return new MonomialListGenerator(IntDegreeGroup_getInstance(), indeterminateListWithAugDeg);
     };
   }
-  function FreeMonoid(degreeGroup, indeterminateList) {
+  function FreeGMonoid(degreeGroup, indeterminateList) {
     Companion_getInstance_39();
     this.n2c_1 = degreeGroup;
     this.o2c_1 = Companion_getInstance_40().y2g(this.n2c_1, indeterminateList);
     var tmp = this;
-    tmp.p2c_1 = lazy(FreeMonoid$indeterminateList$delegate$lambda(this));
+    tmp.p2c_1 = lazy(FreeGMonoid$indeterminateList$delegate$lambda(this));
     var tmp_0 = this;
     var tmp_1 = 0;
     var tmp_2 = this.o2c_1.i();
@@ -12292,7 +12292,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp_1 < tmp_2) {
       var tmp_4 = tmp_1;
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.unit.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.unit.<anonymous>' call
       tmp$ret$0 = 0;
       tmp_3[tmp_4] = tmp$ret$0;
       tmp_1 = tmp_1 + 1 | 0;
@@ -12300,37 +12300,37 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp_0.q2c_1 = new Monomial(this.n2c_1, this.o2c_1, tmp_3);
     this.r2c_1 = true;
     var tmp_5 = this;
-    tmp_5.s2c_1 = lazy(FreeMonoid$boundedness$delegate$lambda(this));
+    tmp_5.s2c_1 = lazy(FreeGMonoid$boundedness$delegate$lambda(this));
     var tmp_6 = this;
-    tmp_6.t2c_1 = lazy(FreeMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this));
+    tmp_6.t2c_1 = lazy(FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this));
   }
-  FreeMonoid.prototype.y1j = function () {
+  FreeGMonoid.prototype.y1j = function () {
     return this.n2c_1;
   };
-  FreeMonoid.prototype.k23 = function () {
+  FreeGMonoid.prototype.k23 = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = indeterminateList$factory();
     tmp$ret$0 = this.p2c_1.f1();
     return tmp$ret$0;
   };
-  FreeMonoid.prototype.v1k = function () {
+  FreeGMonoid.prototype.v1k = function () {
     return this.q2c_1;
   };
-  FreeMonoid.prototype.w1k = function () {
+  FreeGMonoid.prototype.w1k = function () {
     return this.r2c_1;
   };
-  FreeMonoid.prototype.d1k = function () {
+  FreeGMonoid.prototype.d1k = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = boundedness$factory();
     tmp$ret$0 = this.s2c_1.f1();
     return tmp$ret$0;
   };
-  FreeMonoid.prototype.z2g = function (exponentList) {
+  FreeGMonoid.prototype.z2g = function (exponentList) {
     return new Monomial(this.n2c_1, this.o2c_1, exponentList);
   };
-  FreeMonoid.prototype.t2g = function (monoidElement1, monoidElement2) {
+  FreeGMonoid.prototype.t2g = function (monoidElement1, monoidElement2) {
     var size = this.o2c_1.i();
     var exponentList = addExponentLists(this, monoidElement1.e29_1, monoidElement2.e29_1);
     var inductionVariable = 0;
@@ -12365,11 +12365,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var monomial = new Monomial(this.n2c_1, this.o2c_1, exponentList);
     return new Signed(monomial, sign);
   };
-  FreeMonoid.prototype.e2g = function (monoidElement1, monoidElement2) {
+  FreeGMonoid.prototype.e2g = function (monoidElement1, monoidElement2) {
     var tmp = monoidElement1 instanceof Monomial ? monoidElement1 : THROW_CCE();
     return this.t2g(tmp, monoidElement2 instanceof Monomial ? monoidElement2 : THROW_CCE());
   };
-  FreeMonoid.prototype.b2g = function (degree) {
+  FreeGMonoid.prototype.b2g = function (degree) {
     var augmentedDegree = this.n2c_1.a1j(degree);
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
@@ -12381,7 +12381,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp0_iterator.g()) {
       var element = tmp0_iterator.h();
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listElements.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.listElements.<anonymous>' call
       tmp$ret$0 = equals(element.s1n(), degree);
       if (tmp$ret$0) {
         tmp0_filterTo.a(element);
@@ -12391,7 +12391,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$2 = tmp$ret$1;
     return tmp$ret$2;
   };
-  FreeMonoid.prototype.d2g = function (augmentedDegree) {
+  FreeGMonoid.prototype.d2g = function (augmentedDegree) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = listElementsForAugmentedDegree(this, augmentedDegree);
@@ -12402,7 +12402,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp0_iterator.g()) {
       var item = tmp0_iterator.h();
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.listDegreesForAugmentedDegree.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.listDegreesForAugmentedDegree.<anonymous>' call
       tmp$ret$0 = item.s1n();
       tmp0_mapTo.a(tmp$ret$0);
     }
@@ -12410,7 +12410,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$2 = tmp$ret$1;
     return distinct(tmp$ret$2);
   };
-  FreeMonoid.prototype.u2c = function (monomial) {
+  FreeGMonoid.prototype.u2c = function (monomial) {
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapNotNull' call
     var tmp0_mapNotNull = this.o2c_1.q2g_1;
@@ -12426,7 +12426,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         inductionVariable = inductionVariable + 1 | 0;
         // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
         var tmp$ret$0;
-        // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoid.allSeparations.<anonymous>' call
+        // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoid.allSeparations.<anonymous>' call
         tmp$ret$0 = separate(this, monomial, element);
         var tmp0_safe_receiver = tmp$ret$0;
         if (tmp0_safe_receiver == null)
@@ -12444,11 +12444,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$3 = tmp$ret$2;
     return tmp$ret$3;
   };
-  FreeMonoid.prototype.toString = function () {
+  FreeGMonoid.prototype.toString = function () {
     var indeterminateListString = this.o2c_1.d2h(', ', null, 2, null);
-    return 'FreeMonoid(' + indeterminateListString + ')';
+    return 'FreeGMonoid(' + indeterminateListString + ')';
   };
-  FreeMonoid.$metadata$ = classMeta('FreeMonoid', [Monoid]);
+  FreeGMonoid.$metadata$ = classMeta('FreeGMonoid', [GMonoid]);
   function MonomialSeparation(remainingMonomial, separatedIndeterminate, separatedExponent, sign, index) {
     this.v2c_1 = remainingMonomial;
     this.w2c_1 = separatedIndeterminate;
@@ -12500,7 +12500,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return true;
   };
   MonomialSeparation.$metadata$ = classMeta('MonomialSeparation');
-  function FreeMonoidMorphismByDegreeChange(source, degreeMorphism) {
+  function FreeGMonoidMorphismByDegreeChange(source, degreeMorphism) {
     this.c2d_1 = source;
     this.d2d_1 = degreeMorphism;
     var tmp = this;
@@ -12508,7 +12508,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'kotlin.run' call
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$3;
-    // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange.target.<anonymous>' call
+    // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoidMorphismByDegreeChange.target.<anonymous>' call
     var targetDegreeGroup = this.d2d_1.r1n();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
@@ -12520,27 +12520,27 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     while (tmp0_iterator.g()) {
       var item = tmp0_iterator.h();
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange.target.<anonymous>.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.FreeGMonoidMorphismByDegreeChange.target.<anonymous>.<anonymous>' call
       tmp$ret$0 = item.i2d(this.d2d_1);
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
     tmp$ret$2 = tmp$ret$1;
     var targetIndeterminateList = tmp$ret$2;
-    tmp$ret$3 = new FreeMonoid(targetDegreeGroup, targetIndeterminateList);
+    tmp$ret$3 = new FreeGMonoid(targetDegreeGroup, targetIndeterminateList);
     tmp$ret$4 = tmp$ret$3;
     tmp.e2d_1 = tmp$ret$4;
   }
-  FreeMonoidMorphismByDegreeChange.prototype.q1n = function () {
+  FreeGMonoidMorphismByDegreeChange.prototype.q1n = function () {
     return this.c2d_1;
   };
-  FreeMonoidMorphismByDegreeChange.prototype.h2h = function () {
+  FreeGMonoidMorphismByDegreeChange.prototype.h2h = function () {
     return this.d2d_1;
   };
-  FreeMonoidMorphismByDegreeChange.prototype.f2d = function (monoidElement) {
+  FreeGMonoidMorphismByDegreeChange.prototype.f2d = function (monoidElement) {
     return this.e2d_1.z2g(monoidElement.e29_1);
   };
-  FreeMonoidMorphismByDegreeChange.$metadata$ = classMeta('FreeMonoidMorphismByDegreeChange', [MonoidMorphismWithDegreeChange]);
+  FreeGMonoidMorphismByDegreeChange.$metadata$ = classMeta('FreeGMonoidMorphismByDegreeChange', [GMonoidMorphismWithDegreeChange]);
   function listMonomialsInternal($this, degree, index) {
     if (index < 0 ? true : index > $this.k2g_1.i())
       throw Exception_init_$Create$("This can't happen! (illegal index: " + index + ')');
@@ -12659,6 +12659,61 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return _get_monomialListGeneratorWithAugmentedDegree__ota534(receiver);
     }, null);
   }
+  function GMonoidElement() {
+  }
+  GMonoidElement.$metadata$ = interfaceMeta('GMonoidElement', [BasisName]);
+  function GMonoid() {
+  }
+  GMonoid.$metadata$ = interfaceMeta('GMonoid');
+  function SignedOrZero() {
+  }
+  SignedOrZero.$metadata$ = classMeta('SignedOrZero');
+  function Zero_0() {
+    Zero_instance_0 = this;
+    SignedOrZero.call(this);
+  }
+  Zero_0.$metadata$ = objectMeta('Zero', undefined, undefined, undefined, undefined, SignedOrZero.prototype);
+  var Zero_instance_0;
+  function Zero_getInstance_0() {
+    if (Zero_instance_0 == null)
+      new Zero_0();
+    return Zero_instance_0;
+  }
+  function Signed(value, sign) {
+    SignedOrZero.call(this);
+    this.f2g_1 = value;
+    this.g2g_1 = sign;
+  }
+  Signed.prototype.a4 = function () {
+    return this.f2g_1;
+  };
+  Signed.prototype.b4 = function () {
+    return this.g2g_1;
+  };
+  Signed.prototype.toString = function () {
+    return 'Signed(value=' + this.f2g_1 + ', sign=' + this.g2g_1 + ')';
+  };
+  Signed.prototype.hashCode = function () {
+    var result = this.f2g_1 == null ? 0 : hashCode(this.f2g_1);
+    result = imul(result, 31) + this.g2g_1.hashCode() | 0;
+    return result;
+  };
+  Signed.prototype.equals = function (other) {
+    if (this === other)
+      return true;
+    if (!(other instanceof Signed))
+      return false;
+    var tmp0_other_with_cast = other instanceof Signed ? other : THROW_CCE();
+    if (!equals(this.f2g_1, tmp0_other_with_cast.f2g_1))
+      return false;
+    if (!this.g2g_1.equals(tmp0_other_with_cast.g2g_1))
+      return false;
+    return true;
+  };
+  Signed.$metadata$ = classMeta('Signed', undefined, undefined, undefined, undefined, SignedOrZero.prototype);
+  function GMonoidMorphismWithDegreeChange() {
+  }
+  GMonoidMorphismWithDegreeChange.$metadata$ = interfaceMeta('GMonoidMorphismWithDegreeChange');
   function StringIndeterminateName_init_$Init$(name, tex, $mask0, $marker, $this) {
     if (!(($mask0 & 2) === 0))
       tex = null;
@@ -13162,61 +13217,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return receiver.v2g();
     }, null);
   }
-  function MonoidElement() {
-  }
-  MonoidElement.$metadata$ = interfaceMeta('MonoidElement', [BasisName]);
-  function Monoid() {
-  }
-  Monoid.$metadata$ = interfaceMeta('Monoid');
-  function SignedOrZero() {
-  }
-  SignedOrZero.$metadata$ = classMeta('SignedOrZero');
-  function Zero_0() {
-    Zero_instance_0 = this;
-    SignedOrZero.call(this);
-  }
-  Zero_0.$metadata$ = objectMeta('Zero', undefined, undefined, undefined, undefined, SignedOrZero.prototype);
-  var Zero_instance_0;
-  function Zero_getInstance_0() {
-    if (Zero_instance_0 == null)
-      new Zero_0();
-    return Zero_instance_0;
-  }
-  function Signed(value, sign) {
-    SignedOrZero.call(this);
-    this.f2g_1 = value;
-    this.g2g_1 = sign;
-  }
-  Signed.prototype.a4 = function () {
-    return this.f2g_1;
-  };
-  Signed.prototype.b4 = function () {
-    return this.g2g_1;
-  };
-  Signed.prototype.toString = function () {
-    return 'Signed(value=' + this.f2g_1 + ', sign=' + this.g2g_1 + ')';
-  };
-  Signed.prototype.hashCode = function () {
-    var result = this.f2g_1 == null ? 0 : hashCode(this.f2g_1);
-    result = imul(result, 31) + this.g2g_1.hashCode() | 0;
-    return result;
-  };
-  Signed.prototype.equals = function (other) {
-    if (this === other)
-      return true;
-    if (!(other instanceof Signed))
-      return false;
-    var tmp0_other_with_cast = other instanceof Signed ? other : THROW_CCE();
-    if (!equals(this.f2g_1, tmp0_other_with_cast.f2g_1))
-      return false;
-    if (!this.g2g_1.equals(tmp0_other_with_cast.g2g_1))
-      return false;
-    return true;
-  };
-  Signed.$metadata$ = classMeta('Signed', undefined, undefined, undefined, undefined, SignedOrZero.prototype);
-  function MonoidMorphismWithDegreeChange() {
-  }
-  MonoidMorphismWithDegreeChange.$metadata$ = interfaceMeta('MonoidMorphismWithDegreeChange');
   function Monomial_init_$Init$(degreeGroup, indeterminateList, exponentList, $this) {
     Monomial.call($this, degreeGroup, Companion_getInstance_40().y2g(degreeGroup, indeterminateList), toIntArray(exponentList));
     return $this;
@@ -13562,7 +13562,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     result = imul(31, result) + contentHashCode(this.e29_1) | 0;
     return result;
   };
-  Monomial.$metadata$ = classMeta('Monomial', [MonoidElement]);
+  Monomial.$metadata$ = classMeta('Monomial', [GMonoidElement]);
   function degree$factory() {
     return getPropertyCallableRef('degree', 1, KProperty1, function (receiver) {
       return receiver.s1n();

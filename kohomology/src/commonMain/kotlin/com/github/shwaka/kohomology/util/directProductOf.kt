@@ -17,3 +17,27 @@ public fun <A : Comparable<A>, B : Comparable<B>> comparableDirectProductOf(
         collection2.map { elm2 -> ComparablePair(elm1, elm2) }
     }
 }
+
+/**
+ * Returns the direct product of collections in [collections].
+ *
+ * When [collections] is `[[1, 2, 3], [4, 5]]`,
+ * then this function returns `[[1, 4], [1, 5], [2, 4], [2, 5], [3, 4], [3, 5]]`.
+ *
+ * Note that `directProductOfFamily(listOf(collection1, collection2))`
+ * is the same as `directProductOf(collection1, collection2)`.
+ */
+public fun <T> directProductOfFamily(
+    collections: Collection<Collection<T>>
+): List<List<T>> {
+    if (collections.isEmpty()) {
+        return emptyList()
+    }
+    var result: List<List<T>> = listOf(emptyList())
+    for (collection in collections) {
+        result = result.flatMap { partial: List<T> ->
+            collection.map { elm -> partial + listOf(elm) }
+        }
+    }
+    return result
+}

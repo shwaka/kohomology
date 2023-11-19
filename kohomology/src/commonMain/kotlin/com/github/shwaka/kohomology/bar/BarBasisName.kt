@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.bar
 
+import com.github.shwaka.kohomology.util.directProductOfFamily
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public class BarBasisName<E : FiniteMonoidElement>(
@@ -18,10 +19,12 @@ public class BarBasisName<E : FiniteMonoidElement>(
                 monoid = this.monoid,
                 elementList = this.elementList.drop(1),
             )
+
             (i == this.size) -> BarBasisName(
                 monoid = this.monoid,
                 elementList = this.elementList.dropLast(1),
             )
+
             else -> {
                 val first = this.elementList.take(i - 1)
                 val multiplied = this.monoid.multiply(
@@ -57,5 +60,12 @@ public class BarBasisName<E : FiniteMonoidElement>(
 
     override fun toString(): String {
         return "[" + this.elementList.joinToString(",") + "]"
+    }
+}
+
+public fun <E : FiniteMonoidElement> FiniteMonoid<E>.getAllBarBasisName(size: Int): List<BarBasisName<E>> {
+    val elementLists: List<List<E>> = directProductOfFamily(List(size) { this.elements })
+    return elementLists.map { elementList ->
+        BarBasisName(this, elementList)
     }
 }

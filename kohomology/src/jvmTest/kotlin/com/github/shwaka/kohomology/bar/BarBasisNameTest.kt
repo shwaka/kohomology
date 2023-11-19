@@ -1,8 +1,11 @@
 package com.github.shwaka.kohomology.bar
 
+import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.util.pow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 val barTag = NamedTag("Bar")
@@ -65,6 +68,12 @@ class BarBasisNameTest : FreeSpec({
             bar(t3, t1, t2).boundary(3) shouldBe bar(t3, t1)
             shouldThrow<IllegalArgumentException> {
                 bar(t3, t1, t2).boundary(4)
+            }
+        }
+
+        "cyclicGroup.getAllBarBasisName(n) should have size 5^n" {
+            (0..3).forAll { n ->
+                cyclicGroup.getAllBarBasisName(n) shouldHaveSize 5.pow(n)
             }
         }
     }

@@ -26,10 +26,10 @@ import io.kotest.property.arbitrary.positiveInts
 import io.kotest.property.checkAll
 import io.kotest.property.exhaustive.exhaustive
 
-val monoidTag = NamedTag("Monoid")
+val gMonoidTag = NamedTag("GMonoid")
 
-class FreeMonoidTest : FreeSpec({
-    tags(monoidTag)
+class FreeGMonoidTest : FreeSpec({
+    tags(gMonoidTag)
 
     "empty indeterminate list should be allowed" {
         shouldNotThrowAny {
@@ -390,8 +390,8 @@ class FreeMonoidTest : FreeSpec({
     }
 })
 
-class MonoidFromListTest : FreeSpec({
-    tags(monoidTag)
+class GMonoidFromListTest : FreeSpec({
+    tags(gMonoidTag)
 
     val n = 5
 

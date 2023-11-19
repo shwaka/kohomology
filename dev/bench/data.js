@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700387067376,
+  "lastUpdate": 1700395887282,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -2872,6 +2872,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.441,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "21ce62d88439f8dde489023a5081c4a8a63d142d",
+          "message": "feat(core): add BarComplexTest.kt",
+          "timestamp": "2023-11-19T21:06:05+09:00",
+          "tree_id": "0a89f2b34bbe26117f8d2ff844a0895b1dcea12d",
+          "url": "https://github.com/shwaka/kohomology/commit/21ce62d88439f8dde489023a5081c4a8a63d142d"
+        },
+        "date": 1700395886332,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.438,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.541,
             "unit": "s/op"
           }
         ]

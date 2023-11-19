@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.bar
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.pow
 import io.kotest.core.spec.style.FreeSpec
@@ -50,6 +51,21 @@ class BarComplexTest : FreeSpec({
                     0 -> 1
                     else -> 0
                 }
+            }
+        }
+    }
+
+    "compute homology of Z/7" - {
+        val cyclicGroup = CyclicGroup(7)
+
+        "over F7" {
+            val dgVectorSpace = barComplex(cyclicGroup, SparseMatrixSpaceOverF7)
+            (1..5).forAll { degree ->
+                dgVectorSpace[degree].dim shouldBe 0
+            }
+            (0..2).forAll { n ->
+                dgVectorSpace[-n].dim shouldBe 7.pow(n)
+                dgVectorSpace.cohomology[-n].dim shouldBe 1
             }
         }
     }

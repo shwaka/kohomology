@@ -33,21 +33,39 @@ class BarBasisNameTest : FreeSpec({
         }
 
         "check boundaries for BarBasisName of length 1" {
+            shouldThrow<IllegalArgumentException> {
+                bar(t0).boundary(-1)
+            }
             bar(t0).boundary(0) shouldBe bar()
             bar(t0).boundary(1) shouldBe bar()
+            shouldThrow<IllegalArgumentException> {
+                bar(t0).boundary(2)
+            }
         }
 
         "check boundaries for BarBasisName of length 2" {
+            shouldThrow<IllegalArgumentException> {
+                bar(t1, t2).boundary(-1)
+            }
             bar(t1, t2).boundary(0) shouldBe bar(t2)
             bar(t1, t2).boundary(1) shouldBe bar(t3)
             bar(t1, t2).boundary(2) shouldBe bar(t1)
+            shouldThrow<IllegalArgumentException> {
+                bar(t1, t2).boundary(3)
+            }
         }
 
         "check boundaries for BarBasisName of length 3" {
+            shouldThrow<IllegalArgumentException> {
+                bar(t3, t1, t2).boundary(-1)
+            }
             bar(t3, t1, t2).boundary(0) shouldBe bar(t1, t2)
             bar(t3, t1, t2).boundary(1) shouldBe bar(t4, t2)
             bar(t3, t1, t2).boundary(2) shouldBe bar(t3, t3)
             bar(t3, t1, t2).boundary(3) shouldBe bar(t3, t1)
+            shouldThrow<IllegalArgumentException> {
+                bar(t3, t1, t2).boundary(4)
+            }
         }
     }
 })

@@ -22,6 +22,10 @@ class BarBasisNameTest : FreeSpec({
             bar().degree shouldBe 0
         }
 
+        "BarBasisName of length 1 should have degree -1" {
+            bar(t0).degree shouldBe (-1)
+        }
+
         "boundary for BarBasisName of length 0 should throw an IllegalArgumentException" {
             shouldThrow<IllegalArgumentException> {
                 bar().boundary(0)

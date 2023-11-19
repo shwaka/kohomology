@@ -10,10 +10,10 @@ import com.github.shwaka.kohomology.dg.degree.OddSuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegree
 import com.github.shwaka.kohomology.dg.degree.SuperDegreeGroup
 import com.github.shwaka.kohomology.forAll
-import com.github.shwaka.kohomology.free.monoid.MonoidFromList
+import com.github.shwaka.kohomology.free.monoid.GMonoidFromList
 import com.github.shwaka.kohomology.free.monoid.Signed
 import com.github.shwaka.kohomology.free.monoid.SignedOrZero
-import com.github.shwaka.kohomology.free.monoid.SimpleMonoidElement
+import com.github.shwaka.kohomology.free.monoid.SimpleGMonoidElement
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -38,8 +38,8 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
     if (n < 0)
         throw IllegalArgumentException("Invalid test parameter: n must be non-negative")
     "complex projective space of complex dimension $n" - {
-        val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
-        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
+        val elements = (0..n).map { i -> SimpleGMonoidElement("c$i", 2 * i) }
+        val multiplicationTable: List<List<SignedOrZero<SimpleGMonoidElement<String, IntDegree>>>> =
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
@@ -49,7 +49,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
+        val monoid = GMonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
         val gAlgebra = MonoidGAlgebra(matrixSpace, IntDegreeGroup, monoid, "M")
 
         "check dimension" {
@@ -58,7 +58,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> complexProjectiveSpaceTest(
                 gAlgebra[degree].dim shouldBe expectedDim
             }
         }
-        val basis: List<GVector<IntDegree, SimpleMonoidElement<String, IntDegree>, S, V>> =
+        val basis: List<GVector<IntDegree, SimpleGMonoidElement<String, IntDegree>, S, V>> =
             (0..n).map { i -> gAlgebra.getBasis(2 * i)[0] }
 
         checkGAlgebraAxioms(gAlgebra, basis)
@@ -92,13 +92,13 @@ class MonoidGAlgebraTest : FreeSpec({
         val matrixSpace = DenseMatrixSpaceOverRational
         // Without explicit type parameter, this will be
         //   List<SimpleMonoidElement<String, out SuperDegree>>
-        val elements = listOf<SimpleMonoidElement<String, SuperDegree>>(
-            SimpleMonoidElement("1", EvenSuperDegree),
-            SimpleMonoidElement("x", OddSuperDegree),
-            SimpleMonoidElement("y", OddSuperDegree),
-            SimpleMonoidElement("xy", EvenSuperDegree),
+        val elements = listOf<SimpleGMonoidElement<String, SuperDegree>>(
+            SimpleGMonoidElement("1", EvenSuperDegree),
+            SimpleGMonoidElement("x", OddSuperDegree),
+            SimpleGMonoidElement("y", OddSuperDegree),
+            SimpleGMonoidElement("xy", EvenSuperDegree),
         )
-        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, SuperDegree>>>> = run {
+        val multiplicationTable: List<List<SignedOrZero<SimpleGMonoidElement<String, SuperDegree>>>> = run {
             val (e, x, y, xy) = elements.map { Signed(it, Sign.PLUS) }
             val minusXY = Signed(elements[3], Sign.MINUS)
             listOf(
@@ -108,7 +108,7 @@ class MonoidGAlgebraTest : FreeSpec({
                 listOf(xy, Zero, Zero, Zero),
             )
         }
-        val monoid = MonoidFromList(elements, SuperDegreeGroup, multiplicationTable, isCommutative = true)
+        val monoid = GMonoidFromList(elements, SuperDegreeGroup, multiplicationTable, isCommutative = true)
         val gAlgebra = MonoidGAlgebra(matrixSpace, SuperDegreeGroup, monoid, "A")
         val (e, xy) = gAlgebra.getBasis(EvenSuperDegree)
         val (x, y) = gAlgebra.getBasis(OddSuperDegree)

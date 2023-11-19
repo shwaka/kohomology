@@ -18,7 +18,7 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeMorphism
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
-import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -428,7 +428,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     override val multiplication: GBilinearMap<Monomial<D, I>, Monomial<D, I>, Monomial<D, I>, D, S, V, M> = underlyingGAlgebra.multiplication
     override val degreeGroup: AugmentedDegreeGroup<D> = this.underlyingGAlgebra.degreeGroup
     override val indeterminateList: List<Indeterminate<D, I>> = underlyingGAlgebra.indeterminateList
-    override val monoid: FreeMonoid<D, I> = underlyingGAlgebra.monoid
+    override val monoid: FreeGMonoid<D, I> = underlyingGAlgebra.monoid
     private val dgAlgebra: DGAlgebra<D, Monomial<D, I>, S, V, M> by lazy {
         DGAlgebra(this.underlyingGAlgebra, this.differential)
     }

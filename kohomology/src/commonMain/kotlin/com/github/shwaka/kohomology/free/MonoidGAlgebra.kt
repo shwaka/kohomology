@@ -9,8 +9,8 @@ import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.GVectorSpace
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.DegreeGroup
-import com.github.shwaka.kohomology.free.monoid.Monoid
-import com.github.shwaka.kohomology.free.monoid.MonoidElement
+import com.github.shwaka.kohomology.free.monoid.GMonoid
+import com.github.shwaka.kohomology.free.monoid.GMonoidElement
 import com.github.shwaka.kohomology.free.monoid.Signed
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -25,7 +25,7 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class MonoidGAlgebraFactory<D : Degree, E : GMonoidElement<D>, Mon : GMonoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val matrixSpace: MatrixSpace<S, V, M>,
     val degreeGroup: DegreeGroup<D>,
     val monoid: Mon,
@@ -102,7 +102,7 @@ private class MonoidGAlgebraFactory<D : Degree, E : MonoidElement<D>, Mon : Mono
     }
 }
 
-public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
+public interface MonoidGAlgebra<D : Degree, E : GMonoidElement<D>, Mon : GMonoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GAlgebra<D, E, S, V, M> {
     public val monoid: Mon
 
@@ -113,7 +113,7 @@ public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D
     }
 
     public companion object {
-        public operator fun <D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        public operator fun <D : Degree, E : GMonoidElement<D>, Mon : GMonoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             degreeGroup: DegreeGroup<D>,
             monoid: Mon,
@@ -125,7 +125,7 @@ public interface MonoidGAlgebra<D : Degree, E : MonoidElement<D>, Mon : Monoid<D
     }
 }
 
-private class MonoidGAlgebraImpl<D : Degree, E : MonoidElement<D>, Mon : Monoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+private class MonoidGAlgebraImpl<D : Degree, E : GMonoidElement<D>, Mon : GMonoid<D, E>, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     factory: MonoidGAlgebraFactory<D, E, Mon, S, V, M>,
 ) : MonoidGAlgebra<D, E, Mon, S, V, M>,
     GVectorSpace<D, E, S, V> by factory.gVectorSpace {

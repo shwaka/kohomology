@@ -12,7 +12,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     public val degreeGroup: AugmentedDegreeGroup<D>,
     private val indeterminateList: IndeterminateList<D, I>,
     public val exponentList: IntArray,
-) : MonoidElement<D> {
+) : GMonoidElement<D> {
     init {
         if (this.indeterminateList.size != this.exponentList.size)
             throw InvalidSizeException("Invalid size of the exponent list")

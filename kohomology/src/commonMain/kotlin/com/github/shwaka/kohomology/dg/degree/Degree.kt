@@ -95,7 +95,7 @@ public interface DegreeGroup<D : Degree> {
      *
      * Compared with addition, this method is used in fewer places, but necessary in
      * [com.github.shwaka.kohomology.dg.GLinearMap.findPreimage] and
-     * [com.github.shwaka.kohomology.free.monoid.FreeMonoid.listElements].
+     * [com.github.shwaka.kohomology.free.monoid.FreeGMonoid.listElements].
      */
     public fun subtract(degree1: D, degree2: D): D
 

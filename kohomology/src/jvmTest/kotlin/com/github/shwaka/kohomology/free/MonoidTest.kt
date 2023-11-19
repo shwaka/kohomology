@@ -7,14 +7,14 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeMorphism
 import com.github.shwaka.kohomology.forAll
-import com.github.shwaka.kohomology.free.monoid.FreeMonoid
-import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
-import com.github.shwaka.kohomology.free.monoid.MonoidFromList
+import com.github.shwaka.kohomology.free.monoid.GMonoidFromList
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.Signed
 import com.github.shwaka.kohomology.free.monoid.SignedOrZero
-import com.github.shwaka.kohomology.free.monoid.SimpleMonoidElement
+import com.github.shwaka.kohomology.free.monoid.SimpleGMonoidElement
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Zero
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -43,7 +43,7 @@ class FreeMonoidTest : FreeSpec({
 
     "empty indeterminate list should be allowed" {
         shouldNotThrowAny {
-            FreeMonoid<StringIndeterminateName>(emptyList())
+            FreeGMonoid<StringIndeterminateName>(emptyList())
         }
     }
 
@@ -54,7 +54,7 @@ class FreeMonoidTest : FreeSpec({
                 Indeterminate("y", negativeDegree)
             )
             shouldThrow<IllegalArgumentException> {
-                FreeMonoid(indeterminateList)
+                FreeGMonoid(indeterminateList)
             }
         }
     }
@@ -64,7 +64,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 0)
         )
         shouldThrow<IllegalArgumentException> {
-            FreeMonoid(indeterminateList)
+            FreeGMonoid(indeterminateList)
         }
     }
 
@@ -74,7 +74,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 2),
             Indeterminate("x", 3),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         shouldNotThrowAny {
             monoid.listElements(0)
         }
@@ -86,7 +86,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -2),
             Indeterminate("x", -3),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         shouldNotThrowAny {
             monoid.listElements(0)
         }
@@ -96,12 +96,12 @@ class FreeMonoidTest : FreeSpec({
         val indeterminateList = listOf(
             Indeterminate("x", 2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         monoid.isCommutative.shouldBeTrue()
     }
 
     "should be bounded below and above by 0 if indeterminate list is empty" {
-        val monoid = FreeMonoid<StringIndeterminateName>(emptyList())
+        val monoid = FreeGMonoid<StringIndeterminateName>(emptyList())
         monoid.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = 0)
     }
 
@@ -110,7 +110,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 2),
             Indeterminate("y", 3),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         monoid.boundedness shouldBe Boundedness(upperBound = null, lowerBound = 0)
     }
 
@@ -119,7 +119,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -2),
             Indeterminate("y", -3),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         monoid.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = null)
     }
 
@@ -128,7 +128,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 3),
             Indeterminate("y", 5),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         monoid.boundedness shouldBe Boundedness(upperBound = 8, lowerBound = 0)
     }
 
@@ -137,7 +137,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -3),
             Indeterminate("y", -5),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         monoid.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = -8)
     }
 
@@ -146,7 +146,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 2),
             Indeterminate("y", 2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 0), Pair(2, 2), Pair(3, 0), Pair(4, 3)))
         checkAll(gen) { (degree, size) ->
             monoid.listElements(degree).size shouldBe size
@@ -158,7 +158,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -2),
             Indeterminate("y", -2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 0), Pair(-2, 2), Pair(-3, 0), Pair(-4, 3)))
         checkAll(gen) { (degree, size) ->
             monoid.listElements(degree).size shouldBe size
@@ -170,7 +170,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 1),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(1, 2), Pair(2, 1), Pair(3, 0), Pair(4, 0)))
         checkAll(gen) { (degree, size) ->
             monoid.listElements(degree).size shouldBe size
@@ -182,7 +182,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -1),
             Indeterminate("y", -1),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val gen = exhaustive(listOf(Pair(0, 1), Pair(-1, 2), Pair(-2, 1), Pair(-3, 0), Pair(-4, 0)))
         checkAll(gen) { (degree, size) ->
             monoid.listElements(degree).size shouldBe size
@@ -194,7 +194,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val gen = exhaustive(listOf(0, 1, 2, 3, 4))
         checkAll(gen) { degree ->
             monoid.listElements(degree).size shouldBe 1
@@ -206,7 +206,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", 1),
             Indeterminate("y", 2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         checkAll(Arb.negativeInts()) { degree ->
             monoid.listElements(degree).isEmpty().shouldBeTrue()
         }
@@ -217,7 +217,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("x", -1),
             Indeterminate("y", -2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         checkAll(Arb.positiveInts()) { degree ->
             monoid.listElements(degree).isEmpty().shouldBeTrue()
         }
@@ -239,7 +239,7 @@ class FreeMonoidTest : FreeSpec({
                 Indeterminate("z", 4 * n - 1),
                 Indeterminate("w", 4 * n - 1),
             )
-            val monoid = FreeMonoid(degreeGroup, indeterminateList)
+            val monoid = FreeGMonoid(degreeGroup, indeterminateList)
 
             "listDegreesForAugmentedDegree() should return a list with distinct elements" {
                 (0 until 20).forAll { degree ->
@@ -265,7 +265,7 @@ class FreeMonoidTest : FreeSpec({
             Indeterminate("y", 1),
             Indeterminate("z", 2),
         )
-        val monoid = FreeMonoid(indeterminateList)
+        val monoid = FreeGMonoid(indeterminateList)
         val x = Monomial(indeterminateList, listOf(1, 0, 0))
         val y = Monomial(indeterminateList, listOf(0, 1, 0))
         val z = Monomial(indeterminateList, listOf(0, 0, 1))
@@ -354,7 +354,7 @@ class FreeMonoidTest : FreeSpec({
                 Indeterminate("y", 4 * k - 1),
             )
         }
-        val monoid1 = FreeMonoid(degreeGroup1, indeterminateList)
+        val monoid1 = FreeGMonoid(degreeGroup1, indeterminateList)
 
         val degreeGroup2 = MultiDegreeGroup(
             listOf(
@@ -367,7 +367,7 @@ class FreeMonoidTest : FreeSpec({
         val degreeMorphism = degreeGroup2.context.run {
             MultiDegreeMorphism(degreeGroup1, degreeGroup2, listOf(n + m))
         }
-        val monoidMorphism = FreeMonoidMorphismByDegreeChange(monoid1, degreeMorphism)
+        val monoidMorphism = FreeGMonoidMorphismByDegreeChange(monoid1, degreeMorphism)
         val monoid2 = monoidMorphism.target
 
         "x should be mapped to a monomial of degree (2n + 2m)" {
@@ -406,8 +406,8 @@ class MonoidFromListTest : FreeSpec({
     val n = 5
 
     "basis of cohomology of complex projective space of complex dimension $n" - {
-        val elements = (0..n).map { i -> SimpleMonoidElement("c$i", 2 * i) }
-        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
+        val elements = (0..n).map { i -> SimpleGMonoidElement("c$i", 2 * i) }
+        val multiplicationTable: List<List<SignedOrZero<SimpleGMonoidElement<String, IntDegree>>>> =
             (0..n).map { i ->
                 (0..n).map { j ->
                     if (i + j <= n) {
@@ -417,7 +417,7 @@ class MonoidFromListTest : FreeSpec({
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
+        val monoid = GMonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = true)
 
         "check multiplication" {
             for (i in 0..n) {
@@ -445,12 +445,12 @@ class MonoidFromListTest : FreeSpec({
         // Note that the list of elements should contain the unit.
         // This is the reason why the first element is (v0 + v1), not v1.
         val elements = listOf(
-            SimpleMonoidElement("unit", 0),
-            SimpleMonoidElement("v0", 0),
-            SimpleMonoidElement("e", 1),
+            SimpleGMonoidElement("unit", 0),
+            SimpleGMonoidElement("v0", 0),
+            SimpleGMonoidElement("e", 1),
         )
         val (unit, v0, e) = elements
-        val multiplicationTable: List<List<SignedOrZero<SimpleMonoidElement<String, IntDegree>>>> =
+        val multiplicationTable: List<List<SignedOrZero<SimpleGMonoidElement<String, IntDegree>>>> =
             listOf(
                 listOf(
                     unit, // unit * unit = unit
@@ -476,7 +476,7 @@ class MonoidFromListTest : FreeSpec({
                     }
                 }
             }
-        val monoid = MonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = false)
+        val monoid = GMonoidFromList(elements, IntDegreeGroup, multiplicationTable, isCommutative = false)
 
         "check multiplication" {
             monoid.multiply(unit, v0) shouldBe Signed(v0, Sign.PLUS)

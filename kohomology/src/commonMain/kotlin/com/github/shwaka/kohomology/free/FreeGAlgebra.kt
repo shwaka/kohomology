@@ -18,8 +18,8 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.dg.getValueFromASTNode
 import com.github.shwaka.kohomology.dg.parser.ASTNode
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.free.monoid.FreeMonoid
-import com.github.shwaka.kohomology.free.monoid.FreeMonoidMorphismByDegreeChange
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoidMorphismByDegreeChange
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -47,7 +47,7 @@ internal class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Sc
     GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)
 
 public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
-    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M>, Printable {
+    MonoidGAlgebra<D, Monomial<D, I>, FreeGMonoid<D, I>, S, V, M>, Printable {
     override val context: FreeGAlgebraContext<D, I, S, V, M>
     override val degreeGroup: AugmentedDegreeGroup<D>
     public val indeterminateList: List<Indeterminate<D, I>>
@@ -219,7 +219,7 @@ public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V :
             indeterminate.convertDegree(degreeMorphism)
         }
         val newFreeGAlgebra = FreeGAlgebra(this.matrixSpace, degreeMorphism.target, newIndeterminateList)
-        val freeMonoidMorphism = FreeMonoidMorphismByDegreeChange(this.monoid, degreeMorphism)
+        val freeMonoidMorphism = FreeGMonoidMorphismByDegreeChange(this.monoid, degreeMorphism)
         val gLinearMapWithDegreeChange = GLinearMapWithDegreeChange(
             this,
             newFreeGAlgebra,
@@ -268,10 +268,10 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
     override val indeterminateList: List<Indeterminate<D, I>>,
     getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<Monomial<D, I>, S> = InternalPrintConfig.Companion::default,
 ) : FreeGAlgebra<D, I, S, V, M>,
-    MonoidGAlgebra<D, Monomial<D, I>, FreeMonoid<D, I>, S, V, M> by MonoidGAlgebra(
+    MonoidGAlgebra<D, Monomial<D, I>, FreeGMonoid<D, I>, S, V, M> by MonoidGAlgebra(
         matrixSpace,
         degreeGroup,
-        FreeMonoid(degreeGroup, indeterminateList),
+        FreeGMonoid(degreeGroup, indeterminateList),
         FreeGAlgebraImpl.getName(indeterminateList),
         getInternalPrintConfig,
     ) {

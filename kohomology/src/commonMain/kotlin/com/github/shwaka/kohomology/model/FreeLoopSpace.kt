@@ -18,7 +18,7 @@ import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
-import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -91,7 +91,7 @@ public class FreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
     override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.loopSpaceGAlgebra
     override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =
         factory.loopSpaceGAlgebra.indeterminateList
-    override val monoid: FreeMonoid<D, CopiedName<D, I>> = factory.loopSpaceGAlgebra.monoid
+    override val monoid: FreeGMonoid<D, CopiedName<D, I>> = factory.loopSpaceGAlgebra.monoid
 
     public val suspension: DGDerivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         DGDerivation(this, this.factory.suspension)

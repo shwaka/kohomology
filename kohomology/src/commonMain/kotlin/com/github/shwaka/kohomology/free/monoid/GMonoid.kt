@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.dg.degree.DegreeMorphism
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public interface MonoidElement<D : Degree> : BasisName {
+public interface GMonoidElement<D : Degree> : BasisName {
     public val degree: D
 }
 
@@ -20,12 +20,12 @@ public object Zero : SignedOrZero<Nothing>()
  * (or something similar to it).
  *
  * To model the multiplication in [com.github.shwaka.kohomology.free.FreeGAlgebra],
- * the multiplication of two elements in [Monoid] can be one of
+ * the multiplication of two elements in [GMonoid] can be one of
  * - an element,
  * - the minus of an element or
  * - zero.
  */
-public interface Monoid<D : Degree, E : MonoidElement<D>> {
+public interface GMonoid<D : Degree, E : GMonoidElement<D>> {
     public val unit: E
     public val isCommutative: Boolean
     public val boundedness: Boundedness
@@ -38,9 +38,9 @@ public interface Monoid<D : Degree, E : MonoidElement<D>> {
     }
 }
 
-public interface MonoidMorphismWithDegreeChange<DS : Degree, ES : MonoidElement<DS>, DT : Degree, ET : MonoidElement<DT>> {
-    public val source: Monoid<DS, ES>
-    public val target: Monoid<DT, ET>
+public interface GMonoidMorphismWithDegreeChange<DS : Degree, ES : GMonoidElement<DS>, DT : Degree, ET : GMonoidElement<DT>> {
+    public val source: GMonoid<DS, ES>
+    public val target: GMonoid<DT, ET>
     public val degreeMorphism: DegreeMorphism<DS, DT>
     public operator fun invoke(monoidElement: ES): ET
 }

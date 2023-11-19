@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
-import com.github.shwaka.kohomology.free.monoid.FreeMonoid
+import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
@@ -97,7 +97,7 @@ public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
     override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.cyclicGAlgebra
     override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =
         factory.cyclicGAlgebra.indeterminateList
-    override val monoid: FreeMonoid<D, CopiedName<D, I>> = factory.cyclicGAlgebra.monoid
+    override val monoid: FreeGMonoid<D, CopiedName<D, I>> = factory.cyclicGAlgebra.monoid
 
     public val suspension: Derivation<D, Monomial<D, CopiedName<D, I>>, S, V, M> =
         this.factory.suspension

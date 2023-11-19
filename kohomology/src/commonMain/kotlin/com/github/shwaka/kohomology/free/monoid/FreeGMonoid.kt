@@ -9,12 +9,12 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.util.Sign
 
 /**
- * The free object among commutative [Monoid]s.
+ * The free object among commutative [GMonoid]s.
  */
-public class FreeMonoid<D : Degree, I : IndeterminateName> (
+public class FreeGMonoid<D : Degree, I : IndeterminateName> (
     override val degreeGroup: AugmentedDegreeGroup<D>,
     indeterminateList: List<Indeterminate<D, I>>
-) : Monoid<D, Monomial<D, I>> {
+) : GMonoid<D, Monomial<D, I>> {
     // constructor(
     //     indeterminateList: List<Indeterminate<I>>,
     // ) : this(IndeterminateList.from(indeterminateList))
@@ -26,8 +26,8 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
     public companion object {
         public operator fun <I : IndeterminateName> invoke(
             indeterminateList: List<Indeterminate<IntDegree, I>>
-        ): Monoid<IntDegree, Monomial<IntDegree, I>> {
-            return FreeMonoid(IntDegreeGroup, indeterminateList)
+        ): GMonoid<IntDegree, Monomial<IntDegree, I>> {
+            return FreeGMonoid(IntDegreeGroup, indeterminateList)
         }
     }
 
@@ -162,7 +162,7 @@ public class FreeMonoid<D : Degree, I : IndeterminateName> (
 
     override fun toString(): String {
         val indeterminateListString = this.indeterminateListInternal.joinToString(", ")
-        return "FreeMonoid($indeterminateListString)"
+        return "FreeGMonoid($indeterminateListString)"
     }
 }
 
@@ -223,16 +223,16 @@ private class MonomialListGenerator<D : Degree, I : IndeterminateName>(
     }
 }
 
-public class FreeMonoidMorphismByDegreeChange<DS : Degree, DT : Degree, I : IndeterminateName>(
-    override val source: FreeMonoid<DS, I>,
+public class FreeGMonoidMorphismByDegreeChange<DS : Degree, DT : Degree, I : IndeterminateName>(
+    override val source: FreeGMonoid<DS, I>,
     override val degreeMorphism: AugmentedDegreeMorphism<DS, DT>,
-) : MonoidMorphismWithDegreeChange<DS, Monomial<DS, I>, DT, Monomial<DT, I>> {
-    override val target: FreeMonoid<DT, I> = run {
+) : GMonoidMorphismWithDegreeChange<DS, Monomial<DS, I>, DT, Monomial<DT, I>> {
+    override val target: FreeGMonoid<DT, I> = run {
         val targetDegreeGroup = this.degreeMorphism.target
         val targetIndeterminateList = this.source.indeterminateList.map { indeterminate ->
             indeterminate.convertDegree(degreeMorphism)
         }
-        FreeMonoid(targetDegreeGroup, targetIndeterminateList)
+        FreeGMonoid(targetDegreeGroup, targetIndeterminateList)
     }
 
     override fun invoke(monoidElement: Monomial<DS, I>): Monomial<DT, I> {

@@ -9,6 +9,7 @@ public class BarBasisName<E : FiniteMonoidElement>(
     public val degree: Int = elementList.size
 
     public fun boundary(i: Int): BarBasisName<E> {
+        require(this.degree > 0) { "boundary can be applied only when the degree is positive" }
         require(i >= 0) { "i must be non-negative, but was $i" }
         require(i <= this.degree) { "i must be less than the degree ${this.degree}, but was $i" }
         return when {

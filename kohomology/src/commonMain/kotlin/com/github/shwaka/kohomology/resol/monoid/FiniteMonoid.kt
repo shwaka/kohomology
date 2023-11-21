@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.monoid
 
 public interface FiniteMonoidElement
 

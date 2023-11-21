@@ -1,6 +1,8 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.bar
 
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.util.pow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag

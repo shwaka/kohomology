@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.monoid
 
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

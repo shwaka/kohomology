@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.bar
 
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GLinearMap
@@ -8,6 +8,8 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.vectsp.LinearMap
 

@@ -1,5 +1,7 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.bar
 
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.util.directProductOfFamily
 import com.github.shwaka.kohomology.vectsp.BasisName
 

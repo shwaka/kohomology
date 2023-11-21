@@ -1,6 +1,7 @@
-package com.github.shwaka.kohomology.resol
+package com.github.shwaka.kohomology.resol.bar
 
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7

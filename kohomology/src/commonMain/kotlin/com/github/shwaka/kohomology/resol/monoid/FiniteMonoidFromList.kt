@@ -8,7 +8,7 @@ public data class SimpleFiniteMonoidElement<T>(val name: T) : FiniteMonoidElemen
 
 public class FiniteMonoidFromList<T>(
     override val elements: List<SimpleFiniteMonoidElement<T>>,
-    public val multiplicationTable: List<List<SimpleFiniteMonoidElement<T>>>,
+    override val multiplicationTable: List<List<SimpleFiniteMonoidElement<T>>>,
 ) : FiniteMonoid<SimpleFiniteMonoidElement<T>> {
     override val unit: SimpleFiniteMonoidElement<T> = this.elements[0]
 

@@ -26,6 +26,10 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
         return CyclicGroupElement(value, this.order)
     }
 
+    override val multiplicationTable: List<List<CyclicGroupElement>> by lazy {
+        FiniteMonoid.getMultiplicationTable(this.elements, this::multiply)
+    }
+
     override fun invert(monoidElement: CyclicGroupElement): CyclicGroupElement {
         return if (monoidElement.value == 0) {
             CyclicGroupElement(0, this.order)

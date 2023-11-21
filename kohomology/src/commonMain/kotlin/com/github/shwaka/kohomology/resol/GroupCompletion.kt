@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.bar
+package com.github.shwaka.kohomology.resol
 
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf

@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.bar
+package com.github.shwaka.kohomology.resol
 
 import com.github.shwaka.kohomology.dg.DGVectorSpace
 import com.github.shwaka.kohomology.dg.GLinearMap

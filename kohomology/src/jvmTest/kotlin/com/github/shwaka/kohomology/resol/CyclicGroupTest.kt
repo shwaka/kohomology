@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.bar
+package com.github.shwaka.kohomology.resol
 
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec

@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.bar
 
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val finiteMonoidFromListTag = NamedTag("FiniteMonoidFromList")
@@ -18,6 +19,10 @@ class FiniteMonoidFromListTest : FreeSpec({
             listOf(zero, zero, zero), // zero*(-)
         )
         val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+
+        "monoid.isCommutative should be true" {
+            monoid.isCommutative.shouldBeTrue()
+        }
 
         "monoid.size should be 3" {
             monoid.size shouldBe 3

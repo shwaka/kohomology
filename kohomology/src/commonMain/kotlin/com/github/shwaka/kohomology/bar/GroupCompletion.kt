@@ -18,6 +18,12 @@ public data class Division<E : FiniteMonoidElement>(val left: E, val right: E) :
 public class GroupCompletion<E : FiniteMonoidElement>(
     public val monoid: FiniteMonoid<E>
 ) : FiniteGroup<Division<E>> {
+    init {
+        require(monoid.isCommutative) {
+            "GroupCompletion can be applied only to commutative monoid, but $monoid is not commutative"
+        }
+    }
+
     private val unionFind = monoid.elements.let { elements ->
         val divisions = directProductOf(elements, elements).map { Division.fromPair(it) }
         val unionFind = GenericUnionFind(divisions)
@@ -35,7 +41,7 @@ public class GroupCompletion<E : FiniteMonoidElement>(
 
     override val elements: List<Division<E>> = unionFind.groups().map { group -> group[0] }
     override val unit: Division<E> = unionFind.rootOf(Division(monoid.unit, monoid.unit))
-    override val isCommutative: Boolean = TODO()
+    override val isCommutative: Boolean = true
 
     override fun multiply(monoidElement1: Division<E>, monoidElement2: Division<E>): Division<E> {
         return this.unionFind.rootOf(

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700555267459,
+  "lastUpdate": 1700556989095,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3042,6 +3042,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.43,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1809b03073d6ee3b638f49318091085a61ab9cd9",
+          "message": "feat(core): add Algebra.isCommutative",
+          "timestamp": "2023-11-21T17:51:12+09:00",
+          "tree_id": "b7efac064aa2124feca075ade3cd5363517508df",
+          "url": "https://github.com/shwaka/kohomology/commit/1809b03073d6ee3b638f49318091085a61ab9cd9"
+        },
+        "date": 1700556988622,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.425,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.548,
             "unit": "s/op"
           }
         ]

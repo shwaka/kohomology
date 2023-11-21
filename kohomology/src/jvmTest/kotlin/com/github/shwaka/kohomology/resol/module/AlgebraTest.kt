@@ -44,6 +44,9 @@ class AlgebraTest : FreeSpec({
             }
 
             "test pow" {
+                algebra.zeroVector.pow(0) shouldBe e
+                algebra.zeroVector.pow(1) shouldBe algebra.zeroVector
+                algebra.zeroVector.pow(2) shouldBe algebra.zeroVector
                 e.pow(0) shouldBe e
                 e.pow(1) shouldBe e
                 e.pow(2) shouldBe e

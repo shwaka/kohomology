@@ -29,13 +29,25 @@ class AlgebraTest : FreeSpec({
         )
         val algebra = Algebra(matrixSpace, vectorSpace, multiplication, unit = e)
 
-        "test multiplication" {
-            algebra.context.run {
+        algebra.context.run {
+            "test multiplication" {
                 (e * e) shouldBe e
                 (e * t) shouldBe t
                 (t * e) shouldBe t
                 (t * t) shouldBe e
                 ((e + t) * (e + t)) shouldBe (2 * (e + t))
+            }
+
+            "test pow" {
+                e.pow(0) shouldBe e
+                e.pow(1) shouldBe e
+                e.pow(2) shouldBe e
+                t.pow(0) shouldBe e
+                t.pow(1) shouldBe t
+                t.pow(2) shouldBe e
+                t.pow(1234) shouldBe e
+                t.pow(12345) shouldBe t
+                (e + t).pow(3) shouldBe (4 * (e + t))
             }
         }
     }

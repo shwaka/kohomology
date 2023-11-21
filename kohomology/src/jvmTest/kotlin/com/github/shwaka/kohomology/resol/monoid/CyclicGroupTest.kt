@@ -39,5 +39,20 @@ class CyclicGroupTest : FreeSpec({
             cyclicGroup.invert(cyclicGroup.elements[2]) shouldBe
                 cyclicGroup.elements[3]
         }
+
+        "test multiplication table" {
+            cyclicGroup.multiplicationTable shouldBe
+                listOf(
+                    listOf(0, 1, 2, 3, 4),
+                    listOf(1, 2, 3, 4, 0),
+                    listOf(2, 3, 4, 0, 1),
+                    listOf(3, 4, 0, 1, 2),
+                    listOf(4, 0, 1, 2, 3),
+                ).map { row ->
+                    row.map { n: Int ->
+                        CyclicGroupElement(n, 5)
+                    }
+                }
+        }
     }
 })

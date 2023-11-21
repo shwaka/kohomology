@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700553674631,
+  "lastUpdate": 1700555267459,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3008,6 +3008,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.449,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b0495f2ba2facccbf2a654536792cb43fd7f289b",
+          "message": "refactor(core): add packages resol.bar and resol.monoid",
+          "timestamp": "2023-11-21T17:20:48+09:00",
+          "tree_id": "434fe078d2522e25bde8d2a082a67f02c912e079",
+          "url": "https://github.com/shwaka/kohomology/commit/b0495f2ba2facccbf2a654536792cb43fd7f289b"
+        },
+        "date": 1700555266942,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.406,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.43,
             "unit": "s/op"
           }
         ]

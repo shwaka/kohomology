@@ -1,6 +1,8 @@
 package com.github.shwaka.kohomology.resol.monoid
 
-public interface FiniteMonoidElement
+import com.github.shwaka.kohomology.vectsp.BasisName
+
+public interface FiniteMonoidElement : BasisName
 
 public interface FiniteMonoid<E : FiniteMonoidElement> {
     public val unit: E

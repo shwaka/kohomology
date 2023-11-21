@@ -27,7 +27,7 @@ class AlgebraTest : FreeSpec({
                 listOf(t, e)
             )
         )
-        val algebra = Algebra(matrixSpace, vectorSpace, multiplication)
+        val algebra = Algebra(matrixSpace, vectorSpace, multiplication, unit = e)
 
         "test multiplication" {
             algebra.context.run {

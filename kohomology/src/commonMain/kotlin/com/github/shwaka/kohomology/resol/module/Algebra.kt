@@ -14,9 +14,26 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 public interface AlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     VectorContext<B, S, V> {
     public val algebra: Algebra<B, S, V, M>
+    public val unit: Vector<B, S, V>
+        get() = this.algebra.unit
 
     public operator fun Vector<B, S, V>.times(other: Vector<B, S, V>): Vector<B, S, V> {
         return this@AlgebraContext.algebra.multiply(this, other)
+    }
+
+    public fun Vector<B, S, V>.pow(exponent: Int): Vector<B, S, V> {
+        val unit = this@AlgebraContext.algebra.unit
+        return when {
+            exponent == 0 -> unit
+            exponent == 1 -> this
+            exponent > 1 -> {
+                val half = this.pow(exponent / 2)
+                val rem = if (exponent % 2 == 1) this else unit
+                half * half * rem
+            }
+            exponent < 0 -> throw ArithmeticException("Negative power in an algebra is not defined")
+            else -> throw Exception("This can't happen!")
+        }
     }
 }
 
@@ -27,6 +44,7 @@ private class AlgebraContextImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
 
 public interface Algebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     VectorSpace<B, S, V> {
+    public val unit: Vector<B, S, V>
     public override val context: AlgebraContext<B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
     public val multiplication: BilinearMap<B, B, B, S, V, M>
@@ -40,8 +58,9 @@ public interface Algebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             matrixSpace: MatrixSpace<S, V, M>,
             vectorSpace: VectorSpace<B, S, V>,
             multiplication: BilinearMap<B, B, B, S, V, M>,
+            unit: Vector<B, S, V>,
         ): Algebra<B, S, V, M> {
-            return AlgebraImpl(matrixSpace, vectorSpace, multiplication)
+            return AlgebraImpl(matrixSpace, vectorSpace, multiplication, unit)
         }
     }
 }
@@ -50,6 +69,7 @@ private class AlgebraImpl<B : BasisName, S : Scalar, V : NumVector<S>, M : Matri
     override val matrixSpace: MatrixSpace<S, V, M>,
     vectorSpace: VectorSpace<B, S, V>,
     override val multiplication: BilinearMap<B, B, B, S, V, M>,
+    override val unit: Vector<B, S, V>,
 ) : Algebra<B, S, V, M>,
     VectorSpace<B, S, V> by vectorSpace {
     override val context: AlgebraContext<B, S, V, M> = AlgebraContextImpl(this)

@@ -52,6 +52,10 @@ public class GroupCompletion<E : FiniteMonoidElement>(
         )
     }
 
+    override val multiplicationTable: List<List<Division<E>>> by lazy {
+        FiniteMonoid.getMultiplicationTable(this.elements, this::multiply)
+    }
+
     override fun invert(monoidElement: Division<E>): Division<E> {
         return this.unionFind.rootOf(
             Division(

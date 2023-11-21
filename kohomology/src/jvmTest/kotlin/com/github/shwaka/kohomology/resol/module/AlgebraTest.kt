@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 val algebraTag = NamedTag("Algebra")
@@ -27,9 +28,13 @@ class AlgebraTest : FreeSpec({
                 listOf(t, e)
             )
         )
-        val algebra = Algebra(matrixSpace, vectorSpace, multiplication, unit = e)
+        val algebra = Algebra(matrixSpace, vectorSpace, multiplication, unit = e, isCommutative = true)
 
         algebra.context.run {
+            "algebra.isCommutative should be true" {
+                algebra.isCommutative.shouldBeTrue()
+            }
+
             "test multiplication" {
                 (e * e) shouldBe e
                 (e * t) shouldBe t

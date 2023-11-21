@@ -45,6 +45,7 @@ private class AlgebraContextImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
 public interface Algebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     VectorSpace<B, S, V> {
     public val unit: Vector<B, S, V>
+    public val isCommutative: Boolean
     public override val context: AlgebraContext<B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
     public val multiplication: BilinearMap<B, B, B, S, V, M>
@@ -59,8 +60,9 @@ public interface Algebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
             vectorSpace: VectorSpace<B, S, V>,
             multiplication: BilinearMap<B, B, B, S, V, M>,
             unit: Vector<B, S, V>,
+            isCommutative: Boolean = false,
         ): Algebra<B, S, V, M> {
-            return AlgebraImpl(matrixSpace, vectorSpace, multiplication, unit)
+            return AlgebraImpl(matrixSpace, vectorSpace, multiplication, unit, isCommutative)
         }
     }
 }
@@ -70,6 +72,7 @@ private class AlgebraImpl<B : BasisName, S : Scalar, V : NumVector<S>, M : Matri
     vectorSpace: VectorSpace<B, S, V>,
     override val multiplication: BilinearMap<B, B, B, S, V, M>,
     override val unit: Vector<B, S, V>,
+    override val isCommutative: Boolean,
 ) : Algebra<B, S, V, M>,
     VectorSpace<B, S, V> by vectorSpace {
     override val context: AlgebraContext<B, S, V, M> = AlgebraContextImpl(this)

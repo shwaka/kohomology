@@ -25,7 +25,7 @@ class AlgebraTest : FreeSpec({
             matrixSpace = matrixSpace,
             values = listOf(
                 listOf(e, t), // e*(-)
-                listOf(t, e)
+                listOf(t, e), // t*(-)
             )
         )
         val algebra = Algebra(matrixSpace, vectorSpace, multiplication, unit = e, isCommutative = true)

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700556989095,
+  "lastUpdate": 1700562080253,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3076,6 +3076,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.548,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "41b3a2c984a353d1301b7df41ed21f558e365ddd",
+          "message": "build(core): remove deprecated config from buildSrc/build.gradle.kts",
+          "timestamp": "2023-11-21T17:56:58+09:00",
+          "tree_id": "ab48f97227d16259e600e9c89e2d18962c086d46",
+          "url": "https://github.com/shwaka/kohomology/commit/41b3a2c984a353d1301b7df41ed21f558e365ddd"
+        },
+        "date": 1700562079488,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.507,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700562080253,
+  "lastUpdate": 1700563378379,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3110,6 +3110,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.507,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "7a826d82b3e7e624dafc426a29f29ad4bef2dd8e",
+          "message": "docs(core): add comment to AlgebraTest",
+          "timestamp": "2023-11-21T19:37:20+09:00",
+          "tree_id": "2085476bb425167c227def23128871edd4a1dea6",
+          "url": "https://github.com/shwaka/kohomology/commit/7a826d82b3e7e624dafc426a29f29ad4bef2dd8e"
+        },
+        "date": 1700563377392,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.444,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.514,
             "unit": "s/op"
           }
         ]

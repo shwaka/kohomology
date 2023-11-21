@@ -35,6 +35,7 @@ public class GroupCompletion<E : FiniteMonoidElement>(
 
     override val elements: List<Division<E>> = unionFind.groups().map { group -> group[0] }
     override val unit: Division<E> = unionFind.rootOf(Division(monoid.unit, monoid.unit))
+    override val isCommutative: Boolean = TODO()
 
     override fun multiply(monoidElement1: Division<E>, monoidElement2: Division<E>): Division<E> {
         return this.unionFind.rootOf(

@@ -26,4 +26,17 @@ public class FiniteMonoidFromList<T>(
         }
         return this.multiplicationTable[index1][index2]
     }
+
+    override val isCommutative: Boolean by lazy {
+        for (i in 0 until this.size) {
+            for (j in (i + 1) until this.size) {
+                val x = this.elements[i]
+                val y = this.elements[j]
+                if (this.multiply(x, y) != this.multiply(y, x)) {
+                    return@lazy false
+                }
+            }
+        }
+        return@lazy true
+    }
 }

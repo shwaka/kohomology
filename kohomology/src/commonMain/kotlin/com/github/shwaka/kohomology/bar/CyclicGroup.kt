@@ -18,6 +18,7 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
     override val elements: List<CyclicGroupElement> by lazy {
         (0 until this.order).map { i -> CyclicGroupElement(i, this.order) }
     }
+    override val isCommutative: Boolean = true
 
     override fun multiply(monoidElement1: CyclicGroupElement, monoidElement2: CyclicGroupElement): CyclicGroupElement {
         require(monoidElement1.order == monoidElement2.order)

@@ -41,4 +41,14 @@ class ModuleTest : FreeSpec({
             (t * (x + 2 * y)) shouldBe (y + 2 * x)
         }
     }
+
+    "nested context should work" {
+        module.coefficientAlgebra.context.run {
+            module.context.run {
+                ((one + t) * x) shouldBe (x + y)
+                ((one - 2 * t) * (3 * x + y)) shouldBe (x - 5 * y)
+                ((one + t.pow(3)) * x) shouldBe (x + y)
+            }
+        }
+    }
 })

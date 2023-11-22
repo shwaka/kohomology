@@ -76,6 +76,30 @@ class ModuleTest : FreeSpec({
         }
     }
 
+    "module.findSmallGenerator(listOf(x, x+y)) should return listOf(x)" {
+        module.context.run {
+            val smallGenerator = module.findSmallGenerator(listOf(x, x + y))
+            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldBe listOf(x)
+        }
+    }
+
+    "module.findSmallGenerator(listOf(2x+y)) should return listOf(2x+y)" {
+        module.context.run {
+            val smallGenerator = module.findSmallGenerator(listOf(2 * x + y))
+            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldBe listOf(2 * x + y)
+        }
+    }
+
+    "module.findSmallGenerator(listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
+        module.context.run {
+            val smallGenerator = module.findSmallGenerator(listOf(x + y, x - y))
+            smallGenerator.shouldHaveSize(2)
+            smallGenerator shouldBe listOf(x + y, x - y)
+        }
+    }
+
     "module.findSmallGenerator(emptyList()) should throw IllegalArgumentException" {
         module.context.run {
             shouldThrow<IllegalArgumentException> {

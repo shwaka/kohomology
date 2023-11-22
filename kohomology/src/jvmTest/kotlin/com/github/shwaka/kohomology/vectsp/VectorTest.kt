@@ -327,6 +327,37 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isBasisForZeroTest(matrixSp
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isGeneratedByTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "isGeneratedBy test" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val (v, w) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            "isGeneratedBy(basis) should be true" {
+                vectorSpace.isGeneratedBy(vectorSpace.getBasis(), matrixSpace).shouldBeTrue()
+            }
+            "isGeneratedBy([v, v+w]) should be true" {
+                vectorSpace.isGeneratedBy(
+                    listOf(v, v + w),
+                    matrixSpace
+                ).shouldBeTrue()
+            }
+            "isGeneratedBy([v, v]) should be false" {
+                vectorSpace.isGeneratedBy(
+                    listOf(v, v),
+                    matrixSpace
+                ).shouldBeFalse()
+            }
+            "isGeneratedBy([v]) should be false" {
+                vectorSpace.isGeneratedBy(
+                    listOf(v),
+                    matrixSpace
+                ).shouldBeFalse()
+            }
+        }
+    }
+}
+
 class RationalVectorTest : FreeSpec({
     tags(vectorTag, rationalTag)
 
@@ -339,4 +370,5 @@ class RationalVectorTest : FreeSpec({
     val matrixSpace = DenseMatrixSpaceOverRational
     include(isBasisTest(matrixSpace))
     include(isBasisForZeroTest(matrixSpace))
+    include(isGeneratedByTest(matrixSpace))
 })

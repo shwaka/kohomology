@@ -346,6 +346,20 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         }
     }
 
+    public fun <M : Matrix<S, V>> isGeneratedBy(
+        vectorList: List<Vector<B, S, V>>,
+        matrixSpace: MatrixSpace<S, V, M>
+    ): Boolean {
+        if (vectorList.size < this.dim) return false
+        val rank = matrixSpace.context.run {
+            matrixSpace.fromNumVectorList(
+                vectorList.map { it.numVector },
+                this@VectorSpace.dim
+            ).rank
+        }
+        return rank == this.dim
+    }
+
     public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getIdentity(this, matrixSpace)
     }

@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorContext
 import com.github.shwaka.kohomology.vectsp.VectorContextImpl
@@ -34,6 +35,30 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
 
     public fun act(a: Vector<BA, S, V>, b: Vector<B, S, V>): Vector<B, S, V> {
         return this.action(a, b)
+    }
+
+    public fun findSmallGenerator(generator: List<Vector<B, S, V>>?): List<Vector<B, S, V>> {
+        var remainingGenerator = if (generator == null) {
+            this.underlyingVectorSpace.getBasis()
+        } else {
+            require(this.underlyingVectorSpace.isGeneratedBy(generator, this.matrixSpace)) {
+                "not generator: $generator"
+            }
+            generator
+        }
+        val result = mutableListOf<Vector<B, S, V>>()
+        while (remainingGenerator.isNotEmpty()) {
+            result.add(remainingGenerator[0])
+            remainingGenerator = remainingGenerator.drop(1).filter { vector ->
+                val subVectorSpace = SubVectorSpace(
+                    matrixSpace = this.matrixSpace,
+                    totalVectorSpace = this.underlyingVectorSpace,
+                    generator = result,
+                )
+                !subVectorSpace.subspaceContains(vector)
+            }
+        }
+        return result
     }
 
     public companion object {

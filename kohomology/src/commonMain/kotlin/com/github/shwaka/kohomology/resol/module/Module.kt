@@ -37,6 +37,17 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action(a, b)
     }
 
+    private fun generateSubVectorSpaceOverCoefficient(
+        generator: List<Vector<B, S, V>>
+    ): SubVectorSpace<B, S, V, M> {
+        val subVectorSpace = SubVectorSpace(
+            matrixSpace = this.matrixSpace,
+            totalVectorSpace = this.underlyingVectorSpace,
+            generator = generator,
+        )
+        return this.action.image(source2Sub = subVectorSpace)
+    }
+
     public fun findSmallGenerator(generator: List<Vector<B, S, V>>? = null): List<Vector<B, S, V>> {
         var remainingGenerator = if (generator == null) {
             this.underlyingVectorSpace.getBasis()
@@ -49,13 +60,9 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         val result = mutableListOf<Vector<B, S, V>>()
         while (remainingGenerator.isNotEmpty()) {
             result.add(remainingGenerator[0])
+            val generatedSubVectorSpace = this.generateSubVectorSpaceOverCoefficient(result)
             remainingGenerator = remainingGenerator.drop(1).filter { vector ->
-                val subVectorSpace = SubVectorSpace(
-                    matrixSpace = this.matrixSpace,
-                    totalVectorSpace = this.underlyingVectorSpace,
-                    generator = result,
-                )
-                !subVectorSpace.subspaceContains(vector)
+                !generatedSubVectorSpace.subspaceContains(vector)
             }
         }
         return result

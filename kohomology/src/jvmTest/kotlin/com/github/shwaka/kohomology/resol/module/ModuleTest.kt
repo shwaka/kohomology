@@ -21,6 +21,8 @@ class ModuleTest : FreeSpec({
     val (x, y) = underlyingVectorSpace.getBasis()
     val (one, t) = coefficientAlgebra.getBasis()
     val module = run {
+        // Z/2 acting on Q{x, y} by
+        //   t*x = y, t*y = x
         val action = ValueBilinearMap(
             source1 = coefficientAlgebra,
             source2 = underlyingVectorSpace,

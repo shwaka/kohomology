@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 val moduleTag = NamedTag("Module")
@@ -50,5 +51,11 @@ class ModuleTest : FreeSpec({
                 ((one + t.pow(3)) * x) shouldBe (x + y)
             }
         }
+    }
+
+    "module.findSmallGenerator() should return listOf(x)" {
+        val smallGenerator = module.findSmallGenerator()
+        smallGenerator.shouldHaveSize(1)
+        smallGenerator shouldBe listOf(x)
     }
 })

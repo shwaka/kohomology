@@ -37,7 +37,7 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action(a, b)
     }
 
-    public fun findSmallGenerator(generator: List<Vector<B, S, V>>?): List<Vector<B, S, V>> {
+    public fun findSmallGenerator(generator: List<Vector<B, S, V>>? = null): List<Vector<B, S, V>> {
         var remainingGenerator = if (generator == null) {
             this.underlyingVectorSpace.getBasis()
         } else {

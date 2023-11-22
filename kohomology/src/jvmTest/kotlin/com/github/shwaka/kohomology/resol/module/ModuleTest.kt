@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -59,11 +60,35 @@ class ModuleTest : FreeSpec({
         smallGenerator shouldBe listOf(x)
     }
 
+    "module.findSmallGenerator(listOf(x)) should return listOf(x)" {
+        module.context.run {
+            val smallGenerator = module.findSmallGenerator(listOf(x))
+            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldBe listOf(x)
+        }
+    }
+
     "module.findSmallGenerator(listOf(x+y, x)) should return listOf(x)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(x + y, x))
             smallGenerator.shouldHaveSize(1)
             smallGenerator shouldBe listOf(x)
+        }
+    }
+
+    "module.findSmallGenerator(emptyList()) should throw IllegalArgumentException" {
+        module.context.run {
+            shouldThrow<IllegalArgumentException> {
+                module.findSmallGenerator(emptyList())
+            }
+        }
+    }
+
+    "module.findSmallGenerator(listOf(x+y)) should throw IllegalArgumentException" {
+        module.context.run {
+            shouldThrow<IllegalArgumentException> {
+                module.findSmallGenerator(listOf(x + y))
+            }
         }
     }
 })

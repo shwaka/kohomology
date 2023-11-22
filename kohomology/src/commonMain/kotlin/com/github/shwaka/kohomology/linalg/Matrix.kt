@@ -49,6 +49,8 @@ public interface MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     public operator fun M.unaryMinus(): M = this * (-1)
     public val M.rowEchelonForm: RowEchelonForm<S, V, M>
         get() = this@MatrixContext.matrixSpace.computeRowEchelonForm(this) // TODO: cache!
+    public val M.rank: Int
+        get() = this.rowEchelonForm.rank
     public fun M.rowSlice(rowRange: IntRange): M = this@MatrixContext.matrixSpace.computeRowSlice(this, rowRange)
     public fun M.colSlice(colRange: IntRange): M = this@MatrixContext.matrixSpace.computeColSlice(this, colRange)
 
@@ -252,6 +254,9 @@ public abstract class RowEchelonForm<S : Scalar, V : NumVector<S>, M : Matrix<S,
     }
     public val sign: Sign by lazy {
         this.computeSign()
+    }
+    public val rank: Int by lazy {
+        this.pivots.size
     }
     protected abstract fun computeRowEchelonForm(): M
     protected abstract fun computeReducedRowEchelonForm(): M

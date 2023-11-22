@@ -64,7 +64,10 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         var remainingGenerator = if (generator == null) {
             this.underlyingVectorSpace.getBasis()
         } else {
-            require(this.underlyingVectorSpace.isGeneratedBy(generator, this.matrixSpace)) {
+            require(
+                this.generateSubVectorSpaceOverCoefficient(generator).dim ==
+                    this.underlyingVectorSpace.dim
+            ) {
                 "not generator: $generator"
             }
             generator

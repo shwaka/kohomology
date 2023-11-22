@@ -48,6 +48,18 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action.image(source2Sub = subVectorSpace)
     }
 
+    private fun findMostEfficientVector(
+        alreadyAdded: List<Vector<B, S, V>>,
+        candidates: List<Vector<B, S, V>>,
+    ): Pair<Int, SubVectorSpace<B, S, V, M>> {
+        return candidates.withIndex().map { (index, candidate) ->
+            Pair(
+                index,
+                this.generateSubVectorSpaceOverCoefficient(alreadyAdded + listOf(candidate))
+            )
+        }.maxBy { (_, subVectorSpace) -> subVectorSpace.dim }
+    }
+
     public fun findSmallGenerator(generator: List<Vector<B, S, V>>? = null): List<Vector<B, S, V>> {
         var remainingGenerator = if (generator == null) {
             this.underlyingVectorSpace.getBasis()
@@ -59,10 +71,11 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         }
         val result = mutableListOf<Vector<B, S, V>>()
         while (remainingGenerator.isNotEmpty()) {
-            result.add(remainingGenerator[0])
-            val generatedSubVectorSpace = this.generateSubVectorSpaceOverCoefficient(result)
-            remainingGenerator = remainingGenerator.drop(1).filter { vector ->
-                !generatedSubVectorSpace.subspaceContains(vector)
+            val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(result, remainingGenerator)
+            result.add(remainingGenerator[selectedIndex])
+            remainingGenerator = remainingGenerator.filterIndexed() { index, vector ->
+                (index != selectedIndex) &&
+                    !generatedSubVectorSpace.subspaceContains(vector)
             }
         }
         return result

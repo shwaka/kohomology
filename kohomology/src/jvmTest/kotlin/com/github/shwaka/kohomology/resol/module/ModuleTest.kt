@@ -58,4 +58,12 @@ class ModuleTest : FreeSpec({
         smallGenerator.shouldHaveSize(1)
         smallGenerator shouldBe listOf(x)
     }
+
+    "module.findSmallGenerator(listOf(x+y, x)) should return listOf(x)" {
+        module.context.run {
+            val smallGenerator = module.findSmallGenerator(listOf(x + y, x))
+            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldBe listOf(x)
+        }
+    }
 })

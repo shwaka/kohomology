@@ -76,7 +76,7 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         while (remainingGenerator.isNotEmpty()) {
             val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(result, remainingGenerator)
             result.add(remainingGenerator[selectedIndex])
-            remainingGenerator = remainingGenerator.filterIndexed() { index, vector ->
+            remainingGenerator = remainingGenerator.filterIndexed { index, vector ->
                 (index != selectedIndex) &&
                     !generatedSubVectorSpace.subspaceContains(vector)
             }

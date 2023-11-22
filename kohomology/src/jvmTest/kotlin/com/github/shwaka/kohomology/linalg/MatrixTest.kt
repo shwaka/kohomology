@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.InvalidSizeException
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.jvmOnlyTag
@@ -458,6 +459,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                     listOf(zero, zero, zero),
                 ).toMatrix()
                 mat.rowEchelonForm.reducedMatrix shouldBe expectedMat
+            }
+            "rank of the identity matrix should be its size" {
+                (1..10).forAll { n ->
+                    matrixSpace.getIdentity(n).rank shouldBe n
+                }
+            }
+            "rank of ((1, 0), (0, 0)) should be 1" {
+                val mat = listOf(
+                    listOf(one, zero),
+                    listOf(zero, zero),
+                ).toMatrix()
+                mat.rank shouldBe 1
+            }
+            "rank of ((1, 2, 3), (0, 1, 2)) should be 2" {
+                val mat = listOf(
+                    listOf(one, two, three),
+                    listOf(zero, one, two),
+                ).toMatrix()
+                mat.rank shouldBe 2
+            }
+            "rank of zero matrix should be 0" {
+                (1..10).forAll { n ->
+                    matrixSpace.getZero(n).rank shouldBe 0
+                }
             }
             "transpose of ((1, 2), (3, 4)) should be ((1, 3), (2, 4))" {
                 val mat = listOf(

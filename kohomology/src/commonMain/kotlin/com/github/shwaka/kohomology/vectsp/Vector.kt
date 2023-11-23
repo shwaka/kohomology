@@ -306,6 +306,11 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         return this.fromNumVector(numVector)
     }
 
+    public fun fromBasisMap(basisMap: Map<B, S>): Vector<B, S, V> {
+        val coeffMap: Map<Int, S> = basisMap.mapKeys { (basisName, _) -> this.indexOf(basisName) }
+        return this.fromCoeffMap(coeffMap)
+    }
+
     public fun fromBasisName(basisName: B): Vector<B, S, V> {
         val index = this.indexOf(basisName)
         val coeffMap: Map<Int, S> = mapOf(index to this.field.one)

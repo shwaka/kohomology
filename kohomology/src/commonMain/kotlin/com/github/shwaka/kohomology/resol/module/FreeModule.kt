@@ -58,4 +58,17 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         }
         return this.underlyingVectorSpace.fromBasisMap(basisMap)
     }
+
+    public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasis<BA, BV>, S, V> {
+        return this.fromGeneratingBasisNameWithCoeff(
+            coefficient = this.coefficientAlgebra.unit,
+            generatingBasisName = generatingBasisName,
+        )
+    }
+
+    public fun getGeneratingBasis(): List<Vector<FreeModuleBasis<BA, BV>, S, V>> {
+        return this.generatingBasisNames.map { generatingBasisName ->
+            this.fromGeneratingBasisName(generatingBasisName)
+        }
+    }
 }

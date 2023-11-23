@@ -18,18 +18,39 @@ public class ModuleMap<
 (
     public val source: Module<BA, BS, S, V, M>,
     public val target: Module<BA, BT, S, V, M>,
-    public val matrix: M,
+    public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
 ) {
-    public val underlyingLinearMap: LinearMap<BS, BT, S, V, M> by lazy {
-        LinearMap.fromMatrix(
-            matrixSpace = source.matrixSpace,
-            source = source.underlyingVectorSpace,
-            target = target.underlyingVectorSpace,
-            matrix = matrix,
-        )
-    }
-
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
         return this.underlyingLinearMap(vector)
+    }
+
+    public companion object {
+        public fun <BA : BasisName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMatrix(
+            source: Module<BA, BS, S, V, M>,
+            target: Module<BA, BT, S, V, M>,
+            matrix: M,
+        ): ModuleMap<BA, BS, BT, S, V, M> {
+            val underlyingLinearMap = LinearMap.fromMatrix(
+                matrixSpace = source.matrixSpace,
+                source = source.underlyingVectorSpace,
+                target = target.underlyingVectorSpace,
+                matrix = matrix,
+            )
+            return ModuleMap(source, target, underlyingLinearMap)
+        }
+
+        public fun <BA : BasisName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromVectors(
+            source: Module<BA, BS, S, V, M>,
+            target: Module<BA, BT, S, V, M>,
+            vectors: List<Vector<BT, S, V>>,
+        ): ModuleMap<BA, BS, BT, S, V, M> {
+            val underlyingLinearMap = LinearMap.fromVectors(
+                matrixSpace = source.matrixSpace,
+                source = source.underlyingVectorSpace,
+                target = target.underlyingVectorSpace,
+                vectors = vectors,
+            )
+            return ModuleMap(source, target, underlyingLinearMap)
+        }
     }
 }

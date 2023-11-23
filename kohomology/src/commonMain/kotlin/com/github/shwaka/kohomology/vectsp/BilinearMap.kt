@@ -94,6 +94,12 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
     )
 
     override operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {
+        require(vector1 in this.source1) {
+            "Invalid vector is given as an argument of BilinearMap: $vector1 is not an element of ${this.source1}"
+        }
+        require(vector2 in this.source2) {
+            "Invalid vector is given as an argument of BilinearMap: $vector2 is not an element of ${this.source2}"
+        }
         return this.target.context.run {
             vector1.numVector.toMap().mapValues { (ind1, coeff1) ->
                 vector2.numVector.toMap().mapValues { (ind2, coeff2) ->
@@ -210,6 +216,12 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
     private val getValue: (BS1, BS2) -> Vector<BT, S, V>,
 ) : BilinearMap<BS1, BS2, BT, S, V, M> {
     override fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V> {
+        require(vector1 in this.source1) {
+            "Invalid vector is given as an argument of BilinearMap: $vector1 is not an element of ${this.source1}"
+        }
+        require(vector2 in this.source2) {
+            "Invalid vector is given as an argument of BilinearMap: $vector2 is not an element of ${this.source2}"
+        }
         return this.target.context.run {
             vector1.toBasisMap().mapValues { (basisName1, coeff1) ->
                 vector2.toBasisMap().mapValues { (basisName2, coeff2) ->

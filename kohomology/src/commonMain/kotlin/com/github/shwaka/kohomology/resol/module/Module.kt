@@ -21,7 +21,7 @@ public interface ModuleContext<BA : BasisName, B : BasisName, S : Scalar, V : Nu
     }
 }
 
-private class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+internal class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val module: Module<BA, B, S, V, M>,
 ) : ModuleContext<BA, B, S, V, M>,
     VectorContext<B, S, V> by VectorContextImpl(module.underlyingVectorSpace)

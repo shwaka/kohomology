@@ -45,10 +45,17 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
                 this.coefficientAlgebra.fromBasisName(algebraBasisName),
                 this.coefficientAlgebra.fromBasisName(freeModuleBasis.algebraBasisName),
             )
-            val basisMap = coefficient.toBasisMap().mapKeys { (multipliedAlgebraBasisName, _) ->
-                FreeModuleBasis(multipliedAlgebraBasisName, freeModuleBasis.generatingBasisName)
-            }
-            this.underlyingVectorSpace.fromBasisMap(basisMap)
+            this.fromGeneratingBasisNameWithCoeff(coefficient, freeModuleBasis.generatingBasisName)
         }
+    }
+
+    private fun fromGeneratingBasisNameWithCoeff(
+        coefficient: Vector<BA, S, V>,
+        generatingBasisName: BV,
+    ): Vector<FreeModuleBasis<BA, BV>, S, V> {
+        val basisMap = coefficient.toBasisMap().mapKeys { (algebraBasisName, _) ->
+            FreeModuleBasis(algebraBasisName, generatingBasisName)
+        }
+        return this.underlyingVectorSpace.fromBasisMap(basisMap)
     }
 }

@@ -7,7 +7,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 
-public class ModuleMap<
+public open class ModuleMap<
     BA : BasisName,
     BS : BasisName,
     BT : BasisName,
@@ -16,8 +16,8 @@ public class ModuleMap<
     M : Matrix<S, V>,
     >
 (
-    public val source: Module<BA, BS, S, V, M>,
-    public val target: Module<BA, BT, S, V, M>,
+    public open val source: Module<BA, BS, S, V, M>,
+    public open val target: Module<BA, BT, S, V, M>,
     public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
 ) {
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {

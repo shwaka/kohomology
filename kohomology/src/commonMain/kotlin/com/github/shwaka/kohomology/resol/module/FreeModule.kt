@@ -18,7 +18,7 @@ public data class FreeModuleBasis<BA : BasisName, BV : BasisName>(
 
 public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val coefficientAlgebra: Algebra<BA, S, V, M>,
-    generatingBasisNames: List<BV>,
+    public val generatingBasisNames: List<BV>,
 ) : Module<BA, FreeModuleBasis<BA, BV>, S, V, M> {
     override val underlyingVectorSpace: VectorSpace<FreeModuleBasis<BA, BV>, S, V> by lazy {
         val basisNames = directProductOf(

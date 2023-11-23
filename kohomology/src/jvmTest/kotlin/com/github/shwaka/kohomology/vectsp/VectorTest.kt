@@ -19,6 +19,7 @@ import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -34,6 +35,28 @@ fun <S : Scalar, V : NumVector<S>> vectorTest(numVectorSpace: NumVectorSpace<S, 
                 val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))
                 val v2 = vectorSpace.fromCoeffMap(mapOf(1 to one, 2 to two))
                 v2 shouldBe v1
+            }
+            "fromBasisMap(vector.toBasisMap()) should be vector" {
+                listOf(
+                    listOf(zero, one, two),
+                    listOf(one, one, one),
+                    listOf(zero, zero, zero),
+                    listOf(-one, two, -three),
+                ).forAll { coeffList ->
+                    val vector = vectorSpace.fromCoeffList(coeffList)
+                    vectorSpace.fromBasisMap(vector.toBasisMap()) shouldBe vector
+                }
+            }
+            "fromBasisMap(basisMap).toBasisMap() should be basisMap" {
+                listOf(
+                    mapOf("a" to one, "b" to two),
+                    mapOf("a" to one, "b" to two, "c" to three),
+                    mapOf("a" to one, "b" to one, "c" to one),
+                    mapOf(),
+                ).forAll { basisMapWithStringKeys ->
+                    val basisMap = basisMapWithStringKeys.mapKeys { (key, _) -> StringBasisName(key) }
+                    vectorSpace.fromBasisMap(basisMap).toBasisMap() shouldBe basisMap
+                }
             }
             "Vectors with same coefficients should return the same hashCode" {
                 val v1 = vectorSpace.fromCoeffList(listOf(zero, one, two))

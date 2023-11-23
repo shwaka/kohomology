@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -104,6 +105,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 f(w, x) shouldBe (2 * a + b)
                 f(w, y) shouldBe targetVectorSpace.zeroVector
                 f(v + w, x + y) shouldBe (2 * (a + b))
+            }
+            "BilinearMap.invoke should throw if incorrect elements are given" {
+                shouldThrow<IllegalArgumentException> { f(v, v) }
+                shouldThrow<IllegalArgumentException> { f(x, x) }
+                shouldThrow<IllegalArgumentException> { f(x, v) }
             }
             "test bilinearMap.induce for QuotVectorSpace" {
                 val source1QuotVectorSpace = QuotVectorSpace(

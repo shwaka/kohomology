@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -64,5 +65,11 @@ class FreeModuleTest : FreeSpec({
                 (t1 * y) shouldNotBe y
             }
         }
+    }
+
+    "freeModule.findSmallGenerator() should be [x, y]" {
+        val smallGenerator = freeModule.findSmallGenerator()
+        smallGenerator shouldHaveSize 2
+        smallGenerator shouldBe listOf(x, y)
     }
 })

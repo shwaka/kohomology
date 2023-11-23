@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700732106549,
+  "lastUpdate": 1700734027118,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3212,6 +3212,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.521,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5ec89b8fd063c0e40ef71b9a1399e104bde027fc",
+          "message": "refactor(core): improve (fake) constructor of ModuleMap",
+          "timestamp": "2023-11-23T18:55:50+09:00",
+          "tree_id": "ed08c424a8b03996adc3933270ec3dfc213a5415",
+          "url": "https://github.com/shwaka/kohomology/commit/5ec89b8fd063c0e40ef71b9a1399e104bde027fc"
+        },
+        "date": 1700734026445,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.428,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.473,
             "unit": "s/op"
           }
         ]

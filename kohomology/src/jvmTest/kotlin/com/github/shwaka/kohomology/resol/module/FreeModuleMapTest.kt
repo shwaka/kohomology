@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 class FreeModuleMapTest : FreeSpec({
@@ -46,6 +47,9 @@ class FreeModuleMapTest : FreeSpec({
             f(x0) shouldBe u0
             f(y0) shouldBe v0
         }
+        "freeModuleMap.kernel() should be zero" {
+            freeModuleMap.kernel().underlyingVectorSpace.dim shouldBe 0
+        }
     }
 
     "test with a map defined with coeff" - {
@@ -74,6 +78,33 @@ class FreeModuleMapTest : FreeSpec({
                 f(x0) shouldBe (3 * u0)
                 f(y0) shouldBe (-v0)
             }
+        }
+    }
+
+    "test with a map with non-zero kernel" - {
+        val freeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
+            source = freeModule1,
+            target = freeModule2,
+            values = freeModule2.context.run {
+                listOf(u, -u)
+            },
+        )
+
+        "check values" {
+            freeModuleMap(x) shouldBe u
+            freeModuleMap(y) shouldBe freeModule2.context.run { -u }
+            freeModuleMap(freeModule1.context.run { t1 * x }) shouldBe
+                freeModule2.context.run { t1 * u }
+        }
+
+        "freeModuleMap.kernel() should be of dim 3" {
+            freeModuleMap.kernel().underlyingVectorSpace.dim shouldBe 3
+        }
+
+        "freeModuleMap.kernel().findSmallGenerator() should be listOf(x+y)" {
+            val smallGenerator = freeModuleMap.kernel().findSmallGenerator()
+            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldBe freeModule1.context.run { listOf(x + y) }
         }
     }
 })

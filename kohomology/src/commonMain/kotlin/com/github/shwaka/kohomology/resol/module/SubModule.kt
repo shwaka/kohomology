@@ -9,11 +9,12 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubBasis
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
+import com.github.shwaka.kohomology.vectsp.asSubVectorSpace
 
 public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     Module<BA, SubBasis<B, S, V>, S, V, M> {
     public val totalModule: Module<BA, B, S, V, M>
-    public val generator: List<Vector<B, S, V>>
+    public val generatorOverCoeff: List<Vector<B, S, V>>
     public val inclusion: ModuleMap<BA, SubBasis<B, S, V>, B, S, V, M>
     public val retraction: ModuleMap<BA, B, SubBasis<B, S, V>, S, V, M>
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
@@ -23,22 +24,25 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
     public companion object {
         public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             totalModule: Module<BA, B, S, V, M>,
-            generator: List<Vector<B, S, V>>,
+            generatorOverCoeff: List<Vector<B, S, V>>,
         ): SubModule<BA, B, S, V, M> {
-            return SubModuleImpl(totalModule, generator)
+            return SubModuleImpl(totalModule, generatorOverCoeff)
         }
     }
 }
 
 private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val totalModule: Module<BA, B, S, V, M>,
-    override val generator: List<Vector<B, S, V>>,
+    override val generatorOverCoeff: List<Vector<B, S, V>>,
 ) : SubModule<BA, B, S, V, M> {
     override val underlyingVectorSpace: SubVectorSpace<B, S, V, M> by lazy {
-        SubVectorSpace(
-            matrixSpace = totalModule.matrixSpace,
-            totalVectorSpace = totalModule.underlyingVectorSpace,
-            generator = this.generator,
+        this.totalModule.action.image(
+            source1Sub = this.totalModule.coeffAlgebra.asSubVectorSpace(this.matrixSpace),
+            source2Sub = SubVectorSpace(
+                matrixSpace = this.matrixSpace,
+                totalVectorSpace = this.totalModule.underlyingVectorSpace,
+                generator = this.generatorOverCoeff,
+            ),
         )
     }
 

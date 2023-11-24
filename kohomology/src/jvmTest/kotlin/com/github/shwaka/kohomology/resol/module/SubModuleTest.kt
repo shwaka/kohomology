@@ -19,7 +19,7 @@ class SubModuleTest : FreeSpec({
 
     val subModule = SubModule(
         totalModule = freeModule,
-        generator = listOf(x),
+        generatorOverCoeff = listOf(x),
     )
 
     "subModule.underlyingVectorSpace.dim should be 3" {

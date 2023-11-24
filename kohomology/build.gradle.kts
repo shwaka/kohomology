@@ -150,12 +150,15 @@ tasks.withType<Test> {
     testLogging {
         events("skipped", "passed", "failed") // "started" は消した
     }
-    System.getProperty("kotest.tags")?.let {
-        // null を set するとなんかエラーが起きるので、 ?.let を使った
-        systemProperties["kotest.tags"] = it
-    }
-    System.getProperty("kococo.debug")?.let {
-        systemProperties["kococo.debug"] = it
+    val keys: List<String> = listOf(
+        "kotest.tags",
+        "kococo.debug",
+    )
+    for (key in keys) {
+        System.getProperty(key)?.let {
+            // null を set するとなんかエラーが起きるので、 ?.let を使った
+            systemProperties[key] = it
+        }
     }
 }
 

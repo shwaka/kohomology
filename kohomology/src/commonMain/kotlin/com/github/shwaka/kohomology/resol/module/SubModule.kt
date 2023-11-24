@@ -36,6 +36,13 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
                 )
             return SubModuleImpl(totalModule, underlyingVectorSpace)
         }
+
+        public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            totalModule: Module<BA, B, S, V, M>,
+            underlyingVectorSpace: SubVectorSpace<B, S, V, M>,
+        ): SubModule<BA, B, S, V, M> {
+            return SubModuleImpl(totalModule, underlyingVectorSpace)
+        }
     }
 }
 

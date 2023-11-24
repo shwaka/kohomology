@@ -24,6 +24,13 @@ public open class ModuleMap<
         return this.underlyingLinearMap(vector)
     }
 
+    public fun kernel(): SubModule<BA, BS, S, V, M> {
+        return SubModule(
+            totalModule = this.source,
+            underlyingVectorSpace = this.underlyingLinearMap.kernel(),
+        )
+    }
+
     public companion object {
         public fun <BA : BasisName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMatrix(
             source: Module<BA, BS, S, V, M>,

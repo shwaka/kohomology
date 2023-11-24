@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700823109829,
+  "lastUpdate": 1700835823902,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3416,6 +3416,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.536,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5ea9d9df5b7873522fe7f6e135966e808928b962",
+          "message": "test(core): refactor and improve ComplexOfFreeModulesTest by using test factory",
+          "timestamp": "2023-11-24T23:18:36+09:00",
+          "tree_id": "9ba238b665da53a0b92ffe2fd2bd1427a6777510",
+          "url": "https://github.com/shwaka/kohomology/commit/5ea9d9df5b7873522fe7f6e135966e808928b962"
+        },
+        "date": 1700835823438,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.412,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.448,
             "unit": "s/op"
           }
         ]

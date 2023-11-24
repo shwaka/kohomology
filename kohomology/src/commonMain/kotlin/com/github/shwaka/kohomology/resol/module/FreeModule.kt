@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.util.directProductOf
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.LazyBilinearMap
+import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
@@ -53,6 +54,18 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         VectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             basisNames = this.generatingBasisNames,
+        )
+    }
+
+    public val projection: LinearMap<FreeModuleBasis<BA, BV>, BV, S, V, M> by lazy {
+        val vectors = this.underlyingVectorSpace.basisNames.map { freeModuleBasis ->
+            this.vectorSpaceWithoutCoeff.fromBasisName(freeModuleBasis.generatingBasisName)
+        }
+        LinearMap.fromVectors(
+            source = this.underlyingVectorSpace,
+            target = this.vectorSpaceWithoutCoeff,
+            matrixSpace = this.matrixSpace,
+            vectors = vectors,
         )
     }
 

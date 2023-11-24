@@ -19,6 +19,15 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
 
     override val underlyingVectorSpace: SubVectorSpace<B, S, V, M>
+
+    public companion object {
+        public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            totalModule: Module<BA, B, S, V, M>,
+            generator: List<Vector<B, S, V>>,
+        ): SubModule<BA, B, S, V, M> {
+            return SubModuleImpl(totalModule, generator)
+        }
+    }
 }
 
 private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -39,7 +48,10 @@ private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVe
     override val matrixSpace: MatrixSpace<S, V, M>
         get() = totalModule.matrixSpace
     override val action: BilinearMap<BA, SubBasis<B, S, V>, SubBasis<B, S, V>, S, V, M> by lazy {
-        TODO()
+        this.totalModule.action.induce(
+            source2Sub = this.underlyingVectorSpace,
+            targetSub = this.underlyingVectorSpace,
+        )
     }
 
     override val inclusion: ModuleMap<BA, SubBasis<B, S, V>, B, S, V, M> by lazy {
@@ -61,6 +73,6 @@ private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVe
     }
 
     override fun subspaceContains(vector: Vector<B, S, V>): Boolean {
-        TODO("Not yet implemented")
+        return this.underlyingVectorSpace.subspaceContains(vector)
     }
 }

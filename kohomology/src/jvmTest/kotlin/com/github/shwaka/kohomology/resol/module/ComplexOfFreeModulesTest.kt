@@ -88,9 +88,13 @@ class ComplexOfFreeModulesTest : FreeSpec({
     "test with free resolution of Z/2 over rational" - {
         val complex = freeResolutionOverCyclicGroup(2, SparseMatrixSpaceOverRational)
 
-        "cohomology of underlyingDGVectorSpace should be zero" {
+        "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
             (-10..10).forAll { degree ->
-                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe 0
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
             }
         }
     }

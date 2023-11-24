@@ -21,6 +21,14 @@ class FreeModuleTest : FreeSpec({
     val (e, t1, t2) = coeffAlgebra.getBasis()
     val (x, y) = freeModule.getGeneratingBasis()
 
+    "freeModule.underlyingVectorSpace.dim should be coeffAlgebra.dim * generatingBasisNames.size" {
+        freeModule.underlyingVectorSpace.dim shouldBe (coeffAlgebra.dim * generatingBasisNames.size)
+    }
+
+    "freeModule.vectorSpaceWithoutCoeff.dim should be generatingBasisNames.size" {
+        freeModule.vectorSpaceWithoutCoeff.dim shouldBe generatingBasisNames.size
+    }
+
     "test freeModule.generatingBasisNames" {
         freeModule.generatingBasisNames shouldBe generatingBasisNames
     }

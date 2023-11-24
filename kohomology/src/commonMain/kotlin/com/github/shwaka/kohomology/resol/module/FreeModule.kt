@@ -15,7 +15,11 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 public data class FreeModuleBasis<BA : BasisName, BV : BasisName>(
     val algebraBasisName: BA,
     val generatingBasisName: BV,
-) : BasisName
+) : BasisName {
+    override fun toString(): String {
+        return "${this.algebraBasisName}*${this.generatingBasisName}"
+    }
+}
 
 public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val coeffAlgebra: Algebra<BA, S, V, M>,

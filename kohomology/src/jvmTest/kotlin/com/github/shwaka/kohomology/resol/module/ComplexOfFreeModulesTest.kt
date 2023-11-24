@@ -44,7 +44,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverC
     val moduleMapFromZero = FreeModuleMap.fromValuesOnGeneratingBasis(
         source = moduleAtEven,
         target = zeroModule,
-        values = emptyList(),
+        values = listOf(zeroModule.underlyingVectorSpace.zeroVector),
     )
     val zeroModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
         source = zeroModule,

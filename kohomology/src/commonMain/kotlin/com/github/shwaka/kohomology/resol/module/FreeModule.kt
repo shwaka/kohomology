@@ -69,6 +69,15 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         )
     }
 
+    public val inclusion: LinearMap<BV, FreeModuleBasis<BA, BV>, S, V, M> by lazy {
+        LinearMap.fromVectors(
+            source = this.vectorSpaceWithoutCoeff,
+            target = this.underlyingVectorSpace,
+            matrixSpace = this.matrixSpace,
+            vectors = this.getGeneratingBasis(),
+        )
+    }
+
     private fun fromGeneratingBasisNameWithCoeff(
         coeff: Vector<BA, S, V>,
         generatingBasisName: BV,

@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -95,6 +96,40 @@ class ComplexOfFreeModulesTest : FreeSpec({
                     else -> 0
                 }
                 complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        "cohomology of dgVectorSpaceWithoutCoeff should be 0 except for degree 0" {
+            (-10..10).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                complex.dgVectorSpaceWithoutCoeff.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+
+    "test with free resolution of Z/2 over F2" - {
+        val complex = freeResolutionOverCyclicGroup(2, SetMatrixSpaceOverF2Boolean)
+
+        "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
+            (-10..10).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        "cohomology of dgVectorSpaceWithoutCoeff should be 1-dimensional at non-positive degrees" {
+            (-10..10).forAll { degree ->
+                val expected = when {
+                    (degree > 0) -> 0
+                    else -> 1
+                }
+                complex.dgVectorSpaceWithoutCoeff.cohomology[degree].dim shouldBe expected
             }
         }
     }

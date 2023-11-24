@@ -4,6 +4,8 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 class SubModuleTest : FreeSpec({
@@ -24,5 +26,21 @@ class SubModuleTest : FreeSpec({
 
     "subModule.underlyingVectorSpace.dim should be 3" {
         subModule.underlyingVectorSpace.dim shouldBe 3
+    }
+
+    "orbit of x should be contained in the submodule" {
+        freeModule.context.run {
+            subModule.subspaceContains(e * x).shouldBeTrue()
+            subModule.subspaceContains(t1 * x).shouldBeTrue()
+            subModule.subspaceContains(t2 * x).shouldBeTrue()
+        }
+    }
+
+    "orbit of y should not be contained in the submodule" {
+        freeModule.context.run {
+            subModule.subspaceContains(e * y).shouldBeFalse()
+            subModule.subspaceContains(t1 * y).shouldBeFalse()
+            subModule.subspaceContains(t2 * y).shouldBeFalse()
+        }
     }
 })

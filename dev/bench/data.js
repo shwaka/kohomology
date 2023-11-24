@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700751968324,
+  "lastUpdate": 1700806506611,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3280,6 +3280,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.561,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "cf9c5a5cb8c3c9635b4ced4f6e32637e83c453c3",
+          "message": "refactor(core): rename variables from coefficient to coeff",
+          "timestamp": "2023-11-24T15:08:06+09:00",
+          "tree_id": "7338f86a6b02c18e0f8a0bac62aefa47c285e56a",
+          "url": "https://github.com/shwaka/kohomology/commit/cf9c5a5cb8c3c9635b4ced4f6e32637e83c453c3"
+        },
+        "date": 1700806506137,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.426,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.507,
             "unit": "s/op"
           }
         ]

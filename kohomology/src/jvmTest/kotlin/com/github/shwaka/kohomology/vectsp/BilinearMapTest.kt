@@ -111,6 +111,30 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 shouldThrow<IllegalArgumentException> { f(x, x) }
                 shouldThrow<IllegalArgumentException> { f(x, v) }
             }
+            "test bilinearMap.induce for SubVectorSpace" {
+                val source1SubVectorSpace = sourceVectorSpace1.asSubVectorSpace(matrixSpace)
+                val source2SubVectorSpace = SubVectorSpace(
+                    matrixSpace,
+                    totalVectorSpace = sourceVectorSpace2,
+                    generator = listOf(y),
+                )
+                val targetSubVectorSpace = SubVectorSpace(
+                    matrixSpace,
+                    totalVectorSpace = targetVectorSpace,
+                    generator = listOf(b - a)
+                )
+                val g = f.induce(
+                    source1SubVectorSpace,
+                    source2SubVectorSpace,
+                    targetSubVectorSpace,
+                )
+
+                val p1 = source1SubVectorSpace.retraction
+                val p2 = source2SubVectorSpace.retraction
+                val q = targetSubVectorSpace.retraction
+                g(p1(v), p2(y)) shouldBe q(b - a)
+                g(p1(w), p2(y)).isZero().shouldBeTrue()
+            }
             "test bilinearMap.induce for QuotVectorSpace" {
                 val source1QuotVectorSpace = QuotVectorSpace(
                     matrixSpace,

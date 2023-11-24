@@ -14,7 +14,6 @@ import com.github.shwaka.kohomology.vectsp.asSubVectorSpace
 public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     Module<BA, SubBasis<B, S, V>, S, V, M> {
     public val totalModule: Module<BA, B, S, V, M>
-    public val generatorOverCoeff: List<Vector<B, S, V>>
     public val inclusion: ModuleMap<BA, SubBasis<B, S, V>, B, S, V, M>
     public val retraction: ModuleMap<BA, B, SubBasis<B, S, V>, S, V, M>
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
@@ -26,25 +25,24 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
             totalModule: Module<BA, B, S, V, M>,
             generatorOverCoeff: List<Vector<B, S, V>>,
         ): SubModule<BA, B, S, V, M> {
-            return SubModuleImpl(totalModule, generatorOverCoeff)
+            val underlyingVectorSpace: SubVectorSpace<B, S, V, M> =
+                totalModule.action.image(
+                    source1Sub = totalModule.coeffAlgebra.asSubVectorSpace(totalModule.matrixSpace),
+                    source2Sub = SubVectorSpace(
+                        matrixSpace = totalModule.matrixSpace,
+                        totalVectorSpace = totalModule.underlyingVectorSpace,
+                        generator = generatorOverCoeff,
+                    ),
+                )
+            return SubModuleImpl(totalModule, underlyingVectorSpace)
         }
     }
 }
 
 private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val totalModule: Module<BA, B, S, V, M>,
-    override val generatorOverCoeff: List<Vector<B, S, V>>,
+    override val underlyingVectorSpace: SubVectorSpace<B, S, V, M>,
 ) : SubModule<BA, B, S, V, M> {
-    override val underlyingVectorSpace: SubVectorSpace<B, S, V, M> by lazy {
-        this.totalModule.action.image(
-            source1Sub = this.totalModule.coeffAlgebra.asSubVectorSpace(this.matrixSpace),
-            source2Sub = SubVectorSpace(
-                matrixSpace = this.matrixSpace,
-                totalVectorSpace = this.totalModule.underlyingVectorSpace,
-                generator = this.generatorOverCoeff,
-            ),
-        )
-    }
 
     override val coeffAlgebra: Algebra<BA, S, V, M>
         get() = totalModule.coeffAlgebra

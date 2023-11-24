@@ -39,5 +39,12 @@ class FreeModuleMapTest : FreeSpec({
                 freeModuleMap(arg) shouldBe expected
             }
         }
+        "check values of freeModuleMap.inducedMapWithoutCoeff" {
+            val (x0, y0) = freeModule1.vectorSpaceWithoutCoeff.getBasis()
+            val (u0, v0) = freeModule2.vectorSpaceWithoutCoeff.getBasis()
+            val f = freeModuleMap.inducedMapWithoutCoeff
+            f(x0) shouldBe u0
+            f(y0) shouldBe v0
+        }
     }
 })

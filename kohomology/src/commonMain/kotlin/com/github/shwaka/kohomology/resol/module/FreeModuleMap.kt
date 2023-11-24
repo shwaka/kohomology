@@ -48,6 +48,11 @@ public class FreeModuleMap<
                 "cannot consider FreeModuleMap between different coefficient algebras: " +
                     "${source.coeffAlgebra} and ${target.coeffAlgebra}"
             }
+            require(values.size == source.generatingBasisNames.size) {
+                "values should have the same size with source.generatingBasisNames; " +
+                    "values.size=${values.size}, " +
+                    "source.generatingBasisNames.size=${source.generatingBasisNames.size}"
+            }
             val coeffAlgebra = source.coeffAlgebra
             val vectors = source.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
                 val coeff = coeffAlgebra.fromBasisName(freeModuleBasisName.algebraBasisName)

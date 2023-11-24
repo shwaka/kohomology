@@ -80,4 +80,17 @@ class FreeModuleTest : FreeSpec({
         smallGenerator shouldHaveSize 2
         smallGenerator shouldBe listOf(x, y)
     }
+
+    "test freeModule.projection" {
+        val p = freeModule.projection
+        val (x0, y0) = freeModule.vectorSpaceWithoutCoeff.getBasis()
+        freeModule.context.run {
+            p(x) shouldBe x0
+            p(t1 * x) shouldBe x0
+            p(t2 * x) shouldBe x0
+            p(y) shouldBe y0
+            p(t1 * y) shouldBe y0
+            p(t2 * y) shouldBe y0
+        }
+    }
 })

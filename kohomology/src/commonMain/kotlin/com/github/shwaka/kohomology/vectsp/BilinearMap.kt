@@ -23,6 +23,17 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
         S, V, M,
         >
 
+    // Used in SubModule
+    public fun induce(
+        source2Sub: SubVectorSpace<BS2, S, V, M>,
+        targetSub: SubVectorSpace<BT, S, V, M>,
+    ): BilinearMap<
+        BS1,
+        SubBasis<BS2, S, V>,
+        SubBasis<BT, S, V>,
+        S, V, M,
+        >
+
     public fun induce(
         source1Quot: QuotVectorSpace<BS1, S, V, M>,
         source2Quot: QuotVectorSpace<BS2, S, V, M>,
@@ -133,6 +144,17 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
     }
 
     override fun induce(
+        source2Sub: SubVectorSpace<BS2, S, V, M>,
+        targetSub: SubVectorSpace<BT, S, V, M>
+    ): BilinearMap<BS1, SubBasis<BS2, S, V>, SubBasis<BT, S, V>, S, V, M> {
+        return ValueBilinearMap.getInducedMap(
+            this,
+            this.source1, source2Sub,
+            targetSub,
+        )
+    }
+
+    override fun induce(
         source1Quot: QuotVectorSpace<BS1, S, V, M>,
         source2Quot: QuotVectorSpace<BS2, S, V, M>,
         targetQuot: QuotVectorSpace<BT, S, V, M>
@@ -186,6 +208,39 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
                 }
             return ValueBilinearMap(
                 source1Sub,
+                source2Sub,
+                targetSub,
+                bilinearMap.matrixSpace,
+                valueList,
+            )
+        }
+
+        private fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
+            bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,
+            source1: VectorSpace<BS1, S, V>,
+            source2Sub: SubVectorSpace<BS2, S, V, M>,
+            targetSub: SubVectorSpace<BT, S, V, M>,
+        ): ValueBilinearMap<
+            BS1,
+            SubBasis<BS2, S, V>,
+            SubBasis<BT, S, V>,
+            S, V, M,
+            > {
+            val basis1: List<Vector<BS1, S, V>> = source1.getBasis()
+            val basisIncl2: List<Vector<BS2, S, V>> =
+                source2Sub.getBasis().map { subVector2: Vector<SubBasis<BS2, S, V>, S, V> ->
+                    source2Sub.inclusion(subVector2)
+                }
+            val valueList: List<List<Vector<SubBasis<BT, S, V>, S, V>>> =
+                basis1.map { vector1: Vector<BS1, S, V> ->
+                    basisIncl2.map { vector2: Vector<BS2, S, V> ->
+                        targetSub.retraction(
+                            bilinearMap(vector1, vector2)
+                        )
+                    }
+                }
+            return ValueBilinearMap(
+                source1,
                 source2Sub,
                 targetSub,
                 bilinearMap.matrixSpace,
@@ -303,6 +358,17 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
     }
 
     override fun induce(
+        source2Sub: SubVectorSpace<BS2, S, V, M>,
+        targetSub: SubVectorSpace<BT, S, V, M>
+    ): BilinearMap<BS1, SubBasis<BS2, S, V>, SubBasis<BT, S, V>, S, V, M> {
+        return LazyBilinearMap.getInducedMap(
+            this,
+            this.source1, source2Sub,
+            targetSub,
+        )
+    }
+
+    override fun induce(
         source1Quot: QuotVectorSpace<BS1, S, V, M>,
         source2Quot: QuotVectorSpace<BS2, S, V, M>,
         targetQuot: QuotVectorSpace<BT, S, V, M>
@@ -344,6 +410,28 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
                 bilinearMap.matrixSpace,
             ) { subBasisName1, subBasisName2 ->
                 val vector1 = subBasisName1.vector
+                val vector2 = subBasisName2.vector
+                targetSub.retraction(bilinearMap(vector1, vector2))
+            }
+        }
+
+        private fun <BS1 : BasisName, BS2 : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getInducedMap(
+            bilinearMap: BilinearMap<BS1, BS2, BT, S, V, M>,
+            source1: VectorSpace<BS1, S, V>,
+            source2Sub: SubVectorSpace<BS2, S, V, M>,
+            targetSub: SubVectorSpace<BT, S, V, M>,
+        ): LazyBilinearMap<
+            BS1,
+            SubBasis<BS2, S, V>,
+            SubBasis<BT, S, V>,
+            S, V, M,
+            > {
+            return LazyBilinearMap(
+                source1, source2Sub,
+                targetSub,
+                bilinearMap.matrixSpace,
+            ) { basisName1, subBasisName2 ->
+                val vector1 = source1.fromBasisName(basisName1)
                 val vector2 = subBasisName2.vector
                 targetSub.retraction(bilinearMap(vector1, vector2))
             }

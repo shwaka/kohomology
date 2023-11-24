@@ -9,10 +9,12 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.specific.f2.SetMatrixSpaceOverF2Boolean
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGroup(
@@ -83,12 +85,15 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverC
     )
 }
 
-class ComplexOfFreeModulesTest : FreeSpec({
-    tags(moduleTag)
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolution(
+    order: Int,
+    matrixSpace: MatrixSpace<S, V, M>,
+) = freeSpec {
+    require(order > 1)
+    val complex = freeResolutionOverCyclicGroup(order, matrixSpace)
+    val field = matrixSpace.field
 
-    "test with free resolution of Z/2 over rational" - {
-        val complex = freeResolutionOverCyclicGroup(2, SparseMatrixSpaceOverRational)
-
+    "test with free resolution of $field over $field[Z/$order]" - {
         "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
             (-10..10).forAll { degree ->
                 val expected = when (degree) {
@@ -101,36 +106,29 @@ class ComplexOfFreeModulesTest : FreeSpec({
 
         "cohomology of dgVectorSpaceWithoutCoeff should be 0 except for degree 0" {
             (-10..10).forAll { degree ->
-                val expected = when (degree) {
-                    0 -> 1
-                    else -> 0
-                }
-                complex.dgVectorSpaceWithoutCoeff.cohomology[degree].dim shouldBe expected
-            }
-        }
-    }
-
-    "test with free resolution of Z/2 over F2" - {
-        val complex = freeResolutionOverCyclicGroup(2, SetMatrixSpaceOverF2Boolean)
-
-        "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
-            (-10..10).forAll { degree ->
-                val expected = when (degree) {
-                    0 -> 1
-                    else -> 0
-                }
-                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
-            }
-        }
-
-        "cohomology of dgVectorSpaceWithoutCoeff should be 1-dimensional at non-positive degrees" {
-            (-10..10).forAll { degree ->
                 val expected = when {
-                    (degree > 0) -> 0
-                    else -> 1
+                    (order == matrixSpace.field.characteristic) -> when {
+                        (degree > 0) -> 0
+                        else -> 1
+                    }
+                    else -> when (degree) {
+                        0 -> 1
+                        else -> 0
+                    }
                 }
                 complex.dgVectorSpaceWithoutCoeff.cohomology[degree].dim shouldBe expected
             }
         }
     }
+}
+
+class ComplexOfFreeModulesTest : FreeSpec({
+    tags(moduleTag)
+
+    include(testWithFreeResolution(2, SparseMatrixSpaceOverRational))
+    include(testWithFreeResolution(2, SparseMatrixSpaceOverF2))
+    include(testWithFreeResolution(2, SparseMatrixSpaceOverF3))
+    include(testWithFreeResolution(3, SparseMatrixSpaceOverRational))
+    include(testWithFreeResolution(3, SparseMatrixSpaceOverF2))
+    include(testWithFreeResolution(3, SparseMatrixSpaceOverF3))
 })

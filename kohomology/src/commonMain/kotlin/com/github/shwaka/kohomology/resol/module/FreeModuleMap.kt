@@ -29,13 +29,13 @@ public class FreeModuleMap<
             target: FreeModule<BA, BVT, S, V, M>,
             values: List<Vector<FreeModuleBasis<BA, BVT>, S, V>>
         ): FreeModuleMap<BA, BVS, BVT, S, V, M> {
-            require(source.coefficientAlgebra == target.coefficientAlgebra) {
+            require(source.coeffAlgebra == target.coeffAlgebra) {
                 "cannot consider FreeModuleMap between different coefficient algebras: " +
-                    "${source.coefficientAlgebra} and ${target.coefficientAlgebra}"
+                    "${source.coeffAlgebra} and ${target.coeffAlgebra}"
             }
-            val coefficientAlgebra = source.coefficientAlgebra
+            val coeffAlgebra = source.coeffAlgebra
             val vectors = source.underlyingVectorSpace.basisNames.map { freeModuleBasis ->
-                val coeff = coefficientAlgebra.fromBasisName(freeModuleBasis.algebraBasisName)
+                val coeff = coeffAlgebra.fromBasisName(freeModuleBasis.algebraBasisName)
                 val index: Int = source.generatingBasisNames.indexOf(freeModuleBasis.generatingBasisName)
                 target.context.run {
                     coeff * values[index]

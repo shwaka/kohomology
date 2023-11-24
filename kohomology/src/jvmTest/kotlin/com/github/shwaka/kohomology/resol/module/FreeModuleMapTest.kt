@@ -11,15 +11,15 @@ class FreeModuleMapTest : FreeSpec({
 
     val matrixSpace = SparseMatrixSpaceOverRational
 
-    val coefficientAlgebra = MonoidRing(CyclicGroup(3), matrixSpace)
-    val (e, t1, _) = coefficientAlgebra.getBasis()
+    val coeffAlgebra = MonoidRing(CyclicGroup(3), matrixSpace)
+    val (e, t1, _) = coeffAlgebra.getBasis()
 
     val generatingBasisNames1 = listOf("x", "y").map { StringBasisName(it) }
-    val freeModule1 = FreeModule(coefficientAlgebra, generatingBasisNames1)
+    val freeModule1 = FreeModule(coeffAlgebra, generatingBasisNames1)
     val (x, y) = freeModule1.getGeneratingBasis()
 
     val generatingBasisNames2 = listOf("u", "v").map { StringBasisName(it) }
-    val freeModule2 = FreeModule(coefficientAlgebra, generatingBasisNames2)
+    val freeModule2 = FreeModule(coeffAlgebra, generatingBasisNames2)
     val (u, v) = freeModule2.getGeneratingBasis()
 
     "test with the canonical isomorphism" - {
@@ -33,7 +33,7 @@ class FreeModuleMapTest : FreeSpec({
             freeModuleMap(y) shouldBe v
         }
         "check values on basis with coefficient" {
-            coefficientAlgebra.context.run {
+            coeffAlgebra.context.run {
                 val arg = freeModule1.context.run { (e + t1) * x }
                 val expected = freeModule2.context.run { (e + t1) * u }
                 freeModuleMap(arg) shouldBe expected

@@ -17,33 +17,33 @@ public data class FreeModuleBasis<BA : BasisName, BV : BasisName>(
 ) : BasisName
 
 public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    override val coefficientAlgebra: Algebra<BA, S, V, M>,
+    override val coeffAlgebra: Algebra<BA, S, V, M>,
     public val generatingBasisNames: List<BV>,
 ) : Module<BA, FreeModuleBasis<BA, BV>, S, V, M> {
     override val underlyingVectorSpace: VectorSpace<FreeModuleBasis<BA, BV>, S, V> by lazy {
         val basisNames = directProductOf(
-            this.coefficientAlgebra.basisNames,
+            this.coeffAlgebra.basisNames,
             generatingBasisNames
         ).map { (algebraBasisName, generatingBasisName) ->
             FreeModuleBasis(algebraBasisName, generatingBasisName)
         }
         VectorSpace(
-            this.coefficientAlgebra.numVectorSpace,
+            this.coeffAlgebra.numVectorSpace,
             basisNames
         )
     }
     override val context: ModuleContext<BA, FreeModuleBasis<BA, BV>, S, V, M> = ModuleContextImpl(this)
-    override val matrixSpace: MatrixSpace<S, V, M> = coefficientAlgebra.matrixSpace
+    override val matrixSpace: MatrixSpace<S, V, M> = coeffAlgebra.matrixSpace
     override val action: BilinearMap<BA, FreeModuleBasis<BA, BV>, FreeModuleBasis<BA, BV>, S, V, M> by lazy {
         LazyBilinearMap(
-            source1 = this.coefficientAlgebra,
+            source1 = this.coeffAlgebra,
             source2 = this.underlyingVectorSpace,
             target = this.underlyingVectorSpace,
             matrixSpace = this.matrixSpace,
         ) { algebraBasisName, freeModuleBasis ->
-            val coefficient: Vector<BA, S, V> = this.coefficientAlgebra.multiplication(
-                this.coefficientAlgebra.fromBasisName(algebraBasisName),
-                this.coefficientAlgebra.fromBasisName(freeModuleBasis.algebraBasisName),
+            val coefficient: Vector<BA, S, V> = this.coeffAlgebra.multiplication(
+                this.coeffAlgebra.fromBasisName(algebraBasisName),
+                this.coeffAlgebra.fromBasisName(freeModuleBasis.algebraBasisName),
             )
             this.fromGeneratingBasisNameWithCoeff(coefficient, freeModuleBasis.generatingBasisName)
         }
@@ -61,7 +61,7 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
 
     public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasis<BA, BV>, S, V> {
         return this.fromGeneratingBasisNameWithCoeff(
-            coefficient = this.coefficientAlgebra.unit,
+            coefficient = this.coeffAlgebra.unit,
             generatingBasisName = generatingBasisName,
         )
     }

@@ -30,9 +30,9 @@ public open class ModuleMap<
             target: Module<BA, BT, S, V, M>,
             matrix: M,
         ): ModuleMap<BA, BS, BT, S, V, M> {
-            require(source.coefficientAlgebra == target.coefficientAlgebra) {
+            require(source.coeffAlgebra == target.coeffAlgebra) {
                 "cannot consider ModuleMap between different coefficient algebras: " +
-                    "${source.coefficientAlgebra} and ${target.coefficientAlgebra}"
+                    "${source.coeffAlgebra} and ${target.coeffAlgebra}"
             }
             val underlyingLinearMap = LinearMap.fromMatrix(
                 matrixSpace = source.matrixSpace,
@@ -48,9 +48,9 @@ public open class ModuleMap<
             target: Module<BA, BT, S, V, M>,
             vectors: List<Vector<BT, S, V>>,
         ): ModuleMap<BA, BS, BT, S, V, M> {
-            require(source.coefficientAlgebra == target.coefficientAlgebra) {
+            require(source.coeffAlgebra == target.coeffAlgebra) {
                 "cannot consider ModuleMap between different coefficient algebras: " +
-                    "${source.coefficientAlgebra} and ${target.coefficientAlgebra}"
+                    "${source.coeffAlgebra} and ${target.coeffAlgebra}"
             }
             val underlyingLinearMap = LinearMap.fromVectors(
                 matrixSpace = source.matrixSpace,

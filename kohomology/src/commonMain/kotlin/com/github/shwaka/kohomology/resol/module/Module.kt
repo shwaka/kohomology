@@ -28,7 +28,7 @@ internal class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : 
 
 public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val underlyingVectorSpace: VectorSpace<B, S, V>
-    public val coefficientAlgebra: Algebra<BA, S, V, M>
+    public val coeffAlgebra: Algebra<BA, S, V, M>
     public val context: ModuleContext<BA, B, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
     public val action: BilinearMap<BA, B, B, S, V, M>
@@ -88,10 +88,10 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
             underlyingVectorSpace: VectorSpace<B, S, V>,
-            coefficientAlgebra: Algebra<BA, S, V, M>,
+            coeffAlgebra: Algebra<BA, S, V, M>,
             action: BilinearMap<BA, B, B, S, V, M>,
         ): Module<BA, B, S, V, M> {
-            return ModuleImpl(matrixSpace, underlyingVectorSpace, coefficientAlgebra, action)
+            return ModuleImpl(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
         }
     }
 }
@@ -99,7 +99,7 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
 private class ModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val underlyingVectorSpace: VectorSpace<B, S, V>,
-    override val coefficientAlgebra: Algebra<BA, S, V, M>,
+    override val coeffAlgebra: Algebra<BA, S, V, M>,
     override val action: BilinearMap<BA, B, B, S, V, M>,
 ) : Module<BA, B, S, V, M> {
     override val context: ModuleContext<BA, B, S, V, M> = ModuleContextImpl(this)

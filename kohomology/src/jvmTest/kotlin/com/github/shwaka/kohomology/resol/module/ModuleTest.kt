@@ -17,14 +17,14 @@ class ModuleTest : FreeSpec({
 
     val matrixSpace = SparseMatrixSpaceOverRational
     val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
-    val coefficientAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
+    val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
     val (x, y) = underlyingVectorSpace.getBasis()
-    val (one, t) = coefficientAlgebra.getBasis()
+    val (one, t) = coeffAlgebra.getBasis()
     val module = run {
         // Z/2 acting on Q{x, y} by
         //   t*x = y, t*y = x
         val action = ValueBilinearMap(
-            source1 = coefficientAlgebra,
+            source1 = coeffAlgebra,
             source2 = underlyingVectorSpace,
             target = underlyingVectorSpace,
             matrixSpace = matrixSpace,
@@ -33,7 +33,7 @@ class ModuleTest : FreeSpec({
                 listOf(y, x), // t*(-)
             )
         )
-        Module(matrixSpace, underlyingVectorSpace, coefficientAlgebra, action)
+        Module(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
     }
 
     "test action" {
@@ -47,7 +47,7 @@ class ModuleTest : FreeSpec({
     }
 
     "nested context should work" {
-        module.coefficientAlgebra.context.run {
+        module.coeffAlgebra.context.run {
             module.context.run {
                 ((one + t) * x) shouldBe (x + y)
                 ((one - 2 * t) * (3 * x + y)) shouldBe (x - 5 * y)

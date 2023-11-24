@@ -14,11 +14,11 @@ class FreeModuleTest : FreeSpec({
     tags(moduleTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
-    val coefficientAlgebra = MonoidRing(CyclicGroup(3), matrixSpace)
+    val coeffAlgebra = MonoidRing(CyclicGroup(3), matrixSpace)
     val generatingBasisNames = listOf("x", "y").map { StringBasisName(it) }
-    val freeModule = FreeModule(coefficientAlgebra, generatingBasisNames)
+    val freeModule = FreeModule(coeffAlgebra, generatingBasisNames)
 
-    val (e, t1, t2) = coefficientAlgebra.getBasis()
+    val (e, t1, t2) = coeffAlgebra.getBasis()
     val (x, y) = freeModule.getGeneratingBasis()
 
     "test freeModule.generatingBasisNames" {
@@ -45,7 +45,7 @@ class FreeModuleTest : FreeSpec({
 
     "(e+t1)*x should be (x + t1*x)" {
         freeModule.context.run {
-            freeModule.coefficientAlgebra.context.run {
+            freeModule.coeffAlgebra.context.run {
                 ((e + t1) * x) shouldBe (x + t1 * x)
             }
         }
@@ -53,7 +53,7 @@ class FreeModuleTest : FreeSpec({
 
     "t1*(t1*(t1*y)) should be y" {
         freeModule.context.run {
-            freeModule.coefficientAlgebra.context.run {
+            freeModule.coeffAlgebra.context.run {
                 (t1 * (t1 * (t1 * y))) shouldBe y
             }
         }
@@ -61,7 +61,7 @@ class FreeModuleTest : FreeSpec({
 
     "t1*y should be different from y" {
         freeModule.context.run {
-            freeModule.coefficientAlgebra.context.run {
+            freeModule.coeffAlgebra.context.run {
                 (t1 * y) shouldNotBe y
             }
         }

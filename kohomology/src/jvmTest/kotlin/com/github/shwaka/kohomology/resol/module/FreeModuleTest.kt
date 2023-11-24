@@ -93,4 +93,13 @@ class FreeModuleTest : FreeSpec({
             p(t2 * y) shouldBe y0
         }
     }
+
+    "test freeModule.inclusion" {
+        val i = freeModule.inclusion
+        val (x0, y0) = freeModule.vectorSpaceWithoutCoeff.getBasis()
+        freeModule.context.run {
+            i(x0) shouldBe x
+            i(y0) shouldBe y
+        }
+    }
 })

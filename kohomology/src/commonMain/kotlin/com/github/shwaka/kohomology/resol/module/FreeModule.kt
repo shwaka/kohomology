@@ -41,19 +41,19 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
             target = this.underlyingVectorSpace,
             matrixSpace = this.matrixSpace,
         ) { algebraBasisName, freeModuleBasis ->
-            val coefficient: Vector<BA, S, V> = this.coeffAlgebra.multiplication(
+            val coeff: Vector<BA, S, V> = this.coeffAlgebra.multiplication(
                 this.coeffAlgebra.fromBasisName(algebraBasisName),
                 this.coeffAlgebra.fromBasisName(freeModuleBasis.algebraBasisName),
             )
-            this.fromGeneratingBasisNameWithCoeff(coefficient, freeModuleBasis.generatingBasisName)
+            this.fromGeneratingBasisNameWithCoeff(coeff, freeModuleBasis.generatingBasisName)
         }
     }
 
     private fun fromGeneratingBasisNameWithCoeff(
-        coefficient: Vector<BA, S, V>,
+        coeff: Vector<BA, S, V>,
         generatingBasisName: BV,
     ): Vector<FreeModuleBasis<BA, BV>, S, V> {
-        val basisMap = coefficient.toBasisMap().mapKeys { (algebraBasisName, _) ->
+        val basisMap = coeff.toBasisMap().mapKeys { (algebraBasisName, _) ->
             FreeModuleBasis(algebraBasisName, generatingBasisName)
         }
         return this.underlyingVectorSpace.fromBasisMap(basisMap)
@@ -61,7 +61,7 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
 
     public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasis<BA, BV>, S, V> {
         return this.fromGeneratingBasisNameWithCoeff(
-            coefficient = this.coeffAlgebra.unit,
+            coeff = this.coeffAlgebra.unit,
             generatingBasisName = generatingBasisName,
         )
     }

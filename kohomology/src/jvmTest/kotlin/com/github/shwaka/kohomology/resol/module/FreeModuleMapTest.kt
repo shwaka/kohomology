@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.resol.module
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
@@ -107,6 +108,16 @@ class FreeModuleMapTest : FreeSpec({
             val smallGenerator = kernel.findSmallGenerator()
             smallGenerator.shouldHaveSize(1)
             smallGenerator shouldBe freeModule1.context.run { listOf(r(x + y)) }
+        }
+    }
+
+    "test constructor with invalid argument" {
+        shouldThrow<IllegalArgumentException> {
+            FreeModuleMap.fromValuesOnGeneratingBasis(
+                source = freeModule1,
+                target = freeModule2,
+                values = emptyList(),
+            )
         }
     }
 })

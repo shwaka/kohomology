@@ -12,7 +12,7 @@ class FreeModuleMapTest : FreeSpec({
     val matrixSpace = SparseMatrixSpaceOverRational
 
     val coeffAlgebra = MonoidRing(CyclicGroup(3), matrixSpace)
-    val (e, t1, _) = coeffAlgebra.getBasis()
+    val (e, t1, t2) = coeffAlgebra.getBasis()
 
     val generatingBasisNames1 = listOf("x", "y").map { StringBasisName(it) }
     val freeModule1 = FreeModule(coeffAlgebra, generatingBasisNames1)
@@ -45,6 +45,35 @@ class FreeModuleMapTest : FreeSpec({
             val f = freeModuleMap.inducedMapWithoutCoeff
             f(x0) shouldBe u0
             f(y0) shouldBe v0
+        }
+    }
+
+    "test with a map defined with coeff" - {
+        val freeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
+            source = freeModule1,
+            target = freeModule2,
+            values = freeModule2.context.run {
+                coeffAlgebra.context.run {
+                    listOf((e + t1 + t2) * u, -t1 * v)
+                }
+            },
+        )
+        "check values on generating basis" {
+            freeModule2.context.run {
+                coeffAlgebra.context.run {
+                    freeModuleMap(x) shouldBe (e + t1 + t2) * u
+                    freeModuleMap(y) shouldBe (-t1 * v)
+                }
+            }
+        }
+        "check values of freeModuleMap.inducedMapWithoutCoeff" {
+            val (x0, y0) = freeModule1.vectorSpaceWithoutCoeff.getBasis()
+            val (u0, v0) = freeModule2.vectorSpaceWithoutCoeff.getBasis()
+            val f = freeModuleMap.inducedMapWithoutCoeff
+            freeModule2.vectorSpaceWithoutCoeff.context.run {
+                f(x0) shouldBe (3 * u0)
+                f(y0) shouldBe (-v0)
+            }
         }
     }
 })

@@ -49,6 +49,13 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         }
     }
 
+    public val vectorSpaceWithoutCoeff: VectorSpace<BV, S, V> by lazy {
+        VectorSpace(
+            numVectorSpace = this.matrixSpace.numVectorSpace,
+            basisNames = this.generatingBasisNames,
+        )
+    }
+
     private fun fromGeneratingBasisNameWithCoeff(
         coeff: Vector<BA, S, V>,
         generatingBasisName: BV,

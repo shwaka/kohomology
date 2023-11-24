@@ -38,17 +38,17 @@ class FreeModuleTest : FreeSpec({
     }
 
     "listOf(x, y) should not be a basis" {
-        val freeModuleBasis = freeModule.context.run {
+        val freeModuleBasisName = freeModule.context.run {
             listOf(x, y)
         }
-        freeModule.underlyingVectorSpace.isBasis(freeModuleBasis, matrixSpace).shouldBeFalse()
+        freeModule.underlyingVectorSpace.isBasis(freeModuleBasisName, matrixSpace).shouldBeFalse()
     }
 
     "listOf(x, y, t1*x, t1*y, t2*x, t2*y) should be a basis" {
-        val freeModuleBasis = freeModule.context.run {
+        val freeModuleBasisName = freeModule.context.run {
             listOf(x, y, t1 * x, t1 * y, t2 * x, t2 * y)
         }
-        freeModule.underlyingVectorSpace.isBasis(freeModuleBasis, matrixSpace).shouldBeTrue()
+        freeModule.underlyingVectorSpace.isBasis(freeModuleBasisName, matrixSpace).shouldBeTrue()
     }
 
     "(e+t1)*x should be (x + t1*x)" {

@@ -19,8 +19,8 @@ public class FreeModuleMap<
 (
     override val source: FreeModule<BA, BVS, S, V, M>,
     override val target: FreeModule<BA, BVT, S, V, M>,
-    underlyingLinearMap: LinearMap<FreeModuleBasis<BA, BVS>, FreeModuleBasis<BA, BVT>, S, V, M>,
-) : ModuleMap<BA, FreeModuleBasis<BA, BVS>, FreeModuleBasis<BA, BVT>, S, V, M>(
+    underlyingLinearMap: LinearMap<FreeModuleBasisName<BA, BVS>, FreeModuleBasisName<BA, BVT>, S, V, M>,
+) : ModuleMap<BA, FreeModuleBasisName<BA, BVS>, FreeModuleBasisName<BA, BVT>, S, V, M>(
     source, target, underlyingLinearMap
 ) {
     public val matrixSpace: MatrixSpace<S, V, M> = source.matrixSpace
@@ -42,16 +42,16 @@ public class FreeModuleMap<
         fromValuesOnGeneratingBasis(
             source: FreeModule<BA, BVS, S, V, M>,
             target: FreeModule<BA, BVT, S, V, M>,
-            values: List<Vector<FreeModuleBasis<BA, BVT>, S, V>>
+            values: List<Vector<FreeModuleBasisName<BA, BVT>, S, V>>
         ): FreeModuleMap<BA, BVS, BVT, S, V, M> {
             require(source.coeffAlgebra == target.coeffAlgebra) {
                 "cannot consider FreeModuleMap between different coefficient algebras: " +
                     "${source.coeffAlgebra} and ${target.coeffAlgebra}"
             }
             val coeffAlgebra = source.coeffAlgebra
-            val vectors = source.underlyingVectorSpace.basisNames.map { freeModuleBasis ->
-                val coeff = coeffAlgebra.fromBasisName(freeModuleBasis.algebraBasisName)
-                val index: Int = source.generatingBasisNames.indexOf(freeModuleBasis.generatingBasisName)
+            val vectors = source.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
+                val coeff = coeffAlgebra.fromBasisName(freeModuleBasisName.algebraBasisName)
+                val index: Int = source.generatingBasisNames.indexOf(freeModuleBasisName.generatingBasisName)
                 target.context.run {
                     coeff * values[index]
                 }

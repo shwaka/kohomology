@@ -38,7 +38,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
             }
         }
 
-        "cohomology of dgVectorSpaceWithoutCoeff should be 0 except for degree 0" {
+        "test cohomology of dgVectorSpaceWithoutCoeff" {
             (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when {
                     (order == matrixSpace.field.characteristic) -> when {

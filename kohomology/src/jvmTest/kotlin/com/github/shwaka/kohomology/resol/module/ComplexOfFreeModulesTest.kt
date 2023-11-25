@@ -104,7 +104,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
             }
         }
 
-        "cohomology of dgVectorSpaceWithoutCoeff should be 0 except for degree 0" {
+        "test cohomology of dgVectorSpaceWithoutCoeff" {
             (-10..10).forAll { degree ->
                 val expected = when {
                     (order == matrixSpace.field.characteristic) -> when {

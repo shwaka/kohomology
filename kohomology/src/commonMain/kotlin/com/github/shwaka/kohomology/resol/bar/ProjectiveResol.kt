@@ -11,9 +11,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
-import com.github.shwaka.kohomology.resol.module.ModuleMap
 import com.github.shwaka.kohomology.vectsp.BasisName
-import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 
 public data class ProjectiveResolBasisName(val degree: Int, val index: Int) : BasisName {
@@ -59,7 +57,10 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
             (degree == 0) -> {
                 // surjection to this.module
                 val differentialTargets = this.module.findSmallGenerator()
-                val (freeModule, _) = this.hitVectors(0, this.module, differentialTargets)
+                val generatingBasisNames = differentialTargets.indices.map {
+                    ProjectiveResolBasisName(degree = degree, index = it)
+                }
+                val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
                 this.moduleCache[degree] = freeModule
                 this.differentialCache[degree] = FreeModuleMap.fromValuesOnGeneratingBasis(
                     source = freeModule,
@@ -109,32 +110,6 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
             target = targetModule,
             values = targetVectors,
         )
-    }
-
-    private fun <B : BasisName> hitVectors(
-        degree: Int,
-        targetModule: Module<BA, B, S, V, M>,
-        targetVectors: List<Vector<B, S, V>>,
-    ): Pair<
-        FreeModule<BA, ProjectiveResolBasisName, S, V, M>,
-        ModuleMap<BA, FreeModuleBasisName<BA, ProjectiveResolBasisName>, B, S, V, M>
-        > {
-        // for the surjection to this.module
-        val generatingBasisNames = targetVectors.indices.map {
-            ProjectiveResolBasisName(degree = degree, index = it)
-        }
-        val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
-        val moduleMap = ModuleMap(
-            source = freeModule,
-            target = targetModule,
-            underlyingLinearMap = LinearMap.fromVectors(
-                source = freeModule.underlyingVectorSpace,
-                target = targetModule.underlyingVectorSpace,
-                matrixSpace = this.coeffAlgebra.matrixSpace,
-                vectors = targetVectors,
-            )
-        )
-        return Pair(freeModule, moduleMap)
     }
 
     private fun getModule(degree: Int): FreeModule<BA, ProjectiveResolBasisName, S, V, M> {

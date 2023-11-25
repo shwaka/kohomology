@@ -13,6 +13,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.shouldBe
 
 val projectiveResolTag = NamedTag("ProjectiveResol")
@@ -28,6 +29,13 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
 
     "test with free resolution of $field over $field[Z/$order]" - {
         val maxDegree = 3
+
+        "underlyingDGVectorSpace[degree].dim should be 0 or $order" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                complex.underlyingDGVectorSpace[degree].dim shouldBeIn listOf(0, order)
+            }
+        }
+
         "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
             (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when (degree) {

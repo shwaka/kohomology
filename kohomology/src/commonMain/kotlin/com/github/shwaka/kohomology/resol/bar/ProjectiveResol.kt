@@ -11,8 +11,12 @@ import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
+import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
+import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public data class ProjectiveResolBasisName(val degree: Int, val index: Int) : BasisName {
     init {
@@ -115,4 +119,14 @@ public class ProjectiveResol<BA : BasisName, BV : BasisName, S : Scalar, V : Num
 ) : ComplexOfFreeModules<IntDegree, BA, ProjectiveResolBasisName, S, V, M> by ProjectiveResolFactory(
     coeffAlgebra,
     module,
-).complexOfFreeModules
+).complexOfFreeModules {
+    public companion object {
+        public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            coeffAlgebra: MonoidRing<E, S, V, M>,
+        ): ProjectiveResol<E, StringBasisName, S, V, M> {
+            val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
+            val module = coeffAlgebra.getModuleWithTrivialAction(vectorSpace)
+            return ProjectiveResol(coeffAlgebra, module)
+        }
+    }
+}

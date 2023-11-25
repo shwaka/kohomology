@@ -9,6 +9,8 @@ import com.github.shwaka.kohomology.resol.bar.ProjectiveResol
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -73,4 +75,13 @@ class ProjectiveResolTest : FreeSpec({
     include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverRational))
     include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF2))
     include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF3))
+    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverRational))
+    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF2))
+    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF3))
+    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF5))
+    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverRational))
+    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF2))
+    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF3))
+    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF5))
+    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF7))
 })

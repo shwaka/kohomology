@@ -27,8 +27,9 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
     val field = matrixSpace.field
 
     "test with free resolution of $field over $field[Z/$order]" - {
+        val maxDegree = 3
         "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
-            (-10..10).forAll { degree ->
+            (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when (degree) {
                     0 -> 1
                     else -> 0
@@ -38,7 +39,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
         }
 
         "cohomology of dgVectorSpaceWithoutCoeff should be 0 except for degree 0" {
-            (-10..10).forAll { degree ->
+            (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when {
                     (order == matrixSpace.field.characteristic) -> when {
                         (degree > 0) -> 0
@@ -59,9 +60,9 @@ class ProjectiveResolTest : FreeSpec({
     tags(moduleTag, projectiveResolTag)
 
     include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverRational))
-    // include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF2))
-    // include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF3))
-    // include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverRational))
-    // include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF2))
-    // include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF3))
+    include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF2))
+    include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF3))
+    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverRational))
+    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF2))
+    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF3))
 })

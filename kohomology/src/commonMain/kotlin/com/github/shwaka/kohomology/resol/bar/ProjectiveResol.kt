@@ -11,6 +11,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
+import com.github.shwaka.kohomology.resol.module.ModuleMap
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -44,6 +45,7 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
         Int,
         FreeModuleMap<BA, ProjectiveResolBasisName, ProjectiveResolBasisName, S, V, M>
         > = mutableMapOf()
+    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, ProjectiveResolBasisName>, BV, S, V, M>
 
     private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<ProjectiveResolBasisName>())
     private val zeroFreeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
@@ -65,6 +67,17 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
                     ProjectiveResolBasisName(degree = degree, index = it)
                 }
                 val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
+                this.augmentation = ModuleMap.fromVectors(
+                    source = freeModule,
+                    target = this.module,
+                    vectors = freeModule.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
+                        val coeff = coeffAlgebra.fromBasisName(freeModuleBasisName.algebraBasisName)
+                        val index: Int = freeModule.generatingBasisNames.indexOf(freeModuleBasisName.generatingBasisName)
+                        this.module.context.run {
+                            coeff * differentialTargets[index]
+                        }
+                    }
+                )
                 this.moduleCache[degree] = freeModule
                 this.differentialCache[degree] = FreeModuleMap.fromValuesOnGeneratingBasis(
                     source = freeModule,
@@ -76,7 +89,12 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
             }
             (degree < 0) -> {
                 this.compute(degree + 1)
-                val kernel = this.getDifferential(degree + 1).kernel()
+                val diffOrAug = when {
+                    (degree == -1) -> this.augmentation
+                    (degree < -1) -> this.getDifferential(degree + 1)
+                    else -> throw Exception("This can't happen!")
+                }
+                val kernel = diffOrAug.kernel()
                 val incl = kernel.inclusion
                 val differentialTargets = kernel.findSmallGenerator().map { incl(it) }
                 val differential = this.hitVectors(degree, this.getModule(degree + 1), differentialTargets)

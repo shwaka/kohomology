@@ -44,15 +44,10 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
         > = mutableMapOf()
 
     private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<ProjectiveResolBasisName>())
-    private val zeroFreeModuleMap = FreeModuleMap(
+    private val zeroFreeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
         source = zeroFreeModule,
         target = zeroFreeModule,
-        underlyingLinearMap = LinearMap.fromVectors(
-            source = zeroFreeModule.underlyingVectorSpace,
-            target = zeroFreeModule.underlyingVectorSpace,
-            matrixSpace = coeffAlgebra.matrixSpace,
-            vectors = emptyList(),
-        )
+        values = emptyList(),
     )
 
     private fun compute(degree: Int) {
@@ -66,17 +61,12 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
                 val differentialTargets = this.module.findSmallGenerator()
                 val (freeModule, _) = this.hitVectors(0, this.module, differentialTargets)
                 this.moduleCache[degree] = freeModule
-                this.differentialCache[degree] = FreeModuleMap(
+                this.differentialCache[degree] = FreeModuleMap.fromValuesOnGeneratingBasis(
                     source = freeModule,
                     target = this.zeroFreeModule,
-                    underlyingLinearMap = LinearMap.fromVectors(
-                        source = freeModule.underlyingVectorSpace,
-                        target = this.zeroFreeModule.underlyingVectorSpace,
-                        matrixSpace = this.coeffAlgebra.matrixSpace,
-                        vectors = List(freeModule.underlyingVectorSpace.dim) {
-                            this.zeroFreeModule.underlyingVectorSpace.zeroVector
-                        },
-                    )
+                    values = List(freeModule.generatingBasisNames.size) {
+                        this.zeroFreeModule.underlyingVectorSpace.zeroVector
+                    },
                 )
             }
             (degree < 0) -> {
@@ -114,15 +104,10 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
             ProjectiveResolBasisName(degree = degree, index = it)
         }
         val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
-        return FreeModuleMap(
+        return FreeModuleMap.fromValuesOnGeneratingBasis(
             source = freeModule,
             target = targetModule,
-            underlyingLinearMap = LinearMap.fromVectors(
-                source = freeModule.underlyingVectorSpace,
-                target = targetModule.underlyingVectorSpace,
-                matrixSpace = this.coeffAlgebra.matrixSpace,
-                vectors = targetVectors,
-            )
+            values = targetVectors,
         )
     }
 

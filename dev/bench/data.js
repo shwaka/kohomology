@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700835823902,
+  "lastUpdate": 1700924983253,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3450,6 +3450,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.448,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "624ec0e6eff69014ca5664c0acd53c46f4438e5a",
+          "message": "feat(core): add ProjectiveResol.kt (WIP)",
+          "timestamp": "2023-11-26T00:04:00+09:00",
+          "tree_id": "799475a4c6e463d6e1d6d9f410df6cd20287766e",
+          "url": "https://github.com/shwaka/kohomology/commit/624ec0e6eff69014ca5664c0acd53c46f4438e5a"
+        },
+        "date": 1700924982714,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.4,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.417,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700924983253,
+  "lastUpdate": 1700933425848,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3484,6 +3484,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.417,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "79dd614fcf796b30eb04ac3d7251b31d178da8bf",
+          "message": "test(core): add tests for ProjectiveResol with cyclic groups of order 5, 7",
+          "timestamp": "2023-11-26T02:25:02+09:00",
+          "tree_id": "cf31261111d0b6b25048f4834f0ecce000437cbf",
+          "url": "https://github.com/shwaka/kohomology/commit/79dd614fcf796b30eb04ac3d7251b31d178da8bf"
+        },
+        "date": 1700933424868,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.436,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.484,
             "unit": "s/op"
           }
         ]

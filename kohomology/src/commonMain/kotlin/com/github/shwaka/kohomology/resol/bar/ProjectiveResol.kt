@@ -121,11 +121,13 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
     }
 
     private fun getModule(degree: Int): FreeModule<BA, ProjectiveResolBasisName, S, V, M> {
+        this.moduleCache[degree]?.let { return it }
         this.compute(degree)
         return this.moduleCache[degree] ?: throw Exception("This can't happen!")
     }
 
     private fun getDifferential(degree: Int): FreeModuleMap<BA, ProjectiveResolBasisName, ProjectiveResolBasisName, S, V, M> {
+        this.differentialCache[degree]?.let { return it }
         this.compute(degree)
         return this.differentialCache[degree] ?: throw Exception("This can't happen!")
     }

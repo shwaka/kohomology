@@ -28,7 +28,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
     val field = matrixSpace.field
 
     "test with free resolution of $field over $field[Z/$order]" - {
-        val maxDegree = 3
+        val maxDegree = 10
 
         "underlyingDGVectorSpace[degree].dim should be 0 or $order" {
             (-maxDegree..maxDegree).forAll { degree ->

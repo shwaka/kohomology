@@ -75,20 +75,6 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
                 val kernel = this.getDifferential(degree + 1).kernel()
                 val incl = kernel.inclusion
                 val differentialTargets = kernel.findSmallGenerator().map { incl(it) }
-                // val generatingBasisNames = differentialTargets.indices.map {
-                //     ProjectiveResolBasisName(degree = degree, index = it)
-                // }
-                // val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
-                // val freeModuleMap = FreeModuleMap(
-                //     source = freeModule,
-                //     target = this.getModule(degree + 1),
-                //     underlyingLinearMap = LinearMap.fromVectors(
-                //         source = freeModule.underlyingVectorSpace,
-                //         target = this.getModule(degree + 1).underlyingVectorSpace,
-                //         matrixSpace = this.coeffAlgebra.matrixSpace,
-                //         vectors = differentialTargets,
-                //     )
-                // )
                 val differential = this.hitVectors(degree, this.getModule(degree + 1), differentialTargets)
                 this.moduleCache[degree] = differential.source
                 this.differentialCache[degree] = differential

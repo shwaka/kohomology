@@ -12,6 +12,7 @@ import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverIntRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverLongRational
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.specific.Fp
 import com.github.shwaka.kohomology.specific.JavaRationalField
 import com.github.shwaka.kohomology.specific.KotlinRationalField
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
@@ -982,4 +983,35 @@ class IntMod5SparseMatrixTest : FreeSpec({
     include(rowEchelonFormGenTest(matrixSpace, 4, 3))
     include(findPreimageGenTest(matrixSpace, 3, 3))
     include(findPreimageGenTest(matrixSpace, 4, 3))
+})
+
+class IntMod13SparseMatrixTest : FreeSpec({
+    tags(matrixTag, sparseMatrixTag, intModpTag)
+
+    "test rowEchelonForm.reducedMatrix" {
+        // This example caused a strange bug
+        val p = 13
+        val matrixSpace = run {
+            val field = Fp.get(p)
+            val numVectorSpace = SparseNumVectorSpace.from(field)
+            SparseMatrixSpace.from(numVectorSpace)
+        }
+
+        matrixSpace.context.run {
+            val matrix = listOf(
+                listOf(12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+                listOf(0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0),
+                listOf(1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0),
+                listOf(0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1),
+                listOf(0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0),
+                listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12),
+            ).map { row ->
+                row.map { it.toScalar() }
+            }.toMatrix()
+
+            shouldNotThrowAny {
+                matrix.rowEchelonForm.reducedMatrix
+            }
+        }
+    }
 })

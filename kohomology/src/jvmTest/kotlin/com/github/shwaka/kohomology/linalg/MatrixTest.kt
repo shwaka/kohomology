@@ -990,6 +990,8 @@ class IntMod13SparseMatrixTest : FreeSpec({
 
     "assert that rowEchelonForm.reducedMatrix does not cause \"This can't happen!\"" {
         // This example caused "This can't happen!" from InPlaceSparseRowEchelonFormCalculator.reduce
+        // since an overflow of Int occurred in Fp.invModp
+        // (This bug has been already fixed)
         val p = 13
         val matrixSpace = run {
             val field = Fp.get(p)
@@ -1005,33 +1007,6 @@ class IntMod13SparseMatrixTest : FreeSpec({
                 listOf(0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1),
                 listOf(0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0),
                 listOf(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 12),
-            ).map { row ->
-                row.map { it.toScalar() }
-            }.toMatrix()
-
-            shouldNotThrowAny {
-                matrix.rowEchelonForm.reducedMatrix
-            }
-        }
-    }
-
-    "assert that rowEchelonForm.reducedMatrix does not cause \"Cannot eliminate\"" {
-        // This example caused "Cannot eliminate since the element at (0, 0) is zero"
-        // from InPlaceSparseRowEchelonFormCalculator.reduce
-        val p = 13
-        val matrixSpace = run {
-            val field = Fp.get(p)
-            val numVectorSpace = SparseNumVectorSpace.from(field)
-            SparseMatrixSpace.from(numVectorSpace)
-        }
-
-        matrixSpace.context.run {
-            val matrix = listOf(
-                listOf(12, 12, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
-                listOf(0, 0, 12, 12, 0, 0, 0, 0, 0, 0, 0, 0),
-                listOf(1, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0),
-                listOf(0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1),
-                listOf(0, 0, 0, 0, 0, 0, 0, 0, 12, 12, 0, 0),
             ).map { row ->
                 row.map { it.toScalar() }
             }.toMatrix()

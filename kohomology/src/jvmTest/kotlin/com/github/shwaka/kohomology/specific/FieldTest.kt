@@ -376,6 +376,15 @@ class IntModpTest : FreeSpec({
     include(fromIntTest(F5))
     include(fieldTest(F5))
     include(finiteFieldTest(F5))
+    include(fromIntTest(F7))
+    include(fieldTest(F7))
+    include(finiteFieldTest(F7))
+    for (p in listOf(11, 13, 17)) {
+        val field = Fp.get(p)
+        include(fromIntTest(field))
+        include(fieldTest(field))
+        include(finiteFieldTest(field))
+    }
     "(8 mod 5) should be equal to (3 mod 5)" {
         F5.fromInt(8) shouldBe F5.fromInt(3)
     }

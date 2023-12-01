@@ -10,7 +10,6 @@ import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.isPrime
-import com.github.shwaka.kohomology.util.pow
 
 public class IntModp(value: Int, public val characteristic: Int) : Scalar {
     public val value: Int = value.mod(characteristic)
@@ -123,8 +122,11 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
     private fun invModp(a: IntModp): IntModp {
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
-        // TODO: Int として pow した後に modulo するのは重い
-        return IntModp(a.value.pow(this.characteristic - 2).mod(this.characteristic), this.characteristic)
+        var value = 1
+        repeat(this.characteristic - 2) {
+            value = (value * a.value).mod(this.characteristic)
+        }
+        return IntModp(value, this.characteristic)
     }
 
     override fun fromInt(n: Int): IntModp {

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1700933425848,
+  "lastUpdate": 1701426046379,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3518,6 +3518,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.484,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e8372d83b6a36d9ed0612c95c3dee65ddaae157f",
+          "message": "fix(core): avoid overflow in Fp.invModp (close #313)",
+          "timestamp": "2023-12-01T19:15:34+09:00",
+          "tree_id": "50c043d3b9644e4c00b6e10bc9fcefadb4918fff",
+          "url": "https://github.com/shwaka/kohomology/commit/e8372d83b6a36d9ed0612c95c3dee65ddaae157f"
+        },
+        "date": 1701426046000,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.407,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.472,
             "unit": "s/op"
           }
         ]

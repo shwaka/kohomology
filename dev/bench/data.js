@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701433257148,
+  "lastUpdate": 1701515119920,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3586,6 +3586,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.504,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "bea925b43352e261ffd058ccfd7d2a73ce0ed569",
+          "message": "test(core): add SymmetricGroupTest.kt",
+          "timestamp": "2023-12-02T19:58:42+09:00",
+          "tree_id": "60a117e7b287bf9f175afa7421a04d8328d6a5e1",
+          "url": "https://github.com/shwaka/kohomology/commit/bea925b43352e261ffd058ccfd7d2a73ce0ed569"
+        },
+        "date": 1701515118936,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.433,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.51,
             "unit": "s/op"
           }
         ]

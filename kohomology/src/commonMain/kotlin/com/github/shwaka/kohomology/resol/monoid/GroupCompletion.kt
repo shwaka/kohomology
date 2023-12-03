@@ -24,7 +24,7 @@ public class GroupCompletion<E : FiniteMonoidElement>(
         }
     }
 
-    override val context: FiniteMonoidContext<Division<E>> = FiniteMonoidContextImpl(this)
+    override val context: FiniteGroupContext<Division<E>> = FiniteGroupContextImpl(this)
 
     private val unionFind = monoid.elements.let { elements ->
         val divisions = directProductOf(elements, elements).map { Division.fromPair(it) }

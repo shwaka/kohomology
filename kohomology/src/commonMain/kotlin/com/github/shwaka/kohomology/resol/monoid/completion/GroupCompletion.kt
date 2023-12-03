@@ -36,7 +36,9 @@ public interface GroupCompletion<E : FiniteMonoidElement> : FiniteGroup<Division
                     return RightOreGroupCompletion(it)
                 }
             }
-            throw Exception("RightOreGroupCompletion is not yet implemented")
+            throw IllegalArgumentException(
+                "GroupCompletion supports only commutative, left Ore or right Ore monoids"
+            )
         }
     }
 }

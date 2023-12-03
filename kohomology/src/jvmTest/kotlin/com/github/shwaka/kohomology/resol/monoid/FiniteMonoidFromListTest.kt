@@ -9,7 +9,7 @@ import io.kotest.matchers.shouldBe
 val finiteMonoidFromListTag = NamedTag("FiniteMonoidFromList")
 
 class FiniteMonoidFromListTest : FreeSpec({
-    tags(finiteMonoidFromListTag)
+    tags(finiteMonoidTag, finiteMonoidFromListTag)
 
     "monoid with 3 elements containing 0" - {
         val elements = listOf("1", "t", "0").map { SimpleFiniteMonoidElement(it) }

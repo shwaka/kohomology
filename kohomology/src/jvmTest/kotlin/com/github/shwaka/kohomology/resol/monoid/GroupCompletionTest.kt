@@ -7,7 +7,7 @@ import io.kotest.matchers.shouldBe
 val groupCompletionTag = NamedTag("GroupCompletion")
 
 class GroupCompletionTest : FreeSpec({
-    tags(groupCompletionTag)
+    tags(finiteMonoidTag, groupCompletionTag)
     "group completion of Z/2 should be itself" {
         val cyclicGroup = CyclicGroup(2)
         GroupCompletion(cyclicGroup).size shouldBe cyclicGroup.size

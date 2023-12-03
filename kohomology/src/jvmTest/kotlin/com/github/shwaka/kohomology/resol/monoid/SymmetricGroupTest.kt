@@ -9,7 +9,7 @@ import io.kotest.matchers.shouldBe
 val symmetricGroupTag = NamedTag("SymmetricGroup")
 
 class SymmetricGroupTest : FreeSpec({
-    tags(symmetricGroupTag)
+    tags(finiteMonoidTag, symmetricGroupTag)
 
     "test symmetric group of order 0" - {
         val symmetricGroup = SymmetricGroup(0)

@@ -8,7 +8,7 @@ import io.kotest.matchers.shouldBe
 val cyclicGroupTag = NamedTag("CyclicGroup")
 
 class CyclicGroupTest : FreeSpec({
-    tags(cyclicGroupTag)
+    tags(finiteMonoidTag, cyclicGroupTag)
 
     "test cyclic group of order 5" - {
         val cyclicGroup = CyclicGroup(5)

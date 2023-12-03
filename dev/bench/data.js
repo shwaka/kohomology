@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701515119920,
+  "lastUpdate": 1701571669436,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3620,6 +3620,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.51,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5fa568117bed707cebadb9905de4378bb2b5d3ae",
+          "message": "fix(core): apply unionFind.rootOf in GroupCompletion.elements",
+          "timestamp": "2023-12-03T11:38:42+09:00",
+          "tree_id": "095cb910389e7619033d99d2864d6c8438c11277",
+          "url": "https://github.com/shwaka/kohomology/commit/5fa568117bed707cebadb9905de4378bb2b5d3ae"
+        },
+        "date": 1701571668419,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.423,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.541,
             "unit": "s/op"
           }
         ]

@@ -1,4 +1,7 @@
-package com.github.shwaka.kohomology.resol.monoid
+package com.github.shwaka.kohomology.resol.monoid.completion
+
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 
 internal abstract class OreFinderBase<E : FiniteMonoidElement>(
     protected val monoid: FiniteMonoid<E>,

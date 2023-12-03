@@ -1,5 +1,10 @@
-package com.github.shwaka.kohomology.resol.monoid
+package com.github.shwaka.kohomology.resol.monoid.completion
 
+import com.github.shwaka.kohomology.resol.monoid.FiniteGroup
+import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContext
+import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContextImpl
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf
 

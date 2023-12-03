@@ -1,5 +1,8 @@
-package com.github.shwaka.kohomology.resol.monoid
+package com.github.shwaka.kohomology.resol.monoid.completion
 
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
+import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
+import com.github.shwaka.kohomology.resol.monoid.finiteMonoidTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue

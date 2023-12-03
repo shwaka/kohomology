@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
@@ -17,6 +18,12 @@ class SymmetricGroupTest : FreeSpec({
         "size should be 1" {
             symmetricGroup.size shouldBe 1
         }
+
+        "group axioms should be satisfied" {
+            shouldNotThrow<IllegalStateException> {
+                symmetricGroup.checkGroupAxioms()
+            }
+        }
     }
 
     "test symmetric group of order 1" - {
@@ -25,6 +32,12 @@ class SymmetricGroupTest : FreeSpec({
         "size should be 1" {
             symmetricGroup.size shouldBe 1
         }
+
+        "group axioms should be satisfied" {
+            shouldNotThrow<IllegalStateException> {
+                symmetricGroup.checkGroupAxioms()
+            }
+        }
     }
 
     "test symmetric group of order 2" - {
@@ -32,6 +45,12 @@ class SymmetricGroupTest : FreeSpec({
 
         "size should be 2" {
             symmetricGroup.size shouldBe 2
+        }
+
+        "group axioms should be satisfied" {
+            shouldNotThrow<IllegalStateException> {
+                symmetricGroup.checkGroupAxioms()
+            }
         }
     }
 
@@ -48,6 +67,12 @@ class SymmetricGroupTest : FreeSpec({
                 val square = symmetricGroup.multiply(permutation, permutation)
                 val cube = symmetricGroup.multiply(square, permutation)
                 ((permutation == unit) || (square == unit) || (cube == unit)).shouldBeTrue()
+            }
+        }
+
+        "group axioms should be satisfied" {
+            shouldNotThrow<IllegalStateException> {
+                symmetricGroup.checkGroupAxioms()
             }
         }
     }

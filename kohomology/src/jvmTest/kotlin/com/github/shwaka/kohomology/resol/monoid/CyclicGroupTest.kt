@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -12,6 +13,12 @@ class CyclicGroupTest : FreeSpec({
 
     "test cyclic group of order 5" - {
         val cyclicGroup = CyclicGroup(5)
+
+        "monoid.checkGroupAxioms() should not throw" {
+            shouldNotThrow<IllegalStateException> {
+                cyclicGroup.checkGroupAxioms()
+            }
+        }
 
         "cyclicGroup.isCommutative should be true" {
             cyclicGroup.isCommutative.shouldBeTrue()

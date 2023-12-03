@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -20,6 +21,12 @@ class FiniteMonoidFromListTest : FreeSpec({
             listOf(zero, zero, zero), // zero*(-)
         )
         val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+
+        "monoid.checkMonoidAxioms() should not throw" {
+            shouldNotThrow<IllegalStateException> {
+                monoid.checkMonoidAxioms()
+            }
+        }
 
         "monoid.isCommutative should be true" {
             monoid.isCommutative.shouldBeTrue()
@@ -53,6 +60,12 @@ class FiniteMonoidFromListTest : FreeSpec({
             listOf(y, x, y), // y*(-)
         )
         val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+
+        "monoid.checkMonoidAxioms() should not throw" {
+            shouldNotThrow<IllegalStateException> {
+                monoid.checkMonoidAxioms()
+            }
+        }
 
         "monoid.isCommutative should be false" {
             monoid.isCommutative.shouldBeFalse()

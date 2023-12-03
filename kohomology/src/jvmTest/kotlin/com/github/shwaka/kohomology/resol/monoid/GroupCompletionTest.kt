@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -10,12 +11,20 @@ class GroupCompletionTest : FreeSpec({
     tags(finiteMonoidTag, groupCompletionTag)
     "group completion of Z/2 should be itself" {
         val cyclicGroup = CyclicGroup(2)
-        GroupCompletion(cyclicGroup).size shouldBe cyclicGroup.size
+        val groupCompletion = GroupCompletion(cyclicGroup)
+        groupCompletion.size shouldBe cyclicGroup.size
+        shouldNotThrow<IllegalStateException> {
+            groupCompletion.checkGroupAxioms()
+        }
     }
 
     "group completion of Z/6 should be itself" {
         val cyclicGroup = CyclicGroup(6)
-        GroupCompletion(cyclicGroup).size shouldBe cyclicGroup.size
+        val groupCompletion = GroupCompletion(cyclicGroup)
+        groupCompletion.size shouldBe cyclicGroup.size
+        shouldNotThrow<IllegalStateException> {
+            groupCompletion.checkGroupAxioms()
+        }
     }
 
     "group completion of monoid with 0 should be trivial" {
@@ -27,6 +36,10 @@ class GroupCompletionTest : FreeSpec({
             listOf(zero, zero, zero), // zero*(-)
         )
         val monoid = FiniteMonoidFromList(elements, multiplicationTable)
-        GroupCompletion(monoid).size shouldBe 1
+        val groupCompletion = GroupCompletion(monoid)
+        groupCompletion.size shouldBe 1
+        shouldNotThrow<IllegalStateException> {
+            groupCompletion.checkGroupAxioms()
+        }
     }
 })

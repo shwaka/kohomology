@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContext
 import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContextImpl
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
+import com.github.shwaka.kohomology.util.FrozenGenericUnionFind
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf
 
@@ -18,7 +19,7 @@ internal class CommutativeGroupCompletion<E : FiniteMonoidElement>(
 
     override val context: FiniteGroupContext<Division<E>> = FiniteGroupContextImpl(this)
 
-    private val unionFind = monoid.elements.let { elements ->
+    private val unionFind: FrozenGenericUnionFind<Division<E>> = monoid.elements.let { elements ->
         val divisions = directProductOf(elements, elements).map { Division.fromPair(it) }
         val unionFind = GenericUnionFind(divisions)
         for (division in divisions) {

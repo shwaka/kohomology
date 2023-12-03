@@ -7,8 +7,9 @@ internal class UnionFind(private val size: Int) {
         return if (this.parent[index] == index) {
             index
         } else {
-            this.parent[index] = this.rootOf(this.parent[index])
-            this.parent[index]
+            this.rootOf(this.parent[index]).also {
+                this.parent[index] = it
+            }
         }
     }
 

@@ -19236,6 +19236,46 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       PrettyParen = Paren_init_$Create$('\u23A1', '\u23A5', '\u23A3', null, '\u23A4', '\u23A5', '\u23A6', null, null, 392, null);
     }
   }
+  function groupsAsMap($this) {
+    var tmp$ret$4;
+    // Inline function 'kotlin.collections.groupBy' call
+    var tmp0_groupBy = until(0, $this.g2j_1);
+    var tmp$ret$3;
+    // Inline function 'kotlin.collections.groupByTo' call
+    var tmp0_groupByTo = LinkedHashMap_init_$Create$();
+    var inductionVariable = tmp0_groupBy.m1_1;
+    var last = tmp0_groupBy.n1_1;
+    if (inductionVariable <= last)
+      do {
+        var element = inductionVariable;
+        inductionVariable = inductionVariable + 1 | 0;
+        var tmp$ret$0;
+        // Inline function 'com.github.shwaka.kohomology.util.UnionFind.groupsAsMap.<anonymous>' call
+        tmp$ret$0 = $this.i2u(element);
+        var key = tmp$ret$0;
+        var tmp$ret$2;
+        // Inline function 'kotlin.collections.getOrPut' call
+        var value = tmp0_groupByTo.t(key);
+        var tmp;
+        if (value == null) {
+          var tmp$ret$1;
+          // Inline function 'kotlin.collections.groupByTo.<anonymous>' call
+          tmp$ret$1 = ArrayList_init_$Create$_0();
+          var answer = tmp$ret$1;
+          tmp0_groupByTo.u(key, answer);
+          tmp = answer;
+        } else {
+          tmp = value;
+        }
+        tmp$ret$2 = tmp;
+        var list = tmp$ret$2;
+        list.a(element);
+      }
+       while (!(element === last));
+    tmp$ret$3 = tmp0_groupByTo;
+    tmp$ret$4 = tmp$ret$3;
+    return tmp$ret$4;
+  }
   function UnionFind(size) {
     this.g2j_1 = size;
     var tmp = this;
@@ -19265,8 +19305,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (this.h2j_1.l(index) === index) {
       tmp = index;
     } else {
-      this.h2j_1.u9(index, this.i2u(this.h2j_1.l(index)));
-      tmp = this.h2j_1.l(index);
+      var tmp$ret$0;
+      // Inline function 'kotlin.also' call
+      var tmp0_also = this.i2u(this.h2j_1.l(index));
+      // Inline function 'kotlin.contracts.contract' call
+      // Inline function 'com.github.shwaka.kohomology.util.UnionFind.rootOf.<anonymous>' call
+      this.h2j_1.u9(index, tmp0_also);
+      tmp$ret$0 = tmp0_also;
+      tmp = tmp$ret$0;
     }
     return tmp;
   };
@@ -19278,46 +19324,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
   };
   UnionFind.prototype.j2j = function () {
-    var tmp$ret$4;
-    // Inline function 'kotlin.collections.groupBy' call
-    var tmp0_groupBy = until(0, this.g2j_1);
-    var tmp$ret$3;
-    // Inline function 'kotlin.collections.groupByTo' call
-    var tmp0_groupByTo = LinkedHashMap_init_$Create$();
-    var inductionVariable = tmp0_groupBy.m1_1;
-    var last = tmp0_groupBy.n1_1;
-    if (inductionVariable <= last)
-      do {
-        var element = inductionVariable;
-        inductionVariable = inductionVariable + 1 | 0;
-        var tmp$ret$0;
-        // Inline function 'com.github.shwaka.kohomology.util.UnionFind.groups.<anonymous>' call
-        tmp$ret$0 = this.i2u(element);
-        var key = tmp$ret$0;
-        var tmp$ret$2;
-        // Inline function 'kotlin.collections.getOrPut' call
-        var value = tmp0_groupByTo.t(key);
-        var tmp;
-        if (value == null) {
-          var tmp$ret$1;
-          // Inline function 'kotlin.collections.groupByTo.<anonymous>' call
-          tmp$ret$1 = ArrayList_init_$Create$_0();
-          var answer = tmp$ret$1;
-          tmp0_groupByTo.u(key, answer);
-          tmp = answer;
-        } else {
-          tmp = value;
-        }
-        tmp$ret$2 = tmp;
-        var list = tmp$ret$2;
-        list.a(element);
-      }
-       while (!(element === last));
-    tmp$ret$3 = tmp0_groupByTo;
-    tmp$ret$4 = tmp$ret$3;
-    return toList_1(tmp$ret$4.m3());
+    return toList_1(groupsAsMap(this).m3());
   };
-  UnionFind.$metadata$ = classMeta('UnionFind');
+  UnionFind.$metadata$ = classMeta('UnionFind', [FrozenUnionFind]);
+  function FrozenUnionFind() {
+  }
+  FrozenUnionFind.$metadata$ = interfaceMeta('FrozenUnionFind');
   function directProductOf(collection1, collection2) {
     var tmp$ret$5;
     // Inline function 'kotlin.collections.flatMap' call

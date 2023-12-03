@@ -24,8 +24,16 @@ internal class UnionFind(private val size: Int) {
             this.parent[root1] = root2
     }
 
+    private fun groupsAsMap(): Map<Int, List<Int>> {
+        return (0 until this.size).groupBy { this.rootOf(it) }
+    }
+
     fun groups(): List<List<Int>> {
-        return (0 until this.size).groupBy { this.rootOf(it) }.values.toList()
+        return this.groupsAsMap().values.toList()
+    }
+
+    fun representatives(): List<Int> {
+        return this.groupsAsMap().keys.toList()
     }
 }
 
@@ -66,6 +74,12 @@ internal class GenericUnionFind<T>(private val elements: List<T>) {
     fun groups(): List<List<T>> {
         return this.unionFind.groups().map { group ->
             group.map { index -> this.elements[index] }
+        }
+    }
+
+    fun representatives(): List<T> {
+        return this.unionFind.representatives().map { index ->
+            this.elements[index]
         }
     }
 }

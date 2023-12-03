@@ -23,7 +23,14 @@ public interface GroupCompletion<E : FiniteMonoidElement> : FiniteGroup<Division
         public operator fun <E : FiniteMonoidElement> invoke(
             monoid: FiniteMonoid<E>
         ): GroupCompletion<E> {
-            return CommutativeGroupCompletion(monoid)
+            if (monoid.isCommutative) {
+                return CommutativeGroupCompletion(monoid)
+            }
+            val leftOreFinder = LeftOreFinder(monoid)
+            if (leftOreFinder.isOre()) {
+                return LeftOreGroupCompletion(leftOreFinder)
+            }
+            throw Exception("RightOreGroupCompletion is not yet implemented")
         }
     }
 }

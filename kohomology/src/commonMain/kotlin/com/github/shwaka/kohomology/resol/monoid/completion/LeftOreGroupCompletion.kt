@@ -8,16 +8,17 @@ import com.github.shwaka.kohomology.util.FrozenGenericUnionFind
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf
 
-internal class CommutativeGroupCompletion<E : FiniteMonoidElement>(
-    override val monoid: FiniteMonoid<E>
+internal class LeftOreGroupCompletion<E : FiniteMonoidElement>(
+    private val oreFinder: LeftOreFinder<E>,
 ) : GroupCompletion<E> {
     init {
-        require(monoid.isCommutative) {
-            "CommutativeGroupCompletion can be applied only to commutative monoid, " +
-                "but $monoid is not commutative"
+        require(oreFinder.isOre()) {
+            "LeftOreGroupCompletion can be applied only to a monoid satisfying left Ore condition, " +
+                "but ${oreFinder.monoid} does not satisfy it"
         }
     }
 
+    override val monoid: FiniteMonoid<E> = oreFinder.monoid
     override val context: FiniteGroupContext<Division<E>> = FiniteGroupContextImpl(this)
 
     private val unionFind: FrozenGenericUnionFind<Division<E>> = monoid.elements.let { elements ->
@@ -26,8 +27,8 @@ internal class CommutativeGroupCompletion<E : FiniteMonoidElement>(
         for (division in divisions) {
             for (element in elements) {
                 val divisionToBeIdentified = Division(
-                    numerator = this.monoid.multiply(division.numerator, element),
-                    denominator = this.monoid.multiply(division.denominator, element),
+                    numerator = this.monoid.multiply(element, division.numerator),
+                    denominator = this.monoid.multiply(element, division.denominator),
                 )
                 unionFind.unite(division, divisionToBeIdentified)
             }
@@ -37,15 +38,21 @@ internal class CommutativeGroupCompletion<E : FiniteMonoidElement>(
 
     override val elements: List<Division<E>> = unionFind.representatives()
     override val unit: Division<E> = unionFind.rootOf(Division(monoid.unit, monoid.unit))
-    override val isCommutative: Boolean = true
+    override val isCommutative: Boolean by lazy {
+        FiniteMonoid.isCommutative(this.elements, this::multiply)
+    }
 
     override fun multiply(monoidElement1: Division<E>, monoidElement2: Division<E>): Division<E> {
-        return this.unionFind.rootOf(
+        // d1\n1 * d2\n2 = pd1\pn1 * qd2\qn2 = pd1\qn2
+        // where p*n1 = q*d2
+        val (p, q) = this.oreFinder.findOrePair(monoidElement1.numerator, monoidElement2.denominator)
+        val division = this.monoid.context.run {
             Division(
-                numerator = this.monoid.multiply(monoidElement1.numerator, monoidElement2.numerator),
-                denominator = this.monoid.multiply(monoidElement1.denominator, monoidElement2.denominator),
+                denominator = p * monoidElement1.denominator,
+                numerator = q * monoidElement2.numerator,
             )
-        )
+        }
+        return this.unionFind.rootOf(division)
     }
 
     override val multiplicationTable: List<List<Division<E>>> by lazy {

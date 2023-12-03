@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 
 internal abstract class OreFinderBase<E : FiniteMonoidElement>(
-    protected val monoid: FiniteMonoid<E>,
+    public val monoid: FiniteMonoid<E>,
 ) {
     abstract fun multiplyMayBeReversed(element1: E, element2: E): E
 

@@ -27,6 +27,44 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
     public val size: Int
         get() = elements.size
 
+    public fun checkUnitality() {
+        val elements = this.elements
+        val unit = this.unit
+        this.context.run {
+            for (element in elements) {
+                check(element * unit == element) {
+                    "Non-unital: $element * $unit must be $element, but was ${element * unit}"
+                }
+                check(unit * element == element) {
+                    "Non-unital: $unit * $element must be $element, but was ${unit * element}"
+                }
+            }
+        }
+    }
+
+    public fun checkAssociativity() {
+        val elements = this.elements
+        this.context.run {
+            for (a in elements) {
+                for (b in elements) {
+                    for (c in elements) {
+                        check((a * b) * c == a * (b * c)) {
+                            "Non-associative: " +
+                                "($a * $b) * $c = ${(a * b) * c} and " +
+                                "$a * ($b * $c) = ${a * (b * c)}; " +
+                                "these must be same, but was different"
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public fun checkMonoidAxioms() {
+        this.checkUnitality()
+        this.checkAssociativity()
+    }
+
     public companion object {
         public fun <E : FiniteMonoidElement> getMultiplicationTable(
             elements: List<E>,

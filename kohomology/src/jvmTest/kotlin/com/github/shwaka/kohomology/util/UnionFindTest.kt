@@ -5,6 +5,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContainAnyOf
 import io.kotest.matchers.shouldBe
 
 val unionFindTag = NamedTag("UnionFind")
@@ -18,6 +19,8 @@ class UnionFindTest : FreeSpec({
         unionFind.unite(2, 4)
         unionFind.unite(1, 3)
         unionFind.groups().size shouldBe 2
+        unionFind.representatives().size shouldBe 2
+        unionFind.representatives().map { it % 2 }.toSet() shouldBe setOf(0, 1)
         unionFind.same(0, 4).shouldBeTrue()
         unionFind.same(0, 1).shouldBeFalse()
     }
@@ -38,6 +41,12 @@ class GenericUnionFindTest : FreeSpec({
         unionFind.unite("d", "b")
         unionFind.unite("i", "j")
         unionFind.groups().size shouldBe 3
+        unionFind.representatives().let {
+            it.size shouldBe 3
+            it.shouldContainAnyOf("a", "b", "d")
+            it.shouldContainAnyOf("c")
+            it.shouldContainAnyOf("i", "j")
+        }
         unionFind.same("a", "d").shouldBeTrue()
         unionFind.same("a", "i").shouldBeFalse()
     }

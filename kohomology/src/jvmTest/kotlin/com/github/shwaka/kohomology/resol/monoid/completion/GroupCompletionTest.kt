@@ -52,3 +52,33 @@ class CommutativeGroupCompletionTest : FreeSpec({
         }
     }
 })
+
+class LeftOreGroupCompletionTest : FreeSpec({
+    tags(finiteMonoidTag, groupCompletionTag)
+
+    "group completion of left Ore monoid" - {
+        val elements = listOf("1", "x", "y").map { SimpleFiniteMonoidElement(it) }
+        val (one, x, y) = elements
+        val multiplicationTable = listOf(
+            listOf(one, x, y), // one*(-)
+            listOf(x, x, x), // x*(-)
+            listOf(y, y, y), // y*(-)
+        )
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val groupCompletion = GroupCompletion(monoid)
+
+        "groupCompletion should be an instance of LeftOreGroupCompletion" {
+            groupCompletion.shouldBeInstanceOf<LeftOreGroupCompletion<SimpleFiniteMonoidElement<String>>>()
+        }
+
+        "groupCompletion.size should be 1 due to absorbing element" {
+            groupCompletion.size shouldBe 1
+        }
+
+        "groupCompletion should satisfy the axioms of a group" {
+            shouldNotThrow<IllegalStateException> {
+                groupCompletion.checkGroupAxioms()
+            }
+        }
+    }
+})

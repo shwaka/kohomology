@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid.completion
 
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
 import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.finiteMonoidTag
@@ -8,14 +9,16 @@ import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 
 val groupCompletionTag = NamedTag("GroupCompletion")
 
-class GroupCompletionTest : FreeSpec({
+class CommutativeGroupCompletionTest : FreeSpec({
     tags(finiteMonoidTag, groupCompletionTag)
     "group completion of Z/2 should be itself" {
         val cyclicGroup = CyclicGroup(2)
         val groupCompletion = GroupCompletion(cyclicGroup)
+        groupCompletion.shouldBeInstanceOf<CommutativeGroupCompletion<CyclicGroupElement>>()
         groupCompletion.size shouldBe cyclicGroup.size
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()
@@ -25,6 +28,7 @@ class GroupCompletionTest : FreeSpec({
     "group completion of Z/6 should be itself" {
         val cyclicGroup = CyclicGroup(6)
         val groupCompletion = GroupCompletion(cyclicGroup)
+        groupCompletion.shouldBeInstanceOf<CommutativeGroupCompletion<CyclicGroupElement>>()
         groupCompletion.size shouldBe cyclicGroup.size
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()
@@ -41,6 +45,7 @@ class GroupCompletionTest : FreeSpec({
         )
         val monoid = FiniteMonoidFromList(elements, multiplicationTable)
         val groupCompletion = GroupCompletion(monoid)
+        groupCompletion.shouldBeInstanceOf<CommutativeGroupCompletion<CyclicGroupElement>>()
         groupCompletion.size shouldBe 1
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()

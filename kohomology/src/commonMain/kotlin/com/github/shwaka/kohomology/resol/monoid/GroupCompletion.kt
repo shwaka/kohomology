@@ -3,9 +3,9 @@ package com.github.shwaka.kohomology.resol.monoid
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf
 
-public data class Division<E : FiniteMonoidElement>(val left: E, val right: E) : FiniteMonoidElement {
+public data class Division<E : FiniteMonoidElement>(val numerator: E, val denominator: E) : FiniteMonoidElement {
     override fun toString(): String {
-        return "(${this.left}/${this.right})"
+        return "(${this.numerator}/${this.denominator})"
     }
 
     public companion object {
@@ -32,8 +32,8 @@ public class GroupCompletion<E : FiniteMonoidElement>(
         for (division in divisions) {
             for (element in elements) {
                 val divisionToBeIdentified = Division(
-                    left = this.monoid.multiply(division.left, element),
-                    right = this.monoid.multiply(division.right, element),
+                    numerator = this.monoid.multiply(division.numerator, element),
+                    denominator = this.monoid.multiply(division.denominator, element),
                 )
                 unionFind.unite(division, divisionToBeIdentified)
             }
@@ -50,8 +50,8 @@ public class GroupCompletion<E : FiniteMonoidElement>(
     override fun multiply(monoidElement1: Division<E>, monoidElement2: Division<E>): Division<E> {
         return this.unionFind.rootOf(
             Division(
-                left = this.monoid.multiply(monoidElement1.left, monoidElement2.left),
-                right = this.monoid.multiply(monoidElement1.right, monoidElement2.right),
+                numerator = this.monoid.multiply(monoidElement1.numerator, monoidElement2.numerator),
+                denominator = this.monoid.multiply(monoidElement1.denominator, monoidElement2.denominator),
             )
         )
     }
@@ -63,8 +63,8 @@ public class GroupCompletion<E : FiniteMonoidElement>(
     override fun invert(monoidElement: Division<E>): Division<E> {
         return this.unionFind.rootOf(
             Division(
-                left = monoidElement.right,
-                right = monoidElement.left,
+                numerator = monoidElement.denominator,
+                denominator = monoidElement.numerator,
             )
         )
     }

@@ -66,7 +66,7 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
     }
 
     public companion object {
-        public fun <E : FiniteMonoidElement> getMultiplicationTable(
+        internal fun <E : FiniteMonoidElement> getMultiplicationTable(
             elements: List<E>,
             multiply: (monoidElement1: E, monoidElement2: E) -> E,
         ): List<List<E>> {
@@ -75,6 +75,22 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
                     multiply(monoidElement1, monoidElement2)
                 }
             }
+        }
+
+        internal fun <E : FiniteMonoidElement> isCommutative(
+            elements: List<E>,
+            multiply: (monoidElement1: E, monoidElement2: E) -> E,
+        ): Boolean {
+            for (i in elements.indices) {
+                for (j in (i + 1) until elements.size) {
+                    val x = elements[i]
+                    val y = elements[j]
+                    if (multiply(x, y) != multiply(y, x)) {
+                        return false
+                    }
+                }
+            }
+            return true
         }
     }
 }

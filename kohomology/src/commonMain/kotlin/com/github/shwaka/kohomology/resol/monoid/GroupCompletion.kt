@@ -15,9 +15,21 @@ public data class Division<E : FiniteMonoidElement>(val numerator: E, val denomi
     }
 }
 
-public class GroupCompletion<E : FiniteMonoidElement>(
+public interface GroupCompletion<E : FiniteMonoidElement> : FiniteGroup<Division<E>> {
     public val monoid: FiniteMonoid<E>
-) : FiniteGroup<Division<E>> {
+
+    public companion object {
+        public operator fun <E : FiniteMonoidElement> invoke(
+            monoid: FiniteMonoid<E>
+        ): GroupCompletion<E> {
+            return CommutativeGroupCompletion(monoid)
+        }
+    }
+}
+
+private class CommutativeGroupCompletion<E : FiniteMonoidElement>(
+    override val monoid: FiniteMonoid<E>
+) : GroupCompletion<E> {
     init {
         require(monoid.isCommutative) {
             "GroupCompletion can be applied only to commutative monoid, but $monoid is not commutative"

@@ -7,7 +7,7 @@ public interface FiniteMonoidElement : BasisName
 public interface FiniteMonoidContext<E : FiniteMonoidElement> {
     public val finiteMonoid: FiniteMonoid<E>
 
-    public fun E.times(other: E): E {
+    public operator fun E.times(other: E): E {
         return this@FiniteMonoidContext.finiteMonoid.multiply(this, other)
     }
 }

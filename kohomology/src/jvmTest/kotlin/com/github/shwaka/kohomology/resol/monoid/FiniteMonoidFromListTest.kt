@@ -34,6 +34,14 @@ class FiniteMonoidFromListTest : FreeSpec({
             monoid.multiply(t, t) shouldBe zero
             monoid.multiply(zero, one) shouldBe zero
         }
+
+        "test context" {
+            monoid.context.run {
+                (one * t) shouldBe t
+                (t * t) shouldBe zero
+                (zero * one) shouldBe zero
+            }
+        }
     }
 
     "non-commutative monoid with 3 elements" - {

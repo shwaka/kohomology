@@ -4,7 +4,20 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FiniteMonoidElement : BasisName
 
+public interface FiniteMonoidContext<E : FiniteMonoidElement> {
+    public val finiteMonoid: FiniteMonoid<E>
+
+    public fun E.times(other: E): E {
+        return this@FiniteMonoidContext.finiteMonoid.multiply(this, other)
+    }
+}
+
+internal class FiniteMonoidContextImpl<E : FiniteMonoidElement>(
+    override val finiteMonoid: FiniteMonoid<E>,
+) : FiniteMonoidContext<E>
+
 public interface FiniteMonoid<E : FiniteMonoidElement> {
+    public val context: FiniteMonoidContext<E>
     public val unit: E
     public val elements: List<E>
     public val isCommutative: Boolean

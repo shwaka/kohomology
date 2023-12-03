@@ -23,6 +23,7 @@ public data class Permutation(val values: List<Int>) : FiniteMonoidElement {
 }
 
 public class SymmetricGroup(public val order: Int) : FiniteMonoid<Permutation> {
+    override val context: FiniteMonoidContext<Permutation> = FiniteMonoidContextImpl(this)
     override val unit: Permutation = Permutation.getIdentity(order)
     override val elements: List<Permutation> = getPermutation(
         (0 until order).toList()

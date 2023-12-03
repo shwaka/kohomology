@@ -14,6 +14,7 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
         require(this.order > 0)
     }
 
+    override val context: FiniteMonoidContext<CyclicGroupElement> = FiniteMonoidContextImpl(this)
     override val unit: CyclicGroupElement = CyclicGroupElement(0, order)
     override val elements: List<CyclicGroupElement> by lazy {
         (0 until this.order).map { i -> CyclicGroupElement(i, this.order) }

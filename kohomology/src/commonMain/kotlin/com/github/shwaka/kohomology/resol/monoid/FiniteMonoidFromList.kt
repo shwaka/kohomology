@@ -10,6 +10,7 @@ public class FiniteMonoidFromList<T>(
     override val elements: List<SimpleFiniteMonoidElement<T>>,
     override val multiplicationTable: List<List<SimpleFiniteMonoidElement<T>>>,
 ) : FiniteMonoid<SimpleFiniteMonoidElement<T>> {
+    override val context: FiniteMonoidContext<SimpleFiniteMonoidElement<T>> = FiniteMonoidContextImpl(this)
     override val unit: SimpleFiniteMonoidElement<T> = this.elements[0]
 
     override fun multiply(

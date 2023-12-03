@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701571669436,
+  "lastUpdate": 1701592120694,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3654,6 +3654,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.541,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "794fd8f06b62bfe97e58c046f49ee226cddcc7b6",
+          "message": "feat(core): add RightOreGroupCompletion and its test",
+          "timestamp": "2023-12-03T17:23:15+09:00",
+          "tree_id": "c209314beabdd1cf9bd556e1c75803014d6b347d",
+          "url": "https://github.com/shwaka/kohomology/commit/794fd8f06b62bfe97e58c046f49ee226cddcc7b6"
+        },
+        "date": 1701592120110,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.407,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.46,
             "unit": "s/op"
           }
         ]

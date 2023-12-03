@@ -15,7 +15,11 @@ public data class Permutation(val values: List<Int>) : FiniteMonoidElement {
 
     internal fun inverse(): Permutation {
         val values: List<Int> = (0 until this.order).map { i ->
-            this.values.find { it == i } ?: throw Exception("Invalid permutation")
+            this.values.indexOf(i).also {
+                if (it == -1) {
+                    throw Exception("Invalid permutation: $i not found in ${this.values}")
+                }
+            }
         }
         return Permutation(values)
     }

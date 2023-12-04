@@ -23,6 +23,7 @@ class CommutativeGroupCompletionTest : FreeSpec({
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()
         }
+        groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms()
     }
 
     "group completion of Z/6 should be itself" {
@@ -33,6 +34,7 @@ class CommutativeGroupCompletionTest : FreeSpec({
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()
         }
+        groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms()
     }
 
     "group completion of monoid with 0 should be trivial" {
@@ -50,6 +52,7 @@ class CommutativeGroupCompletionTest : FreeSpec({
         shouldNotThrow<IllegalStateException> {
             groupCompletion.checkGroupAxioms()
         }
+        groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms()
     }
 })
 
@@ -80,6 +83,10 @@ class LeftOreGroupCompletionTest : FreeSpec({
                 groupCompletion.checkGroupAxioms()
             }
         }
+
+        "groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms() should not throw" {
+            groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms()
+        }
     }
 })
 
@@ -109,6 +116,10 @@ class RightOreGroupCompletionTest : FreeSpec({
             shouldNotThrow<IllegalStateException> {
                 groupCompletion.checkGroupAxioms()
             }
+        }
+
+        "groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms() should not throw" {
+            groupCompletion.canonicalMap.checkFiniteMonoidMapAxioms()
         }
     }
 })

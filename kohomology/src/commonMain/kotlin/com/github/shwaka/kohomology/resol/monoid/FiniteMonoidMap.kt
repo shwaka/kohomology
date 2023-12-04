@@ -57,5 +57,11 @@ private class FiniteMonoidMapImpl<ES : FiniteMonoidElement, ET : FiniteMonoidEle
         require(values.size == source.elements.size) {
             "$values should have the same size with $source"
         }
+
+        for (value in values) {
+            require(target.elements.contains(value)) {
+                "$value is not contained in $target"
+            }
+        }
     }
 }

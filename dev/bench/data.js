@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701597037948,
+  "lastUpdate": 1701668411272,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3722,6 +3722,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.57,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "53ea0f405ee431b4f3ddbf334e0b6bfb7b00c5a2",
+          "message": "feat(core): sanity check in the constructor of FiniteMonoidMapImpl",
+          "timestamp": "2023-12-04T14:31:01+09:00",
+          "tree_id": "29509751e82747416a27246d52c6b879795203ba",
+          "url": "https://github.com/shwaka/kohomology/commit/53ea0f405ee431b4f3ddbf334e0b6bfb7b00c5a2"
+        },
+        "date": 1701668410305,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.436,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.531,
             "unit": "s/op"
           }
         ]

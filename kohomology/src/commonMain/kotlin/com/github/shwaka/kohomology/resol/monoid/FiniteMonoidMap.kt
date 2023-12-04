@@ -13,6 +13,14 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return this.values[index]
     }
 
+    public fun isInjective(): Boolean {
+        return this.values.distinct().size == this.values.size
+    }
+
+    public fun isSurjective(): Boolean {
+        return this.values.distinct().size == this.target.size
+    }
+
     public fun checkFiniteMonoidMapAxioms() {
         for (a in this.source.elements) {
             for (b in this.source.elements) {

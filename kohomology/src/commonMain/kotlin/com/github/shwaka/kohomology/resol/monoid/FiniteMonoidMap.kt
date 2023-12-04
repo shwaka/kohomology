@@ -13,6 +13,22 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return this.values[index]
     }
 
+    public fun checkFiniteMonoidMapAxioms() {
+        for (a in this.source.elements) {
+            for (b in this.source.elements) {
+                val lhs = this.source.context.run {
+                    this@FiniteMonoidMap(a * b)
+                }
+                val rhs = this.target.context.run {
+                    this@FiniteMonoidMap(a) * this@FiniteMonoidMap(b)
+                }
+                check(lhs == rhs) {
+                    "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b"
+                }
+            }
+        }
+    }
+
     public companion object {
         public operator fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> invoke(
             source: FiniteMonoid<ES>,

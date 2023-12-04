@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
@@ -20,6 +21,12 @@ class FiniteMonoidMapTest : FreeSpec({
             monoidMap(CyclicGroupElement(1, 6)) shouldBe CyclicGroupElement(1, 2)
             monoidMap(CyclicGroupElement(2, 6)) shouldBe CyclicGroupElement(0, 2)
             monoidMap(CyclicGroupElement(3, 6)) shouldBe CyclicGroupElement(1, 2)
+        }
+
+        "checkFiniteMonoidMapAxioms should not throw IllegalStateException" {
+            shouldNotThrow<IllegalStateException> {
+                monoidMap.checkFiniteMonoidMapAxioms()
+            }
         }
     }
 })

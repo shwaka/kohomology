@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.resol.monoid.completion
 import com.github.shwaka.kohomology.resol.monoid.FiniteGroup
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 
 public data class Division<E : FiniteMonoidElement>(val numerator: E, val denominator: E) : FiniteMonoidElement {
     override fun toString(): String {
@@ -18,6 +19,7 @@ public data class Division<E : FiniteMonoidElement>(val numerator: E, val denomi
 
 public interface GroupCompletion<E : FiniteMonoidElement> : FiniteGroup<Division<E>> {
     public val monoid: FiniteMonoid<E>
+    public val canonicalMap: FiniteMonoidMap<E, Division<E>>
 
     public companion object {
         public operator fun <E : FiniteMonoidElement> invoke(

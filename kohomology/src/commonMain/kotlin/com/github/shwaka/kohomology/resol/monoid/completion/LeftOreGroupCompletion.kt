@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContext
 import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContextImpl
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.util.FrozenGenericUnionFind
 import com.github.shwaka.kohomology.util.GenericUnionFind
 import com.github.shwaka.kohomology.util.directProductOf
@@ -65,6 +66,17 @@ internal class LeftOreGroupCompletion<E : FiniteMonoidElement>(
                 numerator = monoidElement.denominator,
                 denominator = monoidElement.numerator,
             )
+        )
+    }
+
+    override val canonicalMap: FiniteMonoidMap<E, Division<E>> by lazy {
+        val values = this.monoid.elements.map {
+            this.unionFind.rootOf(Division(it, this.monoid.unit))
+        }
+        FiniteMonoidMap(
+            source = this.monoid,
+            target = this,
+            values = values,
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.BooleanWithCause
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FiniteMonoidElement : BasisName
@@ -27,42 +28,15 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
     public val size: Int
         get() = elements.size
 
-    public fun checkUnitality() {
-        val elements = this.elements
-        val unit = this.unit
-        this.context.run {
-            for (element in elements) {
-                check(element * unit == element) {
-                    "Non-unital: $element * $unit must be $element, but was ${element * unit}"
-                }
-                check(unit * element == element) {
-                    "Non-unital: $unit * $element must be $element, but was ${unit * element}"
-                }
-            }
-        }
-    }
-
-    public fun checkAssociativity() {
-        val elements = this.elements
-        this.context.run {
-            for (a in elements) {
-                for (b in elements) {
-                    for (c in elements) {
-                        check((a * b) * c == a * (b * c)) {
-                            "Non-associative: " +
-                                "($a * $b) * $c = ${(a * b) * c} and " +
-                                "$a * ($b * $c) = ${a * (b * c)}; " +
-                                "these must be same, but was different"
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     public fun checkMonoidAxioms() {
-        this.checkUnitality()
-        this.checkAssociativity()
+        val isUnital: BooleanWithCause = FiniteMonoid.isUnital(this.elements, this::multiply)
+        val isAssociative: BooleanWithCause = FiniteMonoid.isAssociative(this.elements, this::multiply)
+        val axiomSatisfied = isUnital * isAssociative
+        if (axiomSatisfied is BooleanWithCause.False) {
+            throw IllegalStateException(
+                "Monoid axioms are not satisfied:\n" + axiomSatisfied.cause.joinToString("\n")
+            )
+        }
     }
 
     public companion object {
@@ -91,6 +65,51 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
                 }
             }
             return true
+        }
+
+        public fun <E : FiniteMonoidElement> isUnital(
+            elements: List<E>,
+            multiply: (monoidElement1: E, monoidElement2: E) -> E,
+        ): BooleanWithCause {
+            val cause = mutableListOf<String>()
+            val unit = elements[0]
+            for (element in elements) {
+                multiply(element, unit).let {
+                    if (it != element) {
+                        cause.add("Non-unital: $element * $unit must be $element, but was $it")
+                    }
+                }
+                multiply(unit, element).let {
+                    if (it != element) {
+                        cause.add("Non-unital: $unit * $element must be $element, but was $it")
+                    }
+                }
+            }
+            return BooleanWithCause.fromCause(cause)
+        }
+
+        public fun <E : FiniteMonoidElement> isAssociative(
+            elements: List<E>,
+            multiply: (monoidElement1: E, monoidElement2: E) -> E,
+        ): BooleanWithCause {
+            val cause = mutableListOf<String>()
+            for (a in elements) {
+                for (b in elements) {
+                    for (c in elements) {
+                        val leftAssoc = multiply(multiply(a, b), c)
+                        val rightAssoc = multiply(a, multiply(b, c))
+                        if (leftAssoc != rightAssoc) {
+                            cause.add(
+                                "Non-associative: " +
+                                    "($a * $b) * $c = $leftAssoc and " +
+                                    "$a * ($b * $c) = $rightAssoc; " +
+                                    "these must be same, but was different"
+                            )
+                        }
+                    }
+                }
+            }
+            return BooleanWithCause.fromCause(cause)
         }
     }
 }

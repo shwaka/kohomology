@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.util
 
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -17,7 +18,7 @@ class BooleanWithCauseTest : FreeSpec({
     }
 
     "False.toBoolean() should be false" {
-        BooleanWithCause.False(emptyList()).toBoolean().shouldBeFalse()
+        BooleanWithCause.False(listOf("some message")).toBoolean().shouldBeFalse()
     }
 
     "True * True should be True" {
@@ -41,5 +42,20 @@ class BooleanWithCauseTest : FreeSpec({
         val cause2 = listOf("another message")
         (BooleanWithCause.False(cause1) * BooleanWithCause.False(cause2)) shouldBe
             BooleanWithCause.False(cause1 + cause2)
+    }
+
+    "False with empty cause should throw IllegalArgumentException" {
+        shouldThrow<IllegalArgumentException> {
+            BooleanWithCause.False(emptyList())
+        }
+    }
+
+    "BooleanWithCause.fromCause(emptyList()) should be True" {
+        BooleanWithCause.fromCause(emptyList()) shouldBeSameInstanceAs BooleanWithCause.True
+    }
+
+    "BooleanWithCause.fromCause(nonEmptyCause) should be False" {
+        val cause = listOf("some message")
+        BooleanWithCause.fromCause(cause) shouldBe BooleanWithCause.False(cause)
     }
 })

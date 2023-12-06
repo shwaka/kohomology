@@ -16,6 +16,12 @@ public sealed interface BooleanWithCause {
     }
 
     public data class False(public val cause: List<String>) : BooleanWithCause {
+        init {
+            require(cause.isNotEmpty()) {
+                "cause must be non-empty for BooleanWithCause.False"
+            }
+        }
+
         override fun times(other: BooleanWithCause): BooleanWithCause {
             return when (other) {
                 is BooleanWithCause.True -> this
@@ -26,5 +32,15 @@ public sealed interface BooleanWithCause {
         }
 
         override fun toBoolean(): Boolean = false
+    }
+
+    public companion object {
+        public fun fromCause(cause: List<String>): BooleanWithCause {
+            return if (cause.isEmpty()) {
+                BooleanWithCause.True
+            } else {
+                BooleanWithCause.False(cause)
+            }
+        }
     }
 }

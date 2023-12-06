@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1701668411272,
+  "lastUpdate": 1701847566497,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3756,6 +3756,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.531,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "246ed88406a5a52d05b75c524acaab659bce78b4",
+          "message": "fix(core): remove duplicate from FiniteGroup.isInvertible",
+          "timestamp": "2023-12-06T15:44:27+09:00",
+          "tree_id": "df6fffd45c744140e71a18374b29dd0af6603ec7",
+          "url": "https://github.com/shwaka/kohomology/commit/246ed88406a5a52d05b75c524acaab659bce78b4"
+        },
+        "date": 1701847565513,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.439,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.575,
             "unit": "s/op"
           }
         ]

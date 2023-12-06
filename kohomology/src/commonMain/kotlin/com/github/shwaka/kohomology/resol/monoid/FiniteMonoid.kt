@@ -29,12 +29,10 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
         get() = elements.size
 
     public fun checkMonoidAxioms() {
-        val isUnital: BooleanWithCause = FiniteMonoid.isUnital(this.elements, this::multiply)
-        val isAssociative: BooleanWithCause = FiniteMonoid.isAssociative(this.elements, this::multiply)
-        val axiomSatisfied = isUnital * isAssociative
-        if (axiomSatisfied is BooleanWithCause.False) {
+        val isMonoid: BooleanWithCause = FiniteMonoid.isMonoid(this.elements, this::multiply)
+        if (isMonoid is BooleanWithCause.False) {
             throw IllegalStateException(
-                "Monoid axioms are not satisfied:\n" + axiomSatisfied.cause.joinToString("\n")
+                "Monoid axioms are not satisfied:\n" + isMonoid.cause.joinToString("\n")
             )
         }
     }
@@ -110,6 +108,15 @@ public interface FiniteMonoid<E : FiniteMonoidElement> {
                 }
             }
             return BooleanWithCause.fromCause(cause)
+        }
+
+        public fun <E : FiniteMonoidElement> isMonoid(
+            elements: List<E>,
+            multiply: (monoidElement1: E, monoidElement2: E) -> E,
+        ): BooleanWithCause {
+            val isUnital: BooleanWithCause = FiniteMonoid.isUnital(elements, multiply)
+            val isAssociative: BooleanWithCause = FiniteMonoid.isAssociative(elements, multiply)
+            return isUnital * isAssociative
         }
     }
 }

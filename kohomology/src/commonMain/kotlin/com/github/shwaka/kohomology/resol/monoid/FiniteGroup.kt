@@ -42,9 +42,11 @@ public interface FiniteGroup<E : FiniteMonoidElement> : FiniteMonoid<E> {
                         cause.add("Not inverse: $element * $inverse must be $unit, but was $it")
                     }
                 }
-                multiply(inverse, element).let {
-                    if (it != unit) {
-                        cause.add("Not inverse: $inverse * $element must be $unit, but was $it")
+                if (inverse != element) {
+                    multiply(inverse, element).let {
+                        if (it != unit) {
+                            cause.add("Not inverse: $inverse * $element must be $unit, but was $it")
+                        }
                     }
                 }
             }

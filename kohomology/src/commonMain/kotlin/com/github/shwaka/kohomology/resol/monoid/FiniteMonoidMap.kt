@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.BooleanWithCause
+
 public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElement> {
     public val source: FiniteMonoid<ES>
     public val target: FiniteMonoid<ET>
@@ -22,18 +24,17 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
     }
 
     public fun checkFiniteMonoidMapAxioms() {
-        for (a in this.source.elements) {
-            for (b in this.source.elements) {
-                val lhs = this.source.context.run {
-                    this@FiniteMonoidMap(a * b)
-                }
-                val rhs = this.target.context.run {
-                    this@FiniteMonoidMap(a) * this@FiniteMonoidMap(b)
-                }
-                check(lhs == rhs) {
-                    "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b"
-                }
-            }
+        val isFiniteMonoidMap = FiniteMonoidMap.isFiniteMonoidMap(
+            sourceElements = this.source.elements,
+            multiplySource = this.source::multiply,
+            multiplyTarget = this.target::multiply,
+            map = this::invoke,
+        )
+        if (isFiniteMonoidMap is BooleanWithCause.False) {
+            throw IllegalStateException(
+                "Axioms for finite monoid map are not satisfied:\n" +
+                    isFiniteMonoidMap.cause.joinToString("\n")
+            )
         }
     }
 
@@ -44,6 +45,27 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             values: List<ET>,
         ): FiniteMonoidMap<ES, ET> {
             return FiniteMonoidMapImpl(source, target, values)
+        }
+
+        public fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> isFiniteMonoidMap(
+            sourceElements: List<ES>,
+            multiplySource: (monoidElement1: ES, monoidElement2: ES) -> ES,
+            multiplyTarget: (monoidElement1: ET, monoidElement2: ET) -> ET,
+            map: (monoidElement: ES) -> ET,
+        ): BooleanWithCause {
+            val cause = mutableListOf<String>()
+            for (a in sourceElements) {
+                for (b in sourceElements) {
+                    val lhs = map(multiplySource(a, b))
+                    val rhs = multiplyTarget(map(a), map(b))
+                    if (lhs != rhs) {
+                        cause.add(
+                            "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b"
+                        )
+                    }
+                }
+            }
+            return BooleanWithCause.fromCause(cause)
         }
     }
 }

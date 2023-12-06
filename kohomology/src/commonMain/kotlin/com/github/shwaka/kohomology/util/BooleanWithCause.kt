@@ -15,7 +15,7 @@ public sealed interface BooleanWithCause {
         override fun toBoolean(): Boolean = true
     }
 
-    public class False(public val cause: List<String>) : BooleanWithCause {
+    public data class False(public val cause: List<String>) : BooleanWithCause {
         override fun times(other: BooleanWithCause): BooleanWithCause {
             return when (other) {
                 is BooleanWithCause.True -> this

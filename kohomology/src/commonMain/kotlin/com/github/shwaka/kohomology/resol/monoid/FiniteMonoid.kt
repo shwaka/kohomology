@@ -11,6 +11,20 @@ public interface FiniteMonoidContext<E : FiniteMonoidElement> {
     public operator fun E.times(other: E): E {
         return this@FiniteMonoidContext.finiteMonoid.multiply(this, other)
     }
+
+    public fun E.pow(exponent: Int): E {
+        val unit = this@FiniteMonoidContext.finiteMonoid.unit
+        return when {
+            exponent == 0 -> unit
+            exponent == 1 -> this
+            exponent > 1 -> {
+                val half = this.pow(exponent / 2)
+                val rem = if (exponent % 2 == 1) this else unit
+                half * half * rem
+            }
+            else -> throw Exception("Negative exponent is not allowed in FiniteMonoid")
+        }
+    }
 }
 
 internal class FiniteMonoidContextImpl<E : FiniteMonoidElement>(

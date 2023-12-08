@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
@@ -40,6 +41,25 @@ class FiniteMonoidFromListTest : FreeSpec({
             monoid.multiply(one, t) shouldBe t
             monoid.multiply(t, t) shouldBe zero
             monoid.multiply(zero, one) shouldBe zero
+        }
+
+        "test pow" {
+            monoid.context.run {
+                one.pow(0) shouldBe one
+                t.pow(0) shouldBe one
+                zero.pow(0) shouldBe one
+                t.pow(1) shouldBe t
+                t.pow(2) shouldBe zero
+                t.pow(500) shouldBe zero
+            }
+        }
+
+        "pow(-1) should throw IllegalArgumentException" {
+            shouldThrow<IllegalArgumentException> {
+                monoid.context.run {
+                    one.pow(-1)
+                }
+            }
         }
 
         "test context" {

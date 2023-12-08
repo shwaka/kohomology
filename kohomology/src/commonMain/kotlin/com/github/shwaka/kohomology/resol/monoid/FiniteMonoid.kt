@@ -13,6 +13,9 @@ public interface FiniteMonoidContext<E : FiniteMonoidElement> {
     }
 
     public fun E.pow(exponent: Int): E {
+        require(exponent >= 0) {
+            "Negative exponent is not allowed in FiniteMonoid"
+        }
         val unit = this@FiniteMonoidContext.finiteMonoid.unit
         return when {
             exponent == 0 -> unit
@@ -22,7 +25,7 @@ public interface FiniteMonoidContext<E : FiniteMonoidElement> {
                 val rem = if (exponent % 2 == 1) this else unit
                 half * half * rem
             }
-            else -> throw Exception("Negative exponent is not allowed in FiniteMonoid")
+            else -> throw Exception("This can't happen!")
         }
     }
 }

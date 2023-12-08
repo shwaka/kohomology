@@ -8,6 +8,21 @@ public interface FiniteGroupContext<E : FiniteMonoidElement> : FiniteMonoidConte
     public fun E.inv(): E {
         return this@FiniteGroupContext.finiteMonoid.invert(this)
     }
+
+    override fun E.pow(exponent: Int): E {
+        val unit = this@FiniteGroupContext.finiteMonoid.unit
+        return when {
+            exponent == 0 -> unit
+            exponent == 1 -> this
+            exponent > 1 -> {
+                val half = this.pow(exponent / 2)
+                val rem = if (exponent % 2 == 1) this else unit
+                half * half * rem
+            }
+            exponent < 0 -> unit * this.pow(-exponent).inv()
+            else -> throw Exception("This can't happen!")
+        }
+    }
 }
 
 internal class FiniteGroupContextImpl<E : FiniteMonoidElement>(

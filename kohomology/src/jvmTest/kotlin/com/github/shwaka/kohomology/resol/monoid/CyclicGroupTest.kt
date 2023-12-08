@@ -47,6 +47,12 @@ class CyclicGroupTest : FreeSpec({
                 cyclicGroup.elements[3]
         }
 
+        "t.pow(-1) should be t^4" {
+            cyclicGroup.context.run {
+                cyclicGroup.elements[1].pow(-1) shouldBe cyclicGroup.elements[4]
+            }
+        }
+
         "test multiplication table" {
             cyclicGroup.multiplicationTable shouldBe
                 listOf(

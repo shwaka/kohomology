@@ -3,9 +3,12 @@ package com.github.shwaka.kohomology.resol.module
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
+import com.github.shwaka.kohomology.util.InternalPrintConfig
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
@@ -52,8 +55,15 @@ public interface MonoidRing<
 private class MonoidRingImpl<E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val monoid: FiniteMonoid<E>,
     override val matrixSpace: MatrixSpace<S, V, M>,
-) : MonoidRing<E, S, V, M>,
-    VectorSpace<E, S, V> by VectorSpace(matrixSpace.numVectorSpace, monoid.elements) {
+) : MonoidRing<E, S, V, M> {
+    override val basisNames: List<E> = monoid.elements
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<E, S>
+        get() = { InternalPrintConfig.default(it) }
+    override val numVectorSpace: NumVectorSpace<S, V> = matrixSpace.numVectorSpace
+    override fun indexOf(basisName: E): Int {
+        return this.basisNames.indexOf(basisName)
+    }
+
     override val context: AlgebraContext<E, S, V, M> = AlgebraContextImpl(this)
     override val unit: Vector<E, S, V> = this.fromBasisName(monoid.unit)
     override val isCommutative: Boolean = monoid.isCommutative

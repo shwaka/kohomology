@@ -25,7 +25,7 @@ public interface FreeModuleMap<
 
     public companion object {
         public fun <BA : BasisName, BVS : BasisName, BVT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-            fromValuesOnGeneratingBasis(
+        fromValuesOnGeneratingBasis(
             source: FreeModule<BA, BVS, S, V, M>,
             target: FreeModule<BA, BVT, S, V, M>,
             values: List<Vector<FreeModuleBasisName<BA, BVT>, S, V>>

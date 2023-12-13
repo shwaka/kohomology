@@ -43,7 +43,7 @@ public interface ModuleMap<
             source: Module<BA, BS, S, V, M>,
             target: Module<BA, BT, S, V, M>,
             underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
-        ) : ModuleMap<BA, BS, BT, S, V, M> {
+        ): ModuleMap<BA, BS, BT, S, V, M> {
             return ModuleMapImpl(source, target, underlyingLinearMap)
         }
 

@@ -1,8 +1,11 @@
 package com.github.shwaka.kohomology.resol.module
 
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
@@ -36,6 +39,25 @@ public interface AlgebraMap<
             underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
         ): AlgebraMap<BS, BT, S, V, M> {
             return AlgebraMapImpl(source, target, underlyingLinearMap)
+        }
+
+        public fun <
+            ES : FiniteMonoidElement,
+            ET : FiniteMonoidElement,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > fromFiniteMonoidMap(
+            finiteMonoidMap: FiniteMonoidMap<ES, ET>,
+            matrixSpace: MatrixSpace<S, V, M>,
+            source: MonoidRing<ES, S, V, M> = MonoidRing(finiteMonoidMap.source, matrixSpace),
+            target: MonoidRing<ET, S, V, M> = MonoidRing(finiteMonoidMap.target, matrixSpace),
+        ): AlgebraMap<ES, ET, S, V, M> {
+            val vectors = source.basisNames.map { monoidElement ->
+                target.fromBasisName(finiteMonoidMap(monoidElement))
+            }
+            val underlyingLinearMap = LinearMap.fromVectors(source, target, matrixSpace, vectors)
+            return AlgebraMap(source, target, underlyingLinearMap)
         }
     }
 }

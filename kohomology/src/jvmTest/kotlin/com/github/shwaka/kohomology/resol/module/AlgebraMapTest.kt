@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.shouldBe
 
@@ -26,6 +27,14 @@ class AlgebraMapTest : FreeSpec({
 
         "test invoke" {
             algebraMap(x) shouldBe y
+            val xSquare = sourceAlgebra.context.run { x.pow(2) }
+            algebraMap(xSquare) shouldBe targetAlgebra.unit
+        }
+
+        "invoke should throw IllegalArgumentException when invalid vector is given" {
+            shouldThrow<IllegalArgumentException> {
+                algebraMap(y)
+            }
         }
     }
 })

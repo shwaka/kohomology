@@ -30,29 +30,8 @@ public interface FreeModuleMap<
             target: FreeModule<BA, BVT, S, V, M>,
             values: List<Vector<FreeModuleBasisName<BA, BVT>, S, V>>
         ): FreeModuleMap<BA, BVS, BVT, S, V, M> {
-            require(source.coeffAlgebra == target.coeffAlgebra) {
-                "cannot consider FreeModuleMap between different coefficient algebras: " +
-                    "${source.coeffAlgebra} and ${target.coeffAlgebra}"
-            }
-            require(values.size == source.generatingBasisNames.size) {
-                "values should have the same size with source.generatingBasisNames; " +
-                    "values.size=${values.size}, " +
-                    "source.generatingBasisNames.size=${source.generatingBasisNames.size}"
-            }
-            val coeffAlgebra = source.coeffAlgebra
-            val vectors = source.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
-                val coeff = coeffAlgebra.fromBasisName(freeModuleBasisName.algebraBasisName)
-                val index: Int = source.generatingBasisNames.indexOf(freeModuleBasisName.generatingBasisName)
-                target.context.run {
-                    coeff * values[index]
-                }
-            }
-            val underlyingLinearMap = LinearMap.fromVectors(
-                source = source.underlyingVectorSpace,
-                target = target.underlyingVectorSpace,
-                matrixSpace = source.matrixSpace,
-                vectors = vectors,
-            )
+            val moduleMapFromFreeModule = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(source, target, values)
+            val underlyingLinearMap = moduleMapFromFreeModule.underlyingLinearMap
             return FreeModuleMapImpl(source, target, underlyingLinearMap)
         }
     }

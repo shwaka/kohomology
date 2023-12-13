@@ -104,4 +104,25 @@ class ModuleMapFromFreeModuleTest : FreeSpec({
             )
         }
     }
+
+    "test lift" {
+        val moduleMap = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
+            source = freeModule,
+            target = module,
+            values = listOf(u, v),
+        )
+        val generatingBasisNames3 = listOf("a", "b", "c").map { StringBasisName(it) }
+        val module3 = FreeModule(coeffAlgebra, generatingBasisNames3)
+        val (a, _, c) = module3.getGeneratingBasis()
+        val surjection = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
+            source = module3,
+            target = module,
+            values = listOf(u, module.context.run { zeroVector }, v),
+        )
+
+        val lift = moduleMap.liftAlong(surjection)
+
+        lift(x) shouldBe a
+        lift(y) shouldBe c
+    }
 })

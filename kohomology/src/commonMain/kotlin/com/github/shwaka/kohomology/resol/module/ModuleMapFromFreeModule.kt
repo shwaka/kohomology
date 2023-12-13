@@ -18,6 +18,33 @@ public interface ModuleMapFromFreeModule<
 
     override val source: FreeModule<BA, BVS, S, V, M>
 
+    public fun <B : BasisName> liftAlong(
+        moduleMap: ModuleMap<BA, B, BT, S, V, M>
+    ): ModuleMap<BA, FreeModuleBasisName<BA, BVS>, B, S, V, M> {
+        // Find lift of the diagram:
+        //
+        //           moduleMap.source
+        //               |
+        //               | moduleMap
+        //               |
+        //               v
+        // source ---> target
+        require(moduleMap.target == this.target) {
+            "The target modules of module maps $this and $moduleMap must be same"
+        }
+        val values: List<Vector<B, S, V>> = this.source.getGeneratingBasis().map { vector ->
+            moduleMap.underlyingLinearMap.findPreimage(this(vector))
+                ?: throw IllegalArgumentException(
+                    "$vector is not contained in the image of the module map $moduleMap"
+                )
+        }
+        return ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
+            source = this.source,
+            target = moduleMap.source,
+            values = values,
+        )
+    }
+
     public companion object {
         public fun <BA : BasisName, BVS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
         fromValuesOnGeneratingBasis(

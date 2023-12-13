@@ -7,35 +7,20 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
+import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-private fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> createMonoidRing(
-    monoid: FiniteMonoid<E>,
-    matrixSpace: MatrixSpace<S, V, M>,
-): Algebra<E, S, V, M> {
-    val vectorSpace = VectorSpace(matrixSpace.numVectorSpace, monoid.elements)
-    val unit = vectorSpace.fromBasisName(monoid.unit)
-    val isCommutative = monoid.isCommutative
-    val values = monoid.multiplicationTable.map { row: List<E> ->
-        row.map { monoidElement ->
-            vectorSpace.fromBasisName(monoidElement)
-        }
-    }
-    val multiplication = ValueBilinearMap(
-        source1 = vectorSpace,
-        source2 = vectorSpace,
-        target = vectorSpace,
-        matrixSpace = matrixSpace,
-        values = values,
-    )
-    return Algebra(matrixSpace, vectorSpace, multiplication, unit, isCommutative)
-}
+public interface MonoidRing<
+    E : FiniteMonoidElement,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    > : Algebra<E, S, V, M> {
 
-public class MonoidRing<E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    public val monoid: FiniteMonoid<E>,
-    matrixSpace: MatrixSpace<S, V, M>,
-) : Algebra<E, S, V, M> by createMonoidRing(monoid, matrixSpace) {
+    public val monoid: FiniteMonoid<E>
+
     public fun <B : BasisName> getModuleWithTrivialAction(
         vectorSpace: VectorSpace<B, S, V>
     ): Module<E, B, S, V, M> {
@@ -51,6 +36,39 @@ public class MonoidRing<E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M
             underlyingVectorSpace = vectorSpace,
             coeffAlgebra = this,
             action = action,
+        )
+    }
+
+    public companion object {
+        public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            monoid: FiniteMonoid<E>,
+            matrixSpace: MatrixSpace<S, V, M>,
+        ): MonoidRing<E, S, V, M> {
+            return MonoidRingImpl(monoid, matrixSpace)
+        }
+    }
+}
+
+private class MonoidRingImpl<E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+    override val monoid: FiniteMonoid<E>,
+    override val matrixSpace: MatrixSpace<S, V, M>,
+) : MonoidRing<E, S, V, M>,
+    VectorSpace<E, S, V> by VectorSpace(matrixSpace.numVectorSpace, monoid.elements) {
+    override val context: AlgebraContext<E, S, V, M> = AlgebraContextImpl(this)
+    override val unit: Vector<E, S, V> = this.fromBasisName(monoid.unit)
+    override val isCommutative: Boolean = monoid.isCommutative
+    override val multiplication: BilinearMap<E, E, E, S, V, M> = run {
+        val values = monoid.multiplicationTable.map { row: List<E> ->
+            row.map { monoidElement ->
+                this.fromBasisName(monoidElement)
+            }
+        }
+        ValueBilinearMap(
+            source1 = this,
+            source2 = this,
+            target = this,
+            matrixSpace = matrixSpace,
+            values = values,
         )
     }
 }

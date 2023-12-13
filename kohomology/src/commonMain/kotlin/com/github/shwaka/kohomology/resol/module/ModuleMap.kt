@@ -7,19 +7,19 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
 
-public open class ModuleMap<
+public interface ModuleMap<
     BA : BasisName,
     BS : BasisName,
     BT : BasisName,
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    >
-(
-    public open val source: Module<BA, BS, S, V, M>,
-    public open val target: Module<BA, BT, S, V, M>,
-    public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
-) {
+    > {
+
+    public val source: Module<BA, BS, S, V, M>
+    public val target: Module<BA, BT, S, V, M>
+    public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>
+
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
         return this.underlyingLinearMap(vector)
     }
@@ -32,6 +32,21 @@ public open class ModuleMap<
     }
 
     public companion object {
+        public operator fun <
+            BA : BasisName,
+            BS : BasisName,
+            BT : BasisName,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > invoke(
+            source: Module<BA, BS, S, V, M>,
+            target: Module<BA, BT, S, V, M>,
+            underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
+        ) : ModuleMap<BA, BS, BT, S, V, M> {
+            return ModuleMapImpl(source, target, underlyingLinearMap)
+        }
+
         public fun <BA : BasisName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromMatrix(
             source: Module<BA, BS, S, V, M>,
             target: Module<BA, BT, S, V, M>,
@@ -47,7 +62,7 @@ public open class ModuleMap<
                 target = target.underlyingVectorSpace,
                 matrix = matrix,
             )
-            return ModuleMap(source, target, underlyingLinearMap)
+            return ModuleMapImpl(source, target, underlyingLinearMap)
         }
 
         public fun <BA : BasisName, BS : BasisName, BT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> fromVectors(
@@ -65,7 +80,21 @@ public open class ModuleMap<
                 target = target.underlyingVectorSpace,
                 vectors = vectors,
             )
-            return ModuleMap(source, target, underlyingLinearMap)
+            return ModuleMapImpl(source, target, underlyingLinearMap)
         }
     }
 }
+
+private class ModuleMapImpl<
+    BA : BasisName,
+    BS : BasisName,
+    BT : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    >
+(
+    override val source: Module<BA, BS, S, V, M>,
+    override val target: Module<BA, BT, S, V, M>,
+    override val underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
+) : ModuleMap<BA, BS, BT, S, V, M>

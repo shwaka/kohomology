@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.resol.module
+package com.github.shwaka.kohomology.resol.complex
 
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
@@ -7,6 +7,10 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.module.FreeModule
+import com.github.shwaka.kohomology.resol.module.FreeModuleMap
+import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2

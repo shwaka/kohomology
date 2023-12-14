@@ -13,7 +13,13 @@ internal sealed interface SmallGeneratorFinder {
         generator: List<Vector<B, S, V>>,
     ): List<Vector<B, S, V>>
 
-    object SimpleFinder : SmallGeneratorFinder {
+    abstract class FinderBase : SmallGeneratorFinder {
+        protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+            module: Module<BA, B, S, V, M>,
+            alreadyAdded: List<Vector<B, S, V>>,
+            candidates: List<Vector<B, S, V>>,
+        ): Pair<Int, SubVectorSpace<B, S, V, M>>
+
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
             module: Module<BA, B, S, V, M>,
             generator: List<Vector<B, S, V>>
@@ -30,8 +36,10 @@ internal sealed interface SmallGeneratorFinder {
             }
             return result
         }
+    }
 
-        private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+    object SimpleFinder : FinderBase() {
+        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
             candidates: List<Vector<B, S, V>>,

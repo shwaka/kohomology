@@ -74,4 +74,49 @@ internal sealed interface SmallGeneratorFinder {
             return finishedCandidates.maxBy { (_, subVectorSpace) -> subVectorSpace.dim }
         }
     }
+
+    object EarlyReturnFinder : SmallGeneratorFinder {
+        // slightly different interface of findMostEfficientVector (previousDim)
+        private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+            module: Module<BA, B, S, V, M>,
+            alreadyAdded: List<Vector<B, S, V>>,
+            previousDim: Int,
+            candidates: List<Vector<B, S, V>>,
+        ): Pair<Int, SubVectorSpace<B, S, V, M>> {
+            var remainingCandidates: List<IndexedValue<Vector<B, S, V>>> = candidates.withIndex().toList()
+            val finishedCandidates = mutableListOf<Pair<Int, SubVectorSpace<B, S, V, M>>>()
+            while (remainingCandidates.isNotEmpty()) {
+                val (index, candidate) = remainingCandidates.first()
+                val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(alreadyAdded + listOf(candidate))
+                val pair = Pair(index, subVectorSpace)
+                if (subVectorSpace.dim == previousDim + module.coeffAlgebra.dim) {
+                    return pair
+                }
+                finishedCandidates.add(pair)
+                remainingCandidates = remainingCandidates.drop(1).filter {
+                    !subVectorSpace.subspaceContains(it.value)
+                }
+            }
+            return finishedCandidates.maxBy { (_, subVectorSpace) -> subVectorSpace.dim }
+        }
+
+        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+            module: Module<BA, B, S, V, M>,
+            generator: List<Vector<B, S, V>>
+        ): List<Vector<B, S, V>> {
+            var remainingGenerator: List<Vector<B, S, V>> = generator
+            val result = mutableListOf<Vector<B, S, V>>()
+            var previousDim = 0
+            while (remainingGenerator.isNotEmpty()) {
+                val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(module, result, previousDim, remainingGenerator)
+                previousDim = generatedSubVectorSpace.dim
+                result.add(remainingGenerator[selectedIndex])
+                remainingGenerator = remainingGenerator.filterIndexed { index, vector ->
+                    (index != selectedIndex) &&
+                        !generatedSubVectorSpace.subspaceContains(vector)
+                }
+            }
+            return result
+        }
+    }
 }

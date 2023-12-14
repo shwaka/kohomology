@@ -103,4 +103,5 @@ class SmallGeneratorFinderTest : FreeSpec({
 
     include(smallGeneratorFinderTest(SmallGeneratorFinder.SimpleFinder))
     include(smallGeneratorFinderTest(SmallGeneratorFinder.FilteredFinder))
+    include(smallGeneratorFinderTest(SmallGeneratorFinder.EarlyReturnFinder))
 })

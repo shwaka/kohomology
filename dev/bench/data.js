@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702476898224,
+  "lastUpdate": 1702547240582,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3926,6 +3926,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.467,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5e694b5fe07e114c7c5c19c85f260cb6e88ec657",
+          "message": "refactor(core): rename vectorSpaceWithoutCoeff to tensorWithBaseField",
+          "timestamp": "2023-12-14T16:51:57+09:00",
+          "tree_id": "f3b8282bfac62bbca41ab6b76b7a4185c6fb6f90",
+          "url": "https://github.com/shwaka/kohomology/commit/5e694b5fe07e114c7c5c19c85f260cb6e88ec657"
+        },
+        "date": 1702547239897,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.412,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.484,
             "unit": "s/op"
           }
         ]

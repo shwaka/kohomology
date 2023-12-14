@@ -41,10 +41,10 @@ class FreeModuleMapTest : FreeSpec({
                 freeModuleMap(arg) shouldBe expected
             }
         }
-        "check values of freeModuleMap.inducedMapWithoutCoeff" {
-            val (x0, y0) = freeModule1.vectorSpaceWithoutCoeff.getBasis()
-            val (u0, v0) = freeModule2.vectorSpaceWithoutCoeff.getBasis()
-            val f = freeModuleMap.inducedMapWithoutCoeff
+        "check values of freeModuleMap.tensorWithBaseField" {
+            val (x0, y0) = freeModule1.tensorWithBaseField.getBasis()
+            val (u0, v0) = freeModule2.tensorWithBaseField.getBasis()
+            val f = freeModuleMap.tensorWithBaseField
             f(x0) shouldBe u0
             f(y0) shouldBe v0
         }
@@ -71,11 +71,11 @@ class FreeModuleMapTest : FreeSpec({
                 }
             }
         }
-        "check values of freeModuleMap.inducedMapWithoutCoeff" {
-            val (x0, y0) = freeModule1.vectorSpaceWithoutCoeff.getBasis()
-            val (u0, v0) = freeModule2.vectorSpaceWithoutCoeff.getBasis()
-            val f = freeModuleMap.inducedMapWithoutCoeff
-            freeModule2.vectorSpaceWithoutCoeff.context.run {
+        "check values of freeModuleMap.tensorWithBaseField" {
+            val (x0, y0) = freeModule1.tensorWithBaseField.getBasis()
+            val (u0, v0) = freeModule2.tensorWithBaseField.getBasis()
+            val f = freeModuleMap.tensorWithBaseField
+            freeModule2.tensorWithBaseField.context.run {
                 f(x0) shouldBe (3 * u0)
                 f(y0) shouldBe (-v0)
             }

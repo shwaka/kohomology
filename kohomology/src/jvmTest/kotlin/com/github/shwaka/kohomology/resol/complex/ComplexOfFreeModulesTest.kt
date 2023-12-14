@@ -108,7 +108,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
             }
         }
 
-        "test cohomology of dgVectorSpaceWithoutCoeff" {
+        "test cohomology of tensorWithBaseField" {
             (-10..10).forAll { degree ->
                 val expected = when {
                     (order == matrixSpace.field.characteristic) -> when {
@@ -120,7 +120,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
                         else -> 0
                     }
                 }
-                complex.dgVectorSpaceWithoutCoeff.cohomology[degree].dim shouldBe expected
+                complex.tensorWithBaseField.cohomology[degree].dim shouldBe expected
             }
         }
     }

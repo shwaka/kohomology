@@ -27,7 +27,7 @@ public interface ComplexOfFreeModules<
     public val name: String
 
     public val underlyingDGVectorSpace: DGVectorSpace<D, FreeModuleBasisName<BA, BV>, S, V, M>
-    public val dgVectorSpaceWithoutCoeff: DGVectorSpace<D, BV, S, V, M>
+    public val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M>
 
     public companion object {
         public operator fun <D : Degree, BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
@@ -76,13 +76,13 @@ private class ComplexOfFreeModulesImpl<
         DGVectorSpace(gVectorSpace, differential)
     }
 
-    override val dgVectorSpaceWithoutCoeff: DGVectorSpace<D, BV, S, V, M> by lazy {
+    override val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M> by lazy {
         val gVectorSpace = GVectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             degreeGroup = this.degreeGroup,
             name = this.name,
         ) { degree ->
-            this.getModule(degree).vectorSpaceWithoutCoeff
+            this.getModule(degree).tensorWithBaseField
         }
         val differential = GLinearMap(
             source = gVectorSpace,
@@ -91,7 +91,7 @@ private class ComplexOfFreeModulesImpl<
             matrixSpace = this.matrixSpace,
             name = this.name,
         ) { degree ->
-            this.getDifferential(degree).inducedMapWithoutCoeff
+            this.getDifferential(degree).tensorWithBaseField
         }
         DGVectorSpace(gVectorSpace, differential)
     }

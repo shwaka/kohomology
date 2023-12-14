@@ -25,8 +25,8 @@ class FreeModuleTest : FreeSpec({
         freeModule.underlyingVectorSpace.dim shouldBe (coeffAlgebra.dim * generatingBasisNames.size)
     }
 
-    "freeModule.vectorSpaceWithoutCoeff.dim should be generatingBasisNames.size" {
-        freeModule.vectorSpaceWithoutCoeff.dim shouldBe generatingBasisNames.size
+    "freeModule.tensorWithBaseField.dim should be generatingBasisNames.size" {
+        freeModule.tensorWithBaseField.dim shouldBe generatingBasisNames.size
     }
 
     "test freeModule.generatingBasisNames" {
@@ -83,7 +83,7 @@ class FreeModuleTest : FreeSpec({
 
     "test freeModule.projection" {
         val p = freeModule.projection
-        val (x0, y0) = freeModule.vectorSpaceWithoutCoeff.getBasis()
+        val (x0, y0) = freeModule.tensorWithBaseField.getBasis()
         freeModule.context.run {
             p(x) shouldBe x0
             p(t1 * x) shouldBe x0
@@ -96,7 +96,7 @@ class FreeModuleTest : FreeSpec({
 
     "test freeModule.inclusion" {
         val i = freeModule.inclusion
-        val (x0, y0) = freeModule.vectorSpaceWithoutCoeff.getBasis()
+        val (x0, y0) = freeModule.tensorWithBaseField.getBasis()
         freeModule.context.run {
             i(x0) shouldBe x
             i(y0) shouldBe y

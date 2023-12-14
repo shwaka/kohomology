@@ -54,7 +54,7 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         }
     }
 
-    public val vectorSpaceWithoutCoeff: VectorSpace<BV, S, V> by lazy {
+    public val tensorWithBaseField: VectorSpace<BV, S, V> by lazy {
         VectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             basisNames = this.generatingBasisNames,
@@ -63,11 +63,11 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
 
     public val projection: LinearMap<FreeModuleBasisName<BA, BV>, BV, S, V, M> by lazy {
         val vectors = this.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
-            this.vectorSpaceWithoutCoeff.fromBasisName(freeModuleBasisName.generatingBasisName)
+            this.tensorWithBaseField.fromBasisName(freeModuleBasisName.generatingBasisName)
         }
         LinearMap.fromVectors(
             source = this.underlyingVectorSpace,
-            target = this.vectorSpaceWithoutCoeff,
+            target = this.tensorWithBaseField,
             matrixSpace = this.matrixSpace,
             vectors = vectors,
         )
@@ -75,7 +75,7 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
 
     public val inclusion: LinearMap<BV, FreeModuleBasisName<BA, BV>, S, V, M> by lazy {
         LinearMap.fromVectors(
-            source = this.vectorSpaceWithoutCoeff,
+            source = this.tensorWithBaseField,
             target = this.underlyingVectorSpace,
             matrixSpace = this.matrixSpace,
             vectors = this.getGeneratingBasis(),

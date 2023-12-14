@@ -21,7 +21,7 @@ public interface FreeModuleMap<
     override val target: FreeModule<BA, BVT, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
         get() = source.matrixSpace
-    public val inducedMapWithoutCoeff: LinearMap<BVS, BVT, S, V, M>
+    public val tensorWithBaseField: LinearMap<BVS, BVT, S, V, M>
 
     public companion object {
         public fun <BA : BasisName, BVS : BasisName, BVT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
@@ -50,14 +50,14 @@ private class FreeModuleMapImpl<
     override val target: FreeModule<BA, BVT, S, V, M>,
     override val underlyingLinearMap: LinearMap<FreeModuleBasisName<BA, BVS>, FreeModuleBasisName<BA, BVT>, S, V, M>,
 ) : FreeModuleMap<BA, BVS, BVT, S, V, M> {
-    override val inducedMapWithoutCoeff: LinearMap<BVS, BVT, S, V, M> by lazy {
+    override val tensorWithBaseField: LinearMap<BVS, BVT, S, V, M> by lazy {
         val proj = this.target.projection
         val vectors = this.source.getGeneratingBasis().map { vector ->
             proj(this(vector))
         }
         LinearMap.fromVectors(
-            source = this.source.vectorSpaceWithoutCoeff,
-            target = this.target.vectorSpaceWithoutCoeff,
+            source = this.source.tensorWithBaseField,
+            target = this.target.tensorWithBaseField,
             matrixSpace = this.matrixSpace,
             vectors = vectors,
         )

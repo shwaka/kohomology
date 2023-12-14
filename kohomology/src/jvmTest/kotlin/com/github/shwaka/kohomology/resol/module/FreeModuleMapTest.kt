@@ -106,7 +106,7 @@ class FreeModuleMapTest : FreeSpec({
             val kernel = freeModuleMap.kernel()
             val r = kernel.retraction
             val smallGenerator = kernel.findSmallGenerator()
-            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldHaveSize 1
             smallGenerator shouldBe freeModule1.context.run { listOf(r(x + y)) }
         }
     }

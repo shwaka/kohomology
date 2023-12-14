@@ -58,14 +58,14 @@ class ModuleTest : FreeSpec({
 
     "module.findSmallGenerator() should return listOf(x)" {
         val smallGenerator = module.findSmallGenerator()
-        smallGenerator.shouldHaveSize(1)
+        smallGenerator shouldHaveSize 1
         smallGenerator shouldBe listOf(x)
     }
 
     "module.findSmallGenerator(listOf(x)) should return listOf(x)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(x))
-            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
         }
     }
@@ -73,7 +73,7 @@ class ModuleTest : FreeSpec({
     "module.findSmallGenerator(listOf(x+y, x)) should return listOf(x)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(x + y, x))
-            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
         }
     }
@@ -81,7 +81,7 @@ class ModuleTest : FreeSpec({
     "module.findSmallGenerator(listOf(x, x+y)) should return listOf(x)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(x, x + y))
-            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
         }
     }
@@ -89,7 +89,7 @@ class ModuleTest : FreeSpec({
     "module.findSmallGenerator(listOf(2x+y)) should return listOf(2x+y)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(2 * x + y))
-            smallGenerator.shouldHaveSize(1)
+            smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(2 * x + y)
         }
     }
@@ -97,7 +97,7 @@ class ModuleTest : FreeSpec({
     "module.findSmallGenerator(listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
         module.context.run {
             val smallGenerator = module.findSmallGenerator(listOf(x + y, x - y))
-            smallGenerator.shouldHaveSize(2)
+            smallGenerator shouldHaveSize 2
             smallGenerator shouldBe listOf(x + y, x - y)
         }
     }

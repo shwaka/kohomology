@@ -37,7 +37,7 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action(a, b)
     }
 
-    private fun generateSubVectorSpaceOverCoefficient(
+    public fun generateSubVectorSpaceOverCoefficient(
         generator: List<Vector<B, S, V>>
     ): SubVectorSpace<B, S, V, M> {
         val subVectorSpace = SubVectorSpace(
@@ -48,20 +48,8 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action.image(source2Sub = subVectorSpace)
     }
 
-    private fun findMostEfficientVector(
-        alreadyAdded: List<Vector<B, S, V>>,
-        candidates: List<Vector<B, S, V>>,
-    ): Pair<Int, SubVectorSpace<B, S, V, M>> {
-        return candidates.withIndex().map { (index, candidate) ->
-            Pair(
-                index,
-                this.generateSubVectorSpaceOverCoefficient(alreadyAdded + listOf(candidate))
-            )
-        }.maxBy { (_, subVectorSpace) -> subVectorSpace.dim }
-    }
-
     public fun findSmallGenerator(generator: List<Vector<B, S, V>>? = null): List<Vector<B, S, V>> {
-        var remainingGenerator = if (generator == null) {
+        val generatorNonNull = if (generator == null) {
             this.underlyingVectorSpace.getBasis()
         } else {
             require(
@@ -72,16 +60,7 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
             }
             generator
         }
-        val result = mutableListOf<Vector<B, S, V>>()
-        while (remainingGenerator.isNotEmpty()) {
-            val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(result, remainingGenerator)
-            result.add(remainingGenerator[selectedIndex])
-            remainingGenerator = remainingGenerator.filterIndexed { index, vector ->
-                (index != selectedIndex) &&
-                    !generatedSubVectorSpace.subspaceContains(vector)
-            }
-        }
-        return result
+        return SmallGeneratorFinder.SimpleFinder.find(this, generatorNonNull)
     }
 
     public companion object {

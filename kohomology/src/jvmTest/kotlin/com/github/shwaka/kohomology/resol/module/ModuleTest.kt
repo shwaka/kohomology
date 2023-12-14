@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
+import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
@@ -104,17 +105,16 @@ class ModuleTest : FreeSpec({
 
     "module.findSmallGenerator(emptyList()) should throw IllegalArgumentException" {
         module.context.run {
-            shouldThrow<IllegalArgumentException> {
-                module.findSmallGenerator(emptyList())
-            }
+            val smallGenerator = module.findSmallGenerator(emptyList())
+            smallGenerator.shouldBeEmpty()
         }
     }
 
     "module.findSmallGenerator(listOf(x+y)) should throw IllegalArgumentException" {
         module.context.run {
-            shouldThrow<IllegalArgumentException> {
-                module.findSmallGenerator(listOf(x + y))
-            }
+            val smallGenerator = module.findSmallGenerator(listOf(x + y))
+            smallGenerator shouldHaveSize 1
+            smallGenerator shouldBe listOf(x + y)
         }
     }
 })

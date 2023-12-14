@@ -4,7 +4,6 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
-import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldBeEmpty
@@ -103,4 +102,5 @@ class SmallGeneratorFinderTest : FreeSpec({
     tags(moduleTag)
 
     include(smallGeneratorFinderTest(SmallGeneratorFinder.SimpleFinder))
+    include(smallGeneratorFinderTest(SmallGeneratorFinder.FilteredFinder))
 })

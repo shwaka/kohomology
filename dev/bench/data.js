@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702569794572,
+  "lastUpdate": 1702612748039,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -3994,6 +3994,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.451,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c3d32f883c15d4e5bb1d0f830e279310c5a805a8",
+          "message": "perf(core): improve SmallGeneratorFinder.EarlyReturnFinder by adding previousMax",
+          "timestamp": "2023-12-15T09:54:49+09:00",
+          "tree_id": "29961a7b79291552bab7f52f96588229a8088e4f",
+          "url": "https://github.com/shwaka/kohomology/commit/c3d32f883c15d4e5bb1d0f830e279310c5a805a8"
+        },
+        "date": 1702612747594,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.42,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.474,
             "unit": "s/op"
           }
         ]

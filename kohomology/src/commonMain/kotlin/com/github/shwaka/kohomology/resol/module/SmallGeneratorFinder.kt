@@ -81,6 +81,7 @@ internal sealed interface SmallGeneratorFinder {
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
             previousDim: Int,
+            previousMax: Int,
             candidates: List<Vector<B, S, V>>,
         ): Pair<Int, SubVectorSpace<B, S, V, M>> {
             var remainingCandidates: List<IndexedValue<Vector<B, S, V>>> = candidates.withIndex().toList()
@@ -89,7 +90,7 @@ internal sealed interface SmallGeneratorFinder {
                 val (index, candidate) = remainingCandidates.first()
                 val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(alreadyAdded + listOf(candidate))
                 val pair = Pair(index, subVectorSpace)
-                if (subVectorSpace.dim == previousDim + module.coeffAlgebra.dim) {
+                if (subVectorSpace.dim == previousDim + previousMax) {
                     return pair
                 }
                 finishedCandidates.add(pair)
@@ -107,8 +108,16 @@ internal sealed interface SmallGeneratorFinder {
             var remainingGenerator: List<Vector<B, S, V>> = generator
             val result = mutableListOf<Vector<B, S, V>>()
             var previousDim = 0
+            var previousMax = module.coeffAlgebra.dim
             while (remainingGenerator.isNotEmpty()) {
-                val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(module, result, previousDim, remainingGenerator)
+                val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(
+                    module,
+                    alreadyAdded = result,
+                    previousDim = previousDim,
+                    previousMax = previousMax,
+                    candidates = remainingGenerator,
+                )
+                previousMax = generatedSubVectorSpace.dim - previousDim
                 previousDim = generatedSubVectorSpace.dim
                 result.add(remainingGenerator[selectedIndex])
                 remainingGenerator = remainingGenerator.filterIndexed { index, vector ->

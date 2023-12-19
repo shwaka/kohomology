@@ -17,6 +17,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldBeIn
+import io.kotest.matchers.ints.shouldBeLessThanOrEqual
 import io.kotest.matchers.shouldBe
 
 val freeResolTag = NamedTag("FreeResol")
@@ -92,6 +93,9 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
         val maxDegree = 10
 
         "underlyingDGVectorSpace[degree].dim should be not greater than 15" {
+            // Expected values have no mathematical meaning.
+            // They are the values from SmallGeneratorFinder.SimpleFinder
+            // and chosen to assert that other finders are "not bad".
             (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when {
                     (degree == 0) -> 5
@@ -99,7 +103,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
                     (degree <= -2) -> 15
                     else -> 0
                 }
-                complex.underlyingDGVectorSpace[degree].dim shouldBe expected
+                complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
             }
         }
 
@@ -117,6 +121,64 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
             (-maxDegree..maxDegree).forAll { degree ->
                 val expected = when (degree) {
                     0, -2 -> 1
+                    else -> 0
+                }
+                complex.tensorWithBaseField.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+}
+
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMonoidOfOrder6(
+    matrixSpace: MatrixSpace<S, V, M>,
+    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+) = freeSpec {
+    // variant of Fiedorowicz monoid
+    val elements = listOf("1", "x1", "x0", "x2", "y1", "y2")
+    val multiplicationTable = listOf(
+        listOf("1", "x1", "x0", "x2", "y1", "y2"),
+        listOf("x1", "x1", "x1", "x1", "y1", "y1"),
+        listOf("x0", "x1", "x1", "x1", "y1", "y1"),
+        listOf("x2", "x2", "x2", "x2", "y2", "y2"),
+        listOf("y1", "x1", "x1", "x1", "y1", "y1"),
+        listOf("y2", "x2", "x2", "x2", "y2", "y2"),
+    )
+    val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+    val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val complex = FreeResol(coeffAlgebra, finder)
+    val field = matrixSpace.field
+
+    "test with free resolution of $field over $field[monoid of order 6] (with $finder)" - {
+        val maxDegree = 10
+
+        "test underlyingDGVectorSpace[degree].dim" {
+            // Expected values have no mathematical meaning.
+            // They are the values from SmallGeneratorFinder.SimpleFinder
+            // and chosen to assert that other finders are "not bad".
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when {
+                    (degree <= 0) -> (-degree + 1) * 6
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
+            }
+        }
+
+        "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        "test cohomology of tensorWithBaseField" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when {
+                    (degree <= -2) -> 1
+                    (degree == 0) -> 1
                     else -> 0
                 }
                 complex.tensorWithBaseField.cohomology[degree].dim shouldBe expected
@@ -146,6 +208,9 @@ class FreeResolTest : FreeSpec({
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational))
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF2))
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF2))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF3))
 })
 
 class FreeResolWithFinderTest : FreeSpec({
@@ -162,5 +227,6 @@ class FreeResolWithFinderTest : FreeSpec({
         include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2, finder))
         include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, finder))
         include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, finder))
+        include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, finder))
     }
 })

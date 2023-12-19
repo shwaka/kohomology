@@ -7,6 +7,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.bar.FreeResol
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
+import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
@@ -20,7 +22,7 @@ import io.kotest.matchers.shouldBe
 
 val freeResolTag = NamedTag("FreeResol")
 
-private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCyclicGroup(
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
 ) = freeSpec {
@@ -66,22 +68,81 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
     }
 }
 
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFiedorowiczMonoid(
+    matrixSpace: MatrixSpace<S, V, M>,
+) = freeSpec {
+    // Z. Fiedorowicz,
+    // A counterexample to a group completion conjecture of J. C. Moore,
+    // Algebr. Geom. Topol., 2002
+    val elements = listOf("1", "x1", "x2", "y1", "y2").map { SimpleFiniteMonoidElement(it) }
+    val multiplicationTable = listOf(
+        listOf("1", "x1", "x2", "y1", "y2"),
+        listOf("x1", "x1", "x1", "y1", "y1"),
+        listOf("x2", "x2", "x2", "y2", "y2"),
+        listOf("y1", "x1", "x1", "y1", "y1"),
+        listOf("y2", "x2", "x2", "y2", "y2"),
+    ).map { row -> row.map { SimpleFiniteMonoidElement(it) } }
+    val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+    val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val complex = FreeResol(coeffAlgebra)
+    val field = matrixSpace.field
+
+    "test with free resolution of $field over $field[Fiedorowicz monoid]" - {
+        val maxDegree = 10
+
+        "underlyingDGVectorSpace[degree].dim should be not greater than 15" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when {
+                    (degree == 0) -> 5
+                    (degree == -1) -> 10
+                    (degree <= -2) -> 15
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace[degree].dim shouldBe expected
+            }
+        }
+
+        "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when (degree) {
+                    0 -> 1
+                    else -> 0
+                }
+                complex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        "test cohomology of tensorWithBaseField" {
+            (-maxDegree..maxDegree).forAll { degree ->
+                val expected = when (degree) {
+                    0, -2 -> 1
+                    else -> 0
+                }
+                complex.tensorWithBaseField.cohomology[degree].dim shouldBe expected
+            }
+        }
+    }
+}
+
 class FreeResolTest : FreeSpec({
     tags(moduleTag, freeResolTag)
 
-    include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverRational))
-    include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF2))
-    include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF3))
-    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverRational))
-    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF2))
-    include(testHomologyOfCyclicGroup(3, SparseMatrixSpaceOverF3))
-    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverRational))
-    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF2))
-    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF3))
-    include(testHomologyOfCyclicGroup(5, SparseMatrixSpaceOverF5))
-    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverRational))
-    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF2))
-    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF3))
-    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF5))
-    include(testHomologyOfCyclicGroup(7, SparseMatrixSpaceOverF7))
+    include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverRational))
+    include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2))
+    include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF3))
+    include(testFreeResolOfCyclicGroup(3, SparseMatrixSpaceOverRational))
+    include(testFreeResolOfCyclicGroup(3, SparseMatrixSpaceOverF2))
+    include(testFreeResolOfCyclicGroup(3, SparseMatrixSpaceOverF3))
+    include(testFreeResolOfCyclicGroup(5, SparseMatrixSpaceOverRational))
+    include(testFreeResolOfCyclicGroup(5, SparseMatrixSpaceOverF2))
+    include(testFreeResolOfCyclicGroup(5, SparseMatrixSpaceOverF3))
+    include(testFreeResolOfCyclicGroup(5, SparseMatrixSpaceOverF5))
+    include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverRational))
+    include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF2))
+    include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF3))
+    include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF5))
+    include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF7))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF2))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3))
 })

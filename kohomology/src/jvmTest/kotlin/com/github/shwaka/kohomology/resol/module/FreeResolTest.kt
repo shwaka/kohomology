@@ -24,13 +24,14 @@ val freeResolTag = NamedTag("FreeResol")
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
+    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
 ) = freeSpec {
     require(order > 1)
     val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
-    val complex = FreeResol(coeffAlgebra)
+    val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
 
-    "test with free resolution of $field over $field[Z/$order]" - {
+    "test with free resolution of $field over $field[Z/$order] (with $finder)" - {
         val maxDegree = 10
 
         "underlyingDGVectorSpace[degree].dim should be 0 or $order" {
@@ -69,6 +70,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCycl
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFiedorowiczMonoid(
     matrixSpace: MatrixSpace<S, V, M>,
+    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
 ) = freeSpec {
     // Z. Fiedorowicz,
     // A counterexample to a group completion conjecture of J. C. Moore,
@@ -83,10 +85,10 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
     )
     val monoid = FiniteMonoidFromList(elements, multiplicationTable)
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
-    val complex = FreeResol(coeffAlgebra)
+    val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
 
-    "test with free resolution of $field over $field[Fiedorowicz monoid]" - {
+    "test with free resolution of $field over $field[Fiedorowicz monoid] (with $finder)" - {
         val maxDegree = 10
 
         "underlyingDGVectorSpace[degree].dim should be not greater than 15" {
@@ -144,4 +146,21 @@ class FreeResolTest : FreeSpec({
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational))
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF2))
     include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3))
+})
+
+class FreeResolWithFinderTest : FreeSpec({
+    tags(moduleTag, freeResolTag)
+
+    val finderList = listOf(
+        SmallGeneratorFinder.SimpleFinder,
+        SmallGeneratorFinder.FilteredFinder,
+        SmallGeneratorFinder.EarlyReturnFinder,
+    )
+
+    for (finder in finderList) {
+        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverRational, finder))
+        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2, finder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, finder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, finder))
+    }
 })

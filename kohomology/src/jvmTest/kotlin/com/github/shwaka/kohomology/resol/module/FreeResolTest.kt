@@ -17,6 +17,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldBeIn
+import io.kotest.matchers.ints.shouldBeGreaterThanOrEqual
 import io.kotest.matchers.ints.shouldBeLessThanOrEqual
 import io.kotest.matchers.shouldBe
 
@@ -211,6 +212,38 @@ class FreeResolTest : FreeSpec({
     include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational))
     include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF2))
     include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF3))
+
+    "test minDegreeComputedAlready" - {
+        val order = 5
+        val matrixSpace = SparseMatrixSpaceOverRational
+        val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
+
+        "minDegreeComputedAlready should be 1 if nothing is computed" {
+            val complex = FreeResol(coeffAlgebra)
+            complex.minDegreeComputedAlready shouldBe 1
+        }
+
+        "minDegreeComputedAlready should be 1 if only positive degree is accessed" {
+            (1..10).forAll { degree ->
+                val complex = FreeResol(coeffAlgebra)
+                // The following line is a trivial test,
+                // which is added to access the module at the degree
+                complex.underlyingDGVectorSpace[degree].dim shouldBeGreaterThanOrEqual 0
+                complex.minDegreeComputedAlready shouldBe 1
+            }
+        }
+
+        "minDegreeComputedAlready should be -n if only degree -n is computed" {
+            (0..10).forAll { n ->
+                val degree = -n
+                val complex = FreeResol(coeffAlgebra)
+                // The following line is a trivial test,
+                // which is added to compute the module at the degree
+                complex.underlyingDGVectorSpace[degree].dim shouldBeGreaterThanOrEqual 0
+                complex.minDegreeComputedAlready shouldBe degree
+            }
+        }
+    }
 })
 
 class FreeResolWithFinderTest : FreeSpec({

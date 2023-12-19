@@ -48,6 +48,8 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
     private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, BV, S, V, M>
+    val minDegreeComputedAlready: Int
+        get() = moduleCache.keys.minOrNull() ?: 1
 
     private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<FreeResolBasisName>())
     private val zeroFreeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
@@ -135,15 +137,24 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
     }
 }
 
-public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    coeffAlgebra: Algebra<BA, S, V, M>,
-    module: Module<BA, BV, S, V, M>,
-    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
-) : ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> by FreeResolFactory(
-    coeffAlgebra,
-    module,
-    finder,
-).complexOfFreeModules {
+public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+    private val freeResolFactory: FreeResolFactory<BA, BV, S, V, M>
+) : ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> by freeResolFactory.complexOfFreeModules {
+    public constructor(
+        coeffAlgebra: Algebra<BA, S, V, M>,
+        module: Module<BA, BV, S, V, M>,
+        finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+    ) : this(
+        FreeResolFactory(
+            coeffAlgebra,
+            module,
+            finder,
+        )
+    )
+
+    public val minDegreeComputedAlready: Int
+        get() = freeResolFactory.minDegreeComputedAlready
+
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             coeffAlgebra: MonoidRing<E, S, V, M>,

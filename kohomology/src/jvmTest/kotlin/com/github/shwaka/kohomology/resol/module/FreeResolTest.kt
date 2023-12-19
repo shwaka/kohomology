@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.bar.FreeResol
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
-import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
@@ -74,14 +73,14 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
     // Z. Fiedorowicz,
     // A counterexample to a group completion conjecture of J. C. Moore,
     // Algebr. Geom. Topol., 2002
-    val elements = listOf("1", "x1", "x2", "y1", "y2").map { SimpleFiniteMonoidElement(it) }
+    val elements = listOf("1", "x1", "x2", "y1", "y2")
     val multiplicationTable = listOf(
         listOf("1", "x1", "x2", "y1", "y2"),
         listOf("x1", "x1", "x1", "y1", "y1"),
         listOf("x2", "x2", "x2", "y2", "y2"),
         listOf("y1", "x1", "x1", "y1", "y1"),
         listOf("y2", "x2", "x2", "y2", "y2"),
-    ).map { row -> row.map { SimpleFiniteMonoidElement(it) } }
+    )
     val monoid = FiniteMonoidFromList(elements, multiplicationTable)
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
     val complex = FreeResol(coeffAlgebra)

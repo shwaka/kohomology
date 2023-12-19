@@ -31,4 +31,16 @@ public class FiniteMonoidFromList<T>(
     override val isCommutative: Boolean by lazy {
         FiniteMonoid.isCommutative(this.elements, this::multiply)
     }
+
+    public companion object {
+        public operator fun invoke(
+            elements: List<String>,
+            multiplicationTable: List<List<String>>,
+        ): FiniteMonoidFromList<String> {
+            return FiniteMonoidFromList(
+                elements.map { SimpleFiniteMonoidElement(it) },
+                multiplicationTable.map { row -> row.map { SimpleFiniteMonoidElement(it) } },
+            )
+        }
+    }
 }

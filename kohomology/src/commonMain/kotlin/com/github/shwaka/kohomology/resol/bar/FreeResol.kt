@@ -19,35 +19,35 @@ import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
-public data class ProjectiveResolBasisName(val degree: Int, val index: Int) : BasisName {
+public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisName {
     init {
         require(degree <= 0) {
-            "degree for ProjectiveResolBasisName must be non-positive, but $degree was given"
+            "degree for FreeResolBasisName must be non-positive, but $degree was given"
         }
     }
 }
 
-private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val coeffAlgebra: Algebra<BA, S, V, M>,
     private val module: Module<BA, BV, S, V, M>,
 ) {
-    val complexOfFreeModules: ComplexOfFreeModules<IntDegree, BA, ProjectiveResolBasisName, S, V, M> =
+    val complexOfFreeModules: ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> =
         ComplexOfFreeModules(
             matrixSpace = coeffAlgebra.matrixSpace,
             degreeGroup = IntDegreeGroup,
-            name = "ProjResol($module)",
+            name = "FreeResol($module)",
             getModule = { this.getModule(it.value) },
             getDifferential = { this.getDifferential(it.value) }
         )
 
-    private val moduleCache: MutableMap<Int, FreeModule<BA, ProjectiveResolBasisName, S, V, M>> = mutableMapOf()
+    private val moduleCache: MutableMap<Int, FreeModule<BA, FreeResolBasisName, S, V, M>> = mutableMapOf()
     private val differentialCache: MutableMap<
         Int,
-        FreeModuleMap<BA, ProjectiveResolBasisName, ProjectiveResolBasisName, S, V, M>
+        FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, ProjectiveResolBasisName>, BV, S, V, M>
+    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, BV, S, V, M>
 
-    private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<ProjectiveResolBasisName>())
+    private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<FreeResolBasisName>())
     private val zeroFreeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(
         source = zeroFreeModule,
         target = zeroFreeModule,
@@ -64,7 +64,7 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
                 // surjection to this.module
                 val differentialTargets = this.module.findSmallGenerator()
                 val generatingBasisNames = differentialTargets.indices.map {
-                    ProjectiveResolBasisName(degree = degree, index = it)
+                    FreeResolBasisName(degree = degree, index = it)
                 }
                 val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
                 this.augmentation = ModuleMap.fromVectors(
@@ -106,11 +106,11 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
 
     private fun hitVectors(
         degree: Int,
-        targetModule: FreeModule<BA, ProjectiveResolBasisName, S, V, M>,
-        targetVectors: List<Vector<FreeModuleBasisName<BA, ProjectiveResolBasisName>, S, V>>,
-    ): FreeModuleMap<BA, ProjectiveResolBasisName, ProjectiveResolBasisName, S, V, M> {
+        targetModule: FreeModule<BA, FreeResolBasisName, S, V, M>,
+        targetVectors: List<Vector<FreeModuleBasisName<BA, FreeResolBasisName>, S, V>>,
+    ): FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M> {
         val generatingBasisNames = targetVectors.indices.map {
-            ProjectiveResolBasisName(degree = degree, index = it)
+            FreeResolBasisName(degree = degree, index = it)
         }
         val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
         return FreeModuleMap.fromValuesOnGeneratingBasis(
@@ -120,33 +120,33 @@ private class ProjectiveResolFactory<BA : BasisName, BV : BasisName, S : Scalar,
         )
     }
 
-    private fun getModule(degree: Int): FreeModule<BA, ProjectiveResolBasisName, S, V, M> {
+    private fun getModule(degree: Int): FreeModule<BA, FreeResolBasisName, S, V, M> {
         this.moduleCache[degree]?.let { return it }
         this.compute(degree)
         return this.moduleCache[degree] ?: throw Exception("This can't happen!")
     }
 
-    private fun getDifferential(degree: Int): FreeModuleMap<BA, ProjectiveResolBasisName, ProjectiveResolBasisName, S, V, M> {
+    private fun getDifferential(degree: Int): FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M> {
         this.differentialCache[degree]?.let { return it }
         this.compute(degree)
         return this.differentialCache[degree] ?: throw Exception("This can't happen!")
     }
 }
 
-public class ProjectiveResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     coeffAlgebra: Algebra<BA, S, V, M>,
     module: Module<BA, BV, S, V, M>,
-) : ComplexOfFreeModules<IntDegree, BA, ProjectiveResolBasisName, S, V, M> by ProjectiveResolFactory(
+) : ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> by FreeResolFactory(
     coeffAlgebra,
     module,
 ).complexOfFreeModules {
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             coeffAlgebra: MonoidRing<E, S, V, M>,
-        ): ProjectiveResol<E, StringBasisName, S, V, M> {
+        ): FreeResol<E, StringBasisName, S, V, M> {
             val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
             val module = coeffAlgebra.getModuleWithTrivialAction(vectorSpace)
-            return ProjectiveResol(coeffAlgebra, module)
+            return FreeResol(coeffAlgebra, module)
         }
     }
 }

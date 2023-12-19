@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.bar.ProjectiveResol
+import com.github.shwaka.kohomology.resol.bar.FreeResol
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
@@ -18,7 +18,7 @@ import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.shouldBe
 
-val projectiveResolTag = NamedTag("ProjectiveResol")
+val freeResolTag = NamedTag("FreeResol")
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCyclicGroup(
     order: Int,
@@ -26,7 +26,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
 ) = freeSpec {
     require(order > 1)
     val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
-    val complex = ProjectiveResol(coeffAlgebra)
+    val complex = FreeResol(coeffAlgebra)
     val field = matrixSpace.field
 
     "test with free resolution of $field over $field[Z/$order]" - {
@@ -66,8 +66,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testHomologyOfCycli
     }
 }
 
-class ProjectiveResolTest : FreeSpec({
-    tags(moduleTag, projectiveResolTag)
+class FreeResolTest : FreeSpec({
+    tags(moduleTag, freeResolTag)
 
     include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverRational))
     include(testHomologyOfCyclicGroup(2, SparseMatrixSpaceOverF2))

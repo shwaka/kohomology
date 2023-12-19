@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702612748039,
+  "lastUpdate": 1702958584583,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4028,6 +4028,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.474,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d6df398f328ef83d7cf63ace9961c5adc8ed7962",
+          "message": "test(core): add PermutedFiniteMonoidTest.kt",
+          "timestamp": "2023-12-19T12:45:22+09:00",
+          "tree_id": "efe3f3622406d2a73fdb5ead8fb3b3c899c172c3",
+          "url": "https://github.com/shwaka/kohomology/commit/d6df398f328ef83d7cf63ace9961c5adc8ed7962"
+        },
+        "date": 1702958584157,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.415,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.457,
             "unit": "s/op"
           }
         ]

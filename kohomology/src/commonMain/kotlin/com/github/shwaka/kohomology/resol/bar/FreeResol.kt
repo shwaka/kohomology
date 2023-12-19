@@ -19,6 +19,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import kotlin.math.min
 
 public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisName {
     init {
@@ -49,7 +50,14 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
         > = mutableMapOf()
     private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, BV, S, V, M>
     val minDegreeComputedAlready: Int
-        get() = moduleCache.keys.minOrNull() ?: 1
+        get() {
+            val minKey: Int? = moduleCache.keys.minOrNull()
+            return if (minKey == null) {
+                1
+            } else {
+                min(minKey, 1)
+            }
+        }
 
     private val zeroFreeModule = FreeModule(this.coeffAlgebra, emptyList<FreeResolBasisName>())
     private val zeroFreeModuleMap = FreeModuleMap.fromValuesOnGeneratingBasis(

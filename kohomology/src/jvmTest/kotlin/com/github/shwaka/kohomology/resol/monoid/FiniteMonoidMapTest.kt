@@ -38,6 +38,10 @@ class FiniteMonoidMapTest : FreeSpec({
         "isInjective() should be false" {
             monoidMap.isInjective().shouldBeFalse()
         }
+
+        "isBijective() should be false" {
+            monoidMap.isBijective().shouldBeFalse()
+        }
     }
 
     "monoid map from cyclic group of order 3 to that of order 6" - {
@@ -64,6 +68,10 @@ class FiniteMonoidMapTest : FreeSpec({
 
         "isInjective() should be true" {
             monoidMap.isInjective().shouldBeTrue()
+        }
+
+        "isBijective() should be false" {
+            monoidMap.isBijective().shouldBeFalse()
         }
     }
 })

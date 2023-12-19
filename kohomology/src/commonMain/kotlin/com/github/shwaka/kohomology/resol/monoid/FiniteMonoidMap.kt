@@ -15,6 +15,10 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return this.values[index]
     }
 
+    public fun isBijective(): Boolean {
+        return this.isInjective() && this.isSurjective()
+    }
+
     public fun isInjective(): Boolean {
         return this.values.distinct().size == this.values.size
     }

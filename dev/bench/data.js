@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702958584583,
+  "lastUpdate": 1702977492264,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4062,6 +4062,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.457,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "65bf5a7ac192822a0ff1380a4d3ba6f2c384622a",
+          "message": "fix(core): fix FreeResol.minDegreeComputedAlready to return 1 even if positive degrees are accessed",
+          "timestamp": "2023-12-19T17:14:25+09:00",
+          "tree_id": "a9cb681027844e985394a4f77231f08dc625b825",
+          "url": "https://github.com/shwaka/kohomology/commit/65bf5a7ac192822a0ff1380a4d3ba6f2c384622a"
+        },
+        "date": 1702977491854,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.413,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.521,
             "unit": "s/op"
           }
         ]

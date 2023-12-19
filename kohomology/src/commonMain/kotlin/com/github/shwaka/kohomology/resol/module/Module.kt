@@ -48,9 +48,12 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return this.action.image(source2Sub = subVectorSpace)
     }
 
-    public fun findSmallGenerator(generator: List<Vector<B, S, V>>? = null): List<Vector<B, S, V>> {
+    public fun findSmallGenerator(
+        generator: List<Vector<B, S, V>>? = null,
+        finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+    ): List<Vector<B, S, V>> {
         val generatorNonNull = generator ?: this.underlyingVectorSpace.getBasis()
-        return SmallGeneratorFinder.SimpleFinder.find(this, generatorNonNull)
+        return finder.find(this, generatorNonNull)
     }
 
     public companion object {

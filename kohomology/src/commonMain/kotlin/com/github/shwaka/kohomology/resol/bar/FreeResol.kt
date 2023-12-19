@@ -13,6 +13,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
 import com.github.shwaka.kohomology.resol.module.ModuleMap
 import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.StringBasisName
@@ -30,6 +31,7 @@ public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisNam
 private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val coeffAlgebra: Algebra<BA, S, V, M>,
     private val module: Module<BA, BV, S, V, M>,
+    private val finder: SmallGeneratorFinder,
 ) {
     val complexOfFreeModules: ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> =
         ComplexOfFreeModules(
@@ -62,7 +64,7 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
             }
             (degree == 0) -> {
                 // surjection to this.module
-                val differentialTargets = this.module.findSmallGenerator()
+                val differentialTargets = this.module.findSmallGenerator(finder = this.finder)
                 val generatingBasisNames = differentialTargets.indices.map {
                     FreeResolBasisName(degree = degree, index = it)
                 }
@@ -96,7 +98,7 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
                 }
                 val kernel = diffOrAug.kernel()
                 val incl = kernel.inclusion
-                val differentialTargets = kernel.findSmallGenerator().map { incl(it) }
+                val differentialTargets = kernel.findSmallGenerator(finder = this.finder).map { incl(it) }
                 val differential = this.hitVectors(degree, this.getModule(degree + 1), differentialTargets)
                 this.moduleCache[degree] = differential.source
                 this.differentialCache[degree] = differential
@@ -136,17 +138,20 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
 public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     coeffAlgebra: Algebra<BA, S, V, M>,
     module: Module<BA, BV, S, V, M>,
+    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
 ) : ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> by FreeResolFactory(
     coeffAlgebra,
     module,
+    finder,
 ).complexOfFreeModules {
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             coeffAlgebra: MonoidRing<E, S, V, M>,
+            finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
         ): FreeResol<E, StringBasisName, S, V, M> {
             val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
             val module = coeffAlgebra.getModuleWithTrivialAction(vectorSpace)
-            return FreeResol(coeffAlgebra, module)
+            return FreeResol(coeffAlgebra, module, finder)
         }
     }
 }

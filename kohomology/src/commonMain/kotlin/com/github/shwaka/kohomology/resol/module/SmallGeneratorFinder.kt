@@ -7,13 +7,13 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-internal sealed interface SmallGeneratorFinder {
-    fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+public interface SmallGeneratorFinder {
+    public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
         module: Module<BA, B, S, V, M>,
         generator: List<Vector<B, S, V>>,
     ): List<Vector<B, S, V>>
 
-    abstract class FinderBase : SmallGeneratorFinder {
+    public abstract class FinderBase : SmallGeneratorFinder {
         protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -38,7 +38,7 @@ internal sealed interface SmallGeneratorFinder {
         }
     }
 
-    object SimpleFinder : FinderBase() {
+    public object SimpleFinder : FinderBase() {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -53,7 +53,7 @@ internal sealed interface SmallGeneratorFinder {
         }
     }
 
-    object FilteredFinder : FinderBase() {
+    public object FilteredFinder : FinderBase() {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -75,7 +75,7 @@ internal sealed interface SmallGeneratorFinder {
         }
     }
 
-    object EarlyReturnFinder : SmallGeneratorFinder {
+    public object EarlyReturnFinder : SmallGeneratorFinder {
         // slightly different interface of findMostEfficientVector (previousDim)
         private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
@@ -127,5 +127,9 @@ internal sealed interface SmallGeneratorFinder {
             }
             return result
         }
+    }
+
+    public companion object {
+        public val default: SmallGeneratorFinder = SmallGeneratorFinder.SimpleFinder
     }
 }

@@ -6,22 +6,27 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.module.ModuleMap
+import com.github.shwaka.kohomology.resol.module.AlgebraMap
+import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public interface ChainMap<
+public interface ChainMapAlongAlgebraMap<
     D : Degree,
-    BA : BasisName,
+    BAS : BasisName,
+    BAT : BasisName,
     BS : BasisName,
     BT : BasisName,
     S : Scalar,
     V : NumVector<S>,
-    M : Matrix<S, V>> {
+    M : Matrix<S, V>,
+    > {
 
-    public val source: Complex<D, BA, BS, S, V, M>
-    public val target: Complex<D, BA, BT, S, V, M>
+    public val source: Complex<D, BAS, BS, S, V, M>
+    public val target: Complex<D, BAT, BT, S, V, M>
+    public val algebraMap: AlgebraMap<BAS, BAT, S, V, M>
+    public val chainMap: ChainMap<D, BAS, BS, BT, S, V, M>
 
-    public fun getModuleMap(degree: D): ModuleMap<BA, BS, BT, S, V, M>
+    public fun getModuleMap(degree: D): ModuleMapAlongAlgebraMap<BAS, BAT, BS, BT, S, V, M>
 
     public val underlyingDGLinearMap: DGLinearMap<D, BS, BT, S, V, M>
 

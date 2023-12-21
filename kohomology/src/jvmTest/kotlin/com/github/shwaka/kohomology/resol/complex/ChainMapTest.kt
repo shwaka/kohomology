@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.ModuleMap
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -23,6 +24,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithScalarMulti
     matrixSpace: MatrixSpace<S, V, M>,
     maxDeg: Int = 10,
 ) = freeSpec {
+    require(maxDeg > 0)
     val field = matrixSpace.field
     val p = field.characteristic
     val freeResol = freeResolutionOverCyclicGroup(order, matrixSpace)
@@ -45,6 +47,12 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithScalarMulti
     }
 
     "test multiplication by $scalar on the free resolution over $field[Z/$order]" - {
+        "checkChainMapAxioms should not throw IllegalStateException" {
+            shouldNotThrow<IllegalStateException> {
+                chainMap.checkChainMapAxioms(-maxDeg, maxDeg)
+            }
+        }
+
         "it should be zero or isomorphic depending on the characteristic" {
             (-maxDeg..maxDeg).forAll { n ->
                 val degree = IntDegree(n)

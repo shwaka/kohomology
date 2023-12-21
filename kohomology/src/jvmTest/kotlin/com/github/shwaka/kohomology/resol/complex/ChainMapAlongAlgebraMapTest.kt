@@ -16,6 +16,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -90,6 +91,12 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
     }
 
     "test ChainMapAlongAlgebraMap for the group hom Z/$sourceOrder → Z/$targetOrder over $field" - {
+        "checkChainMapAxioms should not throw IllegalStateException" {
+            shouldNotThrow<IllegalStateException> {
+                chainMap.checkChainMapAxioms(-maxDeg, maxDeg)
+            }
+        }
+
         "it should induce isomorphism on homology at degree 0" {
             chainMap.underlyingDGLinearMap.inducedMapOnCohomology[0].isIsomorphism().shouldBeTrue()
         }

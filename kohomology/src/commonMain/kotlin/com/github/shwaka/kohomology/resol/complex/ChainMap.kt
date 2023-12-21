@@ -30,6 +30,30 @@ public interface ChainMap<
         return this.underlyingDGLinearMap(gVector)
     }
 
+    public fun checkChainMapAxioms(degreeList: List<D>) {
+        val failedDegreeList = mutableListOf<D>()
+        for (degree in degreeList) {
+            val nextDegree = this.source.degreeGroup.context.run { degree + 1 }
+            val sourceDiff = this.source.underlyingDGVectorSpace.differential[degree]
+            val targetDiff = this.target.underlyingDGVectorSpace.differential[degree]
+            val f = this.underlyingDGLinearMap[degree]
+            val g = this.underlyingDGLinearMap[nextDegree]
+            if (g * sourceDiff != targetDiff * f) {
+                failedDegreeList.add(degree)
+            }
+        }
+        if (failedDegreeList.isNotEmpty()) {
+            throw IllegalStateException(
+                "$this does not commute with the differential at degree(s) $failedDegreeList"
+            )
+        }
+    }
+
+    public fun checkChainMapAxioms(minDegree: Int, maxDegree: Int) {
+        val degreeList = (minDegree..maxDegree).map { this.source.degreeGroup.fromInt(it) }
+        this.checkChainMapAxioms(degreeList)
+    }
+
     public companion object {
         public operator fun <
             D : Degree,

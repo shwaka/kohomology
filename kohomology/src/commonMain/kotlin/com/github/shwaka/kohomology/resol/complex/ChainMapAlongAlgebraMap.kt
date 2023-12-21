@@ -36,6 +36,14 @@ public interface ChainMapAlongAlgebraMap<
         return this.underlyingDGLinearMap(gVector)
     }
 
+    public fun checkChainMapAxioms(degreeList: List<D>) {
+        this.chainMap.checkChainMapAxioms(degreeList)
+    }
+
+    public fun checkChainMapAxioms(minDegree: Int, maxDegree: Int) {
+        this.chainMap.checkChainMapAxioms(minDegree, maxDegree)
+    }
+
     public companion object {
         public operator fun <
             D : Degree,

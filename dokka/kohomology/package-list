@@ -1359,6 +1359,7 @@ $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/isCommutat
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/multiplicationTable/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group/multiplication-table.html
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/multiply/#com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement#com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group/multiply.html
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/order/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group/order.html
+$dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/toString/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group/to-string.html
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroup/unit/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group/unit.html
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroupElement///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group-element/index.html
 $dokka.location:com.github.shwaka.kohomology.resol.monoid/CyclicGroupElement/CyclicGroupElement/#kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.resol.monoid/-cyclic-group-element/-cyclic-group-element.html

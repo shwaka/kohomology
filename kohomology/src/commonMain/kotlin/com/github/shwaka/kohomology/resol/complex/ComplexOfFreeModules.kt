@@ -26,6 +26,9 @@ public interface ComplexOfFreeModules<
     public val degreeGroup: DegreeGroup<D>
     public val name: String
 
+    public fun getModule(degree: D): FreeModule<BA, BV, S, V, M>
+    public fun getDifferential(degree: D): FreeModuleMap<BA, BV, BV, S, V, M>
+
     public val underlyingDGVectorSpace: DGVectorSpace<D, FreeModuleBasisName<BA, BV>, S, V, M>
     public val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M>
 
@@ -53,9 +56,20 @@ private class ComplexOfFreeModulesImpl<
     override val matrixSpace: MatrixSpace<S, V, M>,
     override val degreeGroup: DegreeGroup<D>,
     override val name: String,
-    private val getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,
-    private val getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M>,
+    getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,
+    getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M>,
 ) : ComplexOfFreeModules<D, BA, BV, S, V, M> {
+    private val _getModule: (degree: D) -> FreeModule<BA, BV, S, V, M> = getModule
+    private val _getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M> = getDifferential
+
+    override fun getModule(degree: D): FreeModule<BA, BV, S, V, M> {
+        return this._getModule(degree)
+    }
+
+    override fun getDifferential(degree: D): FreeModuleMap<BA, BV, BV, S, V, M> {
+        return this._getDifferential(degree)
+    }
+
     override val underlyingDGVectorSpace: DGVectorSpace<D, FreeModuleBasisName<BA, BV>, S, V, M> by lazy {
         val gVectorSpace = GVectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,

@@ -15,9 +15,8 @@ public interface FreeModuleMap<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    > : ModuleMap<BA, FreeModuleBasisName<BA, BVS>, FreeModuleBasisName<BA, BVT>, S, V, M> {
+    > : ModuleMapFromFreeModule<BA, BVS, FreeModuleBasisName<BA, BVT>, S, V, M> {
 
-    override val source: FreeModule<BA, BVS, S, V, M>
     override val target: FreeModule<BA, BVT, S, V, M>
     public val matrixSpace: MatrixSpace<S, V, M>
         get() = source.matrixSpace

@@ -28,12 +28,12 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithQuotientOfC
 
     val sourceOrder = targetOrder * sourceOrderFactor
     val sourceGroup = CyclicGroup(sourceOrder)
-    val sourceResol = freeResolutionOverCyclicGroup(sourceGroup, matrixSpace)
     val sourceAlgebra = MonoidRing(sourceGroup, matrixSpace)
+    val sourceResol = freeResolutionOverCyclicGroup(sourceAlgebra, matrixSpace)
 
     val targetGroup = CyclicGroup(targetOrder)
-    val targetResol = freeResolutionOverCyclicGroup(targetGroup, matrixSpace)
     val targetAlgebra = MonoidRing(targetGroup, matrixSpace)
+    val targetResol = freeResolutionOverCyclicGroup(targetAlgebra, matrixSpace)
 
     val groupMap = run {
         val values = sourceGroup.elements.map { cyclicGroupElement ->
@@ -85,8 +85,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithQuotientOfC
     }
 
     "test ChainMapAlongAlgebraMap for the group hom Z/$sourceOrder → Z/$targetOrder over $field" - {
-        "it should be isomorphic at degree 0" {
-            chainMap.getModuleMap(IntDegree(0)).underlyingLinearMap.isIsomorphism().shouldBeTrue()
+        "it should induce isomorphism on homology at degree 0" {
+            chainMap.underlyingDGLinearMap.inducedMapOnCohomology[0].isIsomorphism().shouldBeTrue()
         }
     }
 }

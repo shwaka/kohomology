@@ -6,11 +6,14 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 
+val restrictedModuleTag = NamedTag("RestrictedModule")
+
 class RestrictedModuleTest : FreeSpec({
-    tags(moduleTag)
+    tags(moduleTag, restrictedModuleTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational
     val monoidMap = run {
@@ -25,7 +28,7 @@ class RestrictedModuleTest : FreeSpec({
     val targetAlgebra = algebraMap.target
     val (_, y) = targetAlgebra.getBasis() // y is the generator
 
-    val generatingBasisNames = listOf("x", "y").map { StringBasisName(it) }
+    val generatingBasisNames = listOf("v", "w").map { StringBasisName(it) }
     val freeModule = FreeModule(targetAlgebra, generatingBasisNames)
     val restrictedModule = RestrictedModule(freeModule, algebraMap)
 

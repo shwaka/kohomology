@@ -81,4 +81,8 @@ private class MonoidRingImpl<E : FiniteMonoidElement, S : Scalar, V : NumVector<
             values = values,
         )
     }
+
+    override fun toString(): String {
+        return "MonoidRing(${this.matrixSpace.field}, ${this.monoid})"
+    }
 }

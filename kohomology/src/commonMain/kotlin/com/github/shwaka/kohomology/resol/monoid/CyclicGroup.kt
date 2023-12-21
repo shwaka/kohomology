@@ -39,4 +39,8 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
             CyclicGroupElement(value, this.order)
         }
     }
+
+    override fun toString(): String {
+        return "Z/${this.order}"
+    }
 }

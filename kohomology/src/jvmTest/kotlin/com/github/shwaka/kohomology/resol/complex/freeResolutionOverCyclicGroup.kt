@@ -17,7 +17,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGro
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
 ): FreeComplex<IntDegree, CyclicGroupElement, StringBasisName, S, V, M> {
-    val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
+    return freeResolutionOverCyclicGroup(CyclicGroup(order), matrixSpace)
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGroup(
+    cyclicGroup: CyclicGroup,
+    matrixSpace: MatrixSpace<S, V, M>,
+): FreeComplex<IntDegree, CyclicGroupElement, StringBasisName, S, V, M> {
+    val coeffAlgebra = MonoidRing(cyclicGroup, matrixSpace)
     val (e, t) = coeffAlgebra.getBasis()
     val unitMinusT = coeffAlgebra.context.run { e - t }
     val norm = coeffAlgebra.context.run { coeffAlgebra.getBasis().sum() }
@@ -75,7 +82,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGro
     return FreeComplex(
         matrixSpace,
         IntDegreeGroup,
-        "FreeResolution(Z/$order)",
+        "FreeResolution(Z/${cyclicGroup.order})",
         getModule,
         getDifferential,
     )

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703145459153,
+  "lastUpdate": 1703155357462,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4198,6 +4198,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.489,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "94a257ab9bdbee5f24551d59b54a28266d2c1104",
+          "message": "test(core): improve test for FreeChainMapALongAlgebraMap",
+          "timestamp": "2023-12-21T19:35:47+09:00",
+          "tree_id": "4eff626ec9b5d8924836c7de8f57f5229dccfd61",
+          "url": "https://github.com/shwaka/kohomology/commit/94a257ab9bdbee5f24551d59b54a28266d2c1104"
+        },
+        "date": 1703155356505,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.545,
             "unit": "s/op"
           }
         ]

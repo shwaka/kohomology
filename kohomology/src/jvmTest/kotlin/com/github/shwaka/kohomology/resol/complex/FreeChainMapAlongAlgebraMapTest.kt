@@ -125,6 +125,17 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
                 }
             }
         }
+
+        "it should induce zero or isomorphism on group homology" {
+            val p = field.characteristic
+            (-maxDeg until -1).forAll { n ->
+                if (orderFactor % p == 0) {
+                    chainMap.tensorWithBaseField.inducedMapOnCohomology[n].isZero().shouldBeTrue()
+                } else {
+                    chainMap.tensorWithBaseField.inducedMapOnCohomology[n].isIsomorphism().shouldBeTrue()
+                }
+            }
+        }
     }
 }
 

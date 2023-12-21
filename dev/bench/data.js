@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1702977492264,
+  "lastUpdate": 1703130400291,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4096,6 +4096,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.521,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6221f31096f0a5bda25a9add2a633ea28103e1fa",
+          "message": "feat(core): add ChainMapAlongAlgebraMapImpl",
+          "timestamp": "2023-12-21T12:17:04+09:00",
+          "tree_id": "ba021ca4033cbe90f69d5febcc5d170c4bbc0247",
+          "url": "https://github.com/shwaka/kohomology/commit/6221f31096f0a5bda25a9add2a633ea28103e1fa"
+        },
+        "date": 1703130399325,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.44,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.579,
             "unit": "s/op"
           }
         ]

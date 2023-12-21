@@ -24,7 +24,7 @@ import io.kotest.matchers.shouldBe
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGroup(
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
-): ComplexOfFreeModules<IntDegree, CyclicGroupElement, StringBasisName, S, V, M> {
+): FreeComplex<IntDegree, CyclicGroupElement, StringBasisName, S, V, M> {
     val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
     val (e, t) = coeffAlgebra.getBasis()
     val unitMinusT = coeffAlgebra.context.run { e - t }
@@ -80,7 +80,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverC
         }
     }
 
-    return ComplexOfFreeModules(
+    return FreeComplex(
         matrixSpace,
         IntDegreeGroup,
         "FreeResolution(Z/$order)",
@@ -126,7 +126,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
     }
 }
 
-class ComplexOfFreeModulesTest : FreeSpec({
+class FreeComplexTest : FreeSpec({
     tags(moduleTag)
 
     include(testWithFreeResolution(2, SparseMatrixSpaceOverRational))

@@ -14,7 +14,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.vectsp.BasisName
 
-public interface ComplexOfFreeModules<
+public interface FreeComplex<
     D : Degree,
     BA : BasisName,
     BV : BasisName,
@@ -35,13 +35,13 @@ public interface ComplexOfFreeModules<
             name: String,
             getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,
             getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M>,
-        ): ComplexOfFreeModules<D, BA, BV, S, V, M> {
-            return ComplexOfFreeModulesImpl(matrixSpace, degreeGroup, name, getModule, getDifferential)
+        ): FreeComplex<D, BA, BV, S, V, M> {
+            return FreeComplexImpl(matrixSpace, degreeGroup, name, getModule, getDifferential)
         }
     }
 }
 
-private class ComplexOfFreeModulesImpl<
+private class FreeComplexImpl<
     D : Degree,
     BA : BasisName,
     BV : BasisName,
@@ -54,7 +54,7 @@ private class ComplexOfFreeModulesImpl<
     override val name: String,
     getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,
     getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M>,
-) : ComplexOfFreeModules<D, BA, BV, S, V, M> {
+) : FreeComplex<D, BA, BV, S, V, M> {
     private val _getModule: (degree: D) -> FreeModule<BA, BV, S, V, M> = getModule
     private val _getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M> = getDifferential
 

@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.complex.ComplexOfFreeModules
+import com.github.shwaka.kohomology.resol.complex.FreeComplex
 import com.github.shwaka.kohomology.resol.module.Algebra
 import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
@@ -34,8 +34,8 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
     private val module: Module<BA, BV, S, V, M>,
     private val finder: SmallGeneratorFinder,
 ) {
-    val complexOfFreeModules: ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> =
-        ComplexOfFreeModules(
+    val freeComplex: FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> =
+        FreeComplex(
             matrixSpace = coeffAlgebra.matrixSpace,
             degreeGroup = IntDegreeGroup,
             name = "FreeResol($module)",
@@ -147,7 +147,7 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
 
 public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
     private val freeResolFactory: FreeResolFactory<BA, BV, S, V, M>
-) : ComplexOfFreeModules<IntDegree, BA, FreeResolBasisName, S, V, M> by freeResolFactory.complexOfFreeModules {
+) : FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> by freeResolFactory.freeComplex {
     public constructor(
         coeffAlgebra: Algebra<BA, S, V, M>,
         module: Module<BA, BV, S, V, M>,

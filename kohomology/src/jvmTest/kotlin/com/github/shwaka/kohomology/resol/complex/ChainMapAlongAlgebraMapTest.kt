@@ -29,7 +29,6 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
     maxDeg: Int = 10,
 ) = freeSpec {
     val field = matrixSpace.field
-    val p = field.characteristic
 
     val sourceOrder = targetOrder * orderFactor
     val sourceGroup = CyclicGroup(sourceOrder)
@@ -58,8 +57,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
 
     val weightedNorm = targetAlgebra.context.run {
         val s = targetAlgebra.getBasis()[1]
-        (0 until targetOrder).map { i ->
-            s.pow(i * orderFactor)
+        (0 until orderFactor).map { i ->
+            s.pow(i * targetOrder)
         }.sum()
     }
 
@@ -78,7 +77,15 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
             vectors = sourceModule.underlyingVectorSpace.getBasis().indices.map { index ->
                 val vector = targetModule.underlyingVectorSpace.getBasis()[index % targetOrder]
                 targetModule.context.run {
-                    weightedNorm * vector
+                    val exponent = if (degree.value <= 0) {
+                        (-degree.value) / 2
+                    } else {
+                        0
+                    }
+                    val coeff = targetAlgebra.context.run {
+                        weightedNorm.pow(exponent)
+                    }
+                    coeff * vector
                 }
             }
         )
@@ -107,9 +114,17 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
                 chainMap(x) shouldBe targetResol.underlyingDGVectorSpace.context.run {
                     val y = targetResol.underlyingDGVectorSpace.getBasis(n)[0]
                     val degree = IntDegree(n)
+                    val coeff = targetAlgebra.context.run {
+                        val exponent = if (n <= 0) {
+                            (-degree.value) / 2
+                        } else {
+                            0
+                        }
+                        weightedNorm.pow(exponent)
+                    }
                     GVector(
                         vector = targetResol.getModule(degree).context.run {
-                            weightedNorm * y.vector
+                            coeff * y.vector
                         },
                         degree = y.degree,
                         gVectorSpace = targetResol.underlyingDGVectorSpace,

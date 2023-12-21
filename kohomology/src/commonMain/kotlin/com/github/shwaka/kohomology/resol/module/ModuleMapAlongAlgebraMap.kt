@@ -24,7 +24,7 @@ public interface ModuleMapAlongAlgebraMap<
     public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>
         get() = moduleMap.underlyingLinearMap
 
-    public fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
+    public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
         return this.moduleMap(vector)
     }
 

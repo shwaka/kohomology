@@ -20,16 +20,12 @@ public interface ComplexOfFreeModules<
     BV : BasisName,
     S : Scalar,
     V : NumVector<S>,
-    M : Matrix<S, V>> {
+    M : Matrix<S, V>
+    > : Complex<D, BA, FreeModuleBasisName<BA, BV>, S, V, M> {
 
-    public val matrixSpace: MatrixSpace<S, V, M>
-    public val degreeGroup: DegreeGroup<D>
-    public val name: String
+    override fun getModule(degree: D): FreeModule<BA, BV, S, V, M>
+    override fun getDifferential(degree: D): FreeModuleMap<BA, BV, BV, S, V, M>
 
-    public fun getModule(degree: D): FreeModule<BA, BV, S, V, M>
-    public fun getDifferential(degree: D): FreeModuleMap<BA, BV, BV, S, V, M>
-
-    public val underlyingDGVectorSpace: DGVectorSpace<D, FreeModuleBasisName<BA, BV>, S, V, M>
     public val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M>
 
     public companion object {

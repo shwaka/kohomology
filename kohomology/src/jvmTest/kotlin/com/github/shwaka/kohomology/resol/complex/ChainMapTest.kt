@@ -13,6 +13,7 @@ import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.shouldBe
 
 val chainMapTag = NamedTag("ChainMap")
 
@@ -43,13 +44,24 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithScalarMulti
         )
     }
 
-    "test multiplication by $scalar on the free resolution over $field[Z/$order]" {
-        (-maxDeg..maxDeg).forAll { n ->
-            val degree = IntDegree(n)
-            if (scalar % p == 0) {
-                chainMap.getModuleMap(degree).underlyingLinearMap.isZero().shouldBeTrue()
-            } else {
-                chainMap.getModuleMap(degree).underlyingLinearMap.isIsomorphism().shouldBeTrue()
+    "test multiplication by $scalar on the free resolution over $field[Z/$order]" - {
+        "it should be zero or isomorphic depending on the characteristic" {
+            (-maxDeg..maxDeg).forAll { n ->
+                val degree = IntDegree(n)
+                if (scalar % p == 0) {
+                    chainMap.getModuleMap(degree).underlyingLinearMap.isZero().shouldBeTrue()
+                } else {
+                    chainMap.getModuleMap(degree).underlyingLinearMap.isIsomorphism().shouldBeTrue()
+                }
+            }
+        }
+
+        "test invoke" {
+            (-maxDeg..0).forAll { n ->
+                val x = freeResol.underlyingDGVectorSpace.getBasis(n)[0]
+                chainMap(x) shouldBe freeResol.underlyingDGVectorSpace.context.run {
+                    scalar * x
+                }
             }
         }
     }
@@ -58,6 +70,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithScalarMulti
 class ChainMapTest : FreeSpec({
     tags(chainMapTag)
 
+    include(testWithScalarMultiplication(order = 2, scalar = 2, matrixSpace = SparseMatrixSpaceOverF2))
     include(testWithScalarMultiplication(order = 2, scalar = 3, matrixSpace = SparseMatrixSpaceOverF2))
+    include(testWithScalarMultiplication(order = 3, scalar = 2, matrixSpace = SparseMatrixSpaceOverF3))
     include(testWithScalarMultiplication(order = 3, scalar = 3, matrixSpace = SparseMatrixSpaceOverF3))
 })

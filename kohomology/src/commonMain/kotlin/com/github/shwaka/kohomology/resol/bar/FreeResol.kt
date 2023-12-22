@@ -48,11 +48,14 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
         Int,
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    private lateinit var _augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
-    val augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M> by lazy {
-        this.compute(0)
-        this._augmentation
-    }
+    private var _augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>? = null
+    val augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
+        get() {
+            if (this._augmentation == null) {
+                this.compute(0)
+            }
+            return this._augmentation ?: throw Exception("This can't happen!")
+        }
     val minDegreeComputedAlready: Int
         get() {
             val minKey: Int? = moduleCache.keys.minOrNull()
@@ -72,7 +75,10 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
 
     private fun compute(degree: Int) {
         check(!this.moduleCache.containsKey(degree)) {
-            "Duplicated computation should not happen!"
+            "Attempted to compute moduleCache[$degree] twice, which should not happen!"
+        }
+        check(!this.differentialCache.containsKey(degree)) {
+            "Attempted to compute differentialCache[$degree] twice, which should not happen!"
         }
         when {
             (degree > 0) -> {

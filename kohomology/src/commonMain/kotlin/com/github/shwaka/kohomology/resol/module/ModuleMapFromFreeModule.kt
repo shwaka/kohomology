@@ -20,7 +20,7 @@ public interface ModuleMapFromFreeModule<
 
     public fun <B : BasisName> liftAlong(
         moduleMap: ModuleMap<BA, B, BT, S, V, M>
-    ): ModuleMap<BA, FreeModuleBasisName<BA, BVS>, B, S, V, M> {
+    ): ModuleMapFromFreeModule<BA, BVS, B, S, V, M> {
         // Find lift of the diagram:
         //
         //           moduleMap.source

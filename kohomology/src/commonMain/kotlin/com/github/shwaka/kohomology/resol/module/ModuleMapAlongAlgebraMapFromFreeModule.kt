@@ -19,6 +19,26 @@ public interface ModuleMapAlongAlgebraMapFromFreeModule<
 
     override val source: FreeModule<BAS, BVS, S, V, M>
 
+    public fun <B : BasisName> liftAlong(
+        moduleMap: ModuleMap<BAT, B, BT, S, V, M>
+    ): ModuleMapAlongAlgebraMapFromFreeModule<BAS, BAT, BVS, B, S, V, M> {
+        require(moduleMap.target == this.target) {
+            "The target modules of module maps $this and $moduleMap must be same"
+        }
+        val values: List<Vector<B, S, V>> = this.source.getGeneratingBasis().map { vector ->
+            moduleMap.underlyingLinearMap.findPreimage(this(vector))
+                ?: throw IllegalArgumentException(
+                    "$vector is not contained in the image of the module map $moduleMap"
+                )
+        }
+        return ModuleMapAlongAlgebraMapFromFreeModule.fromValuesOnGeneratingBasis(
+            source = this.source,
+            target = moduleMap.source,
+            algebraMap = this.algebraMap,
+            values = values,
+        )
+    }
+
     public companion object {
         public fun <
             BAS : BasisName,

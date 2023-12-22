@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.resol.bar
 
+import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
@@ -10,6 +11,7 @@ import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.util.isPrime
 import com.github.shwaka.kohomology.vectsp.LinearMap
 import io.kotest.core.spec.style.FreeSpec
@@ -73,7 +75,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
         }
 
         "freeResolMap should be isomorphic or zero at cohomology of negative degree" {
-            (-maxDeg until 1).map { degree ->
+            (-maxDeg until -1).forAll { degree ->
                 if (orderFactor % p == 0) {
                     freeResolMap.underlyingDGLinearMap.inducedMapOnCohomology[degree].isZero().shouldBeTrue()
                 } else {
@@ -88,4 +90,8 @@ class FreeResolMapTest : FreeSpec({
     tags(moduleTag, freeResolTag)
 
     include(testWithCyclicGroupQuot(targetOrder = 2, orderFactor = 3, matrixSpace = SparseMatrixSpaceOverF2))
+    include(testWithCyclicGroupQuot(targetOrder = 2, orderFactor = 2, matrixSpace = SparseMatrixSpaceOverF2))
+    include(testWithCyclicGroupQuot(targetOrder = 3, orderFactor = 3, matrixSpace = SparseMatrixSpaceOverF3))
+    include(testWithCyclicGroupQuot(targetOrder = 3, orderFactor = 2, matrixSpace = SparseMatrixSpaceOverF3))
+    include(testWithCyclicGroupQuot(targetOrder = 3, orderFactor = 5, matrixSpace = SparseMatrixSpaceOverF3))
 })

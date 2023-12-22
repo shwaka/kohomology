@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703231315060,
+  "lastUpdate": 1703233977969,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4334,6 +4334,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.492,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f1131e133aaba12e3f1055473a76c3e214fd5832",
+          "message": "refactor(core): remove MonoidRing.getModuleWithTrivialAction and use TrivialModule instead",
+          "timestamp": "2023-12-22T17:26:37+09:00",
+          "tree_id": "b7e10f0f9f8f4b8e81bce760e903708efdfe4127",
+          "url": "https://github.com/shwaka/kohomology/commit/f1131e133aaba12e3f1055473a76c3e214fd5832"
+        },
+        "date": 1703233977523,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.42,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.535,
             "unit": "s/op"
           }
         ]

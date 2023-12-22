@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703215145662,
+  "lastUpdate": 1703229738498,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4266,6 +4266,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.581,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "7c0ae3746fbf6a1f3ec7c5e1d055b7198522c573",
+          "message": "test(core): fix parameter testing in FreeResolMapTest",
+          "timestamp": "2023-12-22T16:15:52+09:00",
+          "tree_id": "b9ef9a10f3fbe805eb065e340a711dfd307cdb9e",
+          "url": "https://github.com/shwaka/kohomology/commit/7c0ae3746fbf6a1f3ec7c5e1d055b7198522c573"
+        },
+        "date": 1703229738037,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.415,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.467,
             "unit": "s/op"
           }
         ]

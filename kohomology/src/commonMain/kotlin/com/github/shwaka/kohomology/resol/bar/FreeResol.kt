@@ -48,7 +48,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
         Int,
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
+    lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
     val minDegreeComputedAlready: Int
         get() {
             val minKey: Int? = moduleCache.keys.minOrNull()
@@ -165,6 +165,9 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
 
     public val minDegreeComputedAlready: Int
         get() = freeResolFactory.minDegreeComputedAlready
+
+    public val augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
+        get() = freeResolFactory.augmentation
 
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

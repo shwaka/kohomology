@@ -71,6 +71,9 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
     )
 
     private fun compute(degree: Int) {
+        check(!this.moduleCache.containsKey(degree)) {
+            "Duplicated computation should not happen!"
+        }
         when {
             (degree > 0) -> {
                 this.moduleCache[degree] = this.zeroFreeModule
@@ -98,9 +101,8 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
                 )
             }
             (degree < 0) -> {
-                this.compute(degree + 1)
                 val diffOrAug = when {
-                    (degree == -1) -> this._augmentation
+                    (degree == -1) -> this.augmentation
                     (degree < -1) -> this.getDifferential(degree + 1)
                     else -> throw Exception("This can't happen!")
                 }

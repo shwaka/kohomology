@@ -15,6 +15,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -67,6 +68,18 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCycl
                     }
                 }
                 complex.tensorWithBaseField.cohomology[degree].dim shouldBe expected
+            }
+        }
+
+        "test sequential access" {
+            val newComplex = FreeResol(coeffAlgebra, finder)
+            val maxDeg = 10
+
+            (0..maxDeg).forAll { n ->
+                val degree = -n
+                shouldNotThrow<IllegalStateException> {
+                    newComplex.underlyingDGVectorSpace[degree]
+                }
             }
         }
     }

@@ -1,11 +1,13 @@
-package com.github.shwaka.kohomology.resol.module
+package com.github.shwaka.kohomology.resol.bar
 
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.bar.FreeResol
+import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
+import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2

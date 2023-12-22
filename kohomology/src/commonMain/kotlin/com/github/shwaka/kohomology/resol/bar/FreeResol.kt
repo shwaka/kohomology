@@ -48,7 +48,11 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
         Int,
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    lateinit var augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
+    private lateinit var _augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
+    val augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M> by lazy {
+        this.compute(0)
+        this._augmentation
+    }
     val minDegreeComputedAlready: Int
         get() {
             val minKey: Int? = moduleCache.keys.minOrNull()
@@ -79,7 +83,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
                     FreeResolBasisName(degree = degree, index = it)
                 }
                 val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
-                this.augmentation = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
+                this._augmentation = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
                     source = freeModule,
                     target = this.module,
                     values = differentialTargets,
@@ -96,7 +100,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
             (degree < 0) -> {
                 this.compute(degree + 1)
                 val diffOrAug = when {
-                    (degree == -1) -> this.augmentation
+                    (degree == -1) -> this._augmentation
                     (degree < -1) -> this.getDifferential(degree + 1)
                     else -> throw Exception("This can't happen!")
                 }

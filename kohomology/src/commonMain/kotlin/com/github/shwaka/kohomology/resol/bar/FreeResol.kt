@@ -29,9 +29,9 @@ public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisNam
     }
 }
 
-private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val coeffAlgebra: Algebra<BA, S, V, M>,
-    private val module: Module<BA, BV, S, V, M>,
+    val module: Module<BA, B, S, V, M>,
     private val finder: SmallGeneratorFinder,
 ) {
     val freeComplex: FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> =
@@ -48,7 +48,7 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
         Int,
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, BV, S, V, M>
+    private lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
     val minDegreeComputedAlready: Int
         get() {
             val minKey: Int? = moduleCache.keys.minOrNull()
@@ -145,12 +145,12 @@ private class FreeResolFactory<BA : BasisName, BV : BasisName, S : Scalar, V : N
     }
 }
 
-public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    private val freeResolFactory: FreeResolFactory<BA, BV, S, V, M>
+public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
+    private val freeResolFactory: FreeResolFactory<BA, B, S, V, M>
 ) : FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> by freeResolFactory.freeComplex {
     public constructor(
         coeffAlgebra: Algebra<BA, S, V, M>,
-        module: Module<BA, BV, S, V, M>,
+        module: Module<BA, B, S, V, M>,
         finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
     ) : this(
         FreeResolFactory(
@@ -159,6 +159,9 @@ public class FreeResol<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector
             finder,
         )
     )
+
+    public val module: Module<BA, B, S, V, M>
+        get() = this.freeResolFactory.module
 
     public val minDegreeComputedAlready: Int
         get() = freeResolFactory.minDegreeComputedAlready

@@ -23,6 +23,23 @@ public interface FreeModuleMapAlongAlgebraMap<
         get() = source.matrixSpace
     public val tensorWithBaseField: LinearMap<BVS, BVT, S, V, M>
 
+    public operator fun <BVS0 : BasisName> times(
+        other: FreeModuleMap<BAS, BVS0, BVS, S, V, M>
+    ): FreeModuleMapAlongAlgebraMap<BAS, BAT, BVS0, BVT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot compose $this and $other: the source of $this and the target of $other are different"
+        }
+        val values = other.source.getGeneratingBasis().map { vector ->
+            this(other(vector))
+        }
+        return fromValuesOnGeneratingBasis(
+            source = other.source,
+            target = this.target,
+            algebraMap = this.algebraMap,
+            values = values,
+        )
+    }
+
     public companion object {
         public fun <BAS : BasisName, BAT : BasisName, BVS : BasisName, BVT : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
         fromValuesOnGeneratingBasis(

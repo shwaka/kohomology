@@ -1,10 +1,13 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.list.component6
 import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import java.lang.IllegalArgumentException
 
 val cyclicGroupTag = NamedTag("CyclicGroup")
 
@@ -66,6 +69,35 @@ class CyclicGroupTest : FreeSpec({
                         CyclicGroupElement(n, 5)
                     }
                 }
+        }
+    }
+
+    "test getMonoidMap" - {
+        val cyclicGroupOfOrder4 = CyclicGroup(4)
+        val cyclicGroupOfOrder6 = CyclicGroup(6)
+
+        val (t0, t1, t2, t3) = cyclicGroupOfOrder4.elements
+        val (s0, s1, s2, s3, s4, s5) = cyclicGroupOfOrder6.elements
+
+        "test with Z/6→Z/4 sending 1 to 2" {
+            val monoidMap = cyclicGroupOfOrder6.getMonoidMap(cyclicGroupOfOrder4, t2)
+            monoidMap.source shouldBe cyclicGroupOfOrder6
+            monoidMap.target shouldBe cyclicGroupOfOrder4
+            monoidMap(s0) shouldBe t0
+            monoidMap(s1) shouldBe t2
+            monoidMap(s2) shouldBe t0
+            monoidMap(s3) shouldBe t2
+            monoidMap(s4) shouldBe t0
+            monoidMap(s5) shouldBe t2
+        }
+
+        "test invalid input" {
+            shouldThrow<IllegalArgumentException> {
+                cyclicGroupOfOrder6.getMonoidMap(cyclicGroupOfOrder4, t1)
+            }
+            shouldThrow<IllegalArgumentException> {
+                cyclicGroupOfOrder6.getMonoidMap(cyclicGroupOfOrder4, t3)
+            }
         }
     }
 })

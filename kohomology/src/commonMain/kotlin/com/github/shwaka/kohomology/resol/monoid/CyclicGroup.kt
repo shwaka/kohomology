@@ -40,6 +40,29 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
         }
     }
 
+    public fun <E : FiniteMonoidElement> getMonoidMap(
+        target: FiniteMonoid<E>,
+        valueOfGenerator: E,
+    ): FiniteMonoidMap<CyclicGroupElement, E> {
+        val powerOfValueOfGenerator = target.context.run {
+            valueOfGenerator.pow(this@CyclicGroup.order)
+        }
+        require(powerOfValueOfGenerator == target.unit) {
+            "Cannot define monoid map from CyclicGroup(${this.order}): " +
+                "$valueOfGenerator.pow(${this.order}) must be unit, but was $powerOfValueOfGenerator"
+        }
+        val values = (0 until this.order).map { i ->
+            target.context.run {
+                valueOfGenerator.pow(i)
+            }
+        }
+        return FiniteMonoidMap(
+            source = this,
+            target = target,
+            values = values,
+        )
+    }
+
     override fun toString(): String {
         return "Z/${this.order}"
     }

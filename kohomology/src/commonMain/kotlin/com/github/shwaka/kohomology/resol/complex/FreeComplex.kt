@@ -26,6 +26,13 @@ public interface FreeComplex<
     override fun getModule(degree: D): FreeModule<BA, BV, S, V, M>
     override fun getDifferential(degree: D): FreeModuleMap<BA, BV, BV, S, V, M>
 
+    override fun getModule(degree: Int): FreeModule<BA, BV, S, V, M> {
+        return this.getModule(this.degreeGroup.fromInt(degree))
+    }
+    override fun getDifferential(degree: Int): FreeModuleMap<BA, BV, BV, S, V, M> {
+        return this.getDifferential(this.degreeGroup.fromInt(degree))
+    }
+
     public val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M>
 
     public companion object {

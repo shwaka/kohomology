@@ -26,5 +26,12 @@ public interface Complex<
     public fun getModule(degree: D): Module<BA, B, S, V, M>
     public fun getDifferential(degree: D): ModuleMap<BA, B, B, S, V, M>
 
+    public fun getModule(degree: Int): Module<BA, B, S, V, M> {
+        return this.getModule(this.degreeGroup.fromInt(degree))
+    }
+    public fun getDifferential(degree: Int): ModuleMap<BA, B, B, S, V, M> {
+        return this.getDifferential(this.degreeGroup.fromInt(degree))
+    }
+
     public val underlyingDGVectorSpace: DGVectorSpace<D, B, S, V, M>
 }

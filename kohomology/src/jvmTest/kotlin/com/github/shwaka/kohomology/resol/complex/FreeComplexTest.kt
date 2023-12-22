@@ -1,10 +1,13 @@
 package com.github.shwaka.kohomology.resol.complex
 
+import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.module.FreeModule
+import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
@@ -12,6 +15,8 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
+import io.kotest.matchers.types.shouldBeSameInstanceAs
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolution(
     order: Int,
@@ -22,6 +27,34 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
     val field = matrixSpace.field
 
     "test with free resolution of $field over $field[Z/$order]" - {
+        "getModule should return the same instance for Int and IntDegree" {
+            (-10..10).forAll { n ->
+                val degree = IntDegree(n)
+                complex.getModule(n) shouldBeSameInstanceAs complex.getModule(degree)
+            }
+        }
+
+        "getDifferential should return the same instance for Int and IntDegree" {
+            (-10..10).forAll { n ->
+                val degree = IntDegree(n)
+                complex.getDifferential(n) shouldBeSameInstanceAs complex.getDifferential(degree)
+            }
+        }
+
+        "getModule should return an instance of FreeModule" {
+            (-10..10).forAll { n ->
+                val degree = IntDegree(n)
+                complex.getModule(n).shouldBeInstanceOf<FreeModule<*, *, *, *, *>>()
+            }
+        }
+
+        "getDifferential should return an instance of FreeModule" {
+            (-10..10).forAll { n ->
+                val degree = IntDegree(n)
+                complex.getDifferential(n).shouldBeInstanceOf<FreeModuleMap<*, *, *, *, *, *>>()
+            }
+        }
+
         "cohomology of underlyingDGVectorSpace should be 0 except for degree 0" {
             (-10..10).forAll { degree ->
                 val expected = when (degree) {

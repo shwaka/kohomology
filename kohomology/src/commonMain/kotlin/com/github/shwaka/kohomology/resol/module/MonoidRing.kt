@@ -27,19 +27,7 @@ public interface MonoidRing<
     public fun <B : BasisName> getModuleWithTrivialAction(
         vectorSpace: VectorSpace<B, S, V>
     ): Module<E, B, S, V, M> {
-        val action = ValueBilinearMap(
-            source1 = this,
-            source2 = vectorSpace,
-            target = vectorSpace,
-            matrixSpace = this.matrixSpace,
-            values = List(this.dim) { vectorSpace.getBasis() },
-        )
-        return Module(
-            matrixSpace = this.matrixSpace,
-            underlyingVectorSpace = vectorSpace,
-            coeffAlgebra = this,
-            action = action,
-        )
+        return TrivialModule(vectorSpace, this)
     }
 
     public companion object {

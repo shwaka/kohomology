@@ -32,6 +32,23 @@ public interface ModuleMapAlongAlgebraMap<
         return this.moduleMap.kernel()
     }
 
+    public operator fun <BVS0 : BasisName> times(
+        other: ModuleMapFromFreeModule<BAS, BVS0, BS, S, V, M>
+    ): ModuleMapAlongAlgebraMapFromFreeModule<BAS, BAT, BVS0, BT, S, V, M> {
+        require(other.target == this.source) {
+            "Cannot compose $this and $other: the source of $this and the target of $other are different"
+        }
+        val values = other.source.getGeneratingBasis().map { vector ->
+            this(other(vector))
+        }
+        return ModuleMapAlongAlgebraMapFromFreeModule.fromValuesOnGeneratingBasis(
+            source = other.source,
+            target = this.target,
+            algebraMap = this.algebraMap,
+            values = values,
+        )
+    }
+
     public companion object {
         public operator fun <
             BAS : BasisName,

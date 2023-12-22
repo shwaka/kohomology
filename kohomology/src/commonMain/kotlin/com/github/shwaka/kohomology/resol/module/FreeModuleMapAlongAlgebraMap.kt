@@ -32,7 +32,7 @@ public interface FreeModuleMapAlongAlgebraMap<
         val values = other.source.getGeneratingBasis().map { vector ->
             this(other(vector))
         }
-        return fromValuesOnGeneratingBasis(
+        return FreeModuleMapAlongAlgebraMap.fromValuesOnGeneratingBasis(
             source = other.source,
             target = this.target,
             algebraMap = this.algebraMap,

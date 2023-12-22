@@ -66,7 +66,9 @@ private class FreeResolMapFactory<
                 this.moduleMapCache[degree] = moduleMap
             }
             (degree == 0) -> {
-                val composed = TODO() //this.moduleMap * this.source.augmentation
+                val composed = this.moduleMap * this.source.augmentation
+                val lift = composed.liftAlong(this.target.augmentation)
+                this.moduleMapCache[0] = lift
             }
             (degree < 0) -> {
                 this.compute(degree + 1)

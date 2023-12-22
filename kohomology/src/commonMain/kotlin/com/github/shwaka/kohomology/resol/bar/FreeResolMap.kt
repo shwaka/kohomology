@@ -55,6 +55,9 @@ private class FreeResolMapFactory<
         mutableMapOf()
 
     private fun compute(degree: Int) {
+        check(!this.moduleMapCache.containsKey(degree)) {
+            "Duplicated computation should not happen!"
+        }
         when {
             (degree > 0) -> {
                 val moduleMap = FreeModuleMapAlongAlgebraMap.fromValuesOnGeneratingBasis(
@@ -71,7 +74,6 @@ private class FreeResolMapFactory<
                 this.moduleMapCache[0] = lift
             }
             (degree < 0) -> {
-                this.compute(degree + 1)
                 val composed = this.getModuleMap(degree + 1) * this.source.getDifferential(degree)
                 val lift = composed.liftAlong(this.target.getDifferential(degree))
                 this.moduleMapCache[degree] = lift

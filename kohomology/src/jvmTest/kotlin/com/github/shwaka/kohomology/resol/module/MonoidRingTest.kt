@@ -45,26 +45,5 @@ class MonoidRingTest : FreeSpec({
                 (t1 + t2).pow(3) shouldBe (2 * e + 3 * t1 + 3 * t2)
             }
         }
-
-        "test trivial module" - {
-            val vectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
-            val (x, y) = vectorSpace.getBasis()
-            val trivialModule = monoidRing.getModuleWithTrivialAction(vectorSpace)
-
-            "trivialModule.underlyingVectorSpace.dim should be same as vectorSpace.dim" {
-                trivialModule.underlyingVectorSpace.dim shouldBe vectorSpace.dim
-            }
-
-            "test trivial action" {
-                trivialModule.context.run {
-                    (e * x) shouldBe x
-                    (t1 * x) shouldBe x
-                    (t2 * x) shouldBe x
-                    (e * y) shouldBe y
-                    (t1 * y) shouldBe y
-                    (t2 * y) shouldBe y
-                }
-            }
-        }
     }
 })

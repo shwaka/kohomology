@@ -9,11 +9,9 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface MonoidRing<
     E : FiniteMonoidElement,
@@ -23,12 +21,6 @@ public interface MonoidRing<
     > : Algebra<E, S, V, M> {
 
     public val monoid: FiniteMonoid<E>
-
-    public fun <B : BasisName> getModuleWithTrivialAction(
-        vectorSpace: VectorSpace<B, S, V>
-    ): Module<E, B, S, V, M> {
-        return TrivialModule(vectorSpace, this)
-    }
 
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

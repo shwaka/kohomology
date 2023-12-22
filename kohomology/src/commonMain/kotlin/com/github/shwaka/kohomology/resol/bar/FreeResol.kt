@@ -14,6 +14,7 @@ import com.github.shwaka.kohomology.resol.module.Module
 import com.github.shwaka.kohomology.resol.module.ModuleMapFromFreeModule
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
+import com.github.shwaka.kohomology.resol.module.TrivialModule
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.StringBasisName
@@ -181,7 +182,7 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
             finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
         ): FreeResol<E, StringBasisName, S, V, M> {
             val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
-            val module = coeffAlgebra.getModuleWithTrivialAction(vectorSpace)
+            val module = TrivialModule(vectorSpace, coeffAlgebra)
             return FreeResol(coeffAlgebra, module, finder)
         }
     }

@@ -43,14 +43,12 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithFreeResolut
 
         "getModule should return an instance of FreeModule" {
             (-10..10).forAll { n ->
-                val degree = IntDegree(n)
                 complex.getModule(n).shouldBeInstanceOf<FreeModule<*, *, *, *, *>>()
             }
         }
 
         "getDifferential should return an instance of FreeModule" {
             (-10..10).forAll { n ->
-                val degree = IntDegree(n)
                 complex.getDifferential(n).shouldBeInstanceOf<FreeModuleMap<*, *, *, *, *, *>>()
             }
         }

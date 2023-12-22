@@ -11,7 +11,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
-import com.github.shwaka.kohomology.resol.module.ModuleMap
+import com.github.shwaka.kohomology.resol.module.ModuleMapFromFreeModule
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
@@ -48,7 +48,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
         Int,
         FreeModuleMap<BA, FreeResolBasisName, FreeResolBasisName, S, V, M>
         > = mutableMapOf()
-    lateinit var augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
+    lateinit var augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
     val minDegreeComputedAlready: Int
         get() {
             val minKey: Int? = moduleCache.keys.minOrNull()
@@ -79,16 +79,10 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
                     FreeResolBasisName(degree = degree, index = it)
                 }
                 val freeModule = FreeModule(this.coeffAlgebra, generatingBasisNames)
-                this.augmentation = ModuleMap.fromVectors(
+                this.augmentation = ModuleMapFromFreeModule.fromValuesOnGeneratingBasis(
                     source = freeModule,
                     target = this.module,
-                    vectors = freeModule.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
-                        val coeff = coeffAlgebra.fromBasisName(freeModuleBasisName.algebraBasisName)
-                        val index: Int = freeModule.generatingBasisNames.indexOf(freeModuleBasisName.generatingBasisName)
-                        this.module.context.run {
-                            coeff * differentialTargets[index]
-                        }
-                    }
+                    values = differentialTargets,
                 )
                 this.moduleCache[degree] = freeModule
                 this.differentialCache[degree] = FreeModuleMap.fromValuesOnGeneratingBasis(
@@ -166,7 +160,7 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
     public val minDegreeComputedAlready: Int
         get() = freeResolFactory.minDegreeComputedAlready
 
-    public val augmentation: ModuleMap<BA, FreeModuleBasisName<BA, FreeResolBasisName>, B, S, V, M>
+    public val augmentation: ModuleMapFromFreeModule<BA, FreeResolBasisName, B, S, V, M>
         get() = freeResolFactory.augmentation
 
     public companion object {

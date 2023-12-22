@@ -56,7 +56,7 @@ private class FreeResolMapFactory<
 
     private fun compute(degree: Int) {
         check(!this.moduleMapCache.containsKey(degree)) {
-            "Duplicated computation should not happen!"
+            "Attempted to compute moduleMapCache[$degree] twice, which should not happen!"
         }
         when {
             (degree > 0) -> {

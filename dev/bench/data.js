@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703155357462,
+  "lastUpdate": 1703215145662,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4232,6 +4232,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.545,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ae58cb3593a5f85ca25311bb1545d72776b742f1",
+          "message": "feat(core): add FreeResolMap.kt (WIP)",
+          "timestamp": "2023-12-22T12:13:54+09:00",
+          "tree_id": "613f0deb25ae7623cf157a2b07dd1ad58dc5a973",
+          "url": "https://github.com/shwaka/kohomology/commit/ae58cb3593a5f85ca25311bb1545d72776b742f1"
+        },
+        "date": 1703215144675,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.433,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.581,
             "unit": "s/op"
           }
         ]

@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 
 public interface TrivialModuleMapAlongAlgebraMap<
     ES : FiniteMonoidElement,
@@ -34,6 +35,23 @@ public interface TrivialModuleMapAlongAlgebraMap<
             V : NumVector<S>,
             M : Matrix<S, V>,
             > invoke(
+            algebraMap: MonoidRingMap<ES, ET, S, V, M>,
+            underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
+            source: TrivialModule<ES, BS, S, V, M> = TrivialModule(underlyingLinearMap.source, algebraMap.source),
+            target: TrivialModule<ET, BT, S, V, M> = TrivialModule(underlyingLinearMap.target, algebraMap.target),
+        ): TrivialModuleMapAlongAlgebraMap<ES, ET, BS, BT, S, V, M> {
+            return TrivialModuleMapAlongAlgebraMapImpl(algebraMap, underlyingLinearMap, source, target)
+        }
+
+        public operator fun <
+            ES : FiniteMonoidElement,
+            ET : FiniteMonoidElement,
+            BS : BasisName,
+            BT : BasisName,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > invoke(
             monoidMap: FiniteMonoidMap<ES, ET>,
             matrixSpace: MatrixSpace<S, V, M>,
             underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
@@ -51,21 +69,29 @@ public interface TrivialModuleMapAlongAlgebraMap<
             )
         }
 
-        public operator fun <
+        public fun <
             ES : FiniteMonoidElement,
             ET : FiniteMonoidElement,
-            BS : BasisName,
-            BT : BasisName,
             S : Scalar,
             V : NumVector<S>,
             M : Matrix<S, V>,
-            > invoke(
+            > baseField(
             algebraMap: MonoidRingMap<ES, ET, S, V, M>,
-            underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
-            source: TrivialModule<ES, BS, S, V, M> = TrivialModule(underlyingLinearMap.source, algebraMap.source),
-            target: TrivialModule<ET, BT, S, V, M> = TrivialModule(underlyingLinearMap.target, algebraMap.target),
-        ): TrivialModuleMapAlongAlgebraMap<ES, ET, BS, BT, S, V, M> {
-            return TrivialModuleMapAlongAlgebraMapImpl(algebraMap, underlyingLinearMap, source, target)
+        ): TrivialModuleMapAlongAlgebraMap<ES, ET, StringBasisName, StringBasisName, S, V, M> {
+            val sourceModule = TrivialModule.baseField(algebraMap.source)
+            val targetModule = TrivialModule.baseField(algebraMap.target)
+            val underlyingLinearMap = LinearMap.fromVectors(
+                source = sourceModule.underlyingVectorSpace,
+                target = targetModule.underlyingVectorSpace,
+                matrixSpace = algebraMap.matrixSpace,
+                vectors = targetModule.underlyingVectorSpace.getBasis(),
+            )
+            return TrivialModuleMapAlongAlgebraMap(
+                algebraMap,
+                underlyingLinearMap,
+                source = sourceModule,
+                target = targetModule,
+            )
         }
     }
 }

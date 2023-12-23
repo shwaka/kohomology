@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.module
 
 import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
@@ -18,6 +19,9 @@ public interface AlgebraMap<
     public val source: Algebra<BS, S, V, M>
     public val target: Algebra<BT, S, V, M>
     public val underlyingLinearMap: LinearMap<BS, BT, S, V, M>
+
+    public val matrixSpace: MatrixSpace<S, V, M>
+        get() = source.matrixSpace
 
     public operator fun invoke(vector: Vector<BS, S, V>): Vector<BT, S, V> {
         return this.underlyingLinearMap(vector)

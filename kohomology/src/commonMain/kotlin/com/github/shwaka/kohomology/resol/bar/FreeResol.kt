@@ -19,7 +19,6 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorSpace
 import kotlin.math.min
 
 public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisName {
@@ -181,8 +180,7 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
             coeffAlgebra: MonoidRing<E, S, V, M>,
             finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
         ): FreeResol<E, StringBasisName, S, V, M> {
-            val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
-            val module = TrivialModule(vectorSpace, coeffAlgebra)
+            val module = TrivialModule.baseField(coeffAlgebra)
             return FreeResol(coeffAlgebra, module, finder)
         }
     }

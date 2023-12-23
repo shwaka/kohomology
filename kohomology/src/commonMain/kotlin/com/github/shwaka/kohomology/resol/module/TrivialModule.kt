@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
@@ -31,6 +32,18 @@ public interface TrivialModule<
             coeffAlgebra: MonoidRing<E, S, V, M>,
         ): TrivialModule<E, B, S, V, M> {
             return TrivialModuleImpl(underlyingVectorSpace, coeffAlgebra)
+        }
+
+        public fun <
+            E : FiniteMonoidElement,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > baseField(
+            coeffAlgebra: MonoidRing<E, S, V, M>,
+        ): TrivialModule<E, StringBasisName, S, V, M> {
+            val vectorSpace = VectorSpace(coeffAlgebra.numVectorSpace, listOf("x"))
+            return TrivialModule(vectorSpace, coeffAlgebra)
         }
     }
 }

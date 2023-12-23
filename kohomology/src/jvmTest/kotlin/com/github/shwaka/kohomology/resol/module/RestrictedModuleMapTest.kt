@@ -18,7 +18,7 @@ class RestrictedModuleMapTest : FreeSpec({
         val values = (0 until 6).map { CyclicGroupElement(it % 2, 2) }
         FiniteMonoidMap(source, target, values)
     }
-    val algebraMap = AlgebraMap.fromFiniteMonoidMap(monoidMap, matrixSpace)
+    val algebraMap = MonoidRingMap(monoidMap, matrixSpace)
     val sourceAlgebra = algebraMap.source
     val (_, x) = sourceAlgebra.getBasis() // x is the generator
     val targetAlgebra = algebraMap.target

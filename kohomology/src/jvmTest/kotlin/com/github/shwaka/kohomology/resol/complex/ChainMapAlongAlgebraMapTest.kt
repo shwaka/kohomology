@@ -7,9 +7,9 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.module.AlgebraMap
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.module.MonoidRingMap
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
@@ -48,7 +48,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
         }
         FiniteMonoidMap(sourceGroup, targetGroup, values)
     }
-    val algebraMap = AlgebraMap.fromFiniteMonoidMap(
+    val algebraMap = MonoidRingMap(
         groupMap,
         matrixSpace,
         source = sourceAlgebra,

@@ -38,7 +38,7 @@ class FreeModuleMapAlongAlgebraMapTest : FreeSpec({
         }
         FiniteMonoidMap(sourceGroup, targetGroup, values)
     }
-    val algebraMap = AlgebraMap.fromFiniteMonoidMap(
+    val algebraMap = MonoidRingMap(
         groupMap,
         matrixSpace,
         source = sourceAlgebra,

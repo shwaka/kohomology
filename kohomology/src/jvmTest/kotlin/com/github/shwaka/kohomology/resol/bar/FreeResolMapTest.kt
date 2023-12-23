@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.MonoidRingMap
+import com.github.shwaka.kohomology.resol.module.TrivialModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
@@ -32,33 +33,14 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testWithCyclicGroup
 
     val sourceOrder = targetOrder * orderFactor
     val sourceGroup = CyclicGroup(sourceOrder)
-    val sourceAlgebra = MonoidRing(sourceGroup, matrixSpace)
-    val sourceResol = FreeResol(sourceAlgebra)
-
     val targetGroup = CyclicGroup(targetOrder)
-    val targetAlgebra = MonoidRing(targetGroup, matrixSpace)
-    val targetResol = FreeResol(targetAlgebra)
 
     val groupMap = sourceGroup.getMonoidMap(targetGroup, targetGroup.elements[1])
-    val algebraMap = MonoidRingMap(
-        groupMap,
-        matrixSpace,
-        source = sourceAlgebra,
-        target = targetAlgebra,
-    )
+    val algebraMap = MonoidRingMap(groupMap, matrixSpace)
+    val moduleMap = TrivialModuleMapAlongAlgebraMap.baseField(algebraMap)
 
-    val moduleMap = ModuleMapAlongAlgebraMap(
-        source = sourceResol.module,
-        target = targetResol.module,
-        algebraMap = algebraMap,
-        underlyingLinearMap = LinearMap.fromVectors(
-            source = sourceResol.module.underlyingVectorSpace,
-            target = targetResol.module.underlyingVectorSpace,
-            matrixSpace = matrixSpace,
-            vectors = targetResol.module.underlyingVectorSpace.getBasis(),
-        )
-    )
-
+    val sourceResol = FreeResol(algebraMap.source, module = moduleMap.source)
+    val targetResol = FreeResol(algebraMap.target, module = moduleMap.target)
     val freeResolMap = FreeResolMap(
         source = sourceResol,
         target = targetResol,

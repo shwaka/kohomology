@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.LinearMap
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 
 public interface TrivialModuleMap<
     E : FiniteMonoidElement,
@@ -32,6 +33,23 @@ public interface TrivialModuleMap<
             target: TrivialModule<E, BT, S, V, M>,
         ): TrivialModuleMap<E, BS, BT, S, V, M> {
             return TrivialModuleMapImpl(underlyingLinearMap, source, target)
+        }
+
+        public fun <
+            E : FiniteMonoidElement,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > baseField(
+            coeffAlgebra: MonoidRing<E, S, V, M>,
+        ): TrivialModuleMap<E, StringBasisName, StringBasisName, S, V, M> {
+            val module = TrivialModule.baseField(coeffAlgebra)
+            val underlyingMap = module.underlyingVectorSpace.getIdentity(coeffAlgebra.matrixSpace)
+            return TrivialModuleMap(
+                underlyingMap,
+                source = module,
+                target = module,
+            )
         }
     }
 }

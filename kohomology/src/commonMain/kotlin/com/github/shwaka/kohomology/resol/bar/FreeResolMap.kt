@@ -108,6 +108,7 @@ public class FreeResolMap<
     V,
     M,
     > by freeResolMapFactory.freeChainMap {
+
     public constructor(
         source: FreeResol<BAS, BS, S, V, M>,
         target: FreeResol<BAT, BT, S, V, M>,
@@ -115,4 +116,7 @@ public class FreeResolMap<
     ) : this(
         FreeResolMapFactory(source, target, moduleMap)
     )
+
+    override val source: FreeResol<BAS, BS, S, V, M> = freeResolMapFactory.source
+    override val target: FreeResol<BAT, BT, S, V, M> = freeResolMapFactory.target
 }

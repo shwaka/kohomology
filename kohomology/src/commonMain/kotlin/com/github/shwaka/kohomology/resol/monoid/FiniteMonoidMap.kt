@@ -64,7 +64,8 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
                     val rhs = multiplyTarget(map(a), map(b))
                     if (lhs != rhs) {
                         cause.add(
-                            "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b"
+                            "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b; " +
+                                "f(ab) = $lhs and f(a)f(b) = $rhs"
                         )
                     }
                 }

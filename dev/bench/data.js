@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703343544132,
+  "lastUpdate": 1703431098346,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4436,6 +4436,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.516,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a9ebf5e938269ef688f82b9749362a6c5f9c6146",
+          "message": "feat(core): improve error message in FiniteMonoidMap.checkFiniteMonoidMapAxioms",
+          "timestamp": "2023-12-25T00:06:53+09:00",
+          "tree_id": "dc28a84b035774256da6aa1d03659c676e97dea7",
+          "url": "https://github.com/shwaka/kohomology/commit/a9ebf5e938269ef688f82b9749362a6c5f9c6146"
+        },
+        "date": 1703431097964,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.406,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.469,
             "unit": "s/op"
           }
         ]

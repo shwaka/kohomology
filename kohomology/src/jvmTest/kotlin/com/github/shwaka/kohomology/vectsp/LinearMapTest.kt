@@ -165,6 +165,14 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
                 f.isIsomorphism().shouldBeTrue()
             }
+            "(identity map).isSurjective() should be true" {
+                val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
+                f.isSurjective().shouldBeTrue()
+            }
+            "(identity map).isInjective() should be true" {
+                val f = LinearMap.getIdentity(vectorSpace1, matrixSpace)
+                f.isInjective().shouldBeTrue()
+            }
             "f.isIsomorphism() should be false if different dimension" {
                 val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
                 val (p, q, _) = vectorSpaceOfDim3.getBasis()
@@ -176,6 +184,52 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> linearMapTest(matrixSpace: 
                 )
                 (f.source.dim != f.target.dim).shouldBeTrue()
                 f.isIsomorphism().shouldBeFalse()
+            }
+            "f.isSurjective() should be false if the target has larger dim" {
+                val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
+                val (p, q, _) = vectorSpaceOfDim3.getBasis()
+                val f = LinearMap.fromVectors(
+                    source = vectorSpace1,
+                    target = vectorSpaceOfDim3,
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(p, q),
+                )
+                (f.source.dim < f.target.dim).shouldBeTrue()
+                f.isSurjective().shouldBeFalse()
+            }
+            "f.isInjective() should be false if the target has smaller dim" {
+                val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
+                val (a, b) = vectorSpace1.getBasis()
+                val f = LinearMap.fromVectors(
+                    source = vectorSpaceOfDim3,
+                    target = vectorSpace1,
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(a, a, b),
+                )
+                (f.source.dim > f.target.dim).shouldBeTrue()
+                f.isInjective().shouldBeFalse()
+            }
+            "f.isInjective() should be true for an inclusion map" {
+                val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
+                val (p, q, _) = vectorSpaceOfDim3.getBasis()
+                val f = LinearMap.fromVectors(
+                    source = vectorSpace1,
+                    target = vectorSpaceOfDim3,
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(p, q),
+                )
+                f.isInjective().shouldBeTrue()
+            }
+            "f.isSurjective() should be true for a projection map" {
+                val vectorSpaceOfDim3 = VectorSpace(numVectorSpace, listOf("p", "q", "r"))
+                val (a, b) = vectorSpace1.getBasis()
+                val f = LinearMap.fromVectors(
+                    source = vectorSpaceOfDim3,
+                    target = vectorSpace1,
+                    matrixSpace = matrixSpace,
+                    vectors = listOf(a, a, b),
+                )
+                f.isSurjective().shouldBeTrue()
             }
             "test addition" {
                 val matrix1 = matrixSpace.fromRowList(

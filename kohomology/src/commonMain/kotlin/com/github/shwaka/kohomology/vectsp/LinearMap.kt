@@ -80,6 +80,24 @@ public class LinearMap<BS : BasisName, BT : BasisName, S : Scalar, V : NumVector
         return this.matrixSpace.context.run { this@LinearMap.matrix.isInvertible() }
     }
 
+    public fun isSurjective(): Boolean {
+        if (this.source.dim < this.target.dim) {
+            return false
+        }
+        return this.matrixSpace.context.run {
+            this@LinearMap.matrix.rank == this@LinearMap.target.dim
+        }
+    }
+
+    public fun isInjective(): Boolean {
+        if (this.source.dim > this.target.dim) {
+            return false
+        }
+        return this.matrixSpace.context.run {
+            this@LinearMap.matrix.rank == this@LinearMap.source.dim
+        }
+    }
+
     public fun isZero(): Boolean {
         return this.matrix.isZero()
     }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704020124382,
+  "lastUpdate": 1704028789607,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4504,6 +4504,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.45,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e36e983aff1262382948ff8f30cb012f935cd0e2",
+          "message": "feat(core): make CyclicGroup.toString(printConfig) return \\mathbb Z",
+          "timestamp": "2023-12-31T21:52:32+09:00",
+          "tree_id": "5e3099bb9abe40cabb7c559b09e3f87c5ba65a26",
+          "url": "https://github.com/shwaka/kohomology/commit/e36e983aff1262382948ff8f30cb012f935cd0e2"
+        },
+        "date": 1704028788984,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.413,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.442,
             "unit": "s/op"
           }
         ]

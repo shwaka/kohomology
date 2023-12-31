@@ -74,6 +74,7 @@ class FiniteMonoidFromListTest : FreeSpec({
 
         "test toString" {
             monoid.toString() shouldBe "M"
+            monoid.toString(PrintConfig(PrintType.PLAIN)) shouldBe "M"
             monoid.toString(PrintConfig(PrintType.TEX)) shouldBe "M'"
             monoid.toString(PrintConfig(PrintType.CODE)) shouldBe "M"
         }

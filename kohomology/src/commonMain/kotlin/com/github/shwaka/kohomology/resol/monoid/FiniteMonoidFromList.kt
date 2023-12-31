@@ -37,6 +37,10 @@ public class FiniteMonoidFromList<T>(
         FiniteMonoid.isCommutative(this.elements, this::multiply)
     }
 
+    override fun toString(): String {
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
             PrintType.TEX -> this.texName

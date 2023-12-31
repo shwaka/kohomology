@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.PrintConfig
+
 public data class CyclicGroupElement(val value: Int, val order: Int) : FiniteMonoidElement {
     init {
         require((0 <= this.value) && (this.value < this.order))
@@ -65,5 +67,9 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
 
     override fun toString(): String {
         return "Z/${this.order}"
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return this.toString()
     }
 }

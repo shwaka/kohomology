@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.BooleanWithCause
+import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FiniteMonoidElement : BasisName
@@ -34,7 +35,7 @@ internal class FiniteMonoidContextImpl<E : FiniteMonoidElement>(
     override val finiteMonoid: FiniteMonoid<E>,
 ) : FiniteMonoidContext<E>
 
-public interface FiniteMonoid<E : FiniteMonoidElement> {
+public interface FiniteMonoid<E : FiniteMonoidElement> : Printable {
     public val context: FiniteMonoidContext<E>
     public val unit: E
     public val elements: List<E>

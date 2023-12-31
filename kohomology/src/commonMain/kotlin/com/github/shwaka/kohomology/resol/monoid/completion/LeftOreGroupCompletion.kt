@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
 import com.github.shwaka.kohomology.util.FrozenGenericUnionFind
 import com.github.shwaka.kohomology.util.GenericUnionFind
+import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.directProductOf
 
 internal class LeftOreGroupCompletion<E : FiniteMonoidElement>(
@@ -78,5 +79,9 @@ internal class LeftOreGroupCompletion<E : FiniteMonoidElement>(
             target = this,
             values = values,
         )
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return "G(${this.monoid.toString(printConfig)})"
     }
 }

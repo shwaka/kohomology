@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.PrintConfig
+
 public class PermutedFiniteMonoid<E : FiniteMonoidElement>(
     public val originalMonoid: FiniteMonoid<E>,
     permutedElements: List<E>,
@@ -43,5 +45,9 @@ public class PermutedFiniteMonoid<E : FiniteMonoidElement>(
             target = this.originalMonoid,
             values = this.elements,
         )
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return this.originalMonoid.toString(printConfig)
     }
 }

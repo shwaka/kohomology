@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.getPermutation
 
 public data class Permutation(val values: List<Int>) : FiniteMonoidElement {
@@ -51,5 +53,12 @@ public class SymmetricGroup(public val order: Int) : FiniteGroup<Permutation> {
 
     override val multiplicationTable: List<List<Permutation>> by lazy {
         FiniteMonoid.getMultiplicationTable(this.elements, this::multiply)
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        return when (printConfig.printType) {
+            PrintType.TEX -> "{\\mathfrak S}_{${this.order}}"
+            else -> "S_${this.order}"
+        }
     }
 }

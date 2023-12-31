@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1703431098346,
+  "lastUpdate": 1704020124382,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4470,6 +4470,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.469,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6dddcacd420354dbd98c5e7439e954d8e3df148a",
+          "message": "fix(core): override FiniteMonoidFromList.toString",
+          "timestamp": "2023-12-31T19:50:17+09:00",
+          "tree_id": "f92be33fc0753a7b119ec5f1ba3f327c85ffa88d",
+          "url": "https://github.com/shwaka/kohomology/commit/6dddcacd420354dbd98c5e7439e954d8e3df148a"
+        },
+        "date": 1704020123971,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.405,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.45,
             "unit": "s/op"
           }
         ]

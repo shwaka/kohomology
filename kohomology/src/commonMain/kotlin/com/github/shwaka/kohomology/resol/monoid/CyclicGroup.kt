@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 
 public data class CyclicGroupElement(val value: Int, val order: Int) : FiniteMonoidElement {
     init {
@@ -66,10 +67,13 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
     }
 
     override fun toString(): String {
-        return "Z/${this.order}"
+        return this.toString(PrintConfig(PrintType.PLAIN))
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return this.toString()
+        return when (printConfig.printType) {
+            PrintType.TEX -> "{\\mathbb Z}/${this.order}"
+            else -> "Z/${this.order}"
+        }
     }
 }

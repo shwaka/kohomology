@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
@@ -21,7 +23,7 @@ class FiniteMonoidFromListTest : FreeSpec({
             listOf(t, zero, zero), // t*(-)
             listOf(zero, zero, zero), // zero*(-)
         )
-        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable, name = "M", texName = "M'")
 
         "monoid.checkMonoidAxioms() should not throw" {
             shouldNotThrow<IllegalStateException> {
@@ -69,6 +71,12 @@ class FiniteMonoidFromListTest : FreeSpec({
                 (zero * one) shouldBe zero
             }
         }
+
+        "test toString" {
+            monoid.toString() shouldBe "M"
+            monoid.toString(PrintConfig(PrintType.TEX)) shouldBe "M'"
+            monoid.toString(PrintConfig(PrintType.CODE)) shouldBe "M"
+        }
     }
 
     "non-commutative monoid with 3 elements" - {
@@ -79,7 +87,7 @@ class FiniteMonoidFromListTest : FreeSpec({
             listOf(x, x, y), // x*(-)
             listOf(y, x, y), // y*(-)
         )
-        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
 
         "monoid.checkMonoidAxioms() should not throw" {
             shouldNotThrow<IllegalStateException> {

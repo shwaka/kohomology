@@ -100,7 +100,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
         listOf("y1", "x1", "x1", "y1", "y1"),
         listOf("y2", "x2", "x2", "y2", "y2"),
     )
-    val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+    val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
     val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
@@ -159,7 +159,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMono
         listOf("y1", "x1", "x1", "x1", "y1", "y1"),
         listOf("y2", "x2", "x2", "x2", "y2", "y2"),
     )
-    val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+    val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
     val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field

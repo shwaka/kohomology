@@ -45,7 +45,7 @@ class CommutativeGroupCompletionTest : FreeSpec({
             listOf(t, zero, zero), // t*(-)
             listOf(zero, zero, zero), // zero*(-)
         )
-        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
         val groupCompletion = GroupCompletion(monoid)
         groupCompletion.shouldBeInstanceOf<CommutativeGroupCompletion<CyclicGroupElement>>()
         groupCompletion.size shouldBe 1
@@ -67,7 +67,7 @@ class LeftOreGroupCompletionTest : FreeSpec({
             listOf(x, x, x), // x*(-)
             listOf(y, y, y), // y*(-)
         )
-        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
         val groupCompletion = GroupCompletion(monoid)
 
         "groupCompletion should be an instance of LeftOreGroupCompletion" {
@@ -101,7 +101,7 @@ class RightOreGroupCompletionTest : FreeSpec({
             listOf(x, x, y), // x*(-)
             listOf(y, x, y), // y*(-)
         )
-        val monoid = FiniteMonoidFromList(elements, multiplicationTable)
+        val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
         val groupCompletion = GroupCompletion(monoid)
 
         "groupCompletion should be an instance of RightOreGroupCompletion" {

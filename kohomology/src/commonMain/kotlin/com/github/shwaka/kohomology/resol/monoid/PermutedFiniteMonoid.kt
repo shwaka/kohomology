@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 
 public class PermutedFiniteMonoid<E : FiniteMonoidElement>(
     public val originalMonoid: FiniteMonoid<E>,
@@ -48,6 +49,9 @@ public class PermutedFiniteMonoid<E : FiniteMonoidElement>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return this.originalMonoid.toString(printConfig)
+        return when (printConfig.printType) {
+            PrintType.TEX -> "{${this.originalMonoid.toString(printConfig)}}_{\\mathrm{perm}}"
+            else -> "Perm(${this.originalMonoid.toString(printConfig)})"
+        }
     }
 }

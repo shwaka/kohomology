@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704547227535,
+  "lastUpdate": 1704608056064,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4606,6 +4606,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.457,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "342e948826bca16e79ed0f6b1741f0cc51dd0966",
+          "message": "test(core): add OppositeFiniteMonoidTest.kt",
+          "timestamp": "2024-01-07T15:08:39+09:00",
+          "tree_id": "805769facc32fa4f7957ea5937d7993d4127f933",
+          "url": "https://github.com/shwaka/kohomology/commit/342e948826bca16e79ed0f6b1741f0cc51dd0966"
+        },
+        "date": 1704608055502,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.414,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.504,
             "unit": "s/op"
           }
         ]

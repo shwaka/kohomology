@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1704608056064,
+  "lastUpdate": 1705480894307,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4640,6 +4640,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.504,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ca8b90d6478cdd3c327a6bcbb14b3b802aa92acd",
+          "message": "refactor(core): replace unnecessary pmap with map",
+          "timestamp": "2024-01-17T17:35:17+09:00",
+          "tree_id": "a9c5e6a90b8d6c4695d9f1757fbc5fd14402b41f",
+          "url": "https://github.com/shwaka/kohomology/commit/ca8b90d6478cdd3c327a6bcbb14b3b802aa92acd"
+        },
+        "date": 1705480893735,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.411,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.453,
             "unit": "s/op"
           }
         ]

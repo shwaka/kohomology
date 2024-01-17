@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.getPermutation
-import com.github.shwaka.parautil.pmapIndexedNotNull
 
 public interface Matrix<S : Scalar, V : NumVector<S>> {
     public val numVectorSpace: NumVectorSpace<S, V>
@@ -223,7 +222,7 @@ public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
         val dimNotNull: Int = dim ?: numVectors[0].dim
-        val colMap = numVectors.pmapIndexedNotNull { i, v ->
+        val colMap = numVectors.mapIndexedNotNull { i, v ->
             if (v.isZero())
                 null
             else

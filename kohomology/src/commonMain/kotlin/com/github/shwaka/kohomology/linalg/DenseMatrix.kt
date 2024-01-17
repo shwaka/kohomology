@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.linalg
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.util.StringTable
-import com.github.shwaka.parautil.pmap
 
 public data class DenseMatrix<S : Scalar>(
     override val numVectorSpace: DenseNumVectorSpace<S>,
@@ -240,7 +239,7 @@ public class DenseMatrixSpace<S : Scalar> private constructor(
         // It is better to use toList() than toMap() for DenseMatrix
         if (numVectors.isEmpty() && (dim == null))
             throw IllegalArgumentException("Vector list is empty and dim is not specified")
-        val colList = numVectors.pmap { v -> v.toList() }
+        val colList = numVectors.map { v -> v.toList() }
         return this.fromColList(colList, dim)
     }
 }

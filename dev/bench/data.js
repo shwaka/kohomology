@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705480894307,
+  "lastUpdate": 1705635495018,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4674,6 +4674,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.453,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c12f27f3c28f9c172e924014286815913ba6563d",
+          "message": "fix(core): replace direct access to *ContextImpl with access through fake constructor of *Context",
+          "timestamp": "2024-01-19T11:54:29+09:00",
+          "tree_id": "8da7c388860a677c3f8ca707d0d43a6a999308db",
+          "url": "https://github.com/shwaka/kohomology/commit/c12f27f3c28f9c172e924014286815913ba6563d"
+        },
+        "date": 1705635494071,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.427,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.509,
             "unit": "s/op"
           }
         ]

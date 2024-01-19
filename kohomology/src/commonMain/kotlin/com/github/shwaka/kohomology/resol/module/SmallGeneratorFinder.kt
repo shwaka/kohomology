@@ -130,6 +130,6 @@ public interface SmallGeneratorFinder {
     }
 
     public companion object {
-        public val default: SmallGeneratorFinder = SmallGeneratorFinder.SimpleFinder
+        public val default: SmallGeneratorFinder = SmallGeneratorFinder.EarlyReturnFinder
     }
 }

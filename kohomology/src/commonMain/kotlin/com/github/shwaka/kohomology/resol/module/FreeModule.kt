@@ -21,10 +21,35 @@ public data class FreeModuleBasisName<BA : BasisName, BV : BasisName>(
     }
 }
 
-public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+public interface FreeModule<
+    BA : BasisName,
+    BV : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    > : Module<BA, FreeModuleBasisName<BA, BV>, S, V, M> {
+
+    public val generatingBasisNames: List<BV>
+    public val tensorWithBaseField: VectorSpace<BV, S, V>
+    public val projection: LinearMap<FreeModuleBasisName<BA, BV>, BV, S, V, M>
+    public val inclusion: LinearMap<BV, FreeModuleBasisName<BA, BV>, S, V, M>
+    public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasisName<BA, BV>, S, V>
+    public fun getGeneratingBasis(): List<Vector<FreeModuleBasisName<BA, BV>, S, V>>
+
+    public companion object {
+        public operator fun <BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            coeffAlgebra: Algebra<BA, S, V, M>,
+            generatingBasisNames: List<BV>,
+        ): FreeModule<BA, BV, S, V, M> {
+            return FreeModuleImpl(coeffAlgebra, generatingBasisNames)
+        }
+    }
+}
+
+private class FreeModuleImpl<BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val coeffAlgebra: Algebra<BA, S, V, M>,
-    public val generatingBasisNames: List<BV>,
-) : Module<BA, FreeModuleBasisName<BA, BV>, S, V, M> {
+    override val generatingBasisNames: List<BV>,
+) : FreeModule<BA, BV, S, V, M> {
     override val underlyingVectorSpace: VectorSpace<FreeModuleBasisName<BA, BV>, S, V> by lazy {
         val basisNames = directProductOf(
             this.coeffAlgebra.basisNames,
@@ -54,14 +79,14 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         }
     }
 
-    public val tensorWithBaseField: VectorSpace<BV, S, V> by lazy {
+    override val tensorWithBaseField: VectorSpace<BV, S, V> by lazy {
         VectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             basisNames = this.generatingBasisNames,
         )
     }
 
-    public val projection: LinearMap<FreeModuleBasisName<BA, BV>, BV, S, V, M> by lazy {
+    override val projection: LinearMap<FreeModuleBasisName<BA, BV>, BV, S, V, M> by lazy {
         val vectors = this.underlyingVectorSpace.basisNames.map { freeModuleBasisName ->
             this.tensorWithBaseField.fromBasisName(freeModuleBasisName.generatingBasisName)
         }
@@ -73,7 +98,7 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         )
     }
 
-    public val inclusion: LinearMap<BV, FreeModuleBasisName<BA, BV>, S, V, M> by lazy {
+    override val inclusion: LinearMap<BV, FreeModuleBasisName<BA, BV>, S, V, M> by lazy {
         LinearMap.fromVectors(
             source = this.tensorWithBaseField,
             target = this.underlyingVectorSpace,
@@ -92,14 +117,14 @@ public class FreeModule<BA : BasisName, BV : BasisName, S : Scalar, V : NumVecto
         return this.underlyingVectorSpace.fromBasisMap(basisMap)
     }
 
-    public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasisName<BA, BV>, S, V> {
+    override fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasisName<BA, BV>, S, V> {
         return this.fromGeneratingBasisNameWithCoeff(
             coeff = this.coeffAlgebra.unit,
             generatingBasisName = generatingBasisName,
         )
     }
 
-    public fun getGeneratingBasis(): List<Vector<FreeModuleBasisName<BA, BV>, S, V>> {
+    override fun getGeneratingBasis(): List<Vector<FreeModuleBasisName<BA, BV>, S, V>> {
         return this.generatingBasisNames.map { generatingBasisName ->
             this.fromGeneratingBasisName(generatingBasisName)
         }

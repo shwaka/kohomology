@@ -131,7 +131,7 @@ public class SubQuotVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
     override val basisNames: List<SubQuotBasis<B, S, V>> = factory.basisNames
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubQuotBasis<B, S, V>, S> =
         SubQuotBasis.convertGetInternalPrintConfig(factory.totalVectorSpace.getInternalPrintConfig)
-    override val context: VectorContext<SubQuotBasis<B, S, V>, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<SubQuotBasis<B, S, V>, S, V> = VectorContext(this)
     public val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
 
     private val basisNameToIndex: Map<SubQuotBasis<B, S, V>, Int> by lazy {

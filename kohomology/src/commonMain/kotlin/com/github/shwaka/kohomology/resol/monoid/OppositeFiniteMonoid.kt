@@ -6,7 +6,7 @@ import com.github.shwaka.kohomology.util.PrintType
 public class OppositeFiniteMonoid<E : FiniteMonoidElement>(
     public val originalMonoid: FiniteMonoid<E>,
 ) : FiniteMonoid<E> {
-    override val context: FiniteMonoidContext<E> = FiniteMonoidContextImpl(this)
+    override val context: FiniteMonoidContext<E> = FiniteMonoidContext(this)
     override val unit: E = originalMonoid.unit
     override val elements: List<E> = originalMonoid.elements
     override val isCommutative: Boolean

@@ -52,7 +52,7 @@ private class RestrictedTrivialModuleImpl<
 ) : RestrictedTrivialModule<BES, BET, B, S, V, M> {
     override val underlyingVectorSpace: VectorSpace<B, S, V> = originalModule.underlyingVectorSpace
     override val coeffAlgebra: MonoidRing<BES, S, V, M> = algebraMap.source
-    override val context: ModuleContext<BES, B, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<BES, B, S, V, M> = ModuleContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = originalModule.matrixSpace
     override val action: BilinearMap<BES, B, B, S, V, M> by lazy {
         ValueBilinearMap(

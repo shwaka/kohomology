@@ -38,7 +38,7 @@ public interface GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : N
 private class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
 ) : GLieAlgebraContext<D, B, S, V, M>,
-    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gLieAlgebra)
+    GMagmaContext<D, B, S, V, M> by GMagmaContext(gLieAlgebra)
 
 public interface GLieAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, B, S, V, M> {
@@ -78,6 +78,6 @@ internal class GLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GLieAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: GLieAlgebraContext<D, B, S, V, M> = GLieAlgebraContextImpl(this)
+    override val context: GLieAlgebraContext<D, B, S, V, M> = GLieAlgebraContext(this)
     override val underlyingGLieAlgebra: GLieAlgebra<D, B, S, V, M> = this
 }

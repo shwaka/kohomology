@@ -53,7 +53,7 @@ private class QuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Nu
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
     private val cache: MutableMap<D, QuotVectorSpace<B, S, V, M>> = mutableMapOf()
-    override val context: GVectorContext<D, QuotBasis<B, S, V>, S, V> = GVectorContextImpl(this)
+    override val context: GVectorContext<D, QuotBasis<B, S, V>, S, V> = GVectorContext(this)
     override val underlyingGVectorSpace: QuotGVectorSpace<D, B, S, V, M> = this
     override val zeroGVector: ZeroGVector<D, QuotBasis<B, S, V>, S, V> = ZeroGVector(this)
     override val section: GLinearMap<D, QuotBasis<B, S, V>, B, S, V, M> by lazy {

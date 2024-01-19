@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.specific.f2
 import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
-import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -50,7 +49,7 @@ public value class IntMod2Boolean private constructor(public val value: Boolean)
 }
 
 public object F2Boolean : FiniteField<IntMod2Boolean> {
-    override val context: ScalarContext<IntMod2Boolean> = ScalarContextImpl(this)
+    override val context: ScalarContext<IntMod2Boolean> = ScalarContext(this)
 
     override val characteristic: Int = 2
 

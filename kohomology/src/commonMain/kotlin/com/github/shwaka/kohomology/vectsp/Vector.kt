@@ -7,7 +7,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
@@ -221,7 +220,7 @@ public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : Nu
 private class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val vectorSpace: VectorSpace<B, S, V>
 ) : VectorContext<B, S, V>,
-    NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)
+    NumVectorContext<S, V> by NumVectorContext(vectorSpace.numVectorSpace)
 
 public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
     public val numVectorSpace: NumVectorSpace<S, V>
@@ -383,7 +382,7 @@ internal class VectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val basisNames: List<B>,
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<B, S> = InternalPrintConfig.Companion::default,
 ) : VectorSpace<B, S, V> {
-    override val context: VectorContext<B, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<B, S, V> = VectorContext(this)
 
     private val basisNameToIndex: Map<B, Int> by lazy {
         // cache for indexOf(basisName)

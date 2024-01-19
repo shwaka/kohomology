@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 
@@ -117,7 +116,7 @@ public class SetNumVectorSpace<S : Scalar> private constructor(
         }
     }
 
-    override val context: NumVectorContext<S, SetNumVector<S>> = NumVectorContextImpl(this)
+    override val context: NumVectorContext<S, SetNumVector<S>> = NumVectorContext(this)
 
     override fun contains(numVector: SetNumVector<S>): Boolean {
         return numVector.field == this.field

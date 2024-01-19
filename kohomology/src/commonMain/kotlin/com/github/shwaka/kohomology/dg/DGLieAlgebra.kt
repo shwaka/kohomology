@@ -24,7 +24,7 @@ public interface DGLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : 
 private class DGLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgLieAlgebra: DGLieAlgebra<D, B, S, V, M>,
 ) : DGLieAlgebraContext<D, B, S, V, M>,
-    DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgLieAlgebra) {
+    DGMagmaContext<D, B, S, V, M> by DGMagmaContext(dgLieAlgebra) {
     override val gLieAlgebra: GLieAlgebra<D, B, S, V, M> = dgLieAlgebra
 }
 
@@ -56,7 +56,7 @@ private class DGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGLieAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by underlyingGLieAlgebra {
-    override val context: DGLieAlgebraContext<D, B, S, V, M> = DGLieAlgebraContextImpl(this)
+    override val context: DGLieAlgebraContext<D, B, S, V, M> = DGLieAlgebraContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGLieAlgebra.matrixSpace
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M> = underlyingGLieAlgebra.multiplication
 

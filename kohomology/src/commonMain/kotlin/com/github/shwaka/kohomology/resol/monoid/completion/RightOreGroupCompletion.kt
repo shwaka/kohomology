@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid.completion
 
 import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContext
-import com.github.shwaka.kohomology.resol.monoid.FiniteGroupContextImpl
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap
@@ -21,7 +20,7 @@ internal class RightOreGroupCompletion<E : FiniteMonoidElement>(
     }
 
     override val monoid: FiniteMonoid<E> = oreFinder.monoid
-    override val context: FiniteGroupContext<Division<E>> = FiniteGroupContextImpl(this)
+    override val context: FiniteGroupContext<Division<E>> = FiniteGroupContext(this)
 
     private val unionFind: FrozenGenericUnionFind<Division<E>> = monoid.elements.let { elements ->
         val divisions = directProductOf(elements, elements).map { Division.fromPair(it) }

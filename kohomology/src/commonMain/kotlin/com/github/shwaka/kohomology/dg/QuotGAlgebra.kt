@@ -32,7 +32,7 @@ private class QuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     override val isCommutative: Boolean,
 ) : QuotGAlgebra<D, B, S, V, M>,
     QuotGVectorSpace<D, B, S, V, M> by quotGVectorSpace {
-    override val context: GAlgebraContext<D, QuotBasis<B, S, V>, S, V, M> = GAlgebraContextImpl(this)
+    override val context: GAlgebraContext<D, QuotBasis<B, S, V>, S, V, M> = GAlgebraContext(this)
 
     override fun getIdentity(): GAlgebraMap<D, QuotBasis<B, S, V>, QuotBasis<B, S, V>, S, V, M> {
         // If this method is implemented in the interface QuotGAlgebra,

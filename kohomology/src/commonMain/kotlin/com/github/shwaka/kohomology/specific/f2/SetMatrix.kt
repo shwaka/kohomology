@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.specific.f2
 import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixContext
-import com.github.shwaka.kohomology.linalg.MatrixContextImpl
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
@@ -119,8 +118,7 @@ public class SetMatrixSpace<S : Scalar> internal constructor(
     override val field: FiniteField<S> =
         numVectorSpace.field
 
-    override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> =
-        MatrixContextImpl(this)
+    override val context: MatrixContext<S, SetNumVector<S>, SetMatrix<S>> = MatrixContext(this)
 
     override fun contains(matrix: SetMatrix<S>): Boolean {
         return matrix.numVectorSpace == this.numVectorSpace

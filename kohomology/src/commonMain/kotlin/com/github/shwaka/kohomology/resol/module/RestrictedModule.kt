@@ -31,7 +31,7 @@ private class RestrictedModuleImpl<BAS : BasisName, BAT : BasisName, B : BasisNa
 ) : RestrictedModule<BAS, BAT, B, S, V, M> {
     override val underlyingVectorSpace: VectorSpace<B, S, V> = originalModule.underlyingVectorSpace
     override val coeffAlgebra: Algebra<BAS, S, V, M> = algebraMap.source
-    override val context: ModuleContext<BAS, B, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<BAS, B, S, V, M> = ModuleContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = originalModule.matrixSpace
     override val action: BilinearMap<BAS, B, B, S, V, M> by lazy {
         ValueBilinearMap(

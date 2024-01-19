@@ -5,7 +5,6 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.FiniteField
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
-import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -71,7 +70,7 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
         }
     }
 
-    override val context: ScalarContext<IntModp> = ScalarContextImpl(this)
+    override val context: ScalarContext<IntModp> = ScalarContext(this)
 
     override val order: Int = characteristic
     override val elements: List<IntModp> by lazy {

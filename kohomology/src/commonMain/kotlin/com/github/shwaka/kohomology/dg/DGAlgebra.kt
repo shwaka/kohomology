@@ -24,7 +24,7 @@ public interface DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : Num
 private class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgAlgebra: DGAlgebra<D, B, S, V, M>,
 ) : DGAlgebraContext<D, B, S, V, M>,
-    DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgAlgebra) {
+    DGMagmaContext<D, B, S, V, M> by DGMagmaContext(dgAlgebra) {
     override val gAlgebra: GAlgebra<D, B, S, V, M> = dgAlgebra
 
     // public fun GVector<D, B, S, V>.pow(exponent: Int): GVector<D, B, S, V> {
@@ -94,7 +94,7 @@ private class DGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector
     private val cohomologyMultiplication: GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M>,
 ) : DGAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by underlyingGAlgebra {
-    override val context: DGAlgebraContext<D, B, S, V, M> = DGAlgebraContextImpl(this)
+    override val context: DGAlgebraContext<D, B, S, V, M> = DGAlgebraContext(this)
     override val unit: GVector<D, B, S, V> = underlyingGAlgebra.unit
     override val isCommutative: Boolean = underlyingGAlgebra.isCommutative
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace

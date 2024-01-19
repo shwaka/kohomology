@@ -154,7 +154,7 @@ private class QuotVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M
     override val totalVectorSpace: VectorSpace<B, S, V> = factory.totalVectorSpace
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<QuotBasis<B, S, V>, S> =
         QuotBasis.convertGetInternalPrintConfig(totalVectorSpace.getInternalPrintConfig)
-    override val context: VectorContext<QuotBasis<B, S, V>, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<QuotBasis<B, S, V>, S, V> = VectorContext(this)
 
     private val basisNameToIndex: Map<QuotBasis<B, S, V>, Int> by lazy {
         // cache for indexOf(basisName)

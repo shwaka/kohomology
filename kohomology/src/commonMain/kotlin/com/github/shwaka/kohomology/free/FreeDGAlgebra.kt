@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGAlgebraContext
-import com.github.shwaka.kohomology.dg.DGAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.DGAlgebraMap
 import com.github.shwaka.kohomology.dg.DGDerivation
 import com.github.shwaka.kohomology.dg.Derivation
@@ -54,7 +53,7 @@ public interface FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Sca
 private class FreeDGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgAlgebra: FreeDGAlgebra<D, I, S, V, M>
 ) : FreeDGAlgebraContext<D, I, S, V, M>,
-    DGAlgebraContext<D, Monomial<D, I>, S, V, M> by DGAlgebraContextImpl(dgAlgebra) {
+    DGAlgebraContext<D, Monomial<D, I>, S, V, M> by DGAlgebraContext(dgAlgebra) {
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M> = dgAlgebra
 }
 
@@ -429,7 +428,7 @@ internal class FreeDGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
     override val differential: Derivation<D, Monomial<D, I>, S, V, M>,
 ) : FreeDGAlgebra<D, I, S, V, M>,
     GVectorSpace<D, Monomial<D, I>, S, V> by underlyingGAlgebra {
-    override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val context: FreeDGAlgebraContext<D, I, S, V, M> = FreeDGAlgebraContext(this)
     override val unit: GVector<D, Monomial<D, I>, S, V> = underlyingGAlgebra.unit
     override val isCommutative: Boolean = true
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace

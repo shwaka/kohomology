@@ -15,7 +15,7 @@ public class FiniteMonoidFromList<T>(
     public val name: String,
     public val texName: String = name,
 ) : FiniteMonoid<SimpleFiniteMonoidElement<T>> {
-    override val context: FiniteMonoidContext<SimpleFiniteMonoidElement<T>> = FiniteMonoidContextImpl(this)
+    override val context: FiniteMonoidContext<SimpleFiniteMonoidElement<T>> = FiniteMonoidContext(this)
     override val unit: SimpleFiniteMonoidElement<T> = this.elements[0]
 
     override fun multiply(

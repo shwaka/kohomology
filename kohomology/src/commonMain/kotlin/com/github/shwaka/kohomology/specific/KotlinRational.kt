@@ -4,7 +4,6 @@ import com.github.shwaka.kococo.debugOnly
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
-import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.ionspin.kotlin.bignum.integer.BigInteger
@@ -177,7 +176,7 @@ public class KotlinRational private constructor(public val numerator: BigInteger
 public object KotlinRationalField : Field<KotlinRational> {
     override val characteristic: Int = 0
 
-    override val context: ScalarContext<KotlinRational> = ScalarContextImpl(this)
+    override val context: ScalarContext<KotlinRational> = ScalarContext(this)
 
     override fun contains(scalar: KotlinRational): Boolean {
         return true // Type information is sufficient

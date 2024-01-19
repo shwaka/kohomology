@@ -43,7 +43,7 @@ public interface NumVectorContext<S : Scalar, V : NumVector<S>> : ScalarContext<
 
 private class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
     override val numVectorSpace: NumVectorSpace<S, V>
-) : NumVectorContext<S, V>, ScalarContext<S> by ScalarContextImpl(numVectorSpace.field)
+) : NumVectorContext<S, V>, ScalarContext<S> by ScalarContext(numVectorSpace.field)
 
 public interface NumVectorSpace<S : Scalar, V : NumVector<S>> {
     public val field: Field<S>

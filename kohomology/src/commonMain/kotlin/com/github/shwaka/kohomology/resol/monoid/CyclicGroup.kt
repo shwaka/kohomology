@@ -17,7 +17,7 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
         require(this.order > 0)
     }
 
-    override val context: FiniteGroupContext<CyclicGroupElement> = FiniteGroupContextImpl(this)
+    override val context: FiniteGroupContext<CyclicGroupElement> = FiniteGroupContext(this)
     override val unit: CyclicGroupElement = CyclicGroupElement(0, order)
     override val elements: List<CyclicGroupElement> by lazy {
         (0 until this.order).map { i -> CyclicGroupElement(i, this.order) }

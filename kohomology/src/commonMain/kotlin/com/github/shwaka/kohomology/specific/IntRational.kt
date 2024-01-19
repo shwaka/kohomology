@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
-import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -114,7 +113,7 @@ public class IntRational(numerator: Int, denominator: Int) : Scalar {
 public object IntRationalField : Field<IntRational> {
     override val characteristic: Int = 0
 
-    override val context: ScalarContext<IntRational> = ScalarContextImpl(this)
+    override val context: ScalarContext<IntRational> = ScalarContext(this)
 
     override fun contains(scalar: IntRational): Boolean {
         return true // Type information is sufficient

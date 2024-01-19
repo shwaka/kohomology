@@ -63,7 +63,7 @@ public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumV
 private class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: GAlgebra<D, B, S, V, M>,
 ) : GAlgebraContext<D, B, S, V, M>,
-    GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gAlgebra)
+    GMagmaContext<D, B, S, V, M> by GMagmaContext(gAlgebra)
 
 public interface GAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GMagma<D, B, S, V, M> {
@@ -174,7 +174,7 @@ private class GAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     override val isCommutative: Boolean,
 ) : GAlgebra<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: GAlgebraContext<D, B, S, V, M> = GAlgebraContextImpl(this)
+    override val context: GAlgebraContext<D, B, S, V, M> = GAlgebraContext(this)
     override val underlyingGAlgebra: GAlgebra<D, B, S, V, M> = this
 }
 

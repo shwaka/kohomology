@@ -171,7 +171,7 @@ public interface MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
 
 private class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
-) : MatrixContext<S, V, M>, NumVectorContext<S, V> by NumVectorContextImpl(matrixSpace.numVectorSpace)
+) : MatrixContext<S, V, M>, NumVectorContext<S, V> by NumVectorContext(matrixSpace.numVectorSpace)
 
 public interface MatrixSpace<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val context: MatrixContext<S, V, M>

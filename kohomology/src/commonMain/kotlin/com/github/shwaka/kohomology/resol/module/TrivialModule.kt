@@ -58,7 +58,7 @@ private class TrivialModuleImpl<
     override val underlyingVectorSpace: VectorSpace<B, S, V>,
     override val coeffAlgebra: MonoidRing<E, S, V, M>,
 ) : TrivialModule<E, B, S, V, M> {
-    override val context: ModuleContext<E, B, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<E, B, S, V, M> = ModuleContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = coeffAlgebra.matrixSpace
 
     override val action: BilinearMap<E, B, B, S, V, M> by lazy {

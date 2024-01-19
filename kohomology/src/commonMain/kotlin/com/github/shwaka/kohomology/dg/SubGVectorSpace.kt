@@ -96,7 +96,7 @@ private class SubGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val listDegreesForAugmentedDegree: ((Int) -> List<D>)? =
         totalGVectorSpace.listDegreesForAugmentedDegree
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
-    override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
+    override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContext(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
     override val zeroGVector: ZeroGVector<D, SubBasis<B, S, V>, S, V> = ZeroGVector(this)
     override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {
@@ -159,7 +159,7 @@ private class WholeSubGVectorSpace<D : Degree, B : BasisName, S : Scalar, V : Nu
         totalGVectorSpace.listDegreesForAugmentedDegree
     override val boundedness: Boundedness = totalGVectorSpace.boundedness
     private val cache: MutableMap<D, SubVectorSpace<B, S, V, M>> = mutableMapOf()
-    override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContextImpl(this)
+    override val context: GVectorContext<D, SubBasis<B, S, V>, S, V> = GVectorContext(this)
     override val underlyingGVectorSpace: SubGVectorSpace<D, B, S, V, M> = this
     override val zeroGVector: ZeroGVector<D, SubBasis<B, S, V>, S, V> = ZeroGVector(this)
     override val inclusion: GLinearMap<D, SubBasis<B, S, V>, B, S, V, M> by lazy {

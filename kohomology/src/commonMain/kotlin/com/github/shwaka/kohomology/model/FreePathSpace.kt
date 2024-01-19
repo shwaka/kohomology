@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
-import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -137,7 +136,7 @@ public class FreePathSpace<D : Degree, I : IndeterminateName, S : Scalar, V : Nu
     DGAlgebra<D, Monomial<D, CopiedName<D, I>>, S, V, M> by DGAlgebra(factory.pathSpaceGAlgebra, factory.differential) {
     public constructor(freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>) : this(FreePathSpaceFactory(freeDGAlgebra))
 
-    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContext(this)
     override val degreeGroup: AugmentedDegreeGroup<D> = factory.freeDGAlgebra.degreeGroup
     override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.pathSpaceGAlgebra
     override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =

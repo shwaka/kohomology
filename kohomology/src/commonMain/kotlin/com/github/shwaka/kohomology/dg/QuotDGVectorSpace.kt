@@ -32,7 +32,7 @@ private class QuotDGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : N
     override val totalGVectorSpace: DGVectorSpace<D, B, S, V, M> = totalDGVectorSpace
     override val differential: GLinearMap<D, QuotBasis<B, S, V>, QuotBasis<B, S, V>, S, V, M> =
         totalDGVectorSpace.differential.induce(underlyingGVectorSpace, underlyingGVectorSpace)
-    override val context: DGVectorContext<D, QuotBasis<B, S, V>, S, V, M> = DGVectorContextImpl(this)
+    override val context: DGVectorContext<D, QuotBasis<B, S, V>, S, V, M> = DGVectorContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGVectorSpace.matrixSpace
     override val cohomology: SubQuotGVectorSpace<D, QuotBasis<B, S, V>, S, V, M> by lazy {
         val dgVectorSpace = DGVectorSpace(this.underlyingGVectorSpace, this.differential)

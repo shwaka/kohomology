@@ -53,7 +53,7 @@ private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVe
 
     override val coeffAlgebra: Algebra<BA, S, V, M>
         get() = totalModule.coeffAlgebra
-    override val context: ModuleContext<BA, SubBasis<B, S, V>, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<BA, SubBasis<B, S, V>, S, V, M> = ModuleContext(this)
     override val matrixSpace: MatrixSpace<S, V, M>
         get() = totalModule.matrixSpace
     override val action: BilinearMap<BA, SubBasis<B, S, V>, SubBasis<B, S, V>, S, V, M> by lazy {

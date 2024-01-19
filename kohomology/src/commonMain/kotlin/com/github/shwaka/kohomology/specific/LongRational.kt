@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.linalg.DenseNumVectorSpace
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.ScalarContext
-import com.github.shwaka.kohomology.linalg.ScalarContextImpl
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -120,7 +119,7 @@ public class LongRational(numerator: Long, denominator: Long) : Scalar {
 public object LongRationalField : Field<LongRational> {
     override val characteristic: Int = 0
 
-    override val context: ScalarContext<LongRational> = ScalarContextImpl(this)
+    override val context: ScalarContext<LongRational> = ScalarContext(this)
 
     override fun contains(scalar: LongRational): Boolean {
         return true // Type information is sufficient

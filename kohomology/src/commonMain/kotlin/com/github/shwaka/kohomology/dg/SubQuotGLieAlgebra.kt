@@ -29,7 +29,7 @@ private class SubQuotGLieAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : 
 ) : SubQuotGLieAlgebra<D, B, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
 
-    override val context: GLieAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GLieAlgebraContextImpl(this)
+    override val context: GLieAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GLieAlgebraContext(this)
 
     override val underlyingGLieAlgebra: GLieAlgebra<D, SubQuotBasis<B, S, V>, S, V, M> = this
 }

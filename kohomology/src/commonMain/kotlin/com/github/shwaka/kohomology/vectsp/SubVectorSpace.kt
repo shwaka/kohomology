@@ -148,7 +148,7 @@ private class SubVectorSpaceImpl<B : BasisName, S : Scalar, V : NumVector<S>, M 
     override val generator: List<Vector<B, S, V>> = factory.generator
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
         SubBasis.convertGetInternalPrintConfig(totalVectorSpace.getInternalPrintConfig)
-    override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContext(this)
 
     private val basisNameToIndex: Map<SubBasis<B, S, V>, Int> by lazy {
         // cache for indexOf(basisName)
@@ -197,7 +197,7 @@ private class WholeSubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M
     override val generator: List<Vector<B, S, V>> = totalVectorSpace.getBasis()
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<SubBasis<B, S, V>, S> =
         SubBasis.convertGetInternalPrintConfig(totalVectorSpace.getInternalPrintConfig)
-    override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<SubBasis<B, S, V>, S, V> = VectorContext(this)
     override fun subspaceContains(vector: Vector<B, S, V>): Boolean = true
 
     private val basisNameToIndex: Map<SubBasis<B, S, V>, Int> by lazy {

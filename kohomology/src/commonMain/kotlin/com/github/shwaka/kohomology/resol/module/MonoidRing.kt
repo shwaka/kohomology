@@ -44,7 +44,7 @@ private class MonoidRingImpl<E : FiniteMonoidElement, S : Scalar, V : NumVector<
         return this.basisNames.indexOf(basisName)
     }
 
-    override val context: AlgebraContext<E, S, V, M> = AlgebraContextImpl(this)
+    override val context: AlgebraContext<E, S, V, M> = AlgebraContext(this)
     override val unit: Vector<E, S, V> = this.fromBasisName(monoid.unit)
     override val isCommutative: Boolean = monoid.isCommutative
     override val multiplication: BilinearMap<E, E, E, S, V, M> = run {

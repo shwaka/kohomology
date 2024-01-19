@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
-import com.github.shwaka.kohomology.dg.GAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GBilinearMap
 import com.github.shwaka.kohomology.dg.GVector
@@ -134,7 +133,7 @@ private class MonoidGAlgebraImpl<D : Degree, E : GMonoidElement<D>, Mon : GMonoi
     override val unit: GVector<D, E, S, V> = factory.unit
     override val isCommutative: Boolean = factory.monoid.isCommutative
     override val monoid: Mon = factory.monoid
-    override val context: GAlgebraContext<D, E, S, V, M> = GAlgebraContextImpl(this)
+    override val context: GAlgebraContext<D, E, S, V, M> = GAlgebraContext(this)
     override val underlyingGVectorSpace: GVectorSpace<D, E, S, V> = factory.gVectorSpace
     override val underlyingGAlgebra: GAlgebra<D, E, S, V, M> = this
 

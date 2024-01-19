@@ -21,7 +21,7 @@ public class PermutedFiniteMonoid<E : FiniteMonoidElement>(
         }
     }
 
-    override val context: FiniteMonoidContext<E> = FiniteMonoidContextImpl(this)
+    override val context: FiniteMonoidContext<E> = FiniteMonoidContext(this)
     override val unit: E = originalMonoid.unit
     override val elements: List<E> = permutedElements
     override val isCommutative: Boolean = originalMonoid.isCommutative

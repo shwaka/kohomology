@@ -31,8 +31,8 @@ private class DGMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumV
     override val dgMagma: DGMagma<D, B, S, V, M>,
 ) : DGMagmaContext<D, B, S, V, M> {
     // If we write
-    //   DGVectorContext<D, B, S, V, M> by DGVectorContextImpl(dgMagma),
-    //   GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(dgMagma)
+    //   DGVectorContext<D, B, S, V, M> by DGVectorContext(dgMagma),
+    //   GMagmaContext<D, B, S, V, M> by GMagmaContext(dgMagma)
     // to implement the interfaces,
     // a lot of methods conflict.
     override val dgVectorSpace: DGVectorSpace<D, B, S, V, M> = dgMagma
@@ -107,7 +107,7 @@ internal class DGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<
     private val cohomologyGVectorSpace: SubQuotGVectorSpace<D, B, S, V, M>,
 ) : DGMagma<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: DGMagmaContext<D, B, S, V, M> = DGMagmaContextImpl(this)
+    override val context: DGMagmaContext<D, B, S, V, M> = DGMagmaContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = differential.matrixSpace
 
     private fun getCohomologyMultiplication(): GBilinearMap<SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, D, S, V, M> {

@@ -28,5 +28,5 @@ private class QuotGMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVecto
     override val multiplication: GBilinearMap<QuotBasis<B, S, V>, QuotBasis<B, S, V>, QuotBasis<B, S, V>, D, S, V, M>,
 ) : QuotGMagma<D, B, S, V, M>,
     QuotGVectorSpace<D, B, S, V, M> by quotGVectorSpace {
-    override val context: GMagmaContext<D, QuotBasis<B, S, V>, S, V, M> = GMagmaContextImpl(this)
+    override val context: GMagmaContext<D, QuotBasis<B, S, V>, S, V, M> = GMagmaContext(this)
 }

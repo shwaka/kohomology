@@ -35,7 +35,7 @@ public interface GMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVec
 private class GMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gMagma: GMagma<D, B, S, V, M>,
 ) : GMagmaContext<D, B, S, V, M>,
-    GVectorContext<D, B, S, V> by GVectorContextImpl(gMagma)
+    GVectorContext<D, B, S, V> by GVectorContext(gMagma)
 
 public interface GMagma<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     GVectorSpace<D, B, S, V> {
@@ -135,7 +135,7 @@ private class GMagmaImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>
     override val multiplication: GBilinearMap<B, B, B, D, S, V, M>,
 ) : GMagma<D, B, S, V, M>,
     GVectorSpace<D, B, S, V> by gVectorSpace {
-    override val context: GMagmaContext<D, B, S, V, M> = GMagmaContextImpl(this)
+    override val context: GMagmaContext<D, B, S, V, M> = GMagmaContext(this)
 
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = gVectorSpace.underlyingGVectorSpace
 }

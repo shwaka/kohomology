@@ -10,7 +10,7 @@ import com.github.shwaka.kohomology.vectsp.dual
 
 public class DualGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     gVectorSpace: GVectorSpace<D, DualBasisName<B>, S, V>,
-) : GVectorContext<D, DualBasisName<B>, S, V> by GVectorContextImpl(gVectorSpace) {
+) : GVectorContext<D, DualBasisName<B>, S, V> by GVectorContext(gVectorSpace) {
     public operator fun GVector<D, DualBasisName<B>, S, V>.invoke(gVector: GVector<D, B, S, V>): S {
         val minusGVectorDegree = gVector.gVectorSpace.degreeGroup.context.run {
             -gVector.degree

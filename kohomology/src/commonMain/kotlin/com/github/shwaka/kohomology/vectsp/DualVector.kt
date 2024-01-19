@@ -22,7 +22,7 @@ public data class DualBasisName<B : BasisName>(public val originalBasisName: B) 
 
 public class DualVectorContext<B : BasisName, S : Scalar, V : NumVector<S>>(
     dualVectorSpace: DualVectorSpace<B, S, V>,
-) : VectorContext<DualBasisName<B>, S, V> by VectorContextImpl(dualVectorSpace) {
+) : VectorContext<DualBasisName<B>, S, V> by VectorContext(dualVectorSpace) {
     public operator fun Vector<DualBasisName<B>, S, V>.invoke(vector: Vector<B, S, V>): S {
         return this.numVector.dot(vector.numVector)
     }

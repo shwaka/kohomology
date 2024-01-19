@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebraContext
-import com.github.shwaka.kohomology.free.FreeDGAlgebraContextImpl
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.monoid.FreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
@@ -92,7 +91,7 @@ public class CyclicModel<D : Degree, I : IndeterminateName, S : Scalar, V : NumV
 ) : FreeDGAlgebra<D, CopiedName<D, I>, S, V, M>,
     DGAlgebra<D, Monomial<D, CopiedName<D, I>>, S, V, M> by DGAlgebra(factory.cyclicGAlgebra, factory.differential) {
 
-    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContextImpl(this)
+    override val context: FreeDGAlgebraContext<D, CopiedName<D, I>, S, V, M> = FreeDGAlgebraContext(this)
     override val degreeGroup: AugmentedDegreeGroup<D> = factory.freeDGAlgebra.degreeGroup
     override val underlyingGAlgebra: FreeGAlgebra<D, CopiedName<D, I>, S, V, M> = factory.cyclicGAlgebra
     override val indeterminateList: List<Indeterminate<D, CopiedName<D, I>>> =

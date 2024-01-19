@@ -38,7 +38,7 @@ public class DirectSum<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S
     override val basisNames: List<DirectSumBasis<B>> = factory.basisNames
     override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<DirectSumBasis<B>, S> =
         factory.getInternalPrintConfig
-    override val context: VectorContext<DirectSumBasis<B>, S, V> = VectorContextImpl(this)
+    override val context: VectorContext<DirectSumBasis<B>, S, V> = VectorContext(this)
 
     private val basisNameToIndex: Map<DirectSumBasis<B>, Int> by lazy {
         // cache for indexOf(basisName)

@@ -44,7 +44,7 @@ public class DenseNumVectorSpace<S : Scalar> private constructor(
         }
     }
 
-    override val context: NumVectorContext<S, DenseNumVector<S>> = NumVectorContextImpl(this)
+    override val context: NumVectorContext<S, DenseNumVector<S>> = NumVectorContext(this)
 
     override fun contains(numVector: DenseNumVector<S>): Boolean {
         return numVector.field == this.field

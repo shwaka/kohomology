@@ -3,7 +3,6 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.Derivation
 import com.github.shwaka.kohomology.dg.GAlgebra
 import com.github.shwaka.kohomology.dg.GAlgebraContext
-import com.github.shwaka.kohomology.dg.GAlgebraContextImpl
 import com.github.shwaka.kohomology.dg.GAlgebraMap
 import com.github.shwaka.kohomology.dg.GLinearMapWithDegreeChange
 import com.github.shwaka.kohomology.dg.GVector
@@ -52,7 +51,7 @@ public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scal
 private class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
 ) : FreeGAlgebraContext<D, I, S, V, M>,
-    GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)
+    GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContext(gAlgebra)
 
 public interface FreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     MonoidGAlgebra<D, Monomial<D, I>, FreeGMonoid<D, I>, S, V, M>, Printable {
@@ -293,7 +292,7 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
             "indeterminateList contains duplicates: $duplicatedIndeterminateList"
         }
     }
-    override val context: FreeGAlgebraContext<D, I, S, V, M> = FreeGAlgebraContextImpl(this)
+    override val context: FreeGAlgebraContext<D, I, S, V, M> = FreeGAlgebraContext(this)
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = this
 
     override fun toString(printConfig: PrintConfig): String {

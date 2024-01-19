@@ -62,7 +62,7 @@ private class FreeModuleImpl<BA : BasisName, BV : BasisName, S : Scalar, V : Num
             basisNames
         )
     }
-    override val context: ModuleContext<BA, FreeModuleBasisName<BA, BV>, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<BA, FreeModuleBasisName<BA, BV>, S, V, M> = ModuleContext(this)
     override val matrixSpace: MatrixSpace<S, V, M> = coeffAlgebra.matrixSpace
     override val action: BilinearMap<BA, FreeModuleBasisName<BA, BV>, FreeModuleBasisName<BA, BV>, S, V, M> by lazy {
         LazyBilinearMap(

@@ -32,7 +32,7 @@ private class SubQuotGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : Num
     override val isCommutative: Boolean,
 ) : SubQuotGAlgebra<D, B, S, V, M>,
     SubQuotGVectorSpace<D, B, S, V, M> by subQuotGVectorSpace {
-    override val context: GAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GAlgebraContextImpl(this)
+    override val context: GAlgebraContext<D, SubQuotBasis<B, S, V>, S, V, M> = GAlgebraContext(this)
 
     override fun getIdentity(): GAlgebraMap<D, SubQuotBasis<B, S, V>, SubQuotBasis<B, S, V>, S, V, M> {
         // If this method is implemented in the interface SubQuotGAlgebra,

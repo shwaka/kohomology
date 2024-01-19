@@ -41,7 +41,7 @@ private class QuotDGAlgebraImpl<D : Degree, B : BasisName, S : Scalar, V : NumVe
         SubQuotBasis<QuotBasis<B, S, V>, S, V>,
         D, S, V, M> =
         dgMagma.cohomology.multiplication
-    override val context: DGAlgebraContext<D, QuotBasis<B, S, V>, S, V, M> = DGAlgebraContextImpl(this)
+    override val context: DGAlgebraContext<D, QuotBasis<B, S, V>, S, V, M> = DGAlgebraContext(this)
     override val unit: GVector<D, QuotBasis<B, S, V>, S, V> = underlyingGAlgebra.unit
     override val isCommutative: Boolean = underlyingGAlgebra.isCommutative
     override val matrixSpace: MatrixSpace<S, V, M> = underlyingGAlgebra.matrixSpace

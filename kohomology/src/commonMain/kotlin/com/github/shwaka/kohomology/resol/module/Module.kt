@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorContext
-import com.github.shwaka.kohomology.vectsp.VectorContextImpl
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface ModuleContext<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -32,7 +31,7 @@ public interface ModuleContext<BA : BasisName, B : BasisName, S : Scalar, V : Nu
 private class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val module: Module<BA, B, S, V, M>,
 ) : ModuleContext<BA, B, S, V, M>,
-    VectorContext<B, S, V> by VectorContextImpl(module.underlyingVectorSpace)
+    VectorContext<B, S, V> by VectorContext(module.underlyingVectorSpace)
 
 public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> {
     public val underlyingVectorSpace: VectorSpace<B, S, V>
@@ -82,5 +81,5 @@ private class ModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVecto
     override val coeffAlgebra: Algebra<BA, S, V, M>,
     override val action: BilinearMap<BA, B, B, S, V, M>,
 ) : Module<BA, B, S, V, M> {
-    override val context: ModuleContext<BA, B, S, V, M> = ModuleContextImpl(this)
+    override val context: ModuleContext<BA, B, S, V, M> = ModuleContext(this)
 }

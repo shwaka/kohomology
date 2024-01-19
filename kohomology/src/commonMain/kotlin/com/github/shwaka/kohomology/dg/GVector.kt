@@ -10,7 +10,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorContext
-import com.github.shwaka.kohomology.linalg.NumVectorContextImpl
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
@@ -181,7 +180,7 @@ public interface GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
 
 private class GVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     override val gVectorSpace: GVectorSpace<D, B, S, V>,
-) : GVectorContext<D, B, S, V>, NumVectorContext<S, V> by NumVectorContextImpl(gVectorSpace.numVectorSpace)
+) : GVectorContext<D, B, S, V>, NumVectorContext<S, V> by NumVectorContext(gVectorSpace.numVectorSpace)
 
 public interface GVectorSpace<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> : Printable {
     public val numVectorSpace: NumVectorSpace<S, V>
@@ -452,7 +451,7 @@ private class GVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : NumVec
     private val getVectorSpace: (D) -> VectorSpace<B, S, V>,
 ) : GVectorSpace<D, B, S, V> {
     private val cache: MutableMap<D, VectorSpace<B, S, V>> = mutableMapOf()
-    override val context: GVectorContext<D, B, S, V> = GVectorContextImpl(this)
+    override val context: GVectorContext<D, B, S, V> = GVectorContext(this)
     override val underlyingGVectorSpace: GVectorSpace<D, B, S, V> = this
     override val zeroGVector: ZeroGVector<D, B, S, V> = ZeroGVector(this)
 

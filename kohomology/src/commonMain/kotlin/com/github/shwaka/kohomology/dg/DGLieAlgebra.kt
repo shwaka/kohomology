@@ -11,9 +11,17 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 public interface DGLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGMagmaContext<D, B, S, V, M>, GLieAlgebraContext<D, B, S, V, M> {
     public val dgLieAlgebra: DGLieAlgebra<D, B, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            dgLieAlgebra: DGLieAlgebra<D, B, S, V, M>,
+        ): DGLieAlgebraContext<D, B, S, V, M> {
+            return DGLieAlgebraContextImpl(dgLieAlgebra)
+        }
+    }
 }
 
-internal class DGLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgLieAlgebra: DGLieAlgebra<D, B, S, V, M>,
 ) : DGLieAlgebraContext<D, B, S, V, M>,
     DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgLieAlgebra) {

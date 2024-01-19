@@ -23,9 +23,17 @@ public interface FiniteGroupContext<E : FiniteMonoidElement> : FiniteMonoidConte
             else -> throw Exception("This can't happen!")
         }
     }
+
+    public companion object {
+        public operator fun <E : FiniteMonoidElement> invoke(
+            finiteMonoid: FiniteGroup<E>,
+        ): FiniteGroupContext<E> {
+            return FiniteGroupContextImpl(finiteMonoid)
+        }
+    }
 }
 
-internal class FiniteGroupContextImpl<E : FiniteMonoidElement>(
+private class FiniteGroupContextImpl<E : FiniteMonoidElement>(
     override val finiteMonoid: FiniteGroup<E>,
 ) : FiniteGroupContext<E>
 

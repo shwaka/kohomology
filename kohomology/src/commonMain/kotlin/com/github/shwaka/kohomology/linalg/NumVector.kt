@@ -31,9 +31,17 @@ public interface NumVectorContext<S : Scalar, V : NumVector<S>> : ScalarContext<
     public operator fun V.get(ind: Int): S = this@NumVectorContext.numVectorSpace.getElement(this, ind)
     public fun List<S>.toNumVector(): V = this@NumVectorContext.numVectorSpace.fromValueList(this)
     public fun Map<Int, S>.toNumVector(dim: Int): V = this@NumVectorContext.numVectorSpace.fromValueMap(this, dim)
+
+    public companion object {
+        public operator fun <S : Scalar, V : NumVector<S>> invoke(
+            numVectorSpace: NumVectorSpace<S, V>
+        ): NumVectorContext<S, V> {
+            return NumVectorContextImpl(numVectorSpace)
+        }
+    }
 }
 
-internal class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
+private class NumVectorContextImpl<S : Scalar, V : NumVector<S>>(
     override val numVectorSpace: NumVectorSpace<S, V>
 ) : NumVectorContext<S, V>, ScalarContext<S> by ScalarContextImpl(numVectorSpace.field)
 

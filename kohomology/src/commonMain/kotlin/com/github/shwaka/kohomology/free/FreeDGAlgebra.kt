@@ -41,9 +41,17 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 public interface FreeDGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGAlgebraContext<D, Monomial<D, I>, S, V, M>, FreeGAlgebraContext<D, I, S, V, M> {
     override val dgAlgebra: FreeDGAlgebra<D, I, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            dgAlgebra: FreeDGAlgebra<D, I, S, V, M>
+        ): FreeDGAlgebraContext<D, I, S, V, M> {
+            return FreeDGAlgebraContextImpl(dgAlgebra)
+        }
+    }
 }
 
-internal class FreeDGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class FreeDGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgAlgebra: FreeDGAlgebra<D, I, S, V, M>
 ) : FreeDGAlgebraContext<D, I, S, V, M>,
     DGAlgebraContext<D, Monomial<D, I>, S, V, M> by DGAlgebraContextImpl(dgAlgebra) {

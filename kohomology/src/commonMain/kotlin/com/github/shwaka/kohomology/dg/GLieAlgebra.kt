@@ -25,8 +25,17 @@ public interface GLieAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : N
             this.gLieAlgebra.getBasis(degree).map { basis -> gVector * basis }
         }
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
+        ): GLieAlgebraContext<D, B, S, V, M> {
+            return GLieAlgebraContextImpl(gLieAlgebra)
+        }
+    }
 }
-internal open class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+
+private class GLieAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gLieAlgebra: GLieAlgebra<D, B, S, V, M>,
 ) : GLieAlgebraContext<D, B, S, V, M>,
     GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gLieAlgebra)

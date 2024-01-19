@@ -35,9 +35,17 @@ public interface DGVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumV
     public fun boundingCochainOf(cocycle: GVector<D, B, S, V>): GVector<D, B, S, V>? {
         return this.dgVectorSpace.boundingCochainOf(cocycle)
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
+        ): DGVectorContext<D, B, S, V, M> {
+            return DGVectorContextImpl(dgVectorSpace)
+        }
+    }
 }
 
-internal class DGVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
 ) : DGVectorContext<D, B, S, V, M>,
     GVectorContext<D, B, S, V> by GVectorContextImpl(dgVectorSpace)

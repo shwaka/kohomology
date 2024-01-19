@@ -17,9 +17,17 @@ public interface DGMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
     override operator fun GVector<D, B, S, V>.times(other: GVector<D, B, S, V>): GVector<D, B, S, V> {
         return this@DGMagmaContext.dgMagma.multiply(this, other)
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            dgMagma: DGMagma<D, B, S, V, M>,
+        ): DGMagmaContext<D, B, S, V, M> {
+            return DGMagmaContextImpl(dgMagma)
+        }
+    }
 }
 
-internal class DGMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgMagma: DGMagma<D, B, S, V, M>,
 ) : DGMagmaContext<D, B, S, V, M> {
     // If we write

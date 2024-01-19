@@ -39,9 +39,17 @@ public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scal
     public fun parse(text: String): GVectorOrZero<D, Monomial<D, I>, S, V> {
         return this.gAlgebra.parse(text)
     }
+
+    public companion object {
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gAlgebra: FreeGAlgebra<D, I, S, V, M>
+        ): FreeGAlgebraContext<D, I, S, V, M> {
+            return FreeGAlgebraContextImpl(gAlgebra)
+        }
+    }
 }
 
-internal class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class FreeGAlgebraContextImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: FreeGAlgebra<D, I, S, V, M>
 ) : FreeGAlgebraContext<D, I, S, V, M>,
     GAlgebraContext<D, Monomial<D, I>, S, V, M> by GAlgebraContextImpl(gAlgebra)

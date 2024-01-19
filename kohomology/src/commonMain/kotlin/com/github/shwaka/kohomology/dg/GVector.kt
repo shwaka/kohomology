@@ -169,9 +169,17 @@ public interface GVectorContext<D : Degree, B : BasisName, S : Scalar, V : NumVe
         val degreeInternal = this@GVectorContext.gVectorSpace.degreeGroup.fromInt(degree)
         return this.sum(degreeInternal)
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            gVectorSpace: GVectorSpace<D, B, S, V>,
+        ): GVectorContext<D, B, S, V> {
+            return GVectorContextImpl(gVectorSpace)
+        }
+    }
 }
 
-internal class GVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
+private class GVectorContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>>(
     override val gVectorSpace: GVectorSpace<D, B, S, V>,
 ) : GVectorContext<D, B, S, V>, NumVectorContext<S, V> by NumVectorContextImpl(gVectorSpace.numVectorSpace)
 

@@ -50,9 +50,17 @@ public interface GAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumV
     public fun Iterable<GVector<D, B, S, V>>.product(): GVector<D, B, S, V> {
         return this.fold(this@GAlgebraContext.gAlgebra.unit) { acc, x -> acc * x }
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gAlgebra: GAlgebra<D, B, S, V, M>,
+        ): GAlgebraContext<D, B, S, V, M> {
+            return GAlgebraContextImpl(gAlgebra)
+        }
+    }
 }
 
-internal class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gAlgebra: GAlgebra<D, B, S, V, M>,
 ) : GAlgebraContext<D, B, S, V, M>,
     GMagmaContext<D, B, S, V, M> by GMagmaContextImpl(gAlgebra)

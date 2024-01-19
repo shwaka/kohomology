@@ -208,9 +208,17 @@ public interface VectorContext<B : BasisName, S : Scalar, V : NumVector<S>> : Nu
     public operator fun Vector<B, S, V>.unaryMinus(): Vector<B, S, V> = Vector(-this.numVector, this.vectorSpace)
     public fun Iterable<Vector<B, S, V>>.sum(): Vector<B, S, V> =
         this.fold(this@VectorContext.vectorSpace.zeroVector) { acc, v -> acc + v }
+
+    public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>> invoke(
+            vectorSpace: VectorSpace<B, S, V>
+        ): VectorContext<B, S, V> {
+            return VectorContextImpl(vectorSpace)
+        }
+    }
 }
 
-internal class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
+private class VectorContextImpl<B : BasisName, S : Scalar, V : NumVector<S>>(
     override val vectorSpace: VectorSpace<B, S, V>
 ) : VectorContext<B, S, V>,
     NumVectorContext<S, V> by NumVectorContextImpl(vectorSpace.numVectorSpace)

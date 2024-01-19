@@ -22,9 +22,17 @@ public interface GMagmaContext<D : Degree, B : BasisName, S : Scalar, V : NumVec
     public operator fun GVectorOrZero<D, B, S, V>.times(other: GVectorOrZero<D, B, S, V>): GVectorOrZero<D, B, S, V> {
         return this@GMagmaContext.gMagma.multiply(this, other)
     }
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            gMagma: GMagma<D, B, S, V, M>,
+        ): GMagmaContext<D, B, S, V, M> {
+            return GMagmaContextImpl(gMagma)
+        }
+    }
 }
 
-internal class GMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class GMagmaContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val gMagma: GMagma<D, B, S, V, M>,
 ) : GMagmaContext<D, B, S, V, M>,
     GVectorContext<D, B, S, V> by GVectorContextImpl(gMagma)

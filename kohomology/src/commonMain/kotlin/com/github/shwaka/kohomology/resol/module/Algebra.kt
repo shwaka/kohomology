@@ -35,9 +35,17 @@ public interface AlgebraContext<B : BasisName, S : Scalar, V : NumVector<S>, M :
             else -> throw Exception("This can't happen!")
         }
     }
+
+    public companion object {
+        public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            algebra: Algebra<B, S, V, M>
+        ): AlgebraContext<B, S, V, M> {
+            return AlgebraContextImpl(algebra)
+        }
+    }
 }
 
-internal class AlgebraContextImpl<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class AlgebraContextImpl<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val algebra: Algebra<B, S, V, M>,
 ) : AlgebraContext<B, S, V, M>,
     VectorContext<B, S, V> by VectorContextImpl(algebra)

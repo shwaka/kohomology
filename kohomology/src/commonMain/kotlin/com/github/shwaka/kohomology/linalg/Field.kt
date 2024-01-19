@@ -63,9 +63,17 @@ public interface ScalarContext<S : Scalar> {
 
     public fun Iterable<S>.sum(): S = this.fold(zero) { acc, x -> acc + x }
     public fun Iterable<S>.product(): S = this.fold(one) { acc, x -> acc * x }
+
+    public companion object {
+        public operator fun <S : Scalar> invoke(
+            field: Field<S>,
+        ): ScalarContext<S> {
+            return ScalarContextImpl(field)
+        }
+    }
 }
 
-internal class ScalarContextImpl<S : Scalar>(
+private class ScalarContextImpl<S : Scalar>(
     override val field: Field<S>,
 ) : ScalarContext<S>
 

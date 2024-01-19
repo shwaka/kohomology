@@ -19,9 +19,17 @@ public interface ModuleContext<BA : BasisName, B : BasisName, S : Scalar, V : Nu
     public operator fun Vector<BA, S, V>.times(other: Vector<B, S, V>): Vector<B, S, V> {
         return this@ModuleContext.module.act(this, other)
     }
+
+    public companion object {
+        public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            module: Module<BA, B, S, V, M>,
+        ): ModuleContext<BA, B, S, V, M> {
+            return ModuleContextImpl(module)
+        }
+    }
 }
 
-internal class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class ModuleContextImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val module: Module<BA, B, S, V, M>,
 ) : ModuleContext<BA, B, S, V, M>,
     VectorContext<B, S, V> by VectorContextImpl(module.underlyingVectorSpace)

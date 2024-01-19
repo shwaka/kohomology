@@ -29,9 +29,17 @@ public interface FiniteMonoidContext<E : FiniteMonoidElement> {
             else -> throw Exception("This can't happen!")
         }
     }
+
+    public companion object {
+        public operator fun <E : FiniteMonoidElement> invoke(
+            finiteMonoid: FiniteMonoid<E>,
+        ): FiniteMonoidContext<E> {
+            return FiniteMonoidContextImpl(finiteMonoid)
+        }
+    }
 }
 
-internal class FiniteMonoidContextImpl<E : FiniteMonoidElement>(
+private class FiniteMonoidContextImpl<E : FiniteMonoidElement>(
     override val finiteMonoid: FiniteMonoid<E>,
 ) : FiniteMonoidContext<E>
 

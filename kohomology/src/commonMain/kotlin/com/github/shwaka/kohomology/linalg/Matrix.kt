@@ -159,9 +159,17 @@ public interface MatrixContext<S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     public fun List<S>.toMatrix(rowCount: Int, colCount: Int): M {
         return this@MatrixContext.matrixSpace.fromFlatList(this, rowCount, colCount)
     }
+
+    public companion object {
+        public operator fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+        ): MatrixContext<S, V, M> {
+            return MatrixContextImpl(matrixSpace)
+        }
+    }
 }
 
-internal class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class MatrixContextImpl<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val matrixSpace: MatrixSpace<S, V, M>,
 ) : MatrixContext<S, V, M>, NumVectorContext<S, V> by NumVectorContextImpl(matrixSpace.numVectorSpace)
 

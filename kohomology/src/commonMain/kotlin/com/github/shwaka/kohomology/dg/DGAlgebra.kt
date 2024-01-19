@@ -11,9 +11,17 @@ import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 public interface DGAlgebraContext<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     DGMagmaContext<D, B, S, V, M>, GAlgebraContext<D, B, S, V, M> {
     public val dgAlgebra: DGAlgebra<D, B, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            dgAlgebra: DGAlgebra<D, B, S, V, M>,
+        ): DGAlgebraContext<D, B, S, V, M> {
+            return DGAlgebraContextImpl(dgAlgebra)
+        }
+    }
 }
 
-internal class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
+private class DGAlgebraContextImpl<D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override val dgAlgebra: DGAlgebra<D, B, S, V, M>,
 ) : DGAlgebraContext<D, B, S, V, M>,
     DGMagmaContext<D, B, S, V, M> by DGMagmaContextImpl(dgAlgebra) {

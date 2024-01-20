@@ -57,4 +57,28 @@ private class MonoidRingMapImpl<
         }
         LinearMap.fromVectors(this.source, this.target, matrixSpace, vectors)
     }
+
+    private val _kernel: Ideal<ES, S, V, M> by lazy {
+        Ideal(
+            totalAlgebra = this.source,
+            underlyingVectorSpace = this.underlyingLinearMap.kernel(),
+        )
+    }
+    override fun kernel(): Ideal<ES, S, V, M> {
+        return this._kernel
+    }
+
+    private val _section: LinearMap<ET, ES, S, V, M> by lazy {
+        LinearMap.fromVectors(
+            source = this.target,
+            target = this.source,
+            matrixSpace = this.matrixSpace,
+            vectors = this.target.getBasis().map {
+                this.underlyingLinearMap.findPreimage(it) ?: throw Exception("This can't happen!")
+            },
+        )
+    }
+    override fun section(): LinearMap<ET, ES, S, V, M> {
+        return this._section
+    }
 }

@@ -17,8 +17,8 @@ public class FilteredSelector<
     Alg : Algebra<BA, S, V, M>,
     >(
     coeffAlgebra: Alg,
-) : SelectorBase<BA, S, V, M, Alg>(coeffAlgebra) {
-    override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+) : EfficientVectorSelector<BA, S, V, M, Alg>(coeffAlgebra) {
+    override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(
         module: Module<BA, B, S, V, M>,
         alreadyAdded: List<Vector<B, S, V>>,
         candidates: List<Vector<B, S, V>>

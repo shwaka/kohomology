@@ -9,7 +9,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-public abstract class SelectorBase<
+public abstract class EfficientVectorSelector<
     BA : BasisName,
     S : Scalar,
     V : NumVector<S>,
@@ -19,7 +19,7 @@ public abstract class SelectorBase<
     override val coeffAlgebra: Alg,
 ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
 
-    protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+    protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(
         module: Module<BA, B, S, V, M>,
         alreadyAdded: List<Vector<B, S, V>>,
         candidates: List<Vector<B, S, V>>,
@@ -32,7 +32,7 @@ public abstract class SelectorBase<
         var remainingGenerator: List<Vector<B, S, V>> = generator
         val result = mutableListOf<Vector<B, S, V>>()
         while (remainingGenerator.isNotEmpty()) {
-            val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(module, result, remainingGenerator)
+            val (selectedIndex, generatedSubVectorSpace) = this.selectMostEfficientVector(module, result, remainingGenerator)
             result.add(remainingGenerator[selectedIndex])
             remainingGenerator = remainingGenerator.filterIndexed { index, vector ->
                 (index != selectedIndex) &&

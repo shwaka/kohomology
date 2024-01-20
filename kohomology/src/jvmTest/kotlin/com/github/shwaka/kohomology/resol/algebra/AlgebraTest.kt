@@ -1,6 +1,5 @@
-package com.github.shwaka.kohomology.resol.module
+package com.github.shwaka.kohomology.resol.algebra
 
-import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace

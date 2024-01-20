@@ -32,7 +32,7 @@ public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisNam
 private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     private val coeffAlgebra: Algebra<BA, S, V, M>,
     val module: Module<BA, B, S, V, M>,
-    private val finder: SmallGeneratorFinder,
+    private val finder: SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>,
 ) {
     val freeComplex: FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> =
         FreeComplex(
@@ -157,7 +157,8 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
     public constructor(
         coeffAlgebra: Algebra<BA, S, V, M>,
         module: Module<BA, B, S, V, M>,
-        finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+        finder: SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> =
+            SmallGeneratorFinder.getDefaultFor(coeffAlgebra),
     ) : this(
         FreeResolFactory(
             coeffAlgebra,
@@ -178,7 +179,8 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
     public companion object {
         public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             coeffAlgebra: MonoidRing<E, S, V, M>,
-            finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+            finder: SmallGeneratorFinder<E, S, V, M, Algebra<E, S, V, M>> =
+                SmallGeneratorFinder.getDefaultFor(coeffAlgebra),
         ): FreeResol<E, StringBasisName, S, V, M> {
             val module = TrivialModule.baseField(coeffAlgebra)
             return FreeResol(coeffAlgebra, module, finder)

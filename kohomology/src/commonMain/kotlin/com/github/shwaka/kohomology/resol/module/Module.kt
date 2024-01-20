@@ -56,7 +56,8 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
     }
 
     public fun findSmallGenerator(
-        finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+        finder: SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> =
+            SmallGeneratorFinder.getDefaultFor(this.coeffAlgebra),
     ): List<Vector<B, S, V>> {
         return finder.find(this)
     }

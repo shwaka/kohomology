@@ -15,6 +15,9 @@ import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
+private typealias GetSelector<BA, S, V, M> =
+    (coeffAlgebra: Algebra<BA, S, V, M>) -> SmallGeneratorSelector<BA, S, V, M, Algebra<BA, S, V, M>>
+
 private fun <
     S : Scalar,
     V : NumVector<S>,
@@ -22,7 +25,7 @@ private fun <
     > smallGeneratorSelectorTest(
     matrixSpace: MatrixSpace<S, V, M>,
     selectorName: String,
-    getSelector: (coeffAlgebra: Algebra<CyclicGroupElement, S, V, M>) -> SmallGeneratorSelector<CyclicGroupElement, S, V, M, Algebra<CyclicGroupElement, S, V, M>>,
+    getSelector: GetSelector<CyclicGroupElement, S, V, M>,
 ) = freeSpec {
     "test SmallGeneratorFinder implementation: $selectorName" - {
         val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))

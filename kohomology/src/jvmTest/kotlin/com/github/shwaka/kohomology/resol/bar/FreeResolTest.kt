@@ -30,11 +30,14 @@ import io.kotest.matchers.shouldBe
 
 val freeResolTag = NamedTag("FreeResol")
 
+private typealias GetFinder<BA, S, V, M> =
+    (coeffAlgebra: Algebra<BA, S, V, M>) -> SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
+
+
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
-    getFinder: (coeffAlgebra: Algebra<CyclicGroupElement, S, V, M>) -> SmallGeneratorFinder<CyclicGroupElement, S, V, M, Algebra<CyclicGroupElement, S, V, M>> =
-        { SmallGeneratorFinder.getDefaultFor(it) },
+    getFinder: GetFinder<CyclicGroupElement, S, V, M> = { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     require(order > 1)
     val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
@@ -93,7 +96,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCycl
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFiedorowiczMonoid(
     matrixSpace: MatrixSpace<S, V, M>,
-    getFinder: (coeffAlgebra: Algebra<SimpleFiniteMonoidElement<String>, S, V, M>) -> SmallGeneratorFinder<SimpleFiniteMonoidElement<String>, S, V, M, Algebra<SimpleFiniteMonoidElement<String>, S, V, M>> =
+    getFinder: GetFinder<SimpleFiniteMonoidElement<String>, S, V, M> =
         { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     // Z. Fiedorowicz,
@@ -155,7 +158,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMonoidOfOrder6(
     matrixSpace: MatrixSpace<S, V, M>,
-    getFinder: (coeffAlgebra: Algebra<SimpleFiniteMonoidElement<String>, S, V, M>) -> SmallGeneratorFinder<SimpleFiniteMonoidElement<String>, S, V, M, Algebra<SimpleFiniteMonoidElement<String>, S, V, M>> =
+    getFinder: GetFinder<SimpleFiniteMonoidElement<String>, S, V, M> =
         { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     // variant of Fiedorowicz monoid

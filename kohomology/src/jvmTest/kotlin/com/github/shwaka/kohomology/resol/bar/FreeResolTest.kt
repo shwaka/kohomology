@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
+import com.github.shwaka.kohomology.resol.module.SmallGeneratorSelector
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
@@ -265,9 +266,9 @@ class FreeResolWithFinderTest : FreeSpec({
     tags(moduleTag, freeResolTag)
 
     val finderList = listOf(
-        SmallGeneratorFinder.SimpleFinder,
-        SmallGeneratorFinder.FilteredFinder,
-        SmallGeneratorFinder.EarlyReturnFinder,
+        SmallGeneratorSelector.SimpleFinder,
+        SmallGeneratorSelector.FilteredFinder,
+        SmallGeneratorSelector.EarlyReturnFinder,
     )
 
     for (finder in finderList) {

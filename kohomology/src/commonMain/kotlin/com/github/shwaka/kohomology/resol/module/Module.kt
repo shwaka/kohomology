@@ -56,11 +56,9 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
     }
 
     public fun findSmallGenerator(
-        generator: List<Vector<B, S, V>>? = null,
         finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
     ): List<Vector<B, S, V>> {
-        val generatorNonNull = generator ?: this.underlyingVectorSpace.getBasis()
-        return finder.find(this, generatorNonNull)
+        return finder.find(this)
     }
 
     public companion object {

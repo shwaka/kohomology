@@ -10,10 +10,10 @@ import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
-private fun smallGeneratorFinderTest(
-    finder: SmallGeneratorFinder,
+private fun smallGeneratorSelectorTest(
+    selector: SmallGeneratorSelector,
 ) = freeSpec {
-    "test SmallGeneratorFinder implementation: ${finder::class.simpleName}" - {
+    "test SmallGeneratorFinder implementation: ${selector::class.simpleName}" - {
         val matrixSpace = SparseMatrixSpaceOverRational
         val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
         val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
@@ -36,14 +36,14 @@ private fun smallGeneratorFinderTest(
         }
 
         "finder.find(module, module.underlyingVectorSpace.getBasis()) should return listOf(x)" {
-            val smallGenerator = finder.find(module, module.underlyingVectorSpace.getBasis())
+            val smallGenerator = selector.select(module, module.underlyingVectorSpace.getBasis())
             smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
         }
 
         "finder.find(module, listOf(x)) should return listOf(x)" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(x))
+                val smallGenerator = selector.select(module, listOf(x))
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(x)
             }
@@ -51,7 +51,7 @@ private fun smallGeneratorFinderTest(
 
         "finder.find(module, listOf(x+y, x)) should return listOf(x)" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(x + y, x))
+                val smallGenerator = selector.select(module, listOf(x + y, x))
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(x)
             }
@@ -59,7 +59,7 @@ private fun smallGeneratorFinderTest(
 
         "finder.find(module, listOf(x, x+y)) should return listOf(x)" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(x, x + y))
+                val smallGenerator = selector.select(module, listOf(x, x + y))
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(x)
             }
@@ -67,7 +67,7 @@ private fun smallGeneratorFinderTest(
 
         "finder.find(module, listOf(2x+y)) should return listOf(2x+y)" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(2 * x + y))
+                val smallGenerator = selector.select(module, listOf(2 * x + y))
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(2 * x + y)
             }
@@ -75,7 +75,7 @@ private fun smallGeneratorFinderTest(
 
         "finder.find(module, listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(x + y, x - y))
+                val smallGenerator = selector.select(module, listOf(x + y, x - y))
                 smallGenerator shouldHaveSize 2
                 smallGenerator shouldBe listOf(x + y, x - y)
             }
@@ -83,14 +83,14 @@ private fun smallGeneratorFinderTest(
 
         "finder.find(module, emptyList()) should throw IllegalArgumentException" {
             module.context.run {
-                val smallGenerator = finder.find(module, emptyList())
+                val smallGenerator = selector.select(module, emptyList())
                 smallGenerator.shouldBeEmpty()
             }
         }
 
         "finder.find(module, listOf(x+y)) should throw IllegalArgumentException" {
             module.context.run {
-                val smallGenerator = finder.find(module, listOf(x + y))
+                val smallGenerator = selector.select(module, listOf(x + y))
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(x + y)
             }
@@ -101,7 +101,7 @@ private fun smallGeneratorFinderTest(
 class SmallGeneratorFinderTest : FreeSpec({
     tags(moduleTag)
 
-    include(smallGeneratorFinderTest(SmallGeneratorFinder.SimpleFinder))
-    include(smallGeneratorFinderTest(SmallGeneratorFinder.FilteredFinder))
-    include(smallGeneratorFinderTest(SmallGeneratorFinder.EarlyReturnFinder))
+    include(smallGeneratorSelectorTest(SmallGeneratorSelector.SimpleFinder))
+    include(smallGeneratorSelectorTest(SmallGeneratorSelector.FilteredFinder))
+    include(smallGeneratorSelectorTest(SmallGeneratorSelector.EarlyReturnFinder))
 })

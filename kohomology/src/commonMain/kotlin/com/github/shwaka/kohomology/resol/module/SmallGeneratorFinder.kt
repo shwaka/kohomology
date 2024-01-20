@@ -10,17 +10,33 @@ import com.github.shwaka.kohomology.vectsp.Vector
 public interface SmallGeneratorFinder {
     public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
         module: Module<BA, B, S, V, M>,
+    ): List<Vector<B, S, V>>
+
+    public companion object {
+        public val default: SmallGeneratorFinder = SmallGeneratorSelector.EarlyReturnFinder
+    }
+}
+
+public interface SmallGeneratorSelector : SmallGeneratorFinder {
+    public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
+        module: Module<BA, B, S, V, M>,
         generator: List<Vector<B, S, V>>,
     ): List<Vector<B, S, V>>
 
-    public abstract class FinderBase : SmallGeneratorFinder {
+    override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+        module: Module<BA, B, S, V, M>,
+    ): List<Vector<B, S, V>> {
+        return this.select(module, module.underlyingVectorSpace.getBasis())
+    }
+
+    public abstract class FinderBase : SmallGeneratorSelector {
         protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
             candidates: List<Vector<B, S, V>>,
         ): Pair<Int, SubVectorSpace<B, S, V, M>>
 
-        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
             module: Module<BA, B, S, V, M>,
             generator: List<Vector<B, S, V>>
         ): List<Vector<B, S, V>> {
@@ -75,7 +91,7 @@ public interface SmallGeneratorFinder {
         }
     }
 
-    public object EarlyReturnFinder : SmallGeneratorFinder {
+    public object EarlyReturnFinder : SmallGeneratorSelector {
         // slightly different interface of findMostEfficientVector (previousDim)
         private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
@@ -101,7 +117,7 @@ public interface SmallGeneratorFinder {
             return finishedCandidates.maxBy { (_, subVectorSpace) -> subVectorSpace.dim }
         }
 
-        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+        override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
             module: Module<BA, B, S, V, M>,
             generator: List<Vector<B, S, V>>
         ): List<Vector<B, S, V>> {
@@ -127,9 +143,5 @@ public interface SmallGeneratorFinder {
             }
             return result
         }
-    }
-
-    public companion object {
-        public val default: SmallGeneratorFinder = SmallGeneratorFinder.EarlyReturnFinder
     }
 }

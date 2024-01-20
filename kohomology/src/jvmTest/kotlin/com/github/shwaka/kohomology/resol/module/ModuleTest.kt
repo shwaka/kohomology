@@ -6,7 +6,6 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
@@ -60,60 +59,5 @@ class ModuleTest : FreeSpec({
         val smallGenerator = module.findSmallGenerator()
         smallGenerator shouldHaveSize 1
         smallGenerator shouldBe listOf(x)
-    }
-
-    "module.findSmallGenerator(listOf(x)) should return listOf(x)" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(x))
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x)
-        }
-    }
-
-    "module.findSmallGenerator(listOf(x+y, x)) should return listOf(x)" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(x + y, x))
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x)
-        }
-    }
-
-    "module.findSmallGenerator(listOf(x, x+y)) should return listOf(x)" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(x, x + y))
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x)
-        }
-    }
-
-    "module.findSmallGenerator(listOf(2x+y)) should return listOf(2x+y)" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(2 * x + y))
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(2 * x + y)
-        }
-    }
-
-    "module.findSmallGenerator(listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(x + y, x - y))
-            smallGenerator shouldHaveSize 2
-            smallGenerator shouldBe listOf(x + y, x - y)
-        }
-    }
-
-    "module.findSmallGenerator(emptyList()) should throw IllegalArgumentException" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(emptyList())
-            smallGenerator.shouldBeEmpty()
-        }
-    }
-
-    "module.findSmallGenerator(listOf(x+y)) should throw IllegalArgumentException" {
-        module.context.run {
-            val smallGenerator = module.findSmallGenerator(listOf(x + y))
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x + y)
-        }
     }
 })

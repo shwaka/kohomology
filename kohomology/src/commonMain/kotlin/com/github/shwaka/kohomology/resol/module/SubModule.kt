@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.Algebra
+import com.github.shwaka.kohomology.resol.algebra.Ideal
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.SubBasis
@@ -34,6 +35,18 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
                         totalVectorSpace = totalModule.underlyingVectorSpace,
                         generator = generatorOverCoeff,
                     ),
+                )
+            return SubModuleImpl(totalModule, underlyingVectorSpace)
+        }
+
+        public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            totalModule: Module<BA, B, S, V, M>,
+            ideal: Ideal<BA, S, V, M>,
+        ): SubModule<BA, B, S, V, M> {
+            val underlyingVectorSpace =
+                totalModule.action.image(
+                    source1Sub = ideal.underlyingVectorSpace,
+                    source2Sub = totalModule.underlyingVectorSpace.asSubVectorSpace(totalModule.matrixSpace),
                 )
             return SubModuleImpl(totalModule, underlyingVectorSpace)
         }

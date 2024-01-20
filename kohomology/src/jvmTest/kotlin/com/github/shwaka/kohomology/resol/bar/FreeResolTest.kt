@@ -284,19 +284,19 @@ interface FinderCreator {
 
 object SimpleFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.SimpleFinder(coeffAlgebra)
+        return SmallGeneratorSelector.SimpleSelector(coeffAlgebra)
     }
 }
 
 object FilteredFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.FilteredFinder(coeffAlgebra)
+        return SmallGeneratorSelector.FilteredSelector(coeffAlgebra)
     }
 }
 
 object EarlyReturnFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.EarlyReturnFinder(coeffAlgebra)
+        return SmallGeneratorSelector.EarlyReturnSelector(coeffAlgebra)
     }
 }
 

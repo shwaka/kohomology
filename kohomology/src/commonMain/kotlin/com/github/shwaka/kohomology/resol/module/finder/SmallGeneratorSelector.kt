@@ -28,7 +28,7 @@ public interface SmallGeneratorSelector<
         return this.select(module, module.underlyingVectorSpace.getBasis())
     }
 
-    public abstract class FinderBase<
+    public abstract class SelectorBase<
         BA : BasisName,
         S : Scalar,
         V : NumVector<S>,
@@ -62,7 +62,7 @@ public interface SmallGeneratorSelector<
         }
     }
 
-    public class SimpleFinder<
+    public class SimpleSelector<
         BA : BasisName,
         S : Scalar,
         V : NumVector<S>,
@@ -70,7 +70,7 @@ public interface SmallGeneratorSelector<
         Alg : Algebra<BA, S, V, M>,
         >(
         coeffAlgebra: Alg,
-    ) : FinderBase<BA, S, V, M, Alg>(coeffAlgebra) {
+    ) : SelectorBase<BA, S, V, M, Alg>(coeffAlgebra) {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -85,7 +85,7 @@ public interface SmallGeneratorSelector<
         }
     }
 
-    public class FilteredFinder<
+    public class FilteredSelector<
         BA : BasisName,
         S : Scalar,
         V : NumVector<S>,
@@ -93,7 +93,7 @@ public interface SmallGeneratorSelector<
         Alg : Algebra<BA, S, V, M>,
         >(
         coeffAlgebra: Alg,
-    ) : FinderBase<BA, S, V, M, Alg>(coeffAlgebra) {
+    ) : SelectorBase<BA, S, V, M, Alg>(coeffAlgebra) {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -115,7 +115,7 @@ public interface SmallGeneratorSelector<
         }
     }
 
-    public class EarlyReturnFinder<
+    public class EarlyReturnSelector<
         BA : BasisName,
         S : Scalar,
         V : NumVector<S>,

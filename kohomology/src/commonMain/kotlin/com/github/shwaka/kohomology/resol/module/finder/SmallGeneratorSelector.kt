@@ -13,7 +13,7 @@ public interface SmallGeneratorSelector<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    Alg : Algebra<BA, S, V, M>,
+    in Alg : Algebra<BA, S, V, M>,
     > : SmallGeneratorFinder<BA, S, V, M, Alg> {
 
     public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(

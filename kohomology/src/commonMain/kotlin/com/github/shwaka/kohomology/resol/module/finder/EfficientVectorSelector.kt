@@ -16,7 +16,7 @@ public abstract class EfficientVectorSelector<
     M : Matrix<S, V>,
     Alg : Algebra<BA, S, V, M>,
     >(
-    override val coeffAlgebra: Alg,
+    private val coeffAlgebra: Alg,
 ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
 
     protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(

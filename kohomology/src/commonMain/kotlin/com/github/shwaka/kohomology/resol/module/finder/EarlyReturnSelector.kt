@@ -16,7 +16,7 @@ public class EarlyReturnSelector<
     M : Matrix<S, V>,
     Alg : Algebra<BA, S, V, M>,
     >(
-    override val coeffAlgebra: Alg,
+    private val coeffAlgebra: Alg,
 ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
     // This method has arguments previousDim and previousMax
     // and hence its signature is slightly different from EfficientVectorSelector.selectMostEfficientVector

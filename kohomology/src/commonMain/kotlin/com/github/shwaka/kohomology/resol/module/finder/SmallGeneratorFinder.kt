@@ -13,10 +13,8 @@ public interface SmallGeneratorFinder<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    Alg : Algebra<BA, S, V, M>,
+    in Alg : Algebra<BA, S, V, M>,
     > {
-
-    public val coeffAlgebra: Alg
 
     public fun <B : BasisName> find(
         module: Module<BA, B, S, V, M>,

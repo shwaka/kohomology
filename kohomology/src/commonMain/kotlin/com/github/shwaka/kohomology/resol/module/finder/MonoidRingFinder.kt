@@ -15,7 +15,7 @@ public class MonoidRingFinder<
     V : NumVector<S>,
     M : Matrix<S, V>,
     >(
-    override val coeffAlgebra: MonoidRing<E, S, V, M>,
+    private val coeffAlgebra: MonoidRing<E, S, V, M>,
 ) : SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
     private val finder: SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> =
         SimpleSelector(coeffAlgebra)

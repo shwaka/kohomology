@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705719834141,
+  "lastUpdate": 1705752156383,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4776,6 +4776,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.47,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6cb36d68a75dd99db8809af09131a72b959697f8",
+          "message": "feat(core): check coeffAlgebra in each implementation of SmallGeneratorSelector.select",
+          "timestamp": "2024-01-20T20:49:03+09:00",
+          "tree_id": "055674f747bdddfe041b2c864274092a3740ec68",
+          "url": "https://github.com/shwaka/kohomology/commit/6cb36d68a75dd99db8809af09131a72b959697f8"
+        },
+        "date": 1705752155391,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.469,
             "unit": "s/op"
           }
         ]

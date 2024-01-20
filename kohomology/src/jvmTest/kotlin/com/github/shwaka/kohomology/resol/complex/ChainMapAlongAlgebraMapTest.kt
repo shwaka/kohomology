@@ -8,8 +8,8 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
-import com.github.shwaka.kohomology.resol.module.MonoidRing
-import com.github.shwaka.kohomology.resol.module.MonoidRingMap
+import com.github.shwaka.kohomology.resol.algebra.MonoidRing
+import com.github.shwaka.kohomology.resol.algebra.MonoidRingMap
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap

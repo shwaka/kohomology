@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.resol.module
+package com.github.shwaka.kohomology.resol.algebra
 
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

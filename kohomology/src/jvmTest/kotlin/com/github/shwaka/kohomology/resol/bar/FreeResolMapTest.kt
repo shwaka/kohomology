@@ -5,7 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.module.MonoidRingMap
+import com.github.shwaka.kohomology.resol.algebra.MonoidRingMap
 import com.github.shwaka.kohomology.resol.module.TrivialModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup

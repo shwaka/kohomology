@@ -6,13 +6,13 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.complex.FreeComplex
-import com.github.shwaka.kohomology.resol.module.Algebra
+import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
 import com.github.shwaka.kohomology.resol.module.ModuleMapFromFreeModule
-import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.module.TrivialModule
 import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement

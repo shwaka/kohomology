@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.resol.module
 
+import com.github.shwaka.kohomology.resol.algebra.MonoidRing
+import com.github.shwaka.kohomology.resol.algebra.MonoidRingMap
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidMap

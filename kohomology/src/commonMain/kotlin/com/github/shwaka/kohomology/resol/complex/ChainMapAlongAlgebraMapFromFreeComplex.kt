@@ -4,7 +4,7 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.module.AlgebraMap
+import com.github.shwaka.kohomology.resol.algebra.AlgebraMap
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMapFromFreeModule

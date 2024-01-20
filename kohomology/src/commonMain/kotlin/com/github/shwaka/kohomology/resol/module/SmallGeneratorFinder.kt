@@ -7,29 +7,62 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
 
-public interface SmallGeneratorFinder {
-    public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+public interface SmallGeneratorFinder<
+    BA : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    Alg : Algebra<BA, S, V, M>,
+    > {
+
+    public val coeffAlgebra: Alg
+
+    public fun <B : BasisName> find(
         module: Module<BA, B, S, V, M>,
     ): List<Vector<B, S, V>>
 
     public companion object {
-        public val default: SmallGeneratorFinder = SmallGeneratorSelector.EarlyReturnFinder
+        public fun <
+            BA : BasisName,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            Alg : Algebra<BA, S, V, M>,
+            > getDefaultFor(coeffAlgebra: Alg): SmallGeneratorFinder<BA, S, V, M, Alg> {
+            return SmallGeneratorSelector.EarlyReturnFinder(coeffAlgebra)
+        }
     }
 }
 
-public interface SmallGeneratorSelector : SmallGeneratorFinder {
+public interface SmallGeneratorSelector<
+    BA : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    Alg : Algebra<BA, S, V, M>,
+    > : SmallGeneratorFinder<BA, S, V, M, Alg> {
+
     public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
         module: Module<BA, B, S, V, M>,
         generator: List<Vector<B, S, V>>,
     ): List<Vector<B, S, V>>
 
-    override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> find(
+    override fun <B : BasisName> find(
         module: Module<BA, B, S, V, M>,
     ): List<Vector<B, S, V>> {
         return this.select(module, module.underlyingVectorSpace.getBasis())
     }
 
-    public abstract class FinderBase : SmallGeneratorSelector {
+    public abstract class FinderBase<
+        BA : BasisName,
+        S : Scalar,
+        V : NumVector<S>,
+        M : Matrix<S, V>,
+        Alg : Algebra<BA, S, V, M>,
+        >(
+        override val coeffAlgebra: Alg,
+    ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
+
         protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -54,7 +87,15 @@ public interface SmallGeneratorSelector : SmallGeneratorFinder {
         }
     }
 
-    public object SimpleFinder : FinderBase() {
+    public class SimpleFinder<
+        BA : BasisName,
+        S : Scalar,
+        V : NumVector<S>,
+        M : Matrix<S, V>,
+        Alg : Algebra<BA, S, V, M>,
+        >(
+        coeffAlgebra: Alg,
+    ) : FinderBase<BA, S, V, M, Alg>(coeffAlgebra) {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -69,7 +110,15 @@ public interface SmallGeneratorSelector : SmallGeneratorFinder {
         }
     }
 
-    public object FilteredFinder : FinderBase() {
+    public class FilteredFinder<
+        BA : BasisName,
+        S : Scalar,
+        V : NumVector<S>,
+        M : Matrix<S, V>,
+        Alg : Algebra<BA, S, V, M>,
+        >(
+        coeffAlgebra: Alg,
+    ) : FinderBase<BA, S, V, M, Alg>(coeffAlgebra) {
         override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,
             alreadyAdded: List<Vector<B, S, V>>,
@@ -91,7 +140,15 @@ public interface SmallGeneratorSelector : SmallGeneratorFinder {
         }
     }
 
-    public object EarlyReturnFinder : SmallGeneratorSelector {
+    public class EarlyReturnFinder<
+        BA : BasisName,
+        S : Scalar,
+        V : NumVector<S>,
+        M : Matrix<S, V>,
+        Alg : Algebra<BA, S, V, M>,
+        >(
+        override val coeffAlgebra: Alg,
+    ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
         // slightly different interface of findMostEfficientVector (previousDim)
         private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
             module: Module<BA, B, S, V, M>,

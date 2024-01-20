@@ -21,6 +21,10 @@ public class MonoidRingFinder<
         SimpleSelector(coeffAlgebra)
 
     override fun <B : BasisName> find(module: Module<E, B, S, V, M>): List<Vector<B, S, V>> {
+        require(module.coeffAlgebra == this.coeffAlgebra) {
+            "Coefficient algebra is expected to be ${this.coeffAlgebra}, " +
+                "but ${module.coeffAlgebra} was given"
+        }
         return this.finder.find(module)
     }
 }

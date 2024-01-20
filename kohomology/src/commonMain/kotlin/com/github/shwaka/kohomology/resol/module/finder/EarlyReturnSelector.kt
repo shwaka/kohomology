@@ -48,6 +48,10 @@ public class EarlyReturnSelector<
         module: Module<BA, B, S, V, M>,
         generator: List<Vector<B, S, V>>
     ): List<Vector<B, S, V>> {
+        require(module.coeffAlgebra == this.coeffAlgebra) {
+            "Coefficient algebra is expected to be ${this.coeffAlgebra}, " +
+                "but ${module.coeffAlgebra} was given"
+        }
         var remainingGenerator: List<Vector<B, S, V>> = generator
         val result = mutableListOf<Vector<B, S, V>>()
         var previousDim = 0

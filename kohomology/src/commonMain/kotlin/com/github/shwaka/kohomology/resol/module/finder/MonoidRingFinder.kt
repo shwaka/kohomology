@@ -18,5 +18,5 @@ public class MonoidRingFinder<
     coeffAlgebraMap = Augmentation(coeffAlgebra),
     sourceCoeffAlgebra = coeffAlgebra,
     finderOnQuot = TrivialSelector(),
-    requireAdditionalGenerator = false,
+    requireAdditionalGenerator = true,
 )

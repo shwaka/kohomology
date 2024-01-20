@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.resol.algebra.Ideal
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.LinearMap
 import com.github.shwaka.kohomology.vectsp.SubBasis
 import com.github.shwaka.kohomology.vectsp.SubVectorSpace
 import com.github.shwaka.kohomology.vectsp.Vector
@@ -17,7 +18,7 @@ public interface SubModule<BA : BasisName, B : BasisName, S : Scalar, V : NumVec
     Module<BA, SubBasis<B, S, V>, S, V, M> {
     public val totalModule: Module<BA, B, S, V, M>
     public val inclusion: ModuleMap<BA, SubBasis<B, S, V>, B, S, V, M>
-    public val retraction: ModuleMap<BA, B, SubBasis<B, S, V>, S, V, M>
+    public val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M> // This is not a module map in general
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
 
     override val underlyingVectorSpace: SubVectorSpace<B, S, V, M>
@@ -86,13 +87,8 @@ private class SubModuleImpl<BA : BasisName, B : BasisName, S : Scalar, V : NumVe
         )
     }
 
-    override val retraction: ModuleMap<BA, B, SubBasis<B, S, V>, S, V, M> by lazy {
-        val underlyingLinearMap = this.underlyingVectorSpace.retraction
-        ModuleMap(
-            source = this.totalModule,
-            target = this,
-            underlyingLinearMap = underlyingLinearMap,
-        )
+    override val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M> by lazy {
+        this.underlyingVectorSpace.retraction
     }
 
     override fun subspaceContains(vector: Vector<B, S, V>): Boolean {

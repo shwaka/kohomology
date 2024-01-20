@@ -90,6 +90,6 @@ class IdealSubModuleTest : FreeSpec({
     }
 
     "subModule.retraction" {
-        subModule.retraction.underlyingLinearMap.isSurjective().shouldBeTrue()
+        subModule.retraction.isSurjective().shouldBeTrue()
     }
 })

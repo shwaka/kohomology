@@ -7,8 +7,8 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.Algebra
 import com.github.shwaka.kohomology.resol.module.MonoidRing
-import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
-import com.github.shwaka.kohomology.resol.module.SmallGeneratorSelector
+import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorFinder
+import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorSelector
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement

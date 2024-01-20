@@ -13,7 +13,7 @@ import com.github.shwaka.kohomology.resol.module.FreeModuleMap
 import com.github.shwaka.kohomology.resol.module.Module
 import com.github.shwaka.kohomology.resol.module.ModuleMapFromFreeModule
 import com.github.shwaka.kohomology.resol.module.MonoidRing
-import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
+import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.module.TrivialModule
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.vectsp.BasisName

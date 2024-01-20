@@ -6,6 +6,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.module.Module
+import com.github.shwaka.kohomology.resol.module.TrivialModule
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
@@ -53,6 +54,14 @@ private fun <
             val smallGenerator = finder.find(module)
             smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
+        }
+
+        "test with trivial module" {
+            val vectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("v"))
+            val module = TrivialModule(vectorSpace, coeffAlgebra)
+            val smallGenerator = finder.find(module)
+            smallGenerator shouldHaveSize 1
+            smallGenerator shouldBe listOf(vectorSpace.getBasis().first())
         }
     }
 }

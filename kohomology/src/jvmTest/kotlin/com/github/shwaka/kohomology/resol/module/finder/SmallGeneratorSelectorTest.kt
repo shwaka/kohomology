@@ -31,7 +31,7 @@ private fun <
     selectorName: String,
     getSelector: GetSelector<CyclicGroupElement, S, V, M>,
 ) = freeSpec {
-    "test SmallGeneratorFinder implementation: $selectorName" - {
+    "test SmallGeneratorSelector implementation: $selectorName" - {
         val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
         val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
         val selector = getSelector(coeffAlgebra)
@@ -53,13 +53,13 @@ private fun <
             Module(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
         }
 
-        "finder.find(module, module.underlyingVectorSpace.getBasis()) should return listOf(x)" {
+        "selector.select(module, module.underlyingVectorSpace.getBasis()) should return listOf(x)" {
             val smallGenerator = selector.select(module, module.underlyingVectorSpace.getBasis())
             smallGenerator shouldHaveSize 1
             smallGenerator shouldBe listOf(x)
         }
 
-        "finder.find(module, listOf(x)) should return listOf(x)" {
+        "selector.select(module, listOf(x)) should return listOf(x)" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(x))
                 smallGenerator shouldHaveSize 1
@@ -67,7 +67,7 @@ private fun <
             }
         }
 
-        "finder.find(module, listOf(x+y, x)) should return listOf(x)" {
+        "selector.select(module, listOf(x+y, x)) should return listOf(x)" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(x + y, x))
                 smallGenerator shouldHaveSize 1
@@ -75,7 +75,7 @@ private fun <
             }
         }
 
-        "finder.find(module, listOf(x, x+y)) should return listOf(x)" {
+        "selector.select(module, listOf(x, x+y)) should return listOf(x)" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(x, x + y))
                 smallGenerator shouldHaveSize 1
@@ -83,7 +83,7 @@ private fun <
             }
         }
 
-        "finder.find(module, listOf(2x+y)) should return listOf(2x+y)" {
+        "selector.select(module, listOf(2x+y)) should return listOf(2x+y)" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(2 * x + y))
                 smallGenerator shouldHaveSize 1
@@ -91,7 +91,7 @@ private fun <
             }
         }
 
-        "finder.find(module, listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
+        "selector.select(module, listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(x + y, x - y))
                 smallGenerator shouldHaveSize 2
@@ -99,14 +99,14 @@ private fun <
             }
         }
 
-        "finder.find(module, emptyList()) should throw IllegalArgumentException" {
+        "selector.select(module, emptyList()) should throw IllegalArgumentException" {
             module.context.run {
                 val smallGenerator = selector.select(module, emptyList())
                 smallGenerator.shouldBeEmpty()
             }
         }
 
-        "finder.find(module, listOf(x+y)) should throw IllegalArgumentException" {
+        "selector.select(module, listOf(x+y)) should throw IllegalArgumentException" {
             module.context.run {
                 val smallGenerator = selector.select(module, listOf(x + y))
                 smallGenerator shouldHaveSize 1
@@ -116,7 +116,7 @@ private fun <
     }
 }
 
-class SmallGeneratorFinderTest : FreeSpec({
+class SmallGeneratorSelectorTest : FreeSpec({
     tags(moduleTag)
 
     val matrixSpace = SparseMatrixSpaceOverRational

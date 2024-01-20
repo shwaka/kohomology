@@ -1,13 +1,17 @@
 package com.github.shwaka.kohomology.resol.module
 
+import com.github.shwaka.kohomology.resol.algebra.Augmentation
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
+import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import kotlin.math.min
 
 class SubModuleTest : FreeSpec({
     tags(moduleTag)
@@ -43,5 +47,49 @@ class SubModuleTest : FreeSpec({
             subModule.subspaceContains(t1 * y).shouldBeFalse()
             subModule.subspaceContains(t2 * y).shouldBeFalse()
         }
+    }
+})
+
+class IdealSubModuleTest : FreeSpec({
+    tags(moduleTag)
+
+    val matrixSpace = SparseMatrixSpaceOverRational
+    val order = 5
+    val monoid = FiniteMonoidFromList(
+        elements = (0 until order).map { "x$it" },
+        multiplicationTable = (0 until order).map { i ->
+            (0 until order).map { j ->
+                val k = min(i + j, order - 1)
+                "x$k"
+            }
+        },
+        name = "M_$order"
+    )
+    val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val totalModule = FreeModule(coeffAlgebra, listOf(StringBasisName("v")))
+    val augmentation = Augmentation(coeffAlgebra)
+    val ideal = augmentation.kernel()
+    val subModule = SubModule(totalModule, ideal)
+
+    "monoid should satisfy the axioms" {
+        shouldNotThrow<IllegalStateException> {
+            monoid.checkMonoidAxioms()
+        }
+    }
+
+    "totalModule should have dimension $order" {
+        totalModule.underlyingVectorSpace.dim shouldBe order
+    }
+
+    "subModule should have dimension ${order - 1}" {
+        subModule.underlyingVectorSpace.dim shouldBe (order - 1)
+    }
+
+    "subModule.inclusion should be injective" {
+        subModule.inclusion.underlyingLinearMap.isInjective().shouldBeTrue()
+    }
+
+    "subModule.retraction" {
+        subModule.retraction.underlyingLinearMap.isSurjective().shouldBeTrue()
     }
 })

@@ -18,8 +18,9 @@ public class EarlyReturnSelector<
     >(
     override val coeffAlgebra: Alg,
 ) : SmallGeneratorSelector<BA, S, V, M, Alg> {
-    // slightly different interface of findMostEfficientVector (previousDim)
-    private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> findMostEfficientVector(
+    // This method has arguments previousDim and previousMax
+    // and hence its signature is slightly different from EfficientVectorSelector.selectMostEfficientVector
+    private fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(
         module: Module<BA, B, S, V, M>,
         alreadyAdded: List<Vector<B, S, V>>,
         previousDim: Int,
@@ -52,7 +53,7 @@ public class EarlyReturnSelector<
         var previousDim = 0
         var previousMax = module.coeffAlgebra.dim
         while (remainingGenerator.isNotEmpty()) {
-            val (selectedIndex, generatedSubVectorSpace) = this.findMostEfficientVector(
+            val (selectedIndex, generatedSubVectorSpace) = this.selectMostEfficientVector(
                 module,
                 alreadyAdded = result,
                 previousDim = previousDim,

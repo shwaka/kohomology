@@ -36,7 +36,7 @@ private fun <
         val (x, y) = underlyingVectorSpace.getBasis()
         // val (one, t) = coeffAlgebra.getBasis()
 
-        "finder" {
+        "test with the free module of rank 1" {
             // Z/2 acting on Q{x, y} by
             //   t*x = y, t*y = x
             val action = ValueBilinearMap(

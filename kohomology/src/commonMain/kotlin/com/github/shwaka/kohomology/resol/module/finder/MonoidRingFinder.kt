@@ -17,6 +17,6 @@ public class MonoidRingFinder<
 ) : SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> by QuotFinder(
     coeffAlgebraMap = Augmentation(coeffAlgebra),
     sourceCoeffAlgebra = coeffAlgebra,
-    finderOnQuot = TODO(),
+    finderOnQuot = TrivialSelector(),
     requireAdditionalGenerator = false,
 )

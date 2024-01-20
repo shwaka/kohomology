@@ -19,6 +19,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.vectsp.BasisName
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -274,20 +275,45 @@ class FreeResolTest : FreeSpec({
     }
 })
 
+interface FinderCreator {
+    // Note: functional interface cannot contain generic function
+    fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(
+        coeffAlgebra: Algebra<BA, S, V, M>
+    ): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
+}
+
+object SimpleFinderCreator : FinderCreator {
+    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+        return SmallGeneratorSelector.SimpleFinder(coeffAlgebra)
+    }
+}
+
+object FilteredFinderCreator : FinderCreator {
+    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+        return SmallGeneratorSelector.FilteredFinder(coeffAlgebra)
+    }
+}
+
+object EarlyReturnFinderCreator : FinderCreator {
+    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+        return SmallGeneratorSelector.EarlyReturnFinder(coeffAlgebra)
+    }
+}
+
 class FreeResolWithFinderTest : FreeSpec({
     tags(moduleTag, freeResolTag)
 
-    val finderList = listOf(
-        SmallGeneratorSelector.SimpleFinder,
-        SmallGeneratorSelector.FilteredFinder,
-        SmallGeneratorSelector.EarlyReturnFinder,
+    val finderCreatorList = listOf(
+        SimpleFinderCreator,
+        FilteredFinderCreator,
+        EarlyReturnFinderCreator,
     )
 
-    for (finder in finderList) {
-        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverRational, finder))
-        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2, finder))
-        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, finder))
-        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, finder))
-        include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, finder))
+    for (creator in finderCreatorList) {
+        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverRational, creator::getFinder))
+        include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2, creator::getFinder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, creator::getFinder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, creator::getFinder))
+        include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, creator::getFinder))
     }
 })

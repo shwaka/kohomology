@@ -27,12 +27,9 @@ public interface AlgebraMap<
         return this.underlyingLinearMap(vector)
     }
 
-    public fun kernel(): Ideal<BS, S, V, M> {
-        return Ideal(
-            totalAlgebra = this.source,
-            underlyingVectorSpace = this.underlyingLinearMap.kernel(),
-        )
-    }
+    public fun kernel(): Ideal<BS, S, V, M>
+
+    public fun section(): LinearMap<BT, BS, S, V, M>
 
     public companion object {
         public operator fun <
@@ -62,4 +59,31 @@ private class AlgebraMapImpl<
     override val source: Algebra<BS, S, V, M>,
     override val target: Algebra<BT, S, V, M>,
     override val underlyingLinearMap: LinearMap<BS, BT, S, V, M>,
-) : AlgebraMap<BS, BT, S, V, M>
+) : AlgebraMap<BS, BT, S, V, M> {
+    private val _kernel: Ideal<BS, S, V, M> by lazy {
+        Ideal(
+            totalAlgebra = this.source,
+            underlyingVectorSpace = this.underlyingLinearMap.kernel(),
+        )
+    }
+    override fun kernel(): Ideal<BS, S, V, M> {
+        return this._kernel
+    }
+
+    private val _section: LinearMap<BT, BS, S, V, M> by lazy {
+        LinearMap.fromVectors(
+            source = this.target,
+            target = this.source,
+            matrixSpace = this.matrixSpace,
+            vectors = this.target.getBasis().map {
+                this.underlyingLinearMap.findPreimage(it) ?: throw Exception("This can't happen!")
+            },
+        )
+    }
+    override fun section(): LinearMap<BT, BS, S, V, M> {
+        require(this.underlyingLinearMap.isSurjective()) {
+            "Cannot construct section of non-surjective map"
+        }
+        return this._section
+    }
+}

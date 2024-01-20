@@ -62,7 +62,9 @@ private class QuotModuleAlongAlgebraMapImpl<
         }
     }
 
-    override val context: ModuleContext<BAT, QuotBasis<B, S, V>, S, V, M> = ModuleContext(this)
+    override val context: ModuleContext<BAT, QuotBasis<B, S, V>, S, V, M> by lazy {
+        ModuleContext(this)
+    }
     override val matrixSpace: MatrixSpace<S, V, M> = totalModule.matrixSpace
     override val coeffAlgebra: Algebra<BAT, S, V, M> = algebraMap.target
     override val underlyingVectorSpace: QuotVectorSpace<B, S, V, M> by lazy {

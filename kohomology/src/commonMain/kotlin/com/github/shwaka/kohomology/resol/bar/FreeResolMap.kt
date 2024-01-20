@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.complex.FreeChainMapAlongAlgebraMap
+import com.github.shwaka.kohomology.resol.module.Algebra
 import com.github.shwaka.kohomology.resol.module.AlgebraMap
 import com.github.shwaka.kohomology.resol.module.FreeModuleMapAlongAlgebraMap
 import com.github.shwaka.kohomology.resol.module.ModuleMapAlongAlgebraMap
@@ -18,9 +19,11 @@ private class FreeResolMapFactory<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
+    AlgS : Algebra<BAS, S, V, M>,
+    AlgT : Algebra<BAT, S, V, M>,
     >(
-    val source: FreeResol<BAS, BS, S, V, M>,
-    val target: FreeResol<BAT, BT, S, V, M>,
+    val source: FreeResol<BAS, BS, S, V, M, AlgS>,
+    val target: FreeResol<BAT, BT, S, V, M, AlgT>,
     val moduleMap: ModuleMapAlongAlgebraMap<BAS, BAT, BS, BT, S, V, M>,
 ) {
     init {
@@ -96,8 +99,10 @@ public class FreeResolMap<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
+    AlgS : Algebra<BAS, S, V, M>,
+    AlgT : Algebra<BAT, S, V, M>,
     > private constructor(
-    private val freeResolMapFactory: FreeResolMapFactory<BAS, BAT, BS, BT, S, V, M>
+    private val freeResolMapFactory: FreeResolMapFactory<BAS, BAT, BS, BT, S, V, M, AlgS, AlgT>
 ) : FreeChainMapAlongAlgebraMap<
     IntDegree,
     BAS,
@@ -110,13 +115,13 @@ public class FreeResolMap<
     > by freeResolMapFactory.freeChainMap {
 
     public constructor(
-        source: FreeResol<BAS, BS, S, V, M>,
-        target: FreeResol<BAT, BT, S, V, M>,
+        source: FreeResol<BAS, BS, S, V, M, AlgS>,
+        target: FreeResol<BAT, BT, S, V, M, AlgT>,
         moduleMap: ModuleMapAlongAlgebraMap<BAS, BAT, BS, BT, S, V, M>,
     ) : this(
         FreeResolMapFactory(source, target, moduleMap)
     )
 
-    override val source: FreeResol<BAS, BS, S, V, M> = freeResolMapFactory.source
-    override val target: FreeResol<BAT, BT, S, V, M> = freeResolMapFactory.target
+    override val source: FreeResol<BAS, BS, S, V, M, AlgS> = freeResolMapFactory.source
+    override val target: FreeResol<BAT, BT, S, V, M, AlgT> = freeResolMapFactory.target
 }

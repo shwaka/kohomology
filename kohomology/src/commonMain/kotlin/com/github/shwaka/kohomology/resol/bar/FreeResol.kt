@@ -29,10 +29,17 @@ public data class FreeResolBasisName(val degree: Int, val index: Int) : BasisNam
     }
 }
 
-private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
-    private val coeffAlgebra: Algebra<BA, S, V, M>,
+private class FreeResolFactory<
+    BA : BasisName,
+    B : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    Alg : Algebra<BA, S, V, M>,
+    >(
+    private val coeffAlgebra: Alg,
     val module: Module<BA, B, S, V, M>,
-    private val finder: SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>,
+    private val finder: SmallGeneratorFinder<BA, S, V, M, Alg>,
 ) {
     val freeComplex: FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> =
         FreeComplex(
@@ -87,7 +94,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
             }
             (degree == 0) -> {
                 // surjection to this.module
-                val differentialTargets = this.module.findSmallGenerator(finder = this.finder)
+                val differentialTargets = this.finder.find(this.module)
                 val generatingBasisNames = differentialTargets.indices.map {
                     FreeResolBasisName(degree = degree, index = it)
                 }
@@ -114,7 +121,7 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
                 }
                 val kernel = diffOrAug.kernel()
                 val incl = kernel.inclusion
-                val differentialTargets = kernel.findSmallGenerator(finder = this.finder).map { incl(it) }
+                val differentialTargets = this.finder.find(kernel).map { incl(it) }
                 val differential = this.hitVectors(degree, this.getModule(degree + 1), differentialTargets)
                 this.moduleCache[degree] = differential.source
                 this.differentialCache[degree] = differential
@@ -151,13 +158,20 @@ private class FreeResolFactory<BA : BasisName, B : BasisName, S : Scalar, V : Nu
     }
 }
 
-public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> private constructor(
-    private val freeResolFactory: FreeResolFactory<BA, B, S, V, M>
+public class FreeResol<
+    BA : BasisName,
+    B : BasisName,
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    Alg : Algebra<BA, S, V, M>,
+    > private constructor(
+    private val freeResolFactory: FreeResolFactory<BA, B, S, V, M, Alg>
 ) : FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> by freeResolFactory.freeComplex {
     public constructor(
-        coeffAlgebra: Algebra<BA, S, V, M>,
+        coeffAlgebra: Alg,
         module: Module<BA, B, S, V, M>,
-        finder: SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> =
+        finder: SmallGeneratorFinder<BA, S, V, M, Alg> =
             SmallGeneratorFinder.getDefaultFor(coeffAlgebra),
     ) : this(
         FreeResolFactory(
@@ -177,11 +191,16 @@ public class FreeResol<BA : BasisName, B : BasisName, S : Scalar, V : NumVector<
         get() = freeResolFactory.augmentation
 
     public companion object {
-        public operator fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+        public operator fun <
+            E : FiniteMonoidElement,
+            S : Scalar,
+            V : NumVector<S>,
+            M : Matrix<S, V>,
+            > invoke(
             coeffAlgebra: MonoidRing<E, S, V, M>,
-            finder: SmallGeneratorFinder<E, S, V, M, Algebra<E, S, V, M>> =
+            finder: SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> =
                 SmallGeneratorFinder.getDefaultFor(coeffAlgebra),
-        ): FreeResol<E, StringBasisName, S, V, M> {
+        ): FreeResol<E, StringBasisName, S, V, M, MonoidRing<E, S, V, M>> {
             val module = TrivialModule.baseField(coeffAlgebra)
             return FreeResol(coeffAlgebra, module, finder)
         }

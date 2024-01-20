@@ -276,26 +276,26 @@ class FreeResolTest : FreeSpec({
     }
 })
 
-interface FinderCreator {
+private interface FinderCreator {
     // Note: functional interface cannot contain generic function
     fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(
         coeffAlgebra: Algebra<BA, S, V, M>
     ): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
 }
 
-object SimpleFinderCreator : FinderCreator {
+private object SimpleFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
         return SimpleSelector(coeffAlgebra)
     }
 }
 
-object FilteredFinderCreator : FinderCreator {
+private object FilteredFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
         return FilteredSelector(coeffAlgebra)
     }
 }
 
-object EarlyReturnFinderCreator : FinderCreator {
+private object EarlyReturnFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
         return EarlyReturnSelector(coeffAlgebra)
     }

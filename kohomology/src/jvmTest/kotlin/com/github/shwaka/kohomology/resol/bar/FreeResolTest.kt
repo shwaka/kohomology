@@ -5,15 +5,16 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.module.finder.EarlyReturnSelector
 import com.github.shwaka.kohomology.resol.module.finder.FilteredSelector
+import com.github.shwaka.kohomology.resol.module.finder.MonoidRingFinder
 import com.github.shwaka.kohomology.resol.module.finder.SimpleSelector
 import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
+import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
 import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
@@ -21,7 +22,6 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF7
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.vectsp.BasisName
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
@@ -33,8 +33,8 @@ import io.kotest.matchers.shouldBe
 
 val freeResolTag = NamedTag("FreeResol")
 
-private typealias GetFinder<BA, S, V, M> =
-    (coeffAlgebra: Algebra<BA, S, V, M>) -> SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
+private typealias GetFinder<E, S, V, M> =
+    (coeffAlgebra: MonoidRing<E, S, V, M>) -> SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>>
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
@@ -278,26 +278,32 @@ class FreeResolTest : FreeSpec({
 
 private interface FinderCreator {
     // Note: functional interface cannot contain generic function
-    fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(
-        coeffAlgebra: Algebra<BA, S, V, M>
-    ): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
+    fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(
+        coeffAlgebra: MonoidRing<E, S, V, M>
+    ): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>>
 }
 
 private object SimpleFinderCreator : FinderCreator {
-    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+    override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return SimpleSelector(coeffAlgebra)
     }
 }
 
 private object FilteredFinderCreator : FinderCreator {
-    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+    override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return FilteredSelector(coeffAlgebra)
     }
 }
 
 private object EarlyReturnFinderCreator : FinderCreator {
-    override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
+    override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return EarlyReturnSelector(coeffAlgebra)
+    }
+}
+
+private object MonoidRingFinderCreator : FinderCreator {
+    override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
+        return MonoidRingFinder(coeffAlgebra)
     }
 }
 
@@ -308,6 +314,7 @@ class FreeResolWithFinderTest : FreeSpec({
         SimpleFinderCreator,
         FilteredFinderCreator,
         EarlyReturnFinderCreator,
+        MonoidRingFinderCreator,
     )
 
     for (creator in finderCreatorList) {

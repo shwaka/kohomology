@@ -25,6 +25,19 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> trivialAlgebraTest(
                 (unit * unit) shouldBe unit
             }
         }
+
+        val anotherTrivialAlgebra = TrivialAlgebra(matrixSpace)
+
+        "two instances of TrivialAlgebra should be equal if their matrixSpace are the same" {
+            anotherTrivialAlgebra shouldBe trivialAlgebra
+        }
+
+        "trivialAlgebra.context should work for elements of anotherTrivialAlgebra" {
+            val anotherUnit = anotherTrivialAlgebra.unit
+            trivialAlgebra.context.run {
+                (anotherUnit * anotherUnit) shouldBe anotherUnit
+            }
+        }
     }
 }
 

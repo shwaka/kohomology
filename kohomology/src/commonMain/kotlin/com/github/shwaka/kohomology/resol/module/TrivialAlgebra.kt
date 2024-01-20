@@ -53,4 +53,19 @@ public class TrivialAlgebra<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override fun toString(): String {
         return this.matrixSpace.field.toString()
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as TrivialAlgebra<*, *, *>
+
+        if (matrixSpace != other.matrixSpace) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return matrixSpace.hashCode()
+    }
 }

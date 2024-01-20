@@ -1,6 +1,11 @@
 package com.github.shwaka.kohomology.resol.module
 
+import com.github.shwaka.kohomology.linalg.Matrix
+import com.github.shwaka.kohomology.linalg.MatrixSpace
+import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
@@ -10,13 +15,19 @@ import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
-private fun smallGeneratorSelectorTest(
-    selector: SmallGeneratorSelector,
+private fun <
+    S : Scalar,
+    V : NumVector<S>,
+    M : Matrix<S, V>,
+    > smallGeneratorSelectorTest(
+    matrixSpace: MatrixSpace<S, V, M>,
+    selectorName: String,
+    getSelector: (coeffAlgebra: Algebra<CyclicGroupElement, S, V, M>) -> SmallGeneratorSelector<CyclicGroupElement, S, V, M, Algebra<CyclicGroupElement, S, V, M>>,
 ) = freeSpec {
-    "test SmallGeneratorFinder implementation: ${selector::class.simpleName}" - {
-        val matrixSpace = SparseMatrixSpaceOverRational
+    "test SmallGeneratorFinder implementation: $selectorName" - {
         val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
         val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
+        val selector = getSelector(coeffAlgebra)
         val (x, y) = underlyingVectorSpace.getBasis()
         // val (one, t) = coeffAlgebra.getBasis()
         val module = run {
@@ -101,7 +112,23 @@ private fun smallGeneratorSelectorTest(
 class SmallGeneratorFinderTest : FreeSpec({
     tags(moduleTag)
 
-    include(smallGeneratorSelectorTest(SmallGeneratorSelector.SimpleFinder))
-    include(smallGeneratorSelectorTest(SmallGeneratorSelector.FilteredFinder))
-    include(smallGeneratorSelectorTest(SmallGeneratorSelector.EarlyReturnFinder))
+    val matrixSpace = SparseMatrixSpaceOverRational
+    include(
+        smallGeneratorSelectorTest(
+            matrixSpace = matrixSpace,
+            selectorName = SmallGeneratorSelector.SimpleFinder::class.simpleName ?: "null",
+        ) { coeffAlgebra -> SmallGeneratorSelector.SimpleFinder(coeffAlgebra) }
+    )
+    include(
+        smallGeneratorSelectorTest(
+            matrixSpace = matrixSpace,
+            selectorName = SmallGeneratorSelector.FilteredFinder::class.simpleName ?: "null",
+        ) { coeffAlgebra -> SmallGeneratorSelector.FilteredFinder(coeffAlgebra) }
+    )
+    include(
+        smallGeneratorSelectorTest(
+            matrixSpace = matrixSpace,
+            selectorName = SmallGeneratorSelector.EarlyReturnFinder::class.simpleName ?: "null",
+        ) { coeffAlgebra -> SmallGeneratorSelector.EarlyReturnFinder(coeffAlgebra) }
+    )
 })

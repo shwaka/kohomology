@@ -5,12 +5,15 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.module.Algebra
 import com.github.shwaka.kohomology.resol.module.MonoidRing
 import com.github.shwaka.kohomology.resol.module.SmallGeneratorFinder
 import com.github.shwaka.kohomology.resol.module.SmallGeneratorSelector
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
+import com.github.shwaka.kohomology.resol.monoid.SimpleFiniteMonoidElement
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
@@ -30,10 +33,12 @@ val freeResolTag = NamedTag("FreeResol")
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
     matrixSpace: MatrixSpace<S, V, M>,
-    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+    getFinder: (coeffAlgebra: Algebra<CyclicGroupElement, S, V, M>) -> SmallGeneratorFinder<CyclicGroupElement, S, V, M, Algebra<CyclicGroupElement, S, V, M>> =
+        { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     require(order > 1)
     val coeffAlgebra = MonoidRing(CyclicGroup(order), matrixSpace)
+    val finder = getFinder(coeffAlgebra)
     val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
 
@@ -88,7 +93,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCycl
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFiedorowiczMonoid(
     matrixSpace: MatrixSpace<S, V, M>,
-    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+    getFinder: (coeffAlgebra: Algebra<SimpleFiniteMonoidElement<String>, S, V, M>) -> SmallGeneratorFinder<SimpleFiniteMonoidElement<String>, S, V, M, Algebra<SimpleFiniteMonoidElement<String>, S, V, M>> =
+        { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     // Z. Fiedorowicz,
     // A counterexample to a group completion conjecture of J. C. Moore,
@@ -103,6 +109,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
     )
     val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val finder = getFinder(coeffAlgebra)
     val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
 
@@ -148,7 +155,8 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMonoidOfOrder6(
     matrixSpace: MatrixSpace<S, V, M>,
-    finder: SmallGeneratorFinder = SmallGeneratorFinder.default,
+    getFinder: (coeffAlgebra: Algebra<SimpleFiniteMonoidElement<String>, S, V, M>) -> SmallGeneratorFinder<SimpleFiniteMonoidElement<String>, S, V, M, Algebra<SimpleFiniteMonoidElement<String>, S, V, M>> =
+        { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
     // variant of Fiedorowicz monoid
     val elements = listOf("1", "x1", "x0", "x2", "y1", "y2")
@@ -162,6 +170,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMono
     )
     val monoid = FiniteMonoidFromList(elements, multiplicationTable, "M")
     val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val finder = getFinder(coeffAlgebra)
     val complex = FreeResol(coeffAlgebra, finder)
     val field = matrixSpace.field
 

@@ -21,16 +21,12 @@ public class QuotFinder<
     >(
     private val coeffAlgebraMap: AlgebraMap<BAS, BAT, S, V, M>,
     private val sourceCoeffAlgebra: AlgS,
-    private val targetCoeffAlgebra: AlgT,
     private val finderOnQuot: SmallGeneratorFinder<BAT, S, V, M, AlgT>,
     private val requireAdditionalGenerator: Boolean,
 ) : SmallGeneratorFinder<BAS, S, V, M, AlgS> {
     init {
         require(coeffAlgebraMap.source == sourceCoeffAlgebra) {
             "coeffAlgebraMap.source and sourceCoeffAlgebra must be the same"
-        }
-        require(coeffAlgebraMap.target == targetCoeffAlgebra) {
-            "coeffAlgebraMap.target and targetCoeffAlgebra must be the same"
         }
     }
 

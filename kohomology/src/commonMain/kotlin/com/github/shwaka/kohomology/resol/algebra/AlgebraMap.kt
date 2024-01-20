@@ -27,6 +27,13 @@ public interface AlgebraMap<
         return this.underlyingLinearMap(vector)
     }
 
+    public fun kernel(): Ideal<BS, S, V, M> {
+        return Ideal(
+            totalAlgebra = this.source,
+            underlyingVectorSpace = this.underlyingLinearMap.kernel(),
+        )
+    }
+
     public companion object {
         public operator fun <
             BS : BasisName,

@@ -7,8 +7,10 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.Algebra
 import com.github.shwaka.kohomology.resol.module.MonoidRing
+import com.github.shwaka.kohomology.resol.module.finder.EarlyReturnSelector
+import com.github.shwaka.kohomology.resol.module.finder.FilteredSelector
+import com.github.shwaka.kohomology.resol.module.finder.SimpleSelector
 import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorFinder
-import com.github.shwaka.kohomology.resol.module.finder.SmallGeneratorSelector
 import com.github.shwaka.kohomology.resol.module.moduleTag
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroupElement
@@ -33,7 +35,6 @@ val freeResolTag = NamedTag("FreeResol")
 
 private typealias GetFinder<BA, S, V, M> =
     (coeffAlgebra: Algebra<BA, S, V, M>) -> SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>>
-
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCyclicGroup(
     order: Int,
@@ -284,19 +285,19 @@ interface FinderCreator {
 
 object SimpleFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.SimpleSelector(coeffAlgebra)
+        return SimpleSelector(coeffAlgebra)
     }
 }
 
 object FilteredFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.FilteredSelector(coeffAlgebra)
+        return FilteredSelector(coeffAlgebra)
     }
 }
 
 object EarlyReturnFinderCreator : FinderCreator {
     override fun <BA : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: Algebra<BA, S, V, M>): SmallGeneratorFinder<BA, S, V, M, Algebra<BA, S, V, M>> {
-        return SmallGeneratorSelector.EarlyReturnSelector(coeffAlgebra)
+        return EarlyReturnSelector(coeffAlgebra)
     }
 }
 

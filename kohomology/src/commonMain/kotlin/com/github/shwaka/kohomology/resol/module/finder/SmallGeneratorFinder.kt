@@ -30,7 +30,7 @@ public interface SmallGeneratorFinder<
             M : Matrix<S, V>,
             Alg : Algebra<BA, S, V, M>,
             > getDefaultFor(coeffAlgebra: Alg): SmallGeneratorFinder<BA, S, V, M, Alg> {
-            return SmallGeneratorSelector.EarlyReturnSelector(coeffAlgebra)
+            return EarlyReturnSelector(coeffAlgebra)
         }
     }
 }

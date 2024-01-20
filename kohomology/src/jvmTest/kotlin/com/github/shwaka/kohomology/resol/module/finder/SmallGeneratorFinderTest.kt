@@ -123,19 +123,19 @@ class SmallGeneratorFinderTest : FreeSpec({
     include(
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
-            selectorName = SmallGeneratorSelector.SimpleSelector::class.simpleName ?: "null",
-        ) { coeffAlgebra -> SmallGeneratorSelector.SimpleSelector(coeffAlgebra) }
+            selectorName = SimpleSelector::class.simpleName ?: "null",
+        ) { coeffAlgebra -> SimpleSelector(coeffAlgebra) }
     )
     include(
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
-            selectorName = SmallGeneratorSelector.FilteredSelector::class.simpleName ?: "null",
-        ) { coeffAlgebra -> SmallGeneratorSelector.FilteredSelector(coeffAlgebra) }
+            selectorName = FilteredSelector::class.simpleName ?: "null",
+        ) { coeffAlgebra -> FilteredSelector(coeffAlgebra) }
     )
     include(
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
-            selectorName = SmallGeneratorSelector.EarlyReturnSelector::class.simpleName ?: "null",
-        ) { coeffAlgebra -> SmallGeneratorSelector.EarlyReturnSelector(coeffAlgebra) }
+            selectorName = EarlyReturnSelector::class.simpleName ?: "null",
+        ) { coeffAlgebra -> EarlyReturnSelector(coeffAlgebra) }
     )
 })

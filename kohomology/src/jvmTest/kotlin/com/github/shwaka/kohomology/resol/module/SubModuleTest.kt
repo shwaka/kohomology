@@ -89,7 +89,7 @@ class IdealSubModuleTest : FreeSpec({
         subModule.inclusion.underlyingLinearMap.isInjective().shouldBeTrue()
     }
 
-    "subModule.retraction" {
+    "subModule.retraction should be surjective" {
         subModule.retraction.isSurjective().shouldBeTrue()
     }
 })

@@ -17,7 +17,7 @@ public class MonoidRingFinder<
     >(
     coeffAlgebra: MonoidRing<E, S, V, M>,
     finderOnQuot: SmallGeneratorFinder<TrivialAlgebraBasisName, S, V, M, Algebra<TrivialAlgebraBasisName, S, V, M>> =
-        TrivialSelector(),
+        BasisSelector(),
     additionalSelector: SmallGeneratorSelector<E, S, V, M, MonoidRing<E, S, V, M>> =
         EarlyReturnSelector(coeffAlgebra),
     useTotalBasis: Boolean = true,

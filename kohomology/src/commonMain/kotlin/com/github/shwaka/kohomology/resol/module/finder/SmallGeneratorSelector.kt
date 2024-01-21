@@ -22,6 +22,21 @@ public interface SmallGeneratorSelector<
         alreadySelected: List<Vector<B, S, V>> = emptyList(),
     ): List<Vector<B, S, V>>
 
+    public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectWithIndex(
+        module: Module<BA, B, S, V, M>,
+        candidates: List<Vector<B, S, V>> = module.underlyingVectorSpace.getBasis(),
+        alreadySelected: List<Vector<B, S, V>> = emptyList(),
+    ): Pair<List<Vector<B, S, V>>, List<IndexedValue<Vector<B, S, V>>>> {
+        val selected = this.select(module, candidates = candidates, alreadySelected = alreadySelected)
+        val indexMap: Map<Vector<B, S, V>, Int> =
+            candidates.mapIndexed { index, vector -> vector to index }.toMap()
+        val newlySelected = selected.drop(alreadySelected.size).map { vector ->
+            val index = indexMap[vector] ?: throw Exception("This can't happen!")
+            IndexedValue(index = index, value = vector)
+        }
+        return Pair(alreadySelected, newlySelected)
+    }
+
     override fun <B : BasisName> find(
         module: Module<BA, B, S, V, M>,
     ): List<Vector<B, S, V>> {

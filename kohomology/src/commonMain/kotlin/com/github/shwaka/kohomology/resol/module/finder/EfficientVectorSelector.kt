@@ -37,11 +37,7 @@ public abstract class EfficientVectorSelector<
         var remainingGenerator: List<Vector<B, S, V>> = if (alreadySelected.isEmpty()) {
             candidates
         } else {
-            val generatedSubVectorSpace = SubVectorSpace(
-                module.matrixSpace,
-                totalVectorSpace = module.underlyingVectorSpace,
-                generator = alreadySelected,
-            )
+            val generatedSubVectorSpace = module.generateSubVectorSpaceOverCoefficient(alreadySelected)
             candidates.filter { !generatedSubVectorSpace.subspaceContains(it) }
         }
         val result = alreadySelected.toMutableList()

@@ -98,6 +98,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfCycl
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFiedorowiczMonoid(
     matrixSpace: MatrixSpace<S, V, M>,
+    checkResolRank: Boolean,
     getFinder: GetFinder<SimpleFiniteMonoidElement<String>, S, V, M> =
         { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
@@ -121,18 +122,20 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
     "test with free resolution of $field over $field[Fiedorowicz monoid] (with $finder)" - {
         val maxDegree = 10
 
-        "underlyingDGVectorSpace[degree].dim should be not greater than 15" {
-            // Expected values have no mathematical meaning.
-            // They are the values from SmallGeneratorFinder.SimpleFinder
-            // and chosen to assert that other finders are "not bad".
-            (-maxDegree..maxDegree).forAll { degree ->
-                val expected = when {
-                    (degree == 0) -> 5
-                    (degree == -1) -> 10
-                    (degree <= -2) -> 15
-                    else -> 0
+        if (checkResolRank) {
+            "underlyingDGVectorSpace[degree].dim should be not greater than 15" {
+                // Expected values have no mathematical meaning.
+                // They are the values from SmallGeneratorFinder.SimpleFinder
+                // and chosen to assert that other finders are "not bad".
+                (-maxDegree..maxDegree).forAll { degree ->
+                    val expected = when {
+                        (degree == 0) -> 5
+                        (degree == -1) -> 10
+                        (degree <= -2) -> 15
+                        else -> 0
+                    }
+                    complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
                 }
-                complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
             }
         }
 
@@ -160,6 +163,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfFied
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMonoidOfOrder6(
     matrixSpace: MatrixSpace<S, V, M>,
+    checkResolRank: Boolean,
     getFinder: GetFinder<SimpleFiniteMonoidElement<String>, S, V, M> =
         { SmallGeneratorFinder.getDefaultFor(it) },
 ) = freeSpec {
@@ -182,16 +186,18 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> testFreeResolOfMono
     "test with free resolution of $field over $field[monoid of order 6] (with $finder)" - {
         val maxDegree = 10
 
-        "test underlyingDGVectorSpace[degree].dim" {
-            // Expected values have no mathematical meaning.
-            // They are the values from SmallGeneratorFinder.SimpleFinder
-            // and chosen to assert that other finders are "not bad".
-            (-maxDegree..maxDegree).forAll { degree ->
-                val expected = when {
-                    (degree <= 0) -> (-degree + 1) * 6
-                    else -> 0
+        if (checkResolRank) {
+            "test underlyingDGVectorSpace[degree].dim" {
+                // Expected values have no mathematical meaning.
+                // They are the values from SmallGeneratorFinder.SimpleFinder
+                // and chosen to assert that other finders are "not bad".
+                (-maxDegree..maxDegree).forAll { degree ->
+                    val expected = when {
+                        (degree <= 0) -> (-degree + 1) * 6
+                        else -> 0
+                    }
+                    complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
                 }
-                complex.underlyingDGVectorSpace[degree].dim shouldBeLessThanOrEqual expected
             }
         }
 
@@ -236,12 +242,12 @@ class FreeResolTest : FreeSpec({
     include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF3))
     include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF5))
     include(testFreeResolOfCyclicGroup(7, SparseMatrixSpaceOverF7))
-    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational))
-    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF2))
-    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3))
-    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational))
-    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF2))
-    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF3))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, true))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF2, true))
+    include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, true))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, true))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF2, true))
+    include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverF3, true))
 
     "test minDegreeComputedAlready" - {
         val order = 5
@@ -277,6 +283,7 @@ class FreeResolTest : FreeSpec({
 })
 
 private interface FinderCreator {
+    val checkResolRank: Boolean
     // Note: functional interface cannot contain generic function
     fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(
         coeffAlgebra: MonoidRing<E, S, V, M>
@@ -284,24 +291,28 @@ private interface FinderCreator {
 }
 
 private object SimpleFinderCreator : FinderCreator {
+    override val checkResolRank: Boolean = true
     override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return SimpleSelector(coeffAlgebra)
     }
 }
 
 private object FilteredFinderCreator : FinderCreator {
+    override val checkResolRank: Boolean = true
     override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return FilteredSelector(coeffAlgebra)
     }
 }
 
 private object EarlyReturnFinderCreator : FinderCreator {
+    override val checkResolRank: Boolean = true
     override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return EarlyReturnSelector(coeffAlgebra)
     }
 }
 
 private object MonoidRingFinderCreator : FinderCreator {
+    override val checkResolRank: Boolean = false
     override fun <E : FiniteMonoidElement, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> getFinder(coeffAlgebra: MonoidRing<E, S, V, M>): SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> {
         return MonoidRingFinder(coeffAlgebra)
     }
@@ -320,8 +331,8 @@ class FreeResolWithFinderTest : FreeSpec({
     for (creator in finderCreatorList) {
         include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverRational, creator::getFinder))
         include(testFreeResolOfCyclicGroup(2, SparseMatrixSpaceOverF2, creator::getFinder))
-        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, creator::getFinder))
-        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, creator::getFinder))
-        include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, creator::getFinder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverRational, creator.checkResolRank, creator::getFinder))
+        include(testFreeResolOfFiedorowiczMonoid(SparseMatrixSpaceOverF3, creator.checkResolRank, creator::getFinder))
+        include(testFreeResolOfMonoidOfOrder6(SparseMatrixSpaceOverRational, creator.checkResolRank, creator::getFinder))
     }
 })

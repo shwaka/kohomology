@@ -32,8 +32,10 @@ public class OrthonormalFinder<
             }
             for (e1 in orthonormalSystem) {
                 for (e2 in orthonormalSystem) {
-                    require((e1 * e2).isZero()) {
-                        "Elements in orthonormalSystem must be orthogonal, but $e1 * $e2 = ${e1 * e2} != 0"
+                    if (e1 != e2) {
+                        require((e1 * e2).isZero()) {
+                            "Elements in orthonormalSystem must be orthogonal, but $e1 * $e2 = ${e1 * e2} != 0"
+                        }
                     }
                 }
             }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705804558408,
+  "lastUpdate": 1705805550873,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -24799,6 +24799,65 @@ window.BENCHMARK_DATA = {
           {
             "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverRational",
             "value": 0.38329165069185184,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e2cf38d18bd2eaa50e81e741f673863eb09c9f18",
+          "message": "fix(core): generate over the coeffAlgebra in filtering of candidates in SmallGeneratorSelector.select",
+          "timestamp": "2024-01-21T11:44:16+09:00",
+          "tree_id": "866fe17a0079f58cc6027c39e88d1264990e0bd0",
+          "url": "https://github.com/shwaka/kohomology/commit/e2cf38d18bd2eaa50e81e741f673863eb09c9f18"
+        },
+        "date": 1705805549726,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpace",
+            "value": 0.03730053497666583,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegree",
+            "value": 0.026605536637242088,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree",
+            "value": 0.04270422457143013,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
+            "value": 0.0524800739082806,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverF2",
+            "value": 0.09237611518932315,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverF7",
+            "value": 0.16304362763326283,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverRational",
+            "value": 0.38223433259211775,
             "unit": "s/op"
           }
         ]

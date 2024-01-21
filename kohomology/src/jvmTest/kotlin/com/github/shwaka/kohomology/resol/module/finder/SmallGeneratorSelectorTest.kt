@@ -15,8 +15,11 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldBeEmpty
+import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.collections.shouldStartWith
 import io.kotest.matchers.shouldBe
 
 private typealias GetSelector<BA, S, V, M> =
@@ -72,6 +75,48 @@ private fun <
             }
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
             subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+        }
+
+        "selector.select(module, listOf(x-y), listOf(y)) should generate module and start with listOf(y)" {
+            val smallGenerator = module.context.run {
+                selector.select(module, listOf(x - y), listOf(y))
+            }
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            smallGenerator shouldStartWith listOf(y)
+        }
+
+        "selector.select(module, listOf(x-y), listOf(y, x)) should generate module and start with listOf(y, x)" {
+            val smallGenerator = module.context.run {
+                selector.select(module, listOf(x - y), listOf(y, x))
+            }
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            smallGenerator shouldStartWith listOf(y, x)
+        }
+
+        "check indices in selector.selectWithIndex(module, listOf(x, y))" {
+            val candidates = listOf(x, y)
+            val indexedCandidates = candidates.withIndex().toList()
+            val (alreadySelectedReturned, newlySelected) = selector.selectWithIndex(module, candidates)
+            alreadySelectedReturned.shouldBeEmpty()
+            newlySelected.forAll { indexedVector ->
+                indexedVector shouldBeIn indexedCandidates
+            }
+        }
+
+        "check indices in selector.selectWithIndex(module, listOf(x, y), listOf(x+y))" {
+            val candidates = listOf(x, y)
+            val indexedCandidates = candidates.withIndex().toList()
+            val alreadySelected = module.context.run {
+                listOf(x + y)
+            }
+            val (alreadySelectedReturned, newlySelected) =
+                selector.selectWithIndex(module, candidates, alreadySelected)
+            alreadySelectedReturned shouldBe alreadySelected
+            newlySelected.forAll { indexedVector ->
+                indexedVector shouldBeIn indexedCandidates
+            }
         }
 
         if (strict) {

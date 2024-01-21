@@ -39,7 +39,10 @@ public class QuotFinder<
         val quotGenerator = this.finderOnQuot.find(quotModule)
         val maybeGenerator = quotGenerator.map { quotModule.section(it) }
         return if (this.requireAdditionalGenerator) {
-            EarlyReturnSelector(this.sourceCoeffAlgebra).select(module, maybeGenerator)
+            EarlyReturnSelector(this.sourceCoeffAlgebra).select(
+                module,
+                alreadySelected = maybeGenerator,
+            )
         } else {
             maybeGenerator
         }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705835498810,
+  "lastUpdate": 1705848629052,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4980,6 +4980,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.442,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "90507ba7c10497b0e3d3a81281b726a8c7eeb6f5",
+          "message": "fix(core): check correctly the condition of orthonormalSystem in OrthonormalFinder",
+          "timestamp": "2024-01-21T23:40:34+09:00",
+          "tree_id": "9506f0c985871d46e1e3672ec98a141179e8095c",
+          "url": "https://github.com/shwaka/kohomology/commit/90507ba7c10497b0e3d3a81281b726a8c7eeb6f5"
+        },
+        "date": 1705848628453,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.412,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.421,
             "unit": "s/op"
           }
         ]

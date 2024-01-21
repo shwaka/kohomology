@@ -6,7 +6,9 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.Augmentation
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
+import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidFromList
+import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF5
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
 import io.kotest.assertions.throwables.shouldNotThrow
@@ -36,7 +38,43 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> idealSubModuleTestWithOneGe
     val ideal = augmentation.kernel()
     val subModule = SubModule(totalModule, ideal)
 
-    "test SubModule constructed with Ideal for one generator monoid of order $order" - {
+    "test SubModule constructed with Ideal for one generator monoid of order $order over $matrixSpace" - {
+        "monoid should satisfy the axioms" {
+            shouldNotThrow<IllegalStateException> {
+                monoid.checkMonoidAxioms()
+            }
+        }
+
+        "totalModule should have dimension $order" {
+            totalModule.underlyingVectorSpace.dim shouldBe order
+        }
+
+        "subModule should have dimension ${order - 1}" {
+            subModule.underlyingVectorSpace.dim shouldBe (order - 1)
+        }
+
+        "subModule.inclusion should be injective" {
+            subModule.inclusion.underlyingLinearMap.isInjective().shouldBeTrue()
+        }
+
+        "subModule.retraction should be surjective" {
+            subModule.retraction.isSurjective().shouldBeTrue()
+        }
+    }
+}
+
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> idealSubModuleTestWithCyclicGroup(
+    order: Int,
+    matrixSpace: MatrixSpace<S, V, M>,
+) = freeSpec {
+    val monoid = CyclicGroup(order)
+    val coeffAlgebra = MonoidRing(monoid, matrixSpace)
+    val totalModule = FreeModule(coeffAlgebra, listOf(StringBasisName("v")))
+    val augmentation = Augmentation(coeffAlgebra)
+    val ideal = augmentation.kernel()
+    val subModule = SubModule(totalModule, ideal)
+
+    "test SubModule constructed with Ideal for cyclic group of order $order over $matrixSpace" - {
         "monoid should satisfy the axioms" {
             shouldNotThrow<IllegalStateException> {
                 monoid.checkMonoidAxioms()
@@ -65,4 +103,7 @@ class IdealSubModuleTest : FreeSpec({
     tags(moduleTag)
 
     include(idealSubModuleTestWithOneGeneratorAbsorbing(5, SparseMatrixSpaceOverRational))
+    include(idealSubModuleTestWithOneGeneratorAbsorbing(5, SparseMatrixSpaceOverF5))
+    include(idealSubModuleTestWithCyclicGroup(5, SparseMatrixSpaceOverRational))
+    include(idealSubModuleTestWithCyclicGroup(5, SparseMatrixSpaceOverF5))
 })

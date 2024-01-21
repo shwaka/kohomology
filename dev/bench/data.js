@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705764731516,
+  "lastUpdate": 1705804432829,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4878,6 +4878,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.459,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c7f95e82e7480853c1561848edfdddb705b83595",
+          "message": "test(core): do not check rank of resolution for MonoidRingFinder",
+          "timestamp": "2024-01-21T11:28:11+09:00",
+          "tree_id": "85ae20bc3dd9d2be4850a299c2fb6265e8116403",
+          "url": "https://github.com/shwaka/kohomology/commit/c7f95e82e7480853c1561848edfdddb705b83595"
+        },
+        "date": 1705804432389,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.414,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.481,
             "unit": "s/op"
           }
         ]

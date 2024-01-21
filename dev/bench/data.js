@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705804432829,
+  "lastUpdate": 1705805421353,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4912,6 +4912,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.481,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e2cf38d18bd2eaa50e81e741f673863eb09c9f18",
+          "message": "fix(core): generate over the coeffAlgebra in filtering of candidates in SmallGeneratorSelector.select",
+          "timestamp": "2024-01-21T11:44:16+09:00",
+          "tree_id": "866fe17a0079f58cc6027c39e88d1264990e0bd0",
+          "url": "https://github.com/shwaka/kohomology/commit/e2cf38d18bd2eaa50e81e741f673863eb09c9f18"
+        },
+        "date": 1705805420746,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.419,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.476,
             "unit": "s/op"
           }
         ]

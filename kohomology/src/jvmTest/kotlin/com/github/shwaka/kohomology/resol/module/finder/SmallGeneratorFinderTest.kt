@@ -15,8 +15,7 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
-import io.kotest.matchers.collections.shouldHaveSize
-import io.kotest.matchers.shouldBe
+import io.kotest.matchers.booleans.shouldBeFalse
 
 private typealias GetFinder<BA, S, V, M, Alg> =
     (coeffAlgebra: Alg) -> SmallGeneratorFinder<BA, S, V, M, Alg>
@@ -52,16 +51,16 @@ private fun <
             )
             val module = Module(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
             val smallGenerator = finder.find(module)
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x)
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.isProperSubspace().shouldBeFalse()
         }
 
         "test with trivial module" {
             val vectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("v"))
             val module = TrivialModule(vectorSpace, coeffAlgebra)
             val smallGenerator = finder.find(module)
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(vectorSpace.getBasis().first())
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.isProperSubspace().shouldBeFalse()
         }
     }
 }

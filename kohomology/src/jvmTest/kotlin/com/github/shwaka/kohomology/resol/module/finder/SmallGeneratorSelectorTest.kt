@@ -16,6 +16,7 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.collections.shouldBeEmpty
 import io.kotest.matchers.collections.shouldBeIn
 import io.kotest.matchers.collections.shouldHaveSize
@@ -60,13 +61,13 @@ private fun <
         "selector.select(module) should generate module" {
             val smallGenerator = selector.select(module)
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
-            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            subVectorSpace.isProperSubspace().shouldBeFalse()
         }
 
         "selector.select(module, module.underlyingVectorSpace.getBasis()) should generate module" {
             val smallGenerator = selector.select(module, module.underlyingVectorSpace.getBasis())
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
-            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            subVectorSpace.isProperSubspace().shouldBeFalse()
         }
 
         "selector.select(module, listOf(x+y, x)) should generate module" {
@@ -74,7 +75,7 @@ private fun <
                 selector.select(module, listOf(x + y, x))
             }
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
-            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            subVectorSpace.isProperSubspace().shouldBeFalse()
         }
 
         "selector.select(module, listOf(x-y), listOf(y)) should generate module and start with listOf(y)" {
@@ -82,7 +83,7 @@ private fun <
                 selector.select(module, listOf(x - y), listOf(y))
             }
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
-            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            subVectorSpace.isProperSubspace().shouldBeFalse()
             smallGenerator shouldStartWith listOf(y)
         }
 
@@ -91,7 +92,7 @@ private fun <
                 selector.select(module, listOf(x - y), listOf(y, x))
             }
             val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
-            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+            subVectorSpace.isProperSubspace().shouldBeFalse()
             smallGenerator shouldStartWith listOf(y, x)
         }
 

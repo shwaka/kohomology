@@ -376,7 +376,7 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         vectorList: List<Vector<B, S, V>>,
         matrixSpace: MatrixSpace<S, V, M>,
     ): List<Vector<B, S, V>> {
-        val matrix = matrixSpace.fromNumVectorList(vectorList.map { it.numVector })
+        val matrix = matrixSpace.fromNumVectorList(vectorList.map { it.numVector }, dim = this.dim)
         val pivots = matrixSpace.context.run {
             matrix.rowEchelonForm.pivots
         }

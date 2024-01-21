@@ -410,6 +410,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectIndependentlyTest(mat
             "selectIndependently([v, v]) should be [v]" {
                 vectorSpace.selectIndependently(listOf(v, v), matrixSpace) shouldBe listOf(v)
             }
+
+            "selectIndependently([]) should be []" {
+                vectorSpace.selectIndependently(emptyList(), matrixSpace) shouldBe emptyList()
+            }
         }
     }
 }

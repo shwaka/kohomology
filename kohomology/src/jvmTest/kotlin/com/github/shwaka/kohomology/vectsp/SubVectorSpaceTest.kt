@@ -29,6 +29,9 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
             "check dimension" {
                 subVectorSpace.dim shouldBe 2
             }
+            "subVectorSpace should be a proper subspace" {
+                subVectorSpace.isProperSubspace().shouldBeTrue()
+            }
             "check basis names" {
                 val (x, y) = subVectorSpace.getBasis()
                 x.toString() shouldBe "(u + v)"
@@ -75,6 +78,9 @@ subVectorSpaceTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
 
             "check dimension" {
                 subVectorSpace.dim shouldBe 2
+            }
+            "subVectorSpace should be a proper subspace" {
+                subVectorSpace.isProperSubspace().shouldBeTrue()
             }
             "check basis names" {
                 val (x, y) = subVectorSpace.getBasis()

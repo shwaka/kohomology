@@ -43,6 +43,9 @@ public interface SubVectorSpace<B : BasisName, S : Scalar, V : NumVector<S>, M :
     public val inclusion: LinearMap<SubBasis<B, S, V>, B, S, V, M>
     public val retraction: LinearMap<B, SubBasis<B, S, V>, S, V, M>
     public fun subspaceContains(vector: Vector<B, S, V>): Boolean
+    public fun isProperSubspace(): Boolean {
+        return this.dim < this.totalVectorSpace.dim
+    }
 
     public companion object {
         public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

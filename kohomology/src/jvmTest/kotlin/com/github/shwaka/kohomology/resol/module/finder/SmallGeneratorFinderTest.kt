@@ -94,4 +94,16 @@ class SmallGeneratorFinderTest : FreeSpec({
             finderName = MonoidRingFinder::class.simpleName ?: "null",
         ) { coeffAlgebra -> MonoidRingFinder(coeffAlgebra) }
     )
+    include(
+        smallGeneratorFinderForMonoidRingTest(
+            matrixSpace = matrixSpace,
+            finderName = (MonoidRingFinder::class.simpleName ?: "null") + "_useTotalBasis",
+        ) { coeffAlgebra -> MonoidRingFinder(coeffAlgebra, useTotalBasis = true) }
+    )
+    include(
+        smallGeneratorFinderForMonoidRingTest(
+            matrixSpace = matrixSpace,
+            finderName = (MonoidRingFinder::class.simpleName ?: "null") + "_notUseTotalBasis",
+        ) { coeffAlgebra -> MonoidRingFinder(coeffAlgebra, useTotalBasis = false) }
+    )
 })

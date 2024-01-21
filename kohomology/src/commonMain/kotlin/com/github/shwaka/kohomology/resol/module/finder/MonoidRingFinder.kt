@@ -20,9 +20,11 @@ public class MonoidRingFinder<
         TrivialSelector(),
     additionalSelector: SmallGeneratorSelector<E, S, V, M, MonoidRing<E, S, V, M>> =
         EarlyReturnSelector(coeffAlgebra),
+    useTotalBasis: Boolean = true,
 ) : SmallGeneratorFinder<E, S, V, M, MonoidRing<E, S, V, M>> by QuotFinder(
     coeffAlgebraMap = Augmentation(coeffAlgebra),
     sourceCoeffAlgebra = coeffAlgebra,
     finderOnQuot = finderOnQuot,
     additionalSelector = additionalSelector,
+    useTotalBasis = useTotalBasis,
 )

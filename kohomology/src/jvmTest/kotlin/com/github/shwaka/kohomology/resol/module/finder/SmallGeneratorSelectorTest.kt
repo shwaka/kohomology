@@ -29,6 +29,7 @@ private fun <
     > smallGeneratorSelectorTest(
     matrixSpace: MatrixSpace<S, V, M>,
     selectorName: String,
+    strict: Boolean,
     getSelector: GetSelector<CyclicGroupElement, S, V, M>,
 ) = freeSpec {
     "test SmallGeneratorSelector implementation: $selectorName" - {
@@ -53,72 +54,94 @@ private fun <
             Module(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
         }
 
-        "selector.select(module, module.underlyingVectorSpace.getBasis()) should return listOf(x)" {
+        "selector.select(module) should generate module" {
+            val smallGenerator = selector.select(module)
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+        }
+
+        "selector.select(module, module.underlyingVectorSpace.getBasis()) should generate module" {
             val smallGenerator = selector.select(module, module.underlyingVectorSpace.getBasis())
-            smallGenerator shouldHaveSize 1
-            smallGenerator shouldBe listOf(x)
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
         }
 
-        "selector.select(module, listOf(x)) should return listOf(x)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(x))
+        "selector.select(module, listOf(x+y, x)) should generate module" {
+            val smallGenerator = module.context.run {
+                selector.select(module, listOf(x + y, x))
+            }
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(smallGenerator)
+            subVectorSpace.dim shouldBe module.underlyingVectorSpace.dim
+        }
+
+        if (strict) {
+            "selector.select(module, module.underlyingVectorSpace.getBasis()) should return listOf(x)" {
+                val smallGenerator = selector.select(module, module.underlyingVectorSpace.getBasis())
                 smallGenerator shouldHaveSize 1
                 smallGenerator shouldBe listOf(x)
             }
-        }
 
-        "selector.select(module, listOf(x+y, x)) should return listOf(x)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(x + y, x))
-                smallGenerator shouldHaveSize 1
-                smallGenerator shouldBe listOf(x)
+            "selector.select(module, listOf(x)) should return listOf(x)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(x))
+                    smallGenerator shouldHaveSize 1
+                    smallGenerator shouldBe listOf(x)
+                }
             }
-        }
 
-        "selector.select(module, listOf(x, x+y)) should return listOf(x)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(x, x + y))
-                smallGenerator shouldHaveSize 1
-                smallGenerator shouldBe listOf(x)
+            "selector.select(module, listOf(x+y, x)) should return listOf(x)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(x + y, x))
+                    smallGenerator shouldHaveSize 1
+                    smallGenerator shouldBe listOf(x)
+                }
             }
-        }
 
-        "selector.select(module, listOf(2x+y)) should return listOf(2x+y)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(2 * x + y))
-                smallGenerator shouldHaveSize 1
-                smallGenerator shouldBe listOf(2 * x + y)
+            "selector.select(module, listOf(x, x+y)) should return listOf(x)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(x, x + y))
+                    smallGenerator shouldHaveSize 1
+                    smallGenerator shouldBe listOf(x)
+                }
             }
-        }
 
-        "selector.select(module, listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(x + y, x - y))
-                smallGenerator shouldHaveSize 2
-                smallGenerator shouldBe listOf(x + y, x - y)
+            "selector.select(module, listOf(2x+y)) should return listOf(2x+y)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(2 * x + y))
+                    smallGenerator shouldHaveSize 1
+                    smallGenerator shouldBe listOf(2 * x + y)
+                }
             }
-        }
 
-        "selector.select(module, emptyList()) should throw IllegalArgumentException" {
-            module.context.run {
-                val smallGenerator = selector.select(module, emptyList())
-                smallGenerator.shouldBeEmpty()
+            "selector.select(module, listOf(x+y, x-y)) should return listOf(x+y, x-y)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(x + y, x - y))
+                    smallGenerator shouldHaveSize 2
+                    smallGenerator shouldBe listOf(x + y, x - y)
+                }
             }
-        }
 
-        "selector.select(module, listOf(x+y)) should throw IllegalArgumentException" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(x + y))
-                smallGenerator shouldHaveSize 1
-                smallGenerator shouldBe listOf(x + y)
+            "selector.select(module, emptyList()) should throw IllegalArgumentException" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, emptyList())
+                    smallGenerator.shouldBeEmpty()
+                }
             }
-        }
 
-        "selector.select(module, listOf(y, x), listOf(x+y) should return listOf(x+y, y)" {
-            module.context.run {
-                val smallGenerator = selector.select(module, listOf(y, x), listOf(x + y))
-                smallGenerator shouldHaveSize 2
-                smallGenerator shouldBe listOf(x + y, y)
+            "selector.select(module, listOf(x+y)) should throw IllegalArgumentException" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(x + y))
+                    smallGenerator shouldHaveSize 1
+                    smallGenerator shouldBe listOf(x + y)
+                }
+            }
+
+            "selector.select(module, listOf(y, x), listOf(x+y) should return listOf(x+y, y)" {
+                module.context.run {
+                    val smallGenerator = selector.select(module, listOf(y, x), listOf(x + y))
+                    smallGenerator shouldHaveSize 2
+                    smallGenerator shouldBe listOf(x + y, y)
+                }
             }
         }
     }
@@ -132,18 +155,35 @@ class SmallGeneratorSelectorTest : FreeSpec({
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
             selectorName = SimpleSelector::class.simpleName ?: "null",
+            strict = true,
         ) { coeffAlgebra -> SimpleSelector(coeffAlgebra) }
     )
     include(
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
             selectorName = FilteredSelector::class.simpleName ?: "null",
+            strict = true,
         ) { coeffAlgebra -> FilteredSelector(coeffAlgebra) }
     )
     include(
         smallGeneratorSelectorTest(
             matrixSpace = matrixSpace,
             selectorName = EarlyReturnSelector::class.simpleName ?: "null",
+            strict = true,
         ) { coeffAlgebra -> EarlyReturnSelector(coeffAlgebra) }
+    )
+    include(
+        smallGeneratorSelectorTest(
+            matrixSpace = matrixSpace,
+            selectorName = TrivialSelector::class.simpleName ?: "null",
+            strict = false,
+        ) { TrivialSelector() }
+    )
+    include(
+        smallGeneratorSelectorTest(
+            matrixSpace = matrixSpace,
+            selectorName = BasisSelector::class.simpleName ?: "null",
+            strict = false,
+        ) { BasisSelector() }
     )
 })

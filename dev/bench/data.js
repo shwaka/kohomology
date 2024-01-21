@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705805421353,
+  "lastUpdate": 1705835498810,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -4946,6 +4946,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.476,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "9cf2a21920588effa952ad2181ce3b9d759fade1",
+          "message": "feat(core): use BasisSelector instead of TrivialSelector in MonoidRingFinder",
+          "timestamp": "2024-01-21T19:53:23+09:00",
+          "tree_id": "b58914ef9f22efe2caed28a1854496ccec4e3042",
+          "url": "https://github.com/shwaka/kohomology/commit/9cf2a21920588effa952ad2181ce3b9d759fade1"
+        },
+        "date": 1705835497857,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.426,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.442,
             "unit": "s/op"
           }
         ]

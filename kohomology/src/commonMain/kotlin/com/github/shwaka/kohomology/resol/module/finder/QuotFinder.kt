@@ -22,7 +22,7 @@ public class QuotFinder<
     private val coeffAlgebraMap: AlgebraMap<BAS, BAT, S, V, M>,
     private val sourceCoeffAlgebra: AlgS,
     private val finderOnQuot: SmallGeneratorFinder<BAT, S, V, M, AlgT>,
-    private val requireAdditionalGenerator: Boolean,
+    private val additionalSelector: SmallGeneratorSelector<BAS, S, V, M, AlgS>?,
 ) : SmallGeneratorFinder<BAS, S, V, M, AlgS> {
     init {
         require(coeffAlgebraMap.source == sourceCoeffAlgebra) {
@@ -38,13 +38,13 @@ public class QuotFinder<
         val quotModule = QuotModuleAlongAlgebraMap(module, this.coeffAlgebraMap)
         val quotGenerator = this.finderOnQuot.find(quotModule)
         val maybeGenerator = quotGenerator.map { quotModule.section(it) }
-        return if (this.requireAdditionalGenerator) {
-            EarlyReturnSelector(this.sourceCoeffAlgebra).select(
+        return if (this.additionalSelector == null) {
+            maybeGenerator
+        } else {
+            this.additionalSelector.select(
                 module,
                 alreadySelected = maybeGenerator,
             )
-        } else {
-            maybeGenerator
         }
     }
 }

@@ -372,6 +372,17 @@ public interface VectorSpace<B : BasisName, S : Scalar, V : NumVector<S>> {
         return rank == this.dim
     }
 
+    public fun <M : Matrix<S, V>> selectIndependently(
+        vectorList: List<Vector<B, S, V>>,
+        matrixSpace: MatrixSpace<S, V, M>,
+    ): List<Vector<B, S, V>> {
+        val matrix = matrixSpace.fromNumVectorList(vectorList.map { it.numVector })
+        val pivots = matrixSpace.context.run {
+            matrix.rowEchelonForm.pivots
+        }
+        return pivots.map { vectorList[it] }
+    }
+
     public fun <M : Matrix<S, V>> getIdentity(matrixSpace: MatrixSpace<S, V, M>): LinearMap<B, B, S, V, M> {
         return LinearMap.getIdentity(this, matrixSpace)
     }

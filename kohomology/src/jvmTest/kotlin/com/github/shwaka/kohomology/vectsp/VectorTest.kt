@@ -381,6 +381,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> isGeneratedByTest(matrixSpa
     }
 }
 
+fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectIndependentlyTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "selectIndependently test" - {
+        val numVectorSpace = matrixSpace.numVectorSpace
+        val vectorSpace = VectorSpace(numVectorSpace, listOf("v", "w"))
+        val (v, w) = vectorSpace.getBasis()
+        vectorSpace.context.run {
+            "selectIndependently([v, w]) should be [v, w]" {
+                vectorSpace.selectIndependently(listOf(v, w), matrixSpace) shouldBe listOf(v, w)
+            }
+
+            "selectIndependently([v, v, w]) should be [v, w]" {
+                vectorSpace.selectIndependently(listOf(v, v, w), matrixSpace) shouldBe listOf(v, w)
+            }
+
+            "selectIndependently([v, w, w]) should be [v, w]" {
+                vectorSpace.selectIndependently(listOf(v, w, w), matrixSpace) shouldBe listOf(v, w)
+            }
+
+            "selectIndependently([v + w, w]) should be [v, w]" {
+                vectorSpace.selectIndependently(listOf(v + w, w), matrixSpace) shouldBe listOf(v + w, w)
+            }
+
+            "selectIndependently([0, v, w]) should be [v, w]" {
+                vectorSpace.selectIndependently(listOf(zeroVector, v, w), matrixSpace) shouldBe listOf(v, w)
+            }
+
+            "selectIndependently([v, v]) should be [v]" {
+                vectorSpace.selectIndependently(listOf(v, v), matrixSpace) shouldBe listOf(v)
+            }
+        }
+    }
+}
+
 class RationalVectorTest : FreeSpec({
     tags(vectorTag, rationalTag)
 
@@ -394,4 +427,5 @@ class RationalVectorTest : FreeSpec({
     include(isBasisTest(matrixSpace))
     include(isBasisForZeroTest(matrixSpace))
     include(isGeneratedByTest(matrixSpace))
+    include(selectIndependentlyTest(matrixSpace))
 })

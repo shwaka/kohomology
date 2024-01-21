@@ -19,6 +19,7 @@ public interface SmallGeneratorSelector<
     public fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
         module: Module<BA, B, S, V, M>,
         candidates: List<Vector<B, S, V>>,
+        alreadySelected: List<Vector<B, S, V>> = emptyList(),
     ): List<Vector<B, S, V>>
 
     override fun <B : BasisName> find(

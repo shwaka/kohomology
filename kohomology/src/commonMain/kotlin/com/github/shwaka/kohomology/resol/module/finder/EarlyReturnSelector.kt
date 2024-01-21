@@ -46,14 +46,15 @@ public class EarlyReturnSelector<
 
     override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
         module: Module<BA, B, S, V, M>,
-        candidates: List<Vector<B, S, V>>
+        candidates: List<Vector<B, S, V>>,
+        alreadySelected: List<Vector<B, S, V>>,
     ): List<Vector<B, S, V>> {
         require(module.coeffAlgebra == this.coeffAlgebra) {
             "Coefficient algebra is expected to be ${this.coeffAlgebra}, " +
                 "but ${module.coeffAlgebra} was given"
         }
         var remainingGenerator: List<Vector<B, S, V>> = candidates
-        val result = mutableListOf<Vector<B, S, V>>()
+        val result = alreadySelected.toMutableList()
         var previousDim = 0
         var previousMax = module.coeffAlgebra.dim
         while (remainingGenerator.isNotEmpty()) {

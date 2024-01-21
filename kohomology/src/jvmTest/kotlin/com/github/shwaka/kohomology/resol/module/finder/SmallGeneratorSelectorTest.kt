@@ -113,6 +113,14 @@ private fun <
                 smallGenerator shouldBe listOf(x + y)
             }
         }
+
+        "selector.select(module, listOf(y, x), listOf(x+y) should return listOf(x+y, y)" {
+            module.context.run {
+                val smallGenerator = selector.select(module, listOf(y, x), listOf(x + y))
+                smallGenerator shouldHaveSize 2
+                smallGenerator shouldBe listOf(x + y, y)
+            }
+        }
     }
 }
 

@@ -20,14 +20,14 @@ public class FilteredSelector<
 ) : EfficientVectorSelector<BA, S, V, M, Alg>(coeffAlgebra) {
     override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(
         module: Module<BA, B, S, V, M>,
-        alreadyAdded: List<Vector<B, S, V>>,
+        alreadySelected: List<Vector<B, S, V>>,
         candidates: List<Vector<B, S, V>>
     ): Pair<Int, SubVectorSpace<B, S, V, M>> {
         var remainingCandidates: List<IndexedValue<Vector<B, S, V>>> = candidates.withIndex().toList()
         val finishedCandidates = mutableListOf<Pair<Int, SubVectorSpace<B, S, V, M>>>()
         while (remainingCandidates.isNotEmpty()) {
             val (index, candidate) = remainingCandidates.first()
-            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(alreadyAdded + listOf(candidate))
+            val subVectorSpace = module.generateSubVectorSpaceOverCoefficient(alreadySelected + listOf(candidate))
             finishedCandidates.add(
                 Pair(index, subVectorSpace)
             )

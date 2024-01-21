@@ -21,8 +21,8 @@ public abstract class EfficientVectorSelector<
 
     protected abstract fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> selectMostEfficientVector(
         module: Module<BA, B, S, V, M>,
-        alreadySelected: List<Vector<B, S, V>>,
         candidates: List<Vector<B, S, V>>,
+        alreadySelected: List<Vector<B, S, V>>,
     ): Pair<Int, SubVectorSpace<B, S, V, M>>
 
     override fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> select(
@@ -37,7 +37,11 @@ public abstract class EfficientVectorSelector<
         var remainingGenerator: List<Vector<B, S, V>> = candidates
         val result = alreadySelected.toMutableList()
         while (remainingGenerator.isNotEmpty()) {
-            val (selectedIndex, generatedSubVectorSpace) = this.selectMostEfficientVector(module, result, remainingGenerator)
+            val (selectedIndex, generatedSubVectorSpace) = this.selectMostEfficientVector(
+                module,
+                candidates = remainingGenerator,
+                alreadySelected = result,
+            )
             result.add(remainingGenerator[selectedIndex])
             remainingGenerator = remainingGenerator.filterIndexed { index, vector ->
                 (index != selectedIndex) &&

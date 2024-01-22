@@ -12,6 +12,9 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
+import com.github.shwaka.kohomology.resol.module.LeftFreeTensorProductBasisName
+import com.github.shwaka.kohomology.resol.module.LeftFreeTensorProductOverAlgebra
+import com.github.shwaka.kohomology.resol.module.Module
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FreeComplex<
@@ -34,6 +37,39 @@ public interface FreeComplex<
     }
 
     public val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M>
+
+    public fun <BR : BasisName> tensorWith(
+        rightModule: Module<BA, BR, S, V, M>
+    ): DGVectorSpace<D, LeftFreeTensorProductBasisName<BA, BR, BV>, S, V, M> {
+        val rightModuleIdentity = rightModule.getIdentity()
+        val getVectorSpace = { degree: D ->
+            LeftFreeTensorProductOverAlgebra(rightModule, this.getModule(degree))
+        }
+        val gVectorSpace = GVectorSpace(
+            numVectorSpace = this.matrixSpace.numVectorSpace,
+            degreeGroup = this.degreeGroup,
+            name = this.name,
+            getVectorSpace = getVectorSpace,
+        )
+        val differential = GLinearMap(
+            source = gVectorSpace,
+            target = gVectorSpace,
+            degree = this.degreeGroup.fromInt(1),
+            matrixSpace = this.matrixSpace,
+            name = this.name,
+        ) { degree ->
+            // gVectorSpace cannot be used here
+            // since the result must be an instance of LeftFreeTensorProductOverAlgebra
+            val source = getVectorSpace(degree)
+            val target = getVectorSpace(this.degreeGroup.context.run { degree + 1 })
+            source.inducedMapOf(
+                target = target,
+                rightModuleMap = rightModuleIdentity,
+                leftModuleMap = this.getDifferential(degree),
+            )
+        }
+        return DGVectorSpace(gVectorSpace, differential)
+    }
 
     public companion object {
         public operator fun <D : Degree, BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

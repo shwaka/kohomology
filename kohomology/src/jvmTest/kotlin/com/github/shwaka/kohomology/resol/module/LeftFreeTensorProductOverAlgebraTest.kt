@@ -77,6 +77,21 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
                 }
             }
         }
+
+        "inducedMapOf(tensorProduct, id, id) should be the identity on tensorProduct" {
+            val idTimesId = tensorProduct.inducedMapOf(
+                target = tensorProduct,
+                rightModuleMap = rightModule.getIdentity(),
+                leftModuleMap = leftModule.getIdentity(),
+            )
+            listOf(
+                f(x, a),
+                f(rContext.run { x + y }, lContext.run { a + t * c }),
+                f(rContext.run { x - t * y }, b),
+            ).forAll { element ->
+                idTimesId(element) shouldBe element
+            }
+        }
     }
 }
 

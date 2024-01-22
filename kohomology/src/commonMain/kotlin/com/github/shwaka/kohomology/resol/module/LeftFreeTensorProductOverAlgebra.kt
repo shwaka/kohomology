@@ -8,6 +8,8 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.BilinearMap
+import com.github.shwaka.kohomology.vectsp.LazyBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 // BA does not appear in implementation of this class,
@@ -79,6 +81,34 @@ private class LeftFreeTensorProductOverAlgebraImpl<
             "Tensor product is not defined since " +
                 "rightModule.coeffAlgebra=${rightModule.coeffAlgebra} is not the opposite of " +
                 "leftModule.coeffAlgebra=${leftModule.coeffAlgebra}"
+        }
+    }
+
+    override val tensorProductMap: BilinearMap<BR, FreeModuleBasisName<BA, BVL>, TensorProductBasisName<BR, FreeModuleBasisName<BA, BVL>>, S, V, M> by lazy {
+        LazyBilinearMap(
+            source1 = this.rightModule.underlyingVectorSpace,
+            source2 = this.leftModule.underlyingVectorSpace,
+            target = this,
+            matrixSpace = this.rightModule.matrixSpace,
+        ) { rightBasisName, leftBasisName ->
+            val algebraBasisName = leftBasisName.algebraBasisName
+            val leftGeneratingBasisName = leftBasisName.generatingBasisName
+            val rightElement = this.rightModule.underlyingVectorSpace.fromBasisName(rightBasisName)
+            val algebraElement = this.leftModule.coeffAlgebra.fromBasisName(algebraBasisName)
+            val rightElementMultiplied = this.rightModule.context.run {
+                // left multiplication of an element of A^op
+                // = right multiplication of an element of A
+                algebraElement * rightElement
+            }
+            this.context.run {
+                rightElementMultiplied.toBasisMap().map { (rightBasisNameOfSummand, scalar) ->
+                    val basisName = LeftFreeTensorProductBasisName<BA, BR, BVL>(
+                        rightBasisNameOfSummand,
+                        leftGeneratingBasisName,
+                    )
+                    this@LeftFreeTensorProductOverAlgebraImpl.fromBasisName(basisName) * scalar
+                }.sum()
+            }
         }
     }
 

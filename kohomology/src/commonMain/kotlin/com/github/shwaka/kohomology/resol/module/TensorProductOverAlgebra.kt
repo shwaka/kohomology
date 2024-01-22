@@ -4,6 +4,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.vectsp.BasisName
+import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface TensorProductBasisName<BR : BasisName, BL : BasisName> : BasisName
@@ -19,4 +20,5 @@ public interface TensorProductOverAlgebra<
 
     public val rightModule: Module<BA, BR, S, V, M>
     public val leftModule: Module<BA, BL, S, V, M>
+    public val tensorProductMap: BilinearMap<BR, BL, TensorProductBasisName<BR, BL>, S, V, M>
 }

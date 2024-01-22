@@ -2,8 +2,10 @@ package com.github.shwaka.kohomology.resol.module
 
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
+import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.OpAlgebra
+import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
@@ -11,7 +13,7 @@ import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.LazyBilinearMap
 import com.github.shwaka.kohomology.vectsp.Vector
-import com.github.shwaka.kohomology.vectsp.VectorSpace
+import com.github.shwaka.kohomology.vectsp.VectorContext
 
 // BA does not appear in implementation of this class,
 // but it is necessary to extend TensorProductBasisName
@@ -84,8 +86,28 @@ private class LeftFreeTensorProductOverAlgebraImpl<
     >(
     override val rightModule: Module<BA, BR, S, V, M>,
     override val leftModule: FreeModule<BA, BVL, S, V, M>,
-) : LeftFreeTensorProductOverAlgebra<BA, BR, BVL, S, V, M>,
-    VectorSpace<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> by getVectorSpace(rightModule, leftModule) {
+) : LeftFreeTensorProductOverAlgebra<BA, BR, BVL, S, V, M> {
+    // Previously this was implemented with
+    //   VectorSpace<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> by ...
+    // But this caused problem in TensorProductOverAlgebra.inducedMapOf
+    // and hence by-delegation is avoided.
+    override val basisNames: List<LeftFreeTensorProductBasisName<BA, BR, BVL>> = run {
+        rightModule.underlyingVectorSpace.basisNames.flatMap { rightBasisName ->
+            leftModule.generatingBasisNames.map { leftGeneratingBasisName ->
+                LeftFreeTensorProductBasisName<BA, BR, BVL>(rightBasisName, leftGeneratingBasisName)
+            }
+        }
+    }
+
+    override val context: VectorContext<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> = VectorContext(this)
+    override val getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<LeftFreeTensorProductBasisName<BA, BR, BVL>, S>
+        get() = { InternalPrintConfig.default(it) }
+    override val numVectorSpace: NumVectorSpace<S, V>
+        get() = this.rightModule.matrixSpace.numVectorSpace
+
+    override fun indexOf(basisName: LeftFreeTensorProductBasisName<BA, BR, BVL>): Int {
+        return this.basisNames.indexOf(basisName)
+    }
 
     init {
         val rightCoeffAlgebra = rightModule.coeffAlgebra
@@ -125,27 +147,6 @@ private class LeftFreeTensorProductOverAlgebraImpl<
                     this@LeftFreeTensorProductOverAlgebraImpl.fromBasisName(basisName) * scalar
                 }.sum()
             }
-        }
-    }
-
-    companion object {
-        private fun <
-            BA : BasisName,
-            BR : BasisName,
-            BVL : BasisName,
-            S : Scalar,
-            V : NumVector<S>,
-            M : Matrix<S, V>,
-            > getVectorSpace(
-            rightModule: Module<BA, BR, S, V, M>,
-            leftModule: FreeModule<BA, BVL, S, V, M>,
-        ): VectorSpace<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> {
-            val basisNames = rightModule.underlyingVectorSpace.basisNames.flatMap { rightBasisName ->
-                leftModule.generatingBasisNames.map { leftGeneratingBasisName ->
-                    LeftFreeTensorProductBasisName<BA, BR, BVL>(rightBasisName, leftGeneratingBasisName)
-                }
-            }
-            return VectorSpace(rightModule.matrixSpace.numVectorSpace, basisNames)
         }
     }
 }

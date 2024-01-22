@@ -14,6 +14,7 @@ import com.github.shwaka.kohomology.vectsp.ValueBilinearMap
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAlgebraTest(
@@ -48,18 +49,33 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
             tensorProduct.dim shouldBe expected
         }
 
+        val (x, y) = rightModule.underlyingVectorSpace.getBasis()
+        val (a, b, c) = leftModule.getGeneratingBasis()
+        val f = tensorProduct.tensorProductMap
+        val lContext = leftModule.context
+        val rContext = rightModule.context
+        val tContext = tensorProduct.context
+
         "test tensorProduct.tensorProductMap" {
-            val f = tensorProduct.tensorProductMap
-            val (x, y) = rightModule.underlyingVectorSpace.getBasis()
-            val (a, b, c) = leftModule.getGeneratingBasis()
-            val lContext = leftModule.context
-            val rContext = rightModule.context
-            val tContext = tensorProduct.context
             f(x, a) shouldBe tensorProduct.fromBasisName(
                 LeftFreeTensorProductBasisName(StringBasisName("x"), StringBasisName("a"))
             )
             f(x, lContext.run { a + b }) shouldBe tContext.run { f(x, a) + f(x, b) }
             f(y, lContext.run { t * c }) shouldBe f(rContext.run { t * y }, c)
+        }
+
+        "asPairList(-).map { tensorProductMap(it.first, it.second) }.sum() should be identity" {
+            tContext.run {
+                listOf(
+                    f(x, a),
+                    f(rContext.run { x + y }, lContext.run { a + t * c }),
+                    f(rContext.run { x - t * y }, b),
+                ).forAll { element ->
+                    tensorProduct.asPairList(element).map {
+                        f(it.first, it.second)
+                    }.sum() shouldBe element
+                }
+            }
         }
     }
 }

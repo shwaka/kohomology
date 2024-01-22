@@ -37,6 +37,9 @@ public interface FreeModule<
     public fun fromGeneratingBasisName(generatingBasisName: BV): Vector<FreeModuleBasisName<BA, BV>, S, V>
     public fun getGeneratingBasis(): List<Vector<FreeModuleBasisName<BA, BV>, S, V>>
 
+    public val rank: Int
+        get() = generatingBasisNames.size
+
     public companion object {
         public operator fun <BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             coeffAlgebra: Algebra<BA, S, V, M>,

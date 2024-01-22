@@ -30,6 +30,10 @@ class FreeModuleTest : FreeSpec({
         freeModule.tensorWithBaseField.dim shouldBe generatingBasisNames.size
     }
 
+    "freeModule.rank should be the generatingBasisNames.size " {
+        freeModule.rank shouldBe generatingBasisNames.size
+    }
+
     "test freeModule.generatingBasisNames" {
         freeModule.generatingBasisNames shouldBe generatingBasisNames
     }

@@ -64,6 +64,14 @@ public interface Module<BA : BasisName, B : BasisName, S : Scalar, V : NumVector
         return finder.find(this)
     }
 
+    public fun getIdentity(): ModuleMap<BA, B, B, S, V, M> {
+        return ModuleMap(
+            source = this,
+            target = this,
+            underlyingLinearMap = this.underlyingVectorSpace.getIdentity(this.matrixSpace),
+        )
+    }
+
     public companion object {
         public operator fun <BA : BasisName, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,

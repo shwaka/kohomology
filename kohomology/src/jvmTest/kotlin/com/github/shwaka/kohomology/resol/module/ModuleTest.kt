@@ -61,4 +61,10 @@ class ModuleTest : FreeSpec({
         smallGenerator shouldHaveSize 1
         smallGenerator shouldBe listOf(x)
     }
+
+    "module.getIdentity() should return an identity map" {
+        val id = module.getIdentity()
+        id(x) shouldBe x
+        id(y) shouldBe y
+    }
 })

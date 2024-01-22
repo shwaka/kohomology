@@ -56,11 +56,13 @@ public interface FreeComplex<
             matrixSpace = this.matrixSpace,
             name = this.name,
         ) { degree ->
-            // gVectorSpace cannot be used here
-            // since the result must be an instance of LeftFreeTensorProductOverAlgebra
             val targetDegree = this.degreeGroup.context.run { degree + 1 }
-            val source = gVectorSpace[degree] as LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
-            val target = gVectorSpace[targetDegree] as LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
+            @Suppress("UNCHECKED_CAST")
+            val source = gVectorSpace[degree] as? LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
+                ?: throw Exception("This can't happen!")
+            @Suppress("UNCHECKED_CAST")
+            val target = gVectorSpace[targetDegree] as? LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
+                ?: throw Exception("This can't happen!")
             source.inducedMapOf(
                 target = target,
                 rightModuleMap = rightModuleIdentity,

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705848629052,
+  "lastUpdate": 1705892186938,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5014,6 +5014,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.421,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ba388da82adf83e2b2690540b25a06ae4a129ed1",
+          "message": "test(core): add LeftFreeTensorProductOverAlgebraTest.kt",
+          "timestamp": "2024-01-22T11:50:59+09:00",
+          "tree_id": "a1859dffbf64c3f02f237aca5a9d8d38ed957a37",
+          "url": "https://github.com/shwaka/kohomology/commit/ba388da82adf83e2b2690540b25a06ae4a129ed1"
+        },
+        "date": 1705892186536,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.413,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.512,
             "unit": "s/op"
           }
         ]

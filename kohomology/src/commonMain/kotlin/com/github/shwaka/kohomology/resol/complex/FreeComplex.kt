@@ -42,15 +42,13 @@ public interface FreeComplex<
         rightModule: Module<BA, BR, S, V, M>
     ): DGVectorSpace<D, LeftFreeTensorProductBasisName<BA, BR, BV>, S, V, M> {
         val rightModuleIdentity = rightModule.getIdentity()
-        val getVectorSpace = { degree: D ->
-            LeftFreeTensorProductOverAlgebra(rightModule, this.getModule(degree))
-        }
         val gVectorSpace = GVectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             degreeGroup = this.degreeGroup,
             name = this.name,
-            getVectorSpace = getVectorSpace,
-        )
+        ) { degree ->
+            LeftFreeTensorProductOverAlgebra(rightModule, this.getModule(degree))
+        }
         val differential = GLinearMap(
             source = gVectorSpace,
             target = gVectorSpace,
@@ -60,8 +58,9 @@ public interface FreeComplex<
         ) { degree ->
             // gVectorSpace cannot be used here
             // since the result must be an instance of LeftFreeTensorProductOverAlgebra
-            val source = getVectorSpace(degree)
-            val target = getVectorSpace(this.degreeGroup.context.run { degree + 1 })
+            val targetDegree = this.degreeGroup.context.run { degree + 1 }
+            val source = gVectorSpace[degree] as LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
+            val target = gVectorSpace[targetDegree] as LeftFreeTensorProductOverAlgebra<BA, BR, BV, S, V, M>
             source.inducedMapOf(
                 target = target,
                 rightModuleMap = rightModuleIdentity,

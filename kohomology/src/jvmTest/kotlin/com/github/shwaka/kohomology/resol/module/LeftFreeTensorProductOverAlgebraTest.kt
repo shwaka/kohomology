@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
+import com.github.shwaka.kohomology.resol.algebra.OpAlgebra
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
@@ -19,6 +20,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
     matrixSpace: MatrixSpace<S, V, M>,
 ) = freeSpec {
     val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
+    val opAlgebra = OpAlgebra(coeffAlgebra)
     // val (one, t) = coeffAlgebra.getBasis()
     val rightModule = run {
         // Z/2 acting on Q{x, y} by
@@ -26,16 +28,16 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
         val underlyingVectorSpace = VectorSpace(matrixSpace.numVectorSpace, listOf("x", "y"))
         val (x, y) = underlyingVectorSpace.getBasis()
         val action = ValueBilinearMap(
-            source1 = underlyingVectorSpace,
-            source2 = coeffAlgebra,
+            source1 = opAlgebra,
+            source2 = underlyingVectorSpace,
             target = underlyingVectorSpace,
             matrixSpace = matrixSpace,
             values = listOf(
-                listOf(x, y), // x*(-)
-                listOf(y, x), // y*(-)
+                listOf(x, y), // one*(-)
+                listOf(y, x), // t*(-)
             )
         )
-        RightModule(matrixSpace, underlyingVectorSpace, coeffAlgebra, action)
+        Module(matrixSpace, underlyingVectorSpace, opAlgebra, action)
     }
     val leftModule = FreeModule(coeffAlgebra, listOf("a", "b", "c").map(::StringBasisName))
     val tensorProduct = LeftFreeTensorProductOverAlgebra(rightModule, leftModule)

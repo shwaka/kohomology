@@ -17,6 +17,6 @@ public interface TensorProductOverAlgebra<
     M : Matrix<S, V>,
     > : VectorSpace<TensorProductBasisName<BR, BL>, S, V> {
 
-    public val rightModule: RightModule<BA, BR, S, V, M>
+    public val rightModule: Module<BA, BR, S, V, M>
     public val leftModule: Module<BA, BL, S, V, M>
 }

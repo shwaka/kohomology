@@ -39,7 +39,7 @@ public interface LeftFreeTensorProductOverAlgebra<
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    > : TensorProductOverAlgebra<BA, BR, FreeModuleBasisName<BA, BVL>, S, V, M> {
+    > : TensorProductOverAlgebra<BA, BR, FreeModuleBasisName<BA, BVL>, LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V, M> {
 
     public companion object {
         public operator fun <
@@ -69,7 +69,7 @@ private class LeftFreeTensorProductOverAlgebraImpl<
     override val rightModule: Module<BA, BR, S, V, M>,
     override val leftModule: FreeModule<BA, BVL, S, V, M>,
 ) : LeftFreeTensorProductOverAlgebra<BA, BR, BVL, S, V, M>,
-    VectorSpace<TensorProductBasisName<BR, FreeModuleBasisName<BA, BVL>>, S, V> by getVectorSpace(rightModule, leftModule) {
+    VectorSpace<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> by getVectorSpace(rightModule, leftModule) {
 
     init {
         val rightCoeffAlgebra = rightModule.coeffAlgebra
@@ -84,7 +84,7 @@ private class LeftFreeTensorProductOverAlgebraImpl<
         }
     }
 
-    override val tensorProductMap: BilinearMap<BR, FreeModuleBasisName<BA, BVL>, TensorProductBasisName<BR, FreeModuleBasisName<BA, BVL>>, S, V, M> by lazy {
+    override val tensorProductMap: BilinearMap<BR, FreeModuleBasisName<BA, BVL>, LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V, M> by lazy {
         LazyBilinearMap(
             source1 = this.rightModule.underlyingVectorSpace,
             source2 = this.leftModule.underlyingVectorSpace,
@@ -123,7 +123,7 @@ private class LeftFreeTensorProductOverAlgebraImpl<
             > getVectorSpace(
             rightModule: Module<BA, BR, S, V, M>,
             leftModule: FreeModule<BA, BVL, S, V, M>,
-        ): VectorSpace<TensorProductBasisName<BR, FreeModuleBasisName<BA, BVL>>, S, V> {
+        ): VectorSpace<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V> {
             val basisNames = rightModule.underlyingVectorSpace.basisNames.flatMap { rightBasisName ->
                 leftModule.generatingBasisNames.map { leftGeneratingBasisName ->
                     LeftFreeTensorProductBasisName<BA, BR, BVL>(rightBasisName, leftGeneratingBasisName)

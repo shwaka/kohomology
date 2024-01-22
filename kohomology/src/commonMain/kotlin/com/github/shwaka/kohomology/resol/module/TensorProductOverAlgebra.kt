@@ -13,12 +13,13 @@ public interface TensorProductOverAlgebra<
     BA : BasisName,
     BR : BasisName,
     BL : BasisName,
+    BT : TensorProductBasisName<BR, BL>,
     S : Scalar,
     V : NumVector<S>,
     M : Matrix<S, V>,
-    > : VectorSpace<TensorProductBasisName<BR, BL>, S, V> {
+    > : VectorSpace<BT, S, V> {
 
     public val rightModule: Module<BA, BR, S, V, M>
     public val leftModule: Module<BA, BL, S, V, M>
-    public val tensorProductMap: BilinearMap<BR, BL, TensorProductBasisName<BR, BL>, S, V, M>
+    public val tensorProductMap: BilinearMap<BR, BL, BT, S, V, M>
 }

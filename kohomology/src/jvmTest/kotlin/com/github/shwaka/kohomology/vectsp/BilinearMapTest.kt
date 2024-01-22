@@ -49,6 +49,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapTest(matrixSpace
                 f(w, x) shouldBe (2 * a + b)
                 f(w, y) shouldBe targetVectorSpace.zeroVector
                 f(v + w, x + y) shouldBe (2 * (a + b))
+                f.transpose()(x, v) shouldBe a
             }
         }
     }
@@ -110,6 +111,17 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> bilinearMapImplTest(
                 shouldThrow<IllegalArgumentException> { f(v, v) }
                 shouldThrow<IllegalArgumentException> { f(x, x) }
                 shouldThrow<IllegalArgumentException> { f(x, v) }
+            }
+            "test bilinearMap.transpose" {
+                val g = f.transpose()
+                g(x, v) shouldBe f(v, x)
+                g(y, v) shouldBe f(v, y)
+                g(x, w) shouldBe f(w, x)
+                g(y, w) shouldBe f(w, y)
+                g(x + y, v + w) shouldBe f(v + w, x + y)
+                shouldThrow<IllegalArgumentException> {
+                    g(v, x)
+                }
             }
             "test bilinearMap.induce for SubVectorSpace" {
                 val source1SubVectorSpace = sourceVectorSpace1.asSubVectorSpace(matrixSpace)

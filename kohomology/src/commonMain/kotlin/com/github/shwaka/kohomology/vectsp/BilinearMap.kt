@@ -11,6 +11,7 @@ public interface BilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
     public val target: VectorSpace<BT, S, V>
     public val matrixSpace: MatrixSpace<S, V, M>
     public operator fun invoke(vector1: Vector<BS1, S, V>, vector2: Vector<BS2, S, V>): Vector<BT, S, V>
+    public fun transpose(): BilinearMap<BS2, BS1, BT, S, V, M>
 
     public fun induce(
         source1Sub: SubVectorSpace<BS1, S, V, M>,
@@ -129,6 +130,21 @@ public class ValueBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, 
                 }.values.sum()
             }.values.sum()
         }
+    }
+
+    override fun transpose(): ValueBilinearMap<BS2, BS1, BT, S, V, M> {
+        val transposedValues = (0 until this.source2.dim).map { index2 ->
+            (0 until this.source1.dim).map { index1 ->
+                this.values[index1][index2]
+            }
+        }
+        return ValueBilinearMap(
+            source1 = this.source2,
+            source2 = this.source1,
+            target = this.target,
+            matrixSpace = this.matrixSpace,
+            values = transposedValues,
+        )
     }
 
     override fun induce(
@@ -343,6 +359,15 @@ public class LazyBilinearMap<BS1 : BasisName, BS2 : BasisName, BT : BasisName, S
                 }.values.sum()
             }.values.sum()
         }
+    }
+
+    override fun transpose(): LazyBilinearMap<BS2, BS1, BT, S, V, M> {
+        return LazyBilinearMap(
+            source1 = this.source2,
+            source2 = this.source1,
+            target = this.target,
+            matrixSpace = this.matrixSpace,
+        ) { basisName2, basisName1 -> this.getValue(basisName1, basisName2) }
     }
 
     override fun induce(

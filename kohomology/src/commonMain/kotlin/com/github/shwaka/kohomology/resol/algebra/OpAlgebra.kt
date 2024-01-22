@@ -11,6 +11,9 @@ import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 public interface OpAlgebra<B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> : Algebra<B, S, V, M> {
     public val originalAlgebra: Algebra<B, S, V, M>
+    public fun isOppositeOf(other: Algebra<B, S, V, M>): Boolean {
+        return this.originalAlgebra == other
+    }
 
     public companion object {
         public operator fun <B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

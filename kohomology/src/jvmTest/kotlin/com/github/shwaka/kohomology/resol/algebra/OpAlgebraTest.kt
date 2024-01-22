@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> opAlgebraTest(
@@ -40,6 +41,11 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> opAlgebraTest(
                     opAlgebra.multiply(v, w) shouldBe monoidRing.multiply(w, v)
                 }
             }
+        }
+
+        "opAlgebra.isOppositeOf(monoidRing) should be true" {
+            opAlgebra.isOppositeOf(monoidRing).shouldBeTrue()
+            opAlgebra.isOppositeOf(opAlgebra).shouldBeFalse()
         }
     }
 }

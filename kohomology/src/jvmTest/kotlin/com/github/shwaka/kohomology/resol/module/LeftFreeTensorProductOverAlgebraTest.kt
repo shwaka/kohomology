@@ -21,7 +21,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
 ) = freeSpec {
     val coeffAlgebra = MonoidRing(CyclicGroup(2), matrixSpace)
     val opAlgebra = OpAlgebra(coeffAlgebra)
-    // val (one, t) = coeffAlgebra.getBasis()
+    val (_, t) = coeffAlgebra.getBasis()
     val rightModule = run {
         // Z/2 acting on Q{x, y} by
         //   x*t = y, y*t = x
@@ -46,6 +46,20 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> leftFreeTensorProductOverAl
         "tensorProduct.dim should be the product of rightModule.dim and leftModule.generatingBasisNames.size" {
             val expected = rightModule.underlyingVectorSpace.dim * leftModule.generatingBasisNames.size
             tensorProduct.dim shouldBe expected
+        }
+
+        "test tensorProduct.tensorProductMap" {
+            val f = tensorProduct.tensorProductMap
+            val (x, y) = rightModule.underlyingVectorSpace.getBasis()
+            val (a, b, c) = leftModule.getGeneratingBasis()
+            val lContext = leftModule.context
+            val rContext = rightModule.context
+            val tContext = tensorProduct.context
+            f(x, a) shouldBe tensorProduct.fromBasisName(
+                LeftFreeTensorProductBasisName(StringBasisName("x"), StringBasisName("a"))
+            )
+            f(x, lContext.run { a + b }) shouldBe tContext.run { f(x, a) + f(x, b) }
+            f(y, lContext.run { t * c }) shouldBe f(rContext.run { t * y }, c)
         }
     }
 }

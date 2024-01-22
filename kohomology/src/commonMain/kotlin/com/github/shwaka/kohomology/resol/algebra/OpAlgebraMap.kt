@@ -26,11 +26,11 @@ public interface OpAlgebraMap<
             V : NumVector<S>,
             M : Matrix<S, V>,
             > invoke(
-            source: OpAlgebra<BS, S, V, M>,
-            target: OpAlgebra<BT, S, V, M>,
             originalAlgebraMap: AlgebraMap<BS, BT, S, V, M>,
+            source: OpAlgebra<BS, S, V, M> = OpAlgebra(originalAlgebraMap.source),
+            target: OpAlgebra<BT, S, V, M> = OpAlgebra(originalAlgebraMap.target),
         ): OpAlgebraMap<BS, BT, S, V, M> {
-            return OpAlgebraMapImpl(source, target, originalAlgebraMap)
+            return OpAlgebraMapImpl(originalAlgebraMap, source, target)
         }
     }
 }
@@ -42,9 +42,9 @@ private class OpAlgebraMapImpl<
     V : NumVector<S>,
     M : Matrix<S, V>,
     >(
+    override val originalAlgebraMap: AlgebraMap<BS, BT, S, V, M>,
     override val source: OpAlgebra<BS, S, V, M>,
     override val target: OpAlgebra<BT, S, V, M>,
-    override val originalAlgebraMap: AlgebraMap<BS, BT, S, V, M>,
 ) : OpAlgebraMap<BS, BT, S, V, M> {
     init {
         require(source.isOppositeOf(originalAlgebraMap.source)) {

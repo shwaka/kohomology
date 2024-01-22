@@ -33,9 +33,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> opAlgebraMapTest(
     )
     val opAlgebra = OpAlgebra(monoidRing)
     val opId = OpAlgebraMap(
+        originalAlgebraMap = id,
         source = opAlgebra,
         target = opAlgebra,
-        originalAlgebraMap = id,
     )
 
     "test OpAlgebra over $matrixSpace" - {
@@ -56,6 +56,6 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> opAlgebraMapTest(
 class OpAlgebraMapTest : FreeSpec({
     tags(algebraTag)
 
-    include(opAlgebraTest(SparseMatrixSpaceOverRational))
-    include(opAlgebraTest(SparseMatrixSpaceOverF3))
+    include(opAlgebraMapTest(SparseMatrixSpaceOverRational))
+    include(opAlgebraMapTest(SparseMatrixSpaceOverF3))
 })

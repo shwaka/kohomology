@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
 import com.github.shwaka.kohomology.vectsp.LazyBilinearMap
+import com.github.shwaka.kohomology.vectsp.Vector
 import com.github.shwaka.kohomology.vectsp.VectorSpace
 
 // BA does not appear in implementation of this class,
@@ -40,6 +41,21 @@ public interface LeftFreeTensorProductOverAlgebra<
     V : NumVector<S>,
     M : Matrix<S, V>,
     > : TensorProductOverAlgebra<BA, BR, FreeModuleBasisName<BA, BVL>, LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V, M> {
+
+    override val leftModule: FreeModule<BA, BVL, S, V, M>
+
+    override fun asPairList(
+        vector: Vector<LeftFreeTensorProductBasisName<BA, BR, BVL>, S, V>
+    ): List<Pair<Vector<BR, S, V>, Vector<FreeModuleBasisName<BA, BVL>, S, V>>> {
+        return vector.toBasisMap().map { (basisName, scalar) ->
+            val rightElement = this.rightModule.underlyingVectorSpace.fromBasisName(basisName.rightBasisName)
+            val leftElement = this.leftModule.fromGeneratingBasisName(basisName.leftGeneratingBasisName)
+            val leftElementMultiplied = this.leftModule.context.run {
+                scalar * leftElement
+            }
+            Pair(rightElement, leftElementMultiplied)
+        }
+    }
 
     public companion object {
         public operator fun <

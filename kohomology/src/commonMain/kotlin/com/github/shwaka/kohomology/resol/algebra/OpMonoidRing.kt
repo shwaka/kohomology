@@ -4,7 +4,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
-import com.github.shwaka.kohomology.resol.monoid.FiniteMonoid
 import com.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement
 import com.github.shwaka.kohomology.resol.monoid.OppositeFiniteMonoid
 import com.github.shwaka.kohomology.vectsp.BilinearMap
@@ -17,6 +16,8 @@ public interface OpMonoidRing<
     V : NumVector<S>,
     M : Matrix<S, V>,
     > : OpAlgebra<E, S, V, M>, MonoidRing<E, S, V, M> {
+
+    override val monoid: OppositeFiniteMonoid<E>
 
     public companion object {
         public operator fun <
@@ -50,5 +51,5 @@ private class OpMonoidRingImpl<
     override val unit: Vector<E, S, V> = originalAlgebra.unit
     override val isCommutative: Boolean = originalAlgebra.isCommutative
 
-    override val monoid: FiniteMonoid<E> = OppositeFiniteMonoid(originalAlgebra.monoid)
+    override val monoid: OppositeFiniteMonoid<E> = OppositeFiniteMonoid(originalAlgebra.monoid)
 }

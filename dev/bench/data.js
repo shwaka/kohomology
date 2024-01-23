@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1705926039403,
+  "lastUpdate": 1706004941468,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5082,6 +5082,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.518,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5a1fb35292e3594e6667c9e91371dc5d078bec56",
+          "message": "feat(core): add Complex.coeffAlgebra",
+          "timestamp": "2024-01-23T13:06:02+09:00",
+          "tree_id": "004152c4c7df76d8009fbdea8e5ea0e997f6a4f4",
+          "url": "https://github.com/shwaka/kohomology/commit/5a1fb35292e3594e6667c9e91371dc5d078bec56"
+        },
+        "date": 1706004940430,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.433,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.455,
             "unit": "s/op"
           }
         ]

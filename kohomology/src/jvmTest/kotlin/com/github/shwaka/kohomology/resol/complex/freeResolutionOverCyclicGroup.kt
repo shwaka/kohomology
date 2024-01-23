@@ -82,6 +82,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> freeResolutionOverCyclicGro
 
     return FreeComplex(
         matrixSpace,
+        coeffAlgebra,
         IntDegreeGroup,
         "FreeResolution(${coeffAlgebra.monoid})",
         getModule,

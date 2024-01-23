@@ -44,6 +44,7 @@ private class FreeResolFactory<
     val freeComplex: FreeComplex<IntDegree, BA, FreeResolBasisName, S, V, M> =
         FreeComplex(
             matrixSpace = coeffAlgebra.matrixSpace,
+            coeffAlgebra = coeffAlgebra,
             degreeGroup = IntDegreeGroup,
             name = "FreeResol($module)",
             getModule = { this.getModule(it.value) },

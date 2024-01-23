@@ -9,6 +9,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
@@ -75,12 +76,13 @@ public interface FreeComplex<
     public companion object {
         public operator fun <D : Degree, BA : BasisName, BV : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
             matrixSpace: MatrixSpace<S, V, M>,
+            coeffAlgebra: Algebra<BA, S, V, M>,
             degreeGroup: DegreeGroup<D>,
             name: String,
             getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,
             getDifferential: (degree: D) -> FreeModuleMap<BA, BV, BV, S, V, M>,
         ): FreeComplex<D, BA, BV, S, V, M> {
-            return FreeComplexImpl(matrixSpace, degreeGroup, name, getModule, getDifferential)
+            return FreeComplexImpl(matrixSpace, coeffAlgebra, degreeGroup, name, getModule, getDifferential)
         }
     }
 }
@@ -94,6 +96,7 @@ private class FreeComplexImpl<
     M : Matrix<S, V>>
 (
     override val matrixSpace: MatrixSpace<S, V, M>,
+    override val coeffAlgebra: Algebra<BA, S, V, M>,
     override val degreeGroup: DegreeGroup<D>,
     override val name: String,
     getModule: (degree: D) -> FreeModule<BA, BV, S, V, M>,

@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.algebra.Algebra
 import com.github.shwaka.kohomology.resol.algebra.AlgebraMap
 import com.github.shwaka.kohomology.resol.module.ModuleMap
 import com.github.shwaka.kohomology.resol.module.RestrictedModule
@@ -25,6 +26,8 @@ public interface RestrictedComplex<
 
     public val originalComplex: Complex<D, BAT, B, S, V, M>
     public val algebraMap: AlgebraMap<BAS, BAT, S, V, M>
+    override val coeffAlgebra: Algebra<BAS, S, V, M>
+        get() = this.algebraMap.source
 
     public companion object {
         public operator fun <

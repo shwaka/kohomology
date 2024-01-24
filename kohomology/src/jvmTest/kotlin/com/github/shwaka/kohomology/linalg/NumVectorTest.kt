@@ -156,6 +156,9 @@ fun <S : Scalar, V : NumVector<S>> numVectorTest(numVectorSpace: NumVectorSpace<
                 val w = numVectorSpace.getZero(0)
                 v shouldBe w
             }
+            "numVectorSpace.getOneAtIndex(1, 3) should be (0, 1, 0)" {
+                numVectorSpace.getOneAtIndex(1, 3) shouldBe listOf(zero, one, zero).toNumVector()
+            }
             "(1,2) dot (-1, 3) should be 5" {
                 val v = listOf(one, two).toNumVector()
                 val w = listOf(-one, three).toNumVector()

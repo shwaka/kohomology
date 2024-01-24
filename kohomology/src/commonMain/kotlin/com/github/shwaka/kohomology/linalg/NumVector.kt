@@ -50,10 +50,10 @@ public interface NumVectorSpace<S : Scalar, V : NumVector<S>> {
     public val context: NumVectorContext<S, V>
     public fun getZero(dim: Int): V
     public fun getOneAtIndex(index: Int, dim: Int): V {
-        val valueList = this.field.context.run {
-            (0 until dim).map { if (it == index) one else zero }
+        val valueMap = this.field.context.run {
+            mapOf(index to one)
         }
-        return this.fromValueList(valueList)
+        return this.fromValueMap(valueMap, dim)
     }
     public operator fun contains(numVector: V): Boolean
     public fun add(a: V, b: V): V

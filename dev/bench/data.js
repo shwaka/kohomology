@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1706004941468,
+  "lastUpdate": 1706096617691,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5116,6 +5116,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.455,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "8d9a09c8112183cf52e7f744e9cc45d72eaa853e",
+          "message": "perf(core): use fromValueMap instead of fromValueList in NumVectorSpace.getOneAtIndex",
+          "timestamp": "2024-01-24T11:34:43+09:00",
+          "tree_id": "38f635d5e4e999d1e9c57063ff8370bf5c47f1ab",
+          "url": "https://github.com/shwaka/kohomology/commit/8d9a09c8112183cf52e7f744e9cc45d72eaa853e"
+        },
+        "date": 1706096616626,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.41,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.439,
             "unit": "s/op"
           }
         ]

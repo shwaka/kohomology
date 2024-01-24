@@ -1536,36 +1536,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$5;
   }
   function getOneAtIndex(index, dim) {
-    var tmp$ret$4;
+    var tmp$ret$1;
     // Inline function 'kotlin.run' call
     var tmp0_run = this.e1k().c1j();
     // Inline function 'kotlin.contracts.contract' call
-    var tmp$ret$3;
+    var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.linalg.NumVectorSpace.getOneAtIndex.<anonymous>' call
-    var tmp$ret$2;
-    // Inline function 'kotlin.collections.map' call
-    var tmp0_map = until(0, dim);
-    var tmp$ret$1;
-    // Inline function 'kotlin.collections.mapTo' call
-    var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
-    var inductionVariable = tmp0_map.m1_1;
-    var last = tmp0_map.n1_1;
-    if (inductionVariable <= last)
-      do {
-        var item = inductionVariable;
-        inductionVariable = inductionVariable + 1 | 0;
-        var tmp$ret$0;
-        // Inline function 'com.github.shwaka.kohomology.linalg.NumVectorSpace.getOneAtIndex.<anonymous>.<anonymous>' call
-        tmp$ret$0 = item === index ? tmp0_run.n1m() : tmp0_run.m1m();
-        tmp0_mapTo.a(tmp$ret$0);
-      }
-       while (!(item === last));
-    tmp$ret$1 = tmp0_mapTo;
-    tmp$ret$2 = tmp$ret$1;
-    tmp$ret$3 = tmp$ret$2;
-    tmp$ret$4 = tmp$ret$3;
-    var valueList = tmp$ret$4;
-    return this.f2l(valueList);
+    tmp$ret$0 = mapOf_0(to(index, tmp0_run.n1m()));
+    tmp$ret$1 = tmp$ret$0;
+    var valueMap = tmp$ret$1;
+    return this.s2m(valueMap, dim);
   }
   function fromReducedValueMap(valueMap, dim) {
     return this.s2m(valueMap, dim);

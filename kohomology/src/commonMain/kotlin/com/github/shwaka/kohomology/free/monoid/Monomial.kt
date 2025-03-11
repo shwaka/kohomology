@@ -93,6 +93,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     ): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
+            .map { (indeterminate, exponent) -> Pair(indeterminate.name, exponent) }
         return monomialToString(indeterminateAndExponentList, printType, indeterminateNameToString)
     }
 

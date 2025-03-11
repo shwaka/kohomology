@@ -5,8 +5,8 @@ import com.github.shwaka.kohomology.util.PrintType
 
 // Previously, this was an inline method and indeterminateNameToString was crossinline.
 // They are removed since they caused an error in tests (bug in JUnit?).
-internal fun <D : Degree, I : IndeterminateName> monomialToString(
-    indeterminateAndExponentList: List<Pair<Indeterminate<D, I>, Int>>,
+internal fun <I : IndeterminateName> monomialToString(
+    indeterminateAndExponentList: List<Pair<I, Int>>,
     printType: PrintType,
     indeterminateNameToString: (IndeterminateName) -> String,
 ): String {
@@ -16,16 +16,16 @@ internal fun <D : Degree, I : IndeterminateName> monomialToString(
         PrintType.PLAIN, PrintType.TEX -> ""
         PrintType.CODE -> " * "
     }
-    return indeterminateAndExponentList.joinToString(separator) { (indeterminate, exponent) ->
+    return indeterminateAndExponentList.joinToString(separator) { (indeterminateName, exponent) ->
         when (exponent) {
             0 -> throw Exception("This can't happen!")
-            1 -> indeterminateNameToString(indeterminate.name)
+            1 -> indeterminateNameToString(indeterminateName)
             else -> {
                 val exponentStr = when (printType) {
                     PrintType.PLAIN, PrintType.CODE -> exponent.toString()
                     PrintType.TEX -> "{$exponent}"
                 }
-                "${indeterminateNameToString(indeterminate.name)}^$exponentStr"
+                "${indeterminateNameToString(indeterminateName)}^$exponentStr"
             }
         }
     }

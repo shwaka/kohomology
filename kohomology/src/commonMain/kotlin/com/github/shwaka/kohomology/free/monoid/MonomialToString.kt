@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.free.monoid
 
-import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.util.PrintType
 
 // Previously, this was an inline method and indeterminateNameToString was crossinline.

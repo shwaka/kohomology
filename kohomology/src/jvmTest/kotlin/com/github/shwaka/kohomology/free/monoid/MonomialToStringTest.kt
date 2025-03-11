@@ -71,7 +71,30 @@ class MonomialToStringTest : FreeSpec({
         TestData.same(listOf("x" to 1), "x").check()
     }
 
+    "test x^2" {
+        TestData(listOf("x" to 2), "x^2", "x^{2}", "x^2").check()
+    }
+
     "test xy" {
         TestData(listOf("x" to 1, "y" to 1), "xy", "xy", "x * y").check()
+    }
+
+    "test x^2y" {
+        TestData(listOf("x" to 2, "y" to 1), "x^2y", "x^{2}y", "x^2 * y").check()
+    }
+
+    "test x^2y^2" {
+        TestData(listOf("x" to 2, "y" to 2), "x^2y^2", "x^{2}y^{2}", "x^2 * y^2").check()
+    }
+
+    "test xyx" {
+        // Non-commutative monomial.
+        TestData(listOf("x" to 1, "y" to 1, "x" to 1), "xyx", "xyx", "x * y * x").check()
+    }
+
+    "test x^2x" {
+        // This may be strange since one might expect "x^3".
+        // But monomialToString does not handle such computation.
+        TestData(listOf("x" to 2, "x" to 1), "x^2x", "x^{2}x", "x^2 * x").check()
     }
 })

@@ -5,7 +5,8 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
-private data class Result(
+private data class TestData(
+    val monomial: List<Pair<String, Int>>,
     val plain: String,
     val tex: String,
     val code: String,
@@ -18,35 +19,41 @@ private data class Result(
         }
     }
 
-    fun check(getString: (PrintType) -> String) {
+    fun check() {
         PrintType.values().forAll { printType ->
-            getString(printType) shouldBe this.getValue(printType)
+            val indeterminateAndExponentList = this.monomial.map { (indeterminateNameString, exponent) ->
+                Pair(StringIndeterminateName(indeterminateNameString), exponent)
+            }
+            monomialToString(
+                indeterminateAndExponentList,
+                printType,
+            ) { it.toString() } shouldBe this.getValue(printType)
         }
     }
 
     companion object {
-        fun same(plainTexCode: String): Result {
-            return Result(plainTexCode, plainTexCode, plainTexCode)
+        fun same(monomial: List<Pair<String, Int>>, plainTexCode: String): TestData {
+            return TestData(monomial, plainTexCode, plainTexCode, plainTexCode)
         }
     }
 }
 
 class MonomialToStringTest : FreeSpec({
-    "empty monomial should be printed as 1" {
+    "empty monomial should be printed as 1 for PrintType.PLAIN" {
         monomialToString<StringIndeterminateName>(
             emptyList(),
             PrintType.PLAIN
         ) { it.toString() } shouldBe "1"
     }
 
-    "x should be printed as x" {
+    "x should be printed as x for PrintType.PLAIN" {
         monomialToString(
             listOf(Pair(StringIndeterminateName("x"), 1)),
             PrintType.PLAIN
         ) { it.toString() } shouldBe "x"
     }
 
-    "xy should be printed as xy" {
+    "xy should be printed as xy for PrintType.PLAIN" {
         monomialToString(
             listOf(
                 Pair(StringIndeterminateName("x"), 1),
@@ -56,15 +63,15 @@ class MonomialToStringTest : FreeSpec({
         ) { it.toString() } shouldBe "xy"
     }
 
+    "test 1" {
+        TestData.same(emptyList(), "1").check()
+    }
+
+    "test x" {
+        TestData.same(listOf("x" to 1), "x").check()
+    }
+
     "test xy" {
-        Result.same("xy").check { printType ->
-            monomialToString(
-                listOf(
-                    Pair(StringIndeterminateName("x"), 1),
-                    Pair(StringIndeterminateName("y"), 1),
-                ),
-                printType
-            ) { it.toString() }
-        }
+        TestData(listOf("x" to 1, "y" to 1), "xy", "xy", "x * y").check()
     }
 })

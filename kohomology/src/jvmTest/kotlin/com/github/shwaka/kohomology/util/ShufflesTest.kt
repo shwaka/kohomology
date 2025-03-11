@@ -4,6 +4,7 @@ import com.ionspin.kotlin.bignum.integer.BigInteger
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 
 private fun BigInteger.factorial(): BigInteger {
     require(this >= 0)
@@ -32,5 +33,13 @@ class ShufflesTest : FreeSpec({
         ).forAll { counts ->
             shuffles(counts) shouldHaveSize numOfShuffles(counts)
         }
+    }
+
+    "shuffles([2,1]) should be [[0,0,1], [0,1,0], [1,0,0]]" {
+        shuffles(listOf(2, 1)) shouldBe listOf(
+            listOf(1, 0, 0),
+            listOf(0, 1, 0),
+            listOf(0, 0, 1),
+        )
     }
 })

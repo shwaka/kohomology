@@ -2034,6 +2034,7 @@ $dokka.location:com.github.shwaka.kohomology.util//isOdd/kotlin.Int#/PointingToD
 $dokka.location:com.github.shwaka.kohomology.util//isPowerOf/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-power-of.html
 $dokka.location:com.github.shwaka.kohomology.util//isPrime/kotlin.Int#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/is-prime.html
 $dokka.location:com.github.shwaka.kohomology.util//pow/kotlin.Int#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/pow.html
+$dokka.location:com.github.shwaka.kohomology.util//shuffles/#kotlin.collections.List[kotlin.Int]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/shuffles.html
 $dokka.location:com.github.shwaka.kohomology.util//times/kotlin.Int#com.github.shwaka.kohomology.util.Sign/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/times.html
 $dokka.location:com.github.shwaka.kohomology.util/BooleanWithCause.Companion///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-boolean-with-cause/-companion/index.html
 $dokka.location:com.github.shwaka.kohomology.util/BooleanWithCause.Companion/fromCause/#kotlin.collections.List[kotlin.String]/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.util/-boolean-with-cause/-companion/from-cause.html

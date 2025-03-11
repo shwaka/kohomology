@@ -91,25 +91,7 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
     ): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
-        if (indeterminateAndExponentList.isEmpty())
-            return "1"
-        val separator = when (printType) {
-            PrintType.PLAIN, PrintType.TEX -> ""
-            PrintType.CODE -> " * "
-        }
-        return indeterminateAndExponentList.joinToString(separator) { (indeterminate, exponent) ->
-            when (exponent) {
-                0 -> throw Exception("This can't happen!")
-                1 -> indeterminateNameToString(indeterminate.name)
-                else -> {
-                    val exponentStr = when (printType) {
-                        PrintType.PLAIN, PrintType.CODE -> exponent.toString()
-                        PrintType.TEX -> "{$exponent}"
-                    }
-                    "${indeterminateNameToString(indeterminate.name)}^$exponentStr"
-                }
-            }
-        }
+        return monomialToString(indeterminateAndExponentList, printType, indeterminateNameToString)
     }
 
     override fun equals(other: Any?): Boolean {

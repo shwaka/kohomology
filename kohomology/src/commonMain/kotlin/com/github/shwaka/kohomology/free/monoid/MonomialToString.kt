@@ -1,0 +1,30 @@
+package com.github.shwaka.kohomology.free.monoid
+
+import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.util.PrintType
+
+internal inline fun <D : Degree, I : IndeterminateName> monomialToString(
+    indeterminateAndExponentList: List<Pair<Indeterminate<D, I>, Int>>,
+    printType: PrintType,
+    crossinline indeterminateNameToString: (IndeterminateName) -> String,
+): String {
+    if (indeterminateAndExponentList.isEmpty())
+        return "1"
+    val separator = when (printType) {
+        PrintType.PLAIN, PrintType.TEX -> ""
+        PrintType.CODE -> " * "
+    }
+    return indeterminateAndExponentList.joinToString(separator) { (indeterminate, exponent) ->
+        when (exponent) {
+            0 -> throw Exception("This can't happen!")
+            1 -> indeterminateNameToString(indeterminate.name)
+            else -> {
+                val exponentStr = when (printType) {
+                    PrintType.PLAIN, PrintType.CODE -> exponent.toString()
+                    PrintType.TEX -> "{$exponent}"
+                }
+                "${indeterminateNameToString(indeterminate.name)}^$exponentStr"
+            }
+        }
+    }
+}

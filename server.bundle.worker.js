@@ -13551,6 +13551,47 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       new Companion_50();
     return Companion_instance_50;
   }
+  function toString_5($this, printType, indeterminateNameToString) {
+    var tmp$ret$5;
+    // Inline function 'kotlin.collections.map' call
+    var tmp$ret$2;
+    // Inline function 'kotlin.collections.filter' call
+    var tmp0_filter = $this.m29_1.x2h(toList_0($this.n29_1));
+    var tmp$ret$1;
+    // Inline function 'kotlin.collections.filterTo' call
+    var tmp0_filterTo = ArrayList_init_$Create$_0();
+    var tmp0_iterator = tmp0_filter.f();
+    while (tmp0_iterator.g()) {
+      var element = tmp0_iterator.h();
+      var tmp$ret$0;
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
+      var exponent = element.b4();
+      tmp$ret$0 = !(exponent === 0);
+      if (tmp$ret$0) {
+        tmp0_filterTo.a(element);
+      }
+    }
+    tmp$ret$1 = tmp0_filterTo;
+    tmp$ret$2 = tmp$ret$1;
+    var tmp1_map = tmp$ret$2;
+    var tmp$ret$4;
+    // Inline function 'kotlin.collections.mapTo' call
+    var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp1_map, 10));
+    var tmp0_iterator_0 = tmp1_map.f();
+    while (tmp0_iterator_0.g()) {
+      var item = tmp0_iterator_0.h();
+      var tmp$ret$3;
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
+      var indeterminate = item.a4();
+      var exponent_0 = item.b4();
+      tmp$ret$3 = new Pair(indeterminate.p29_1, exponent_0);
+      tmp0_mapTo.a(tmp$ret$3);
+    }
+    tmp$ret$4 = tmp0_mapTo;
+    tmp$ret$5 = tmp$ret$4;
+    var indeterminateAndExponentList = tmp$ret$5;
+    return monomialToString(indeterminateAndExponentList, printType, indeterminateNameToString);
+  }
   function Monomial$degree$delegate$lambda$lambda($tmp0_run, this$0) {
     return function (i, indeterminate) {
       return $tmp0_run.q22(indeterminate.q29_1, this$0.n29_1[i]);
@@ -13569,132 +13610,12 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return tmp$ret$1;
     };
   }
-  function Monomial$toString$lambda($tmp1_toString) {
-    return function (_name_for_destructuring_parameter_0__wldtmu) {
-      var indeterminate = _name_for_destructuring_parameter_0__wldtmu.a4();
-      var exponent = _name_for_destructuring_parameter_0__wldtmu.b4();
-      var tmp0_subject = exponent;
-      var tmp;
-      switch (tmp0_subject) {
-        case 0:
-          throw Exception_init_$Create$("This can't happen!");
-        case 1:
-          var tmp$ret$0;
-          // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp2__anonymous__z9zvc9 = indeterminate.p29_1;
-          tmp$ret$0 = toString(tmp2__anonymous__z9zvc9);
-
-          tmp = tmp$ret$0;
-          break;
-        default:
-          var tmp1_subject = $tmp1_toString;
-          var tmp0 = tmp1_subject.d2_1;
-          var tmp_0;
-          switch (tmp0) {
-            case 0:
-            case 2:
-              tmp_0 = exponent.toString();
-              break;
-            case 1:
-              tmp_0 = '{' + exponent + '}';
-              break;
-            default:
-              noWhenBranchMatchedException();
-              break;
-          }
-
-          var exponentStr = tmp_0;
-          var tmp$ret$1;
-          // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp3__anonymous__ufb84q = indeterminate.p29_1;
-          tmp$ret$1 = toString(tmp3__anonymous__ufb84q);
-
-          tmp = tmp$ret$1 + '^' + exponentStr;
-          break;
-      }
-      return tmp;
-    };
+  function Monomial$toString$lambda(it) {
+    return toString(it);
   }
-  function Monomial$toString$lambda_0($printConfig, $tmp1_toString) {
-    return function (_name_for_destructuring_parameter_0__wldtmu) {
-      var indeterminate = _name_for_destructuring_parameter_0__wldtmu.a4();
-      var exponent = _name_for_destructuring_parameter_0__wldtmu.b4();
-      var tmp0_subject = exponent;
-      var tmp;
-      switch (tmp0_subject) {
-        case 0:
-          throw Exception_init_$Create$("This can't happen!");
-        case 1:
-          var tmp$ret$0;
-          // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp2__anonymous__z9zvc9 = indeterminate.p29_1;
-          tmp$ret$0 = tmp2__anonymous__z9zvc9.c1n($printConfig);
-
-          tmp = tmp$ret$0;
-          break;
-        default:
-          var tmp1_subject = $tmp1_toString;
-          var tmp0 = tmp1_subject.d2_1;
-          var tmp_0;
-          switch (tmp0) {
-            case 0:
-            case 2:
-              tmp_0 = exponent.toString();
-              break;
-            case 1:
-              tmp_0 = '{' + exponent + '}';
-              break;
-            default:
-              noWhenBranchMatchedException();
-              break;
-          }
-
-          var exponentStr = tmp_0;
-          var tmp$ret$1;
-          // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-          var tmp3__anonymous__ufb84q = indeterminate.p29_1;
-          tmp$ret$1 = tmp3__anonymous__ufb84q.c1n($printConfig);
-
-          tmp = tmp$ret$1 + '^' + exponentStr;
-          break;
-      }
-      return tmp;
-    };
-  }
-  function Monomial$toString$lambda_1($indeterminateNameToString, $printType) {
-    return function (_name_for_destructuring_parameter_0__wldtmu) {
-      var indeterminate = _name_for_destructuring_parameter_0__wldtmu.a4();
-      var exponent = _name_for_destructuring_parameter_0__wldtmu.b4();
-      var tmp0_subject = exponent;
-      var tmp;
-      switch (tmp0_subject) {
-        case 0:
-          throw Exception_init_$Create$("This can't happen!");
-        case 1:
-          tmp = $indeterminateNameToString(indeterminate.p29_1);
-          break;
-        default:
-          var tmp1_subject = $printType;
-          var tmp0 = tmp1_subject.d2_1;
-          var tmp_0;
-          switch (tmp0) {
-            case 0:
-            case 2:
-              tmp_0 = exponent.toString();
-              break;
-            case 1:
-              tmp_0 = '{' + exponent + '}';
-              break;
-            default:
-              noWhenBranchMatchedException();
-              break;
-          }
-
-          var exponentStr = tmp_0;
-          tmp = $indeterminateNameToString(indeterminate.p29_1) + '^' + exponentStr;
-          break;
-      }
-      return tmp;
+  function Monomial$toString$lambda_0($printConfig) {
+    return function (it) {
+      return it.c1n($printConfig);
     };
   }
   function Monomial(degreeGroup, indeterminateList, exponentList) {
@@ -13738,102 +13659,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.n29_1[indeterminateIndex] > 0;
   };
   Monomial.prototype.toString = function () {
-    var tmp$ret$3;
-    $l$block: {
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString' call
-      var tmp1_toString = PrintType_PLAIN_getInstance();
-      var tmp$ret$2;
-      // Inline function 'kotlin.collections.filter' call
-      var tmp0_filter = this.m29_1.x2h(toList_0(this.n29_1));
-      var tmp$ret$1;
-      // Inline function 'kotlin.collections.filterTo' call
-      var tmp0_filterTo = ArrayList_init_$Create$_0();
-      var tmp0_iterator = tmp0_filter.f();
-      while (tmp0_iterator.g()) {
-        var element = tmp0_iterator.h();
-        var tmp$ret$0;
-        // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-        var exponent = element.b4();
-        tmp$ret$0 = !(exponent === 0);
-        if (tmp$ret$0) {
-          tmp0_filterTo.a(element);
-        }
-      }
-      tmp$ret$1 = tmp0_filterTo;
-      tmp$ret$2 = tmp$ret$1;
-      var indeterminateAndExponentList = tmp$ret$2;
-      if (indeterminateAndExponentList.p()) {
-        tmp$ret$3 = '1';
-        break $l$block;
-      }
-      var tmp0_subject = tmp1_toString;
-      var tmp0 = tmp0_subject.d2_1;
-      var tmp;
-      switch (tmp0) {
-        case 0:
-        case 1:
-          tmp = '';
-          break;
-        case 2:
-          tmp = ' * ';
-          break;
-        default:
-          noWhenBranchMatchedException();
-          break;
-      }
-      var separator = tmp;
-      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, separator, null, null, 0, null, Monomial$toString$lambda(tmp1_toString), 30, null);
-    }
-    return tmp$ret$3;
+    var tmp = PrintType_PLAIN_getInstance();
+    return toString_5(this, tmp, Monomial$toString$lambda);
   };
   Monomial.prototype.c1n = function (printConfig) {
-    var tmp$ret$3;
-    $l$block: {
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString' call
-      var tmp1_toString = printConfig.b1x_1;
-      var tmp$ret$2;
-      // Inline function 'kotlin.collections.filter' call
-      var tmp0_filter = this.m29_1.x2h(toList_0(this.n29_1));
-      var tmp$ret$1;
-      // Inline function 'kotlin.collections.filterTo' call
-      var tmp0_filterTo = ArrayList_init_$Create$_0();
-      var tmp0_iterator = tmp0_filter.f();
-      while (tmp0_iterator.g()) {
-        var element = tmp0_iterator.h();
-        var tmp$ret$0;
-        // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.toString.<anonymous>' call
-        var exponent = element.b4();
-        tmp$ret$0 = !(exponent === 0);
-        if (tmp$ret$0) {
-          tmp0_filterTo.a(element);
-        }
-      }
-      tmp$ret$1 = tmp0_filterTo;
-      tmp$ret$2 = tmp$ret$1;
-      var indeterminateAndExponentList = tmp$ret$2;
-      if (indeterminateAndExponentList.p()) {
-        tmp$ret$3 = '1';
-        break $l$block;
-      }
-      var tmp0_subject = tmp1_toString;
-      var tmp0 = tmp0_subject.d2_1;
-      var tmp;
-      switch (tmp0) {
-        case 0:
-        case 1:
-          tmp = '';
-          break;
-        case 2:
-          tmp = ' * ';
-          break;
-        default:
-          noWhenBranchMatchedException();
-          break;
-      }
-      var separator = tmp;
-      tmp$ret$3 = joinToString$default(indeterminateAndExponentList, separator, null, null, 0, null, Monomial$toString$lambda_0(printConfig, tmp1_toString), 30, null);
-    }
-    return tmp$ret$3;
+    return toString_5(this, printConfig.b1x_1, Monomial$toString$lambda_0(printConfig));
   };
   Monomial.prototype.equals = function (other) {
     if (this === other)
@@ -13862,6 +13692,63 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return getPropertyCallableRef('degree', 1, KProperty1, function (receiver) {
       return receiver.q1n();
     }, null);
+  }
+  function monomialToString(indeterminateAndExponentList, printType, indeterminateNameToString) {
+    if (indeterminateAndExponentList.p())
+      return '1';
+    var tmp0_subject = printType;
+    var tmp0 = tmp0_subject.d2_1;
+    var tmp;
+    switch (tmp0) {
+      case 0:
+      case 1:
+        tmp = '';
+        break;
+      case 2:
+        tmp = ' * ';
+        break;
+      default:
+        noWhenBranchMatchedException();
+        break;
+    }
+    var separator = tmp;
+    return joinToString$default(indeterminateAndExponentList, separator, null, null, 0, null, monomialToString$lambda(indeterminateNameToString, printType), 30, null);
+  }
+  function monomialToString$lambda($indeterminateNameToString, $printType) {
+    return function (_name_for_destructuring_parameter_0__wldtmu) {
+      var indeterminateName = _name_for_destructuring_parameter_0__wldtmu.a4();
+      var exponent = _name_for_destructuring_parameter_0__wldtmu.b4();
+      var tmp0_subject = exponent;
+      var tmp;
+      switch (tmp0_subject) {
+        case 0:
+          throw Exception_init_$Create$("This can't happen!");
+        case 1:
+          tmp = $indeterminateNameToString(indeterminateName);
+          break;
+        default:
+          var tmp1_subject = $printType;
+          var tmp0 = tmp1_subject.d2_1;
+          var tmp_0;
+          switch (tmp0) {
+            case 0:
+            case 2:
+              tmp_0 = exponent.toString();
+              break;
+            case 1:
+              tmp_0 = '{' + exponent + '}';
+              break;
+            default:
+              noWhenBranchMatchedException();
+              break;
+          }
+
+          var exponentStr = tmp_0;
+          tmp = $indeterminateNameToString(indeterminateName) + '^' + exponentStr;
+          break;
+      }
+      return tmp;
+    };
   }
   function _get_data__d5abxd($this) {
     var tmp$ret$0;

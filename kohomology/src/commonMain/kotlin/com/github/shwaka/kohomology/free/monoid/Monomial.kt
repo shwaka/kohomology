@@ -85,9 +85,11 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         return this.toString(printConfig.printType) { it.toString(printConfig) }
     }
 
-    private inline fun toString(
+    // This was an inline method previously.
+    // See the comment before monomialToString() for detail.
+    private fun toString(
         printType: PrintType,
-        crossinline indeterminateNameToString: (IndeterminateName) -> String,
+        indeterminateNameToString: (IndeterminateName) -> String,
     ): String {
         val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }

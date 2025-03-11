@@ -3,10 +3,12 @@ package com.github.shwaka.kohomology.free.monoid
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.util.PrintType
 
-internal inline fun <D : Degree, I : IndeterminateName> monomialToString(
+// Previously, this was an inline method and indeterminateNameToString was crossinline.
+// They are removed since they caused an error in tests (bug in JUnit?).
+internal fun <D : Degree, I : IndeterminateName> monomialToString(
     indeterminateAndExponentList: List<Pair<Indeterminate<D, I>, Int>>,
     printType: PrintType,
-    crossinline indeterminateNameToString: (IndeterminateName) -> String,
+    indeterminateNameToString: (IndeterminateName) -> String,
 ): String {
     if (indeterminateAndExponentList.isEmpty())
         return "1"

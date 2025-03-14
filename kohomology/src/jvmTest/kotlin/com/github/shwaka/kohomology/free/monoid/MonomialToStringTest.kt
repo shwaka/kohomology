@@ -97,4 +97,8 @@ class MonomialToStringTest : FreeSpec({
         // But monomialToString does not handle such computation.
         TestData(listOf("x" to 2, "x" to 1), "x^2x", "x^{2}x", "x^2 * x").check()
     }
+
+    "test x^2y^0" {
+        TestData(listOf("x" to 2, "y" to 0), "x^2", "x^{2}", "x^2").check()
+    }
 })

@@ -5,7 +5,13 @@ import com.github.shwaka.kohomology.util.PrintType
 internal data class Power<I : IndeterminateName>(
     val indeterminateName: I,
     val exponent: Int,
-)
+) {
+    companion object {
+        operator fun invoke(indeterminateName: String, exponent: Int): Power<StringIndeterminateName> {
+            return Power(StringIndeterminateName(indeterminateName), exponent)
+        }
+    }
+}
 
 // Previously, this was an inline method and indeterminateNameToString was crossinline.
 // They are removed since they caused an error in tests (bug in JUnit?).

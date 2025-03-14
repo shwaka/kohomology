@@ -42,3 +42,25 @@ internal fun <I : IndeterminateName> monomialToString(
             }
         }
 }
+
+internal fun <I : IndeterminateName> toPowerList(word: List<I>): List<Power<I>> {
+    if (word.isEmpty()) {
+        return emptyList()
+    }
+    val result = mutableListOf<Power<I>>()
+    var previous: I = word.first()
+    var count = 1
+    for (i in 1..(word.size)) {
+        val current: I? = word.getOrNull(i)
+        if (current == previous) {
+            count++
+        } else {
+            result.add(Power(previous, count))
+            if (current != null) {
+                previous = current
+                count = 1
+            }
+        }
+    }
+    return result
+}

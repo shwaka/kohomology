@@ -106,3 +106,30 @@ class MonomialToStringTest : FreeSpec({
         TestData(listOf("x" to 1, "y" to 0, "z" to 2), "xz^2", "xz^{2}", "x * z^2").check()
     }
 })
+
+private fun si(name: String): StringIndeterminateName {
+    return StringIndeterminateName(name)
+}
+
+class ToPowerListTest : FreeSpec({
+    "toPowerList([]) should be []" {
+        toPowerList(emptyList()) shouldBe emptyList()
+    }
+
+    "toPowerList([x]) should be [x^1]" {
+        toPowerList(listOf(si("x"))) shouldBe listOf(Power(si("x"), 1))
+    }
+
+    "toPowerList([x,x]) should be [x^2]" {
+        toPowerList(listOf(si("x"), si("x"))) shouldBe listOf(Power(si("x"), 2))
+    }
+
+    "toPowerList([x,y]) should be [x^1,y^1]" {
+        toPowerList(listOf(si("x"), si("y"))) shouldBe listOf(Power(si("x"), 1), Power(si("y"), 1))
+    }
+
+    "toPowerList([x,x,y,x]) should be [x^2,y^1,x^1]" {
+        toPowerList(listOf(si("x"), si("x"), si("y"), si("x"))) shouldBe
+            listOf(Power(si("x"), 2), Power(si("y"), 1), Power(si("x"), 1))
+    }
+})

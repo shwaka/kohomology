@@ -70,6 +70,10 @@ internal class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName>
         }
     }
 
+    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+        return this.listMonomialsForAugmentedDegree(augmentedDegree).map { it.degree }.distinct()
+    }
+
     private fun listMonomialsForAugmentedDegree(augmentedDegree: Int): List<Monomial<D, I>> {
         val elementListWithIntDegree: List<Monomial<IntDegree, I>> =
             this.generatorForAugmentedDegree.listMonomials(IntDegree(augmentedDegree))

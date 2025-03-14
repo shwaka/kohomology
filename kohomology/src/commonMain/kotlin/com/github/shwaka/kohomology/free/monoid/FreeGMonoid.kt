@@ -99,31 +99,15 @@ public class FreeGMonoid<D : Degree, I : IndeterminateName> (
     // }
 
     override fun listElements(degree: D): List<Monomial<D, I>> {
-        // return this.monomialListGenerator.listMonomials(degree)
-        val augmentedDegree = this.degreeGroup.augmentation(degree)
-        return this.listElementsForAugmentedDegree(augmentedDegree).filter {
-            it.degree == degree
-        }
+        return this.monomialListGeneratorAugmented.listMonomials(degree)
     }
 
-    private val monomialListGeneratorWithAugmentedDegree: MonomialListGenerator<IntDegree, I> by lazy {
-        val indeterminateRawList: List<Indeterminate<IntDegree, I>> = this.indeterminateListInternal.map { indeterminate ->
-            Indeterminate(indeterminate.name, this.degreeGroup.augmentation(indeterminate.degree))
-        }
-        val indeterminateListWithAugDeg = IndeterminateList.from(IntDegreeGroup, indeterminateRawList)
-        MonomialListGeneratorBasic(IntDegreeGroup, indeterminateListWithAugDeg)
-    }
-
-    private fun listElementsForAugmentedDegree(augmentedDegree: Int): List<Monomial<D, I>> {
-        val elementListWithIntDegree: List<Monomial<IntDegree, I>> =
-            this.monomialListGeneratorWithAugmentedDegree.listMonomials(IntDegree(augmentedDegree))
-        return elementListWithIntDegree.map { elementWithAugDeg ->
-            Monomial(this.degreeGroup, this.indeterminateListInternal, elementWithAugDeg.exponentList)
-        }
+    private val monomialListGeneratorAugmented: MonomialListGeneratorAugmented<D, I> by lazy {
+        MonomialListGeneratorAugmented(this.degreeGroup, this.indeterminateListInternal)
     }
 
     override fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
-        return this.listElementsForAugmentedDegree(augmentedDegree).map { it.degree }.distinct()
+        return this.monomialListGeneratorAugmented.listDegreesForAugmentedDegree(augmentedDegree)
     }
 
     private fun separate(monomial: Monomial<D, I>, index: Int): MonomialSeparation<D, I>? {

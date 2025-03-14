@@ -91,10 +91,10 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         printType: PrintType,
         indeterminateNameToString: (IndeterminateName) -> String,
     ): String {
-        val indeterminateAndExponentList = this.indeterminateList.zip(this.exponentList.toList())
+        val powerList = this.indeterminateList.zip(this.exponentList.toList())
             .filter { (_, exponent) -> exponent != 0 }
-            .map { (indeterminate, exponent) -> Pair(indeterminate.name, exponent) }
-        return monomialToString(indeterminateAndExponentList, printType, indeterminateNameToString)
+            .map { (indeterminate, exponent) -> Power(indeterminate.name, exponent) }
+        return monomialToString(powerList, printType, indeterminateNameToString)
     }
 
     override fun equals(other: Any?): Boolean {

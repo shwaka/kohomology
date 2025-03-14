@@ -21,11 +21,11 @@ private data class TestData(
 
     fun check() {
         PrintType.values().forAll { printType ->
-            val indeterminateAndExponentList = this.monomial.map { (indeterminateNameString, exponent) ->
-                Pair(StringIndeterminateName(indeterminateNameString), exponent)
+            val powerList = this.monomial.map { (indeterminateNameString, exponent) ->
+                Power(StringIndeterminateName(indeterminateNameString), exponent)
             }
             monomialToString(
-                indeterminateAndExponentList,
+                powerList,
                 printType,
             ) { it.toString() } shouldBe this.getValue(printType)
         }
@@ -48,7 +48,7 @@ class MonomialToStringTest : FreeSpec({
 
     "x should be printed as x for PrintType.PLAIN" {
         monomialToString(
-            listOf(Pair(StringIndeterminateName("x"), 1)),
+            listOf(Power(StringIndeterminateName("x"), 1)),
             PrintType.PLAIN
         ) { it.toString() } shouldBe "x"
     }
@@ -56,8 +56,8 @@ class MonomialToStringTest : FreeSpec({
     "xy should be printed as xy for PrintType.PLAIN" {
         monomialToString(
             listOf(
-                Pair(StringIndeterminateName("x"), 1),
-                Pair(StringIndeterminateName("y"), 1),
+                Power(StringIndeterminateName("x"), 1),
+                Power(StringIndeterminateName("y"), 1),
             ),
             PrintType.PLAIN
         ) { it.toString() } shouldBe "xy"

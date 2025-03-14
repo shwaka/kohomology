@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1741957535460,
+  "lastUpdate": 1741969432360,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5320,6 +5320,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.515,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "2719755064ea5269c41ea50c84633bf41536e2ff",
+          "message": "refactor(core): add interface MonomialListGenerator",
+          "timestamp": "2025-03-15T01:17:54+09:00",
+          "tree_id": "234f4ea9b805425e2e6816f648cb67376c12af63",
+          "url": "https://github.com/shwaka/kohomology/commit/2719755064ea5269c41ea50c84633bf41536e2ff"
+        },
+        "date": 1741969431783,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.481,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.616,
             "unit": "s/op"
           }
         ]

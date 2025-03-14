@@ -26,17 +26,19 @@ internal fun <I : IndeterminateName> monomialToString(
         PrintType.PLAIN, PrintType.TEX -> ""
         PrintType.CODE -> " * "
     }
-    return powerList.joinToString(separator) { (indeterminateName: I, exponent: Int) ->
-        when (exponent) {
-            0 -> throw Exception("This can't happen!")
-            1 -> indeterminateNameToString(indeterminateName)
-            else -> {
-                val exponentStr = when (printType) {
-                    PrintType.PLAIN, PrintType.CODE -> exponent.toString()
-                    PrintType.TEX -> "{$exponent}"
+    return powerList
+        .filter { (_, exponent: Int) -> exponent != 0 }
+        .joinToString(separator) { (indeterminateName: I, exponent: Int) ->
+            when (exponent) {
+                0 -> throw Exception("This can't happen!")
+                1 -> indeterminateNameToString(indeterminateName)
+                else -> {
+                    val exponentStr = when (printType) {
+                        PrintType.PLAIN, PrintType.CODE -> exponent.toString()
+                        PrintType.TEX -> "{$exponent}"
+                    }
+                    "${indeterminateNameToString(indeterminateName)}^$exponentStr"
                 }
-                "${indeterminateNameToString(indeterminateName)}^$exponentStr"
             }
         }
-    }
 }

@@ -101,4 +101,8 @@ class MonomialToStringTest : FreeSpec({
     "test x^2y^0" {
         TestData(listOf("x" to 2, "y" to 0), "x^2", "x^{2}", "x^2").check()
     }
+
+    "test xy^0z^2" {
+        TestData(listOf("x" to 1, "y" to 0, "z" to 2), "xz^2", "xz^{2}", "x * z^2").check()
+    }
 })

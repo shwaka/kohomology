@@ -26,6 +26,13 @@ public class NCMonomial<D : Degree, I : IndeterminateName> internal constructor(
             return NCMonomial(IntDegreeGroup, IndeterminateList.from(IntDegreeGroup, indeterminateList), word)
         }
 
+        internal fun <D : Degree, I : IndeterminateName> unit(
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: IndeterminateList<D, I>,
+        ): NCMonomial<D, I> {
+            return NCMonomial(degreeGroup, indeterminateList, emptyList())
+        }
+
         public fun <D : Degree, I : IndeterminateName> fromIndeterminate(
             degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,

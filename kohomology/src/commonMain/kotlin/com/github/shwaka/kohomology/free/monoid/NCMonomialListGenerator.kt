@@ -9,9 +9,5 @@ internal class NCMonomialListGenerator<D : Degree, I : IndeterminateName>(
 ) {
     private val cache: MutableMap<Pair<D, Int>, List<NCMonomial<D, I>>> = mutableMapOf()
 
-    private val unit: NCMonomial<D, I> = NCMonomial(
-        this.degreeGroup,
-        this.indeterminateList,
-        emptyList(),
-    )
+    private val unit: NCMonomial<D, I> = NCMonomial.unit(this.degreeGroup, this.indeterminateList)
 }

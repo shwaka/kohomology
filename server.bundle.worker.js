@@ -12471,7 +12471,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$0;
   }
   function listElementsForAugmentedDegree($this, augmentedDegree) {
-    var elementListWithIntDegree = _get_monomialListGeneratorWithAugmentedDegree__ota534($this).w2g(new IntDegree(augmentedDegree));
+    var elementListWithIntDegree = _get_monomialListGeneratorWithAugmentedDegree__ota534($this).s2g(new IntDegree(augmentedDegree));
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$1;
@@ -12519,7 +12519,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       tmp_3 = tmp_3 + 1 | 0;
     }
     var separatedExponentList = tmp_5;
-    var multipliedMonomialOrZero = $this.c2h(new Monomial($this.w2c_1, $this.x2c_1, separatedExponentList), remainingMonomial);
+    var multipliedMonomialOrZero = $this.y2g(new Monomial($this.w2c_1, $this.x2c_1, separatedExponentList), remainingMonomial);
     var tmp0_subject = multipliedMonomialOrZero;
     var tmp_7;
     if (tmp0_subject instanceof Signed) {
@@ -12536,14 +12536,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeGMonoid$indeterminateList$delegate$lambda(this$0) {
     return function () {
-      return this$0.x2c_1.d2h();
+      return this$0.x2c_1.z2g();
     };
   }
   function FreeGMonoid$boundedness$delegate$lambda(this$0) {
     return function () {
       var tmp;
-      if (this$0.x2c_1.f2h()) {
-        tmp = this$0.x2c_1.e2h();
+      if (this$0.x2c_1.b2h()) {
+        tmp = this$0.x2c_1.a2h();
       } else {
         tmp = null;
       }
@@ -12569,18 +12569,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda(this$0) {
     return function () {
-      var indeterminateRawList = this$0.x2c_1.g2h(FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
-      var indeterminateListWithAugDeg = Companion_getInstance_50().h2h(IntDegreeGroup_getInstance(), indeterminateRawList);
-      return new MonomialListGenerator(IntDegreeGroup_getInstance(), indeterminateListWithAugDeg);
+      var indeterminateRawList = this$0.x2c_1.c2h(FreeGMonoid$monomialListGeneratorWithAugmentedDegree$delegate$lambda$lambda(this$0));
+      var indeterminateListWithAugDeg = Companion_getInstance_50().d2h(IntDegreeGroup_getInstance(), indeterminateRawList);
+      return new MonomialListGeneratorBasic(IntDegreeGroup_getInstance(), indeterminateListWithAugDeg);
     };
   }
   function FreeGMonoid(degreeGroup, indeterminateList) {
     Companion_getInstance_49();
     this.w2c_1 = degreeGroup;
-    this.x2c_1 = Companion_getInstance_50().h2h(this.w2c_1, indeterminateList);
+    this.x2c_1 = Companion_getInstance_50().d2h(this.w2c_1, indeterminateList);
     var tmp = this;
     tmp.y2c_1 = lazy(FreeGMonoid$indeterminateList$delegate$lambda(this));
-    this.z2c_1 = Companion_getInstance_51().i2h(this.w2c_1, this.x2c_1);
+    this.z2c_1 = Companion_getInstance_51().e2h(this.w2c_1, this.x2c_1);
     this.a2d_1 = true;
     var tmp_0 = this;
     tmp_0.b2d_1 = lazy(FreeGMonoid$boundedness$delegate$lambda(this));
@@ -12610,10 +12610,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$0 = this.b2d_1.f1();
     return tmp$ret$0;
   };
-  FreeGMonoid.prototype.j2h = function (exponentList) {
+  FreeGMonoid.prototype.f2h = function (exponentList) {
     return new Monomial(this.w2c_1, this.x2c_1, exponentList);
   };
-  FreeGMonoid.prototype.c2h = function (monoidElement1, monoidElement2) {
+  FreeGMonoid.prototype.y2g = function (monoidElement1, monoidElement2) {
     var size = this.x2c_1.i();
     var exponentList = addExponentLists(this, monoidElement1.n29_1, monoidElement2.n29_1);
     var inductionVariable = 0;
@@ -12650,7 +12650,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   };
   FreeGMonoid.prototype.n2g = function (monoidElement1, monoidElement2) {
     var tmp = monoidElement1 instanceof Monomial ? monoidElement1 : THROW_CCE();
-    return this.c2h(tmp, monoidElement2 instanceof Monomial ? monoidElement2 : THROW_CCE());
+    return this.y2g(tmp, monoidElement2 instanceof Monomial ? monoidElement2 : THROW_CCE());
   };
   FreeGMonoid.prototype.k2g = function (degree) {
     var augmentedDegree = this.w2c_1.a1j(degree);
@@ -12696,7 +12696,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   FreeGMonoid.prototype.d2d = function (monomial) {
     var tmp$ret$3;
     // Inline function 'kotlin.collections.mapNotNull' call
-    var tmp0_mapNotNull = this.x2c_1.z2g_1;
+    var tmp0_mapNotNull = this.x2c_1.v2g_1;
     var tmp$ret$2;
     // Inline function 'kotlin.collections.mapNotNullTo' call
     var tmp0_mapNotNullTo = ArrayList_init_$Create$_0();
@@ -12728,7 +12728,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$3;
   };
   FreeGMonoid.prototype.toString = function () {
-    var indeterminateListString = this.x2c_1.n2h(', ', null, 2, null);
+    var indeterminateListString = this.x2c_1.j2h(', ', null, 2, null);
     return 'FreeGMonoid(' + indeterminateListString + ')';
   };
   FreeGMonoid.$metadata$ = classMeta('FreeGMonoid', [GMonoid]);
@@ -12741,13 +12741,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     if (this.g2d_1 <= 0)
       throw Exception_init_$Create$('separatedExponent must be positive');
   }
-  MonomialSeparation.prototype.o2h = function () {
+  MonomialSeparation.prototype.k2h = function () {
     return this.e2d_1;
   };
-  MonomialSeparation.prototype.p2h = function () {
+  MonomialSeparation.prototype.l2h = function () {
     return this.g2d_1;
   };
-  MonomialSeparation.prototype.q2h = function () {
+  MonomialSeparation.prototype.m2h = function () {
     return this.h2d_1;
   };
   MonomialSeparation.prototype.z3 = function () {
@@ -12817,11 +12817,11 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   FreeGMonoidMorphismByDegreeChange.prototype.o1n = function () {
     return this.l2d_1;
   };
-  FreeGMonoidMorphismByDegreeChange.prototype.r2h = function () {
+  FreeGMonoidMorphismByDegreeChange.prototype.n2h = function () {
     return this.m2d_1;
   };
   FreeGMonoidMorphismByDegreeChange.prototype.o2d = function (monoidElement) {
-    return this.n2d_1.j2h(monoidElement.n29_1);
+    return this.n2d_1.f2h(monoidElement.n29_1);
   };
   FreeGMonoidMorphismByDegreeChange.$metadata$ = classMeta('FreeGMonoidMorphismByDegreeChange', [GMonoidMorphismWithDegreeChange]);
   function indeterminateList$factory() {
@@ -12904,17 +12904,17 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return StringIndeterminateName_init_$Init$(name, tex, $mask0, $marker, Object.create(StringIndeterminateName.prototype));
   }
   function StringIndeterminateName(name, tex) {
-    this.s2h_1 = new Identifier_0(name);
-    this.t2h_1 = this.s2h_1.q2a_1;
+    this.o2h_1 = new Identifier_0(name);
+    this.p2h_1 = this.o2h_1.q2a_1;
     var tmp = this;
     var tmp0_elvis_lhs = tex;
-    tmp.u2h_1 = tmp0_elvis_lhs == null ? name : tmp0_elvis_lhs;
+    tmp.q2h_1 = tmp0_elvis_lhs == null ? name : tmp0_elvis_lhs;
   }
   StringIndeterminateName.prototype.c22 = function () {
-    return this.s2h_1;
+    return this.o2h_1;
   };
   StringIndeterminateName.prototype.toString = function () {
-    return this.t2h_1;
+    return this.p2h_1;
   };
   StringIndeterminateName.prototype.c1n = function (printConfig) {
     var tmp0_subject = printConfig.b1x_1;
@@ -12923,10 +12923,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     switch (tmp0) {
       case 0:
       case 2:
-        tmp = this.t2h_1;
+        tmp = this.p2h_1;
         break;
       case 1:
-        tmp = this.u2h_1;
+        tmp = this.q2h_1;
         break;
       default:
         noWhenBranchMatchedException();
@@ -12943,15 +12943,15 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!(this.t2h_1 === other.t2h_1))
+    if (!(this.p2h_1 === other.p2h_1))
       return false;
-    if (!(this.u2h_1 === other.u2h_1))
+    if (!(this.q2h_1 === other.q2h_1))
       return false;
     return true;
   };
   StringIndeterminateName.prototype.hashCode = function () {
-    var result = getStringHashCode(this.t2h_1);
-    result = imul(31, result) + getStringHashCode(this.u2h_1) | 0;
+    var result = getStringHashCode(this.p2h_1);
+    result = imul(31, result) + getStringHashCode(this.q2h_1) | 0;
     return result;
   };
   StringIndeterminateName.$metadata$ = classMeta('StringIndeterminateName', [IndeterminateName]);
@@ -13007,7 +13007,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_49() {
     Companion_instance_49 = this;
   }
-  Companion_49.prototype.h2h = function (degreeGroup, indeterminateList) {
+  Companion_49.prototype.d2h = function (degreeGroup, indeterminateList) {
     var tmp$ret$16;
     // Inline function 'kotlin.run' call
     var tmp0_run = degreeGroup.c1j();
@@ -13177,7 +13177,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var tmp$ret$0;
       $l$block_0: {
         // Inline function 'kotlin.collections.all' call
-        var tmp0_all = this$0.y2g_1;
+        var tmp0_all = this$0.u2g_1;
         var tmp;
         if (isInterface(tmp0_all, Collection)) {
           tmp = tmp0_all.p();
@@ -13193,7 +13193,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var element = tmp0_iterator.h();
           var tmp$ret$1;
           // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.isOddOnly$delegate.<anonymous>.<anonymous>' call
-          tmp$ret$1 = isOdd_0(this$0.x2g_1.a1j(element.q29_1));
+          tmp$ret$1 = isOdd_0(this$0.t2g_1.a1j(element.q29_1));
           if (!tmp$ret$1) {
             tmp$ret$0 = false;
             break $l$block_0;
@@ -13208,7 +13208,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return function () {
       var tmp$ret$2;
       // Inline function 'kotlin.collections.map' call
-      var tmp0_map = this$0.y2g_1;
+      var tmp0_map = this$0.u2g_1;
       var tmp$ret$1;
       // Inline function 'kotlin.collections.mapTo' call
       var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -13217,7 +13217,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         var item = tmp0_iterator.h();
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.degreeSumAsInt$delegate.<anonymous>.<anonymous>' call
-        tmp$ret$0 = this$0.x2g_1.a1j(item.q29_1);
+        tmp$ret$0 = this$0.t2g_1.a1j(item.q29_1);
         tmp0_mapTo.a(tmp$ret$0);
       }
       tmp$ret$1 = tmp0_mapTo;
@@ -13227,33 +13227,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function IndeterminateList(degreeGroup, rawList) {
     Companion_getInstance_50();
-    this.x2g_1 = degreeGroup;
-    this.y2g_1 = rawList;
-    this.z2g_1 = get_indices_0(this.y2g_1);
+    this.t2g_1 = degreeGroup;
+    this.u2g_1 = rawList;
+    this.v2g_1 = get_indices_0(this.u2g_1);
     var tmp = this;
-    tmp.a2h_1 = lazy(IndeterminateList$isOddOnly$delegate$lambda(this));
+    tmp.w2g_1 = lazy(IndeterminateList$isOddOnly$delegate$lambda(this));
     var tmp_0 = this;
-    tmp_0.b2h_1 = lazy(IndeterminateList$degreeSumAsInt$delegate$lambda(this));
+    tmp_0.x2g_1 = lazy(IndeterminateList$degreeSumAsInt$delegate$lambda(this));
   }
   IndeterminateList.prototype.y1j = function () {
-    return this.x2g_1;
+    return this.t2g_1;
   };
-  IndeterminateList.prototype.v2h = function () {
-    return this.y2g_1;
+  IndeterminateList.prototype.r2h = function () {
+    return this.u2g_1;
   };
-  IndeterminateList.prototype.d2h = function () {
-    return this.y2g_1;
+  IndeterminateList.prototype.z2g = function () {
+    return this.u2g_1;
   };
   IndeterminateList.prototype.i = function () {
-    return this.y2g_1.i();
+    return this.u2g_1.i();
   };
-  IndeterminateList.prototype.w2h = function (list) {
-    return zip(this.y2g_1, list);
+  IndeterminateList.prototype.s2h = function (list) {
+    return zip(this.u2g_1, list);
   };
-  IndeterminateList.prototype.g2h = function (transform) {
+  IndeterminateList.prototype.c2h = function (transform) {
     var tmp$ret$1;
     // Inline function 'kotlin.collections.map' call
-    var tmp0_map = this.y2g_1;
+    var tmp0_map = this.u2g_1;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mapTo' call
     var tmp0_mapTo = ArrayList_init_$Create$(collectionSizeOrDefault(tmp0_map, 10));
@@ -13266,7 +13266,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$1 = tmp$ret$0;
     return tmp$ret$1;
   };
-  IndeterminateList.prototype.x2h = function (transform) {
+  IndeterminateList.prototype.t2h = function (transform) {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.List' call
     var tmp0_List = this.i();
@@ -13283,7 +13283,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
         // Inline function 'kotlin.collections.MutableList.<anonymous>' call
         var tmp$ret$0;
         // Inline function 'com.github.shwaka.kohomology.free.monoid.IndeterminateList.mapIndexed.<anonymous>' call
-        tmp$ret$0 = transform(index, this.y2g_1.l(index));
+        tmp$ret$0 = transform(index, this.u2g_1.l(index));
         list.a(tmp$ret$0);
       }
        while (inductionVariable < tmp0_List);
@@ -13292,28 +13292,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$2;
   };
   IndeterminateList.prototype.l = function (index) {
-    return this.y2g_1.l(index);
+    return this.u2g_1.l(index);
   };
-  IndeterminateList.prototype.y2h = function (separator, transform) {
-    return joinToString$default(this.y2g_1, separator, null, null, 0, null, transform, 30, null);
+  IndeterminateList.prototype.u2h = function (separator, transform) {
+    return joinToString$default(this.u2g_1, separator, null, null, 0, null, transform, 30, null);
   };
-  IndeterminateList.prototype.n2h = function (separator, transform, $mask0, $handler) {
+  IndeterminateList.prototype.j2h = function (separator, transform, $mask0, $handler) {
     if (!(($mask0 & 2) === 0))
       transform = null;
-    return this.y2h(separator, transform);
+    return this.u2h(separator, transform);
   };
-  IndeterminateList.prototype.f2h = function () {
+  IndeterminateList.prototype.b2h = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = isOddOnly$factory();
-    tmp$ret$0 = this.a2h_1.f1();
+    tmp$ret$0 = this.w2g_1.f1();
     return tmp$ret$0;
   };
-  IndeterminateList.prototype.e2h = function () {
+  IndeterminateList.prototype.a2h = function () {
     var tmp$ret$0;
     // Inline function 'kotlin.getValue' call
     var tmp0_getValue = degreeSumAsInt$factory();
-    tmp$ret$0 = this.b2h_1.f1();
+    tmp$ret$0 = this.x2g_1.f1();
     return tmp$ret$0;
   };
   IndeterminateList.prototype.equals = function (other) {
@@ -13327,19 +13327,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       other;
     else
       THROW_CCE();
-    if (!equals(this.y2g_1, other.y2g_1))
+    if (!equals(this.u2g_1, other.u2g_1))
       return false;
     return true;
   };
   IndeterminateList.prototype.hashCode = function () {
-    return hashCode(this.y2g_1);
+    return hashCode(this.u2g_1);
   };
   IndeterminateList.$metadata$ = classMeta('IndeterminateList');
   function PositiveIndeterminateList(degreeGroup, rawList) {
     IndeterminateList.call(this, degreeGroup, rawList);
     var tmp$ret$0;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.x2g_1.c1j();
+    var tmp0_run = this.t2g_1.c1j();
     // Inline function 'kotlin.contracts.contract' call
     var tmp0_iterator = rawList.f();
     while (tmp0_iterator.g()) {
@@ -13349,10 +13349,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     tmp$ret$0 = Unit_getInstance();
   }
-  PositiveIndeterminateList.prototype.z2h = function (degree) {
+  PositiveIndeterminateList.prototype.v2h = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.x2g_1.c1j();
+    var tmp0_run = this.t2g_1.c1j();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.PositiveIndeterminateList.isAllowedDegree.<anonymous>' call
@@ -13365,7 +13365,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     IndeterminateList.call(this, degreeGroup, rawList);
     var tmp$ret$0;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.x2g_1.c1j();
+    var tmp0_run = this.t2g_1.c1j();
     // Inline function 'kotlin.contracts.contract' call
     var tmp0_iterator = rawList.f();
     while (tmp0_iterator.g()) {
@@ -13375,10 +13375,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     tmp$ret$0 = Unit_getInstance();
   }
-  NegativeIndeterminateList.prototype.z2h = function (degree) {
+  NegativeIndeterminateList.prototype.v2h = function (degree) {
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
-    var tmp0_run = this.x2g_1.c1j();
+    var tmp0_run = this.t2g_1.c1j();
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$0;
     // Inline function 'com.github.shwaka.kohomology.free.monoid.NegativeIndeterminateList.isAllowedDegree.<anonymous>' call
@@ -13389,16 +13389,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   NegativeIndeterminateList.$metadata$ = classMeta('NegativeIndeterminateList', undefined, undefined, undefined, undefined, IndeterminateList.prototype);
   function isOddOnly$factory() {
     return getPropertyCallableRef('isOddOnly', 1, KProperty1, function (receiver) {
-      return receiver.f2h();
+      return receiver.b2h();
     }, null);
   }
   function degreeSumAsInt$factory() {
     return getPropertyCallableRef('degreeSumAsInt', 1, KProperty1, function (receiver) {
-      return receiver.e2h();
+      return receiver.a2h();
     }, null);
   }
   function Monomial_init_$Init$(degreeGroup, indeterminateList, exponentList, $this) {
-    Monomial.call($this, degreeGroup, Companion_getInstance_50().h2h(degreeGroup, indeterminateList), toIntArray(exponentList));
+    Monomial.call($this, degreeGroup, Companion_getInstance_50().d2h(degreeGroup, indeterminateList), toIntArray(exponentList));
     return $this;
   }
   function Monomial_init_$Create$(degreeGroup, indeterminateList, exponentList) {
@@ -13407,7 +13407,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function Companion_50() {
     Companion_instance_50 = this;
   }
-  Companion_50.prototype.i2h = function (degreeGroup, indeterminateList) {
+  Companion_50.prototype.e2h = function (degreeGroup, indeterminateList) {
     var tmp = 0;
     var tmp_0 = indeterminateList.i();
     var tmp_1 = new Int32Array(tmp_0);
@@ -13455,7 +13455,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'kotlin.collections.map' call
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
-    var tmp0_filter = $this.m29_1.w2h(toList_0($this.n29_1));
+    var tmp0_filter = $this.m29_1.s2h(toList_0($this.n29_1));
     var tmp$ret$1;
     // Inline function 'kotlin.collections.filterTo' call
     var tmp0_filterTo = ArrayList_init_$Create$_0();
@@ -13504,7 +13504,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.free.monoid.Monomial.degree$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.t22(this$0.m29_1.x2h(Monomial$degree$delegate$lambda$lambda(tmp0_run, this$0)));
+      tmp$ret$0 = tmp0_run.t22(this$0.m29_1.t2h(Monomial$degree$delegate$lambda$lambda(tmp0_run, this$0)));
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
@@ -13527,7 +13527,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var tmp = this;
     tmp.o29_1 = lazy(Monomial$degree$delegate$lambda(this));
   }
-  Monomial.prototype.k2i = function () {
+  Monomial.prototype.g2i = function () {
     return this.n29_1;
   };
   Monomial.prototype.q1n = function () {
@@ -13537,7 +13537,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$0 = this.o29_1.f1();
     return tmp$ret$0;
   };
-  Monomial.prototype.l2i = function (index) {
+  Monomial.prototype.h2i = function (index) {
     if (this.m29_1.l(index).q29_1.f22() ? this.n29_1[index] === 1 : false)
       return null;
     var tmp = 0;
@@ -13592,32 +13592,35 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return receiver.q1n();
     }, null);
   }
+  function MonomialListGenerator() {
+  }
+  MonomialListGenerator.$metadata$ = interfaceMeta('MonomialListGenerator');
   function listMonomialsInternal($this, degree, index) {
-    if (index < 0 ? true : index > $this.t2g_1.i())
+    if (index < 0 ? true : index > $this.j2i_1.i())
       throw Exception_init_$Create$("This can't happen! (illegal index: " + index + ')');
-    if (index === $this.t2g_1.i()) {
-      return degree.dj() ? listOf($this.v2g_1) : emptyList();
+    if (index === $this.j2i_1.i()) {
+      return degree.dj() ? listOf($this.l2i_1) : emptyList();
     }
     var cacheKey = new Pair(degree, index);
     var tmp$ret$7;
     // Inline function 'kotlin.collections.getOrPut' call
-    var tmp0_getOrPut = $this.u2g_1;
+    var tmp0_getOrPut = $this.k2i_1;
     var value = tmp0_getOrPut.t(cacheKey);
     var tmp;
     if (value == null) {
       var tmp$ret$6;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>' call
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGeneratorBasic.listMonomialsInternal.<anonymous>' call
       var tmp$ret$1;
       // Inline function 'kotlin.run' call
-      var tmp0_run = $this.s2g_1.c1j();
+      var tmp0_run = $this.i2i_1.c1j();
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
-      // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>.<anonymous>' call
-      tmp$ret$0 = tmp0_run.f1u(degree, $this.t2g_1.l(index).q29_1);
+      // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGeneratorBasic.listMonomialsInternal.<anonymous>.<anonymous>' call
+      tmp$ret$0 = tmp0_run.f1u(degree, $this.j2i_1.l(index).q29_1);
       tmp$ret$1 = tmp$ret$0;
       var newDegree = tmp$ret$1;
       var tmp_0;
-      if ($this.t2g_1.z2h(newDegree)) {
+      if ($this.j2i_1.v2h(newDegree)) {
         var tmp$ret$5;
         // Inline function 'kotlin.collections.mapNotNull' call
         var tmp1_mapNotNull = listMonomialsInternal($this, newDegree, index);
@@ -13630,8 +13633,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
           var element = tmp0_iterator.h();
           // Inline function 'kotlin.collections.mapNotNullTo.<anonymous>' call
           var tmp$ret$2;
-          // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGenerator.listMonomialsInternal.<anonymous>.<anonymous>' call
-          tmp$ret$2 = element.l2i(index);
+          // Inline function 'com.github.shwaka.kohomology.free.monoid.MonomialListGeneratorBasic.listMonomialsInternal.<anonymous>.<anonymous>' call
+          tmp$ret$2 = element.h2i(index);
           var tmp0_safe_receiver = tmp$ret$2;
           if (tmp0_safe_receiver == null)
             null;
@@ -13661,28 +13664,28 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$7 = tmp;
     return tmp$ret$7;
   }
-  function MonomialListGenerator(degreeGroup, indeterminateList) {
-    this.s2g_1 = degreeGroup;
-    this.t2g_1 = indeterminateList;
+  function MonomialListGeneratorBasic(degreeGroup, indeterminateList) {
+    this.i2i_1 = degreeGroup;
+    this.j2i_1 = indeterminateList;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
     tmp$ret$0 = LinkedHashMap_init_$Create$();
-    tmp.u2g_1 = tmp$ret$0;
-    this.v2g_1 = Companion_getInstance_51().i2h(this.s2g_1, this.t2g_1);
+    tmp.k2i_1 = tmp$ret$0;
+    this.l2i_1 = Companion_getInstance_51().e2h(this.i2i_1, this.j2i_1);
   }
-  MonomialListGenerator.prototype.y1j = function () {
-    return this.s2g_1;
+  MonomialListGeneratorBasic.prototype.y1j = function () {
+    return this.i2i_1;
   };
-  MonomialListGenerator.prototype.t23 = function () {
-    return this.t2g_1;
+  MonomialListGeneratorBasic.prototype.t23 = function () {
+    return this.j2i_1;
   };
-  MonomialListGenerator.prototype.w2g = function (degree) {
-    if (!this.t2g_1.z2h(degree))
+  MonomialListGeneratorBasic.prototype.s2g = function (degree) {
+    if (!this.j2i_1.v2h(degree))
       return emptyList();
     return listMonomialsInternal(this, degree, 0);
   };
-  MonomialListGenerator.$metadata$ = classMeta('MonomialListGenerator');
+  MonomialListGeneratorBasic.$metadata$ = classMeta('MonomialListGeneratorBasic', [MonomialListGenerator]);
   function Companion_51() {
     Companion_instance_51 = this;
   }
@@ -14447,7 +14450,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       var item = tmp0_iterator.h();
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseMatrixSpace.fromNumVectorList.<anonymous>' call
-      tmp$ret$0 = item.d2h();
+      tmp$ret$0 = item.z2g();
       tmp0_mapTo.a(tmp$ret$0);
     }
     tmp$ret$1 = tmp0_mapTo;
@@ -14923,7 +14926,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     }
     return tmp$ret$0;
   };
-  DenseNumVector.prototype.d2h = function () {
+  DenseNumVector.prototype.z2g = function () {
     return this.h2l_1;
   };
   DenseNumVector.prototype.a2n = function () {
@@ -15183,7 +15186,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       // Inline function 'kotlin.contracts.contract' call
       var tmp$ret$0;
       // Inline function 'com.github.shwaka.kohomology.linalg.DenseRowEchelonForm.data$delegate.<anonymous>.<anonymous>' call
-      tmp$ret$0 = rowEchelonForm(this$0.k2j_1.d2h(), this$0);
+      tmp$ret$0 = rowEchelonForm(this$0.k2j_1.z2g(), this$0);
       tmp$ret$1 = tmp$ret$0;
       return tmp$ret$1;
     };
@@ -16882,7 +16885,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     result = imul(31, result) + this.k2p_1 | 0;
     return result;
   };
-  SparseNumVector.prototype.d2h = function () {
+  SparseNumVector.prototype.z2g = function () {
     var tmp$ret$2;
     // Inline function 'kotlin.collections.map' call
     var tmp0_map = until(0, this.k2p_1);
@@ -19370,7 +19373,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Sign(name, ordinal, intValue) {
     Enum.call(this, name, ordinal);
-    this.m2h_1 = intValue;
+    this.i2h_1 = intValue;
   }
   Sign.prototype.a6 = function () {
     var tmp0_subject = this;
@@ -22325,7 +22328,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'kotlin.contracts.contract' call
     var tmp$ret$4;
     // Inline function 'com.github.shwaka.kohomology.vectsp.Vector.print.<anonymous>' call
-    var coeffList = this.m1u_1.d2h();
+    var coeffList = this.m1u_1.z2g();
     var tmp$ret$2;
     // Inline function 'kotlin.collections.filter' call
     var tmp0_filter = zip(coeffList, this.n1u_1.d1v());
@@ -22827,7 +22830,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   DenseMatrixSpace.prototype.c2m = getIdentity;
   DenseMatrixSpace.prototype.a2m = fromColList;
   DenseMatrixSpace.prototype.d2m = fromColMap;
-  DenseMatrix.prototype.d2h = toList_2;
+  DenseMatrix.prototype.z2g = toList_2;
   DenseMatrix.prototype.g2m = toNumVectorList;
   DenseNumVectorSpace.prototype.x2m = getOneAtIndex;
   DenseNumVectorSpace.prototype.y2m = fromReducedValueMap;

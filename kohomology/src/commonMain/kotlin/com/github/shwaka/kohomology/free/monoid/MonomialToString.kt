@@ -6,6 +6,23 @@ internal data class Power<I : IndeterminateName>(
     val indeterminateName: I,
     val exponent: Int,
 ) {
+    fun toString(
+        printType: PrintType,
+        indeterminateNameToString: (IndeterminateName) -> String,
+    ): String {
+        return when (exponent) {
+            0 -> throw Exception("This can't happen!")
+            1 -> indeterminateNameToString(indeterminateName)
+            else -> {
+                val exponentStr = when (printType) {
+                    PrintType.PLAIN, PrintType.CODE -> exponent.toString()
+                    PrintType.TEX -> "{$exponent}"
+                }
+                "${indeterminateNameToString(indeterminateName)}^$exponentStr"
+            }
+        }
+    }
+
     companion object {
         operator fun invoke(indeterminateName: String, exponent: Int): Power<StringIndeterminateName> {
             return Power(StringIndeterminateName(indeterminateName), exponent)
@@ -28,19 +45,7 @@ internal fun <I : IndeterminateName> monomialToString(
     }
     return powerList
         .filter { (_, exponent: Int) -> exponent != 0 }
-        .joinToString(separator) { (indeterminateName: I, exponent: Int) ->
-            when (exponent) {
-                0 -> throw Exception("This can't happen!")
-                1 -> indeterminateNameToString(indeterminateName)
-                else -> {
-                    val exponentStr = when (printType) {
-                        PrintType.PLAIN, PrintType.CODE -> exponent.toString()
-                        PrintType.TEX -> "{$exponent}"
-                    }
-                    "${indeterminateNameToString(indeterminateName)}^$exponentStr"
-                }
-            }
-        }
+        .joinToString(separator) { power -> power.toString(printType, indeterminateNameToString) }
 }
 
 internal fun <I : IndeterminateName> toPowerList(word: List<I>): List<Power<I>> {

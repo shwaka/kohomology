@@ -106,12 +106,12 @@ public class FreeGMonoid<D : Degree, I : IndeterminateName> (
         }
     }
 
-    private val monomialListGeneratorWithAugmentedDegree by lazy {
+    private val monomialListGeneratorWithAugmentedDegree: MonomialListGenerator<IntDegree, I> by lazy {
         val indeterminateRawList: List<Indeterminate<IntDegree, I>> = this.indeterminateListInternal.map { indeterminate ->
             Indeterminate(indeterminate.name, this.degreeGroup.augmentation(indeterminate.degree))
         }
         val indeterminateListWithAugDeg = IndeterminateList.from(IntDegreeGroup, indeterminateRawList)
-        MonomialListGenerator(IntDegreeGroup, indeterminateListWithAugDeg)
+        MonomialListGeneratorBasic(IntDegreeGroup, indeterminateListWithAugDeg)
     }
 
     private fun listElementsForAugmentedDegree(augmentedDegree: Int): List<Monomial<D, I>> {

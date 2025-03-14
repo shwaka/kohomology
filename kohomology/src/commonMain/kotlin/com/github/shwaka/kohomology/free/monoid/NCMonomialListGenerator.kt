@@ -10,7 +10,7 @@ internal class NCMonomialListGenerator<D : Degree, I : IndeterminateName>(
 ) {
     private val cache: MutableMap<D, List<NCMonomial<D, I>>> = mutableMapOf()
     private val monomialListGenerator: MonomialListGenerator<D, I> =
-        MonomialListGenerator(degreeGroup, indeterminateList)
+        MonomialListGeneratorBasic(degreeGroup, indeterminateList)
 
     fun listNCMonomials(degree: D): List<NCMonomial<D, I>> {
         return this.cache.getOrPut(degree) {

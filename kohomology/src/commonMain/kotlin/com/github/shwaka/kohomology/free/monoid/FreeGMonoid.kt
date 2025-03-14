@@ -26,7 +26,7 @@ public class FreeGMonoid<D : Degree, I : IndeterminateName> (
     public companion object {
         public operator fun <I : IndeterminateName> invoke(
             indeterminateList: List<Indeterminate<IntDegree, I>>
-        ): GMonoid<IntDegree, Monomial<IntDegree, I>> {
+        ): FreeGMonoid<IntDegree, I> {
             return FreeGMonoid(IntDegreeGroup, indeterminateList)
         }
     }

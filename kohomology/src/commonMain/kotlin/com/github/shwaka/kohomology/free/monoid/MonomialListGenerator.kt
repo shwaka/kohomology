@@ -11,11 +11,7 @@ internal class MonomialListGenerator<D : Degree, I : IndeterminateName>(
     // (degree: D, index: Int) -> List<Monomial<D, I>>
     private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
 
-    private val unit: Monomial<D, I> = Monomial(
-        this.degreeGroup,
-        this.indeterminateList,
-        IntArray(this.indeterminateList.size) { 0 }
-    )
+    private val unit: Monomial<D, I> = Monomial.unit(this.degreeGroup, this.indeterminateList)
 
     fun listMonomials(degree: D): List<Monomial<D, I>> {
         if (!this.indeterminateList.isAllowedDegree(degree))

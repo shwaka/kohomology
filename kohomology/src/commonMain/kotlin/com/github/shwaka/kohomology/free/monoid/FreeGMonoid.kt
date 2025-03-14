@@ -31,7 +31,7 @@ public class FreeGMonoid<D : Degree, I : IndeterminateName> (
         }
     }
 
-    override val unit: Monomial<D, I> = Monomial(this.degreeGroup, this.indeterminateListInternal, IntArray(this.indeterminateListInternal.size) { 0 })
+    override val unit: Monomial<D, I> = Monomial.unit(this.degreeGroup, this.indeterminateListInternal)
     override val isCommutative: Boolean = true
     override val boundedness: Boundedness by lazy {
         val bound: Int? = if (this.indeterminateListInternal.isOddOnly) {

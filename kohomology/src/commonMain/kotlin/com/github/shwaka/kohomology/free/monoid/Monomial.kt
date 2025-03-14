@@ -38,6 +38,13 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
             return Monomial(IntDegreeGroup, IndeterminateList.from(IntDegreeGroup, indeterminateList), exponentList.toIntArray())
         }
 
+        internal fun <D : Degree, I : IndeterminateName> unit(
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: IndeterminateList<D, I>,
+        ): Monomial<D, I> {
+            return Monomial(degreeGroup, indeterminateList, IntArray(indeterminateList.size) { 0 })
+        }
+
         public fun <D : Degree, I : IndeterminateName> fromIndeterminate(
             degreeGroup: AugmentedDegreeGroup<D>,
             indeterminateList: List<Indeterminate<D, I>>,

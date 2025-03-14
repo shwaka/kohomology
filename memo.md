@@ -67,6 +67,8 @@ cd kohomology/kohomology
 ./gradlew publishAllPublicationsToBenchmarkRepository
 cd ../profile
 ./gradlew benchmark
+./gradlew benchmark -DbenchmarkTarget=NonCIBenchmark # filter benchmark target with class name
+./gradlew benchmark -DbenchmarkTarget=computeReducedRowEchelonFormOverRational # filter benchmark target with method name
 ```
 
 ### Profiling

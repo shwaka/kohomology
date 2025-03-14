@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1741969432360,
+  "lastUpdate": 1741970502619,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5354,6 +5354,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.616,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "26bc74ee05544a04bd3ebaea8ed5fc26ce70572b",
+          "message": "refactor(core): use MonomialListGeneratorAugmented in FreeGMonoid",
+          "timestamp": "2025-03-15T01:35:24+09:00",
+          "tree_id": "5be671f78da9cf6eb4837078e1855b03d4c14985",
+          "url": "https://github.com/shwaka/kohomology/commit/26bc74ee05544a04bd3ebaea8ed5fc26ce70572b"
+        },
+        "date": 1741970501629,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.448,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.515,
             "unit": "s/op"
           }
         ]

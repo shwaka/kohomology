@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.profile
 
+import com.github.shwaka.kohomology.profile.executable.ComputeMonomialListAugmented
 import com.github.shwaka.kohomology.profile.executable.ComputeMonomialListBasic
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
@@ -35,6 +36,13 @@ class NonCIBenchmark {
     @Benchmark
     fun computeMonomialListBasic(): String {
         val executable = ComputeMonomialListBasic(30)
+        executable.setup()
+        return executable.main()
+    }
+
+    @Benchmark
+    fun computeMonomialListAugmented(): String {
+        val executable = ComputeMonomialListAugmented(30)
         executable.setup()
         return executable.main()
     }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742115987209,
+  "lastUpdate": 1742136684590,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5456,6 +5456,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.53,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "29409fbc7cd1ceb3ea681b6aa134daff7cd212c4",
+          "message": "test(core): use toSet in MonomialListGeneratorTest",
+          "timestamp": "2025-03-16T23:45:47+09:00",
+          "tree_id": "e92fab72f1bae71ab174d9a618735947c75f18ca",
+          "url": "https://github.com/shwaka/kohomology/commit/29409fbc7cd1ceb3ea681b6aa134daff7cd212c4"
+        },
+        "date": 1742136683622,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.54,
             "unit": "s/op"
           }
         ]

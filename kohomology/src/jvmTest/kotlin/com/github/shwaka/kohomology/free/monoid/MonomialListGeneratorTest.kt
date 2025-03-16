@@ -1,8 +1,11 @@
 package com.github.shwaka.kohomology.free.monoid
 
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.dg.degree.MultiDegree
+import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.forAll
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
@@ -63,10 +66,39 @@ private fun monomialListGeneratorTestOverIntDegree(
     }
 }
 
+private fun monomialListGeneratorTestOverMultiDegree(
+    getMonomialListGenerator: GetMonomialListGenerator<MultiDegree, StringIndeterminateName>,
+) = freeSpec {
+    "test monomialListGenerator over MultiDegree" - {
+        "free monoid with two generators of even degree" {
+            val degreeGroup = MultiDegreeGroup(listOf(DegreeIndeterminate("S", 1)))
+            val indeterminateList = IndeterminateList.from(
+                degreeGroup,
+                listOf(
+                    Indeterminate("x", degreeGroup.fromList(listOf(2, 0))),
+                    Indeterminate("y", degreeGroup.fromList(listOf(0, 2))),
+                )
+            )
+            val monomialListGenerator = getMonomialListGenerator(degreeGroup, indeterminateList)
+            (0..10).forAll { n ->
+                (0..10).forAll { m ->
+                    monomialListGenerator.listMonomials(
+                        degreeGroup.fromList(listOf(2 * n, 2 * m))
+                    ) shouldHaveSize 1
+                }
+            }
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 0))).map { it.toString() } shouldBe
+                listOf("x")
+        }
+    }
+}
+
 class MonomialListGeneratorBasicTest : FreeSpec({
     include(monomialListGeneratorTestOverIntDegree(::MonomialListGeneratorBasic))
+    include(monomialListGeneratorTestOverMultiDegree(::MonomialListGeneratorBasic))
 })
 
 class MonomialListGeneratorAugmentedTest : FreeSpec({
     include(monomialListGeneratorTestOverIntDegree(::MonomialListGeneratorAugmented))
+    include(monomialListGeneratorTestOverMultiDegree(::MonomialListGeneratorAugmented))
 })

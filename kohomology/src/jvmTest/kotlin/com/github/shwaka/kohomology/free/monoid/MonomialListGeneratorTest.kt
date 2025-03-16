@@ -24,6 +24,8 @@ private fun monomialListGeneratorTestOverIntDegree(
                 )
             )
             val monomialListGenerator = getMonomialListGenerator(IntDegreeGroup, indeterminateList)
+            monomialListGenerator.listMonomials(IntDegree(0)) shouldHaveSize 1
+            monomialListGenerator.listMonomials(IntDegree(1)) shouldHaveSize 0
             monomialListGenerator.listMonomials(IntDegree(2)) shouldHaveSize 2
             monomialListGenerator.listMonomials(IntDegree(3)) shouldHaveSize 0
             monomialListGenerator.listMonomials(IntDegree(4)) shouldHaveSize 3
@@ -35,6 +37,31 @@ private fun monomialListGeneratorTestOverIntDegree(
                 listOf("x^2", "xy", "y^2")
             monomialListGenerator.listMonomials(IntDegree(6)).map { it.toString() } shouldBe
                 listOf("x^3", "x^2y", "xy^2", "y^3")
+        }
+
+        "free monoid with two generators of odd degree" {
+            val indeterminateList = IndeterminateList.from(
+                IntDegreeGroup,
+                listOf(
+                    Indeterminate("x", 3),
+                    Indeterminate("y", 3),
+                )
+            )
+            val monomialListGenerator = getMonomialListGenerator(IntDegreeGroup, indeterminateList)
+            monomialListGenerator.listMonomials(IntDegree(0)) shouldHaveSize 1
+            monomialListGenerator.listMonomials(IntDegree(1)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(2)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(3)) shouldHaveSize 2
+            monomialListGenerator.listMonomials(IntDegree(4)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(5)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(6)) shouldHaveSize 1
+            monomialListGenerator.listMonomials(IntDegree(7)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(8)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(9)) shouldHaveSize 0
+            monomialListGenerator.listMonomials(IntDegree(3)).map { it.toString() } shouldBe
+                listOf("x", "y")
+            monomialListGenerator.listMonomials(IntDegree(6)).map { it.toString() } shouldBe
+                listOf("xy")
         }
     }
 }

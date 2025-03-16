@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1741972362531,
+  "lastUpdate": 1742115987209,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5422,6 +5422,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.458,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f8d3cdefc2306e74bf8bcacdae760dec047993bb",
+          "message": "test(core): improve MonomialListGeneratorTest by using forAll",
+          "timestamp": "2025-03-16T17:59:55+09:00",
+          "tree_id": "2113c054bc55fb526b660f9f84f346dbd7981e09",
+          "url": "https://github.com/shwaka/kohomology/commit/f8d3cdefc2306e74bf8bcacdae760dec047993bb"
+        },
+        "date": 1742115986697,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.425,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.53,
             "unit": "s/op"
           }
         ]

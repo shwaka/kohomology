@@ -11,6 +11,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import kotlin.math.min
 
 private typealias GetMonomialListGenerator<D, I> =
     (AugmentedDegreeGroup<D>, IndeterminateList<D, I>) -> MonomialListGenerator<D, I>
@@ -89,6 +90,38 @@ private fun monomialListGeneratorTestOverMultiDegree(
             }
             monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 0))).map { it.toString() } shouldBe
                 listOf("x")
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(0, 2))).map { it.toString() } shouldBe
+                listOf("y")
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 2))).map { it.toString() } shouldBe
+                listOf("xy")
+        }
+
+        "free monoid with three generators of even degree" {
+            val degreeGroup = MultiDegreeGroup(listOf(DegreeIndeterminate("S", 1)))
+            val indeterminateList = IndeterminateList.from(
+                degreeGroup,
+                listOf(
+                    Indeterminate("x", degreeGroup.fromList(listOf(2, 0))),
+                    Indeterminate("y", degreeGroup.fromList(listOf(2, 2))),
+                    Indeterminate("z", degreeGroup.fromList(listOf(0, 2))),
+                )
+            )
+            val monomialListGenerator = getMonomialListGenerator(degreeGroup, indeterminateList)
+            (0..10).forAll { n ->
+                (0..10).forAll { m ->
+                    monomialListGenerator.listMonomials(
+                        degreeGroup.fromList(listOf(2 * n, 2 * m))
+                    ) shouldHaveSize (min(n, m) + 1)
+                }
+            }
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 0))).map { it.toString() } shouldBe
+                listOf("x")
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 2))).map { it.toString() } shouldBe
+                listOf("xz", "y")
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(0, 2))).map { it.toString() } shouldBe
+                listOf("z")
+            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(4, 2))).map { it.toString() }.toSet() shouldBe
+                setOf("xy", "x^2z")
         }
     }
 }

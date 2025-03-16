@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.free.monoid
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.forAll
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldHaveSize
@@ -24,13 +25,12 @@ private fun monomialListGeneratorTestOverIntDegree(
                 )
             )
             val monomialListGenerator = getMonomialListGenerator(IntDegreeGroup, indeterminateList)
-            monomialListGenerator.listMonomials(IntDegree(0)) shouldHaveSize 1
-            monomialListGenerator.listMonomials(IntDegree(1)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(2)) shouldHaveSize 2
-            monomialListGenerator.listMonomials(IntDegree(3)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(4)) shouldHaveSize 3
-            monomialListGenerator.listMonomials(IntDegree(5)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(6)) shouldHaveSize 4
+            (0..10).forAll { n ->
+                monomialListGenerator.listMonomials(IntDegree(n)) shouldHaveSize when {
+                    n.mod(2) == 1 -> 0
+                    else -> n / 2 + 1
+                }
+            }
             monomialListGenerator.listMonomials(IntDegree(2)).map { it.toString() } shouldBe
                 listOf("x", "y")
             monomialListGenerator.listMonomials(IntDegree(4)).map { it.toString() } shouldBe
@@ -48,16 +48,13 @@ private fun monomialListGeneratorTestOverIntDegree(
                 )
             )
             val monomialListGenerator = getMonomialListGenerator(IntDegreeGroup, indeterminateList)
-            monomialListGenerator.listMonomials(IntDegree(0)) shouldHaveSize 1
-            monomialListGenerator.listMonomials(IntDegree(1)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(2)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(3)) shouldHaveSize 2
-            monomialListGenerator.listMonomials(IntDegree(4)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(5)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(6)) shouldHaveSize 1
-            monomialListGenerator.listMonomials(IntDegree(7)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(8)) shouldHaveSize 0
-            monomialListGenerator.listMonomials(IntDegree(9)) shouldHaveSize 0
+            (0..10).forAll { n ->
+                monomialListGenerator.listMonomials(IntDegree(n)) shouldHaveSize when (n) {
+                    0, 6 -> 1
+                    3 -> 2
+                    else -> 0
+                }
+            }
             monomialListGenerator.listMonomials(IntDegree(3)).map { it.toString() } shouldBe
                 listOf("x", "y")
             monomialListGenerator.listMonomials(IntDegree(6)).map { it.toString() } shouldBe

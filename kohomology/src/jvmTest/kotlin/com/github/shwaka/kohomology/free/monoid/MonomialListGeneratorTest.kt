@@ -73,54 +73,56 @@ private fun monomialListGeneratorTestOverMultiDegree(
     "test monomialListGenerator over MultiDegree" - {
         "free monoid with two generators of even degree" {
             val degreeGroup = MultiDegreeGroup(listOf(DegreeIndeterminate("S", 1)))
+            fun getDegree(a: Int, b: Int): MultiDegree = degreeGroup.fromList(listOf(a, b))
             val indeterminateList = IndeterminateList.from(
                 degreeGroup,
                 listOf(
-                    Indeterminate("x", degreeGroup.fromList(listOf(2, 0))),
-                    Indeterminate("y", degreeGroup.fromList(listOf(0, 2))),
+                    Indeterminate("x", getDegree(2, 0)),
+                    Indeterminate("y", getDegree(0, 2)),
                 )
             )
             val monomialListGenerator = getMonomialListGenerator(degreeGroup, indeterminateList)
             (0..10).forAll { n ->
                 (0..10).forAll { m ->
                     monomialListGenerator.listMonomials(
-                        degreeGroup.fromList(listOf(2 * n, 2 * m))
+                        getDegree(2 * n, 2 * m)
                     ) shouldHaveSize 1
                 }
             }
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 0))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(2, 0)).map { it.toString() } shouldBe
                 listOf("x")
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(0, 2))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(0, 2)).map { it.toString() } shouldBe
                 listOf("y")
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 2))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(2, 2)).map { it.toString() } shouldBe
                 listOf("xy")
         }
 
         "free monoid with three generators of even degree" {
             val degreeGroup = MultiDegreeGroup(listOf(DegreeIndeterminate("S", 1)))
+            fun getDegree(a: Int, b: Int): MultiDegree = degreeGroup.fromList(listOf(a, b))
             val indeterminateList = IndeterminateList.from(
                 degreeGroup,
                 listOf(
-                    Indeterminate("x", degreeGroup.fromList(listOf(2, 0))),
-                    Indeterminate("y", degreeGroup.fromList(listOf(2, 2))),
-                    Indeterminate("z", degreeGroup.fromList(listOf(0, 2))),
+                    Indeterminate("x", getDegree(2, 0)),
+                    Indeterminate("y", getDegree(2, 2)),
+                    Indeterminate("z", getDegree(0, 2)),
                 )
             )
             val monomialListGenerator = getMonomialListGenerator(degreeGroup, indeterminateList)
             (0..10).forAll { n ->
                 (0..10).forAll { m ->
                     monomialListGenerator.listMonomials(
-                        degreeGroup.fromList(listOf(2 * n, 2 * m))
+                        getDegree(2 * n, 2 * m)
                     ) shouldHaveSize (min(n, m) + 1)
                 }
             }
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 0))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(2, 0)).map { it.toString() } shouldBe
                 listOf("x")
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(2, 2))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(2, 2)).map { it.toString() } shouldBe
                 listOf("xz", "y")
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(0, 2))).map { it.toString() } shouldBe
+            monomialListGenerator.listMonomials(getDegree(0, 2)).map { it.toString() } shouldBe
                 listOf("z")
-            monomialListGenerator.listMonomials(degreeGroup.fromList(listOf(4, 2))).map { it.toString() }.toSet() shouldBe
+            monomialListGenerator.listMonomials(getDegree(4, 2)).map { it.toString() }.toSet() shouldBe
                 setOf("xy", "x^2z")
         }
     }

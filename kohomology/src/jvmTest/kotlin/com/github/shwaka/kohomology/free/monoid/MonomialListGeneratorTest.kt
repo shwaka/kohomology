@@ -63,10 +63,10 @@ private fun monomialListGeneratorTestOverIntDegree(
     }
 }
 
-class MonomialListGeneratorTest : FreeSpec({
-    include(
-        monomialListGeneratorTestOverIntDegree { degreeGroup, indeterminateList ->
-            MonomialListGeneratorBasic(degreeGroup, indeterminateList)
-        }
-    )
+class MonomialListGeneratorBasicTest : FreeSpec({
+    include(monomialListGeneratorTestOverIntDegree(::MonomialListGeneratorBasic))
+})
+
+class MonomialListGeneratorAugmentedTest : FreeSpec({
+    include(monomialListGeneratorTestOverIntDegree(::MonomialListGeneratorAugmented))
 })

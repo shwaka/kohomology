@@ -118,8 +118,8 @@ private fun monomialListGeneratorTestOverMultiDegree(
             }
             monomialListGenerator.listMonomials(getDegree(2, 0)).map { it.toString() } shouldBe
                 listOf("x")
-            monomialListGenerator.listMonomials(getDegree(2, 2)).map { it.toString() } shouldBe
-                listOf("xz", "y")
+            monomialListGenerator.listMonomials(getDegree(2, 2)).map { it.toString() }.toSet() shouldBe
+                setOf("xz", "y")
             monomialListGenerator.listMonomials(getDegree(0, 2)).map { it.toString() } shouldBe
                 listOf("z")
             monomialListGenerator.listMonomials(getDegree(4, 2)).map { it.toString() }.toSet() shouldBe

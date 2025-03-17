@@ -37,7 +37,7 @@ import kotlin.math.absoluteValue
 
 val freeGAlgebraTag = NamedTag("FreeGAlgebra")
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "FreeGAlgebra should work well even when the list of generator is empty" {
         val indeterminateList = listOf<Indeterminate<IntDegree, StringIndeterminateName>>()
         val freeGAlgebra = shouldNotThrowAny {
@@ -48,7 +48,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int, maxPolynomialLength: Int = 5) = freeSpec {
     "[polynomial, deg=$generatorDegree]" - {
         if (generatorDegree == 0)
             throw IllegalArgumentException("Invalid test parameter: generatorDegree must be non-zero")
@@ -205,7 +205,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> polynomialTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: MatrixSpace<S, V, M>, generatorDegree: Int) = freeSpec {
     "[exterior, deg=$generatorDegree]" - {
         if (generatorDegree % 2 == 0)
             throw IllegalArgumentException("Invalid test parameter: generatorDegree must be odd")
@@ -285,7 +285,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> exteriorTest(matrixSpace: M
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "derivation test (2-dim sphere)" {
         val indeterminateList = listOf(
             Indeterminate("x", 2),
@@ -355,7 +355,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> derivationTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "getAlgebraMap should throw IllegalArgumentException when an element of invalid degree is given" {
         val indeterminateList = listOf(
             Indeterminate("x", 2),
@@ -384,7 +384,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> algebraMapTest(matrixSpace:
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "printer test" - {
         val indeterminateList = listOf(
             Indeterminate("x", "X", 2),
@@ -430,7 +430,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> toStringTest(matrixSpace: M
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "convertDegreeTest for the model the sphere" - {
         val degreeGroup1 = MultiDegreeGroup(
             listOf(
@@ -554,7 +554,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> convertDegreeTest(matrixSpa
     }
 }
 
-fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> duplicatedNameTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> duplicatedNameTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "duplicated name test" {
         val indeterminateList = listOf(
             Indeterminate("x", 2),

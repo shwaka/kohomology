@@ -13552,9 +13552,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
       return Indeterminate_2(indeterminate.p29_1, this$0.h2h_1.a1j(indeterminate.q29_1));
     };
   }
-  function MonomialListGeneratorAugmented(degreeGroup, indeterminateList) {
+  function MonomialListGeneratorAugmented(degreeGroup, indeterminateListInternal) {
     this.h2h_1 = degreeGroup;
-    this.i2h_1 = indeterminateList;
+    this.i2h_1 = indeterminateListInternal;
     var tmp = this;
     var tmp$ret$1;
     // Inline function 'kotlin.run' call
@@ -13569,9 +13569,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   MonomialListGeneratorAugmented.prototype.y1j = function () {
     return this.h2h_1;
-  };
-  MonomialListGeneratorAugmented.prototype.t23 = function () {
-    return this.i2h_1;
   };
   MonomialListGeneratorAugmented.prototype.k2h = function (degree) {
     var augmentedDegree = this.h2h_1.a1j(degree);
@@ -13687,9 +13684,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     tmp$ret$7 = tmp;
     return tmp$ret$7;
   }
-  function MonomialListGeneratorBasic(degreeGroup, indeterminateList) {
+  function MonomialListGeneratorBasic(degreeGroup, indeterminateListInternal) {
     this.l2i_1 = degreeGroup;
-    this.m2i_1 = indeterminateList;
+    this.m2i_1 = indeterminateListInternal;
     var tmp = this;
     var tmp$ret$0;
     // Inline function 'kotlin.collections.mutableMapOf' call
@@ -13699,9 +13696,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   MonomialListGeneratorBasic.prototype.y1j = function () {
     return this.l2i_1;
-  };
-  MonomialListGeneratorBasic.prototype.t23 = function () {
-    return this.m2i_1;
   };
   MonomialListGeneratorBasic.prototype.k2h = function (degree) {
     if (!this.m2i_1.y2h(degree))

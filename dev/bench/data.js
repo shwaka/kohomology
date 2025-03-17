@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742199308473,
+  "lastUpdate": 1742199884101,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5626,6 +5626,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.531,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ce16503ab87ec08da78d551baee2ca1e81140c93",
+          "message": "test(core): test NCMonomialListGenerator with generators of odd degree",
+          "timestamp": "2025-03-17T17:13:37+09:00",
+          "tree_id": "70301721de8cc639cd6764a00af110c6eef3f60c",
+          "url": "https://github.com/shwaka/kohomology/commit/ce16503ab87ec08da78d551baee2ca1e81140c93"
+        },
+        "date": 1742199883574,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.415,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.477,
             "unit": "s/op"
           }
         ]

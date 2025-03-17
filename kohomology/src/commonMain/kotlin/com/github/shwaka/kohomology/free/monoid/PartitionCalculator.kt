@@ -7,6 +7,7 @@ internal class PartitionCalculator<D : Degree>(
     val degreeGroup: AugmentedDegreeGroup<D>,
     val summandList: List<D>,
     val isAllowedDegree: (D) -> Boolean,
+    val allowMultipleOfOdd: Boolean = false,
 ) {
     private val unit: IntArray = IntArray(summandList.size) { 0 }
 
@@ -45,8 +46,13 @@ internal class PartitionCalculator<D : Degree>(
 
     private fun IntArray.increaseAtIndex(index: Int): IntArray? {
         // 奇数次の場合
-        if ((this@PartitionCalculator.summandList[index].isOdd()) && (this[index] == 1))
+        if (
+            !this@PartitionCalculator.allowMultipleOfOdd &&
+            (this@PartitionCalculator.summandList[index].isOdd()) &&
+            (this[index] == 1)
+        ) {
             return null
+        }
         val newArray = IntArray(this@PartitionCalculator.summandList.size) {
             if (it == index) this[it] + 1 else this[it]
         }

@@ -25,12 +25,18 @@ public class NCMonomialListGeneratorBasic<D : Degree, I : IndeterminateName> int
     private val cache: MutableMap<D, List<NCMonomial<D, I>>> = mutableMapOf()
     private val monomialListGenerator: MonomialListGenerator<D, I> =
         MonomialListGeneratorBasic(degreeGroup, indeterminateListInternal)
+    private val calculator: PartitionCalculator<D> =
+        PartitionCalculator(
+            degreeGroup,
+            indeterminateList.map { it.degree },
+            indeterminateListInternal::isAllowedDegree,
+            allowMultipleOfOdd = true,
+        )
 
     override fun listNCMonomials(degree: D): List<NCMonomial<D, I>> {
         return this.cache.getOrPut(degree) {
-            val monomials = this.monomialListGenerator.listMonomials(degree)
-            monomials.flatMap { monomial ->
-                shuffles(monomial.exponentList.toList()).map { shuffle: List<Int> ->
+            this.calculator.getList(degree).flatMap { exponentList ->
+                shuffles(exponentList.toList()).map { shuffle: List<Int> ->
                     val word = shuffle.map { i -> this.indeterminateListInternal[i] }
                     NCMonomial(this.degreeGroup, this.indeterminateListInternal, word)
                 }

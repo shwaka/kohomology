@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742185332196,
+  "lastUpdate": 1742199308473,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5592,6 +5592,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.567,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "84ca14943f3685f129f0bbc0d596b13cdc11135d",
+          "message": "feat(core): aadd allowMultipleOfOdd to PartitionCalculator",
+          "timestamp": "2025-03-17T17:09:41+09:00",
+          "tree_id": "9f888009c0462d3b40577d43bb0579c4973cc975",
+          "url": "https://github.com/shwaka/kohomology/commit/84ca14943f3685f129f0bbc0d596b13cdc11135d"
+        },
+        "date": 1742199307896,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.423,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.531,
             "unit": "s/op"
           }
         ]

@@ -26,7 +26,7 @@ on:
 
 jobs:
   main:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
     outputs:
       CACHE_KEY_NODE_MODULES: ${{ steps.setup-cache-key.outputs.CACHE_KEY_NODE_MODULES }}
     steps:

@@ -15,6 +15,7 @@ import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 
@@ -71,9 +72,47 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> twoGeneratorTest(ma
     }
 }
 
+private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> idealTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
+    "test the quotient T(x,y)/(xy-yx)" - {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("y", 1),
+        )
+        val ncFreeGAlgebra = NCFreeGAlgebra(matrixSpace, indeterminateList)
+        val (x, y) = ncFreeGAlgebra.generatorList
+        val ideal = ncFreeGAlgebra.context.run {
+            ncFreeGAlgebra.getIdeal(listOf(x * y - y * x))
+        }
+        val quotientGAlgebra = ncFreeGAlgebra.getQuotientByIdeal(ideal)
+        val proj = quotientGAlgebra.projection
+
+        "should have the same dim as polynomial ring" {
+            (0..10).forAll { n ->
+                quotientGAlgebra[n].dim shouldBe (n + 1)
+            }
+        }
+
+        val a = proj(x)
+        val b = proj(y)
+
+        quotientGAlgebra.context.run {
+            "x*y and y*x should be same in quotientGAlgebra" {
+                (a * b) shouldBe (b * a)
+            }
+
+            "projection should be surjective" {
+                (0..10).forAll { n ->
+                    proj[n].isSurjective().shouldBeTrue()
+                }
+            }
+        }
+    }
+}
+
 class NCFreeGAlgebraTest : FreeSpec({
     val matrixSpace = SparseMatrixSpaceOverRational
 
     include(noGeneratorTest(matrixSpace))
     include(twoGeneratorTest(matrixSpace))
+    include(idealTest(matrixSpace))
 })

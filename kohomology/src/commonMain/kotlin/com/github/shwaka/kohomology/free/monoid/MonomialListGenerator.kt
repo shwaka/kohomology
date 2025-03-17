@@ -5,32 +5,40 @@ import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 
-internal interface MonomialListGenerator<D : Degree, I : IndeterminateName> {
-    val degreeGroup: AugmentedDegreeGroup<D>
-    val indeterminateList: IndeterminateList<D, I>
-    fun listMonomials(degree: D): List<Monomial<D, I>>
+public interface MonomialListGenerator<D : Degree, I : IndeterminateName> {
+    public val degreeGroup: AugmentedDegreeGroup<D>
+    public val indeterminateList: List<Indeterminate<D, I>>
+    public fun listMonomials(degree: D): List<Monomial<D, I>>
 }
 
-internal class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName>(
+public class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName> internal constructor(
     override val degreeGroup: AugmentedDegreeGroup<D>,
-    override val indeterminateList: IndeterminateList<D, I>,
+    private val indeterminateListInternal: IndeterminateList<D, I>,
     // val unit: Monomial<D, I>,
 ) : MonomialListGenerator<D, I> {
+    public constructor(
+        degreeGroup: AugmentedDegreeGroup<D>,
+        indeterminateList: List<Indeterminate<D, I>>,
+    ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList))
+
+    override val indeterminateList: List<Indeterminate<D, I>>
+        get() = this.indeterminateListInternal.toList()
+
     // (degree: D, index: Int) -> List<Monomial<D, I>>
     private val cache: MutableMap<Pair<D, Int>, List<Monomial<D, I>>> = mutableMapOf()
 
-    private val unit: Monomial<D, I> = Monomial.unit(this.degreeGroup, this.indeterminateList)
+    private val unit: Monomial<D, I> = Monomial.unit(this.degreeGroup, this.indeterminateListInternal)
 
     override fun listMonomials(degree: D): List<Monomial<D, I>> {
-        if (!this.indeterminateList.isAllowedDegree(degree))
+        if (!this.indeterminateListInternal.isAllowedDegree(degree))
             return emptyList()
         return this.listMonomialsInternal(degree, 0)
     }
 
     private fun listMonomialsInternal(degree: D, index: Int): List<Monomial<D, I>> {
-        if (index < 0 || index > this.indeterminateList.size)
+        if (index < 0 || index > this.indeterminateListInternal.size)
             throw Exception("This can't happen! (illegal index: $index)")
-        if (index == this.indeterminateList.size) {
+        if (index == this.indeterminateListInternal.size) {
             return if (degree.isZero())
                 listOf(this.unit)
             else
@@ -40,8 +48,8 @@ internal class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName>(
         return this.cache.getOrPut(cacheKey) {
             // Since 0 <= index < this.indeterminateList.size,
             // we have 0 < this.indeterminateList.size
-            val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGeneratorBasic.indeterminateList[index].degree }
-            val listWithNonZeroAtIndex = if (this.indeterminateList.isAllowedDegree(newDegree)) {
+            val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGeneratorBasic.indeterminateListInternal[index].degree }
+            val listWithNonZeroAtIndex = if (this.indeterminateListInternal.isAllowedDegree(newDegree)) {
                 this.listMonomialsInternal(newDegree, index)
                     .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
             } else emptyList()
@@ -51,12 +59,20 @@ internal class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName>(
     }
 }
 
-internal class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName>(
+public class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName> internal constructor(
     override val degreeGroup: AugmentedDegreeGroup<D>,
-    override val indeterminateList: IndeterminateList<D, I>,
+    private val indeterminateListInternal: IndeterminateList<D, I>,
 ) : MonomialListGenerator<D, I> {
+    public constructor(
+        degreeGroup: AugmentedDegreeGroup<D>,
+        indeterminateList: List<Indeterminate<D, I>>,
+    ) : this(degreeGroup, IndeterminateList.from(degreeGroup, indeterminateList))
+
+    override val indeterminateList: List<Indeterminate<D, I>>
+        get() = this.indeterminateListInternal.toList()
+
     private val generatorForAugmentedDegree: MonomialListGenerator<IntDegree, I> = run {
-        val indeterminateRawList: List<Indeterminate<IntDegree, I>> = indeterminateList.map { indeterminate ->
+        val indeterminateRawList: List<Indeterminate<IntDegree, I>> = indeterminateListInternal.map { indeterminate ->
             Indeterminate(indeterminate.name, this.degreeGroup.augmentation(indeterminate.degree))
         }
         val indeterminateListWithAugDeg = IndeterminateList.from(IntDegreeGroup, indeterminateRawList)
@@ -70,7 +86,7 @@ internal class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName>
         }
     }
 
-    fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
+    public fun listDegreesForAugmentedDegree(augmentedDegree: Int): List<D> {
         return this.listMonomialsForAugmentedDegree(augmentedDegree).map { it.degree }.distinct()
     }
 
@@ -78,7 +94,7 @@ internal class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName>
         val elementListWithIntDegree: List<Monomial<IntDegree, I>> =
             this.generatorForAugmentedDegree.listMonomials(IntDegree(augmentedDegree))
         return elementListWithIntDegree.map { elementWithAugDeg ->
-            Monomial(this.degreeGroup, this.indeterminateList, elementWithAugDeg.exponentList)
+            Monomial(this.degreeGroup, this.indeterminateListInternal, elementWithAugDeg.exponentList)
         }
     }
 }

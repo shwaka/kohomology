@@ -26,7 +26,7 @@ public class NCFreeGMonoid<D : Degree, I : IndeterminateName>(
 
     override val unit: NCMonomial<D, I> = NCMonomial.unit(this.degreeGroup, this.indeterminateListInternal)
     override val isCommutative: Boolean
-        get() = this.indeterminateListInternal.isEmpty()
+        get() = (this.indeterminateListInternal.size <= 1)
     override val boundedness: Boundedness
         get() = if (this.indeterminateListInternal.isEmpty()) {
             Boundedness(upperBound = 0, lowerBound = 0)

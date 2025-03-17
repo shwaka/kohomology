@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742172502502,
+  "lastUpdate": 1742173251334,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5524,6 +5524,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.567,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "0604ae5b90cd08ffa7845a78a333be1c17f347eb",
+          "message": "test(core): improve NCMonomialListGeneratorTest by using test factory function",
+          "timestamp": "2025-03-17T09:54:14+09:00",
+          "tree_id": "cc4029cd4af0071aa8db7cebd0e72bd01bcb5901",
+          "url": "https://github.com/shwaka/kohomology/commit/0604ae5b90cd08ffa7845a78a333be1c17f347eb"
+        },
+        "date": 1742173250792,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.408,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.539,
             "unit": "s/op"
           }
         ]

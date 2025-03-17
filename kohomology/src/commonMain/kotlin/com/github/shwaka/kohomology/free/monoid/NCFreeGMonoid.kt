@@ -31,7 +31,10 @@ public class NCFreeGMonoid<D : Degree, I : IndeterminateName>(
         get() = if (this.indeterminateListInternal.isEmpty()) {
             Boundedness(upperBound = 0, lowerBound = 0)
         } else {
-            Boundedness(upperBound = null, lowerBound = null)
+            when (this.indeterminateListInternal) {
+                is PositiveIndeterminateList -> Boundedness(upperBound = null, lowerBound = 0)
+                is NegativeIndeterminateList -> Boundedness(upperBound = 0, lowerBound = null)
+            }
         }
 
     override fun multiply(

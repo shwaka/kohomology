@@ -3,6 +3,8 @@ package com.github.shwaka.kohomology.free
 import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
+import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.NCFreeGMonoid
@@ -21,6 +23,24 @@ public interface NCFreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     override val degreeGroup: AugmentedDegreeGroup<D>
     public val indeterminateList: List<Indeterminate<D, I>>
     override val underlyingGAlgebra: NCFreeGAlgebra<D, I, S, V, M>
+
+    public companion object {
+        public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            degreeGroup: AugmentedDegreeGroup<D>,
+            indeterminateList: List<Indeterminate<D, I>>,
+            getInternalPrintConfig: (PrintConfig) -> InternalPrintConfig<NCMonomial<D, I>, S> = InternalPrintConfig.Companion::default,
+        ): NCFreeGAlgebra<D, I, S, V, M> {
+            return NCFreeGAlgebraImpl(matrixSpace, degreeGroup, indeterminateList, getInternalPrintConfig)
+        }
+
+        public operator fun <I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(
+            matrixSpace: MatrixSpace<S, V, M>,
+            indeterminateList: List<Indeterminate<IntDegree, I>>
+        ): NCFreeGAlgebra<IntDegree, I, S, V, M> {
+            return NCFreeGAlgebra(matrixSpace, IntDegreeGroup, indeterminateList)
+        }
+    }
 }
 
 private class NCFreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(

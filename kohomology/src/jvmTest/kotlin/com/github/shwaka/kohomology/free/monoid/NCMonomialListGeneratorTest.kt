@@ -49,6 +49,6 @@ private fun ncMonomialListGeneratorTestOverIntDegree(
     }
 }
 
-class NCMonomialListGeneratorBasicTest : FreeSpec({
+class NCMonomialListGeneratorTest : FreeSpec({
     include(ncMonomialListGeneratorTestOverIntDegree(::NCMonomialListGeneratorBasic))
 })

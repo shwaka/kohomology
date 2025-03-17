@@ -1,10 +1,10 @@
 package com.github.shwaka.kohomology.free
 
+import com.github.shwaka.kohomology.dg.GAlgebraContext
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
-import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.free.monoid.NCFreeGMonoid
 import com.github.shwaka.kohomology.free.monoid.NCMonomial
 import com.github.shwaka.kohomology.linalg.Matrix
@@ -19,7 +19,7 @@ public interface NCFreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
 
     override val degreeGroup: AugmentedDegreeGroup<D>
     public val indeterminateList: List<Indeterminate<D, I>>
-    override val underlyingGAlgebra: NCFreeGAlgebra<D,I, S, V, M>
+    override val underlyingGAlgebra: NCFreeGAlgebra<D, I, S, V, M>
 }
 
 private class NCFreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
@@ -35,7 +35,15 @@ private class NCFreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
         NCFreeGAlgebraImpl.getName(indeterminateList),
         getInternalPrintConfig,
     ) {
-    
+
+    override val context: GAlgebraContext<D, NCMonomial<D, I>, S, V, M> = GAlgebraContext(this)
+    override val underlyingGAlgebra: NCFreeGAlgebra<D, I, S, V, M> = this
+
+    override fun toString(printConfig: PrintConfig): String {
+        val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }
+        return "T($indeterminateString)"
+    }
+
     companion object {
         private fun <D : Degree, I : IndeterminateName> getName(indeterminateList: List<Indeterminate<D, I>>): String {
             val indeterminateString = indeterminateList.joinToString(", ") { it.toString() }

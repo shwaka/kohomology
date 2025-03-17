@@ -30,6 +30,7 @@ import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.list.duplicates
 import com.github.shwaka.kohomology.vectsp.BasisName
 
 public interface FreeGAlgebraContext<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
@@ -283,11 +284,7 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
         getInternalPrintConfig,
     ) {
     init {
-        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList
-            .groupingBy { it }
-            .eachCount()
-            .filter { it.value > 1 }
-            .map { it.key }
+        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList.duplicates()
         require(duplicatedIndeterminateList.isEmpty()) {
             "indeterminateList contains duplicates: $duplicatedIndeterminateList"
         }

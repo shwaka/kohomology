@@ -13,6 +13,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.list.duplicates
 
 public interface NCFreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> :
     MonoidGAlgebra<D, NCMonomial<D, I>, NCFreeGMonoid<D, I>, S, V, M> {
@@ -36,6 +37,12 @@ private class NCFreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, 
         getInternalPrintConfig,
     ) {
 
+    init {
+        val duplicatedIndeterminateList: List<Indeterminate<D, I>> = this.indeterminateList.duplicates()
+        require(duplicatedIndeterminateList.isEmpty()) {
+            "indeterminateList contains duplicates: $duplicatedIndeterminateList"
+        }
+    }
     override val context: GAlgebraContext<D, NCMonomial<D, I>, S, V, M> = GAlgebraContext(this)
     override val underlyingGAlgebra: NCFreeGAlgebra<D, I, S, V, M> = this
 

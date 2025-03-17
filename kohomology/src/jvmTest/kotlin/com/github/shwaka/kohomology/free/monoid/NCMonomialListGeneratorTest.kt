@@ -42,7 +42,9 @@ private fun ncMonomialListGeneratorTestOverIntDegree(
             }
         }
 
+        testWithDegree(1)
         testWithDegree(2)
+        testWithDegree(3)
         testWithDegree(4)
     }
 }

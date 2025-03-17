@@ -44,6 +44,10 @@ public class NCFreeGMonoid<D : Degree, I : IndeterminateName>(
     }
 
     override fun listElements(degree: D): List<NCMonomial<D, I>> {
-        TODO("Not yet implemented")
+        return this.ncMonomialListGenerator.listNCMonomials(degree)
+    }
+
+    private val ncMonomialListGenerator: NCMonomialListGenerator<D, I> by lazy {
+        NCMonomialListGeneratorBasic(this.degreeGroup, this.indeterminateListInternal)
     }
 }

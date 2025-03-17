@@ -1,11 +1,8 @@
-@file:Suppress("INVISIBLE_MEMBER", "INVISIBLE_REFERENCE")
-
 package com.github.shwaka.kohomology.profile.executable
 import com.github.shwaka.kohomology.dg.degree.DegreeIndeterminate
 import com.github.shwaka.kohomology.dg.degree.MultiDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
-import com.github.shwaka.kohomology.free.monoid.IndeterminateList
 import com.github.shwaka.kohomology.free.monoid.MonomialListGenerator
 import com.github.shwaka.kohomology.free.monoid.MonomialListGeneratorAugmented
 import com.github.shwaka.kohomology.free.monoid.MonomialListGeneratorBasic
@@ -26,10 +23,7 @@ class ComputeMonomialListBasic(val n: Int) : Executable() {
         Indeterminate("z", degreeGroup.fromList(listOf(0, 0, 2))),
     )
     private val monomialListGenerator: MonomialListGenerator<MultiDegree, StringIndeterminateName> =
-        MonomialListGeneratorBasic(
-            this.degreeGroup,
-            IndeterminateList.from(this.degreeGroup, this.indeterminateList),
-        )
+        MonomialListGeneratorBasic(this.degreeGroup, this.indeterminateList)
 
     override fun mainFun(): String {
         val degree = this.degreeGroup.fromList(listOf(this.n, 2 * this.n, 2 * this.n))
@@ -54,10 +48,7 @@ class ComputeMonomialListAugmented(val n: Int) : Executable() {
         Indeterminate("z", degreeGroup.fromList(listOf(0, 0, 2))),
     )
     private val monomialListGenerator: MonomialListGenerator<MultiDegree, StringIndeterminateName> =
-        MonomialListGeneratorAugmented(
-            this.degreeGroup,
-            IndeterminateList.from(this.degreeGroup, this.indeterminateList),
-        )
+        MonomialListGeneratorAugmented(this.degreeGroup, this.indeterminateList)
 
     override fun mainFun(): String {
         val degree = this.degreeGroup.fromList(listOf(this.n, 2 * this.n, 2 * this.n))

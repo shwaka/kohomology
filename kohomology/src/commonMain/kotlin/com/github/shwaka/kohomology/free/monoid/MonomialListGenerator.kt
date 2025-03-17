@@ -41,29 +41,6 @@ public class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName> inter
             Monomial(this.degreeGroup, this.indeterminateListInternal, exponentList)
         }
     }
-
-    private fun listMonomialsInternal(degree: D, index: Int): List<Monomial<D, I>> {
-        if (index < 0 || index > this.indeterminateListInternal.size)
-            throw Exception("This can't happen! (illegal index: $index)")
-        if (index == this.indeterminateListInternal.size) {
-            return if (degree.isZero())
-                listOf(this.unit)
-            else
-                emptyList()
-        }
-        val cacheKey = Pair(degree, index)
-        return this.cache.getOrPut(cacheKey) {
-            // Since 0 <= index < this.indeterminateList.size,
-            // we have 0 < this.indeterminateList.size
-            val newDegree = this.degreeGroup.context.run { degree - this@MonomialListGeneratorBasic.indeterminateListInternal[index].degree }
-            val listWithNonZeroAtIndex = if (this.indeterminateListInternal.isAllowedDegree(newDegree)) {
-                this.listMonomialsInternal(newDegree, index)
-                    .mapNotNull { monomial -> monomial.increaseExponentAtIndex(index) }
-            } else emptyList()
-            val listWithZeroAtIndex = this.listMonomialsInternal(degree, index + 1)
-            listWithNonZeroAtIndex + listWithZeroAtIndex
-        }
-    }
 }
 
 public class MonomialListGeneratorAugmented<D : Degree, I : IndeterminateName> internal constructor(

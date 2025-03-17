@@ -69,17 +69,6 @@ public class Monomial<D : Degree, I : IndeterminateName> internal constructor(
         }
     }
 
-    internal fun increaseExponentAtIndex(index: Int): Monomial<D, I>? {
-        // 奇数次の場合
-        if ((this.indeterminateList[index].degree.isOdd()) && (this.exponentList[index] == 1))
-            return null
-        // val newExponents = intArrayOf(this.exponentList.first() + 1) + this.exponentList.sliceArray(1 until this.indeterminateList.size)
-        val newExponents = IntArray(this.indeterminateList.size) {
-            if (it == index) this.exponentList[it] + 1 else this.exponentList[it]
-        }
-        return Monomial(this.degreeGroup, this.indeterminateList, newExponents)
-    }
-
     public fun containsIndeterminate(indeterminateIndex: Int): Boolean {
         return this.exponentList[indeterminateIndex] > 0
     }

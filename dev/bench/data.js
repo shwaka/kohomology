@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742200506140,
+  "lastUpdate": 1742208019342,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5694,6 +5694,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.512,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "71f396b4477041f0ab09e5d56105c0a4bc9079ad",
+          "message": "feat(core): add NCFreeGAlgebra.generatorList and improve its test",
+          "timestamp": "2025-03-17T19:34:34+09:00",
+          "tree_id": "5fa4f26a2060d7609994c8e74eb73cb07c0d7a5c",
+          "url": "https://github.com/shwaka/kohomology/commit/71f396b4477041f0ab09e5d56105c0a4bc9079ad"
+        },
+        "date": 1742208018780,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.419,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.513,
             "unit": "s/op"
           }
         ]

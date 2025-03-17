@@ -14,7 +14,9 @@ import com.github.shwaka.kohomology.util.pow
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
 
 private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> noGeneratorTest(matrixSpace: MatrixSpace<S, V, M>) = freeSpec {
     "NCFreeGAlgebra should work well even when the list of generator is empty" {
@@ -34,6 +36,7 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> twoGeneratorTest(ma
             Indeterminate("y", 1),
         )
         val ncFreeGAlgebra = NCFreeGAlgebra(matrixSpace, indeterminateList)
+        val (x, y) = ncFreeGAlgebra.generatorList
 
         "dimension at degree n should be 2^n" {
             (0..10).forAll { n ->
@@ -44,6 +47,25 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> twoGeneratorTest(ma
         "dimension at negative degree should be 0" {
             (-10..-1).forAll { n ->
                 ncFreeGAlgebra[n].dim shouldBe 0
+            }
+        }
+
+        "ncFreeGAlgebra.generatorList should be [x, y]" {
+            x.toString() shouldBe "x"
+            y.toString() shouldBe "y"
+        }
+
+        ncFreeGAlgebra.context.run {
+            "x*y should be xy" {
+                (x * y).toString() shouldBe "xy"
+            }
+
+            "x*y should not be y*x" {
+                (x * y) shouldNotBe (y * x)
+            }
+
+            "x^2 should not be 0" {
+                x.pow(2).isZero().shouldBeFalse()
             }
         }
     }

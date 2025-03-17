@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.free
 
 import com.github.shwaka.kohomology.dg.GAlgebraContext
+import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
@@ -23,6 +24,12 @@ public interface NCFreeGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V
     override val degreeGroup: AugmentedDegreeGroup<D>
     public val indeterminateList: List<Indeterminate<D, I>>
     override val underlyingGAlgebra: NCFreeGAlgebra<D, I, S, V, M>
+
+    public val generatorList: List<GVector<D, NCMonomial<D, I>, S, V>>
+        get() = this.indeterminateList.map { indeterminate ->
+            val ncMonomial = NCMonomial(this.degreeGroup, this.indeterminateList, listOf(indeterminate))
+            this.fromBasisName(ncMonomial, indeterminate.degree)
+        }
 
     public companion object {
         public operator fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> invoke(

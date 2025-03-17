@@ -29,10 +29,17 @@ public class MonomialListGeneratorBasic<D : Degree, I : IndeterminateName> inter
 
     private val unit: Monomial<D, I> = Monomial.unit(this.degreeGroup, this.indeterminateListInternal)
 
+    private val calculator: PartitionCalculator<D> =
+        PartitionCalculator(
+            degreeGroup,
+            indeterminateList.map { it.degree },
+            indeterminateListInternal::isAllowedDegree,
+        )
+
     override fun listMonomials(degree: D): List<Monomial<D, I>> {
-        if (!this.indeterminateListInternal.isAllowedDegree(degree))
-            return emptyList()
-        return this.listMonomialsInternal(degree, 0)
+        return this.calculator.getList(degree).map { exponentList ->
+            Monomial(this.degreeGroup, this.indeterminateListInternal, exponentList)
+        }
     }
 
     private fun listMonomialsInternal(degree: D, index: Int): List<Monomial<D, I>> {

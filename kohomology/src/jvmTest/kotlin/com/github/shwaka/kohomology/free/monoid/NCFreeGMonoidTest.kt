@@ -2,11 +2,18 @@ package com.github.shwaka.kohomology.free.monoid
 
 import com.github.shwaka.kohomology.dg.Boundedness
 import com.github.shwaka.kohomology.forAll
+import com.github.shwaka.kohomology.util.Sign
 import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.shouldNotBe
+import io.kotest.property.Arb
+import io.kotest.property.arbitrary.negativeInts
+import io.kotest.property.arbitrary.positiveInts
+import io.kotest.property.checkAll
 
 class NCFreeGMonoidTest : FreeSpec({
     tags(gMonoidTag)
@@ -14,6 +21,51 @@ class NCFreeGMonoidTest : FreeSpec({
     "empty indeterminate list should be allowed" {
         shouldNotThrowAny {
             NCFreeGMonoid<StringIndeterminateName>(emptyList())
+        }
+    }
+
+    "indeterminate list with mixed degrees is not allowed" {
+        checkAll(Arb.positiveInts(), Arb.negativeInts()) { positiveDegree, negativeDegree ->
+            val indeterminateList = listOf(
+                Indeterminate("x", positiveDegree),
+                Indeterminate("y", negativeDegree)
+            )
+            shouldThrow<IllegalArgumentException> {
+                NCFreeGMonoid(indeterminateList)
+            }
+        }
+    }
+
+    "degree 0 is not allowed" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 0)
+        )
+        shouldThrow<IllegalArgumentException> {
+            NCFreeGMonoid(indeterminateList)
+        }
+    }
+
+    "positive degrees should be allowed" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("x", 2),
+            Indeterminate("x", 3),
+        )
+        val monoid = NCFreeGMonoid(indeterminateList)
+        shouldNotThrowAny {
+            monoid.listElements(0)
+        }
+    }
+
+    "negative degrees should be allowed" {
+        val indeterminateList = listOf(
+            Indeterminate("x", -1),
+            Indeterminate("x", -2),
+            Indeterminate("x", -3),
+        )
+        val monoid = NCFreeGMonoid(indeterminateList)
+        shouldNotThrowAny {
+            monoid.listElements(0)
         }
     }
 
@@ -68,5 +120,27 @@ class NCFreeGMonoidTest : FreeSpec({
         )
         val monoid = NCFreeGMonoid(indeterminateList)
         monoid.boundedness shouldBe Boundedness(upperBound = 0, lowerBound = null)
+    }
+
+    "multiplication test" {
+        val indeterminateList = listOf(
+            Indeterminate("x", 1),
+            Indeterminate("y", 1),
+            Indeterminate("z", 2),
+        )
+        val (a, b, c) = indeterminateList
+        val monoid = NCFreeGMonoid(indeterminateList)
+        val x = NCMonomial(indeterminateList, listOf(a))
+        val y = NCMonomial(indeterminateList, listOf(b))
+        // val z = NCMonomial(indeterminateList, listOf(c))
+        val xy = NCMonomial(indeterminateList, listOf(a, b))
+        val yx = NCMonomial(indeterminateList, listOf(b, a))
+        val xz = NCMonomial(indeterminateList, listOf(a, c))
+        val xzx = NCMonomial(indeterminateList, listOf(a, c, a))
+        monoid.multiply(x, y) shouldBe Signed(xy, Sign.PLUS)
+        monoid.multiply(y, x) shouldNotBe monoid.multiply(x, y)
+        monoid.multiply(y, x) shouldBe Signed(yx, Sign.PLUS)
+        monoid.multiply(x, x) shouldNotBe Zero
+        monoid.multiply(xz, x) shouldBe Signed(xzx, Sign.PLUS)
     }
 })

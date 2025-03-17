@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742199884101,
+  "lastUpdate": 1742200506140,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5660,6 +5660,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.477,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "49971861c9538f3c6f6d647532e073dee6c6b0ae",
+          "message": "build(misc): update runner from ubuntu-20.04 to ubuntu-24.04 since it will be unsupported soon",
+          "timestamp": "2025-03-17T17:21:23+09:00",
+          "tree_id": "17877cb721b56598d6ceb7d70e93ab233b392438",
+          "url": "https://github.com/shwaka/kohomology/commit/49971861c9538f3c6f6d647532e073dee6c6b0ae"
+        },
+        "date": 1742200505048,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.416,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.512,
             "unit": "s/op"
           }
         ]

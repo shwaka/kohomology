@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1742210793002,
+  "lastUpdate": 1743178297156,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5762,6 +5762,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.553,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "546eebbe0c1c3126a673e3ff59fdddb6eeb312f4",
+          "message": "test(core): add test that asserts FreeComplex.tensorWithBaseField throws an error correctly",
+          "timestamp": "2025-03-29T01:03:58+09:00",
+          "tree_id": "e031885f3a5d8a26805473a2dbcebd41ced6fad1",
+          "url": "https://github.com/shwaka/kohomology/commit/546eebbe0c1c3126a673e3ff59fdddb6eeb312f4"
+        },
+        "date": 1743178296006,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.421,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.516,
             "unit": "s/op"
           }
         ]

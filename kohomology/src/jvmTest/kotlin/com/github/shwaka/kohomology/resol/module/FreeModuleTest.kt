@@ -1,9 +1,11 @@
 package com.github.shwaka.kohomology.resol.module
 
+import com.github.shwaka.kohomology.resol.algebra.FieldProduct
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.vectsp.StringBasisName
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
@@ -106,5 +108,36 @@ class FreeModuleTest : FreeSpec({
             i(x0) shouldBe x
             i(y0) shouldBe y
         }
+    }
+})
+
+class FreeModuleOverFieldProductTest : FreeSpec({
+    tags(moduleTag)
+
+    val matrixSpace = SparseMatrixSpaceOverRational
+    val coeffAlgebra = FieldProduct(dim = 2, matrixSpace = matrixSpace)
+    val generatingBasisNames = listOf("x", "y").map { StringBasisName(it) }
+    val freeModule = FreeModule(coeffAlgebra, generatingBasisNames)
+
+    // val (e0, e1) = coeffAlgebra.getBasis()
+    // val (x, y) = freeModule.getGeneratingBasis()
+
+    "freeModule.underlyingVectorSpace.dim should be coeffAlgebra.dim * generatingBasisNames.size" {
+        freeModule.underlyingVectorSpace.dim shouldBe (coeffAlgebra.dim * generatingBasisNames.size)
+    }
+
+    "freeModule.tensorWithBaseField.dim should throw IllegalArgumentException" {
+        // FreeModule.tensorWithBaseField can be applied only for FreeModule over MonoidRing
+        shouldThrow<IllegalArgumentException> {
+            freeModule.tensorWithBaseField.dim
+        }
+    }
+
+    "freeModule.rank should be the generatingBasisNames.size " {
+        freeModule.rank shouldBe generatingBasisNames.size
+    }
+
+    "test freeModule.generatingBasisNames" {
+        freeModule.generatingBasisNames shouldBe generatingBasisNames
     }
 })

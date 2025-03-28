@@ -1,11 +1,13 @@
 package com.github.shwaka.kohomology.resol.complex
 
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
 import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.resol.algebra.FieldProduct
 import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.algebra.OpMonoidRing
 import com.github.shwaka.kohomology.resol.module.FreeModule
@@ -16,7 +18,9 @@ import com.github.shwaka.kohomology.resol.monoid.CyclicGroup
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF2
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverF3
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
+import com.github.shwaka.kohomology.vectsp.StringBasisName
 import com.github.shwaka.kohomology.vectsp.VectorSpace
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.shouldBe
@@ -112,4 +116,48 @@ class FreeComplexTest : FreeSpec({
     include(testWithFreeResolution(3, SparseMatrixSpaceOverRational))
     include(testWithFreeResolution(3, SparseMatrixSpaceOverF2))
     include(testWithFreeResolution(3, SparseMatrixSpaceOverF3))
+})
+
+class FreeComplexOverFieldProductTest : FreeSpec({
+    tags(moduleTag)
+
+    val matrixSpace = SparseMatrixSpaceOverRational
+    val productCount = 2
+    val coeffAlgebra = FieldProduct(dim = productCount, matrixSpace = matrixSpace)
+    val generatingBasisNames = listOf("x", "y").map { StringBasisName(it) }
+    val freeModule = FreeModule(coeffAlgebra, generatingBasisNames)
+    val (x, _) = freeModule.getGeneratingBasis()
+    val freeComplex = FreeComplex(
+        matrixSpace, coeffAlgebra, IntDegreeGroup, "C",
+        getModule = { _ -> freeModule },
+        getDifferential = { _ ->
+            FreeModuleMap.fromValuesOnGeneratingBasis(
+                source = freeModule,
+                target = freeModule,
+                values = listOf(
+                    freeModule.underlyingVectorSpace.zeroVector,
+                    x,
+                ),
+            )
+        },
+    )
+
+    "freeComplex should have dim 2*productCount at each degree" {
+        (-10..10).forAll { degree ->
+            freeComplex.underlyingDGVectorSpace[degree].dim shouldBe (2 * productCount)
+        }
+    }
+
+    "cohomology should be zero" {
+        (-10..10).forAll { degree ->
+            freeComplex.underlyingDGVectorSpace.cohomology[degree].dim shouldBe 0
+        }
+    }
+
+    "freeComplex.tensorWithBaseField should throw IllegalArgumentException" {
+        // FreeComplex.tensorWithBaseField can be applied only for FreeComplex over MonoidRing
+        shouldThrow<IllegalArgumentException> {
+            freeComplex.tensorWithBaseField
+        }
+    }
 })

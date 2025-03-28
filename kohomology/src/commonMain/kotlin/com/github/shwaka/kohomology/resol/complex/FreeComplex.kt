@@ -10,6 +10,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.Algebra
+import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.resol.module.FreeModule
 import com.github.shwaka.kohomology.resol.module.FreeModuleBasisName
 import com.github.shwaka.kohomology.resol.module.FreeModuleMap
@@ -134,6 +135,9 @@ private class FreeComplexImpl<
     }
 
     override val tensorWithBaseField: DGVectorSpace<D, BV, S, V, M> by lazy {
+        require(this.coeffAlgebra is MonoidRing<*, *, *, *>) {
+            "FreeComplex.tensorWithBaseField can be applied only for FreeComplex over MonoidRing"
+        }
         val gVectorSpace = GVectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             degreeGroup = this.degreeGroup,

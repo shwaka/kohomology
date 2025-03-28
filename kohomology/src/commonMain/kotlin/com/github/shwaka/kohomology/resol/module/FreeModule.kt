@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.linalg.MatrixSpace
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.resol.algebra.Algebra
+import com.github.shwaka.kohomology.resol.algebra.MonoidRing
 import com.github.shwaka.kohomology.util.directProductOf
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.BilinearMap
@@ -84,6 +85,9 @@ private class FreeModuleImpl<BA : BasisName, BV : BasisName, S : Scalar, V : Num
     }
 
     override val tensorWithBaseField: VectorSpace<BV, S, V> by lazy {
+        require(this.coeffAlgebra is MonoidRing<*, *, *, *>) {
+            "FreeModule.tensorWithBaseField can be applied only for FreeModule over MonoidRing"
+        }
         VectorSpace(
             numVectorSpace = this.matrixSpace.numVectorSpace,
             basisNames = this.generatingBasisNames,

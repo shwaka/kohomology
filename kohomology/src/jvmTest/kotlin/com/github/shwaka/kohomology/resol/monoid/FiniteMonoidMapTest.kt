@@ -115,12 +115,7 @@ class FiniteMonoidMapTest : FreeSpec({
     }
 
     "test FiniteMonoidMap.id and FiniteMonoidMap.trivialMap" - {
-        val monoids = listOf(
-            CyclicGroup(2),
-            CyclicGroup(3),
-            CyclicGroup(6),
-        )
-        for (monoid in monoids) {
+        suspend fun <E : FiniteMonoidElement> testForMonoid(monoid: FiniteMonoid<E>) {
             "FiniteMonoidMap.id($monoid) should map any element to itself" {
                 val map = FiniteMonoidMap.id(monoid)
                 monoid.elements.forAll { element ->
@@ -134,6 +129,15 @@ class FiniteMonoidMapTest : FreeSpec({
                     map(element) shouldBe monoid.unit
                 }
             }
+        }
+        val monoids = listOf(
+            CyclicGroup(2),
+            CyclicGroup(3),
+            CyclicGroup(6),
+            SymmetricGroup(3),
+        )
+        for (monoid in monoids) {
+            testForMonoid(monoid)
         }
     }
 })

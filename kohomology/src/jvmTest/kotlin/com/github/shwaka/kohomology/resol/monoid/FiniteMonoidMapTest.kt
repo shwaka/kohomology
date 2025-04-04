@@ -42,6 +42,24 @@ class FiniteMonoidMapTest : FreeSpec({
         "isBijective() should be false" {
             monoidMap.isBijective().shouldBeFalse()
         }
+
+        "test equals with the same MonoidMap" {
+            val otherValues = (0 until 6).map { CyclicGroupElement(it % 2, 2) }
+            val otherMonoidMap = FiniteMonoidMap(source, target, otherValues)
+            monoidMap.equalsAsMap(otherMonoidMap).shouldBeTrue()
+            otherMonoidMap.equalsAsMap(monoidMap).shouldBeTrue()
+            (monoidMap == otherMonoidMap).shouldBeTrue()
+            (otherMonoidMap == monoidMap).shouldBeTrue()
+        }
+
+        "test equals with a different MonoidMap" {
+            val otherValues = (0 until 6).map { CyclicGroupElement(0, 2) }
+            val otherMonoidMap = FiniteMonoidMap(source, target, otherValues)
+            monoidMap.equalsAsMap(otherMonoidMap).shouldBeFalse()
+            otherMonoidMap.equalsAsMap(monoidMap).shouldBeFalse()
+            (monoidMap == otherMonoidMap).shouldBeFalse()
+            (otherMonoidMap == monoidMap).shouldBeFalse()
+        }
     }
 
     "monoid map from cyclic group of order 3 to that of order 6" - {
@@ -72,6 +90,24 @@ class FiniteMonoidMapTest : FreeSpec({
 
         "isBijective() should be false" {
             monoidMap.isBijective().shouldBeFalse()
+        }
+
+        "test equals with the same MonoidMap" {
+            val otherValues = (0 until 3).map { CyclicGroupElement(it * 2, 6) }
+            val otherMonoidMap = FiniteMonoidMap(source, target, otherValues)
+            monoidMap.equalsAsMap(otherMonoidMap).shouldBeTrue()
+            otherMonoidMap.equalsAsMap(monoidMap).shouldBeTrue()
+            (monoidMap == otherMonoidMap).shouldBeTrue()
+            (otherMonoidMap == monoidMap).shouldBeTrue()
+        }
+
+        "test equals with a different MonoidMap" {
+            val otherValues = (0 until 3).map { CyclicGroupElement((it * 4) % 6, 6) }
+            val otherMonoidMap = FiniteMonoidMap(source, target, otherValues)
+            monoidMap.equalsAsMap(otherMonoidMap).shouldBeFalse()
+            otherMonoidMap.equalsAsMap(monoidMap).shouldBeFalse()
+            (monoidMap == otherMonoidMap).shouldBeFalse()
+            (otherMonoidMap == monoidMap).shouldBeFalse()
         }
     }
 })

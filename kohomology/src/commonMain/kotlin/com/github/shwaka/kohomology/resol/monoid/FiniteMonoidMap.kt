@@ -42,6 +42,14 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         }
     }
 
+    // This is almost the same as FiniteMonoidMapImpl.equals,
+    // but is guaranteed to work with any FiniteMonoidMap (other than FiniteMonoidMapImpl).
+    public fun equalsAsMap(other: FiniteMonoidMap<ES, ET>): Boolean {
+        return this.source == other.source &&
+            this.target == other.target &&
+            this.values == other.values
+    }
+
     public companion object {
         public operator fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> invoke(
             source: FiniteMonoid<ES>,
@@ -90,5 +98,25 @@ private class FiniteMonoidMapImpl<ES : FiniteMonoidElement, ET : FiniteMonoidEle
                 "$value is not contained in $target"
             }
         }
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other == null || this::class != other::class) return false
+
+        other as FiniteMonoidMapImpl<*, *>
+
+        if (source != other.source) return false
+        if (target != other.target) return false
+        if (values != other.values) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = source.hashCode()
+        result = 31 * result + target.hashCode()
+        result = 31 * result + values.hashCode()
+        return result
     }
 }

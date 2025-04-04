@@ -23,6 +23,14 @@ class TruncatedAdditionMonoidTest : FreeSpec({
             monoid.isCommutative.shouldBeTrue()
         }
 
+        "monoid.size should be ${n + 1}" {
+            monoid.size shouldBe (n + 1)
+        }
+
+        "monoid.maxValue should be $n" {
+            monoid.maxValue shouldBe n
+        }
+
         "monoid.unit.value should be 0" {
             monoid.unit.value shouldBe 0
         }

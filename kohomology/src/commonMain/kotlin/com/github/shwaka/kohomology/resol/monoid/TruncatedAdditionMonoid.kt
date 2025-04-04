@@ -24,7 +24,7 @@ public class TruncatedAdditionMonoid(public val maxValue: Int) : FiniteMonoid<Tr
     override val context: FiniteMonoidContext<TruncatedAdditionMonoidElement> = FiniteMonoidContext(this)
     override val unit: TruncatedAdditionMonoidElement = TruncatedAdditionMonoidElement(0, maxValue = maxValue)
     override val elements: List<TruncatedAdditionMonoidElement> by lazy {
-        (0..this.maxValue).map { i -> TruncatedAdditionMonoidElement(i, maxValue = maxValue)}
+        (0..this.maxValue).map { i -> TruncatedAdditionMonoidElement(i, maxValue = maxValue) }
     }
     override val isCommutative: Boolean = true
 

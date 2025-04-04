@@ -107,6 +107,22 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             return values[index]
         }
 
+        public fun <E : FiniteMonoidElement> id(finiteMonoid: FiniteMonoid<E>): FiniteMonoidMap<E, E> {
+            return FiniteMonoidMap(
+                source = finiteMonoid,
+                target = finiteMonoid,
+                values = finiteMonoid.elements,
+            )
+        }
+
+        public fun <E : FiniteMonoidElement> trivialMap(finiteMonoid: FiniteMonoid<E>): FiniteMonoidMap<E, E> {
+            return FiniteMonoidMap(
+                source = finiteMonoid,
+                target = finiteMonoid,
+                values = List(finiteMonoid.size) { finiteMonoid.unit },
+            )
+        }
+
         public fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMaps(
             source: FiniteMonoid<ES>,
             target: FiniteMonoid<ET>,

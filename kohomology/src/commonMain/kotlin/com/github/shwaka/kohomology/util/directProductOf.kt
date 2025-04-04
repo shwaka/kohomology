@@ -38,3 +38,10 @@ public fun <T> directProductOfFamily(
     }
     return result
 }
+
+public fun <T> Collection<T>.pow(exponent: Int): List<List<T>> {
+    require(exponent >= 0) {
+        "exponent must be non-negative, but was $exponent"
+    }
+    return directProductOfFamily(List(exponent) { this })
+}

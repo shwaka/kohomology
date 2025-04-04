@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1743178297156,
+  "lastUpdate": 1743773510741,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5796,6 +5796,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.516,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "979da892b70166fe5bd6efca7f0bb92cd1c0c8f1",
+          "message": "feat(core): add equals and equalsAsMap to FiniteMonoidMap",
+          "timestamp": "2025-04-04T22:25:57+09:00",
+          "tree_id": "ea9bc7a313d1c7a2c05d2688d53388e06ea7d81a",
+          "url": "https://github.com/shwaka/kohomology/commit/979da892b70166fe5bd6efca7f0bb92cd1c0c8f1"
+        },
+        "date": 1743773509703,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.427,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.47,
             "unit": "s/op"
           }
         ]

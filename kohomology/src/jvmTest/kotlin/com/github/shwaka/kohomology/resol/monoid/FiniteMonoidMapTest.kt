@@ -2,11 +2,13 @@ package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
@@ -156,6 +158,42 @@ class FiniteMonoidMapListAllMapsTest : FreeSpec({
             (2..5).filter { it.isPrime() }.forAll { p ->
                 val monoid = CyclicGroup(p)
                 FiniteMonoidMap.listAllMapsNaive(monoid, monoid) shouldHaveSize p
+            }
+        }
+
+        "any element of listAllMapsNaive() must be a monoid map" - {
+            suspend fun <E : FiniteMonoidElement> testForMonoid(monoid: FiniteMonoid<E>) {
+                "test with $monoid" {
+                    FiniteMonoidMap.listAllMapsNaive(monoid, monoid).forAll { finiteMonoidMap ->
+                        shouldNotThrowAny {
+                            finiteMonoidMap.checkFiniteMonoidMapAxioms()
+                        }
+                    }
+                }
+            }
+            val monoids = listOf(
+                CyclicGroup(2),
+                CyclicGroup(3),
+            )
+            for (monoid in monoids) {
+                testForMonoid(monoid)
+            }
+        }
+
+        "listAllMapsNaive() must contain id and trivialMap" - {
+            suspend fun <E : FiniteMonoidElement> testForMonoid(monoid: FiniteMonoid<E>) {
+                "test with $monoid" {
+                    val list = FiniteMonoidMap.listAllMapsNaive(monoid, monoid)
+                    list shouldContain FiniteMonoidMap.id(monoid)
+                    list shouldContain FiniteMonoidMap.trivialMap(monoid)
+                }
+            }
+            val monoids = listOf(
+                CyclicGroup(2),
+                CyclicGroup(3),
+            )
+            for (monoid in monoids) {
+                testForMonoid(monoid)
             }
         }
     }

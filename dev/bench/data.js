@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1743782971035,
+  "lastUpdate": 1743783649035,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5864,6 +5864,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.613,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "98dfc5b1f23dc8f7cb083c18ba54bfdb34bba92c",
+          "message": "perf(core): add parameter earlyReturn to FiniteMonoidMap::Companion.isFiniteMonoidMap",
+          "timestamp": "2025-04-05T01:08:22+09:00",
+          "tree_id": "9589a8bb339f1c1d16c2bc86480150061a2372fa",
+          "url": "https://github.com/shwaka/kohomology/commit/98dfc5b1f23dc8f7cb083c18ba54bfdb34bba92c"
+        },
+        "date": 1743783648034,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.475,
             "unit": "s/op"
           }
         ]

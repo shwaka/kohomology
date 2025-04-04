@@ -31,6 +31,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
     public fun checkFiniteMonoidMapAxioms() {
         val isFiniteMonoidMap = FiniteMonoidMap.isFiniteMonoidMap(
             sourceElements = this.source.elements,
+            targetUnit = this.target.unit,
             multiplySource = this.source::multiply,
             multiplyTarget = this.target::multiply,
             map = this::invoke,
@@ -70,11 +71,20 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
 
         public fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> isFiniteMonoidMap(
             sourceElements: List<ES>,
+            targetUnit: ET,
             multiplySource: (monoidElement1: ES, monoidElement2: ES) -> ES,
             multiplyTarget: (monoidElement1: ET, monoidElement2: ET) -> ET,
             map: (monoidElement: ES) -> ET,
         ): BooleanWithCause {
             val cause = mutableListOf<String>()
+            require(sourceElements.isNotEmpty()) {
+                "sourceElements must be non-empty, but was empty"
+            }
+            if (map(sourceElements[0]) != targetUnit) {
+                cause.add(
+                    "f(unit)=${map(sourceElements[0])} is not unit"
+                )
+            }
             for (a in sourceElements) {
                 for (b in sourceElements) {
                     val lhs = map(multiplySource(a, b))
@@ -100,6 +110,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             }
             return FiniteMonoidMap.isFiniteMonoidMap(
                 source.elements,
+                target.unit,
                 source::multiply,
                 target::multiply,
             ) { monoidElement ->

@@ -8,11 +8,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
     public val values: List<ET>
 
     public operator fun invoke(monoidElement: ES): ET {
-        val index = this.source.elements.indexOf(monoidElement)
-        require(index >= 0) {
-            "$monoidElement is not an element of $source"
-        }
-        return this.values[index]
+        return FiniteMonoidMap.getValue(this.source, this.values, monoidElement)
     }
 
     public fun isBijective(): Boolean {
@@ -79,6 +75,35 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
                 }
             }
             return BooleanWithCause.fromCause(cause)
+        }
+
+        public fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> isFiniteMonoidMap(
+            source: FiniteMonoid<ES>,
+            target: FiniteMonoid<ET>,
+            values: List<ET>,
+        ): BooleanWithCause {
+            require(values.size == source.elements.size) {
+                "values.size (${values.size}) is different from source.elements.size (${source.elements.size})"
+            }
+            return FiniteMonoidMap.isFiniteMonoidMap(
+                source.elements,
+                source::multiply,
+                target::multiply,
+            ) { monoidElement ->
+                FiniteMonoidMap.getValue(source, values, monoidElement)
+            }
+        }
+
+        private fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> getValue(
+            source: FiniteMonoid<ES>,
+            values: List<ET>,
+            monoidElement: ES,
+        ): ET {
+            val index = source.elements.indexOf(monoidElement)
+            require(index >= 0) {
+                "$monoidElement is not an element of $source"
+            }
+            return values[index]
         }
     }
 }

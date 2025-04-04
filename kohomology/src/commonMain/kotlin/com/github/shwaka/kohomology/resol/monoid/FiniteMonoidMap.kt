@@ -1,9 +1,13 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.BooleanWithCause
+import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
+import com.github.shwaka.kohomology.util.Printable
+import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.pow
 
-public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElement> {
+public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElement> : Printable {
     public val source: FiniteMonoid<ES>
     public val target: FiniteMonoid<ET>
     public val values: List<ET>
@@ -45,6 +49,14 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return this.source == other.source &&
             this.target == other.target &&
             this.values == other.values
+    }
+
+    override fun toString(printConfig: PrintConfig): String {
+        val p = Printer(printConfig)
+        val valuesString = this.source.elements.joinToString(", ") { element ->
+            "${p(element)}->${p(this(element))}"
+        }
+        return "FiniteMonoidMap($valuesString)"
     }
 
     public companion object {
@@ -184,5 +196,9 @@ private class FiniteMonoidMapImpl<ES : FiniteMonoidElement, ET : FiniteMonoidEle
         result = 31 * result + target.hashCode()
         result = 31 * result + values.hashCode()
         return result
+    }
+
+    override fun toString(): String {
+        return this.toString(PrintConfig(PrintType.PLAIN))
     }
 }

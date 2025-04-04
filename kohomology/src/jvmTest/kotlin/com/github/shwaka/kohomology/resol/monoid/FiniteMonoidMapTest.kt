@@ -65,6 +65,10 @@ class FiniteMonoidMapTest : FreeSpec({
             (monoidMap == otherMonoidMap).shouldBeFalse()
             (otherMonoidMap == monoidMap).shouldBeFalse()
         }
+
+        "monoidMap.toString() should be \"FiniteMonoidMap(t^0->t^0, t^1->t^1, t^2->t^0, t^3->t^1, t^4->t^0, t^5->t^1)\"" {
+            monoidMap.toString() shouldBe "FiniteMonoidMap(t^0->t^0, t^1->t^1, t^2->t^0, t^3->t^1, t^4->t^0, t^5->t^1)"
+        }
     }
 
     "monoid map from cyclic group of order 3 to that of order 6" - {
@@ -113,6 +117,10 @@ class FiniteMonoidMapTest : FreeSpec({
             otherMonoidMap.equalsAsMap(monoidMap).shouldBeFalse()
             (monoidMap == otherMonoidMap).shouldBeFalse()
             (otherMonoidMap == monoidMap).shouldBeFalse()
+        }
+
+        "monoidMap.toString() should be \"FiniteMonoidMap(t^0->t^0, t^1->t^2, t^2->t^4)\"" {
+            monoidMap.toString() shouldBe "FiniteMonoidMap(t^0->t^0, t^1->t^2, t^2->t^4)"
         }
     }
 

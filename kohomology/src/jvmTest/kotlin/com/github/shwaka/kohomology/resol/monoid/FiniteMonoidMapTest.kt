@@ -161,6 +161,11 @@ class FiniteMonoidMapListAllMapsTest : FreeSpec({
             }
         }
 
+        "the number of monoid maps from TruncatedAdditionMonoid(1) to itself should be 2" {
+            val monoid = TruncatedAdditionMonoid(1)
+            FiniteMonoidMap.listAllMapsNaive(monoid, monoid) shouldHaveSize 2
+        }
+
         "any element of listAllMapsNaive() must be a monoid map" - {
             suspend fun <E : FiniteMonoidElement> testForMonoid(monoid: FiniteMonoid<E>) {
                 "test with $monoid" {
@@ -174,6 +179,7 @@ class FiniteMonoidMapListAllMapsTest : FreeSpec({
             val monoids = listOf(
                 CyclicGroup(2),
                 CyclicGroup(3),
+                TruncatedAdditionMonoid(2),
             )
             for (monoid in monoids) {
                 testForMonoid(monoid)
@@ -191,6 +197,7 @@ class FiniteMonoidMapListAllMapsTest : FreeSpec({
             val monoids = listOf(
                 CyclicGroup(2),
                 CyclicGroup(3),
+                TruncatedAdditionMonoid(2),
             )
             for (monoid in monoids) {
                 testForMonoid(monoid)

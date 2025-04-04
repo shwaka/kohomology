@@ -28,12 +28,13 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return this.values.distinct().size == this.target.size
     }
 
-    public fun checkFiniteMonoidMapAxioms() {
+    public fun checkFiniteMonoidMapAxioms(earlyReturn: Boolean = false) {
         val isFiniteMonoidMap = FiniteMonoidMap.isFiniteMonoidMap(
             sourceElements = this.source.elements,
             targetUnit = this.target.unit,
             multiplySource = this.source::multiply,
             multiplyTarget = this.target::multiply,
+            earlyReturn = earlyReturn,
             map = this::invoke,
         )
         if (isFiniteMonoidMap is BooleanWithCause.False) {
@@ -74,6 +75,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             targetUnit: ET,
             multiplySource: (monoidElement1: ES, monoidElement2: ES) -> ES,
             multiplyTarget: (monoidElement1: ET, monoidElement2: ET) -> ET,
+            earlyReturn: Boolean,
             map: (monoidElement: ES) -> ET,
         ): BooleanWithCause {
             val cause = mutableListOf<String>()
@@ -81,6 +83,9 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
                 "sourceElements must be non-empty, but was empty"
             }
             if (map(sourceElements[0]) != targetUnit) {
+                if (earlyReturn) {
+                    return BooleanWithCause.fromCause(listOf("Not a finite monoid map"))
+                }
                 cause.add(
                     "f(unit)=${map(sourceElements[0])} is not unit"
                 )
@@ -90,6 +95,9 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
                     val lhs = map(multiplySource(a, b))
                     val rhs = multiplyTarget(map(a), map(b))
                     if (lhs != rhs) {
+                        if (earlyReturn) {
+                            return BooleanWithCause.fromCause(listOf("Not a finite monoid map"))
+                        }
                         cause.add(
                             "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b; " +
                                 "f(ab) = $lhs and f(a)f(b) = $rhs"
@@ -104,6 +112,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             source: FiniteMonoid<ES>,
             target: FiniteMonoid<ET>,
             values: List<ET>,
+            earlyReturn: Boolean = false,
         ): BooleanWithCause {
             require(values.size == source.elements.size) {
                 "values.size (${values.size}) is different from source.elements.size (${source.elements.size})"
@@ -113,6 +122,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
                 target.unit,
                 source::multiply,
                 target::multiply,
+                earlyReturn = earlyReturn,
             ) { monoidElement ->
                 FiniteMonoidMap.getValue(source, values, monoidElement)
             }
@@ -163,7 +173,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             check(source.elements[0] == source.unit)
             check(target.elements[0] == target.unit)
             return target.elements.pow(source.elements.size).mapNotNull { values ->
-                when (FiniteMonoidMap.isFiniteMonoidMap(source, target, values)) {
+                when (FiniteMonoidMap.isFiniteMonoidMap(source, target, values, earlyReturn = true)) {
                     is BooleanWithCause.True -> FiniteMonoidMap(source, target, values)
                     is BooleanWithCause.False -> null
                 }

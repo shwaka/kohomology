@@ -162,8 +162,7 @@ class FiniteMonoidMapListAllMapsTest : FreeSpec({
         }
 
         "the number of monoid maps from ℤ/p to ℤ/p should be p" {
-            // This takes 10s for p=7
-            (2..5).filter { it.isPrime() }.forAll { p ->
+            (2..7).filter { it.isPrime() }.forAll { p ->
                 val monoid = CyclicGroup(p)
                 FiniteMonoidMap.listAllMapsNaive(monoid, monoid) shouldHaveSize p
             }

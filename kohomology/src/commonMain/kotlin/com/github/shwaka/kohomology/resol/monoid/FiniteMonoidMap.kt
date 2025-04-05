@@ -82,26 +82,33 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             require(sourceElements.isNotEmpty()) {
                 "sourceElements must be non-empty, but was empty"
             }
-            if (map(sourceElements[0]) != targetUnit) {
-                if (earlyReturn) {
-                    return BooleanWithCause.fromCause(listOf("Not a finite monoid map"))
+            fun getEarlyReturnValue(cause: List<String>): BooleanWithCause? {
+                return if (earlyReturn) {
+                    BooleanWithCause.fromCause(
+                        listOf(
+                            "Not a finite monoid map. One of the reasons:"
+                        ) + cause
+                    )
+                } else {
+                    null
                 }
+            }
+            if (map(sourceElements[0]) != targetUnit) {
                 cause.add(
                     "f(unit)=${map(sourceElements[0])} is not unit"
                 )
+                getEarlyReturnValue(cause)?.let { return it }
             }
             for (a in sourceElements) {
                 for (b in sourceElements) {
                     val lhs = map(multiplySource(a, b))
                     val rhs = multiplyTarget(map(a), map(b))
                     if (lhs != rhs) {
-                        if (earlyReturn) {
-                            return BooleanWithCause.fromCause(listOf("Not a finite monoid map"))
-                        }
                         cause.add(
                             "f(ab)=f(a)f(b) is not satisfied for a=$a, b=$b; " +
                                 "f(ab) = $lhs and f(a)f(b) = $rhs"
                         )
+                        getEarlyReturnValue(cause)?.let { return it }
                     }
                 }
             }

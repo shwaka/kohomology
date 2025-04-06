@@ -14,7 +14,7 @@ public data class SemiDirectProductElement<EA : FiniteMonoidElement, E : FiniteM
     override fun toString(printConfig: PrintConfig): String {
         val targetString = this.targetElement.toString(printConfig)
         val sourceString = this.sourceElement.toString(printConfig)
-        return "($targetString, $sourceElement)"
+        return "($targetString, $sourceString)"
     }
 
     public companion object {
@@ -43,7 +43,17 @@ public class SemiDirectProduct<EA : FiniteMonoidElement, E : FiniteMonoidElement
         monoidElement1: SemiDirectProductElement<EA, E>,
         monoidElement2: SemiDirectProductElement<EA, E>
     ): SemiDirectProductElement<EA, E> {
-        TODO("Not yet implemented")
+        val f: FiniteMonoidMap<E, E> = this.action.actionMap(monoidElement1.sourceElement).asMap
+        return SemiDirectProductElement(
+            targetElement = this.action.target.multiply(
+                monoidElement1.targetElement,
+                f(monoidElement2.targetElement),
+            ),
+            sourceElement = this.action.source.multiply(
+                monoidElement1.sourceElement,
+                monoidElement2.sourceElement,
+            )
+        )
     }
 
     override val multiplicationTable: List<List<SemiDirectProductElement<EA, E>>> by lazy {

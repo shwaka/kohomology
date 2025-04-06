@@ -37,7 +37,7 @@ class FiniteMonoidMapTest : FreeSpec({
 
         "test composition" {
             val anotherTarget = CyclicGroup(6)
-            val anotherValues = (0 until 2).map { CyclicGroupElement(it * 3, 2) }
+            val anotherValues = (0 until 2).map { CyclicGroupElement(it * 3, 6) }
             val anotherMonoidMap = FiniteMonoidMap(target, anotherTarget, anotherValues)
             source.elements.forAll { element ->
                 val composedMap = anotherMonoidMap * monoidMap

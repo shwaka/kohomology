@@ -55,6 +55,10 @@ public class SymmetricGroup(public val order: Int) : FiniteGroup<Permutation> {
         FiniteMonoid.getMultiplicationTable(this.elements, this::multiply)
     }
 
+    override fun toString(): String {
+        return this.toString(PrintConfig(PrintType.PLAIN))
+    }
+
     override fun toString(printConfig: PrintConfig): String {
         return when (printConfig.printType) {
             PrintType.TEX -> "{\\mathfrak S}_{${this.order}}"

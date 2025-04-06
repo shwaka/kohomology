@@ -227,5 +227,17 @@ class FiniteMonoidMapTest : FreeSpec({
                 monoid.isIsomorphicTo(monoid).shouldBeTrue()
             }
         }
+
+        "test with non-isomorphic monoids" {
+            val monoids = listOf(
+                CyclicGroup(2) to CyclicGroup(3),
+                CyclicGroup(2) to CyclicGroup(6),
+                CyclicGroup(6) to SymmetricGroup(2),
+                TruncatedAdditionMonoid(2) to CyclicGroup(2),
+            )
+            monoids.forAll { (monoid1, monoid2) ->
+                monoid1.isIsomorphicTo(monoid2).shouldBeFalse()
+            }
+        }
     }
 })

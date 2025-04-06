@@ -15,11 +15,15 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return FiniteMonoidMap.getValue(this.source, this.values, monoidElement)
     }
 
-    public operator fun <EU : FiniteMonoidElement> times(
-        other: FiniteMonoidMap<ET, EU>
-    ): FiniteMonoidMap<ES, EU> {
-        val values = this.values.map { other(it) }
-        return FiniteMonoidMapImpl(source = this.source, target = other.target, values = values)
+    public operator fun <ER : FiniteMonoidElement> times(
+        other: FiniteMonoidMap<ER, ES>
+    ): FiniteMonoidMap<ER, ET> {
+        require(this.source == other.target) {
+            "Cannot compose $this and $other: " +
+                "$this.source=${this.source} != $other.target=${other.target}"
+        }
+        val values = other.values.map { this(it) }
+        return FiniteMonoidMapImpl(source = other.source, target = this.target, values = values)
     }
 
     public fun isBijective(): Boolean {

@@ -52,7 +52,7 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return "End(${this.baseMonoid.toString(printConfig)})"
+        return "Aut(${this.baseMonoid.toString(printConfig)})"
     }
 
     override fun toString(): String {

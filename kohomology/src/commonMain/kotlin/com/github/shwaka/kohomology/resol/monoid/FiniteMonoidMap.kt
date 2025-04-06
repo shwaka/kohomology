@@ -25,6 +25,18 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         return FiniteMonoidMapImpl(source = other.source, target = this.target, values = values)
     }
 
+    public fun inv(): FiniteMonoidMap<ET, ES> {
+        require(this.isBijective()) { "Inverse does not exist" }
+        val values = this.target.elements.map { targetElement ->
+            this.source.elements.find { this(it) == targetElement } ?: throw Exception("This can't happen!")
+        }
+        return FiniteMonoidMap(
+            source = this.target,
+            target = this.source,
+            values = values,
+        )
+    }
+
     public fun isBijective(): Boolean {
         return this.isInjective() && this.isSurjective()
     }

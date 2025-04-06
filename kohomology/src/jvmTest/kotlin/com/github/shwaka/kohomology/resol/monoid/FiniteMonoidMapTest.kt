@@ -39,8 +39,7 @@ class FiniteMonoidMapTest : FreeSpec({
             val anotherTarget = CyclicGroup(6)
             val anotherValues = (0 until 2).map { CyclicGroupElement(it * 3, 2) }
             val anotherMonoidMap = FiniteMonoidMap(target, anotherTarget, anotherValues)
-            (0 until 6).forAll { i ->
-                val element = CyclicGroupElement(i, 6)
+            source.elements.forAll { element ->
                 val composedMap = anotherMonoidMap * monoidMap
                 composedMap(element) shouldBe anotherMonoidMap(monoidMap(element))
             }

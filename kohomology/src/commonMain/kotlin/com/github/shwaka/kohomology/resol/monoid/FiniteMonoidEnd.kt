@@ -66,6 +66,15 @@ public class FiniteMonoidEnd<E : FiniteMonoidElement>(
         FiniteMonoid.getMultiplicationTable(this.elements, this::multiply)
     }
 
+    public fun asAction(): FiniteMonoidAction<EndElement<E>, E> {
+        return FiniteMonoidAction(
+            source = this,
+            target = this.baseMonoid,
+            targetEnd = this,
+            actionMap = FiniteMonoidMap.id(this),
+        )
+    }
+
     override fun toString(printConfig: PrintConfig): String {
         return "End(${this.baseMonoid.toString(printConfig)})"
     }

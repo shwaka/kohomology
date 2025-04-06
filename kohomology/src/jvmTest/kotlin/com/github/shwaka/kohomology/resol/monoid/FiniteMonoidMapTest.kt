@@ -1,8 +1,9 @@
 package com.github.shwaka.kohomology.resol.monoid
 
-import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldNotThrowAny
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
@@ -55,6 +56,12 @@ class FiniteMonoidMapTest : FreeSpec({
 
         "isBijective() should be false" {
             monoidMap.isBijective().shouldBeFalse()
+        }
+
+        "inv() should throw IllegalArgumentException" {
+            shouldThrow<IllegalArgumentException> {
+                monoidMap.inv()
+            }
         }
 
         "test equals with the same MonoidMap" {
@@ -110,6 +117,12 @@ class FiniteMonoidMapTest : FreeSpec({
             monoidMap.isBijective().shouldBeFalse()
         }
 
+        "inv() should throw IllegalArgumentException" {
+            shouldThrow<IllegalArgumentException> {
+                monoidMap.inv()
+            }
+        }
+
         "test equals with the same MonoidMap" {
             val otherValues = (0 until 3).map { CyclicGroupElement(it * 2, 6) }
             val otherMonoidMap = FiniteMonoidMap(source, target, otherValues)
@@ -130,6 +143,32 @@ class FiniteMonoidMapTest : FreeSpec({
 
         "monoidMap.toString() should be \"FiniteMonoidMap(t^0->t^0, t^1->t^2, t^2->t^4)\"" {
             monoidMap.toString() shouldBe "FiniteMonoidMap(t^0->t^0, t^1->t^2, t^2->t^4)"
+        }
+    }
+
+    "test isomorphism from ℤ/8 to itself" - {
+        val monoid = CyclicGroup(8)
+        val values = (0 until 8).map { CyclicGroupElement((it * 3) % 8, 8) }
+        val monoidMap = FiniteMonoidMap(monoid, monoid, values)
+
+        "monoidMap.isBijective() should be true" {
+            monoidMap.isBijective().shouldBeTrue()
+        }
+
+        "monoidMap.inv() should not throw any" {
+            shouldNotThrowAny {
+                monoidMap.inv()
+            }
+        }
+
+        "monoidMap.inv() should be the inverse map" {
+            val inv = monoidMap.inv()
+            monoid.elements.forAll { element ->
+                monoidMap(inv(element)) shouldBe element
+            }
+            monoid.elements.forAll { element ->
+                inv(monoidMap(element)) shouldBe element
+            }
         }
     }
 

@@ -194,6 +194,12 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
     }
 }
 
+public fun <E : FiniteMonoidElement, EO : FiniteMonoidElement> FiniteMonoid<E>.isIsomorphicTo(
+    other: FiniteMonoid<EO>
+): Boolean {
+    return FiniteMonoidMap.listAllMaps(this, other).any { it.isBijective() }
+}
+
 private class FiniteMonoidMapImpl<ES : FiniteMonoidElement, ET : FiniteMonoidElement>(
     override val source: FiniteMonoid<ES>,
     override val target: FiniteMonoid<ET>,

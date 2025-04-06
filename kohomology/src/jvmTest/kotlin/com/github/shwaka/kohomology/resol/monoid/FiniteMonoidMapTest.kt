@@ -212,4 +212,20 @@ class FiniteMonoidMapTest : FreeSpec({
             }
         }
     }
+
+    "test isIsomorphicTo" - {
+        "any monoid should be isomorphic to itself" {
+            val monoids = listOf(
+                CyclicGroup(2),
+                CyclicGroup(3),
+                CyclicGroup(6),
+                SymmetricGroup(3),
+                TruncatedAdditionMonoid(2),
+                TruncatedAdditionMonoid(3),
+            )
+            monoids.forAll { monoid ->
+                monoid.isIsomorphicTo(monoid).shouldBeTrue()
+            }
+        }
+    }
 })

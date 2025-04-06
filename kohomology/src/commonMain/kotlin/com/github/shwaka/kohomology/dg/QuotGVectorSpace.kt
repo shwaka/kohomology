@@ -9,7 +9,6 @@ import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.QuotBasis
 import com.github.shwaka.kohomology.vectsp.QuotVectorSpace
@@ -93,7 +92,7 @@ private class QuotGVectorSpaceImpl<D : Degree, B : BasisName, S : Scalar, V : Nu
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 
     override fun toString(printConfig: PrintConfig): String {

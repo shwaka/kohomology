@@ -49,6 +49,6 @@ public data class MMIndeterminateName(
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 }

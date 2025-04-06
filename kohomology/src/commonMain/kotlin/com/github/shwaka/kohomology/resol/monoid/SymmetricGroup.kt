@@ -56,7 +56,7 @@ public class SymmetricGroup(public val order: Int) : FiniteGroup<Permutation> {
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 
     override fun toString(printConfig: PrintConfig): String {

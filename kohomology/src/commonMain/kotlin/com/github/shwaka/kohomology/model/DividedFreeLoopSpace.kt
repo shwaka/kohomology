@@ -17,7 +17,6 @@ import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.util.PrintType
 
 private class DividedFreeLoopSpaceFactory<D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     val freeDGAlgebra: FreeDGAlgebra<D, I, S, V, M>
@@ -125,7 +124,7 @@ public class DividedFreeLoopSpace<D : Degree, I : IndeterminateName, S : Scalar,
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 
     override fun toString(printConfig: PrintConfig): String {

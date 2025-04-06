@@ -2,7 +2,6 @@ package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.BooleanWithCause
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 
@@ -221,6 +220,6 @@ private class FiniteMonoidMapImpl<ES : FiniteMonoidElement, ET : FiniteMonoidEle
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 }

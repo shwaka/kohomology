@@ -70,7 +70,7 @@ public class CyclicGroup(public val order: Int) : FiniteGroup<CyclicGroupElement
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 
     override fun toString(printConfig: PrintConfig): String {

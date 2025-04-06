@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.PrintConfig
-import com.github.shwaka.kohomology.util.PrintType
 
 public data class EndElement<E : FiniteMonoidElement>(
     public val baseMonoid: FiniteMonoid<E>,
@@ -12,7 +11,7 @@ public data class EndElement<E : FiniteMonoidElement>(
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -72,6 +71,6 @@ public class FiniteMonoidEnd<E : FiniteMonoidElement>(
     }
 
     override fun toString(): String {
-        return this.toString(PrintConfig(PrintType.PLAIN))
+        return this.toString(PrintConfig.default)
     }
 }

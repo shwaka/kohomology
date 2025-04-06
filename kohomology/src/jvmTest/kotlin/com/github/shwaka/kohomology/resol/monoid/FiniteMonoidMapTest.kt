@@ -1,11 +1,13 @@
 package com.github.shwaka.kohomology.resol.monoid
 
+import com.github.shwaka.kohomology.util.isPrime
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
 val finiteMonoidMapTag = NamedTag("FiniteMonoidMap")
@@ -144,6 +146,20 @@ class FiniteMonoidMapTest : FreeSpec({
         )
         for (monoid in monoids) {
             testForMonoid(monoid)
+        }
+    }
+
+    "test listAllMaps" - {
+        "the number of monoid maps from ℤ/2 to ℤ/2 should be 2" {
+            val monoid = CyclicGroup(2)
+            FiniteMonoidMap.listAllMaps(monoid, monoid) shouldHaveSize 2
+        }
+
+        "the number of monoid maps from ℤ/p to ℤ/p should be p" {
+            (2..7).filter { it.isPrime() }.forAll { p ->
+                val monoid = CyclicGroup(p)
+                FiniteMonoidMap.listAllMaps(monoid, monoid) shouldHaveSize p
+            }
         }
     }
 })

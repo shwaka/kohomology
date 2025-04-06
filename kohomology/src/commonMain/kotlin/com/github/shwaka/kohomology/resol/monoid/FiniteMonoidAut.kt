@@ -30,7 +30,7 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
     }
 
     override fun invert(monoidElement: EndElement<E>): EndElement<E> {
-        TODO("Not yet implemented")
+        return EndElement(this.baseMonoid, monoidElement.asMap.inv())
     }
 
     public val end: FiniteMonoidEnd<E> by lazy { FiniteMonoidEnd(this.baseMonoid) }

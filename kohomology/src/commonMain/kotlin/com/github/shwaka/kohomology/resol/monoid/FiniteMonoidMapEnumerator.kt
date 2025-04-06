@@ -3,15 +3,24 @@ package com.github.shwaka.kohomology.resol.monoid
 import com.github.shwaka.kohomology.util.BooleanWithCause
 import com.github.shwaka.kohomology.util.pow
 
-internal interface FiniteMonoidMapEnumerator {
+internal abstract class FiniteMonoidMapEnumerator {
     fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMaps(
+        source: FiniteMonoid<ES>,
+        target: FiniteMonoid<ET>,
+    ): List<FiniteMonoidMap<ES, ET>> {
+        check(source.elements[0] == source.unit)
+        check(target.elements[0] == target.unit)
+        return this.listAllMapsImpl(source, target)
+    }
+
+    protected abstract fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMapsImpl(
         source: FiniteMonoid<ES>,
         target: FiniteMonoid<ET>,
     ): List<FiniteMonoidMap<ES, ET>>
 
-    object Naive : FiniteMonoidMapEnumerator {
+    object Naive : FiniteMonoidMapEnumerator() {
         // This is very naive implementation and should be used in test.
-        override fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMaps(
+        override fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMapsImpl(
             source: FiniteMonoid<ES>,
             target: FiniteMonoid<ET>
         ): List<FiniteMonoidMap<ES, ET>> {
@@ -24,8 +33,8 @@ internal interface FiniteMonoidMapEnumerator {
         }
     }
 
-    object UnitPreserving : FiniteMonoidMapEnumerator {
-        override fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMaps(
+    object UnitPreserving : FiniteMonoidMapEnumerator() {
+        override fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMapsImpl(
             source: FiniteMonoid<ES>,
             target: FiniteMonoid<ET>
         ): List<FiniteMonoidMap<ES, ET>> {

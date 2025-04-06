@@ -167,9 +167,8 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
             source: FiniteMonoid<ES>,
             target: FiniteMonoid<ET>,
         ): List<FiniteMonoidMap<ES, ET>> {
-            check(source.elements[0] == source.unit)
-            check(target.elements[0] == target.unit)
-            return FiniteMonoidMapEnumerator.Naive.listAllMaps(source, target)
+            val enumerator = FiniteMonoidMapEnumerator.Naive
+            return enumerator.listAllMaps(source, target)
         }
     }
 }

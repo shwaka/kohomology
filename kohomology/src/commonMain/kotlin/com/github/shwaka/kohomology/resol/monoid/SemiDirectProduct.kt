@@ -5,23 +5,23 @@ import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.directProductOf
 
 public data class SemiDirectProductElement<EA : FiniteMonoidElement, E : FiniteMonoidElement>(
-    val sourceElement: EA,
     val targetElement: E,
+    val sourceElement: EA,
 ) : FiniteMonoidElement {
     override fun toString(): String {
         return this.toString(PrintConfig.default)
     }
     override fun toString(printConfig: PrintConfig): String {
-        val sourceString = this.sourceElement.toString(printConfig)
         val targetString = this.targetElement.toString(printConfig)
-        return "($sourceString, $targetString)"
+        val sourceString = this.sourceElement.toString(printConfig)
+        return "($targetString, $sourceElement)"
     }
 
     public companion object {
         public fun <EA : FiniteMonoidElement, E : FiniteMonoidElement> getAll(
             action: FiniteMonoidAction<EA, E>
         ): List<SemiDirectProductElement<EA, E>> {
-            return directProductOf(action.source.elements, action.target.elements).map {
+            return directProductOf(action.target.elements, action.source.elements).map {
                 SemiDirectProductElement(it.first, it.second)
             }
         }
@@ -33,7 +33,7 @@ public class SemiDirectProduct<EA : FiniteMonoidElement, E : FiniteMonoidElement
 ) : FiniteMonoid<SemiDirectProductElement<EA, E>> {
     override val context: FiniteMonoidContext<SemiDirectProductElement<EA, E>> = FiniteMonoidContext(this)
     override val unit: SemiDirectProductElement<EA, E> =
-        SemiDirectProductElement(action.source.unit, action.target.unit)
+        SemiDirectProductElement(action.target.unit, action.source.unit)
     override val elements: List<SemiDirectProductElement<EA, E>> = SemiDirectProductElement.getAll(action)
     override val isCommutative: Boolean by lazy {
         FiniteMonoid.isCommutative(elements, ::multiply)
@@ -55,12 +55,12 @@ public class SemiDirectProduct<EA : FiniteMonoidElement, E : FiniteMonoidElement
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        val sourceString = this.action.source.toString(printConfig)
         val targetString = this.action.target.toString(printConfig)
-        val ltimes = when (printConfig.printType) {
-            PrintType.TEX -> "\\ltimes"
-            else -> "⋉"
+        val sourceString = this.action.source.toString(printConfig)
+        val rtimes = when (printConfig.printType) {
+            PrintType.TEX -> "\\rtimes"
+            else -> "⋊"
         }
-        return "$sourceString $ltimes $targetString"
+        return "$targetString $rtimes $sourceString"
     }
 }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1743812389216,
+  "lastUpdate": 1743938252044,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -5932,6 +5932,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.501,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "3c148e5c39c2f61b014cd3d7b8aee58d804797f0",
+          "message": "feat(core): add PrintCofnig::Companion.default",
+          "timestamp": "2025-04-06T20:11:53+09:00",
+          "tree_id": "b743bea103fbd039e244db9653665c280936c64b",
+          "url": "https://github.com/shwaka/kohomology/commit/3c148e5c39c2f61b014cd3d7b8aee58d804797f0"
+        },
+        "date": 1743938251292,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.449,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.544,
             "unit": "s/op"
           }
         ]

@@ -5,7 +5,10 @@ import com.github.shwaka.kohomology.util.PrintType
 
 public data class CyclicGroupElement(val value: Int, val order: Int) : FiniteMonoidElement {
     init {
-        require((0 <= this.value) && (this.value < this.order))
+        require((0 <= this.value) && (this.value < this.order)) {
+            "Invalid argument: CyclicGroupElement(value=$value, order=$order) is not allowed. " +
+                "The argument value must satisfy 0 <= value < order"
+        }
     }
     override fun toString(): String {
         return "t^${this.value}"

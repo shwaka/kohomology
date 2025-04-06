@@ -6,6 +6,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldContain
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.shouldBe
 
 class FiniteMonoidMapEnumeratorTest : FreeSpec({
     tags(finiteMonoidTag, finiteMonoidMapTag)
@@ -65,6 +66,34 @@ class FiniteMonoidMapEnumeratorTest : FreeSpec({
             )
             for (monoid in monoids) {
                 testForMonoid(monoid)
+            }
+        }
+    }
+
+    "test implementations of FiniteMonoidMapEnumerator by comparing with Naive" - {
+        val enumeratorList = listOf(
+            FiniteMonoidMapEnumerator.Naive,
+            FiniteMonoidMapEnumerator.UnitPreserving,
+        )
+        val stList = listOf(
+            CyclicGroup(2) to CyclicGroup(2),
+            CyclicGroup(3) to CyclicGroup(3),
+            TruncatedAdditionMonoid(2) to TruncatedAdditionMonoid(2),
+            CyclicGroup(2) to SymmetricGroup(3),
+        )
+        for (enumerator in enumeratorList) {
+            "${enumerator::class.simpleName}.listAllMaps should return a list of the same size as Naive.listAllMaps" {
+                stList.forAll { (source, target) ->
+                    enumerator.listAllMaps(source, target) shouldHaveSize
+                        FiniteMonoidMapEnumerator.Naive.listAllMaps(source, target).size
+                }
+            }
+
+            "${enumerator::class.simpleName}.listAllMaps should return the same value (ignoring the order of elements) as Naive.listAllMaps" {
+                stList.forAll { (source, target) ->
+                    enumerator.listAllMaps(source, target).toSet() shouldBe
+                        FiniteMonoidMapEnumerator.Naive.listAllMaps(source, target).toSet()
+                }
             }
         }
     }

@@ -169,22 +169,7 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
         ): List<FiniteMonoidMap<ES, ET>> {
             check(source.elements[0] == source.unit)
             check(target.elements[0] == target.unit)
-            return FiniteMonoidMap.listAllMapsNaive(source, target)
-        }
-
-        // This is very naive implementation and should be used in test.
-        internal fun <ES : FiniteMonoidElement, ET : FiniteMonoidElement> listAllMapsNaive(
-            source: FiniteMonoid<ES>,
-            target: FiniteMonoid<ET>,
-        ): List<FiniteMonoidMap<ES, ET>> {
-            check(source.elements[0] == source.unit)
-            check(target.elements[0] == target.unit)
-            return target.elements.pow(source.elements.size).mapNotNull { values ->
-                when (FiniteMonoidMap.isFiniteMonoidMap(source, target, values, earlyReturn = true)) {
-                    is BooleanWithCause.True -> FiniteMonoidMap(source, target, values)
-                    is BooleanWithCause.False -> null
-                }
-            }
+            return FiniteMonoidMapEnumerator.Naive.listAllMaps(source, target)
         }
     }
 }

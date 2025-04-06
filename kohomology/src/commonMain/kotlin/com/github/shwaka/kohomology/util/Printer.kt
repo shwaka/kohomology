@@ -93,4 +93,8 @@ public data class PrintConfig(
     val afterSign: String = " ",
     val afterCoeff: String = " ",
     val showShift: ShowShift = ShowShift.S_WITH_DEGREE,
-)
+) {
+    public companion object {
+        public val default: PrintConfig = PrintConfig(PrintType.PLAIN)
+    }
+}

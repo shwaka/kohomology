@@ -5,7 +5,6 @@ import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
-import com.github.shwaka.kohomology.util.pow
 
 public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElement> : Printable {
     public val source: FiniteMonoid<ES>
@@ -14,6 +13,13 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
 
     public operator fun invoke(monoidElement: ES): ET {
         return FiniteMonoidMap.getValue(this.source, this.values, monoidElement)
+    }
+
+    public operator fun <EU : FiniteMonoidElement> times(
+        other: FiniteMonoidMap<ET, EU>
+    ): FiniteMonoidMap<ES, EU> {
+        val values = this.values.map { other(it) }
+        return FiniteMonoidMapImpl(source = this.source, target = other.target, values = values)
     }
 
     public fun isBijective(): Boolean {

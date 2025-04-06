@@ -3,6 +3,7 @@ package com.github.shwaka.kohomology.resol.monoid
 import io.kotest.assertions.throwables.shouldNotThrowAny
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 
 class FiniteMonoidAutTest : FreeSpec({
@@ -36,6 +37,17 @@ class FiniteMonoidAutTest : FreeSpec({
         )
         monoidList.forAll { (monoid, autOrder) ->
             FiniteMonoidAut(monoid).size shouldBe autOrder
+        }
+    }
+
+    "check isomorphism type of Aut" {
+        val monoidList = listOf(
+            CyclicGroup(3) to CyclicGroup(2),
+            CyclicGroup(5) to CyclicGroup(4),
+            SymmetricGroup(3) to SymmetricGroup(3),
+        )
+        monoidList.forAll { (monoid, autExpected) ->
+            FiniteMonoidAut(monoid).isIsomorphicTo(autExpected).shouldBeTrue()
         }
     }
 })

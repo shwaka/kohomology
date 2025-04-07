@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1743991173791,
+  "lastUpdate": 1743994293405,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6102,6 +6102,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.599,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b5dcda36d4ba64b4a5c0144801e334a665a23261",
+          "message": "feat(website): use sticky header in BenchmarkChart",
+          "timestamp": "2025-04-07T11:45:27+09:00",
+          "tree_id": "296b3db531ccd91122d030a154fcecd05ca683fe",
+          "url": "https://github.com/shwaka/kohomology/commit/b5dcda36d4ba64b4a5c0144801e334a665a23261"
+        },
+        "date": 1743994292941,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.41,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.463,
             "unit": "s/op"
           }
         ]

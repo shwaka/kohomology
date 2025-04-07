@@ -20,8 +20,13 @@ public class Printer private constructor(
         beforeSign: String = " ",
         afterSign: String = " ",
         afterCoeff: String = " ",
-        showShift: ShowShift = ShowShift.S_WITH_DEGREE,
-    ) : this(PrintConfig(printType, beforeSign, afterSign, afterCoeff, showShift))
+        buildEntries: EntriesBuilder.() -> Unit = {},
+    ) : this(
+        PrintConfig(
+            printType, beforeSign, afterSign, afterCoeff,
+            EntriesBuilder().apply { buildEntries() }.entries,
+        )
+    )
 
     override fun toString(): String {
         return this.value

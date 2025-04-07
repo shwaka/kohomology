@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744015681176,
+  "lastUpdate": 1744016839691,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6238,6 +6238,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.543,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "9366380c3e756caff1e66392f0d394373c84f1ea",
+          "message": "test(core): remove typo from FiniteMonoidAutTest",
+          "timestamp": "2025-04-07T18:01:36+09:00",
+          "tree_id": "855597df5fc9559b62b9253ca8231c2ded569a8c",
+          "url": "https://github.com/shwaka/kohomology/commit/9366380c3e756caff1e66392f0d394373c84f1ea"
+        },
+        "date": 1744016839244,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.425,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.491,
             "unit": "s/op"
           }
         ]

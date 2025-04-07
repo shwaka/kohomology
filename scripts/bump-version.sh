@@ -15,7 +15,7 @@ function show_usage() {
     current_version=$(grep "$VERSION_REGEX" < $BUILD_GRADLE_KTS |
                           sed s/"$VERSION_REGEX"/\\1/)
     echo "Current version: $current_version" >&2
-    tags=$(git tag | tac | tr "\n" " ")
+    tags=$(git tag | sort -V | tr "\n" " ")
     echo "Known tags: $tags" >&2
 }
 

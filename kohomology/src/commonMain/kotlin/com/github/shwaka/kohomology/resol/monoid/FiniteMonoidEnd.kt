@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 
 public data class EndElement<E : FiniteMonoidElement>(
     public val baseMonoid: FiniteMonoid<E>,
@@ -10,8 +11,29 @@ public data class EndElement<E : FiniteMonoidElement>(
     public val index: Int
         get() = this.getIndex(this)
 
+    private fun getIndexedName(printType: PrintType, symbol: String): String {
+        val index = this.index
+        if (index == 0) {
+            check(this.asMap.values == this.baseMonoid.elements) {
+                "Index is 0 but the map is not id"
+            }
+            return when (printType) {
+                PrintType.TEX -> "\\mathrm{id}"
+                else -> "id"
+            }
+        }
+        return when (printType) {
+            PrintType.TEX -> "${symbol}_{${this.index}}"
+            else -> "${symbol}_${this.index}"
+        }
+    }
+
     override fun toString(printConfig: PrintConfig): String {
-        return this.asMap.toString(printConfig)
+        return when (val endElementFormat = printConfig.get<EndElementPrintConfig>().format) {
+            is EndElementFormat.Raw -> this.asMap.toString(printConfig)
+            is EndElementFormat.Indexed ->
+                this.getIndexedName(printConfig.printType, endElementFormat.symbol)
+        }
     }
 
     override fun toString(): String {

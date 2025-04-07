@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.util
 
 import com.github.shwaka.kohomology.model.CopiedNamePrintConfig
+import com.github.shwaka.kohomology.resol.monoid.EndElementPrintConfig
 import kotlin.reflect.KClass
 
 public interface PrintConfigEntry
@@ -36,6 +37,7 @@ public data class PrintConfig(
             // It will be executed when it is accessed.
             // https://kotlinlang.org/docs/object-declarations.html#behavior-difference-between-object-declarations-and-expressions
             CopiedNamePrintConfig.registerDefault()
+            EndElementPrintConfig.registerDefault()
         }
     }
 }

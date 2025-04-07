@@ -70,7 +70,7 @@ function release_version() {
     git commit --no-verify -m "Release v$version"
     git tag -a "v$version" -m "Version $version"
 
-    read -rp "Do you want to publish? (y/n)" answer
+    read -rp "Do you want to publish to local repository? (y/n)" answer
     if [ "$answer" = n ]; then return; fi
     cd kohomology
     setup_java

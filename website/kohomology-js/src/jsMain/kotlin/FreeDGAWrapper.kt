@@ -21,14 +21,14 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.SparseMatrix
 import com.github.shwaka.kohomology.linalg.SparseNumVector
+import com.github.shwaka.kohomology.model.CopiedNamePrintConfig
 import com.github.shwaka.kohomology.model.CyclicModel
 import com.github.shwaka.kohomology.model.FreeLoopSpace
+import com.github.shwaka.kohomology.model.ShowShift
 import com.github.shwaka.kohomology.specific.Rational
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
-import com.github.shwaka.kohomology.util.PrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
-import com.github.shwaka.kohomology.util.ShowShift
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
 import styled.MessageOptionsInternal
@@ -265,7 +265,7 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
 ): StyledMessageInternal {
-    val p = Printer(PrintConfig(printType = PrintType.TEX, showShift = ShowShift.BAR))
+    val p = Printer(printType = PrintType.TEX) { register(CopiedNamePrintConfig(ShowShift.BAR)) }
     val basis = getBasis(dgVectorSpace, degree)
     // val vectorSpaceString = if (basis.isEmpty()) "0" else {
     //     val basisString = basis.joinToString(", ") { p(it) }
@@ -306,7 +306,7 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
         MessageOptionsInternal()
     }
     return styledMessage(MessageType.SUCCESS) {
-        val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+        val p = Printer(printType = PrintType.TEX) { register(CopiedNamePrintConfig(ShowShift.BAR)) }
         val dgVectorSpaceWithoutParen: String = ParenParser.removeSurroundingParen(p(dgVectorSpace))
         val printed = "H^n($dgVectorSpaceWithoutParen)".math
         "Computing ".text + printed + " for ".text +
@@ -381,7 +381,7 @@ computeCohomologyClass(
             "Internal error: degreeGroup is not AugmentedDegreeGroup.".text
         }
     }
-    val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+    val p = Printer(printType = PrintType.TEX) { register(CopiedNamePrintConfig(ShowShift.BAR)) }
     dgAlgebra.context.run {
         if (d(cocycle).isNotZero()) {
             return styledMessage(MessageType.ERROR) {

@@ -26,7 +26,7 @@ repositories {
 dependencies {
     testImplementation(kotlin("test-junit"))
     implementation("org.jetbrains.kotlinx:kotlinx-benchmark-runtime-jvm:0.4.0")
-    implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
+    implementation("com.github.shwaka.kohomology:kohomology:0.13")
     implementation("com.github.shwaka.counter:simple-counter:0.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 }

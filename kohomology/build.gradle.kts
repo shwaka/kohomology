@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 import org.apache.tools.ant.taskdefs.condition.Os
 
 group = "com.github.shwaka.kohomology"
-version = "0.13-SNAPSHOT"
+version = "0.13"
 
 plugins {
     val kotlinVersion = "1.7.21"

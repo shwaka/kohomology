@@ -19,9 +19,46 @@ class FiniteMonoidAutTest : FreeSpec({
         )
         for (monoid in monoidList) {
             "FiniteMonoidAut($monoid) should satisfy monoid axioms" {
-                val end = FiniteMonoidAut(monoid)
+                val aut = FiniteMonoidAut(monoid)
                 shouldNotThrowAny {
-                    end.checkMonoidAxioms()
+                    aut.checkMonoidAxioms()
+                }
+            }
+        }
+    }
+
+    "check indices of elements" - {
+        val monoidList = listOf(
+            CyclicGroup(2),
+            CyclicGroup(3),
+            SymmetricGroup(3),
+            TruncatedAdditionMonoid(2),
+            TruncatedAdditionMonoid(3),
+        )
+        for (monoid in monoidList) {
+            "check FiniteMonoidAut($monoid).elements.map { it.index }" {
+                val aut = FiniteMonoidAut(monoid)
+                aut.elements.map { it.index } shouldBe (0 until aut.size).toList()
+            }
+        }
+    }
+
+    "check indices after inclusion" - {
+        val monoidList = listOf(
+            CyclicGroup(2),
+            CyclicGroup(3),
+            SymmetricGroup(3),
+            TruncatedAdditionMonoid(2),
+            TruncatedAdditionMonoid(3),
+        )
+        for (monoid in monoidList) {
+            "check indices of elements of FiniteMonoidAut($monoid) after inclusion" {
+                @Suppress("UNCHECKED_CAST")
+                val aut = FiniteMonoidAut(monoid) as FiniteMonoidAut<FiniteMonoidElement>
+                val end = aut.end
+                aut.elements.forAll { autElement ->
+                    val endElement = aut.inclusionToEnd(autElement)
+                    endElement.index + 1 shouldBe end.elements.indexOfFirst { it.asMap == endElement.asMap }
                 }
             }
         }

@@ -5,8 +5,11 @@ import com.github.shwaka.kohomology.util.PrintConfig
 public data class EndElement<E : FiniteMonoidElement>(
     public val baseMonoid: FiniteMonoid<E>,
     public val asMap: FiniteMonoidMap<E, E>,
-    public val getIndex: (EndElement<E>) -> Int,
+    private val getIndex: (EndElement<E>) -> Int,
 ) : FiniteMonoidElement {
+    public val index: Int
+        get() = this.getIndex(this)
+
     override fun toString(printConfig: PrintConfig): String {
         return this.asMap.toString(printConfig)
     }

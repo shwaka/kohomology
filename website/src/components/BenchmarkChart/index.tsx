@@ -1,6 +1,7 @@
 import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
 import benchmarkData from "@benchmark/benchmarkData.json"
-import { Checkbox, FormControlLabel } from "@mui/material"
+import { useColorMode } from "@docusaurus/theme-common"
+import { Box, Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
 import React, { useRef, useState } from "react"
 import { Chart } from "react-chartjs-2"
@@ -72,9 +73,13 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): J
   const [showMovingAverage, setShowMovingAverage] = useState(false)
   const { filterCommit, configureFilterCommitProps } = useFilterCommit(dataHandler.commits)
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
+  const { colorMode } = useColorMode()
+  const stickyBackgroundColor = (colorMode === "light") ? "white" : "var(--ifm-background-color)"
   return (
     <div>
-      <ConfigureFilterCommit {...configureFilterCommitProps}/>
+      <Box sx={{ position: "sticky", top: "var(--ifm-navbar-height)", backgroundColor: stickyBackgroundColor }}>
+        <ConfigureFilterCommit {...configureFilterCommitProps}/>
+      </Box>
       <FormControlLabel
         control={
           <Checkbox

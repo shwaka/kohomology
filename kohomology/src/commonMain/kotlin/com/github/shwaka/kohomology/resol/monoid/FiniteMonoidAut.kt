@@ -41,7 +41,10 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
         FiniteMonoidMap(
             source = this,
             target = this.end,
-            values = this.elements,
+            values = this.elements.map { autElement ->
+                // this.getIndex and this.end.getIndex are different
+                autElement.copy(getIndex = this.end::getIndex)
+            },
         )
     }
 

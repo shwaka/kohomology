@@ -56,9 +56,9 @@ class FiniteMonoidEndTest : FreeSpec({
             val p = Printer(PrintType.TEX) {
                 register(EndElementPrintConfig(EndElementFormat.Raw))
             }
-            p(id) shouldBe "FiniteMonoidMap(t^0->t^0, t^1->t^1, t^2->t^2)"
-            p(f1) shouldContain "FiniteMonoidMap("
-            p(f2) shouldContain "FiniteMonoidMap("
+            p(id) shouldBe "\\mathrm{FiniteMonoidMap}(t^0\\to t^0, t^1\\to t^1, t^2\\to t^2)"
+            p(f1) shouldContain "\\mathrm{FiniteMonoidMap}("
+            p(f2) shouldContain "\\mathrm{FiniteMonoidMap}("
         }
 
         "test toString with PrintType.PLAIN and EndElementFormat.Indexed" {

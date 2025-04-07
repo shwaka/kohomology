@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.BooleanWithCause
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printable
 import com.github.shwaka.kohomology.util.Printer
 
@@ -76,10 +77,19 @@ public interface FiniteMonoidMap<ES : FiniteMonoidElement, ET : FiniteMonoidElem
 
     override fun toString(printConfig: PrintConfig): String {
         val p = Printer(printConfig)
-        val valuesString = this.source.elements.joinToString(", ") { element ->
-            "${p(element)}->${p(this(element))}"
+        val className = "FiniteMonoidMap"
+        val classNameFormatted = when (printConfig.printType) {
+            PrintType.TEX -> "\\mathrm{$className}"
+            else -> className
         }
-        return "FiniteMonoidMap($valuesString)"
+        val arrow = when (printConfig.printType) {
+            PrintType.TEX -> "\\to "
+            else -> "->"
+        }
+        val valuesString = this.source.elements.joinToString(", ") { element ->
+            "${p(element)}$arrow${p(this(element))}"
+        }
+        return "$classNameFormatted($valuesString)"
     }
 
     public companion object {

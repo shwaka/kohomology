@@ -1,4 +1,7 @@
-package com.github.shwaka.kohomology.util
+package com.github.shwaka.kohomology.model
+
+import com.github.shwaka.kohomology.util.PrintConfigDefaultRegistry
+import com.github.shwaka.kohomology.util.PrintConfigEntry
 
 /**
  * Determines how to print [com.github.shwaka.kohomology.model.CopiedName].

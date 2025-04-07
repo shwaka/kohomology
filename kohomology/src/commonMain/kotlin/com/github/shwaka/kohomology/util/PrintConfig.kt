@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.util
 
+import com.github.shwaka.kohomology.model.CopiedNamePrintConfig
 import kotlin.reflect.KClass
 
 public interface PrintConfigEntry

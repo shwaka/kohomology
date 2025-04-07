@@ -6,8 +6,10 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
     public val baseMonoid: FiniteMonoid<E>,
 ) : FiniteGroup<EndElement<E>> {
     override val context: FiniteGroupContext<EndElement<E>> = FiniteGroupContext(this)
-    override val unit: EndElement<E> = EndElement(baseMonoid, FiniteMonoidMap.id(baseMonoid))
-    override val elements: List<EndElement<E>> = EndElement.getAll(baseMonoid).filter { it.asMap.isBijective() }
+    override val unit: EndElement<E> =
+        EndElement(baseMonoid, FiniteMonoidMap.id(baseMonoid), this::getIndex)
+    override val elements: List<EndElement<E>> =
+        EndElement.getAll(baseMonoid, this::getIndex).filter { it.asMap.isBijective() }
     override val isCommutative: Boolean by lazy {
         FiniteMonoid.isCommutative(elements, ::multiply)
     }
@@ -22,6 +24,7 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
         return EndElement(
             baseMonoid = this.baseMonoid,
             asMap = monoidElement1.asMap * monoidElement2.asMap,
+            getIndex = this::getIndex,
         )
     }
 
@@ -30,7 +33,7 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
     }
 
     override fun invert(monoidElement: EndElement<E>): EndElement<E> {
-        return EndElement(this.baseMonoid, monoidElement.asMap.inv())
+        return EndElement(this.baseMonoid, monoidElement.asMap.inv(), this::getIndex)
     }
 
     public val end: FiniteMonoidEnd<E> by lazy { FiniteMonoidEnd(this.baseMonoid) }
@@ -49,6 +52,14 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
             targetEnd = this.end,
             actionMap = this.inclusionToEnd,
         )
+    }
+
+    public fun getIndex(endElement: EndElement<E>): Int {
+        val index = this.elements.indexOf(endElement)
+        if (index == -1) {
+            throw NoSuchElementException("$endElement is not found in $this")
+        }
+        return index
     }
 
     override fun toString(printConfig: PrintConfig): String {

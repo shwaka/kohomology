@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1743952005121,
+  "lastUpdate": 1743991173791,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6068,6 +6068,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.513,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f25dc46cc3f4ce9a0130dd985e6d4b0237eb5ba7",
+          "message": "fix(website): use CopiedNamePrintConfig in kohomology-js",
+          "timestamp": "2025-04-07T10:53:09+09:00",
+          "tree_id": "b866bad297746b7e62347cf9665d0f8c86aae078",
+          "url": "https://github.com/shwaka/kohomology/commit/f25dc46cc3f4ce9a0130dd985e6d4b0237eb5ba7"
+        },
+        "date": 1743991173155,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.428,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.599,
             "unit": "s/op"
           }
         ]

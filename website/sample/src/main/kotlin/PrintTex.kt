@@ -2,11 +2,12 @@ package com.github.shwaka.kohomology.sample
 
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
+import com.github.shwaka.kohomology.model.CopiedNamePrintConfig
 import com.github.shwaka.kohomology.model.FreeLoopSpace
+import com.github.shwaka.kohomology.model.ShowShift
 import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
-import com.github.shwaka.kohomology.util.ShowShift
 
 fun main() {
     // \begin{def}
@@ -38,7 +39,9 @@ fun main() {
 
     println("----- tex output -----")
     // \begin{tex}
-    val p = Printer(printType = PrintType.TEX, showShift = ShowShift.BAR)
+    val p = Printer(printType = PrintType.TEX) {
+        register(CopiedNamePrintConfig(ShowShift.BAR))
+    }
     for (degree in 0..4) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         println("H^{$degree}(LX) &= \\Q${basis.map { v -> p(v) }} \\\\")
@@ -47,7 +50,9 @@ fun main() {
 
     println("----- long tex output -----")
     // \begin{long}
-    val p2 = Printer(printType = PrintType.TEX, beforeSign = "\n", showShift = ShowShift.BAR)
+    val p2 = Printer(printType = PrintType.TEX, beforeSign = "\n") {
+        register(CopiedNamePrintConfig(ShowShift.BAR))
+    }
     for (degree in 0..6) {
         val basis = freeLoopSpace.cohomology.getBasis(degree)
         val basisString = basis.joinToString(",\n") { v -> p2(v) }

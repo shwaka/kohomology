@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.MultiDegreeGroup
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.StringIndeterminateName
+import com.github.shwaka.kohomology.util.CopiedNamePrintConfig
 import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.util.ShowShift
@@ -21,20 +22,32 @@ class CopiedNameTest : FreeSpec({
         val shift = 1
         val sx = Indeterminate("x", "X", n).copy(shift, null)
         "print sx when showShift = S_WITH_DEGREE" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
             plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{X}"
         }
         "print sx when showShift = S" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
             plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{X}"
         }
         "print sx when showShift = BAR" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.BAR)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.BAR)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
             plainPrinter(sx) shouldBe "_x"
             texPrinter(sx) shouldBe "\\bar{X}"
         }
@@ -44,20 +57,32 @@ class CopiedNameTest : FreeSpec({
         val shift = 2
         val sx = Indeterminate("x", "X", n).copy(shift, null)
         "print sx when showShift = S_WITH_DEGREE" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
             plainPrinter(sx) shouldBe "s^2x"
             texPrinter(sx) shouldBe "s^{2}{X}"
         }
         "print sx when showShift = S" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
             plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{X}"
         }
         "print sx when showShift = BAR" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.BAR)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.BAR)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
             plainPrinter(sx) shouldBe "_x"
             texPrinter(sx) shouldBe "\\bar{X}"
         }
@@ -68,8 +93,12 @@ class CopiedNameTest : FreeSpec({
         val x1 = Indeterminate("x", "X", n).copy(shift = 0, index = index)
         for (showShift in ShowShift.values()) {
             "print x1 when showShift = $showShift" {
-                val plainPrinter = Printer(PrintType.PLAIN, showShift = showShift)
-                val texPrinter = Printer(PrintType.TEX, showShift = showShift)
+                val plainPrinter = Printer(PrintType.PLAIN) {
+                    register(CopiedNamePrintConfig(showShift))
+                }
+                val texPrinter = Printer(PrintType.TEX) {
+                    register(CopiedNamePrintConfig(showShift))
+                }
                 plainPrinter(x1) shouldBe "x1"
                 texPrinter(x1) shouldBe "{X}_{(1)}"
             }
@@ -85,20 +114,32 @@ class CopiedNameTest : FreeSpec({
             Indeterminate("x", "X", fromInt(3)).copy(degreeGroup, shift = 1 + 2 * n)
         }
         "print sx when showShift = S_WITH_DEGREE" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S_WITH_DEGREE)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S_WITH_DEGREE)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S_WITH_DEGREE))
+            }
             plainPrinter(sx) shouldBe "s^{1 + 2N}x"
             texPrinter(sx) shouldBe "s^{1 + 2N}{X}"
         }
         "print sx when showShift = S" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.S)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.S)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.S))
+            }
             plainPrinter(sx) shouldBe "sx"
             texPrinter(sx) shouldBe "s{X}"
         }
         "print sx when showShift = BAR" {
-            val plainPrinter = Printer(PrintType.PLAIN, showShift = ShowShift.BAR)
-            val texPrinter = Printer(PrintType.TEX, showShift = ShowShift.BAR)
+            val plainPrinter = Printer(PrintType.PLAIN) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
+            val texPrinter = Printer(PrintType.TEX) {
+                register(CopiedNamePrintConfig(ShowShift.BAR))
+            }
             plainPrinter(sx) shouldBe "_x"
             texPrinter(sx) shouldBe "\\bar{X}"
         }

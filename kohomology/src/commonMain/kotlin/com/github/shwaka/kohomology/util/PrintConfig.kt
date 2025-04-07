@@ -3,7 +3,15 @@ package com.github.shwaka.kohomology.util
 import kotlin.reflect.KClass
 
 public interface PrintConfigEntry
-public data class CopiedNamePrintConfig(val showShift: ShowShift = ShowShift.S_WITH_DEGREE) : PrintConfigEntry
+
+public data class CopiedNamePrintConfig(
+    val showShift: ShowShift = ShowShift.S_WITH_DEGREE
+) : PrintConfigEntry
+// The init block in an object is not executed immediately.
+// It will be executed when it is accessed.
+// https://kotlinlang.org/docs/object-declarations.html#behavior-difference-between-object-declarations-and-expressions
+@Suppress("UNUSED")
+private val registerCopiedNamePrintConfig = PrintConfig.registerDefault(CopiedNamePrintConfig())
 
 /**
  * Determines how to print [com.github.shwaka.kohomology.model.CopiedName].

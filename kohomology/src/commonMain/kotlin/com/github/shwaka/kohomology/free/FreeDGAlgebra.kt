@@ -28,6 +28,7 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.model.CopiedName
 import com.github.shwaka.kohomology.model.FreePathSpace
+import com.github.shwaka.kohomology.util.CopiedNamePrintConfig
 import com.github.shwaka.kohomology.util.IntAsDegree
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -286,8 +287,7 @@ public interface FreeDGAlgebra<D : Degree, I : IndeterminateName, S : Scalar, V 
         val printer = Printer(
             PrintConfig(
                 printType = PrintType.CODE,
-                showShift = ShowShift.S,
-            )
+            ) { register(CopiedNamePrintConfig(ShowShift.S)) }
         )
         val generatorList = intFreeDGA.indeterminateList.zip(intFreeDGA.generatorList).map { (indeterminate, generator) ->
             val differentialValue = intFreeDGA.context.run { d(generator) }

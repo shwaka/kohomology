@@ -8,6 +8,7 @@ import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.free.monoid.IndeterminateName
 import com.github.shwaka.kohomology.free.monoid.Monomial
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.CopiedNamePrintConfig
 import com.github.shwaka.kohomology.util.Identifier
 import com.github.shwaka.kohomology.util.InternalPrintConfig
 import com.github.shwaka.kohomology.util.PrintConfig
@@ -40,9 +41,10 @@ public class CopiedName<D : Degree, I : IndeterminateName>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
+        val showShift = printConfig.get<CopiedNamePrintConfig>().showShift
         return when (printConfig.printType) {
-            PrintType.PLAIN, PrintType.CODE -> this.toPlain(printConfig.showShift)
-            PrintType.TEX -> this.toTex(printConfig.showShift)
+            PrintType.PLAIN, PrintType.CODE -> this.toPlain(showShift)
+            PrintType.TEX -> this.toTex(showShift)
         }
     }
 

@@ -46,17 +46,17 @@ public data class PrintConfig(
 
     public companion object {
         public val default: PrintConfig = PrintConfig(PrintType.PLAIN)
+
+        init {
+            // The init block in an object is not executed immediately.
+            // It will be executed when it is accessed.
+            // https://kotlinlang.org/docs/object-declarations.html#behavior-difference-between-object-declarations-and-expressions
+            CopiedNamePrintConfig.registerDefault()
+        }
     }
 }
 
 public object PrintConfigDefaultRegistry {
-    init {
-        // The init block in an object is not executed immediately.
-        // It will be executed when it is accessed.
-        // https://kotlinlang.org/docs/object-declarations.html#behavior-difference-between-object-declarations-and-expressions
-        CopiedNamePrintConfig.registerDefault()
-    }
-
     public val defaultEntries: MutableMap<KClass<out PrintConfigEntry>, PrintConfigEntry> = mutableMapOf()
 
     public inline fun <reified T : PrintConfigEntry> registerDefault(entry: T) {

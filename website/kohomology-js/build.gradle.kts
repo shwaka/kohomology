@@ -37,7 +37,7 @@ kotlin {
             dependencies {
                 // testImplementation(kotlin("test-js"))
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
-                implementation("com.github.shwaka.kohomology:kohomology:0.13-SNAPSHOT")
+                implementation("com.github.shwaka.kohomology:kohomology:0.14-SNAPSHOT")
             }
         }
         val jsTest by getting {

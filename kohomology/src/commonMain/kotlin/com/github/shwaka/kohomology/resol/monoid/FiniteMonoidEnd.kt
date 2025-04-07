@@ -116,7 +116,12 @@ public class FiniteMonoidEnd<E : FiniteMonoidElement>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return "End(${this.baseMonoid.toString(printConfig)})"
+        val className = "End"
+        val classNameFormatted = when (printConfig.printType) {
+            PrintType.TEX -> "\\mathrm{$className}"
+            else -> className
+        }
+        return "$classNameFormatted(${this.baseMonoid.toString(printConfig)})"
     }
 
     override fun toString(): String {

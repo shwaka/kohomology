@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.resol.monoid
 
 import com.github.shwaka.kohomology.util.PrintConfig
+import com.github.shwaka.kohomology.util.PrintType
 
 public class FiniteMonoidAut<E : FiniteMonoidElement>(
     public val baseMonoid: FiniteMonoid<E>,
@@ -66,7 +67,12 @@ public class FiniteMonoidAut<E : FiniteMonoidElement>(
     }
 
     override fun toString(printConfig: PrintConfig): String {
-        return "Aut(${this.baseMonoid.toString(printConfig)})"
+        val className = "Aut"
+        val classNameFormatted = when (printConfig.printType) {
+            PrintType.TEX -> "\\mathrm{$className}"
+            else -> className
+        }
+        return "$classNameFormatted(${this.baseMonoid.toString(printConfig)})"
     }
 
     override fun toString(): String {

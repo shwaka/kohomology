@@ -10,8 +10,17 @@ public data class CyclicGroupElement(val value: Int, val order: Int) : FiniteMon
                 "The argument value must satisfy 0 <= value < order"
         }
     }
+
+    override fun toString(printConfig: PrintConfig): String {
+        val t = "t"
+        return when (printConfig.printType) {
+            PrintType.TEX -> "$t^{${this.value}}"
+            else -> "$t^${this.value}"
+        }
+    }
+
     override fun toString(): String {
-        return "t^${this.value}"
+        return this.toString(PrintConfig.default)
     }
 }
 

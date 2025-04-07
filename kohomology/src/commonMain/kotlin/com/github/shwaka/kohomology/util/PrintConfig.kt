@@ -4,23 +4,6 @@ import kotlin.reflect.KClass
 
 public interface PrintConfigEntry
 
-public data class CopiedNamePrintConfig(
-    val showShift: ShowShift = ShowShift.S_WITH_DEGREE
-) : PrintConfigEntry {
-    public companion object {
-        public fun registerDefault() {
-            PrintConfigDefaultRegistry.registerDefault(CopiedNamePrintConfig())
-        }
-    }
-}
-
-/**
- * Determines how to print [com.github.shwaka.kohomology.model.CopiedName].
- */
-public enum class ShowShift {
-    BAR, S, S_WITH_DEGREE
-}
-
 public data class PrintConfig(
     val printType: PrintType,
     val beforeSign: String,

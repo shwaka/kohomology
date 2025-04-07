@@ -58,7 +58,7 @@ class FiniteMonoidAutTest : FreeSpec({
                 val end = aut.end
                 aut.elements.forAll { autElement ->
                     val endElement = aut.inclusionToEnd(autElement)
-                    endElement.index + 1 shouldBe end.elements.indexOfFirst { it.asMap == endElement.asMap }
+                    endElement.index shouldBe end.elements.indexOfFirst { it.asMap == endElement.asMap }
                 }
             }
         }

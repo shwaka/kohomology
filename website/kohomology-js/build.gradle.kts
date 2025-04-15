@@ -37,6 +37,9 @@ kotlin {
                 }
             }
         }
+
+        // generate .d.ts (type definition file for TypeScript)
+        generateTypeScriptDefinitions()
     }
     sourceSets {
         val jsMain by getting {

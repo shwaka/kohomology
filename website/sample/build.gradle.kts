@@ -41,5 +41,5 @@ fun convertSampleName(sampleName: String): String {
 
 application {
     val sampleName: String = System.getProperty("sampleName") ?: "SampleNameNotSet"
-    mainClassName = "com.github.shwaka.kohomology.sample.${convertSampleName(sampleName)}"
+    mainClass.set("com.github.shwaka.kohomology.sample.${convertSampleName(sampleName)}")
 }

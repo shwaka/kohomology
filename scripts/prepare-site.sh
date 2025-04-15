@@ -1,6 +1,6 @@
 #! /bin/bash
 
-set -eu
+set -eux
 # cd $(dirname $0)
 cd $(git rev-parse --show-toplevel) # go to the root of the repository
 ROOT_DIR=$(pwd)

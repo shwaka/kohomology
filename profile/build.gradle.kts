@@ -7,7 +7,7 @@ plugins {
     kotlin("plugin.allopen") version "1.4.0"
     // Note: kotlinx.benchmark of version < 0.4.0 does not support gradle 7
     // https://github.com/Kotlin/kotlinx-benchmark/issues/68
-    id("org.jetbrains.kotlinx.benchmark") version "0.4.0"
+    id("org.jetbrains.kotlinx.benchmark") version "0.4.13"
     id("org.jetbrains.kotlin.plugin.serialization") version "1.4.30"
 }
 

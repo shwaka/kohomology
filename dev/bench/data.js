@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744016839691,
+  "lastUpdate": 1744721874956,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6272,6 +6272,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.491,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b6f7ffcc6b4ce37bd6099923876e550b35580b68",
+          "message": "build(core): replace implementation(\"...better-parse...\") with api(\"...better-parse...\") to fix an error in kohomology-js",
+          "timestamp": "2025-04-15T21:52:37+09:00",
+          "tree_id": "374c4b29b72d90f8d7f9ff40170b50a9c761a7bf",
+          "url": "https://github.com/shwaka/kohomology/commit/b6f7ffcc6b4ce37bd6099923876e550b35580b68"
+        },
+        "date": 1744721873788,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.429,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.545,
             "unit": "s/op"
           }
         ]

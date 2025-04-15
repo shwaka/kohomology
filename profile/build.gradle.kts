@@ -40,7 +40,7 @@ tasks.withType<KotlinCompile>() {
 }
 
 application {
-    mainClassName = "com.github.shwaka.kohomology.profile.KohomologyProfileKt"
+    mainClass.set("com.github.shwaka.kohomology.profile.KohomologyProfileKt")
 }
 
 tasks.withType<JavaExec> {
@@ -74,6 +74,6 @@ tasks.register("kc") { dependsOn("ktlintCheck") }
 tasks.register("kf") { dependsOn("ktlintFormat") }
 
 task("formatBenchmarkResult", JavaExec::class) {
-    main = "com.github.shwaka.kohomology.profile.FormatBenchmarkResultKt"
+    mainClass.set("com.github.shwaka.kohomology.profile.FormatBenchmarkResultKt")
     classpath = sourceSets["main"].runtimeClasspath
 }

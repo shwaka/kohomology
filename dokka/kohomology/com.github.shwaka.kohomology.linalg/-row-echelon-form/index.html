@@ -1,153 +1,213 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>RowEchelonForm</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.linalg/RowEchelonForm///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">kohomology</a>/<a href="../index.html">com.github.shwaka.kohomology.linalg</a>/<a href="index.html">RowEchelonForm</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kohomology
+                    </a>
             </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Row</span><wbr></wbr><span>Echelon</span><wbr></wbr><span>Form</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract class <a href="index.html">RowEchelonForm</a>&lt;<a href="index.html">S</a> : <a href="../-scalar/index.html">Scalar</a>, <a href="index.html">V</a> : <a href="../-num-vector/index.html">NumVector</a>&lt;<a href="index.html">S</a>&gt;, <a href="index.html">M</a> : <a href="../-matrix/index.html">Matrix</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;(matrixSpace: <a href="../-matrix-space/index.html">MatrixSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>, <a href="index.html">M</a>&gt;, originalMatrix: <a href="index.html">M</a>)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Properties">Properties</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fmatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="matrix" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fmatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="matrix.html">matrix</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fmatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fmatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="matrix" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fmatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="matrix.html">matrix</a>: <a href="index.html">M</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fpivots%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="pivots" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fpivots%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="pivots.html">pivots</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fpivots%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fpivots%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="pivots" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fpivots%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="pivots.html">pivots</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Frank%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="rank" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Frank%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="rank.html">rank</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Frank%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Frank%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="rank" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Frank%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="rank.html">rank</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedMatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="reducedMatrix" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedMatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="reduced-matrix.html">reducedMatrix</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedMatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedMatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="reducedMatrix" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedMatrix%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="reduced-matrix.html">reducedMatrix</a>: <a href="index.html">M</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedTransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="reducedTransformation" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedTransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="reduced-transformation.html">reducedTransformation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedTransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedTransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="reducedTransformation" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2FreducedTransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="reduced-transformation.html">reducedTransformation</a>: <a href="index.html">M</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="sign" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="sign.html">sign</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="sign" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="sign.html">sign</a>: <a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Ftransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="transformation" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Ftransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="transformation.html">transformation</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Ftransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Ftransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="transformation" id="%5Bcom.github.shwaka.kohomology.linalg%2FRowEchelonForm%2Ftransformation%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="transformation.html">transformation</a>: <a href="index.html">M</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.linalg/RowEchelonForm///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../index.html">com.github.shwaka.kohomology.linalg</a><span class="delimiter">/</span><span class="current">RowEchelonForm</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Row</span><wbr></wbr><span>Echelon</span><wbr></wbr><span><span>Form</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">RowEchelonForm</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator"> : </span><a href="../-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator"> : </span><a href="../-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">M</a><span class="token operator"> : </span><a href="../-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">M</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">originalMatrix<span class="token operator">: </span><a href="index.html">M</a></span></span><span class="token punctuation">)</span></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="-432659272%2FConstructors%2F788909594" anchor-label="RowEchelonForm" id="-432659272%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-row-echelon-form.html"><span>Row</span><wbr></wbr><span>Echelon</span><wbr></wbr><span><span>Form</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-432659272%2FConstructors%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">M</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">originalMatrix<span class="token operator">: </span><a href="index.html">M</a></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-236972742%2FProperties%2F788909594" anchor-label="matrix" id="-236972742%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="matrix.html"><span><span>matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-236972742%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="matrix.html">matrix</a><span class="token operator">: </span><a href="index.html">M</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="594122378%2FProperties%2F788909594" anchor-label="pivots" id="594122378%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="pivots.html"><span><span>pivots</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="594122378%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="pivots.html">pivots</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1619365551%2FProperties%2F788909594" anchor-label="rank" id="1619365551%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rank.html"><span><span>rank</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1619365551%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="rank.html">rank</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-900439136%2FProperties%2F788909594" anchor-label="reducedMatrix" id="-900439136%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reduced-matrix.html"><span>reduced</span><wbr></wbr><span><span>Matrix</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-900439136%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="reduced-matrix.html">reducedMatrix</a><span class="token operator">: </span><a href="index.html">M</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-14031528%2FProperties%2F788909594" anchor-label="reducedTransformation" id="-14031528%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="reduced-transformation.html"><span>reduced</span><wbr></wbr><span><span>Transformation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-14031528%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="reduced-transformation.html">reducedTransformation</a><span class="token operator">: </span><a href="index.html">M</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2068696514%2FProperties%2F788909594" anchor-label="sign" id="-2068696514%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="sign.html"><span><span>sign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068696514%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="sign.html">sign</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-308323086%2FProperties%2F788909594" anchor-label="transformation" id="-308323086%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="transformation.html"><span><span>transformation</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-308323086%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="transformation.html">transformation</a><span class="token operator">: </span><a href="index.html">M</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

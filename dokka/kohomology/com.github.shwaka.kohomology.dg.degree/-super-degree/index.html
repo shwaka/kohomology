@@ -1,215 +1,213 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>SuperDegree</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.dg.degree/SuperDegree///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">kohomology</a>/<a href="../index.html">com.github.shwaka.kohomology.dg.degree</a>/<a href="index.html">SuperDegree</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kohomology
+                    </a>
+            </div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.dg.degree/SuperDegree///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../index.html">com.github.shwaka.kohomology.dg.degree</a><span class="delimiter">/</span><span class="current">SuperDegree</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Super</span><wbr></wbr><span><span>Degree</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">sealed </span><span class="token keyword">class </span><a href="index.html">SuperDegree</a> : <a href="../-degree/index.html">Degree</a></div><p class="paragraph">An element of <a href="../-super-degree-group/index.html">SuperDegreeGroup</a>.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-even-super-degree/index.html">EvenSuperDegree</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-odd-super-degree/index.html">OddSuperDegree</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-616836806%2FProperties%2F788909594" anchor-label="identifier" id="-616836806%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/identifier.html"><span><span>identifier</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-616836806%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-degree/identifier.html">identifier</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.util/-partial-identifier/index.html">PartialIdentifier</a></div><div class="brief "><p class="paragraph">The name of this <a href="../-degree/index.html">Degree</a> containing only alphanumeric characters and underscore.</p></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Super</span><wbr></wbr><span>Degree</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">sealed class <a href="index.html">SuperDegree</a> : <a href="../-degree/index.html">Degree</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">An element of <a href="../-super-degree-group/index.html">SuperDegreeGroup</a>.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isEven" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/is-even.html">isEven</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract fun <a href="../-degree/is-even.html">isEven</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isEven" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isEven" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisEven%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns <code>true</code> if the degree is even.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isNotZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/is-not-zero.html">isNotZero</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../-degree/is-not-zero.html">isNotZero</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isNotZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isNotZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisNotZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns <code>true</code> if the degree is nonzero.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOdd" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/is-odd.html">isOdd</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../-degree/is-odd.html">isOdd</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOdd" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOdd" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOdd%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns <code>true</code> if the degree is odd.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOne" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/is-one.html">isOne</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract fun <a href="../-degree/is-one.html">isOne</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOne" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isOne" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisOne%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns <code>true</code> if the degree is one.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/is-zero.html">isZero</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract fun <a href="../-degree/is-zero.html">isZero</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isZero" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FisZero%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns <code>true</code> if the degree is zero.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="koszulSign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree/koszul-sign.html">koszulSign</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../-degree/koszul-sign.html">koszulSign</a>(other: <a href="../-degree/index.html">Degree</a>): <a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="koszulSign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="koszulSign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegree%2FkoszulSign%2F%23com.github.shwaka.kohomology.dg.degree.Degree%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Returns (-1)^(this * other)</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="identifier" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099">identifier</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="identifier" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="index.html#%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099">identifier</a>: <a href="../../com.github.shwaka.kohomology.util/-partial-identifier/index.html">PartialIdentifier</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="identifier" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fidentifier%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>The name of this <a href="../-degree/index.html">Degree</a> containing only alphanumeric characters and underscore.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="sign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099">sign</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="sign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open val <a href="index.html#%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099">sign</a>: <a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="sign" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FSuperDegree%2Fsign%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>(-1)^degree.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FEvenSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="EvenSuperDegree" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FEvenSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-even-super-degree/index.html">EvenSuperDegree</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FEvenSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FOddSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="OddSuperDegree" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FOddSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-odd-super-degree/index.html">OddSuperDegree</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FOddSuperDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+<a data-name="899660582%2FProperties%2F788909594" anchor-label="sign" id="899660582%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/sign.html"><span><span>sign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="899660582%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="../-degree/sign.html">sign</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a></div><div class="brief "><p class="paragraph">(-1)^degree.</p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="199728095%2FFunctions%2F788909594" anchor-label="isEven" id="199728095%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/is-even.html"><span>is</span><wbr></wbr><span><span>Even</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="199728095%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/is-even.html"><span class="token function">isEven</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">true</code> if the degree is even.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="389382790%2FFunctions%2F788909594" anchor-label="isNotZero" id="389382790%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/is-not-zero.html"><span>is</span><wbr></wbr><span>Not</span><wbr></wbr><span><span>Zero</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="389382790%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/is-not-zero.html"><span class="token function">isNotZero</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">true</code> if the degree is nonzero.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2053910030%2FFunctions%2F788909594" anchor-label="isOdd" id="-2053910030%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/is-odd.html"><span>is</span><wbr></wbr><span><span>Odd</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2053910030%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/is-odd.html"><span class="token function">isOdd</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">true</code> if the degree is odd.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-996684645%2FFunctions%2F788909594" anchor-label="isOne" id="-996684645%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/is-one.html"><span>is</span><wbr></wbr><span><span>One</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-996684645%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/is-one.html"><span class="token function">isOne</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">true</code> if the degree is one.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1552615953%2FFunctions%2F788909594" anchor-label="isZero" id="1552615953%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/is-zero.html"><span>is</span><wbr></wbr><span><span>Zero</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1552615953%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/is-zero.html"><span class="token function">isZero</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div><div class="brief "><p class="paragraph">Returns <code class="lang-kotlin">true</code> if the degree is zero.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1764493706%2FFunctions%2F788909594" anchor-label="koszulSign" id="1764493706%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree/koszul-sign.html"><span>koszul</span><wbr></wbr><span><span>Sign</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1764493706%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-degree/koszul-sign.html"><span class="token function">koszulSign</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">other<span class="token operator">: </span><a href="../-degree/index.html">Degree</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.util/-sign/index.html">Sign</a></div><div class="brief "><p class="paragraph">Returns (-1)^(this * other)</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

@@ -1,124 +1,138 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>AugmentedDegreeMorphism</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.dg.degree/AugmentedDegreeMorphism///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">kohomology</a>/<a href="../index.html">com.github.shwaka.kohomology.dg.degree</a>/<a href="index.html">AugmentedDegreeMorphism</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kohomology
+                    </a>
+            </div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.dg.degree/AugmentedDegreeMorphism///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../index.html">com.github.shwaka.kohomology.dg.degree</a><span class="delimiter">/</span><span class="current">AugmentedDegreeMorphism</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Augmented</span><wbr></wbr><span>Degree</span><wbr></wbr><span><span>Morphism</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">AugmentedDegreeMorphism</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">DS</a><span class="token operator"> : </span><a href="../-degree/index.html">Degree</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">DT</a><span class="token operator"> : </span><a href="../-degree/index.html">Degree</a><span class="token operator">&gt;</span> : <a href="../-degree-morphism/index.html">DegreeMorphism</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">DS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">DT</a><span class="token operator">&gt; </span></div><p class="paragraph">Homomorphism between two <a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a>s.</p><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-augmentation-degree-morphism/index.html">AugmentationDegreeMorphism</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-multi-degree-morphism/index.html">MultiDegreeMorphism</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-inclusion-from-int-degree-to-multi-degree/index.html">InclusionFromIntDegreeToMultiDegree</a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1904142657%2FProperties%2F788909594" anchor-label="source" id="1904142657%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="source.html"><span><span>source</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1904142657%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="source.html">source</a><span class="token operator">: </span><a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">DS</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The source <a href="../-degree-group/index.html">DegreeGroup</a></p></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Augmented</span><wbr></wbr><span>Degree</span><wbr></wbr><span>Morphism</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">AugmentedDegreeMorphism</a>&lt;<a href="index.html">DS</a> : <a href="../-degree/index.html">Degree</a>, <a href="index.html">DT</a> : <a href="../-degree/index.html">Degree</a>&gt; : <a href="../-degree-morphism/index.html">DegreeMorphism</a>&lt;<a href="index.html">DS</a>, <a href="index.html">DT</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">Homomorphism between two <a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a>s.</p></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="invoke" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-degree-morphism/invoke.html">invoke</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract operator fun <a href="../-degree-morphism/invoke.html">invoke</a>(degree: <a href="index.html">DS</a>): <a href="index.html">DT</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="invoke" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="invoke" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FDegreeMorphism%2Finvoke%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>Sends <a href="../-degree-morphism/invoke.html">degree</a> from <a href="../-degree-morphism/source.html">source</a> to <a href="../-degree-morphism/target.html">target</a>.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="source" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="source.html">source</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="source" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract override val <a href="source.html">source</a>: <a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a>&lt;<a href="index.html">DS</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="source" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Fsource%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>The source <a href="../-degree-group/index.html">DegreeGroup</a></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="target" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="target.html">target</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="target" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract override val <a href="target.html">target</a>: <a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a>&lt;<a href="index.html">DT</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="target" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentedDegreeMorphism%2Ftarget%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>The target <a href="../-degree-group/index.html">DegreeGroup</a></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentationDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="AugmentationDegreeMorphism" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentationDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-augmentation-degree-morphism/index.html">AugmentationDegreeMorphism</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FAugmentationDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FMultiDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="MultiDegreeMorphism" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FMultiDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-multi-degree-morphism/index.html">MultiDegreeMorphism</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FMultiDegreeMorphism%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.dg.degree%2FInclusionFromIntDegreeToMultiDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="InclusionFromIntDegreeToMultiDegree" id="%5Bcom.github.shwaka.kohomology.dg.degree%2FInclusionFromIntDegreeToMultiDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-inclusion-from-int-degree-to-multi-degree/index.html">InclusionFromIntDegreeToMultiDegree</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.dg.degree%2FInclusionFromIntDegreeToMultiDegree%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
+<a data-name="912871563%2FProperties%2F788909594" anchor-label="target" id="912871563%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="target.html"><span><span>target</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="912871563%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="target.html">target</a><span class="token operator">: </span><a href="../-augmented-degree-group/index.html">AugmentedDegreeGroup</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">DT</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">The target <a href="../-degree-group/index.html">DegreeGroup</a></p></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1149311228%2FFunctions%2F788909594" anchor-label="invoke" id="-1149311228%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-degree-morphism/invoke.html"><span><span>invoke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1149311228%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="../-degree-morphism/invoke.html"><span class="token function">invoke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">degree<span class="token operator">: </span><a href="index.html">DS</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">DT</a></div><div class="brief "><p class="paragraph">Sends <a href="../-degree-morphism/invoke.html">degree</a> from <a href="../-degree-morphism/source.html">source</a> to <a href="../-degree-morphism/target.html">target</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

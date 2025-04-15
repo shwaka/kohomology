@@ -1,141 +1,164 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Companion</title>
-<link href="../../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.resol.monoid/FiniteMonoidMap.Companion///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../../index.html">kohomology</a>/<a href="../../index.html">com.github.shwaka.kohomology.resol.monoid</a>/<a href="../index.html">FiniteMonoidMap</a>/<a href="index.html">Companion</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../../index.html">
+                            kohomology
+                    </a>
+            </div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.resol.monoid/FiniteMonoidMap.Companion///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../../index.html">com.github.shwaka.kohomology.resol.monoid</a><span class="delimiter">/</span><a href="../index.html">FiniteMonoidMap</a><span class="delimiter">/</span><span class="current">Companion</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Companion</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="index.html">Companion</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1230495335%2FFunctions%2F788909594" anchor-label="id" id="-1230495335%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="id.html"><span><span>id</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1230495335%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">E</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="id.html"><span class="token function">id</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">finiteMonoid<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">E</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">FiniteMonoidMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="id.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="id.html">E</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Companion</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">object <a href="index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+<a data-name="591141039%2FFunctions%2F788909594" anchor-label="invoke" id="591141039%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="invoke.html"><span><span>invoke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="591141039%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">operator </span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="invoke.html">ES</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="invoke.html">ET</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="invoke.html"><span class="token function">invoke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="invoke.html">ES</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="invoke.html">ET</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">values<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="invoke.html">ET</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">FiniteMonoidMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="invoke.html">ES</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="invoke.html">ET</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Fid%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="id" id="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Fid%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="id.html">id</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Fid%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun &lt;<a href="id.html">E</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="id.html">id</a>(finiteMonoid: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="id.html">E</a>&gt;): <a href="../index.html">FiniteMonoidMap</a>&lt;<a href="id.html">E</a>, <a href="id.html">E</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+<a data-name="-2013796529%2FFunctions%2F788909594" anchor-label="isFiniteMonoidMap" id="-2013796529%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-finite-monoid-map.html"><span>is</span><wbr></wbr><span>Finite</span><wbr></wbr><span>Monoid</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2013796529%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ES</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="is-finite-monoid-map.html"><span class="token function">isFiniteMonoidMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ES</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">values<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">earlyReturn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../com.github.shwaka.kohomology.util/-boolean-with-cause/index.html">BooleanWithCause</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ES</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="is-finite-monoid-map.html"><span class="token function">isFiniteMonoidMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceElements<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ES</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">targetUnit<span class="token operator">: </span><a href="is-finite-monoid-map.html">ET</a><span class="token punctuation">, </span></span><span class="parameter ">multiplySource<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>monoidElement1<span class="token operator">: </span><a href="is-finite-monoid-map.html">ES</a><span class="token punctuation">, </span><span class="token keyword"></span>monoidElement2<span class="token operator">: </span><a href="is-finite-monoid-map.html">ES</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ES</a><span class="token punctuation">, </span></span><span class="parameter ">multiplyTarget<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>monoidElement1<span class="token operator">: </span><a href="is-finite-monoid-map.html">ET</a><span class="token punctuation">, </span><span class="token keyword"></span>monoidElement2<span class="token operator">: </span><a href="is-finite-monoid-map.html">ET</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a><span class="token punctuation">, </span></span><span class="parameter ">earlyReturn<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span></span><span class="parameter ">map<span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span>monoidElement<span class="token operator">: </span><a href="is-finite-monoid-map.html">ES</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="is-finite-monoid-map.html">ET</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../../com.github.shwaka.kohomology.util/-boolean-with-cause/index.html">BooleanWithCause</a></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Finvoke%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="invoke" id="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Finvoke%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="invoke.html">invoke</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2Finvoke%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">operator fun &lt;<a href="invoke.html">ES</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="invoke.html">ET</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="invoke.html">invoke</a>(source: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="invoke.html">ES</a>&gt;, target: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="invoke.html">ET</a>&gt;, values: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="invoke.html">ET</a>&gt;): <a href="../index.html">FiniteMonoidMap</a>&lt;<a href="invoke.html">ES</a>, <a href="invoke.html">ET</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="700187393%2FFunctions%2F788909594" anchor-label="listAllMaps" id="700187393%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="list-all-maps.html"><span>list</span><wbr></wbr><span>All</span><wbr></wbr><span><span>Maps</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="700187393%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="list-all-maps.html">ES</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="list-all-maps.html">ET</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="list-all-maps.html"><span class="token function">listAllMaps</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">source<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="list-all-maps.html">ES</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">target<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="list-all-maps.html">ET</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../index.html">FiniteMonoidMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="list-all-maps.html">ES</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="list-all-maps.html">ET</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%23kotlin.Function1%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isFiniteMonoidMap" id="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%23kotlin.Function1%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="is-finite-monoid-map.html">isFiniteMonoidMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FisFiniteMonoidMap%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Function2%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23kotlin.Boolean%23kotlin.Function1%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun &lt;<a href="is-finite-monoid-map.html">ES</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="is-finite-monoid-map.html">ET</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="is-finite-monoid-map.html">isFiniteMonoidMap</a>(source: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="is-finite-monoid-map.html">ES</a>&gt;, target: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="is-finite-monoid-map.html">ET</a>&gt;, values: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="is-finite-monoid-map.html">ET</a>&gt;, earlyReturn: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a> = false): <a href="../../../com.github.shwaka.kohomology.util/-boolean-with-cause/index.html">BooleanWithCause</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun &lt;<a href="is-finite-monoid-map.html">ES</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="is-finite-monoid-map.html">ET</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="is-finite-monoid-map.html">isFiniteMonoidMap</a>(sourceElements: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="is-finite-monoid-map.html">ES</a>&gt;, targetUnit: <a href="is-finite-monoid-map.html">ET</a>, multiplySource: (<a href="is-finite-monoid-map.html">ES</a>, <a href="is-finite-monoid-map.html">ES</a>) -&gt; <a href="is-finite-monoid-map.html">ES</a>, multiplyTarget: (<a href="is-finite-monoid-map.html">ET</a>, <a href="is-finite-monoid-map.html">ET</a>) -&gt; <a href="is-finite-monoid-map.html">ET</a>, earlyReturn: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>, map: (<a href="is-finite-monoid-map.html">ES</a>) -&gt; <a href="is-finite-monoid-map.html">ET</a>): <a href="../../../com.github.shwaka.kohomology.util/-boolean-with-cause/index.html">BooleanWithCause</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FlistAllMaps%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="listAllMaps" id="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FlistAllMaps%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="list-all-maps.html">listAllMaps</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FlistAllMaps%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun &lt;<a href="list-all-maps.html">ES</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="list-all-maps.html">ET</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="list-all-maps.html">listAllMaps</a>(source: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="list-all-maps.html">ES</a>&gt;, target: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="list-all-maps.html">ET</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../index.html">FiniteMonoidMap</a>&lt;<a href="list-all-maps.html">ES</a>, <a href="list-all-maps.html">ET</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FtrivialMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="trivialMap" id="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FtrivialMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="trivial-map.html">trivialMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.monoid%2FFiniteMonoidMap.Companion%2FtrivialMap%2F%23com.github.shwaka.kohomology.resol.monoid.FiniteMonoid%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.resol.monoid.FiniteMonoidElement%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun &lt;<a href="trivial-map.html">E</a> : <a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a>&gt; <a href="trivial-map.html">trivialMap</a>(finiteMonoid: <a href="../../-finite-monoid/index.html">FiniteMonoid</a>&lt;<a href="trivial-map.html">E</a>&gt;): <a href="../index.html">FiniteMonoidMap</a>&lt;<a href="trivial-map.html">E</a>, <a href="trivial-map.html">E</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1203153967%2FFunctions%2F788909594" anchor-label="trivialMap" id="-1203153967%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="trivial-map.html"><span>trivial</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1203153967%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="trivial-map.html">E</a><span class="token operator"> : </span><a href="../../-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token operator">&gt; </span><a href="trivial-map.html"><span class="token function">trivialMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">finiteMonoid<span class="token operator">: </span><a href="../../-finite-monoid/index.html">FiniteMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="trivial-map.html">E</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">FiniteMonoidMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="trivial-map.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="trivial-map.html">E</a><span class="token operator">&gt;</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

@@ -1,584 +1,472 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>VectorSpace</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.vectsp/VectorSpace///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">kohomology</a>/<a href="../index.html">com.github.shwaka.kohomology.vectsp</a>/<a href="index.html">VectorSpace</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kohomology
+                    </a>
             </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Vector</span><wbr></wbr><span>Space</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="index.html">VectorSpace</a>&lt;<a href="index.html">B</a> : <a href="../-basis-name/index.html">BasisName</a>, <a href="index.html">S</a> : <a href="../../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="index.html">V</a> : <a href="../../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="index.html">S</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="Companion" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-companion/index.html">Companion</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.vectsp/VectorSpace///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../index.html">com.github.shwaka.kohomology.vectsp</a><span class="delimiter">/</span><span class="current">VectorSpace</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Vector</span><wbr></wbr><span><span>Space</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="index.html">VectorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token operator"> : </span><a href="../-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><h4 class="">Inheritors</h4><div class="table"><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.github.shwaka.kohomology.resol.algebra/-algebra/index.html">Algebra</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../../com.github.shwaka.kohomology.resol.module/-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-direct-sum/index.html">DirectSum</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-dual-vector-space/index.html">DualVectorSpace</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-quot-vector-space/index.html">QuotVectorSpace</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-sub-quot-vector-space/index.html">SubQuotVectorSpace</a></div></span></div><div></div></div></div><div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-sub-vector-space/index.html">SubVectorSpace</a></div></span></div><div></div></div></div></div></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fadd%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="add" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fadd%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add.html">add</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fadd%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="add.html">add</a>(a: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;, b: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontains%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="contains" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontains%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="contains.html">contains</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontains%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open operator fun <a href="contains.html">contains</a>(vector: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FdivideByVector%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="divideByVector" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FdivideByVector%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="divide-by-vector.html">divideByVector</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FdivideByVector%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="divide-by-vector.html">divideByVector</a>(a: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;, b: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;): <a href="index.html">S</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisMap%2F%23kotlin.collections.Map%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="fromBasisMap" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisMap%2F%23kotlin.collections.Map%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="from-basis-map.html">fromBasisMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisMap%2F%23kotlin.collections.Map%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="from-basis-map.html">fromBasisMap</a>(basisMap: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="fromBasisName" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="from-basis-name.html">fromBasisName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromBasisName%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="from-basis-name.html">fromBasisName</a>(basisName: <a href="index.html">B</a>): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open fun <a href="from-basis-name.html">fromBasisName</a>(basisName: <a href="index.html">B</a>, coeff: <a href="index.html">S</a>): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open fun <a href="from-basis-name.html">fromBasisName</a>(basisName: <a href="index.html">B</a>, coeff: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffList%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="fromCoeffList" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffList%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="from-coeff-list.html">fromCoeffList</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffList%2F%23kotlin.collections.List%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="from-coeff-list.html">fromCoeffList</a>(coeffList: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="index.html">S</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffMap%2F%23kotlin.collections.Map%5Bkotlin.Int%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="fromCoeffMap" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffMap%2F%23kotlin.collections.Map%5Bkotlin.Int%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="from-coeff-map.html">fromCoeffMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromCoeffMap%2F%23kotlin.collections.Map%5Bkotlin.Int%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="from-coeff-map.html">fromCoeffMap</a>(coeffMap: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>, <a href="index.html">S</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromNumVector%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="fromNumVector" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromNumVector%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="from-num-vector.html">fromNumVector</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FfromNumVector%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="from-num-vector.html">fromNumVector</a>(numVector: <a href="index.html">V</a>): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetBasis%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="getBasis" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetBasis%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="get-basis.html">getBasis</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetBasis%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="get-basis.html">getBasis</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetIdentity%2F%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="getIdentity" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetIdentity%2F%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="get-identity.html">getIdentity</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetIdentity%2F%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun &lt;<a href="get-identity.html">M</a> : <a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt; <a href="get-identity.html">getIdentity</a>(matrixSpace: <a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>, <a href="get-identity.html">M</a>&gt;): <a href="../-linear-map/index.html">LinearMap</a>&lt;<a href="index.html">B</a>, <a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>, <a href="get-identity.html">M</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FindexOf%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="indexOf" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FindexOf%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index-of.html">indexOf</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FindexOf%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">abstract fun <a href="index-of.html">indexOf</a>(basisName: <a href="index.html">B</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisBasis%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isBasis" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisBasis%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="is-basis.html">isBasis</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisBasis%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun &lt;<a href="is-basis.html">M</a> : <a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt; <a href="is-basis.html">isBasis</a>(vectorList: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;, matrixSpace: <a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>, <a href="is-basis.html">M</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisGeneratedBy%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="isGeneratedBy" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisGeneratedBy%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="is-generated-by.html">isGeneratedBy</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FisGeneratedBy%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun &lt;<a href="is-generated-by.html">M</a> : <a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt; <a href="is-generated-by.html">isGeneratedBy</a>(vectorList: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;, matrixSpace: <a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>, <a href="is-generated-by.html">M</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fmultiply%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="multiply" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fmultiply%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="multiply.html">multiply</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fmultiply%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="multiply.html">multiply</a>(scalar: <a href="index.html">S</a>, vector: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FselectIndependently%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="selectIndependently" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FselectIndependently%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="select-independently.html">selectIndependently</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FselectIndependently%2F%23kotlin.collections.List%5Bcom.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun &lt;<a href="select-independently.html">M</a> : <a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt; <a href="select-independently.html">selectIndependently</a>(vectorList: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;, matrixSpace: <a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>, <a href="select-independently.html">M</a>&gt;): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fsubtract%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="subtract" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fsubtract%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="subtract.html">subtract</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fsubtract%2F%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.vectsp.Vector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="subtract.html">subtract</a>(a: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;, b: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;): <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FbasisNames%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="basisNames" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FbasisNames%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="basis-names.html">basisNames</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FbasisNames%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FbasisNames%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="basisNames" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FbasisNames%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="basis-names.html">basisNames</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="index.html">B</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontext%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="context" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontext%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="context.html">context</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontext%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontext%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="context" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fcontext%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="context.html">context</a>: <a href="../-vector-context/index.html">VectorContext</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fdim%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="dim" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fdim%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="dim.html">dim</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fdim%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fdim%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="dim" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Fdim%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open val <a href="dim.html">dim</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Ffield%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="field" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Ffield%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="field.html">field</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Ffield%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Ffield%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="field" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2Ffield%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open val <a href="field.html">field</a>: <a href="../../com.github.shwaka.kohomology.linalg/-field/index.html">Field</a>&lt;<a href="index.html">S</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetInternalPrintConfig%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="getInternalPrintConfig" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetInternalPrintConfig%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="get-internal-print-config.html">getInternalPrintConfig</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetInternalPrintConfig%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetInternalPrintConfig%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="getInternalPrintConfig" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FgetInternalPrintConfig%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="get-internal-print-config.html">getInternalPrintConfig</a>: (<a href="../../com.github.shwaka.kohomology.util/-print-config/index.html">PrintConfig</a>) -&gt; <a href="../../com.github.shwaka.kohomology.util/-internal-print-config/index.html">InternalPrintConfig</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FnumVectorSpace%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="numVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FnumVectorSpace%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="num-vector-space.html">numVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FnumVectorSpace%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FnumVectorSpace%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="numVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FnumVectorSpace%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">abstract val <a href="num-vector-space.html">numVectorSpace</a>: <a href="../../com.github.shwaka.kohomology.linalg/-num-vector-space/index.html">NumVectorSpace</a>&lt;<a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FzeroVector%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="zeroVector" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FzeroVector%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="zero-vector.html">zeroVector</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FzeroVector%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FzeroVector%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="zeroVector" id="%5Bcom.github.shwaka.kohomology.vectsp%2FVectorSpace%2FzeroVector%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open val <a href="zero-vector.html">zeroVector</a>: <a href="../-vector/index.html">Vector</a>&lt;<a href="index.html">B</a>, <a href="index.html">S</a>, <a href="index.html">V</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Inheritors</h2>
-              <div class="table" data-togglable="Inheritors"><a data-name="%5Bcom.github.shwaka.kohomology.resol.algebra%2FAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="Algebra" id="%5Bcom.github.shwaka.kohomology.resol.algebra%2FAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../com.github.shwaka.kohomology.resol.algebra/-algebra/index.html">Algebra</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.algebra%2FAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="TensorProductOverAlgebra" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../com.github.shwaka.kohomology.resol.module/-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FDirectSum%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="DirectSum" id="%5Bcom.github.shwaka.kohomology.vectsp%2FDirectSum%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-direct-sum/index.html">DirectSum</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FDirectSum%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FDualVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="DualVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FDualVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-dual-vector-space/index.html">DualVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FDualVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="QuotVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-quot-vector-space/index.html">QuotVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FSubQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="SubQuotVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FSubQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-sub-quot-vector-space/index.html">SubQuotVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FSubQuotVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2FSubVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" anchor-label="SubVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2FSubVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-sub-vector-space/index.html">SubVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2FSubVectorSpace%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div></div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="tabbedcontent">Extensions</h2>
-              <div class="table" data-togglable="Extensions"><a data-name="%5Bcom.github.shwaka.kohomology.vectsp%2F%2FasSubVectorSpace%2Fcom.github.shwaka.kohomology.vectsp.VectorSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1794082099" anchor-label="asSubVectorSpace" id="%5Bcom.github.shwaka.kohomology.vectsp%2F%2FasSubVectorSpace%2Fcom.github.shwaka.kohomology.vectsp.VectorSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../as-sub-vector-space.html">asSubVectorSpace</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.vectsp%2F%2FasSubVectorSpace%2Fcom.github.shwaka.kohomology.vectsp.VectorSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.vectsp.BasisName%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%23com.github.shwaka.kohomology.linalg.MatrixSpace%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Matrix%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.NumVector%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.linalg.Scalar%5D%29%5D%5D%29%5D%5D%29%5D%2FPointingToDeclaration%2F%5D%2FExtensions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">fun &lt;<a href="../as-sub-vector-space.html">B</a> : <a href="../-basis-name/index.html">BasisName</a>, <a href="../as-sub-vector-space.html">S</a> : <a href="../../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="../as-sub-vector-space.html">V</a> : <a href="../../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="../as-sub-vector-space.html">S</a>&gt;, <a href="../as-sub-vector-space.html">M</a> : <a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="../as-sub-vector-space.html">S</a>, <a href="../as-sub-vector-space.html">V</a>&gt;&gt; <a href="index.html">VectorSpace</a>&lt;<a href="../as-sub-vector-space.html">B</a>, <a href="../as-sub-vector-space.html">S</a>, <a href="../as-sub-vector-space.html">V</a>&gt;.<a href="../as-sub-vector-space.html">asSubVectorSpace</a>(matrixSpace: <a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a>&lt;<a href="../as-sub-vector-space.html">S</a>, <a href="../as-sub-vector-space.html">V</a>, <a href="../as-sub-vector-space.html">M</a>&gt;): <a href="../-sub-vector-space/index.html">SubVectorSpace</a>&lt;<a href="../as-sub-vector-space.html">B</a>, <a href="../as-sub-vector-space.html">S</a>, <a href="../as-sub-vector-space.html">V</a>, <a href="../as-sub-vector-space.html">M</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-826319695%2FClasslikes%2F788909594" anchor-label="Companion" id="-826319695%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-826319695%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="831519558%2FProperties%2F788909594" anchor-label="basisNames" id="831519558%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="basis-names.html"><span>basis</span><wbr></wbr><span><span>Names</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="831519558%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="basis-names.html">basisNames</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-365899813%2FProperties%2F788909594" anchor-label="context" id="-365899813%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="context.html"><span><span>context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-365899813%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="context.html">context</a><span class="token operator">: </span><a href="../-vector-context/index.html">VectorContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-382716510%2FProperties%2F788909594" anchor-label="dim" id="-382716510%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="dim.html"><span><span>dim</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-382716510%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="dim.html">dim</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-683936208%2FProperties%2F788909594" anchor-label="field" id="-683936208%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="field.html"><span><span>field</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-683936208%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="field.html">field</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-field/index.html">Field</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1291128172%2FProperties%2F788909594" anchor-label="getInternalPrintConfig" id="-1291128172%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-internal-print-config.html"><span>get</span><wbr></wbr><span>Internal</span><wbr></wbr><span>Print</span><wbr></wbr><span><span>Config</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1291128172%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="get-internal-print-config.html">getInternalPrintConfig</a><span class="token operator">: </span><span class="token punctuation">(</span><span class="token keyword"></span><a href="../../com.github.shwaka.kohomology.util/-print-config/index.html">PrintConfig</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token keyword"></span><a href="../../com.github.shwaka.kohomology.util/-internal-print-config/index.html">InternalPrintConfig</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1402375347%2FProperties%2F788909594" anchor-label="numVectorSpace" id="1402375347%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="num-vector-space.html"><span>num</span><wbr></wbr><span>Vector</span><wbr></wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1402375347%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">val </span><a href="num-vector-space.html">numVectorSpace</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-num-vector-space/index.html">NumVectorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1383585285%2FProperties%2F788909594" anchor-label="zeroVector" id="1383585285%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="zero-vector.html"><span>zero</span><wbr></wbr><span><span>Vector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1383585285%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">val </span><a href="zero-vector.html">zeroVector</a><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1241614806%2FFunctions%2F788909594" anchor-label="add" id="1241614806%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="add.html"><span><span>add</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1241614806%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="add.html"><span class="token function">add</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">a<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">b<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-305488219%2FFunctions%2F788909594" anchor-label="asSubVectorSpace" id="-305488219%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../as-sub-vector-space.html"><span>as</span><wbr></wbr><span>Sub</span><wbr></wbr><span>Vector</span><wbr></wbr><span><span>Space</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-305488219%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">B</a><span class="token operator"> : </span><a href="../-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">V</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">M</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="index.html">VectorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">.</span><a href="../as-sub-vector-space.html"><span class="token function">asSubVectorSpace</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">M</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-sub-vector-space/index.html">SubVectorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../as-sub-vector-space.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../as-sub-vector-space.html">M</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-823270148%2FFunctions%2F788909594" anchor-label="contains" id="-823270148%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="contains.html"><span><span>contains</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-823270148%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">operator </span><span class="token keyword">fun </span><a href="contains.html"><span class="token function">contains</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vector<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-868240766%2FFunctions%2F788909594" anchor-label="divideByVector" id="-868240766%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="divide-by-vector.html"><span>divide</span><wbr></wbr><span>By</span><wbr></wbr><span><span>Vector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-868240766%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="divide-by-vector.html"><span class="token function">divideByVector</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">a<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">b<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">S</a><span class="token operator">?</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-273517567%2FFunctions%2F788909594" anchor-label="fromBasisMap" id="-273517567%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-basis-map.html"><span>from</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-273517567%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-basis-map.html"><span class="token function">fromBasisMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">basisMap<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-267537652%2FFunctions%2F788909594" anchor-label="fromBasisName" id="-267537652%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-basis-name.html"><span>from</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-267537652%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-basis-name.html"><span class="token function">fromBasisName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">basisName<span class="token operator">: </span><a href="index.html">B</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-basis-name.html"><span class="token function">fromBasisName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">basisName<span class="token operator">: </span><a href="index.html">B</a><span class="token punctuation">, </span></span><span class="parameter ">coeff<span class="token operator">: </span><a href="index.html">S</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-basis-name.html"><span class="token function">fromBasisName</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">basisName<span class="token operator">: </span><a href="index.html">B</a><span class="token punctuation">, </span></span><span class="parameter ">coeff<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1990280239%2FFunctions%2F788909594" anchor-label="fromCoeffList" id="-1990280239%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-coeff-list.html"><span>from</span><wbr></wbr><span>Coeff</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1990280239%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-coeff-list.html"><span class="token function">fromCoeffList</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">coeffList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="972252409%2FFunctions%2F788909594" anchor-label="fromCoeffMap" id="972252409%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-coeff-map.html"><span>from</span><wbr></wbr><span>Coeff</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="972252409%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-coeff-map.html"><span class="token function">fromCoeffMap</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">coeffMap<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-318041876%2FFunctions%2F788909594" anchor-label="fromNumVector" id="-318041876%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="from-num-vector.html"><span>from</span><wbr></wbr><span>Num</span><wbr></wbr><span><span>Vector</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-318041876%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="from-num-vector.html"><span class="token function">fromNumVector</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">numVector<span class="token operator">: </span><a href="index.html">V</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-357859096%2FFunctions%2F788909594" anchor-label="getBasis" id="-357859096%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-basis.html"><span>get</span><wbr></wbr><span><span>Basis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-357859096%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="get-basis.html"><span class="token function">getBasis</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-303420%2FFunctions%2F788909594" anchor-label="getIdentity" id="-303420%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="get-identity.html"><span>get</span><wbr></wbr><span><span>Identity</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-303420%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="get-identity.html">M</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="get-identity.html"><span class="token function">getIdentity</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="get-identity.html">M</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-linear-map/index.html">LinearMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="get-identity.html">M</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1184346548%2FFunctions%2F788909594" anchor-label="indexOf" id="1184346548%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="index-of.html"><span>index</span><wbr></wbr><span><span>Of</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1184346548%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="index-of.html"><span class="token function">indexOf</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">basisName<span class="token operator">: </span><a href="index.html">B</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-490073422%2FFunctions%2F788909594" anchor-label="isBasis" id="-490073422%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-basis.html"><span>is</span><wbr></wbr><span><span>Basis</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-490073422%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-basis.html">M</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="is-basis.html"><span class="token function">isBasis</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vectorList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="is-basis.html">M</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-140342678%2FFunctions%2F788909594" anchor-label="isGeneratedBy" id="-140342678%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-generated-by.html"><span>is</span><wbr></wbr><span>Generated</span><wbr></wbr><span><span>By</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-140342678%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="is-generated-by.html">M</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="is-generated-by.html"><span class="token function">isGeneratedBy</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vectorList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="is-generated-by.html">M</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2068628880%2FFunctions%2F788909594" anchor-label="multiply" id="-2068628880%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiply.html"><span><span>multiply</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2068628880%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="multiply.html"><span class="token function">multiply</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">scalar<span class="token operator">: </span><a href="index.html">S</a><span class="token punctuation">, </span></span><span class="parameter ">vector<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1662970907%2FFunctions%2F788909594" anchor-label="selectIndependently" id="1662970907%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="select-independently.html"><span>select</span><wbr></wbr><span><span>Independently</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1662970907%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="select-independently.html">M</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span><a href="select-independently.html"><span class="token function">selectIndependently</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">vectorList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">matrixSpace<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.linalg/-matrix-space/index.html">MatrixSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="select-independently.html">M</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1824906371%2FFunctions%2F788909594" anchor-label="subtract" id="1824906371%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="subtract.html"><span><span>subtract</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1824906371%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="subtract.html"><span class="token function">subtract</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">a<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">b<span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-vector/index.html">Vector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">V</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

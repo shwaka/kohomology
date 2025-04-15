@@ -1,205 +1,251 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>NCFreeGMonoid</title>
-<link href="../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../";</script><script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../styles/style.css" rel="Stylesheet"><link href="../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.free.monoid/NCFreeGMonoid///PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../index.html">kohomology</a>/<a href="../index.html">com.github.shwaka.kohomology.free.monoid</a>/<a href="index.html">NCFreeGMonoid</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../../index.html">
+                            kohomology
+                    </a>
             </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>N</span><wbr></wbr><span>C</span><wbr></wbr><span>Free</span><wbr></wbr><span>G</span><wbr></wbr><span>Monoid</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">class <a href="index.html">NCFreeGMonoid</a>&lt;<a href="index.html">D</a> : <a href="../../com.github.shwaka.kohomology.dg.degree/-degree/index.html">Degree</a>, <a href="index.html">I</a> : <a href="../-indeterminate-name/index.html">IndeterminateName</a>&gt;(degreeGroup: <a href="../../com.github.shwaka.kohomology.dg.degree/-augmented-degree-group/index.html">AugmentedDegreeGroup</a>&lt;<a href="index.html">D</a>&gt;, indeterminateList: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-indeterminate/index.html">Indeterminate</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt;) : <a href="../-g-monoid/index.html">GMonoid</a>&lt;<a href="index.html">D</a>, <a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="Companion" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-companion/index.html">Companion</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid.Companion%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-companion/index.html">Companion</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageIds="kohomology::com.github.shwaka.kohomology.free.monoid/NCFreeGMonoid///PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../../index.html">kohomology</a><span class="delimiter">/</span><a href="../index.html">com.github.shwaka.kohomology.free.monoid</a><span class="delimiter">/</span><span class="current">NCFreeGMonoid</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>NCFree</span><wbr></wbr><span><span>GMonoid</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">NCFreeGMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token operator"> : </span><a href="../../com.github.shwaka.kohomology.dg.degree/-degree/index.html">Degree</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator"> : </span><a href="../-indeterminate-name/index.html">IndeterminateName</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>degreeGroup<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.dg.degree/-augmented-degree-group/index.html">AugmentedDegreeGroup</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">indeterminateList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-indeterminate/index.html">Indeterminate</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="../-g-monoid/index.html">GMonoid</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span></div></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistDegreesForAugmentedDegree%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="listDegreesForAugmentedDegree" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistDegreesForAugmentedDegree%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-g-monoid/list-degrees-for-augmented-degree.html">listDegreesForAugmentedDegree</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistDegreesForAugmentedDegree%2F%23kotlin.Int%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../-g-monoid/list-degrees-for-augmented-degree.html">listDegreesForAugmentedDegree</a>(augmentedDegree: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="index.html">D</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistElements%2F%23kotlin.Int%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FlistElements%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="listElements" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistElements%2F%23kotlin.Int%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FlistElements%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../-g-monoid/list-elements.html">listElements</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FGMonoid%2FlistElements%2F%23kotlin.Int%2FPointingToDeclaration%2F%2C+com.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FlistElements%2F%23TypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open fun <a href="../-g-monoid/list-elements.html">listElements</a>(degree: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">open override fun <a href="list-elements.html">listElements</a>(degree: <a href="index.html">D</a>): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fmultiply%2F%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" anchor-label="multiply" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fmultiply%2F%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="multiply.html">multiply</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fmultiply%2F%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%23com.github.shwaka.kohomology.free.monoid.NCMonomial%5BTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.dg.degree.Degree%5D%29%2CTypeParam%28bounds%3D%5Bcom.github.shwaka.kohomology.free.monoid.IndeterminateName%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">open override fun <a href="multiply.html">multiply</a>(monoidElement1: <a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;, monoidElement2: <a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;): <a href="../-signed-or-zero/index.html">SignedOrZero</a>&lt;<a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fboundedness%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="boundedness" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fboundedness%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="boundedness.html">boundedness</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fboundedness%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fboundedness%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="boundedness" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Fboundedness%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open override val <a href="boundedness.html">boundedness</a>: <a href="../../com.github.shwaka.kohomology.dg/-boundedness/index.html">Boundedness</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FdegreeGroup%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="degreeGroup" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FdegreeGroup%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="degree-group.html">degreeGroup</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FdegreeGroup%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FdegreeGroup%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="degreeGroup" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FdegreeGroup%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open override val <a href="degree-group.html">degreeGroup</a>: <a href="../../com.github.shwaka.kohomology.dg.degree/-augmented-degree-group/index.html">AugmentedDegreeGroup</a>&lt;<a href="index.html">D</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FindeterminateList%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="indeterminateList" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FindeterminateList%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="indeterminate-list.html">indeterminateList</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FindeterminateList%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FindeterminateList%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="indeterminateList" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FindeterminateList%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">val <a href="indeterminate-list.html">indeterminateList</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html">List</a>&lt;<a href="../-indeterminate/index.html">Indeterminate</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FisCommutative%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="isCommutative" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FisCommutative%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="is-commutative.html">isCommutative</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FisCommutative%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FisCommutative%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="isCommutative" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2FisCommutative%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open override val <a href="is-commutative.html">isCommutative</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Funit%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="unit" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Funit%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="unit.html">unit</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Funit%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><a data-name="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Funit%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" anchor-label="unit" id="%5Bcom.github.shwaka.kohomology.free.monoid%2FNCFreeGMonoid%2Funit%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a><div class="symbol monospace">open override val <a href="unit.html">unit</a>: <a href="../-n-c-monomial/index.html">NCMonomial</a>&lt;<a href="index.html">D</a>, <a href="index.html">I</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-                      </div>
-                    </div>
-                  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="468928475%2FConstructors%2F788909594" anchor-label="NCFreeGMonoid" id="468928475%2FConstructors%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-n-c-free-g-monoid.html"><span>NCFree</span><wbr></wbr><span><span>GMonoid</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="468928475%2FConstructors%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">degreeGroup<span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.dg.degree/-augmented-degree-group/index.html">AugmentedDegreeGroup</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">indeterminateList<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-indeterminate/index.html">Indeterminate</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-940442929%2FClasslikes%2F788909594" anchor-label="Companion" id="-940442929%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-companion/index.html"><span><span>Companion</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-940442929%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-companion/index.html">Companion</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1972042452%2FProperties%2F788909594" anchor-label="boundedness" id="1972042452%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="boundedness.html"><span><span>boundedness</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1972042452%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="boundedness.html">boundedness</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.dg/-boundedness/index.html">Boundedness</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-397084907%2FProperties%2F788909594" anchor-label="degreeGroup" id="-397084907%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="degree-group.html"><span>degree</span><wbr></wbr><span><span>Group</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-397084907%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="degree-group.html">degreeGroup</a><span class="token operator">: </span><a href="../../com.github.shwaka.kohomology.dg.degree/-augmented-degree-group/index.html">AugmentedDegreeGroup</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1042797393%2FProperties%2F788909594" anchor-label="indeterminateList" id="-1042797393%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="indeterminate-list.html"><span>indeterminate</span><wbr></wbr><span><span>List</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1042797393%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="indeterminate-list.html">indeterminateList</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-indeterminate/index.html">Indeterminate</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2105144936%2FProperties%2F788909594" anchor-label="isCommutative" id="-2105144936%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="is-commutative.html"><span>is</span><wbr></wbr><span><span>Commutative</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2105144936%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="is-commutative.html">isCommutative</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2029555214%2FProperties%2F788909594" anchor-label="unit" id="2029555214%2FProperties%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="unit.html"><span><span>unit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2029555214%2FProperties%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">val </span><a href="unit.html">unit</a><span class="token operator">: </span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="1251007753%2FFunctions%2F788909594" anchor-label="listDegreesForAugmentedDegree" id="1251007753%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-g-monoid/list-degrees-for-augmented-degree.html"><span>list</span><wbr></wbr><span>Degrees</span><wbr></wbr><span>For</span><wbr></wbr><span>Augmented</span><wbr></wbr><span><span>Degree</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1251007753%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-g-monoid/list-degrees-for-augmented-degree.html"><span class="token function">listDegreesForAugmentedDegree</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">augmentedDegree<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-226098659%2FFunctions%2F788909594" anchor-label="listElements" id="-226098659%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-g-monoid/list-elements.html"><span>list</span><wbr></wbr><span><span>Elements</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-226098659%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword"></span><span class="token keyword">fun </span><a href="../-g-monoid/list-elements.html"><span class="token function">listElements</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">degree<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="list-elements.html"><span class="token function">listElements</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">degree<span class="token operator">: </span><a href="index.html">D</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1926459947%2FFunctions%2F788909594" anchor-label="multiply" id="-1926459947%2FFunctions%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="multiply.html"><span><span>multiply</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1926459947%2FFunctions%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">override </span><span class="token keyword">fun </span><a href="multiply.html"><span class="token function">multiply</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">monoidElement1<span class="token operator">: </span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">monoidElement2<span class="token operator">: </span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-signed-or-zero/index.html">SignedOrZero</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../-n-c-monomial/index.html">NCMonomial</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">D</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="index.html">I</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

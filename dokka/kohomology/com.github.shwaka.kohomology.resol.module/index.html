@@ -1,520 +1,448 @@
-<html>
-  <head>
+<!DOCTYPE html>
+<html class="no-js">
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>com.github.shwaka.kohomology.resol.module</title>
-<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../";</script><script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../styles/style.css" rel="Stylesheet"><link href="../../styles/logo-styles.css" rel="Stylesheet"><link href="../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
-        <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="kohomology::com.github.shwaka.kohomology.resol.module////PointingToDeclaration//1794082099">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../index.html">kohomology</a>/<a href="index.html">com.github.shwaka.kohomology.resol.module</a></div>
-            <div class="pull-right d-flex">
-              <div class="filter-section" id="filter-section"><button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button></div>
-              <div id="searchBar"></div>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+    <div class="root">
+<nav class="navigation" id="navigation-wrapper">
+    <div class="navigation--inner">
+        <div class="navigation-title">
+            <button class="menu-toggle" id="menu-toggle" type="button">toggle menu</button>
+            <div class="library-name">
+                    <a class="library-name--link" href="../../index.html">
+                            kohomology
+                    </a>
+            </div>
+            <div class="library-version">
+0.14-SNAPSHOT            </div>
+        </div>
+        <div class="filter-section" id="filter-section">
+                <button class="platform-tag platform-selector common-like" data-active="" data-filter=":dokkaHtml/commonMain">common</button>
+        </div>
+    </div>
+    <div class="navigation-controls">
+        <button class="navigation-controls--btn navigation-controls--theme" id="theme-toggle-button" type="button">switch theme</button>
+        <div class="navigation-controls--btn navigation-controls--search" id="searchBar" role="button">search in API</div>
+    </div>
+</nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="sidebar--inner" id="sideMenu"></div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="kohomology::com.github.shwaka.kohomology.resol.module////PointingToDeclaration//788909594">
+  <div class="breadcrumbs"><a href="../../index.html">kohomology</a><span class="delimiter">/</span><span class="current">com.github.shwaka.kohomology.resol.module</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="812851384%2FClasslikes%2F788909594" anchor-label="FreeModule" id="812851384%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-free-module/index.html"><span>Free</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="812851384%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-free-module/index.html">FreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">BV</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">BV</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Package com.</span><wbr></wbr><span>github.</span><wbr></wbr><span>shwaka.</span><wbr></wbr><span>kohomology.</span><wbr></wbr><span>resol.</span><wbr></wbr><span>module</span></h1>
+<a data-name="1238598625%2FClasslikes%2F788909594" anchor-label="FreeModuleBasisName" id="1238598625%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-free-module-basis-name/index.html"><span>Free</span><wbr></wbr><span>Module</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1238598625%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">BV</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>algebraBasisName<span class="token operator">: </span><a href="-free-module-basis-name/index.html">BA</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>generatingBasisName<span class="token operator">: </span><a href="-free-module-basis-name/index.html">BV</a></span></span><span class="token punctuation">)</span> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a></div></div></div>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Types</h2>
-              <div class="table" data-togglable="Types"><a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="FreeModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-free-module/index.html">FreeModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-free-module/index.html">FreeModule</a>&lt;<a href="-free-module/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module/index.html">BV</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-free-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-free-module/index.html">S</a>&gt;, <a href="-free-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-free-module/index.html">S</a>, <a href="-free-module/index.html">V</a>&gt;&gt; : <a href="-module/index.html">Module</a>&lt;<a href="-free-module/index.html">BA</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-free-module/index.html">BA</a>, <a href="-free-module/index.html">BV</a>&gt;, <a href="-free-module/index.html">S</a>, <a href="-free-module/index.html">V</a>, <a href="-free-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+<a data-name="-1742890866%2FClasslikes%2F788909594" anchor-label="FreeModuleMap" id="-1742890866%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-free-module-map/index.html"><span>Free</span><wbr></wbr><span>Module</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1742890866%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-free-module-map/index.html">FreeModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">BVS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">BVT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map-from-free-module/index.html">ModuleMapFromFreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">BVS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">BVT</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="FreeModuleBasisName" id="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-free-module-basis-name/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-basis-name/index.html">BV</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>&gt;(algebraBasisName: <a href="-free-module-basis-name/index.html">BA</a>, generatingBasisName: <a href="-free-module-basis-name/index.html">BV</a>) : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1344289827%2FClasslikes%2F788909594" anchor-label="FreeModuleMapAlongAlgebraMap" id="1344289827%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-free-module-map-along-algebra-map/index.html"><span>Free</span><wbr></wbr><span>Module</span><wbr></wbr><span>Map</span><wbr></wbr><span>Along</span><wbr></wbr><span>Algebra</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1344289827%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-free-module-map-along-algebra-map/index.html">FreeModuleMapAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BVS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BVT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map-along-algebra-map-from-free-module/index.html">ModuleMapAlongAlgebraMapFromFreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BAS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BAT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BVS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BAT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">BVT</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-map-along-algebra-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="FreeModuleMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-free-module-map/index.html">FreeModuleMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-free-module-map/index.html">FreeModuleMap</a>&lt;<a href="-free-module-map/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map/index.html">BVS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map/index.html">BVT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-free-module-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-free-module-map/index.html">S</a>&gt;, <a href="-free-module-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-free-module-map/index.html">S</a>, <a href="-free-module-map/index.html">V</a>&gt;&gt; : <a href="-module-map-from-free-module/index.html">ModuleMapFromFreeModule</a>&lt;<a href="-free-module-map/index.html">BA</a>, <a href="-free-module-map/index.html">BVS</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-free-module-map/index.html">BA</a>, <a href="-free-module-map/index.html">BVT</a>&gt;, <a href="-free-module-map/index.html">S</a>, <a href="-free-module-map/index.html">V</a>, <a href="-free-module-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-829749814%2FClasslikes%2F788909594" anchor-label="LeftFreeTensorProductBasisName" id="-829749814%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-left-free-tensor-product-basis-name/index.html"><span>Left</span><wbr></wbr><span>Free</span><wbr></wbr><span>Tensor</span><wbr></wbr><span>Product</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-829749814%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">data </span><span class="token keyword">class </span><a href="-left-free-tensor-product-basis-name/index.html">LeftFreeTensorProductBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BR</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BVL</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>rightBasisName<span class="token operator">: </span><a href="-left-free-tensor-product-basis-name/index.html">BR</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>leftGeneratingBasisName<span class="token operator">: </span><a href="-left-free-tensor-product-basis-name/index.html">BVL</a></span></span><span class="token punctuation">)</span> : <a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BR</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">BVL</a><span class="token operator">&gt;</span><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="FreeModuleMapAlongAlgebraMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-free-module-map-along-algebra-map/index.html">FreeModuleMapAlongAlgebraMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FFreeModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-free-module-map-along-algebra-map/index.html">FreeModuleMapAlongAlgebraMap</a>&lt;<a href="-free-module-map-along-algebra-map/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map-along-algebra-map/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map-along-algebra-map/index.html">BVS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map-along-algebra-map/index.html">BVT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-free-module-map-along-algebra-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-free-module-map-along-algebra-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-free-module-map-along-algebra-map/index.html">S</a>&gt;, <a href="-free-module-map-along-algebra-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-free-module-map-along-algebra-map/index.html">S</a>, <a href="-free-module-map-along-algebra-map/index.html">V</a>&gt;&gt; : <a href="-module-map-along-algebra-map-from-free-module/index.html">ModuleMapAlongAlgebraMapFromFreeModule</a>&lt;<a href="-free-module-map-along-algebra-map/index.html">BAS</a>, <a href="-free-module-map-along-algebra-map/index.html">BAT</a>, <a href="-free-module-map-along-algebra-map/index.html">BVS</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-free-module-map-along-algebra-map/index.html">BAT</a>, <a href="-free-module-map-along-algebra-map/index.html">BVT</a>&gt;, <a href="-free-module-map-along-algebra-map/index.html">S</a>, <a href="-free-module-map-along-algebra-map/index.html">V</a>, <a href="-free-module-map-along-algebra-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1889879073%2FClasslikes%2F788909594" anchor-label="LeftFreeTensorProductOverAlgebra" id="-1889879073%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-left-free-tensor-product-over-algebra/index.html"><span>Left</span><wbr></wbr><span>Free</span><wbr></wbr><span>Tensor</span><wbr></wbr><span>Product</span><wbr></wbr><span>Over</span><wbr></wbr><span><span>Algebra</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1889879073%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-left-free-tensor-product-over-algebra/index.html">LeftFreeTensorProductOverAlgebra</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BR</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BVL</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BR</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BVL</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-basis-name/index.html">LeftFreeTensorProductBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BR</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">BVL</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-left-free-tensor-product-over-algebra/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="LeftFreeTensorProductBasisName" id="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-left-free-tensor-product-basis-name/index.html">LeftFreeTensorProductBasisName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">data class <a href="-left-free-tensor-product-basis-name/index.html">LeftFreeTensorProductBasisName</a>&lt;<a href="-left-free-tensor-product-basis-name/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-left-free-tensor-product-basis-name/index.html">BR</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-left-free-tensor-product-basis-name/index.html">BVL</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>&gt;(rightBasisName: <a href="-left-free-tensor-product-basis-name/index.html">BR</a>, leftGeneratingBasisName: <a href="-left-free-tensor-product-basis-name/index.html">BVL</a>) : <a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a>&lt;<a href="-left-free-tensor-product-basis-name/index.html">BR</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-left-free-tensor-product-basis-name/index.html">BA</a>, <a href="-left-free-tensor-product-basis-name/index.html">BVL</a>&gt;&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-130309052%2FClasslikes%2F788909594" anchor-label="Module" id="-130309052%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module/index.html"><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-130309052%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="LeftFreeTensorProductOverAlgebra" id="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-left-free-tensor-product-over-algebra/index.html">LeftFreeTensorProductOverAlgebra</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FLeftFreeTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-left-free-tensor-product-over-algebra/index.html">LeftFreeTensorProductOverAlgebra</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BR</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BVL</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-left-free-tensor-product-over-algebra/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-left-free-tensor-product-over-algebra/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">S</a>&gt;, <a href="-left-free-tensor-product-over-algebra/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">S</a>, <a href="-left-free-tensor-product-over-algebra/index.html">V</a>&gt;&gt; : <a href="-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">BA</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BR</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">BA</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BVL</a>&gt;, <a href="-left-free-tensor-product-basis-name/index.html">LeftFreeTensorProductBasisName</a>&lt;<a href="-left-free-tensor-product-over-algebra/index.html">BA</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BR</a>, <a href="-left-free-tensor-product-over-algebra/index.html">BVL</a>&gt;, <a href="-left-free-tensor-product-over-algebra/index.html">S</a>, <a href="-left-free-tensor-product-over-algebra/index.html">V</a>, <a href="-left-free-tensor-product-over-algebra/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1631461873%2FClasslikes%2F788909594" anchor-label="ModuleContext" id="-1631461873%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module-context/index.html"><span>Module</span><wbr></wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1631461873%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module-context/index.html">ModuleContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-context/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-context/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-context/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="../com.github.shwaka.kohomology.vectsp/-vector-context/index.html">VectorContext</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-context/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-context/index.html">V</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="Module" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module/index.html">Module</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module/index.html">Module</a>&lt;<a href="-module/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module/index.html">S</a>&gt;, <a href="-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module/index.html">S</a>, <a href="-module/index.html">V</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1759389310%2FClasslikes%2F788909594" anchor-label="ModuleMap" id="-1759389310%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module-map/index.html"><span>Module</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1759389310%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module-map/index.html">ModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">BS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleContext%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="ModuleContext" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleContext%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module-context/index.html">ModuleContext</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleContext%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module-context/index.html">ModuleContext</a>&lt;<a href="-module-context/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-context/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-context/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module-context/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module-context/index.html">S</a>&gt;, <a href="-module-context/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module-context/index.html">S</a>, <a href="-module-context/index.html">V</a>&gt;&gt; : <a href="../com.github.shwaka.kohomology.vectsp/-vector-context/index.html">VectorContext</a>&lt;<a href="-module-context/index.html">B</a>, <a href="-module-context/index.html">S</a>, <a href="-module-context/index.html">V</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1595634863%2FClasslikes%2F788909594" anchor-label="ModuleMapAlongAlgebraMap" id="1595634863%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module-map-along-algebra-map/index.html"><span>Module</span><wbr></wbr><span>Map</span><wbr></wbr><span>Along</span><wbr></wbr><span>Algebra</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1595634863%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">BS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="ModuleMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module-map/index.html">ModuleMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module-map/index.html">ModuleMap</a>&lt;<a href="-module-map/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map/index.html">BS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module-map/index.html">S</a>&gt;, <a href="-module-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module-map/index.html">S</a>, <a href="-module-map/index.html">V</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1599367411%2FClasslikes%2F788909594" anchor-label="ModuleMapAlongAlgebraMapFromFreeModule" id="-1599367411%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module-map-along-algebra-map-from-free-module/index.html"><span>Module</span><wbr></wbr><span>Map</span><wbr></wbr><span>Along</span><wbr></wbr><span>Algebra</span><wbr></wbr><span>Map</span><wbr></wbr><span>From</span><wbr></wbr><span>Free</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1599367411%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module-map-along-algebra-map-from-free-module/index.html">ModuleMapAlongAlgebraMapFromFreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BVS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BAT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BVS</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-along-algebra-map-from-free-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="ModuleMapAlongAlgebraMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a>&lt;<a href="-module-map-along-algebra-map/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map/index.html">BS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module-map-along-algebra-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module-map-along-algebra-map/index.html">S</a>&gt;, <a href="-module-map-along-algebra-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module-map-along-algebra-map/index.html">S</a>, <a href="-module-map-along-algebra-map/index.html">V</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="462130848%2FClasslikes%2F788909594" anchor-label="ModuleMapFromFreeModule" id="462130848%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-module-map-from-free-module/index.html"><span>Module</span><wbr></wbr><span>Map</span><wbr></wbr><span>From</span><wbr></wbr><span>Free</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="462130848%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-module-map-from-free-module/index.html">ModuleMapFromFreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BVS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map/index.html">ModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-free-module-basis-name/index.html">FreeModuleBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BVS</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-module-map-from-free-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="ModuleMapAlongAlgebraMapFromFreeModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module-map-along-algebra-map-from-free-module/index.html">ModuleMapAlongAlgebraMapFromFreeModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapAlongAlgebraMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module-map-along-algebra-map-from-free-module/index.html">ModuleMapAlongAlgebraMapFromFreeModule</a>&lt;<a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">BVS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module-map-along-algebra-map-from-free-module/index.html">S</a>&gt;, <a href="-module-map-along-algebra-map-from-free-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module-map-along-algebra-map-from-free-module/index.html">S</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">V</a>&gt;&gt; : <a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a>&lt;<a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">BAT</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-module-map-along-algebra-map-from-free-module/index.html">BAS</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">BVS</a>&gt;, <a href="-module-map-along-algebra-map-from-free-module/index.html">BT</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">S</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">V</a>, <a href="-module-map-along-algebra-map-from-free-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1743887510%2FClasslikes%2F788909594" anchor-label="QuotModuleAlongAlgebraMap" id="1743887510%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-quot-module-along-algebra-map/index.html"><span>Quot</span><wbr></wbr><span>Module</span><wbr></wbr><span>Along</span><wbr></wbr><span>Algebra</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1743887510%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-quot-module-along-algebra-map/index.html">QuotModuleAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">BAT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../com.github.shwaka.kohomology.vectsp/-quot-basis/index.html">QuotBasis</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-quot-module-along-algebra-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="ModuleMapFromFreeModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-module-map-from-free-module/index.html">ModuleMapFromFreeModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FModuleMapFromFreeModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-module-map-from-free-module/index.html">ModuleMapFromFreeModule</a>&lt;<a href="-module-map-from-free-module/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-from-free-module/index.html">BVS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-from-free-module/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-module-map-from-free-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-module-map-from-free-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-module-map-from-free-module/index.html">S</a>&gt;, <a href="-module-map-from-free-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-module-map-from-free-module/index.html">S</a>, <a href="-module-map-from-free-module/index.html">V</a>&gt;&gt; : <a href="-module-map/index.html">ModuleMap</a>&lt;<a href="-module-map-from-free-module/index.html">BA</a>, <a href="-free-module-basis-name/index.html">FreeModuleBasisName</a>&lt;<a href="-module-map-from-free-module/index.html">BA</a>, <a href="-module-map-from-free-module/index.html">BVS</a>&gt;, <a href="-module-map-from-free-module/index.html">BT</a>, <a href="-module-map-from-free-module/index.html">S</a>, <a href="-module-map-from-free-module/index.html">V</a>, <a href="-module-map-from-free-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-926493271%2FClasslikes%2F788909594" anchor-label="RestrictedModule" id="-926493271%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-restricted-module/index.html"><span>Restricted</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-926493271%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-restricted-module/index.html">RestrictedModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module/index.html">BAS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FQuotModuleAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="QuotModuleAlongAlgebraMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FQuotModuleAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-quot-module-along-algebra-map/index.html">QuotModuleAlongAlgebraMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FQuotModuleAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-quot-module-along-algebra-map/index.html">QuotModuleAlongAlgebraMap</a>&lt;<a href="-quot-module-along-algebra-map/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-quot-module-along-algebra-map/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-quot-module-along-algebra-map/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-quot-module-along-algebra-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-quot-module-along-algebra-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-quot-module-along-algebra-map/index.html">S</a>&gt;, <a href="-quot-module-along-algebra-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-quot-module-along-algebra-map/index.html">S</a>, <a href="-quot-module-along-algebra-map/index.html">V</a>&gt;&gt; : <a href="-module/index.html">Module</a>&lt;<a href="-quot-module-along-algebra-map/index.html">BAT</a>, <a href="../com.github.shwaka.kohomology.vectsp/-quot-basis/index.html">QuotBasis</a>&lt;<a href="-quot-module-along-algebra-map/index.html">B</a>, <a href="-quot-module-along-algebra-map/index.html">S</a>, <a href="-quot-module-along-algebra-map/index.html">V</a>&gt;, <a href="-quot-module-along-algebra-map/index.html">S</a>, <a href="-quot-module-along-algebra-map/index.html">V</a>, <a href="-quot-module-along-algebra-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="220918269%2FClasslikes%2F788909594" anchor-label="RestrictedModuleMap" id="220918269%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-restricted-module-map/index.html"><span>Restricted</span><wbr></wbr><span>Module</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="220918269%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-restricted-module-map/index.html">RestrictedModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BAS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BAT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map/index.html">ModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BAS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-module-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="RestrictedModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-restricted-module/index.html">RestrictedModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-restricted-module/index.html">RestrictedModule</a>&lt;<a href="-restricted-module/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-restricted-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-restricted-module/index.html">S</a>&gt;, <a href="-restricted-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-restricted-module/index.html">S</a>, <a href="-restricted-module/index.html">V</a>&gt;&gt; : <a href="-module/index.html">Module</a>&lt;<a href="-restricted-module/index.html">BAS</a>, <a href="-restricted-module/index.html">B</a>, <a href="-restricted-module/index.html">S</a>, <a href="-restricted-module/index.html">V</a>, <a href="-restricted-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-656771880%2FClasslikes%2F788909594" anchor-label="RestrictedTrivialModule" id="-656771880%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-restricted-trivial-module/index.html"><span>Restricted</span><wbr></wbr><span>Trivial</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-656771880%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-restricted-trivial-module/index.html">RestrictedTrivialModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">BES</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">BET</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-trivial-module/index.html">TrivialModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">BES</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">M</a><span class="token operator">&gt; </span>, <a href="-restricted-module/index.html">RestrictedModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">BES</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">BET</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-restricted-trivial-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="RestrictedModuleMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-restricted-module-map/index.html">RestrictedModuleMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-restricted-module-map/index.html">RestrictedModuleMap</a>&lt;<a href="-restricted-module-map/index.html">BAS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module-map/index.html">BAT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module-map/index.html">BS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module-map/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-module-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-restricted-module-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-restricted-module-map/index.html">S</a>&gt;, <a href="-restricted-module-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-restricted-module-map/index.html">S</a>, <a href="-restricted-module-map/index.html">V</a>&gt;&gt; : <a href="-module-map/index.html">ModuleMap</a>&lt;<a href="-restricted-module-map/index.html">BAS</a>, <a href="-restricted-module-map/index.html">BS</a>, <a href="-restricted-module-map/index.html">BT</a>, <a href="-restricted-module-map/index.html">S</a>, <a href="-restricted-module-map/index.html">V</a>, <a href="-restricted-module-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1206799320%2FClasslikes%2F788909594" anchor-label="SelfModule" id="1206799320%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-self-module/index.html"><span>Self</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1206799320%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-self-module/index.html">SelfModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-self-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-self-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-self-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-free-module/index.html">FreeModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-self-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module-basis-name/index.html">SelfModuleBasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-self-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="RestrictedTrivialModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-restricted-trivial-module/index.html">RestrictedTrivialModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FRestrictedTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-restricted-trivial-module/index.html">RestrictedTrivialModule</a>&lt;<a href="-restricted-trivial-module/index.html">BES</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-restricted-trivial-module/index.html">BET</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-restricted-trivial-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-restricted-trivial-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-restricted-trivial-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-restricted-trivial-module/index.html">S</a>&gt;, <a href="-restricted-trivial-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-restricted-trivial-module/index.html">S</a>, <a href="-restricted-trivial-module/index.html">V</a>&gt;&gt; : <a href="-trivial-module/index.html">TrivialModule</a>&lt;<a href="-restricted-trivial-module/index.html">BES</a>, <a href="-restricted-trivial-module/index.html">B</a>, <a href="-restricted-trivial-module/index.html">S</a>, <a href="-restricted-trivial-module/index.html">V</a>, <a href="-restricted-trivial-module/index.html">M</a>&gt; , <a href="-restricted-module/index.html">RestrictedModule</a>&lt;<a href="-restricted-trivial-module/index.html">BES</a>, <a href="-restricted-trivial-module/index.html">BET</a>, <a href="-restricted-trivial-module/index.html">B</a>, <a href="-restricted-trivial-module/index.html">S</a>, <a href="-restricted-trivial-module/index.html">V</a>, <a href="-restricted-trivial-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1273420993%2FClasslikes%2F788909594" anchor-label="SelfModuleBasisName" id="1273420993%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-self-module-basis-name/index.html"><span>Self</span><wbr></wbr><span>Module</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1273420993%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">object </span><a href="-self-module-basis-name/index.html">SelfModuleBasisName</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="SelfModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-self-module/index.html">SelfModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-self-module/index.html">SelfModule</a>&lt;<a href="-self-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-self-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-self-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-self-module/index.html">S</a>&gt;, <a href="-self-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-self-module/index.html">S</a>, <a href="-self-module/index.html">V</a>&gt;&gt; : <a href="-free-module/index.html">FreeModule</a>&lt;<a href="-self-module/index.html">B</a>, <a href="-self-module-basis-name/index.html">SelfModuleBasisName</a>, <a href="-self-module/index.html">S</a>, <a href="-self-module/index.html">V</a>, <a href="-self-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="2142468998%2FClasslikes%2F788909594" anchor-label="SubModule" id="2142468998%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sub-module/index.html"><span>Sub</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="2142468998%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-sub-module/index.html">SubModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sub-module/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sub-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sub-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sub-module/index.html">BA</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="../com.github.shwaka.kohomology.vectsp/-sub-basis/index.html">SubBasis</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-sub-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">V</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-sub-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="SelfModuleBasisName" id="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-self-module-basis-name/index.html">SelfModuleBasisName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FSelfModuleBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">object <a href="-self-module-basis-name/index.html">SelfModuleBasisName</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1801578589%2FClasslikes%2F788909594" anchor-label="TensorProductBasisName" id="1801578589%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tensor-product-basis-name/index.html"><span>Tensor</span><wbr></wbr><span>Product</span><wbr></wbr><span>Basis</span><wbr></wbr><span><span>Name</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1801578589%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-basis-name/index.html">BR</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-basis-name/index.html">BL</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token operator">&gt;</span> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FSubModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="SubModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FSubModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-sub-module/index.html">SubModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FSubModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-sub-module/index.html">SubModule</a>&lt;<a href="-sub-module/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-sub-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-sub-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-sub-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-sub-module/index.html">S</a>&gt;, <a href="-sub-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-sub-module/index.html">S</a>, <a href="-sub-module/index.html">V</a>&gt;&gt; : <a href="-module/index.html">Module</a>&lt;<a href="-sub-module/index.html">BA</a>, <a href="../com.github.shwaka.kohomology.vectsp/-sub-basis/index.html">SubBasis</a>&lt;<a href="-sub-module/index.html">B</a>, <a href="-sub-module/index.html">S</a>, <a href="-sub-module/index.html">V</a>&gt;, <a href="-sub-module/index.html">S</a>, <a href="-sub-module/index.html">V</a>, <a href="-sub-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1375946162%2FClasslikes%2F788909594" anchor-label="TensorProductOverAlgebra" id="1375946162%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tensor-product-over-algebra/index.html"><span>Tensor</span><wbr></wbr><span>Product</span><wbr></wbr><span>Over</span><wbr></wbr><span><span>Algebra</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1375946162%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BA</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BR</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BL</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BT</a><span class="token operator"> : </span><a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BR</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BL</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="../com.github.shwaka.kohomology.vectsp/-vector-space/index.html">VectorSpace</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-tensor-product-over-algebra/index.html">V</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="TensorProductBasisName" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductBasisName%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a>&lt;<a href="-tensor-product-basis-name/index.html">BR</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-tensor-product-basis-name/index.html">BL</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>&gt; : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="911741405%2FClasslikes%2F788909594" anchor-label="TrivialModule" id="911741405%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-trivial-module/index.html"><span>Trivial</span><wbr></wbr><span><span>Module</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="911741405%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-trivial-module/index.html">TrivialModule</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module/index.html">E</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">B</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module/index.html">Module</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module/index.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">B</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="TensorProductOverAlgebra" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTensorProductOverAlgebra%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-tensor-product-over-algebra/index.html">TensorProductOverAlgebra</a>&lt;<a href="-tensor-product-over-algebra/index.html">BA</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-tensor-product-over-algebra/index.html">BR</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-tensor-product-over-algebra/index.html">BL</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-tensor-product-over-algebra/index.html">BT</a> : <a href="-tensor-product-basis-name/index.html">TensorProductBasisName</a>&lt;<a href="-tensor-product-over-algebra/index.html">BR</a>, <a href="-tensor-product-over-algebra/index.html">BL</a>&gt;, <a href="-tensor-product-over-algebra/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-tensor-product-over-algebra/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-tensor-product-over-algebra/index.html">S</a>&gt;, <a href="-tensor-product-over-algebra/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-tensor-product-over-algebra/index.html">S</a>, <a href="-tensor-product-over-algebra/index.html">V</a>&gt;&gt; : <a href="../com.github.shwaka.kohomology.vectsp/-vector-space/index.html">VectorSpace</a>&lt;<a href="-tensor-product-over-algebra/index.html">BT</a>, <a href="-tensor-product-over-algebra/index.html">S</a>, <a href="-tensor-product-over-algebra/index.html">V</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2057840311%2FClasslikes%2F788909594" anchor-label="TrivialModuleMap" id="-2057840311%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-trivial-module-map/index.html"><span>Trivial</span><wbr></wbr><span>Module</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2057840311%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-trivial-module-map/index.html">TrivialModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map/index.html">E</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">BS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map/index.html">ModuleMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map/index.html">E</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">BS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="TrivialModule" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-trivial-module/index.html">TrivialModule</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModule%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-trivial-module/index.html">TrivialModule</a>&lt;<a href="-trivial-module/index.html">E</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-trivial-module/index.html">B</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-trivial-module/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-trivial-module/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-trivial-module/index.html">S</a>&gt;, <a href="-trivial-module/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-trivial-module/index.html">S</a>, <a href="-trivial-module/index.html">V</a>&gt;&gt; : <a href="-module/index.html">Module</a>&lt;<a href="-trivial-module/index.html">E</a>, <a href="-trivial-module/index.html">B</a>, <a href="-trivial-module/index.html">S</a>, <a href="-trivial-module/index.html">V</a>, <a href="-trivial-module/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="TrivialModuleMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-trivial-module-map/index.html">TrivialModuleMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-trivial-module-map/index.html">TrivialModuleMap</a>&lt;<a href="-trivial-module-map/index.html">E</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-trivial-module-map/index.html">BS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-trivial-module-map/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-trivial-module-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-trivial-module-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-trivial-module-map/index.html">S</a>&gt;, <a href="-trivial-module-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-trivial-module-map/index.html">S</a>, <a href="-trivial-module-map/index.html">V</a>&gt;&gt; : <a href="-module-map/index.html">ModuleMap</a>&lt;<a href="-trivial-module-map/index.html">E</a>, <a href="-trivial-module-map/index.html">BS</a>, <a href="-trivial-module-map/index.html">BT</a>, <a href="-trivial-module-map/index.html">S</a>, <a href="-trivial-module-map/index.html">V</a>, <a href="-trivial-module-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" anchor-label="TrivialModuleMapAlongAlgebraMap" id="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099" data-filterable-set=":dokkaHtml/commonMain"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="-trivial-module-map-along-algebra-map/index.html">TrivialModuleMapAlongAlgebraMap</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bcom.github.shwaka.kohomology.resol.module%2FTrivialModuleMapAlongAlgebraMap%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F1794082099"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="platform-tags ">
-                        <div class="platform-tag common-like">common</div>
-                      </div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace">interface <a href="-trivial-module-map-along-algebra-map/index.html">TrivialModuleMapAlongAlgebraMap</a>&lt;<a href="-trivial-module-map-along-algebra-map/index.html">ES</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-trivial-module-map-along-algebra-map/index.html">ET</a> : <a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a>, <a href="-trivial-module-map-along-algebra-map/index.html">BS</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-trivial-module-map-along-algebra-map/index.html">BT</a> : <a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a>, <a href="-trivial-module-map-along-algebra-map/index.html">S</a> : <a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a>, <a href="-trivial-module-map-along-algebra-map/index.html">V</a> : <a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a>&lt;<a href="-trivial-module-map-along-algebra-map/index.html">S</a>&gt;, <a href="-trivial-module-map-along-algebra-map/index.html">M</a> : <a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a>&lt;<a href="-trivial-module-map-along-algebra-map/index.html">S</a>, <a href="-trivial-module-map-along-algebra-map/index.html">V</a>&gt;&gt; : <a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a>&lt;<a href="-trivial-module-map-along-algebra-map/index.html">ES</a>, <a href="-trivial-module-map-along-algebra-map/index.html">ET</a>, <a href="-trivial-module-map-along-algebra-map/index.html">BS</a>, <a href="-trivial-module-map-along-algebra-map/index.html">BT</a>, <a href="-trivial-module-map-along-algebra-map/index.html">S</a>, <a href="-trivial-module-map-along-algebra-map/index.html">V</a>, <a href="-trivial-module-map-along-algebra-map/index.html">M</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1152060936%2FClasslikes%2F788909594" anchor-label="TrivialModuleMapAlongAlgebraMap" id="1152060936%2FClasslikes%2F788909594" data-filterable-set=":dokkaHtml/commonMain"></a>
+          <div class="table-row" data-filterable-current=":dokkaHtml/commonMain" data-filterable-set=":dokkaHtml/commonMain">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-trivial-module-map-along-algebra-map/index.html"><span>Trivial</span><wbr></wbr><span>Module</span><wbr></wbr><span>Map</span><wbr></wbr><span>Along</span><wbr></wbr><span>Algebra</span><wbr></wbr><span><span>Map</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1152060936%2FClasslikes%2F788909594"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/commonMain"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-trivial-module-map-along-algebra-map/index.html">TrivialModuleMapAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">ES</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">ET</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.resol.monoid/-finite-monoid-element/index.html">FiniteMonoidElement</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">BS</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">BT</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.vectsp/-basis-name/index.html">BasisName</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">S</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-scalar/index.html">Scalar</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">V</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-num-vector/index.html">NumVector</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">S</a><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">M</a><span class="token operator"> : </span><a href="../com.github.shwaka.kohomology.linalg/-matrix/index.html">Matrix</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">V</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span> : <a href="-module-map-along-algebra-map/index.html">ModuleMapAlongAlgebraMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">ES</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">ET</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">BS</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">BT</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">S</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">V</a><span class="token punctuation">, </span><span class="token keyword"></span><a href="-trivial-module-map-along-algebra-map/index.html">M</a><span class="token operator">&gt; </span></div></div></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2025 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2025 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
-

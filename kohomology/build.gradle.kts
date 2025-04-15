@@ -16,7 +16,7 @@ plugins {
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
     id("org.jetbrains.dokka") version "1.9.10" // 1.5.x は無いらしい
-    id("com.github.shwaka.dokkacov") version "0.1"
+    id("com.github.shwaka.dokkacov") version "0.3"
 }
 
 apply<com.github.shwaka.kohomology.MyPlugin>()

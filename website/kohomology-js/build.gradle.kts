@@ -1,5 +1,5 @@
 plugins {
-    val kotlinVersion = "1.7.21"
+    val kotlinVersion = "1.9.10"
     kotlin("multiplatform") version kotlinVersion
     kotlin("plugin.serialization") version kotlinVersion
     id("org.jlleitschuh.gradle.ktlint") version "10.2.0"

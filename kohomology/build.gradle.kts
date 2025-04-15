@@ -5,7 +5,7 @@ group = "com.github.shwaka.kohomology"
 version = "0.14-SNAPSHOT"
 
 plugins {
-    val kotlinVersion = "1.7.21"
+    val kotlinVersion = "1.9.10"
     kotlin("multiplatform") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.serialization") version kotlinVersion
     id("io.kotest") version "0.2.6"

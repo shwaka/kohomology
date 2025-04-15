@@ -82,7 +82,7 @@ kotlin {
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 
                 // kococo
-                val kococoVersion = "0.1"
+                val kococoVersion = "0.2"
                 val kococoDebug = "com.github.shwaka.kococo:kococo-debug:$kococoVersion"
                 val kococoRelease = "com.github.shwaka.kococo:kococo-release:$kococoVersion"
                 if (System.getProperty("kococo.debug") == null) {

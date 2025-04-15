@@ -15,7 +15,7 @@ plugins {
     jacoco
     id("com.adarshr.test-logger") version "3.0.1-SNAPSHOT"
     `maven-publish`
-    id("org.jetbrains.dokka") version "1.4.30" // 1.5.x は無いらしい
+    id("org.jetbrains.dokka") version "1.9.10" // 1.5.x は無いらしい
     id("com.github.shwaka.dokkacov") version "0.1"
 }
 

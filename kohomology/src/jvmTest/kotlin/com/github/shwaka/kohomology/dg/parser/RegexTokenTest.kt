@@ -45,15 +45,7 @@ class RegexTokenTest : FreeSpec({
             TokenTestData("-1", fromIndex = 1, expectedMatchLength = 1),
         )
         for (data in dataList) {
-            val substring = data.input.substring(
-                data.fromIndex until (data.fromIndex + data.expectedMatchLength)
-            )
-            val testName = "natToken.match(\\\"${data.input}\\\", ${data.fromIndex}) should " +
-                if (substring.isEmpty()) {
-                    "not match"
-                } else {
-                    "match at \"$substring\""
-                }
+            val testName = data.getTestName("natToken")
             testName {
                 natToken.match(data.input, data.fromIndex) shouldBe data.expectedMatchLength
             }

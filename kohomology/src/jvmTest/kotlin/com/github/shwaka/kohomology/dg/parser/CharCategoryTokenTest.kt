@@ -3,14 +3,25 @@ package com.github.shwaka.kohomology.dg.parser
 import com.github.shwaka.kohomology.util.Identifier
 import com.github.shwaka.kohomology.util.PartialIdentifier
 import io.kotest.core.spec.style.FreeSpec
-import io.kotest.inspectors.forAll
 import io.kotest.matchers.shouldBe
 
 data class TokenTestData(
     val input: String,
     val fromIndex: Int,
     val expectedMatchLength: Int,
-)
+) {
+    fun getTestName(tokenName: String): String {
+        val substring = this.input.substring(
+            this.fromIndex until (this.fromIndex + this.expectedMatchLength)
+        )
+        return "$tokenName.match(\\\"${this.input}\\\", ${this.fromIndex}) should " +
+            if (substring.isEmpty()) {
+                "not match"
+            } else {
+                "match at \"$substring\""
+            }
+    }
+}
 
 class CharCategoryTokenTest : FreeSpec({
     "test with identifier token" - {
@@ -33,15 +44,7 @@ class CharCategoryTokenTest : FreeSpec({
             TokenTestData("_x", fromIndex = 0, expectedMatchLength = 2),
         )
         for (data in dataList) {
-            val substring = data.input.substring(
-                data.fromIndex until (data.fromIndex + data.expectedMatchLength)
-            )
-            val testName = "identifierToken.match(\\\"${data.input}\\\", ${data.fromIndex}) should " +
-                if (substring.isEmpty()) {
-                    "not match"
-                } else {
-                    "match at \"$substring\""
-                }
+            val testName = data.getTestName("identifierToken")
             testName {
                 identifierToken.match(data.input, data.fromIndex) shouldBe data.expectedMatchLength
             }

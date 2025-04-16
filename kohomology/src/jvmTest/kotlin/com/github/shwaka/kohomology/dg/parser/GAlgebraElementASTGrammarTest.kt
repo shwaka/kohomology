@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.dg.parser
 
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Multiply
@@ -23,7 +22,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
     tags(gAlgebraElementASTGrammarTag)
 
     "empty exception should not be parsed" {
-        shouldThrow<ParseException> {
+        shouldThrow<KohomologyParseException> {
             GAlgebraElementASTGrammar.parseToEnd("")
         }
     }
@@ -51,7 +50,7 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
         listOf(
             "1a", "0x",
         ).forAll { name ->
-            shouldThrow<ParseException> {
+            shouldThrow<KohomologyParseException> {
                 GAlgebraElementASTGrammar.parseToEnd(name)
             }
         }

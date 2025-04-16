@@ -10,6 +10,7 @@ import com.github.h0tk3y.betterParse.grammar.Grammar
 import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
+import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.shwaka.kohomology.util.Identifier
 import com.github.shwaka.kohomology.util.PartialIdentifier
@@ -80,6 +81,10 @@ private object GAlgebraElementASTGrammarInternal : Grammar<ASTNode>() {
 
 internal object GAlgebraElementASTGrammar {
     fun parseToEnd(input: String): ASTNode {
-        return GAlgebraElementASTGrammarInternal.parseToEnd(input)
+        try {
+            return GAlgebraElementASTGrammarInternal.parseToEnd(input)
+        } catch (e: ParseException) {
+            throw KohomologyParseException(e)
+        }
     }
 }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744778815465,
+  "lastUpdate": 1744805404088,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6374,6 +6374,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.48,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "475bb485d6edadd1f6b3106ca32135aceef4fd45",
+          "message": "test(core): replace ParasException with KohomologyParseException in FreeGAlgebraParseTest",
+          "timestamp": "2025-04-16T21:02:12+09:00",
+          "tree_id": "8ea12e1e077533c02dae8b2f0c2305bb03dbae6e",
+          "url": "https://github.com/shwaka/kohomology/commit/475bb485d6edadd1f6b3106ca32135aceef4fd45"
+        },
+        "date": 1744805403056,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.437,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.547,
             "unit": "s/op"
           }
         ]

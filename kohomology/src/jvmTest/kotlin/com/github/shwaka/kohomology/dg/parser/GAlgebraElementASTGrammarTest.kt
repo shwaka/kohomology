@@ -11,17 +11,21 @@ import com.github.shwaka.kohomology.dg.parser.ASTNode.UnaryMinus
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Zero
 import com.github.shwaka.kohomology.util.IdentifierTest
 import io.kotest.assertions.throwables.shouldThrow
+import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeTrue
+import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.string.shouldContain
 
 val gAlgebraElementASTGrammarTag = NamedTag("GAlgebraElementASTGrammar")
 
 class GAlgebraElementASTGrammarTest : FreeSpec({
     tags(gAlgebraElementASTGrammarTag)
 
-    "empty exception should not be parsed" {
+    "empty string should not be parsed" {
         shouldThrow<KohomologyParseException> {
             GAlgebraElementASTGrammar.parseToEnd("")
         }
@@ -207,5 +211,35 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
                 ),
                 NatNumber(3),
             )
+    }
+
+    "test error messages" - {
+        "failure at the beginning should throw an error with useless message" {
+            // Failure at the beginning throws an error with useless message.
+            //   Could not parse input: AlternativesFailure(errors=[
+            //   AlternativesFailure(errors=[
+            //     NoMatchingToken(tokenMismatch=no token matched@1 for "." at 0 (1:1)), ...])
+            val inputs = listOf(
+                ".",
+                ".3",
+                "?",
+            )
+            inputs.forAll { input ->
+                val exception = shouldThrowExactly<KohomologyParseException> {
+                    GAlgebraElementASTGrammar.parseToEnd(input)
+                }
+                exception.message shouldContain "Could not parse input: AlternativesFailure("
+                exception.isFailureAtTheBeginning().shouldBeTrue()
+                exception.format().lines().size shouldBeGreaterThan 10 // contains many lines
+            }
+        }
+
+        "parseToEnd(\"2x\") should throw an error with message containing \"x\"" {
+            val exception = shouldThrowExactly<KohomologyParseException> {
+                GAlgebraElementASTGrammar.parseToEnd("2x")
+            }
+            exception.message shouldContain "Could not parse input: UnparsedRemainder("
+            exception.message shouldContain "\"x\"" // error happens at x
+        }
     }
 })

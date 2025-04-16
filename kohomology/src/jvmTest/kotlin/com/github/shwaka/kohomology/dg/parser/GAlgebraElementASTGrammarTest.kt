@@ -15,6 +15,7 @@ import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.core.NamedTag
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.inspectors.forAll
+import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.ints.shouldBeGreaterThan
 import io.kotest.matchers.shouldBe
@@ -230,6 +231,23 @@ class GAlgebraElementASTGrammarTest : FreeSpec({
                 }
                 exception.message shouldContain "Could not parse input: AlternativesFailure("
                 exception.isFailureAtTheBeginning().shouldBeTrue()
+                exception.format().lines().size shouldBeGreaterThan 10 // contains many lines
+            }
+        }
+
+        "parseToEnd(\"+\") should throw an error at non-beginning with useless message" {
+            val inputs = listOf(
+                "+",
+                "-",
+                "*",
+                "^",
+            )
+            inputs.forAll { input ->
+                val exception = shouldThrowExactly<KohomologyParseException> {
+                    GAlgebraElementASTGrammar.parseToEnd(input)
+                }
+                exception.message shouldContain "Could not parse input: AlternativesFailure("
+                exception.isFailureAtTheBeginning().shouldBeFalse()
                 exception.format().lines().size shouldBeGreaterThan 10 // contains many lines
             }
         }

@@ -7,13 +7,14 @@ import com.github.h0tk3y.betterParse.combinators.or
 import com.github.h0tk3y.betterParse.combinators.skip
 import com.github.h0tk3y.betterParse.combinators.use
 import com.github.h0tk3y.betterParse.grammar.Grammar
+import com.github.h0tk3y.betterParse.grammar.parseToEnd
 import com.github.h0tk3y.betterParse.grammar.parser
 import com.github.h0tk3y.betterParse.lexer.literalToken
 import com.github.h0tk3y.betterParse.parser.Parser
 import com.github.shwaka.kohomology.util.Identifier
 import com.github.shwaka.kohomology.util.PartialIdentifier
 
-internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
+private object GAlgebraElementASTGrammarInternal : Grammar<ASTNode>() {
     // Previously, "0" could not be used as a scalar and "zero" is used for such purpose.
     // Currently, "zero" is unnecessary but left here for compatibility reason.
     private val zero by literalToken("zero")
@@ -75,4 +76,10 @@ internal object GAlgebraElementASTGrammar : Grammar<ASTNode>() {
     }
 
     override val rootParser: Parser<ASTNode> by subSumChain
+}
+
+internal object GAlgebraElementASTGrammar {
+    fun parseToEnd(input: String): ASTNode {
+        return GAlgebraElementASTGrammarInternal.parseToEnd(input)
+    }
 }

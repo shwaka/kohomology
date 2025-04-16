@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744805404088,
+  "lastUpdate": 1744822874560,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6408,6 +6408,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.547,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "dae7c0c88dc068133c25619a6c6038491623756e",
+          "message": "test(core): improve GAlgebraElementASTGrammarTest",
+          "timestamp": "2025-04-17T01:35:25+09:00",
+          "tree_id": "4132b44f679c836a89854a519e0eb8c7d51e4396",
+          "url": "https://github.com/shwaka/kohomology/commit/dae7c0c88dc068133c25619a6c6038491623756e"
+        },
+        "date": 1744822872004,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.437,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.488,
             "unit": "s/op"
           }
         ]

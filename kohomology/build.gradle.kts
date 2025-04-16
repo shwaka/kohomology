@@ -93,11 +93,7 @@ kotlin {
 
                 implementation("com.github.shwaka.counter:simple-counter:0.2")
                 // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
-
-                // better-parse
-                // If this is implementation(...), then kohomology-js throws an error like
-                // e: file:///home/shun/Git/kohomology/website/kohomology-js/src/jsMain/kotlin/FreeDGAWrapper.kt:1:19 Unresolved reference: h0tk3y
-                api("com.github.h0tk3y.betterParse:better-parse:0.4.2")
+                implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
 
                 // parautil
                 val parallel: String = System.getProperty("kohomology.parallel") ?: "parallel"

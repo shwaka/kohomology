@@ -1,8 +1,8 @@
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.GVector
 import com.github.shwaka.kohomology.dg.InvalidIdentifierException
 import com.github.shwaka.kohomology.dg.ZeroGVector
 import com.github.shwaka.kohomology.dg.degree.IntDegree
+import com.github.shwaka.kohomology.dg.parser.KohomologyParseException
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.FreeGAlgebra
 import com.github.shwaka.kohomology.free.GeneratorOfFreeDGA
@@ -73,7 +73,7 @@ private fun assertDegreeOfDifferentialValue(
     val differentialValue: String = currentGenerator.differentialValue
     val gVector = try {
         freeGAlgebra.parse(differentialValue)
-    } catch (e: ParseException) {
+    } catch (e: KohomologyParseException) {
         val message = if (e.isFailureAtTheBeginning()) {
             "Failed to parse the value \"$differentialValue\" of the differential. " +
                 "No matching token at the beginning."

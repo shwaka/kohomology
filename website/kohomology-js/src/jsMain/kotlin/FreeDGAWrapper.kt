@@ -1,4 +1,3 @@
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.DGAlgebra
 import com.github.shwaka.kohomology.dg.DGIdeal
 import com.github.shwaka.kohomology.dg.DGVectorSpace
@@ -10,6 +9,7 @@ import com.github.shwaka.kohomology.dg.degree.AugmentedDegreeGroup
 import com.github.shwaka.kohomology.dg.degree.Degree
 import com.github.shwaka.kohomology.dg.degree.IntDegree
 import com.github.shwaka.kohomology.dg.degree.IntDegreeGroup
+import com.github.shwaka.kohomology.dg.parser.KohomologyParseException
 import com.github.shwaka.kohomology.free.DerivationDGLieAlgebra
 import com.github.shwaka.kohomology.free.FreeDGAlgebra
 import com.github.shwaka.kohomology.free.MinimalModel
@@ -323,12 +323,12 @@ getCocycle(
     // the first argument needs to be FreeDGAlgebra and cannot be generalized to DGVectorSpace.
     return try {
         Either.Right(freeDGAlgebra.parse(cocycleString))
-    } catch (e: ParseException) {
+    } catch (e: KohomologyParseException) {
         val message = styledMessage(MessageType.ERROR) {
             val generatorsString = freeDGAlgebra.getGeneratorsForParser().joinToString(", ") { it.first }
             "[Error] Parse failed.\n".text +
                 "Note: Current generators are $generatorsString\n".text +
-                "${e.errorResult}\n".text
+                "${e.getErrorResult()}\n".text
         }
         Either.Left(message)
     }

@@ -1652,6 +1652,16 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.g1h(a.a1o_1).r1t(a.z1n_1, b.z1n_1);
   }
   setMetadataFor(GVectorSpace, 'GVectorSpace', interfaceMeta);
+  function cohomologyClassOf(cocycle) {
+    return Companion_getInstance_11().q1i(this.m1g(), cocycle);
+  }
+  function cocycleRepresentativeOf(cohomologyClass) {
+    var vector = cohomologyClass.z1n_1;
+    var cohomologyOfTheDegree = this.m1g().g1h(cohomologyClass.a1o_1);
+    var cocycle = cohomologyOfTheDegree.l1o().q1o(vector);
+    return this.k1h(cocycle, cohomologyClass.a1o_1);
+  }
+  setMetadataFor(DGVectorSpace, 'DGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
   function multiply_0(a, b) {
     return this.n1g().p1r(a, b);
   }
@@ -1681,16 +1691,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   setMetadataFor(GMagma, 'GMagma', interfaceMeta, VOID, [GVectorSpace]);
-  function cohomologyClassOf(cocycle) {
-    return Companion_getInstance_11().q1i(this.m1g(), cocycle);
-  }
-  function cocycleRepresentativeOf(cohomologyClass) {
-    var vector = cohomologyClass.z1n_1;
-    var cohomologyOfTheDegree = this.m1g().g1h(cohomologyClass.a1o_1);
-    var cocycle = cohomologyOfTheDegree.l1o().q1o(vector);
-    return this.k1h(cocycle, cohomologyClass.a1o_1);
-  }
-  setMetadataFor(DGVectorSpace, 'DGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
   function convertToScalar(gVector) {
     if (gVector.a1o_1.e1q()) {
       throw ArithmeticException_init_$Create$('Cannot convert ' + gVector + ' to a scalar since it has non-zero degree ' + gVector.a1o_1);
@@ -1755,7 +1755,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var quotGAlgebra = getQuotientByIdeal.call(this, ideal);
     return Companion_getInstance_27().x1g(this, quotGAlgebra);
   }
-  setMetadataFor(DGAlgebra, 'DGAlgebra', interfaceMeta, VOID, [GMagma, DGVectorSpace, GAlgebra]);
+  setMetadataFor(DGAlgebra, 'DGAlgebra', interfaceMeta, VOID, [DGVectorSpace, GMagma, GAlgebra]);
   setMetadataFor(Companion_1, 'Companion', objectMeta);
   setMetadataFor(DGAlgebraImpl, 'DGAlgebraImpl', classMeta, VOID, [DGAlgebra, GVectorSpace]);
   function plus_1(_this__u8e3s4, other) {
@@ -1971,6 +1971,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   setMetadataFor(GVectorContext, 'GVectorContext', interfaceMeta, VOID, [NumVectorContext]);
+  function get_d() {
+    return this.y1i().o1g();
+  }
+  function cohomologyClass(_this__u8e3s4) {
+    return this.y1i().z1g(_this__u8e3s4);
+  }
+  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
   function times_8(_this__u8e3s4, other) {
     return this.z1i().w1h(_this__u8e3s4, other);
   }
@@ -1978,6 +1985,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.z1i().x1h(_this__u8e3s4, other);
   }
   setMetadataFor(GMagmaContext, 'GMagmaContext', interfaceMeta, VOID, [GVectorContext]);
+  function times_10(_this__u8e3s4, other) {
+    return this.x1i().w1h(_this__u8e3s4, other);
+  }
+  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
   function get_unit() {
     return this.i1k().a1i();
   }
@@ -2055,18 +2066,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   }
   setMetadataFor(GAlgebraContext, 'GAlgebraContext', interfaceMeta, VOID, [GMagmaContext]);
-  function get_d() {
-    return this.y1i().o1g();
-  }
-  function cohomologyClass(_this__u8e3s4) {
-    return this.y1i().z1g(_this__u8e3s4);
-  }
-  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
-  function times_10(_this__u8e3s4, other) {
-    return this.x1i().w1h(_this__u8e3s4, other);
-  }
-  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
-  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [GAlgebraContext, DGMagmaContext]);
+  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext]);
   setMetadataFor(Companion_2, 'Companion', objectMeta);
   function get_degreeGroup() {
     return this.s1k().c1h();
@@ -2181,7 +2181,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return Companion_getInstance_13().o1p(sourceQuot, induce_0.call(this, sourceQuot, sourceQuot));
   }
   setMetadataFor(Derivation, 'Derivation', interfaceMeta, VOID, [GLinearMap]);
-  setMetadataFor(DGDerivationImpl, 'DGDerivationImpl', classMeta, VOID, [Derivation, GLinearMap]);
+  setMetadataFor(DGDerivationImpl, 'DGDerivationImpl', classMeta, VOID, [GLinearMap, Derivation]);
   setMetadataFor(Companion_4, 'Companion', objectMeta);
   function get_1(degree) {
     return this.g1h(this.c1h().bi(degree));
@@ -2191,10 +2191,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return subQuotVectorSpace.t1w(gVector.z1n_1);
   }
   setMetadataFor(SubGVectorSpace, 'SubGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
-  setMetadataFor(DGIdealImpl, 'DGIdealImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
+  setMetadataFor(DGIdealImpl, 'DGIdealImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
   setMetadataFor(Companion_5, 'Companion', objectMeta);
   setMetadataFor(Companion_6, 'Companion', objectMeta);
-  setMetadataFor(DGLieAlgebraImpl, 'DGLieAlgebraImpl', classMeta, VOID, [GMagma, DGVectorSpace, GVectorSpace]);
+  setMetadataFor(DGLieAlgebraImpl, 'DGLieAlgebraImpl', classMeta, VOID, [DGVectorSpace, GMagma, GVectorSpace]);
   function ad(gVector) {
     var matrixSpace = this.u1m().y1g();
     var name = 'ad(' + gVector + ')';
@@ -2208,7 +2208,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   setMetadataFor(DGLinearMapImpl, 'DGLinearMapImpl', classMeta, VOID, [GLinearMap]);
   setMetadataFor(Companion_8, 'Companion', objectMeta);
   setMetadataFor(Companion_9, 'Companion', objectMeta);
-  setMetadataFor(DGMagmaImpl, 'DGMagmaImpl', classMeta, VOID, [GMagma, DGVectorSpace, GVectorSpace]);
+  setMetadataFor(DGMagmaImpl, 'DGMagmaImpl', classMeta, VOID, [DGVectorSpace, GMagma, GVectorSpace]);
   setMetadataFor(DGMagmaContextImpl, 'DGMagmaContextImpl', classMeta, VOID, [DGMagmaContext]);
   setMetadataFor(Companion_10, 'Companion', objectMeta);
   setMetadataFor(Companion_11, 'Companion', objectMeta);
@@ -2263,23 +2263,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.g1h(this.c1h().bi(degree));
   }
   setMetadataFor(QuotGVectorSpace, 'QuotGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
-  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, QuotGVectorSpace, GAlgebra, GMagma, DGVectorSpace]);
+  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, GAlgebra, QuotGVectorSpace, GMagma, DGVectorSpace]);
   setMetadataFor(QuotDGAlgebraImpl, 'QuotDGAlgebraImpl', classMeta, VOID, [QuotDGAlgebra, QuotGVectorSpace]);
   setMetadataFor(Companion_27, 'Companion', objectMeta);
-  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [QuotGVectorSpace, GAlgebra, GMagma]);
+  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [GAlgebra, QuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_28, 'Companion', objectMeta);
   setMetadataFor(QuotGVectorSpaceImpl, 'QuotGVectorSpaceImpl', classMeta, VOID, [QuotGVectorSpace]);
   setMetadataFor(Companion_29, 'Companion', objectMeta);
-  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
+  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
   setMetadataFor(Companion_30, 'Companion', objectMeta);
   setMetadataFor(SubGVectorSpaceImpl, 'SubGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(WholeSubGVectorSpace, 'WholeSubGVectorSpace', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(Companion_31, 'Companion', objectMeta);
-  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GAlgebra, GMagma]);
+  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [GAlgebra, SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_32, 'Companion', objectMeta);
   setMetadataFor(SubQuotGLieAlgebraImpl, 'SubQuotGLieAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_33, 'Companion', objectMeta);
-  setMetadataFor(SubQuotGMagmaImpl, 'SubQuotGMagmaImpl', classMeta, VOID, [GMagma, SubQuotGVectorSpace]);
+  setMetadataFor(SubQuotGMagmaImpl, 'SubQuotGMagmaImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_34, 'Companion', objectMeta);
   setMetadataFor(SubQuotGVectorSpaceImpl, 'SubQuotGVectorSpaceImpl', classMeta, VOID, [SubQuotGVectorSpace]);
   function isNotZero_0() {
@@ -2332,7 +2332,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   setMetadataFor(NextMMCalculator, 'NextMMCalculator', classMeta, AbstractNextMMCalculator);
   setMetadataFor(CohomologicalNextMMCalculator, 'CohomologicalNextMMCalculator', classMeta, NextMMCalculator);
   setMetadataFor(Companion_36, 'Companion', objectMeta);
-  setMetadataFor(DerivationDGLieAlgebra, 'DerivationDGLieAlgebra', classMeta, VOID, [GMagma, DGVectorSpace]);
+  setMetadataFor(DerivationDGLieAlgebra, 'DerivationDGLieAlgebra', classMeta, VOID, [DGVectorSpace, GMagma]);
   setMetadataFor(DerivationDGLieAlgebraFactory, 'DerivationDGLieAlgebraFactory', classMeta);
   setMetadataFor(Companion_37, 'Companion', objectMeta);
   setMetadataFor(DerivationGLieAlgebra, 'DerivationGLieAlgebra', classMeta, VOID, [GMagma]);
@@ -2695,7 +2695,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.i1k().x26(text);
   }
   setMetadataFor(FreeGAlgebraContext, 'FreeGAlgebraContext', interfaceMeta, VOID, [GAlgebraContext]);
-  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext, FreeGAlgebraContext]);
+  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [GAlgebraContext, FreeGAlgebraContext, DGMagmaContext]);
   setMetadataFor(Companion_40, 'Companion', objectMeta);
   setMetadataFor(Companion_41, 'Companion', objectMeta);
   setMetadataFor(Companion_42, 'Companion', objectMeta);

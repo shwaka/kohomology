@@ -1,6 +1,5 @@
 package com.github.shwaka.kohomology.free
 
-import com.github.h0tk3y.betterParse.parser.ParseException
 import com.github.shwaka.kohomology.dg.InvalidIdentifierException
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Divide
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Identifier
@@ -11,6 +10,7 @@ import com.github.shwaka.kohomology.dg.parser.ASTNode.Subtract
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Sum
 import com.github.shwaka.kohomology.dg.parser.ASTNode.UnaryMinus
 import com.github.shwaka.kohomology.dg.parser.ASTNode.Zero
+import com.github.shwaka.kohomology.dg.parser.KohomologyParseException
 import com.github.shwaka.kohomology.free.monoid.Indeterminate
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace
@@ -129,7 +129,7 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> parseTest(matrixSpace: Matr
                     freeGAlgebra.parse("(-(x-y))^3") shouldBe (-x + y).pow(3)
                     freeGAlgebra.parse("(-3)^3") shouldBe (-27 * unit)
                     freeGAlgebra.parse("x^0") shouldBe unit
-                    shouldThrow<ParseException> {
+                    shouldThrow<KohomologyParseException> {
                         // parentheses on the exponent are not allowed
                         freeGAlgebra.parse("x^(1+2)")
                     }

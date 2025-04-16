@@ -13,12 +13,11 @@ data class TokenTestData(
 )
 
 class CharCategoryTokenTest : FreeSpec({
-    val identifierToken = charCategoryToken(
-        Identifier.firstCharCategoryList,
-        PartialIdentifier.charCategoryList,
-    )
-
     "test with identifier token" - {
+        val identifierToken = charCategoryToken(
+            Identifier.firstCharCategoryList,
+            PartialIdentifier.charCategoryList,
+        )
         val dataList = listOf(
             TokenTestData("abc", fromIndex = 0, expectedMatchLength = 3),
             TokenTestData("a bc", fromIndex = 0, expectedMatchLength = 1),

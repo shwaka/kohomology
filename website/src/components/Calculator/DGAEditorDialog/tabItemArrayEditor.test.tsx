@@ -182,5 +182,23 @@ describe("useTabItemArrayEditor", () => {
       const errorMessage = 'Generator names must be unique. Duplicated names are "x"'
       testUtil.expectSingleError(errorMessage)
     })
+
+    test('error at the beginning for "."', async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, ".")
+      await testUtil.submit()
+      const errorMessage = "No matching token at the beginning"
+      testUtil.expectSingleError(errorMessage)
+    })
+
+    test('error at non-beginning for "+"', async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, "+")
+      await testUtil.submit()
+      const errorMessage = "AlternativesFailure(errors="
+      testUtil.expectSingleError(errorMessage)
+    })
   })
 })

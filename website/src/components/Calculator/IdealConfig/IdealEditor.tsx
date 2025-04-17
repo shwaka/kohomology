@@ -1,8 +1,8 @@
+import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
 import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { FormData, SortableFields } from "../SortableFields"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
 function jsonToGeneratorArray(json: string): Generator[] {

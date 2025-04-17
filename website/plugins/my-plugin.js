@@ -45,6 +45,7 @@ function myPlugin(context, options) {
         resolve: {
           alias: {
             "@data": path.resolve(context.siteDir, "src/data"),
+            "@components": path.resolve(context.siteDir, "src/components"),
             "@benchmark": path.resolve(context.siteDir, "../benchmark-data/dev/bench"),
             "@benchmark-website": path.resolve(context.siteDir, "../benchmark-data-website/dev/bench"),
           }

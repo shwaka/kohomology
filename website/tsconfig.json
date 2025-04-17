@@ -9,6 +9,7 @@
       "@data": ["src/data"],
       "@data/*": ["src/data/*"],
       "@theme/*": [ "src/theme/*" ],
+      "@components/*": [ "src/components/*" ],
       "@site/*": ["*"],
       "@benchmark/*": ["../benchmark-data/dev/bench/*"],
       "@benchmark-website/*": ["../benchmark-data-website/dev/bench/*"]

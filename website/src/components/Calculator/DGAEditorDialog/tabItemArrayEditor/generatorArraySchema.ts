@@ -1,0 +1,67 @@
+import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
+import { z } from "zod"
+import { generatorArrayToJson } from "./Generator"
+
+const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {
+  const validationResult = validateGeneratorName(val)
+  switch (validationResult.type) {
+    case "success":
+      return
+    case "error":
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: validationResult.message,
+      })
+      return
+    default:
+      throw new Error("This can't happen!")
+  }
+})
+
+
+const deegreeSchema = z.preprocess(
+  (val: unknown) => {
+    if (val === "") { return undefined }
+    return Number(val)
+  },
+  z.number({ required_error: "Please enter the degree." }).refine(
+    (val: number) => (val !== 0),
+    "The degree cannot be 0."
+  )
+)
+
+const differentialValueSchema = z.string().min(1, "Please enter the value of the differential.")
+
+export const generatorSchema = z.object({
+  name: nameSchema,
+  degree: deegreeSchema,
+  differentialValue: differentialValueSchema,
+})
+
+export type Generator = z.infer<typeof generatorSchema>
+
+export const generatorArraySchema = z.array(generatorSchema).superRefine((val: Generator[], ctx) => {
+  val.forEach((generator, index) => {
+    const validationResult = validateDifferentialValue(val, index, generator.differentialValue)
+    if (typeof validationResult === "string") {
+      ctx.addIssue({
+        path: [index, "differentialValue"],
+        code: z.ZodIssueCode.custom,
+        message: validationResult,
+      })
+    }
+  })
+})
+
+function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
+  if (generatorArray[index].differentialValue !== value) {
+    throw new Error("generatorArray[index] and value do not match.")
+  }
+  const generatorsJson: string = generatorArrayToJson(generatorArray.slice(0, index + 1))
+  const validationResult = validateDifferentialValueOfTheLast(generatorsJson)
+  if (validationResult.type === "success") {
+    return true
+  } else {
+    return validationResult.message
+  }
+}

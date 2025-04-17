@@ -1,10 +1,7 @@
 import { generatorArrayToPrettyJson } from "../../jsonUtils"
+import { Generator } from "./generatorArraySchema"
 
-export interface Generator {
-  name: string
-  degree: number
-  differentialValue: string
-}
+export { Generator }
 
 export interface GeneratorFormInput {
   dummy: "dummy"

@@ -65,3 +65,7 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
     return validationResult.message
   }
 }
+
+export const formValueSchema = z.object({
+  generatorArray: generatorArraySchema,
+})

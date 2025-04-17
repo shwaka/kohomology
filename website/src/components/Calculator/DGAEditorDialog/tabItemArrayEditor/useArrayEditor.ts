@@ -1,7 +1,10 @@
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useCallback } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { GeneratorFormInput, generatorArrayToJson, jsonToGeneratorArray } from "./Generator"
+import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
 
 type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
   arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit">
@@ -11,18 +14,21 @@ export function useArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): UseArrayEditorReturnValue {
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<GeneratorFormInput>({
+  const { handleSubmit, register, getValues: getValuesRaw, reset, trigger, control, formState: { errors } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues: {
       generatorArray: jsonToGeneratorArray(args.json)
-    }
+    },
+    resolver: zodResolver(formValueSchema),
   })
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",
   })
+
+  const getValues = useCallback(() => formValueSchema.parse(getValuesRaw()), [getValuesRaw])
 
   function onSubmit(closeDialog: () => void): void {
     handleSubmit(

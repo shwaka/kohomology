@@ -17,7 +17,6 @@ export interface ArrayEditorProps {
   submit: () => void
 }
 
-
 export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): JSX.Element {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()

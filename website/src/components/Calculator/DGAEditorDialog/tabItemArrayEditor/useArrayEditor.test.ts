@@ -1,6 +1,6 @@
+import { prettifyDGAJson } from "@components/Calculator/jsonUtils"
 import { renderHook, act } from "@testing-library/react-hooks"
 import { useArrayEditor } from "./useArrayEditor"
-import { GeneratorFormInput } from "./Generator"
 
 const json = JSON.stringify([
   ["x", 2, "0"],
@@ -57,12 +57,17 @@ describe("useArrayEditor", () => {
   })
 
   it("should detect unsaved changes in preventQuit", () => {
+    // json will be compared to prettified one
+    const prettyJson = prettifyDGAJson(json)
     const { result } = renderHook(() =>
-      useArrayEditor({ json, updateDgaWrapper: jest.fn() })
+      useArrayEditor({ json: prettyJson, updateDgaWrapper: jest.fn() })
     )
 
     expect(result.current.preventQuit).not.toBeUndefined()
     const preventQuit = result.current.preventQuit as () => string | undefined
+
+    // preventQuit should return undefined if unchanged
+    expect(preventQuit()).toBeUndefined()
 
     act(() => {
       result.current.arrayEditorPropsExceptSubmit.append({
@@ -72,6 +77,7 @@ describe("useArrayEditor", () => {
       })
     })
 
+    // preventQuit should return non-undefined value
     expect(preventQuit()).toContain("Your input is not saved. Are you sure you want to quit?")
   })
 })

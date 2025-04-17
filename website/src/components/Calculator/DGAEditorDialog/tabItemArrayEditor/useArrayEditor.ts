@@ -1,12 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
-import { Generator, GeneratorFormInput, generatorArrayToJson } from "./Generator"
-
-function jsonToGeneratorArray(json: string): Generator[] {
-  const arr = JSON.parse(json) as [string, number, string][]
-  return arr.map(([name, degree, differentialValue]) => ({ name, degree, differentialValue }))
-}
+import { GeneratorFormInput, generatorArrayToJson, jsonToGeneratorArray } from "./Generator"
 
 type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
   arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit">

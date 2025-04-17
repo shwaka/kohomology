@@ -19,3 +19,8 @@ export function generatorArrayToJson(generatorArray: Generator[]): string {
   )
   return generatorArrayToPrettyJson(arr)
 }
+
+export function jsonToGeneratorArray(json: string): Generator[] {
+  const arr = JSON.parse(json) as [string, number, string][]
+  return arr.map(([name, degree, differentialValue]) => ({ name, degree, differentialValue }))
+}

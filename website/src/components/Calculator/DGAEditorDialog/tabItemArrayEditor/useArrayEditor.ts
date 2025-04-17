@@ -1,7 +1,7 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
-import { Generator, GeneratorFormInput, generatorArrayToJson } from "./ArrayEditorItem"
+import { Generator, GeneratorFormInput, generatorArrayToJson } from "./Generator"
 
 function jsonToGeneratorArray(json: string): Generator[] {
   const arr = JSON.parse(json) as [string, number, string][]

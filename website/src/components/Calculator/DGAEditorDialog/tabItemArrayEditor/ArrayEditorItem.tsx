@@ -4,19 +4,8 @@ import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
-import { generatorArrayToPrettyJson } from "../../jsonUtils"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
-
-export interface Generator {
-  name: string
-  degree: number
-  differentialValue: string
-}
-
-export interface GeneratorFormInput {
-  dummy: "dummy"
-  generatorArray: Generator[]
-}
+import { Generator, GeneratorFormInput, generatorArrayToJson } from "./Generator"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -112,15 +101,6 @@ export function ArrayEditorItem(
       </Stack>
     </div>
   )
-}
-
-export function generatorArrayToJson(generatorArray: Generator[]): string {
-  const arr = generatorArray.map(
-    ({ name, degree, differentialValue }) => {
-      return [name, isNaN(degree) ? 1 : degree, differentialValue] as [string, number, string]
-    }
-  )
-  return generatorArrayToPrettyJson(arr)
 }
 
 function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {

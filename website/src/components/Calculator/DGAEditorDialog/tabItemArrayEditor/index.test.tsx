@@ -3,7 +3,8 @@ import { renderHook, act, RenderResult } from "@testing-library/react-hooks"
 import React from "react"
 import { TabItem } from "../TabDialog"
 import { sphere } from "../examples"
-import { Generator, useTabItemArrayEditor } from "./"
+import { useTabItemArrayEditor } from "./"
+import { Generator } from "./Generator"
 
 class ArrayEditorTestUtil {
   result: RenderResult<TabItem>

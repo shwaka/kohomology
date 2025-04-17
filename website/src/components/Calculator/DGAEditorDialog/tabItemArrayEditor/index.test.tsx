@@ -1,9 +1,9 @@
 import { fireEvent, render, within } from "@testing-library/react"
 import { renderHook, act, RenderResult } from "@testing-library/react-hooks"
 import React from "react"
-import { TabItem } from "./TabDialog"
-import { sphere } from "./examples"
-import { Generator, useTabItemArrayEditor } from "./tabItemArrayEditor"
+import { TabItem } from "../TabDialog"
+import { sphere } from "../examples"
+import { Generator, useTabItemArrayEditor } from "./"
 
 class ArrayEditorTestUtil {
   result: RenderResult<TabItem>

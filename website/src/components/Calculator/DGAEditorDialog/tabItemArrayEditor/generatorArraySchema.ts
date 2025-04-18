@@ -1,6 +1,7 @@
 import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
 import { z } from "zod"
 import { generatorArrayToJson } from "./Generator"
+import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {
   const validationResult = validateGeneratorName(val)
@@ -17,18 +18,6 @@ const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val:
       throw new Error("This can't happen!")
   }
 })
-
-function numberSchemaWithRequiredError(message: string): z.ZodEffects<z.ZodNumber, number, number> {
-  return z.preprocess(
-    (val) => {
-      if (val === "" || typeof val !== "number" || Number.isNaN(val)) {
-        return undefined
-      }
-      return val
-    },
-    z.number({ required_error: message })
-  ) as z.ZodEffects<z.ZodNumber, number, number>
-}
 
 const deegreeSchema = numberSchemaWithRequiredError("Please enter the degree.").refine(
   (val: number) => (val !== 0),

@@ -28,5 +28,4 @@ class StyledMessageTest {
         }.export()
         assertEquals(styledMessageKt.plainString, "Let \$x = 3\$.")
     }
-
 }

@@ -68,4 +68,40 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
 
 export const formValueSchema = z.object({
   generatorArray: generatorArraySchema,
+  dummy: z.literal("dummy"),
+}).superRefine((val, ctx) => {
+  const validateDegreesResult = validateGeneratorDegrees(val.generatorArray)
+  if (typeof validateDegreesResult === "string") {
+    ctx.addIssue({
+      path: ["dummy"],
+      code: z.ZodIssueCode.custom,
+      message: validateDegreesResult,
+    })
+  }
+  const validateNamesResult = validateGeneratorNames(val.generatorArray)
+  if (typeof validateNamesResult === "string") {
+    ctx.addIssue({
+      path: ["dummy"],
+      code: z.ZodIssueCode.custom,
+      message: validateNamesResult,
+    })
+  }
 })
+
+function validateGeneratorDegrees(generatorArray: Generator[]): true | string {
+  const positiveCount = generatorArray.filter((generator) => generator.degree > 0).length
+  const negativeCount = generatorArray.filter((generator) => generator.degree < 0).length
+  if (positiveCount > 0 && negativeCount > 0) {
+    return "Cannot mix generators of positive and negative degrees."
+  }
+  return true
+}
+
+function validateGeneratorNames(generatorArray: Generator[]): true | string {
+  const names = generatorArray.map((generator) => generator.name)
+  const duplicatedNames = names.filter((item, index) => names.indexOf(item) !== index)
+  if (duplicatedNames.length === 0) {
+    return true
+  }
+  return "Generator names must be unique. Duplicated names are " + duplicatedNames.map((name) => `"${name}"`).join(", ")
+}

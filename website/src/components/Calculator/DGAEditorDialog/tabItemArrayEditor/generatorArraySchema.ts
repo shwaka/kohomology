@@ -53,6 +53,13 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
   }
   const generatorsJson: string = generatorArrayToJson(generatorArray.slice(0, index + 1))
   const validationResult = validateDifferentialValueOfTheLast(generatorsJson)
+  switch (validationResult.type) {
+    case "success":
+    case "N/A":
+      return true
+    default:
+      return validationResult.message
+  }
   if (validationResult.type === "success") {
     return true
   } else {

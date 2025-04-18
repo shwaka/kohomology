@@ -21,6 +21,7 @@ data class ValidationResult(
 enum class ValidationResultType(val typeName: String) {
     SUCCESS("success"),
     ERROR("error"),
+    NOT_APPLICABLE("N/A"),
 }
 
 sealed class ValidationResultInternal(
@@ -29,6 +30,8 @@ sealed class ValidationResultInternal(
 ) {
     class Success : ValidationResultInternal(ValidationResultType.SUCCESS, "")
     class Error(message: String) : ValidationResultInternal(ValidationResultType.ERROR, message)
+    class NotApplicable(message: String) :
+        ValidationResultInternal(ValidationResultType.NOT_APPLICABLE, message)
 
     @ExperimentalJsExport
     fun export(): ValidationResult {
@@ -141,13 +144,17 @@ fun validateDifferentialValueOfTheLast(
     val generatorList = jsonToGeneratorList(generatorsJson)
     val previousGeneratorList = generatorList.dropLast(1)
     val currentGenerator = generatorList.last()
-    assertDegreeOfDifferentialValue(previousGeneratorList, currentGenerator)?.let {
-        return it.export()
+    try {
+        assertDegreeOfDifferentialValue(previousGeneratorList, currentGenerator)?.let {
+            return it.export()
+        }
+        assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator)?.let {
+            return it.export()
+        }
+        return ValidationResultInternal.Success().export()
+    } catch (e: IllegalArgumentException) {
+        return ValidationResultInternal.NotApplicable(e.message ?: e.toString()).export()
     }
-    assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator)?.let {
-        return it.export()
-    }
-    return ValidationResultInternal.Success().export()
 }
 
 @ExperimentalJsExport

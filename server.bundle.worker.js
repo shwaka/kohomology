@@ -81,8 +81,8 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   var getStringHashCode = kotlin_kotlin.$_$.i7;
   var Exception = kotlin_kotlin.$_$.ja;
   var jsonToGeneratorList = kotlin_com_github_shwaka_kohomology_kohomology.$_$.l;
-  var StringIndeterminateName = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
   var IllegalArgumentException = kotlin_kotlin.$_$.ka;
+  var StringIndeterminateName = kotlin_com_github_shwaka_kohomology_kohomology.$_$.j;
   var Indeterminate = kotlin_com_github_shwaka_kohomology_kohomology.$_$.i;
   var Companion_getInstance_4 = kotlin_com_github_shwaka_kohomology_kohomology.$_$.u;
   var trimIndent = kotlin_kotlin.$_$.ea;
@@ -107,6 +107,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   setMetadataFor(ValidationResultInternal, 'ValidationResultInternal', classMeta);
   setMetadataFor(Success, 'Success', classMeta, ValidationResultInternal);
   setMetadataFor(Error_0, 'Error', classMeta, ValidationResultInternal);
+  setMetadataFor(NotApplicable, 'NotApplicable', classMeta, ValidationResultInternal);
   //endregion
   function Left(value) {
     this.m2v_1 = value;
@@ -1025,23 +1026,33 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     var generatorList = jsonToGeneratorList(generatorsJson);
     var previousGeneratorList = dropLast(generatorList, 1);
     var currentGenerator = last(generatorList);
-    var tmp0_safe_receiver = assertDegreeOfDifferentialValue(previousGeneratorList, currentGenerator);
-    if (tmp0_safe_receiver == null)
-      null;
-    else {
-      // Inline function 'kotlin.let' call
-      // Inline function 'kotlin.contracts.contract' call
-      return tmp0_safe_receiver.z2v();
+    try {
+      var tmp0_safe_receiver = assertDegreeOfDifferentialValue(previousGeneratorList, currentGenerator);
+      if (tmp0_safe_receiver == null)
+        null;
+      else {
+        // Inline function 'kotlin.let' call
+        // Inline function 'kotlin.contracts.contract' call
+        return tmp0_safe_receiver.z2v();
+      }
+      var tmp1_safe_receiver = assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator);
+      if (tmp1_safe_receiver == null)
+        null;
+      else {
+        // Inline function 'kotlin.let' call
+        // Inline function 'kotlin.contracts.contract' call
+        return tmp1_safe_receiver.z2v();
+      }
+      return (new Success()).z2v();
+    } catch ($p) {
+      if ($p instanceof IllegalArgumentException) {
+        var e = $p;
+        var tmp2_elvis_lhs = e.message;
+        return (new NotApplicable(tmp2_elvis_lhs == null ? e.toString() : tmp2_elvis_lhs)).z2v();
+      } else {
+        throw $p;
+      }
     }
-    var tmp1_safe_receiver = assertSquareOfDifferentialIsZero(previousGeneratorList, currentGenerator);
-    if (tmp1_safe_receiver == null)
-      null;
-    else {
-      // Inline function 'kotlin.let' call
-      // Inline function 'kotlin.contracts.contract' call
-      return tmp1_safe_receiver.z2v();
-    }
-    return (new Success()).z2v();
   }
   function validateGeneratorName(generatorName) {
     var tmp;
@@ -1099,6 +1110,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   var ValidationResultType_SUCCESS_instance;
   var ValidationResultType_ERROR_instance;
+  var ValidationResultType_NOT_APPLICABLE_instance;
   var ValidationResultType_entriesInitialized;
   function ValidationResultType_initEntries() {
     if (ValidationResultType_entriesInitialized)
@@ -1106,6 +1118,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     ValidationResultType_entriesInitialized = true;
     ValidationResultType_SUCCESS_instance = new ValidationResultType('SUCCESS', 0, 'success');
     ValidationResultType_ERROR_instance = new ValidationResultType('ERROR', 1, 'error');
+    ValidationResultType_NOT_APPLICABLE_instance = new ValidationResultType('NOT_APPLICABLE', 2, 'N/A');
   }
   function ValidationResultType(name, ordinal, typeName) {
     Enum.call(this, name, ordinal);
@@ -1116,6 +1129,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }
   function Error_0(message) {
     ValidationResultInternal.call(this, ValidationResultType_ERROR_getInstance(), message);
+  }
+  function NotApplicable(message) {
+    ValidationResultInternal.call(this, ValidationResultType_NOT_APPLICABLE_getInstance(), message);
   }
   function ValidationResultInternal(type, message) {
     this.w2w_1 = type;
@@ -1258,6 +1274,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   function ValidationResultType_ERROR_getInstance() {
     ValidationResultType_initEntries();
     return ValidationResultType_ERROR_instance;
+  }
+  function ValidationResultType_NOT_APPLICABLE_getInstance() {
+    ValidationResultType_initEntries();
+    return ValidationResultType_NOT_APPLICABLE_instance;
   }
   //region block: exports
   function $jsExportAll$(_) {
@@ -1916,13 +1936,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   setMetadataFor(GVectorContext, 'GVectorContext', interfaceMeta, VOID, [NumVectorContext]);
-  function get_d() {
-    return this.y1i().o1g();
-  }
-  function cohomologyClass(_this__u8e3s4) {
-    return this.y1i().z1g(_this__u8e3s4);
-  }
-  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
   function times_8(_this__u8e3s4, other) {
     return this.z1i().w1h(_this__u8e3s4, other);
   }
@@ -1930,10 +1943,6 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.z1i().x1h(_this__u8e3s4, other);
   }
   setMetadataFor(GMagmaContext, 'GMagmaContext', interfaceMeta, VOID, [GVectorContext]);
-  function times_10(_this__u8e3s4, other) {
-    return this.x1i().w1h(_this__u8e3s4, other);
-  }
-  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
   function get_unit() {
     return this.i1k().a1i();
   }
@@ -2011,7 +2020,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   }
   setMetadataFor(GAlgebraContext, 'GAlgebraContext', interfaceMeta, VOID, [GMagmaContext]);
-  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext]);
+  function get_d() {
+    return this.y1i().o1g();
+  }
+  function cohomologyClass(_this__u8e3s4) {
+    return this.y1i().z1g(_this__u8e3s4);
+  }
+  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
+  function times_10(_this__u8e3s4, other) {
+    return this.x1i().w1h(_this__u8e3s4, other);
+  }
+  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
+  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [GAlgebraContext, DGMagmaContext]);
   setMetadataFor(Companion_2, 'Companion', objectMeta);
   function get_degreeGroup() {
     return this.s1k().c1h();
@@ -2148,7 +2168,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp.r1p(tmp_0, gVector.a1o_1, matrixSpace, name, GLieAlgebraContext$ad$lambda(this, gVector));
   }
   setMetadataFor(GLieAlgebraContext, 'GLieAlgebraContext', interfaceMeta, VOID, [GMagmaContext]);
-  setMetadataFor(DGLieAlgebraContextImpl, 'DGLieAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GLieAlgebraContext]);
+  setMetadataFor(DGLieAlgebraContextImpl, 'DGLieAlgebraContextImpl', classMeta, VOID, [GLieAlgebraContext, DGMagmaContext]);
   setMetadataFor(Companion_7, 'Companion', objectMeta);
   setMetadataFor(DGLinearMapImpl, 'DGLinearMapImpl', classMeta, VOID, [GLinearMap]);
   setMetadataFor(Companion_8, 'Companion', objectMeta);
@@ -2208,19 +2228,19 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.g1h(this.c1h().cf(degree));
   }
   setMetadataFor(QuotGVectorSpace, 'QuotGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
-  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, GMagma, GAlgebra, QuotGVectorSpace, DGVectorSpace]);
+  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, GAlgebra, QuotGVectorSpace, GMagma, DGVectorSpace]);
   setMetadataFor(QuotDGAlgebraImpl, 'QuotDGAlgebraImpl', classMeta, VOID, [QuotDGAlgebra, QuotGVectorSpace]);
   setMetadataFor(Companion_27, 'Companion', objectMeta);
-  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [GMagma, GAlgebra, QuotGVectorSpace]);
+  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [GAlgebra, QuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_28, 'Companion', objectMeta);
   setMetadataFor(QuotGVectorSpaceImpl, 'QuotGVectorSpaceImpl', classMeta, VOID, [QuotGVectorSpace]);
   setMetadataFor(Companion_29, 'Companion', objectMeta);
-  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
+  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
   setMetadataFor(Companion_30, 'Companion', objectMeta);
   setMetadataFor(SubGVectorSpaceImpl, 'SubGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(WholeSubGVectorSpace, 'WholeSubGVectorSpace', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(Companion_31, 'Companion', objectMeta);
-  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma, GAlgebra]);
+  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [GAlgebra, SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_32, 'Companion', objectMeta);
   setMetadataFor(SubQuotGLieAlgebraImpl, 'SubQuotGLieAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_33, 'Companion', objectMeta);
@@ -18513,14 +18533,14 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     // Inline function 'kotlin.contracts.contract' call
     if (!(charSequenceLength(name) > 0)) {
       // Inline function 'com.github.shwaka.kohomology.util.Companion.validateName.<anonymous>' call
-      var message = 'Identifier name (' + name + ') must be non-empty.';
+      var message = 'Identifier name must be non-empty.';
       throw IllegalArgumentException_init_$Create$(toString(message));
     }
     // Inline function 'kotlin.require' call
     // Inline function 'kotlin.contracts.contract' call
     if (!this.r2q(charSequenceGet(name, 0))) {
       // Inline function 'com.github.shwaka.kohomology.util.Companion.validateName.<anonymous>' call
-      var message_0 = 'Identifier name (' + name + ') must start with ' + 'alphabets (including greeks) or underscore, ' + ('but it starts with "' + new Char(charSequenceGet(name, 0)) + '".');
+      var message_0 = 'Identifier name "' + name + '" must start with ' + 'alphabets (including greeks) or underscore, ' + ('but it starts with "' + new Char(charSequenceGet(name, 0)) + '".');
       throw IllegalArgumentException_init_$Create$(toString(message_0));
     }
     Companion_getInstance_69().t2q(name, getKClass(Identifier_0).eb());

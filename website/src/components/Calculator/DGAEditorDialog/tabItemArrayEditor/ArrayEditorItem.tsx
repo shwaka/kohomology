@@ -6,9 +6,10 @@ import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
 import { Generator, GeneratorFormInput, generatorArrayToJson } from "./Generator"
+import { GeneratorFormRawInput } from "./generatorArraySchema"
 
 export function ArrayEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
+  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormRawInput>
 ): JSX.Element {
   const generatorName = getValues().generatorArray[index].name
 

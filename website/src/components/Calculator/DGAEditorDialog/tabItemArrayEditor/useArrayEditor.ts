@@ -14,7 +14,7 @@ export function useArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): UseArrayEditorReturnValue {
-  const { handleSubmit, register, getValues: getValuesRaw, reset, trigger, control, formState: { errors } } = useForm({
+  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
@@ -27,8 +27,6 @@ export function useArrayEditor(args: {
     control,
     name: "generatorArray",
   })
-
-  const getValues = useCallback(() => formValueSchema.parse(getValuesRaw()), [getValuesRaw])
 
   function onSubmit(closeDialog: () => void): void {
     handleSubmit(
@@ -43,7 +41,8 @@ export function useArrayEditor(args: {
     reset({ generatorArray })
   }
   function preventQuit(): string | undefined {
-    const generatorArray = getValues().generatorArray
+    const values = formValueSchema.parse(getValues())
+    const generatorArray = values.generatorArray
     if (generatorArrayToJson(generatorArray) !== args.json) {
       return "Your input is not saved. Are you sure you want to quit?"
     } else {

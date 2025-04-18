@@ -2,18 +2,22 @@ import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
-import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFieldArrayReturn, UseFormGetValues, UseFormRegister, UseFormReturn, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { Generator, GeneratorFormInput } from "./Generator"
+import { GeneratorFormRawInput } from "./generatorArraySchema"
+
+type UFR = UseFormReturn<GeneratorFormRawInput, any, GeneratorFormInput>
+type UFAR = UseFieldArrayReturn<GeneratorFormRawInput, "generatorArray", "id">
 
 export interface ArrayEditorProps {
-  register: UseFormRegister<GeneratorFormInput>
-  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
-  fields: FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
-  append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
+  register: UFR["register"]
+  errors: UFR["formState"]["errors"]
+  fields: UFAR["fields"] // FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
+  append: UFAR["append"] // UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
   remove: UseFieldArrayRemove
-  getValues: UseFormGetValues<GeneratorFormInput>
-  trigger: UseFormTrigger<GeneratorFormInput>
+  getValues: UFR["getValues"] // UseFormGetValues<GeneratorFormInput>
+  trigger: UFR["trigger"]
   move: UseFieldArrayMove
   submit: () => void
 }
@@ -23,7 +27,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
     event.preventDefault()
     submit()
   }
-  const formData: FormData<GeneratorFormInput> = {
+  const formData: FormData<GeneratorFormRawInput> = {
     register, remove, errors, getValues, trigger
   }
   // <button hidden type="submit"/> is necessary for onSubmit in form
@@ -50,12 +54,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
         </Button>
         <input
           hidden value="dummy"
-          {...register("dummy", {
-            validate: {
-              positiveAndNegativeDegree: (_) => validateGeneratorDegrees(getValues().generatorArray),
-              duplicatedNames: (_) => validateGeneratorNames(getValues().generatorArray),
-            }
-          })}
+          {...register("dummy")}
         />
         {getGlobalError(errors)}
       </Stack>
@@ -76,23 +75,6 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
   return ""
 }
 
-function validateGeneratorDegrees(generatorArray: Generator[]): true | string {
-  const positiveCount = generatorArray.filter((generator) => generator.degree > 0).length
-  const negativeCount = generatorArray.filter((generator) => generator.degree < 0).length
-  if (positiveCount > 0 && negativeCount > 0) {
-    return "Cannot mix generators of positive and negative degrees."
-  }
-  return true
-}
-
-function validateGeneratorNames(generatorArray: Generator[]): true | string {
-  const names = generatorArray.map((generator) => generator.name)
-  const duplicatedNames = names.filter((item, index) => names.indexOf(item) !== index)
-  if (duplicatedNames.length === 0) {
-    return true
-  }
-  return "Generator names must be unique. Duplicated names are " + duplicatedNames.map((name) => `"${name}"`).join(", ")
-}
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): JSX.Element | undefined {
   const fieldError: FieldError | undefined = errors.dummy

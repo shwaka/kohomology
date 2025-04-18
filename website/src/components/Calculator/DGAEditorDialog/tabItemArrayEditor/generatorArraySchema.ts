@@ -88,6 +88,9 @@ export const formValueSchema = z.object({
   }
 })
 
+export type GeneratorFormRawInput = z.input<typeof formValueSchema>
+export type GeneratorFormInput = z.infer<typeof formValueSchema>
+
 function validateGeneratorDegrees(generatorArray: Generator[]): true | string {
   const positiveCount = generatorArray.filter((generator) => generator.degree > 0).length
   const negativeCount = generatorArray.filter((generator) => generator.degree < 0).length

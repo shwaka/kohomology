@@ -97,10 +97,10 @@ public data class Identifier(val value: String) {
 
         internal fun validateName(name: String) {
             require(name.isNotEmpty()) {
-                "Identifier name ($name) must be non-empty."
+                "Identifier name must be non-empty."
             }
             require(this.isValidAsFirstChar(name[0])) {
-                "Identifier name ($name) must start with " +
+                "Identifier name \"$name\" must start with " +
                     "alphabets (including greeks) or underscore, " +
                     "but it starts with \"${name[0]}\"."
             }

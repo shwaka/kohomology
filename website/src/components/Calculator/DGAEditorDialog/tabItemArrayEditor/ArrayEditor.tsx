@@ -50,12 +50,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
         </Button>
         <input
           hidden value="dummy"
-          {...register("dummy", {
-            validate: {
-              positiveAndNegativeDegree: (_) => validateGeneratorDegrees(getValues().generatorArray),
-              duplicatedNames: (_) => validateGeneratorNames(getValues().generatorArray),
-            }
-          })}
+          {...register("dummy")}
         />
         {getGlobalError(errors)}
       </Stack>

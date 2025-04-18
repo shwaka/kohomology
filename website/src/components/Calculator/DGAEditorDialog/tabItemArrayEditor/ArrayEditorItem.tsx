@@ -27,21 +27,7 @@ export function ArrayEditorItem(
             sx={{ width: 90 }} size="small"
             {...register(
               `generatorArray.${index}.name` as const,
-              {
-                required: "Please enter the name.",
-                validate: (value: string) => {
-                  const validationResult = validateGeneratorName(value)
-                  switch (validationResult.type) {
-                    case "success":
-                      return true
-                    case "error":
-                      return validationResult.message
-                    default:
-                      throw new Error("This can't happen!")
-                  }
-                },
-                onChange: triggerWithDelay,
-              }
+              { onChange: triggerWithDelay }
             )}
             onBlur={() => trigger()}
             error={containsError({ errors, index, key: "name" })}
@@ -54,8 +40,6 @@ export function ArrayEditorItem(
               `generatorArray.${index}.degree` as const,
               {
                 valueAsNumber: true,
-                required: "Please enter the degree.",
-                validate: (value: number) => value === 0 ? "The degree cannot be 0." : true,
                 onChange: triggerWithDelay,
               }
             )}
@@ -69,9 +53,6 @@ export function ArrayEditorItem(
             {...register(
               `generatorArray.${index}.differentialValue` as const,
               {
-                validate: (value: string) =>
-                  validateDifferentialValue(getValues().generatorArray, index, value),
-                required: "Please enter the value of the differential.",
                 onChange: triggerWithDelay,
               }
             )}

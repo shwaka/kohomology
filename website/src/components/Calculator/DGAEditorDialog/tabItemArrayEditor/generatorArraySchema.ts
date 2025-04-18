@@ -18,18 +18,35 @@ const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val:
   }
 })
 
-const deegreeSchema = z.preprocess(
-  (val) => {
-    if (val === "" || typeof val !== "number" || Number.isNaN(val)) {
-      return undefined
-    }
-    return val
-  },
-  z.number({ required_error: "Please enter the degree." }).refine(
-    (val: number) => (val !== 0),
-    "The degree cannot be 0."
-  )
-) as z.ZodEffects<z.ZodEffects<z.ZodNumber, number, number>, number, number>
+function numberSchemaWithRequiredError(message: string): z.ZodEffects<z.ZodNumber, number, number> {
+  return z.preprocess(
+    (val) => {
+      if (val === "" || typeof val !== "number" || Number.isNaN(val)) {
+        return undefined
+      }
+      return val
+    },
+    z.number({ required_error: message })
+  ) as z.ZodEffects<z.ZodNumber, number, number>
+}
+
+const deegreeSchema = numberSchemaWithRequiredError("Please enter the degree.").refine(
+  (val: number) => (val !== 0),
+  "The degree cannot be 0."
+)
+
+// z.preprocess(
+//   (val) => {
+//     if (val === "" || typeof val !== "number" || Number.isNaN(val)) {
+//       return undefined
+//     }
+//     return val
+//   },
+//   z.number({ required_error: "Please enter the degree." }).refine(
+//     (val: number) => (val !== 0),
+//     "The degree cannot be 0."
+//   )
+// ) as z.ZodEffects<z.ZodEffects<z.ZodNumber, number, number>, number, number>
 
 const differentialValueSchema = z.string().min(1, "Please enter the value of the differential.")
 

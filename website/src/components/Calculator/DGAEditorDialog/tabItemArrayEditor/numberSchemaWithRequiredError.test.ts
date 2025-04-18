@@ -2,6 +2,7 @@ import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 describe("numberSchemaWithRequiredError", () => {
   const errorMessage = "number expected"
+  const errorMessageForString = "Expected number, received string"
 
   for (const value of [0, 1, 2, -1, 1.1, 0.5, -2.3]) {
     it(`should successfully parse ${value}`, () => {
@@ -22,7 +23,7 @@ describe("numberSchemaWithRequiredError", () => {
     const result = numberSchemaWithRequiredError(errorMessage).safeParse("")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toContain(errorMessage)
+      expect(result.error.flatten().formErrors).toContain(errorMessageForString)
     }
   })
 
@@ -30,7 +31,7 @@ describe("numberSchemaWithRequiredError", () => {
     const result = numberSchemaWithRequiredError(errorMessage).safeParse("foo")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toContain(errorMessage)
+      expect(result.error.flatten().formErrors).toContain(errorMessageForString)
     }
   })
 })

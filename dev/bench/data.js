@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744992264451,
+  "lastUpdate": 1744993352647,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6748,6 +6748,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.657,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "50edc0129ceb9b79a42daebdd3f7527194e37a6f",
+          "message": "fix(website): trigger validation AFTER moving fields",
+          "timestamp": "2025-04-19T01:05:15+09:00",
+          "tree_id": "443ca2ea7b9e0a4e8e7132c79c5612c30c79215f",
+          "url": "https://github.com/shwaka/kohomology/commit/50edc0129ceb9b79a42daebdd3f7527194e37a6f"
+        },
+        "date": 1744993352118,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.425,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.533,
             "unit": "s/op"
           }
         ]

@@ -3,7 +3,7 @@ import { z } from "zod"
 import { generatorArrayToJson } from "./Generator"
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
-const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {
+export const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {
   const validationResult = validateGeneratorName(val)
   switch (validationResult.type) {
     case "success":
@@ -19,12 +19,12 @@ const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val:
   }
 })
 
-const deegreeSchema = numberSchemaWithRequiredError("Please enter the degree.").refine(
+export const deegreeSchema = numberSchemaWithRequiredError("Please enter the degree.").refine(
   (val: number) => (val !== 0),
   "The degree cannot be 0."
 )
 
-const differentialValueSchema = z.string().min(1, "Please enter the value of the differential.")
+export const differentialValueSchema = z.string().min(1, "Please enter the value of the differential.")
 
 export const generatorSchema = z.object({
   name: nameSchema,

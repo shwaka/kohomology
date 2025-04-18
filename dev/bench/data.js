@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1744944535126,
+  "lastUpdate": 1744961004882,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6612,6 +6612,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.57,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5d350f3a76043425ab994c8a5ea6a6530d9339b8",
+          "message": "test(website): improve numberSchemaWithRequiredErrorWithRHF.test.tsx",
+          "timestamp": "2025-04-18T16:15:52+09:00",
+          "tree_id": "df352681eee9a17513293e5e6c7a2856549f9cce",
+          "url": "https://github.com/shwaka/kohomology/commit/5d350f3a76043425ab994c8a5ea6a6530d9339b8"
+        },
+        "date": 1744961004261,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.487,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.635,
             "unit": "s/op"
           }
         ]

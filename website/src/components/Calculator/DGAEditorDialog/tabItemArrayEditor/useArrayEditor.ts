@@ -2,8 +2,8 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
-import { GeneratorFormInput, generatorArrayToJson, jsonToGeneratorArray } from "./Generator"
-import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
+import { generatorArrayToJson, jsonToGeneratorArray } from "./Generator"
+import { formValueSchema } from "./generatorArraySchema"
 
 type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
   arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit">

@@ -1,11 +1,10 @@
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
-import { validateDifferentialValueOfTheLast, validateGeneratorName } from "kohomology-js"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
-import { Generator, GeneratorFormInput, generatorArrayToJson } from "./Generator"
+import { Generator, GeneratorFormInput } from "./Generator"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -82,19 +81,6 @@ export function ArrayEditorItem(
       </Stack>
     </div>
   )
-}
-
-function validateDifferentialValue(generatorArray: Generator[], index: number, value: string): true | string {
-  if (generatorArray[index].differentialValue !== value) {
-    throw new Error("generatorArray[index] and value do not match.")
-  }
-  const generatorsJson: string = generatorArrayToJson(generatorArray.slice(0, index + 1))
-  const validationResult = validateDifferentialValueOfTheLast(generatorsJson)
-  if (validationResult.type === "success") {
-    return true
-  } else {
-    return validationResult.message
-  }
 }
 
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {

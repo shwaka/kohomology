@@ -35,7 +35,7 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
 }
 
 export function IdealEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, getValues, trigger }, externalData: { validateGenerator } }: RowComponentProps<IdealFormInput, ExternalData>
+  { draggableProps, index, formData: { register, errors, remove, trigger }, externalData: { validateGenerator } }: RowComponentProps<IdealFormInput, ExternalData>
 ): JSX.Element {
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(

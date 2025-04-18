@@ -78,12 +78,12 @@ describe("differentialValueSchema", () => {
 })
 
 describe("generatorSchema", () => {
-  it("should success for valid value", () => {
+  it("should accept valid value", () => {
     const result = generatorSchema.safeParse({ name: "x", degree: 1, differentialValue: "0" })
     expect(result.success).toBe(true)
   })
 
-  it("should fail when degree=0", () => {
+  it("should not accept if degree=0", () => {
     const result = generatorSchema.safeParse({ name: "x", degree: 0, differentialValue: "0" })
     expect(result.success).toBe(false)
     if (!result.success) {
@@ -93,17 +93,31 @@ describe("generatorSchema", () => {
 })
 
 describe("generatorArraySchema", () => {
-  it("should success for valid value", () => {
+  it("should sccept the model of 2-sphere", () => {
     const result = generatorArraySchema.safeParse([
       { name: "x", degree: 2, differentialValue: "0" },
       { name: "y", degree: 3, differentialValue: "x^2" },
     ])
     expect(result.success).toBe(true)
   })
+
+  it("should not accept if the differentialValue has illegal degree", () => {
+    const result = generatorArraySchema.safeParse([
+      { name: "x", degree: 2, differentialValue: "0" },
+      { name: "y", degree: 3, differentialValue: "x" },
+    ])
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors[1]).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors[1]).toContain(
+        "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
+      )
+    }
+  })
 })
 
 describe("formValueSchema", () => {
-  it("should success for valid value", () => {
+  it("should accept the model of 2-sphere", () => {
     const result = formValueSchema.safeParse({
       dummy: "dummy",
       generatorArray: [
@@ -114,7 +128,7 @@ describe("formValueSchema", () => {
     expect(result.success).toBe(true)
   })
 
-  it("should fail when both positive and negative degrees exist", () => {
+  it("should not accept when both positive and negative degrees exist", () => {
     const result = formValueSchema.safeParse({
       dummy: "dummy",
       generatorArray: [
@@ -125,6 +139,55 @@ describe("formValueSchema", () => {
     expect(result.success).toBe(false)
     if (!result.success) {
       expect(result.error.flatten().fieldErrors.dummy).toContain("Cannot mix generators of positive and negative degrees.")
+    }
+  })
+
+  it("should not accept if names are duplicated", () => {
+    const result = formValueSchema.safeParse({
+      dummy: "dummy",
+      generatorArray: [
+        { name: "x", degree: 2, differentialValue: "0" },
+        { name: "x", degree: 3, differentialValue: "0" },
+      ],
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.dummy).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors.dummy).toContain(
+        'Generator names must be unique. Duplicated names are "x"'
+      )
+    }
+  })
+
+  it("should show useful message for the error at the beginning", () => {
+    const result = formValueSchema.safeParse({
+      dummy: "dummy",
+      generatorArray: [
+        { name: "x", degree: 2, differentialValue: "." },
+      ],
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors.generatorArray).toContainEqual(
+        expect.stringContaining("No matching token at the beginning")
+      )
+    }
+  })
+
+  it("currently does not show useful message for the error after +", () => {
+    const result = formValueSchema.safeParse({
+      dummy: "dummy",
+      generatorArray: [
+        { name: "x", degree: 2, differentialValue: "+" },
+      ],
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors.generatorArray).toContainEqual(
+        expect.stringContaining("AlternativesFailure(errors=[")
+      )
     }
   })
 })

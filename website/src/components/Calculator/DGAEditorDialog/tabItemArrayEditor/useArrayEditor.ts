@@ -18,7 +18,7 @@ export function useArrayEditor(args: {
     reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues: {
-      dummy: "dummy",
+      dummy: "dummy" as const,
       generatorArray: jsonToGeneratorArray(args.json)
     },
     resolver: zodResolver(formValueSchema),

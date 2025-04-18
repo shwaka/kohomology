@@ -129,6 +129,17 @@ describe("useTabItemArrayEditor", () => {
       testUtil.expectSingleError(errorMessage)
     })
 
+    test("empty name at non-final element", async () => {
+      // The name of the 0th generator can cause an error
+      // in the differentialValue of the 1st generator.
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("name", 0, "")
+      await testUtil.submit()
+      const errorMessage = "Please enter the name."
+      testUtil.expectSingleError(errorMessage)
+    })
+
     test("name starting with number", async () => {
       const testUtil = new ArrayEditorTestUtil()
       testUtil.expectInitialState()

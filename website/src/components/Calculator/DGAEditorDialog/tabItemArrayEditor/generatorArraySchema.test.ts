@@ -15,7 +15,7 @@ describe("nameSchema", () => {
       // This example has two errors. This may be a bug?
       expect(result.error.flatten().formErrors).toHaveLength(2)
       expect(result.error.flatten().formErrors).toContain("Please enter the name.")
-      expect(result.error.flatten().formErrors).toContain("Identifier name () must be non-empty.")
+      expect(result.error.flatten().formErrors).toContain("Identifier name must be non-empty.")
     }
   })
 

@@ -60,11 +60,6 @@ function validateDifferentialValue(generatorArray: Generator[], index: number, v
     default:
       return validationResult.message
   }
-  if (validationResult.type === "success") {
-    return true
-  } else {
-    return validationResult.message
-  }
 }
 
 export const formValueSchema = z.object({

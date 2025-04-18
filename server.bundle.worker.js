@@ -2168,7 +2168,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp.r1p(tmp_0, gVector.a1o_1, matrixSpace, name, GLieAlgebraContext$ad$lambda(this, gVector));
   }
   setMetadataFor(GLieAlgebraContext, 'GLieAlgebraContext', interfaceMeta, VOID, [GMagmaContext]);
-  setMetadataFor(DGLieAlgebraContextImpl, 'DGLieAlgebraContextImpl', classMeta, VOID, [GLieAlgebraContext, DGMagmaContext]);
+  setMetadataFor(DGLieAlgebraContextImpl, 'DGLieAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GLieAlgebraContext]);
   setMetadataFor(Companion_7, 'Companion', objectMeta);
   setMetadataFor(DGLinearMapImpl, 'DGLinearMapImpl', classMeta, VOID, [GLinearMap]);
   setMetadataFor(Companion_8, 'Companion', objectMeta);
@@ -2228,23 +2228,23 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.g1h(this.c1h().cf(degree));
   }
   setMetadataFor(QuotGVectorSpace, 'QuotGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
-  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, GAlgebra, QuotGVectorSpace, GMagma, DGVectorSpace]);
+  setMetadataFor(QuotDGAlgebra, 'QuotDGAlgebra', interfaceMeta, VOID, [DGAlgebra, QuotGVectorSpace, GMagma, GAlgebra, DGVectorSpace]);
   setMetadataFor(QuotDGAlgebraImpl, 'QuotDGAlgebraImpl', classMeta, VOID, [QuotDGAlgebra, QuotGVectorSpace]);
   setMetadataFor(Companion_27, 'Companion', objectMeta);
-  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [GAlgebra, QuotGVectorSpace, GMagma]);
+  setMetadataFor(QuotGAlgebraImpl, 'QuotGAlgebraImpl', classMeta, VOID, [QuotGVectorSpace, GMagma, GAlgebra]);
   setMetadataFor(Companion_28, 'Companion', objectMeta);
   setMetadataFor(QuotGVectorSpaceImpl, 'QuotGVectorSpaceImpl', classMeta, VOID, [QuotGVectorSpace]);
   setMetadataFor(Companion_29, 'Companion', objectMeta);
-  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
+  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
   setMetadataFor(Companion_30, 'Companion', objectMeta);
   setMetadataFor(SubGVectorSpaceImpl, 'SubGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(WholeSubGVectorSpace, 'WholeSubGVectorSpace', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(Companion_31, 'Companion', objectMeta);
-  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [GAlgebra, SubQuotGVectorSpace, GMagma]);
+  setMetadataFor(SubQuotGAlgebraImpl, 'SubQuotGAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma, GAlgebra]);
   setMetadataFor(Companion_32, 'Companion', objectMeta);
   setMetadataFor(SubQuotGLieAlgebraImpl, 'SubQuotGLieAlgebraImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma]);
   setMetadataFor(Companion_33, 'Companion', objectMeta);
-  setMetadataFor(SubQuotGMagmaImpl, 'SubQuotGMagmaImpl', classMeta, VOID, [SubQuotGVectorSpace, GMagma]);
+  setMetadataFor(SubQuotGMagmaImpl, 'SubQuotGMagmaImpl', classMeta, VOID, [GMagma, SubQuotGVectorSpace]);
   setMetadataFor(Companion_34, 'Companion', objectMeta);
   setMetadataFor(SubQuotGVectorSpaceImpl, 'SubQuotGVectorSpaceImpl', classMeta, VOID, [SubQuotGVectorSpace]);
   function isNotZero_0() {
@@ -2662,7 +2662,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.i1k().c27(text);
   }
   setMetadataFor(FreeGAlgebraContext, 'FreeGAlgebraContext', interfaceMeta, VOID, [GAlgebraContext]);
-  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext, FreeGAlgebraContext]);
+  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [GAlgebraContext, DGMagmaContext, FreeGAlgebraContext]);
   setMetadataFor(Companion_40, 'Companion', objectMeta);
   setMetadataFor(Companion_41, 'Companion', objectMeta);
   setMetadataFor(Companion_42, 'Companion', objectMeta);

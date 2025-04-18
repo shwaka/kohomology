@@ -92,7 +92,8 @@ export function SortableFields<
   const { trigger } = formData
 
   function handleDragEnd({ active, over }: DragEndEvent): void {
-    trigger() // trigger input validation
+    // If trigger() is here, then errors BEFORE move() will be shown.
+    // trigger() // trigger input validation
 
     if (over === null) {
       throw new Error("over is null")
@@ -105,6 +106,7 @@ export function SortableFields<
 
       move(oldIndex, newIndex)
     }
+    trigger() // trigger input validation
   }
 
   // Container can be

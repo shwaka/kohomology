@@ -20,6 +20,7 @@
     ],
     "module": "Node16",
     "moduleResolution": "Node16",
+    "isolatedModules": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react"

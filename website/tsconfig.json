@@ -18,6 +18,8 @@
       "webpack-env",
       "jest"
     ],
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "jsx": "react"

@@ -22,6 +22,32 @@ describe("generatorArraySchema", () => {
       )
     }
   })
+
+  it("should show useful message for the error at the beginning", () => {
+    const result = generatorArraySchema.safeParse([
+      { name: "x", degree: 2, differentialValue: "." },
+    ])
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors[0]).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors[0]).toContainEqual(
+        expect.stringContaining("No matching token at the beginning")
+      )
+    }
+  })
+
+  it("currently does not show useful message for the error after +", () => {
+    const result = generatorArraySchema.safeParse([
+      { name: "x", degree: 2, differentialValue: "+" },
+    ])
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors[0]).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors[0]).toContainEqual(
+        expect.stringContaining("AlternativesFailure(errors=[")
+      )
+    }
+  })
 })
 
 describe("formValueSchema", () => {
@@ -44,7 +70,7 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
+      expect(result.error.flatten().fieldErrors._global_errors).toContain(
         "Cannot mix generators of positive and negative degrees."
       )
     }
@@ -59,8 +85,8 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
+      expect(result.error.flatten().fieldErrors._global_errors).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors._global_errors).toContain(
         'Generator names must be unique. Duplicated names are "x"'
       )
     }
@@ -75,39 +101,9 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
+      expect(result.error.flatten().fieldErrors._global_errors).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors._global_errors).toContain(
         "Cannot mix generators of positive and negative degrees."
-      )
-    }
-  })
-
-  it("should show useful message for the error at the beginning", () => {
-    const result = formValueSchema.safeParse({
-      generatorArray: [
-        { name: "x", degree: 2, differentialValue: "." },
-      ],
-    })
-    expect(result.success).toBe(false)
-    if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors.generatorArray).toContainEqual(
-        expect.stringContaining("No matching token at the beginning")
-      )
-    }
-  })
-
-  it("currently does not show useful message for the error after +", () => {
-    const result = formValueSchema.safeParse({
-      generatorArray: [
-        { name: "x", degree: 2, differentialValue: "+" },
-      ],
-    })
-    expect(result.success).toBe(false)
-    if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors.generatorArray).toContainEqual(
-        expect.stringContaining("AlternativesFailure(errors=[")
       )
     }
   })

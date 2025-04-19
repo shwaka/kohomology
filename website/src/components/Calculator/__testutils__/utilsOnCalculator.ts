@@ -50,21 +50,18 @@ export async function clickRestartButton(): Promise<void> {
 
   // Close dialog
   const dialogs = screen.getAllByRole("dialog")
-  const dialog = dailogs.find((element) => (
+  const dialog = dialogs.find((element) => (
     (element !== null) && (element.innerHTML.includes("Are you sure to restart"))
   ))
-  const buttons = within(dialog).getAllByRole("button")
-  const restartButtonInDialog = buttons.find((element) => (
+  const buttonsInDialog = within(dialog).getAllByRole("button")
+  const restartButtonInDialog = buttonsInDialog.find((element) => (
     (element !== null) && (element.textContent === "Restart")
   ))
   fireEvent.click(restartButtonInDialog)
   await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
-function isRadioGroupForTargets(role: string, element: Element | null): boolean {
-  if (role !== "radiogroup") {
-    return false
-  }
+function isRadioGroupForTargets(element: Element | null): boolean {
   if (element === null) {
     return false
   }
@@ -77,7 +74,8 @@ function isRadioGroupForTargets(role: string, element: Element | null): boolean 
 }
 
 export function selectComputationTarget(targetName: TargetName): void {
-  const radiogroup = screen.getByRole(isRadioGroupForTargets)
+  const radiogroups = screen.getAllByRole("radiogroup")
+  const radiogroup = radiogroups.find(isRadioGroupForTargets)
   const radios = within(radiogroup).getAllByRole("radio")
   const input = radios.find((element) => (
     (element !== null) && (element.outerHTML.includes(`value="${targetName}"`))

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745038711883,
+  "lastUpdate": 1745056227580,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6952,6 +6952,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.668,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": false,
+          "id": "96bc2b937c3cfe7323bc8c64f315d73ae6860171",
+          "message": "build(website): add .npmrc with legacy-peer-deps",
+          "timestamp": "2025-04-19T18:45:14+09:00",
+          "tree_id": "b44e5f4afc01233d4b70b6466161c197ab68a398",
+          "url": "https://github.com/shwaka/kohomology/commit/96bc2b937c3cfe7323bc8c64f315d73ae6860171"
+        },
+        "date": 1745056226474,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.338,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.942,
             "unit": "s/op"
           }
         ]

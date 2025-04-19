@@ -9,8 +9,8 @@ function isAtBottom(target: HTMLDivElement): boolean {
   return target.scrollTop + 50 >= target.scrollHeight - target.clientHeight
 }
 
-export function useScrollToBottom(deps: DependencyList | undefined): RefObject<HTMLDivElement> {
-  const scrollRef = useRef<HTMLDivElement>(null)
+export function useScrollToBottom(deps: DependencyList | undefined): RefObject<HTMLDivElement | null> {
+  const scrollRef = useRef<HTMLDivElement | null>(null)
 
   const scrollToBottom = (): void => {
     const target: HTMLDivElement | null = scrollRef.current

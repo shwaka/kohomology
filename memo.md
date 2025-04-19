@@ -169,3 +169,28 @@ kotlin が prism-react-renderer にビルトインで入っていないのが関
 ```
 
 とりあえず `chart.js@3.8.0` と `react-chartjs-2@4.2.0` にダウングレードしたら問題なく動いたので，暫定的にこれで対処できたことにする．
+
+### chart.jsとES Modulesについて
+DocusaurusとかReactなど色々とバージョンアップしてるときにの話．
+chart.js v4 と react-chartjs-2 v5 はES Modulesオンリーで，Common JSに対応してない．
+といわけで chart.js v3 と react-chartjs-2 v4 を使うことにしたが，下記のエラーが出てしまった．
+```
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR!
+npm ERR! While resolving: website@0.0.0
+npm ERR! Found: react@19.1.0
+npm ERR! node_modules/react
+npm ERR!   react@"^19.1.0" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer react@"^16.8.0 || ^17.0.0 || ^18.0.0" from react-chartjs-2@4.3.1
+npm ERR! node_modules/react-chartjs-2
+npm ERR!   react-chartjs-2@"^4.3.1" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force, or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+```
+せっかくだからReactはv19にしたいので，--legacy-peer-depsで無理矢理react-chartjs-2を入れることにした．
+Reactは後方互換性を大事にしてるから多分大丈夫なはず…

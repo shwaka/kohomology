@@ -34,8 +34,10 @@ export function validateGeneratorNames(generatorArray: Generator[]): Map<number,
     const firstOccurrence = names.indexOf(name)
     if (firstOccurrence !== index) {
       result.set(index, `Generator names must be unique, but ${name} is already used.`)
-      result.set(firstOccurrence, "")
+      result.set(firstOccurrence, magicMessageToHideError)
     }
   })
   return result
 }
+
+export const magicMessageToHideError = "_HIDE_THIS_ERROR_"

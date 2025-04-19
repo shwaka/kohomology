@@ -6,6 +6,7 @@ import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
 import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
+import { magicMessageToHideError } from "./validation"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -104,9 +105,13 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
         if (errorForKey === undefined || errorForKey.message === undefined) {
           return undefined
         }
+        const message = errorForKey.message
+        if (message === magicMessageToHideError) {
+          return undefined
+        }
         return (
           <Alert severity="error" key={key} sx={{ whiteSpace: "pre-wrap" }}>
-            {errorForKey.message}
+            {message}
           </Alert>
         )
       })}

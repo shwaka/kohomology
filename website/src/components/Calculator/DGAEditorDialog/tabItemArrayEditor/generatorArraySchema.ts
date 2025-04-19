@@ -46,7 +46,6 @@ function addIssueForGeneratorDegrees(val: Generator[], ctx: RefinementCtx): void
 function addIssueForGeneratorNames(val: Generator[], ctx: RefinementCtx): void {
   const validateNamesResult: Map<number, string> = validateGeneratorNames(val)
   validateNamesResult.forEach((message, index) => {
-    console.log(`add ${index}: ${message}`)
     ctx.addIssue({
       path: ["generatorArray", index, "name"],
       code: z.ZodIssueCode.custom,

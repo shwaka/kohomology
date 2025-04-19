@@ -4,7 +4,7 @@ import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { GeneratorFormInput } from "./generatorArraySchema"
+import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 
 export interface ArrayEditorProps {
@@ -75,9 +75,9 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
   }
   return (
     <React.Fragment>
-      {Object.entries(_global_errors).map(([key, fieldError]) => (
+      {(Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]).map((key) => (
         <ShowFieldError
-          fieldError={fieldError}
+          fieldError={_global_errors[key]}
           key={key}
         />
       ))}

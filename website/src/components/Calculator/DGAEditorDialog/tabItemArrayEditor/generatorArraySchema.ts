@@ -6,12 +6,14 @@ export const generatorArraySchema = z.array(generatorSchema).superRefine((val, c
   addIssueForDifferentialValue(val, ctx)
 })
 
+export const globalErrorsSchema = z.object({
+  generatorDegrees: z.null(),
+  generatorNames: z.null(),
+})
+
 export const formValueSchema = z.object({
   generatorArray: generatorArraySchema,
-  _global_errors: z.object({
-    generatorDegrees: z.null(),
-    generatorNames: z.null(),
-  }).optional(),
+  _global_errors: globalErrorsSchema.optional(),
 }).superRefine((val, ctx) => {
   addIssueForGeneratorDegrees(val.generatorArray, ctx)
   addIssueForGeneratorNames(val.generatorArray, ctx)

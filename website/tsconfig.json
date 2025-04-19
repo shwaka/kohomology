@@ -18,7 +18,8 @@
       "webpack-env",
       "jest"
     ],
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true
   },
   "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ],
   "exclude": [ "kohomology-js/build/**/*" ]

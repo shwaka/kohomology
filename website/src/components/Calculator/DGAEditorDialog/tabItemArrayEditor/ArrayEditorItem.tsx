@@ -1,6 +1,6 @@
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
-import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { Alert, Collapse, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
@@ -86,8 +86,16 @@ export function ArrayEditorItem(
 
 function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {
   const error = errors.generatorArray?.[index]
+  return (
+    <Collapse in={error !== undefined}>
+      <ShowError error={error}/>
+    </Collapse>
+  )
+}
+
+function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): JSX.Element {
   if (error === undefined) {
-    return undefined
+    return <React.Fragment/>
   }
   return (
     <Stack spacing={0.3}>

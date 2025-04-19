@@ -191,7 +191,7 @@ describe("useTabItemArrayEditor", () => {
       testUtil.expectInitialState()
       testUtil.inputValue("name", 1, "x")
       await testUtil.submit()
-      const errorMessage = 'Generator names must be unique. Duplicated names are "x"'
+      const errorMessage = "Generator names must be unique, but x is already used."
       testUtil.expectSingleError(errorMessage)
     })
 

@@ -25,7 +25,9 @@ describe("nameSchema", () => {
     expect(result.success).toBe(false)
     if (!result.success) {
       expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContainEqual(expect.stringContaining("must start with alphabets"))
+      expect(result.error.flatten().formErrors).toContainEqual(
+        expect.stringContaining("must start with alphabets")
+      )
     }
   })
 
@@ -35,7 +37,9 @@ describe("nameSchema", () => {
       expect(result.success).toBe(false)
       if (!result.success) {
         expect(result.error.flatten().formErrors).toHaveLength(1)
-        expect(result.error.flatten().formErrors).toContainEqual(expect.stringContaining("can only contain alphabets"))
+        expect(result.error.flatten().formErrors).toContainEqual(
+          expect.stringContaining("can only contain alphabets")
+        )
       }
     })
   }
@@ -139,7 +143,9 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.generatorArray).toContain("Cannot mix generators of positive and negative degrees.")
+      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
+        "Cannot mix generators of positive and negative degrees."
+      )
     }
   })
 

@@ -160,6 +160,23 @@ describe("formValueSchema", () => {
     }
   })
 
+  it("should not accept if there are both positive and negative degrees", () => {
+    const result = formValueSchema.safeParse({
+      dummy: "dummy",
+      generatorArray: [
+        { name: "x", degree: 2, differentialValue: "0" },
+        { name: "y", degree: -2, differentialValue: "0" },
+      ],
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
+        "Cannot mix generators of positive and negative degrees."
+      )
+    }
+  })
+
   it("should show useful message for the error at the beginning", () => {
     const result = formValueSchema.safeParse({
       dummy: "dummy",

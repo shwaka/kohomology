@@ -73,7 +73,7 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): JSX.Element | undefined {
-  const fieldError: FieldError | undefined = errors.dummy
+  const fieldError: FieldError | undefined = errors.generatorArray?.root
   if (fieldError === undefined) {
     return undefined
   }

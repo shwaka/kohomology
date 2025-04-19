@@ -22,7 +22,7 @@ export const formValueSchema = z.object({
   const validateDegreesResult = validateGeneratorDegrees(val.generatorArray)
   if (typeof validateDegreesResult === "string") {
     ctx.addIssue({
-      path: ["dummy"],
+      path: ["generatorArray"],
       code: z.ZodIssueCode.custom,
       message: validateDegreesResult,
     })
@@ -30,7 +30,7 @@ export const formValueSchema = z.object({
   const validateNamesResult = validateGeneratorNames(val.generatorArray)
   if (typeof validateNamesResult === "string") {
     ctx.addIssue({
-      path: ["dummy"],
+      path: ["generatorArray"],
       code: z.ZodIssueCode.custom,
       message: validateNamesResult,
     })

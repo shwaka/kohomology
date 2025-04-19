@@ -139,7 +139,7 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.dummy).toContain("Cannot mix generators of positive and negative degrees.")
+      expect(result.error.flatten().fieldErrors.generatorArray).toContain("Cannot mix generators of positive and negative degrees.")
     }
   })
 
@@ -153,8 +153,8 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.dummy).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors.dummy).toContain(
+      expect(result.error.flatten().fieldErrors.generatorArray).toHaveLength(1)
+      expect(result.error.flatten().fieldErrors.generatorArray).toContain(
         'Generator names must be unique. Duplicated names are "x"'
       )
     }

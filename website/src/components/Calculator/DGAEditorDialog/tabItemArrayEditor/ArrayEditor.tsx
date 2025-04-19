@@ -69,13 +69,29 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): JSX.Element | undefined {
-  const fieldError: FieldError | undefined = errors.generatorArray?.root
-  if (fieldError === undefined) {
+  const _global_errors = errors._global_errors
+  if (_global_errors === undefined) {
     return undefined
+  }
+  return (
+    <React.Fragment>
+      {Object.entries(_global_errors).map(([key, fieldError]) => (
+        <ShowFieldError
+          fieldError={fieldError}
+          key={key}
+        />
+      ))}
+    </React.Fragment>
+  )
+}
+
+function ShowFieldError({ fieldError }: { fieldError: FieldError | undefined }): JSX.Element {
+  if (fieldError === undefined) {
+    return <React.Fragment/>
   }
   const types: MultipleFieldErrors | undefined = fieldError.types
   if (types === undefined) {
-    return undefined
+    return <React.Fragment/>
   }
   return (
     <React.Fragment>

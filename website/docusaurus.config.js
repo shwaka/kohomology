@@ -4,8 +4,8 @@
 /* eslint-disable no-undef */ // 'require' is not defined
 /* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
 
-import remarkMath from "remark-math"
 import rehypeKatex from "rehype-katex"
+import remarkMath from "remark-math"
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {

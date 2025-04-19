@@ -1,8 +1,8 @@
 import { useLocation } from "@docusaurus/router"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import { isDevelopmentMode } from "@site/src/utils/isDevelopmentMode"
-import NavbarItem from "@theme-original/NavbarItem"
 import type { Props } from "@theme/NavbarItem"
+import NavbarItem from "@theme-original/NavbarItem"
 import React from "react"
 
 function GoToPublishedPageOnDevMode(props: Props): React.JSX.Element {

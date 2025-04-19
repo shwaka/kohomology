@@ -26,11 +26,16 @@ export function validateGeneratorDegrees(generatorArray: Generator[]): true | st
   return true
 }
 
-export function validateGeneratorNames(generatorArray: Generator[]): true | string {
+export function validateGeneratorNames(generatorArray: Generator[]): Map<number, string> {
   const names = generatorArray.map((generator) => generator.name)
-  const duplicatedNames = names.filter((item, index) => names.indexOf(item) !== index)
-  if (duplicatedNames.length === 0) {
-    return true
-  }
-  return "Generator names must be unique. Duplicated names are " + duplicatedNames.map((name) => `"${name}"`).join(", ")
+  // const duplicatedNames = names.filter((item, index) => names.indexOf(item) !== index)
+  const result: Map<number, string> = new Map()
+  names.forEach((name, index) => {
+    const firstOccurrence = names.indexOf(name)
+    if (firstOccurrence !== index) {
+      result.set(index, `Generator names must be unique, but ${name} is already used.`)
+      result.set(firstOccurrence, "")
+    }
+  })
+  return result
 }

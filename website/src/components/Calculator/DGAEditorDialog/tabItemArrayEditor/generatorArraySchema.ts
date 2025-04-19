@@ -44,12 +44,13 @@ function addIssueForGeneratorDegrees(val: Generator[], ctx: RefinementCtx): void
 }
 
 function addIssueForGeneratorNames(val: Generator[], ctx: RefinementCtx): void {
-  const validateNamesResult = validateGeneratorNames(val)
-  if (typeof validateNamesResult === "string") {
+  const validateNamesResult: Map<number, string> = validateGeneratorNames(val)
+  validateNamesResult.forEach((message, index) => {
+    console.log(`add ${index}: ${message}`)
     ctx.addIssue({
-      path: ["_global_errors", "generatorNames"],
+      path: ["generatorArray", index, "name"],
       code: z.ZodIssueCode.custom,
-      message: validateNamesResult,
+      message: message,
     })
-  }
+  })
 }

@@ -10,7 +10,6 @@ export const generatorArraySchema = z.array(generatorSchema).superRefine((val: G
 
 export const formValueSchema = z.object({
   generatorArray: generatorArraySchema,
-  dummy: z.literal("dummy"),
 })
 
 export type GeneratorFormInput = z.infer<typeof formValueSchema>

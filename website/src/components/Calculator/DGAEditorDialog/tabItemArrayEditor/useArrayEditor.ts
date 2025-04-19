@@ -14,7 +14,6 @@ export function useArrayEditor(args: {
   updateDgaWrapper: (json: string) => void
 }): UseArrayEditorReturnValue {
   const defaultValues: GeneratorFormInput = {
-    dummy: "dummy" as const,
     generatorArray: jsonToGeneratorArray(args.json)
   }
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
@@ -50,7 +49,7 @@ export function useArrayEditor(args: {
     }
   }
   function disableSubmit(): boolean {
-    return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
+    return (errors.generatorArray !== undefined)
   }
   const arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit"> = {
     register, errors, fields, append, remove, getValues, trigger, move,

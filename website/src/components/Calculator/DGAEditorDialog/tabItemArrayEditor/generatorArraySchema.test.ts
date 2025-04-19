@@ -124,7 +124,6 @@ describe("generatorArraySchema", () => {
 describe("formValueSchema", () => {
   it("should accept the model of 2-sphere", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },
         { name: "y", degree: 3, differentialValue: "x^2" },
@@ -135,7 +134,6 @@ describe("formValueSchema", () => {
 
   it("should not accept when both positive and negative degrees exist", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },
         { name: "y", degree: -3, differentialValue: "0" },
@@ -151,7 +149,6 @@ describe("formValueSchema", () => {
 
   it("should not accept if names are duplicated", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },
         { name: "x", degree: 3, differentialValue: "0" },
@@ -168,7 +165,6 @@ describe("formValueSchema", () => {
 
   it("should not accept if there are both positive and negative degrees", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },
         { name: "y", degree: -2, differentialValue: "0" },
@@ -185,7 +181,6 @@ describe("formValueSchema", () => {
 
   it("should show useful message for the error at the beginning", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "." },
       ],
@@ -201,7 +196,6 @@ describe("formValueSchema", () => {
 
   it("currently does not show useful message for the error after +", () => {
     const result = formValueSchema.safeParse({
-      dummy: "dummy",
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "+" },
       ],

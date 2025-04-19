@@ -49,10 +49,6 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
         >
           Add a generator
         </Button>
-        <input
-          hidden value="dummy"
-          {...register("dummy")}
-        />
         {getGlobalError(errors)}
       </Stack>
       <button hidden type="submit"/>

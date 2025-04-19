@@ -17,7 +17,7 @@ type MyCodeBlockProps = { href?: string, linkTitle?: string } & Props
 export default function MyCodeBlock({
   href, linkTitle, // 追加した
   ...props
-}: MyCodeBlockProps): JSX.Element {
+}: MyCodeBlockProps): React.JSX.Element {
   // <a> を <CodeBlock> の下に置こうとすると，<CodeBlock> の margin-bottom が邪魔になる
   return (
     <div className={styles.MyCodeBlock}>

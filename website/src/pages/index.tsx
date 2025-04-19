@@ -9,7 +9,7 @@ import { ImportKotlin } from "../components/ImportKotlin"
 import styles from "./index.module.css"
 // import useBaseUrl from "@docusaurus/useBaseUrl"
 
-function HomepageHeader(): JSX.Element {
+function HomepageHeader(): React.JSX.Element {
   const {siteConfig} = useDocusaurusContext()
   // const dokkaUrl = useBaseUrl("/dokka/index.html")
   // const benchUrl = useBaseUrl("/benchmark/index.html")
@@ -30,7 +30,7 @@ function HomepageHeader(): JSX.Element {
   )
 }
 
-export default function Home(): JSX.Element {
+export default function Home(): React.JSX.Element {
   const {siteConfig} = useDocusaurusContext()
   return (
     <Layout

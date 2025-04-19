@@ -19,7 +19,7 @@ export interface ArrayEditorProps {
   submit: () => void
 }
 
-export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): JSX.Element {
+export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): React.JSX.Element {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
     event.preventDefault()
     submit()
@@ -68,7 +68,7 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
   return ""
 }
 
-function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): JSX.Element | undefined {
+function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
   const _global_errors = errors._global_errors
   if (_global_errors === undefined) {
     return undefined
@@ -85,7 +85,7 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
   )
 }
 
-function ShowFieldError({ fieldError }: { fieldError: FieldError | undefined }): JSX.Element {
+function ShowFieldError({ fieldError }: { fieldError: FieldError | undefined }): React.JSX.Element {
   if (fieldError === undefined) {
     return <React.Fragment/>
   }
@@ -104,7 +104,7 @@ function ShowFieldError({ fieldError }: { fieldError: FieldError | undefined }):
   )
 }
 
-function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Element {
+function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (
     <Stack spacing={2}>
       {children}

@@ -11,7 +11,7 @@ import styles from "./HomepageFeatures.module.css"
 
 type FeatureItem = {
   title: string
-  description: JSX.Element
+  description: React.JSX.Element
 }
 
 const FeatureList: FeatureItem[] = [
@@ -58,7 +58,7 @@ const FeatureList: FeatureItem[] = [
   // },
 ]
 
-function Feature({title, description}: FeatureItem): JSX.Element {
+function Feature({title, description}: FeatureItem): React.JSX.Element {
   return (
     <div className={clsx("col col--4")}>
       <div className="text--center padding-horiz--md">
@@ -69,7 +69,7 @@ function Feature({title, description}: FeatureItem): JSX.Element {
   )
 }
 
-export default function HomepageFeatures(): JSX.Element {
+export default function HomepageFeatures(): React.JSX.Element {
   return (
     <section className={styles.features}>
       <div className="container">

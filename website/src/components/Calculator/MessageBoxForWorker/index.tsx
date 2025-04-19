@@ -6,7 +6,7 @@ import { fromString, StyledMessage } from "../styled/message"
 import { WorkerOutput } from "../worker/workerInterface"
 import { MessageBox } from "./MessageBox"
 
-export function MessageBoxForWorker(): JSX.Element {
+export function MessageBoxForWorker(): React.JSX.Element {
   const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)

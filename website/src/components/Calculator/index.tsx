@@ -9,7 +9,7 @@ import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { fromString } from "./styled/message"
 import { useCustomTheme } from "./useCustomTheme"
 
-function CalculatorImpl(): JSX.Element {
+function CalculatorImpl(): React.JSX.Element {
   const theme = useCustomTheme()
 
   const createWorker = (): Worker => new KohomologyWorker()
@@ -44,7 +44,7 @@ function CalculatorImpl(): JSX.Element {
   )
 }
 
-export function Calculator(): JSX.Element {
+export function Calculator(): React.JSX.Element {
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>
       {() => <CalculatorImpl/>}

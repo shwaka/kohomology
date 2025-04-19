@@ -74,7 +74,7 @@ function getOptions(titleText: string | null = null): ChartProps<"scatter", { x:
   }
 }
 
-export function ComparisonChart({ target }: { target: Target }): JSX.Element {
+export function ComparisonChart({ target }: { target: Target }): React.JSX.Element {
   const data = getDataForTarget(target)
   return (
     <Chart
@@ -85,7 +85,7 @@ export function ComparisonChart({ target }: { target: Target }): JSX.Element {
   )
 }
 
-export function ComparisonChartForDegrees(): JSX.Element {
+export function ComparisonChartForDegrees(): React.JSX.Element {
   const data = getDataForArray([
     { label: "IntDegree", target: "FreeLoopSpaceOf2Sphere", tool: "kohomology" },
     { label: "MultiDegree", target: "FreeLoopSpaceOf2SphereWithMultiGrading", tool: "kohomology" },
@@ -99,7 +99,7 @@ export function ComparisonChartForDegrees(): JSX.Element {
   )
 }
 
-export function ShowVersion({ tool }: { tool: Tool }): JSX.Element {
+export function ShowVersion({ tool }: { tool: Tool }): React.JSX.Element {
   return (
     <CodeBlock
       language="shell-session"

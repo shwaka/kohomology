@@ -9,7 +9,7 @@ export interface StringFieldProps {
   disabled: boolean
 }
 
-export function StringField({ label, value, setValue, width, disabled }: StringFieldProps): JSX.Element {
+export function StringField({ label, value, setValue, width, disabled }: StringFieldProps): React.JSX.Element {
   return (
     <TextField
       label={label} value={value}

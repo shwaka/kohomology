@@ -18,7 +18,7 @@ export interface ExternalData {
   validateGenerator: (generator: string) => Promise<true | string>
 }
 
-function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): JSX.Element | undefined {
+function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): React.JSX.Element | undefined {
   const error = errors.generatorArray?.[index]
   if (error === undefined) {
     return undefined
@@ -36,7 +36,7 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
 
 export function IdealEditorItem(
   { draggableProps, index, formData: { register, errors, remove, trigger }, externalData: { validateGenerator } }: RowComponentProps<IdealFormInput, ExternalData>
-): JSX.Element {
+): React.JSX.Element {
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(
     () => setOverwritableTimeout(async () => await trigger(), 1000),

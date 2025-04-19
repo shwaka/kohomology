@@ -13,8 +13,8 @@ type ExampleKey = (typeof exampleKeys)[number]
 
 interface Example {
   json: string | undefined
-  renderSelectItem: () => JSX.Element
-  renderForm?: () => JSX.Element
+  renderSelectItem: () => React.JSX.Element
+  renderForm?: () => React.JSX.Element
 }
 
 function tryOrUndefined<T>(func: () => T): T | undefined {
@@ -27,7 +27,7 @@ function tryOrUndefined<T>(func: () => T): T | undefined {
 
 function useExampleParametraizedByN(
   getJson: (n: number) => string,
-  renderSelectItem: () => JSX.Element,
+  renderSelectItem: () => React.JSX.Element,
 ): Example {
   const [n, setN] = useState(2)
   return {

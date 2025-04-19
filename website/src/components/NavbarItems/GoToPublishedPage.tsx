@@ -5,7 +5,7 @@ import NavbarItem from "@theme-original/NavbarItem"
 import type { Props } from "@theme/NavbarItem"
 import React from "react"
 
-function GoToPublishedPageOnDevMode(props: Props): JSX.Element {
+function GoToPublishedPageOnDevMode(props: Props): React.JSX.Element {
   // On mobile devices, props contains { mobile: true, onClick: (some function) }.
   // We need to pass these to NavbarItem to render the item correctly.
   const context = useDocusaurusContext()
@@ -23,7 +23,7 @@ function GoToPublishedPageOnDevMode(props: Props): JSX.Element {
   )
 }
 
-export function GoToPublishedPage(props: Props): JSX.Element {
+export function GoToPublishedPage(props: Props): React.JSX.Element {
   return (
     isDevelopmentMode()
       ? <GoToPublishedPageOnDevMode {...props}/>

@@ -4,7 +4,7 @@ import React, { useState } from "react"
 
 export interface TabItem {
   label: string
-  render: (closeDialog: () => void) => JSX.Element
+  render: (closeDialog: () => void) => React.JSX.Element
   onSubmit: (closeDialog: () => void) => void
   onQuit?: () => void
   beforeOpen?: () => void
@@ -12,7 +12,7 @@ export interface TabItem {
   disableSubmit?: () => boolean
 }
 
-function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): JSX.Element {
+function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): React.JSX.Element {
   return (
     <div hidden={currentTabKey !== tabKeyForPanel}>
       {children}
@@ -85,7 +85,7 @@ export interface TabDialogProps<K extends string> {
   closeDialog: () => void
 }
 
-export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open, closeDialog }: TabDialogProps<K>): JSX.Element {
+export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open, closeDialog }: TabDialogProps<K>): React.JSX.Element {
   // TODO: assert that keys for tabItems are distinct
   const mobileMediaQuery = useMobileMediaQuery()
   return (

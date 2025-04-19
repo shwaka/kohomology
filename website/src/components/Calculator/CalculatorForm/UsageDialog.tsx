@@ -6,7 +6,7 @@ export interface UsageButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function UsageButton({ setOpen }: UsageButtonProps): JSX.Element {
+export function UsageButton({ setOpen }: UsageButtonProps): React.JSX.Element {
   return (
     <Button
       onClick={() => setOpen(true)}
@@ -24,7 +24,7 @@ export interface UsageDialogProps {
   setOpen: (open: boolean) => void
 }
 
-export function UsageDialog({ open, setOpen }: UsageDialogProps): JSX.Element {
+export function UsageDialog({ open, setOpen }: UsageDialogProps): React.JSX.Element {
   return (
     <Dialog
       open={open}

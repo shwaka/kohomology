@@ -8,7 +8,7 @@ interface MessageBoxProps {
   messages: StyledMessage[]
 }
 
-export function MessageBox({ messages }: MessageBoxProps): JSX.Element {
+export function MessageBox({ messages }: MessageBoxProps): React.JSX.Element {
   const scrollRef = useScrollToBottom([messages])
 
   return (

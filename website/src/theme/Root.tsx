@@ -4,7 +4,7 @@ import React from "react"
 
 // https://docusaurus.io/docs/swizzling#wrapper-your-site-with-root
 
-export default function Root({children}: {children: React.ReactNode}): JSX.Element {
+export default function Root({children}: {children: React.ReactNode}): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
   return (

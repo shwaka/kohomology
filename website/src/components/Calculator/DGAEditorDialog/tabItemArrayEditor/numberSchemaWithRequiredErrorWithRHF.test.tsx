@@ -13,7 +13,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-function TestForm({ valueAsNumber }: { valueAsNumber: boolean }): JSX.Element {
+function TestForm({ valueAsNumber }: { valueAsNumber: boolean }): React.JSX.Element {
   const {
     register,
     handleSubmit,

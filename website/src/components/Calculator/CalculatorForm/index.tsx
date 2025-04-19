@@ -18,7 +18,7 @@ import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
 
-function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): JSX.Element {
+function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): React.JSX.Element {
   return (
     <span data-testid={testId}>
       <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
@@ -28,7 +28,7 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
   )
 }
 
-export function CalculatorForm(): JSX.Element {
+export function CalculatorForm(): React.JSX.Element {
   const { array: errorMessages, push: addErrorMessage } = useMutableArray<string>()
 
   const defaultDGAJson = useValueOfURLQueryResult(

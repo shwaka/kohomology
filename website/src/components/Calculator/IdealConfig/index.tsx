@@ -78,7 +78,7 @@ function IdealEditorDialog({
   open, onSubmit, tryToQuit,
   idealEditorProps,
   disableSubmit,
-}: IdealEditorDialogProps): JSX.Element {
+}: IdealEditorDialogProps): React.JSX.Element {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
@@ -116,7 +116,7 @@ interface IdealConfigProps {
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): JSX.Element {
+export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): React.JSX.Element {
   const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator, validateGeneratorArray })
 
   return (

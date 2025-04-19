@@ -9,7 +9,7 @@ export interface NumberFieldProps {
   disabled: boolean
 }
 
-export function NumberField({ label, value, setValue, width, disabled }: NumberFieldProps): JSX.Element {
+export function NumberField({ label, value, setValue, width, disabled }: NumberFieldProps): React.JSX.Element {
   return (
     <TextField
       label={label} value={value} type="number"

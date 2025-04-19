@@ -25,7 +25,7 @@ type ImportKotlinProps = {
   className?: string
 }
 
-export function ImportKotlin(props: ImportKotlinProps): JSX.Element {
+export function ImportKotlin(props: ImportKotlinProps): React.JSX.Element {
   const url = `${githubMainUrl}/website/sample/src/main/kotlin/${props.path}`
   const code: string | undefined = files.get(normalizePath(props.path))
   if (code === undefined) {

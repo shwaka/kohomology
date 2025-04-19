@@ -4,7 +4,7 @@ import "katex/dist/katex.min.css"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { MessageType, StyledMessage, StyledString } from "./message"
 
-function Text({ content }: { content: string } ): JSX.Element {
+function Text({ content }: { content: string } ): React.JSX.Element {
   const lines = content.split("\n")
   return (
     <span>
@@ -27,7 +27,7 @@ function Text({ content }: { content: string } ): JSX.Element {
   )
 }
 
-function ShowStyledString({ styledString }: { styledString: StyledString }): JSX.Element {
+function ShowStyledString({ styledString }: { styledString: StyledString }): React.JSX.Element {
   const macros = {
     "\\deg": "|#1|",
   }
@@ -54,7 +54,7 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
   }
 }
 
-export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): JSX.Element {
+export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): React.JSX.Element {
   const divClass = "show-styled-message"
   const { optionsButtonProps, open } = useOptionsButton(divClass, styledMessage.options)
   return (

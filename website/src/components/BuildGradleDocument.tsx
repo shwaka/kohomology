@@ -3,7 +3,7 @@ import TabItem from "@theme/TabItem"
 import Tabs from "@theme/Tabs"
 import React from "react"
 
-export function BuildGradleDocument(): JSX.Element {
+export function BuildGradleDocument(): React.JSX.Element {
   return (
     <Tabs>
       <TabItem value="kotlin" label="build.gradle.kts" default>

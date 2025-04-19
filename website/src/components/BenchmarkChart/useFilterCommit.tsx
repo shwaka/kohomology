@@ -8,7 +8,7 @@ interface ConfigureFilterCommitProps {
   setCommitIndexRange: (commitIndexRange: number[]) => void
 }
 
-export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): JSX.Element {
+export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): React.JSX.Element {
   return (
     <Box>
       {"Restrict commits:"}

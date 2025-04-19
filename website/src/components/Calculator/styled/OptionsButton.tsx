@@ -33,7 +33,7 @@ interface OptionsButtonProps {
   options: MessageOptions
 }
 
-export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options }: OptionsButtonProps): JSX.Element {
+export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options }: OptionsButtonProps): React.JSX.Element {
   return (
     <Fragment>
       <IconButton
@@ -76,7 +76,7 @@ interface MenuItemCopyTextProps {
   handleClose: () => void
 }
 
-function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): JSX.Element {
+function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): React.JSX.Element {
   const copyText = (): void => {
     if (text !== null) {
       navigator.clipboard.writeText(text)

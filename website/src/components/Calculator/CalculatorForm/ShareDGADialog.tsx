@@ -10,7 +10,7 @@ export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): JSX.Element {
+export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): React.JSX.Element {
   return (
     <Button
       onClick={() => setOpen(true)}
@@ -23,7 +23,7 @@ export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): JSX.Element {
   )
 }
 
-function CopyToClipBoardButton({ text }: { text: string }): JSX.Element {
+function CopyToClipBoardButton({ text }: { text: string }): React.JSX.Element {
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const handleClick = (): void => {
     navigator.clipboard.writeText(text)
@@ -48,7 +48,7 @@ interface ShareDGADialogContentProps {
   targetName: TargetName
 }
 
-function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialogContentProps): JSX.Element {
+function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialogContentProps): React.JSX.Element {
   const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto", idealJson, targetName })
   const domainUrl = useDomainUrl()
   const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
@@ -77,7 +77,7 @@ export interface ShareDGADialogProps {
   targetName: TargetName
 }
 
-export function ShareDGADialog({ open, setOpen, dgaJson, idealJson, targetName }: ShareDGADialogProps): JSX.Element {
+export function ShareDGADialog({ open, setOpen, dgaJson, idealJson, targetName }: ShareDGADialogProps): React.JSX.Element {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog

@@ -5,7 +5,7 @@ interface RestartButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function RestartButton({ setOpen }: RestartButtonProps): JSX.Element {
+export function RestartButton({ setOpen }: RestartButtonProps): React.JSX.Element {
   return (
     <Button
       variant="contained" size="small"
@@ -22,7 +22,7 @@ interface RestartDialogProps {
   restart: () => void
 }
 
-export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): JSX.Element {
+export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): React.JSX.Element {
   return (
     <Dialog
       open={open}

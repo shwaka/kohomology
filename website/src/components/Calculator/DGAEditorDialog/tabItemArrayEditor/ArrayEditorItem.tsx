@@ -10,7 +10,7 @@ import { magicMessageToHideError } from "./validation"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
-): JSX.Element {
+): React.JSX.Element {
   const generatorName = getValues().generatorArray[index].name
 
   const setOverwritableTimeout = useOverwritableTimeout()
@@ -85,7 +85,7 @@ export function ArrayEditorItem(
   )
 }
 
-function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): JSX.Element | undefined {
+function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element | undefined {
   const error = errors.generatorArray?.[index]
   return (
     <Collapse in={error !== undefined}>
@@ -94,7 +94,7 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
   )
 }
 
-function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): JSX.Element {
+function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): React.JSX.Element {
   if (error === undefined) {
     return <React.Fragment/>
   }

@@ -7,7 +7,7 @@ import { myWorkerContext } from "./myWorkerContext"
 function ShowWorkerOutputLog({ log, testid }: {
   log: MessageOutput<MyWorkerOutput, MyWorkerState, MyWorkerFunc>[]
   testid: string
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <div data-testid={testid}>
       {log.map((workerOutput, index) => (
@@ -22,7 +22,7 @@ function ShowWorkerOutputLog({ log, testid }: {
 function ShowWorkerOutputLogFromListener({ log, testid }: {
   log: MyWorkerOutput[]
   testid: string
-}): JSX.Element {
+}): React.JSX.Element {
   return (
     <div data-testid={testid}>
       {log.map((workerOutput, index) => (
@@ -34,7 +34,7 @@ function ShowWorkerOutputLogFromListener({ log, testid }: {
   )
 }
 
-export function MyComponent(): JSX.Element {
+export function MyComponent(): React.JSX.Element {
   const { postMessage, addListener, workerOutputLog, state: { value } } = useWorker(myWorkerContext)
   const [workerOutputLogFromListener, setWorkerOutputLogFromListener] = useState<MyWorkerOutput[]>([])
 

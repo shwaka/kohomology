@@ -76,7 +76,7 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
   }
 }
 
-function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Element {
+function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (
     <Stack spacing={2}>
       {children}
@@ -84,7 +84,7 @@ function SortableFieldsContainer({ children }: { children: ReactNode }): JSX.Ele
   )
 }
 
-function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): JSX.Element | undefined {
+function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): React.JSX.Element | undefined {
   if (errors.generatorArray !== undefined) {
     return undefined
   }
@@ -118,7 +118,7 @@ export interface IdealEditorProps {
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray }: IdealEditorProps): JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray }: IdealEditorProps): React.JSX.Element {
   const { fields, append, remove, move } = useFieldArray({
     control,
     name: "generatorArray",

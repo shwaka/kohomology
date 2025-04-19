@@ -68,7 +68,7 @@ function validate(value: string): true | string {
   }
 }
 
-function JsonEditor({ register, errors }: JsonEditorProps): JSX.Element {
+function JsonEditor({ register, errors }: JsonEditorProps): React.JSX.Element {
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       <TextField

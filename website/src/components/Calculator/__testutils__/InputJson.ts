@@ -1,4 +1,5 @@
 import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { findOrThrow } from "./findOrThrow"
 
 export class InputJson {
   private static openDialog(): HTMLElement {
@@ -10,7 +11,7 @@ export class InputJson {
     const dialog = screen.getByRole("dialog")
     // Select the "JSON" tab
     const tabs = within(dialog).getAllByRole("tab")
-    const jsonTabButton = tabs.find((element) => (element?.textContent?.includes("JSON")))
+    const jsonTabButton = findOrThrow(tabs, (element) => (element?.textContent?.includes("JSON")))
     fireEvent.click(jsonTabButton)
     return dialog
   }

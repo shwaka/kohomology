@@ -4,6 +4,7 @@ import { TabItem } from "../TabDialog"
 import { sphere } from "../examples"
 import { Generator } from "./generatorSchema"
 import { useTabItemArrayEditor } from "./"
+import { findOrThrow } from "@components/Calculator/__testutils__/findOrThrow"
 
 class ArrayEditorTestUtil {
   result: RenderResult<TabItem>
@@ -52,7 +53,7 @@ class ArrayEditorTestUtil {
   private getDeleteButton(index: number): HTMLElement {
     const row = this.getRow(index)
     const buttons = within(row).getAllByRole("button")
-    return buttons.find((element) => (element !== null) && (element.innerHTML.includes("Delete")))
+    return findOrThrow(buttons, (element) => (element !== null) && (element.innerHTML.includes("Delete")))
   }
 
   expectValue(key: keyof Generator, index: number, value: string | number): void {

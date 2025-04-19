@@ -1,5 +1,6 @@
 import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { TargetName, targetNames } from "../worker/workerInterface"
+import { findOrThrow } from "./findOrThrow"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
@@ -43,18 +44,18 @@ export function expectComputeCohomologyButtonToContain(text: "Compute" | "Comput
 export async function clickRestartButton(): Promise<void> {
   // Open dialog
   const buttons = screen.getAllByRole("button")
-  const restartButton = buttons.find((element) => (
+  const restartButton = findOrThrow(buttons, (element) => (
     (element !== null) && (element.textContent === "Restart")
   ))
   fireEvent.click(restartButton)
 
   // Close dialog
   const dialogs = screen.getAllByRole("dialog")
-  const dialog = dialogs.find((element) => (
+  const dialog = findOrThrow(dialogs, (element) => (
     (element !== null) && (element.innerHTML.includes("Are you sure to restart"))
   ))
   const buttonsInDialog = within(dialog).getAllByRole("button")
-  const restartButtonInDialog = buttonsInDialog.find((element) => (
+  const restartButtonInDialog = findOrThrow(buttonsInDialog, (element) => (
     (element !== null) && (element.textContent === "Restart")
   ))
   fireEvent.click(restartButtonInDialog)
@@ -75,9 +76,9 @@ function isRadioGroupForTargets(element: Element | null): boolean {
 
 export function selectComputationTarget(targetName: TargetName): void {
   const radiogroups = screen.getAllByRole("radiogroup")
-  const radiogroup = radiogroups.find(isRadioGroupForTargets)
+  const radiogroup = findOrThrow(radiogroups, isRadioGroupForTargets)
   const radios = within(radiogroup).getAllByRole("radio")
-  const input = radios.find((element) => (
+  const input = findOrThrow(radios, (element) => (
     (element !== null) && (element.outerHTML.includes(`value="${targetName}"`))
   ))
   fireEvent.click(input)

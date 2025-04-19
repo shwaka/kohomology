@@ -1936,6 +1936,13 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp;
   }
   setMetadataFor(GVectorContext, 'GVectorContext', interfaceMeta, VOID, [NumVectorContext]);
+  function get_d() {
+    return this.y1i().o1g();
+  }
+  function cohomologyClass(_this__u8e3s4) {
+    return this.y1i().z1g(_this__u8e3s4);
+  }
+  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
   function times_8(_this__u8e3s4, other) {
     return this.z1i().w1h(_this__u8e3s4, other);
   }
@@ -1943,6 +1950,10 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.z1i().x1h(_this__u8e3s4, other);
   }
   setMetadataFor(GMagmaContext, 'GMagmaContext', interfaceMeta, VOID, [GVectorContext]);
+  function times_10(_this__u8e3s4, other) {
+    return this.x1i().w1h(_this__u8e3s4, other);
+  }
+  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
   function get_unit() {
     return this.i1k().a1i();
   }
@@ -2020,18 +2031,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return tmp$ret$1;
   }
   setMetadataFor(GAlgebraContext, 'GAlgebraContext', interfaceMeta, VOID, [GMagmaContext]);
-  function get_d() {
-    return this.y1i().o1g();
-  }
-  function cohomologyClass(_this__u8e3s4) {
-    return this.y1i().z1g(_this__u8e3s4);
-  }
-  setMetadataFor(DGVectorContext, 'DGVectorContext', interfaceMeta, VOID, [GVectorContext]);
-  function times_10(_this__u8e3s4, other) {
-    return this.x1i().w1h(_this__u8e3s4, other);
-  }
-  setMetadataFor(DGMagmaContext, 'DGMagmaContext', interfaceMeta, VOID, [DGVectorContext, GMagmaContext]);
-  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [GAlgebraContext, DGMagmaContext]);
+  setMetadataFor(DGAlgebraContextImpl, 'DGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext]);
   setMetadataFor(Companion_2, 'Companion', objectMeta);
   function get_degreeGroup() {
     return this.s1k().c1h();
@@ -2156,7 +2156,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return subQuotVectorSpace.u1w(gVector.z1n_1);
   }
   setMetadataFor(SubGVectorSpace, 'SubGVectorSpace', interfaceMeta, VOID, [GVectorSpace]);
-  setMetadataFor(DGIdealImpl, 'DGIdealImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
+  setMetadataFor(DGIdealImpl, 'DGIdealImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
   setMetadataFor(Companion_5, 'Companion', objectMeta);
   setMetadataFor(Companion_6, 'Companion', objectMeta);
   setMetadataFor(DGLieAlgebraImpl, 'DGLieAlgebraImpl', classMeta, VOID, [GMagma, DGVectorSpace, GVectorSpace]);
@@ -2235,7 +2235,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   setMetadataFor(Companion_28, 'Companion', objectMeta);
   setMetadataFor(QuotGVectorSpaceImpl, 'QuotGVectorSpaceImpl', classMeta, VOID, [QuotGVectorSpace]);
   setMetadataFor(Companion_29, 'Companion', objectMeta);
-  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [DGVectorSpace, SubGVectorSpace]);
+  setMetadataFor(SubDGVectorSpaceImpl, 'SubDGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace, DGVectorSpace]);
   setMetadataFor(Companion_30, 'Companion', objectMeta);
   setMetadataFor(SubGVectorSpaceImpl, 'SubGVectorSpaceImpl', classMeta, VOID, [SubGVectorSpace]);
   setMetadataFor(WholeSubGVectorSpace, 'WholeSubGVectorSpace', classMeta, VOID, [SubGVectorSpace]);
@@ -2662,7 +2662,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
     return this.i1k().c27(text);
   }
   setMetadataFor(FreeGAlgebraContext, 'FreeGAlgebraContext', interfaceMeta, VOID, [GAlgebraContext]);
-  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [FreeGAlgebraContext, DGMagmaContext, GAlgebraContext]);
+  setMetadataFor(FreeDGAlgebraContextImpl, 'FreeDGAlgebraContextImpl', classMeta, VOID, [DGMagmaContext, GAlgebraContext, FreeGAlgebraContext]);
   setMetadataFor(Companion_40, 'Companion', objectMeta);
   setMetadataFor(Companion_41, 'Companion', objectMeta);
   setMetadataFor(Companion_42, 'Companion', objectMeta);

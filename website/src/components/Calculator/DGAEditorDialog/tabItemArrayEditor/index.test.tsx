@@ -1,4 +1,4 @@
-import { fireEvent, render, within, renderHook, act, RenderResult } from "@testing-library/react"
+import { fireEvent, render, within, renderHook, act, RenderHookResult } from "@testing-library/react"
 import React from "react"
 import { TabItem } from "../TabDialog"
 import { sphere } from "../examples"
@@ -7,7 +7,8 @@ import { useTabItemArrayEditor } from "./"
 import { findOrThrow } from "@components/Calculator/__testutils__/findOrThrow"
 
 class ArrayEditorTestUtil {
-  result: RenderResult<TabItem>
+  // Record<string, never> means that renderHook's props is empty
+  result: RenderHookResult<TabItem, Record<string, never>>["result"]
   json: string
   rerender: (ui: React.ReactElement) => void
   container: HTMLElement

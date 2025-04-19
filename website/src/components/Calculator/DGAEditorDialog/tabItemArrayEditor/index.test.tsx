@@ -1,5 +1,4 @@
-import { fireEvent, render, within } from "@testing-library/react"
-import { renderHook, act, RenderResult } from "@testing-library/react-hooks"
+import { fireEvent, render, within, renderHook, act, RenderResult } from "@testing-library/react"
 import React from "react"
 import { TabItem } from "../TabDialog"
 import { sphere } from "../examples"

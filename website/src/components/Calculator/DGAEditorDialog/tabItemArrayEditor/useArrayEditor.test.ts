@@ -1,5 +1,5 @@
 import { prettifyDGAJson } from "@components/Calculator/jsonUtils"
-import { renderHook, act } from "@testing-library/react-hooks"
+import { renderHook, act } from "@testing-library/react"
 import { useArrayEditor } from "./useArrayEditor"
 
 const json = JSON.stringify([

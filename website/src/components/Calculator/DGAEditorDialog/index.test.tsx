@@ -1,5 +1,4 @@
-import { render, screen, within } from "@testing-library/react"
-import { renderHook, act } from "@testing-library/react-hooks"
+import { render, screen, within, renderHook, act } from "@testing-library/react"
 import React from "react"
 import { sphere } from "./examples"
 import { useDGAEditorDialog } from "."

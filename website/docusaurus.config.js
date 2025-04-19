@@ -4,8 +4,8 @@
 /* eslint-disable no-undef */ // 'require' is not defined
 /* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
 
-const katex = require("rehype-katex")
-const math = require("remark-math")
+import remarkMath from "remark-math"
+import rehypeKatex from "rehype-katex"
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -28,8 +28,8 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl: "https://github.com/shwaka/kohomology/edit/main/website/",
-          remarkPlugins: [math],
-          rehypePlugins: [katex],
+          remarkPlugins: [remarkMath],
+          rehypePlugins: [rehypeKatex],
         },
         // blog: {
         //   showReadingTime: true,

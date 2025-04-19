@@ -42,20 +42,20 @@ export function expectComputeCohomologyButtonToContain(text: "Compute" | "Comput
 
 export async function clickRestartButton(): Promise<void> {
   // Open dialog
-  const restartButton = screen.getByRole((role, element) => (
-    (role === "button") && (element !== null) &&
-      (element.textContent === "Restart")
+  const buttons = screen.getAllByRole("button")
+  const restartButton = buttons.find((element) => (
+    (element !== null) && (element.textContent === "Restart")
   ))
   fireEvent.click(restartButton)
 
   // Close dialog
-  const dialog = screen.getByRole((role, element) => (
-    (role === "dialog") && (element !== null) &&
-      (element.innerHTML.includes("Are you sure to restart"))
+  const dialogs = screen.getAllByRole("dialog")
+  const dialog = dailogs.find((element) => (
+    (element !== null) && (element.innerHTML.includes("Are you sure to restart"))
   ))
-  const restartButtonInDialog = within(dialog).getByRole((role, element) => (
-    (role === "button") && (element !== null) &&
-      (element.textContent === "Restart")
+  const buttons = within(dialog).getAllByRole("button")
+  const restartButtonInDialog = buttons.find((element) => (
+    (element !== null) && (element.textContent === "Restart")
   ))
   fireEvent.click(restartButtonInDialog)
   await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
@@ -78,9 +78,9 @@ function isRadioGroupForTargets(role: string, element: Element | null): boolean 
 
 export function selectComputationTarget(targetName: TargetName): void {
   const radiogroup = screen.getByRole(isRadioGroupForTargets)
-  const input = within(radiogroup).getByRole((role, element) => (
-    (role === "radio") && (element !== null) &&
-      (element.outerHTML.includes(`value="${targetName}"`))
+  const radios = within(radiogroup).getAllByRole("radio")
+  const input = radios.find((element) => (
+    (element !== null) && (element.outerHTML.includes(`value="${targetName}"`))
   ))
   fireEvent.click(input)
 }

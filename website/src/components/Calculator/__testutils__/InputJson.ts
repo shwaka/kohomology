@@ -9,9 +9,8 @@ export class InputJson {
     fireEvent.click(editDGAButton)
     const dialog = screen.getByRole("dialog")
     // Select the "JSON" tab
-    const jsonTabButton = within(dialog).getByRole((role, element) => (
-      role === "tab" && element?.textContent?.includes("JSON")
-    ))
+    const tabs = within(dialog).getAllByRole("tab")
+    const jsonTabButton = tabs.find((element) => (element?.textContent?.includes("JSON")))
     fireEvent.click(jsonTabButton)
     return dialog
   }

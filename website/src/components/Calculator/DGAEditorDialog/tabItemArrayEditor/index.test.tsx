@@ -51,10 +51,8 @@ class ArrayEditorTestUtil {
 
   private getDeleteButton(index: number): HTMLElement {
     const row = this.getRow(index)
-    return within(row).getByRole((role, element) =>
-      (role === "button") &&
-      (element !== null) && (element.innerHTML.includes("Delete"))
-    )
+    const buttons = within(row).getAllByRole("button")
+    return buttons.find((element) => (element !== null) && (element.innerHTML.includes("Delete")))
   }
 
   expectValue(key: keyof Generator, index: number, value: string | number): void {

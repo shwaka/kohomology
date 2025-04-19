@@ -1,5 +1,4 @@
 import { generatorArrayToPrettyJson } from "../../jsonUtils"
-import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 
 export function generatorArrayToJson(generatorArray: Generator[]): string {

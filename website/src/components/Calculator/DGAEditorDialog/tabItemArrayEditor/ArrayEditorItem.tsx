@@ -44,7 +44,7 @@ export function ArrayEditorItem(
               }
             )}
             onBlur={() => trigger()}
-            error={containsError({ errors, index, key: "degree" })}
+            error={containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors })}
             inputProps={{ "data-testid": "ArrayEditor-input-degree" }}
           />
           <TextField
@@ -109,4 +109,8 @@ function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired
 function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {
   const error: FieldError | undefined = errors.generatorArray?.[index]?.[key]
   return error !== undefined
+}
+
+function containsGlobalDegreeError({ errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }): boolean {
+  return (errors._global_errors?.generatorDegrees !== undefined)
 }

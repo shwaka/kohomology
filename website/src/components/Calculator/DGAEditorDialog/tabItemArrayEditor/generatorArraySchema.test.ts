@@ -1,4 +1,5 @@
-import { deegreeSchema, differentialValueSchema, formValueSchema, generatorArraySchema, generatorSchema, nameSchema } from "./generatorArraySchema"
+import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
+import { deegreeSchema, differentialValueSchema, generatorSchema, nameSchema } from "./generatorSchema"
 
 describe("nameSchema", () => {
   for (const name of ["x", "x_", "x1", "xyz", "y_z", "_y", "a", "α", "π_123"]) {

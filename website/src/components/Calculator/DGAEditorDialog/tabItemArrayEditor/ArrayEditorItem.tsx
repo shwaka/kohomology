@@ -4,7 +4,8 @@ import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
-import { Generator, GeneratorFormInput } from "./Generator"
+import { GeneratorFormInput } from "./generatorArraySchema"
+import { Generator } from "./generatorSchema"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>

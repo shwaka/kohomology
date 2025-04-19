@@ -1,7 +1,6 @@
 import { generatorArrayToPrettyJson } from "../../jsonUtils"
-import { Generator, GeneratorFormInput } from "./generatorArraySchema"
-
-export { Generator, GeneratorFormInput }
+import { GeneratorFormInput } from "./generatorArraySchema"
+import { Generator } from "./generatorSchema"
 
 export function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(

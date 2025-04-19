@@ -1,4 +1,22 @@
+import { z } from "zod"
 import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
+import { magicMessageToHideError } from "./validation"
+
+function getErrorsByPath(
+  error: z.ZodError<unknown>,
+  path: (string | number)[]
+): z.ZodIssue[] {
+  return error.issues.filter(
+    issue => JSON.stringify(issue.path) === JSON.stringify(path)
+  )
+}
+
+function getErrorMessagesByPath(
+  error: z.ZodError<unknown>,
+  path: (string | number)[]
+): string[] {
+  return getErrorsByPath(error, path).map((issue) => issue.message)
+}
 
 describe("generatorArraySchema", () => {
   it("should sccept the model of 2-sphere", () => {
@@ -85,9 +103,43 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors._global_errors).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors._global_errors).toContain(
-        'Generator names must be unique. Duplicated names are "x"'
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 0, "name"])).toContain(
+        magicMessageToHideError
+      )
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 1, "name"])).toContain(
+        "Generator names must be unique, but x is already used."
+      )
+    }
+  })
+
+  it("should not accept if names are duplicated", () => {
+    const result = formValueSchema.safeParse({
+      generatorArray: [
+        { name: "x", degree: 2, differentialValue: "0" },
+        { name: "y", degree: 3, differentialValue: "0" },
+        { name: "x", degree: 3, differentialValue: "0" },
+        { name: "x", degree: 3, differentialValue: "0" },
+        { name: "z", degree: 3, differentialValue: "0" },
+        { name: "y", degree: 3, differentialValue: "0" },
+      ],
+    })
+    expect(result.success).toBe(false)
+    if (!result.success) {
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 0, "name"])).toContain(
+        magicMessageToHideError
+      )
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 1, "name"])).toContain(
+        magicMessageToHideError
+      )
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 2, "name"])).toContain(
+        "Generator names must be unique, but x is already used."
+      )
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 3, "name"])).toContain(
+        "Generator names must be unique, but x is already used."
+      )
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 4, "name"])).toBeEmpty()
+      expect(getErrorMessagesByPath(result.error, ["generatorArray", 5, "name"])).toContain(
+        "Generator names must be unique, but y is already used."
       )
     }
   })

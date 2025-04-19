@@ -195,6 +195,16 @@ describe("useTabItemArrayEditor", () => {
       testUtil.expectSingleError(errorMessage)
     })
 
+    test("both positive and negative degrees", async () => {
+      const testUtil = new ArrayEditorTestUtil()
+      testUtil.expectInitialState()
+      testUtil.inputValue("differentialValue", 1, "0")
+      testUtil.inputValue("degree", 1, "-1")
+      await testUtil.submit()
+      const errorMessage = "Cannot mix generators of positive and negative degrees."
+      testUtil.expectSingleError(errorMessage)
+    })
+
     test('error at the beginning for "."', async () => {
       const testUtil = new ArrayEditorTestUtil()
       testUtil.expectInitialState()

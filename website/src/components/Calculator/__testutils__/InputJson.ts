@@ -11,7 +11,9 @@ export class InputJson {
     const dialog = screen.getByRole("dialog")
     // Select the "JSON" tab
     const tabs = within(dialog).getAllByRole("tab")
-    const jsonTabButton = findOrThrow(tabs, (element) => (element?.textContent?.includes("JSON")))
+    const jsonTabButton = findOrThrow(tabs, (element) => (
+      element?.textContent?.includes("JSON") ?? false
+    ))
     fireEvent.click(jsonTabButton)
     return dialog
   }

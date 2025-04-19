@@ -19,7 +19,8 @@
       "jest"
     ],
     "resolveJsonModule": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "jsx": "react"
   },
   "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ],
   "exclude": [ "kohomology-js/build/**/*" ]

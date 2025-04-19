@@ -3,7 +3,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
-import { formValueSchema } from "./generatorArraySchema"
+import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
 
 type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
   arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit">
@@ -13,14 +13,15 @@ export function useArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): UseArrayEditorReturnValue {
+  const defaultValues: GeneratorFormInput = {
+    dummy: "dummy" as const,
+    generatorArray: jsonToGeneratorArray(args.json)
+  }
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
-    defaultValues: {
-      dummy: "dummy" as const,
-      generatorArray: jsonToGeneratorArray(args.json)
-    },
+    defaultValues,
     resolver: zodResolver(formValueSchema),
   })
   const { fields, append, remove, move } = useFieldArray({

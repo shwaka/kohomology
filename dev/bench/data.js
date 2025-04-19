@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745026793399,
+  "lastUpdate": 1745032534924,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -6850,6 +6850,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.447,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6654000d32680cbcf4998737208029410fd23986",
+          "message": "feat(website): make all inputs for degrees red when both positive and negative degrees are given",
+          "timestamp": "2025-04-19T12:10:05+09:00",
+          "tree_id": "f72fd0351386d278dd48b43b7a3720b5103774df",
+          "url": "https://github.com/shwaka/kohomology/commit/6654000d32680cbcf4998737208029410fd23986"
+        },
+        "date": 1745032534310,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.42,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.569,
             "unit": "s/op"
           }
         ]

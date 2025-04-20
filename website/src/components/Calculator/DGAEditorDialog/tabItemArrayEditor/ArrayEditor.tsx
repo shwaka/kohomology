@@ -1,12 +1,12 @@
 import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
+import { AnimatePresence, motion } from "motion/react"
 import React, { ReactNode } from "react"
-import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
-import { AnimatePresence, motion } from "motion/react"
 import { motionDivProps } from "./motionDivProps"
 
 export interface ArrayEditorProps {

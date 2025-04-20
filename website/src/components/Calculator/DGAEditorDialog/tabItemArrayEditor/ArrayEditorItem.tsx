@@ -1,14 +1,14 @@
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
-import { Alert, Collapse, IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { motion, AnimatePresence } from "motion/react"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
 import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator, GeneratorKey } from "./generatorSchema"
-import { magicMessageToHideError } from "./validation"
-import { motion, AnimatePresence } from "motion/react"
 import { motionDivProps } from "./motionDivProps"
+import { magicMessageToHideError } from "./validation"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>

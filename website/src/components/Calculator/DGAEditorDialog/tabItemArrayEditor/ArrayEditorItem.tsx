@@ -104,7 +104,7 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
         }
         // motion.div must be placed as a DIRECT child of AnimatePresence
         return (
-          <motion.div key={key} {...motionDivProps}>
+          <motion.div key={`motion-${key}-${message}`} {...motionDivProps}>
             <Alert
               severity="error"
               sx={{ whiteSpace: "pre-wrap" }}

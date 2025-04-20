@@ -27,7 +27,13 @@ export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFiel
           <motion.div key={`motion-${errorType}-${message}`} {...motionDivProps}>
             <Alert
               severity="error"
-              sx={{ whiteSpace: "pre-wrap" }}
+              sx={{
+                whiteSpace: "pre-wrap",
+                paddingTop: 0,
+                paddingBottom: 0,
+                paddingLeft: "5px",
+                paddingRight: "5px",
+              }}
             >
               {message}
             </Alert>

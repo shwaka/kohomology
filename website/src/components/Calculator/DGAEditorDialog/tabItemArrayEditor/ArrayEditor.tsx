@@ -6,6 +6,8 @@ import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFi
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
+import { AnimatePresence, motion } from "motion/react"
+import { motionDivProps } from "./motionDivProps"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>
@@ -71,13 +73,15 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
   const globalErrors = getMessages({ errors })
   return (
-    <React.Fragment>
+    <AnimatePresence mode="sync">
       {globalErrors.map(({ errorType, message }) => (
-        <Alert severity="error" key={errorType}>
-          {message}
-        </Alert>
+        <motion.div key={`motion-${errorType}-${message}`} {...motionDivProps}>
+          <Alert severity="error" key={errorType}>
+            {message}
+          </Alert>
+        </motion.div>
       ))}
-    </React.Fragment>
+    </AnimatePresence>
   )
 }
 

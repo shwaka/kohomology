@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745111761568,
+  "lastUpdate": 1745126303011,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7088,6 +7088,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.922,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d906fa3e9b59dbcf3e3db9b3cefd1971b8d52db5",
+          "message": "fix(website): suport magicMessageToHideError in ShowFieldErrors.tsx",
+          "timestamp": "2025-04-20T13:57:57+09:00",
+          "tree_id": "c24c7ce2360999de5921408d94d881f9538564d2",
+          "url": "https://github.com/shwaka/kohomology/commit/d906fa3e9b59dbcf3e3db9b3cefd1971b8d52db5"
+        },
+        "date": 1745126301947,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.351,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.921,
             "unit": "s/op"
           }
         ]

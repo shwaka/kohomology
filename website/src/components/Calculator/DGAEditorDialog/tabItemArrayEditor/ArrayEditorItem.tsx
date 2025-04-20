@@ -110,24 +110,31 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
   if (error === undefined) {
     return <div></div>
   }
+
   return (
     <Stack spacing={0.3}>
-      {(["name", "degree", "differentialValue"] as const).map((key) => {
-        const errorForKey = error[key]
-        if (errorForKey === undefined || errorForKey.message === undefined) {
-          return undefined
-        }
-        const message = errorForKey.message
-        if (message === magicMessageToHideError) {
-          return undefined
-        }
-        return (
-          <Alert severity="error" key={key} sx={{ whiteSpace: "pre-wrap" }}>
-            {message}
-          </Alert>
-        )
-      })}
+      {(["name", "degree", "differentialValue"] as const).map((key) => (
+        <ShowErrorForKey
+          key={key}
+          errorForKey={error[key]}
+        />
+      ))}
     </Stack>
+  )
+}
+
+function ShowErrorForKey({ errorForKey }: { errorForKey: FieldError | undefined }): JSX.Element {
+  if (errorForKey === undefined || errorForKey.message === undefined) {
+    return undefined
+  }
+  const message = errorForKey.message
+  if (message === magicMessageToHideError) {
+    return undefined
+  }
+  return (
+    <Alert severity="error" sx={{ whiteSpace: "pre-wrap" }}>
+      {message}
+    </Alert>
   )
 }
 

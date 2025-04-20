@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745105964585,
+  "lastUpdate": 1745108692723,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7020,6 +7020,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.894,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "16f316d87f06fa4204cc22de8040591129caa8cf",
+          "message": "build(website): rename docusaurus.config.js to .mjs (ES Modules)",
+          "timestamp": "2025-04-20T09:20:02+09:00",
+          "tree_id": "4c29f955937ef755084374684697bfa653c8c903",
+          "url": "https://github.com/shwaka/kohomology/commit/16f316d87f06fa4204cc22de8040591129caa8cf"
+        },
+        "date": 1745108691575,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.338,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.925,
             "unit": "s/op"
           }
         ]

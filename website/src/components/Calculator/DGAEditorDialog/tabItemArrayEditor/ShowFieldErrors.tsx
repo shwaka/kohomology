@@ -6,7 +6,7 @@ import { magicMessageToHideError } from "./validation"
 
 interface ShowFieldErrorsProps {
   fieldErrors: FieldError[]
-  showAllErrors: boolean // If this is true, then all errors from fieldError.types are rendered.
+  showAllErrors?: boolean // If this is true, then all errors from fieldError.types are rendered.
 }
 
 export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFieldErrorsProps): React.JSX.Element {

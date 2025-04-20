@@ -41,12 +41,9 @@ jobs:
       #     cache-dependency-path: website/package-lock.json
       - uses: volta-cli/action@v3
       - name: Assert that volta is used
-        run: |
-          command -v node
-          node --version
-          command -v npm
-          npm --version
+        run: ../scripts/assert-volta.sh
         working-directory: website
+        # To run "node(npm) --version", assert-volta.sh should be run in website/
       - name: Typecheck website
         # This requires benchmark-data
         run: npm run tsc

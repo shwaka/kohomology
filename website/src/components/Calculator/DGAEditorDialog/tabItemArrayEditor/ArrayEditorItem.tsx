@@ -89,20 +89,7 @@ export function ArrayEditorItem(
 function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element {
   const error = errors.generatorArray?.[index]
   return (
-    <AnimatePresence mode="wait">
-      {(error !== undefined) && (
-        <motion.div
-          key="error"
-          initial={{ opacity: 0, height: 0 }}
-          animate={{ opacity: 1, height: "auto" }}
-          exit={{ opacity: 0, height: 0 }}
-          transition={{ duration: 0.3 }}
-          style={{ overflow: "hidden", color: "red", marginTop: 4 }}
-        >
-          <ShowError error={error}/>
-        </motion.div>
-      )}
-    </AnimatePresence>
+    <ShowError error={error}/>
   )
 }
 
@@ -112,21 +99,31 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
   }
   return (
     <Stack spacing={0.3}>
-      {(["name", "degree", "differentialValue"] as const).map((key) => {
-        const message: string | undefined = getMessage({ error, key })
-        if (message === undefined) {
-          return undefined
-        }
-        return (
-          <Alert
-            key={key}
-            severity="error"
-            sx={{ whiteSpace: "pre-wrap" }}
-          >
-            {message}
-          </Alert>
-        )
-      })}
+      <AnimatePresence mode="sync">
+        {(["name", "degree", "differentialValue"] as const).map((key) => {
+          const message: string | undefined = getMessage({ error, key })
+          if (message === undefined) {
+            return undefined
+          }
+          return (
+            <motion.div
+              key={key}
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ overflow: "hidden", color: "red", marginTop: 4 }}
+            >
+              <Alert
+                severity="error"
+                sx={{ whiteSpace: "pre-wrap" }}
+              >
+                {message}
+              </Alert>
+            </motion.div>
+          )
+        })}
+      </AnimatePresence>
     </Stack>
   )
 }

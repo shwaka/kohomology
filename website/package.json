@@ -14,8 +14,8 @@
     "write-heading-ids": "docusaurus write-heading-ids",
     "tsc": "tsc",
     "tsc-watch": "tsc --watch",
-    "eslint": "eslint src docusaurus.config.js --ext .ts,.tsx",
-    "eslint:fix": "eslint src docusaurus.config.js --ext .ts,.tsx --fix",
+    "eslint": "eslint src docusaurus.config.mjs --ext .ts,.tsx",
+    "eslint:fix": "eslint src docusaurus.config.mjs --ext .ts,.tsx --fix",
     "test": "jest",
     "test-watch": "jest --watch"
   },

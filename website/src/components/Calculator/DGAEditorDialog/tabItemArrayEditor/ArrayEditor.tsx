@@ -69,39 +69,43 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
-  const _global_errors = errors._global_errors
-  if (_global_errors === undefined) {
-    return undefined
-  }
+  const globalErrors = getMessages({ errors })
   return (
     <React.Fragment>
-      {(Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]).map((key) => (
-        <ShowFieldError
-          fieldError={_global_errors[key]}
-          key={key}
-        />
-      ))}
-    </React.Fragment>
-  )
-}
-
-function ShowFieldError({ fieldError }: { fieldError: FieldError | undefined }): React.JSX.Element {
-  if (fieldError === undefined) {
-    return <React.Fragment/>
-  }
-  const types: MultipleFieldErrors | undefined = fieldError.types
-  if (types === undefined) {
-    return <React.Fragment/>
-  }
-  return (
-    <React.Fragment>
-      {Object.entries(types).map(([errorType, message]) => (
+      {globalErrors.map(({ errorType, message }) => (
         <Alert severity="error" key={errorType}>
           {message}
         </Alert>
       ))}
     </React.Fragment>
   )
+}
+
+type GlobalError = { errorType: string, message: string | string[] | boolean | undefined }
+
+function getMessages(
+  { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
+): GlobalError[] {
+  const _global_errors = errors._global_errors
+  if (_global_errors === undefined) {
+    return []
+  }
+  const result: GlobalError[] = []
+  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
+  keys.forEach((key) => {
+    const fieldError = _global_errors[key]
+    if (fieldError === undefined) {
+      return
+    }
+    const types: MultipleFieldErrors | undefined = fieldError.types
+    if (types === undefined) {
+      return
+    }
+    Object.entries(types).map(([errorType, message]) => {
+      result.push({ errorType, message })
+    })
+  })
+  return result
 }
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {

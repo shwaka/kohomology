@@ -7,6 +7,7 @@ import { useOverwritableTimeout } from "../useOverwritableTimeout"
 import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 import { magicMessageToHideError } from "./validation"
+import { motion, AnimatePresence } from "motion/react"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -79,24 +80,35 @@ export function ArrayEditorItem(
             <DragHandle/>
           </IconButton>
         </Stack>
-        {getFieldError({ errors, index })}
+        <ShowErrorsAtIndex errors={errors} index={index}/>
       </Stack>
     </div>
   )
 }
 
-function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element | undefined {
+function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element {
   const error = errors.generatorArray?.[index]
   return (
-    <Collapse in={error !== undefined}>
-      <ShowError error={error}/>
-    </Collapse>
+    <AnimatePresence mode="wait">
+      {(error !== undefined) && (
+        <motion.div
+          key="error"
+          initial={{ opacity: 0, height: 0 }}
+          animate={{ opacity: 1, height: "auto" }}
+          exit={{ opacity: 0, height: 0 }}
+          transition={{ duration: 0.3 }}
+          style={{ overflow: "hidden", color: "red", marginTop: 4 }}
+        >
+          <ShowError error={error}/>
+        </motion.div>
+      )}
+    </AnimatePresence>
   )
 }
 
 function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): React.JSX.Element {
   if (error === undefined) {
-    return <React.Fragment/>
+    return <div></div>
   }
   return (
     <Stack spacing={0.3}>

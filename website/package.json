@@ -42,6 +42,7 @@
     "hast-util-is-element": "^1.1.0",
     "katex": "^0.15.1",
     "kohomology-js": "file:kohomology-js/build/js/packages/kohomology-js",
+    "motion": "^12.7.4",
     "prism-react-renderer": "^1.2.1",
     "raw-loader": "^4.0.2",
     "react": "^19.1.0",

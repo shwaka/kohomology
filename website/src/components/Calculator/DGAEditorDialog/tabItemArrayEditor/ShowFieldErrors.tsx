@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "motion/react"
 import React from "react"
 import { FieldError } from "react-hook-form"
 import { motionDivProps } from "./motionDivProps"
+import { magicMessageToHideError } from "./validation"
 
 interface ShowFieldErrorsProps {
   fieldErrors: FieldError[]
@@ -14,6 +15,9 @@ export function ShowFieldErrors({ fieldErrors }: ShowFieldErrorsProps): React.JS
       {fieldErrors.map((fieldError) => {
         const message: string | undefined = fieldError.message
         if (message === undefined) {
+          return undefined
+        }
+        if (message === magicMessageToHideError) {
           return undefined
         }
         // motion.div must be placed as a DIRECT child of AnimatePresence

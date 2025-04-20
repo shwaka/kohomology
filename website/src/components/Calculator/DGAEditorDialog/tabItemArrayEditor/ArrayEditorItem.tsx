@@ -8,6 +8,7 @@ import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator, GeneratorKey } from "./generatorSchema"
 import { magicMessageToHideError } from "./validation"
 import { motion, AnimatePresence } from "motion/react"
+import { motionDivProps } from "./motionDivProps"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -101,15 +102,9 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
         if (message === undefined) {
           return undefined
         }
+        // motion.div must be placed as a DIRECT child of AnimatePresence
         return (
-          <motion.div
-            key={key}
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            style={{ overflow: "hidden", color: "red", marginTop: 4 }}
-          >
+          <motion.div key={key} {...motionDivProps}>
             <Alert
               severity="error"
               sx={{ whiteSpace: "pre-wrap" }}

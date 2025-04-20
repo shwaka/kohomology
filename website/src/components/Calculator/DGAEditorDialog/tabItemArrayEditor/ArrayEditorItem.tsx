@@ -5,7 +5,7 @@ import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
 import { GeneratorFormInput } from "./generatorArraySchema"
-import { Generator } from "./generatorSchema"
+import { Generator, GeneratorKey } from "./generatorSchema"
 import { magicMessageToHideError } from "./validation"
 import { motion, AnimatePresence } from "motion/react"
 
@@ -110,20 +110,31 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
   if (error === undefined) {
     return <div></div>
   }
-
   return (
     <Stack spacing={0.3}>
-      {(["name", "degree", "differentialValue"] as const).map((key) => (
-        <ShowErrorForKey
-          key={key}
-          errorForKey={error[key]}
-        />
-      ))}
+      {(["name", "degree", "differentialValue"] as const).map((key) => {
+        const message: string | undefined = getMessage({ error, key })
+        if (message === undefined) {
+          return undefined
+        }
+        return (
+          <Alert
+            key={key}
+            severity="error"
+            sx={{ whiteSpace: "pre-wrap" }}
+          >
+            {message}
+          </Alert>
+        )
+      })}
     </Stack>
   )
 }
 
-function ShowErrorForKey({ errorForKey }: { errorForKey: FieldError | undefined }): JSX.Element {
+function getMessage(
+  { error, key }: { error: FieldErrorsImpl<Generator>, key: GeneratorKey }
+): string | undefined {
+  const errorForKey = error[key]
   if (errorForKey === undefined || errorForKey.message === undefined) {
     return undefined
   }
@@ -131,11 +142,7 @@ function ShowErrorForKey({ errorForKey }: { errorForKey: FieldError | undefined 
   if (message === magicMessageToHideError) {
     return undefined
   }
-  return (
-    <Alert severity="error" sx={{ whiteSpace: "pre-wrap" }}>
-      {message}
-    </Alert>
-  )
+  return message
 }
 
 function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {

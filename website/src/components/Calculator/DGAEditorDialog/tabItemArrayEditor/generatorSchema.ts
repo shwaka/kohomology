@@ -32,3 +32,5 @@ export const generatorSchema = z.object({
 })
 
 export type Generator = z.infer<typeof generatorSchema>
+
+export type GeneratorKey = keyof (typeof generatorSchema.shape)

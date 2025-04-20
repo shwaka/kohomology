@@ -3,11 +3,12 @@ import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
 import { AnimatePresence, motion } from "motion/react"
 import React, { ReactNode } from "react"
-import { DeepRequired, FieldArrayWithId, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 import { motionDivProps } from "./motionDivProps"
+import { ShowFieldErrors } from "./ShowFieldErrors"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>
@@ -72,17 +73,27 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
   const globalErrors = getMessages({ errors })
+  const fieldErrors = getFieldErrors({ errors })
   return (
-    <AnimatePresence mode="sync">
-      {globalErrors.map(({ errorType, message }) => (
-        <motion.div key={`motion-${errorType}-${message}`} {...motionDivProps}>
-          <Alert severity="error" key={errorType}>
-            {message}
-          </Alert>
-        </motion.div>
-      ))}
-    </AnimatePresence>
+    <ShowFieldErrors fieldErrors={fieldErrors}/>
   )
+}
+
+function getFieldErrors(
+  { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
+): FieldError[] {
+  const _global_errors = errors._global_errors
+  if (_global_errors === undefined) {
+    return []
+  }
+  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
+  return keys.flatMap((key) => {
+    const fieldError = _global_errors[key]
+    if (fieldError === undefined) {
+      return []
+    }
+    return [fieldError]
+  })
 }
 
 type GlobalError = { errorType: string, message: string | string[] | boolean | undefined }

@@ -9,6 +9,8 @@ interface ShowFieldErrorsProps {
   showAllErrors?: boolean // If this is true, then all errors from fieldError.types are rendered.
 }
 
+// Currently, showAllErrors=false is enough to show the way to fix inputs.
+// In some future, showAllErrors=true may be useful to show more information.
 export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFieldErrorsProps): React.JSX.Element {
   const messages = showAllErrors ? getAllMessages({ fieldErrors }) : getMainMessages({ fieldErrors })
   return (

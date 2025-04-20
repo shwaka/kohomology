@@ -9,6 +9,7 @@ import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator, GeneratorKey } from "./generatorSchema"
 import { motionDivProps } from "./motionDivProps"
 import { magicMessageToHideError } from "./validation"
+import { ShowFieldErrors } from "./ShowFieldErrors"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -95,44 +96,25 @@ function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequ
 }
 
 function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): React.JSX.Element {
+  const fieldErrors = getFieldErrors({ error })
   return (
     <AnimatePresence mode="sync">
-      {(["name", "degree", "differentialValue"] as const).map((key) => {
-        const message: string | undefined = getMessage({ error, key })
-        if (message === undefined) {
-          return undefined
-        }
-        // motion.div must be placed as a DIRECT child of AnimatePresence
-        return (
-          <motion.div key={`motion-${key}-${message}`} {...motionDivProps}>
-            <Alert
-              severity="error"
-              sx={{ whiteSpace: "pre-wrap" }}
-            >
-              {message}
-            </Alert>
-          </motion.div>
-        )
-      })}
+      <ShowFieldErrors fieldErrors={fieldErrors}/>
     </AnimatePresence>
   )
 }
 
-function getMessage(
-  { error, key }: { error: FieldErrorsImpl<Generator> | undefined, key: GeneratorKey }
-): string | undefined {
+function getFieldErrors({ error }: { error: FieldErrorsImpl<Generator> | undefined }): FieldError[] {
   if (error === undefined) {
-    return undefined
+    return []
   }
-  const errorForKey = error[key]
-  if (errorForKey === undefined || errorForKey.message === undefined) {
-    return undefined
-  }
-  const message = errorForKey.message
-  if (message === magicMessageToHideError) {
-    return undefined
-  }
-  return message
+  return (["name", "degree", "differentialValue"] as const).flatMap((key) => {
+    const errorForKey = error[key]
+    if (errorForKey === undefined) {
+      return []
+    }
+    return [errorForKey]
+  })
 }
 
 function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {

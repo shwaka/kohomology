@@ -2,7 +2,6 @@ import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"
 import React from "react"
 import { FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
-import { motionDivProps } from "./motionDivProps"
 import { magicMessageToHideError } from "./validation"
 
 interface ShowFieldErrorsProps {
@@ -33,6 +32,14 @@ export function ShowFieldErrors({ fieldErrors }: ShowFieldErrorsProps): React.JS
       })}
     </AnimatePresence>
   )
+}
+
+const motionDivProps = {
+  initial: { opacity: 0, height: 0 },
+  animate: { opacity: 1, height: "auto" },
+  exit: { opacity: 0, height: 0 },
+  transition: { duration: 0.3 },
+  style: { overflow: "hidden", color: "red", marginTop: 4 },
 }
 
 type MessageWithType = {

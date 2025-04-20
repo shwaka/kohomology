@@ -1,14 +1,12 @@
 import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
-import { Alert, Button, Stack } from "@mui/material"
-import { AnimatePresence, motion } from "motion/react"
+import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
-import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
+import { ShowFieldErrors } from "./ShowFieldErrors"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
-import { motionDivProps } from "./motionDivProps"
-import { ShowFieldErrors } from "./ShowFieldErrors"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>
@@ -72,7 +70,6 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
-  const globalErrors = getMessages({ errors })
   const fieldErrors = getFieldErrors({ errors })
   return (
     <ShowFieldErrors fieldErrors={fieldErrors}/>
@@ -94,33 +91,6 @@ function getFieldErrors(
     }
     return [fieldError]
   })
-}
-
-type GlobalError = { errorType: string, message: string | string[] | boolean | undefined }
-
-function getMessages(
-  { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
-): GlobalError[] {
-  const _global_errors = errors._global_errors
-  if (_global_errors === undefined) {
-    return []
-  }
-  const result: GlobalError[] = []
-  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
-  keys.forEach((key) => {
-    const fieldError = _global_errors[key]
-    if (fieldError === undefined) {
-      return
-    }
-    const types: MultipleFieldErrors | undefined = fieldError.types
-    if (types === undefined) {
-      return
-    }
-    Object.entries(types).map(([errorType, message]) => {
-      result.push({ errorType, message })
-    })
-  })
-  return result
 }
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {

@@ -6,12 +6,14 @@ import { magicMessageToHideError } from "./validation"
 
 interface ShowFieldErrorsProps {
   fieldErrors: FieldError[]
+  showAllErrors: boolean // If this is true, then all errors from fieldError.types are rendered.
 }
 
-export function ShowFieldErrors({ fieldErrors }: ShowFieldErrorsProps): React.JSX.Element {
+export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFieldErrorsProps): React.JSX.Element {
+  const messages = showAllErrors ? getAllMessages({ fieldErrors }) : getMainMessages({ fieldErrors })
   return (
     <AnimatePresence mode="sync">
-      {getMessages({ fieldErrors }).map(({message, errorType}) => {
+      {messages.map(({ message, errorType }) => {
         if (message === undefined) {
           return undefined
         }
@@ -47,9 +49,19 @@ type MessageWithType = {
   errorType: string
 }
 
-function getMessages({ fieldErrors }: { fieldErrors: FieldError[]}): MessageWithType[] {
+function getMainMessages({ fieldErrors }: { fieldErrors: FieldError[]}): MessageWithType[] {
   return fieldErrors.flatMap((fieldError) => {
-    // Just using fieldError.message may be enough
+    const message: string | undefined = fieldError.message
+    if (message === undefined) {
+      return []
+    }
+    const errorType = ""
+    return [{ errorType, message }]
+  })
+}
+
+function getAllMessages({ fieldErrors }: { fieldErrors: FieldError[]}): MessageWithType[] {
+  return fieldErrors.flatMap((fieldError) => {
     const types: MultipleFieldErrors | undefined = fieldError.types
     if (types === undefined) {
       return []

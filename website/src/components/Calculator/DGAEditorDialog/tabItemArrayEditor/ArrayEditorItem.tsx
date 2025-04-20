@@ -94,9 +94,6 @@ function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequ
 }
 
 function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): React.JSX.Element {
-  if (error === undefined) {
-    return <div></div>
-  }
   return (
     <Stack spacing={0.3}>
       <AnimatePresence mode="sync">
@@ -129,8 +126,11 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
 }
 
 function getMessage(
-  { error, key }: { error: FieldErrorsImpl<Generator>, key: GeneratorKey }
+  { error, key }: { error: FieldErrorsImpl<Generator> | undefined, key: GeneratorKey }
 ): string | undefined {
+  if (error === undefined) {
+    return undefined
+  }
   const errorForKey = error[key]
   if (errorForKey === undefined || errorForKey.message === undefined) {
     return undefined

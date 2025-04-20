@@ -95,33 +95,31 @@ function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequ
 
 function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined }): React.JSX.Element {
   return (
-    <Stack spacing={0.3}>
-      <AnimatePresence mode="sync">
-        {(["name", "degree", "differentialValue"] as const).map((key) => {
-          const message: string | undefined = getMessage({ error, key })
-          if (message === undefined) {
-            return undefined
-          }
-          return (
-            <motion.div
-              key={key}
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
-              style={{ overflow: "hidden", color: "red", marginTop: 4 }}
+    <AnimatePresence mode="sync">
+      {(["name", "degree", "differentialValue"] as const).map((key) => {
+        const message: string | undefined = getMessage({ error, key })
+        if (message === undefined) {
+          return undefined
+        }
+        return (
+          <motion.div
+            key={key}
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.3 }}
+            style={{ overflow: "hidden", color: "red", marginTop: 4 }}
+          >
+            <Alert
+              severity="error"
+              sx={{ whiteSpace: "pre-wrap" }}
             >
-              <Alert
-                severity="error"
-                sx={{ whiteSpace: "pre-wrap" }}
-              >
-                {message}
-              </Alert>
-            </motion.div>
-          )
-        })}
-      </AnimatePresence>
-    </Stack>
+              {message}
+            </Alert>
+          </motion.div>
+        )
+      })}
+    </AnimatePresence>
   )
 }
 

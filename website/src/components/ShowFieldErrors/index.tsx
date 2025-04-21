@@ -1,7 +1,8 @@
 import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"
 import React from "react"
-import { FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
+import { FieldError } from "react-hook-form"
+import { getMessages } from "./getMessages"
 
 export const magicMessageToHideError = "_HIDE_THIS_ERROR_"
 
@@ -13,7 +14,7 @@ interface ShowFieldErrorsProps {
 // Currently, showAllErrors=false is enough to show the way to fix inputs.
 // In some future, showAllErrors=true may be useful to show more information.
 export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFieldErrorsProps): React.JSX.Element {
-  const messages = showAllErrors ? getAllMessages({ fieldErrors }) : getMainMessages({ fieldErrors })
+  const messages = getMessages({ fieldErrors, showAllErrors })
   return (
     <AnimatePresence mode="sync">
       {messages.map(({ message, type }) => {
@@ -51,40 +52,4 @@ const motionDivProps = {
   exit: { opacity: 0, height: 0 },
   transition: { duration: 0.3 },
   style: { overflow: "hidden", color: "red", marginTop: 4 },
-}
-
-type MessageWithType = {
-  message: ValidateResult // string | string[] | boolean | undefined
-  type: string
-}
-
-// returns a list of length 0 or 1
-function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWithType[] {
-  if (fieldError === undefined) {
-    return []
-  }
-  const message: string | undefined = fieldError?.message
-  if (message === undefined) {
-    return []
-  }
-  const type: string = fieldError.type
-  return [{ type, message }]
-}
-
-function getMainMessages(
-  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
-): MessageWithType[] {
-  return fieldErrors.flatMap(getMessageFromFieldError)
-}
-
-function getAllMessages(
-  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
-): MessageWithType[] {
-  return fieldErrors.flatMap((fieldError) => {
-    const types: MultipleFieldErrors | undefined = fieldError?.types
-    if (types === undefined) {
-      return getMessageFromFieldError(fieldError)
-    }
-    return Object.entries(types).map(([type, message]) => ({ type, message }))
-  })
 }

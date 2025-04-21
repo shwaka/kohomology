@@ -16,7 +16,7 @@ export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFiel
   const messages = showAllErrors ? getAllMessages({ fieldErrors }) : getMainMessages({ fieldErrors })
   return (
     <AnimatePresence mode="sync">
-      {messages.map(({ message, errorType }) => {
+      {messages.map(({ message, type }) => {
         if (message === undefined) {
           return undefined
         }
@@ -25,7 +25,7 @@ export function ShowFieldErrors({ fieldErrors, showAllErrors = false }: ShowFiel
         }
         // motion.div must be placed as a DIRECT child of AnimatePresence
         return (
-          <motion.div key={`motion-${errorType}-${message}`} {...motionDivProps}>
+          <motion.div key={`motion-${type}-${message}`} {...motionDivProps}>
             <Alert
               severity="error"
               sx={{
@@ -55,7 +55,7 @@ const motionDivProps = {
 
 type MessageWithType = {
   message: ValidateResult // string | string[] | boolean | undefined
-  errorType: string
+  type: string
 }
 
 // returns a list of length 0 or 1
@@ -64,8 +64,8 @@ function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWi
   if (message === undefined) {
     return []
   }
-  const errorType = ""
-  return [{ errorType, message }]
+  const type = ""
+  return [{ type, message }]
 }
 
 function getMainMessages(
@@ -82,6 +82,6 @@ function getAllMessages(
     if (types === undefined) {
       return getMessageFromFieldError(fieldError)
     }
-    return Object.entries(types).map(([errorType, message]) => ({ errorType, message }))
+    return Object.entries(types).map(([type, message]) => ({ type, message }))
   })
 }

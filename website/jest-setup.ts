@@ -6,3 +6,13 @@ import "@testing-library/jest-dom"
 import * as matchers from "jest-extended"
 
 expect.extend(matchers)
+
+/* eslint-disable @typescript-eslint/no-empty-function */
+
+// When running tests containing motion/react,
+// sometimes we have an error such as "Error: Not implemented: window.scrollTo".
+// This is because window.scrollTo is not implemented in jsdom.
+Object.defineProperty(window, "scrollTo", {
+  writable: true,
+  value: () => {},
+})

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745209048338,
+  "lastUpdate": 1745210761749,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7292,6 +7292,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.922,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6b3b15ffaba45818c8a73a579d0f980772c02d41",
+          "message": "test(website): add minLength to validation in EmailForm (in test)",
+          "timestamp": "2025-04-21T13:40:39+09:00",
+          "tree_id": "3466542deb56ddae688af7a6a8d5330bc06248a4",
+          "url": "https://github.com/shwaka/kohomology/commit/6b3b15ffaba45818c8a73a579d0f980772c02d41"
+        },
+        "date": 1745210761012,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.326,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.931,
             "unit": "s/op"
           }
         ]

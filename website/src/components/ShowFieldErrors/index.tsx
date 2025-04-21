@@ -6,7 +6,7 @@ import { FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form
 export const magicMessageToHideError = "_HIDE_THIS_ERROR_"
 
 interface ShowFieldErrorsProps {
-  fieldErrors: FieldError[]
+  fieldErrors: (FieldError | undefined)[]
   showAllErrors?: boolean // If this is true, then all errors from fieldError.types are rendered.
 }
 
@@ -58,9 +58,11 @@ type MessageWithType = {
   errorType: string
 }
 
-function getMainMessages({ fieldErrors }: { fieldErrors: FieldError[]}): MessageWithType[] {
+function getMainMessages(
+  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
+): MessageWithType[] {
   return fieldErrors.flatMap((fieldError) => {
-    const message: string | undefined = fieldError.message
+    const message: string | undefined = fieldError?.message
     if (message === undefined) {
       return []
     }
@@ -69,9 +71,11 @@ function getMainMessages({ fieldErrors }: { fieldErrors: FieldError[]}): Message
   })
 }
 
-function getAllMessages({ fieldErrors }: { fieldErrors: FieldError[]}): MessageWithType[] {
+function getAllMessages(
+  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
+): MessageWithType[] {
   return fieldErrors.flatMap((fieldError) => {
-    const types: MultipleFieldErrors | undefined = fieldError.types
+    const types: MultipleFieldErrors | undefined = fieldError?.types
     if (types === undefined) {
       return []
     }

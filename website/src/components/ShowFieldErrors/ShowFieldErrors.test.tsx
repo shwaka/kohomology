@@ -1,18 +1,23 @@
-import { render, screen, fireEvent } from "@testing-library/react"
+import { render, screen, fireEvent, renderHook, waitFor } from "@testing-library/react"
 import React from "react"
-import { EmailForm } from "./__testutils__/EmailForm"
+import { EmailForm, EmailFormContainer, useEmailForm } from "./__testutils__/EmailForm"
 
 describe("EmailForm with ShowFieldErrors", () => {
   it("displays required field error", async () => {
-    render(<EmailForm />)
+    const { result } = renderHook(() => useEmailForm())
+    const { rerender } = render(<EmailForm {...result.current}/>)
 
     fireEvent.click(screen.getByText("Submit"))
+    await waitFor(() => {
+      expect(Object.keys(result.current.errors)).not.toHaveLength(0)
+    })
+    rerender(<EmailForm {...result.current}/>)
 
     expect(await screen.findByText("This field is required")).toBeInTheDocument()
   })
 
   it("displays validation error when missing '@'", async () => {
-    render(<EmailForm />)
+    render(<EmailFormContainer/>)
 
     fireEvent.change(screen.getByPlaceholderText("Email"), {
       target: { value: "invalidemail" },
@@ -23,7 +28,7 @@ describe("EmailForm with ShowFieldErrors", () => {
   })
 
   it("displays validation error when length is smaller than 3", async () => {
-    render(<EmailForm />)
+    render(<EmailFormContainer/>)
 
     fireEvent.change(screen.getByPlaceholderText("Email"), {
       target: { value: "a@" },
@@ -34,7 +39,7 @@ describe("EmailForm with ShowFieldErrors", () => {
   })
 
   // it("renders with showAllErrors=true (even if not using types)", async () => {
-  //   render(<EmailForm showAllErrors />)
+  //   render(<EmailForm showAllErrors/>)
   //
   //   fireEvent.click(screen.getByText("Submit"))
   //

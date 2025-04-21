@@ -1,6 +1,6 @@
+import { magicMessageToHideError } from "@components/ShowFieldErrors"
 import { z } from "zod"
 import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
-import { magicMessageToHideError } from "./validation"
 
 function getErrorsByPath(
   error: z.ZodError<unknown>,

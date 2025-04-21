@@ -4,6 +4,10 @@ import { EmailForm, EmailFormContainer, errorMessages, useEmailForm } from "./__
 
 describe("EmailForm with ShowFieldErrors", () => {
   it("displays required field error", async () => {
+    // This test uses both renderHook and render.
+    // Calling waitFor and rerender are necessary to apply change of result.current to EmailForm.
+    // As in the other tests, using only render (for EmailFormContainer) is easier,
+    // but this test is preserved for future reference.
     const { result } = renderHook(() => useEmailForm({}))
     const { rerender } = render(<EmailForm {...result.current}/>)
 
@@ -36,6 +40,19 @@ describe("EmailForm with ShowFieldErrors", () => {
     fireEvent.click(screen.getByText("Submit"))
 
     expect(await screen.findByText(errorMessages.minLength)).toBeInTheDocument()
+  })
+
+  it("displays single error if showAllErrors=true and criteriaMode=firstError", async () => {
+    render(
+      <EmailFormContainer
+        emailFormOptions={{ showAllErrors: true }}
+        useEmailFormOptions={{ criteriaMode: "firstError" }}
+      />
+    )
+
+    fireEvent.click(screen.getByText("Submit"))
+
+    expect(await screen.findByText(errorMessages.required)).toBeInTheDocument()
   })
 
   it("displays all errors if showAllErrors=true and criteriaMode=all", async () => {

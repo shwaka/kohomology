@@ -1,3 +1,4 @@
+import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
@@ -5,7 +6,6 @@ import { AnimatePresence } from "motion/react"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../useOverwritableTimeout"
-import { ShowFieldErrors } from "./ShowFieldErrors"
 import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 

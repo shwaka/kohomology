@@ -1,3 +1,4 @@
+import { magicMessageToHideError } from "@components/ShowFieldErrors"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
 import { generatorArrayToJson } from "./ConvertGenerator"
 import { Generator } from "./generatorSchema"
@@ -39,5 +40,3 @@ export function validateGeneratorNames(generatorArray: Generator[]): Map<number,
   })
   return result
 }
-
-export const magicMessageToHideError = "_HIDE_THIS_ERROR_"

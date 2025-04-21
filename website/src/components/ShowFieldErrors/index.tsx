@@ -2,7 +2,8 @@ import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"
 import React from "react"
 import { FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
-import { magicMessageToHideError } from "./validation"
+
+export const magicMessageToHideError = "_HIDE_THIS_ERROR_"
 
 interface ShowFieldErrorsProps {
   fieldErrors: FieldError[]

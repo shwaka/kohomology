@@ -1,10 +1,10 @@
+import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { ShowFieldErrors } from "./ShowFieldErrors"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
 

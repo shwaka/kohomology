@@ -30,6 +30,8 @@ export function EmailForm({ showAllErrors = false }: { showAllErrors?: boolean }
           validate: {
             includesAt: (value) =>
               value.includes("@") || "Email must include '@'",
+            minLength: (value) =>
+              (value.length >= 3) || "Email must be at least 3 characters",
           },
         })}
       />

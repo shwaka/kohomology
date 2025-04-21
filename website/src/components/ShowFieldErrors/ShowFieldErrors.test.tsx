@@ -22,6 +22,17 @@ describe("EmailForm with ShowFieldErrors", () => {
     expect(await screen.findByText("Email must include '@'")).toBeInTheDocument()
   })
 
+  it("displays validation error when length is smaller than 3", async () => {
+    render(<EmailForm />)
+
+    fireEvent.change(screen.getByPlaceholderText("Email"), {
+      target: { value: "a@" },
+    })
+    fireEvent.click(screen.getByText("Submit"))
+
+    expect(await screen.findByText("Email must be at least 3 characters")).toBeInTheDocument()
+  })
+
   // it("renders with showAllErrors=true (even if not using types)", async () => {
   //   render(<EmailForm showAllErrors />)
   //

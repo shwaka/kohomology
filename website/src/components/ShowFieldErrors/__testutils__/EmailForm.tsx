@@ -7,7 +7,7 @@ type FormValues = {
 }
 
 type EmailFormOptions = {
-  showAllErrors?: boolean
+  criteriaModeForComponent?: CriteriaMode
 }
 
 export type EmailFormProps =
@@ -18,18 +18,18 @@ export type EmailFormProps =
   }
 
 type UseEmailFormOptions = {
-  criteriaMode?: CriteriaMode
+  criteriaModeForHook?: CriteriaMode
 }
 
 export function useEmailForm(
-  { criteriaMode }: UseEmailFormOptions
+  { criteriaModeForHook }: UseEmailFormOptions
 ): Omit<EmailFormProps, keyof EmailFormOptions> {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
-    criteriaMode,
+    criteriaMode: criteriaModeForHook,
     defaultValues: {
       email: ""
     }
@@ -44,7 +44,7 @@ export const errorMessages = {
 }
 
 export function EmailForm(
-  { showAllErrors = false, register, handleSubmit, errors }: EmailFormProps
+  { criteriaModeForComponent = "firstError", register, handleSubmit, errors }: EmailFormProps
 ): React.JSX.Element {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -66,7 +66,7 @@ export function EmailForm(
         })}
       />
       <button type="submit">Submit</button>
-      <ShowFieldErrors fieldErrors={[errors.email]} showAllErrors={showAllErrors} />
+      <ShowFieldErrors fieldErrors={[errors.email]} criteriaMode={criteriaModeForComponent} />
     </form>
   )
 }

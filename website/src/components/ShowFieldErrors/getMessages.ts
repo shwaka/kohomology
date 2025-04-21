@@ -1,4 +1,4 @@
-import { FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
+import { CriteriaMode, FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
 
 export type MessageWithType = {
   message: ValidateResult // string | string[] | boolean | undefined
@@ -7,11 +7,11 @@ export type MessageWithType = {
 
 type GetMessagesArgs = {
   fieldErrors: (FieldError | undefined)[]
-  showAllErrors: boolean
+  criteriaMode: CriteriaMode
 }
 
-export function getMessages({ fieldErrors, showAllErrors }: GetMessagesArgs): MessageWithType[] {
-  if (showAllErrors) {
+export function getMessages({ fieldErrors, criteriaMode }: GetMessagesArgs): MessageWithType[] {
+  if (criteriaMode === "all") {
     return getAllMessages({ fieldErrors })
   } else {
     return getMainMessages({ fieldErrors })

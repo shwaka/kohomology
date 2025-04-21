@@ -41,8 +41,8 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
     expect(result.current.errors.email?.types).toBeUndefined()
   })
 
-  test("empty string with criteriaMode=all", async () => {
-    const { result } = renderHook(() => useEmailForm({ criteriaMode: "all" }))
+  test("empty string with criteriaModeForHook=all", async () => {
+    const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
     render(<EmailForm {...result.current}/>)
 
     fireEvent.click(screen.getByText("Submit"))
@@ -62,8 +62,8 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
     expect(result.current.errors.email?.types?.minLength).toBe(errorMessages.minLength)
   })
 
-  test("string not containing @ with criteriaMode=all", async () => {
-    const { result } = renderHook(() => useEmailForm({ criteriaMode: "all" }))
+  test("string not containing @ with criteriaModeForHook=all", async () => {
+    const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
     render(<EmailForm {...result.current}/>)
 
     fireEvent.change(screen.getByPlaceholderText("Email"), {

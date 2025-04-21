@@ -42,11 +42,11 @@ describe("EmailForm with ShowFieldErrors", () => {
     expect(await screen.findByText(errorMessages.minLength)).toBeInTheDocument()
   })
 
-  it("displays single error if showAllErrors=true and criteriaMode=firstError", async () => {
+  it("displays single error if criteriaModeForComponent=all and criteriaModeForHook=firstError", async () => {
     render(
       <EmailFormContainer
-        emailFormOptions={{ showAllErrors: true }}
-        useEmailFormOptions={{ criteriaMode: "firstError" }}
+        emailFormOptions={{ criteriaModeForComponent: "all" }}
+        useEmailFormOptions={{ criteriaModeForHook: "firstError" }}
       />
     )
 
@@ -55,11 +55,11 @@ describe("EmailForm with ShowFieldErrors", () => {
     expect(await screen.findByText(errorMessages.required)).toBeInTheDocument()
   })
 
-  it("displays all errors if showAllErrors=true and criteriaMode=all", async () => {
+  it("displays all errors if criteriaModeForComponent=all and criteriaModeForHook=all", async () => {
     render(
       <EmailFormContainer
-        emailFormOptions={{ showAllErrors: true }}
-        useEmailFormOptions={{ criteriaMode: "all" }}
+        emailFormOptions={{ criteriaModeForComponent: "all" }}
+        useEmailFormOptions={{ criteriaModeForHook: "all" }}
       />
     )
 

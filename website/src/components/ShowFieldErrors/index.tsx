@@ -58,17 +58,20 @@ type MessageWithType = {
   errorType: string
 }
 
+// returns a list of length 0 or 1
+function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWithType[] {
+  const message: string | undefined = fieldError?.message
+  if (message === undefined) {
+    return []
+  }
+  const errorType = ""
+  return [{ errorType, message }]
+}
+
 function getMainMessages(
   { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
 ): MessageWithType[] {
-  return fieldErrors.flatMap((fieldError) => {
-    const message: string | undefined = fieldError?.message
-    if (message === undefined) {
-      return []
-    }
-    const errorType = ""
-    return [{ errorType, message }]
-  })
+  return fieldErrors.flatMap(getMessageFromFieldError)
 }
 
 function getAllMessages(
@@ -77,7 +80,7 @@ function getAllMessages(
   return fieldErrors.flatMap((fieldError) => {
     const types: MultipleFieldErrors | undefined = fieldError?.types
     if (types === undefined) {
-      return []
+      return getMessageFromFieldError(fieldError)
     }
     return Object.entries(types).map(([errorType, message]) => ({ errorType, message }))
   })

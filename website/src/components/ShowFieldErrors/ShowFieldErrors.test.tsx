@@ -1,10 +1,10 @@
 import { render, screen, fireEvent, renderHook, waitFor } from "@testing-library/react"
 import React from "react"
-import { EmailForm, EmailFormContainer, useEmailForm } from "./__testutils__/EmailForm"
+import { EmailForm, EmailFormContainer, errorMessages, useEmailForm } from "./__testutils__/EmailForm"
 
 describe("EmailForm with ShowFieldErrors", () => {
   it("displays required field error", async () => {
-    const { result } = renderHook(() => useEmailForm())
+    const { result } = renderHook(() => useEmailForm({}))
     const { rerender } = render(<EmailForm {...result.current}/>)
 
     fireEvent.click(screen.getByText("Submit"))
@@ -13,7 +13,7 @@ describe("EmailForm with ShowFieldErrors", () => {
     })
     rerender(<EmailForm {...result.current}/>)
 
-    expect(await screen.findByText("This field is required")).toBeInTheDocument()
+    expect(await screen.findByText(errorMessages.required)).toBeInTheDocument()
   })
 
   it("displays validation error when missing '@'", async () => {
@@ -24,7 +24,7 @@ describe("EmailForm with ShowFieldErrors", () => {
     })
     fireEvent.click(screen.getByText("Submit"))
 
-    expect(await screen.findByText("Email must include '@'")).toBeInTheDocument()
+    expect(await screen.findByText(errorMessages.includesAt)).toBeInTheDocument()
   })
 
   it("displays validation error when length is smaller than 3", async () => {
@@ -35,14 +35,21 @@ describe("EmailForm with ShowFieldErrors", () => {
     })
     fireEvent.click(screen.getByText("Submit"))
 
-    expect(await screen.findByText("Email must be at least 3 characters")).toBeInTheDocument()
+    expect(await screen.findByText(errorMessages.minLength)).toBeInTheDocument()
   })
 
-  // it("renders with showAllErrors=true (even if not using types)", async () => {
-  //   render(<EmailForm showAllErrors/>)
-  //
-  //   fireEvent.click(screen.getByText("Submit"))
-  //
-  //   expect(await screen.findByText("This field is required")).toBeInTheDocument()
-  // })
+  it("displays all errors if showAllErrors=true and criteriaMode=all", async () => {
+    render(
+      <EmailFormContainer
+        emailFormOptions={{ showAllErrors: true }}
+        useEmailFormOptions={{ criteriaMode: "all" }}
+      />
+    )
+
+    fireEvent.click(screen.getByText("Submit"))
+
+    expect(await screen.findByText(errorMessages.required)).toBeInTheDocument()
+    expect(await screen.findByText(errorMessages.includesAt)).toBeInTheDocument()
+    expect(await screen.findByText(errorMessages.minLength)).toBeInTheDocument()
+  })
 })

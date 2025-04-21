@@ -1,29 +1,46 @@
 import React from "react"
-import { FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
+import { CriteriaMode, FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
 import { ShowFieldErrors } from "../"
 
 type FormValues = {
   email: string
 }
 
-export interface EmailFormProps {
+type EmailFormOptions = {
   showAllErrors?: boolean
-  register: UseFormRegister<FormValues>
-  handleSubmit: UseFormHandleSubmit<FormValues, FormValues>
-  errors: FieldErrors<FormValues>
 }
 
-export function useEmailForm(): Omit<EmailFormProps, "showAllErrors"> {
+export type EmailFormProps =
+  EmailFormOptions & {
+    register: UseFormRegister<FormValues>
+    handleSubmit: UseFormHandleSubmit<FormValues, FormValues>
+    errors: FieldErrors<FormValues>
+  }
+
+type UseEmailFormOptions = {
+  criteriaMode?: CriteriaMode
+}
+
+export function useEmailForm(
+  { criteriaMode }: UseEmailFormOptions
+): Omit<EmailFormProps, keyof EmailFormOptions> {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({
+    criteriaMode,
     defaultValues: {
       email: ""
     }
   })
   return { register, handleSubmit, errors }
+}
+
+export const errorMessages = {
+  required: "This field is required",
+  includesAt: "Email must include '@'",
+  minLength: "Email must be at least 3 characters",
 }
 
 export function EmailForm(
@@ -39,12 +56,12 @@ export function EmailForm(
         type="text"
         placeholder="Email"
         {...register("email", {
-          required: "This field is required",
+          required: errorMessages.required,
           validate: {
             includesAt: (value) =>
-              value.includes("@") || "Email must include '@'",
+              value.includes("@") || errorMessages.includesAt,
             minLength: (value) =>
-              (value.length >= 3) || "Email must be at least 3 characters",
+              (value.length >= 3) || errorMessages.minLength,
           },
         })}
       />
@@ -54,9 +71,16 @@ export function EmailForm(
   )
 }
 
-export function EmailFormContainer(): React.JSX.Element {
-  const props = useEmailForm()
+export interface EmailFormContainerProps {
+  emailFormOptions?: EmailFormOptions
+  useEmailFormOptions?: UseEmailFormOptions
+}
+
+export function EmailFormContainer(
+  { emailFormOptions = {}, useEmailFormOptions = {} }: EmailFormContainerProps
+): React.JSX.Element {
+  const props = useEmailForm(useEmailFormOptions)
   return (
-    <EmailForm {...props}/>
+    <EmailForm {...props} {...emailFormOptions}/>
   )
 }

@@ -60,11 +60,14 @@ type MessageWithType = {
 
 // returns a list of length 0 or 1
 function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWithType[] {
+  if (fieldError === undefined) {
+    return []
+  }
   const message: string | undefined = fieldError?.message
   if (message === undefined) {
     return []
   }
-  const type = ""
+  const type: string = fieldError.type
   return [{ type, message }]
 }
 

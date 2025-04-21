@@ -102,17 +102,13 @@ function ShowError({ error }: { error: FieldErrorsImpl<Generator> | undefined })
   )
 }
 
-function getFieldErrors({ error }: { error: FieldErrorsImpl<Generator> | undefined }): FieldError[] {
+function getFieldErrors(
+  { error }: { error: FieldErrorsImpl<Generator> | undefined }
+): (FieldError | undefined)[] {
   if (error === undefined) {
     return []
   }
-  return (["name", "degree", "differentialValue"] as const).flatMap((key) => {
-    const errorForKey = error[key]
-    if (errorForKey === undefined) {
-      return []
-    }
-    return [errorForKey]
-  })
+  return (["name", "degree", "differentialValue"] as const).flatMap((key) => error[key])
 }
 
 function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {

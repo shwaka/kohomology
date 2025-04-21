@@ -78,19 +78,13 @@ function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>
 
 function getFieldErrors(
   { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
-): FieldError[] {
+): (FieldError | undefined)[] {
   const _global_errors = errors._global_errors
   if (_global_errors === undefined) {
     return []
   }
   const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
-  return keys.flatMap((key) => {
-    const fieldError = _global_errors[key]
-    if (fieldError === undefined) {
-      return []
-    }
-    return [fieldError]
-  })
+  return keys.map((key) => _global_errors[key] )
 }
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {

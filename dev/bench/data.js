@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745155028334,
+  "lastUpdate": 1745194594003,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7224,6 +7224,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.994,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "cc431fd33322c4a9d4d44c79fb5b1048b3d9d31c",
+          "message": "feat(website): shorten padding of Alert in ShowFieldErrors",
+          "timestamp": "2025-04-20T22:29:50+09:00",
+          "tree_id": "4f876b456cb1923ceb18e6e10bdffb95b0f883bb",
+          "url": "https://github.com/shwaka/kohomology/commit/cc431fd33322c4a9d4d44c79fb5b1048b3d9d31c"
+        },
+        "date": 1745194592799,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.335,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.928,
             "unit": "s/op"
           }
         ]

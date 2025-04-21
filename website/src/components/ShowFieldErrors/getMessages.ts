@@ -11,10 +11,17 @@ type GetMessagesArgs = {
 }
 
 export function getMessages({ fieldErrors, criteriaMode }: GetMessagesArgs): MessageWithType[] {
-  if (criteriaMode === "all") {
-    return getAllMessages({ fieldErrors })
-  } else {
-    return getMainMessages({ fieldErrors })
+  switch (criteriaMode) {
+    case "all":
+      return fieldErrors.flatMap((fieldError) => {
+        const types: MultipleFieldErrors | undefined = fieldError?.types
+        if (types === undefined) {
+          return getMessageFromFieldError(fieldError)
+        }
+        return Object.entries(types).map(([type, message]) => ({ type, message }))
+      })
+    case "firstError":
+      return fieldErrors.flatMap(getMessageFromFieldError)
   }
 }
 
@@ -29,22 +36,4 @@ function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWi
   }
   const type: string = fieldError.type
   return [{ type, message }]
-}
-
-function getMainMessages(
-  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
-): MessageWithType[] {
-  return fieldErrors.flatMap(getMessageFromFieldError)
-}
-
-function getAllMessages(
-  { fieldErrors }: { fieldErrors: (FieldError | undefined)[]}
-): MessageWithType[] {
-  return fieldErrors.flatMap((fieldError) => {
-    const types: MultipleFieldErrors | undefined = fieldError?.types
-    if (types === undefined) {
-      return getMessageFromFieldError(fieldError)
-    }
-    return Object.entries(types).map(([type, message]) => ({ type, message }))
-  })
 }

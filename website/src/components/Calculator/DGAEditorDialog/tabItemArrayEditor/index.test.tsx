@@ -1,7 +1,7 @@
 import { findOrThrow } from "@components/Calculator/__testutils__/findOrThrow"
 import { fireEvent, render, within, renderHook, act, RenderHookResult } from "@testing-library/react"
 import React from "react"
-import { TabItem } from "../TabDialog"
+import { TabItem } from "@components/TabDialog"
 import { sphere } from "../examples"
 import { Generator } from "./generatorSchema"
 import { useTabItemArrayEditor } from "./"

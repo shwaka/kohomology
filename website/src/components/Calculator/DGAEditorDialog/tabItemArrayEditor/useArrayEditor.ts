@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
-import { OnSubmit, TabItem } from "../TabDialog"
+import { OnSubmit, TabItem } from "@components/TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"

@@ -7,7 +7,7 @@ import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldAr
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
-import { OnSubmit } from "../TabDialog"
+import { OnSubmit } from "@components/TabDialog"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>

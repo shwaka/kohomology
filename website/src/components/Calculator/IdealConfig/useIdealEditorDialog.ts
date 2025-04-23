@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useState } from "react"
 import { useIdealEditor } from "./IdealEditor"
 import { IdealEditorDialogProps } from "./IdealEditorDialog"
-import { OnSubmit } from "../DGAEditorDialog/TabDialog"
+import { OnSubmit } from "@components/TabDialog"
 
 interface UseIdealEditorDialogArgs {
   idealJson: string

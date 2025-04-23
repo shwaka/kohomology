@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
-import { OnSubmit, TabItem } from "./TabDialog"
+import { OnSubmit, TabItem } from "@components/TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const

@@ -25,8 +25,8 @@ export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): React.JSX.Elem
 
 function CopyToClipBoardButton({ text }: { text: string }): React.JSX.Element {
   const [tooltipOpen, setTooltipOpen] = useState(false)
-  const handleClick = (): void => {
-    navigator.clipboard.writeText(text)
+  const handleClick = async (): void => {
+    await navigator.clipboard.writeText(text)
     setTooltipOpen(true)
   }
   return (

@@ -91,7 +91,7 @@ export function SortableFields<
 
   const { trigger } = formData
 
-  function handleDragEnd({ active, over }: DragEndEvent): void {
+  async function handleDragEnd({ active, over }: DragEndEvent): Promise<void> {
     // If trigger() is here, then errors BEFORE move() will be shown.
     // trigger() // trigger input validation
 
@@ -106,7 +106,7 @@ export function SortableFields<
 
       move(oldIndex, newIndex)
     }
-    trigger() // trigger input validation
+    await trigger() // trigger input validation
   }
 
   // Container can be

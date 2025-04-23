@@ -77,9 +77,9 @@ interface MenuItemCopyTextProps {
 }
 
 function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): React.JSX.Element {
-  const copyText = (): void => {
+  const copyText = async (): Promise<void> => {
     if (text !== null) {
-      navigator.clipboard.writeText(text)
+      await navigator.clipboard.writeText(text)
       console.log("Copied:", text)
     }
     handleClose()

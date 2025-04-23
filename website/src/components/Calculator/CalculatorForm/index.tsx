@@ -111,7 +111,7 @@ export function CalculatorForm(): React.JSX.Element {
             <ShareDGADialog {...shareDGADialogProps}/>
           </Stack>
         </StackItem>
-        <StackItem>
+        <StackItem data-testid="CalculatorForm-StackItem-SelectTarget">
           <RadioGroup
             row
             value={targetName}

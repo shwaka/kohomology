@@ -4,6 +4,7 @@ import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
+import { InputIdeal } from "./__testutils__/InputIdeal"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
@@ -97,7 +98,7 @@ test("compute cohomology of ΛV/I", async () => {
   render(<Calculator/>)
   expectInitialState()
   selectComputationTarget("idealQuot")
-  // TODO: input ideal here
+  InputIdeal.inputIdealGenerator(["x"])
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [

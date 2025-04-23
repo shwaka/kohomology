@@ -4,6 +4,7 @@ import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
 import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
+import { OnSubmit } from "../DGAEditorDialog/TabDialog"
 
 function jsonToGeneratorArray(json: string): Generator[] {
   const arr = JSON.parse(json) as string[]
@@ -24,7 +25,7 @@ interface UseIdealEditorArgs {
 
 interface UseIdealEditorReturnValue {
   idealEditorProps: IdealEditorProps
-  getOnSubmit: (closeDialog: () => void) => void
+  getOnSubmit: (closeDialog: () => void) => OnSubmit
   beforeOpen: () => void
   disableSubmit: () => boolean
   preventQuit: () => string | undefined
@@ -40,13 +41,13 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
     }
   })
 
-  const getOnSubmit = useCallback((closeDialog: () => void): void => {
-    handleSubmit(
+  const getOnSubmit = useCallback((closeDialog: () => void): OnSubmit => {
+    return handleSubmit(
       ({ generatorArray }) => {
         setIdealJson(generatorArrayToJson(generatorArray))
         closeDialog()
       }
-    )()
+    )
   }, [setIdealJson, handleSubmit])
 
   const beforeOpen = useCallback((): void => {

@@ -2,10 +2,11 @@ import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React from "react"
 import { IdealEditor, IdealEditorProps } from "./IdealEditor"
+import { OnSubmit } from "../DGAEditorDialog/TabDialog"
 
 export interface IdealEditorDialogProps {
   open: boolean
-  onSubmit: () => void
+  onSubmit: OnSubmit
   tryToQuit: () => void
   idealEditorProps: IdealEditorProps
   disableSubmit: () => boolean

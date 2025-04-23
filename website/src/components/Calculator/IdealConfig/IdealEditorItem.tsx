@@ -60,7 +60,7 @@ export function IdealEditorItem(
         />
         <Tooltip title="Delete this generator">
           <IconButton
-            onClick={() => { remove(index); trigger() }}
+            onClick={async () => { remove(index); await trigger() }}
             size="small"
           >
             <Delete fontSize="small"/>

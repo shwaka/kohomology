@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react"
 import { useIdealEditor } from "./IdealEditor"
 import { IdealEditorDialogProps } from "./IdealEditorDialog"
+import { OnSubmit } from "../DGAEditorDialog/TabDialog"
 
 interface UseIdealEditorDialogArgs {
   idealJson: string
@@ -32,9 +33,10 @@ export function useIdealEditorDialog({
     setOpen(false)
   }, [setOpen])
 
-  const onSubmit = useCallback((): void => {
-    getOnSubmit(closeDialog)
-  }, [getOnSubmit, closeDialog])
+  const onSubmit = useMemo(
+    (): OnSubmit => getOnSubmit(closeDialog),
+    [getOnSubmit, closeDialog],
+  )
 
   const canQuit = useCallback((): boolean => {
     const confirmPrompt: string | undefined = preventQuit()

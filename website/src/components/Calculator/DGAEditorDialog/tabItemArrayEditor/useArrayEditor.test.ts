@@ -50,7 +50,7 @@ describe("useArrayEditor", () => {
     )
 
     await act(async () => {
-      result.current.getOnSubmit(jest.fn()) // dummy closeDialog
+      await result.current.getOnSubmit(jest.fn())() // dummy closeDialog
     })
 
     expect(update).toHaveBeenCalledWith(expect.stringContaining('["x", 2, "0"]'))

@@ -1,10 +1,10 @@
 import { FormData, SortableFields } from "@components/SortableFields"
+import { OnSubmit } from "@components/TabDialog"
 import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode, useCallback } from "react"
 import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, useForm, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, Generator, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
-import { OnSubmit } from "@components/TabDialog"
 
 function jsonToGeneratorArray(json: string): Generator[] {
   const arr = JSON.parse(json) as string[]

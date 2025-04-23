@@ -1,5 +1,6 @@
 import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { FormData, SortableFields } from "@components/SortableFields"
+import { OnSubmit } from "@components/TabDialog"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
@@ -7,7 +8,6 @@ import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldAr
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
-import { OnSubmit } from "@components/TabDialog"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>

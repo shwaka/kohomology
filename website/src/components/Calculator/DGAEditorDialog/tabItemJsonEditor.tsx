@@ -1,8 +1,8 @@
+import { OnSubmit, TabItem } from "@components/TabDialog"
 import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form"
-import { OnSubmit, TabItem } from "@components/TabDialog"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 

@@ -1,5 +1,5 @@
-import React from "react"
 import { TabItem } from "@components/TabDialog"
+import React from "react"
 import { ArrayEditor } from "./ArrayEditor"
 import { useArrayEditor } from "./useArrayEditor"
 

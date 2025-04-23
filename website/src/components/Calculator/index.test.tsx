@@ -1,7 +1,6 @@
 import { useLocation } from "@docusaurus/router"
 import { render, screen } from "@testing-library/react"
 import React from "react"
-import { InputIdeal } from "./__testutils__/InputIdeal"
 import { InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."

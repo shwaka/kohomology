@@ -1,3 +1,4 @@
+import { OnSubmit, TabItem } from "@components/TabDialog"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"
@@ -5,7 +6,6 @@ import React, { useState } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
-import { OnSubmit, TabItem } from "@components/TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const

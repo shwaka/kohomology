@@ -93,6 +93,22 @@ test("compute cohomology of LX", async () => {
   expectComputeCohomologyButtonToContain("Compute")
 })
 
+test("compute cohomology of ΛV/I", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("idealQuot")
+  // TODO: input ideal here
+  clickComputeCohomologyButton()
+  expectResultsToContainHTML(
+    [
+      "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}())$ for $0 \\leq n \\leq 20$",
+      "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
+      "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[[x]]$ $\\}$"
+    ],
+  )
+  expectComputeCohomologyButtonToContain("Compute")
+})
+
 test("url query", async () => {
   mockUseLocation.mockReturnValue({
     search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"

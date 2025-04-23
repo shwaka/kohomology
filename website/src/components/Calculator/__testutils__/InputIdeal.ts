@@ -1,5 +1,4 @@
 import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
-import { findOrThrow } from "./findOrThrow"
 
 export class InputIdeal {
   private static openDialog(): HTMLElement {

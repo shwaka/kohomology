@@ -110,8 +110,9 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
       key, args, id,
     }
     const subscribeKey = `runAsync-${id}`
-    wrapper.postMessage(input)
-    return new Promise((resolve, _reject) => {
+    // wrapper.subscribe must be called BEFORE wrapper.postMessage
+    // since wrapper.postMessage immediately submits the output in test environment.
+    const promise = new Promise((resolve, _reject) => {
       wrapper.subscribe(
         subscribeKey,
         (output) => {
@@ -122,6 +123,8 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
         }
       )
     })
+    wrapper.postMessage(input)
+    return promise
   }, [wrapper])
 
   return {

@@ -18,20 +18,20 @@ export interface ArrayEditorProps {
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
   move: UseFieldArrayMove
-  submit: OnSubmit
+  onSubmit: OnSubmit
 }
 
-export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): React.JSX.Element {
-  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit }: ArrayEditorProps): React.JSX.Element {
+  const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    await submit()
+    await onSubmit()
   }
   const formData: FormData<GeneratorFormInput> = {
     register, remove, errors, getValues, trigger
   }
   // <button hidden type="submit"/> is necessary for onSubmit in form
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmitWithPreventDefault}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
         <SortableFields
           RowComponent={ArrayEditorItem}

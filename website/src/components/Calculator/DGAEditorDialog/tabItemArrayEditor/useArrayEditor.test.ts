@@ -13,7 +13,7 @@ describe("useArrayEditor", () => {
       useArrayEditor({ json, updateDgaWrapper: jest.fn() })
     )
 
-    const values = result.current.arrayEditorPropsExceptSubmit.getValues()
+    const values = result.current.arrayEditorPropsExceptOnSubmit.getValues()
     expect(values.generatorArray).toHaveLength(2)
     expect(values.generatorArray[0].name).toBe("x")
     expect(values.generatorArray[0].degree).toBe(2)
@@ -29,14 +29,14 @@ describe("useArrayEditor", () => {
     )
 
     act(() => {
-      result.current.arrayEditorPropsExceptSubmit.append({
+      result.current.arrayEditorPropsExceptOnSubmit.append({
         name: "z",
         degree: 1,
         differentialValue: "0"
       })
     })
 
-    const values = result.current.arrayEditorPropsExceptSubmit.getValues()
+    const values = result.current.arrayEditorPropsExceptOnSubmit.getValues()
     expect(values.generatorArray).toHaveLength(3)
     expect(values.generatorArray[2].name).toBe("z")
     expect(values.generatorArray[2].degree).toBe(1)
@@ -70,7 +70,7 @@ describe("useArrayEditor", () => {
     expect(preventQuit()).toBeUndefined()
 
     act(() => {
-      result.current.arrayEditorPropsExceptSubmit.append({
+      result.current.arrayEditorPropsExceptOnSubmit.append({
         name: "z",
         degree: 1,
         differentialValue: "0"

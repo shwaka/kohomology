@@ -6,7 +6,7 @@ import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
 
 type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
-  arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit">
+  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit">
 }
 
 export function useArrayEditor(args: {
@@ -51,7 +51,7 @@ export function useArrayEditor(args: {
   function disableSubmit(): boolean {
     return (errors.generatorArray !== undefined)
   }
-  const arrayEditorPropsExceptSubmit: Omit<ArrayEditorProps, "submit"> = {
+  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
     register, errors, fields, append, remove, getValues, trigger, move,
   }
   return {
@@ -60,6 +60,6 @@ export function useArrayEditor(args: {
     beforeOpen,
     preventQuit,
     disableSubmit,
-    arrayEditorPropsExceptSubmit,
+    arrayEditorPropsExceptOnSubmit,
   }
 }

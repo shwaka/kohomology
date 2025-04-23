@@ -12,7 +12,7 @@ export function useTabItemArrayEditor(args: {
     ...tabItemExceptRender,
     render: (closeDialog) => (
       <ArrayEditor
-        submit={() => tabItemExceptRender.getOnSubmit(closeDialog)}
+        submit={tabItemExceptRender.getOnSubmit(closeDialog)}
         {...arrayEditorPropsExceptSubmit}
       />
     ),

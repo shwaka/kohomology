@@ -7,6 +7,7 @@ import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldAr
 import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
+import { OnSubmit } from "../TabDialog"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>
@@ -17,13 +18,13 @@ export interface ArrayEditorProps {
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
   move: UseFieldArrayMove
-  submit: () => void
+  submit: OnSubmit
 }
 
 export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, submit }: ArrayEditorProps): React.JSX.Element {
-  const onSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    submit()
+    await submit()
   }
   const formData: FormData<GeneratorFormInput> = {
     register, remove, errors, getValues, trigger

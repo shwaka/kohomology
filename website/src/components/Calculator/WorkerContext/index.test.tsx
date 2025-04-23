@@ -16,4 +16,10 @@ test("WorkerContext", () => {
   expect(divLog).toContainHTML("value=6")
   expect(divLogFromListener).toContainHTML("value=6")
   expect(divStateValue).toContainHTML("stateValue=6")
+  const runAsyncButton = screen.getByTestId("runAsync-add5")
+  act(() => runAsyncButton.click())
+  // Since runAsync does not submit MyWorkerOutput, log is not printed here.
+  // expect(divLog).toContainHTML("value=11")
+  // expect(divLogFromListener).toContainHTML("value=11")
+  expect(divStateValue).toContainHTML("stateValue=11")
 })

@@ -35,7 +35,7 @@ function ShowWorkerOutputLogFromListener({ log, testid }: {
 }
 
 export function MyComponent(): React.JSX.Element {
-  const { postMessage, addListener, workerOutputLog, state: { value } } = useWorker(myWorkerContext)
+  const { postMessage, addListener, workerOutputLog, state: { value }, runAsync } = useWorker(myWorkerContext)
   const [workerOutputLogFromListener, setWorkerOutputLogFromListener] = useState<MyWorkerOutput[]>([])
 
   useEffect(() => {
@@ -51,6 +51,12 @@ export function MyComponent(): React.JSX.Element {
         data-testid="add3"
       >
         Add 3
+      </button>
+      <button
+        onClick={async () => await runAsync("add", [5])}
+        data-testid="runAsync-add5"
+      >
+        Add 5
       </button>
       <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
       <ShowWorkerOutputLogFromListener

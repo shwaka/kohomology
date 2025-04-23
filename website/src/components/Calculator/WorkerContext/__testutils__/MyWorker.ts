@@ -30,6 +30,7 @@ class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
     this.workerFunc = {
       add: (value: number): number => {
         this.value += value
+        this.updateState("value", this.value)
         return this.value
       }
     }

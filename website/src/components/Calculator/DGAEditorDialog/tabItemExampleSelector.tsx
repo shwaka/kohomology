@@ -73,7 +73,7 @@ export function useTabItemExampleSelector(args: Args): TabItem {
   }
   const example: Example | undefined = (exampleKey === "") ? undefined : examples[exampleKey]
   const json: string | undefined = example?.json
-  function onSubmit(closeDialog: () => void): OnSubmit {
+  function getOnSubmit(closeDialog: () => void): OnSubmit {
     return async (_e) => {
       if (json === undefined) {
         return
@@ -91,7 +91,7 @@ export function useTabItemExampleSelector(args: Args): TabItem {
   const labelForSelect = { label: "Select an example", labelId: "label-select-dga-example" }
   return {
     label: "Examples",
-    onSubmit,
+    getOnSubmit,
     beforeOpen,
     disableSubmit,
     render: (_) => (

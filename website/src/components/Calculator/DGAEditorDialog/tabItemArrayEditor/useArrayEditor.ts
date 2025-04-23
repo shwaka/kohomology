@@ -28,7 +28,7 @@ export function useArrayEditor(args: {
     name: "generatorArray",
   })
 
-  function onSubmit(closeDialog: () => void): OnSubmit {
+  function getOnSubmit(closeDialog: () => void): OnSubmit {
     return handleSubmit(
       ({generatorArray}) => {
         args.updateDgaWrapper(generatorArrayToJson(generatorArray))
@@ -56,7 +56,7 @@ export function useArrayEditor(args: {
   }
   return {
     label: "Array",
-    onSubmit,
+    getOnSubmit,
     beforeOpen,
     preventQuit,
     disableSubmit,

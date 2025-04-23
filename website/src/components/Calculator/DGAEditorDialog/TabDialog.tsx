@@ -7,7 +7,7 @@ export type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>
 export interface TabItem {
   label: string
   render: (closeDialog: () => void) => React.JSX.Element
-  onSubmit: (closeDialog: () => void) => OnSubmit
+  getOnSubmit: (closeDialog: () => void) => OnSubmit
   onQuit?: () => void
   beforeOpen?: () => void
   preventQuit?: () => string | undefined
@@ -60,9 +60,9 @@ export function useTabDialog<K extends string>(
     setCurrentTabKey(newTabKey)
     tabItems[newTabKey].beforeOpen?.()
   }
-  const submit: OnSubmit = currentTabItem.onSubmit(closeDialog)
+  const onSubmit: OnSubmit = currentTabItem.getOnSubmit(closeDialog)
   const tabDialogProps: TabDialogProps<K> = {
-    tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, submit, open, closeDialog
+    tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, onSubmit, open, closeDialog
   }
   function openDialog(): void {
     currentTabItem.beforeOpen?.()
@@ -79,13 +79,13 @@ export interface TabDialogProps<K extends string> {
   tabKeys: readonly K[]
   currentTabKey: K
   handleChangeTabKey: (newTabKey: K) => void
-  submit: OnSubmit
+  onSubmit: OnSubmit
   tryToQuit: () => void
   open: boolean
   closeDialog: () => void
 }
 
-export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, submit, tryToQuit, open, closeDialog }: TabDialogProps<K>): React.JSX.Element {
+export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, handleChangeTabKey, onSubmit, tryToQuit, open, closeDialog }: TabDialogProps<K>): React.JSX.Element {
   // TODO: assert that keys for tabItems are distinct
   const mobileMediaQuery = useMobileMediaQuery()
   return (
@@ -119,7 +119,7 @@ export function TabDialog<K extends string>({ tabItems, tabKeys, currentTabKey, 
       </DialogContent>
       <DialogActions>
         <Button
-          onClick={submit} variant="contained"
+          onClick={onSubmit} variant="contained"
           disabled={tabItems[currentTabKey].disableSubmit?.()}
         >
           Apply

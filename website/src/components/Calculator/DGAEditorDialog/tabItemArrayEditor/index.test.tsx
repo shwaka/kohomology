@@ -81,7 +81,7 @@ class ArrayEditorTestUtil {
   async submit(): Promise<void> {
     const closeDialog = (): void => { return }
     await act(async () => {
-      await this.result.current.onSubmit(closeDialog)()
+      await this.result.current.getOnSubmit(closeDialog)()
     })
     this.rerender(this.result.current.render(this.closeDialog))
   }

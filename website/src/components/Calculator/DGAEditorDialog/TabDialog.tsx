@@ -2,10 +2,12 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } 
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 
+export type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>
+
 export interface TabItem {
   label: string
   render: (closeDialog: () => void) => React.JSX.Element
-  onSubmit: (closeDialog: () => void) => void
+  onSubmit: (closeDialog: () => void) => OnSubmit
   onQuit?: () => void
   beforeOpen?: () => void
   preventQuit?: () => string | undefined
@@ -58,9 +60,7 @@ export function useTabDialog<K extends string>(
     setCurrentTabKey(newTabKey)
     tabItems[newTabKey].beforeOpen?.()
   }
-  function submit(): void {
-    currentTabItem.onSubmit(closeDialog)
-  }
+  const submit: OnSubmit = currentTabItem.onSubmit(closeDialog)
   const tabDialogProps: TabDialogProps<K> = {
     tabItems, tabKeys, currentTabKey, handleChangeTabKey, tryToQuit, submit, open, closeDialog
   }
@@ -79,7 +79,7 @@ export interface TabDialogProps<K extends string> {
   tabKeys: readonly K[]
   currentTabKey: K
   handleChangeTabKey: (newTabKey: K) => void
-  submit: () => void
+  submit: OnSubmit
   tryToQuit: () => void
   open: boolean
   closeDialog: () => void

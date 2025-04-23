@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
-import { TabItem } from "../TabDialog"
+import { OnSubmit, TabItem } from "../TabDialog"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
@@ -28,13 +28,13 @@ export function useArrayEditor(args: {
     name: "generatorArray",
   })
 
-  function onSubmit(closeDialog: () => void): void {
-    handleSubmit(
+  function onSubmit(closeDialog: () => void): OnSubmit {
+    return handleSubmit(
       ({generatorArray}) => {
         args.updateDgaWrapper(generatorArrayToJson(generatorArray))
         closeDialog()
       }
-    )()
+    )
   }
   function beforeOpen(): void {
     const generatorArray = jsonToGeneratorArray(args.json)

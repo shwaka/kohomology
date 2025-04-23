@@ -2,7 +2,7 @@ import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"
 import { DeepRequired, FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form"
-import { TabItem } from "./TabDialog"
+import { OnSubmit, TabItem } from "./TabDialog"
 
 // type TextAreaEvent = React.ChangeEvent<HTMLTextAreaElement>
 
@@ -16,13 +16,13 @@ export function useTabItemJsonEditor(args: {
     shouldUnregister: false, // necessary for setValue with MUI
     defaultValues: { json: args.json },
   })
-  function onSubmit(closeDialog: () => void): void {
-    handleSubmit(
+  function onSubmit(closeDialog: () => void): OnSubmit {
+    return handleSubmit(
       ({ json: formJson }) => {
         args.updateDgaWrapper(formJson)
         closeDialog()
       }
-    )()
+    )
   }
   function beforeOpen(): void {
     reset({ json: args.json })

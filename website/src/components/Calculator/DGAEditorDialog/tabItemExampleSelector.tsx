@@ -5,7 +5,7 @@ import React, { useState } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
-import { TabItem } from "./TabDialog"
+import { OnSubmit, TabItem } from "./TabDialog"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
@@ -73,12 +73,14 @@ export function useTabItemExampleSelector(args: Args): TabItem {
   }
   const example: Example | undefined = (exampleKey === "") ? undefined : examples[exampleKey]
   const json: string | undefined = example?.json
-  function onSubmit(closeDialog: () => void): void {
-    if (json === undefined) {
-      return
+  function onSubmit(closeDialog: () => void): OnSubmit {
+    return async (_e) => {
+      if (json === undefined) {
+        return
+      }
+      args.updateDgaWrapper(json)
+      closeDialog()
     }
-    args.updateDgaWrapper(json)
-    closeDialog()
   }
   function beforeOpen(): void {
     setExampleKey("")

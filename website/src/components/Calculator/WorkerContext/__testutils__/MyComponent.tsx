@@ -37,6 +37,7 @@ function ShowWorkerOutputLogFromListener({ log, testid }: {
 export function MyComponent(): React.JSX.Element {
   const { postMessage, addListener, workerOutputLog, state: { value }, runAsync } = useWorker(myWorkerContext)
   const [workerOutputLogFromListener, setWorkerOutputLogFromListener] = useState<MyWorkerOutput[]>([])
+  const [runAsyncResult, setRunAsyncResult] = useState(0)
 
   useEffect(() => {
     addListener("MyComponent", (workerOutput) =>
@@ -46,23 +47,33 @@ export function MyComponent(): React.JSX.Element {
 
   return (
     <div data-testid="my-component">
-      <button
-        onClick={() => postMessage({ value: 3 })}
-        data-testid="add3"
-      >
-        Add 3
-      </button>
-      <button
-        onClick={async () => await runAsync("add", [5])}
-        data-testid="runAsync-add5"
-      >
-        Add 5
-      </button>
-      <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
-      <ShowWorkerOutputLogFromListener
-        log={workerOutputLogFromListener}
-        testid="show-log-from-listener"
-      />
+      <div>
+        {/* Test postMessage and its output (MyWorkerOutput) */}
+        <button
+          onClick={() => postMessage({ value: 3 })}
+          data-testid="add3"
+        >
+          Add 3
+        </button>
+        <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
+        <ShowWorkerOutputLogFromListener
+          log={workerOutputLogFromListener}
+          testid="show-log-from-listener"
+        />
+      </div>
+      <div>
+        {/* Test runAsync */}
+        <button
+          onClick={async () => {
+            const result: number = await runAsync("add", [5])
+            setRunAsyncResult(result)
+          }}
+          data-testid="runAsync-add5"
+        >
+          Add 5
+        </button>
+        <div data-testid="show-runAsyncResult">{`runAsyncResult=${runAsyncResult}`}</div>
+      </div>
       <div data-testid="show-state-value">{`stateValue=${value}`}</div>
     </div>
   )

@@ -4,6 +4,7 @@ import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
+import { InputIdeal } from "./__testutils__/InputIdeal"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
@@ -97,13 +98,14 @@ test("compute cohomology of ΛV/I", async () => {
   render(<Calculator/>)
   expectInitialState()
   selectComputationTarget("idealQuot")
-  InputIdeal.inputIdealGenerator(["x"])
+  await InputIdeal.inputIdealGenerator(["x"])
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
-      "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}())$ for $0 \\leq n \\leq 20$",
+      "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}(x))$ for $0 \\leq n \\leq 20$",
       "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
-      "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[[x]]$ $\\}$"
+      "$H^{2} =\\ $ $0$",
+      "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[[y]]$ $\\}$",
     ],
   )
   expectComputeCohomologyButtonToContain("Compute")

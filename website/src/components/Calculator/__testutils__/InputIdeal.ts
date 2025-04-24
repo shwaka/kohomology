@@ -16,9 +16,12 @@ export class InputIdeal {
 
   static async inputIdealGenerator(generatorArray: string[]): Promise<void> {
     const dialog = InputIdeal.openDialog()
-    for (const generator of generatorArray) {
-      // TODO
-    }
+    const addGeneratorButton = within(dialog).getByText("Add a generator")
+    generatorArray.forEach((generator, index) => {
+      fireEvent.click(addGeneratorButton)
+      const input = within(dialog).getByTestId(`IdealEditorItem-input-${index}`)
+      fireEvent.input(input, { target: { value: generator }})
+    })
     InputIdeal.apply(dialog)
     // See comments in InputJson.inputValidJson
     await waitForElementToBeRemoved(

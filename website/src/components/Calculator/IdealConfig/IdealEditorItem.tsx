@@ -2,8 +2,9 @@ import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { Alert, IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import React, { useCallback } from "react"
-import { DeepRequired, FieldErrorsImpl } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
+import { ShowFieldErrors } from "@components/ShowFieldErrors"
 
 export interface Generator {
   text: string
@@ -16,22 +17,6 @@ export interface IdealFormInput {
 
 export interface ExternalData {
   validateGenerator: (generator: string) => Promise<true | string>
-}
-
-function getFieldError({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): React.JSX.Element | undefined {
-  const error = errors.generatorArray?.[index]
-  if (error === undefined) {
-    return undefined
-  }
-  const errorMessage = error.text?.message
-  if (errorMessage === undefined) {
-    return undefined
-  }
-  return (
-    <Alert severity="error" sx={{ whiteSpace: "pre-wrap" }}>
-      {errorMessage}
-    </Alert>
-  )
 }
 
 export function IdealEditorItem(
@@ -77,7 +62,15 @@ export function IdealEditorItem(
           <DragHandle/>
         </IconButton>
       </Stack>
-      {getFieldError({ errors, index })}
+      <ShowFieldErrors fieldErrorArray={getFieldErrorArray({ errors, index })}/>
     </Stack>
   )
+}
+
+function getFieldErrorArray({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): (FieldError | undefined)[] {
+  const fieldError: FieldError | undefined = errors.generatorArray?.[index]?.text
+  if (fieldError === undefined) {
+    return []
+  }
+  return [fieldError]
 }

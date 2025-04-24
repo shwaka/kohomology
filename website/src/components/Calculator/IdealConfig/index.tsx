@@ -1,9 +1,12 @@
 import { Button } from "@mui/material"
-import React from "react"
+import React, { useMemo } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { StyledMessage } from "../styled/message"
 import { IdealEditorDialog } from "./IdealEditorDialog"
 import { useIdealEditorDialog } from "./useIdealEditorDialog"
+import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog/EditorDialog"
+import { useIdealEditor } from "./useIdealEditor"
+import { IdealEditor } from "./IdealEditor"
 
 interface IdealConfigProps {
   setIdealJson: (idealJson: string) => void
@@ -14,7 +17,17 @@ interface IdealConfigProps {
 }
 
 export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): React.JSX.Element {
-  const { openDialog, idealEditorDialogProps } = useIdealEditorDialog({ setIdealJson, idealJson, validateGenerator, validateGeneratorArray })
+  const {
+    idealEditorProps,
+    getOnSubmit, beforeOpen, disableSubmit, preventQuit,
+  } = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
+  const editor: Editor = useMemo(() => ({
+    getOnSubmit, preventQuit, disableSubmit, beforeOpen,
+    renderContent: (_closeDialog) => (
+      <IdealEditor {...idealEditorProps}/>
+    )
+  }), [idealEditorProps, getOnSubmit, preventQuit, disableSubmit, beforeOpen])
+  const { editorDialogProps, openDialog } = useEditorDialog({ editor })
 
   return (
     <div>
@@ -30,7 +43,7 @@ export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenera
         Edit ideal
       </Button>
 
-      <IdealEditorDialog {...idealEditorDialogProps}/>
+      <EditorDialog {...editorDialogProps}/>
     </div>
   )
 }

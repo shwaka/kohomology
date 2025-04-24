@@ -111,7 +111,7 @@ test("compute cohomology of ΛV/I", async () => {
   expectComputeCohomologyButtonToContain("Compute")
 })
 
-test("invalid ideal generator", async () => {
+test("ideal not closed under d", async () => {
   render(<Calculator/>)
   expectInitialState()
   selectComputationTarget("idealQuot")
@@ -119,6 +119,35 @@ test("invalid ideal generator", async () => {
   const dialog = screen.getByRole("dialog")
   expect(dialog).toContainHTML("d(y)=x^2 must be contained in the ideal Ideal(y) to define dg ideal.")
 })
+
+test("empty ideal generator", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("idealQuot")
+  await InputIdeal.inputInvalidIdealGenerator([""])
+  const dialog = screen.getByRole("dialog")
+  expect(dialog).toContainHTML("Please enter the generator.")
+})
+
+test("invalid generator of DGA", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("idealQuot")
+  await InputIdeal.inputInvalidIdealGenerator(["a"])
+  const dialog = screen.getByRole("dialog")
+  expect(dialog).toContainHTML("Invalid generator name: a")
+  expect(dialog).toContainHTML("Valid names are: x, y")
+})
+
+test("parse failure", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("idealQuot")
+  await InputIdeal.inputInvalidIdealGenerator(["+"])
+  const dialog = screen.getByRole("dialog")
+  expect(dialog).toContainHTML("Could not parse input: AlternativesFailure")
+})
+
 
 test("url query", async () => {
   mockUseLocation.mockReturnValue({

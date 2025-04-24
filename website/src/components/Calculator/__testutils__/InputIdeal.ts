@@ -14,8 +14,7 @@ export class InputIdeal {
     fireEvent.click(applyButton)
   }
 
-  static async inputIdealGenerator(generatorArray: string[]): Promise<void> {
-    const dialog = InputIdeal.openDialog()
+  private static async inputIdealGeneratorAndApply(dialog: HTMLElement, generatorArray: string[]): Promise<void> {
     const addGeneratorButton = within(dialog).getByText("Add a generator")
     generatorArray.forEach((generator, index) => {
       fireEvent.click(addGeneratorButton)
@@ -23,6 +22,11 @@ export class InputIdeal {
       fireEvent.input(input, { target: { value: generator }})
     })
     InputIdeal.apply(dialog)
+  }
+
+  static async inputValidIdealGenerator(generatorArray: string[]): Promise<void> {
+    const dialog = InputIdeal.openDialog()
+    await InputIdeal.inputIdealGeneratorAndApply(dialog, generatorArray)
     // See comments in InputJson.inputValidJson
     await waitForElementToBeRemoved(
       dialog,
@@ -30,5 +34,11 @@ export class InputIdeal {
         timeout: 2000,
       },
     )
+  }
+
+  static async inputInvalidIdealGenerator(generatorArray: string[]): Promise<void> {
+    const dialog = InputIdeal.openDialog()
+    await InputIdeal.inputIdealGeneratorAndApply(dialog, generatorArray)
+    await within(dialog).findByRole("alert")
   }
 }

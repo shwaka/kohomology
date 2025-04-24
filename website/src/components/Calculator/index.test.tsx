@@ -98,7 +98,7 @@ test("compute cohomology of ΛV/I", async () => {
   render(<Calculator/>)
   expectInitialState()
   selectComputationTarget("idealQuot")
-  await InputIdeal.inputIdealGenerator(["x"])
+  await InputIdeal.inputValidIdealGenerator(["x"])
   clickComputeCohomologyButton()
   expectResultsToContainHTML(
     [
@@ -109,6 +109,15 @@ test("compute cohomology of ΛV/I", async () => {
     ],
   )
   expectComputeCohomologyButtonToContain("Compute")
+})
+
+test("invalid ideal generator", async () => {
+  render(<Calculator/>)
+  expectInitialState()
+  selectComputationTarget("idealQuot")
+  await InputIdeal.inputInvalidIdealGenerator(["y"])
+  const dialog = screen.getByRole("dialog")
+  expect(dialog).toContainHTML("d(y)=x^2 must be contained in the ideal Ideal(y)to define dg ideal.")
 })
 
 test("url query", async () => {

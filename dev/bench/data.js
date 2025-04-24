@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745480791058,
+  "lastUpdate": 1745483198757,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7598,6 +7598,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.919,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "06ba93702122600415f50b07bf4c06c623144c3f",
+          "message": "feat(website): use ShowFieldErrors in IdealEditor",
+          "timestamp": "2025-04-24T16:49:55+09:00",
+          "tree_id": "93b6fcb26dcbb51f9dd82970c9ce1c576c80dd5d",
+          "url": "https://github.com/shwaka/kohomology/commit/06ba93702122600415f50b07bf4c06c623144c3f"
+        },
+        "date": 1745483198156,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.337,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.907,
             "unit": "s/op"
           }
         ]

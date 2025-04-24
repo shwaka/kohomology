@@ -50,7 +50,7 @@ public interface DGAlgebra<D : Degree, B : BasisName, S : Scalar, V : NumVector<
                 require(
                     idealWithoutD.subspaceContains(d(gVector))
                 ) {
-                    "d($gVector)=${d(gVector)} must be contained in the ideal $idealWithoutD" +
+                    "d($gVector)=${d(gVector)} must be contained in the ideal $idealWithoutD " +
                         "to define dg ideal."
                 }
             }

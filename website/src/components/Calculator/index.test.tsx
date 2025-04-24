@@ -117,7 +117,7 @@ test("invalid ideal generator", async () => {
   selectComputationTarget("idealQuot")
   await InputIdeal.inputInvalidIdealGenerator(["y"])
   const dialog = screen.getByRole("dialog")
-  expect(dialog).toContainHTML("d(y)=x^2 must be contained in the ideal Ideal(y)to define dg ideal.")
+  expect(dialog).toContainHTML("d(y)=x^2 must be contained in the ideal Ideal(y) to define dg ideal.")
 })
 
 test("url query", async () => {

@@ -2,7 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } 
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 import { EditorDialog, EditorDialogProps } from "./EditorDialog"
-import { useTabEditor, TabItem } from "./TabEditor"
+import { useTabEditor, TabItem } from "./useTabEditor"
 import { useEditorDialog } from "./useEditorDialog"
 export type { TabItem }
 

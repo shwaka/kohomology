@@ -2,7 +2,7 @@ import { Button } from "@mui/material"
 import React, { useMemo } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { StyledMessage } from "../styled/message"
-import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog/EditorDialog"
+import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog"
 import { useIdealEditor } from "./useIdealEditor"
 import { IdealEditor } from "./IdealEditor"
 

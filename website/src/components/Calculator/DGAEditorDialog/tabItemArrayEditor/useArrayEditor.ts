@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
-import { Editor } from "@components/TabDialog/EditorDialog"
+import { Editor } from "@components/TabDialog"
 
 type UseArrayEditorReturnValue = {
   label: string

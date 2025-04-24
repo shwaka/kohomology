@@ -9,7 +9,7 @@ type TabKey = (typeof tabKeys)[number]
 export function useDGAEditorDialog(
   json: string,
   updateDgaWrapper: (json: string) => void
-): UseTabDialogReturnValue<TabKey> & { TabDialog: typeof TabDialog } {
+): UseTabDialogReturnValue & { TabDialog: typeof TabDialog } {
   const tabItems = {
     "array": useTabItemArrayEditor({ json, updateDgaWrapper }),
     "json": useTabItemJsonEditor({ json, updateDgaWrapper }),

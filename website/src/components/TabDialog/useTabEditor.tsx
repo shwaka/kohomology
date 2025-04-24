@@ -15,13 +15,13 @@ interface UseTabEditorArgs<K extends string> {
   defaultTabKey: K
 }
 
-interface UseTabEditorReturnValue<K extends string> {
+interface UseTabEditorReturnValue {
   editor: Editor
 }
 
 export function useTabEditor<K extends string>(
   { tabItems, tabKeys, defaultTabKey }: UseTabEditorArgs<K>
-): UseTabEditorReturnValue<K> {
+): UseTabEditorReturnValue {
   const [currentTabKey, setCurrentTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = tabItems[currentTabKey]
   const renderContent = useCallback((closeDialog: () => void): React.JSX.Element => (

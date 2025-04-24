@@ -37,7 +37,7 @@ export function useTabEditor<K extends string>(
     getOnSubmit: currentTabItem.editor.getOnSubmit,
     preventQuit: currentTabItem.editor.preventQuit,
     disableSubmit: currentTabItem.editor.disableSubmit,
-    beforeOpen: currentTabItem.editor.disableSubmit,
+    beforeOpen: currentTabItem.editor.beforeOpen,
     onQuit: currentTabItem.editor.onQuit,
   }), [renderContent, renderTitle, currentTabItem])
   return { editor }

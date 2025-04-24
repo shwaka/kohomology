@@ -4,7 +4,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { IdealEditorProps } from "./IdealEditor"
 import { Generator, IdealFormInput } from "./IdealEditorItem"
 
-interface UseIdealEditorArgs {
+export interface UseIdealEditorArgs {
   idealJson: string
   setIdealJson: (idealJson: string) => void
   validateGenerator: (generator: string) => Promise<true | string>

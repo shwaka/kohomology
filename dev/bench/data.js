@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745424810510,
+  "lastUpdate": 1745455387279,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7496,6 +7496,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.907,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5e3cb2c97339eaecf9c41846e2105bb9cd3163e4",
+          "message": "fix(core): add missing space in error message from DGAlgebra.getDGIdeal",
+          "timestamp": "2025-04-24T09:38:17+09:00",
+          "tree_id": "76b45a740cc5e29adda520664d65cf28e273760c",
+          "url": "https://github.com/shwaka/kohomology/commit/5e3cb2c97339eaecf9c41846e2105bb9cd3163e4"
+        },
+        "date": 1745455386145,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.345,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.953,
             "unit": "s/op"
           }
         ]

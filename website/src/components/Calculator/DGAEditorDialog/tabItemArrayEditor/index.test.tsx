@@ -23,7 +23,9 @@ class ArrayEditorTestUtil {
     }))
     this.result = result
     // render the tab item
-    const { rerender, container } = render(this.result.current.render(this.closeDialog))
+    const { rerender, container } = render(
+      this.result.current.editor.renderContent(this.closeDialog)
+    )
     this.rerender = rerender
     this.container = container
   }
@@ -81,9 +83,9 @@ class ArrayEditorTestUtil {
   async submit(): Promise<void> {
     const closeDialog = (): void => { return }
     await act(async () => {
-      await this.result.current.getOnSubmit(closeDialog)()
+      await this.result.current.editor.getOnSubmit(closeDialog)()
     })
-    this.rerender(this.result.current.render(this.closeDialog))
+    this.rerender(this.result.current.editor.renderContent(this.closeDialog))
   }
 
   expectSingleError(message: string): void {

@@ -91,37 +91,39 @@ export function useTabItemExampleSelector(args: Args): TabItem {
   const labelForSelect = { label: "Select an example", labelId: "label-select-dga-example" }
   return {
     label: "Examples",
-    getOnSubmit,
-    beforeOpen,
-    disableSubmit,
-    render: (_) => (
-      <Stack spacing={2} sx={{ marginTop: 1 }}>
-        <FormControl>
-          <InputLabel id={labelForSelect.labelId}>{labelForSelect.label}</InputLabel>
-          <Select
-            labelId={labelForSelect.labelId} label={labelForSelect.label}
-            value={exampleKey}
-            onChange={(event: SelectChangeEvent) => (
-              setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
-            )}
-            sx={{ width: 300 }}
-          >
-            {exampleKeys.map((exampleKeyForItem) => (
-              <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
-                {examples[exampleKeyForItem].renderSelectItem()}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
-        {example?.renderForm?.()}
-        {(example !== undefined) && (
-          <Stack>
-            {getDgaInfo(example.json).map((styledMessage, index) => (
-              <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
-            ))}
-          </Stack>
-        )}
-      </Stack>
-    )
+    editor: {
+      getOnSubmit,
+      beforeOpen,
+      disableSubmit,
+      renderContent: (_) => (
+        <Stack spacing={2} sx={{ marginTop: 1 }}>
+          <FormControl>
+            <InputLabel id={labelForSelect.labelId}>{labelForSelect.label}</InputLabel>
+            <Select
+              labelId={labelForSelect.labelId} label={labelForSelect.label}
+              value={exampleKey}
+              onChange={(event: SelectChangeEvent) => (
+                setExampleKey((event.target as HTMLInputElement).value as ExampleKey)
+              )}
+              sx={{ width: 300 }}
+            >
+              {exampleKeys.map((exampleKeyForItem) => (
+                <MenuItem value={exampleKeyForItem} key={exampleKeyForItem}>
+                  {examples[exampleKeyForItem].renderSelectItem()}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {example?.renderForm?.()}
+          {(example !== undefined) && (
+            <Stack>
+              {getDgaInfo(example.json).map((styledMessage, index) => (
+                <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
+              ))}
+            </Stack>
+          )}
+        </Stack>
+      )
+    }
   }
 }

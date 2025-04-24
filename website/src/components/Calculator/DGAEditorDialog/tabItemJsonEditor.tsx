@@ -42,11 +42,13 @@ export function useTabItemJsonEditor(args: {
   }
   return {
     label: "JSON",
-    preventQuit,
-    getOnSubmit,
-    beforeOpen,
-    disableSubmit,
-    render: (_) => (<JsonEditor {...jsonEditorProps}/>),
+    editor: {
+      preventQuit,
+      getOnSubmit,
+      beforeOpen,
+      disableSubmit,
+      renderContent: (_) => (<JsonEditor {...jsonEditorProps}/>),
+    }
   }
 }
 

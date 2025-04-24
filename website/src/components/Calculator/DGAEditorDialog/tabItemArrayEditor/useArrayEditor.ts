@@ -4,8 +4,11 @@ import { useFieldArray, useForm } from "react-hook-form"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
+import { Editor } from "@components/TabDialog/EditorDialog"
 
-type UseArrayEditorReturnValue = Omit<TabItem, "render"> & {
+type UseArrayEditorReturnValue = {
+  label: string
+  editorWithoutRender: Omit<Editor, "renderContent">
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit">
 }
 
@@ -56,10 +59,12 @@ export function useArrayEditor(args: {
   }
   return {
     label: "Array",
-    getOnSubmit,
-    beforeOpen,
-    preventQuit,
-    disableSubmit,
+    editorWithoutRender: {
+      getOnSubmit,
+      beforeOpen,
+      preventQuit,
+      disableSubmit,
+    },
     arrayEditorPropsExceptOnSubmit,
   }
 }

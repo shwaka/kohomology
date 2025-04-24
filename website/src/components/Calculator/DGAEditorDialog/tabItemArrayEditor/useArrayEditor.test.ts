@@ -50,7 +50,7 @@ describe("useArrayEditor", () => {
     )
 
     await act(async () => {
-      await result.current.getOnSubmit(jest.fn())() // dummy closeDialog
+      await result.current.editorWithoutRender.getOnSubmit(jest.fn())() // dummy closeDialog
     })
 
     expect(update).toHaveBeenCalledWith(expect.stringContaining('["x", 2, "0"]'))
@@ -63,8 +63,8 @@ describe("useArrayEditor", () => {
       useArrayEditor({ json: prettyJson, updateDgaWrapper: jest.fn() })
     )
 
-    expect(result.current.preventQuit).not.toBeUndefined()
-    const preventQuit = result.current.preventQuit as () => string | undefined
+    expect(result.current.editorWithoutRender.preventQuit).not.toBeUndefined()
+    const preventQuit = result.current.editorWithoutRender.preventQuit as () => string | undefined
 
     // preventQuit should return undefined if unchanged
     expect(preventQuit()).toBeUndefined()

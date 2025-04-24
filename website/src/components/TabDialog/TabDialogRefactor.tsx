@@ -2,18 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } 
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 import { Editor, EditorDialog, EditorDialogProps, OnSubmit, useEditorDialog } from "./EditorDialog"
-import { useTabEditor } from "./TabEditor"
-export type { OnSubmit }
-
-export interface TabItem {
-  label: string
-  render: (closeDialog: () => void) => React.JSX.Element
-  getOnSubmit: (closeDialog: () => void) => OnSubmit
-  onQuit?: () => void
-  beforeOpen?: () => void
-  preventQuit?: () => string | undefined
-  disableSubmit?: () => boolean
-}
+import { useTabEditor, TabItem } from "./TabEditor"
+export type { OnSubmit, TabItem }
 
 export interface UseTabDialogReturnValue<K extends string> {
   tabDialogProps: EditorDialogProps
@@ -25,17 +15,7 @@ export function useTabDialog<K extends string>(
   tabKeys: readonly K[],
   defaultTabKey: K,
 ): UseTabDialogReturnValue<K> {
-  const convertedTabItems = Object.fromEntries(
-    Object.entries(tabItems).map(([key, value]) => [key, {
-      editor: { ...(value as TabItem), renderContent: (value as TabItem).render },
-      label: (value as TabItem).label
-    }])
-  ) as unknown as { [T in K]: { editor: Editor, label: string } }
-  const { editor } = useTabEditor({
-    tabItems: convertedTabItems,
-    tabKeys,
-    defaultTabKey
-  })
+  const { editor } = useTabEditor({ tabItems, tabKeys, defaultTabKey })
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })
   return { tabDialogProps: editorDialogProps, openDialog }
 }

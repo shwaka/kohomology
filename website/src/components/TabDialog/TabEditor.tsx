@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react"
 import { canQuit, Editor, OnSubmit } from "./EditorDialog"
 import { Tabs, Tab } from "@mui/material"
 
-interface TabItem {
+export interface TabItem {
   editor: Editor
   label: string
 }

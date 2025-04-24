@@ -7,14 +7,17 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem {
-  const { arrayEditorPropsExceptOnSubmit, ...tabItemExceptRender } = useArrayEditor(args)
+  const { label, editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useArrayEditor(args)
   return {
-    ...tabItemExceptRender,
-    render: (closeDialog) => (
-      <ArrayEditor
-        onSubmit={tabItemExceptRender.getOnSubmit(closeDialog)}
-        {...arrayEditorPropsExceptOnSubmit}
-      />
-    ),
+    label,
+    editor: {
+      ...editorWithoutRender,
+      renderContent: (closeDialog) => (
+        <ArrayEditor
+          onSubmit={editorWithoutRender.getOnSubmit(closeDialog)}
+          {...arrayEditorPropsExceptOnSubmit}
+        />
+      ),
+    },
   }
 }

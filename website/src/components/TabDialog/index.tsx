@@ -1,2 +1,2 @@
-export { type TabItem, useTabDialog, TabDialog, type UseTabDialogReturnValue } from "./TabDialogRefactor"
+export { type TabItem, useTabDialog, TabDialog, type UseTabDialogReturnValue } from "./TabDialog"
 export type { OnSubmit } from "./EditorDialog"

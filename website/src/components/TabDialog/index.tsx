@@ -1,8 +1,8 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
-
-export type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>
+import { OnSubmit } from "./EditorDialog"
+export type { OnSubmit }
 
 export interface TabItem {
   label: string

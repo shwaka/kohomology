@@ -66,7 +66,7 @@ export function EmailForm(
         })}
       />
       <button type="submit">Submit</button>
-      <ShowFieldErrors fieldErrors={[errors.email]} criteriaMode={criteriaModeForComponent} />
+      <ShowFieldErrors fieldErrorArray={[errors.email]} criteriaMode={criteriaModeForComponent} />
     </form>
   )
 }

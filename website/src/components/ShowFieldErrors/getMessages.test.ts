@@ -6,8 +6,8 @@ describe("getMessages with criteriaMode=firstError", () => {
 
   test("single FieldError without types", () => {
     const fieldError: FieldError = { message: "an error message", type: "a type" }
-    const fieldErrors: FieldError[] = [fieldError]
-    expect(getMessages({ fieldErrors, criteriaMode })).toEqual([fieldError])
+    const fieldErrorArray: FieldError[] = [fieldError]
+    expect(getMessages({ fieldErrorArray, criteriaMode })).toEqual([fieldError])
   })
 
   test("single FieldError with types", () => {
@@ -18,8 +18,8 @@ describe("getMessages with criteriaMode=firstError", () => {
       type: "",
       types: { [type]: message },
     }
-    const fieldErrors: FieldError[] = [fieldError]
-    expect(getMessages({ fieldErrors, criteriaMode })).toEqual([])
+    const fieldErrorArray: FieldError[] = [fieldError]
+    expect(getMessages({ fieldErrorArray, criteriaMode })).toEqual([])
   })
 })
 
@@ -28,8 +28,8 @@ describe("getMessages with criteriaMode=all", () => {
 
   test("single FieldError without types", () => {
     const fieldError: FieldError = { message: "an error message", type: "a type" }
-    const fieldErrors: FieldError[] = [fieldError]
-    expect(getMessages({ fieldErrors, criteriaMode })).toEqual([fieldError])
+    const fieldErrorArray: FieldError[] = [fieldError]
+    expect(getMessages({ fieldErrorArray, criteriaMode })).toEqual([fieldError])
   })
 
   test("single FieldError with types", () => {
@@ -39,7 +39,7 @@ describe("getMessages with criteriaMode=all", () => {
       type: "",
       types: { [type]: message },
     }
-    const fieldErrors: FieldError[] = [fieldError]
-    expect(getMessages({ fieldErrors, criteriaMode })).toEqual([{ message, type }])
+    const fieldErrorArray: FieldError[] = [fieldError]
+    expect(getMessages({ fieldErrorArray, criteriaMode })).toEqual([{ message, type }])
   })
 })

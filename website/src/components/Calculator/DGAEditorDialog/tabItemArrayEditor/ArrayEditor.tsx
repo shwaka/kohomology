@@ -71,13 +71,13 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
 }
 
 function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
-  const fieldErrors = getFieldErrors({ errors })
+  const fieldErrorArray = getFieldErrorArray({ errors })
   return (
-    <ShowFieldErrors fieldErrors={fieldErrors}/>
+    <ShowFieldErrors fieldErrorArray={fieldErrorArray}/>
   )
 }
 
-function getFieldErrors(
+function getFieldErrorArray(
   { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
 ): (FieldError | undefined)[] {
   const _global_errors = errors._global_errors

@@ -87,13 +87,13 @@ export function ArrayEditorItem(
 
 function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element {
   const error = errors.generatorArray?.[index]
-  const fieldErrors = getFieldErrors({ error })
+  const fieldErrorArray = getFieldErrorArray({ error })
   return (
-    <ShowFieldErrors fieldErrors={fieldErrors}/>
+    <ShowFieldErrors fieldErrorArray={fieldErrorArray}/>
   )
 }
 
-function getFieldErrors(
+function getFieldErrorArray(
   { error }: { error: FieldErrorsImpl<Generator> | undefined }
 ): (FieldError | undefined)[] {
   if (error === undefined) {

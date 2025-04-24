@@ -7,14 +7,14 @@ import { getMessages } from "./getMessages"
 export const magicMessageToHideError = "_HIDE_THIS_ERROR_"
 
 interface ShowFieldErrorsProps {
-  fieldErrors: (FieldError | undefined)[]
+  fieldErrorArray: (FieldError | undefined)[]
   criteriaMode?: CriteriaMode
 }
 
 // Currently, showAllErrors=false is enough to show the way to fix inputs.
 // In some future, showAllErrors=true may be useful to show more information.
-export function ShowFieldErrors({ fieldErrors, criteriaMode = "firstError" }: ShowFieldErrorsProps): React.JSX.Element {
-  const messages = getMessages({ fieldErrors, criteriaMode })
+export function ShowFieldErrors({ fieldErrorArray, criteriaMode = "firstError" }: ShowFieldErrorsProps): React.JSX.Element {
+  const messages = getMessages({ fieldErrorArray, criteriaMode })
   return (
     <AnimatePresence mode="sync">
       {messages.map(({ message, type }) => {

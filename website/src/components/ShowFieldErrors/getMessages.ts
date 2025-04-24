@@ -6,14 +6,14 @@ export type MessageWithType = {
 }
 
 type GetMessagesArgs = {
-  fieldErrors: (FieldError | undefined)[]
+  fieldErrorArray: (FieldError | undefined)[]
   criteriaMode: CriteriaMode
 }
 
-export function getMessages({ fieldErrors, criteriaMode }: GetMessagesArgs): MessageWithType[] {
+export function getMessages({ fieldErrorArray, criteriaMode }: GetMessagesArgs): MessageWithType[] {
   switch (criteriaMode) {
     case "all":
-      return fieldErrors.flatMap((fieldError) => {
+      return fieldErrorArray.flatMap((fieldError) => {
         const types: MultipleFieldErrors | undefined = fieldError?.types
         if (types === undefined) {
           return getMessageFromFieldError(fieldError)
@@ -21,7 +21,7 @@ export function getMessages({ fieldErrors, criteriaMode }: GetMessagesArgs): Mes
         return Object.entries(types).map(([type, message]) => ({ type, message }))
       })
     case "firstError":
-      return fieldErrors.flatMap(getMessageFromFieldError)
+      return fieldErrorArray.flatMap(getMessageFromFieldError)
   }
 }
 

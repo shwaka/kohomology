@@ -1,5 +1,5 @@
 import { render, renderHook, act, screen, fireEvent, waitFor } from "@testing-library/react"
-import React from "react"
+import React, { useState } from "react"
 import { IdealEditor } from "./IdealEditor"
 import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
 
@@ -27,9 +27,11 @@ describe("IdealEditor", () => {
   })
 })
 
-function IdealEditorTestContainer(args: UseIdealEditorArgs): React.JSX.Element {
-  const { idealEditorProps, getOnSubmit } = useIdealEditor(args)
-  console.log(idealEditorProps.getValues())
+type TestContainerProps = Omit<UseIdealEditorArgs, "idealJson" | "setIdealJson">
+function IdealEditorTestContainer(props: TestContainerProps): React.JSX.Element {
+  const [idealJson, setIdealJson] = useState("[]")
+  const { idealEditorProps, getOnSubmit } = useIdealEditor({ ...props, idealJson, setIdealJson })
+
   return (
     <React.Fragment>
       <IdealEditor {...idealEditorProps}/>
@@ -56,13 +58,11 @@ function apply(): void {
 
 describe("IdealEditorTestContainer", () => {
   test("empty text as generator", async () => {
-    const hookArgs: UseIdealEditorArgs = {
-      idealJson: "[]",
-      setIdealJson: jest.fn(),
+    const testContainerProps: TestContainerProps = {
       validateGenerator: jest.fn().mockResolvedValue(true),
       validateGeneratorArray: jest.fn().mockResolvedValue(true),
     }
-    render(<IdealEditorTestContainer {...hookArgs}/>)
+    render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators([""])
     apply()
@@ -72,13 +72,11 @@ describe("IdealEditorTestContainer", () => {
 
   test("parse error", async () => {
     const errorMessage = "This is the error message."
-    const hookArgs: UseIdealEditorArgs = {
-      idealJson: "[]",
-      setIdealJson: jest.fn(),
+    const testContainerProps: TestContainerProps = {
       validateGenerator: jest.fn().mockResolvedValue(errorMessage),
       validateGeneratorArray: jest.fn().mockResolvedValue(true),
     }
-    render(<IdealEditorTestContainer {...hookArgs}/>)
+    render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators(["x"])
     apply()

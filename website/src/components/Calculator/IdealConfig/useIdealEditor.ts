@@ -1,6 +1,6 @@
 import { OnSubmit } from "@components/TabDialog"
 import { useCallback } from "react"
-import { useForm } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 import { IdealEditorProps } from "./IdealEditor"
 import { Generator, IdealFormInput } from "./IdealEditorItem"
 
@@ -28,6 +28,10 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
       generatorArray: jsonToGeneratorArray(idealJson)
     }
   })
+  const { fields, append, remove, move } = useFieldArray({
+    control,
+    name: "generatorArray",
+  })
 
   const getOnSubmit = useCallback((closeDialog: () => void): OnSubmit => {
     return handleSubmit(
@@ -44,7 +48,9 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
   }, [idealJson, reset])
 
   const idealEditorProps: IdealEditorProps = {
-    register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray,
+    register, getValues, errors, trigger,
+    fields, append, remove, move,
+    validateGenerator, validateGeneratorArray,
   }
 
   const disableSubmit = useCallback((): boolean => {

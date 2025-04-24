@@ -2,7 +2,7 @@ import { FormData, SortableFields } from "@components/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
-import { Control, DeepRequired, FieldError, FieldErrorsImpl, MultipleFieldErrors, useFieldArray, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
@@ -42,16 +42,15 @@ export interface IdealEditorProps {
   getValues: UseFormGetValues<IdealFormInput>
   errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>
   trigger: UseFormTrigger<IdealFormInput>
-  control: Control<IdealFormInput>
+  fields: FieldArrayWithId<IdealFormInput, "generatorArray", "id">[]
+  append: UseFieldArrayAppend<IdealFormInput, "generatorArray">
+  remove: UseFieldArrayRemove
+  move: UseFieldArrayMove
   validateGenerator: (generator: string) => Promise<true | string>
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, control, validateGenerator, validateGeneratorArray }: IdealEditorProps): React.JSX.Element {
-  const { fields, append, remove, move } = useFieldArray({
-    control,
-    name: "generatorArray",
-  })
+export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move, validateGenerator, validateGeneratorArray }: IdealEditorProps): React.JSX.Element {
   const formData: FormData<IdealFormInput> = {
     register, remove, errors, getValues, trigger,
   }

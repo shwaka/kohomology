@@ -15,9 +15,9 @@ export interface ArrayEditorProps {
   fields: FieldArrayWithId<GeneratorFormInput, "generatorArray", "id">[]
   append: UseFieldArrayAppend<GeneratorFormInput, "generatorArray">
   remove: UseFieldArrayRemove
+  move: UseFieldArrayMove
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
-  move: UseFieldArrayMove
   onSubmit: OnSubmit
 }
 

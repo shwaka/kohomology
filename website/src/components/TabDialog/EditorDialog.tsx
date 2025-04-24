@@ -55,7 +55,7 @@ export function useEditorDialog(
   return { editorDialogProps, openDialog }
 }
 
-interface EditorDialogProps {
+export interface EditorDialogProps {
   renderContent: (closeDialog: () => void) => React.JSX.Element
   renderTitle?: () => React.JSX.Element
   open: boolean

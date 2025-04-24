@@ -103,29 +103,33 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
     [wrapper]
   )
 
-  const runAsync: RunAsync<WF> = useCallback(async (key, args) => {
-    const id = generateId()
-    const input: MessageInputCallFunc<WF> = {
-      type: "callFunc",
-      key, args, id,
-    }
-    const subscribeKey = `runAsync-${id}`
-    // wrapper.subscribe must be called BEFORE wrapper.postMessage
-    // since wrapper.postMessage immediately submits the output in test environment.
-    const promise = new Promise((resolve, _reject) => {
-      wrapper.subscribe(
-        subscribeKey,
-        (output) => {
-          if ((output.type === "funcResult") && (output.key === key) && (output.id === id)) {
-            wrapper.unsubscribe(subscribeKey)
-            resolve(output.result)
+  const runAsync: RunAsync<WF> = useCallback(
+    async <K extends keyof WF> (key: K, args: Parameters<WF[K]>): Promise<ReturnType<WF[K]>> => {
+      const id = generateId()
+      const input: MessageInputCallFunc<WF> = {
+        type: "callFunc",
+        key, args, id,
+      }
+      const subscribeKey = `runAsync-${id}`
+      // The type parameter ReturnType<WF[K]> is necessary (not inferred if omitted)
+      const promise = new Promise<ReturnType<WF[K]>>((resolve, _reject) => {
+        // wrapper.subscribe must be called BEFORE wrapper.postMessage
+        // since wrapper.postMessage immediately submits the output in test environment.
+        wrapper.subscribe(
+          subscribeKey,
+          (output) => {
+            if ((output.type === "funcResult") && (output.key === key) && (output.id === id)) {
+              wrapper.unsubscribe(subscribeKey)
+              resolve(output.result)
+            }
           }
-        }
-      )
-    })
-    wrapper.postMessage(input)
-    return promise
-  }, [wrapper])
+        )
+      })
+      wrapper.postMessage(input)
+      return promise
+    },
+    [wrapper]
+  )
 
   return {
     postMessage,

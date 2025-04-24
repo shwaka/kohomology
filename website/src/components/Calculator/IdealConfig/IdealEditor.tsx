@@ -4,36 +4,13 @@ import { Alert, Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, MultipleFieldErrors, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
+import { ShowFieldErrors } from "@components/ShowFieldErrors"
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (
     <Stack spacing={2}>
       {children}
     </Stack>
-  )
-}
-
-function getGlobalError(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): React.JSX.Element | undefined {
-  if (errors.generatorArray !== undefined) {
-    return undefined
-  }
-  // The following is the same as getGlobalError in tabItemArrayEditor.tsx
-  const fieldError: FieldError | undefined = errors.dummy
-  if (fieldError === undefined) {
-    return undefined
-  }
-  const types: MultipleFieldErrors | undefined = fieldError.types
-  if (types === undefined) {
-    return undefined
-  }
-  return (
-    <React.Fragment>
-      {Object.entries(types).map(([errorType, message]) => (
-        <Alert severity="error" key={errorType}>
-          {message}
-        </Alert>
-      ))}
-    </React.Fragment>
   )
 }
 
@@ -82,8 +59,19 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
             },
           })}
         />
-        {getGlobalError(errors)}
+        <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
       </Stack>
     </div>
   )
+}
+
+function getFieldErrorArray(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): (FieldError | undefined)[] {
+  if (errors.generatorArray !== undefined) {
+    return []
+  }
+  const fieldError: FieldError | undefined = errors.dummy
+  if (fieldError === undefined) {
+    return []
+  }
+  return [fieldError]
 }

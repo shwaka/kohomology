@@ -1,15 +1,29 @@
-import { Button, Dialog, DialogActions } from "@mui/material"
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import React, { useState } from "react"
 
 export type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>
 
-interface UseEditorDialogArgs {
+export interface Editor {
+  renderContent: (closeDialog: () => void) => React.JSX.Element
+  renderTitle?: () => React.JSX.Element
   getOnSubmit: (closeDialog: () => void) => OnSubmit
   preventQuit?: () => string | undefined
   disableSubmit?: () => boolean
   beforeOpen?: () => void
   onQuit?: () => void
+}
+
+export function canQuit(preventQuit: (() => string | undefined) | undefined): boolean {
+  const confirmPrompt: string | undefined = preventQuit?.()
+  if (confirmPrompt === undefined) {
+    return true
+  }
+  return window.confirm(confirmPrompt)
+}
+
+interface UseEditorDialogArgs {
+  editor: Editor
 }
 
 interface UseEditorDialogReturnValue {
@@ -18,19 +32,11 @@ interface UseEditorDialogReturnValue {
 }
 
 export function useEditorDialog(
-  { getOnSubmit, preventQuit, disableSubmit, beforeOpen, onQuit }: UseEditorDialogArgs
+  { editor: { renderContent, renderTitle, getOnSubmit, preventQuit, disableSubmit, beforeOpen, onQuit } }: UseEditorDialogArgs
 ): UseEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  function canQuit(): boolean {
-    const confirmPrompt: string | undefined = preventQuit?.()
-    if (confirmPrompt === undefined) {
-      return true
-    }
-    return window.confirm(confirmPrompt)
-  }
-
   function tryToQuit(): void {
-    if (!canQuit()) {
+    if (!canQuit(preventQuit)) {
       return
     }
     onQuit?.()
@@ -39,7 +45,8 @@ export function useEditorDialog(
   const closeDialog = (): void => setOpen(false)
   const onSubmit: OnSubmit = getOnSubmit(closeDialog)
   const editorDialogProps: EditorDialogProps = {
-    open, tryToQuit, submit
+    renderContent, renderTitle,
+    open, closeDialog, tryToQuit, disableSubmit, onSubmit
   }
   function openDialog(): void {
     beforeOpen?.()
@@ -49,6 +56,8 @@ export function useEditorDialog(
 }
 
 interface EditorDialogProps {
+  renderContent: (closeDialog: () => void) => React.JSX.Element
+  renderTitle?: () => React.JSX.Element
   open: boolean
   closeDialog: () => void
   tryToQuit: () => void
@@ -56,7 +65,7 @@ interface EditorDialogProps {
   onSubmit: OnSubmit
 }
 
-export function EditorDialog({ open, closeDialog, tryToQuit, disableSubmit, onSubmit }: EditorDialogProps): React.JSX.Element {
+export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tryToQuit, disableSubmit, onSubmit }: EditorDialogProps): React.JSX.Element {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
@@ -66,6 +75,14 @@ export function EditorDialog({ open, closeDialog, tryToQuit, disableSubmit, onSu
       fullWidth={true}
       PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
+      {(renderTitle !== undefined) && (
+        <DialogTitle>
+          {renderTitle()}
+        </DialogTitle>
+      )}
+      <DialogContent sx={{ [mobileMediaQuery]: { padding: 1 } }}>
+        {renderContent(closeDialog)}
+      </DialogContent>
       <DialogActions>
         <Button
           onClick={onSubmit} variant="contained"

@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
-import React, { useState } from "react"
+import React from "react"
 import { OnSubmit } from "./OnSubmit"
 
 export interface EditorDialogProps {

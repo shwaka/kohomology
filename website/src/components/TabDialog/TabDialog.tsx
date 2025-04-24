@@ -1,9 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Tab, Tabs } from "@mui/material"
-import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
-import React, { useState } from "react"
+import React from "react"
 import { EditorDialog, EditorDialogProps } from "./EditorDialog"
-import { useTabEditor, TabItem } from "./useTabEditor"
 import { useEditorDialog } from "./useEditorDialog"
+import { useTabEditor, TabItem } from "./useTabEditor"
 export type { TabItem }
 
 export interface UseTabDialogReturnValue<K extends string> {

@@ -1,10 +1,10 @@
+import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog"
 import { Button } from "@mui/material"
 import React, { useMemo } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { StyledMessage } from "../styled/message"
-import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog"
-import { useIdealEditor } from "./useIdealEditor"
 import { IdealEditor } from "./IdealEditor"
+import { useIdealEditor } from "./useIdealEditor"
 
 interface IdealConfigProps {
   setIdealJson: (idealJson: string) => void

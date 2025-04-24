@@ -1,9 +1,7 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
-import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
-import React, { useState } from "react"
-import { OnSubmit } from "./OnSubmit"
-import { EditorDialogProps } from "./EditorDialog"
+import { useState } from "react"
 import { Editor } from "./Editor"
+import { EditorDialogProps } from "./EditorDialog"
+import { OnSubmit } from "./OnSubmit"
 
 export function canQuit(preventQuit: (() => string | undefined) | undefined): boolean {
   const confirmPrompt: string | undefined = preventQuit?.()

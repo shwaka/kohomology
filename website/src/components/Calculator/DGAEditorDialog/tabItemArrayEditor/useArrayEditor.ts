@@ -1,10 +1,10 @@
-import { OnSubmit, TabItem } from "@components/TabDialog"
+import { OnSubmit } from "@components/TabDialog"
+import { Editor } from "@components/TabDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./ConvertGenerator"
 import { formValueSchema, GeneratorFormInput } from "./generatorArraySchema"
-import { Editor } from "@components/TabDialog"
 
 type UseArrayEditorReturnValue = {
   label: string

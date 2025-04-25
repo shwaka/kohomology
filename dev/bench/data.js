@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1745508723372,
+  "lastUpdate": 1745541363764,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7734,6 +7734,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 0.914,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "631d28c3525cbd8b30891ccc1f8c911550f9f09a",
+          "message": "refactor(website): use zod schema in IdealEditor",
+          "timestamp": "2025-04-25T09:19:10+09:00",
+          "tree_id": "828a2c82f47f1acd5be1511618c78b44ae4248f5",
+          "url": "https://github.com/shwaka/kohomology/commit/631d28c3525cbd8b30891ccc1f8c911550f9f09a"
+        },
+        "date": 1745541363253,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.338,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 0.925,
             "unit": "s/op"
           }
         ]

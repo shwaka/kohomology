@@ -20,7 +20,7 @@ export const globalErrorsSchema = z.object({
 })
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-function getFormValueSchema(
+function getFormValueSchemaImpl(
   validateGenerator: (generator: string) => Promise<true | string>,
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>,
 ) {
@@ -39,4 +39,11 @@ function getFormValueSchema(
   })
 }
 
-export type IdealFormInput = z.infer<ReturnType<typeof getFormValueSchema>>
+export type IdealFormInput = z.infer<ReturnType<typeof getFormValueSchemaImpl>>
+
+export function getFormValueSchema(
+  validateGenerator: (generator: string) => Promise<true | string>,
+  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>,
+): z.ZodType<IdealFormInput> {
+  return getFormValueSchemaImpl(validateGenerator, validateGeneratorArray)
+}

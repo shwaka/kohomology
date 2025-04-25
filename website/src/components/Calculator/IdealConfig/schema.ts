@@ -48,6 +48,7 @@ function getFormValueSchemaImpl(
   })
 }
 
+export type Generator = z.infer<ReturnType<typeof getIdealGeneratorSchema>>
 export type IdealFormInput = z.infer<ReturnType<typeof getFormValueSchemaImpl>>
 
 export function getFormValueSchema(

@@ -4,7 +4,8 @@ import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
-import { ExternalData, IdealEditorItem, IdealFormInput } from "./IdealEditorItem"
+import { ExternalData, IdealEditorItem } from "./IdealEditorItem"
+import { IdealFormInput } from "./schema"
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (
@@ -50,15 +51,6 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
         >
           Add a generator
         </Button>
-        <input
-          hidden value="dummy"
-          {...register("dummy", {
-            validate: (_) => {
-              const generatorArray = getValues().generatorArray.map((generator) => generator.text)
-              return validateGeneratorArray(generatorArray)
-            },
-          })}
-        />
         <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
       </Stack>
     </div>
@@ -69,7 +61,7 @@ function getFieldErrorArray(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>
   if (errors.generatorArray !== undefined) {
     return []
   }
-  const fieldError: FieldError | undefined = errors.dummy
+  const fieldError: FieldError | undefined = errors._global_errors?.validateGeneratorArray
   if (fieldError === undefined) {
     return []
   }

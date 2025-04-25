@@ -1,8 +1,9 @@
 import { OnSubmit } from "@components/TabDialog"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useCallback } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
 import { IdealEditorProps } from "./IdealEditor"
-import { Generator, IdealFormInput } from "./IdealEditorItem"
+import { Generator, getFormValueSchema } from "./schema"
 
 export interface UseIdealEditorArgs {
   idealJson: string
@@ -20,13 +21,18 @@ interface UseIdealEditorReturnValue {
 }
 
 export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray }: UseIdealEditorArgs): UseIdealEditorReturnValue {
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm<IdealFormInput>({
+  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues: {
       generatorArray: jsonToGeneratorArray(idealJson)
-    }
+    },
+    resolver: zodResolver(
+      getFormValueSchema(validateGenerator, validateGeneratorArray),
+      undefined, // schemaOptions?: Partial<z.ParseParams>
+      { mode: "async" }, // resolverOptions: { mode?: 'async' | 'sync', raw?: boolean }
+    )
   })
   const { fields, append, remove, move } = useFieldArray({
     control,
@@ -54,7 +60,7 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
   }
 
   const disableSubmit = useCallback((): boolean => {
-    return (errors.generatorArray !== undefined) || (errors.dummy !== undefined)
+    return (errors.generatorArray !== undefined) || (errors._global_errors !== undefined)
   }, [errors])
 
   const preventQuit = useCallback((): string | undefined =>  {

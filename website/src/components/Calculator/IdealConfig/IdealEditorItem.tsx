@@ -5,15 +5,7 @@ import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
-
-export interface Generator {
-  text: string
-}
-
-export interface IdealFormInput {
-  dummy: "dummy"
-  generatorArray: Generator[]
-}
+import { IdealFormInput } from "./schema"
 
 export interface ExternalData {
   validateGenerator: (generator: string) => Promise<true | string>

@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-export function getIdealGeneratorSchema(
+export function getIdealGeneratorTextSchema(
   validateGenerator: (generator: string) => Promise<true | string>
 ): z.ZodEffects<z.ZodString, string, string> {
   return z.string().nonempty("Please enter the generator.").superRefine(async (val, ctx) => {
@@ -12,6 +12,14 @@ export function getIdealGeneratorSchema(
         message,
       })
     }
+  })
+}
+
+export function getIdealGeneratorSchema(
+  validateGenerator: (generator: string) => Promise<true | string>
+): z.ZodType<{ text: string }> {
+  return z.object({
+    text: getIdealGeneratorTextSchema(validateGenerator)
   })
 }
 
@@ -28,7 +36,8 @@ function getFormValueSchemaImpl(
     generatorArray: getIdealGeneratorSchema(validateGenerator).array(),
     _global_errors: globalErrorsSchema.optional(),
   }).superRefine(async (val, ctx) => {
-    const message: true | string = await validateGeneratorArray(val.generatorArray)
+    const generatorTextArray = val.generatorArray.map((generator) => generator.text)
+    const message: true | string = await validateGeneratorArray(generatorTextArray)
     if (typeof message === "string") {
       ctx.addIssue({
         path: ["_global_errors", "validateGeneratorArray"],

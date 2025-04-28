@@ -90,15 +90,3 @@ export function expectSnackbarToContainHTML(htmlToBeContained: string[]): void {
     expect(snackbar).toContainHTML(html)
   }
 }
-
-export function getStyledMessages(): string[] {
-  const divArray: HTMLElement[] = screen.getAllByTestId("show-styled-message")
-  return divArray.map((div) => {
-    const dataStyledMessage: string | null = div.getAttribute("data-styled-message")
-    if (dataStyledMessage === null) {
-      return "undefined"
-    } else {
-      return dataStyledMessage
-    }
-  })
-}

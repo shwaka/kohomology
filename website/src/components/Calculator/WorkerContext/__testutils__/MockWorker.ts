@@ -20,7 +20,9 @@ export class MockWorker<WI, WO, WS, WF extends WFBase> {
   }
 
   private _onmessage(output: MessageOutput<WO, WS, WF>): void {
-    this.onmessage({ data: output } as MessageEvent<MessageOutput<WO, WS, WF>>)
+    window.setTimeout(() => {
+      this.onmessage({ data: output } as MessageEvent<MessageOutput<WO, WS, WF>>)
+    })
   }
 
   terminate(): void {

@@ -15,7 +15,7 @@ function getContainer(containerType: ContainerType): HTMLElement {
 
 function getStyledMessagesOfType(containerType: ContainerType): string[] {
   const container = getContainer(containerType)
-  const divArray: HTMLElement[] = within(container).getAllByTestId("show-styled-message")
+  const divArray: HTMLElement[] = within(container).queryAllByTestId("show-styled-message")
   return divArray.map((div) => {
     const dataStyledMessage: string | null = div.getAttribute("data-styled-message")
     if (dataStyledMessage === null) {

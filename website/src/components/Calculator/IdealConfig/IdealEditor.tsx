@@ -24,16 +24,14 @@ export interface IdealEditorProps {
   append: UseFieldArrayAppend<IdealFormInput, "generatorArray">
   remove: UseFieldArrayRemove
   move: UseFieldArrayMove
-  validateGenerator: (generator: string) => Promise<true | string>
-  validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move, validateGenerator, validateGeneratorArray }: IdealEditorProps): React.JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move }: IdealEditorProps): React.JSX.Element {
   const formData: FormData<IdealFormInput> = {
     register, remove, errors, getValues, trigger,
   }
 
-  const externalData: ExternalData = { validateGenerator }
+  const externalData: ExternalData = {}
 
   return (
     <div>

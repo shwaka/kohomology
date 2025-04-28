@@ -7,12 +7,10 @@ import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
 import { IdealFormInput } from "./schema"
 
-export interface ExternalData {
-  validateGenerator: (generator: string) => Promise<true | string>
-}
+export type ExternalData = Record<string, never>
 
 export function IdealEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, trigger }, externalData: { validateGenerator } }: RowComponentProps<IdealFormInput, ExternalData>
+  { draggableProps, index, formData: { register, errors, remove, trigger } }: RowComponentProps<IdealFormInput, ExternalData>
 ): React.JSX.Element {
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(
@@ -30,8 +28,6 @@ export function IdealEditorItem(
           {...register(
             `generatorArray.${index}.text` as const,
             {
-              required: "Please enter the generator.",
-              validate: validateGenerator,
               onChange: triggerWithDelay,
             }
           )}

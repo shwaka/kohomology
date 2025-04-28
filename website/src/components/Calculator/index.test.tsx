@@ -1,5 +1,5 @@
 import { useLocation } from "@docusaurus/router"
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
 import { InputJson } from "./__testutils__/InputJson"
@@ -19,14 +19,16 @@ describe("basic features", () => {
     expectInitialState()
     // const calculator = screen.getByTestId("Calculator")
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n(Λ(x, y), d)$ for",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-        "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
-      ],
-    )
-    expectComputeCohomologyButtonToContain("Compute")
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n(Λ(x, y), d)$ for",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+        ],
+      )
+      expectComputeCohomologyButtonToContain("Compute")
+    })
   })
 
   test("restart", async () => {
@@ -88,15 +90,17 @@ describe("freeLoopSpace", () => {
     expectInitialState()
     selectComputationTarget("freeLoopSpace")
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)$ for",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-        "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[\\bar{x}]$ $\\}$",
-        "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[{x}]$ $\\}$",
-      ]
-    )
-    expectComputeCohomologyButtonToContain("Compute")
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)$ for",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+          "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[\\bar{x}]$ $\\}$",
+          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[{x}]$ $\\}$",
+        ]
+      )
+      expectComputeCohomologyButtonToContain("Compute")
+    })
   })
 })
 
@@ -107,15 +111,17 @@ describe("idealQuot", () => {
     selectComputationTarget("idealQuot")
     await InputIdeal.inputValidIdealGenerator(["x"])
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}(x))$ for $0 \\leq n \\leq 20$",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
-        "$H^{2} =\\ $ $0$",
-        "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[[y]]$ $\\}$",
-      ],
-    )
-    expectComputeCohomologyButtonToContain("Compute")
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}(x))$ for $0 \\leq n \\leq 20$",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
+          "$H^{2} =\\ $ $0$",
+          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[[y]]$ $\\}$",
+        ],
+      )
+      expectComputeCohomologyButtonToContain("Compute")
+    })
   })
 
   test("ideal not closed under d", async () => {
@@ -164,14 +170,16 @@ describe("url query", () => {
     render(<Calculator/>)
     expectInitialState()
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n(Λ(x, y, z), d)$ for",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-        "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
-      ]
-    )
-    expectComputeCohomologyButtonToContain("Compute")
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n(Λ(x, y, z), d)$ for",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
+        ]
+      )
+      expectComputeCohomologyButtonToContain("Compute")
+    })
   })
 
   test("url query with invalid json", async () => {
@@ -180,10 +188,12 @@ describe("url query", () => {
     })
     render(<Calculator/>)
     expectInitialState()
-    expectSnackbarToContainHTML(
-      [
-        "[Error] Invalid JSON is given as URL parameter.",
-      ]
-    )
+    await waitFor(() => {
+      expectSnackbarToContainHTML(
+        [
+          "[Error] Invalid JSON is given as URL parameter.",
+        ]
+      )
+    })
   })
 })

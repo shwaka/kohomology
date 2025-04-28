@@ -1,5 +1,5 @@
 import { useLocation } from "@docusaurus/router"
-import { act, fireEvent, render } from "@testing-library/react"
+import { act, fireEvent, render, waitFor } from "@testing-library/react"
 import React from "react"
 import { MessageOutput } from "./WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"

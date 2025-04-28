@@ -61,6 +61,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
     <div
       className={divClass}
       data-styled-message={styledMessage.plainString}
+      data-testid="show-styled-message"
       style={{
         ...getStyleForBackground(styledMessage.messageType, open),
         borderBottom: "1px solid lightGray",

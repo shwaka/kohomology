@@ -56,7 +56,6 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
   const idealEditorProps: IdealEditorProps = {
     register, getValues, errors, trigger,
     fields, append, remove, move,
-    validateGenerator, validateGeneratorArray,
   }
 
   const disableSubmit = useCallback((): boolean => {

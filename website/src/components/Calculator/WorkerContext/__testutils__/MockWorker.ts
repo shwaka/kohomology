@@ -26,8 +26,9 @@ export class MockWorker<WI, WO, WS, WF extends WFBase> {
   }
 
   terminate(): void {
-    this.onmessage = (_) => {
-      throw new Error("MockWorker is already terminated")
+    this.onmessage = (e: MessageEvent<MessageOutput<WO, WS, WF>>) => {
+      const dataString = JSON.stringify(e.data, null, 2)
+      throw new Error(`MockWorker is already terminated. Received data: ${dataString}`)
     }
   }
 }

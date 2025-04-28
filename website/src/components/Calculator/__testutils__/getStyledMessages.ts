@@ -1,11 +1,11 @@
 import { screen, within } from "@testing-library/react"
 
-type ContainerType = "all" | "results" | "form"
+type ContainerType = "results" | "form" // | "all"
 
 function getContainer(containerType: ContainerType): HTMLElement {
   switch (containerType) {
-    case "all":
-      return document.body
+    // case "all":
+    //   return document.body
     case "results":
       return screen.getByTestId("calculator-results")
     case "form":
@@ -13,7 +13,7 @@ function getContainer(containerType: ContainerType): HTMLElement {
   }
 }
 
-export function getStyledMessages(containerType: ContainerType): string[] {
+function getStyledMessagesOfType(containerType: ContainerType): string[] {
   const container = getContainer(containerType)
   const divArray: HTMLElement[] = within(container).getAllByTestId("show-styled-message")
   return divArray.map((div) => {
@@ -24,4 +24,11 @@ export function getStyledMessages(containerType: ContainerType): string[] {
       return dataStyledMessage
     }
   })
+}
+
+export function getStyledMessages(): { [K in ContainerType]: string[] } {
+  return {
+    results: getStyledMessagesOfType("results"),
+    form: getStyledMessagesOfType("form"),
+  }
 }

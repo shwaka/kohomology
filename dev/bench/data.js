@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746191390807,
+  "lastUpdate": 1746192827027,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -7938,6 +7938,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.251,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "8db10bc496a6c5eb91b9a4c2e04b6319ae988d6c",
+          "message": "chore(core,website): use lc/lf for linter commands in both gradle and npm projects",
+          "timestamp": "2025-05-02T22:28:42+09:00",
+          "tree_id": "e636116d7f0cea3ce008438fbd5657e098080ec0",
+          "url": "https://github.com/shwaka/kohomology/commit/8db10bc496a6c5eb91b9a4c2e04b6319ae988d6c"
+        },
+        "date": 1746192826435,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.755,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.284,
             "unit": "s/op"
           }
         ]

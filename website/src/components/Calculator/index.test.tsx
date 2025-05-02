@@ -5,6 +5,7 @@ import { InputIdeal } from "./__testutils__/InputIdeal"
 import { InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
+import { getStyledMessages } from "./__testutils__/getStyledMessages"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
@@ -53,6 +54,9 @@ describe("basic features", () => {
 describe("input json", () => {
   test("valid json", async () => {
     render(<Calculator/>)
+    await waitFor(() => {
+      expect(getStyledMessages().form).not.toBeEmpty()
+    })
     expectInitialState()
     // const calculator = screen.getByTestId("Calculator")
     // const results = getResultsDiv()
@@ -63,18 +67,23 @@ describe("input json", () => {
 ]`
     await InputJson.inputValidJson(json)
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n(Λ(x, y, z), d)$ for",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-        "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
-      ]
-    )
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n(Λ(x, y, z), d)$ for",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
+        ]
+      )
+    })
     expectComputeCohomologyButtonToContain("Compute")
   })
 
   test("invalid json", async () => {
     render(<Calculator/>)
+    await waitFor(() => {
+      expect(getStyledMessages().form).not.toBeEmpty()
+    })
     expectInitialState()
     const json = "invalid json"
     await InputJson.inputInvalidJson(json)

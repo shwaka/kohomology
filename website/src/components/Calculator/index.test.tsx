@@ -39,13 +39,15 @@ describe("basic features", () => {
       ["The background process is restarted"]
     )
     clickComputeCohomologyButton()
-    expectResultsToContainHTML(
-      [
-        "Computing $H^n(Λ(x, y), d)$ for",
-        "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-        "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
-      ],
-    )
+    await waitFor(() => {
+      expectResultsToContainHTML(
+        [
+          "Computing $H^n(Λ(x, y), d)$ for",
+          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+        ],
+      )
+    })
     expectComputeCohomologyButtonToContain("Compute")
   })
 })

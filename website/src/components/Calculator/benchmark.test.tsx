@@ -3,6 +3,7 @@ import { render } from "@testing-library/react"
 import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
 import { Calculator } from "."
+import { waitForInitialState } from "./__testutils__/utilsOnCalculator"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
@@ -13,10 +14,12 @@ beforeEach(() => {
 
 test("renderCalculator", async () => {
   render(<Calculator/>)
+  await waitForInitialState()
 })
 
 test("inputJson", async () => {
   render(<Calculator/>)
+  await waitForInitialState()
   const json = `[
   ["x", 3, "zero"],
   ["y", 3, "zero"],

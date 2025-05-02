@@ -3,7 +3,7 @@ import { act, fireEvent, render, waitFor } from "@testing-library/react"
 import React from "react"
 import { MessageOutput } from "./WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"
-import { expectComputeCohomologyButtonToContain, expectInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
+import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
 import { Calculator } from "."
 
@@ -86,7 +86,7 @@ describe("text on the 'compute' button", () => {
 
   it("should be 'compute' after computation finished", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     const computeCohomologyButton = getComputeCohomologyButton()
     expectComputeCohomologyButtonToContain("Compute")
     fireEvent.click(computeCohomologyButton)
@@ -98,7 +98,7 @@ describe("text on the 'compute' button", () => {
 
     // initialize
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     capturer.popAll()
     expectComputeCohomologyButtonToContain("Compute")
 
@@ -113,7 +113,7 @@ describe("text on the 'compute' button", () => {
 
   it("should be 'compute' after computation finished with an error", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
 
     // This causes an error since deg(sx) is zero.
     const json = '[["x", 1, "zero"]]'

@@ -1,6 +1,7 @@
-import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { fireEvent, screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { TargetName, targetNames } from "../worker/workerInterface"
 import { findOrThrow } from "./findOrThrow"
+import { getStyledMessages } from "./getStyledMessages"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")
@@ -16,11 +17,16 @@ export function expectResultsToContainHTML(htmlToBeContained: string[], htmlNotT
   }
 }
 
-export function expectInitialState(): void {
-  expectResultsToContainHTML(
-    ["Computation results will be shown here"],
-    ["Computing "],
-  )
+export async function waitForInitialState(expectedFormMessage: string | undefined = undefined): Promise<void> {
+  await waitFor(() => {
+    expectResultsToContainHTML(
+      ["Computation results will be shown here"],
+      ["Computing "],
+    )
+    expect(getStyledMessages().form).toContainEqual(
+      expectedFormMessage ?? "$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y$ $), d)$"
+    )
+  })
 }
 
 export function getComputeCohomologyButton(): HTMLElement{

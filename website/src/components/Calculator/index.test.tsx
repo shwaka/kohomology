@@ -3,9 +3,8 @@ import { render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
 import { InputJson } from "./__testutils__/InputJson"
-import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, expectInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
-import { getStyledMessages } from "./__testutils__/getStyledMessages"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {
@@ -17,7 +16,7 @@ beforeEach(() => {
 describe("basic features", () => {
   test("Calculator", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
     clickComputeCohomologyButton()
     await waitFor(() => {
@@ -34,7 +33,7 @@ describe("basic features", () => {
 
   test("restart", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     await clickRestartButton()
     expectResultsToContainHTML(
       ["The background process is restarted"]
@@ -54,10 +53,7 @@ describe("basic features", () => {
 describe("input json", () => {
   test("valid json", async () => {
     render(<Calculator/>)
-    await waitFor(() => {
-      expect(getStyledMessages().form).not.toBeEmpty()
-    })
-    expectInitialState()
+    await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
     // const results = getResultsDiv()
     const json = `[
@@ -81,10 +77,7 @@ describe("input json", () => {
 
   test("invalid json", async () => {
     render(<Calculator/>)
-    await waitFor(() => {
-      expect(getStyledMessages().form).not.toBeEmpty()
-    })
-    expectInitialState()
+    await waitForInitialState()
     const json = "invalid json"
     await InputJson.inputInvalidJson(json)
     const dialog = screen.getByRole("dialog")
@@ -96,7 +89,7 @@ describe("input json", () => {
 describe("freeLoopSpace", () => {
   test("compute cohomology of LX", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("freeLoopSpace")
     clickComputeCohomologyButton()
     await waitFor(() => {
@@ -116,7 +109,7 @@ describe("freeLoopSpace", () => {
 describe("idealQuot", () => {
   test("compute cohomology of ΛV/I", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("idealQuot")
     await InputIdeal.inputValidIdealGenerator(["x"])
     clickComputeCohomologyButton()
@@ -135,7 +128,7 @@ describe("idealQuot", () => {
 
   test("ideal not closed under d", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["y"])
     const dialog = screen.getByRole("dialog")
@@ -144,7 +137,7 @@ describe("idealQuot", () => {
 
   test("empty ideal generator", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("idealQuot")
     await InputIdeal.inputInvalidIdealGenerator([""])
     const dialog = screen.getByRole("dialog")
@@ -153,7 +146,7 @@ describe("idealQuot", () => {
 
   test("invalid generator of DGA", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["a"])
     const dialog = screen.getByRole("dialog")
@@ -163,7 +156,7 @@ describe("idealQuot", () => {
 
   test("parse failure", async () => {
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     selectComputationTarget("idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["+"])
     const dialog = screen.getByRole("dialog")
@@ -173,11 +166,12 @@ describe("idealQuot", () => {
 
 describe("url query", () => {
   test("url query with valid json", async () => {
+    // Λ(x,y,z), dx=dy=0, dz=xy
     mockUseLocation.mockReturnValue({
       search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"
     })
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState("$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y,\\ $ $z$ $), d)$")
     clickComputeCohomologyButton()
     await waitFor(() => {
       expectResultsToContainHTML(
@@ -196,7 +190,7 @@ describe("url query", () => {
       search: "?dgaJson=invalidJson"
     })
     render(<Calculator/>)
-    expectInitialState()
+    await waitForInitialState()
     await waitFor(() => {
       expectSnackbarToContainHTML(
         [

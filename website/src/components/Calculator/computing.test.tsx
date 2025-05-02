@@ -6,6 +6,7 @@ import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
 import { Calculator } from "."
+import { getStyledMessages } from "./__testutils__/getStyledMessages"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({
@@ -13,7 +14,7 @@ mockUseLocation.mockReturnValue({
 })
 
 class OnmessageCapturer {
-  queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, MessageOutput<WorkerOutput, WorkerState, WorkerFunc>][]
+  private queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, MessageOutput<WorkerOutput, WorkerState, WorkerFunc>][]
   enabled: boolean
 
   constructor() {
@@ -59,6 +60,12 @@ class OnmessageCapturer {
       onmessage(workerOutput)
     }
   }
+
+  async waitForMessage(): Promise<void> {
+    await waitFor(() => {
+      expect(this.queue).not.toBeEmpty()
+    })
+  }
 }
 
 const capturer = new OnmessageCapturer()
@@ -98,13 +105,15 @@ describe("text on the 'compute' button", () => {
 
     // initialize
     render(<Calculator/>)
-    await waitForInitialState()
+    await capturer.waitForMessage()
     capturer.popAll()
+    await waitForInitialState()
     expectComputeCohomologyButtonToContain("Compute")
 
     // click the button
     const computeCohomologyButton = getComputeCohomologyButton()
     fireEvent.click(computeCohomologyButton)
+    await capturer.waitForMessage()
     capturer.pop() // pop "notifyInfo"
     expectComputeCohomologyButtonToContain("Computing")
     capturer.popAll()

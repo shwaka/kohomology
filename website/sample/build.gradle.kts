@@ -29,8 +29,8 @@ tasks.withType<KotlinCompile>() {
 }
 
 // aliases
-tasks.register("kc") { dependsOn("ktlintCheck") }
-tasks.register("kf") { dependsOn("ktlintFormat") }
+tasks.register("lc") { dependsOn("ktlintCheck") }
+tasks.register("lf") { dependsOn("ktlintFormat") }
 
 fun convertSampleName(sampleName: String): String {
     // foo.kt -> FooKt

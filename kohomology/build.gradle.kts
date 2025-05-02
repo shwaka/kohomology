@@ -226,14 +226,14 @@ publishing {
 }
 
 // Aliases:
-// The names "kc" and "kf" come from ktlintCheck and ktlintFormat,
-// which were previously used for formatting.
-tasks.register("kc") { dependsOn("detekt") }
-tasks.register("kf") { dependsOn("detekt") }
+// - lc: Linter Check
+// - lf: Linter Format
+tasks.register("lc") { dependsOn("detekt") }
+tasks.register("lf") { dependsOn("detekt") }
 tasks.withType<Detekt>().configureEach {
-    // By this option, "./gradlew kf" works the same as "./gradlew detekt --auto-correct".
+    // By this option, "./gradlew lf" works the same as "./gradlew detekt --auto-correct".
     // Note that doFirst didn't work to configure options.
-    autoCorrect = project.gradle.startParameter.taskNames.contains("kf")
+    autoCorrect = project.gradle.startParameter.taskNames.contains("lf")
 }
 
 detekt {

@@ -16,6 +16,8 @@
     "tsc-watch": "tsc --watch",
     "eslint": "eslint src docusaurus.config.mjs --ext .ts,.tsx",
     "eslint:fix": "eslint src docusaurus.config.mjs --ext .ts,.tsx --fix",
+    "lc": "npm run eslint",
+    "lf": "npm run eslint:fix",
     "test": "jest",
     "test-watch": "jest --watch"
   },

@@ -2,6 +2,8 @@ import { render, renderHook, act, screen, fireEvent, waitFor } from "@testing-li
 import React, { useState } from "react"
 import { IdealEditor } from "./IdealEditor"
 import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+import userEvent from "@testing-library/user-event"
 
 describe("IdealEditor", () => {
   test("empty text as generator", async () => {
@@ -71,9 +73,23 @@ function addGenerators(generators: string[]): void {
   })
 }
 
-function apply(): void {
-  const applyButton = screen.getByText("Apply")
-  fireEvent.click(applyButton)
+export type ApplyMethod = "button" | "enter"
+
+async function apply(applyMethod: ApplyMethod = "button"): Promise<void> {
+  switch (applyMethod) {
+    case "button": {
+      const applyButton = screen.getByText("Apply")
+      fireEvent.click(applyButton)
+      return
+    }
+    case "enter": {
+      const input = screen.getByTestId("IdealEditorItem-input-0")
+      await userEvent.type(input, "{enter}")
+      return
+    }
+    default:
+      throw new ExhaustivityError(applyMethod)
+  }
 }
 
 describe("IdealEditorTestContainer", () => {
@@ -85,7 +101,7 @@ describe("IdealEditorTestContainer", () => {
     render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators([""])
-    apply()
+    await apply()
 
     expect(await screen.findByRole("alert")).toContainHTML("Please enter the generator.")
   })
@@ -98,7 +114,7 @@ describe("IdealEditorTestContainer", () => {
     render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators(["x"])
-    apply()
+    await apply()
 
     await waitFor(() => {
       expect(screen.queryByRole("alert")).not.toBeInTheDocument()
@@ -114,7 +130,7 @@ describe("IdealEditorTestContainer", () => {
     render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators(["x"])
-    apply()
+    await apply()
 
     await waitFor(() => {
       expect(screen.getByRole("alert")).toContainHTML(errorMessage)
@@ -131,7 +147,7 @@ describe("IdealEditorTestContainer", () => {
     render(<IdealEditorTestContainer {...testContainerProps}/>)
 
     addGenerators(["x"])
-    apply()
+    await apply()
 
     await waitFor(() => {
       expect(screen.getByRole("alert")).toContainHTML(errorMessage)

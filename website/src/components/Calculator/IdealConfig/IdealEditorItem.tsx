@@ -2,9 +2,9 @@ import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
-import { useOverwritableTimeout } from "../DGAEditorDialog/useOverwritableTimeout"
 import { IdealFormInput } from "./schema"
 
 export type ExternalData = Record<string, never>

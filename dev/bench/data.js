@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746448087222,
+  "lastUpdate": 1746451565534,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8108,6 +8108,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.242,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "4ba2fa8cc2e83922ad5dd5bd7c002af216f4aec1",
+          "message": "build(website): fix package-lock.json by \"npm install --install-links\"",
+          "timestamp": "2025-05-05T22:20:43+09:00",
+          "tree_id": "a59b4b954537675249870a95984e38c7305842b5",
+          "url": "https://github.com/shwaka/kohomology/commit/4ba2fa8cc2e83922ad5dd5bd7c002af216f4aec1"
+        },
+        "date": 1746451564393,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.787,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.209,
             "unit": "s/op"
           }
         ]

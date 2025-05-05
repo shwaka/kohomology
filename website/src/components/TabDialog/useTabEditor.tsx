@@ -1,4 +1,4 @@
-import { OnSubmit, Editor } from "@components/EditorDialog"
+import { Editor } from "@components/EditorDialog"
 import { canQuit } from "@components/EditorDialog/useEditorDialog"
 import { Tabs, Tab } from "@mui/material"
 import React, { useCallback, useMemo, useState } from "react"
@@ -42,16 +42,6 @@ export function useTabEditor<K extends string>(
     onQuit: currentTabItem.editor.onQuit,
   }), [renderContent, renderTitle, currentTabItem])
   return { editor }
-}
-
-interface _Editor {
-  renderContent: (closeDialog: () => void) => React.JSX.Element
-  renderTitle?: () => React.JSX.Element
-  getOnSubmit: (closeDialog: () => void) => OnSubmit
-  preventQuit?: () => string | undefined
-  disableSubmit?: () => boolean
-  beforeOpen?: () => void
-  onQuit?: () => void
 }
 
 interface EditorContentProps<K extends string> {

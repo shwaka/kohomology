@@ -1,3 +1,4 @@
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import React from "react"
@@ -51,19 +52,32 @@ async function apply(dialog: HTMLElement): Promise<void> {
   fireEvent.click(applyButton)
 }
 
-async function cancel(dialog: HTMLElement): Promise<void> {
-  const applyButton = within(dialog).getByText("Cancel")
-  fireEvent.click(applyButton)
-}
+const cancelMethods = ["button", "backdrop"] as const
+type CancelMethod = (typeof cancelMethods)[number]
 
-async function clickBackdrop(): Promise<void> {
-  // eslint-disable-next-line testing-library/no-node-access
-  const backdrop: Element | null = document.querySelector(".MuiBackdrop-root")
-  expect(backdrop).toBeTruthy()
-  if (backdrop === null) {
-    throw new Error("This can't happen!")
+async function cancel(
+  cancelMethod: CancelMethod,
+  dialog: HTMLElement,
+): Promise<void> {
+  switch (cancelMethod) {
+    case "button": {
+      const applyButton = within(dialog).getByText("Cancel")
+      fireEvent.click(applyButton)
+      return
+    }
+    case "backdrop": {
+      // eslint-disable-next-line testing-library/no-node-access
+      const backdrop: Element | null = document.querySelector(".MuiBackdrop-root")
+      expect(backdrop).toBeTruthy()
+      if (backdrop === null) {
+        throw new Error("This can't happen!")
+      }
+      await userEvent.click(backdrop)
+      return
+    }
+    default:
+      throw new ExhaustivityError(cancelMethod)
   }
-  await userEvent.click(backdrop)
 }
 
 interface GetEditorArgs {
@@ -112,29 +126,19 @@ describe("EditorDialog with trivial editor", () => {
     expect(onQuit).not.toHaveBeenCalled()
   })
 
-  test("cancel", async () => {
-    const { editor, onSubmit, onQuit } = getEditor()
-    render(<EditorDialogTestContainer editor={editor}/>)
+  for (const cancelMethod of cancelMethods) {
+    test(`cancel(${cancelMethod})`, async () => {
+      const { editor, onSubmit, onQuit } = getEditor()
+      render(<EditorDialogTestContainer editor={editor}/>)
 
-    const dialog = await openDialog()
-    await cancel(dialog)
-    await assertClosed(dialog)
+      const dialog = await openDialog()
+      await cancel(cancelMethod, dialog)
+      await assertClosed(dialog)
 
-    expect(onSubmit).not.toHaveBeenCalled()
-    expect(onQuit).toHaveBeenCalled()
-  })
-
-  test("cancel by clicking exterior", async () => {
-    const { editor, onSubmit, onQuit } = getEditor()
-    render(<EditorDialogTestContainer editor={editor}/>)
-
-    const dialog = await openDialog()
-    await clickBackdrop()
-    await assertClosed(dialog)
-
-    expect(onSubmit).not.toHaveBeenCalled()
-    expect(onQuit).toHaveBeenCalled()
-  })
+      expect(onSubmit).not.toHaveBeenCalled()
+      expect(onQuit).toHaveBeenCalled()
+    })
+  }
 })
 
 describe("EditorDialog with preventQuit returning string", () => {
@@ -142,39 +146,43 @@ describe("EditorDialog with preventQuit returning string", () => {
     jest.restoreAllMocks()
   })
 
-  test("cancel with window.confirm returning true", async () => {
-    const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(true)
-    const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
-    const { editor, onSubmit, onQuit } = getEditor({
-      preventQuit,
+  for (const cancelMethod of cancelMethods) {
+    test(`cancel(${cancelMethod}) with window.confirm returning true`, async () => {
+      const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(true)
+      const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
+      const { editor, onSubmit, onQuit } = getEditor({
+        preventQuit,
+      })
+      render(<EditorDialogTestContainer editor={editor}/>)
+
+      const dialog = await openDialog()
+      await cancel(cancelMethod, dialog)
+      await assertClosed(dialog)
+
+      expect(preventQuit).toHaveBeenCalledOnce()
+      expect(confirmSpy).toHaveBeenCalledOnce()
+      expect(onSubmit).not.toHaveBeenCalled()
+      expect(onQuit).toHaveBeenCalledOnce()
     })
-    render(<EditorDialogTestContainer editor={editor}/>)
+  }
 
-    const dialog = await openDialog()
-    await cancel(dialog)
-    await assertClosed(dialog)
+  for (const cancelMethod of cancelMethods) {
+    test(`cancel(${cancelMethod}) with window.confirm returning false`, async () => {
+      const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false)
+      const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
+      const { editor, onSubmit, onQuit } = getEditor({
+        preventQuit,
+      })
+      render(<EditorDialogTestContainer editor={editor}/>)
 
-    expect(preventQuit).toHaveBeenCalledOnce()
-    expect(confirmSpy).toHaveBeenCalledOnce()
-    expect(onSubmit).not.toHaveBeenCalled()
-    expect(onQuit).toHaveBeenCalledOnce()
-  })
+      const dialog = await openDialog()
+      await cancel(cancelMethod, dialog)
+      await assertOpen(dialog)
 
-  test("cancel with window.confirm returning false", async () => {
-    const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false)
-    const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
-    const { editor, onSubmit, onQuit } = getEditor({
-      preventQuit,
+      expect(preventQuit).toHaveBeenCalledOnce()
+      expect(confirmSpy).toHaveBeenCalledOnce()
+      expect(onSubmit).not.toHaveBeenCalled()
+      expect(onQuit).not.toHaveBeenCalledOnce()
     })
-    render(<EditorDialogTestContainer editor={editor}/>)
-
-    const dialog = await openDialog()
-    await cancel(dialog)
-    await assertOpen(dialog)
-
-    expect(preventQuit).toHaveBeenCalledOnce()
-    expect(confirmSpy).toHaveBeenCalledOnce()
-    expect(onSubmit).not.toHaveBeenCalled()
-    expect(onQuit).not.toHaveBeenCalledOnce()
-  })
+  }
 })

@@ -1,8 +1,7 @@
 import { Tabs, Tab } from "@mui/material"
 import React, { useCallback, useMemo, useState } from "react"
-import { Editor } from "./Editor"
-import { OnSubmit } from "./OnSubmit"
-import { canQuit } from "./useEditorDialog"
+import { OnSubmit, Editor } from "@components/EditorDialog"
+import { canQuit } from "@components/EditorDialog/useEditorDialog"
 
 export interface TabItem {
   editor: Editor

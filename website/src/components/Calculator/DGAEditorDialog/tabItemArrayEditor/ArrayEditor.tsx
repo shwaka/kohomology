@@ -1,6 +1,6 @@
 import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { FormData, SortableFields } from "@components/SortableFields"
-import { OnSubmit } from "@components/TabDialog"
+import { OnSubmit } from "@components/EditorDialog"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"

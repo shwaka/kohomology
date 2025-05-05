@@ -1,4 +1,4 @@
-import { Editor, EditorDialog, useEditorDialog } from "@components/TabDialog"
+import { Editor, EditorDialog, useEditorDialog } from "@components/EditorDialog"
 import { Button } from "@mui/material"
 import React, { useMemo } from "react"
 import { ShowStyledMessage } from "../styled/ShowStyledMessage"

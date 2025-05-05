@@ -1,6 +1,5 @@
 import React from "react"
-import { EditorDialog, EditorDialogProps } from "./EditorDialog"
-import { useEditorDialog } from "./useEditorDialog"
+import { useEditorDialog, EditorDialog, EditorDialogProps } from "@components/EditorDialog"
 import { useTabEditor, TabItem } from "./useTabEditor"
 export type { TabItem }
 

@@ -1,4 +1,5 @@
-import { OnSubmit, TabItem } from "@components/TabDialog"
+import { OnSubmit } from "@components/EditorDialog"
+import { TabItem } from "@components/TabDialog"
 import { Alert, Stack, TextField } from "@mui/material"
 import { validateJson } from "kohomology-js"
 import React from "react"

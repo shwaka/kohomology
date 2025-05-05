@@ -75,7 +75,7 @@ function addGenerators(generators: string[]): void {
 
 export type ApplyMethod = "button" | "enter"
 
-async function apply(applyMethod: ApplyMethod = "button"): Promise<void> {
+async function apply(applyMethod: ApplyMethod = "button", enterIndex: number = 0): Promise<void> {
   switch (applyMethod) {
     case "button": {
       const applyButton = screen.getByText("Apply")
@@ -83,7 +83,7 @@ async function apply(applyMethod: ApplyMethod = "button"): Promise<void> {
       return
     }
     case "enter": {
-      const input = screen.getByTestId("IdealEditorItem-input-0")
+      const input = screen.getByTestId(`IdealEditorItem-input-${enterIndex}`)
       await userEvent.type(input, "{enter}")
       return
     }
@@ -120,6 +120,23 @@ describe("IdealEditorTestContainer", () => {
       expect(screen.queryByRole("alert")).not.toBeInTheDocument()
     })
   })
+
+  for (const count of [1, 2]) {
+    test(`submit with enter at index ${count - 1}`, async () => {
+      const testContainerProps: TestContainerProps = {
+        validateGenerator: jest.fn().mockResolvedValue(true),
+        validateGeneratorArray: jest.fn().mockResolvedValue(true),
+      }
+      render(<IdealEditorTestContainer {...testContainerProps}/>)
+
+      addGenerators([...Array(count).keys()].map((n) => `x${n}`))
+      await apply("enter", count - 1)
+
+      await waitFor(() => {
+        expect(screen.queryByRole("alert")).not.toBeInTheDocument()
+      })
+    })
+  }
 
   test("parse error", async () => {
     const errorMessage = "This is an error message for test."

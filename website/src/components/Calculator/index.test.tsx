@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
 import { ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
-import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
+import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget, expectResultsToContainMessages } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
@@ -20,7 +20,7 @@ describe("basic features", () => {
     // const calculator = screen.getByTestId("Calculator")
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y), d)$ for",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
@@ -35,12 +35,12 @@ describe("basic features", () => {
     render(<Calculator/>)
     await waitForInitialState()
     await clickRestartButton()
-    expectResultsToContainHTML(
+    expectResultsToContainMessages(
       ["The background process is restarted"]
     )
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y), d)$ for",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
@@ -60,7 +60,7 @@ describe("array editor", () => {
       await InputArray.addGeneratorAndApply(applyMethod)
       clickComputeCohomologyButton()
       await waitFor(() => {
-        expectResultsToContainHTML(
+        expectResultsToContainMessages(
           [
             "Computing $H^n(Λ(x, y, z), d)$ for",
             "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
@@ -87,7 +87,7 @@ describe("input json", () => {
     await InputJson.inputValidJson(json)
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y, z), d)$ for",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
@@ -116,7 +116,7 @@ describe("freeLoopSpace", () => {
     selectComputationTarget("freeLoopSpace")
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)$ for",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
@@ -137,7 +137,7 @@ describe("idealQuot", () => {
     await InputIdeal.inputValidIdealGenerator(["x"])
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}(x))$ for $0 \\leq n \\leq 20$",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
@@ -197,7 +197,7 @@ describe("url query", () => {
     await waitForInitialState("$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y,\\ $ $z$ $), d)$")
     clickComputeCohomologyButton()
     await waitFor(() => {
-      expectResultsToContainHTML(
+      expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y, z), d)$ for",
           "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",

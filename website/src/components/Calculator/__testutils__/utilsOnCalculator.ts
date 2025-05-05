@@ -17,6 +17,19 @@ export function expectResultsToContainHTML(htmlToBeContained: string[], htmlNotT
   }
 }
 
+export function expectResultsToContainMessages(
+  messagesToBeContained: string[],
+  messagesNotToBeContained: string[] = [],
+): void {
+  const results = getStyledMessages().results
+  for (const message of messagesToBeContained) {
+    expect(results).toContainEqual(expect.stringContaining(message))
+  }
+  for (const message of messagesNotToBeContained) {
+    expect(results).not.toContainEqual(expect.stringContaining(message))
+  }
+}
+
 export async function waitForInitialState(expectedFormMessage: string | undefined = undefined): Promise<void> {
   await waitFor(() => {
     expectResultsToContainHTML(

@@ -4,7 +4,7 @@ import { Generator } from "./generatorSchema"
 export function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(
     ({ name, degree, differentialValue }) => {
-      return [name, isNaN(degree) ? 1 : degree, differentialValue] as [string, number, string]
+      return [name, Number.isNaN(degree) ? 1 : degree, differentialValue] as [string, number, string]
     }
   )
   return generatorArrayToPrettyJson(arr)

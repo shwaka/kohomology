@@ -105,7 +105,7 @@ function getEditor(
     preventQuit, disableSubmit, beforeOpen,
     renderContent: (_closeDialog) => (<div>Content of editor</div>),
     getOnSubmit: (closeDialog) => async (e) => {
-      onSubmit(e),
+      onSubmit(e)
       closeDialog()
     },
     onQuit,

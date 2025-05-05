@@ -67,7 +67,7 @@ async function clickBackdrop(): Promise<void> {
 }
 
 interface GetEditorArgs {
-  preventQuit?: () => string | undefined
+  preventQuit?: () => (string | undefined)
   disableSubmit?: () => boolean
   beforeOpen?: () => void
 }
@@ -101,7 +101,6 @@ function getEditor(
 
 describe("EditorDialog with trivial editor", () => {
   test("submit", async () => {
-
     const { editor, onSubmit, onQuit } = getEditor()
     render(<EditorDialogTestContainer editor={editor}/>)
 
@@ -133,6 +132,24 @@ describe("EditorDialog with trivial editor", () => {
     await clickBackdrop()
     await assertClosed(dialog)
 
+    expect(onSubmit).not.toHaveBeenCalled()
+    expect(onQuit).toHaveBeenCalled()
+  })
+})
+
+describe("EditorDialog with preventQuit returning string", () => {
+  test("cancel", async () => {
+    const preventQuit = jest.fn().mockReturnValue("Are you sure?")
+    const { editor, onSubmit, onQuit } = getEditor({
+      preventQuit,
+    })
+    render(<EditorDialogTestContainer editor={editor}/>)
+
+    const dialog = await openDialog()
+    await cancel(dialog)
+    await assertClosed(dialog)
+
+    expect(preventQuit).toHaveBeenCalled()
     expect(onSubmit).not.toHaveBeenCalled()
     expect(onQuit).toHaveBeenCalled()
   })

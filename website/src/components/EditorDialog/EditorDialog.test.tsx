@@ -1,8 +1,9 @@
-import userEvent from "@testing-library/user-event"
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import React from "react"
 import { Editor } from "./Editor"
 import { EditorDialog } from "./EditorDialog"
+import { OnSubmit } from "./OnSubmit"
 import { useEditorDialog } from "./useEditorDialog"
 
 interface ContainerProps {
@@ -65,16 +66,30 @@ async function clickBackdrop(): Promise<void> {
   await userEvent.click(backdrop)
 }
 
-describe("EditorDialog", () => {
-  test("submit", async () => {
+interface GetEditorReturnValue {
+  editor: Editor
+  onSubmit: OnSubmit
+  onQuit: () => void
+}
+
+describe("EditorDialog with trivial editor", () => {
+  function getEditor(): GetEditorReturnValue {
     const onSubmit = jest.fn()
+    const onQuit = jest.fn()
     const editor: Editor = {
       renderContent: (_closeDialog) => (<div>Content of editor</div>),
       getOnSubmit: (closeDialog) => async (e) => {
         onSubmit(e),
         closeDialog()
       },
+      onQuit,
     }
+    return { editor, onSubmit, onQuit }
+  }
+
+  test("submit", async () => {
+
+    const { editor, onSubmit, onQuit } = getEditor()
     render(<EditorDialogTestContainer editor={editor}/>)
 
     const dialog = await openDialog()
@@ -82,17 +97,11 @@ describe("EditorDialog", () => {
     await assertClosed(dialog)
 
     expect(onSubmit).toHaveBeenCalled()
+    expect(onQuit).not.toHaveBeenCalled()
   })
 
   test("cancel", async () => {
-    const onSubmit = jest.fn()
-    const editor: Editor = {
-      renderContent: (_closeDialog) => (<div>Content of editor</div>),
-      getOnSubmit: (closeDialog) => async (e) => {
-        onSubmit(e),
-        closeDialog()
-      },
-    }
+    const { editor, onSubmit, onQuit } = getEditor()
     render(<EditorDialogTestContainer editor={editor}/>)
 
     const dialog = await openDialog()
@@ -100,17 +109,11 @@ describe("EditorDialog", () => {
     await assertClosed(dialog)
 
     expect(onSubmit).not.toHaveBeenCalled()
+    expect(onQuit).toHaveBeenCalled()
   })
 
   test("cancel by clicking exterior", async () => {
-    const onSubmit = jest.fn()
-    const editor: Editor = {
-      renderContent: (_closeDialog) => (<div>Content of editor</div>),
-      getOnSubmit: (closeDialog) => async (e) => {
-        onSubmit(e),
-        closeDialog()
-      },
-    }
+    const { editor, onSubmit, onQuit } = getEditor()
     render(<EditorDialogTestContainer editor={editor}/>)
 
     const dialog = await openDialog()
@@ -118,5 +121,6 @@ describe("EditorDialog", () => {
     await assertClosed(dialog)
 
     expect(onSubmit).not.toHaveBeenCalled()
+    expect(onQuit).toHaveBeenCalled()
   })
 })

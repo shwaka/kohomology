@@ -13,7 +13,7 @@ export interface UseIdealEditorArgs {
 }
 
 interface UseIdealEditorReturnValue {
-  idealEditorProps: IdealEditorProps
+  idealEditorPropsExceptOnSubmit: Omit<IdealEditorProps, "onSubmit">
   getOnSubmit: (closeDialog: () => void) => OnSubmit
   beforeOpen: () => void
   disableSubmit: () => boolean
@@ -53,7 +53,7 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
     reset({ generatorArray })
   }, [idealJson, reset])
 
-  const idealEditorProps: IdealEditorProps = {
+  const idealEditorPropsExceptOnSubmit: Omit<IdealEditorProps, "onSubmit"> = {
     register, getValues, errors, trigger,
     fields, append, remove, move,
   }
@@ -72,7 +72,7 @@ export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, val
   }, [getValues, idealJson])
 
   return {
-    idealEditorProps, getOnSubmit, beforeOpen, disableSubmit, preventQuit,
+    idealEditorPropsExceptOnSubmit, getOnSubmit, beforeOpen, disableSubmit, preventQuit,
   }
 }
 

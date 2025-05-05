@@ -6,6 +6,7 @@ import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, IdealEditorItem } from "./IdealEditorItem"
 import { IdealFormInput } from "./schema"
+import { OnSubmit } from "@components/TabDialog"
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (
@@ -24,9 +25,14 @@ export interface IdealEditorProps {
   append: UseFieldArrayAppend<IdealFormInput, "generatorArray">
   remove: UseFieldArrayRemove
   move: UseFieldArrayMove
+  onSubmit: OnSubmit
 }
 
-export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move }: IdealEditorProps): React.JSX.Element {
+export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move, onSubmit }: IdealEditorProps): React.JSX.Element {
+  const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    await onSubmit()
+  }
   const formData: FormData<IdealFormInput> = {
     register, remove, errors, getValues, trigger,
   }
@@ -34,7 +40,7 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
   const externalData: ExternalData = {}
 
   return (
-    <div>
+    <form onSubmit={onSubmitWithPreventDefault}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
         <SortableFields
           RowComponent={IdealEditorItem}
@@ -51,7 +57,7 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
         </Button>
         <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
       </Stack>
-    </div>
+    </form>
   )
 }
 

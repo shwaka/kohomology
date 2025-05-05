@@ -34,7 +34,10 @@ export function IdealEditorTestContainer(props: TestContainerProps): React.JSX.E
 
   return (
     <React.Fragment>
-      <IdealEditor {...idealEditorProps}/>
+      <IdealEditor
+        {...idealEditorProps}
+        onSubmit={}
+      />
       <button onClick={getOnSubmit(jest.fn())}>
         Apply
       </button>

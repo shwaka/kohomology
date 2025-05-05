@@ -1,6 +1,7 @@
 import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { findOrThrow } from "./findOrThrow"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+import userEvent from "@testing-library/user-event"
 
 function openDialog(): HTMLElement {
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
@@ -53,7 +54,7 @@ export class InputJson {
   }
 }
 
-type ApplyMethod = "button" | "enter"
+export type ApplyMethod = "button" | "enter"
 
 export class InputArray {
   static async addGeneratorAndApply(applyMethod: ApplyMethod): Promise<void> {
@@ -68,7 +69,9 @@ export class InputArray {
         break
       }
       case "enter": {
-        throw new Error("not implemented")
+        const input = within(dialog).getAllByTestId("ArrayEditor-input-name")
+        await userEvent.type(input[0], "{enter}")
+        break
       }
       default:
         throw new ExhaustivityError(applyMethod)

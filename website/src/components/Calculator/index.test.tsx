@@ -2,7 +2,7 @@ import { useLocation } from "@docusaurus/router"
 import { render, screen, waitFor } from "@testing-library/react"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
-import { InputArray, InputJson } from "./__testutils__/InputJson"
+import { ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectResultsToContainHTML, expectSnackbarToContainHTML, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { Calculator } from "."
 
@@ -53,22 +53,24 @@ describe("basic features", () => {
 })
 
 describe("array editor", () => {
-  test("add generator", async () => {
-    render(<Calculator/>)
-    await waitForInitialState()
-    await InputArray.addGeneratorAndApply("button")
-    clickComputeCohomologyButton()
-    await waitFor(() => {
-      expectResultsToContainHTML(
-        [
-          "Computing $H^n(Λ(x, y, z), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[z]$ $\\}$",
-          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
-        ],
-      )
+  for (const applyMethod of (["button", "enter"] satisfies ApplyMethod[])) {
+    test("add generator with applying through '${applyMethod}'", async () => {
+      render(<Calculator/>)
+      await waitForInitialState()
+      await InputArray.addGeneratorAndApply(applyMethod)
+      clickComputeCohomologyButton()
+      await waitFor(() => {
+        expectResultsToContainHTML(
+          [
+            "Computing $H^n(Λ(x, y, z), d)$ for",
+            "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
+            "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[z]$ $\\}$",
+            "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+          ],
+        )
+      })
     })
-  })
+  }
 })
 
 describe("input json", () => {

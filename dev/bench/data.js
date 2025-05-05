@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746451565534,
+  "lastUpdate": 1746455724832,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8142,6 +8142,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.209,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "13875540569ba9750600e430957cbccf25cd8c0f",
+          "message": "fix(website): improve type check in getChartProps",
+          "timestamp": "2025-05-05T23:29:51+09:00",
+          "tree_id": "4f4902fbdb1115080f13254118746d99f640e48a",
+          "url": "https://github.com/shwaka/kohomology/commit/13875540569ba9750600e430957cbccf25cd8c0f"
+        },
+        "date": 1746455723688,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.785,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.259,
             "unit": "s/op"
           }
         ]

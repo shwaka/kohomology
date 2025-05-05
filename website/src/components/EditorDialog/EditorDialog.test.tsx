@@ -138,8 +138,13 @@ describe("EditorDialog with trivial editor", () => {
 })
 
 describe("EditorDialog with preventQuit returning string", () => {
-  test("cancel", async () => {
-    const preventQuit = jest.fn().mockReturnValue("Are you sure?")
+  afterEach(() => {
+    jest.restoreAllMocks()
+  })
+
+  test("cancel with window.confirm returning true", async () => {
+    const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(true)
+    const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
     const { editor, onSubmit, onQuit } = getEditor({
       preventQuit,
     })
@@ -149,8 +154,27 @@ describe("EditorDialog with preventQuit returning string", () => {
     await cancel(dialog)
     await assertClosed(dialog)
 
-    expect(preventQuit).toHaveBeenCalled()
+    expect(preventQuit).toHaveBeenCalledOnce()
+    expect(confirmSpy).toHaveBeenCalledOnce()
     expect(onSubmit).not.toHaveBeenCalled()
-    expect(onQuit).toHaveBeenCalled()
+    expect(onQuit).toHaveBeenCalledOnce()
+  })
+
+  test("cancel with window.confirm returning false", async () => {
+    const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false)
+    const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
+    const { editor, onSubmit, onQuit } = getEditor({
+      preventQuit,
+    })
+    render(<EditorDialogTestContainer editor={editor}/>)
+
+    const dialog = await openDialog()
+    await cancel(dialog)
+    await assertOpen(dialog)
+
+    expect(preventQuit).toHaveBeenCalledOnce()
+    expect(confirmSpy).toHaveBeenCalledOnce()
+    expect(onSubmit).not.toHaveBeenCalled()
+    expect(onQuit).not.toHaveBeenCalledOnce()
   })
 })

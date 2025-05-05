@@ -1,7 +1,7 @@
-import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
-import { findOrThrow } from "./findOrThrow"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
+import { findOrThrow } from "./findOrThrow"
 
 function openDialog(): HTMLElement {
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")

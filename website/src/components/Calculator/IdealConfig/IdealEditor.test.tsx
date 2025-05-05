@@ -1,9 +1,9 @@
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { render, renderHook, act, screen, fireEvent, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import React, { useState } from "react"
 import { IdealEditor } from "./IdealEditor"
 import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
-import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import userEvent from "@testing-library/user-event"
 
 describe("IdealEditor", () => {
   test("empty text as generator", async () => {

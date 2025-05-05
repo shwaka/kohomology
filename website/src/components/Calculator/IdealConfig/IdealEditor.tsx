@@ -1,12 +1,12 @@
 import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { FormData, SortableFields } from "@components/SortableFields"
+import { OnSubmit } from "@components/TabDialog"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 import { ExternalData, IdealEditorItem } from "./IdealEditorItem"
 import { IdealFormInput } from "./schema"
-import { OnSubmit } from "@components/TabDialog"
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
   return (

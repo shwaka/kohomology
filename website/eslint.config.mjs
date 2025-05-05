@@ -22,7 +22,7 @@ export default tseslint.config(
     // },
     rules: {
       "@typescript-eslint/no-floating-promises": "error",
-      "react/jsx-no-leaked-render": "warn", // temporarily suppress error
+      "react/jsx-no-leaked-render": "off", // use @typescript-eslint/strict-boolean-expressions
     },
   },
 )

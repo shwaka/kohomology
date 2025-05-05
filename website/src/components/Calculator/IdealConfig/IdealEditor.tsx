@@ -39,6 +39,7 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
 
   const externalData: ExternalData = {}
 
+  // <button hidden type="submit"/> is necessary for onSubmit in form
   return (
     <form onSubmit={onSubmitWithPreventDefault}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
@@ -57,6 +58,7 @@ export function IdealEditor({ register, getValues, errors, trigger, fields, appe
         </Button>
         <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
       </Stack>
+      <button hidden type="submit"/>
     </form>
   )
 }

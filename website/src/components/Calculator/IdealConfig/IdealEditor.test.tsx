@@ -5,7 +5,7 @@ import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
 
 describe("IdealEditor", () => {
   test("empty text as generator", async () => {
-    const onSubmit = jest.fn()
+    const closeDialog = jest.fn()
     const hookArgs: UseIdealEditorArgs = {
       idealJson: "[]",
       setIdealJson: jest.fn(),
@@ -13,16 +13,31 @@ describe("IdealEditor", () => {
       validateGeneratorArray: jest.fn().mockResolvedValue(true),
     }
     const { result } = renderHook(() => useIdealEditor(hookArgs))
-    const { rerender } = render(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
+    const { rerender } = render(
+      <IdealEditor
+        {...result.current.idealEditorPropsExceptOnSubmit}
+        onSubmit={result.current.getOnSubmit(closeDialog)}
+      />
+    )
 
     act(() => {
       result.current.idealEditorPropsExceptOnSubmit.append({ text: "" })
     })
-    rerender(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
+    rerender(
+      <IdealEditor
+        {...result.current.idealEditorPropsExceptOnSubmit}
+        onSubmit={result.current.getOnSubmit(closeDialog)}
+      />
+    )
     await act(async () => {
       await result.current.getOnSubmit(jest.fn())()
     })
-    rerender(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
+    rerender(
+      <IdealEditor
+        {...result.current.idealEditorPropsExceptOnSubmit}
+        onSubmit={result.current.getOnSubmit(closeDialog)}
+      />
+    )
 
     expect(screen.getByRole("alert")).toContainHTML("Please enter the generator.")
   })
@@ -30,7 +45,7 @@ describe("IdealEditor", () => {
 
 type TestContainerProps = Omit<UseIdealEditorArgs, "idealJson" | "setIdealJson">
 export function IdealEditorTestContainer(props: TestContainerProps): React.JSX.Element {
-  const onSubmit = jest.fn()
+  const closeDialog = jest.fn()
   const [idealJson, setIdealJson] = useState("[]")
   const { idealEditorPropsExceptOnSubmit, getOnSubmit } = useIdealEditor({ ...props, idealJson, setIdealJson })
 
@@ -38,7 +53,7 @@ export function IdealEditorTestContainer(props: TestContainerProps): React.JSX.E
     <React.Fragment>
       <IdealEditor
         {...idealEditorPropsExceptOnSubmit}
-        onSubmit={onSubmit}
+        onSubmit={getOnSubmit(closeDialog)}
       />
       <button onClick={getOnSubmit(jest.fn())}>
         Apply

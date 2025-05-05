@@ -2,11 +2,11 @@ import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { RowComponentProps } from "@components/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
 import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 import { GeneratorFormInput } from "./generatorArraySchema"
 import { Generator } from "./generatorSchema"
-import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>

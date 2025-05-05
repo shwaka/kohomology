@@ -1,1 +1,2 @@
-export { type TabItem, useTabDialog, TabDialog, type UseTabDialogReturnValue } from "./TabDialog"
+export { useTabDialog, TabDialog, type UseTabDialogReturnValue } from "./TabDialog"
+export { type TabItem } from "./TabItem"

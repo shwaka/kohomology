@@ -1,12 +1,9 @@
 import { Editor } from "@components/EditorDialog"
-import { canQuit } from "@components/EditorDialog/useEditorDialog"
-import { Tabs, Tab } from "@mui/material"
 import React, { useCallback, useMemo, useState } from "react"
+import { TabEditorContent } from "./TabEditorContent"
+import { TabEditorTitle } from "./TabEditorTitle"
+import { TabItem } from "./TabItem"
 
-export interface TabItem {
-  editor: Editor
-  label: string
-}
 
 interface UseTabEditorArgs<K extends string> {
   tabItems: {[T in K]: TabItem}
@@ -24,12 +21,12 @@ export function useTabEditor<K extends string>(
   const [currentTabKey, setCurrentTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = tabItems[currentTabKey]
   const renderContent = useCallback((closeDialog: () => void): React.JSX.Element => (
-    <EditorContent
+    <TabEditorContent
       {...{ tabItems, tabKeys, currentTabKey, closeDialog }}
     />
   ), [tabItems, tabKeys, currentTabKey])
   const renderTitle = useCallback((): React.JSX.Element => (
-    <EditorTitle
+    <TabEditorTitle
       {...{ tabItems, tabKeys, currentTabKey, setCurrentTabKey }}
     />
   ), [tabItems, tabKeys, currentTabKey, setCurrentTabKey])
@@ -42,66 +39,4 @@ export function useTabEditor<K extends string>(
     onQuit: currentTabItem.editor.onQuit,
   }), [renderContent, renderTitle, currentTabItem])
   return { editor }
-}
-
-interface EditorContentProps<K extends string> {
-  tabItems: {[T in K]: TabItem}
-  tabKeys: readonly K[]
-  currentTabKey: K
-  closeDialog: () => void
-}
-
-function EditorContent<K extends string>(
-  { tabItems, tabKeys, currentTabKey, closeDialog }: EditorContentProps<K>
-): React.JSX.Element {
-  return (
-    <React.Fragment>
-      {tabKeys.map((tabKey) => (
-        <TabPanel
-          currentTabKey={currentTabKey}
-          tabKeyForPanel={tabKey} key={tabKey}
-        >
-          {tabItems[tabKey].editor.renderContent(closeDialog)}
-        </TabPanel>
-      ))}
-    </React.Fragment>
-  )
-}
-
-interface EditorTitleProps<K extends string> {
-  tabItems: {[T in K]: TabItem}
-  tabKeys: readonly K[]
-  currentTabKey: K
-  setCurrentTabKey: (newTabKey: K) => void
-}
-
-function EditorTitle<K extends string>(
-  { tabItems, tabKeys, currentTabKey, setCurrentTabKey }: EditorTitleProps<K>
-): React.JSX.Element {
-  function handleChangeTabKey(newTabKey: K): void {
-    if (!canQuit(tabItems[currentTabKey].editor.preventQuit)) {
-      return
-    }
-    setCurrentTabKey(newTabKey)
-    tabItems[newTabKey].editor.beforeOpen?.()
-  }
-  return (
-    <Tabs value={currentTabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
-      {tabKeys.map((tabKey) => (
-        <Tab
-          value={tabKey} key={tabKey}
-          label={tabItems[tabKey].label}
-          sx={{ textTransform: "none" }}
-        />
-      ))}
-    </Tabs>
-  )
-}
-
-function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): React.JSX.Element {
-  return (
-    <div hidden={currentTabKey !== tabKeyForPanel}>
-      {children}
-    </div>
-  )
 }

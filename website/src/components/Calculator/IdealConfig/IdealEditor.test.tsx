@@ -5,6 +5,7 @@ import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
 
 describe("IdealEditor", () => {
   test("empty text as generator", async () => {
+    const onSubmit = jest.fn()
     const hookArgs: UseIdealEditorArgs = {
       idealJson: "[]",
       setIdealJson: jest.fn(),
@@ -12,16 +13,16 @@ describe("IdealEditor", () => {
       validateGeneratorArray: jest.fn().mockResolvedValue(true),
     }
     const { result } = renderHook(() => useIdealEditor(hookArgs))
-    const { rerender } = render(<IdealEditor {...result.current.idealEditorProps}/>)
+    const { rerender } = render(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
 
     act(() => {
-      result.current.idealEditorProps.append({ text: "" })
+      result.current.idealEditorPropsExceptOnSubmit.append({ text: "" })
     })
-    rerender(<IdealEditor {...result.current.idealEditorProps}/>)
+    rerender(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
     await act(async () => {
       await result.current.getOnSubmit(jest.fn())()
     })
-    rerender(<IdealEditor {...result.current.idealEditorProps}/>)
+    rerender(<IdealEditor {...result.current.idealEditorPropsExceptOnSubmit} onSubmit={onSubmit}/>)
 
     expect(screen.getByRole("alert")).toContainHTML("Please enter the generator.")
   })
@@ -29,14 +30,15 @@ describe("IdealEditor", () => {
 
 type TestContainerProps = Omit<UseIdealEditorArgs, "idealJson" | "setIdealJson">
 export function IdealEditorTestContainer(props: TestContainerProps): React.JSX.Element {
+  const onSubmit = jest.fn()
   const [idealJson, setIdealJson] = useState("[]")
-  const { idealEditorProps, getOnSubmit } = useIdealEditor({ ...props, idealJson, setIdealJson })
+  const { idealEditorPropsExceptOnSubmit, getOnSubmit } = useIdealEditor({ ...props, idealJson, setIdealJson })
 
   return (
     <React.Fragment>
       <IdealEditor
-        {...idealEditorProps}
-        onSubmit={}
+        {...idealEditorPropsExceptOnSubmit}
+        onSubmit={onSubmit}
       />
       <button onClick={getOnSubmit(jest.fn())}>
         Apply

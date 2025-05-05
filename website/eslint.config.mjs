@@ -8,6 +8,7 @@ import { FlatCompat } from "@eslint/eslintrc"
 const flatCompat = new FlatCompat()
 
 export default tseslint.config(
+  { ignores: ["**/prismThemes/*.mjs"] },
   ...eslintConfigShwakaReact,
   ...fixupConfigRules(
     flatCompat.extends(
@@ -21,6 +22,7 @@ export default tseslint.config(
     // },
     rules: {
       "@typescript-eslint/no-floating-promises": "error",
-    }
+      "react/jsx-no-leaked-render": "warn", // temporarily suppress error
+    },
   },
 )

@@ -21,7 +21,7 @@ interface Example {
 function tryOrUndefined<T>(func: () => T): T | undefined {
   try {
     return func()
-  } catch (_) {
+  } catch {
     return undefined
   }
 }

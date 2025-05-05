@@ -1,14 +1,20 @@
 import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { findOrThrow } from "./findOrThrow"
+import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+
+function openDialog(): HTMLElement {
+  const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
+  const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
+  expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
+  fireEvent.click(editDGAButton)
+  const dialog = screen.getByRole("dialog")
+  return dialog
+}
 
 export class InputJson {
-  private static openDialog(): HTMLElement {
+  private static openDialogAndSelectJsonTab(): HTMLElement {
     // Open dialog
-    const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
-    const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
-    expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
-    fireEvent.click(editDGAButton)
-    const dialog = screen.getByRole("dialog")
+    const dialog = openDialog()
     // Select the "JSON" tab
     const tabs = within(dialog).getAllByRole("tab")
     const jsonTabButton = findOrThrow(tabs, (element) => (
@@ -28,7 +34,7 @@ export class InputJson {
   }
 
   static async inputValidJson(json: string): Promise<void> {
-    const dialog = InputJson.openDialog()
+    const dialog = InputJson.openDialogAndSelectJsonTab()
     InputJson.inputAndApplyJson(dialog, json)
     await waitForElementToBeRemoved(
       dialog,
@@ -41,8 +47,38 @@ export class InputJson {
   }
 
   static async inputInvalidJson(json: string): Promise<void> {
-    const dialog = InputJson.openDialog()
+    const dialog = InputJson.openDialogAndSelectJsonTab()
     InputJson.inputAndApplyJson(dialog, json)
     await within(dialog).findByRole("alert") // It takes some time to show alert.
+  }
+}
+
+type ApplyMethod = "button" | "enter"
+
+export class InputArray {
+  static async addGeneratorAndApply(applyMethod: ApplyMethod): Promise<void> {
+    const dialog = openDialog()
+    // default is the "Array" tab
+    const addGeneratorButton = within(dialog).getByText("Add a generator")
+    fireEvent.click(addGeneratorButton)
+    switch (applyMethod) {
+      case "button": {
+        const applyButton = within(dialog).getByText("Apply")
+        fireEvent.click(applyButton)
+        break
+      }
+      case "enter": {
+        throw new Error("not implemented")
+      }
+      default:
+        throw new ExhaustivityError(applyMethod)
+    }
+    await waitForElementToBeRemoved(
+      dialog,
+      {
+        // See the comment in InputJson.inputValidJson
+        timeout: 2000,
+      },
+    )
   }
 }

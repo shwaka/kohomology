@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746429553900,
+  "lastUpdate": 1746432493563,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8006,6 +8006,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.273,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "db1f898d5016a32ab52445d23b125bd318f9d440",
+          "message": "test(website): set closeDialog to Apply button in IdealEditorTestContainer",
+          "timestamp": "2025-05-05T17:03:15+09:00",
+          "tree_id": "6a22b05021d72e0356866d3c5814c24ac7345368",
+          "url": "https://github.com/shwaka/kohomology/commit/db1f898d5016a32ab52445d23b125bd318f9d440"
+        },
+        "date": 1746432492900,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.782,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.222,
             "unit": "s/op"
           }
         ]

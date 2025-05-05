@@ -57,14 +57,15 @@ export function IdealEditorTestContainer(
     ...useIdealEditorArgs,
     idealJson, setIdealJson
   })
+  const onSubmit = getOnSubmit(closeDialog)
 
   return (
     <React.Fragment>
       <IdealEditor
         {...idealEditorPropsExceptOnSubmit}
-        onSubmit={getOnSubmit(closeDialog)}
+        onSubmit={onSubmit}
       />
-      <button onClick={getOnSubmit(jest.fn())}>
+      <button onClick={onSubmit}>
         Apply
       </button>
     </React.Fragment>
@@ -130,11 +131,10 @@ describe("IdealEditorTestContainer", () => {
     addGenerators(["x"])
     await apply()
 
-    expect(closeDialog).toHaveBeenCalled()
-
     await waitFor(() => {
-      expect(screen.queryByRole("alert")).not.toBeInTheDocument()
+      expect(closeDialog).toHaveBeenCalled()
     })
+    expect(screen.queryByRole("alert")).not.toBeInTheDocument()
   })
 
   for (const count of [1, 2]) {
@@ -152,11 +152,10 @@ describe("IdealEditorTestContainer", () => {
       addGenerators([...Array(count).keys()].map((n) => `x${n}`))
       await apply("enter", count - 1)
 
-      expect(closeDialog).toHaveBeenCalled()
-
       await waitFor(() => {
-        expect(screen.queryByRole("alert")).not.toBeInTheDocument()
+        expect(closeDialog).toHaveBeenCalled()
       })
+      expect(screen.queryByRole("alert")).not.toBeInTheDocument()
     })
   }
 

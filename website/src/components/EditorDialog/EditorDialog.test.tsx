@@ -66,27 +66,40 @@ async function clickBackdrop(): Promise<void> {
   await userEvent.click(backdrop)
 }
 
+interface GetEditorArgs {
+  preventQuit?: () => string | undefined
+  disableSubmit?: () => boolean
+  beforeOpen?: () => void
+}
+
 interface GetEditorReturnValue {
   editor: Editor
   onSubmit: OnSubmit
   onQuit: () => void
 }
 
-describe("EditorDialog with trivial editor", () => {
-  function getEditor(): GetEditorReturnValue {
-    const onSubmit = jest.fn()
-    const onQuit = jest.fn()
-    const editor: Editor = {
-      renderContent: (_closeDialog) => (<div>Content of editor</div>),
-      getOnSubmit: (closeDialog) => async (e) => {
-        onSubmit(e),
-        closeDialog()
-      },
-      onQuit,
-    }
-    return { editor, onSubmit, onQuit }
+function getEditor(
+  {
+    preventQuit = undefined,
+    disableSubmit = undefined,
+    beforeOpen = undefined,
+  }: GetEditorArgs = {}
+): GetEditorReturnValue {
+  const onSubmit = jest.fn()
+  const onQuit = jest.fn()
+  const editor: Editor = {
+    preventQuit, disableSubmit, beforeOpen,
+    renderContent: (_closeDialog) => (<div>Content of editor</div>),
+    getOnSubmit: (closeDialog) => async (e) => {
+      onSubmit(e),
+      closeDialog()
+    },
+    onQuit,
   }
+  return { editor, onSubmit, onQuit }
+}
 
+describe("EditorDialog with trivial editor", () => {
   test("submit", async () => {
 
     const { editor, onSubmit, onQuit } = getEditor()

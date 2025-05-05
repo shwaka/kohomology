@@ -1,3 +1,4 @@
+import { OnSubmit } from "@components/EditorDialog"
 import { TabItem } from "@components/TabDialog"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
@@ -7,7 +8,6 @@ import { ShowStyledMessage } from "../styled/ShowStyledMessage"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "../worker/styled"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
-import { OnSubmit } from "@components/EditorDialog"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]

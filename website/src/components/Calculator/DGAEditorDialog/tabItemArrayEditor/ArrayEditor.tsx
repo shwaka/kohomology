@@ -24,7 +24,7 @@ export interface ArrayEditorProps {
 export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit }: ArrayEditorProps): React.JSX.Element {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    await onSubmit()
+    await onSubmit(event)
   }
   const formData: FormData<GeneratorFormInput> = {
     register, remove, errors, getValues, trigger

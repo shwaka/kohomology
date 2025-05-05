@@ -31,7 +31,7 @@ export interface IdealEditorProps {
 export function IdealEditor({ register, getValues, errors, trigger, fields, append, remove, move, onSubmit }: IdealEditorProps): React.JSX.Element {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
-    await onSubmit()
+    await onSubmit(event)
   }
   const formData: FormData<IdealFormInput> = {
     register, remove, errors, getValues, trigger,

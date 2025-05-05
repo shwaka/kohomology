@@ -96,14 +96,24 @@ export function getChartProps(
             let label = item.label
             const { range, unit, value } = filteredDataset[item.dataIndex].bench
             label = value.toString() + " " + unit
-            if (range !== undefined) {
+            if (typeof range === "string") {
               label += " (" + range + ")"
+            } else if (range !== undefined) {
+              // See https://github.com/benchmark-action/github-action-benchmark
+              throw new Error("range must be a string, but was ${range}")
             }
             return label
           },
           afterLabel: item => {
             const { extra } = filteredDataset[item.dataIndex].bench
-            return (extra !== undefined) ? "\n" + extra : ""
+            if (extra === undefined) {
+              return ""
+            }
+            if (typeof extra !== "string") {
+              // See https://github.com/benchmark-action/github-action-benchmark
+              throw new Error("extra must be a string, but was ${extra}")
+            }
+            return "\n" + extra
           }
         }
       }

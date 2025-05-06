@@ -1,8 +1,9 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { fireEvent, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { fireEvent, screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { findOrThrow } from "./findOrThrow"
 
+// Used in both InputJson and InputArray
 function openDialog(): HTMLElement {
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
   const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
@@ -13,15 +14,22 @@ function openDialog(): HTMLElement {
 }
 
 export class InputJson {
-  private static openDialogAndSelectJsonTab(): HTMLElement {
-    // Open dialog
-    const dialog = openDialog()
-    // Select the "JSON" tab
+  private static async selectJsonTab(dialog: HTMLElement): Promise<void> {
     const tabs = within(dialog).getAllByRole("tab")
     const jsonTabButton = findOrThrow(tabs, (element) => (
       element?.textContent?.includes("JSON") ?? false
     ))
     fireEvent.click(jsonTabButton)
+    await waitFor(() => {
+      expect(jsonTabButton).toHaveAttribute("aria-selected", "true")
+    })
+  }
+
+  private static async openDialogAndSelectJsonTab(): Promise<HTMLElement> {
+    // Open dialog
+    const dialog = openDialog()
+    // Select the "JSON" tab
+    await InputJson.selectJsonTab(dialog)
     return dialog
   }
 
@@ -35,7 +43,7 @@ export class InputJson {
   }
 
   static async inputValidJson(json: string): Promise<void> {
-    const dialog = InputJson.openDialogAndSelectJsonTab()
+    const dialog = await InputJson.openDialogAndSelectJsonTab()
     InputJson.inputAndApplyJson(dialog, json)
     await waitForElementToBeRemoved(
       dialog,
@@ -48,7 +56,7 @@ export class InputJson {
   }
 
   static async inputInvalidJson(json: string): Promise<void> {
-    const dialog = InputJson.openDialogAndSelectJsonTab()
+    const dialog = await InputJson.openDialogAndSelectJsonTab()
     InputJson.inputAndApplyJson(dialog, json)
     await within(dialog).findByRole("alert") // It takes some time to show alert.
   }

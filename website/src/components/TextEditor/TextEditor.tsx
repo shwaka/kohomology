@@ -1,6 +1,7 @@
+import { ShowFieldErrors } from "@components/ShowFieldErrors"
 import { Alert, Stack, TextField } from "@mui/material"
 import React from "react"
-import { DeepRequired, FieldErrorsImpl, UseFormRegister } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl, UseFormRegister } from "react-hook-form"
 
 export interface TextEditorFormInput {
   text: string
@@ -26,6 +27,17 @@ export function TextEditor(
         error={errors.text !== undefined}
       />
       {errors.text !== undefined && <Alert severity="error">{errors.text.message}</Alert>}
+      <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
     </Stack>
   )
+}
+
+function getFieldErrorArray(
+  errors: FieldErrorsImpl<DeepRequired<TextEditorFormInput>>
+): (FieldError | undefined)[] {
+  const fieldError: FieldError | undefined = errors.text
+  if (fieldError === undefined) {
+    return []
+  }
+  return [fieldError]
 }

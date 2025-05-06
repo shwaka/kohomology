@@ -21,10 +21,16 @@ export function ConfirmDialog(
         {prompt}
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => resolveConfirm?.(true)}>
+        <Button
+          onClick={() => resolveConfirm?.(true)}
+          variant="contained"
+        >
           {trueText}
         </Button>
-        <Button onClick={() => resolveConfirm?.(false)}>
+        <Button
+          onClick={() => resolveConfirm?.(false)}
+          variant="outlined"
+        >
           {falseText}
         </Button>
       </DialogActions>

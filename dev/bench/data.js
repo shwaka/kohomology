@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746498297889,
+  "lastUpdate": 1746502798773,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8278,6 +8278,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.386,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1b820c7fdd2b75d735f8f4d07b198aed3038a0f5",
+          "message": "feat(website): change background color of Navbar in development mode",
+          "timestamp": "2025-05-06T12:33:44+09:00",
+          "tree_id": "48052520d53bd802038d5da7c48a0329086a9b7b",
+          "url": "https://github.com/shwaka/kohomology/commit/1b820c7fdd2b75d735f8f4d07b198aed3038a0f5"
+        },
+        "date": 1746502798242,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.757,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.216,
             "unit": "s/op"
           }
         ]

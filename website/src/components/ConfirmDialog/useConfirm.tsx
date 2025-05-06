@@ -1,17 +1,8 @@
 import React, { useState } from "react"
 import { ConfirmDialog, ConfirmDialogProps } from "./ConfirmDialog"
+import { UseConfirmArgs, UseConfirmReturnValue } from "./useConfirm.types"
 
 type ResolveConfirm = (answer: boolean) => void
-
-interface UseConfirmArgs {
-  trueText: string
-  falseText: string
-}
-
-interface UseConfirmReturnValue {
-  confirm: (prompt: string) => Promise<boolean>
-  confirmDialog: React.JSX.Element
-}
 
 export function useConfirm({ trueText, falseText }: UseConfirmArgs): UseConfirmReturnValue {
   const [open, setOpen] = useState(false)

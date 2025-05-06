@@ -62,7 +62,7 @@ async function cancel(
   switch (cancelMethod) {
     case "button": {
       const applyButton = within(dialog).getByText("Cancel")
-      fireEvent.click(applyButton)
+      await userEvent.click(applyButton)
       return
     }
     case "backdrop": {

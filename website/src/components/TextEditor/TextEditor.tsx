@@ -1,7 +1,8 @@
 import { ShowFieldErrors } from "@components/ShowFieldErrors"
-import { Alert, Stack, TextField } from "@mui/material"
-import React from "react"
-import { DeepRequired, FieldError, FieldErrorsImpl, UseFormRegister } from "react-hook-form"
+import { Stack, TextField } from "@mui/material"
+import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
+import React, { useCallback } from "react"
+import { DeepRequired, FieldError, FieldErrorsImpl, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
 export interface TextEditorFormInput {
   text: string
@@ -10,23 +11,35 @@ export interface TextEditorFormInput {
 export interface TextEditorProps {
   register: UseFormRegister<TextEditorFormInput>
   errors: FieldErrorsImpl<DeepRequired<TextEditorFormInput>>
+  trigger: UseFormTrigger<TextEditorFormInput>
   fieldLabel: string
   fieldTestid: string
   validate: (value: string) => true | string
 }
 
 export function TextEditor(
-  { register, errors, fieldLabel, fieldTestid, validate }: TextEditorProps
+  { register, errors, fieldLabel, fieldTestid, validate, trigger }: TextEditorProps
 ): React.JSX.Element {
+  const setOverwritableTimeout = useOverwritableTimeout()
+  const triggerWithDelay = useCallback(
+    () => setOverwritableTimeout(async () => await trigger(), 1000),
+    [setOverwritableTimeout, trigger]
+  )
+
   return (
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       <TextField
         label={fieldLabel} multiline
         inputProps={{"data-testid": fieldTestid}}
-        {...register("text", { validate })}
+        {...register(
+          "text",
+          {
+            validate,
+            onChange: triggerWithDelay,
+          }
+        )}
         error={errors.text !== undefined}
       />
-      {errors.text !== undefined && <Alert severity="error">{errors.text.message}</Alert>}
       <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
     </Stack>
   )

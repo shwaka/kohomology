@@ -15,7 +15,7 @@ interface UseTextEditorArgs {
 export function useTextEditor(
   { text, setText, preventPrompt, fieldLabel, fieldTestid, validate }: UseTextEditorArgs
 ): Editor {
-  const { register, handleSubmit, getValues, reset, formState: { errors } } = useForm<TextEditorFormInput>({
+  const { register, handleSubmit, getValues, reset, trigger, formState: { errors } } = useForm<TextEditorFormInput>({
     mode: "onBlur",
     reValidateMode: "onBlur",
     shouldUnregister: false, // necessary for setValue with MUI
@@ -43,7 +43,7 @@ export function useTextEditor(
     return errors.text !== undefined
   }
   const textEditorProps: TextEditorProps = {
-    register, errors, fieldLabel, fieldTestid, validate,
+    register, errors, trigger, fieldLabel, fieldTestid, validate,
   }
   return {
     preventQuit, getOnSubmit, beforeOpen, disableSubmit,

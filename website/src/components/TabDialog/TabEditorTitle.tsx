@@ -13,15 +13,19 @@ interface TabEditorTitleProps<K extends string> {
 export function TabEditorTitle<K extends string>(
   { tabItems, tabKeys, currentTabKey, setCurrentTabKey }: TabEditorTitleProps<K>
 ): React.JSX.Element {
-  function handleChangeTabKey(newTabKey: K): void {
-    if (!canQuit(tabItems[currentTabKey].editor.preventQuit)) {
+  async function handleChangeTabKey(newTabKey: K): Promise<void> {
+    const allowedToQuit = await canQuit(tabItems[currentTabKey].editor.preventQuit)
+    if (!allowedToQuit) {
       return
     }
     setCurrentTabKey(newTabKey)
     tabItems[newTabKey].editor.beforeOpen?.()
   }
   return (
-    <Tabs value={currentTabKey} onChange={(_, newTabKey) => handleChangeTabKey(newTabKey)}>
+    <Tabs
+      value={currentTabKey}
+      onChange={async (_, newTabKey) => await handleChangeTabKey(newTabKey)}
+    >
       {tabKeys.map((tabKey) => (
         <Tab
           value={tabKey} key={tabKey}

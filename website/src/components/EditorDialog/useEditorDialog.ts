@@ -3,7 +3,7 @@ import { Editor } from "./Editor"
 import { EditorDialogProps } from "./EditorDialog"
 import { OnSubmit } from "./OnSubmit"
 
-export function canQuit(preventQuit: (() => string | undefined) | undefined): boolean {
+export async function canQuit(preventQuit: (() => string | undefined) | undefined): Promise<boolean> {
   const confirmPrompt: string | undefined = preventQuit?.()
   if (confirmPrompt === undefined) {
     return true
@@ -24,8 +24,9 @@ export function useEditorDialog(
   { editor: { renderContent, renderTitle, getOnSubmit, preventQuit, disableSubmit, beforeOpen, onQuit } }: UseEditorDialogArgs
 ): UseEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  function tryToQuit(): void {
-    if (!canQuit(preventQuit)) {
+  async function tryToQuit(): Promise<void> {
+    const allowedToQuit = await canQuit(preventQuit)
+    if (!allowedToQuit) {
       return
     }
     onQuit?.()

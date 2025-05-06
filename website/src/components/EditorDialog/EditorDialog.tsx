@@ -8,7 +8,7 @@ export interface EditorDialogProps {
   renderTitle?: () => React.JSX.Element
   open: boolean
   closeDialog: () => void
-  tryToQuit: () => void
+  tryToQuit: () => Promise<void>
   disableSubmit?: () => boolean
   onSubmit: OnSubmit
 }

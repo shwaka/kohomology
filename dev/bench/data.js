@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746540177248,
+  "lastUpdate": 1746540744460,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8414,6 +8414,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.221,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "48dd8fcc4ce5cfa3ec7810f4134572c578c4c69a",
+          "message": "build(website): add workflow called-typecheck-website.yml",
+          "timestamp": "2025-05-06T23:07:23+09:00",
+          "tree_id": "6ab9257c0930d900c124788f4d36a64569dbe47c",
+          "url": "https://github.com/shwaka/kohomology/commit/48dd8fcc4ce5cfa3ec7810f4134572c578c4c69a"
+        },
+        "date": 1746540743838,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.79,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.263,
             "unit": "s/op"
           }
         ]

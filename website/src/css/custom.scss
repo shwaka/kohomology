@@ -20,6 +20,10 @@ $ifm-color-primary: #7e6ca8;
   --ifm-code-font-size: 95%;
 }
 
+:root[data-build-env='dev'] {
+  --ifm-navbar-background-color: orange;
+}
+
 .docusaurus-highlight-code-line {
   background-color: rgba(0, 0, 0, 0.1);
   display: block;

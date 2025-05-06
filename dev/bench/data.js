@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746502798773,
+  "lastUpdate": 1746516899676,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8312,6 +8312,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.216,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": false,
+          "id": "fd950d7ea829335d6759302f9017711eb0366ba0",
+          "message": "test(website): use userEvent.click instead of fireEvent.click (since it treats async events nicely)",
+          "timestamp": "2025-05-06T16:14:15+09:00",
+          "tree_id": "388738167d5e285a9e5e5c6456ce3cd3a942f2d0",
+          "url": "https://github.com/shwaka/kohomology/commit/fd950d7ea829335d6759302f9017711eb0366ba0"
+        },
+        "date": 1746516898929,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.818,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.348,
             "unit": "s/op"
           }
         ]

@@ -13,7 +13,7 @@ interface TabEditorTitleProps<K extends string> {
 export function TabEditorTitle<K extends string>(
   { tabItems, tabKeys, currentTabKey, setCurrentTabKey }: TabEditorTitleProps<K>
 ): React.JSX.Element {
-  const { canQuit } = useCanQuit()
+  const { canQuit, confirmDialog } = useCanQuit({ trueText: "Quit", falseText: "Resume" })
   async function handleChangeTabKey(newTabKey: K): Promise<void> {
     const allowedToQuit = await canQuit(tabItems[currentTabKey].editor.preventQuit)
     if (!allowedToQuit) {
@@ -23,17 +23,20 @@ export function TabEditorTitle<K extends string>(
     tabItems[newTabKey].editor.beforeOpen?.()
   }
   return (
-    <Tabs
-      value={currentTabKey}
-      onChange={async (_, newTabKey) => await handleChangeTabKey(newTabKey)}
-    >
-      {tabKeys.map((tabKey) => (
-        <Tab
-          value={tabKey} key={tabKey}
-          label={tabItems[tabKey].label}
-          sx={{ textTransform: "none" }}
-        />
-      ))}
-    </Tabs>
+    <React.Fragment>
+      <Tabs
+        value={currentTabKey}
+        onChange={async (_, newTabKey) => await handleChangeTabKey(newTabKey)}
+      >
+        {tabKeys.map((tabKey) => (
+          <Tab
+            value={tabKey} key={tabKey}
+            label={tabItems[tabKey].label}
+            sx={{ textTransform: "none" }}
+          />
+        ))}
+      </Tabs>
+      {confirmDialog}
+    </React.Fragment>
   )
 }

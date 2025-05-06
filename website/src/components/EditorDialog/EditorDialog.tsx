@@ -11,9 +11,10 @@ export interface EditorDialogProps {
   tryToQuit: () => Promise<void>
   disableSubmit?: () => boolean
   onSubmit: OnSubmit
+  confirmDialog: React.JSX.Element
 }
 
-export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tryToQuit, disableSubmit, onSubmit }: EditorDialogProps): React.JSX.Element {
+export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tryToQuit, disableSubmit, onSubmit, confirmDialog }: EditorDialogProps): React.JSX.Element {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog
@@ -42,6 +43,7 @@ export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tr
           Cancel
         </Button>
       </DialogActions>
+      {confirmDialog}
     </Dialog>
   )
 }

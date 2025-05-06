@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { useConfirm } from "@components/ConfirmDialog"
+import React, { useState } from "react"
 import { Editor } from "./Editor"
 import { EditorDialogProps } from "./EditorDialog"
 import { OnSubmit } from "./OnSubmit"
@@ -6,17 +7,24 @@ import { OnSubmit } from "./OnSubmit"
 type PreventQuit = (() => string | undefined) | undefined
 type UseCanQuitReturnValue = {
   canQuit: (preventQuit: PreventQuit) => Promise<boolean>
+  confirmDialog: React.JSX.Element
 }
 
-export function useCanQuit(): UseCanQuitReturnValue {
+interface UseCanQuitArgs {
+  trueText: string
+  falseText: string
+}
+
+export function useCanQuit(args: UseCanQuitArgs): UseCanQuitReturnValue {
+  const { confirm, confirmDialog } = useConfirm(args)
   const canQuit = async (preventQuit: PreventQuit): Promise<boolean> => {
     const confirmPrompt: string | undefined = preventQuit?.()
     if (confirmPrompt === undefined) {
       return true
     }
-    return window.confirm(confirmPrompt)
+    return confirm(confirmPrompt)
   }
-  return { canQuit }
+  return { canQuit, confirmDialog }
 }
 
 interface UseEditorDialogArgs {
@@ -32,7 +40,7 @@ export function useEditorDialog(
   { editor: { renderContent, renderTitle, getOnSubmit, preventQuit, disableSubmit, beforeOpen, onQuit } }: UseEditorDialogArgs
 ): UseEditorDialogReturnValue {
   const [open, setOpen] = useState(false)
-  const { canQuit } = useCanQuit()
+  const { canQuit, confirmDialog } = useCanQuit({ trueText: "Quit", falseText: "Resume" })
   async function tryToQuit(): Promise<void> {
     const allowedToQuit = await canQuit(preventQuit)
     if (!allowedToQuit) {
@@ -45,7 +53,8 @@ export function useEditorDialog(
   const onSubmit: OnSubmit = getOnSubmit(closeDialog)
   const editorDialogProps: EditorDialogProps = {
     renderContent, renderTitle,
-    open, closeDialog, tryToQuit, disableSubmit, onSubmit
+    open, closeDialog, tryToQuit, disableSubmit, onSubmit,
+    confirmDialog
   }
   function openDialog(): void {
     beforeOpen?.()

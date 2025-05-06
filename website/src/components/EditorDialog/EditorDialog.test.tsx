@@ -1,3 +1,4 @@
+import { mockConfirm } from "@components/ConfirmDialog/useConfirm"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -6,6 +7,8 @@ import { Editor } from "./Editor"
 import { EditorDialog } from "./EditorDialog"
 import { OnSubmit } from "./OnSubmit"
 import { useEditorDialog } from "./useEditorDialog"
+
+jest.mock("@components/ConfirmDialog/useConfirm")
 
 interface ContainerProps {
   editor: Editor
@@ -142,13 +145,13 @@ describe("EditorDialog with trivial editor", () => {
 })
 
 describe("EditorDialog with preventQuit returning string", () => {
-  afterEach(() => {
-    jest.restoreAllMocks()
+  beforeEach(() => {
+    mockConfirm.mockReset()
   })
 
   for (const cancelMethod of cancelMethods) {
     test(`cancel(${cancelMethod}) with window.confirm returning true`, async () => {
-      const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(true)
+      mockConfirm.mockResolvedValue(true)
       const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
@@ -160,7 +163,7 @@ describe("EditorDialog with preventQuit returning string", () => {
       await assertClosed(dialog)
 
       expect(preventQuit).toHaveBeenCalledOnce()
-      expect(confirmSpy).toHaveBeenCalledOnce()
+      expect(mockConfirm).toHaveBeenCalledOnce()
       expect(onSubmit).not.toHaveBeenCalled()
       expect(onQuit).toHaveBeenCalledOnce()
     })
@@ -168,7 +171,7 @@ describe("EditorDialog with preventQuit returning string", () => {
 
   for (const cancelMethod of cancelMethods) {
     test(`cancel(${cancelMethod}) with window.confirm returning false`, async () => {
-      const confirmSpy = jest.spyOn(window, "confirm").mockReturnValue(false)
+      mockConfirm.mockResolvedValue(false)
       const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
@@ -180,7 +183,7 @@ describe("EditorDialog with preventQuit returning string", () => {
       await assertOpen(dialog)
 
       expect(preventQuit).toHaveBeenCalledOnce()
-      expect(confirmSpy).toHaveBeenCalledOnce()
+      expect(mockConfirm).toHaveBeenCalledOnce()
       expect(onSubmit).not.toHaveBeenCalled()
       expect(onQuit).not.toHaveBeenCalledOnce()
     })

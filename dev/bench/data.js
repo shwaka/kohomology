@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746494509376,
+  "lastUpdate": 1746498297889,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8244,6 +8244,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.36,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "62b21e279364b6f15d9635f2785429076a765e84",
+          "message": "feat(website): trigger validation via useOverwritableTimeout in TextEditor",
+          "timestamp": "2025-05-06T11:14:55+09:00",
+          "tree_id": "fb0aa3df5fdee9a0fdf502714ea828b357098ebe",
+          "url": "https://github.com/shwaka/kohomology/commit/62b21e279364b6f15d9635f2785429076a765e84"
+        },
+        "date": 1746498296718,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.84,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.386,
             "unit": "s/op"
           }
         ]

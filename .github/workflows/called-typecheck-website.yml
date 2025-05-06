@@ -13,6 +13,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Number of commits to fetch. 0 indicates all history for all branches and tags.
+          # This is necessary to read benchmark-data from separate branch.
+          fetch-depth: 0
       - name: "Read cache: website/node_modules"
         uses: actions/cache@v3
         with:

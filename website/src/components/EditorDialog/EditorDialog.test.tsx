@@ -1,4 +1,3 @@
-import { mockConfirm } from "@components/ConfirmDialog/useConfirm"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -9,6 +8,12 @@ import { OnSubmit } from "./OnSubmit"
 import { useEditorDialog } from "./useEditorDialog"
 
 jest.mock("@components/ConfirmDialog/useConfirm")
+
+// The following import works for jest, but not for tsc.
+//   import { mockConfirm } from "@components/ConfirmDialog/useConfirm"
+const { mockConfirm } = jest.requireMock("@components/ConfirmDialog/useConfirm") as {
+  mockConfirm: jest.Mock
+}
 
 interface ContainerProps {
   editor: Editor

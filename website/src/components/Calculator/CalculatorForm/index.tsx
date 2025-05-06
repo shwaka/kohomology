@@ -94,7 +94,7 @@ export function CalculatorForm(): React.JSX.Element {
         </StackItem>
         <StackItem data-testid="CalculatorForm-StackItem-DGA">
           Input a Sullivan model of a space <TeX math="X"/>:
-          <div>
+          <div data-testid="CalculatorForm-dga-info" data-dga-json={json}>
             {dgaInfo.map((styledMessage, index) => (
               <ShowStyledMessage styledMessage={styledMessage} key={index}/>
             ))}

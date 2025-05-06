@@ -85,6 +85,12 @@ jobs:
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.setup-website.outputs.CACHE_KEY_NODE_MODULES }}
 
+  typecheck-website:
+    needs: [ setup-website, test-kotlin-js ]
+    uses: ./.github/workflows/called-typecheck-website.yml
+    with:
+      CACHE_KEY_NODE_MODULES: ${{ needs.setup-website.outputs.CACHE_KEY_NODE_MODULES }}
+
   benchmark-website:
     needs: [ setup-website, test-kotlin-js ]
     uses: ./.github/workflows/called-benchmark-website.yml
@@ -99,7 +105,7 @@ jobs:
       JAVA_VERSION: ${{ needs.prepare-env.outputs.JAVA_VERSION }}
 
   build-website:
-    needs: [ test-core, benchmark-core, docs-core, setup-website, test-website, benchmark-website, run-sample ]
+    needs: [ test-core, benchmark-core, docs-core, setup-website, test-website, typecheck-website, benchmark-website, run-sample ]
     uses: ./.github/workflows/called-build-website.yml
     with:
       CACHE_KEY_NODE_MODULES: ${{ needs.setup-website.outputs.CACHE_KEY_NODE_MODULES }}

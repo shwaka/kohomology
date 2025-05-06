@@ -44,10 +44,10 @@ jobs:
         run: ../scripts/assert-volta.sh
         working-directory: website
         # To run "node(npm) --version", assert-volta.sh should be run in website/
-      - name: Typecheck website
-        # This requires benchmark-data
-        run: npm run tsc
-        working-directory: website
+      # - name: Typecheck website # moved to a separate file
+      #   # This requires benchmark-data
+      #   run: npm run tsc
+      #   working-directory: website
       - name: Build site
         run: npm run build
         working-directory: website

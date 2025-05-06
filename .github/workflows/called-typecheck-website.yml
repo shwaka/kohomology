@@ -1,0 +1,28 @@
+name: called-typecheck-website
+
+on:
+  workflow_call:
+    inputs:
+      CACHE_KEY_NODE_MODULES:
+        required: true
+        type: string
+        description: the cache key for website/node_modules
+
+jobs:
+  main:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: "Read cache: website/node_modules"
+        uses: actions/cache@v3
+        with:
+          path: website/node_modules
+          key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
+      - name: Prepare benchmark data
+        # This will use the previous benchmark-data
+        run: ./scripts/prepare-site.sh benchmark-data
+      - uses: volta-cli/action@v3
+      - name: Typecheck website
+        # This requires benchmark-data
+        run: npm run tsc
+        working-directory: website

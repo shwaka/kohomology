@@ -10,8 +10,12 @@ command=${1-all}
 function prepare_benchmark_data() {
     # exapnd benchmark data to the working tree
     cd "$ROOT_DIR"
+    local -A DESTINATION_LIST=(
+        [benchmark-data]="benchmark-data/core"
+        [benchmark-data-website]="benchmark-data/website"
+    )
     for NAME in benchmark-data benchmark-data-website; do
-        DESTINATION=$NAME
+        DESTINATION=${DESTINATION_LIST[$NAME]}
         BRANCH=remotes/origin/$NAME
         echo "--- Expand benchmark data to '$DESTINATION/'---"
         rm -rf "$DESTINATION"

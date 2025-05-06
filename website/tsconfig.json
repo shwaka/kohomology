@@ -11,8 +11,8 @@
       "@theme/*": [ "src/theme/*" ],
       "@components/*": [ "src/components/*" ],
       "@site/*": ["*"],
-      "@benchmark/*": ["../benchmark-data/dev/bench/*"],
-      "@benchmark-website/*": ["../benchmark-data-website/dev/bench/*"]
+      "@benchmark/*": ["../benchmark-data/core/dev/bench/*"],
+      "@benchmark-website/*": ["../benchmark-data/website/dev/bench/*"]
     },
     "types": [
       "webpack-env",

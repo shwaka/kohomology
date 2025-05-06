@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746516899676,
+  "lastUpdate": 1746538414804,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8346,6 +8346,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.348,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b495584f6123036853def6bbbe1b897ed0389aec",
+          "message": "feat(website): improve button style in ConfirmDialog",
+          "timestamp": "2025-05-06T22:28:07+09:00",
+          "tree_id": "ab497b623cb2cca0a6298545603b0218b52270a7",
+          "url": "https://github.com/shwaka/kohomology/commit/b495584f6123036853def6bbbe1b897ed0389aec"
+        },
+        "date": 1746538413670,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.806,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.256,
             "unit": "s/op"
           }
         ]

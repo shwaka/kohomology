@@ -1,4 +1,5 @@
-import { fireEvent, screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { UserEvent } from "@testing-library/user-event"
 import { TargetName, targetNames } from "../worker/workerInterface"
 import { findOrThrow } from "./findOrThrow"
 import { getStyledMessages } from "./getStyledMessages"
@@ -49,10 +50,10 @@ export function getComputeCohomologyButton(): HTMLElement{
   return computeCohomologyButton
 }
 
-export function clickComputeCohomologyButton(): void {
+export async function clickComputeCohomologyButton(user: UserEvent): Promise<void> {
   const computeCohomologyButton = getComputeCohomologyButton()
   expect(computeCohomologyButton).toContainHTML("Compute")
-  fireEvent.click(computeCohomologyButton)
+  await user.click(computeCohomologyButton)
 }
 
 export function expectComputeCohomologyButtonToContain(text: "Compute" | "Computing"): void {
@@ -60,13 +61,13 @@ export function expectComputeCohomologyButtonToContain(text: "Compute" | "Comput
   expect(computeCohomologyButton).toContainHTML(text)
 }
 
-export async function clickRestartButton(): Promise<void> {
+export async function clickRestartButton(user: UserEvent): Promise<void> {
   // Open dialog
   const buttons = screen.getAllByRole("button")
   const restartButton = findOrThrow(buttons, (element) => (
     (element !== null) && (element.textContent === "Restart")
   ))
-  fireEvent.click(restartButton)
+  await user.click(restartButton)
 
   // Close dialog
   const dialogs = screen.getAllByRole("dialog")
@@ -77,7 +78,7 @@ export async function clickRestartButton(): Promise<void> {
   const restartButtonInDialog = findOrThrow(buttonsInDialog, (element) => (
     (element !== null) && (element.textContent === "Restart")
   ))
-  fireEvent.click(restartButtonInDialog)
+  await user.click(restartButtonInDialog)
   await waitForElementToBeRemoved(dialog) // It takes some time to remove the dialog.
 }
 
@@ -93,14 +94,14 @@ function isRadioGroupForTargets(element: Element | null): boolean {
   return true
 }
 
-export function selectComputationTarget(targetName: TargetName): void {
+export async function selectComputationTarget(user: UserEvent, targetName: TargetName): Promise<void> {
   const radiogroups = screen.getAllByRole("radiogroup")
   const radiogroup = findOrThrow(radiogroups, isRadioGroupForTargets)
   const radios = within(radiogroup).getAllByRole("radio")
   const input = findOrThrow(radios, (element) => (
     (element !== null) && (element.outerHTML.includes(`value="${targetName}"`))
   ))
-  fireEvent.click(input)
+  await user.click(input)
 }
 
 export function expectSnackbarToContainHTML(htmlToBeContained: string[]): void {

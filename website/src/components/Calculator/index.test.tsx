@@ -1,5 +1,6 @@
 import { useLocation } from "@docusaurus/router"
 import { render, screen, waitFor } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
 import { ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
@@ -15,10 +16,11 @@ beforeEach(() => {
 
 describe("basic features", () => {
   test("Calculator", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
-    clickComputeCohomologyButton()
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
@@ -32,13 +34,14 @@ describe("basic features", () => {
   })
 
   test("restart", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    await clickRestartButton()
+    await clickRestartButton(user)
     expectResultsToContainMessages(
       ["The background process is restarted"]
     )
-    clickComputeCohomologyButton()
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
@@ -55,10 +58,11 @@ describe("basic features", () => {
 describe("array editor", () => {
   for (const applyMethod of (["button", "enter"] satisfies ApplyMethod[])) {
     test("add generator with applying through '${applyMethod}'", async () => {
+      const user = userEvent.setup()
       render(<Calculator/>)
       await waitForInitialState()
       await InputArray.addGeneratorAndApply(applyMethod)
-      clickComputeCohomologyButton()
+      await clickComputeCohomologyButton(user)
       await waitFor(() => {
         expectResultsToContainMessages(
           [
@@ -75,6 +79,7 @@ describe("array editor", () => {
 
 describe("input json", () => {
   test("valid json", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
@@ -85,7 +90,7 @@ describe("input json", () => {
   ["z", 5, "x * y"]
 ]`
     await InputJson.inputValidJson(json)
-    clickComputeCohomologyButton()
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
@@ -111,10 +116,11 @@ describe("input json", () => {
 
 describe("freeLoopSpace", () => {
   test("compute cohomology of LX", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("freeLoopSpace")
-    clickComputeCohomologyButton()
+    await selectComputationTarget(user, "freeLoopSpace")
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
@@ -131,11 +137,12 @@ describe("freeLoopSpace", () => {
 
 describe("idealQuot", () => {
   test("compute cohomology of ΛV/I", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("idealQuot")
+    await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputValidIdealGenerator(["x"])
-    clickComputeCohomologyButton()
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
@@ -150,27 +157,30 @@ describe("idealQuot", () => {
   })
 
   test("ideal not closed under d", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("idealQuot")
+    await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["y"])
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("d(y)=x^2 must be contained in the ideal Ideal(y) to define dg ideal.")
   })
 
   test("empty ideal generator", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("idealQuot")
+    await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator([""])
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("Please enter the generator.")
   })
 
   test("invalid generator of DGA", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("idealQuot")
+    await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["a"])
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("Invalid generator name: a")
@@ -178,9 +188,10 @@ describe("idealQuot", () => {
   })
 
   test("parse failure", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
-    selectComputationTarget("idealQuot")
+    await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(["+"])
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("Could not parse input: AlternativesFailure")
@@ -193,9 +204,10 @@ describe("url query", () => {
     mockUseLocation.mockReturnValue({
       search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"
     })
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState("$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y,\\ $ $z$ $), d)$")
-    clickComputeCohomologyButton()
+    await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [

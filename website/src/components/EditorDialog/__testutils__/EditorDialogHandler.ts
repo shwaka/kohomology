@@ -86,7 +86,7 @@ export class EditorDialogHandler {
     if (assertionType === "remain") {
       await act(async () => {
         await sleep(remainingMs)
-      })      
+      })
     }
     await waitFor(() => {
       expect(this.dialog).toBeInTheDocument()

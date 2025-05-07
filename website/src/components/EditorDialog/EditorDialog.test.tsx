@@ -1,12 +1,10 @@
-import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { render, screen, waitFor, within } from "@testing-library/react"
-import userEvent, { UserEvent } from "@testing-library/user-event"
+import { render } from "@testing-library/react"
 import React from "react"
 import { Editor } from "./Editor"
 import { EditorDialog } from "./EditorDialog"
 import { OnSubmit } from "./OnSubmit"
-import { useEditorDialog } from "./useEditorDialog"
 import { cancelMethods, EditorDialogHandler } from "./__testutils__/EditorDialogHandler"
+import { useEditorDialog } from "./useEditorDialog"
 
 jest.mock("@components/ConfirmDialog/useConfirm")
 

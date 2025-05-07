@@ -1,9 +1,10 @@
 import { zodResolver } from "@hookform/resolvers/zod"
-import { render, screen, fireEvent, waitFor } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
+import userEvent from "@testing-library/user-event"
 
 const errorMessage = "Please enter the degree."
 
@@ -40,9 +41,10 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
   // Note: numberSchemaWithRequiredError must be used with { valueAsNumber: true }
   describe("registered with { valueAsNumber: true }", () => {
     it("should show the message given as the argument if the value is empty", async () => {
+      const user = userEvent.setup()
       render(<TestForm valueAsNumber={true}/>)
 
-      fireEvent.click(screen.getByText("Submit"))
+      await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
         expect(screen.getByRole("alert")).toHaveTextContent(errorMessage)
@@ -51,12 +53,11 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
     })
 
     it("should not show any error if the value is a number as a string", async () => {
+      const user = userEvent.setup()
       render(<TestForm valueAsNumber={true}/>)
 
-      fireEvent.change(screen.getByPlaceholderText("degree"), {
-        target: { value: "2" },
-      })
-      fireEvent.click(screen.getByText("Submit"))
+      await user.type(screen.getByPlaceholderText("degree"), "2")
+      await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
         expect(screen.getByTestId("submitted")).toBeInTheDocument()
@@ -67,9 +68,10 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
 
   describe("registered with { valueAsNumber: false }", () => {
     it("should show the message from z.number() if the value is the empty string", async () => {
+      const user = userEvent.setup()
       render(<TestForm valueAsNumber={false}/>)
 
-      fireEvent.click(screen.getByText("Submit"))
+      await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
         expect(screen.getByRole("alert")).toHaveTextContent("Expected number, received string")
@@ -79,12 +81,11 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
 
     it("should show the message from z.number() if the value is a number as a string", async () => {
       // This does NOT work since { valueAsNumber: false }
+      const user = userEvent.setup()
       render(<TestForm valueAsNumber={false}/>)
 
-      fireEvent.change(screen.getByPlaceholderText("degree"), {
-        target: { value: "2" },
-      })
-      fireEvent.click(screen.getByText("Submit"))
+      await user.type(screen.getByPlaceholderText("degree"), "2")
+      await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
         expect(screen.getByRole("alert")).toHaveTextContent("Expected number, received string")

@@ -1,6 +1,6 @@
 import { EditorDialog, useEditorDialog } from "@components/EditorDialog"
 import { cancelMethods, EditorDialogHandler } from "@components/EditorDialog/__testutils__/EditorDialogHandler"
-import { render, screen, within } from "@testing-library/react"
+import { render, screen, waitFor, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
 import React, { useState } from "react"
 import { useTextEditor } from "./useTextEditor"
@@ -21,6 +21,7 @@ interface TextEditorContainerProps {
 const preventPrompt = "Do you really want to quit?"
 const fieldLabel = "Text field"
 const fieldTestid = "text-field"
+const textFromContainer = "This is a text from container."
 
 function TextEditorContainer(
   { defaultText, validate = (_value) => true }: TextEditorContainerProps
@@ -36,6 +37,9 @@ function TextEditorContainer(
       <EditorDialog {...editorDialogProps}/>
       <button onClick={openDialog}>
         Open dialog
+      </button>
+      <button onClick={() => setText(textFromContainer)}>
+        Set text
       </button>
       <div data-testid="text-div">
         {text}
@@ -142,4 +146,39 @@ describe("useTextEditor", () => {
       expect(textDiv).not.toContainHTML(defaultText)
     })
   }
+
+  test("set text from container", async () => {
+    const defaultText = "This is default."
+    const handler = new EditorDialogHandler()
+    render(<TextEditorContainer defaultText={defaultText}/>)
+
+    const textDiv = screen.getByTestId("text-div")
+    expect(textDiv).toContainHTML(defaultText)
+
+    await handler.openDialog()
+    const newText = "This is a new text."
+    await handler.run(async (user, dialog) => {
+      await clearText(user, dialog)
+      await inputText(user, dialog, newText)
+    })
+    await handler.apply()
+
+    expect(textDiv).toContainHTML(newText)
+    expect(textDiv).not.toContainHTML(defaultText)
+
+    await handler.run(async (user, _dialog) => {
+      const button = screen.getByText("Set text")
+      await user.click(button)
+    })
+    await waitFor(() => {
+      expect(textDiv).toContainHTML(textFromContainer)
+    })
+    expect(textDiv).not.toContainHTML(newText)
+
+    await handler.openDialog()
+    await handler.run(async (_user, dialog) => {
+      const input = within(dialog).getByTestId(fieldTestid)
+      expect(input).toHaveValue(textFromContainer)
+    })
+  })
 })

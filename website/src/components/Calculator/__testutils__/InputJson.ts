@@ -1,50 +1,52 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { fireEvent, screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
+import userEvent, { UserEvent } from "@testing-library/user-event"
 import { findOrThrow } from "./findOrThrow"
 
 // Used in both InputJson and InputArray
-function openDialog(): HTMLElement {
+async function openDialog(user: UserEvent): Promise<HTMLElement> {
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
   const editDGAButton = within(calculatorFormStackItemDGA).getByText("Edit DGA")
   expect(screen.queryByTestId("JsonEditorDialog-input-json")).not.toBeInTheDocument()
-  fireEvent.click(editDGAButton)
+  await user.click(editDGAButton)
   const dialog = screen.getByRole("dialog")
   return dialog
 }
 
 export class InputJson {
-  private static async selectJsonTab(dialog: HTMLElement): Promise<void> {
+  private static async selectJsonTab(user: UserEvent, dialog: HTMLElement): Promise<void> {
     const tabs = within(dialog).getAllByRole("tab")
     const jsonTabButton = findOrThrow(tabs, (element) => (
       element?.textContent?.includes("JSON") ?? false
     ))
-    fireEvent.click(jsonTabButton)
+    await user.click(jsonTabButton)
     await waitFor(() => {
       expect(jsonTabButton).toHaveAttribute("aria-selected", "true")
     })
   }
 
-  private static async openDialogAndSelectJsonTab(): Promise<HTMLElement> {
+  private static async openDialogAndSelectJsonTab(user: UserEvent): Promise<HTMLElement> {
     // Open dialog
-    const dialog = openDialog()
+    const dialog = await openDialog(user)
     // Select the "JSON" tab
-    await InputJson.selectJsonTab(dialog)
+    await InputJson.selectJsonTab(user, dialog)
     return dialog
   }
 
-  private static inputAndApplyJson(dialog: HTMLElement, json: string): void {
+  private static async inputAndApplyJson(user: UserEvent, dialog: HTMLElement, json: string): Promise<void> {
     // Input json
-    const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
-    fireEvent.input(jsonTextField, { target: { value: json } })
+    if (json !== "") {
+      const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
+      await user.type(jsonTextField, json)
+    }
     // Click "Apply" button
     const applyButton = within(dialog).getByText("Apply")
-    fireEvent.click(applyButton)
+    await user.click(applyButton)
   }
 
-  static async inputValidJson(json: string): Promise<void> {
-    const dialog = await InputJson.openDialogAndSelectJsonTab()
-    InputJson.inputAndApplyJson(dialog, json)
+  static async inputValidJson(user: UserEvent, json: string): Promise<void> {
+    const dialog = await InputJson.openDialogAndSelectJsonTab(user)
+    await InputJson.inputAndApplyJson(user, dialog, json)
     await waitForElementToBeRemoved(
       dialog,
       {
@@ -55,9 +57,9 @@ export class InputJson {
     ) // It takes some time to remove the dialog.
   }
 
-  static async inputInvalidJson(json: string): Promise<void> {
-    const dialog = await InputJson.openDialogAndSelectJsonTab()
-    InputJson.inputAndApplyJson(dialog, json)
+  static async inputInvalidJson(user: UserEvent, json: string): Promise<void> {
+    const dialog = await InputJson.openDialogAndSelectJsonTab(user)
+    await InputJson.inputAndApplyJson(user, dialog, json)
     await within(dialog).findByRole("alert") // It takes some time to show alert.
   }
 }
@@ -65,15 +67,15 @@ export class InputJson {
 export type ApplyMethod = "button" | "enter"
 
 export class InputArray {
-  static async addGeneratorAndApply(applyMethod: ApplyMethod): Promise<void> {
-    const dialog = openDialog()
+  static async addGeneratorAndApply(user: UserEvent, applyMethod: ApplyMethod): Promise<void> {
+    const dialog = await openDialog(user)
     // default is the "Array" tab
     const addGeneratorButton = within(dialog).getByText("Add a generator")
-    fireEvent.click(addGeneratorButton)
+    await user.click(addGeneratorButton)
     switch (applyMethod) {
       case "button": {
         const applyButton = within(dialog).getByText("Apply")
-        fireEvent.click(applyButton)
+        await user.click(applyButton)
         break
       }
       case "enter": {

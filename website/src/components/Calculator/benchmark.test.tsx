@@ -1,5 +1,6 @@
 import { useLocation } from "@docusaurus/router"
 import { render } from "@testing-library/react"
+import userEvent from "@testing-library/user-event"
 import React from "react"
 import { InputJson } from "./__testutils__/InputJson"
 import { waitForInitialState } from "./__testutils__/utilsOnCalculator"
@@ -18,6 +19,7 @@ test("renderCalculator", async () => {
 })
 
 test("inputJson", async () => {
+  const user = userEvent.setup()
   render(<Calculator/>)
   await waitForInitialState()
   const json = `[
@@ -25,5 +27,5 @@ test("inputJson", async () => {
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-  await InputJson.inputValidJson(json)
+  await InputJson.inputValidJson(user, json)
 })

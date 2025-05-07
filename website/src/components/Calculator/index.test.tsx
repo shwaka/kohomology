@@ -61,7 +61,7 @@ describe("array editor", () => {
       const user = userEvent.setup()
       render(<Calculator/>)
       await waitForInitialState()
-      await InputArray.addGeneratorAndApply(applyMethod)
+      await InputArray.addGeneratorAndApply(user, applyMethod)
       await clickComputeCohomologyButton(user)
       await waitFor(() => {
         expectResultsToContainMessages(
@@ -89,7 +89,7 @@ describe("input json", () => {
   ["y", 3, "zero"],
   ["z", 5, "x * y"]
 ]`
-    await InputJson.inputValidJson(json)
+    await InputJson.inputValidJson(user, json)
     await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
@@ -104,10 +104,11 @@ describe("input json", () => {
   })
 
   test("invalid json", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
     const json = "invalid json"
-    await InputJson.inputInvalidJson(json)
+    await InputJson.inputInvalidJson(user, json)
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("Unexpected JSON token at offset 0")
     expect(dialog).toContainHTML(`JSON input: ${json}`)

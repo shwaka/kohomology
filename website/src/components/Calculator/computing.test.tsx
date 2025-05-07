@@ -129,7 +129,7 @@ describe("text on the 'compute' button", () => {
 
     // This causes an error since deg(sx) is zero.
     const json = '[["x", 1, "zero"]]'
-    await InputJson.inputValidJson(json)
+    await InputJson.inputValidJson(user, json)
     await selectComputationTarget(user, "freeLoopSpace")
 
     const computeCohomologyButton = getComputeCohomologyButton()

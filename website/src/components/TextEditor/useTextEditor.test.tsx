@@ -3,7 +3,7 @@ import { render, screen, waitFor, within } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
 import React, { useState } from "react"
 import { useTextEditor } from "./useTextEditor"
-import { EditorDialogHandler } from "@components/EditorDialog/__testutils__/EditorDialogHandler"
+import { cancelMethods, EditorDialogHandler } from "@components/EditorDialog/__testutils__/EditorDialogHandler"
 
 jest.mock("@components/ConfirmDialog/useConfirm")
 
@@ -44,6 +44,13 @@ function TextEditorContainer(
   )
 }
 
+async function clearText(
+  user: UserEvent, dialog: HTMLElement
+): Promise<void> {
+  const input = within(dialog).getByTestId(fieldTestid)
+  await user.clear(input)
+}
+
 async function inputText(
   user: UserEvent, dialog: HTMLElement, text: string
 ): Promise<void> {
@@ -56,7 +63,7 @@ describe("useTextEditor", () => {
     mockConfirm.mockReset()
   })
 
-  test("inputting text", async () => {
+  test("input text", async () => {
     const handler = new EditorDialogHandler()
     render(<TextEditorContainer defaultText=""/>)
     const newText = "This is a new text."
@@ -69,4 +76,43 @@ describe("useTextEditor", () => {
     const textDiv = screen.getByTestId("text-div")
     expect(textDiv).toContainHTML(newText)
   })
+
+  test("default text", async () => {
+    const defaultText = "This is default."
+    const handler = new EditorDialogHandler()
+    render(<TextEditorContainer defaultText={defaultText}/>)
+
+    const textDiv = screen.getByTestId("text-div")
+    expect(textDiv).toContainHTML(defaultText)
+
+    await handler.openDialog()
+    await handler.run(async (_user, dialog) => {
+      const input = within(dialog).getByTestId(fieldTestid)
+      expect(input).toHaveValue(defaultText)
+    })
+
+    const newText = "This is a new text."
+    await handler.run(async (user, dialog) => {
+      await clearText(user, dialog)
+      await inputText(user, dialog, newText)
+    })
+    await handler.apply()
+
+    expect(textDiv).toContainHTML(newText)
+  })
+
+  for (const cancelMethod of cancelMethods) {
+    test(`cancel with ${cancelMethod}`, async () => {
+      mockConfirm.mockResolvedValue(true)
+      const handler = new EditorDialogHandler()
+      render(<TextEditorContainer defaultText=""/>)
+      const newText = "This is a new text."
+      await handler.openDialog()
+      await handler.run(async (user, dialog) => {
+        await inputText(user, dialog, newText)
+      })
+      await handler.cancel(cancelMethod)
+      await handler.assertOpen()
+    })
+  }
 })

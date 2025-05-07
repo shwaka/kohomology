@@ -181,4 +181,28 @@ describe("useTextEditor", () => {
       expect(input).toHaveValue(textFromContainer)
     })
   })
+
+  test("validate returning string", async () => {
+    const handler = new EditorDialogHandler()
+    const errorMessage = "Your text contains an error."
+    const validate = jest.fn().mockReturnValue(errorMessage)
+    render(<TextEditorContainer defaultText={""} validate={validate}/>)
+
+    await handler.openDialog()
+    await handler.apply()
+    await handler.assertOpen("remain")
+    await handler.run(async (_user, dialog) => {
+      expect(dialog).toContainHTML(errorMessage)
+    })
+  })
+
+  test("validate returning true", async () => {
+    const handler = new EditorDialogHandler()
+    const validate = jest.fn().mockReturnValue(true)
+    render(<TextEditorContainer defaultText={""} validate={validate}/>)
+
+    await handler.openDialog()
+    await handler.apply()
+    await handler.assertClosed("change")
+  })
 })

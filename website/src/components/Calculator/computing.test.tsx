@@ -1,11 +1,12 @@
 import { useLocation } from "@docusaurus/router"
-import { act, fireEvent, render, waitFor } from "@testing-library/react"
+import { act, render, waitFor } from "@testing-library/react"
 import React from "react"
 import { MessageOutput } from "./WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
 import { Calculator } from "."
+import userEvent from "@testing-library/user-event"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({
@@ -91,15 +92,17 @@ describe("text on the 'compute' button", () => {
   })
 
   it("should be 'compute' after computation finished", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
     const computeCohomologyButton = getComputeCohomologyButton()
     expectComputeCohomologyButtonToContain("Compute")
-    fireEvent.click(computeCohomologyButton)
+    await user.click(computeCohomologyButton)
     expectComputeCohomologyButtonToContain("Compute")
   })
 
   it("should be 'computing' during the computation", async () => {
+    const user = userEvent.setup()
     capturer.enable()
 
     // initialize
@@ -111,7 +114,7 @@ describe("text on the 'compute' button", () => {
 
     // click the button
     const computeCohomologyButton = getComputeCohomologyButton()
-    fireEvent.click(computeCohomologyButton)
+    await user.click(computeCohomologyButton)
     await capturer.waitForMessage()
     capturer.pop() // pop "notifyInfo"
     expectComputeCohomologyButtonToContain("Computing")
@@ -120,6 +123,7 @@ describe("text on the 'compute' button", () => {
   })
 
   it("should be 'compute' after computation finished with an error", async () => {
+    const user = userEvent.setup()
     render(<Calculator/>)
     await waitForInitialState()
 
@@ -130,7 +134,7 @@ describe("text on the 'compute' button", () => {
 
     const computeCohomologyButton = getComputeCohomologyButton()
     expectComputeCohomologyButtonToContain("Compute")
-    fireEvent.click(computeCohomologyButton)
+    await user.click(computeCohomologyButton)
     expectComputeCohomologyButtonToContain("Compute")
   })
 })

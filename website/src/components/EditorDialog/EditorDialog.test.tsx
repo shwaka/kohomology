@@ -1,6 +1,6 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { fireEvent, render, screen, waitFor, within } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import { render, screen, waitFor, within } from "@testing-library/react"
+import userEvent, { UserEvent } from "@testing-library/user-event"
 import React from "react"
 import { Editor } from "./Editor"
 import { EditorDialog } from "./EditorDialog"
@@ -43,9 +43,9 @@ async function assertClosed(dialog: HTMLElement): Promise<void> {
   })
 }
 
-async function openDialog(): Promise<HTMLElement> {
+async function openDialog(user: UserEvent): Promise<HTMLElement> {
   const openButton = screen.getByText("Open dialog")
-  fireEvent.click(openButton)
+  await user.click(openButton)
 
   await waitFor(() => {
     expect(screen.getByRole("dialog")).toBeInTheDocument()
@@ -55,22 +55,23 @@ async function openDialog(): Promise<HTMLElement> {
   return dialog
 }
 
-async function apply(dialog: HTMLElement): Promise<void> {
+async function apply(user: UserEvent, dialog: HTMLElement): Promise<void> {
   const applyButton = within(dialog).getByText("Apply")
-  fireEvent.click(applyButton)
+  await user.click(applyButton)
 }
 
 const cancelMethods = ["button", "backdrop"] as const
 type CancelMethod = (typeof cancelMethods)[number]
 
 async function cancel(
+  user: UserEvent,
   cancelMethod: CancelMethod,
   dialog: HTMLElement,
 ): Promise<void> {
   switch (cancelMethod) {
     case "button": {
       const applyButton = within(dialog).getByText("Cancel")
-      await userEvent.click(applyButton)
+      await user.click(applyButton)
       return
     }
     case "backdrop": {
@@ -80,7 +81,7 @@ async function cancel(
       if (backdrop === null) {
         throw new Error("This can't happen!")
       }
-      await userEvent.click(backdrop)
+      await user.click(backdrop)
       return
     }
     default:
@@ -123,11 +124,12 @@ function getEditor(
 
 describe("EditorDialog with trivial editor", () => {
   test("submit", async () => {
+    const user = userEvent.setup()
     const { editor, onSubmit, onQuit } = getEditor()
     render(<EditorDialogTestContainer editor={editor}/>)
 
-    const dialog = await openDialog()
-    await apply(dialog)
+    const dialog = await openDialog(user)
+    await apply(user, dialog)
     await assertClosed(dialog)
 
     expect(onSubmit).toHaveBeenCalled()
@@ -136,11 +138,12 @@ describe("EditorDialog with trivial editor", () => {
 
   for (const cancelMethod of cancelMethods) {
     test(`cancel(${cancelMethod})`, async () => {
+      const user: UserEvent = userEvent.setup()
       const { editor, onSubmit, onQuit } = getEditor()
       render(<EditorDialogTestContainer editor={editor}/>)
 
-      const dialog = await openDialog()
-      await cancel(cancelMethod, dialog)
+      const dialog = await openDialog(user)
+      await cancel(user, cancelMethod, dialog)
       await assertClosed(dialog)
 
       expect(onSubmit).not.toHaveBeenCalled()
@@ -156,6 +159,7 @@ describe("EditorDialog with preventQuit returning string", () => {
 
   for (const cancelMethod of cancelMethods) {
     test(`cancel(${cancelMethod}) with window.confirm returning true`, async () => {
+      const user = userEvent.setup()
       mockConfirm.mockResolvedValue(true)
       const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
@@ -163,8 +167,8 @@ describe("EditorDialog with preventQuit returning string", () => {
       })
       render(<EditorDialogTestContainer editor={editor}/>)
 
-      const dialog = await openDialog()
-      await cancel(cancelMethod, dialog)
+      const dialog = await openDialog(user)
+      await cancel(user, cancelMethod, dialog)
       await assertClosed(dialog)
 
       expect(preventQuit).toHaveBeenCalledOnce()
@@ -176,6 +180,7 @@ describe("EditorDialog with preventQuit returning string", () => {
 
   for (const cancelMethod of cancelMethods) {
     test(`cancel(${cancelMethod}) with window.confirm returning false`, async () => {
+      const user = userEvent.setup()
       mockConfirm.mockResolvedValue(false)
       const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
@@ -183,8 +188,8 @@ describe("EditorDialog with preventQuit returning string", () => {
       })
       render(<EditorDialogTestContainer editor={editor}/>)
 
-      const dialog = await openDialog()
-      await cancel(cancelMethod, dialog)
+      const dialog = await openDialog(user)
+      await cancel(user, cancelMethod, dialog)
       await assertOpen(dialog)
 
       expect(preventQuit).toHaveBeenCalledOnce()

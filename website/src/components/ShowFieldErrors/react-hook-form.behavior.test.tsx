@@ -1,17 +1,19 @@
-import { render, screen, fireEvent, renderHook, waitFor } from "@testing-library/react"
+import { render, screen, renderHook, waitFor } from "@testing-library/react"
 import React from "react"
 import { MultipleFieldErrors } from "react-hook-form"
 import { EmailForm, errorMessages, useEmailForm } from "./__testutils__/EmailForm"
+import userEvent from "@testing-library/user-event"
 
 // This is not a test for ShowFieldErrors (or any other component in this project).
 // This test is added to confirm behavior of react-hook-form and document it.
 
 describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   test("empty string", async () => {
+    const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({}))
     render(<EmailForm {...result.current}/>)
 
-    fireEvent.click(screen.getByText("Submit"))
+    await user.click(screen.getByText("Submit"))
     await waitFor(() => {
       expect(Object.keys(result.current.errors)).not.toHaveLength(0)
     })
@@ -25,13 +27,12 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   })
 
   test("string not containing @", async () => {
+    const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({}))
     render(<EmailForm {...result.current}/>)
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "invalidemail" },
-    })
-    fireEvent.click(screen.getByText("Submit"))
+    await user.type(screen.getByPlaceholderText("Email"), "invalidemail")
+    await user.click(screen.getByText("Submit"))
     await waitFor(() => {
       expect(Object.keys(result.current.errors)).not.toHaveLength(0)
     })
@@ -42,10 +43,11 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   })
 
   test("empty string with criteriaModeForHook=all", async () => {
+    const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
     render(<EmailForm {...result.current}/>)
 
-    fireEvent.click(screen.getByText("Submit"))
+    await user.click(screen.getByText("Submit"))
     await waitFor(() => {
       expect(Object.keys(result.current.errors)).not.toHaveLength(0)
     })
@@ -63,13 +65,12 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   })
 
   test("string not containing @ with criteriaModeForHook=all", async () => {
+    const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
     render(<EmailForm {...result.current}/>)
 
-    fireEvent.change(screen.getByPlaceholderText("Email"), {
-      target: { value: "invalidemail" },
-    })
-    fireEvent.click(screen.getByText("Submit"))
+    await user.type(screen.getByPlaceholderText("Email"), "invalidemail")
+    await user.click(screen.getByText("Submit"))
     await waitFor(() => {
       expect(Object.keys(result.current.errors)).not.toHaveLength(0)
     })

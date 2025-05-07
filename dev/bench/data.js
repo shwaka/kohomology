@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746591209723,
+  "lastUpdate": 1746603440799,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8618,6 +8618,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.658,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1e2afdf00322acf9e6b0cb77555ca70f7551ee67",
+          "message": "test(website): fix InputJson by adding user.clear",
+          "timestamp": "2025-05-07T16:32:07+09:00",
+          "tree_id": "6d782840cdabd0c15b776e30b4a0d5eaa81fb75a",
+          "url": "https://github.com/shwaka/kohomology/commit/1e2afdf00322acf9e6b0cb77555ca70f7551ee67"
+        },
+        "date": 1746603440229,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.771,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.059,
             "unit": "s/op"
           }
         ]

@@ -72,7 +72,8 @@ jobs:
       - name: Build kohomology-js
         run: ./scripts/prepare-site.sh kohomology-js
       - uses: volta-cli/action@v3
-      - run: npm ci --install-links
+      - run: npm ci # --install-links
+        # Note: --install-links is added to .npmrc
         # By --install-links, local package (kohomology-js) is copied instead of being symlinked.
         # This is necessary since actions/cache does not follow symlinks.
         working-directory: website

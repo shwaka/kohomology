@@ -37,7 +37,7 @@ export class InputJson {
     // Input json
     if (json !== "") {
       const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
-      await user.type(jsonTextField, json)
+      await user.type(jsonTextField, json.replace(/\[/g, "[[").replace(/{/g, "{{"))
     }
     // Click "Apply" button
     const applyButton = within(dialog).getByText("Apply")

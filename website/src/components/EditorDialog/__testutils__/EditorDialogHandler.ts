@@ -1,5 +1,5 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
-import { screen, waitFor, within } from "@testing-library/react"
+import { screen, waitFor, within, act } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
 
 interface EditorDialogHandlerArgs {
@@ -8,6 +8,13 @@ interface EditorDialogHandlerArgs {
 
 export const cancelMethods = ["button", "backdrop"] as const
 export type CancelMethod = (typeof cancelMethods)[number]
+
+type assertionType = "change" | "remain"
+const remainingMs = 1000
+
+function sleep(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
 
 export class EditorDialogHandler {
   user: UserEvent
@@ -70,18 +77,30 @@ export class EditorDialogHandler {
     }
   }
 
-  async assertOpen(): Promise<void> {
+  async assertOpen(
+    assertionType: assertionType = "change"
+  ): Promise<void> {
     if (this.dialog === null) {
       throw new Error(this.errorMessageWhenDialogIsNull)
+    }
+    if (assertionType === "remain") {
+      await act(async () => {
+        await sleep(remainingMs)
+      })      
     }
     await waitFor(() => {
       expect(this.dialog).toBeInTheDocument()
     })
   }
 
-  async assertClosed(): Promise<void> {
+  async assertClosed(
+    assertionType: assertionType = "change"
+  ): Promise<void> {
     if (this.dialog === null) {
       throw new Error(this.errorMessageWhenDialogIsNull)
+    }
+    if (assertionType === "remain") {
+      await sleep(remainingMs)
     }
     await waitFor(() => {
       expect(this.dialog).not.toBeInTheDocument()

@@ -104,15 +104,42 @@ describe("useTextEditor", () => {
   for (const cancelMethod of cancelMethods) {
     test(`cancel with ${cancelMethod}`, async () => {
       mockConfirm.mockResolvedValue(true)
+      const defaultText = "This is default."
       const handler = new EditorDialogHandler()
-      render(<TextEditorContainer defaultText=""/>)
+      render(<TextEditorContainer defaultText={defaultText}/>)
       const newText = "This is a new text."
       await handler.openDialog()
       await handler.run(async (user, dialog) => {
         await inputText(user, dialog, newText)
       })
       await handler.cancel(cancelMethod)
-      await handler.assertOpen()
+      await handler.assertClosed()
+
+      const textDiv = screen.getByTestId("text-div")
+      expect(textDiv).toContainHTML(defaultText)
+      expect(textDiv).not.toContainHTML(newText)
+    })
+  }
+
+  for (const cancelMethod of cancelMethods) {
+    test(`resume with ${cancelMethod}`, async () => {
+      mockConfirm.mockResolvedValue(false)
+      const defaultText = "This is default."
+      const handler = new EditorDialogHandler()
+      render(<TextEditorContainer defaultText={defaultText}/>)
+      const newText = "This is a new text."
+      await handler.openDialog()
+      await handler.run(async (user, dialog) => {
+        await clearText(user, dialog)
+        await inputText(user, dialog, newText)
+      })
+      await handler.cancel(cancelMethod)
+      await handler.assertOpen("remain")
+      await handler.apply()
+
+      const textDiv = screen.getByTestId("text-div")
+      expect(textDiv).toContainHTML(newText)
+      expect(textDiv).not.toContainHTML(defaultText)
     })
   }
 })

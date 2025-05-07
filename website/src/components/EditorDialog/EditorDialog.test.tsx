@@ -133,7 +133,7 @@ describe("EditorDialog with preventQuit returning string", () => {
 
       await handler.openDialog()
       await handler.cancel(cancelMethod)
-      await handler.assertOpen()
+      await handler.assertOpen("remain")
 
       expect(preventQuit).toHaveBeenCalledOnce()
       expect(mockConfirm).toHaveBeenCalledOnce()

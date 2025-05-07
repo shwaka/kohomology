@@ -3,6 +3,11 @@ import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-lib
 import userEvent, { UserEvent } from "@testing-library/user-event"
 import { findOrThrow } from "./findOrThrow"
 
+function escapeForUserEventType(text: string): string {
+  // escape special characters for user.type
+  return text.replace(/\[/g, "[[").replace(/{/g, "{{")
+}
+
 // Used in both InputJson and InputArray
 async function openDialog(user: UserEvent): Promise<HTMLElement> {
   const calculatorFormStackItemDGA = screen.getByTestId("CalculatorForm-StackItem-DGA")
@@ -37,7 +42,8 @@ export class InputJson {
     // Input json
     if (json !== "") {
       const jsonTextField = within(dialog).getByTestId("JsonEditorDialog-input-json")
-      await user.type(jsonTextField, json.replace(/\[/g, "[[").replace(/{/g, "{{"))
+      await user.clear(jsonTextField)
+      await user.type(jsonTextField, escapeForUserEventType(json))
     }
     // Click "Apply" button
     const applyButton = within(dialog).getByText("Apply")

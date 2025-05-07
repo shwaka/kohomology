@@ -67,7 +67,9 @@ export class EditorDialogHandler {
         const backdrop: Element | null = document.querySelector(".MuiBackdrop-root")
         expect(backdrop).toBeTruthy()
         if (backdrop === null) {
-          throw new Error("This can't happen!")
+          throw new Error(
+            "This can't happen since backdrop is already expected to be truthy!"
+          )
         }
         await this.user.click(backdrop)
         return

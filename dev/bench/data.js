@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1746581716614,
+  "lastUpdate": 1746588787009,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8550,6 +8550,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.897,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "2138f45953ec8dbf3494a84d85a8464002390eca",
+          "message": "build(website): add --install-links to .npmrc",
+          "timestamp": "2025-05-07T12:27:11+09:00",
+          "tree_id": "720a5c8b5c1cd2ee06d8bb690cfc7cb4d4d83d29",
+          "url": "https://github.com/shwaka/kohomology/commit/2138f45953ec8dbf3494a84d85a8464002390eca"
+        },
+        "date": 1746588786076,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.795,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.284,
             "unit": "s/op"
           }
         ]

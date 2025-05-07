@@ -13,18 +13,19 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-        with:
-          # Number of commits to fetch. 0 indicates all history for all branches and tags.
-          # This is necessary to read benchmark-data from separate branch.
-          fetch-depth: 0
+        # with:
+        #   # Number of commits to fetch. 0 indicates all history for all branches and tags.
+        #   # This is necessary to read benchmark-data from separate branch.
+        #   fetch-depth: 0
       - name: "Read cache: website/node_modules"
         uses: actions/cache@v3
         with:
           path: website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - name: Prepare benchmark data
-        # This will use the previous benchmark-data
-        run: ./scripts/prepare-site.sh benchmark-data
+        # To avoid "fetch-depth: 0" in actions/checkout (which takes ~25s),
+        # we use a mock data here.
+        run: ./scripts/prepare-site.sh benchmark-data-mock
       - uses: volta-cli/action@v3
       - name: Typecheck website
         # This requires benchmark-data

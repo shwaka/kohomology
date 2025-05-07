@@ -3,6 +3,7 @@ import { render, screen, waitFor, within } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
 import React, { useState } from "react"
 import { useTextEditor } from "./useTextEditor"
+import { EditorDialogHandler } from "@components/EditorDialog/__testutils__/EditorDialogHandler"
 
 jest.mock("@components/ConfirmDialog/useConfirm")
 
@@ -43,28 +44,11 @@ function TextEditorContainer(
   )
 }
 
-async function openDialog(user: UserEvent): Promise<HTMLElement> {
-  const openButton = screen.getByText("Open dialog")
-  await user.click(openButton)
-
-  await waitFor(() => {
-    expect(screen.getByRole("dialog")).toBeInTheDocument()
-  })
-
-  const dialog = screen.getByRole("dialog")
-  return dialog
-}
-
 async function inputText(
   user: UserEvent, dialog: HTMLElement, text: string
 ): Promise<void> {
   const input = within(dialog).getByTestId(fieldTestid)
   await user.type(input, text)
-}
-
-async function apply(user: UserEvent, dialog: HTMLElement): Promise<void> {
-  const applyButton = within(dialog).getByText("Apply")
-  await user.click(applyButton)
 }
 
 describe("useTextEditor", () => {
@@ -73,12 +57,14 @@ describe("useTextEditor", () => {
   })
 
   test("inputting text", async () => {
-    const user = userEvent.setup()
+    const handler = new EditorDialogHandler()
     render(<TextEditorContainer defaultText=""/>)
     const newText = "This is a new text."
-    const dialog = await openDialog(user)
-    await inputText(user, dialog, newText)
-    await apply(user, dialog)
+    await handler.openDialog()
+    await handler.run(async (user, dialog) => {
+      await inputText(user, dialog, newText)
+    })
+    await handler.apply()
 
     const textDiv = screen.getByTestId("text-div")
     expect(textDiv).toContainHTML(newText)

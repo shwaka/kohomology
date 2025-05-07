@@ -52,6 +52,14 @@ export class EditorDialogHandler {
     await this.user.click(applyButton)
   }
 
+  expectApplyButtonToBeDisabled(): void {
+    if (this.dialog === null) {
+      throw new Error(this.errorMessageWhenDialogIsNull)
+    }
+    const applyButton = within(this.dialog).getByText("Apply")
+    expect(applyButton).toBeDisabled()
+  }
+
   async cancel(cancelMethod: CancelMethod): Promise<void> {
     if (this.dialog === null) {
       throw new Error(this.errorMessageWhenDialogIsNull)

@@ -140,3 +140,49 @@ describe("EditorDialog with preventQuit returning string", () => {
     })
   }
 })
+
+describe("EditorDialog with disableSubmit", () => {
+  beforeEach(() => {
+    mockConfirm.mockReset()
+  })
+
+  test("disableSubmit returning true", async () => {
+    const handler = new EditorDialogHandler()
+    const disableSubmit = jest.fn().mockReturnValue(true)
+    const { editor } = getEditor({ disableSubmit })
+    render(<EditorDialogTestContainer editor={editor}/>)
+
+    await handler.openDialog()
+    handler.expectApplyButtonToBeDisabled()
+    await handler.assertOpen("remain")
+  })
+
+  test("disableSubmit returning false", async () => {
+    const handler = new EditorDialogHandler()
+    const disableSubmit = jest.fn().mockReturnValue(false)
+    const { editor, onSubmit } = getEditor({ disableSubmit })
+    render(<EditorDialogTestContainer editor={editor}/>)
+
+    await handler.openDialog()
+    await handler.apply()
+    await handler.assertClosed()
+    expect(onSubmit).toHaveBeenCalledOnce()
+  })
+})
+
+describe("EditorDialog with beforeOpen", () => {
+  beforeEach(() => {
+    mockConfirm.mockReset()
+  })
+
+  test("beforeOpen is called", async () => {
+    const handler = new EditorDialogHandler()
+    const beforeOpen = jest.fn()
+    const { editor } = getEditor({ beforeOpen })
+    render(<EditorDialogTestContainer editor={editor}/>)
+
+    expect(beforeOpen).not.toHaveBeenCalled()
+    await handler.openDialog()
+    expect(beforeOpen).toHaveBeenCalledOnce()
+  })
+})

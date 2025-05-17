@@ -22,7 +22,7 @@ on:
     outputs:
       CACHE_KEY_NODE_MODULES:
         value: ${{ jobs.main.outputs.CACHE_KEY_NODE_MODULES }}
-        description: the cache key for website/node_modules
+        description: the cache key for website/website/node_modules
 
 jobs:
   main:
@@ -48,10 +48,10 @@ jobs:
         with:
           path: ~/.m2/repository
           key: ${{ inputs.CACHE_KEY_M2 }}
-      - name: "Save cache: website/node_modules"
+      - name: "Save cache: website/website/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/node_modules
+          path: website/website/node_modules
           key: ${{ steps.setup-cache-key.outputs.CACHE_KEY_NODE_MODULES }}
       # - name: "Save cache: website/kohomology-js/build/js"
       #   uses: actions/cache@v3 # for lint-website
@@ -76,4 +76,4 @@ jobs:
         # Note: --install-links is added to .npmrc
         # By --install-links, local package (kohomology-js) is copied instead of being symlinked.
         # This is necessary since actions/cache does not follow symlinks.
-        working-directory: website
+        working-directory: website/website

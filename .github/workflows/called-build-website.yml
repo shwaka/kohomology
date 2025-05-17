@@ -6,7 +6,7 @@ on:
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/node_modules
+        description: the cache key for website/website/node_modules
       CACHE_KEY_DOKKA:
         required: true
         type: string
@@ -21,10 +21,10 @@ jobs:
           # Number of commits to fetch. 0 indicates all history for all branches and tags.
           # This is necessary to read benchmark-data from separate branch.
           fetch-depth: 0
-      - name: "Read cache: website/node_modules"
+      - name: "Read cache: website/website/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/node_modules
+          path: website/website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - name: "Read cache: kohomology/build/dokka/html"
         uses: actions/cache@v3
@@ -42,7 +42,7 @@ jobs:
       - uses: volta-cli/action@v3
       - name: Assert that volta is used
         run: ../scripts/assert-volta.sh
-        working-directory: website
+        working-directory: website/website
         # To run "node(npm) --version", assert-volta.sh should be run in website/
       # - name: Typecheck website # moved to a separate file
       #   # This requires benchmark-data
@@ -50,9 +50,9 @@ jobs:
       #   working-directory: website
       - name: Build site
         run: npm run build
-        working-directory: website
+        working-directory: website/website
       - name: Upload
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: website/build
+          publish_dir: website/website/build

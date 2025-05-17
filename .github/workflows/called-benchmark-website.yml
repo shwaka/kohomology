@@ -6,27 +6,27 @@ on:
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/node_modules
+        description: the cache key for website/website/node_modules
 
 jobs:
   main:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-      - name: "Read cache: website/node_modules"
+      - name: "Read cache: website/website/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/node_modules
+          path: website/website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - uses: volta-cli/action@v3
       - name: Benchmark components
         run: ./run-benchmark.sh
-        working-directory: website
+        working-directory: website/website
       - name: Store benchmark result
         uses: benchmark-action/github-action-benchmark@v1
         with:
           tool: customSmallerIsBetter
-          output-file-path: website/benchmark-result/output.json
+          output-file-path: website/website/benchmark-result/output.json
           github-token: ${{ secrets.GITHUB_TOKEN }}
           auto-push: true
           gh-pages-branch: benchmark-data-website

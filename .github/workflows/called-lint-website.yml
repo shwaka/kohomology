@@ -6,7 +6,7 @@ on:
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/node_modules
+        description: the cache key for website/website/node_modules
 
 jobs:
   main:
@@ -14,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: volta-cli/action@v3
-      - name: "Read cache: website/node_modules"
+      - name: "Read cache: website/website/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/node_modules
+          path: website/website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - name: eslint
         run: npm run eslint
-        working-directory: website
+        working-directory: website/website

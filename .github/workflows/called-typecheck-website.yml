@@ -6,7 +6,7 @@ on:
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/node_modules
+        description: the cache key for website/website/node_modules
 
 jobs:
   main:
@@ -17,10 +17,10 @@ jobs:
         #   # Number of commits to fetch. 0 indicates all history for all branches and tags.
         #   # This is necessary to read benchmark-data from separate branch.
         #   fetch-depth: 0
-      - name: "Read cache: website/node_modules"
+      - name: "Read cache: website/website/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/node_modules
+          path: website/website/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - name: Prepare benchmark data
         # To avoid "fetch-depth: 0" in actions/checkout (which takes ~25s),
@@ -30,4 +30,4 @@ jobs:
       - name: Typecheck website
         # This requires benchmark-data
         run: npm run tsc
-        working-directory: website
+        working-directory: website/website

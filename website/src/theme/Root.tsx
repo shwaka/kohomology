@@ -5,6 +5,18 @@ import { isDevelopmentMode } from "../utils/isDevelopmentMode"
 
 // https://docusaurus.io/docs/swizzling#wrapper-your-site-with-root
 
+function removeIndexHtml(): void {
+  // See https://github.com/shwaka/kohomology/issues/315
+  if (typeof window !== "undefined") {
+    const path = window.location.pathname
+    if (path.endsWith("/index.html")) {
+      const replacedPath: string = path.replace(/\/index\.html$/, "")
+      const pathToRedirect = (replacedPath === "") ? "/" : replacedPath
+      window.location.replace(pathToRedirect)
+    }
+  }
+}
+
 export default function Root({children}: {children: React.ReactNode}): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
@@ -22,6 +34,10 @@ export default function Root({children}: {children: React.ReactNode}): React.JSX
       document.documentElement.setAttribute(key, "prod")
     }
     // Since Root never unmounts, we do not need cleanup functions.
+  }, [])
+
+  useEffect(() => {
+    removeIndexHtml()
   }, [])
 
   return (

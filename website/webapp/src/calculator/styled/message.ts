@@ -23,10 +23,12 @@ export function fromString(messageType: MessageType, str: string): StyledMessage
     stringType: "text",
     content: str,
   }
-  const options: MessageOptions = {
-    dgaJson: null,
-    plainString: str,
-  }
+  const options: MessageOptions = [
+    {
+      text: str,
+      label: "Copy this line",
+    },
+  ]
   return {
     messageType: messageType,
     strings: [styledString],

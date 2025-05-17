@@ -1,4 +1,6 @@
-export interface MessageOptions {
-  dgaJson: string | null
-  plainString: string
+export interface MessageOption {
+  text: string | null
+  label: string
 }
+
+export type MessageOptions = MessageOption[]

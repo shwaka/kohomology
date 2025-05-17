@@ -14,10 +14,16 @@ export function toStyledString(styledStringKt: styled.StyledStringKt): StyledStr
 }
 
 export function toMessageOptions(messageOptionsKt: styled.MessageOptionsKt): MessageOptions {
-  return {
-    dgaJson: messageOptionsKt.dgaJson ?? null,
-    plainString: messageOptionsKt.plainString,
-  }
+  return [
+    {
+      text: messageOptionsKt.plainString,
+      label: "Copy this line",
+    },
+    {
+      text: messageOptionsKt.dgaJson ?? null,
+      label: "Copy this DGA as JSON",
+    },
+  ]
 }
 
 export function toStyledMessage(styledMessageKt: styled.StyledMessageKt): StyledMessage {

@@ -55,16 +55,13 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
         open={open}
         onClose={handleClose}
       >
-        <MenuItemCopyText
-          text={options.plainString}
-          label="Copy this line"
-          handleClose={handleClose}
-        />
-        <MenuItemCopyText
-          text={options.dgaJson}
-          label="Copy this DGA as JSON"
-          handleClose={handleClose}
-        />
+        {options.map((option) => (
+          <MenuItemCopyText
+            text={option.text}
+            label={option.label}
+            handleClose={handleClose}
+          />
+        ))}
       </Menu>
     </Fragment>
   )

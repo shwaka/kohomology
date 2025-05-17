@@ -6,7 +6,7 @@ import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 import { CalculatorForm } from "./CalculatorForm"
 import { MessageBoxForWorker } from "@calculator/MessageBoxForWorker"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
-import { fromString } from "./styled/message"
+import { fromString } from "@calculator/styled/message"
 import { useCustomTheme } from "./useCustomTheme"
 
 function CalculatorImpl(): React.JSX.Element {

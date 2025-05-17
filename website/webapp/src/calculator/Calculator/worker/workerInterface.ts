@@ -1,5 +1,5 @@
 import { printMessagesCommand, SendMessage } from "@calculator/MessageBoxForWorker"
-import { StyledMessage } from "../styled/message"
+import { StyledMessage } from "@calculator/styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "idealQuot"] as const
 export type TargetName = (typeof targetNames)[number]

@@ -1,6 +1,6 @@
 import { styled } from "kohomology-js"
-import { MessageType, messageTypes, StringType, stringTypes, StyledMessage, StyledString } from "../styled/message"
-import { MessageOptions } from "../styled/options"
+import { MessageType, messageTypes, StringType, stringTypes, StyledMessage, StyledString } from "@calculator/styled/message"
+import { MessageOptions } from "@calculator/styled/options"
 
 export function toStyledString(styledStringKt: styled.StyledStringKt): StyledString {
   const stringType: string = styledStringKt.stringType

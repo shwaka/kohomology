@@ -2,7 +2,7 @@ import { useCallback, useEffect } from "react"
 import { useWorker } from "@calculator/WorkerContext"
 import { RunAsync } from "@calculator/WorkerContext/useWorker"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
-import { StyledMessage } from "../styled/message"
+import { StyledMessage } from "@calculator/styled/message"
 import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 
 interface UseKohomologyWorkerArgs {

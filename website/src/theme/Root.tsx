@@ -17,22 +17,26 @@ function removeIndexHtml(): void {
   }
 }
 
+function setBuildEnv(): void {
+  // Set data attribute: <html data-build-env="dev" ...>
+  // This is used in src/css/custom.scss
+  // I don't know why, but the following did not work (overridden by docusaurus?)
+  // - document.documentElement.classList.add("dev-mode")
+  // - document.body.classList.add("dev-mode")
+  const key = "data-build-env"
+  if (isDevelopmentMode()) {
+    document.documentElement.setAttribute(key, "dev")
+  } else {
+    document.documentElement.setAttribute(key, "prod")
+  }
+}
+
 export default function Root({children}: {children: React.ReactNode}): React.JSX.Element {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
 
   useEffect(() => {
-    // Set data attribute: <html data-build-env="dev" ...>
-    // This is used ins src/css/custom.scss
-    // I don't know why, but the following did not work (overridden by docusaurus?)
-    // - document.documentElement.classList.add("dev-mode")
-    // - document.body.classList.add("dev-mode")
-    const key = "data-build-env"
-    if (isDevelopmentMode()) {
-      document.documentElement.setAttribute(key, "dev")
-    } else {
-      document.documentElement.setAttribute(key, "prod")
-    }
+    setBuildEnv()
     // Since Root never unmounts, we do not need cleanup functions.
   }, [])
 

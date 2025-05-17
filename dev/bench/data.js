@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747461363184,
+  "lastUpdate": 1747462072253,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8754,6 +8754,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.251,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ed07af57984d53176f0c6a9029ae74314e36061a",
+          "message": "refactor(website): add function setBuildEnv to Root.tsx",
+          "timestamp": "2025-05-17T14:53:05+09:00",
+          "tree_id": "abcf20fa3c4e7f56d62da2edbbb20e35a8837ecd",
+          "url": "https://github.com/shwaka/kohomology/commit/ed07af57984d53176f0c6a9029ae74314e36061a"
+        },
+        "date": 1747462071554,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.774,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.008,
             "unit": "s/op"
           }
         ]

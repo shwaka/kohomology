@@ -1,11 +1,11 @@
 import { OnSubmit } from "@calculator/EditorDialog"
 import { TabItem } from "@calculator/TabDialog"
+import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
+import { fromString, StyledMessage } from "@calculator/styled/message"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"
 import React, { useState } from "react"
-import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
-import { fromString, StyledMessage } from "@calculator/styled/message"
 import { toStyledMessage } from "../worker/styled"
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
 

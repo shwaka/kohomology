@@ -6,19 +6,19 @@ on:
       CACHE_KEY_NODE_MODULES:
         required: true
         type: string
-        description: the cache key for website/website/node_modules
+        description: the cache key for website/webapp/node_modules
 
 jobs:
   main:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
-      - name: "Read cache: website/website/node_modules"
+      - name: "Read cache: website/webapp/node_modules"
         uses: actions/cache@v3
         with:
-          path: website/website/node_modules
+          path: website/webapp/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
       - uses: volta-cli/action@v3
       - name: Test components in website
         run: npm test -- --verbose
-        working-directory: website/website
+        working-directory: website/webapp

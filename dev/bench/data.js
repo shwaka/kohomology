@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747488998634,
+  "lastUpdate": 1747490440207,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8890,6 +8890,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.936,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "97948c23098e95d1bdbbb68814585a70ab5ca77b",
+          "message": "fix(website): add @calculator to my-plugin.js",
+          "timestamp": "2025-05-17T22:55:17+09:00",
+          "tree_id": "cb688cf9992445552a337b02a0a100d4f28421a8",
+          "url": "https://github.com/shwaka/kohomology/commit/97948c23098e95d1bdbbb68814585a70ab5ca77b"
+        },
+        "date": 1747490439414,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.774,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.163,
             "unit": "s/op"
           }
         ]

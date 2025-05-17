@@ -4,7 +4,7 @@ set -euo pipefail
 cd "$(dirname "$0")"
 comparison_dir=$(pwd)
 json_file=$comparison_dir/comparison_data.json
-ts_dir=$comparison_dir/../src/components/ComparisonChart
+ts_dir=$comparison_dir/../webapp/src/components/ComparisonChart
 output_file=$ts_dir/comparison.json
 ts_file=$ts_dir/comparisonKeys.ts
 

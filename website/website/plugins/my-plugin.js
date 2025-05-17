@@ -38,7 +38,7 @@ function myPlugin(context, options) {
           new CopyPlugin({
             patterns: [
               { from: "./dokka", to: "dokka" },
-              { from: "../../benchmark-data/core/dev/bench", to: "benchmark"}, // for dedicated page
+              { from: "./benchmark-data/core/dev/bench", to: "benchmark"}, // for dedicated page
             ]
           })
         ],
@@ -46,8 +46,8 @@ function myPlugin(context, options) {
           alias: {
             "@data": path.resolve(context.siteDir, "src/data"),
             "@components": path.resolve(context.siteDir, "src/components"),
-            "@benchmark": path.resolve(context.siteDir, "../../benchmark-data/core/dev/bench"),
-            "@benchmark-website": path.resolve(context.siteDir, "../../benchmark-data/website/dev/bench"),
+            "@benchmark": path.resolve(context.siteDir, "./benchmark-data/core/dev/bench"),
+            "@benchmark-website": path.resolve(context.siteDir, "./benchmark-data/website/dev/bench"),
           }
         }
       }

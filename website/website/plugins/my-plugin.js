@@ -37,7 +37,7 @@ function myPlugin(context, options) {
         plugins: [
           new CopyPlugin({
             patterns: [
-              { from: "../kohomology/build/dokka/html", to: "dokka" },
+              { from: "./dokka", to: "dokka" },
               { from: "../../benchmark-data/core/dev/bench", to: "benchmark"}, // for dedicated page
             ]
           })

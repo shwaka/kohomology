@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747487832733,
+  "lastUpdate": 1747488998634,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8856,6 +8856,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.212,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "9155a62bc56bdfbab7c35e4dda2ababfb552d666",
+          "message": "build(website): fix path to website/webapp/ in workflows",
+          "timestamp": "2025-05-17T22:31:40+09:00",
+          "tree_id": "1cda357e240afeac0148dd61e0d388c9deb2efbb",
+          "url": "https://github.com/shwaka/kohomology/commit/9155a62bc56bdfbab7c35e4dda2ababfb552d666"
+        },
+        "date": 1747488997798,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.767,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.936,
             "unit": "s/op"
           }
         ]

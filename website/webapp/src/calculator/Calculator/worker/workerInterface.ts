@@ -1,3 +1,4 @@
+import { printMessagesCommand, SendMessage } from "../MessageBoxForWorker"
 import { StyledMessage } from "../styled/message"
 
 export const targetNames = ["self", "freeLoopSpace", "cyclic", "derivation", "idealQuot"] as const
@@ -47,13 +48,8 @@ type NoArgCommand = never // previously { command: "dgaInfo" }
 export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | ComputeMinimalModelCommand | NoArgCommand
 
 // outputs
-export const outputCommands = ["printMessages", "notifyInfo"] as const
+export const outputCommands = [printMessagesCommand, "notifyInfo"] as const
 export type OutputCommand = (typeof outputCommands)[number]
-
-export type SendMessage = {
-  command: "printMessages"
-  messages: StyledMessage[]
-}
 
 export type WorkerStatus = "computing" | "idle"
 export type WorkerInfo = {

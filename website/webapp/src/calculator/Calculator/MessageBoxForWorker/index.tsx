@@ -1,13 +1,26 @@
 import React, { useCallback, useEffect, useState } from "react"
 import "katex/dist/katex.min.css"
 import { useWorker } from "../WorkerContext"
-import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
+import { WorkerContext } from "../WorkerContext/WorkerContext"
+import { WFBase } from "../WorkerContext/expose"
 import { fromString, StyledMessage } from "../styled/message"
-import { WorkerOutput } from "../worker/workerInterface"
 import { MessageBox } from "./MessageBox"
 
-export function MessageBoxForWorker(): React.JSX.Element {
-  const { addListener, addRestartListener } = useWorker(kohomologyWorkerContext)
+export const printMessagesCommand = "printMessages" as const
+
+export type SendMessage = {
+  command: typeof printMessagesCommand
+  messages: StyledMessage[]
+}
+
+interface MessageBoxForWorkerProps<WI, WO extends SendMessage, WS, WF extends WFBase> {
+  context: WorkerContext<WI, WO, WS, WF>
+}
+
+export function MessageBoxForWorker<WI, WO extends SendMessage, WS, WF extends WFBase>(
+  { context }: MessageBoxForWorkerProps<WI, WO, WS, WF>
+): React.JSX.Element {
+  const { addListener, addRestartListener } = useWorker(context)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)
 
@@ -19,7 +32,7 @@ export function MessageBoxForWorker(): React.JSX.Element {
     }
   }, [setMessages])
 
-  const onmessage = useCallback((output: WorkerOutput): void => {
+  const onmessage = useCallback((output: WO): void => {
     if (output.command === "printMessages") {
       addMessages(output.messages)
     }

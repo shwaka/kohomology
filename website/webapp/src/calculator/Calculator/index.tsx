@@ -37,7 +37,7 @@ function CalculatorImpl(): React.JSX.Element {
           }}
         >
           <CalculatorForm/>
-          <MessageBoxForWorker/>
+          <MessageBoxForWorker context={kohomologyWorkerContext}/>
         </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>

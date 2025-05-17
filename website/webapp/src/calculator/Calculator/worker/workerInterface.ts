@@ -48,7 +48,7 @@ type NoArgCommand = never // previously { command: "dgaInfo" }
 export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | ComputeMinimalModelCommand | NoArgCommand
 
 // outputs
-export const outputCommands = [printMessagesCommand, "notifyInfo"] as const
+export const outputCommands = [printMessagesCommand] as const
 export type OutputCommand = (typeof outputCommands)[number]
 
 export type WorkerStatus = "computing" | "idle"

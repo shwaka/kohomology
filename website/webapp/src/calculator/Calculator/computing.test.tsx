@@ -71,7 +71,7 @@ class OnmessageCapturer {
 const capturer = new OnmessageCapturer()
 
 jest.mock("@calculator/WorkerContext/WorkerWrapper", () => {
-  const originalModule = jest.requireActual<typeof import("@calculator/WorkerContext/WorkerWrapper")>("./WorkerContext/WorkerWrapper")
+  const originalModule = jest.requireActual<typeof import("@calculator/WorkerContext/WorkerWrapper")>("@calculator/WorkerContext/WorkerWrapper")
   const OriginalWorkerWrapper = originalModule.WorkerWrapper
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 

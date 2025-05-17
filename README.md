@@ -7,7 +7,7 @@
 `kohomology` is a [Kotlin](https://kotlinlang.org/) library to compute the cohomology of a cochain complex. The main target is a Sullivan algebra (in [Rational homotopy theory - Wikipedia](https://en.wikipedia.org/wiki/Rational_homotopy_theory)).
 
 ## Documentation
-See the [website](https://shwaka.github.io/kohomology/index.html) for tutorial and documentation.
+See the [website](https://shwaka.github.io/kohomology) for tutorial and documentation.
 
 ## Contributing
 We welcome any kind of contribution.

@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from "react"
-import { useWorker } from "../WorkerContext"
-import { RunAsync } from "../WorkerContext/useWorker"
+import { useWorker } from "@calculator/WorkerContext"
+import { RunAsync } from "@calculator/WorkerContext/useWorker"
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { StyledMessage } from "../styled/message"
 import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../worker/workerInterface"

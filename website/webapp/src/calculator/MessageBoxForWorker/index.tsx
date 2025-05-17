@@ -3,7 +3,7 @@ import "katex/dist/katex.min.css"
 import { useWorker } from "../WorkerContext"
 import { WorkerContext } from "../WorkerContext/WorkerContext"
 import { WFBase } from "../WorkerContext/expose"
-import { fromString, StyledMessage } from "../styled/message"
+import { fromString, StyledMessage } from "../Calculator/styled/message"
 import { MessageBox } from "./MessageBox"
 
 export const printMessagesCommand = "printMessages" as const

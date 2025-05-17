@@ -2,7 +2,7 @@ import { useLocation } from "@docusaurus/router"
 import { act, render, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import React from "react"
-import { MessageOutput } from "./WorkerContext/expose"
+import { MessageOutput } from "@calculator/WorkerContext/expose"
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
@@ -70,8 +70,8 @@ class OnmessageCapturer {
 
 const capturer = new OnmessageCapturer()
 
-jest.mock("./WorkerContext/WorkerWrapper", () => {
-  const originalModule = jest.requireActual<typeof import("./WorkerContext/WorkerWrapper")>("./WorkerContext/WorkerWrapper")
+jest.mock("@calculator/WorkerContext/WorkerWrapper", () => {
+  const originalModule = jest.requireActual<typeof import("@calculator/WorkerContext/WorkerWrapper")>("./WorkerContext/WorkerWrapper")
   const OriginalWorkerWrapper = originalModule.WorkerWrapper
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 

@@ -1,6 +1,6 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
-import { UpdateWorkerState } from "../WorkerContext/expose"
+import { UpdateWorkerState } from "@calculator/WorkerContext/expose"
 import { fromString, StyledMessage } from "../styled/message"
 import { toStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState } from "./workerInterface"

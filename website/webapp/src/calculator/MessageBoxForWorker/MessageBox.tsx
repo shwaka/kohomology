@@ -1,7 +1,7 @@
 import { Paper } from "@mui/material"
 import React from "react"
-import { ShowStyledMessage } from "../styled/ShowStyledMessage"
-import { StyledMessage } from "../styled/message"
+import { ShowStyledMessage } from "../Calculator/styled/ShowStyledMessage"
+import { StyledMessage } from "../Calculator/styled/message"
 import { useScrollToBottom } from "../useScrollToBottom"
 
 interface MessageBoxProps {

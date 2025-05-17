@@ -1,4 +1,4 @@
-import { expose } from "../WorkerContext/expose"
+import { expose } from "@calculator/WorkerContext/expose"
 import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 

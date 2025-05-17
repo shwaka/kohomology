@@ -1,5 +1,5 @@
-import { findOrThrow } from "@components/Calculator/__testutils__/findOrThrow"
-import { TabItem } from "@components/TabDialog"
+import { findOrThrow } from "@calculator/Calculator/__testutils__/findOrThrow"
+import { TabItem } from "@calculator/TabDialog"
 import { render, within, renderHook, act, RenderHookResult } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
 import React from "react"

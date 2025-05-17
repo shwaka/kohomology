@@ -1,5 +1,5 @@
-import { TabItem } from "@components/TabDialog"
-import { useTextEditor } from "@components/TextEditor"
+import { TabItem } from "@calculator/TabDialog"
+import { useTextEditor } from "@calculator/TextEditor"
 import { validateJson } from "kohomology-js"
 
 export function useTabItemJsonEditor(args: {

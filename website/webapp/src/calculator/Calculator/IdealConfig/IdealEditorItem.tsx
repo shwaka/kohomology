@@ -1,5 +1,5 @@
-import { ShowFieldErrors } from "@components/ShowFieldErrors"
-import { RowComponentProps } from "@components/SortableFields"
+import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
+import { RowComponentProps } from "@calculator/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"

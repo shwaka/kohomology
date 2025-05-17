@@ -1,4 +1,4 @@
-import { useCanQuit } from "@components/EditorDialog"
+import { useCanQuit } from "@calculator/EditorDialog"
 import { Tabs, Tab } from "@mui/material"
 import React from "react"
 import { TabItem } from "./TabItem"

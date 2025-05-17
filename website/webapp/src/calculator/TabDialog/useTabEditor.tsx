@@ -1,4 +1,4 @@
-import { Editor } from "@components/EditorDialog"
+import { Editor } from "@calculator/EditorDialog"
 import React, { useCallback, useMemo, useState } from "react"
 import { TabEditorContent } from "./TabEditorContent"
 import { TabEditorTitle } from "./TabEditorTitle"

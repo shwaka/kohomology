@@ -6,11 +6,11 @@ import { OnSubmit } from "./OnSubmit"
 import { cancelMethods, EditorDialogHandler } from "./__testutils__/EditorDialogHandler"
 import { useEditorDialog } from "./useEditorDialog"
 
-jest.mock("@components/ConfirmDialog/useConfirm")
+jest.mock("@calculator/ConfirmDialog/useConfirm")
 
 // The following import works for jest, but not for tsc.
-//   import { mockConfirm } from "@components/ConfirmDialog/useConfirm"
-const { mockConfirm } = jest.requireMock("@components/ConfirmDialog/useConfirm") as {
+//   import { mockConfirm } from "@calculator/ConfirmDialog/useConfirm"
+const { mockConfirm } = jest.requireMock("@calculator/ConfirmDialog/useConfirm") as {
   mockConfirm: jest.Mock
 }
 

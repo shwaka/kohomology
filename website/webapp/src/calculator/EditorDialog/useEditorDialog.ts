@@ -1,4 +1,4 @@
-import { useConfirm } from "@components/ConfirmDialog"
+import { useConfirm } from "@calculator/ConfirmDialog"
 import React, { useState } from "react"
 import { Editor } from "./Editor"
 import { EditorDialogProps } from "./EditorDialog"

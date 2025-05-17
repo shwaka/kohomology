@@ -1,5 +1,5 @@
-import { OnSubmit } from "@components/EditorDialog"
-import { TabItem } from "@components/TabDialog"
+import { OnSubmit } from "@calculator/EditorDialog"
+import { TabItem } from "@calculator/TabDialog"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"

@@ -1,4 +1,4 @@
-import { Editor, OnSubmit } from "@components/EditorDialog"
+import { Editor, OnSubmit } from "@calculator/EditorDialog"
 import React from "react"
 import { useForm } from "react-hook-form"
 import { TextEditorProps, TextEditor, TextEditorFormInput } from "./TextEditor"

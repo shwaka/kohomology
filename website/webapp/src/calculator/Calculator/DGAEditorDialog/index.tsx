@@ -1,4 +1,4 @@
-import { TabDialog, useTabDialog, UseTabDialogReturnValue } from "@components/TabDialog"
+import { TabDialog, useTabDialog, UseTabDialogReturnValue } from "@calculator/TabDialog"
 import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
 import { useTabItemJsonEditor } from "./tabItemJsonEditor"

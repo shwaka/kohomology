@@ -1,4 +1,4 @@
-import { prettifyDGAJson } from "@components/Calculator/jsonUtils"
+import { prettifyDGAJson } from "@calculator/Calculator/jsonUtils"
 import { renderHook, act } from "@testing-library/react"
 import { useArrayEditor } from "./useArrayEditor"
 

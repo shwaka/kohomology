@@ -1,4 +1,4 @@
-import { OnSubmit, Editor } from "@components/EditorDialog"
+import { OnSubmit, Editor } from "@calculator/EditorDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useFieldArray, useForm } from "react-hook-form"
 import { ArrayEditorProps } from "./ArrayEditor"

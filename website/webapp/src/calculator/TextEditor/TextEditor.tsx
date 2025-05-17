@@ -1,4 +1,4 @@
-import { ShowFieldErrors } from "@components/ShowFieldErrors"
+import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { Stack, TextField } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
 import React, { useCallback } from "react"

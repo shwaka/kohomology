@@ -1,15 +1,15 @@
-import { EditorDialog, useEditorDialog } from "@components/EditorDialog"
-import { cancelMethods, EditorDialogHandler } from "@components/EditorDialog/__testutils__/EditorDialogHandler"
+import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
+import { cancelMethods, EditorDialogHandler } from "@calculator/EditorDialog/__testutils__/EditorDialogHandler"
 import { render, screen, waitFor, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
 import React, { useState } from "react"
 import { useTextEditor } from "./useTextEditor"
 
-jest.mock("@components/ConfirmDialog/useConfirm")
+jest.mock("@calculator/ConfirmDialog/useConfirm")
 
 // The following import works for jest, but not for tsc.
-//   import { mockConfirm } from "@components/ConfirmDialog/useConfirm"
-const { mockConfirm } = jest.requireMock("@components/ConfirmDialog/useConfirm") as {
+//   import { mockConfirm } from "@calculator/ConfirmDialog/useConfirm"
+const { mockConfirm } = jest.requireMock("@calculator/ConfirmDialog/useConfirm") as {
   mockConfirm: jest.Mock
 }
 

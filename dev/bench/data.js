@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747487274489,
+  "lastUpdate": 1747487832733,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -8822,6 +8822,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.051,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "79143eef512d4950f1a4eefa5bda5501f5d7e6c2",
+          "message": "build(website): fix path to scripts/assert-volta.sh",
+          "timestamp": "2025-05-17T22:12:15+09:00",
+          "tree_id": "46ec0d0ed899f0fb97383360e40c71d6687c9485",
+          "url": "https://github.com/shwaka/kohomology/commit/79143eef512d4950f1a4eefa5bda5501f5d7e6c2"
+        },
+        "date": 1747487832038,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.777,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.212,
             "unit": "s/op"
           }
         ]

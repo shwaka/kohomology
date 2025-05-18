@@ -61,6 +61,7 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
             text={option.text}
             label={option.label}
             handleClose={handleClose}
+            key={option.label}
           />
         ))}
       </Menu>
@@ -78,7 +79,7 @@ function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): 
   const copyText = async (): Promise<void> => {
     if (text !== null) {
       await navigator.clipboard.writeText(text)
-      console.log("Copied:", text)
+      // console.log("Copied:", text)
     }
     handleClose()
   }

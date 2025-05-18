@@ -25,8 +25,8 @@ describe("basic features", () => {
       expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+          "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+          "$H^{2} =\\  \\mathbb{Q}\\{ [x] \\}$"
         ],
       )
       expectComputeCohomologyButtonToContain("Compute")
@@ -46,8 +46,8 @@ describe("basic features", () => {
       expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+          "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+          "$H^{2} =\\  \\mathbb{Q}\\{ [x] \\}$"
         ],
       )
     })
@@ -67,9 +67,9 @@ describe("array editor", () => {
         expectResultsToContainMessages(
           [
             "Computing $H^n(Λ(x, y, z), d)$ for",
-            "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-            "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[z]$ $\\}$",
-            "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+            "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+            "$H^{1} =\\  \\mathbb{Q}\\{ [z] \\}$",
+            "$H^{2} =\\  \\mathbb{Q}\\{ [x] \\}$"
           ],
         )
       })
@@ -95,8 +95,8 @@ describe("input json", () => {
       expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y, z), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
+          "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+          "$H^{3} =\\  \\mathbb{Q}\\{ [x],\\  [y] \\}$",
         ]
       )
     })
@@ -126,9 +126,9 @@ describe("freeLoopSpace", () => {
       expectResultsToContainMessages(
         [
           "Computing $H^n(Λ({x}, {y}, \\bar{x}, \\bar{y}), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{1} =\\ $ $\\mathbb{Q}\\{$ $[\\bar{x}]$ $\\}$",
-          "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[{x}]$ $\\}$",
+          "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+          "$H^{1} =\\  \\mathbb{Q}\\{ [\\bar{x}] \\}$",
+          "$H^{2} =\\  \\mathbb{Q}\\{ [{x}] \\}$",
         ]
       )
       expectComputeCohomologyButtonToContain("Compute")
@@ -148,9 +148,9 @@ describe("idealQuot", () => {
       expectResultsToContainMessages(
         [
           "Computing $H^n((Λ(x, y), d)/\\mathrm{DGIdeal}(x))$ for $0 \\leq n \\leq 20$",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[[1]]$ $\\}$",
-          "$H^{2} =\\ $ $0$",
-          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[[y]]$ $\\}$",
+          "$H^{0} =\\  \\mathbb{Q}\\{ [[1]] \\}$",
+          "$H^{2} =\\  0$",
+          "$H^{3} =\\  \\mathbb{Q}\\{ [[y]] \\}$",
         ],
       )
       expectComputeCohomologyButtonToContain("Compute")
@@ -207,14 +207,14 @@ describe("url query", () => {
     })
     const user = userEvent.setup()
     render(<Calculator/>)
-    await waitForInitialState("$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y,\\ $ $z$ $), d)$")
+    await waitForInitialState("$(\\Lambda V, d) =  (\\Lambda( x,\\  y,\\  z ), d)$")
     await clickComputeCohomologyButton(user)
     await waitFor(() => {
       expectResultsToContainMessages(
         [
           "Computing $H^n(Λ(x, y, z), d)$ for",
-          "$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$",
-          "$H^{3} =\\ $ $\\mathbb{Q}\\{$ $[x],\\ $ $[y]$ $\\}$",
+          "$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$",
+          "$H^{3} =\\  \\mathbb{Q}\\{ [x],\\  [y] \\}$",
         ]
       )
       expectComputeCohomologyButtonToContain("Compute")
@@ -244,7 +244,7 @@ describe("url query", () => {
     await waitForInitialState()
     await clickComputeCohomologyButton(user)
 
-    const expectedText = "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+    const expectedText = "$H^{2} =\\  \\mathbb{Q}\\{ [x] \\}$"
     await waitFor(() => {
       expectResultsToContainMessages(
         [

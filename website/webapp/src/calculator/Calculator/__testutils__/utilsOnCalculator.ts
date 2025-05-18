@@ -38,7 +38,7 @@ export async function waitForInitialState(expectedFormMessage: string | undefine
       ["Computing "],
     )
     expect(getStyledMessages().form).toContainEqual(
-      expectedFormMessage ?? "$(\\Lambda V, d) = $ $(\\Lambda($ $x,\\ $ $y$ $), d)$"
+      expectedFormMessage ?? "$(\\Lambda V, d) =  (\\Lambda( x,\\  y ), d)$"
     )
   })
 }

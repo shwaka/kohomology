@@ -70,10 +70,10 @@ test("computeCohomology", () => {
   // check second message
   expect(messageOutput1.value.messages.length).toBe(maxDegree + 1)
   expect(messageOutput0.value.messages[0].plainString).toEqual(`Computing $H^n(Λ(x, y), d)$ for $0 \\leq n \\leq ${maxDegree}$`)
-  expect(messageOutput1.value.messages[0].plainString).toEqual("$H^{0} =\\ $ $\\mathbb{Q}\\{$ $[1]$ $\\}$")
-  expect(messageOutput1.value.messages[1].plainString).toEqual("$H^{1} =\\ $ $0$")
-  expect(messageOutput1.value.messages[2].plainString).toEqual("$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$")
+  expect(messageOutput1.value.messages[0].plainString).toEqual("$H^{0} =\\  \\mathbb{Q}\\{ [1] \\}$")
+  expect(messageOutput1.value.messages[1].plainString).toEqual("$H^{1} =\\  0$")
+  expect(messageOutput1.value.messages[2].plainString).toEqual("$H^{2} =\\  \\mathbb{Q}\\{ [x] \\}$")
   for (let degree = 3; degree <= maxDegree; degree++) {
-    expect(messageOutput1.value.messages[degree].plainString).toEqual(`$H^{${degree}} =\\ $ $0$`)
+    expect(messageOutput1.value.messages[degree].plainString).toEqual(`$H^{${degree}} =\\  0$`)
   }
 })

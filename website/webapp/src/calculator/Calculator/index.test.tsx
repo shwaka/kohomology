@@ -1,5 +1,5 @@
 import { useLocation } from "@docusaurus/router"
-import { render, screen, waitFor } from "@testing-library/react"
+import { render, screen, waitFor, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import React from "react"
 import { InputIdeal } from "./__testutils__/InputIdeal"
@@ -234,5 +234,38 @@ describe("url query", () => {
         ]
       )
     })
+  })
+
+  test("copy to clipboard", async () => {
+    const user = userEvent.setup()
+    const writeTextSpy = jest.spyOn(navigator.clipboard, "writeText") // after userEvent.setup()
+
+    render(<Calculator/>)
+    await waitForInitialState()
+    await clickComputeCohomologyButton(user)
+
+    const expectedText = "$H^{2} =\\ $ $\\mathbb{Q}\\{$ $[x]$ $\\}$"
+    await waitFor(() => {
+      expectResultsToContainMessages(
+        [
+          expectedText
+        ],
+      )
+      expectComputeCohomologyButtonToContain("Compute")
+    })
+    const messageDivList: HTMLElement[] = screen.getAllByTestId("show-styled-message")
+    const filtered: HTMLElement[] = messageDivList.filter((element) =>
+      element.getAttribute("data-styled-message") === expectedText
+    )
+    expect(filtered).toHaveLength(1)
+    const messageDiv: HTMLElement = filtered[0]
+
+    const button = within(messageDiv).getByTestId("OptionsButton")
+    await user.click(button)
+    const menuItem = screen.getByText("Copy this line")
+    await user.click(menuItem)
+    expect(writeTextSpy).toHaveBeenCalledOnceWith(expectedText)
+
+    writeTextSpy.mockRestore()
   })
 })

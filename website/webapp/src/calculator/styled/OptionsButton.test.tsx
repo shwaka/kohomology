@@ -41,4 +41,17 @@ describe("useOptionsButton", () => {
 
     expect(writeTextSpy).toHaveBeenCalledOnceWith(text)
   })
+
+  test("option with null text", async () => {
+    const text = null
+    const label = "Copy this line"
+    const option: MessageOption = { text, label }
+    render(<OptionsButtonContainer options={[option]}/>)
+
+    const button = screen.getByTestId("OptionsButton")
+    await user.click(button)
+    const menuItem = screen.getByText(label)
+    expect(menuItem).toHaveAttribute("aria-disabled", "true")
+    // expect(menuItem).toBeDisabled()
+  })
 })

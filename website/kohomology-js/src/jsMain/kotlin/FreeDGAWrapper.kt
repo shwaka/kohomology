@@ -288,7 +288,9 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
                 listOf("\\}")
         }
         val stringList = listOf("H^{$degree} =\\ ") + vectorSpace
-        stringList.flatMap { it.math }
+        groupedMath {
+            stringList.flatMap { it.math }
+        }
     }
 }
 

@@ -1,5 +1,5 @@
 import { render, screen } from "@testing-library/react"
-import userEvent from "@testing-library/user-event"
+import userEvent, { UserEvent } from "@testing-library/user-event"
 import React from "react"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { MessageOption, MessageOptions } from "./options"
@@ -14,10 +14,20 @@ function OptionsButtonContainer({ options }: OptionsButtonContainerProps): React
 }
 
 describe("useOptionsButton", () => {
-  test("single option", async () => {
-    const user = userEvent.setup()
-    const spy = jest.spyOn(navigator.clipboard, "writeText") // writeText is defined in userEvent.setup()
+  let user: UserEvent
+  let writeTextSpy: jest.SpiedFunction<typeof navigator.clipboard.writeText>
 
+  beforeEach(() => {
+    user = userEvent.setup()
+    // writeText is defined in userEvent.setup()
+    writeTextSpy = jest.spyOn(navigator.clipboard, "writeText")
+  })
+
+  afterEach(() => {
+    writeTextSpy.mockRestore()
+  })
+
+  test("single option", async () => {
     const text = "Content to be copied"
     const label = "Copy this line"
     const option: MessageOption = { text, label }
@@ -29,7 +39,6 @@ describe("useOptionsButton", () => {
     const menuItem = screen.getByText(label)
     await user.click(menuItem)
 
-    expect(spy).toHaveBeenCalledOnceWith(text)
-    spy.mockRestore()
+    expect(writeTextSpy).toHaveBeenCalledOnceWith(text)
   })
 })

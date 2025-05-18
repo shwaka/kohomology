@@ -259,6 +259,13 @@ private fun <T> List<T>.joinToStyledMathString(
     // )
 }
 
+private fun List<String>.appendSeparator(separator: String): List<String> {
+    if (this.isEmpty()) {
+        return emptyList()
+    }
+    return this.dropLast(1).map { it + separator } + listOf(this.last())
+}
+
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(
     dgVectorSpace: DGVectorSpace<D, B, S, V, M>,
     degree: Int,
@@ -273,14 +280,15 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     //     "H^{$degree} = $vectorSpaceString".math // これだと "," の部分で改行されない
     // }.export()
     return styledMessage(MessageType.SUCCESS) {
-        val vectorSpace: List<StyledStringGroup> = if (basis.isEmpty()) {
-            "0".math
+        val vectorSpace: List<String> = if (basis.isEmpty()) {
+            listOf("0")
         } else {
-            "\\mathbb{Q}\\{".math +
-                basis.joinToStyledMathString(",\\ ") { p(it) } +
-                "\\}".math
+            listOf("\\mathbb{Q}\\{") +
+                basis.map { p(it) }.appendSeparator(",\\ ") +
+                listOf("\\}")
         }
-        "H^{$degree} =\\ ".math + vectorSpace
+        val stringList = listOf("H^{$degree} =\\ ") + vectorSpace
+        stringList.flatMap { it.math }
     }
 }
 
@@ -409,20 +417,31 @@ private fun <D : Degree, I : IndeterminateName, S : Scalar, V : NumVector<S>, M 
     val p = Printer(printType = PrintType.TEX)
     return arrayOf(
         styledMessage(MessageType.SUCCESS) {
-            "(\\Lambda $generatingVectorSpaceName, d) = ".math +
-                "(\\Lambda(".math +
-                freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") { p(it) } +
-                "), d)".math
+            groupedMath {
+                "(\\Lambda $generatingVectorSpaceName, d) = ".math +
+                    "(\\Lambda(".math +
+                    freeDGAlgebra.indeterminateList
+                        .map { p(it) }
+                        .appendSeparator(",\\ ")
+                        .flatMap { it.math } +
+                    "), d)".math
+            }
         }.withOptions(MessageOptionsInternal(dgaJson = dgaJson)).export(),
         styledMessage(MessageType.SUCCESS) {
-            freeDGAlgebra.indeterminateList.joinToStyledMathString(",\\ ") {
-                "\\deg{${p(it.name)}} = ${it.degree}"
+            groupedMath {
+                freeDGAlgebra.indeterminateList
+                    .map { "\\deg{${p(it.name)}} = ${it.degree}" }
+                    .appendSeparator(",\\ ")
+                    .flatMap { it.math }
             }
         }.export(),
         styledMessage(MessageType.SUCCESS) {
-            freeDGAlgebra.context.run {
-                freeDGAlgebra.generatorList.joinToStyledMathString(",\\ ") {
-                    "d${p(it)} = ${p(d(it))}"
+            groupedMath {
+                freeDGAlgebra.context.run {
+                    freeDGAlgebra.generatorList
+                        .map { "d${p(it)} = ${p(d(it))}" }
+                        .appendSeparator(",\\ ")
+                        .flatMap { it.math }
                 }
             }
         }.export(),

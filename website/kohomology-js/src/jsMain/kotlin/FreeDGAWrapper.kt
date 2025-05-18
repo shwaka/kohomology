@@ -242,8 +242,13 @@ private fun <T> List<T>.joinToStyledMathString(
     if (this.isEmpty()) {
         return emptyList()
     }
+    val mathStringList = this.dropLast(1).map {
+        transform(it) + separator
+    } + listOf(
+        transform(this.last()) // Don't add `separator` for the last element.
+    )
     return listOf(
-        StyledStringGroup.GroupedMath(this.map(transform))
+        StyledStringGroup.GroupedMath(mathStringList)
     )
     // return this.dropLast(1).map {
     //     StyledStringGroup.math(transform(it) + separator)

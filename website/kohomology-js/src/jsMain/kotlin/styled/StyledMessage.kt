@@ -13,12 +13,12 @@ class StyledMessageKt(
 sealed interface StyledStringGroup {
     fun toList(): List<StyledStringInternal>
     fun isMath(): Boolean
+    fun toPlainString(): String
 
     @ExperimentalJsExport
     fun export(): List<StyledStringKt> {
         return this.toList().map { it.export() }
     }
-
 
     class Single(val value: StyledStringInternal) : StyledStringGroup {
         override fun toList(): List<StyledStringInternal> {
@@ -27,6 +27,13 @@ sealed interface StyledStringGroup {
 
         override fun isMath(): Boolean {
             return (this.value.stringType == StringType.MATH)
+        }
+
+        override fun toPlainString(): String {
+            return when (this.value.stringType) {
+                StringType.TEXT -> this.value.content
+                StringType.MATH -> "\$${this.value.content}\$"
+            }
         }
     }
 
@@ -43,6 +50,11 @@ sealed interface StyledStringGroup {
 
         override fun isMath(): Boolean {
             return true
+        }
+
+        override fun toPlainString(): String {
+            val joined = this.valueList.joinToString(" ") { it.content }
+            return "\$$joined\$"
         }
     }
 }
@@ -91,21 +103,15 @@ class StyledMessageInternal(
         if (this.groups.isEmpty()) {
             return ""
         }
-        val space = StyledStringInternal(StringType.TEXT, " ")
-        val stringsWithSpaces: MutableList<StyledStringInternal> = this.groups.first().toList().toMutableList()
+        val result = mutableListOf(this.groups.first().toPlainString())
         for (i in 1 until this.groups.size) {
             // Avoid $x = 1$$y = 2$, by replacing it with $x = 1$ $y = 2$
             if (this.groups[i - 1].isMath() && this.groups[i].isMath()) {
-                stringsWithSpaces.add(space)
+                result.add(" ")
             }
-            stringsWithSpaces.addAll(this.groups[i].toList())
+            result.add(this.groups[i].toPlainString())
         }
-        return stringsWithSpaces.joinToString("") { styledString ->
-            when (styledString.stringType) {
-                StringType.TEXT -> styledString.content
-                StringType.MATH -> "\$${styledString.content}\$"
-            }
-        }
+        return result.joinToString("")
     }
 }
 

@@ -47,6 +47,7 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
             visibility: "visible",
           },
         }}
+        data-testid="OptionsButton"
       >
         <MoreHorizIcon fontSize="small"/>
       </IconButton>

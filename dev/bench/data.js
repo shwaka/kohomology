@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747548216045,
+  "lastUpdate": 1747558608788,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9060,6 +9060,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.919,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6c39bf474960a90269f094ce542559a0c5cd79a3",
+          "message": "test(website): add test for OptionsButton.tsx in Calculator/index.test.tsx",
+          "timestamp": "2025-05-18T17:25:25+09:00",
+          "tree_id": "c804bb64773fdb5c8f49ce9d9edc633e1b9a70e2",
+          "url": "https://github.com/shwaka/kohomology/commit/6c39bf474960a90269f094ce542559a0c5cd79a3"
+        },
+        "date": 1747558608223,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.767,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.962,
             "unit": "s/op"
           }
         ]

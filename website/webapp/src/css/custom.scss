@@ -20,8 +20,12 @@ $ifm-color-primary: #7e6ca8;
   --ifm-code-font-size: 95%;
 }
 
-:root[data-build-env='dev'] {
+:root[data-build-env='dev'][data-theme='light'] {
   --ifm-navbar-background-color: orange;
+}
+
+:root[data-build-env='dev'][data-theme='dark'] {
+  --ifm-navbar-background-color: chocolate;
 }
 
 .docusaurus-highlight-code-line {

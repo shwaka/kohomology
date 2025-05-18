@@ -14,6 +14,6 @@ class FreeDGAWrapperTest {
         val freeDGAWrapper = FreeDGAWrapper(json)
         val actual = freeDGAWrapper.computeCohomology("self", 2)
         val expectedPlainString = "\$H^{2} =\\ \$ \$\\mathbb{Q}\\{\$ \$[x]\$ \$\\}\$"
-        assertEquals(actual.plainString, expectedPlainString)
+        assertEquals(expectedPlainString, actual.plainString)
     }
 }

@@ -11,7 +11,7 @@ class StyledMessageTest {
         val styledMessageKt = styledMessage(MessageType.SUCCESS) {
             "a^2 + b^2 = c^2".math
         }.export()
-        assertEquals(styledMessageKt.plainString, "\$a^2 + b^2 = c^2\$")
+        assertEquals("\$a^2 + b^2 = c^2\$", styledMessageKt.plainString, )
     }
 
     @Test
@@ -19,7 +19,7 @@ class StyledMessageTest {
         val styledMessageKt = styledMessage(MessageType.SUCCESS) {
             "x = \\cos\\theta".math + "y = \\sin\\theta".math
         }.export()
-        assertEquals(styledMessageKt.plainString, "\$x = \\cos\\theta\$ \$y = \\sin\\theta\$")
+        assertEquals("\$x = \\cos\\theta\$ \$y = \\sin\\theta\$", styledMessageKt.plainString)
     }
 
     @Test
@@ -27,7 +27,7 @@ class StyledMessageTest {
         val styledMessageKt = styledMessage(MessageType.SUCCESS) {
             "Let ".text + "x = 3".math + ".".text
         }.export()
-        assertEquals(styledMessageKt.plainString, "Let \$x = 3\$.")
+        assertEquals("Let \$x = 3\$.", styledMessageKt.plainString)
     }
 
     @Test
@@ -38,6 +38,6 @@ class StyledMessageTest {
             }
         }.export()
         val expected = "\$x + y = z\$"
-        assertEquals(styledMessageKt.plainString, expected)
+        assertEquals(expected, styledMessageKt.plainString)
     }
 }

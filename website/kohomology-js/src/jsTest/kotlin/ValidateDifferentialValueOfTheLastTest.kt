@@ -12,7 +12,7 @@ class ValidateDifferentialValueOfTheLastTest {
             ]
         """.trimIndent()
         val validationResult = validateDifferentialValueOfTheLast(json)
-        assertEquals(validationResult, ValidationResultInternal.Success().export())
+        assertEquals(ValidationResultInternal.Success().export(), validationResult)
     }
 
     @Test
@@ -25,6 +25,6 @@ class ValidateDifferentialValueOfTheLastTest {
         """.trimIndent()
         val validationResult = validateDifferentialValueOfTheLast(json)
         val expected = ValidationResultInternal.NotApplicable("Identifier name must be non-empty.").export()
-        assertEquals(validationResult, expected)
+        assertEquals(expected, validationResult)
     }
 }

@@ -393,7 +393,7 @@ computeCohomologyClass(
         }
         return styledMessage(MessageType.SUCCESS) {
             val cohomologyString = if (showBasis) {
-                computeCohomologyInternal(dgAlgebra, degree).strings
+                computeCohomologyInternal(dgAlgebra, degree).getStrings()
             } else {
                 "H^$degree".math
             }

@@ -10,6 +10,43 @@ class StyledMessageKt(
     val options: MessageOptionsKt,
 )
 
+sealed interface StyledStringGroup {
+    fun toList(): List<StyledStringInternal>
+    fun isMath(): Boolean
+
+    @ExperimentalJsExport
+    fun export(): List<StyledStringKt> {
+        return this.toList().map { it.export() }
+    }
+
+
+    class Single(val value: StyledStringInternal) : StyledStringGroup {
+        override fun toList(): List<StyledStringInternal> {
+            return listOf(this.value)
+        }
+
+        override fun isMath(): Boolean {
+            return (this.value.stringType == StringType.MATH)
+        }
+    }
+
+    class GroupedMath(val valueList: List<StyledStringInternal>) : StyledStringGroup {
+        init {
+            require(valueList.all { it.stringType == StringType.MATH }) {
+                "GroupedMath accepts only StringType.MATH"
+            }
+        }
+
+        override fun toList(): List<StyledStringInternal> {
+            return this.valueList
+        }
+
+        override fun isMath(): Boolean {
+            return true
+        }
+    }
+}
+
 enum class MessageType(val typeName: String) {
     SUCCESS("success"),
     ERROR("error"),
@@ -17,12 +54,18 @@ enum class MessageType(val typeName: String) {
 
 class StyledMessageInternal(
     val messageType: MessageType,
-    val strings: List<StyledStringInternal>,
+    val groups: List<StyledStringGroup>,
     val options: MessageOptionsInternal = MessageOptionsInternal(),
 ) {
+    constructor(
+        messageType: MessageType,
+        strings: List<StyledStringInternal>,
+        options: MessageOptionsInternal = MessageOptionsInternal(),
+    ) : this(messageType, strings.map { StyledStringGroup.Single(it) }, options)
+
     @ExperimentalJsExport
     fun export(): StyledMessageKt {
-        val strings = this.strings.map { it.export() }.toTypedArray()
+        val strings: Array<StyledStringKt> = this.groups.flatMap { it.export() }.toTypedArray()
         val plainString = this.getPlainString()
         return StyledMessageKt(
             messageType = this.messageType.typeName,
@@ -32,29 +75,30 @@ class StyledMessageInternal(
         )
     }
 
+    fun getStrings(): List<StyledStringInternal> {
+        return this.groups.flatMap { it.toList() }
+    }
+
     fun withOptions(newOptions: MessageOptionsInternal): StyledMessageInternal {
         return StyledMessageInternal(
             messageType = this.messageType,
-            strings = this.strings,
+            groups = this.groups,
             options = newOptions,
         )
     }
 
     private fun getPlainString(): String {
-        if (this.strings.isEmpty()) {
+        if (this.groups.isEmpty()) {
             return ""
         }
         val space = StyledStringInternal(StringType.TEXT, " ")
-        val stringsWithSpaces: MutableList<StyledStringInternal> = mutableListOf(this.strings.first())
-        for (i in 1 until this.strings.size) {
+        val stringsWithSpaces: MutableList<StyledStringInternal> = this.groups.first().toList().toMutableList()
+        for (i in 1 until this.groups.size) {
             // Avoid $x = 1$$y = 2$, by replacing it with $x = 1$ $y = 2$
-            if (
-                (this.strings[i - 1].stringType == StringType.MATH) &&
-                (this.strings[i].stringType == StringType.MATH)
-            ) {
+            if (this.groups[i - 1].isMath() && this.groups[i].isMath()) {
                 stringsWithSpaces.add(space)
             }
-            stringsWithSpaces.add(this.strings[i])
+            stringsWithSpaces.addAll(this.groups[i].toList())
         }
         return stringsWithSpaces.joinToString("") { styledString ->
             when (styledString.stringType) {

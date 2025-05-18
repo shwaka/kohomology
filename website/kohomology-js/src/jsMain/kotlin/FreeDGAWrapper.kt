@@ -242,13 +242,16 @@ private fun <T> List<T>.joinToStyledMathString(
     if (this.isEmpty()) {
         return emptyList()
     }
-    return this.dropLast(1).map {
-        StyledStringGroup.math(transform(it) + separator)
-    } + listOf(
-        StyledStringGroup.math(
-            transform(this.last()) // Don't add `separator` for the last element.
-        )
+    return listOf(
+        StyledStringGroup.GroupedMath(this.map(transform))
     )
+    // return this.dropLast(1).map {
+    //     StyledStringGroup.math(transform(it) + separator)
+    // } + listOf(
+    //     StyledStringGroup.math(
+    //         transform(this.last()) // Don't add `separator` for the last element.
+    //     )
+    // )
 }
 
 private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix<S, V>> computeCohomologyInternal(

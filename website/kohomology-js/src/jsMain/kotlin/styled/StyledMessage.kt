@@ -38,6 +38,10 @@ sealed interface StyledStringGroup {
     }
 
     class GroupedMath(val valueList: List<StyledStringInternal>) : StyledStringGroup {
+        constructor(valueList: List<String>) : this(
+            valueList.map { StyledStringInternal(StringType.MATH, it) }
+        )
+
         init {
             require(valueList.all { it.stringType == StringType.MATH }) {
                 "GroupedMath accepts only StringType.MATH"

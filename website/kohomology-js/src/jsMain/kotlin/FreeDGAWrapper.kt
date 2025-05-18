@@ -31,13 +31,7 @@ import com.github.shwaka.kohomology.util.PrintType
 import com.github.shwaka.kohomology.util.Printer
 import com.github.shwaka.kohomology.vectsp.BasisName
 import com.github.shwaka.kohomology.vectsp.SubQuotBasis
-import styled.MessageOptionsInternal
-import styled.MessageType
-import styled.StringType
-import styled.StyledMessageInternal
-import styled.StyledMessageKt
-import styled.StyledStringInternal
-import styled.styledMessage
+import styled.*
 
 typealias MyDGIdeal = DGIdeal<
     IntDegree,
@@ -244,19 +238,15 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
 private fun <T> List<T>.joinToStyledMathString(
     separator: String,
     transform: (T) -> String,
-): List<StyledStringInternal> {
+): List<StyledStringGroup> {
     if (this.isEmpty()) {
         return emptyList()
     }
     return this.dropLast(1).map {
-        StyledStringInternal(
-            StringType.MATH,
-            transform(it) + separator,
-        )
+        StyledStringGroup.math(transform(it) + separator)
     } + listOf(
-        StyledStringInternal(
-            StringType.MATH,
-            transform(this.last()), // Don't add `separator` for the last element.
+        StyledStringGroup.math(
+            transform(this.last()) // Don't add `separator` for the last element.
         )
     )
 }
@@ -275,7 +265,7 @@ private fun <D : Degree, B : BasisName, S : Scalar, V : NumVector<S>, M : Matrix
     //     "H^{$degree} = $vectorSpaceString".math // これだと "," の部分で改行されない
     // }.export()
     return styledMessage(MessageType.SUCCESS) {
-        val vectorSpace: List<StyledStringInternal> = if (basis.isEmpty()) {
+        val vectorSpace: List<StyledStringGroup> = if (basis.isEmpty()) {
             "0".math
         } else {
             "\\mathbb{Q}\\{".math +
@@ -393,7 +383,7 @@ computeCohomologyClass(
         }
         return styledMessage(MessageType.SUCCESS) {
             val cohomologyString = if (showBasis) {
-                computeCohomologyInternal(dgAlgebra, degree).getStrings()
+                computeCohomologyInternal(dgAlgebra, degree).groups
             } else {
                 "H^$degree".math
             }

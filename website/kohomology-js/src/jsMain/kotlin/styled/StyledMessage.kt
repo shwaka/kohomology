@@ -57,6 +57,20 @@ sealed interface StyledStringGroup {
             return "\$$joined\$"
         }
     }
+
+    companion object {
+        fun text(content: String): StyledStringGroup.Single {
+            return StyledStringGroup.Single(
+                StyledStringInternal(StringType.TEXT, content)
+            )
+        }
+
+        fun math(content: String): StyledStringGroup.Single {
+            return StyledStringGroup.Single(
+                StyledStringInternal(StringType.MATH, content)
+            )
+        }
+    }
 }
 
 enum class MessageType(val typeName: String) {
@@ -115,13 +129,27 @@ class StyledMessageInternal(
     }
 }
 
-object StyledStringListBuilder {
-    val String.text: List<StyledStringInternal>
-        get() = listOf(StyledStringInternal(StringType.TEXT, this))
+@DslMarker
+annotation class StyledStringMarker
+
+@StyledStringMarker
+object GroupedMathBuilder {
     val String.math: List<StyledStringInternal>
         get() = listOf(StyledStringInternal(StringType.MATH, this))
 }
 
-fun styledMessage(messageType: MessageType, block: StyledStringListBuilder.() -> List<StyledStringInternal>): StyledMessageInternal {
+@StyledStringMarker
+object StyledStringListBuilder {
+    val String.text: List<StyledStringGroup>
+        get() = listOf(StyledStringGroup.text(this))
+    val String.math: List<StyledStringGroup>
+        get() = listOf(StyledStringGroup.math(this))
+    fun groupedMath(block: GroupedMathBuilder.() -> List<StyledStringInternal>): List<StyledStringGroup> {
+        val groupedMath = StyledStringGroup.GroupedMath(GroupedMathBuilder.block())
+        return listOf(groupedMath)
+    }
+}
+
+fun styledMessage(messageType: MessageType, block: StyledStringListBuilder.() -> List<StyledStringGroup>): StyledMessageInternal {
     return StyledMessageInternal(messageType, StyledStringListBuilder.block())
 }

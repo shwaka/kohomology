@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1747530487172,
+  "lastUpdate": 1747548216045,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9026,6 +9026,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.999,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "135ccf32e75151b6b75cd01161d2a44659c42015",
+          "message": "fix(website): add key to map in OptionsButton",
+          "timestamp": "2025-05-18T14:58:45+09:00",
+          "tree_id": "66825523b46bfa70d2a5d4736ee805bec4b9d888",
+          "url": "https://github.com/shwaka/kohomology/commit/135ccf32e75151b6b75cd01161d2a44659c42015"
+        },
+        "date": 1747548215169,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.751,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.919,
             "unit": "s/op"
           }
         ]

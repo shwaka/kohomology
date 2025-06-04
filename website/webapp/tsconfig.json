@@ -26,6 +26,10 @@
     "esModuleInterop": true,
     "jsx": "react"
   },
-  "include": [ "modules.d.ts", "**/*", "./jest-setup.ts" ],
+  // Previously, "include" contained "**/*" but this caused performance issue.
+  // Replacing "**/*" with "src/**/*" and "./docusaurus.config.mjs", performance changed as follows:
+  // - eslint: 7.1s -> 6.1s
+  // - tsc: 5.7s -> 3.5s
+  "include": [ "modules.d.ts", "src/**/*", "./docusaurus.config.mjs", "./jest-setup.ts" ],
   "exclude": [ "kohomology-js/build/**/*" ]
 }

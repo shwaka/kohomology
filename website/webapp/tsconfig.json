@@ -30,6 +30,13 @@
   // Replacing "**/*" with "src/**/*" and "./docusaurus.config.mjs", performance changed as follows:
   // - eslint: 7.1s -> 6.1s
   // - tsc: 5.7s -> 3.5s
-  "include": [ "modules.d.ts", "src/**/*", "./docusaurus.config.mjs", "./jest-setup.ts" ],
-  "exclude": [ "kohomology-js/build/**/*" ]
+  "include": [
+    "src/**/*",
+    "__mocks__/**/*",
+    "plugins/**/*",
+    "modules.d.ts",
+    "./docusaurus.config.mjs",
+    "./jest-setup.ts",
+  ],
+  // "exclude": [ "kohomology-js/build/**/*" ]
 }

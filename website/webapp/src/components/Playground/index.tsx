@@ -36,24 +36,29 @@ function getTab(tabKey: TabKey): PlaygroundTab {
   throw new Error(`No tab found for key ${tabKey}`)
 }
 
-export function Playground(): React.JSX.Element {
+function useTabKey(): [TabKey, (newTabKey: string) => void] {
   const defaultTabKey = tabs[0].key
-  const [tabKeyString, setTabKey] = useQueryState("tab-key", defaultTabKey)
+  const [tabKeyString, setTabKeyString] = useQueryState("tab-key", defaultTabKey)
   const tabKey: TabKey = isTabKey(tabKeyString) ? tabKeyString : defaultTabKey
-  const tab = getTab(tabKey)
-  const updateTabKey = useCallback((newTabKey: string) => {
+  const setTabKey = useCallback((newTabKey: string) => {
     if (isTabKey(newTabKey)) {
-      setTabKey(newTabKey)
+      setTabKeyString(newTabKey)
     } else {
       throw new Error(`${newTabKey} is not a valid key for PlaygroundTab`)
     }
-  }, [setTabKey])
+  }, [setTabKeyString])
+  return [tabKey, setTabKey]
+}
+
+export function Playground(): React.JSX.Element {
+  const [tabKey, setTabKey] = useTabKey()
+  const tab = getTab(tabKey)
   return (
     <div>
       This is playground.
       <select
         value={tabKey}
-        onChange={(e) => updateTabKey(e.target.value)}
+        onChange={(e) => setTabKey(e.target.value)}
       >
         {tabs.map((tab) => (
           <option value={tab.key}>

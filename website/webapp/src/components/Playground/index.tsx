@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from "react"
+import { useQueryState } from "./useQueryState"
 
 interface PlaygroundTab {
   key: string
@@ -36,13 +37,15 @@ function getTab(tabKey: TabKey): PlaygroundTab {
 }
 
 export function Playground(): React.JSX.Element {
-  const [tabKey, setTabKey] = useState<TabKey>(tabs[0].key)
+  const defaultTabKey = tabs[0].key
+  const [tabKeyString, setTabKey] = useQueryState("tab-key", defaultTabKey)
+  const tabKey: TabKey = isTabKey(tabKeyString) ? tabKeyString : defaultTabKey
   const tab = getTab(tabKey)
-  const updateTabKey = useCallback((tabKey: string) => {
-    if (isTabKey(tabKey)) {
-      setTabKey(tabKey)
+  const updateTabKey = useCallback((newTabKey: string) => {
+    if (isTabKey(newTabKey)) {
+      setTabKey(newTabKey)
     } else {
-      throw new Error(`${tabKey} is not a valid key for PlaygroundTab`)
+      throw new Error(`${newTabKey} is not a valid key for PlaygroundTab`)
     }
   }, [setTabKey])
   return (

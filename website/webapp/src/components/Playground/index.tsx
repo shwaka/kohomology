@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback } from "react"
 import { useQueryState } from "./useQueryState"
 
 interface PlaygroundTab {
@@ -61,7 +61,7 @@ export function Playground(): React.JSX.Element {
         onChange={(e) => setTabKey(e.target.value)}
       >
         {tabs.map((tab) => (
-          <option value={tab.key}>
+          <option value={tab.key} key={tab.key}>
             {tab.name}
           </option>
         ))}

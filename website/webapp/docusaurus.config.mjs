@@ -78,6 +78,10 @@ const config = {
           },
           {to: "others", label: "Others", position: "left"},
           {
+            type: "custom-playground",
+            position: "right",
+          },
+          {
             type: "custom-goToPublishedPage",
             position: "right",
           },

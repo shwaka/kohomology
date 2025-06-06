@@ -1,3 +1,4 @@
+import { NavbarItemPlayground } from "@components/NavbarItems/NavbarItemPlayground"
 import { GoToPublishedPage } from "@site/src/components/NavbarItems/GoToPublishedPage"
 import ComponentTypes from "@theme-original/NavbarItem/ComponentTypes"
 
@@ -6,4 +7,5 @@ import ComponentTypes from "@theme-original/NavbarItem/ComponentTypes"
 export default {
   ...ComponentTypes,
   "custom-goToPublishedPage": GoToPublishedPage,
+  "custom-playground": NavbarItemPlayground,
 }

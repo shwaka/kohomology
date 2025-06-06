@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749194716374,
+  "lastUpdate": 1749200328850,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9332,6 +9332,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.273,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "449da5c6abe2547d7a7c2d0362b506223799d8ce",
+          "message": "fix(website): add key to <option> in <Playground>",
+          "timestamp": "2025-06-06T17:52:41+09:00",
+          "tree_id": "888b23803cb46b40dd3aecceec0ce94300d13082",
+          "url": "https://github.com/shwaka/kohomology/commit/449da5c6abe2547d7a7c2d0362b506223799d8ce"
+        },
+        "date": 1749200328322,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.912,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.454,
             "unit": "s/op"
           }
         ]

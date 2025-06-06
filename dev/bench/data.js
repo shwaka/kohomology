@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749184460778,
+  "lastUpdate": 1749185155536,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9264,6 +9264,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.125,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "3c61a511c989065a5eff92402007093e536fe46e",
+          "message": "fix(website): fix types in NavbarItemOnlyDevMode",
+          "timestamp": "2025-06-06T13:41:04+09:00",
+          "tree_id": "fcb3128a5baa27bad1e18b1b62fa39b212a6407f",
+          "url": "https://github.com/shwaka/kohomology/commit/3c61a511c989065a5eff92402007093e536fe46e"
+        },
+        "date": 1749185154358,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.767,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.08,
             "unit": "s/op"
           }
         ]

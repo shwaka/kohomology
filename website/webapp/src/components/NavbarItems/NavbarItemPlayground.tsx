@@ -5,11 +5,9 @@ import { NavbarItemOnlyDevMode } from "./NavbarItemOnlyDevMode"
 export function NavbarItemPlayground(props: Props): React.JSX.Element {
   return (
     <NavbarItemOnlyDevMode
-      navbarItemProps={{
-        ...props,
-        to: "playground",
-      }}
+      navbarItemProps={props}
       label="Playground"
+      to="playground"
     />
   )
 }

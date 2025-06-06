@@ -18,8 +18,9 @@ export function GoToPublishedPage(props: Props): React.JSX.Element {
   const href = usePublishedPageUrl()
   return (
     <NavbarItemOnlyDevMode
-      navbarItemProps={{ ...props, href }}
+      navbarItemProps={props}
       label="Published page"
+      href={href}
     />
   )
 }

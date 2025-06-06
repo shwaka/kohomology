@@ -5,17 +5,25 @@ import React from "react"
 
 export interface NavbarItemOnlyDevModeProps {
   label: string
+  href?: string
+  to?: string
   navbarItemProps: Props
 }
 
 export function NavbarItemOnlyDevMode({
-  label, navbarItemProps,
+  navbarItemProps,
+  ...rest
 }: NavbarItemOnlyDevModeProps): React.JSX.Element {
   // On mobile devices, props contains { mobile: true, onClick: (some function) }.
   // We need to pass these to NavbarItem to render the item correctly.
   return (
     isDevelopmentMode()
-      ? <NavbarItem {...navbarItemProps} label={label}/>
+      ? (
+        <NavbarItem
+          {...navbarItemProps}
+          {...rest}
+        />
+      )
       : <React.Fragment/>
   )
 }

@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkwebsite=self.webpackChunkwebsite||[]).push([[365],{9961:(e,n,r)=>{r.r(n),r.d(n,{default:()=>u});r(6540);var s=r(4848);function i(){return(0,s.jsx)("div",{children:"This is playground."})}var t=r(4698);function u(){return(0,s.jsx)(t.A,{title:"Playground",children:(0,s.jsx)(i,{})})}}}]);

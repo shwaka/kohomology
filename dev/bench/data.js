@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749218605157,
+  "lastUpdate": 1749279650472,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9400,6 +9400,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.409,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b791959d62180d8d9e084c2f899bce94d6ed4565",
+          "message": "build(website): update docusaurus from 3.7.0 to 3.8.1",
+          "timestamp": "2025-06-07T15:55:55+09:00",
+          "tree_id": "3be9dfb7c65cc455e30013356e4d1853a194760e",
+          "url": "https://github.com/shwaka/kohomology/commit/b791959d62180d8d9e084c2f899bce94d6ed4565"
+        },
+        "date": 1749279649704,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.831,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.085,
             "unit": "s/op"
           }
         ]

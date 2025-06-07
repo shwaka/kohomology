@@ -6,8 +6,18 @@ import React, { type ReactNode } from "react"
 
 type Props = WrapperProps<typeof LayoutType>
 
+function getTitleWithDev(title: string | undefined): string | undefined {
+  if (title === undefined) {
+    return undefined
+  } else if (isDevelopmentMode()) {
+    return `[dev] ${title}`
+  } else {
+    return title
+  }
+}
+
 export default function LayoutWrapper(props: Props): ReactNode {
-  const title = isDevelopmentMode() ? `[dev] ${props.title}` : props.title
+  const title = getTitleWithDev(props.title)
   return (
     <React.Fragment>
       <Layout {...props} title={title}/>

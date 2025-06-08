@@ -1,11 +1,6 @@
 import React, { useCallback } from "react"
+import { QueryTab } from "./QueryTab"
 import { useQueryState } from "./useQueryState"
-
-export interface QueryTab<K extends string> {
-  key: K
-  name: string
-  render: () => React.JSX.Element
-}
 
 function isTabKey<K extends string>(tabKeys: K[], tabKey: string): tabKey is K {
   return (tabKeys as string[]).includes(tabKey)

@@ -1,5 +1,6 @@
 import React from "react"
-import { QueryTab, useQueryTabs } from "./useQueryTabs"
+import { QueryTab } from "./QueryTab"
+import { useQueryTabs } from "./useQueryTabs"
 
 const tabs = [
   {

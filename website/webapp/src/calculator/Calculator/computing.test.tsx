@@ -1,12 +1,14 @@
+import React from "react"
+
 import { MessageOutput } from "@calculator/WorkerContext/expose"
 import { useLocation } from "@docusaurus/router"
 import { act, render, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React from "react"
+
+import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
 import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
-import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({

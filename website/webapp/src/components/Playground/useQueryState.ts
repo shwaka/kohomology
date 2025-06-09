@@ -1,5 +1,6 @@
-import { useLocation, useHistory } from "@docusaurus/router"
 import { useCallback } from "react"
+
+import { useLocation, useHistory } from "@docusaurus/router"
 
 export function useQueryState(key: string, defaultValue: string): [string, (value: string) => void] {
   const location = useLocation()

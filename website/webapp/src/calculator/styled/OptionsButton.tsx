@@ -1,6 +1,8 @@
+import React, { Fragment, useState } from "react"
+
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import { IconButton, Menu, MenuItem } from "@mui/material"
-import React, { Fragment, useState } from "react"
+
 import { MessageOptions } from "./options"
 
 interface UseOptionsButtonReturnValue {

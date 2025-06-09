@@ -1,5 +1,7 @@
-import { render, screen, act, waitFor } from "@testing-library/react"
 import React from "react"
+
+import { render, screen, act, waitFor } from "@testing-library/react"
+
 import { TestApp } from "./__testutils__/TestApp"
 
 describe("WorkerContext", () => {

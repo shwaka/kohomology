@@ -1,6 +1,8 @@
+import React, { useEffect } from "react"
+
 import Head from "@docusaurus/Head"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
-import React, { useEffect } from "react"
+
 import { isDevelopmentMode } from "../utils/isDevelopmentMode"
 
 // https://docusaurus.io/docs/swizzling#wrapper-your-site-with-root

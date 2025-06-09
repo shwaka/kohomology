@@ -1,13 +1,15 @@
+import React, { useState } from "react"
+
 import { OnSubmit } from "@calculator/EditorDialog"
-import { TabItem } from "@calculator/TabDialog"
-import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import { fromString, StyledMessage } from "@calculator/styled/message"
+import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
+import { TabItem } from "@calculator/TabDialog"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"
-import React, { useState } from "react"
-import { toStyledMessage } from "../worker/styled"
+
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
+import { toStyledMessage } from "../worker/styled"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]

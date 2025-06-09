@@ -1,4 +1,5 @@
 import React from "react"
+
 import { TabItem } from "./TabItem"
 
 interface EditorContentProps<K extends string> {

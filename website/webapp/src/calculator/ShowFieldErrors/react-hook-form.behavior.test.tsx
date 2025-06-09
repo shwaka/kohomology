@@ -1,7 +1,9 @@
+import React from "react"
+
 import { render, screen, renderHook, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React from "react"
 import { MultipleFieldErrors } from "react-hook-form"
+
 import { EmailForm, errorMessages, useEmailForm } from "./__testutils__/EmailForm"
 
 // This is not a test for ShowFieldErrors (or any other component in this project).

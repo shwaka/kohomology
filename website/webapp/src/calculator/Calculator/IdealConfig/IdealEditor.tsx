@@ -1,10 +1,12 @@
+import React, { ReactNode } from "react"
+
 import { OnSubmit } from "@calculator/EditorDialog"
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { FormData, SortableFields } from "@calculator/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
-import React, { ReactNode } from "react"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
+
 import { ExternalData, IdealEditorItem } from "./IdealEditorItem"
 import { IdealFormInput } from "./schema"
 

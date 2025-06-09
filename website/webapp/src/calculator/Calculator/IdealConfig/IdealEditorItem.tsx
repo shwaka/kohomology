@@ -1,10 +1,12 @@
+import React, { useCallback } from "react"
+
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { RowComponentProps } from "@calculator/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+
 import { IdealFormInput } from "./schema"
 
 export type ExternalData = Record<string, never>

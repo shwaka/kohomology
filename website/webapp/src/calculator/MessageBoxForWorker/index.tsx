@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from "react"
+
 import "katex/dist/katex.min.css"
-import { useWorker } from "../WorkerContext"
-import { WorkerContext } from "../WorkerContext/WorkerContext"
-import { WFBase } from "../WorkerContext/expose"
 import { fromString, StyledMessage } from "../styled/message"
+import { useWorker } from "../WorkerContext"
 import { MessageBox } from "./MessageBox"
+import { WFBase } from "../WorkerContext/expose"
+import { WorkerContext } from "../WorkerContext/WorkerContext"
 
 export const printMessagesCommand = "printMessages" as const
 

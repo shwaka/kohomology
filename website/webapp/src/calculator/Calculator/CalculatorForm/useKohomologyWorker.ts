@@ -1,7 +1,9 @@
+import { useCallback, useEffect } from "react"
+
+import { StyledMessage } from "@calculator/styled/message"
 import { useWorker } from "@calculator/WorkerContext"
 import { RunAsync } from "@calculator/WorkerContext/useWorker"
-import { StyledMessage } from "@calculator/styled/message"
-import { useCallback, useEffect } from "react"
+
 import { kohomologyWorkerContext } from "../kohomologyWorkerContext"
 import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../worker/workerInterface"
 

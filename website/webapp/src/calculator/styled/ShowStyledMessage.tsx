@@ -1,8 +1,10 @@
-import TeX from "@matejmazur/react-katex"
 import React, { CSSProperties } from "react"
+
+import TeX from "@matejmazur/react-katex"
+
 import "katex/dist/katex.min.css"
-import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { MessageType, StyledMessage, StyledString } from "./message"
+import { OptionsButton, useOptionsButton } from "./OptionsButton"
 
 function Text({ content }: { content: string } ): React.JSX.Element {
   const lines = content.split("\n")

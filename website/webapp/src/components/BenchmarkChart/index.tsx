@@ -1,10 +1,12 @@
+import React, { useRef, useState } from "react"
+
 import benchmarkData from "@benchmark/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
 import { useColorMode } from "@docusaurus/theme-common"
 import { Box, Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
-import React, { useRef, useState } from "react"
 import { Chart } from "react-chartjs-2"
+
 import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 import { getChartProps } from "./getChartProps"

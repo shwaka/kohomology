@@ -1,6 +1,8 @@
+import React from "react"
+
 import { useCanQuit } from "@calculator/EditorDialog"
 import { Tabs, Tab } from "@mui/material"
-import React from "react"
+
 import { TabItem } from "./TabItem"
 
 interface TabEditorTitleProps<K extends string> {

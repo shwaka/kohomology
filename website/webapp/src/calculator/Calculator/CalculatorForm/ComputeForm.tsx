@@ -1,11 +1,13 @@
+import React, { useCallback, useState } from "react"
+
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
-import React, { useCallback, useState } from "react"
-import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../worker/workerInterface"
+
 import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
+import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../worker/workerInterface"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 

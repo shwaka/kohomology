@@ -1,22 +1,24 @@
+import React, { Fragment, useCallback, useState } from "react"
+
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
-import React, { Fragment, useCallback, useState } from "react"
+
 import "katex/dist/katex.min.css"
 import { useDGAEditorDialog } from "../DGAEditorDialog"
 import { sphere } from "../DGAEditorDialog/examples"
 import { IdealConfig } from "../IdealConfig"
 import { useJsonFromURLQuery, useTargetNameFromURLQuery, useValueOfURLQueryResult } from "../urlQuery"
-import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
-import { targetNames, TargetName } from "../worker/workerInterface"
 import { ComputeForm } from "./ComputeForm"
 import { RestartButton, RestartDialog, useRestart } from "./RestartDialog"
 import { ShareDGAButton, ShareDGADialog, useShareDGA } from "./ShareDGADialog"
 import { ShowError } from "./ShowError"
-import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
+import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
+import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
+import { targetNames, TargetName } from "../worker/workerInterface"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): React.JSX.Element {
   return (

@@ -1,6 +1,7 @@
+import React from "react"
+
 import CodeBlock from "@theme/CodeBlock"
 import type {Props} from "@theme/CodeBlock"
-import React from "react"
 // ↑ docusaurus-theme-classic/src/theme-classic.d.ts に定義がある
 // export interface Props {
 //   readonly children: string | ReactElement;

@@ -1,5 +1,6 @@
 import { magicMessageToHideError } from "@calculator/ShowFieldErrors"
 import { validateDifferentialValueOfTheLast } from "kohomology-js"
+
 import { generatorArrayToJson } from "./ConvertGenerator"
 import { Generator } from "./generatorSchema"
 

@@ -1,7 +1,8 @@
+import React from "react"
+
 import { isDevelopmentMode } from "@site/src/utils/isDevelopmentMode"
 import type { Props } from "@theme/NavbarItem"
 import NavbarItem from "@theme-original/NavbarItem"
-import React from "react"
 
 export interface NavbarItemOnlyDevModeProps {
   label: string

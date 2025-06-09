@@ -1,7 +1,8 @@
+import React, { useCallback } from "react"
+
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { Stack, TextField } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import React, { useCallback } from "react"
 import { DeepRequired, FieldError, FieldErrorsImpl, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
 export interface TextEditorFormInput {

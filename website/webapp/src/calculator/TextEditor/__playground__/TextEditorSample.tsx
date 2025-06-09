@@ -1,5 +1,7 @@
-import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
 import React, { useState } from "react"
+
+import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
+
 import { useTextEditor } from "../useTextEditor"
 
 const defaultText = "Default text"

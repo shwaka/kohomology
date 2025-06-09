@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+
 import { URLQueryResult } from "./URLQueryResult"
 
 export function useValueOfURLQueryResult<T>(

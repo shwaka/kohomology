@@ -1,5 +1,6 @@
-import { githubMainUrl } from "@data"
 import React from "react"
+
+import { githubMainUrl } from "@data"
 
 export function GithubSampleLink(props: { children: string }): React.JSX.Element {
   const url = `${githubMainUrl}/website/sample/src/main/kotlin/`

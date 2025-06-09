@@ -1,5 +1,6 @@
-import { useLocation } from "@docusaurus/router"
 import { useMemo } from "react"
+
+import { useLocation } from "@docusaurus/router"
 
 export function useURLSearchParams(): URLSearchParams {
   // https://v5.reactrouter.com/web/example/query-parameters

@@ -1,11 +1,13 @@
+import React from "react"
+
 import { findOrThrow } from "@calculator/Calculator/__testutils__/findOrThrow"
 import { TabItem } from "@calculator/TabDialog"
 import { render, within, renderHook, act, RenderHookResult } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
-import React from "react"
+
 import { sphere } from "../examples"
-import { Generator } from "./generatorSchema"
 import { useTabItemArrayEditor } from "./"
+import { Generator } from "./generatorSchema"
 
 class ArrayEditorTestUtil {
   // Record<string, never> means that renderHook's props is empty

@@ -1,11 +1,13 @@
+import React from "react"
+
 import { useLocation } from "@docusaurus/router"
 import { render, screen, waitFor, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React from "react"
+
+import { Calculator } from "."
 import { InputIdeal } from "./__testutils__/InputIdeal"
 import { ApplyMethod, InputArray, InputJson } from "./__testutils__/InputJson"
 import { clickComputeCohomologyButton, clickRestartButton, expectComputeCohomologyButtonToContain, waitForInitialState, expectSnackbarToContainHTML, selectComputationTarget, expectResultsToContainMessages } from "./__testutils__/utilsOnCalculator"
-import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {

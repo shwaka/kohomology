@@ -1,5 +1,6 @@
 import { MockWorker } from "@calculator/WorkerContext/__testutils__/MockWorker"
 import { CallbackData, WorkerImpl } from "@calculator/WorkerContext/expose"
+
 import { KohomologyMessageHandler } from "../KohomologyMessageHandler"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "../workerInterface"
 

@@ -1,10 +1,12 @@
+import React from "react"
+
 import { MessageBoxForWorker } from "@calculator/MessageBoxForWorker"
 import { fromString } from "@calculator/styled/message"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import { Box, ThemeProvider } from "@mui/material"
-import React from "react"
 import "katex/dist/katex.min.css"
 import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
+
 import { CalculatorForm } from "./CalculatorForm"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
 import { useCustomTheme } from "./useCustomTheme"

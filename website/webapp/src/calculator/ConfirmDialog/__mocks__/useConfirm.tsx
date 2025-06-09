@@ -1,4 +1,5 @@
 import React from "react"
+
 import { UseConfirmArgs, UseConfirmReturnValue } from "../useConfirm.types"
 
 export const mockConfirm = jest.fn()

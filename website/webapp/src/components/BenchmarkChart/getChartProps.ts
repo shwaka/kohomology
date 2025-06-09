@@ -2,6 +2,7 @@
 
 import { ChartData } from "chart.js"
 import { ChartProps } from "react-chartjs-2"
+
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml

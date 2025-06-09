@@ -1,5 +1,7 @@
-import TeX from "@matejmazur/react-katex"
 import React from "react"
+
+import TeX from "@matejmazur/react-katex"
+
 import { TargetName } from "../worker/workerInterface"
 
 function getComplexAsString(targetName: TargetName): string {

@@ -1,7 +1,7 @@
-import { TargetName, targetNames } from "../worker/workerInterface"
 import { ParamName } from "./ParamName"
 import { URLQueryResult } from "./URLQueryResult"
 import { useURLSearchParams } from "./useURLSearchParams"
+import { TargetName, targetNames } from "../worker/workerInterface"
 
 export function useTargetNameFromURLQuery(): URLQueryResult<TargetName> {
   const urlSearchParams = useURLSearchParams()

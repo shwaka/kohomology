@@ -1,5 +1,6 @@
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 import React, { useState } from "react"
+
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 
 interface RestartButtonProps {
   setOpen: (open: boolean) => void

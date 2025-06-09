@@ -1,5 +1,7 @@
-import { useConfirm } from "@calculator/ConfirmDialog"
 import React, { useState } from "react"
+
+import { useConfirm } from "@calculator/ConfirmDialog"
+
 import { Editor } from "./Editor"
 import { EditorDialogProps } from "./EditorDialog"
 import { OnSubmit } from "./OnSubmit"

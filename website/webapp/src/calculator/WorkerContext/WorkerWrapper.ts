@@ -1,4 +1,5 @@
 import { isInJest } from "@site/src/utils/isInJest"
+
 import { MessageInput, MessageOutput, WFBase } from "./expose"
 
 export class WorkerWrapper<WI, WO, WS, WF extends WFBase> {

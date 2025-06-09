@@ -1,10 +1,12 @@
+import React from "react"
+
 import { useLocation } from "@docusaurus/router"
 import { render } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React from "react"
+
+import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 import { waitForInitialState } from "./__testutils__/utilsOnCalculator"
-import { Calculator } from "."
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 beforeEach(() => {

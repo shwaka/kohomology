@@ -1,8 +1,10 @@
+import React from "react"
+
 import { render, screen } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
-import React from "react"
-import { OptionsButton, useOptionsButton } from "./OptionsButton"
+
 import { MessageOption, MessageOptions } from "./options"
+import { OptionsButton, useOptionsButton } from "./OptionsButton"
 
 interface OptionsButtonContainerProps {
   options: MessageOptions

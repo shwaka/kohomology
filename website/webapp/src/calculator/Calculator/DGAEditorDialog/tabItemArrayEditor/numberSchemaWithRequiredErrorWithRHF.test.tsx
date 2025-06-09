@@ -1,9 +1,11 @@
+import React, { useState } from "react"
+
 import { zodResolver } from "@hookform/resolvers/zod"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React, { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 const errorMessage = "Please enter the degree."

@@ -1,7 +1,9 @@
+import React from "react"
+
 import { useLocation } from "@docusaurus/router"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
 import type { Props } from "@theme/NavbarItem"
-import React from "react"
+
 import { NavbarItemOnlyDevMode } from "./NavbarItemOnlyDevMode"
 
 function usePublishedPageUrl(): string {

@@ -1,6 +1,7 @@
 import React, { Context, createContext, ReactNode, useRef, useState } from "react"
-import { WorkerWrapper } from "./WorkerWrapper"
+
 import { WFBase } from "./expose"
+import { WorkerWrapper } from "./WorkerWrapper"
 
 type OmitIfEmpty<T, K extends string | number | symbol> =
   T extends { [_ in K]: infer S}

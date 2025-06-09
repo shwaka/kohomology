@@ -1,8 +1,9 @@
 import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
-import { TargetName, targetNames } from "../worker/workerInterface"
+
 import { findOrThrow } from "./findOrThrow"
 import { getStyledMessages } from "./getStyledMessages"
+import { TargetName, targetNames } from "../worker/workerInterface"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")

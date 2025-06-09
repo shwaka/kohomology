@@ -1,5 +1,7 @@
-import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 import React from "react"
+
+import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
+
 import { QueryTab } from "./QueryTab"
 import { useQueryTabs } from "./useQueryTabs"
 

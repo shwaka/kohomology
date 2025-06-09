@@ -1,8 +1,10 @@
+import React, { useState } from "react"
+
 import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
 import { cancelMethods, EditorDialogHandler } from "@calculator/EditorDialog/__testutils__/EditorDialogHandler"
 import { render, screen, waitFor, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
-import React, { useState } from "react"
+
 import { useTextEditor } from "./useTextEditor"
 
 jest.mock("@calculator/ConfirmDialog/useConfirm")

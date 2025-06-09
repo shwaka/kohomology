@@ -1,5 +1,6 @@
 import { validateGeneratorName } from "kohomology-js"
 import { z } from "zod"
+
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 export const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {

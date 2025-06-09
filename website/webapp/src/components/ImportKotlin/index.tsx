@@ -1,7 +1,9 @@
+import React from "react"
+
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
 import MyCodeBlock from "@site/src/components/MyCodeBlock"
-import React from "react"
+
 import styles from "./ImportKotlin.module.css"
 import { isRestricted, restrict, TextRange } from "./restrict"
 

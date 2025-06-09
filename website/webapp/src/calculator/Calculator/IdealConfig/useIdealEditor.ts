@@ -1,7 +1,9 @@
+import { useCallback } from "react"
+
 import { OnSubmit } from "@calculator/EditorDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useCallback } from "react"
 import { useFieldArray, useForm } from "react-hook-form"
+
 import { IdealEditorProps } from "./IdealEditor"
 import { Generator, getFormValueSchema } from "./schema"
 

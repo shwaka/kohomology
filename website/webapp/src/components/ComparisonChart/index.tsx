@@ -1,7 +1,9 @@
+import React from "react"
+
 import CodeBlock from "@theme/CodeBlock"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, ScatterController } from "chart.js"
-import React from "react"
 import { Chart, ChartProps } from "react-chartjs-2"
+
 import { getBackgroundColor, getBorderColor } from "./colors"
 import comparisonData from "./comparison.json"
 import { Target, tools, Tool } from "./comparisonKeys"

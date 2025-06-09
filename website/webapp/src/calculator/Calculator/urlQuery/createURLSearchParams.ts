@@ -1,8 +1,8 @@
 import { compressJson } from "../jsonUtils"
-import { TargetName } from "../worker/workerInterface"
-import { ParamName } from "./ParamName"
 import { dgaJsonToDsv } from "./dgaDsv"
 import { idealJsonToDsv } from "./idealDsv"
+import { ParamName } from "./ParamName"
+import { TargetName } from "../worker/workerInterface"
 
 type DgaEncodingFormat = "json" | "dsv" | "auto"
 

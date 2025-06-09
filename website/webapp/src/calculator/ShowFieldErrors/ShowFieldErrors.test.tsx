@@ -1,6 +1,8 @@
+import React from "react"
+
 import { render, screen, renderHook, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
-import React from "react"
+
 import { EmailForm, EmailFormContainer, errorMessages, useEmailForm } from "./__testutils__/EmailForm"
 
 describe("EmailForm with ShowFieldErrors", () => {

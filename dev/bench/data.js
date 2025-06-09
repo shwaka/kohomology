@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749431702305,
+  "lastUpdate": 1749434661446,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9536,6 +9536,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.197,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "8f38fb63e46b0d5c8b781fc665d502246d1b8f1f",
+          "message": "style(website): add npm script \"eslint:onsave\"",
+          "timestamp": "2025-06-09T10:47:37+09:00",
+          "tree_id": "d17ba70a37265055941176b29c35ba3853f89b08",
+          "url": "https://github.com/shwaka/kohomology/commit/8f38fb63e46b0d5c8b781fc665d502246d1b8f1f"
+        },
+        "date": 1749434660504,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.746,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.913,
             "unit": "s/op"
           }
         ]

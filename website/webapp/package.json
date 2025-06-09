@@ -16,6 +16,7 @@
     "tsc-watch": "tsc --watch",
     "eslint": "eslint src docusaurus.config.mjs",
     "eslint:fix": "eslint src docusaurus.config.mjs --fix",
+    "eslint:onsave": "eslint --config eslint-import.config.mjs --fix",
     "lc": "npm run eslint",
     "lf": "npm run eslint:fix",
     "test": "jest",

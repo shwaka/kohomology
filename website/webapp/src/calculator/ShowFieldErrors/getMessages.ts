@@ -1,4 +1,4 @@
-import { CriteriaMode, FieldError, MultipleFieldErrors } from "react-hook-form"
+import { CriteriaMode, FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
 
 import { MessageWithType } from "./MessageWithType"
 
@@ -36,5 +36,23 @@ function getAllMessagesFromFieldError(fieldError: FieldError | undefined): Messa
     return getMessageFromFieldError(fieldError)
   }
   // returns a list of arbitrary length
-  return Object.entries(types).map(([type, message]) => ({ type, message }))
+  return Object.entries(types).map(([type, message]) => ({
+    type,
+    message: convertValidateResult(message),
+  }))
+}
+
+function convertValidateResult(message: ValidateResult): string | undefined {
+  if ((message === undefined) || (typeof message === "string")) {
+    return message
+  }
+  if (typeof message === "boolean") {
+    if (message) {
+      return undefined
+    } else {
+      return "Unknown error"
+    }
+  }
+  // message: string[]
+  return message.join("\n")
 }

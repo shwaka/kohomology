@@ -53,11 +53,12 @@ export default function ResizableDiv({
       style={{
         width,
         height,
-        border: "1px solid black",
+        border: "1px solid gray",
         position: "relative",
+        margin: "10px",
       }}
     >
-      <div style={{ padding: "10px" }}>
+      <div style={{ padding: "0px" }}>
         {children}
       </div>
       <div
@@ -69,7 +70,7 @@ export default function ResizableDiv({
           right: 0,
           bottom: 0,
           cursor: "se-resize",
-          backgroundColor: "gray",
+          backgroundColor: "lightgray",
         }}
       />
     </div>

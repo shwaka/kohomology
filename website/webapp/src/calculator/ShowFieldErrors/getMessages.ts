@@ -43,6 +43,7 @@ function getAllMessagesFromFieldError(fieldError: FieldError | undefined): Messa
 }
 
 function convertValidateResult(message: ValidateResult): string | undefined {
+  // type ValidateResult = string | string[] | boolean | undefined
   if ((message === undefined) || (typeof message === "string")) {
     return message
   }

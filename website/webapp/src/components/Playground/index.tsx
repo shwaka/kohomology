@@ -4,6 +4,7 @@ import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErro
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 
 import { QueryTab } from "./QueryTab"
+import ResizableBox from "./ResizableBox"
 import { useQueryTabs } from "./useQueryTabs"
 
 const tabs = [
@@ -31,6 +32,7 @@ export function Playground(): React.JSX.Element {
       This is playground.
       {renderSelect()}
       {renderTabs()}
+      <ResizableBox/>
     </div>
   )
 }

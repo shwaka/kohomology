@@ -10,13 +10,7 @@ type GetMessagesArgs = {
 export function getMessages({ fieldErrorArray, criteriaMode }: GetMessagesArgs): MessageWithType[] {
   switch (criteriaMode) {
     case "all":
-      return fieldErrorArray.flatMap((fieldError) => {
-        const types: MultipleFieldErrors | undefined = fieldError?.types
-        if (types === undefined) {
-          return getMessageFromFieldError(fieldError)
-        }
-        return Object.entries(types).map(([type, message]) => ({ type, message }))
-      })
+      return fieldErrorArray.flatMap(getAllMessagesFromFieldError)
     case "firstError":
       return fieldErrorArray.flatMap(getMessageFromFieldError)
   }
@@ -33,4 +27,14 @@ function getMessageFromFieldError(fieldError: FieldError | undefined): MessageWi
   }
   const type: string = fieldError.type
   return [{ type, message }]
+}
+
+function getAllMessagesFromFieldError(fieldError: FieldError | undefined): MessageWithType[] {
+  const types: MultipleFieldErrors | undefined = fieldError?.types
+  if (types === undefined) {
+    // returns a list of length 0 or 1
+    return getMessageFromFieldError(fieldError)
+  }
+  // returns a list of arbitrary length
+  return Object.entries(types).map(([type, message]) => ({ type, message }))
 }

@@ -1,9 +1,6 @@
-import { CriteriaMode, FieldError, MultipleFieldErrors, ValidateResult } from "react-hook-form"
+import { CriteriaMode, FieldError, MultipleFieldErrors } from "react-hook-form"
 
-export type MessageWithType = {
-  message: ValidateResult // string | string[] | boolean | undefined
-  type: string
-}
+import { MessageWithType } from "./MessageWithType"
 
 type GetMessagesArgs = {
   fieldErrorArray: (FieldError | undefined)[]

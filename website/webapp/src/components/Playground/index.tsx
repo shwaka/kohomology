@@ -31,8 +31,12 @@ export function Playground(): React.JSX.Element {
     <div>
       This is playground.
       {renderSelect()}
-      {renderTabs()}
-      <ResizableBox/>
+      <ResizableBox
+        defaultWidth={300}
+        defaultHeight={200}
+      >
+        {renderTabs()}
+      </ResizableBox>
     </div>
   )
 }

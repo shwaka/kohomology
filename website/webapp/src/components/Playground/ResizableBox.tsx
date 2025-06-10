@@ -2,9 +2,17 @@ import React, { useRef, useState } from "react"
 
 type DivMouseEvent = React.MouseEvent<HTMLDivElement, MouseEvent>
 
-export default function ResizableDiv(): React.JSX.Element {
-  const [width, setWidth] = useState(300)
-  const [height, setHeight] = useState(200)
+interface ResizableBoxProps {
+  children: React.ReactNode
+  defaultWidth: number
+  defaultHeight: number
+}
+
+export default function ResizableDiv({
+  children, defaultWidth, defaultHeight,
+}: ResizableBoxProps): React.JSX.Element {
+  const [width, setWidth] = useState(defaultWidth)
+  const [height, setHeight] = useState(defaultHeight)
   const isResizing = useRef(false)
   const startX = useRef(0)
   const startY = useRef(0)
@@ -49,7 +57,9 @@ export default function ResizableDiv(): React.JSX.Element {
         position: "relative",
       }}
     >
-      <div style={{ padding: "10px" }}>Resizable Content</div>
+      <div style={{ padding: "10px" }}>
+        {children}
+      </div>
       <div
         onMouseDown={handleMouseDown}
         style={{

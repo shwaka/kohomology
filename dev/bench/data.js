@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749533075358,
+  "lastUpdate": 1749562892407,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9706,6 +9706,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.148,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ebd64a0e88ffcda2376a621510f8cdab5f92497b",
+          "message": "test(website): improve style for ResizableBox",
+          "timestamp": "2025-06-10T22:35:51+09:00",
+          "tree_id": "02e96b8d1def9ac3e763e77bdf1049f61b869639",
+          "url": "https://github.com/shwaka/kohomology/commit/ebd64a0e88ffcda2376a621510f8cdab5f92497b"
+        },
+        "date": 1749562891580,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.824,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.103,
             "unit": "s/op"
           }
         ]

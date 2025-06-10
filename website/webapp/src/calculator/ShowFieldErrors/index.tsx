@@ -3,7 +3,7 @@ import React from "react"
 import { CriteriaMode, FieldError } from "react-hook-form"
 
 import { getMessages } from "./getMessages"
-import { ShowErrors, magicMessageToHideError } from "./ShowErrors"
+import { ShowErrors, magicMessageToHideError } from "../ShowErrors"
 
 export { magicMessageToHideError }
 

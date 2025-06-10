@@ -1,5 +1,6 @@
 import React from "react"
 
+import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 
 import { QueryTab } from "./QueryTab"
@@ -12,13 +13,13 @@ const tabs = [
     render: () => (<div>This is the default tab.</div>),
   },
   {
-    key: "another",
-    name: "Another",
-    render: () => (<div>This is another tab.</div>),
+    key: "show-errors",
+    name: "ShowErrors",
+    render: () => (<ShowErrorsSample/>),
   },
   {
     key: "text-editor",
-    name: "Text Editor",
+    name: "TextEditor",
     render: () => (<TextEditorSample/>),
   },
 ] as const satisfies QueryTab<string>[]

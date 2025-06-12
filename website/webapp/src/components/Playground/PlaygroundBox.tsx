@@ -13,19 +13,28 @@ export function usePlaygroundBox(): UsePlaygroundBoxReturnValue {
     candidates: ["30%", "50%", "90%", "100%"],
     defaultValue: "100%",
   })
+  const { value: padding, renderRadio: renderPaddingRadio } = useRadio({
+    name: "padding",
+    candidates: ["0px", "1px", "3px", "5px", "10px"],
+    defaultValue: "5px",
+  })
   const props: PlaygroundBoxProps = {
-    width
+    width, padding,
   }
   const renderControl = useCallback(() => (
     <div>
-      {renderWidthRadio()}
+      <ul>
+        <li>{renderWidthRadio()}</li>
+        <li>{renderPaddingRadio()}</li>
+      </ul>
     </div>
-  ), [renderWidthRadio])
+  ), [renderWidthRadio, renderPaddingRadio])
   return { props, renderControl }
 }
 
 interface PlaygroundBoxProps {
   width: string
+  padding: string
 }
 
 type PlaygroundBoxPropsWithChildren = PlaygroundBoxProps & {
@@ -33,7 +42,7 @@ type PlaygroundBoxPropsWithChildren = PlaygroundBoxProps & {
 }
 
 export function PlaygroundBox({
-  children, width
+  children, width, padding,
 }: PlaygroundBoxPropsWithChildren): React.JSX.Element {
   return (
     <div
@@ -47,6 +56,7 @@ export function PlaygroundBox({
           width,
           border: "1px solid gray",
           boxSizing: "border-box",
+          padding,
         }}
       >
         {children}

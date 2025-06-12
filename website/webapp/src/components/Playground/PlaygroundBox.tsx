@@ -47,12 +47,19 @@ export function PlaygroundBox({
   return (
     <div
       style={{
-        width,
-        border: "1px solid gray",
+        padding: "10px",
         boxSizing: "border-box",
       }}
     >
-      {children}
+      <div
+        style={{
+          width,
+          border: "1px solid gray",
+          boxSizing: "border-box",
+        }}
+      >
+        {children}
+      </div>
     </div>
   )
 }

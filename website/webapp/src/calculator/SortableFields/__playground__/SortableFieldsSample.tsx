@@ -53,7 +53,10 @@ function PersonRow({
   return (
     <div>
       <input type="text" {...register(`personArray.${index}.name`)}/>
-      <input type="number" {...register(`personArray.${index}.age`)}/>
+      <input type="number" {...register(
+        `personArray.${index}.age`,
+        { valueAsNumber: true }
+      )}/>
       <button onClick={() => remove(index)}>
         Delete
       </button>

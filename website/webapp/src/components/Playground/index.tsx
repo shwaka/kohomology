@@ -1,5 +1,6 @@
 import React from "react"
 
+import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__playground__/MessageBoxForWorkerSample"
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
@@ -23,6 +24,11 @@ const tabs = [
     key: "sortable-fields",
     name: "SortableFields",
     render: () => (<SortableFieldsSample/>),
+  },
+  {
+    key: "message-box",
+    name: "MessageBoxForWorker",
+    render: () => (<MessageBoxForWorkerSample/>),
   },
 ] as const satisfies QueryTab<string>[]
 

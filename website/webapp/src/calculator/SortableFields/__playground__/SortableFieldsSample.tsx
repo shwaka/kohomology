@@ -1,10 +1,10 @@
 import React from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { DeepRequired, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
 
 import { FormData, RowComponentProps, SortableFields } from ".."
-import { PeopleFormInput, peopleFormValueSchema } from "./schema"
+import { PeopleFormInput, peopleFormValueSchema, Person } from "./schema"
 
 export function SortableFieldsSample(): React.JSX.Element {
   const defaultValues: PeopleFormInput = {
@@ -12,7 +12,7 @@ export function SortableFieldsSample(): React.JSX.Element {
       { name: "Bourbaki", age: 100 },
     ]
   }
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
+  const { handleSubmit, register, getValues, trigger, control, formState: { errors } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     defaultValues,
@@ -27,7 +27,6 @@ export function SortableFieldsSample(): React.JSX.Element {
   }
   return (
     <div>
-      SortableFieldsSample
       <SortableFields
         RowComponent={PersonRow}
         Container={({ children }) => (<div>{children}</div>)}
@@ -36,6 +35,13 @@ export function SortableFieldsSample(): React.JSX.Element {
       />
       <button onClick={() => append({ name: "", age: 0 })}>
         Add row
+      </button>
+      <button
+        onClick={handleSubmit(({ personArray }) => {
+          window.alert(formatPersonArray(personArray))
+        })}
+      >
+        Submit
       </button>
     </div>
   )
@@ -48,16 +54,58 @@ function PersonRow({
     <div>
       <input type="text" {...register(`personArray.${index}.name`)}/>
       <input type="number" {...register(`personArray.${index}.age`)}/>
+      <button onClick={() => remove(index)}>
+        Delete
+      </button>
       <span
         {...draggableProps}
         style={{
-          backgroundColor: "gray",
+          border: "1px solid gray",
+          margin: "0 5px",
           cursor: "grab",
           touchAction: "none",
         }}
       >
         move
       </span>
+      <span>
+        {getErrorMessages(errors, index).map((message) => (
+          <span
+            key={index}
+            style={{
+              color: "red",
+              border: "1px solid red",
+              margin: "0 5px",
+            }}
+          >
+            {message}
+          </span>
+        ))}
+      </span>
     </div>
   )
+}
+
+function getErrorMessages(
+  errors: FieldErrorsImpl<DeepRequired<PeopleFormInput>>,
+  index: number,
+): string[] {
+  const error = errors.personArray?.[index]
+  if (error === undefined) {
+    return []
+  }
+  const result: string[] = []
+  if (error.name?.message !== undefined) {
+    result.push(error.name.message)
+  }
+  if (error.age?.message !== undefined) {
+    result.push(error.age.message)
+  }
+  return result
+}
+
+function formatPersonArray(personArray: Person[]): string {
+  return personArray
+    .map((person) => `name: ${person.name}, age: ${person.age}`)
+    .join("\n")
 }

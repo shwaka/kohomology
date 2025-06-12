@@ -1,8 +1,8 @@
 import { z } from "zod"
 
 const personSchema = z.object({
-  name: z.string(),
-  age: z.number(),
+  name: z.string().nonempty(),
+  age: z.number().nonnegative(),
 })
 
 export type Person = z.infer<typeof personSchema>

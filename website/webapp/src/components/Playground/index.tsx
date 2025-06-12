@@ -1,6 +1,7 @@
 import React from "react"
 
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
+import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 
 import { PlaygroundBox, usePlaygroundBox } from "./PlaygroundBox"
@@ -8,11 +9,6 @@ import { QueryTab } from "./QueryTab"
 import { useQueryTabs } from "./useQueryTabs"
 
 const tabs = [
-  {
-    key: "default",
-    name: "Default",
-    render: () => (<div>This is the default tab.</div>),
-  },
   {
     key: "show-errors",
     name: "ShowErrors",
@@ -22,6 +18,11 @@ const tabs = [
     key: "text-editor",
     name: "TextEditor",
     render: () => (<TextEditorSample/>),
+  },
+  {
+    key: "sortable-fields",
+    name: "SortableFields",
+    render: () => (<SortableFieldsSample/>),
   },
 ] as const satisfies QueryTab<string>[]
 

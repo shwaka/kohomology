@@ -48,7 +48,7 @@ export function SortableFieldsSample(): React.JSX.Element {
 }
 
 function PersonRow({
-  draggableProps, index, formData: { register, errors, remove, getValues, trigger }
+  draggableProps, index, formData: { register, errors, remove }
 }: RowComponentProps<PeopleFormInput>): React.JSX.Element {
   return (
     <div>

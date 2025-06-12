@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749737093781,
+  "lastUpdate": 1749745739751,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9808,6 +9808,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.261,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a0b7d02327b7478ad1e44ca68e75ef5cc48adcd2",
+          "message": "test(website): make workerFunc empty in SampleWorker.ts",
+          "timestamp": "2025-06-13T01:19:03+09:00",
+          "tree_id": "7a075114f6d20ece1270f6ffc668488dffb424b4",
+          "url": "https://github.com/shwaka/kohomology/commit/a0b7d02327b7478ad1e44ca68e75ef5cc48adcd2"
+        },
+        "date": 1749745739122,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.771,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.306,
             "unit": "s/op"
           }
         ]

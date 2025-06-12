@@ -3,8 +3,8 @@ import React from "react"
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 
+import { PlaygroundBox, usePlaygroundBox } from "./PlaygroundBox"
 import { QueryTab } from "./QueryTab"
-import ResizableBox from "./ResizableBox"
 import { useQueryTabs } from "./useQueryTabs"
 
 const tabs = [
@@ -27,16 +27,15 @@ const tabs = [
 
 export function Playground(): React.JSX.Element {
   const { renderSelect, renderTabs } = useQueryTabs(tabs)
+  const { props, renderControl } = usePlaygroundBox()
   return (
     <div>
       This is playground.
       {renderSelect()}
-      <ResizableBox
-        defaultWidth={300}
-        defaultHeight={200}
-      >
+      {renderControl()}
+      <PlaygroundBox {...props}>
         {renderTabs()}
-      </ResizableBox>
+      </PlaygroundBox>
     </div>
   )
 }

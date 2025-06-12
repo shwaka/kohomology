@@ -1,9 +1,10 @@
 import React from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { DeepRequired, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
+import { useFieldArray, useForm } from "react-hook-form"
 
-import { FormData, RowComponentProps, SortableFields } from ".."
+import { FormData, SortableFields } from ".."
+import { PersonRow } from "./PersonRow"
 import { PeopleFormInput, peopleFormValueSchema, Person } from "./schema"
 
 export function SortableFieldsSample(): React.JSX.Element {
@@ -45,66 +46,6 @@ export function SortableFieldsSample(): React.JSX.Element {
       </button>
     </div>
   )
-}
-
-function PersonRow({
-  draggableProps, index, formData: { register, errors, remove }
-}: RowComponentProps<PeopleFormInput>): React.JSX.Element {
-  return (
-    <div>
-      <input type="text" {...register(`personArray.${index}.name`)}/>
-      <input type="number" {...register(
-        `personArray.${index}.age`,
-        { valueAsNumber: true }
-      )}/>
-      <button onClick={() => remove(index)}>
-        Delete
-      </button>
-      <span
-        {...draggableProps}
-        style={{
-          border: "1px solid gray",
-          margin: "0 5px",
-          cursor: "grab",
-          touchAction: "none",
-        }}
-      >
-        move
-      </span>
-      <span>
-        {getErrorMessages(errors, index).map((message) => (
-          <span
-            key={index}
-            style={{
-              color: "red",
-              border: "1px solid red",
-              margin: "0 5px",
-            }}
-          >
-            {message}
-          </span>
-        ))}
-      </span>
-    </div>
-  )
-}
-
-function getErrorMessages(
-  errors: FieldErrorsImpl<DeepRequired<PeopleFormInput>>,
-  index: number,
-): string[] {
-  const error = errors.personArray?.[index]
-  if (error === undefined) {
-    return []
-  }
-  const result: string[] = []
-  if (error.name?.message !== undefined) {
-    result.push(error.name.message)
-  }
-  if (error.age?.message !== undefined) {
-    result.push(error.age.message)
-  }
-  return result
 }
 
 function formatPersonArray(personArray: Person[]): string {

@@ -1,35 +1,26 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback } from "react"
+
+import { useRadio } from "./UseRadio"
 
 interface UsePlaygroundBoxReturnValue {
   props: PlaygroundBoxProps
   renderControl: () => React.JSX.Element
 }
 
-const widthCandidates = ["30%", "50%", "90%", "100%"]
-
 export function usePlaygroundBox(): UsePlaygroundBoxReturnValue {
-  const [width, setWidth] = useState("100%")
+  const { value: width, renderRadio: renderWidthRadio } = useRadio({
+    name: "width",
+    candidates: ["30%", "50%", "90%", "100%"],
+    defaultValue: "100%",
+  })
   const props: PlaygroundBoxProps = {
     width
   }
   const renderControl = useCallback(() => (
     <div>
-      <div>
-        width:
-        {widthCandidates.map((_width) => (
-          <label key={_width}>
-            <input
-              type="radio"
-              value={_width}
-              checked={_width === width}
-              onChange={(e) => setWidth(e.target.value)}
-            />
-            {_width}
-          </label>
-        ))}
-      </div>
+      {renderWidthRadio()}
     </div>
-  ), [width, setWidth])
+  ), [renderWidthRadio])
   return { props, renderControl }
 }
 

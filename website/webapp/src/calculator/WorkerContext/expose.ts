@@ -1,4 +1,5 @@
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
+import "./forceEsm" // force ESM in *.worker.ts
 
 export type MessageSendInput<WI> = {
   type: "input"

@@ -1,5 +1,4 @@
 import { expose } from "@calculator/WorkerContext/expose"
-import "./forceEsm"
 
 import { SampleWorkerFunc, SampleWorkerImpl, SampleWorkerInput, SampleWorkerOutput, SampleWorkerState } from "./SampleWorker"
 

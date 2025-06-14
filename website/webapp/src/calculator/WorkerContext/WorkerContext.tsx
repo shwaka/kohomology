@@ -9,7 +9,6 @@ type OmitIfEmpty<T, K extends string | number | symbol> =
     : T
 
 interface ProviderProps<WS> {
-  createWorker: () => Worker
   defaultState: WS
   children: ReactNode
 }
@@ -31,6 +30,7 @@ function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
   props: {
     context: Context<WorkerWrapper<WI, WO, WS, WF>>
     stateContext: StateContext<WS>
+    createWorker: () => Worker
   } & ProviderProps<WS>
 ): React.JSX.Element {
   const wrapperRef = useRef<WorkerWrapper<WI, WO, WS, WF> | null>(null)
@@ -54,6 +54,7 @@ function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
 function createProvider<WI, WO, WS, WF extends WFBase>(
   reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>,
   stateContext: StateContext<WS>,
+  createWorker: () => Worker,
 ): ((props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => React.JSX.Element) {
   const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): React.JSX.Element =>  {
     // If props does not contain defaultState, then WS is empty.
@@ -63,7 +64,7 @@ function createProvider<WI, WO, WS, WF extends WFBase>(
       <WorkerContextProvider
         context={reactContext}
         stateContext={stateContext}
-        createWorker={props.createWorker}
+        createWorker={createWorker}
         defaultState={defaultState}
       >
         {props.children}
@@ -73,13 +74,15 @@ function createProvider<WI, WO, WS, WF extends WFBase>(
   return WorkerContextProviderCurried
 }
 
-export function createWorkerContext<WI, WO, WS, WF extends WFBase>(): WorkerContext<WI, WO, WS, WF> {
+export function createWorkerContext<WI, WO, WS, WF extends WFBase>(
+  createWorker: () => Worker,
+): WorkerContext<WI, WO, WS, WF> {
   const reactContext = createContext<WorkerWrapper<WI, WO, WS, WF>>(WorkerWrapper.default())
   const stateContext = createContext<StateAndSetState<WS>>([
     undefined as unknown as WS,
     (_value) => { throw new Error("Not wrapped by provider") },
   ])
-  const Provider = createProvider(reactContext, stateContext)
+  const Provider = createProvider(reactContext, stateContext, createWorker)
   return {
     reactContext,
     stateContext,

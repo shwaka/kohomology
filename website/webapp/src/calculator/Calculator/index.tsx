@@ -13,8 +13,6 @@ import { useCustomTheme } from "./useCustomTheme"
 function CalculatorImpl(): React.JSX.Element {
   const theme = useCustomTheme()
 
-  const createWorker = (): Worker => new Worker(new URL("./worker/kohomology.worker.ts", import.meta.url))
-
   return (
     <ThemeProvider theme={theme}>
       <Box
@@ -27,7 +25,6 @@ function CalculatorImpl(): React.JSX.Element {
         }}
       >
         <kohomologyWorkerContext.Provider
-          createWorker={createWorker}
           defaultState={{
             // This is a dummy and shouldn't be used.
             json: "[]",

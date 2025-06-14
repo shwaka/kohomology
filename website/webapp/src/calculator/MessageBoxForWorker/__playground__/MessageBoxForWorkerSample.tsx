@@ -6,11 +6,8 @@ import { MessageBoxForWorker } from ".."
 import { sampleWorkerContext } from "./sampleWorkerContext"
 
 export function MessageBoxForWorkerSample(): React.JSX.Element {
-  const createWorker = (): Worker => new Worker(new URL("./sample.worker.ts", import.meta.url))
-
   return (
     <sampleWorkerContext.Provider
-      createWorker={createWorker}
       defaultState={{
         value: 0,
       }}

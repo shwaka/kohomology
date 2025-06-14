@@ -5,7 +5,6 @@ import { fromString } from "@calculator/styled/message"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import { Box, ThemeProvider } from "@mui/material"
 import "katex/dist/katex.min.css"
-import KohomologyWorker from "worker-loader!./worker/kohomology.worker"
 
 import { CalculatorForm } from "./CalculatorForm"
 import { kohomologyWorkerContext } from "./kohomologyWorkerContext"
@@ -14,7 +13,7 @@ import { useCustomTheme } from "./useCustomTheme"
 function CalculatorImpl(): React.JSX.Element {
   const theme = useCustomTheme()
 
-  const createWorker = (): Worker => new KohomologyWorker()
+  const createWorker = (): Worker => new Worker(new URL("./worker/kohomology.worker.ts", import.meta.url))
 
   return (
     <ThemeProvider theme={theme}>

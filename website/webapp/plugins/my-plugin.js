@@ -24,14 +24,23 @@ function myPlugin(context, options) {
               use: "raw-loader",
             },
             {
-              test: /\.worker\.js$/,
+              test: /\.worker\.ts$/,
               use: {
-                loader: "worker-loader",
+                loader: "ts-loader",
                 options: {
-                  inline: "no-fallback"
+                  transpileOnly: true,
                 }
               }
             },
+            // {
+            //   test: /\.worker\.js$/,
+            //   use: {
+            //     loader: "worker-loader",
+            //     options: {
+            //       inline: "no-fallback"
+            //     }
+            //   }
+            // },
           ]
         },
         plugins: [

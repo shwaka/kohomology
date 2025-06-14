@@ -4,6 +4,7 @@ import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__pla
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
+import BrowserOnly from "@docusaurus/BrowserOnly"
 
 import { PlaygroundBox, usePlaygroundBox } from "./PlaygroundBox"
 import { QueryTab } from "./QueryTab"
@@ -32,7 +33,7 @@ const tabs = [
   },
 ] as const satisfies QueryTab<string>[]
 
-export function Playground(): React.JSX.Element {
+function PlaygroundImpl(): React.JSX.Element {
   const { renderSelect, renderTabs } = useQueryTabs(tabs)
   const { props, renderControl } = usePlaygroundBox()
   return (
@@ -44,5 +45,14 @@ export function Playground(): React.JSX.Element {
         {renderTabs()}
       </PlaygroundBox>
     </div>
+  )
+}
+
+export function Playground(): React.JSX.Element {
+  // BrowserOnly for components with WebWorker
+  return (
+    <BrowserOnly fallback={<div>Loading...</div>}>
+      {() => <PlaygroundImpl/>}
+    </BrowserOnly>
   )
 }

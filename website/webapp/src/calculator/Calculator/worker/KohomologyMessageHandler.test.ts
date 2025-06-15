@@ -20,16 +20,16 @@ function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState,
 
 test("computeCohomology", () => {
   const outputs: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>[] = []
-  const messageHandler = new KohomologyMessageHandler(
-    (output) => { outputs.push({ type: "output", value: output }) },
-    (key, value) => {
+  const messageHandler = new KohomologyMessageHandler({
+    postWorkerOutput: (output) => { outputs.push({ type: "output", value: output }) },
+    updateState: (key, value) => {
       // See comments in updateState in expose.ts for this cast.
       const output = { type: "updateState", key, value } as MessageOutputUpdateState<WorkerState>
       outputs.push(output)
     },
-    (_) => { return },
-    (_) => { return },
-  )
+    log: (_) => { return },
+    error: (_) => { return },
+  })
 
   // updateJson
   const updateJsonCommand: WorkerInput = {

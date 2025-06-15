@@ -6,6 +6,11 @@ import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validat
 import { toStyledMessage } from "./styled"
 import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState, WorkerFunc } from "./workerInterface"
 
+type KohomologyMessageHandlerArgs = CallbackData<WorkerOutput, WorkerState> & {
+  log?: (...messages: unknown[]) => void
+  error?: (...messages: unknown[]) => void
+}
+
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
   private log: (...messages: unknown[]) => void
@@ -13,18 +18,15 @@ export class KohomologyMessageHandler {
   private readonly postMessage: (output: WorkerOutput) => void
   private readonly updateState: UpdateWorkerState<WorkerState>
 
-  constructor(
-    postMessage: (output: WorkerOutput) => void,
-    updateState: UpdateWorkerState<WorkerState>,
-    log?: (...messages: unknown[]) => void,
-    error?: (...messages: unknown[]) => void,
-  ) {
+  constructor({
+    postWorkerOutput, updateState, log, error,
+  }: KohomologyMessageHandlerArgs) {
     // this.onmessage = this.onmessage.bind(this)
     this.log = log ?? ((...messages) => console.log(...messages))
     this.error = error ?? ((...messages) => console.error(...messages))
     this.postMessage = (output: WorkerOutput): void => {
       this.log("WorkerOutput", output)
-      postMessage(output)
+      postWorkerOutput(output)
     }
     this.updateState = (...args) => {
       this.log("updateState", ...args)
@@ -224,10 +226,8 @@ export class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc>
   messageHandler: KohomologyMessageHandler
   workerFunc: WorkerFunc
 
-  constructor({
-    postWorkerOutput, updateState
-  }: CallbackData<WorkerOutput, WorkerState>) {
-    this.messageHandler = new KohomologyMessageHandler(postWorkerOutput, updateState)
+  constructor(args: KohomologyMessageHandlerArgs) {
+    this.messageHandler = new KohomologyMessageHandler(args)
     this.workerFunc = {
       validateIdealGenerator: (generator: string) =>
         this.messageHandler.validateIdealGenerator(generator),

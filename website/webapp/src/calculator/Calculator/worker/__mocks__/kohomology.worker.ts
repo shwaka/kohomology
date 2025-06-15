@@ -9,18 +9,18 @@ class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc> {
   workerFunc: WorkerFunc
 
   constructor({ postWorkerOutput, updateState }: CallbackData<WorkerOutput, WorkerState>) {
-    this.messageHandler = new KohomologyMessageHandler(
+    this.messageHandler = new KohomologyMessageHandler({
       postWorkerOutput,
       updateState,
-      (_message) => {
+      log: (_message) => {
         // console.log(_message)
         return
       },
-      (_message) => {
+      error: (_message) => {
         // console.error(_message)
         return
       },
-    )
+    })
     this.workerFunc = {
       validateIdealGenerator: (generator: string) =>
         this.messageHandler.validateIdealGenerator(generator),

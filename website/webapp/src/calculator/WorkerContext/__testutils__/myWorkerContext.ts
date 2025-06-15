@@ -1,8 +1,8 @@
 import { CallbackData } from "../expose"
 import { createWorkerContext } from "../WorkerContext"
 import { MockWorker } from "./MockWorker"
-import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorker"
-import { MyWorkerImpl } from "./MyWorker"
+import { MyWorkerImpl } from "./MyWorkerImpl"
+import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
 
 function getWorkerImpl(
   callbackData: CallbackData<MyWorkerOutput, MyWorkerState>

@@ -1,20 +1,5 @@
 import { CallbackData, UpdateWorkerState, WorkerImpl } from "../expose"
-
-export interface MyWorkerInput {
-  value: number
-}
-
-export type MyWorkerOutput = {
-  result: string
-}
-
-export type MyWorkerState = {
-  value: number
-}
-
-export type MyWorkerFunc = {
-  add: (value: number) => number
-}
+import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
 
 export class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
   value: number

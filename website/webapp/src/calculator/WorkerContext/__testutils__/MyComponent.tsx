@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react"
 
 import { MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"
-import { MyWorkerFunc, MyWorkerOutput, MyWorkerState } from "./MyWorker"
 import { myWorkerContext } from "./myWorkerContext"
+import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
 
 function ShowWorkerOutputLog({ log, testid }: {
   log: MessageOutput<MyWorkerOutput, MyWorkerState, MyWorkerFunc>[]

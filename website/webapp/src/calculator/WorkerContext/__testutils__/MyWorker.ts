@@ -1,5 +1,4 @@
 import { CallbackData, UpdateWorkerState, WorkerImpl } from "../expose"
-import { MockWorker } from "./MockWorker"
 
 export interface MyWorkerInput {
   value: number
@@ -17,7 +16,7 @@ export type MyWorkerFunc = {
   add: (value: number) => number
 }
 
-class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
+export class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void
   updateState: UpdateWorkerState<MyWorkerState>
@@ -43,13 +42,5 @@ class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
       result: `value=${this.value}`
     }
     this.postWorkerOutput(output)
-  }
-}
-
-export class MyWorker extends MockWorker<MyWorkerInput, MyWorkerOutput, MyWorkerState, MyWorkerFunc> {
-  constructor() {
-    super((callbackData) => {
-      return new MyWorkerImpl(callbackData)
-    })
   }
 }

@@ -7,8 +7,8 @@ import { Box, ThemeProvider } from "@mui/material"
 import "katex/dist/katex.min.css"
 
 import { CalculatorForm } from "./CalculatorForm"
+import { kohomologyWorkerContext } from "./kohomologyWorker/kohomologyWorkerContext"
 import { useCustomTheme } from "./useCustomTheme"
-import { kohomologyWorkerContext } from "./worker/kohomologyWorkerContext"
 
 function CalculatorImpl(): React.JSX.Element {
   const theme = useCustomTheme()

@@ -4,8 +4,8 @@ import { StyledMessage } from "@calculator/styled/message"
 import { useWorker } from "@calculator/WorkerContext"
 import { RunAsync } from "@calculator/WorkerContext/useWorker"
 
-import { kohomologyWorkerContext } from "../worker/kohomologyWorkerContext"
-import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../worker/workerInterface"
+import { kohomologyWorkerContext } from "../kohomologyWorker/kohomologyWorkerContext"
+import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../kohomologyWorker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string

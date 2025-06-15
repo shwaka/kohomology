@@ -5,8 +5,8 @@ import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from
 import { useDomainUrl } from "@site/src/utils/useDomainUrl"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 
+import { TargetName } from "../kohomologyWorker/workerInterface"
 import { createURLSearchParams } from "../urlQuery"
-import { TargetName } from "../worker/workerInterface"
 
 export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void

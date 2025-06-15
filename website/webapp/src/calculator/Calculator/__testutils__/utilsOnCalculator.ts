@@ -3,7 +3,7 @@ import { UserEvent } from "@testing-library/user-event"
 
 import { findOrThrow } from "./findOrThrow"
 import { getStyledMessages } from "./getStyledMessages"
-import { TargetName, targetNames } from "../worker/workerInterface"
+import { TargetName, targetNames } from "../kohomologyWorker/workerInterface"
 
 function getResultsDiv(): HTMLElement {
   return screen.getByTestId("calculator-results")

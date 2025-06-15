@@ -2,7 +2,7 @@ import React from "react"
 
 import TeX from "@matejmazur/react-katex"
 
-import { TargetName } from "../worker/workerInterface"
+import { TargetName } from "../kohomologyWorker/workerInterface"
 
 function getComplexAsString(targetName: TargetName): string {
   switch (targetName) {

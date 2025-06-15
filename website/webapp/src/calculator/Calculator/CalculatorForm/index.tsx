@@ -17,8 +17,8 @@ import { getCohomologyAsString, TopologicalInvariantAsTex } from "./target"
 import { UsageButton, UsageDialog, useUsage } from "./UsageDialog"
 import { useKohomologyWorker } from "./useKohomologyWorker"
 import { useMutableArray } from "./useMutableArray"
+import { targetNames, TargetName } from "../kohomologyWorker/workerInterface"
 import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
-import { targetNames, TargetName } from "../worker/workerInterface"
 
 function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): React.JSX.Element {
   return (

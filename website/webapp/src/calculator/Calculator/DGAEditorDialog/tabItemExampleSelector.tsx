@@ -9,7 +9,7 @@ import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, Te
 import { FreeDGAWrapper } from "kohomology-js"
 
 import { arkowitzLupton, complexProjective, sevenManifold, sphere } from "./examples"
-import { toStyledMessage } from "../worker/styled"
+import { toStyledMessage } from "../kohomologyWorker/styled"
 
 const exampleKeys = ["S^n", "CP^3", "7-mfd", "arkowitz-lupton"] as const
 type ExampleKey = (typeof exampleKeys)[number]

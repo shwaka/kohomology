@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event"
 import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
-import { WorkerFunc, WorkerOutput, WorkerState } from "./worker/workerInterface"
+import { WorkerFunc, WorkerOutput, WorkerState } from "./kohomologyWorker/workerInterface"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({

@@ -7,7 +7,7 @@ import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
-import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../worker/workerInterface"
+import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../kohomologyWorker/workerInterface"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 

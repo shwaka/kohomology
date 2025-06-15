@@ -7,13 +7,7 @@ const ctx = self as unknown as Worker
 
 const exposed = expose<SampleWorkerInput, SampleWorkerOutput, SampleWorkerState, SampleWorkerFunc>(
   ctx.postMessage.bind(ctx),
-  ({ postWorkerOutput, updateState }) => {
-    const workerImpl = new SampleWorkerImpl({ postWorkerOutput, updateState })
-    return {
-      onWorkerInput: workerImpl.onWorkerInput.bind(workerImpl),
-      workerFunc: workerImpl.workerFunc,
-    }
-  }
+  (callbackData) => new SampleWorkerImpl(callbackData),
 )
 
 onmessage = exposed.onmessage

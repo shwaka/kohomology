@@ -8,13 +8,7 @@ const ctx = self as unknown as Worker
 
 const exposed = expose<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>(
   ctx.postMessage.bind(ctx),
-  ({ postWorkerOutput, updateState }) => {
-    const workerImpl = new KohomologyWorkerImpl({ postWorkerOutput, updateState })
-    return {
-      onWorkerInput: workerImpl.onWorkerInput.bind(workerImpl),
-      workerFunc: workerImpl.workerFunc,
-    }
-  }
+  (callbackData) => new KohomologyWorkerImpl(callbackData),
 )
 
 onmessage = exposed.onmessage

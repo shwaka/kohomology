@@ -2,7 +2,7 @@ import { createWorkerContext } from "@calculator/WorkerContext"
 import { MockWorker } from "@calculator/WorkerContext/__testutils__/MockWorker"
 import { CallbackData } from "@calculator/WorkerContext/expose"
 
-import { KohomologyWorkerImpl } from "../KohomologyMessageHandler"
+import { KohomologyWorkerImpl } from "../KohomologyWorkerImpl"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "../workerInterface"
 
 function getWorkerImpl(

@@ -1,6 +1,6 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "@calculator/WorkerContext/expose"
 
-import { KohomologyWorkerImpl } from "./KohomologyMessageHandler"
+import { KohomologyWorkerImpl } from "./KohomologyWorkerImpl"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
 function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageSendOutput<WorkerOutput> {

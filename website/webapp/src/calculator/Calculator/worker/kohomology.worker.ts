@@ -1,6 +1,6 @@
 import { expose } from "@calculator/WorkerContext/expose"
 
-import { KohomologyWorkerImpl } from "./KohomologyMessageHandler"
+import { KohomologyWorkerImpl } from "./KohomologyWorkerImpl"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
 // eslint-disable-next-line no-restricted-globals

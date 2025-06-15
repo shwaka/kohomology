@@ -1,6 +1,6 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "@calculator/WorkerContext/expose"
 
-import { KohomologyMessageHandler } from "./KohomologyMessageHandler"
+import { KohomologyWorkerImpl } from "./KohomologyMessageHandler"
 import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
 
 function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageSendOutput<WorkerOutput> {
@@ -20,7 +20,7 @@ function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState,
 
 test("computeCohomology", () => {
   const outputs: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>[] = []
-  const messageHandler = new KohomologyMessageHandler({
+  const workerImpl = new KohomologyWorkerImpl({
     postWorkerOutput: (output) => { outputs.push({ type: "output", value: output }) },
     updateState: (key, value) => {
       // See comments in updateState in expose.ts for this cast.
@@ -36,7 +36,7 @@ test("computeCohomology", () => {
     command: "updateJson",
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
-  messageHandler.onmessage(updateJsonCommand)
+  workerImpl.onWorkerInput(updateJsonCommand)
   const expectedLengthUpdateJson = 6
   expect(outputs.length).toBe(expectedLengthUpdateJson)
   expectUpdateStateOfKey(outputs[0], "workerInfo")
@@ -55,7 +55,7 @@ test("computeCohomology", () => {
     maxDegree: maxDegree,
     showCohomology: "basis",
   }
-  messageHandler.onmessage(computeCohomologyCommand)
+  workerImpl.onWorkerInput(computeCohomologyCommand)
   const expectedLengthComputeCohomology = 5
   expect(outputs.length).toBe(expectedLengthUpdateJson + expectedLengthComputeCohomology)
 

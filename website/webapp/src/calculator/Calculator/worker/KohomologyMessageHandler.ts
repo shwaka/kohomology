@@ -11,7 +11,7 @@ type KohomologyMessageHandlerArgs = CallbackData<WorkerOutput, WorkerState> & {
   error?: (...messages: unknown[]) => void
 }
 
-export class KohomologyMessageHandler {
+class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
   private log: (...messages: unknown[]) => void
   private error: (...messages: unknown[]) => void

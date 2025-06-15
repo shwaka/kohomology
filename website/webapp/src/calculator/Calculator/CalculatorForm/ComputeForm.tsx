@@ -7,7 +7,7 @@ import { ButtonWithProgress } from "./ButtonWithProgress"
 import { NumberField, useNumberField } from "./NumberField"
 import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
-import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, WorkerInput } from "../kohomologyWorker/workerInterface"
+import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, KohomologyWorkerInput } from "../kohomologyWorker/workerInterface"
 
 export type InputEvent = React.ChangeEvent<HTMLInputElement>
 
@@ -24,7 +24,7 @@ function destructureWorkerInfo(
 // visible を Props に追加して，component そのものは必ず render するようにした．
 interface InternalComputeFormProps {
   targetName: TargetName
-  postMessageToWorker: (message: WorkerInput) => void
+  postMessageToWorker: (message: KohomologyWorkerInput) => void
   visible: boolean
   workerInfo: WorkerInfo
 }
@@ -36,7 +36,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
   const computeCohomology = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
-      const input: WorkerInput = {
+      const input: KohomologyWorkerInput = {
         command: "computeCohomology",
         targetName: targetName,
         minDegree: minDegree,
@@ -100,7 +100,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
   const computeCohomologyClass = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
-      const input: WorkerInput = {
+      const input: KohomologyWorkerInput = {
         command: "computeCohomologyClass",
         targetName: targetName,
         cocycleString: cocycleString,
@@ -152,7 +152,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
   const computeMinimalModel = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
-      const input: WorkerInput = {
+      const input: KohomologyWorkerInput = {
         command: "computeMinimalModel",
         targetName: targetName,
         isomorphismUpTo,
@@ -220,7 +220,7 @@ function isSupported(targetName: TargetName, computationType: ComputationType): 
 
 export interface ComputeFormProps {
   targetName: TargetName
-  postMessageToWorker: (message: WorkerInput) => void
+  postMessageToWorker: (message: KohomologyWorkerInput) => void
   workerInfo: WorkerInfo
 }
 

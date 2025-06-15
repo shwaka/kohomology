@@ -1,12 +1,12 @@
 import { expose } from "@calculator/WorkerContext/expose"
 
 import { KohomologyWorkerImpl } from "./KohomologyWorkerImpl"
-import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
+import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "./workerInterface"
 
 // eslint-disable-next-line no-restricted-globals
 const ctx = self as unknown as Worker
 
-const exposed = expose<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>(
+const exposed = expose<KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>(
   ctx.postMessage.bind(ctx),
   (callbackData) => new KohomologyWorkerImpl(callbackData),
 )

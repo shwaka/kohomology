@@ -45,7 +45,7 @@ type ComputeMinimalModelCommand = {
 }
 type NoArgCommand = never // previously { command: "dgaInfo" }
 
-export type WorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | ComputeMinimalModelCommand | NoArgCommand
+export type KohomologyWorkerInput = UpdateJsonCommand | UpdateIdealJsonCommand | ComputeCohomologyComamnd | ComputeCohomologyClassCommand | ComputeMinimalModelCommand | NoArgCommand
 
 // outputs
 export const outputCommands = [printMessagesCommand] as const
@@ -66,7 +66,7 @@ export type MinimalModelProgress = {
   currentNumberOfGenerators: number
 }
 
-export type WorkerState = {
+export type KohomologyWorkerState = {
   json: string
   idealJson: string
   dgaInfo: StyledMessage[]
@@ -74,9 +74,9 @@ export type WorkerState = {
   workerInfo: WorkerInfo
 }
 
-export type WorkerOutput = SendMessage
+export type KohomologyWorkerOutput = SendMessage
 
-export type WorkerFunc = {
+export type KohomologyWorkerFunc = {
   validateIdealGenerator: (generator: string) => true | string
   validateIdealGeneratorArray: (generatorArray: string[]) => true | string
 }

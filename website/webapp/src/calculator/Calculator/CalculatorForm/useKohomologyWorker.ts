@@ -5,12 +5,12 @@ import { useWorker } from "@calculator/WorkerContext"
 import { RunAsync } from "@calculator/WorkerContext/useWorker"
 
 import { kohomologyWorkerContext } from "../kohomologyWorker/kohomologyWorkerContext"
-import { WorkerFunc, WorkerInfo, WorkerInput, WorkerOutput } from "../kohomologyWorker/workerInterface"
+import { KohomologyWorkerFunc, WorkerInfo, KohomologyWorkerInput, KohomologyWorkerOutput } from "../kohomologyWorker/workerInterface"
 
 interface UseKohomologyWorkerArgs {
   defaultJson: string
   defaultIdealJson: string
-  onmessage: (output: WorkerOutput) => void
+  onmessage: (output: KohomologyWorkerOutput) => void
 }
 
 interface UseKohomologyWorkerResult {
@@ -21,9 +21,9 @@ interface UseKohomologyWorkerResult {
   dgaInfo: StyledMessage[]
   idealInfo: StyledMessage
   workerInfo: WorkerInfo
-  postMessage: (input: WorkerInput) => void
+  postMessage: (input: KohomologyWorkerInput) => void
   restart: () => void
-  runAsync: RunAsync<WorkerFunc>
+  runAsync: RunAsync<KohomologyWorkerFunc>
 }
 
 export function useKohomologyWorker({
@@ -38,7 +38,7 @@ export function useKohomologyWorker({
   const { postMessage, addListener, addRestartListener, restart, state: { json, dgaInfo, idealJson, idealInfo, workerInfo }, runAsync } = useWorker(kohomologyWorkerContext)
 
   const setJson = useCallback((newJson: string): void => {
-    const inputUpdate: WorkerInput = {
+    const inputUpdate: KohomologyWorkerInput = {
       command: "updateJson",
       json: newJson,
     }
@@ -46,7 +46,7 @@ export function useKohomologyWorker({
   }, [postMessage])
 
   const setIdealJson = useCallback((newIdealJson: string): void => {
-    const inputUpdate: WorkerInput = {
+    const inputUpdate: KohomologyWorkerInput = {
       command: "updateIdealJson",
       idealJson: newIdealJson,
     }

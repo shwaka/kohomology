@@ -3,10 +3,10 @@ import { MockWorker } from "@calculator/WorkerContext/__testutils__/MockWorker"
 import { CallbackData } from "@calculator/WorkerContext/expose"
 
 import { KohomologyWorkerImpl } from "../KohomologyWorkerImpl"
-import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "../workerInterface"
+import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "../workerInterface"
 
 function getWorkerImpl(
-  callbackData: CallbackData<WorkerOutput, WorkerState>
+  callbackData: CallbackData<KohomologyWorkerOutput, KohomologyWorkerState>
 ): KohomologyWorkerImpl {
   return new KohomologyWorkerImpl({
     ...callbackData,
@@ -25,4 +25,4 @@ function createWorker(): Worker {
   return new MockWorker(getWorkerImpl) as unknown as Worker
 }
 
-export const kohomologyWorkerContext = createWorkerContext<WorkerInput, WorkerOutput, WorkerState, WorkerFunc>(createWorker)
+export const kohomologyWorkerContext = createWorkerContext<KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>(createWorker)

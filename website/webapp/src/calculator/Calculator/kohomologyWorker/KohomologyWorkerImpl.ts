@@ -4,9 +4,9 @@ import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
 
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState, WorkerFunc } from "./workerInterface"
+import { KohomologyWorkerInput, KohomologyWorkerOutput, TargetName, ShowCohomology, WorkerInfo, KohomologyWorkerState, KohomologyWorkerFunc } from "./workerInterface"
 
-type KohomologyMessageHandlerArgs = CallbackData<WorkerOutput, WorkerState> & {
+type KohomologyMessageHandlerArgs = CallbackData<KohomologyWorkerOutput, KohomologyWorkerState> & {
   log?: (...messages: unknown[]) => void
   error?: (...messages: unknown[]) => void
 }
@@ -15,8 +15,8 @@ class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
   private log: (...messages: unknown[]) => void
   private error: (...messages: unknown[]) => void
-  private readonly postMessage: (output: WorkerOutput) => void
-  private readonly updateState: UpdateWorkerState<WorkerState>
+  private readonly postMessage: (output: KohomologyWorkerOutput) => void
+  private readonly updateState: UpdateWorkerState<KohomologyWorkerState>
 
   constructor({
     postWorkerOutput, updateState, log, error,
@@ -24,8 +24,8 @@ class KohomologyMessageHandler {
     // this.onmessage = this.onmessage.bind(this)
     this.log = log ?? ((...messages) => console.log(...messages))
     this.error = error ?? ((...messages) => console.error(...messages))
-    this.postMessage = (output: WorkerOutput): void => {
-      this.log("WorkerOutput", output)
+    this.postMessage = (output: KohomologyWorkerOutput): void => {
+      this.log("KohomologyWorkerOutput", output)
       postWorkerOutput(output)
     }
     this.updateState = (...args) => {
@@ -36,8 +36,8 @@ class KohomologyMessageHandler {
     this.log("new KohomologyMessageHandler()")
   }
 
-  public onmessage(input: WorkerInput): void {
-    this.log("WorkerInput", input)
+  public onmessage(input: KohomologyWorkerInput): void {
+    this.log("KohomologyWorkerInput", input)
     this.notifyInfo({ status: "computing", progress: null })
     try {
       switch (input.command) {
@@ -92,13 +92,13 @@ class KohomologyMessageHandler {
 
   private sendMessages(messages: StyledMessage | StyledMessage[]): void {
     if (messages instanceof Array) {
-      const output: WorkerOutput = {
+      const output: KohomologyWorkerOutput = {
         command: "printMessages",
         messages: messages,
       }
       this.postMessage(output)
     } else {
-      const output: WorkerOutput = {
+      const output: KohomologyWorkerOutput = {
         command: "printMessages",
         messages: [messages],
       }
@@ -222,9 +222,9 @@ function assertNotNull<T>(value: T | null, errorMessage: string): asserts value 
   }
 }
 
-export class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc> {
+export class KohomologyWorkerImpl implements WorkerImpl<KohomologyWorkerInput, KohomologyWorkerFunc> {
   messageHandler: KohomologyMessageHandler
-  workerFunc: WorkerFunc
+  workerFunc: KohomologyWorkerFunc
 
   constructor(args: KohomologyMessageHandlerArgs) {
     this.messageHandler = new KohomologyMessageHandler(args)
@@ -236,7 +236,7 @@ export class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc>
     }
   }
 
-  onWorkerInput(input: WorkerInput): void {
+  onWorkerInput(input: KohomologyWorkerInput): void {
     this.messageHandler.onmessage(input)
   }
 }

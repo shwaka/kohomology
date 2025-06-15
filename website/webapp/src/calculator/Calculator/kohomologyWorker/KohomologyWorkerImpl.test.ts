@@ -1,30 +1,30 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "@calculator/WorkerContext/expose"
 
 import { KohomologyWorkerImpl } from "./KohomologyWorkerImpl"
-import { WorkerFunc, WorkerInput, WorkerOutput, WorkerState } from "./workerInterface"
+import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "./workerInterface"
 
-function expectSendMessage(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageSendOutput<WorkerOutput> {
+function expectSendMessage(output: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): asserts output is MessageSendOutput<KohomologyWorkerOutput> {
   expect(output.type).toBe("output")
   // expect(output.command).toBeOneOf(["printMessages", "showDgaInfo"])
 }
 
-function expectUpdateState(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): asserts output is MessageOutputUpdateState<WorkerState> {
+function expectUpdateState(output: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): asserts output is MessageOutputUpdateState<KohomologyWorkerState> {
   expect(output.type).toBe("updateState")
   // expect(output.command).toBeOneOf(["updateState"])
 }
 
-function expectUpdateStateOfKey(output: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>, key: keyof WorkerState): asserts output is MessageOutputUpdateState<WorkerState> {
+function expectUpdateStateOfKey(output: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>, key: keyof KohomologyWorkerState): asserts output is MessageOutputUpdateState<KohomologyWorkerState> {
   expectUpdateState(output)
   expect(output.key).toBe(key)
 }
 
 test("computeCohomology", () => {
-  const outputs: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>[] = []
+  const outputs: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>[] = []
   const workerImpl = new KohomologyWorkerImpl({
     postWorkerOutput: (output) => { outputs.push({ type: "output", value: output }) },
     updateState: (key, value) => {
       // See comments in updateState in expose.ts for this cast.
-      const output = { type: "updateState", key, value } as MessageOutputUpdateState<WorkerState>
+      const output = { type: "updateState", key, value } as MessageOutputUpdateState<KohomologyWorkerState>
       outputs.push(output)
     },
     log: (_) => { return },
@@ -32,7 +32,7 @@ test("computeCohomology", () => {
   })
 
   // updateJson
-  const updateJsonCommand: WorkerInput = {
+  const updateJsonCommand: KohomologyWorkerInput = {
     command: "updateJson",
     json: '[["x", 2, "zero"], ["y", 3, "x^2"]]',
   }
@@ -48,7 +48,7 @@ test("computeCohomology", () => {
 
   // computeCohomology
   const maxDegree = 4 // must be >= 3
-  const computeCohomologyCommand: WorkerInput = {
+  const computeCohomologyCommand: KohomologyWorkerInput = {
     command: "computeCohomology",
     targetName: "self",
     minDegree: 0,

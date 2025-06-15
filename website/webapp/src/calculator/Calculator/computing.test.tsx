@@ -8,7 +8,7 @@ import userEvent from "@testing-library/user-event"
 import { Calculator } from "."
 import { InputJson } from "./__testutils__/InputJson"
 import { expectComputeCohomologyButtonToContain, waitForInitialState, getComputeCohomologyButton, selectComputationTarget } from "./__testutils__/utilsOnCalculator"
-import { WorkerFunc, WorkerOutput, WorkerState } from "./kohomologyWorker/workerInterface"
+import { KohomologyWorkerFunc, KohomologyWorkerOutput, KohomologyWorkerState } from "./kohomologyWorker/workerInterface"
 
 const mockUseLocation = useLocation as unknown as jest.Mock
 mockUseLocation.mockReturnValue({
@@ -16,7 +16,7 @@ mockUseLocation.mockReturnValue({
 })
 
 class OnmessageCapturer {
-  private queue: [(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, MessageOutput<WorkerOutput, WorkerState, WorkerFunc>][]
+  private queue: [(workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>) => void, MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>][]
   enabled: boolean
 
   constructor() {
@@ -55,7 +55,7 @@ class OnmessageCapturer {
     }
   }
 
-  add(onmessage: (workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>) => void, workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): void {
+  add(onmessage: (workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>) => void, workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): void {
     if (this.enabled) {
       this.queue.push([onmessage, workerOutput])
     } else {
@@ -78,7 +78,7 @@ jest.mock("@calculator/WorkerContext/WorkerWrapper", () => {
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 
   // TODO: copy the object OriginalWorkerWrapper with its prototype
-  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<WorkerOutput, WorkerState, WorkerFunc>): void {
+  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): void {
     capturer.add(originalOnmessage.bind(this), workerOutput)
   }
 

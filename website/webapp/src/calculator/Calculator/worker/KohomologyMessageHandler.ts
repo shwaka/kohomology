@@ -1,10 +1,10 @@
 import { fromString, StyledMessage } from "@calculator/styled/message"
-import { UpdateWorkerState } from "@calculator/WorkerContext/expose"
+import { CallbackData, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
 
 import { toStyledMessage } from "./styled"
-import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState } from "./workerInterface"
+import { WorkerInput, WorkerOutput, TargetName, ShowCohomology, WorkerInfo, WorkerState, WorkerFunc } from "./workerInterface"
 
 export class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
@@ -217,5 +217,26 @@ export class KohomologyMessageHandler {
 function assertNotNull<T>(value: T | null, errorMessage: string): asserts value is T {
   if (value === null) {
     throw new Error(errorMessage)
+  }
+}
+
+export class KohomologyWorkerImpl implements WorkerImpl<WorkerInput, WorkerFunc> {
+  messageHandler: KohomologyMessageHandler
+  workerFunc: WorkerFunc
+
+  constructor({
+    postWorkerOutput, updateState
+  }: CallbackData<WorkerOutput, WorkerState>) {
+    this.messageHandler = new KohomologyMessageHandler(postWorkerOutput, updateState)
+    this.workerFunc = {
+      validateIdealGenerator: (generator: string) =>
+        this.messageHandler.validateIdealGenerator(generator),
+      validateIdealGeneratorArray: (generatorArray: string[]) =>
+        this.messageHandler.validateIdealGeneratorArray(generatorArray),
+    }
+  }
+
+  onWorkerInput(input: WorkerInput): void {
+    this.messageHandler.onmessage(input)
   }
 }

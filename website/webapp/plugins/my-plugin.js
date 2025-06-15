@@ -32,15 +32,6 @@ function myPlugin(context, options) {
                 }
               }
             },
-            // {
-            //   test: /\.worker\.js$/,
-            //   use: {
-            //     loader: "worker-loader",
-            //     options: {
-            //       inline: "no-fallback"
-            //     }
-            //   }
-            // },
           ]
         },
         plugins: [

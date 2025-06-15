@@ -59,7 +59,6 @@
     "sass": "^1.44.0",
     "url-loader": "^4.1.1",
     "use-sync-external-store": "^1.2.0",
-    "worker-loader": "^3.0.8",
     "zod": "^3.24.3"
   },
   "devDependencies": {

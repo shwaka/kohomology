@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749977766501,
+  "lastUpdate": 1749979173817,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10046,6 +10046,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.046,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "158ffba9a9511df008059d469bbb84347d62ede4",
+          "message": "refactor(website): remove redundant code from kohomology.worker.ts and sample.worker.ts",
+          "timestamp": "2025-06-15T18:13:15+09:00",
+          "tree_id": "0fdc59ca6c08ee7f772bc52ef204d3130e0ee2b7",
+          "url": "https://github.com/shwaka/kohomology/commit/158ffba9a9511df008059d469bbb84347d62ede4"
+        },
+        "date": 1749979173234,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.848,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.083,
             "unit": "s/op"
           }
         ]

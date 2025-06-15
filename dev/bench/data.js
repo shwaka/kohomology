@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749983688418,
+  "lastUpdate": 1749999736646,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10182,6 +10182,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.998,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "177d7b4847366f50928b1374fe9ca2b91335737e",
+          "message": "test(website): add argument showAll to useOptionsButton in OptionsButton.test.tsx",
+          "timestamp": "2025-06-15T23:57:38+09:00",
+          "tree_id": "e9da05b8d894e09cb512eb7800b887cbfa3b7a1d",
+          "url": "https://github.com/shwaka/kohomology/commit/177d7b4847366f50928b1374fe9ca2b91335737e"
+        },
+        "date": 1749999735939,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.802,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.045,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,7 @@
 import React, { CSSProperties } from "react"
 
+import { useTruncatedList } from "@calculator/useTruncatedList"
+
 import { MessageType, StyledMessage } from "./message"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { ShowStyledString } from "./ShowStyledString"
@@ -20,7 +22,15 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): React.JSX.Element {
   const divClass = "show-styled-message"
-  const { optionsButtonProps, open } = useOptionsButton(divClass, styledMessage.options)
+  const { visibleItems: visibleStrings, commands: { showAll } } = useTruncatedList(
+    styledMessage.strings,
+    { minCount: 10, step: 3 },
+  )
+  const { optionsButtonProps, open } = useOptionsButton({
+    containerClass: divClass,
+    options: styledMessage.options,
+    showAll,
+  })
   return (
     <div
       className={divClass}
@@ -32,7 +42,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
         position: "relative", // to be used in IconButton in OptionsButton
       }}
     >
-      {styledMessage.strings.map((styledString, index) => (
+      {visibleStrings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>
       ))}
       <OptionsButton {...optionsButtonProps}/>

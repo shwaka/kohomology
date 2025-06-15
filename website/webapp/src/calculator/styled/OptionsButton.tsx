@@ -5,12 +5,20 @@ import { IconButton, Menu, MenuItem } from "@mui/material"
 
 import { MessageOptions } from "./options"
 
+interface UseOptionsButtonArgs {
+  containerClass: string
+  options: MessageOptions
+  showAll: () => void
+}
+
 interface UseOptionsButtonReturnValue {
   optionsButtonProps: OptionsButtonProps
   open: boolean
 }
 
-export function useOptionsButton(containerClass: string, options: MessageOptions): UseOptionsButtonReturnValue {
+export function useOptionsButton({
+  containerClass, options, showAll,
+}: UseOptionsButtonArgs): UseOptionsButtonReturnValue {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
@@ -21,7 +29,7 @@ export function useOptionsButton(containerClass: string, options: MessageOptions
   }
 
   const optionsButtonProps: OptionsButtonProps = {
-    containerClass, handleClick, handleClose, open, anchorEl, options,
+    containerClass, handleClick, handleClose, open, anchorEl, options, showAll,
   }
   return { optionsButtonProps, open }
 }
@@ -33,9 +41,10 @@ interface OptionsButtonProps {
   open: boolean
   anchorEl: HTMLElement | null
   options: MessageOptions
+  showAll: () => void
 }
 
-export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options }: OptionsButtonProps): React.JSX.Element {
+export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options, showAll }: OptionsButtonProps): React.JSX.Element {
   return (
     <Fragment>
       <IconButton
@@ -66,6 +75,9 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
             key={option.label}
           />
         ))}
+        <MenuItem onClick={showAll}>
+          Show all
+        </MenuItem>
       </Menu>
     </Fragment>
   )

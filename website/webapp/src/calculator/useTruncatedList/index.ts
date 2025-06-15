@@ -12,6 +12,7 @@ type AvailableCommands = { [K in ShowCommand]: boolean }
 export interface UseTruncatedListReturnValue<T> {
   visibleItems: T[]
   visibleCount: number
+  isTruncated: boolean
   commands: { [K in ShowCommand]: () => void }
   availableCommands: AvailableCommands
 }
@@ -24,6 +25,7 @@ export function useTruncatedList<T>(
 
   const total = items.length
   const visibleItems = items.slice(0, visibleCount)
+  const isTruncated = (visibleCount < total)
 
   const showMore = useCallback(() => {
     setVisibleCount((prevCount) => Math.min(prevCount + step, total))
@@ -41,7 +43,7 @@ export function useTruncatedList<T>(
     setVisibleCount(minCount)
   }, [minCount])
 
-  const canShowMore = (visibleCount < total)
+  const canShowMore = (visibleCount < total) // same as isTruncated
   const canShowLess = (visibleCount > minCount)
 
   const availableCommands: AvailableCommands = {
@@ -54,6 +56,7 @@ export function useTruncatedList<T>(
   return {
     visibleItems,
     visibleCount,
+    isTruncated,
     commands: { showMore, showLess, showAll, showMin },
     availableCommands,
   }

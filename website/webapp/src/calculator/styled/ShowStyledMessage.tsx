@@ -22,7 +22,7 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
 
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): React.JSX.Element {
   const divClass = "show-styled-message"
-  const { visibleItems: visibleStrings, commands: { showAll } } = useTruncatedList(
+  const { visibleItems: visibleStrings, commands: { showAll }, isTruncated } = useTruncatedList(
     styledMessage.strings,
     { minCount: 10, step: 3 },
   )
@@ -45,6 +45,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
       {visibleStrings.map((styledString, index) => (
         <ShowStyledString styledString={styledString} key={index}/>
       ))}
+      {isTruncated && (<span>...</span>)}
       <OptionsButton {...optionsButtonProps}/>
     </div>
   )

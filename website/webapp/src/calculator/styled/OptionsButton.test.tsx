@@ -11,7 +11,10 @@ interface OptionsButtonContainerProps {
 }
 
 function OptionsButtonContainer({ options }: OptionsButtonContainerProps): React.JSX.Element {
-  const { optionsButtonProps } = useOptionsButton("foo", options)
+  const { optionsButtonProps } = useOptionsButton({
+    containerClass: "foo", options,
+    showAll: () => {},
+  })
   return (<OptionsButton {...optionsButtonProps}/>)
 }
 

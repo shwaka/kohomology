@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1749909263718,
+  "lastUpdate": 1749975299287,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -9978,6 +9978,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.027,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "229c31bb832f7a0ddd260f893123db7fa17f5bce",
+          "message": "refactor(website): remove worker-loader (use bulitin feature of webpack 5 instead)",
+          "timestamp": "2025-06-15T17:09:56+09:00",
+          "tree_id": "66223ee15c2da5bdb86f9af2ce5f2c76fe0b15cc",
+          "url": "https://github.com/shwaka/kohomology/commit/229c31bb832f7a0ddd260f893123db7fa17f5bce"
+        },
+        "date": 1749975298406,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.826,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.065,
             "unit": "s/op"
           }
         ]

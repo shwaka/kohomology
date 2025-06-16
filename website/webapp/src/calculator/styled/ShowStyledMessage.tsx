@@ -1,12 +1,23 @@
 import React, { CSSProperties } from "react"
 
 import { useTruncatedList } from "@calculator/useTruncatedList"
+import { ColorMode, useColorMode } from "@docusaurus/theme-common"
 
 import { MessageType, StyledMessage } from "./message"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { ShowStyledString } from "./ShowStyledString"
 
-function getStyleForBackground(messageType: MessageType, open: boolean): CSSProperties {
+function getBackgroundColorOnError(colorMode: ColorMode): string {
+  switch (colorMode) {
+    case "light":
+      return "peachpuff"
+    case "dark":
+      return "darkred"
+  }
+}
+
+function useStyleForBackground(messageType: MessageType, open: boolean): CSSProperties {
+  const { colorMode } = useColorMode()
   if (open) {
     return {
       background: "aquamarine"
@@ -16,7 +27,7 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
     case "success":
       return {}
     case "error":
-      return { background: "peachpuff" }
+      return { background: getBackgroundColorOnError(colorMode) }
   }
 }
 
@@ -41,13 +52,14 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
     options: styledMessage.options,
     showAll,
   })
+  const styleForBackground: CSSProperties = useStyleForBackground(styledMessage.messageType, open)
   return (
     <div
       className={divClass}
       data-styled-message={styledMessage.plainString}
       data-testid="show-styled-message"
       style={{
-        ...getStyleForBackground(styledMessage.messageType, open),
+        ...styleForBackground,
         borderBottom: "1px solid lightGray",
         position: "relative", // to be used in IconButton in OptionsButton
       }}

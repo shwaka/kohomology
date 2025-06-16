@@ -1,5 +1,7 @@
 import { useCallback, useMemo, useState } from "react"
 
+import * as R from "remeda"
+
 export interface UseTruncatedListOptions<T> {
   minWeight: number
   step: number
@@ -25,7 +27,7 @@ export function useTruncatedList<T>(
   const [maxWeight, setMaxWeight] = useState(minWeight)
 
   const totalWeight = useMemo(() => (
-    items.reduce((sum, item) => sum + getWeight(item), 0)
+    R.sumBy(items, getWeight)
   ), [items, getWeight])
   const visibleItems = useMemo(() => (
     takeUpToWeight(items, maxWeight, getWeight)

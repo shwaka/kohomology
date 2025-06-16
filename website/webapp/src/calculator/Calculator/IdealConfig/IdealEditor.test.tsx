@@ -1,8 +1,10 @@
 import React, { useState } from "react"
 
+
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { render, renderHook, act, screen, waitFor } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
+import * as R from "remeda"
 
 import { IdealEditor } from "./IdealEditor"
 import { useIdealEditor, UseIdealEditorArgs } from "./useIdealEditor"
@@ -157,7 +159,7 @@ describe("IdealEditorTestContainer", () => {
       }
       render(<IdealEditorTestContainer {...testContainerProps}/>)
 
-      await addGenerators(user, [...Array(count).keys()].map((n) => `x${n}`))
+      await addGenerators(user, R.range(0, count).map((n) => `x${n}`))
       await apply(user, "enter", count - 1)
 
       await waitFor(() => {

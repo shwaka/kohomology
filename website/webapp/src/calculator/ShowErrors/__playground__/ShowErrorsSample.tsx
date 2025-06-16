@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from "react"
 
+import * as R from "remeda"
+
 import { MessageWithType } from "../MessageWithType"
 import { ShowErrors } from "../ShowErrors"
 
@@ -20,16 +22,9 @@ function useCounter(): UseCounterReturnValue {
   return { count, increment, decrement }
 }
 
-function range(n: number): number[] {
-  if (n < 0) {
-    return []
-  }
-  return [...Array(n).keys()]
-}
-
 export function ShowErrorsSample(): React.JSX.Element {
   const { count, increment, decrement } = useCounter()
-  const messages: MessageWithType[] = range(count).map((i) => ({
+  const messages: MessageWithType[] = R.range(0, count).map((i) => ({
     message: `Message-${i}`,
     type: `type-${i}`,
   }))

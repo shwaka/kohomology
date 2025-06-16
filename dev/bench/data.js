@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750044597029,
+  "lastUpdate": 1750045577909,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10250,6 +10250,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.015,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "7569115217080af3f91026ed93618ffa1e9a2f37",
+          "message": "fix(website): change unreadable color when menu is open in ShowStyledMessage",
+          "timestamp": "2025-06-16T12:41:31+09:00",
+          "tree_id": "8aba2270d29ac1c9be9a32d76ae6f7ba51eda040",
+          "url": "https://github.com/shwaka/kohomology/commit/7569115217080af3f91026ed93618ffa1e9a2f37"
+        },
+        "date": 1750045577130,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.78,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.072,
             "unit": "s/op"
           }
         ]

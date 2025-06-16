@@ -20,11 +20,21 @@ function getStyleForBackground(messageType: MessageType, open: boolean): CSSProp
   }
 }
 
+function getWeightOfLatexCode(code: string): number {
+  const replaced = code
+    .replace(/\\[a-zA-Z]+/g, "") // Remove control sequence
+    .replace(/[{}^_ ]/g, "") // Remove {, }, ^, _
+  return replaced.length
+}
+
 export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): React.JSX.Element {
   const divClass = "show-styled-message"
   const { visibleItems: visibleStrings, commands: { showAll }, isTruncated } = useTruncatedList(
     styledMessage.strings,
-    { minWeight: 20, step: 10 },
+    {
+      minWeight: 300, step: 100,
+      getWeight: (styledString) => getWeightOfLatexCode(styledString.content),
+    },
   )
   const { optionsButtonProps, open } = useOptionsButton({
     containerClass: divClass,

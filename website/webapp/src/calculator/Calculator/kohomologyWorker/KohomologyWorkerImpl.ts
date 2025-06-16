@@ -1,5 +1,5 @@
 import { fromString, StyledMessage } from "@calculator/styled/message"
-import { CallbackData, GetWorkerImpl, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
+import { CallbackData, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
 

@@ -1,8 +1,9 @@
-import { useCallback, useState } from "react"
+import { useCallback, useMemo, useState } from "react"
 
-export interface UseTruncatedListOptions {
-  minCount: number
+export interface UseTruncatedListOptions<T> {
+  minWeight: number
   step: number
+  getWeight?: (item: T) => number
 }
 
 type ShowCommand = "showMore" | "showLess" | "showAll" | "showMin"
@@ -19,32 +20,39 @@ export interface UseTruncatedListReturnValue<T> {
 
 export function useTruncatedList<T>(
   items: T[],
-  { minCount, step }: UseTruncatedListOptions,
+  { minWeight, step, getWeight = defaultGetWeight }: UseTruncatedListOptions<T>,
 ): UseTruncatedListReturnValue<T> {
-  const [visibleCount, setVisibleCount] = useState(minCount)
+  const [maxWeight, setMaxWeight] = useState(minWeight)
 
-  const total = items.length
-  const visibleItems = items.slice(0, visibleCount)
-  const isTruncated = (visibleCount < total)
+  const totalWeight = useMemo(() => (
+    items.reduce((sum, item) => sum + getWeight(item), 0)
+  ), [items, getWeight])
+  const visibleItems = useMemo(() => (
+    takeUpToWeight(items, maxWeight, getWeight)
+  ), [items, maxWeight, getWeight])
+
+  const totalCount = items.length
+  const visibleCount = visibleItems.length
+  const isTruncated = (visibleCount < totalCount)
 
   const showMore = useCallback(() => {
-    setVisibleCount((prevCount) => Math.min(prevCount + step, total))
-  }, [step, total])
+    setMaxWeight((prevMaxWeight) => Math.min(prevMaxWeight + step, totalWeight))
+  }, [step, totalWeight])
 
   const showLess = useCallback(() => {
-    setVisibleCount((prevCount) => Math.max(prevCount - step, minCount))
-  }, [step, minCount])
+    setMaxWeight((prevMaxWeight) => Math.min(prevMaxWeight - step, totalWeight))
+  }, [step, totalWeight])
 
   const showAll = useCallback(() => {
-    setVisibleCount(total)
-  }, [total])
+    setMaxWeight(totalWeight)
+  }, [totalWeight])
 
   const showMin = useCallback(() => {
-    setVisibleCount(minCount)
-  }, [minCount])
+    setMaxWeight(minWeight)
+  }, [minWeight])
 
-  const canShowMore = (visibleCount < total) // same as isTruncated
-  const canShowLess = (visibleCount > minCount)
+  const canShowMore = (maxWeight < totalWeight)
+  const canShowLess = (maxWeight > minWeight)
 
   const availableCommands: AvailableCommands = {
     showMore: canShowMore,
@@ -60,4 +68,27 @@ export function useTruncatedList<T>(
     commands: { showMore, showLess, showAll, showMin },
     availableCommands,
   }
+}
+
+function takeUpToWeight<T>(
+  items: T[],
+  maxWeight: number,
+  getWeight: (item: T) => number,
+): T[] {
+  const result: T[] = []
+  let weightSum = 0
+  for (const item of items) {
+    const weight = getWeight(item)
+    if (weightSum + weight <= maxWeight) {
+      result.push(item)
+      weightSum += weight
+    } else {
+      break
+    }
+  }
+  return result
+}
+
+function defaultGetWeight(_: unknown): number {
+  return 1
 }

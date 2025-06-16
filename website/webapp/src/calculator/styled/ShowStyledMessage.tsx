@@ -24,7 +24,7 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
   const divClass = "show-styled-message"
   const { visibleItems: visibleStrings, commands: { showAll }, isTruncated } = useTruncatedList(
     styledMessage.strings,
-    { minCount: 20, step: 10 },
+    { minWeight: 20, step: 10 },
   )
   const { optionsButtonProps, open } = useOptionsButton({
     containerClass: divClass,

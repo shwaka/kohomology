@@ -1,11 +1,11 @@
 import { renderHook, act } from "@testing-library/react"
 
-import { useTruncatedList } from "./"
+import { useTruncatedList, UseTruncatedListOptions } from "./"
 
 describe("useTruncatedList", () => {
   for (const [itemCount, minCount, step] of [[6, 2, 2], [6, 3, 2], [9, 6, 2]]) {
     const items = [...Array(itemCount).keys()].map((n) => `x${n}`)
-    const options = { minCount, step }
+    const options: UseTruncatedListOptions<string> = { minWeight: minCount, step }
     const stepCount = Math.ceil((items.length - minCount) / step)
 
     const paramInfo = `itemCount=${itemCount}, minCount=${minCount}, step=${step}`

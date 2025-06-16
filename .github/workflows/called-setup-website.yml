@@ -71,7 +71,7 @@ jobs:
           java-version: ${{ inputs.JAVA_VERSION }}
       - name: Build kohomology-js
         run: ./scripts/prepare-site.sh kohomology-js
-      - uses: volta-cli/action@v3
+      - uses: ./.github/actions/volta-cli
       - run: npm ci # --install-links
         # Note: --install-links is added to .npmrc
         # By --install-links, local package (kohomology-js) is copied instead of being symlinked.

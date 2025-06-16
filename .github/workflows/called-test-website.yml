@@ -18,7 +18,7 @@ jobs:
         with:
           path: website/webapp/node_modules
           key: ${{ inputs.CACHE_KEY_NODE_MODULES }}
-      - uses: volta-cli/action@v3
+      - uses: ./.github/actions/volta-cli
       - name: Test components in website
         run: npm test -- --verbose
         working-directory: website/webapp

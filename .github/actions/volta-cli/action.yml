@@ -1,0 +1,18 @@
+name: "Setup volta"
+description: "Setup volta after checking GitHub API rate limit"
+# inputs:
+#   check:
+#     description: "Enable rate limit check"
+#     required: false
+#     default: "true"
+runs:
+  using: "composite"
+  steps:
+    - name: Show date in UTC
+      run: date -u
+      shell: bash
+    - name: Check GitHub API rate limit
+      run: |
+        curl -s -H "Authorization: token ${{ github.token }}" https://api.github.com/rate_limit | jq
+      shell: bash
+    - uses: volta-cli/action@v3

@@ -39,7 +39,7 @@ jobs:
       #     node-version: ${{ env.NODE_VERSION }}
       #     cache: 'npm'
       #     cache-dependency-path: website/package-lock.json
-      - uses: volta-cli/action@v3
+      - uses: ./.github/actions/volta-cli
       - name: Assert that volta is used
         run: ../../scripts/assert-volta.sh
         working-directory: website/webapp

@@ -26,7 +26,7 @@ jobs:
         # To avoid "fetch-depth: 0" in actions/checkout (which takes ~25s),
         # we use a mock data here.
         run: ./scripts/prepare-site.sh benchmark-data-mock
-      - uses: volta-cli/action@v3
+      - uses: ./.github/actions/volta-cli
       - name: Typecheck website
         # This requires benchmark-data
         run: npm run tsc

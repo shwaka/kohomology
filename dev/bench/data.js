@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750072936569,
+  "lastUpdate": 1750083677511,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10352,6 +10352,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.175,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "515a081f4fd149c967a6af3ae5547a6076880f93",
+          "message": "feat(website): add ThemeProvider to Playground",
+          "timestamp": "2025-06-16T23:16:08+09:00",
+          "tree_id": "736d1bcb0ecb7ffe6572fe0088ac327d94849a52",
+          "url": "https://github.com/shwaka/kohomology/commit/515a081f4fd149c967a6af3ae5547a6076880f93"
+        },
+        "date": 1750083676664,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.786,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.38,
             "unit": "s/op"
           }
         ]

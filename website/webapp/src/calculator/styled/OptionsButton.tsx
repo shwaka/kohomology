@@ -75,7 +75,7 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
             key={option.label}
           />
         ))}
-        <MenuItem onClick={showAll}>
+        <MenuItem onClick={() => { showAll(); handleClose() }}>
           Show all
         </MenuItem>
       </Menu>

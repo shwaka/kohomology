@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750045577909,
+  "lastUpdate": 1750070498237,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10284,6 +10284,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.072,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "7c5f5a3706f67c4f58db442df68ae855aab9315b",
+          "message": "build(website): add .github/actions/volta-cli and use it instead of volta-cli/action@v3",
+          "timestamp": "2025-06-16T19:36:49+09:00",
+          "tree_id": "14cb43f08019a84cb6c9973beaed9aa9607fe669",
+          "url": "https://github.com/shwaka/kohomology/commit/7c5f5a3706f67c4f58db442df68ae855aab9315b"
+        },
+        "date": 1750070497590,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.818,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.1,
             "unit": "s/op"
           }
         ]

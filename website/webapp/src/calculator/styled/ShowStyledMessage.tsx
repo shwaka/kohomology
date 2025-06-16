@@ -7,6 +7,15 @@ import { MessageType, StyledMessage } from "./message"
 import { OptionsButton, useOptionsButton } from "./OptionsButton"
 import { ShowStyledString } from "./ShowStyledString"
 
+function getBackgroundColorOnMenuOpen(colorMode: ColorMode): string {
+  switch (colorMode) {
+    case "light":
+      return "aquamarine"
+    case "dark":
+      return "darkslateblue"
+  }
+}
+
 function getBackgroundColorOnError(colorMode: ColorMode): string {
   switch (colorMode) {
     case "light":
@@ -20,7 +29,7 @@ function useStyleForBackground(messageType: MessageType, open: boolean): CSSProp
   const { colorMode } = useColorMode()
   if (open) {
     return {
-      background: "aquamarine"
+      background: getBackgroundColorOnMenuOpen(colorMode)
     }
   }
   switch (messageType) {

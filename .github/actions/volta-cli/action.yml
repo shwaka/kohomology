@@ -11,8 +11,14 @@ runs:
     - name: Show date in UTC
       run: date -u
       shell: bash
-    - name: Check GitHub API rate limit
+    - name: Check GitHub API rate limit before volta-cli/action
       run: |
+        echo "=== Rate limit BEFORE Volta ==="
         curl -s -H "Authorization: token ${{ github.token }}" https://api.github.com/rate_limit | jq
       shell: bash
     - uses: volta-cli/action@v3
+    - name: Check GitHub API rate limit after volta-cli/action
+      run: |
+        echo "=== Rate limit AFTER Volta ==="
+        curl -s -H "Authorization: token ${{ github.token }}" https://api.github.com/rate_limit | jq
+      shell: bash

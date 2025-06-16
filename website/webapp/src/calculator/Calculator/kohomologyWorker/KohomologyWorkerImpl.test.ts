@@ -1,6 +1,6 @@
 import { MessageOutput, MessageOutputUpdateState, MessageSendOutput } from "@calculator/WorkerContext/expose"
 
-import { KohomologyWorkerImpl } from "./KohomologyWorkerImpl"
+import { getKohomologyWorkerImpl } from "./KohomologyWorkerImpl"
 import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "./workerInterface"
 
 function expectSendMessage(output: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): asserts output is MessageSendOutput<KohomologyWorkerOutput> {
@@ -20,7 +20,7 @@ function expectUpdateStateOfKey(output: MessageOutput<KohomologyWorkerOutput, Ko
 
 test("computeCohomology", () => {
   const outputs: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>[] = []
-  const workerImpl = new KohomologyWorkerImpl({
+  const workerImpl = getKohomologyWorkerImpl({
     postWorkerOutput: (output) => { outputs.push({ type: "output", value: output }) },
     updateState: (key, value) => {
       // See comments in updateState in expose.ts for this cast.

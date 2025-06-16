@@ -1,15 +1,19 @@
 import { fromString, StyledMessage } from "@calculator/styled/message"
-import { CallbackData, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
+import { CallbackData, GetWorkerImpl, UpdateWorkerState, WorkerImpl } from "@calculator/WorkerContext/expose"
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
 import { FreeDGAWrapper, ValidationResult, validateIdealGeneratorString, validateIdealJson } from "kohomology-js"
 
 import { toStyledMessage } from "./styled"
 import { KohomologyWorkerInput, KohomologyWorkerOutput, TargetName, ShowCohomology, WorkerInfo, KohomologyWorkerState, KohomologyWorkerFunc } from "./workerInterface"
 
-type KohomologyMessageHandlerArgs = CallbackData<KohomologyWorkerOutput, KohomologyWorkerState> & {
+type KohomologyMessageHandlerLogger = {
   log?: (...messages: unknown[]) => void
   error?: (...messages: unknown[]) => void
 }
+
+type KohomologyMessageHandlerArgs =
+  CallbackData<KohomologyWorkerOutput, KohomologyWorkerState>
+    & KohomologyMessageHandlerLogger
 
 class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null
@@ -222,7 +226,7 @@ function assertNotNull<T>(value: T | null, errorMessage: string): asserts value 
   }
 }
 
-export class KohomologyWorkerImpl implements WorkerImpl<KohomologyWorkerInput, KohomologyWorkerFunc> {
+class KohomologyWorkerImpl implements WorkerImpl<KohomologyWorkerInput, KohomologyWorkerFunc> {
   messageHandler: KohomologyMessageHandler
   workerFunc: KohomologyWorkerFunc
 
@@ -240,3 +244,6 @@ export class KohomologyWorkerImpl implements WorkerImpl<KohomologyWorkerInput, K
     this.messageHandler.onmessage(input)
   }
 }
+
+export const getKohomologyWorkerImpl =
+  (args: KohomologyMessageHandlerArgs): KohomologyWorkerImpl => new KohomologyWorkerImpl(args)

@@ -1,5 +1,5 @@
 import { fromString } from "@calculator/styled/message"
-import { CallbackData, UpdateWorkerState, WFBase, WorkerImpl } from "@calculator/WorkerContext/expose"
+import { CallbackData, GetWorkerImpl, UpdateWorkerState, WFBase, WorkerImpl } from "@calculator/WorkerContext/expose"
 
 import { SendMessage } from "../"
 
@@ -18,7 +18,7 @@ export type SampleWorkerFunc = WFBase
 //   add: (value: number) => number
 // }
 
-export class SampleWorkerImpl implements WorkerImpl<SampleWorkerInput, SampleWorkerFunc> {
+class SampleWorkerImpl implements WorkerImpl<SampleWorkerInput, SampleWorkerFunc> {
   value: number
   postWorkerOutput: (output: SampleWorkerOutput) => void
   updateState: UpdateWorkerState<SampleWorkerState>
@@ -50,3 +50,6 @@ export class SampleWorkerImpl implements WorkerImpl<SampleWorkerInput, SampleWor
     this.postWorkerOutput(output)
   }
 }
+
+export const getSampleWorkerImpl: GetWorkerImpl<SampleWorkerInput, SampleWorkerOutput, SampleWorkerState, SampleWorkerFunc> =
+  (callbackData) => new SampleWorkerImpl(callbackData)

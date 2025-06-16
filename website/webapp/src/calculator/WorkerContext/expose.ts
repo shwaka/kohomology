@@ -65,6 +65,9 @@ export interface WorkerImpl<WI, WF> {
   workerFunc: WF
 }
 
+export type GetWorkerImpl<WI, WO, WS, WF extends WFBase> =
+  (callbackData: CallbackData<WO, WS>) => WorkerImpl<WI, WF>
+
 export interface ExposedWorkerImpl<WI, WF extends WFBase> {
   onmessage: (event: MessageEvent<MessageInput<WI, WF>>) => void
 }

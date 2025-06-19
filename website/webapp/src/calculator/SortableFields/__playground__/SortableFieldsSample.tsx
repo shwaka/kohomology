@@ -34,6 +34,16 @@ export function SortableFieldsSample(): React.JSX.Element {
         externalData={undefined}
         {...{ fields, move, formData }}
       />
+      {(errors._global_errors?.totalAge !== undefined) && (
+        <div
+          style={{
+            color: "red",
+            border: "1px solid red",
+          }}
+        >
+          {errors._global_errors.totalAge.message}
+        </div>
+      )}
       <button onClick={() => append({ name: "", age: 0 })}>
         Add row
       </button>

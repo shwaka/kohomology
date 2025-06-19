@@ -6,15 +6,23 @@ import { RowComponentProps } from ".."
 import { PeopleFormInput } from "./schema"
 
 export function PersonRow({
-  draggableProps, index, formData: { register, errors, remove }
+  draggableProps, index, formData: { register, errors, remove, trigger },
 }: RowComponentProps<PeopleFormInput>): React.JSX.Element {
   return (
     <div>
-      <input type="text" {...register(`personArray.${index}.name`)}/>
-      <input type="number" {...register(
-        `personArray.${index}.age`,
-        { valueAsNumber: true }
-      )}/>
+      <input
+        type="text"
+        {...register(`personArray.${index}.name`)}
+        onBlur={() => trigger()}
+      />
+      <input
+        type="number"
+        {...register(
+          `personArray.${index}.age`,
+          { valueAsNumber: true }
+        )}
+        onBlur={() => trigger()}
+      />
       <button onClick={() => remove(index)}>
         Delete
       </button>

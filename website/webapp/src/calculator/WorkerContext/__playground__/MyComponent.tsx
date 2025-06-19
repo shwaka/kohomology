@@ -14,7 +14,12 @@ function ShowWorkerOutputLog({ log, testid }: {
       <div>Log of MessageOutput</div>
       {log.map((workerOutput, index) => (
         <div key={index}>
-          {workerOutput.type === "output" ? workerOutput.value.result : "no result"}
+          <span>
+            {workerOutput.type === "output" ? workerOutput.value.result : "no value"}
+          </span>
+          <span style={{ color: "gray" }}>
+            {JSON.stringify(workerOutput)}
+          </span>
         </div>
       ))}
     </div>

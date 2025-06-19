@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750302751011,
+  "lastUpdate": 1750305606987,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10420,6 +10420,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.11,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "bc489b94d4279b9f262f58dc71f4ecf2e7574c78",
+          "message": "test(website): move myWorkerContext.ts from WorkerContext/__testutils__ to WorkerContext/__mocks__/",
+          "timestamp": "2025-06-19T12:55:03+09:00",
+          "tree_id": "aefc4a8e0654f46d85444dac5ff56f5427ce8589",
+          "url": "https://github.com/shwaka/kohomology/commit/bc489b94d4279b9f262f58dc71f4ecf2e7574c78"
+        },
+        "date": 1750305606380,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.81,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.086,
             "unit": "s/op"
           }
         ]

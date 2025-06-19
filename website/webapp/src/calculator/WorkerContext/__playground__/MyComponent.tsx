@@ -10,7 +10,8 @@ function ShowWorkerOutputLog({ log, testid }: {
   testid: string
 }): React.JSX.Element {
   return (
-    <div data-testid={testid}>
+    <div data-testid={testid} style={{ border: "1px solid gray" }}>
+      <div>Log of MessageOutput</div>
       {log.map((workerOutput, index) => (
         <div key={index}>
           {workerOutput.type === "output" ? workerOutput.value.result : "no result"}
@@ -25,7 +26,8 @@ function ShowWorkerOutputLogFromListener({ log, testid }: {
   testid: string
 }): React.JSX.Element {
   return (
-    <div data-testid={testid}>
+    <div data-testid={testid} style={{ border: "1px solid gray" }}>
+      <div>Log of WorkerOutput from listner</div>
       {log.map((workerOutput, index) => (
         <div key={index}>
           {workerOutput.result}
@@ -49,20 +51,6 @@ export function MyComponent(): React.JSX.Element {
   return (
     <div data-testid="my-component">
       <div>
-        {/* Test postMessage and its output (MyWorkerOutput) */}
-        <button
-          onClick={() => postMessage({ value: 3 })}
-          data-testid="add3"
-        >
-          Add 3
-        </button>
-        <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
-        <ShowWorkerOutputLogFromListener
-          log={workerOutputLogFromListener}
-          testid="show-log-from-listener"
-        />
-      </div>
-      <div>
         {/* Test runAsync */}
         <button
           onClick={async () => {
@@ -76,6 +64,20 @@ export function MyComponent(): React.JSX.Element {
         <div data-testid="show-runAsyncResult">{`runAsyncResult=${runAsyncResult}`}</div>
       </div>
       <div data-testid="show-state-value">{`stateValue=${value}`}</div>
+      <div>
+        {/* Test postMessage and its output (MyWorkerOutput) */}
+        <button
+          onClick={() => postMessage({ value: 3 })}
+          data-testid="add3"
+        >
+          Add 3
+        </button>
+        <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
+        <ShowWorkerOutputLogFromListener
+          log={workerOutputLogFromListener}
+          testid="show-log-from-listener"
+        />
+      </div>
     </div>
   )
 }

@@ -9,7 +9,7 @@ export const generatorArraySchema = z.array(generatorSchema).superRefine((val, c
 
 export const globalErrorsSchema = z.object({
   generatorDegrees: z.null(),
-  generatorNames: z.null(),
+  // generatorNames: z.null(), // Previously this was used for addIssueForGeneratorNames
 })
 
 export const formValueSchema = z.object({

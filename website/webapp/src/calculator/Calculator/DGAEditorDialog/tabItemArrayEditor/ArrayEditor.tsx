@@ -8,8 +8,8 @@ import { Button, Stack } from "@mui/material"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { GeneratorFormInput, globalErrorsSchema } from "./generatorArraySchema"
-import { Generator } from "./generatorSchema"
+import { GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
+import { Generator } from "./schema/generatorSchema"
 
 export interface ArrayEditorProps {
   register: UseFormRegister<GeneratorFormInput>

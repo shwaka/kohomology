@@ -7,7 +7,7 @@ import userEvent, { UserEvent } from "@testing-library/user-event"
 
 import { sphere } from "../examples"
 import { useTabItemArrayEditor } from "./"
-import { Generator } from "./generatorSchema"
+import { Generator } from "./schema/generatorSchema"
 
 class ArrayEditorTestUtil {
   // Record<string, never> means that renderHook's props is empty

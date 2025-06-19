@@ -13,7 +13,7 @@ export function SortableFieldsSample(): React.JSX.Element {
       { name: "Bourbaki", age: 100 },
     ]
   }
-  const { handleSubmit, register, getValues, trigger, control, formState: { errors } } = useForm({
+  const { handleSubmit, register, getValues, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     defaultValues,
@@ -41,6 +41,7 @@ export function SortableFieldsSample(): React.JSX.Element {
         onClick={handleSubmit(({ personArray }) => {
           window.alert(formatPersonArray(personArray))
         })}
+        disabled={!isValid}
       >
         Submit
       </button>

@@ -1,15 +1,8 @@
-import { CallbackData } from "../expose"
+import { getMyWorkerImpl } from "../__playground__/MyWorkerImpl"
 import { createWorkerContext } from "../WorkerContext"
 import { MockWorker } from "./MockWorker"
-import { MyWorkerImpl } from "./MyWorkerImpl"
-import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
+import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "../__playground__/MyWorkerInterface"
 
-function getWorkerImpl(
-  callbackData: CallbackData<MyWorkerOutput, MyWorkerState>
-): MyWorkerImpl {
-  return new MyWorkerImpl(callbackData)
-}
-
-const createWorker = (): Worker => new MockWorker(getWorkerImpl) as unknown as Worker
+const createWorker = (): Worker => new MockWorker(getMyWorkerImpl) as unknown as Worker
 
 export const myWorkerContext = createWorkerContext<MyWorkerInput, MyWorkerOutput, MyWorkerState, MyWorkerFunc>(createWorker)

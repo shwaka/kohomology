@@ -1,7 +1,7 @@
 import { CallbackData, UpdateWorkerState, WorkerImpl } from "../expose"
 import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
 
-export class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
+class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
   value: number
   postWorkerOutput: (output: MyWorkerOutput) => void
   updateState: UpdateWorkerState<MyWorkerState>
@@ -28,4 +28,10 @@ export class MyWorkerImpl implements WorkerImpl<MyWorkerInput, MyWorkerFunc> {
     }
     this.postWorkerOutput(output)
   }
+}
+
+export function getMyWorkerImpl(
+  callbackData: CallbackData<MyWorkerOutput, MyWorkerState>
+): MyWorkerImpl {
+  return new MyWorkerImpl(callbackData)
 }

@@ -5,6 +5,7 @@ import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__pla
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
 import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
+import { MyWorkerSample } from "@calculator/WorkerContext/__playground__/MyWorkerSample"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import { ThemeProvider } from "@mui/material"
 
@@ -32,6 +33,11 @@ const tabs = [
     key: "message-box",
     name: "MessageBoxForWorker",
     render: () => (<MessageBoxForWorkerSample/>),
+  },
+  {
+    key: "my-worker",
+    name: "MyWorker",
+    render: () => (<MyWorkerSample/>),
   },
 ] as const satisfies QueryTab<string>[]
 

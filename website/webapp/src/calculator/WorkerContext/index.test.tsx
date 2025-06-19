@@ -2,11 +2,11 @@ import React from "react"
 
 import { render, screen, act, waitFor } from "@testing-library/react"
 
-import { TestApp } from "./__testutils__/TestApp"
+import { MyWorkerSample } from "./__playground__/MyWorkerSample"
 
 describe("WorkerContext", () => {
   test("postMessage", async () => {
-    render(<TestApp/>)
+    render(<MyWorkerSample/>)
     const divLog = screen.getByTestId("show-workerOutputLog")
     const divLogFromListener = screen.getByTestId("show-log-from-listener")
     const divStateValue = screen.getByTestId("show-state-value")
@@ -28,7 +28,7 @@ describe("WorkerContext", () => {
   })
 
   test("runAsync", async () => {
-    render(<TestApp/>)
+    render(<MyWorkerSample/>)
     const divStateValue = screen.getByTestId("show-state-value")
     const divRunAsyncResult = screen.getByTestId("show-runAsyncResult")
     const runAsyncButton = screen.getByTestId("runAsync-add5")

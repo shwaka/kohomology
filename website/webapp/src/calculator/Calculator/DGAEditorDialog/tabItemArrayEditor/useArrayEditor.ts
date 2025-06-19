@@ -19,7 +19,7 @@ export function useArrayEditor(args: {
   const defaultValues: GeneratorFormInput = {
     generatorArray: jsonToGeneratorArray(args.json)
   }
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
+  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
@@ -52,7 +52,9 @@ export function useArrayEditor(args: {
     }
   }
   function disableSubmit(): boolean {
-    return (errors.generatorArray !== undefined)
+    return !isValid
+    // Since we also have errors._global_errors, the following does not work.
+    // return (errors.generatorArray !== undefined)
   }
   const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
     register, errors, fields, append, remove, getValues, trigger, move,

@@ -5,6 +5,8 @@ import { GetWorkerImpl } from "@calculator/WorkerContext/expose"
 import { getKohomologyWorkerImpl } from "../KohomologyWorkerImpl"
 import { KohomologyWorkerFunc, KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState } from "../workerInterface"
 
+// Used through moduleNameMapper in jest.config.js
+
 const getWorkerImpl: GetWorkerImpl<KohomologyWorkerInput, KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc> =
   (callbackData) => getKohomologyWorkerImpl({
     ...callbackData,

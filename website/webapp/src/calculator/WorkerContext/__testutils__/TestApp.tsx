@@ -1,7 +1,7 @@
 import React from "react"
 
-import { MyComponent } from "./MyComponent"
 import { myWorkerContext } from "./myWorkerContext"
+import { MyComponent } from "../__playground__/MyComponent"
 
 export function TestApp(): React.JSX.Element {
   return (

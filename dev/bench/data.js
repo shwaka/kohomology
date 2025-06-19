@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750321189244,
+  "lastUpdate": 1750328928329,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10556,6 +10556,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.077,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1ea9ecb2f8593e010c3e1dd5be4705686089e796",
+          "message": "refactor(website): add DGAEditorDialog/tabItemArrayEditor/schema/",
+          "timestamp": "2025-06-19T19:23:47+09:00",
+          "tree_id": "4764315b47289a976ab4f329cac8a7e957f27409",
+          "url": "https://github.com/shwaka/kohomology/commit/1ea9ecb2f8593e010c3e1dd5be4705686089e796"
+        },
+        "date": 1750328926806,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.771,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.982,
             "unit": "s/op"
           }
         ]

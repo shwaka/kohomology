@@ -18,6 +18,7 @@ export const peopleFormValueSchema = z.object({
   personArray: personArraySchema,
   _global_errors: globalErrorsSchema.optional(),
 }).superRefine((val, ctx) => {
+  // Need to call trigger() manually to run global validation
   addIssueForTotalAge(val.personArray, ctx)
 })
 

@@ -44,7 +44,10 @@ export function SortableFieldsSample(): React.JSX.Element {
           {errors._global_errors.totalAge.message}
         </div>
       )}
-      <button onClick={() => append({ name: "", age: 0 })}>
+      <button onClick={async () => {
+        append({ name: `person-${fields.length}`, age: 100 })
+        await trigger() // for global error
+      }}>
         Add row
       </button>
       <button

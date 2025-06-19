@@ -13,7 +13,7 @@ export function PersonRow({
       <input
         type="text"
         {...register(`personArray.${index}.name`)}
-        onBlur={() => trigger()}
+        onBlur={() => trigger() /* for global error */}
       />
       <input
         type="number"
@@ -21,9 +21,12 @@ export function PersonRow({
           `personArray.${index}.age`,
           { valueAsNumber: true }
         )}
-        onBlur={() => trigger()}
+        onBlur={() => trigger() /* for global error */}
       />
-      <button onClick={() => remove(index)}>
+      <button onClick={async () => {
+        remove(index)
+        await trigger() // for global error
+      }}>
         Delete
       </button>
       <span

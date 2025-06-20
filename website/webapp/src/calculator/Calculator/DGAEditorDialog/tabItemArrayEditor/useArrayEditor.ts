@@ -3,6 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
 
 import { ArrayEditorProps } from "./ArrayEditor"
+import { ArrayEditorItem } from "./ArrayEditorItem"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
@@ -60,6 +61,7 @@ export function useArrayEditor(args: {
 
   const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
     register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
+    RowComponent: ArrayEditorItem,
   }
   return {
     label: "Array",

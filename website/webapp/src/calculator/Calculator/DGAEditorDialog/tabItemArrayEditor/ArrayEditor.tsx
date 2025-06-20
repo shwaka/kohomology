@@ -2,12 +2,11 @@ import React, { ReactNode } from "react"
 
 import { OnSubmit } from "@calculator/EditorDialog"
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
-import { FormData, SortableFields } from "@calculator/SortableFields"
+import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"
 import { Add } from "@mui/icons-material"
 import { Button, Stack } from "@mui/material"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
-import { ArrayEditorItem } from "./ArrayEditorItem"
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
@@ -23,9 +22,10 @@ export interface ArrayEditorProps {
   onSubmit: OnSubmit
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
   getNext: (generatorArray: Generator[]) => Generator
+  RowComponent: (props: RowComponentProps<GeneratorFormInput, undefined>) => React.JSX.Element
 }
 
-export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors, getNext }: ArrayEditorProps): React.JSX.Element {
+export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors, getNext, RowComponent }: ArrayEditorProps): React.JSX.Element {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     await onSubmit(event)
@@ -38,7 +38,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
     <form onSubmit={onSubmitWithPreventDefault}>
       <Stack spacing={2} sx={{ marginTop: 1 }}>
         <SortableFields
-          RowComponent={ArrayEditorItem}
+          RowComponent={RowComponent}
           Container={SortableFieldsContainer}
           externalData={undefined}
           {...{ fields, move, formData }}

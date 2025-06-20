@@ -1,16 +1,18 @@
 import { OnSubmit, Editor } from "@calculator/EditorDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
+import { z } from "zod"
 
 import { ArrayEditorProps } from "./ArrayEditor"
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { formValueSchema, GeneratorFormInput } from "./schema/generatorArraySchema"
+import { GeneratorFormInput } from "./schema/generatorArraySchema"
 
 interface UseArrayEditorArgs {
   defaultValues: GeneratorFormInput
   setValues: (formValues: GeneratorFormInput) => void
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
   getNext: (valueArray: GeneratorFormInput["generatorArray"][number][]) => GeneratorFormInput["generatorArray"][number]
+  schema: z.ZodType<GeneratorFormInput>
 }
 
 type UseArrayEditorReturnValue = {
@@ -20,14 +22,14 @@ type UseArrayEditorReturnValue = {
 }
 
 export function useArrayEditor({
-  defaultValues, setValues, getGlobalErrors, getNext,
+  defaultValues, setValues, getGlobalErrors, getNext, schema,
 }: UseArrayEditorArgs): UseArrayEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues,
-    resolver: zodResolver(formValueSchema),
+    resolver: zodResolver(schema),
   })
   const { fields, append, remove, move } = useFieldArray({
     control,

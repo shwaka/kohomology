@@ -5,7 +5,7 @@ import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { ArrayEditor } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
-import { GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
+import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 import { useArrayEditor } from "./useArrayEditor"
 
@@ -22,6 +22,7 @@ export function useGeneratorArrayEditor(args: {
   }
   const result = useArrayEditor({
     defaultValues, setValues, getGlobalErrors, getNext,
+    schema: formValueSchema,
   })
   return result
 }

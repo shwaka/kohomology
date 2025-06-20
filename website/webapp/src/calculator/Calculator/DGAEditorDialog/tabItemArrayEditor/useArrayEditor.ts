@@ -4,8 +4,14 @@ import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } fro
 
 import { ArrayEditorProps } from "./ArrayEditor"
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
-import { Generator } from "./schema/generatorSchema"
+import { formValueSchema, GeneratorFormInput } from "./schema/generatorArraySchema"
+
+interface UseArrayEditorArgs {
+  defaultValues: GeneratorFormInput
+  setValues: (formValues: GeneratorFormInput) => void
+  getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
+  getNext: (valueArray: GeneratorFormInput["generatorArray"][number][]) => GeneratorFormInput["generatorArray"][number]
+}
 
 type UseArrayEditorReturnValue = {
   label: string
@@ -13,10 +19,9 @@ type UseArrayEditorReturnValue = {
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit">
 }
 
-export function useArrayEditor({ defaultValues, setValues }: {
-  defaultValues: GeneratorFormInput
-  setValues: (formValues: GeneratorFormInput) => void
-}): UseArrayEditorReturnValue {
+export function useArrayEditor({
+  defaultValues, setValues, getGlobalErrors, getNext,
+}: UseArrayEditorArgs): UseArrayEditorReturnValue {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -67,37 +72,5 @@ export function useArrayEditor({ defaultValues, setValues }: {
       disableSubmit,
     },
     arrayEditorPropsExceptOnSubmit,
-  }
-}
-
-function getGlobalErrors(
-  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
-): (FieldError | undefined)[] {
-  const _global_errors = errors._global_errors
-  if (_global_errors === undefined) {
-    return []
-  }
-  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
-  return keys.map((key) => _global_errors[key] )
-}
-
-function getNameOfNextGenerator(generatorArray: Generator[]): string {
-  const existingNames: string[] = generatorArray.map((generator) => generator.name)
-  // "d" cannot be used since it represents the differential
-  const nameCandidates: string[] = "xyzuvwabc".split("")
-  for (const candidate of nameCandidates) {
-    if (!existingNames.includes(candidate)) {
-      return candidate
-    }
-  }
-  return ""
-}
-
-function getNext(generatorArray: Generator[]): Generator {
-  return {
-    name: getNameOfNextGenerator(generatorArray),
-    degree: 1,
-    differentialValue: "0"
-
   }
 }

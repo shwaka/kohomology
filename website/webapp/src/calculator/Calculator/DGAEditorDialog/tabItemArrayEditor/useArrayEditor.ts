@@ -5,6 +5,7 @@ import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } fro
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
+import { Generator } from "./schema/generatorSchema"
 
 type UseArrayEditorReturnValue = {
   label: string
@@ -58,7 +59,7 @@ export function useArrayEditor(args: {
   }
 
   const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
-    register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors,
+    register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
   }
   return {
     label: "Array",
@@ -81,4 +82,25 @@ function getGlobalErrors(
   }
   const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
   return keys.map((key) => _global_errors[key] )
+}
+
+function getNameOfNextGenerator(generatorArray: Generator[]): string {
+  const existingNames: string[] = generatorArray.map((generator) => generator.name)
+  // "d" cannot be used since it represents the differential
+  const nameCandidates: string[] = "xyzuvwabc".split("")
+  for (const candidate of nameCandidates) {
+    if (!existingNames.includes(candidate)) {
+      return candidate
+    }
+  }
+  return ""
+}
+
+function getNext(generatorArray: Generator[]): Generator {
+  return {
+    name: getNameOfNextGenerator(generatorArray),
+    degree: 1,
+    differentialValue: "0"
+
+  }
 }

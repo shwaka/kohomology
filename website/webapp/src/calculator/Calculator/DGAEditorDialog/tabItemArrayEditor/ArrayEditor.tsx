@@ -22,9 +22,10 @@ export interface ArrayEditorProps {
   trigger: UseFormTrigger<GeneratorFormInput>
   onSubmit: OnSubmit
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
+  getNext: (generatorArray: Generator[]) => Generator
 }
 
-export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors }: ArrayEditorProps): React.JSX.Element {
+export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors, getNext }: ArrayEditorProps): React.JSX.Element {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     await onSubmit(event)
@@ -44,11 +45,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
         />
         <Button
           variant="outlined"
-          onClick={() => append({
-            name: getNameOfNextGenerator(getValues().generatorArray),
-            degree: 1,
-            differentialValue: "0"
-          })}
+          onClick={() => append(getNext(getValues().generatorArray))}
           startIcon={<Add/>}
           sx={{ textTransform: "none" }}
         >
@@ -59,18 +56,6 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
       <button hidden type="submit"/>
     </form>
   )
-}
-
-function getNameOfNextGenerator(generatorArray: Generator[]): string {
-  const existingNames: string[] = generatorArray.map((generator) => generator.name)
-  // "d" cannot be used since it represents the differential
-  const nameCandidates: string[] = "xyzuvwabc".split("")
-  for (const candidate of nameCandidates) {
-    if (!existingNames.includes(candidate)) {
-      return candidate
-    }
-  }
-  return ""
 }
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {

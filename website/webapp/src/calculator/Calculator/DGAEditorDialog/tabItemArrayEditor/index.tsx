@@ -7,19 +7,28 @@ import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGene
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { useArrayEditor } from "./useArrayEditor"
 
-export function useTabItemArrayEditor(args: {
+// added for test
+export function useGeneratorArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-}): TabItem {
+}): ReturnType<typeof useArrayEditor> {
   const defaultValues: GeneratorFormInput = {
     generatorArray: jsonToGeneratorArray(args.json)
   }
   const setValues = (formValues: GeneratorFormInput): void => {
     args.updateDgaWrapper(generatorArrayToJson(formValues.generatorArray))
   }
-  const { label, editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useArrayEditor({
+  const result = useArrayEditor({
     defaultValues, setValues,
   })
+  return result
+}
+
+export function useTabItemArrayEditor(args: {
+  json: string
+  updateDgaWrapper: (json: string) => void
+}): TabItem {
+  const { label, editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useGeneratorArrayEditor(args)
   return {
     label,
     editor: {

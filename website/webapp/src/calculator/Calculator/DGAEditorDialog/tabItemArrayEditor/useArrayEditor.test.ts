@@ -1,17 +1,17 @@
 import { prettifyDGAJson } from "@calculator/Calculator/jsonUtils"
 import { renderHook, act } from "@testing-library/react"
 
-import { useArrayEditor } from "./useArrayEditor"
+import { useGeneratorArrayEditor } from "./"
 
 const json = JSON.stringify([
   ["x", 2, "0"],
   ["y", 3, "x^2"]
 ])
 
-describe("useArrayEditor", () => {
+describe("useGeneratorArrayEditor", () => {
   it("should initialize with given json", () => {
     const { result } = renderHook(() =>
-      useArrayEditor({ json, updateDgaWrapper: jest.fn() })
+      useGeneratorArrayEditor({ json, updateDgaWrapper: jest.fn() })
     )
 
     const values = result.current.arrayEditorPropsExceptOnSubmit.getValues()
@@ -26,7 +26,7 @@ describe("useArrayEditor", () => {
 
   it("should append a new generator", () => {
     const { result } = renderHook(() =>
-      useArrayEditor({ json, updateDgaWrapper: jest.fn() })
+      useGeneratorArrayEditor({ json, updateDgaWrapper: jest.fn() })
     )
 
     act(() => {
@@ -47,7 +47,7 @@ describe("useArrayEditor", () => {
   it("should call updateDgaWrapper on submit", async () => {
     const update = jest.fn()
     const { result } = renderHook(() =>
-      useArrayEditor({ json, updateDgaWrapper: update })
+      useGeneratorArrayEditor({ json, updateDgaWrapper: update })
     )
 
     await act(async () => {
@@ -61,7 +61,7 @@ describe("useArrayEditor", () => {
     // json will be compared to prettified one
     const prettyJson = prettifyDGAJson(json)
     const { result } = renderHook(() =>
-      useArrayEditor({ json: prettyJson, updateDgaWrapper: jest.fn() })
+      useGeneratorArrayEditor({ json: prettyJson, updateDgaWrapper: jest.fn() })
     )
 
     expect(result.current.editorWithoutRender.preventQuit).not.toBeUndefined()

@@ -4,16 +4,17 @@ import { TabItem } from "@calculator/TabDialog"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { ArrayEditor } from "./ArrayEditor"
+import { ArrayEditorItem } from "./ArrayEditorItem"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
-import { useArrayEditor } from "./useArrayEditor"
+import { useArrayEditor, UseArrayEditorReturnValue } from "./useArrayEditor"
 
 // added for test
 export function useGeneratorArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-}): ReturnType<typeof useArrayEditor> {
+}): UseArrayEditorReturnValue<GeneratorFormInput, "generatorArray"> {
   const defaultValues: GeneratorFormInput = {
     generatorArray: jsonToGeneratorArray(args.json)
   }
@@ -22,7 +23,7 @@ export function useGeneratorArrayEditor(args: {
   }
   const result = useArrayEditor({
     defaultValues, setValues, getGlobalErrors, getNext,
-    schema: formValueSchema,
+    schema: formValueSchema, RowComponent: ArrayEditorItem, arrayKey: "generatorArray",
   })
   return result
 }

@@ -1,29 +1,30 @@
 import { OnSubmit, Editor } from "@calculator/EditorDialog"
+import { RowComponentProps } from "@calculator/SortableFields"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
+import { ArrayPath, DeepRequired, DefaultValues, FieldError, FieldErrorsImpl, FieldValues, useFieldArray, useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { ArrayEditorProps } from "./ArrayEditor"
-import { ArrayEditorItem } from "./ArrayEditorItem"
-import { GeneratorFormInput } from "./schema/generatorArraySchema"
 
-interface UseArrayEditorArgs {
-  defaultValues: GeneratorFormInput
-  setValues: (formValues: GeneratorFormInput) => void
-  getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
-  getNext: (valueArray: GeneratorFormInput["generatorArray"][number][]) => GeneratorFormInput["generatorArray"][number]
-  schema: z.ZodType<GeneratorFormInput>
+interface UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
+  defaultValues: DefaultValues<TFieldValues>
+  setValues: (formValues: TFieldValues) => void
+  getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
+  getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
+  schema: z.ZodType<TFieldValues>
+  RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
+  arrayKey: K
 }
 
-type UseArrayEditorReturnValue = {
+export interface UseArrayEditorReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   label: string
   editorWithoutRender: Omit<Editor, "renderContent">
-  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit">
+  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit">
 }
 
-export function useArrayEditor({
-  defaultValues, setValues, getGlobalErrors, getNext, schema,
-}: UseArrayEditorArgs): UseArrayEditorReturnValue {
+export function useArrayEditor<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
+  defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
+}: UseArrayEditorArgs<TFieldValues, K>): UseArrayEditorReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -33,7 +34,7 @@ export function useArrayEditor({
   })
   const { fields, append, remove, move } = useFieldArray({
     control,
-    name: "generatorArray",
+    name: arrayKey,
   })
 
   function getOnSubmit(closeDialog: () => void): OnSubmit {
@@ -61,9 +62,9 @@ export function useArrayEditor({
     // return (errors.generatorArray !== undefined)
   }
 
-  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit"> = {
+  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit"> = {
     register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
-    RowComponent: ArrayEditorItem, arrayKey: "generatorArray",
+    RowComponent, arrayKey,
   }
   return {
     label: "Array",

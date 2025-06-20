@@ -8,7 +8,7 @@ import { Button, Stack } from "@mui/material"
 import { DeepRequired, FieldArrayWithId, FieldError, FieldErrorsImpl, UseFieldArrayAppend, UseFieldArrayMove, UseFieldArrayRemove, UseFormGetValues, UseFormRegister, UseFormTrigger } from "react-hook-form"
 
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
+import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
 export interface ArrayEditorProps {
@@ -21,9 +21,10 @@ export interface ArrayEditorProps {
   getValues: UseFormGetValues<GeneratorFormInput>
   trigger: UseFormTrigger<GeneratorFormInput>
   onSubmit: OnSubmit
+  getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>) => (FieldError | undefined)[]
 }
 
-export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit }: ArrayEditorProps): React.JSX.Element {
+export function ArrayEditor({ register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors }: ArrayEditorProps): React.JSX.Element {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     await onSubmit(event)
@@ -53,7 +54,7 @@ export function ArrayEditor({ register, errors, fields, append, remove, getValue
         >
           Add a generator
         </Button>
-        {getGlobalError(errors)}
+        <ShowFieldErrors fieldErrorArray={getGlobalErrors(errors)}/>
       </Stack>
       <button hidden type="submit"/>
     </form>
@@ -70,24 +71,6 @@ function getNameOfNextGenerator(generatorArray: Generator[]): string {
     }
   }
   return ""
-}
-
-function getGlobalError(errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>): React.JSX.Element | undefined {
-  const fieldErrorArray = getFieldErrorArray({ errors })
-  return (
-    <ShowFieldErrors fieldErrorArray={fieldErrorArray}/>
-  )
-}
-
-function getFieldErrorArray(
-  { errors }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>> }
-): (FieldError | undefined)[] {
-  const _global_errors = errors._global_errors
-  if (_global_errors === undefined) {
-    return []
-  }
-  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
-  return keys.map((key) => _global_errors[key] )
 }
 
 function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {

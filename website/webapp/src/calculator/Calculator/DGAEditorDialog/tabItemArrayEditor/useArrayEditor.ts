@@ -1,10 +1,10 @@
 import { OnSubmit, Editor } from "@calculator/EditorDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
 
 import { ArrayEditorProps } from "./ArrayEditor"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
-import { formValueSchema, GeneratorFormInput } from "./schema/generatorArraySchema"
+import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 
 type UseArrayEditorReturnValue = {
   label: string
@@ -56,8 +56,9 @@ export function useArrayEditor(args: {
     // Since we also have errors._global_errors, the following does not work.
     // return (errors.generatorArray !== undefined)
   }
+
   const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
-    register, errors, fields, append, remove, getValues, trigger, move,
+    register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors,
   }
   return {
     label: "Array",
@@ -69,4 +70,15 @@ export function useArrayEditor(args: {
     },
     arrayEditorPropsExceptOnSubmit,
   }
+}
+
+function getGlobalErrors(
+  errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>
+): (FieldError | undefined)[] {
+  const _global_errors = errors._global_errors
+  if (_global_errors === undefined) {
+    return []
+  }
+  const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
+  return keys.map((key) => _global_errors[key] )
 }

@@ -4,7 +4,6 @@ import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } fro
 
 import { ArrayEditorProps } from "./ArrayEditor"
 import { ArrayEditorItem } from "./ArrayEditorItem"
-import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
@@ -14,13 +13,10 @@ type UseArrayEditorReturnValue = {
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit">
 }
 
-export function useArrayEditor(args: {
-  json: string
-  updateDgaWrapper: (json: string) => void
+export function useArrayEditor({ defaultValues, setValues }: {
+  defaultValues: GeneratorFormInput
+  setValues: (formValues: GeneratorFormInput) => void
 }): UseArrayEditorReturnValue {
-  const defaultValues: GeneratorFormInput = {
-    generatorArray: jsonToGeneratorArray(args.json)
-  }
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -35,19 +31,18 @@ export function useArrayEditor(args: {
 
   function getOnSubmit(closeDialog: () => void): OnSubmit {
     return handleSubmit(
-      ({generatorArray}) => {
-        args.updateDgaWrapper(generatorArrayToJson(generatorArray))
+      (formValues) => {
+        setValues(formValues)
         closeDialog()
       }
     )
   }
   function beforeOpen(): void {
-    const generatorArray = jsonToGeneratorArray(args.json)
-    reset({ generatorArray })
+    reset(defaultValues)
   }
   function preventQuit(): string | undefined {
-    const generatorArray = getValues().generatorArray
-    if (generatorArrayToJson(generatorArray) !== args.json) {
+    // Use JSON.stringify to deeply compare
+    if (JSON.stringify(getValues()) !== JSON.stringify(defaultValues)) {
       return "Your input is not saved. Are you sure you want to quit?"
     } else {
       return undefined

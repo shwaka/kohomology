@@ -11,7 +11,7 @@ import { Generator } from "./schema/generatorSchema"
 type UseArrayEditorReturnValue = {
   label: string
   editorWithoutRender: Omit<Editor, "renderContent">
-  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit">
+  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit">
 }
 
 export function useArrayEditor(args: {
@@ -59,9 +59,9 @@ export function useArrayEditor(args: {
     // return (errors.generatorArray !== undefined)
   }
 
-  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps, "onSubmit"> = {
+  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<GeneratorFormInput, "generatorArray">, "onSubmit"> = {
     register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
-    RowComponent: ArrayEditorItem,
+    RowComponent: ArrayEditorItem, arrayKey: "generatorArray",
   }
   return {
     label: "Array",

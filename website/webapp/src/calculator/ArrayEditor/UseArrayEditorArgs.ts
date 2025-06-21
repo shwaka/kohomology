@@ -8,6 +8,7 @@ export type ArrayEditorConfig<TFieldValues extends FieldValues, K extends ArrayP
   getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
   schema: z.ZodType<TFieldValues>
   arrayKey: K
+  zodResolverMode?: "sync" | "async"
 }
 
 export type ArrayEditorValues<TFieldValues extends FieldValues> = {

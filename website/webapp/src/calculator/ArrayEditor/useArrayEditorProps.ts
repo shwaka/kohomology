@@ -14,14 +14,14 @@ export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues
 // - make tests easy
 // - make this file .ts (not .tsx)
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
-  defaultValues, setValues, getGlobalErrors, getNext, schema, arrayKey,
+  defaultValues, setValues, getGlobalErrors, getNext, schema, arrayKey, zodResolverMode,
 }: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",
     criteriaMode: "all",
     defaultValues,
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schema, undefined, { mode: zodResolverMode }),
   })
   const { fields, append, remove, move } = useFieldArray({
     control,

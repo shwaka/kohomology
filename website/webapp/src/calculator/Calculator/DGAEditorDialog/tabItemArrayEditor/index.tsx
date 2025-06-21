@@ -1,6 +1,7 @@
 import React from "react"
 
 import { TabItem } from "@calculator/TabDialog"
+import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { ArrayEditor } from "./ArrayEditor"
@@ -41,24 +42,17 @@ function getGlobalErrors(
   return keys.map((key) => _global_errors[key] )
 }
 
-function getNameOfNextGenerator(generatorArray: Generator[]): string {
-  const existingNames: string[] = generatorArray.map((generator) => generator.name)
-  // "d" cannot be used since it represents the differential
-  const nameCandidates: string[] = "xyzuvwabc".split("")
-  for (const candidate of nameCandidates) {
-    if (!existingNames.includes(candidate)) {
-      return candidate
-    }
-  }
-  return ""
-}
-
 function getNext(generatorArray: Generator[]): Generator {
+  const name = getFirstUnused({
+    usedValues: generatorArray.map((generator) => generator.name),
+    // "d" cannot be used since it represents the differential
+    candidates: "xyzuvwabc".split(""),
+    fallback: "",
+  })
   return {
-    name: getNameOfNextGenerator(generatorArray),
+    name,
     degree: 1,
     differentialValue: "0"
-
   }
 }
 

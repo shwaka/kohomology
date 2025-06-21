@@ -3,13 +3,16 @@ import { z } from "zod"
 
 import { ArrayEditorItemProps } from "./ArrayEditorItem"
 
-type UseArrayEditorArgsBase<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = {
-  defaultValues: DefaultValues<TFieldValues>
-  setValues: (formValues: TFieldValues) => void
+export type ArrayEditorConfig<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = {
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
   getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
   schema: z.ZodType<TFieldValues>
   arrayKey: K
+}
+
+type UseArrayEditorArgsBase<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = ArrayEditorConfig<TFieldValues, K> & {
+  defaultValues: DefaultValues<TFieldValues>
+  setValues: (formValues: TFieldValues) => void
 }
 
 export type UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = UseArrayEditorArgsBase<TFieldValues, K> & {

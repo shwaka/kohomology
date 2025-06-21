@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750490788976,
+  "lastUpdate": 1750499675929,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10760,6 +10760,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.022,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "b888ae0b34c55c02a110b79dc7808e3c0e7ad8b6",
+          "message": "refator(website): remove redundant code in useIndeterminateArray",
+          "timestamp": "2025-06-21T18:45:13+09:00",
+          "tree_id": "1df8f07eeb439d7864a12f85a9c32dbbc9351e41",
+          "url": "https://github.com/shwaka/kohomology/commit/b888ae0b34c55c02a110b79dc7808e3c0e7ad8b6"
+        },
+        "date": 1750499675296,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.751,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.957,
             "unit": "s/op"
           }
         ]

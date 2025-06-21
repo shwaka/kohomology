@@ -15,7 +15,7 @@ export interface FieldOptions<TFieldValues extends FieldValues> {
   valueAsNumber?: true
   getRegisterName: (index: number) => FieldPath<TFieldValues>
   isError: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number) => boolean
-  inputProps?: InputBaseComponentProps
+  inputProps?: InputBaseComponentProps | ((index: number) => InputBaseComponentProps)
 }
 
 export type ArrayEditorRowComponentData<TFieldValues extends FieldValues> = {
@@ -57,7 +57,7 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
               )}
               onBlur={() => trigger()}
               error={isError(errors, index)}
-              inputProps={inputProps}
+              inputProps={typeof inputProps === "function" ? inputProps(index) : inputProps}
             />
           ))}
           <Tooltip title="Delete this generator">

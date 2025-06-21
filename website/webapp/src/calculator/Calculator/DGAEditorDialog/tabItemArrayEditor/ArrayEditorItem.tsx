@@ -9,7 +9,7 @@ import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath, FieldValues } fro
 
 export interface FieldOptions<TFieldValues extends FieldValues> {
   key: string
-  label: string
+  getLabel: (values: TFieldValues, index: number) => string
   width: number
   type?: React.HTMLInputTypeAttribute
   valueAsNumber?: true
@@ -27,7 +27,7 @@ interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
 export function ArrayEditorItem<TFieldValues extends FieldValues>({
   rowComponentProps, fieldOptionsList, getFieldErrorArray,
 }: ArrayEditorItemProps<TFieldValues>): React.JSX.Element {
-  const { draggableProps, index, formData: { register, errors, remove, trigger } } = rowComponentProps
+  const { draggableProps, index, formData: { register, getValues, errors, remove, trigger } } = rowComponentProps
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(
     () => setOverwritableTimeout(async () => await trigger(), 1000),
@@ -38,10 +38,10 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
     <div data-testid="ArrayEditor-row">
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
-          {fieldOptionsList.map(({ key, label, width, type, valueAsNumber, getRegisterName, isError, inputProps }) => (
+          {fieldOptionsList.map(({ key, getLabel, width, type, valueAsNumber, getRegisterName, isError, inputProps }) => (
             <TextField
               key={key}
-              label={label} type={type}
+              label={getLabel(getValues(), index)} type={type}
               sx={{ width }} size="small"
               {...register(
                 getRegisterName(index),

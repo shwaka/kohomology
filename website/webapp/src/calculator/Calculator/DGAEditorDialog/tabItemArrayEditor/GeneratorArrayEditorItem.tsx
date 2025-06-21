@@ -7,40 +7,37 @@ import { ArrayEditorItem, FieldOptions } from "./ArrayEditorItem"
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
+const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
+  {
+    key: "name",
+    getLabel: () => "generator",
+    width: 90,
+    getRegisterName: (index) => `generatorArray.${index}.name` as const,
+    isError: (errors, index) => containsError({ errors, index, key: "name" }),
+    inputProps: { "data-testid": "ArrayEditor-input-name" },
+  },
+  {
+    key: "degree",
+    getLabel: (values, index) => `deg(${values.generatorArray[index].name})`,
+    width: 80,
+    type: "number", valueAsNumber: true,
+    getRegisterName: (index) => `generatorArray.${index}.degree` as const,
+    isError: (errors, index) => containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors }),
+    inputProps: { "data-testid": "ArrayEditor-input-degree" },
+  },
+  {
+    key: "differentialValue",
+    getLabel: (values, index) => `d(${values.generatorArray[index].name})`,
+    width: 200,
+    getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
+    isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),
+    inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
+  },
+]
+
 export function GeneratorArrayEditorItem(
   props: RowComponentProps<GeneratorFormInput>
 ): React.JSX.Element {
-  const { index, formData: { getValues }} = props
-  const generatorName = getValues().generatorArray[index].name
-
-  const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
-    {
-      key: "name",
-      label: "generator",
-      width: 90,
-      getRegisterName: (index) => `generatorArray.${index}.name` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "name" }),
-      inputProps: { "data-testid": "ArrayEditor-input-name" },
-    },
-    {
-      key: "degree",
-      label: `deg(${generatorName})`,
-      width: 80,
-      type: "number", valueAsNumber: true,
-      getRegisterName: (index) => `generatorArray.${index}.degree` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors }),
-      inputProps: { "data-testid": "ArrayEditor-input-degree" },
-    },
-    {
-      key: "differentialValue",
-      label: `d(${generatorName})`,
-      width: 200,
-      getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),
-      inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
-    },
-  ]
-
   return (
     <ArrayEditorItem
       rowComponentProps={props}

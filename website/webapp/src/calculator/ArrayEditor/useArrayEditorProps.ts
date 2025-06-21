@@ -1,20 +1,9 @@
 import { OnSubmit, Editor } from "@calculator/EditorDialog"
-import { RowComponentProps } from "@calculator/SortableFields"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { ArrayPath, DeepRequired, DefaultValues, FieldError, FieldErrorsImpl, FieldValues, useFieldArray, useForm } from "react-hook-form"
-import { z } from "zod"
+import { ArrayPath, FieldValues, useFieldArray, useForm } from "react-hook-form"
 
 import { ArrayEditorProps } from "./ArrayEditor"
-
-interface UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
-  defaultValues: DefaultValues<TFieldValues>
-  setValues: (formValues: TFieldValues) => void
-  getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
-  getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
-  schema: z.ZodType<TFieldValues>
-  RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
-  arrayKey: K
-}
+import { UseArrayEditorArgs } from "./UseArrayEditorArgs"
 
 export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">
@@ -23,7 +12,7 @@ export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues
 
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
-}: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
+}: UseArrayEditorArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",

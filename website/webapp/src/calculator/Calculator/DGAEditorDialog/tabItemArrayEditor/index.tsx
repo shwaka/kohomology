@@ -8,20 +8,20 @@ import { ArrayEditorItem } from "./ArrayEditorItem"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
-import { useArrayEditor, UseArrayEditorReturnValue } from "./useArrayEditor"
+import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "./useArrayEditorProps"
 
 // added for test
 export function useGeneratorArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-}): UseArrayEditorReturnValue<GeneratorFormInput, "generatorArray"> {
+}): UseArrayEditorPropsReturnValue<GeneratorFormInput, "generatorArray"> {
   const defaultValues: GeneratorFormInput = {
     generatorArray: jsonToGeneratorArray(args.json)
   }
   const setValues = (formValues: GeneratorFormInput): void => {
     args.updateDgaWrapper(generatorArrayToJson(formValues.generatorArray))
   }
-  const result = useArrayEditor({
+  const result = useArrayEditorProps({
     defaultValues, setValues, getGlobalErrors, getNext,
     schema: formValueSchema, RowComponent: ArrayEditorItem, arrayKey: "generatorArray",
   })

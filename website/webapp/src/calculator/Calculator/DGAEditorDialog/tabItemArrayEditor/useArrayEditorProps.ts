@@ -6,7 +6,7 @@ import { z } from "zod"
 
 import { ArrayEditorProps } from "./ArrayEditor"
 
-interface UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
+interface UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   defaultValues: DefaultValues<TFieldValues>
   setValues: (formValues: TFieldValues) => void
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
@@ -16,14 +16,14 @@ interface UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPa
   arrayKey: K
 }
 
-export interface UseArrayEditorReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
+export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit">
 }
 
-export function useArrayEditor<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
+export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
-}: UseArrayEditorArgs<TFieldValues, K>): UseArrayEditorReturnValue<TFieldValues, K> {
+}: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",

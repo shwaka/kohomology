@@ -7,14 +7,14 @@ import { UseArrayEditorPropsArgs } from "./UseArrayEditorArgs"
 
 export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">
-  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit">
+  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent">
 }
 
 // This hook is extracted from useArrayEditor to
 // - make tests easy
 // - make this file .ts (not .tsx)
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
-  defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
+  defaultValues, setValues, getGlobalErrors, getNext, schema, arrayKey,
 }: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
@@ -53,9 +53,9 @@ export function useArrayEditorProps<TFieldValues extends FieldValues, K extends 
     // return (errors.generatorArray !== undefined)
   }
 
-  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit"> = {
+  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent"> = {
     register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
-    RowComponent, arrayKey,
+    arrayKey,
   }
   return {
     editorWithoutRender: {

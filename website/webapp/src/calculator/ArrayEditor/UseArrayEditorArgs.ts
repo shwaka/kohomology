@@ -1,4 +1,3 @@
-import { RowComponentProps } from "@calculator/SortableFields"
 import { ArrayPath, DeepRequired, DefaultValues, FieldError, FieldErrorsImpl, FieldValues } from "react-hook-form"
 import { z } from "zod"
 
@@ -18,6 +17,6 @@ export type UseArrayEditorArgs<TFieldValues extends FieldValues, K extends Array
   getFieldErrorArray: ArrayEditorItemProps<TFieldValues>["getFieldErrorArray"]
 }
 
-export type UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = UseArrayEditorArgsBase<TFieldValues, K> & {
-  RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
-}
+export type UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = UseArrayEditorArgsBase<TFieldValues, K> // & {
+//   RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
+// }

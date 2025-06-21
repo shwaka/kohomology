@@ -3,7 +3,6 @@ import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { Indeterminate, IndeterminateFormInput, indeterminateFormValueSchema, indeterminateGlobalErrorsSchema } from "./schema"
 import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "../useArrayEditorProps"
-import { IndeterminateArrayEditorItem } from "./IndeterminateArrayEditorItem"
 
 export interface UseIndeterminateArrayEditorPropsArgs {
   defaultValues: IndeterminateFormInput
@@ -16,7 +15,6 @@ export function useIndeterminateArrayEditorProps({
   const result = useArrayEditorProps({
     defaultValues, setValues, getGlobalErrors, getNext,
     schema: indeterminateFormValueSchema,
-    RowComponent: IndeterminateArrayEditorItem,
     arrayKey: "indeterminateArray",
   })
   return result

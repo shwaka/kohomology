@@ -4,6 +4,7 @@ import { Editor } from "@calculator/EditorDialog"
 
 import { useIndeterminateArrayEditorProps, UseIndeterminateArrayEditorPropsArgs } from "./useIndeterminateArrayEditorProps"
 import { ArrayEditor } from "../ArrayEditor"
+import { IndeterminateArrayEditorItem } from "./IndeterminateArrayEditorItem"
 
 export function useIndeterminateArrayEditor(
   args: UseIndeterminateArrayEditorPropsArgs,
@@ -14,6 +15,7 @@ export function useIndeterminateArrayEditor(
     renderContent: (closeDialog) => (
       <ArrayEditor
         onSubmit={editorWithoutRender.getOnSubmit(closeDialog)}
+        RowComponent={IndeterminateArrayEditorItem}
         {...arrayEditorPropsExceptOnSubmit}
       />
     )

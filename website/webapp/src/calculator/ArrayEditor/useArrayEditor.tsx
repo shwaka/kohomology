@@ -23,12 +23,13 @@ export function useArrayEditor<TFieldValues extends FieldValues, K extends Array
       [fieldOptionsList, getFieldErrorArray]
     )
   const { editorWithoutRender, arrayEditorPropsExceptOnSubmit } =
-    useArrayEditorProps({ ...args, RowComponent })
+    useArrayEditorProps({ ...args })
   return {
     ...editorWithoutRender,
     renderContent: (closeDialog) => (
       <ArrayEditor
         onSubmit={editorWithoutRender.getOnSubmit(closeDialog)}
+        RowComponent={RowComponent}
         {...arrayEditorPropsExceptOnSubmit}
       />
     )

@@ -18,6 +18,7 @@ const fieldOptionsList: FieldOptions<IndeterminateFormInput>[] = [
     key: "degree",
     getLabel: (_values, _index) => "degree",
     width: 90,
+    type: "number", valueAsNumber: true,
     getRegisterName: (index) => `indeterminateArray.${index}.degree` as const,
     isError: (errors, index) => containsError({ errors, index, key: "degree" }),
   },

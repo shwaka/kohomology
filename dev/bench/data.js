@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750433085575,
+  "lastUpdate": 1750479147915,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10692,6 +10692,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.006,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "96cd442cb6f68c5ff93b0832eb7194e392733e52",
+          "message": "test(website): add `type: \"number\"` to FieldOptions for IndeterminateFormInput",
+          "timestamp": "2025-06-21T13:05:34+09:00",
+          "tree_id": "0d2c5421abc6327ad6c12c5de00e215b4ac423e8",
+          "url": "https://github.com/shwaka/kohomology/commit/96cd442cb6f68c5ff93b0832eb7194e392733e52"
+        },
+        "date": 1750479147002,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.776,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.004,
             "unit": "s/op"
           }
         ]

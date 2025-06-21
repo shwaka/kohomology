@@ -10,16 +10,20 @@ export type ArrayEditorConfig<TFieldValues extends FieldValues, K extends ArrayP
   arrayKey: K
 }
 
-type UseArrayEditorArgsBase<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = ArrayEditorConfig<TFieldValues, K> & {
+export type ArrayEditorValues<TFieldValues extends FieldValues> = {
   defaultValues: DefaultValues<TFieldValues>
   setValues: (formValues: TFieldValues) => void
 }
 
-export type UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = UseArrayEditorArgsBase<TFieldValues, K> & {
+export type ArrayEditorRowComponentData<TFieldValues extends FieldValues> = {
   fieldOptionsList: ArrayEditorItemProps<TFieldValues>["fieldOptionsList"]
   getFieldErrorArray: ArrayEditorItemProps<TFieldValues>["getFieldErrorArray"]
 }
 
-export type UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = UseArrayEditorArgsBase<TFieldValues, K> // & {
-//   RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
-// }
+export type UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> =
+  ArrayEditorConfig<TFieldValues, K>
+    & ArrayEditorValues<TFieldValues>
+    & ArrayEditorRowComponentData<TFieldValues>
+
+export type UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> =
+  ArrayEditorConfig<TFieldValues, K> & ArrayEditorValues<TFieldValues>

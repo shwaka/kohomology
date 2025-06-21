@@ -1,11 +1,9 @@
 import { IndeterminateFormInput } from "./schema"
 import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "../useArrayEditorProps"
 import { indeterminateArrayEditorConfig } from "./indeterminateArrayEditorConfig"
+import { ArrayEditorValues } from "../UseArrayEditorArgs"
 
-export interface UseIndeterminateArrayEditorPropsArgs {
-  defaultValues: IndeterminateFormInput
-  setValues: (values: IndeterminateFormInput) => void
-}
+export type UseIndeterminateArrayEditorPropsArgs = ArrayEditorValues<IndeterminateFormInput>
 
 export function useIndeterminateArrayEditorProps({
   defaultValues, setValues,

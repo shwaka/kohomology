@@ -64,9 +64,9 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem {
-  const { label, editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useGeneratorArrayEditor(args)
+  const { editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useGeneratorArrayEditor(args)
   return {
-    label,
+    label: "Array",
     editor: {
       ...editorWithoutRender,
       renderContent: (closeDialog) => (

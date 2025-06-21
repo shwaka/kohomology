@@ -17,7 +17,6 @@ interface UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPa
 }
 
 export interface UseArrayEditorReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
-  label: string
   editorWithoutRender: Omit<Editor, "renderContent">
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit">
 }
@@ -67,7 +66,6 @@ export function useArrayEditor<TFieldValues extends FieldValues, K extends Array
     RowComponent, arrayKey,
   }
   return {
-    label: "Array",
     editorWithoutRender: {
       getOnSubmit,
       beforeOpen,

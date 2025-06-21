@@ -100,23 +100,16 @@ export function ArrayEditorItem(
             <DragHandle/>
           </IconButton>
         </Stack>
-        <ShowErrorsAtIndex errors={errors} index={index}/>
+        <ShowFieldErrors fieldErrorArray={getFieldErrorArray({ errors, index })}/>
       </Stack>
     </div>
   )
 }
 
-function ShowErrorsAtIndex({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}): React.JSX.Element {
-  const error = errors.generatorArray?.[index]
-  const fieldErrorArray = getFieldErrorArray({ error })
-  return (
-    <ShowFieldErrors fieldErrorArray={fieldErrorArray}/>
-  )
-}
-
 function getFieldErrorArray(
-  { error }: { error: FieldErrorsImpl<Generator> | undefined }
+  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}
 ): (FieldError | undefined)[] {
+  const error = errors.generatorArray?.[index]
   if (error === undefined) {
     return []
   }

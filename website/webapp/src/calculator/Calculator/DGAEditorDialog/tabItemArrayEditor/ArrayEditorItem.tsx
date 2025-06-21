@@ -5,61 +5,37 @@ import { RowComponentProps } from "@calculator/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
 import { IconButton, InputBaseComponentProps, Stack, TextField, Tooltip } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath, FieldValues } from "react-hook-form"
 
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
-interface FieldOptions {
+interface FieldOptions<TFieldValues extends FieldValues> {
   key: string
   label: string
   width: number
   type?: React.HTMLInputTypeAttribute
   valueAsNumber?: true
-  getRegisterName: (index: number) => FieldPath<GeneratorFormInput>
-  isError: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number) => boolean
+  getRegisterName: (index: number) => FieldPath<TFieldValues>
+  isError: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number) => boolean
   inputProps?: InputBaseComponentProps
 }
 
+interface ArrayEditorItemImplProps<TFieldValues extends FieldValues> {
+  rowComponentProps: RowComponentProps<TFieldValues>
+  fieldOptionsList: FieldOptions<TFieldValues>[]
+  getFieldErrorArray: (args: { errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number}) => (FieldError | undefined)[]
+}
 
-export function ArrayEditorItem(
-  { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
-): React.JSX.Element {
-  const generatorName = getValues().generatorArray[index].name
-
+function ArrayEditorItemImpl<TFieldValues extends FieldValues>({
+  rowComponentProps, fieldOptionsList, getFieldErrorArray,
+}: ArrayEditorItemImplProps<TFieldValues>): React.JSX.Element {
+  const { draggableProps, index, formData: { register, errors, remove, trigger } } = rowComponentProps
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(
     () => setOverwritableTimeout(async () => await trigger(), 1000),
     [setOverwritableTimeout, trigger]
   )
-
-  const fieldOptionsList: FieldOptions[] = [
-    {
-      key: "name",
-      label: "generator",
-      width: 90,
-      getRegisterName: (index) => `generatorArray.${index}.name` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "name" }),
-      inputProps: { "data-testid": "ArrayEditor-input-name" },
-    },
-    {
-      key: "degree",
-      label: `deg(${generatorName})`,
-      width: 80,
-      type: "number", valueAsNumber: true,
-      getRegisterName: (index) => `generatorArray.${index}.degree` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors }),
-      inputProps: { "data-testid": "ArrayEditor-input-degree" },
-    },
-    {
-      key: "differentialValue",
-      label: `d(${generatorName})`,
-      width: 200,
-      getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
-      isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),
-      inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
-    },
-  ]
 
   return (
     <div data-testid="ArrayEditor-row">
@@ -103,6 +79,49 @@ export function ArrayEditorItem(
         <ShowFieldErrors fieldErrorArray={getFieldErrorArray({ errors, index })}/>
       </Stack>
     </div>
+  )
+}
+
+export function ArrayEditorItem(
+  props: RowComponentProps<GeneratorFormInput>
+): React.JSX.Element {
+  const { index, formData: { getValues }} = props
+  const generatorName = getValues().generatorArray[index].name
+
+  const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
+    {
+      key: "name",
+      label: "generator",
+      width: 90,
+      getRegisterName: (index) => `generatorArray.${index}.name` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "name" }),
+      inputProps: { "data-testid": "ArrayEditor-input-name" },
+    },
+    {
+      key: "degree",
+      label: `deg(${generatorName})`,
+      width: 80,
+      type: "number", valueAsNumber: true,
+      getRegisterName: (index) => `generatorArray.${index}.degree` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors }),
+      inputProps: { "data-testid": "ArrayEditor-input-degree" },
+    },
+    {
+      key: "differentialValue",
+      label: `d(${generatorName})`,
+      width: 200,
+      getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),
+      inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
+    },
+  ]
+
+  return (
+    <ArrayEditorItemImpl
+      rowComponentProps={props}
+      fieldOptionsList={fieldOptionsList}
+      getFieldErrorArray={getFieldErrorArray}
+    />
   )
 }
 

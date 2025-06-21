@@ -17,19 +17,7 @@ interface IdealConfigProps {
 }
 
 export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): React.JSX.Element {
-  const {
-    idealEditorPropsExceptOnSubmit,
-    getOnSubmit, beforeOpen, disableSubmit, preventQuit,
-  } = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
-  const editor: Editor = useMemo(() => ({
-    getOnSubmit, preventQuit, disableSubmit, beforeOpen,
-    renderContent: (closeDialog) => (
-      <IdealEditor
-        {...idealEditorPropsExceptOnSubmit}
-        onSubmit={getOnSubmit(closeDialog)}
-      />
-    )
-  }), [idealEditorPropsExceptOnSubmit, getOnSubmit, preventQuit, disableSubmit, beforeOpen])
+  const editor = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })
 
   return (

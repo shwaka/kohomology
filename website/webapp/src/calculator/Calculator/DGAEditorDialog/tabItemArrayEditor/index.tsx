@@ -1,15 +1,15 @@
 import React from "react"
 
+import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "@calculator/ArrayEditor"
+import { ArrayEditor } from "@calculator/ArrayEditor"
 import { TabItem } from "@calculator/TabDialog"
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
-import { ArrayEditor } from "./ArrayEditor"
 import { GeneratorArrayEditorItem } from "./GeneratorArrayEditorItem"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
-import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "./useArrayEditorProps"
 
 // added for test
 export function useGeneratorArrayEditor(args: {

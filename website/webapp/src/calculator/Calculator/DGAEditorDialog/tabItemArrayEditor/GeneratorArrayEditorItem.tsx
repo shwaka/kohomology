@@ -1,9 +1,9 @@
 import React from "react"
 
+import { ArrayEditorItem, FieldOptions } from "@calculator/ArrayEditor"
 import { RowComponentProps } from "@calculator/SortableFields"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
-import { ArrayEditorItem, FieldOptions } from "./ArrayEditorItem"
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 

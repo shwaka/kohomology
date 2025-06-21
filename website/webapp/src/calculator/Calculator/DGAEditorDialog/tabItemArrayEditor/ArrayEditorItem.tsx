@@ -3,12 +3,24 @@ import React, { useCallback } from "react"
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { RowComponentProps } from "@calculator/SortableFields"
 import { Delete, DragHandle } from "@mui/icons-material"
-import { IconButton, Stack, TextField, Tooltip } from "@mui/material"
+import { IconButton, InputBaseComponentProps, Stack, TextField, Tooltip } from "@mui/material"
 import { useOverwritableTimeout } from "@site/src/utils/useOverwritableTimeout"
-import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath } from "react-hook-form"
 
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
+
+interface FieldOptions {
+  key: string
+  label: string
+  width: number
+  type?: React.HTMLInputTypeAttribute
+  valueAsNumber?: true
+  getRegisterName: (index: number) => FieldPath<GeneratorFormInput>
+  isError: (errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number) => boolean
+  inputProps?: InputBaseComponentProps
+}
+
 
 export function ArrayEditorItem(
   { draggableProps, index, formData: { register, errors, remove, getValues, trigger } }: RowComponentProps<GeneratorFormInput>
@@ -21,48 +33,55 @@ export function ArrayEditorItem(
     [setOverwritableTimeout, trigger]
   )
 
+  const fieldOptionsList: FieldOptions[] = [
+    {
+      key: "name",
+      label: "generator",
+      width: 90,
+      getRegisterName: (index) => `generatorArray.${index}.name` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "name" }),
+      inputProps: { "data-testid": "ArrayEditor-input-name" },
+    },
+    {
+      key: "degree",
+      label: `deg(${generatorName})`,
+      width: 80,
+      type: "number", valueAsNumber: true,
+      getRegisterName: (index) => `generatorArray.${index}.degree` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors }),
+      inputProps: { "data-testid": "ArrayEditor-input-degree" },
+    },
+    {
+      key: "differentialValue",
+      label: `d(${generatorName})`,
+      width: 200,
+      getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
+      isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),
+      inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
+    },
+  ]
+
   return (
     <div data-testid="ArrayEditor-row">
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
-          <TextField
-            label="generator"
-            sx={{ width: 90 }} size="small"
-            {...register(
-              `generatorArray.${index}.name` as const,
-              { onChange: triggerWithDelay }
-            )}
-            onBlur={() => trigger()}
-            error={containsError({ errors, index, key: "name" })}
-            inputProps={{ "data-testid": "ArrayEditor-input-name" }}
-          />
-          <TextField
-            label={`deg(${generatorName})`} type="number"
-            sx={{ width: 80}} size="small"
-            {...register(
-              `generatorArray.${index}.degree` as const,
-              {
-                valueAsNumber: true,
-                onChange: triggerWithDelay,
-              }
-            )}
-            onBlur={() => trigger()}
-            error={containsError({ errors, index, key: "degree" }) || containsGlobalDegreeError({ errors })}
-            inputProps={{ "data-testid": "ArrayEditor-input-degree" }}
-          />
-          <TextField
-            label={`d(${generatorName})`}
-            sx={{ width: 200 }} size="small"
-            {...register(
-              `generatorArray.${index}.differentialValue` as const,
-              {
-                onChange: triggerWithDelay,
-              }
-            )}
-            onBlur={() => trigger()}
-            error={containsError({ errors, index, key: "differentialValue" })}
-            inputProps={{ "data-testid": "ArrayEditor-input-differentialValue" }}
-          />
+          {fieldOptionsList.map(({ key, label, width, type, valueAsNumber, getRegisterName, isError, inputProps }) => (
+            <TextField
+              key={key}
+              label={label} type={type}
+              sx={{ width }} size="small"
+              {...register(
+                getRegisterName(index),
+                {
+                  valueAsNumber,
+                  onChange: triggerWithDelay,
+                }
+              )}
+              onBlur={() => trigger()}
+              error={isError(errors, index)}
+              inputProps={inputProps}
+            />
+          ))}
           <Tooltip title="Delete this generator">
             <IconButton
               onClick={async () => { remove(index); await trigger() }}

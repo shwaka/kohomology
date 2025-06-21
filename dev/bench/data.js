@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750479147915,
+  "lastUpdate": 1750490788976,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10726,6 +10726,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.004,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "07c15a58d813f7fad0982b0929102b9a99c80914",
+          "message": "refactor(website): add calculator/ArrayEditor/",
+          "timestamp": "2025-06-21T16:12:22+09:00",
+          "tree_id": "21087dfd9ee1e5574c3a2d1dc5ad5a7a750e37b6",
+          "url": "https://github.com/shwaka/kohomology/commit/07c15a58d813f7fad0982b0929102b9a99c80914"
+        },
+        "date": 1750490787763,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.82,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.022,
             "unit": "s/op"
           }
         ]

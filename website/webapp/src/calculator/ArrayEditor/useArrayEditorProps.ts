@@ -10,6 +10,9 @@ export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues
   arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit">
 }
 
+// This hook is extracted from useArrayEditor to
+// - make tests easy
+// - make this file .ts (not .tsx)
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
 }: UseArrayEditorArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {

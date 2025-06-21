@@ -1,7 +1,5 @@
-import React from "react"
-
-import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "@calculator/ArrayEditor"
-import { ArrayEditor } from "@calculator/ArrayEditor"
+import { useArrayEditor } from "@calculator/ArrayEditor"
+import { Editor } from "@calculator/EditorDialog"
 import { TabItem } from "@calculator/TabDialog"
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
@@ -11,24 +9,23 @@ import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGene
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
-// added for test
-export function useGeneratorArrayEditor(args: {
+function useGeneratorArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
-}): UseArrayEditorPropsReturnValue<GeneratorFormInput, "generatorArray"> {
+}): Editor {
   const defaultValues: GeneratorFormInput = {
     generatorArray: jsonToGeneratorArray(args.json)
   }
   const setValues = (formValues: GeneratorFormInput): void => {
     args.updateDgaWrapper(generatorArrayToJson(formValues.generatorArray))
   }
-  const result = useArrayEditorProps({
+  const editor = useArrayEditor({
     defaultValues, setValues, getGlobalErrors, getNext,
     schema: formValueSchema,
     RowComponent: GeneratorArrayEditorItem,
     arrayKey: "generatorArray",
   })
-  return result
+  return editor
 }
 
 function getGlobalErrors(
@@ -60,17 +57,9 @@ export function useTabItemArrayEditor(args: {
   json: string
   updateDgaWrapper: (json: string) => void
 }): TabItem {
-  const { editorWithoutRender, arrayEditorPropsExceptOnSubmit } = useGeneratorArrayEditor(args)
+  const editor = useGeneratorArrayEditor(args)
   return {
     label: "Array",
-    editor: {
-      ...editorWithoutRender,
-      renderContent: (closeDialog) => (
-        <ArrayEditor
-          onSubmit={editorWithoutRender.getOnSubmit(closeDialog)}
-          {...arrayEditorPropsExceptOnSubmit}
-        />
-      ),
-    },
+    editor,
   }
 }

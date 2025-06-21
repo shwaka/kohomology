@@ -1,11 +1,12 @@
 import { useCallback } from "react"
 
+import { useArrayEditorProps } from "@calculator/ArrayEditor/useArrayEditorProps"
 import { OnSubmit } from "@calculator/EditorDialog"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { useFieldArray, useForm } from "react-hook-form"
+import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
 
 import { IdealEditorProps } from "./IdealEditor"
-import { Generator, getFormValueSchema } from "./schema"
+import { Generator, getFormValueSchema, IdealFormInput } from "./schema"
 
 export interface UseIdealEditorArgs {
   idealJson: string
@@ -17,64 +18,28 @@ export interface UseIdealEditorArgs {
 interface UseIdealEditorReturnValue {
   idealEditorPropsExceptOnSubmit: Omit<IdealEditorProps, "onSubmit">
   getOnSubmit: (closeDialog: () => void) => OnSubmit
-  beforeOpen: () => void
-  disableSubmit: () => boolean
-  preventQuit: () => string | undefined
+  beforeOpen?: () => void
+  disableSubmit?: () => boolean
+  preventQuit?: () => string | undefined
 }
 
 export function useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray }: UseIdealEditorArgs): UseIdealEditorReturnValue {
-  const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors } } = useForm({
-    mode: "onBlur",
-    reValidateMode: "onBlur",
-    criteriaMode: "all",
+  const { editorWithoutRender, arrayEditorPropsPartial } = useArrayEditorProps({
     defaultValues: {
-      generatorArray: jsonToGeneratorArray(idealJson)
+      generatorArray: jsonToGeneratorArray(idealJson),
     },
-    resolver: zodResolver(
-      getFormValueSchema(validateGenerator, validateGeneratorArray),
-      undefined, // schemaOptions?: Partial<z.ParseParams>
-      { mode: "async" }, // resolverOptions: { mode?: 'async' | 'sync', raw?: boolean }
-    )
+    setValues: (formValues) => setIdealJson(generatorArrayToJson(formValues.generatorArray)),
+    getGlobalErrors,
+    getNext: (_valueArray) => ({ text: "" }),
+    arrayKey: "generatorArray",
+    schema: getFormValueSchema(validateGenerator, validateGeneratorArray),
+    zodResolverMode: "async",
   })
-  const { fields, append, remove, move } = useFieldArray({
-    control,
-    name: "generatorArray",
-  })
-
-  const getOnSubmit = useCallback((closeDialog: () => void): OnSubmit => {
-    return handleSubmit(
-      ({ generatorArray }) => {
-        setIdealJson(generatorArrayToJson(generatorArray))
-        closeDialog()
-      }
-    )
-  }, [setIdealJson, handleSubmit])
-
-  const beforeOpen = useCallback((): void => {
-    const generatorArray = jsonToGeneratorArray(idealJson)
-    reset({ generatorArray })
-  }, [idealJson, reset])
-
-  const idealEditorPropsExceptOnSubmit: Omit<IdealEditorProps, "onSubmit"> = {
-    register, getValues, errors, trigger,
-    fields, append, remove, move,
-  }
-
-  const disableSubmit = useCallback((): boolean => {
-    return (errors.generatorArray !== undefined) || (errors._global_errors !== undefined)
-  }, [errors])
-
-  const preventQuit = useCallback((): string | undefined =>  {
-    const generatorArray = getValues().generatorArray
-    if (generatorArrayToJson(generatorArray) !== idealJson) {
-      return "Your input is not saved. Are you sure you want to quit?"
-    } else {
-      return undefined
-    }
-  }, [getValues, idealJson])
+  const { getOnSubmit, beforeOpen, disableSubmit, preventQuit } = editorWithoutRender
 
   return {
-    idealEditorPropsExceptOnSubmit, getOnSubmit, beforeOpen, disableSubmit, preventQuit,
+    idealEditorPropsExceptOnSubmit: arrayEditorPropsPartial,
+    getOnSubmit, beforeOpen, disableSubmit, preventQuit,
   }
 }
 
@@ -86,4 +51,15 @@ function jsonToGeneratorArray(json: string): Generator[] {
 function generatorArrayToJson(generatorArray: Generator[]): string {
   const arr = generatorArray.map(({ text }) => text)
   return JSON.stringify(arr)
+}
+
+function getGlobalErrors(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>): (FieldError | undefined)[] {
+  if (errors.generatorArray !== undefined) {
+    return []
+  }
+  const fieldError: FieldError | undefined = errors._global_errors?.validateGeneratorArray
+  if (fieldError === undefined) {
+    return []
+  }
+  return [fieldError]
 }

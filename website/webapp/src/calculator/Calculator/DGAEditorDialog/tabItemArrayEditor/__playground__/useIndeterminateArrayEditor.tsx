@@ -1,3 +1,5 @@
+import React from "react"
+
 import { Editor } from "@calculator/EditorDialog"
 
 import { useIndeterminateArrayEditorProps, UseIndeterminateArrayEditorPropsArgs } from "./useIndeterminateArrayEditorProps"

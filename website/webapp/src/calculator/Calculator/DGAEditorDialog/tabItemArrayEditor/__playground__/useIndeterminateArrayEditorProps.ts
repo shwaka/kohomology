@@ -1,10 +1,11 @@
+import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { Indeterminate, IndeterminateFormInput, indeterminateFormValueSchema, indeterminateGlobalErrorsSchema } from "./schema"
 import { useArrayEditorProps, UseArrayEditorPropsReturnValue } from "../useArrayEditorProps"
 import { IndeterminateArrayEditorItem } from "./IndeterminateArrayEditorItem"
 
-interface UseIndeterminateArrayEditorPropsArgs {
+export interface UseIndeterminateArrayEditorPropsArgs {
   defaultValues: IndeterminateFormInput
   setValues: (values: IndeterminateFormInput) => void
 }
@@ -32,9 +33,14 @@ function getGlobalErrors(
   return keys.map((key) => _global_errors[key] )
 }
 
-function getNext(_indeterminateArray: Indeterminate[]): Indeterminate {
+function getNext(indeterminateArray: Indeterminate[]): Indeterminate {
+  const name = getFirstUnused({
+    usedValues: indeterminateArray.map((indeterminate) => indeterminate.name),
+    candidates: "xyzuvw".split(""),
+    fallback: "",
+  })
   return {
-    name: "x",
+    name,
     degree: 1,
   }
 }

@@ -1,5 +1,6 @@
 import React from "react"
 
+import { ArrayEditorSample } from "@calculator/Calculator/DGAEditorDialog/tabItemArrayEditor/__playground__/ArrayEditorSample"
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
 import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__playground__/MessageBoxForWorkerSample"
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
@@ -38,6 +39,11 @@ const tabs = [
     key: "my-worker",
     name: "MyWorker",
     render: () => (<MyWorkerSample/>),
+  },
+  {
+    key: "array-editor",
+    name: "ArrayEditor",
+    render: () => (<ArrayEditorSample/>),
   },
 ] as const satisfies QueryTab<string>[]
 

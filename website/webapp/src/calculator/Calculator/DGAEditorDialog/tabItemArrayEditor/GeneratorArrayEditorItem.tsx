@@ -10,7 +10,7 @@ import { Generator } from "./schema/generatorSchema"
 const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   {
     key: "name",
-    getLabel: () => "generator",
+    getLabel: (_values, _index) => "generator",
     width: 90,
     getRegisterName: (index) => `generatorArray.${index}.name` as const,
     isError: (errors, index) => containsError({ errors, index, key: "name" }),

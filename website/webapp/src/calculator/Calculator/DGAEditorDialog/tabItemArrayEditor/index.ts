@@ -4,7 +4,7 @@ import { TabItem } from "@calculator/TabDialog"
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
-import { GeneratorArrayEditorItem } from "./GeneratorArrayEditorItem"
+import { generatorFieldOptionsList } from "./generatorFieldOptionsList"
 import { generatorArrayToJson, jsonToGeneratorArray } from "./schema/ConvertGenerator"
 import { formValueSchema, GeneratorFormInput, globalErrorsSchema } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
@@ -22,8 +22,9 @@ function useGeneratorArrayEditor(args: {
   const editor = useArrayEditor({
     defaultValues, setValues, getGlobalErrors, getNext,
     schema: formValueSchema,
-    RowComponent: GeneratorArrayEditorItem,
     arrayKey: "generatorArray",
+    fieldOptionsList: generatorFieldOptionsList,
+    getFieldErrorArray,
   })
   return editor
 }
@@ -62,4 +63,14 @@ export function useTabItemArrayEditor(args: {
     label: "Array",
     editor,
   }
+}
+
+function getFieldErrorArray(
+  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}
+): (FieldError | undefined)[] {
+  const error = errors.generatorArray?.[index]
+  if (error === undefined) {
+    return []
+  }
+  return (["name", "degree", "differentialValue"] as const).flatMap((key) => error[key])
 }

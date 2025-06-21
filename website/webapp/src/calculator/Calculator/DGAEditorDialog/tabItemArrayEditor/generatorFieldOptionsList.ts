@@ -1,13 +1,10 @@
-import React from "react"
-
-import { ArrayEditorItem, FieldOptions } from "@calculator/ArrayEditor"
-import { RowComponentProps } from "@calculator/SortableFields"
+import { FieldOptions } from "@calculator/ArrayEditor"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { GeneratorFormInput } from "./schema/generatorArraySchema"
 import { Generator } from "./schema/generatorSchema"
 
-const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
+export const generatorFieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   {
     key: "name",
     getLabel: (_values, _index) => "generator",
@@ -34,28 +31,6 @@ const fieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
     inputProps: { "data-testid": "ArrayEditor-input-differentialValue" },
   },
 ]
-
-export function GeneratorArrayEditorItem(
-  props: RowComponentProps<GeneratorFormInput>
-): React.JSX.Element {
-  return (
-    <ArrayEditorItem
-      rowComponentProps={props}
-      fieldOptionsList={fieldOptionsList}
-      getFieldErrorArray={getFieldErrorArray}
-    />
-  )
-}
-
-function getFieldErrorArray(
-  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}
-): (FieldError | undefined)[] {
-  const error = errors.generatorArray?.[index]
-  if (error === undefined) {
-    return []
-  }
-  return (["name", "degree", "differentialValue"] as const).flatMap((key) => error[key])
-}
 
 function containsError({ errors, index, key }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number, key: keyof Generator }): boolean {
   const error: FieldError | undefined = errors.generatorArray?.[index]?.[key]

@@ -18,7 +18,7 @@ export interface FieldOptions<TFieldValues extends FieldValues> {
   inputProps?: InputBaseComponentProps
 }
 
-interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
+export interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
   rowComponentProps: RowComponentProps<TFieldValues>
   fieldOptionsList: FieldOptions<TFieldValues>[]
   getFieldErrorArray: (args: { errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number}) => (FieldError | undefined)[]

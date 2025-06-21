@@ -3,7 +3,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { ArrayPath, FieldValues, useFieldArray, useForm } from "react-hook-form"
 
 import { ArrayEditorProps } from "./ArrayEditor"
-import { UseArrayEditorArgs } from "./UseArrayEditorArgs"
+import { UseArrayEditorPropsArgs } from "./UseArrayEditorArgs"
 
 export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">
@@ -15,7 +15,7 @@ export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues
 // - make this file .ts (not .tsx)
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   defaultValues, setValues, getGlobalErrors, getNext, schema, RowComponent, arrayKey,
-}: UseArrayEditorArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
+}: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",

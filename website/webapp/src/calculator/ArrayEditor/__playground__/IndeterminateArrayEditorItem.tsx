@@ -30,8 +30,7 @@ export function IndeterminateArrayEditorItem(
   return (
     <ArrayEditorItem
       rowComponentProps={props}
-      fieldOptionsList={fieldOptionsList}
-      getFieldErrorArray={getFieldErrorArray}
+      rowComponentData={{ fieldOptionsList, getFieldErrorArray }}
     />
   )
 }

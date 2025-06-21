@@ -18,14 +18,19 @@ export interface FieldOptions<TFieldValues extends FieldValues> {
   inputProps?: InputBaseComponentProps
 }
 
-export interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
-  rowComponentProps: RowComponentProps<TFieldValues>
+export type ArrayEditorRowComponentData<TFieldValues extends FieldValues> = {
   fieldOptionsList: FieldOptions<TFieldValues>[]
   getFieldErrorArray: (args: { errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number}) => (FieldError | undefined)[]
 }
 
+export interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
+  rowComponentProps: RowComponentProps<TFieldValues>
+  rowComponentData: ArrayEditorRowComponentData<TFieldValues>
+}
+
 export function ArrayEditorItem<TFieldValues extends FieldValues>({
-  rowComponentProps, fieldOptionsList, getFieldErrorArray,
+  rowComponentProps,
+  rowComponentData: { fieldOptionsList, getFieldErrorArray },
 }: ArrayEditorItemProps<TFieldValues>): React.JSX.Element {
   const { draggableProps, index, formData: { register, getValues, errors, remove, trigger } } = rowComponentProps
   const setOverwritableTimeout = useOverwritableTimeout()

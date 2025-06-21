@@ -23,7 +23,7 @@ describe("useArrayEditorProps", () => {
       useIndeterminateArrayEditorProps({ defaultValues, setValues: jest.fn() })
     )
 
-    const values = result.current.arrayEditorPropsExceptOnSubmit.getValues()
+    const values = result.current.arrayEditorPropsPartial.getValues()
     expect(values.indeterminateArray).toHaveLength(2)
     expect(values.indeterminateArray[0].name).toBe("x")
     expect(values.indeterminateArray[0].degree).toBe(2)
@@ -37,13 +37,13 @@ describe("useArrayEditorProps", () => {
     )
 
     act(() => {
-      result.current.arrayEditorPropsExceptOnSubmit.append({
+      result.current.arrayEditorPropsPartial.append({
         name: "z",
         degree: 5,
       })
     })
 
-    const values = result.current.arrayEditorPropsExceptOnSubmit.getValues()
+    const values = result.current.arrayEditorPropsPartial.getValues()
     expect(values.indeterminateArray).toHaveLength(3)
     expect(values.indeterminateArray[2].name).toBe("z")
     expect(values.indeterminateArray[2].degree).toBe(5)
@@ -76,7 +76,7 @@ describe("useArrayEditorProps", () => {
     expect(preventQuit()).toBeUndefined()
 
     act(() => {
-      result.current.arrayEditorPropsExceptOnSubmit.append({
+      result.current.arrayEditorPropsPartial.append({
         name: "z",
         degree: 1,
       })

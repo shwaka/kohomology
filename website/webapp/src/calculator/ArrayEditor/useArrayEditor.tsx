@@ -12,7 +12,7 @@ export function useArrayEditor<TFieldValues extends FieldValues, K extends Array
   { fieldOptionsList, getFieldErrorArray, ...args }: UseArrayEditorArgs<TFieldValues, K>
 ): Editor {
   const RowComponent = useRowComponent({ fieldOptionsList, getFieldErrorArray })
-  const { editorWithoutRender, arrayEditorPropsExceptOnSubmit } =
+  const { editorWithoutRender, arrayEditorPropsPartial } =
     useArrayEditorProps({ ...args })
   return {
     ...editorWithoutRender,
@@ -20,7 +20,7 @@ export function useArrayEditor<TFieldValues extends FieldValues, K extends Array
       <ArrayEditor
         onSubmit={editorWithoutRender.getOnSubmit(closeDialog)}
         RowComponent={RowComponent}
-        {...arrayEditorPropsExceptOnSubmit}
+        {...arrayEditorPropsPartial}
       />
     )
   }

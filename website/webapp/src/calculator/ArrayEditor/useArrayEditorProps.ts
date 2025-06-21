@@ -7,7 +7,7 @@ import { UseArrayEditorPropsArgs } from "./UseArrayEditorArgs"
 
 export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> {
   editorWithoutRender: Omit<Editor, "renderContent">
-  arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent">
+  arrayEditorPropsPartial: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent">
 }
 
 // This hook is extracted from useArrayEditor to
@@ -53,7 +53,7 @@ export function useArrayEditorProps<TFieldValues extends FieldValues, K extends 
     // return (errors.generatorArray !== undefined)
   }
 
-  const arrayEditorPropsExceptOnSubmit: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent"> = {
+  const arrayEditorPropsPartial: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent"> = {
     register, errors, fields, append, remove, getValues, trigger, move, getGlobalErrors, getNext,
     arrayKey,
   }
@@ -64,6 +64,6 @@ export function useArrayEditorProps<TFieldValues extends FieldValues, K extends 
       preventQuit,
       disableSubmit,
     },
-    arrayEditorPropsExceptOnSubmit,
+    arrayEditorPropsPartial,
   }
 }

@@ -1,4 +1,4 @@
-import { TabItem } from "@calculator/TabDialog"
+import { TabItem } from "@calculator/TabEditor"
 import { useTextEditor } from "@calculator/TextEditor"
 import { validateJson } from "kohomology-js"
 

@@ -1,4 +1,4 @@
-import { screen, waitForElementToBeRemoved, within } from "@testing-library/react"
+import { screen, waitFor, waitForElementToBeRemoved, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
 
 export class InputIdeal {
@@ -12,10 +12,13 @@ export class InputIdeal {
 
   private static async apply(user: UserEvent, dialog: HTMLElement): Promise<void> {
     const applyButton = within(dialog).getByText("Apply")
+    await waitFor(() => {
+      expect(applyButton).toBeEnabled()
+    }, { timeout: 2000 })
     await user.click(applyButton)
   }
 
-  private static async inputIdealGeneratorAndApply(user: UserEvent, dialog: HTMLElement, generatorArray: string[]): Promise<void> {
+  private static async inputIdealGenerator(user: UserEvent, dialog: HTMLElement, generatorArray: string[]): Promise<void> {
     const addGeneratorButton = within(dialog).getByText("Add a generator")
     for (const [index, generator] of generatorArray.entries()) {
       await user.click(addGeneratorButton)
@@ -24,12 +27,12 @@ export class InputIdeal {
         await user.type(input, generator)
       }
     }
-    await InputIdeal.apply(user, dialog)
   }
 
   static async inputValidIdealGenerator(user: UserEvent, generatorArray: string[]): Promise<void> {
     const dialog = await InputIdeal.openDialog(user)
-    await InputIdeal.inputIdealGeneratorAndApply(user, dialog, generatorArray)
+    await InputIdeal.inputIdealGenerator(user, dialog, generatorArray)
+    await InputIdeal.apply(user, dialog)
     // See comments in InputJson.inputValidJson
     await waitForElementToBeRemoved(
       dialog,
@@ -39,9 +42,12 @@ export class InputIdeal {
     )
   }
 
-  static async inputInvalidIdealGenerator(user: UserEvent, generatorArray: string[]): Promise<void> {
+  static async inputInvalidIdealGenerator(user: UserEvent, generatorArray: string[], tab: boolean = false): Promise<void> {
     const dialog = await InputIdeal.openDialog(user)
-    await InputIdeal.inputIdealGeneratorAndApply(user, dialog, generatorArray)
-    await within(dialog).findByRole("alert")
+    await InputIdeal.inputIdealGenerator(user, dialog, generatorArray)
+    if (tab) {
+      await user.tab()
+    }
+    await within(dialog).findByRole("alert", undefined, { timeout: 2000 })
   }
 }

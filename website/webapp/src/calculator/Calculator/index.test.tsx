@@ -174,7 +174,7 @@ describe("idealQuot", () => {
     render(<Calculator/>)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
-    await InputIdeal.inputInvalidIdealGenerator(user, [""])
+    await InputIdeal.inputInvalidIdealGenerator(user, [""], true)
     const dialog = screen.getByRole("dialog")
     expect(dialog).toContainHTML("Please enter the generator.")
   })

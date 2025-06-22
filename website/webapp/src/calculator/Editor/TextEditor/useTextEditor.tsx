@@ -10,7 +10,7 @@ interface UseTextEditorArgs {
   setText: (newText: string) => void
   preventPrompt: string
   fieldLabel: string
-  fieldTestid: string
+  fieldTestid?: string
   validate: (value: string) => true | string
 }
 

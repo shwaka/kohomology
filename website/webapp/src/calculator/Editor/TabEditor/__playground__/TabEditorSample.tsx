@@ -17,7 +17,6 @@ export function TabEditorSample(): React.JSX.Element {
     text: json, setText: setJson,
     preventPrompt: "Do you really want to quit?",
     fieldLabel: "JSON",
-    fieldTestid: "ArrayEditorSample-TextEditor", // not used
     validate: (_value) => true,
   })
   const arrayEditor = useIndeterminateArrayEditor({

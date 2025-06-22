@@ -14,7 +14,7 @@ export interface TextEditorProps {
   errors: FieldErrorsImpl<DeepRequired<TextEditorFormInput>>
   trigger: UseFormTrigger<TextEditorFormInput>
   fieldLabel: string
-  fieldTestid: string
+  fieldTestid?: string
   validate: (value: string) => true | string
 }
 
@@ -31,7 +31,7 @@ export function TextEditor(
     <Stack spacing={2} sx={{ marginTop: 1 }}>
       <TextField
         label={fieldLabel} multiline
-        inputProps={{"data-testid": fieldTestid}}
+        inputProps={(fieldTestid !== undefined) ? { "data-testid": fieldTestid } : undefined}
         {...register(
           "text",
           {

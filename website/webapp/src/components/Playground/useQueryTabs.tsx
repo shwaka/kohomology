@@ -1,7 +1,8 @@
 import React, { useCallback } from "react"
 
+import { useLocalStorage } from "@site/src/utils/useLocalStorage"
+
 import { QueryTab } from "./QueryTab"
-import { useQueryState } from "./useQueryState"
 
 function isTabKey<K extends string>(tabKeys: K[], tabKey: string): tabKey is K {
   return (tabKeys as string[]).includes(tabKey)
@@ -22,7 +23,8 @@ function getKeys<K extends string>(tabs: QueryTab<K>[]): K[] {
 
 function useTabKey<K extends string>(tabKeys: K[]): [K, (newTabKey: string) => void] {
   const defaultTabKey: K = tabKeys[0]
-  const [tabKeyString, setTabKeyString] = useQueryState("tab-key", defaultTabKey)
+  // const [tabKeyString, setTabKeyString] = useQueryState("tab-key", defaultTabKey)
+  const [tabKeyString, setTabKeyString] = useLocalStorage("tab-key", defaultTabKey)
   const tabKey: K = isTabKey(tabKeys, tabKeyString) ? tabKeyString : defaultTabKey
   const setTabKey = useCallback((newTabKey: string) => {
     if (isTabKey(tabKeys, newTabKey)) {

@@ -9,7 +9,7 @@ import { DeepRequired, FieldError, FieldErrorsImpl, FieldPath, FieldValues } fro
 
 export interface FieldOptions<TFieldValues extends FieldValues> {
   key: string
-  getLabel: (values: TFieldValues, index: number) => string
+  label: string | ((values: TFieldValues, index: number) => string)
   width: number
   type?: React.HTMLInputTypeAttribute
   valueAsNumber?: true
@@ -43,10 +43,11 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
     <div data-testid="ArrayEditor-row">
       <Stack spacing={1}>
         <Stack direction="row" spacing={1}>
-          {fieldOptionsList.map(({ key, getLabel, width, type, valueAsNumber, getRegisterName, isError, inputProps }) => (
+          {fieldOptionsList.map(({ key, label, width, type, valueAsNumber, getRegisterName, isError, inputProps }) => (
             <TextField
               key={key}
-              label={getLabel(getValues(), index)} type={type}
+              label={(typeof label === "function") ? label(getValues(), index) : label}
+              type={type}
               sx={{ width }} size="small"
               {...register(
                 getRegisterName(index),
@@ -57,7 +58,7 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
               )}
               onBlur={() => trigger()}
               error={isError(errors, index)}
-              inputProps={typeof inputProps === "function" ? inputProps(index) : inputProps}
+              inputProps={(typeof inputProps === "function") ? inputProps(index) : inputProps}
             />
           ))}
           <Tooltip title="Delete this generator">

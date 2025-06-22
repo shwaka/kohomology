@@ -9,14 +9,14 @@ import { Indeterminate, IndeterminateFormInput } from "./schema"
 const fieldOptionsList: FieldOptions<IndeterminateFormInput>[] = [
   {
     key: "name",
-    getLabel: (_values, _index) => "indeterminate",
+    label: "indeterminate",
     width: 90,
     getRegisterName: (index) => `indeterminateArray.${index}.name` as const,
     isError: (errors, index) => containsError({ errors, index, key: "name" }),
   },
   {
     key: "degree",
-    getLabel: (_values, _index) => "degree",
+    label: "degree",
     width: 90,
     type: "number", valueAsNumber: true,
     getRegisterName: (index) => `indeterminateArray.${index}.degree` as const,

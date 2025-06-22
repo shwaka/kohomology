@@ -7,7 +7,7 @@ import { Generator } from "./schema/generatorSchema"
 export const generatorFieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   {
     key: "name",
-    getLabel: (_values, _index) => "generator",
+    label: "generator",
     width: 90,
     getRegisterName: (index) => `generatorArray.${index}.name` as const,
     isError: (errors, index) => containsError({ errors, index, key: "name" }),
@@ -15,7 +15,7 @@ export const generatorFieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   },
   {
     key: "degree",
-    getLabel: (values, index) => `deg(${values.generatorArray[index].name})`,
+    label: (values, index) => `deg(${values.generatorArray[index].name})`,
     width: 80,
     type: "number", valueAsNumber: true,
     getRegisterName: (index) => `generatorArray.${index}.degree` as const,
@@ -24,7 +24,7 @@ export const generatorFieldOptionsList: FieldOptions<GeneratorFormInput>[] = [
   },
   {
     key: "differentialValue",
-    getLabel: (values, index) => `d(${values.generatorArray[index].name})`,
+    label: (values, index) => `d(${values.generatorArray[index].name})`,
     width: 200,
     getRegisterName: (index) => `generatorArray.${index}.differentialValue` as const,
     isError: (errors, index) => containsError({ errors, index, key: "differentialValue" }),

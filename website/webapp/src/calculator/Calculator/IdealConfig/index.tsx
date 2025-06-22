@@ -1,11 +1,10 @@
-import React, { useMemo } from "react"
+import React from "react"
 
-import { Editor, EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
+import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
 import { StyledMessage } from "@calculator/styled/message"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import { Button } from "@mui/material"
 
-import { IdealEditor } from "./IdealEditor"
 import { useIdealEditor } from "./useIdealEditor"
 
 interface IdealConfigProps {

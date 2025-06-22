@@ -1,12 +1,8 @@
-import { useCallback } from "react"
 
 import { useArrayEditor } from "@calculator/ArrayEditor"
-import { useArrayEditorProps } from "@calculator/ArrayEditor/useArrayEditorProps"
-import { Editor, OnSubmit } from "@calculator/EditorDialog"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { DeepRequired, FieldError, FieldErrorsImpl, useFieldArray, useForm } from "react-hook-form"
+import { Editor } from "@calculator/EditorDialog"
+import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
-import { IdealEditorProps } from "./IdealEditor"
 import { idealFieldOptionsList } from "./idealFieldOptionsList"
 import { Generator, getFormValueSchema, IdealFormInput } from "./schema"
 

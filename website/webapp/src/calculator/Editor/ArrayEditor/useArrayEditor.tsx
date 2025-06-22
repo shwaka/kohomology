@@ -1,8 +1,8 @@
 import React from "react"
 
-import { Editor } from ".."
 import { ArrayPath, FieldValues } from "react-hook-form"
 
+import { Editor } from ".."
 import { ArrayEditor } from "./ArrayEditor"
 import { UseArrayEditorArgs } from "./UseArrayEditorArgs"
 import { useArrayEditorProps } from "./useArrayEditorProps"

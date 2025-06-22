@@ -1,8 +1,8 @@
 import React from "react"
 
-import { Editor, OnSubmit } from ".."
 import { useForm } from "react-hook-form"
 
+import { Editor, OnSubmit } from ".."
 import { TextEditorProps, TextEditor, TextEditorFormInput } from "./TextEditor"
 
 interface UseTextEditorArgs {

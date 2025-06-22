@@ -1,7 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react"
 
 import { Editor } from ".."
-
 import { TabEditorContent } from "./TabEditorContent"
 import { TabEditorTitle } from "./TabEditorTitle"
 import { TabItem } from "./TabItem"

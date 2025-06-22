@@ -2,13 +2,13 @@ import React, { useCallback } from "react"
 
 import { useLocalStorage } from "@site/src/utils/useLocalStorage"
 
-import { QueryTab } from "./QueryTab"
+import { SimpleTab } from "./SimpleTab"
 
 function isTabKey<K extends string>(tabKeys: K[], tabKey: string): tabKey is K {
   return (tabKeys as string[]).includes(tabKey)
 }
 
-function getTab<K extends string>(tabs: QueryTab<K>[], tabKey: K): QueryTab<K> {
+function getTab<K extends string>(tabs: SimpleTab<K>[], tabKey: K): SimpleTab<K> {
   for (const tab of tabs) {
     if (tab.key === tabKey) {
       return tab
@@ -17,7 +17,7 @@ function getTab<K extends string>(tabs: QueryTab<K>[], tabKey: K): QueryTab<K> {
   throw new Error(`No tab found for key ${tabKey}`)
 }
 
-function getKeys<K extends string>(tabs: QueryTab<K>[]): K[] {
+function getKeys<K extends string>(tabs: SimpleTab<K>[]): K[] {
   return tabs.map((tab) => tab.key)
 }
 
@@ -36,12 +36,12 @@ function useTabKey<K extends string>(tabKeys: K[]): [K, (newTabKey: string) => v
   return [tabKey, setTabKey]
 }
 
-interface UseQueryTabsReturnValue {
+interface UseSimpleTabsReturnValue {
   renderSelect: () => React.JSX.Element
   renderTabs: () => React.JSX.Element
 }
 
-export function useQueryTabs<K extends string>(tabs: QueryTab<K>[]): UseQueryTabsReturnValue {
+export function useSimpleTabs<K extends string>(tabs: SimpleTab<K>[]): UseSimpleTabsReturnValue {
   const tabKeys = getKeys(tabs)
   const [tabKey, setTabKey] = useTabKey(tabKeys)
   const tab = getTab(tabs, tabKey)

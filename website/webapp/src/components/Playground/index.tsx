@@ -12,8 +12,8 @@ import BrowserOnly from "@docusaurus/BrowserOnly"
 import { ThemeProvider } from "@mui/material"
 
 import { PlaygroundBox, usePlaygroundBox } from "./PlaygroundBox"
-import { QueryTab } from "./QueryTab"
-import { useQueryTabs } from "./useQueryTabs"
+import { SimpleTab } from "./SimpleTab"
+import { useSimpleTabs } from "./useSimpleTabs"
 
 const tabs = [
   {
@@ -51,10 +51,10 @@ const tabs = [
     name: "TabEditor",
     render: () => (<TabEditorSample/>),
   },
-] as const satisfies QueryTab<string>[]
+] as const satisfies SimpleTab<string>[]
 
 function PlaygroundImpl(): React.JSX.Element {
-  const { renderSelect, renderTabs } = useQueryTabs(tabs)
+  const { renderSelect, renderTabs } = useSimpleTabs(tabs)
   const { props, renderControl } = usePlaygroundBox()
   const theme = useCustomTheme()
 

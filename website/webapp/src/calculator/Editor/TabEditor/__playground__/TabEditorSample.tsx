@@ -17,7 +17,7 @@ export function TabEditorSample(): React.JSX.Element {
     text: json, setText: setJson,
     preventPrompt: "Do you really want to quit?",
     fieldLabel: "JSON",
-    validate: (_value) => true,
+    validate: validateJson,
   })
   const arrayEditor = useIndeterminateArrayEditor({
     defaultValues: { indeterminateArray: jsonToArray(json) },
@@ -50,10 +50,41 @@ export function TabEditorSample(): React.JSX.Element {
 }
 
 function jsonToArray(json: string): Indeterminate[] {
-  const array: unknown = JSON.parse(json)
-  return indeterminateArraySchema.parse(array)
+  const parseResult = parseJson(json)
+  switch (parseResult.type) {
+    case "success":
+      return indeterminateArraySchema.parse(parseResult.value)
+    case "error":
+      return []
+  }
 }
 
 function arrayToJson(array: Indeterminate[]): string {
   return JSON.stringify(array, undefined, 2)
+}
+
+type ParseJsonResult =
+  { type: "success", value: unknown } | { type: "error", message: string }
+
+function parseJson(json: string): ParseJsonResult {
+  try {
+    const value: unknown = JSON.parse(json)
+    return { type: "success", value }
+  } catch (e) {
+    if (e instanceof Error) {
+      return { type: "error", message: e.message}
+    } else {
+      return { type: "error", message: `Unknown error: ${e}`}
+    }
+  }
+}
+
+function validateJson(json: string): true | string {
+  const parseResult = parseJson(json)
+  switch (parseResult.type) {
+    case "success":
+      return true
+    case "error":
+      return parseResult.message
+  }
 }

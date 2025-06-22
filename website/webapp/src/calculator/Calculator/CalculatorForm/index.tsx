@@ -1,5 +1,6 @@
 import React, { Fragment, useCallback, useState } from "react"
 
+import { EditorDialog } from "@calculator/EditorDialog"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"
@@ -64,7 +65,7 @@ export function CalculatorForm(): React.JSX.Element {
     restart()
   })
   const { shareDGADialogProps, shareDGAButtonProps } = useShareDGA({ dgaJson: json, idealJson, targetName })
-  const { TabDialog, tabDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
+  const { editorDialogProps, openDialog } = useDGAEditorDialog(json, setJson)
 
   const validateIdealGenerator = useCallback(async (generator: string): Promise<true | string> => {
     return await runAsync("validateIdealGenerator", [generator])
@@ -108,7 +109,7 @@ export function CalculatorForm(): React.JSX.Element {
               sx={{ textTransform: "none" }}>
           Edit DGA
             </Button>
-            <TabDialog {...tabDialogProps}/>
+            <EditorDialog {...editorDialogProps}/>
             <ShareDGAButton {...shareDGAButtonProps}/>
             <ShareDGADialog {...shareDGADialogProps}/>
           </Stack>

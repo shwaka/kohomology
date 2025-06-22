@@ -1,5 +1,6 @@
 import React from "react"
 
+import { EditorDialog } from "@calculator/EditorDialog"
 import { render, screen, within, renderHook, act } from "@testing-library/react"
 
 import { useDGAEditorDialog } from "."
@@ -9,12 +10,11 @@ test("useDGAEditorDialog", async () => {
   const json = sphere(2)
   const updateDgaWrapper = (json: string): void => { console.log(json) }
   const { result } = renderHook(() => useDGAEditorDialog(json, updateDgaWrapper))
-  const TabDialog = result.current.TabDialog
-  const { rerender } = render(<TabDialog {...result.current.tabDialogProps}/>)
+  const { rerender } = render(<EditorDialog {...result.current.editorDialogProps}/>)
   act(() => {
     result.current.openDialog()
   })
-  rerender(<TabDialog {...result.current.tabDialogProps}/>)
+  rerender(<EditorDialog {...result.current.editorDialogProps}/>)
   // check texts in dialog
   const dialog = await screen.findByRole("dialog")
   expect(dialog).toContainHTML("Array")

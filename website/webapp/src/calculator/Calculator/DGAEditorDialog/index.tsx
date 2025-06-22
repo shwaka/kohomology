@@ -1,21 +1,28 @@
-import { TabDialog, useTabDialog, UseTabDialogReturnValue } from "@calculator/TabDialog"
+import { EditorDialogProps, useEditorDialog } from "@calculator/EditorDialog"
+import { useTabEditor } from "@calculator/TabDialog"
 
 import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"
 import { useTabItemJsonEditor } from "./tabItemJsonEditor"
 
 const tabKeys = ["array", "json", "example"] as const
-type TabKey = (typeof tabKeys)[number]
+// type TabKey = (typeof tabKeys)[number]
+
+interface UseDGAEditorDialogReturnValue {
+  editorDialogProps: EditorDialogProps
+  openDialog: () => void
+}
 
 export function useDGAEditorDialog(
   json: string,
   updateDgaWrapper: (json: string) => void
-): UseTabDialogReturnValue & { TabDialog: typeof TabDialog } {
+): UseDGAEditorDialogReturnValue {
   const tabItems = {
     "array": useTabItemArrayEditor({ json, updateDgaWrapper }),
     "json": useTabItemJsonEditor({ json, updateDgaWrapper }),
     "example": useTabItemExampleSelector({ updateDgaWrapper }),
   }
-  const useTabDialogResult = useTabDialog<TabKey>(tabItems, tabKeys, "array")
-  return { TabDialog, ...useTabDialogResult }
+  const editor = useTabEditor({ tabItems, tabKeys, defaultTabKey: "array" })
+  const { editorDialogProps, openDialog } = useEditorDialog({ editor })
+  return { editorDialogProps, openDialog }
 }

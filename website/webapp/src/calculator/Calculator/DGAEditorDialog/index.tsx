@@ -17,9 +17,9 @@ export function useDGAEditorDialog(
   updateDgaWrapper: (json: string) => void
 ): UseDGAEditorDialogReturnValue {
   const tabItems = {
-    "array": useTabItemArrayEditor({ json, updateDgaWrapper }),
-    "json": useTabItemJsonEditor({ json, updateDgaWrapper }),
-    "example": useTabItemExampleSelector({ updateDgaWrapper }),
+    array: useTabItemArrayEditor({ json, updateDgaWrapper }),
+    json: useTabItemJsonEditor({ json, updateDgaWrapper }),
+    example: useTabItemExampleSelector({ updateDgaWrapper }),
   }
   const editor = useTabEditor({ tabItems, tabKeys, defaultTabKey: "array" })
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })

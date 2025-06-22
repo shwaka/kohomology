@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750602618581,
+  "lastUpdate": 1750604381295,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -10998,6 +10998,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.18,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c3f526c1cc0fb1c1379a03d4178773117dd7ea20",
+          "message": "refactor(website): rename QueryTab to SipmleTab",
+          "timestamp": "2025-06-22T23:54:23+09:00",
+          "tree_id": "659a4beff0b9565c3ea5a0d1e895d7255f4f6f94",
+          "url": "https://github.com/shwaka/kohomology/commit/c3f526c1cc0fb1c1379a03d4178773117dd7ea20"
+        },
+        "date": 1750604380519,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.773,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.519,
             "unit": "s/op"
           }
         ]

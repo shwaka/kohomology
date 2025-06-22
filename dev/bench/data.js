@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750604381295,
+  "lastUpdate": 1750604991696,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11032,6 +11032,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.519,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5ca714a141731dbf5e6470692db75d3cb1437c2c",
+          "message": "test(website): improve names of tabs in playground",
+          "timestamp": "2025-06-23T00:01:45+09:00",
+          "tree_id": "f5fd18cda8200f4b29be0cc89199af2d272df499",
+          "url": "https://github.com/shwaka/kohomology/commit/5ca714a141731dbf5e6470692db75d3cb1437c2c"
+        },
+        "date": 1750604990917,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 1.008,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.404,
             "unit": "s/op"
           }
         ]

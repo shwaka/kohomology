@@ -7,7 +7,7 @@ const indeterminateSchema = z.object({
 
 export type Indeterminate = z.infer<typeof indeterminateSchema>
 
-const indeterminateArraySchema = z.array(indeterminateSchema)
+export const indeterminateArraySchema = z.array(indeterminateSchema)
 
 export const indeterminateGlobalErrorsSchema = z.object({
   distinct: z.null(),

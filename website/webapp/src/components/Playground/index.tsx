@@ -2,6 +2,7 @@ import React from "react"
 
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
 import { ArrayEditorSample } from "@calculator/Editor/ArrayEditor/__playground__/ArrayEditorSample"
+import { TabEditorSample } from "@calculator/Editor/TabEditor/__playground__/TabEditorSample"
 import { TextEditorSample } from "@calculator/Editor/TextEditor/__playground__/TextEditorSample"
 import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__playground__/MessageBoxForWorkerSample"
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
@@ -44,6 +45,11 @@ const tabs = [
     key: "array-editor",
     name: "ArrayEditor",
     render: () => (<ArrayEditorSample/>),
+  },
+  {
+    key: "tab-editor",
+    name: "TabEditor",
+    render: () => (<TabEditorSample/>),
   },
 ] as const satisfies QueryTab<string>[]
 

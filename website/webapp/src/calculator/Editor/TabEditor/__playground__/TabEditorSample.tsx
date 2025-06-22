@@ -20,7 +20,7 @@ export function TabEditorSample(): React.JSX.Element {
     validate: (_value) => true,
   })
   const arrayEditor = useIndeterminateArrayEditor({
-    defaultValues: { indeterminateArray: jsonToArray(defaultJson) },
+    defaultValues: { indeterminateArray: jsonToArray(json) },
     setValues: (formValues) => setJson(arrayToJson(formValues.indeterminateArray)),
   })
   const editor = useTabEditor({

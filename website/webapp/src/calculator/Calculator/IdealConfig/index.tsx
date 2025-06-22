@@ -1,6 +1,6 @@
 import React from "react"
 
-import { EditorDialog, useEditorDialog } from "@calculator/EditorDialog"
+import { EditorDialog, useEditorDialog } from "@calculator/Editor"
 import { StyledMessage } from "@calculator/styled/message"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import { Button } from "@mui/material"

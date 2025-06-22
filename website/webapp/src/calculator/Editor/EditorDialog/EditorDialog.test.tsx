@@ -2,10 +2,10 @@ import React from "react"
 
 import { render } from "@testing-library/react"
 
+import { Editor } from "../Editor"
 import { cancelMethods, EditorDialogHandler } from "./__testutils__/EditorDialogHandler"
-import { Editor } from "./Editor"
 import { EditorDialog } from "./EditorDialog"
-import { OnSubmit } from "./OnSubmit"
+import { OnSubmit } from "../OnSubmit"
 import { useEditorDialog } from "./useEditorDialog"
 
 jest.mock("@calculator/ConfirmDialog/useConfirm")

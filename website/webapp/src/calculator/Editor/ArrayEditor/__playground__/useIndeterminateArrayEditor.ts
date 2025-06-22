@@ -1,4 +1,4 @@
-import { Editor } from "@calculator/EditorDialog"
+import { Editor } from "@calculator/Editor"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { UseIndeterminateArrayEditorPropsArgs } from "./useIndeterminateArrayEditorProps"

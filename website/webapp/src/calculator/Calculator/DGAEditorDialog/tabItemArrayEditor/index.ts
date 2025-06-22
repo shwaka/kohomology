@@ -1,6 +1,4 @@
-import { useArrayEditor } from "@calculator/ArrayEditor"
-import { Editor } from "@calculator/EditorDialog"
-import { TabItem } from "@calculator/TabEditor"
+import { Editor, useArrayEditor, TabItem } from "@calculator/Editor"
 import { getFirstUnused } from "@site/src/utils/getFirstUnused"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 

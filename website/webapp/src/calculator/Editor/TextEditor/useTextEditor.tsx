@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Editor, OnSubmit } from "@calculator/EditorDialog"
+import { Editor, OnSubmit } from "@calculator/Editor"
 import { useForm } from "react-hook-form"
 
 import { TextEditorProps, TextEditor, TextEditorFormInput } from "./TextEditor"

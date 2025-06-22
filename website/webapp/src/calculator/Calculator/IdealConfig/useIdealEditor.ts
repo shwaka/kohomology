@@ -1,6 +1,4 @@
-
-import { useArrayEditor } from "@calculator/ArrayEditor"
-import { Editor } from "@calculator/EditorDialog"
+import { useArrayEditor, Editor } from "@calculator/Editor"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { idealFieldOptionsList } from "./idealFieldOptionsList"

@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from "react"
 
-import { Editor } from "@calculator/EditorDialog"
+import { Editor } from "@calculator/Editor"
 
 import { TabEditorContent } from "./TabEditorContent"
 import { TabEditorTitle } from "./TabEditorTitle"

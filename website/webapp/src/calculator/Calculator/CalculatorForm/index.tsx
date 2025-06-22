@@ -1,6 +1,6 @@
 import React, { Fragment, useCallback, useState } from "react"
 
-import { EditorDialog } from "@calculator/EditorDialog"
+import { EditorDialog } from "@calculator/Editor"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
 import TeX from "@matejmazur/react-katex"
 import { Button, Container, Divider, FormControlLabel, Radio, RadioGroup, Stack } from "@mui/material"

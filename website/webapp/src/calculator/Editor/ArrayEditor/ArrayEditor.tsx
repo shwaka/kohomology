@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react"
 
-import { OnSubmit } from "@calculator/EditorDialog"
+import { OnSubmit } from "@calculator/Editor"
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"
 import { Add } from "@mui/icons-material"

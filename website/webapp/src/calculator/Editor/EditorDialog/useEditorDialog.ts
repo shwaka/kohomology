@@ -2,9 +2,9 @@ import React, { useState } from "react"
 
 import { useConfirm } from "@calculator/ConfirmDialog"
 
-import { Editor } from "./Editor"
+import { Editor } from "../Editor"
 import { EditorDialogProps } from "./EditorDialog"
-import { OnSubmit } from "./OnSubmit"
+import { OnSubmit } from "../OnSubmit"
 
 type PreventQuit = (() => string | undefined) | undefined
 type UseCanQuitReturnValue = {

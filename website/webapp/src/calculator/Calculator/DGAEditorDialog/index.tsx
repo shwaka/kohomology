@@ -1,5 +1,4 @@
-import { EditorDialogProps, useEditorDialog } from "@calculator/EditorDialog"
-import { useTabEditor } from "@calculator/TabEditor"
+import { EditorDialogProps, useEditorDialog, useTabEditor } from "@calculator/Editor"
 
 import { useTabItemArrayEditor } from "./tabItemArrayEditor"
 import { useTabItemExampleSelector } from "./tabItemExampleSelector"

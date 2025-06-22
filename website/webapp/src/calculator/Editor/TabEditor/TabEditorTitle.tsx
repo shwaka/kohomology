@@ -1,6 +1,6 @@
 import React from "react"
 
-import { useCanQuit } from "@calculator/EditorDialog"
+import { useCanQuit } from "@calculator/Editor"
 import { Tabs, Tab } from "@mui/material"
 
 import { TabItem } from "./TabItem"

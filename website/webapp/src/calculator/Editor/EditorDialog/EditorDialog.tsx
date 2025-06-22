@@ -3,7 +3,7 @@ import React from "react"
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 
-import { OnSubmit } from "./OnSubmit"
+import { OnSubmit } from "../OnSubmit"
 
 export interface EditorDialogProps {
   renderContent: (closeDialog: () => void) => React.JSX.Element

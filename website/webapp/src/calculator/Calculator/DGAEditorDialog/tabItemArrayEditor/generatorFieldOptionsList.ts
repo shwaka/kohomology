@@ -1,4 +1,4 @@
-import { FieldOptions } from "@calculator/ArrayEditor"
+import { FieldOptions } from "@calculator/Editor"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
 
 import { GeneratorFormInput } from "./schema/generatorArraySchema"

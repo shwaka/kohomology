@@ -1,9 +1,9 @@
 import React, { useState } from "react"
 
-import { OnSubmit } from "@calculator/EditorDialog"
+import { OnSubmit } from "@calculator/Editor"
+import { TabItem } from "@calculator/Editor"
 import { fromString, StyledMessage } from "@calculator/styled/message"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
-import { TabItem } from "@calculator/TabEditor"
 import TeX from "@matejmazur/react-katex"
 import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material"
 import { FreeDGAWrapper } from "kohomology-js"

@@ -1,11 +1,11 @@
 import React from "react"
 
-import { ArrayEditorSample } from "@calculator/ArrayEditor/__playground__/ArrayEditorSample"
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
+import { ArrayEditorSample } from "@calculator/Editor/ArrayEditor/__playground__/ArrayEditorSample"
+import { TextEditorSample } from "@calculator/Editor/TextEditor/__playground__/TextEditorSample"
 import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__playground__/MessageBoxForWorkerSample"
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
-import { TextEditorSample } from "@calculator/TextEditor/__playground__/TextEditorSample"
 import { MyWorkerSample } from "@calculator/WorkerContext/__playground__/MyWorkerSample"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import { ThemeProvider } from "@mui/material"

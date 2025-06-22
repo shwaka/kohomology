@@ -1,6 +1,6 @@
 import React from "react"
 
-import { EditorDialog } from "@calculator/EditorDialog"
+import { EditorDialog } from "@calculator/Editor"
 import { render, screen, within, renderHook, act } from "@testing-library/react"
 
 import { useDGAEditorDialog } from "."

@@ -1,4 +1,4 @@
-import { FieldOptions } from "@calculator/ArrayEditor"
+import { FieldOptions } from "@calculator/Editor"
 
 import { IdealFormInput } from "./schema"
 

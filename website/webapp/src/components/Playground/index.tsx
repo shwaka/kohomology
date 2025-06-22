@@ -22,33 +22,33 @@ const tabs = [
     render: () => (<ShowErrorsSample/>),
   },
   {
-    key: "text-editor",
-    name: "TextEditor",
-    render: () => (<TextEditorSample/>),
-  },
-  {
     key: "sortable-fields",
     name: "SortableFields",
     render: () => (<SortableFieldsSample/>),
   },
   {
     key: "message-box",
-    name: "MessageBoxForWorker",
+    name: "Worker: MessageBoxForWorker",
     render: () => (<MessageBoxForWorkerSample/>),
   },
   {
     key: "my-worker",
-    name: "MyWorker",
+    name: "Worker: MyWorker",
     render: () => (<MyWorkerSample/>),
   },
   {
+    key: "text-editor",
+    name: "Editor: TextEditor",
+    render: () => (<TextEditorSample/>),
+  },
+  {
     key: "array-editor",
-    name: "ArrayEditor",
+    name: "Editor: ArrayEditor",
     render: () => (<ArrayEditorSample/>),
   },
   {
     key: "tab-editor",
-    name: "TabEditor",
+    name: "Editor: TabEditor",
     render: () => (<TabEditorSample/>),
   },
 ] as const satisfies SimpleTab<string>[]

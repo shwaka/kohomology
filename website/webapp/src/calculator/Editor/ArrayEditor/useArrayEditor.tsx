@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Editor } from "@calculator/Editor"
+import { Editor } from ".."
 import { ArrayPath, FieldValues } from "react-hook-form"
 
 import { ArrayEditor } from "./ArrayEditor"

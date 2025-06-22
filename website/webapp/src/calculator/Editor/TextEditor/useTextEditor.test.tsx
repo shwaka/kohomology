@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 
-import { EditorDialog, useEditorDialog } from "@calculator/Editor"
-import { cancelMethods, EditorDialogHandler } from "@calculator/Editor/EditorDialog/__testutils__/EditorDialogHandler"
+import { EditorDialog, useEditorDialog } from ".."
+import { cancelMethods, EditorDialogHandler } from "../EditorDialog/__testutils__/EditorDialogHandler"
 import { render, screen, waitFor, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
 

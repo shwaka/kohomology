@@ -1,4 +1,4 @@
-import { Editor } from "@calculator/Editor"
+import { Editor } from ".."
 
 export interface TabItem {
   editor: Editor

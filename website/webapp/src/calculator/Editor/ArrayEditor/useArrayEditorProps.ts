@@ -1,4 +1,4 @@
-import { OnSubmit, Editor } from "@calculator/Editor"
+import { OnSubmit, Editor } from ".."
 import { zodResolver } from "@hookform/resolvers/zod"
 import { ArrayPath, FieldValues, useFieldArray, useForm } from "react-hook-form"
 

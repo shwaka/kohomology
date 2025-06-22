@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 
-import { EditorDialog, useEditorDialog } from "@calculator/Editor"
-
+import { EditorDialog, useEditorDialog } from "../.."
 import { Indeterminate, IndeterminateFormInput } from "./schema"
 import { useIndeterminateArrayEditor } from "./useIndeterminateArrayEditor"
 

@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"
@@ -11,7 +11,7 @@ interface ShowErrorsProps {
   messages: MessageWithType[]
 }
 
-export function ShowErrors({ messages }: ShowErrorsProps): React.JSX.Element {
+export function ShowErrors({ messages }: ShowErrorsProps): ReactElement {
   return (
     <AnimatePresence mode="sync">
       {messages.map(({ message, type }) => {
@@ -44,7 +44,7 @@ interface ShowMessageProps {
   message: string
 }
 
-function ShowMessage({ message }: ShowMessageProps): React.JSX.Element {
+function ShowMessage({ message }: ShowMessageProps): ReactElement {
   return (
     <Alert
       severity="error"

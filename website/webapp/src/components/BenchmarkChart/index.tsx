@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import { useRef, useState, ReactElement } from "react"
 
 import benchmarkData from "@benchmark/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
@@ -22,7 +22,7 @@ function Bench(
     filterCommit: (commit: CommitWithDate) => boolean
     dataHandler: BenchmarkDataHandler
   }
-): React.JSX.Element {
+): ReactElement {
   const arg = getChartProps({ name, dataset, dataHandler, filterCommit })
   return (
     <Chart {...arg}/>
@@ -37,7 +37,7 @@ function Benchset(
     weightArray: number[]
     dataHandler: BenchmarkDataHandler
   }
-): React.JSX.Element {
+): ReactElement {
   const getValue = (bench: BenchWithCommit): number => bench.bench.value
   const getDataWithNewValue = (bench: BenchWithCommit, newValue: number): BenchWithCommit => ({
     ...bench,
@@ -69,7 +69,7 @@ function Benchset(
   )
 }
 
-function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): React.JSX.Element {
+function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): ReactElement {
   const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
   const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)
@@ -104,7 +104,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): R
   )
 }
 
-export function BenchmarkChart(): React.JSX.Element {
+export function BenchmarkChart(): ReactElement {
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)
   const bd: BenchmarkData = benchmarkData
   // @ts-expect-error because "declare module" in benchmarkData.d.ts is not working (why?)

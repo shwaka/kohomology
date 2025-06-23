@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { useLocation } from "@docusaurus/router"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
@@ -16,7 +16,7 @@ function usePublishedPageUrl(): string {
   return `${url}${pathname}${search}${hash}`
 }
 
-export function GoToPublishedPage(props: Props): React.JSX.Element {
+export function GoToPublishedPage(props: Props): ReactElement {
   const href = usePublishedPageUrl()
   return (
     <NavbarItemOnlyDevMode

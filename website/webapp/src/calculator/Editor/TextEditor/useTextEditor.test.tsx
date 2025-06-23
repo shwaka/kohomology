@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { render, screen, waitFor, within } from "@testing-library/react"
 import { UserEvent } from "@testing-library/user-event"
@@ -27,7 +27,7 @@ const textFromContainer = "This is a text from container."
 
 function TextEditorContainer(
   { defaultText, validate = (_value) => true }: TextEditorContainerProps
-): React.JSX.Element {
+): ReactElement {
   const [text, setText] = useState<string>(defaultText)
   const editor = useTextEditor({
     text, setText, preventPrompt, fieldLabel, fieldTestid, validate

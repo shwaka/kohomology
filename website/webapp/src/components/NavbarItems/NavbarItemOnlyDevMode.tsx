@@ -1,4 +1,4 @@
-import React from "react"
+import { Fragment, ReactElement } from "react"
 
 import { isDevelopmentMode } from "@site/src/utils/isDevelopmentMode"
 import type { Props } from "@theme/NavbarItem"
@@ -14,17 +14,15 @@ export interface NavbarItemOnlyDevModeProps {
 export function NavbarItemOnlyDevMode({
   navbarItemProps,
   ...rest
-}: NavbarItemOnlyDevModeProps): React.JSX.Element {
+}: NavbarItemOnlyDevModeProps): ReactElement {
   // On mobile devices, props contains { mobile: true, onClick: (some function) }.
   // We need to pass these to NavbarItem to render the item correctly.
-  return (
-    isDevelopmentMode()
-      ? (
-        <NavbarItem
-          {...navbarItemProps}
-          {...rest}
-        />
-      )
-      : <React.Fragment/>
-  )
+  return isDevelopmentMode()
+    ? (
+      <NavbarItem
+        {...navbarItemProps}
+        {...rest}
+      />
+    )
+    : <Fragment/>
 }

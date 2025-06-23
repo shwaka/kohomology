@@ -1,11 +1,11 @@
-import React from "react"
+import { Fragment, ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 
 import "katex/dist/katex.min.css"
 import { StyledString } from "./message"
 
-function Text({ content }: { content: string } ): React.JSX.Element {
+function Text({ content }: { content: string } ): ReactElement {
   const lines = content.split("\n")
   return (
     <span>
@@ -15,20 +15,20 @@ function Text({ content }: { content: string } ): React.JSX.Element {
         // Hence there is no need to write
         //   lineNumber < lines.length - 1 || content.endsWith("\n")
         (lineNumber < lines.length - 1) ? (
-          <React.Fragment key={lineNumber}>
+          <Fragment key={lineNumber}>
             {line}<br/>
-          </React.Fragment>
+          </Fragment>
         ): (
-          <React.Fragment key={lineNumber}>
+          <Fragment key={lineNumber}>
             {line}
-          </React.Fragment>
+          </Fragment>
         )
       ))}
     </span>
   )
 }
 
-export function ShowStyledString({ styledString }: { styledString: StyledString }): React.JSX.Element {
+export function ShowStyledString({ styledString }: { styledString: StyledString }): ReactElement {
   const macros = {
     "\\deg": "|#1|",
   }

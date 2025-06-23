@@ -1,4 +1,4 @@
-import React from "react"
+import { Fragment, ReactElement } from "react"
 
 import { TabItem } from "./TabItem"
 
@@ -11,9 +11,9 @@ interface EditorContentProps<K extends string> {
 
 export function TabEditorContent<K extends string>(
   { tabItems, tabKeys, currentTabKey, closeDialog }: EditorContentProps<K>
-): React.JSX.Element {
+): ReactElement {
   return (
-    <React.Fragment>
+    <Fragment>
       {tabKeys.map((tabKey) => (
         <TabPanel
           currentTabKey={currentTabKey}
@@ -22,11 +22,11 @@ export function TabEditorContent<K extends string>(
           {tabItems[tabKey].editor.renderContent(closeDialog)}
         </TabPanel>
       ))}
-    </React.Fragment>
+    </Fragment>
   )
 }
 
-function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): React.JSX.Element {
+function TabPanel<K extends string>({ currentTabKey, tabKeyForPanel, children }: { currentTabKey: K, tabKeyForPanel: K, children: React.ReactNode }): ReactElement {
   return (
     <div hidden={currentTabKey !== tabKeyForPanel}>
       {children}

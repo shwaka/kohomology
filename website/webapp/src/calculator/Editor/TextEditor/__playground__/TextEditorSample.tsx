@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "../.."
 import { useTextEditor } from "../useTextEditor"
@@ -6,7 +6,7 @@ import { useTextEditor } from "../useTextEditor"
 const defaultText = "Default text"
 const textFromContainer = "This is a text from container."
 
-export function TextEditorSample(): React.JSX.Element {
+export function TextEditorSample(): ReactElement {
   const [text, setText] = useState<string>(defaultText)
   const editor = useTextEditor({
     text, setText,

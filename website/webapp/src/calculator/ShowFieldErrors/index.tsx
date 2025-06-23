@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { CriteriaMode, FieldError } from "react-hook-form"
 
@@ -14,7 +14,7 @@ interface ShowFieldErrorsProps {
 
 // Currently, showAllErrors=false is enough to show the way to fix inputs.
 // In some future, showAllErrors=true may be useful to show more information.
-export function ShowFieldErrors({ fieldErrorArray, criteriaMode = "firstError" }: ShowFieldErrorsProps): React.JSX.Element {
+export function ShowFieldErrors({ fieldErrorArray, criteriaMode = "firstError" }: ShowFieldErrorsProps): ReactElement {
   const messages = getMessages({ fieldErrorArray, criteriaMode })
   return (
     <ShowErrors messages={messages}/>

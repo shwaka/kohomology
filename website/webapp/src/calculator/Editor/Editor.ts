@@ -1,10 +1,10 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { OnSubmit } from "./OnSubmit"
 
 export interface Editor {
-  renderContent: (closeDialog: () => void) => React.JSX.Element
-  renderTitle?: () => React.JSX.Element
+  renderContent: (closeDialog: () => void) => ReactElement
+  renderTitle?: () => ReactElement
   getOnSubmit: (closeDialog: () => void) => OnSubmit
   preventQuit?: () => (string | undefined)
   disableSubmit?: () => boolean

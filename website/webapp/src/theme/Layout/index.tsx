@@ -1,4 +1,5 @@
-import React, { type ReactNode } from "react"
+import type { ReactNode } from "react"
+import { Fragment } from "react"
 
 import type { WrapperProps } from "@docusaurus/types"
 import { getTitleWithDev } from "@theme/getTitleWithDev"
@@ -10,8 +11,8 @@ type Props = WrapperProps<typeof LayoutType>
 export default function LayoutWrapper(props: Props): ReactNode {
   const title = getTitleWithDev(props.title)
   return (
-    <React.Fragment>
+    <Fragment>
       <Layout {...props} title={title}/>
-    </React.Fragment>
+    </Fragment>
   )
 }

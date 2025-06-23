@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import { useCallback, ReactElement } from "react"
 
 import { RowComponentProps } from "@calculator/SortableFields"
 import { FieldValues } from "react-hook-form"
@@ -10,7 +10,7 @@ export function useRowComponent<TFieldValues extends FieldValues>(
   {
     fieldOptionsList, getFieldErrorArray,
   }: ArrayEditorRowComponentData<TFieldValues>
-): (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element {
+): (props: RowComponentProps<TFieldValues, undefined>) => ReactElement {
   return useCallback(
     (props) => (
       <ArrayEditorItem

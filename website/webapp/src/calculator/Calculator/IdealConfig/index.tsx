@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "@calculator/Editor"
 import { StyledMessage } from "@calculator/styled/message"
@@ -15,7 +15,7 @@ interface IdealConfigProps {
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>
 }
 
-export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): React.JSX.Element {
+export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenerator, validateGeneratorArray }: IdealConfigProps): ReactElement {
   const editor = useIdealEditor({ idealJson, setIdealJson, validateGenerator, validateGeneratorArray })
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })
 

@@ -25,7 +25,7 @@
     "isolatedModules": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "jsx": "react"
+    "jsx": "react-jsx"
   },
   // Previously, "include" contained "**/*" but this caused performance issue.
   // Replacing "**/*" with "src/**/*" and "./docusaurus.config.mjs", performance changed as follows:

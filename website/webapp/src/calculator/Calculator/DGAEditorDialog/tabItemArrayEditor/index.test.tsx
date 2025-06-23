@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { findOrThrow } from "@calculator/Calculator/__testutils__/findOrThrow"
 import { TabItem } from "@calculator/Editor"
@@ -13,7 +13,7 @@ class ArrayEditorTestUtil {
   // Record<string, never> means that renderHook's props is empty
   result: RenderHookResult<TabItem, Record<string, never>>["result"]
   json: string
-  rerender: (ui: React.ReactElement) => void
+  rerender: (ui: ReactElement) => void
   container: HTMLElement
   closeDialog: (() => void) = (() => undefined)
   user: UserEvent

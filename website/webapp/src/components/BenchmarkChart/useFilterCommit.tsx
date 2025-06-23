@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { Box, Slider } from "@mui/material"
 
@@ -10,7 +10,7 @@ interface ConfigureFilterCommitProps {
   setCommitIndexRange: (commitIndexRange: number[]) => void
 }
 
-export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): React.JSX.Element {
+export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): ReactElement {
   return (
     <Box>
       {"Restrict commits:"}

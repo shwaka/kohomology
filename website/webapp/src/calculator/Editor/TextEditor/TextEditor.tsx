@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import { useCallback, ReactElement } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { Stack, TextField } from "@mui/material"
@@ -20,7 +20,7 @@ export interface TextEditorProps {
 
 export function TextEditor(
   { register, errors, fieldLabel, fieldTestid, validate, trigger }: TextEditorProps
-): React.JSX.Element {
+): ReactElement {
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(
     () => setOverwritableTimeout(async () => await trigger(), 1000),

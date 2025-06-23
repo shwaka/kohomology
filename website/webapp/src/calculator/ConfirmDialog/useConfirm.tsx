@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { SetStateAction, useState } from "react"
 
 import { ConfirmDialog, ConfirmDialogProps } from "./ConfirmDialog"
 import { UseConfirmArgs, UseConfirmReturnValue } from "./useConfirm.types"
@@ -13,7 +13,7 @@ export function useConfirm({ trueText, falseText }: UseConfirmArgs): UseConfirmR
     setPrompt(prompt)
     setOpen(true)
     return new Promise((resolve) => {
-      setResolveConfirm((_: React.SetStateAction<ResolveConfirm | null>) =>
+      setResolveConfirm((_: SetStateAction<ResolveConfirm | null>) =>
         (answer: boolean): void => {
           resolve(answer)
           setOpen(false)

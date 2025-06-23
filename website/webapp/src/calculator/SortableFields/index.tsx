@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import { ReactNode, ReactElement } from "react"
 
 import { closestCenter, DndContext, DragEndEvent, DraggableAttributes, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities"
@@ -32,7 +32,7 @@ interface SortableRowProps<
   TExternalData,
 > {
   id: string
-  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => React.JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => ReactElement
   index: number
   formData: FormData<TFieldValues>
   externalData: TExternalData
@@ -40,7 +40,7 @@ interface SortableRowProps<
 
 function SortableRow<TFieldValues extends FieldValues, TExternalData>(
   { id, RowComponent, index, formData, externalData }: SortableRowProps<TFieldValues, TExternalData>
-): React.JSX.Element {
+): ReactElement {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id })
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -71,8 +71,8 @@ export interface SortableFieldsProps<
   fields: FieldArrayWithId<TFieldValues, TFieldArrayName, "id">[]
   move: UseFieldArrayMove
   formData: FormData<TFieldValues>
-  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => React.JSX.Element
-  Container: (props: { children: ReactNode}) => React.JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => ReactElement
+  Container: (props: { children: ReactNode}) => ReactElement
   externalData: TExternalData
 }
 export function SortableFields<
@@ -82,7 +82,7 @@ export function SortableFields<
   TExternalData = undefined,
 >(
   { fields, move, formData, RowComponent, Container, externalData }: SortableFieldsProps<TFieldValues, TFieldArrayName, TExternalData>
-): React.JSX.Element {
+): ReactElement {
   const sensors = useSensors(
     useSensor(PointerSensor),
     useSensor(KeyboardSensor, {

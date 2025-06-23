@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { render, screen, waitFor } from "@testing-library/react"
@@ -16,7 +16,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>
 
-function TestForm({ valueAsNumber }: { valueAsNumber: boolean }): React.JSX.Element {
+function TestForm({ valueAsNumber }: { valueAsNumber: boolean }): ReactElement {
   const {
     register,
     handleSubmit,

@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useState } from "react"
+import { Fragment, useCallback, useState, ReactElement, ReactNode } from "react"
 
 import { EditorDialog } from "@calculator/Editor"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"
@@ -21,7 +21,7 @@ import { useMutableArray } from "./useMutableArray"
 import { targetNames, TargetName } from "../kohomologyWorker/workerInterface"
 import { useIdealJsonFromURLQuery } from "../urlQuery/useIdealJsonFromURLQuery"
 
-function StackItem({ children, "data-testid": testId }: { children: React.ReactNode, "data-testid"?: string }): React.JSX.Element {
+function StackItem({ children, "data-testid": testId }: { children: ReactNode, "data-testid"?: string }): ReactElement {
   return (
     <span data-testid={testId}>
       <Container disableGutters sx={{ paddingLeft: 1, paddingRight: 1 }}>
@@ -31,7 +31,7 @@ function StackItem({ children, "data-testid": testId }: { children: React.ReactN
   )
 }
 
-export function CalculatorForm(): React.JSX.Element {
+export function CalculatorForm(): ReactElement {
   const { array: errorMessages, push: addErrorMessage } = useMutableArray<string>()
 
   const defaultDGAJson = useValueOfURLQueryResult(

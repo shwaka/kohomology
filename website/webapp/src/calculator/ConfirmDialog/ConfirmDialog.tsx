@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 
@@ -12,7 +12,7 @@ export interface ConfirmDialogProps {
 
 export function ConfirmDialog(
   { open, resolveConfirm, prompt, trueText, falseText }: ConfirmDialogProps
-): React.JSX.Element {
+): ReactElement {
   return (
     <Dialog
       open={open}

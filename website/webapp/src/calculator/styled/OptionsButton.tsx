@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react"
+import { Fragment, useState, ReactElement, MouseEvent } from "react"
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import { IconButton, Menu, MenuItem } from "@mui/material"
@@ -21,7 +21,7 @@ export function useOptionsButton({
 }: UseOptionsButtonArgs): UseOptionsButtonReturnValue {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClick = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = (): void => {
@@ -36,7 +36,7 @@ export function useOptionsButton({
 
 interface OptionsButtonProps {
   containerClass: string
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void
+  handleClick: (event: MouseEvent<HTMLElement>) => void
   handleClose: () => void
   open: boolean
   anchorEl: HTMLElement | null
@@ -44,7 +44,7 @@ interface OptionsButtonProps {
   showAll: () => void
 }
 
-export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options, showAll }: OptionsButtonProps): React.JSX.Element {
+export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options, showAll }: OptionsButtonProps): ReactElement {
   return (
     <Fragment>
       <IconButton
@@ -89,7 +89,7 @@ interface MenuItemCopyTextProps {
   handleClose: () => void
 }
 
-function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): React.JSX.Element {
+function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): ReactElement {
   const copyText = async (): Promise<void> => {
     if (text !== null) {
       await navigator.clipboard.writeText(text)

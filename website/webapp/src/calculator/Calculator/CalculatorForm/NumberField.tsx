@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { TextField } from "@mui/material"
 
@@ -10,7 +10,7 @@ export interface NumberFieldProps {
   disabled: boolean
 }
 
-export function NumberField({ label, value, setValue, width, disabled }: NumberFieldProps): React.JSX.Element {
+export function NumberField({ label, value, setValue, width, disabled }: NumberFieldProps): ReactElement {
   return (
     <TextField
       label={label} value={value} type="number"

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { TextField } from "@mui/material"
 
@@ -10,7 +10,7 @@ export interface StringFieldProps {
   disabled: boolean
 }
 
-export function StringField({ label, value, setValue, width, disabled }: StringFieldProps): React.JSX.Element {
+export function StringField({ label, value, setValue, width, disabled }: StringFieldProps): ReactElement {
   return (
     <TextField
       label={label} value={value}

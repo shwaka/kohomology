@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 // These are imported from
 // - ./useConfirm.tsx
@@ -11,5 +11,5 @@ export interface UseConfirmArgs {
 
 export interface UseConfirmReturnValue {
   confirm: (prompt: string) => Promise<boolean>
-  confirmDialog: React.JSX.Element
+  confirmDialog: ReactElement
 }

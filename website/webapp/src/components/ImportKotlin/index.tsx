@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';
@@ -27,7 +27,7 @@ type ImportKotlinProps = {
   className?: string
 }
 
-export function ImportKotlin(props: ImportKotlinProps): React.JSX.Element {
+export function ImportKotlin(props: ImportKotlinProps): ReactElement {
   const url = `${githubMainUrl}/website/sample/src/main/kotlin/${props.path}`
   const code: string | undefined = files.get(normalizePath(props.path))
   if (code === undefined) {

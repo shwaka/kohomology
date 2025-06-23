@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { MessageBoxForWorker } from "@calculator/MessageBoxForWorker"
 import { fromString } from "@calculator/styled/message"
@@ -10,7 +10,7 @@ import { CalculatorForm } from "./CalculatorForm"
 import { kohomologyWorkerContext } from "./kohomologyWorker/kohomologyWorkerContext"
 import { useCustomTheme } from "./useCustomTheme"
 
-function CalculatorImpl(): React.JSX.Element {
+function CalculatorImpl(): ReactElement {
   const theme = useCustomTheme()
 
   return (
@@ -42,7 +42,7 @@ function CalculatorImpl(): React.JSX.Element {
   )
 }
 
-export function Calculator(): React.JSX.Element {
+export function Calculator(): ReactElement {
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>
       {() => <CalculatorImpl/>}

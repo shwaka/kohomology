@@ -1,4 +1,4 @@
-import React from "react"
+import { Fragment, ReactElement } from "react"
 
 import { Tabs, Tab } from "@mui/material"
 
@@ -14,7 +14,7 @@ interface TabEditorTitleProps<K extends string> {
 
 export function TabEditorTitle<K extends string>(
   { tabItems, tabKeys, currentTabKey, setCurrentTabKey }: TabEditorTitleProps<K>
-): React.JSX.Element {
+): ReactElement {
   const { canQuit, confirmDialog } = useCanQuit({ trueText: "Quit", falseText: "Resume" })
   async function handleChangeTabKey(newTabKey: K): Promise<void> {
     const allowedToQuit = await canQuit(tabItems[currentTabKey].editor.preventQuit)
@@ -25,7 +25,7 @@ export function TabEditorTitle<K extends string>(
     tabItems[newTabKey].editor.beforeOpen?.()
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs
         value={currentTabKey}
         onChange={async (_, newTabKey) => await handleChangeTabKey(newTabKey)}
@@ -39,6 +39,6 @@ export function TabEditorTitle<K extends string>(
         ))}
       </Tabs>
       {confirmDialog}
-    </React.Fragment>
+    </Fragment>
   )
 }

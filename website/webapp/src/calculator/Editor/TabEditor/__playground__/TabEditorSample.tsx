@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog, useTabEditor, useTextEditor } from "../.."
 import { Indeterminate, indeterminateArraySchema } from "../../ArrayEditor/__playground__/schema"
@@ -11,7 +11,7 @@ const defaultJson = `[
   }
 ]`
 
-export function TabEditorSample(): React.JSX.Element {
+export function TabEditorSample(): ReactElement {
   const [json, setJson] = useState(defaultJson)
   const textEditor = useTextEditor({
     text: json, setText: setJson,

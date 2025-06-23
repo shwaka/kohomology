@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { DeepRequired, FieldErrorsImpl } from "react-hook-form"
 
@@ -7,7 +7,7 @@ import { PeopleFormInput } from "./schema"
 
 export function PersonRow({
   draggableProps, index, formData: { register, errors, remove, trigger },
-}: RowComponentProps<PeopleFormInput>): React.JSX.Element {
+}: RowComponentProps<PeopleFormInput>): ReactElement {
   return (
     <div>
       <input

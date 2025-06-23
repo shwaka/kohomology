@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import CodeBlock from "@theme/CodeBlock"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ChartData, ScatterController } from "chart.js"
@@ -76,7 +76,7 @@ function getOptions(titleText: string | null = null): ChartProps<"scatter", { x:
   }
 }
 
-export function ComparisonChart({ target }: { target: Target }): React.JSX.Element {
+export function ComparisonChart({ target }: { target: Target }): ReactElement {
   const data = getDataForTarget(target)
   return (
     <Chart
@@ -87,7 +87,7 @@ export function ComparisonChart({ target }: { target: Target }): React.JSX.Eleme
   )
 }
 
-export function ComparisonChartForDegrees(): React.JSX.Element {
+export function ComparisonChartForDegrees(): ReactElement {
   const data = getDataForArray([
     { label: "IntDegree", target: "FreeLoopSpaceOf2Sphere", tool: "kohomology" },
     { label: "MultiDegree", target: "FreeLoopSpaceOf2SphereWithMultiGrading", tool: "kohomology" },
@@ -101,7 +101,7 @@ export function ComparisonChartForDegrees(): React.JSX.Element {
   )
 }
 
-export function ShowVersion({ tool }: { tool: Tool }): React.JSX.Element {
+export function ShowVersion({ tool }: { tool: Tool }): ReactElement {
   return (
     <CodeBlock
       language="shell-session"

@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { RowComponentProps } from "@calculator/SortableFields"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"
@@ -26,7 +26,7 @@ const fieldOptionsList: FieldOptions<IndeterminateFormInput>[] = [
 
 export function IndeterminateArrayEditorItem(
   props: RowComponentProps<IndeterminateFormInput>
-): React.JSX.Element {
+): ReactElement {
   return (
     <ArrayEditorItem
       rowComponentProps={props}

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect, ReactElement, ReactNode, Fragment } from "react"
 
 import Head from "@docusaurus/Head"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
@@ -33,7 +33,7 @@ function setBuildEnv(): void {
   }
 }
 
-export default function Root({children}: {children: React.ReactNode}): React.JSX.Element {
+export default function Root({children}: {children: ReactNode}): ReactElement {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
 
@@ -47,12 +47,12 @@ export default function Root({children}: {children: React.ReactNode}): React.JSX
   }, [])
 
   return (
-    <React.Fragment>
+    <Fragment>
       <Head>
         <link rel="icon" href={`${baseUrl}img/favicon.ico`}/>
         <link rel="apple-touch-icon" href={`${baseUrl}img/favicon.png`} sizes="300x300"/>
       </Head>
       {children}
-    </React.Fragment>
+    </Fragment>
   )
 }

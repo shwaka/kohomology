@@ -1,4 +1,4 @@
-import React from "react"
+import { ReactElement } from "react"
 
 import { render, screen } from "@testing-library/react"
 import userEvent, { UserEvent } from "@testing-library/user-event"
@@ -10,7 +10,7 @@ interface OptionsButtonContainerProps {
   options: MessageOptions
 }
 
-function OptionsButtonContainer({ options }: OptionsButtonContainerProps): React.JSX.Element {
+function OptionsButtonContainer({ options }: OptionsButtonContainerProps): ReactElement {
   const { optionsButtonProps } = useOptionsButton({
     containerClass: "foo", options,
     showAll: () => {},

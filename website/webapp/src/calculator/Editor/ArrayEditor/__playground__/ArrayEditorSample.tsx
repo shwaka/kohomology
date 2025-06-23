@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import { useState, ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "../.."
 import { Indeterminate, IndeterminateFormInput } from "./schema"
@@ -14,7 +14,7 @@ const defaultValues: IndeterminateFormInput = {
   indeterminateArray: defaultArray,
 }
 
-export function ArrayEditorSample(): React.JSX.Element {
+export function ArrayEditorSample(): ReactElement {
   const [values, setValues] = useState<IndeterminateFormInput>(defaultValues)
   const editor = useIndeterminateArrayEditor({
     defaultValues: values,

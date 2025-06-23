@@ -1,4 +1,4 @@
-import { ReactNode, ReactElement } from "react";
+import { ReactNode, ReactElement } from "react"
 
 import { closestCenter, DndContext, DragEndEvent, DraggableAttributes, KeyboardSensor, PointerSensor, useSensor, useSensors } from "@dnd-kit/core"
 import { SyntheticListenerMap } from "@dnd-kit/core/dist/hooks/utilities"

@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 import { useLocation } from "@docusaurus/router"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"

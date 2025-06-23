@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 
 import { render, screen } from "@testing-library/react"
 

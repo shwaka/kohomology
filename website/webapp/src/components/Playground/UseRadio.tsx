@@ -1,4 +1,4 @@
-import { useCallback, useState, ReactElement } from "react";
+import { useCallback, useState, ReactElement } from "react"
 
 export interface UseRadioArgs {
   name: string

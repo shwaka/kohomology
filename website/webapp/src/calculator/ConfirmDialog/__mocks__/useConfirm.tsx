@@ -1,4 +1,3 @@
-import { ReactElement } from "react";
 
 import { UseConfirmArgs, UseConfirmReturnValue } from "../useConfirm.types"
 

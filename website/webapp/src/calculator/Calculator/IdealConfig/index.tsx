@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog } from "@calculator/Editor"
 import { StyledMessage } from "@calculator/styled/message"

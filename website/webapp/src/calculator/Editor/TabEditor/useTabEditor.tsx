@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState, ReactElement } from "react";
+import { useCallback, useMemo, useState, ReactElement } from "react"
 
 import { Editor } from ".."
 import { TabEditorContent } from "./TabEditorContent"

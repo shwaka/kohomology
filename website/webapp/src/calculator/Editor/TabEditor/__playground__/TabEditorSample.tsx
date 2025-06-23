@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement } from "react"
 
 import { EditorDialog, useEditorDialog, useTabEditor, useTextEditor } from "../.."
 import { Indeterminate, indeterminateArraySchema } from "../../ArrayEditor/__playground__/schema"

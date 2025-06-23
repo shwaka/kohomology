@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 import CodeBlock from "@theme/CodeBlock"
 import TabItem from "@theme/TabItem"

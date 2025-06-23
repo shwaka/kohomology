@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 import Link from "@docusaurus/Link"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"

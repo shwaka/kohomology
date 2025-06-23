@@ -1,4 +1,4 @@
-import { useRef, useState, ReactElement } from "react";
+import { useRef, useState, ReactElement } from "react"
 
 import benchmarkData from "@benchmark/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"

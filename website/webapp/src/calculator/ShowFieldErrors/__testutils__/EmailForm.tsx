@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 import { CriteriaMode, FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
 

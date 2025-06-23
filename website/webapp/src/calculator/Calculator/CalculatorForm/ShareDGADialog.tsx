@@ -1,4 +1,4 @@
-import { Fragment, useState, ReactElement } from "react";
+import { Fragment, useState, ReactElement } from "react"
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
@@ -68,7 +68,7 @@ function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialo
         text={url}
       />
     </Fragment>
-  );
+  )
 }
 
 export interface ShareDGADialogProps {

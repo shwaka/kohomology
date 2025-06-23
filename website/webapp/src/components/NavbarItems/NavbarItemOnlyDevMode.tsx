@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement } from "react"
 
 import { isDevelopmentMode } from "@site/src/utils/isDevelopmentMode"
 import type { Props } from "@theme/NavbarItem"
@@ -24,5 +24,5 @@ export function NavbarItemOnlyDevMode({
         {...rest}
       />
     )
-    : <Fragment/>;
+    : <Fragment/>
 }

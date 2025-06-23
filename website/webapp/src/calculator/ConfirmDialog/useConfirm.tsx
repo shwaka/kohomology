@@ -1,5 +1,5 @@
-import { useState } from "react";
-import * as React from "react";
+import { useState } from "react"
+import * as React from "react"
 
 import { ConfirmDialog, ConfirmDialogProps } from "./ConfirmDialog"
 import { UseConfirmArgs, UseConfirmReturnValue } from "./useConfirm.types"

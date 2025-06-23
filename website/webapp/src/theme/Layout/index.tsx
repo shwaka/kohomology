@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { Fragment } from "react";
+import type { ReactNode } from "react"
+import { Fragment } from "react"
 
 import type { WrapperProps } from "@docusaurus/types"
 import { getTitleWithDev } from "@theme/getTitleWithDev"
@@ -14,5 +14,5 @@ export default function LayoutWrapper(props: Props): ReactNode {
     <Fragment>
       <Layout {...props} title={title}/>
     </Fragment>
-  );
+  )
 }

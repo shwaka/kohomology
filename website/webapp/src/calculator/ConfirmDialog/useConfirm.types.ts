@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement } from "react"
 
 // These are imported from
 // - ./useConfirm.tsx

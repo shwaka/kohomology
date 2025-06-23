@@ -1,4 +1,4 @@
-import { Fragment, useState, ReactElement } from "react";
+import { Fragment, useState, ReactElement } from "react"
 
 
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
@@ -31,7 +31,7 @@ function TestContainer(
         Apply
       </button>
     </Fragment>
-  );
+  )
 }
 
 async function addGenerators(user: UserEvent, generators: string[]): Promise<void> {

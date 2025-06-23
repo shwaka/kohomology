@@ -1,5 +1,5 @@
-import { Context, createContext, ReactNode, useRef, useState, ReactElement } from "react";
-import * as React from "react";
+import { Context, createContext, ReactNode, useRef, useState, ReactElement } from "react"
+import * as React from "react"
 
 import { WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"

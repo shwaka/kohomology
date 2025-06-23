@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 
@@ -25,7 +25,7 @@ function Text({ content }: { content: string } ): ReactElement {
         )
       ))}
     </span>
-  );
+  )
 }
 
 export function ShowStyledString({ styledString }: { styledString: StyledString }): ReactElement {

@@ -1,5 +1,5 @@
-import { useCallback, ReactElement } from "react";
-import * as React from "react";
+import { useCallback, ReactElement } from "react"
+import * as React from "react"
 
 import { useRadio } from "./UseRadio"
 

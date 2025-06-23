@@ -1,4 +1,4 @@
-import { useState, ReactElement } from "react";
+import { useState, ReactElement } from "react"
 
 import { Box, Slider } from "@mui/material"
 

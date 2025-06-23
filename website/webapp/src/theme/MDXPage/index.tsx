@@ -1,5 +1,5 @@
-import type { ReactNode } from "react";
-import { Fragment } from "react";
+import type { ReactNode } from "react"
+import { Fragment } from "react"
 
 import type {WrapperProps} from "@docusaurus/types"
 import { getTitleWithDev } from "@theme/getTitleWithDev"
@@ -43,5 +43,5 @@ export default function MDXPageWrapper(props: Props): ReactNode {
     <Fragment>
       <MDXPage {...getPropsWithUpdatedTitle(props)} />
     </Fragment>
-  );
+  )
 }

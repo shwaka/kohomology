@@ -1,5 +1,5 @@
-import { ReactNode, ReactElement } from "react";
-import * as React from "react";
+import { ReactNode, ReactElement } from "react"
+import * as React from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"

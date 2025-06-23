@@ -1,4 +1,4 @@
-import { Fragment, ReactElement } from "react";
+import { Fragment, ReactElement } from "react"
 
 import { Tabs, Tab } from "@mui/material"
 
@@ -40,5 +40,5 @@ export function TabEditorTitle<K extends string>(
       </Tabs>
       {confirmDialog}
     </Fragment>
-  );
+  )
 }

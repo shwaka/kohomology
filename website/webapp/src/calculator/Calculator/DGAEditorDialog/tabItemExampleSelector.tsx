@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react"
+import { useState, ReactElement } from "react";
 
 import { OnSubmit } from "@calculator/Editor"
 import { TabItem } from "@calculator/Editor"

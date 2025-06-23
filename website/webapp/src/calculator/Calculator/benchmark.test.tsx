@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { useLocation } from "@docusaurus/router"
 import { render } from "@testing-library/react"

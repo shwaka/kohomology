@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { githubMainUrl } from "@data"
 // import CodeBlock from '@theme/CodeBlock';

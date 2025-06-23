@@ -1,4 +1,5 @@
-import React, { Fragment, useCallback, useState, ReactElement } from "react"
+import { Fragment, useCallback, useState, ReactElement } from "react";
+import * as React from "react";
 
 import { EditorDialog } from "@calculator/Editor"
 import { ShowStyledMessage } from "@calculator/styled/ShowStyledMessage"

@@ -1,4 +1,4 @@
-import React, { useCallback, ReactElement } from "react"
+import { useCallback, ReactElement } from "react";
 
 import { useLocalStorage } from "@site/src/utils/useLocalStorage"
 

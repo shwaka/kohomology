@@ -1,4 +1,4 @@
-import React, {type ReactNode} from "react"
+import type { type ReactNode } from "react";
 
 import {useDoc} from "@docusaurus/plugin-content-docs/client"
 import {PageMetadata} from "@docusaurus/theme-common"

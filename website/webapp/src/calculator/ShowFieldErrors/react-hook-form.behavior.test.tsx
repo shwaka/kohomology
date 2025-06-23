@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { render, screen, renderHook, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"

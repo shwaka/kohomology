@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { Alert } from "@mui/material"
 import { motion, AnimatePresence } from "motion/react"

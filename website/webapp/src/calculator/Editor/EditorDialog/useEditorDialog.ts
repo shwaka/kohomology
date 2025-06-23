@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react"
+import { useState, ReactElement } from "react";
 
 import { useConfirm } from "@calculator/ConfirmDialog"
 

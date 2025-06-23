@@ -1,4 +1,4 @@
-import React, { useCallback, ReactElement } from "react"
+import { useCallback, ReactElement } from "react";
 
 import { RowComponentProps } from "@calculator/SortableFields"
 import { FieldValues } from "react-hook-form"

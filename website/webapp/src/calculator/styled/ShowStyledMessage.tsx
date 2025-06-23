@@ -1,4 +1,4 @@
-import React, { CSSProperties, ReactElement } from "react"
+import { CSSProperties, ReactElement } from "react";
 
 import { useTruncatedList } from "@calculator/useTruncatedList"
 import { ColorMode, useColorMode } from "@docusaurus/theme-common"

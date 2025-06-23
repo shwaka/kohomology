@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { RowComponentProps } from "@calculator/SortableFields"
 import { DeepRequired, FieldError, FieldErrorsImpl } from "react-hook-form"

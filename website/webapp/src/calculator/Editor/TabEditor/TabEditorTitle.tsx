@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { Fragment, ReactElement } from "react";
 
 import { Tabs, Tab } from "@mui/material"
 
@@ -25,7 +25,7 @@ export function TabEditorTitle<K extends string>(
     tabItems[newTabKey].editor.beforeOpen?.()
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs
         value={currentTabKey}
         onChange={async (_, newTabKey) => await handleChangeTabKey(newTabKey)}
@@ -39,6 +39,6 @@ export function TabEditorTitle<K extends string>(
         ))}
       </Tabs>
       {confirmDialog}
-    </React.Fragment>
-  )
+    </Fragment>
+  );
 }

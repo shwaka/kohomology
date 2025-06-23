@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { Fragment, ReactElement } from "react";
 
 import TeX from "@matejmazur/react-katex"
 
@@ -15,17 +15,17 @@ function Text({ content }: { content: string } ): ReactElement {
         // Hence there is no need to write
         //   lineNumber < lines.length - 1 || content.endsWith("\n")
         (lineNumber < lines.length - 1) ? (
-          <React.Fragment key={lineNumber}>
+          <Fragment key={lineNumber}>
             {line}<br/>
-          </React.Fragment>
+          </Fragment>
         ): (
-          <React.Fragment key={lineNumber}>
+          <Fragment key={lineNumber}>
             {line}
-          </React.Fragment>
+          </Fragment>
         )
       ))}
     </span>
-  )
+  );
 }
 
 export function ShowStyledString({ styledString }: { styledString: StyledString }): ReactElement {

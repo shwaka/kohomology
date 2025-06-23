@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { Playground } from "@site/src/components/Playground"
 import Layout from "@theme/Layout"

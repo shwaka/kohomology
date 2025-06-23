@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import { MyComponent } from "./MyComponent"
 import { myWorkerContext } from "./myWorkerContext"

@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react"
+import { Fragment, useState, ReactElement } from "react";
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
@@ -56,7 +56,7 @@ function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialo
   const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
   const url = `${domainUrl}${pageUrl}?${urlSearchParams.toString()}`
   return (
-    <React.Fragment>
+    <Fragment>
       <TextField
         label={"url"}
         value={url}
@@ -67,8 +67,8 @@ function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialo
       <CopyToClipBoardButton
         text={url}
       />
-    </React.Fragment>
-  )
+    </Fragment>
+  );
 }
 
 export interface ShareDGADialogProps {

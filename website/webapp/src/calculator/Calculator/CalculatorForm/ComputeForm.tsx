@@ -1,4 +1,5 @@
-import React, { useCallback, useState, ReactElement } from "react"
+import { useCallback, useState, ReactElement } from "react";
+import * as React from "react";
 
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"

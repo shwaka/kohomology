@@ -1,4 +1,4 @@
-import React, { useEffect, useState, ReactElement } from "react"
+import { useEffect, useState, ReactElement } from "react";
 
 import { MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"

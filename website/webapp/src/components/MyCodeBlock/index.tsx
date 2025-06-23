@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react";
 
 import CodeBlock from "@theme/CodeBlock"
 import type {Props} from "@theme/CodeBlock"

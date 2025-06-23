@@ -1,4 +1,5 @@
-import React, { useEffect, ReactElement } from "react"
+import { useEffect, ReactElement } from "react";
+import * as React from "react";
 
 import Head from "@docusaurus/Head"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"

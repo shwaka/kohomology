@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState, ReactElement } from "react"
+import { useCallback, useEffect, useState, ReactElement } from "react";
 
 import "katex/dist/katex.min.css"
 import { fromString, StyledMessage } from "../styled/message"

@@ -1,4 +1,5 @@
-import React, { useCallback, ReactElement } from "react"
+import { useCallback, ReactElement } from "react";
+import * as React from "react";
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { RowComponentProps } from "@calculator/SortableFields"

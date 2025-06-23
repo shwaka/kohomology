@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react"
+import { ReactElement } from "react"
 
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
 import { ArrayEditorSample } from "@calculator/Editor/ArrayEditor/__playground__/ArrayEditorSample"

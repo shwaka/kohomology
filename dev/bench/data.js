@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750604991696,
+  "lastUpdate": 1750638335381,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11066,6 +11066,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.404,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "noreply@github.com",
+            "name": "GitHub",
+            "username": "web-flow"
+          },
+          "distinct": true,
+          "id": "54c5cac307a6646acdd398612b735b7b128ae951",
+          "message": "Merge pull request #319 from shwaka/react-jsx\n\n\"jsx\": \"react-jsx\"",
+          "timestamp": "2025-06-23T09:20:52+09:00",
+          "tree_id": "4139374e1dc330b4c652b0670e3ffd58c13af312",
+          "url": "https://github.com/shwaka/kohomology/commit/54c5cac307a6646acdd398612b735b7b128ae951"
+        },
+        "date": 1750638334648,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.779,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.303,
             "unit": "s/op"
           }
         ]

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, ReactElement } from "react"
 
 export interface UseRadioArgs {
   name: string
@@ -8,7 +8,7 @@ export interface UseRadioArgs {
 
 export interface UseRadioReturnValue {
   value: string
-  renderRadio: () => React.JSX.Element
+  renderRadio: () => ReactElement
 }
 
 export function useRadio({

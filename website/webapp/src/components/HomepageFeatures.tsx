@@ -4,7 +4,7 @@
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
  */
-import React from "react"
+import React, { ReactElement } from "react"
 
 import Link from "@docusaurus/Link"
 import clsx from "clsx"
@@ -13,7 +13,7 @@ import styles from "./HomepageFeatures.module.css"
 
 type FeatureItem = {
   title: string
-  description: React.JSX.Element
+  description: ReactElement
 }
 
 const FeatureList: FeatureItem[] = [
@@ -60,7 +60,7 @@ const FeatureList: FeatureItem[] = [
   // },
 ]
 
-function Feature({title, description}: FeatureItem): React.JSX.Element {
+function Feature({title, description}: FeatureItem): ReactElement {
   return (
     <div className={clsx("col col--4")}>
       <div className="text--center padding-horiz--md">
@@ -71,7 +71,7 @@ function Feature({title, description}: FeatureItem): React.JSX.Element {
   )
 }
 
-export default function HomepageFeatures(): React.JSX.Element {
+export default function HomepageFeatures(): ReactElement {
   return (
     <section className={styles.features}>
       <div className="container">

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, ReactElement } from "react"
 
 import { useLocalStorage } from "@site/src/utils/useLocalStorage"
 
@@ -37,8 +37,8 @@ function useTabKey<K extends string>(tabKeys: K[]): [K, (newTabKey: string) => v
 }
 
 interface UseSimpleTabsReturnValue {
-  renderSelect: () => React.JSX.Element
-  renderTabs: () => React.JSX.Element
+  renderSelect: () => ReactElement
+  renderTabs: () => ReactElement
 }
 
 export function useSimpleTabs<K extends string>(tabs: SimpleTab<K>[]): UseSimpleTabsReturnValue {

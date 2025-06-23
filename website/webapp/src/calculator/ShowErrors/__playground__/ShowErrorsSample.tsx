@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, ReactElement } from "react"
 
 import * as R from "remeda"
 
@@ -22,7 +22,7 @@ function useCounter(): UseCounterReturnValue {
   return { count, increment, decrement }
 }
 
-export function ShowErrorsSample(): React.JSX.Element {
+export function ShowErrorsSample(): ReactElement {
   const { count, increment, decrement } = useCounter()
   const messages: MessageWithType[] = R.range(0, count).map((i) => ({
     message: `Message-${i}`,

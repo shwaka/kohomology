@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 
@@ -8,7 +8,7 @@ export interface UsageButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function UsageButton({ setOpen }: UsageButtonProps): React.JSX.Element {
+export function UsageButton({ setOpen }: UsageButtonProps): ReactElement {
   return (
     <Button
       onClick={() => setOpen(true)}
@@ -26,7 +26,7 @@ export interface UsageDialogProps {
   setOpen: (open: boolean) => void
 }
 
-export function UsageDialog({ open, setOpen }: UsageDialogProps): React.JSX.Element {
+export function UsageDialog({ open, setOpen }: UsageDialogProps): ReactElement {
   return (
     <Dialog
       open={open}

@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 
 import { ExhaustivityError } from "@site/src/utils/ExhaustivityError"
@@ -15,7 +15,7 @@ type TestContainerProps = {
 
 function TestContainer(
   { useIdealEditorArgs, closeDialog }: TestContainerProps
-): React.JSX.Element {
+): ReactElement {
   const [idealJson, setIdealJson] = useState("[]")
   const editor = useIdealEditor({
     ...useIdealEditorArgs,

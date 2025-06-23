@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react"
+import React, { useCallback, useMemo, useState, ReactElement } from "react"
 
 import { Editor } from ".."
 import { TabEditorContent } from "./TabEditorContent"
@@ -17,12 +17,12 @@ export function useTabEditor<K extends string>(
 ): Editor {
   const [currentTabKey, setCurrentTabKey] = useState<K>(defaultTabKey)
   const currentTabItem = tabItems[currentTabKey]
-  const renderContent = useCallback((closeDialog: () => void): React.JSX.Element => (
+  const renderContent = useCallback((closeDialog: () => void): ReactElement => (
     <TabEditorContent
       {...{ tabItems, tabKeys, currentTabKey, closeDialog }}
     />
   ), [tabItems, tabKeys, currentTabKey])
-  const renderTitle = useCallback((): React.JSX.Element => (
+  const renderTitle = useCallback((): ReactElement => (
     <TabEditorTitle
       {...{ tabItems, tabKeys, currentTabKey, setCurrentTabKey }}
     />

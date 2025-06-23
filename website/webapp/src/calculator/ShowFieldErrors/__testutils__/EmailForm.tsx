@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { CriteriaMode, FieldErrors, useForm, UseFormHandleSubmit, UseFormRegister } from "react-hook-form"
 
@@ -47,7 +47,7 @@ export const errorMessages = {
 
 export function EmailForm(
   { criteriaModeForComponent = "firstError", register, handleSubmit, errors }: EmailFormProps
-): React.JSX.Element {
+): ReactElement {
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onSubmit = (): void => {}
@@ -80,7 +80,7 @@ export interface EmailFormContainerProps {
 
 export function EmailFormContainer(
   { emailFormOptions = {}, useEmailFormOptions = {} }: EmailFormContainerProps
-): React.JSX.Element {
+): ReactElement {
   const props = useEmailForm(useEmailFormOptions)
   return (
     <EmailForm {...props} {...emailFormOptions}/>

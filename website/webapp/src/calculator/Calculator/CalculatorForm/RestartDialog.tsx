@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import { Button, Dialog, DialogActions, DialogContent } from "@mui/material"
 
@@ -6,7 +6,7 @@ interface RestartButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function RestartButton({ setOpen }: RestartButtonProps): React.JSX.Element {
+export function RestartButton({ setOpen }: RestartButtonProps): ReactElement {
   return (
     <Button
       variant="contained" size="small"
@@ -23,7 +23,7 @@ interface RestartDialogProps {
   restart: () => void
 }
 
-export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): React.JSX.Element {
+export function RestartDialog({ open, setOpen, restart }: RestartDialogProps): ReactElement {
   return (
     <Dialog
       open={open}

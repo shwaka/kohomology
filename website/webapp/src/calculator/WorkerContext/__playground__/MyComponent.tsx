@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, ReactElement } from "react"
 
 import { MessageOutput } from "../expose"
 import { useWorker } from "../useWorker"
@@ -8,7 +8,7 @@ import { MyWorkerFunc, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface
 function ShowWorkerOutputLog({ log, testid }: {
   log: MessageOutput<MyWorkerOutput, MyWorkerState, MyWorkerFunc>[]
   testid: string
-}): React.JSX.Element {
+}): ReactElement {
   return (
     <div data-testid={testid} style={{ border: "1px solid gray" }}>
       <div>Log of MessageOutput</div>
@@ -29,7 +29,7 @@ function ShowWorkerOutputLog({ log, testid }: {
 function ShowWorkerOutputLogFromListener({ log, testid }: {
   log: MyWorkerOutput[]
   testid: string
-}): React.JSX.Element {
+}): ReactElement {
   return (
     <div data-testid={testid} style={{ border: "1px solid gray" }}>
       <div>Log of WorkerOutput from listner</div>
@@ -42,7 +42,7 @@ function ShowWorkerOutputLogFromListener({ log, testid }: {
   )
 }
 
-export function MyComponent(): React.JSX.Element {
+export function MyComponent(): ReactElement {
   const { postMessage, addListener, workerOutputLog, state: { value }, runAsync } = useWorker(myWorkerContext)
   const [workerOutputLogFromListener, setWorkerOutputLogFromListener] = useState<MyWorkerOutput[]>([])
   const [runAsyncResult, setRunAsyncResult] = useState(0)

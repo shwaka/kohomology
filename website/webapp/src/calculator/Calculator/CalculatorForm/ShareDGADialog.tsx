@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import useBaseUrl from "@docusaurus/useBaseUrl"
 import { Button, Dialog, DialogActions, DialogContent, TextField, Tooltip } from "@mui/material"
@@ -12,7 +12,7 @@ export interface ShareDGAButtonProps {
   setOpen: (open: boolean) => void
 }
 
-export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): React.JSX.Element {
+export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): ReactElement {
   return (
     <Button
       onClick={() => setOpen(true)}
@@ -25,7 +25,7 @@ export function ShareDGAButton({ setOpen }: ShareDGAButtonProps): React.JSX.Elem
   )
 }
 
-function CopyToClipBoardButton({ text }: { text: string }): React.JSX.Element {
+function CopyToClipBoardButton({ text }: { text: string }): ReactElement {
   const [tooltipOpen, setTooltipOpen] = useState(false)
   const handleClick = async (): Promise<void> => {
     await navigator.clipboard.writeText(text)
@@ -50,7 +50,7 @@ interface ShareDGADialogContentProps {
   targetName: TargetName
 }
 
-function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialogContentProps): React.JSX.Element {
+function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialogContentProps): ReactElement {
   const urlSearchParams = createURLSearchParams({ dgaJson, format: "auto", idealJson, targetName })
   const domainUrl = useDomainUrl()
   const pageUrl = useBaseUrl("calculator") // contains "/" at the beginning
@@ -79,7 +79,7 @@ export interface ShareDGADialogProps {
   targetName: TargetName
 }
 
-export function ShareDGADialog({ open, setOpen, dgaJson, idealJson, targetName }: ShareDGADialogProps): React.JSX.Element {
+export function ShareDGADialog({ open, setOpen, dgaJson, idealJson, targetName }: ShareDGADialogProps): ReactElement {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog

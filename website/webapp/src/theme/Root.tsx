@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import React, { useEffect, ReactElement } from "react"
 
 import Head from "@docusaurus/Head"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
@@ -33,7 +33,7 @@ function setBuildEnv(): void {
   }
 }
 
-export default function Root({children}: {children: React.ReactNode}): React.JSX.Element {
+export default function Root({children}: {children: React.ReactNode}): ReactElement {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
 

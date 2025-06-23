@@ -1,8 +1,8 @@
-import React, { ComponentProps } from "react"
+import React, { ComponentProps, ReactElement } from "react"
 
 import { Button, CircularProgress, Stack } from "@mui/material"
 
-function CircularProgressFromNullable({ value }: { value: number | null }): React.JSX.Element {
+function CircularProgressFromNullable({ value }: { value: number | null }): ReactElement {
   const size = 20
   if (value === null) {
     return (
@@ -39,7 +39,7 @@ type ButtonWithProgressProps = ComponentProps<typeof Button> & {
   message?: string
 }
 
-export function ButtonWithProgress({ computing, progress, message, ...buttonProps }: ButtonWithProgressProps): React.JSX.Element {
+export function ButtonWithProgress({ computing, progress, message, ...buttonProps }: ButtonWithProgressProps): ReactElement {
   const disabled: boolean = buttonProps.disabled ?? false
   const progressPercent: number | null = toPercent(progress)
   return (

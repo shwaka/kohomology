@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, ReactElement } from "react"
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import { IconButton, Menu, MenuItem } from "@mui/material"
@@ -44,7 +44,7 @@ interface OptionsButtonProps {
   showAll: () => void
 }
 
-export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options, showAll }: OptionsButtonProps): React.JSX.Element {
+export function OptionsButton({ containerClass, handleClick, handleClose, open, anchorEl, options, showAll }: OptionsButtonProps): ReactElement {
   return (
     <Fragment>
       <IconButton
@@ -89,7 +89,7 @@ interface MenuItemCopyTextProps {
   handleClose: () => void
 }
 
-function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): React.JSX.Element {
+function MenuItemCopyText({ text, label, handleClose }: MenuItemCopyTextProps): ReactElement {
   const copyText = async (): Promise<void> => {
     if (text !== null) {
       await navigator.clipboard.writeText(text)

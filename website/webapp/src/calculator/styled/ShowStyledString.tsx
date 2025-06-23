@@ -1,11 +1,11 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 
 import "katex/dist/katex.min.css"
 import { StyledString } from "./message"
 
-function Text({ content }: { content: string } ): React.JSX.Element {
+function Text({ content }: { content: string } ): ReactElement {
   const lines = content.split("\n")
   return (
     <span>
@@ -28,7 +28,7 @@ function Text({ content }: { content: string } ): React.JSX.Element {
   )
 }
 
-export function ShowStyledString({ styledString }: { styledString: StyledString }): React.JSX.Element {
+export function ShowStyledString({ styledString }: { styledString: StyledString }): ReactElement {
   const macros = {
     "\\deg": "|#1|",
   }

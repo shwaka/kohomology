@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { Paper } from "@mui/material"
 
@@ -10,7 +10,7 @@ interface MessageBoxProps {
   messages: StyledMessage[]
 }
 
-export function MessageBox({ messages }: MessageBoxProps): React.JSX.Element {
+export function MessageBox({ messages }: MessageBoxProps): ReactElement {
   const scrollRef = useScrollToBottom([messages])
 
   return (

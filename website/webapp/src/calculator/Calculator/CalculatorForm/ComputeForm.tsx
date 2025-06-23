@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react"
+import React, { useCallback, useState, ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
@@ -29,7 +29,7 @@ interface InternalComputeFormProps {
   workerInfo: WorkerInfo
 }
 
-function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): React.JSX.Element {
+function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): ReactElement {
   const [minDegree, minDegreeFieldProps] = useNumberField({ label: "", defaultValue: 0 })
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
@@ -92,7 +92,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
   )
 }
 
-function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): React.JSX.Element {
+function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): ReactElement {
   const supported = isSupported(targetName, "class")
   const [cocycleString, cocycleStringFieldProps] =
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: !supported })
@@ -147,7 +147,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
   )
 }
 
-function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): React.JSX.Element {
+function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): ReactElement {
   const [isomorphismUpTo, isomorphismUpToFieldProps] = useNumberField({ label: "", defaultValue: 10 })
   const computeMinimalModel = useCallback(
     (event: React.FormEvent<HTMLFormElement>): void => {
@@ -224,7 +224,7 @@ export interface ComputeFormProps {
   workerInfo: WorkerInfo
 }
 
-export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: ComputeFormProps): React.JSX.Element {
+export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: ComputeFormProps): ReactElement {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
   const handleChange = (_event: React.SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react"
+import React, { useCallback, useEffect, useState, ReactElement } from "react"
 
 import "katex/dist/katex.min.css"
 import { fromString, StyledMessage } from "../styled/message"
@@ -20,7 +20,7 @@ interface MessageBoxForWorkerProps<WI, WO extends SendMessage, WS, WF extends WF
 
 export function MessageBoxForWorker<WI, WO extends SendMessage, WS, WF extends WFBase>(
   { context }: MessageBoxForWorkerProps<WI, WO, WS, WF>
-): React.JSX.Element {
+): ReactElement {
   const { addListener, addRestartListener } = useWorker(context)
   const initialMessageArray = [fromString("success", "Computation results will be shown here")]
   const [messages, setMessages] = useState<StyledMessage[]>(initialMessageArray)

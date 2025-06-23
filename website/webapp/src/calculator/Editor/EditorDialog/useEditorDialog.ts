@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import { useConfirm } from "@calculator/ConfirmDialog"
 
@@ -9,7 +9,7 @@ import { OnSubmit } from "../OnSubmit"
 type PreventQuit = (() => string | undefined) | undefined
 type UseCanQuitReturnValue = {
   canQuit: (preventQuit: PreventQuit) => Promise<boolean>
-  confirmDialog: React.JSX.Element
+  confirmDialog: ReactElement
 }
 
 interface UseCanQuitArgs {

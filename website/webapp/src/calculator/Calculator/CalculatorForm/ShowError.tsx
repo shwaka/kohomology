@@ -1,9 +1,9 @@
-import React, { Fragment, useState } from "react"
+import React, { Fragment, useState, ReactElement } from "react"
 
 import { Alert, Snackbar } from "@mui/material"
 
 // There is no way to re-open Snackbar.
-export function ShowError({ messages }: { messages: string[] }): React.JSX.Element {
+export function ShowError({ messages }: { messages: string[] }): ReactElement {
   const [open, setOpen] = useState(true)
 
   if (messages.length === 0) {

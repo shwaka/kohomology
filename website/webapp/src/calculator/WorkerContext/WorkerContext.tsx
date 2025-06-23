@@ -1,4 +1,4 @@
-import React, { Context, createContext, ReactNode, useRef, useState } from "react"
+import React, { Context, createContext, ReactNode, useRef, useState, ReactElement } from "react"
 
 import { WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"
@@ -23,7 +23,7 @@ type StateContext<WS> = Context<StateAndSetState<WS>>
 export type WorkerContext<WI, WO, WS, WF extends WFBase> = {
   reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>
   stateContext: StateContext<WS>
-  Provider: (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => React.JSX.Element
+  Provider: (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => ReactElement
 }
 
 function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
@@ -32,7 +32,7 @@ function WorkerContextProvider<WI, WO, WS, WF extends WFBase>(
     stateContext: StateContext<WS>
     createWorker: () => Worker
   } & ProviderProps<WS>
-): React.JSX.Element {
+): ReactElement {
   const wrapperRef = useRef<WorkerWrapper<WI, WO, WS, WF> | null>(null)
   if (wrapperRef.current === null) {
     wrapperRef.current = new WorkerWrapper(props.createWorker)
@@ -55,8 +55,8 @@ function createProvider<WI, WO, WS, WF extends WFBase>(
   reactContext: Context<WorkerWrapper<WI, WO, WS, WF>>,
   stateContext: StateContext<WS>,
   createWorker: () => Worker,
-): ((props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => React.JSX.Element) {
-  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): React.JSX.Element =>  {
+): ((props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => ReactElement) {
+  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): ReactElement =>  {
     // If props does not contain defaultState, then WS is empty.
     const defaultState: WS =
       "defaultState" in props ? props.defaultState : ({} as WS)

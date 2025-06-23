@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import Link from "@docusaurus/Link"
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext"
@@ -11,7 +11,7 @@ import HomepageFeatures from "../components/HomepageFeatures"
 import { ImportKotlin } from "../components/ImportKotlin"
 // import useBaseUrl from "@docusaurus/useBaseUrl"
 
-function HomepageHeader(): React.JSX.Element {
+function HomepageHeader(): ReactElement {
   const {siteConfig} = useDocusaurusContext()
   // const dokkaUrl = useBaseUrl("/dokka/index.html")
   // const benchUrl = useBaseUrl("/benchmark/index.html")
@@ -32,7 +32,7 @@ function HomepageHeader(): React.JSX.Element {
   )
 }
 
-export default function Home(): React.JSX.Element {
+export default function Home(): ReactElement {
   const {siteConfig} = useDocusaurusContext()
   return (
     <Layout

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { MessageOutput } from "@calculator/WorkerContext/expose"
 import { useLocation } from "@docusaurus/router"

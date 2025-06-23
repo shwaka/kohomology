@@ -1,10 +1,10 @@
-import React, { useCallback } from "react"
+import React, { useCallback, ReactElement } from "react"
 
 import { useRadio } from "./UseRadio"
 
 interface UsePlaygroundBoxReturnValue {
   props: PlaygroundBoxProps
-  renderControl: () => React.JSX.Element
+  renderControl: () => ReactElement
 }
 
 export function usePlaygroundBox(): UsePlaygroundBoxReturnValue {
@@ -43,7 +43,7 @@ type PlaygroundBoxPropsWithChildren = PlaygroundBoxProps & {
 
 export function PlaygroundBox({
   children, width, padding,
-}: PlaygroundBoxPropsWithChildren): React.JSX.Element {
+}: PlaygroundBoxPropsWithChildren): ReactElement {
   return (
     <div
       style={{

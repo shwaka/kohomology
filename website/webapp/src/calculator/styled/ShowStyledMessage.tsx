@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react"
+import React, { CSSProperties, ReactElement } from "react"
 
 import { useTruncatedList } from "@calculator/useTruncatedList"
 import { ColorMode, useColorMode } from "@docusaurus/theme-common"
@@ -47,7 +47,7 @@ function getWeightOfLatexCode(code: string): number {
   return replaced.length
 }
 
-export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): React.JSX.Element {
+export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMessage }): ReactElement {
   const divClass = "show-styled-message"
   const { visibleItems: visibleStrings, commands: { showAll }, isTruncated } = useTruncatedList(
     styledMessage.strings,

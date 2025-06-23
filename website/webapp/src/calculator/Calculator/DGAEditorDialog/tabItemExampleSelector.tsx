@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import { OnSubmit } from "@calculator/Editor"
 import { TabItem } from "@calculator/Editor"
@@ -16,8 +16,8 @@ type ExampleKey = (typeof exampleKeys)[number]
 
 interface Example {
   json: string | undefined
-  renderSelectItem: () => React.JSX.Element
-  renderForm?: () => React.JSX.Element
+  renderSelectItem: () => ReactElement
+  renderForm?: () => ReactElement
 }
 
 function tryOrUndefined<T>(func: () => T): T | undefined {
@@ -30,7 +30,7 @@ function tryOrUndefined<T>(func: () => T): T | undefined {
 
 function useExampleParametraizedByN(
   getJson: (n: number) => string,
-  renderSelectItem: () => React.JSX.Element,
+  renderSelectItem: () => ReactElement,
 ): Example {
   const [n, setN] = useState(2)
   return {

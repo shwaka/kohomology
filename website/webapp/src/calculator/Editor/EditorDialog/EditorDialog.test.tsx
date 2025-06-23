@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { render } from "@testing-library/react"
 
@@ -20,7 +20,7 @@ interface ContainerProps {
   editor: Editor
 }
 
-function EditorDialogTestContainer({ editor }: ContainerProps): React.JSX.Element {
+function EditorDialogTestContainer({ editor }: ContainerProps): ReactElement {
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })
   return (
     <div>

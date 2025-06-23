@@ -1,4 +1,4 @@
-import React, { useCallback } from "react"
+import React, { useCallback, ReactElement } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { RowComponentProps } from "@calculator/SortableFields"
@@ -31,7 +31,7 @@ export interface ArrayEditorItemProps<TFieldValues extends FieldValues> {
 export function ArrayEditorItem<TFieldValues extends FieldValues>({
   rowComponentProps,
   rowComponentData: { fieldOptionsList, getFieldErrorArray },
-}: ArrayEditorItemProps<TFieldValues>): React.JSX.Element {
+}: ArrayEditorItemProps<TFieldValues>): ReactElement {
   const { draggableProps, index, formData: { register, getValues, errors, remove, trigger } } = rowComponentProps
   const setOverwritableTimeout = useOverwritableTimeout()
   const triggerWithDelay = useCallback(

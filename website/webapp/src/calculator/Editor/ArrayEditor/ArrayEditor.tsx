@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react"
+import React, { ReactNode, ReactElement } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"
@@ -20,13 +20,13 @@ export interface ArrayEditorProps<TFieldValues extends FieldValues, K extends Ar
   onSubmit: OnSubmit
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
   getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
-  RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => React.JSX.Element
+  RowComponent: (props: RowComponentProps<TFieldValues, undefined>) => ReactElement
   arrayKey: K
 }
 
 export function ArrayEditor<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors, getNext, RowComponent, arrayKey,
-}: ArrayEditorProps<TFieldValues, K>): React.JSX.Element {
+}: ArrayEditorProps<TFieldValues, K>): ReactElement {
   const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     await onSubmit(event)
@@ -59,7 +59,7 @@ export function ArrayEditor<TFieldValues extends FieldValues, K extends ArrayPat
   )
 }
 
-function SortableFieldsContainer({ children }: { children: ReactNode }): React.JSX.Element {
+function SortableFieldsContainer({ children }: { children: ReactNode }): ReactElement {
   return (
     <Stack spacing={2}>
       {children}

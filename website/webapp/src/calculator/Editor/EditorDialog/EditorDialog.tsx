@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material"
 import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
@@ -6,17 +6,17 @@ import { useMobileMediaQuery } from "@site/src/utils/useMobileMediaQuery"
 import { OnSubmit } from "../OnSubmit"
 
 export interface EditorDialogProps {
-  renderContent: (closeDialog: () => void) => React.JSX.Element
-  renderTitle?: () => React.JSX.Element
+  renderContent: (closeDialog: () => void) => ReactElement
+  renderTitle?: () => ReactElement
   open: boolean
   closeDialog: () => void
   tryToQuit: () => Promise<void>
   disableSubmit?: () => boolean
   onSubmit: OnSubmit
-  confirmDialog: React.JSX.Element
+  confirmDialog: ReactElement
 }
 
-export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tryToQuit, disableSubmit, onSubmit, confirmDialog }: EditorDialogProps): React.JSX.Element {
+export function EditorDialog({ renderContent, renderTitle, open, closeDialog, tryToQuit, disableSubmit, onSubmit, confirmDialog }: EditorDialogProps): ReactElement {
   const mobileMediaQuery = useMobileMediaQuery()
   return (
     <Dialog

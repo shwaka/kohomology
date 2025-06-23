@@ -1,10 +1,10 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import CodeBlock from "@theme/CodeBlock"
 import TabItem from "@theme/TabItem"
 import Tabs from "@theme/Tabs"
 
-export function BuildGradleDocument(): React.JSX.Element {
+export function BuildGradleDocument(): ReactElement {
   return (
     <Tabs>
       <TabItem value="kotlin" label="build.gradle.kts" default>

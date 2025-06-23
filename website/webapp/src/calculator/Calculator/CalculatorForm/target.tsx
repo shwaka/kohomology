@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import TeX from "@matejmazur/react-katex"
 
@@ -19,7 +19,7 @@ function getComplexAsString(targetName: TargetName): string {
   }
 }
 
-export function ComplexAsTex({ targetName }: { targetName: TargetName }): React.JSX.Element {
+export function ComplexAsTex({ targetName }: { targetName: TargetName }): ReactElement {
   return (
     <TeX math={getComplexAsString(targetName)} data-testid="ComplexAsTex"/>
   )
@@ -31,7 +31,7 @@ export function getCohomologyAsString(targetName: TargetName, degree: string | u
   return `H^{${degreeString}}(${complex})`
 }
 
-export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree?: string }): React.JSX.Element {
+export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree?: string }): ReactElement {
   return (
     <TeX math={getCohomologyAsString(targetName, degree)}/>
   )
@@ -52,7 +52,7 @@ function getTopologicalInvariantAsString(targetName: TargetName): string {
   }
 }
 
-export function TopologicalInvariantAsTex({ targetName }: { targetName: TargetName }): React.JSX.Element {
+export function TopologicalInvariantAsTex({ targetName }: { targetName: TargetName }): ReactElement {
   return (
     <TeX math={getTopologicalInvariantAsString(targetName)}/>
   )

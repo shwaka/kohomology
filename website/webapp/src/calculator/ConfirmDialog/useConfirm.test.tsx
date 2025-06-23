@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, ReactElement } from "react"
 
 import { render, screen, waitForElementToBeRemoved, within } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
@@ -9,7 +9,7 @@ const prompt = "Do you really set text?"
 const defaultText = "This is default."
 const newText = "This is new text."
 
-function ConfirmContainer(): React.JSX.Element {
+function ConfirmContainer(): ReactElement {
   const { confirm, confirmDialog } = useConfirm(
     { trueText: "Yes", falseText: "No" }
   )

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
 import { ArrayEditorSample } from "@calculator/Editor/ArrayEditor/__playground__/ArrayEditorSample"
@@ -53,7 +53,7 @@ const tabs = [
   },
 ] as const satisfies SimpleTab<string>[]
 
-function PlaygroundImpl(): React.JSX.Element {
+function PlaygroundImpl(): ReactElement {
   const { renderSelect, renderTabs } = useSimpleTabs(tabs)
   const { props, renderControl } = usePlaygroundBox()
   const theme = useCustomTheme()
@@ -72,7 +72,7 @@ function PlaygroundImpl(): React.JSX.Element {
   )
 }
 
-export function Playground(): React.JSX.Element {
+export function Playground(): ReactElement {
   // BrowserOnly for components with WebWorker
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>

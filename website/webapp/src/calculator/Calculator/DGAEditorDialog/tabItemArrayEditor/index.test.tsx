@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { findOrThrow } from "@calculator/Calculator/__testutils__/findOrThrow"
 import { TabItem } from "@calculator/Editor"

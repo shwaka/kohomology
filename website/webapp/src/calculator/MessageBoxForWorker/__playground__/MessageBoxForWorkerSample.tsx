@@ -1,11 +1,11 @@
-import React from "react"
+import React, { ReactElement } from "react"
 
 import { useWorker } from "@calculator/WorkerContext"
 
 import { MessageBoxForWorker } from ".."
 import { sampleWorkerContext } from "./sampleWorkerContext"
 
-export function MessageBoxForWorkerSample(): React.JSX.Element {
+export function MessageBoxForWorkerSample(): ReactElement {
   return (
     <sampleWorkerContext.Provider
       defaultState={{
@@ -18,7 +18,7 @@ export function MessageBoxForWorkerSample(): React.JSX.Element {
   )
 }
 
-function WorkerForm(): React.JSX.Element {
+function WorkerForm(): ReactElement {
   const { postMessage } = useWorker(sampleWorkerContext)
   return (
     <div>

@@ -1,5 +1,4 @@
-import { useCallback, ReactElement } from "react"
-import * as React from "react"
+import { useCallback, ReactElement, HTMLInputTypeAttribute } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { RowComponentProps } from "@calculator/SortableFields"
@@ -12,7 +11,7 @@ export interface FieldOptions<TFieldValues extends FieldValues> {
   key: string
   label: string | ((values: TFieldValues, index: number) => string)
   width: number
-  type?: React.HTMLInputTypeAttribute
+  type?: HTMLInputTypeAttribute
   valueAsNumber?: true
   getRegisterName: (index: number) => FieldPath<TFieldValues>
   isError: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number) => boolean

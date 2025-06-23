@@ -1,5 +1,4 @@
-import { Fragment, useState, ReactElement } from "react"
-import * as React from "react"
+import { Fragment, useState, ReactElement, SyntheticEvent } from "react"
 
 import { Alert, Snackbar } from "@mui/material"
 
@@ -11,7 +10,7 @@ export function ShowError({ messages }: { messages: string[] }): ReactElement {
     return <Fragment/>
   }
 
-  const handleClose = (_event: React.SyntheticEvent | Event, reason?: string): void => {
+  const handleClose = (_event: SyntheticEvent | Event, reason?: string): void => {
     if (reason === "clickaway") {
       return
     }

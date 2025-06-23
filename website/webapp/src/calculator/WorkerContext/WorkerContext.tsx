@@ -1,5 +1,4 @@
-import { Context, createContext, ReactNode, useRef, useState, ReactElement } from "react"
-import * as React from "react"
+import { Context, createContext, ReactNode, useRef, useState, ReactElement, Dispatch, SetStateAction } from "react"
 
 import { WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"
@@ -16,7 +15,7 @@ interface ProviderProps<WS> {
 
 type StateAndSetState<WS> = [
   WS,
-  React.Dispatch<React.SetStateAction<WS>>,
+  Dispatch<SetStateAction<WS>>,
 ]
 
 type StateContext<WS> = Context<StateAndSetState<WS>>

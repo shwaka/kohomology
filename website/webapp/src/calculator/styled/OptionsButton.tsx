@@ -1,5 +1,4 @@
-import { Fragment, useState, ReactElement } from "react"
-import * as React from "react"
+import { Fragment, useState, ReactElement, MouseEvent } from "react"
 
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz"
 import { IconButton, Menu, MenuItem } from "@mui/material"
@@ -22,7 +21,7 @@ export function useOptionsButton({
 }: UseOptionsButtonArgs): UseOptionsButtonReturnValue {
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>): void => {
+  const handleClick = (event: MouseEvent<HTMLElement>): void => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = (): void => {
@@ -37,7 +36,7 @@ export function useOptionsButton({
 
 interface OptionsButtonProps {
   containerClass: string
-  handleClick: (event: React.MouseEvent<HTMLElement>) => void
+  handleClick: (event: MouseEvent<HTMLElement>) => void
   handleClose: () => void
   open: boolean
   anchorEl: HTMLElement | null

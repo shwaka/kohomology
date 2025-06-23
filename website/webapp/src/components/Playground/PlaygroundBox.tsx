@@ -1,5 +1,4 @@
-import { useCallback, ReactElement } from "react"
-import * as React from "react"
+import { useCallback, ReactElement, ReactNode } from "react"
 
 import { useRadio } from "./UseRadio"
 
@@ -39,7 +38,7 @@ interface PlaygroundBoxProps {
 }
 
 type PlaygroundBoxPropsWithChildren = PlaygroundBoxProps & {
-  children: React.ReactNode
+  children: ReactNode
 }
 
 export function PlaygroundBox({

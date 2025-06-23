@@ -1,5 +1,4 @@
-import { useCallback, useState, ReactElement } from "react"
-import * as React from "react"
+import { useCallback, useState, ReactElement, ChangeEvent, FormEvent, Fragment, SyntheticEvent } from "react"
 
 import TeX from "@matejmazur/react-katex"
 import { Tabs, Tab, Stack, Alert, Checkbox, FormControlLabel, RadioGroup, Radio } from "@mui/material"
@@ -10,7 +9,7 @@ import { StringField, useStringField } from "./StringField"
 import { CohomologyAsTex, getCohomologyAsString } from "./target"
 import { ShowCohomology, showCohomologyCandidates, TargetName, WorkerInfo, KohomologyWorkerInput } from "../kohomologyWorker/workerInterface"
 
-export type InputEvent = React.ChangeEvent<HTMLInputElement>
+export type InputEvent = ChangeEvent<HTMLInputElement>
 
 function destructureWorkerInfo(
   workerInfo: WorkerInfo
@@ -35,7 +34,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
   const [maxDegree, maxDegreeFieldProps] = useNumberField({ label: "", defaultValue: 20 })
   const [showCohomology, setShowCohomology] = useState<ShowCohomology>("basis")
   const computeCohomology = useCallback(
-    (event: React.FormEvent<HTMLFormElement>): void => {
+    (event: FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const input: KohomologyWorkerInput = {
         command: "computeCohomology",
@@ -49,7 +48,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
     [targetName, minDegree, maxDegree, showCohomology, postMessageToWorker]
   )
   if (!visible) {
-    return <React.Fragment></React.Fragment>
+    return <Fragment></Fragment>
   }
 
   const supported = isSupported(targetName, "cohomology")
@@ -99,7 +98,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
     useStringField({ label: "", defaultValue: "x^2", width: 200, disabled: !supported })
   const [showBasis, setShowBasis] = useState(true)
   const computeCohomologyClass = useCallback(
-    (event: React.FormEvent<HTMLFormElement>): void => {
+    (event: FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const input: KohomologyWorkerInput = {
         command: "computeCohomologyClass",
@@ -112,7 +111,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
     [targetName, cocycleString, showBasis, postMessageToWorker]
   )
   if (!visible) {
-    return <React.Fragment></React.Fragment>
+    return <Fragment></Fragment>
   }
 
   const { computing, workerProgress } = destructureWorkerInfo(workerInfo)
@@ -132,7 +131,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
         <FormControlLabel
           control={<Checkbox/>} label="Show basis"
           checked={showBasis}
-          onChange={(e) => setShowBasis((e as React.ChangeEvent<HTMLInputElement>).target.checked)}
+          onChange={(e) => setShowBasis((e as ChangeEvent<HTMLInputElement>).target.checked)}
         />
         <ButtonWithProgress
           type="submit" variant="contained" disabled={!supported}
@@ -151,7 +150,7 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
 function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, workerInfo }: InternalComputeFormProps): ReactElement {
   const [isomorphismUpTo, isomorphismUpToFieldProps] = useNumberField({ label: "", defaultValue: 10 })
   const computeMinimalModel = useCallback(
-    (event: React.FormEvent<HTMLFormElement>): void => {
+    (event: FormEvent<HTMLFormElement>): void => {
       event.preventDefault()
       const input: KohomologyWorkerInput = {
         command: "computeMinimalModel",
@@ -164,7 +163,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
   )
 
   if (!visible) {
-    return <React.Fragment></React.Fragment>
+    return <Fragment></Fragment>
   }
 
   const supported = isSupported(targetName, "minimal")
@@ -227,11 +226,11 @@ export interface ComputeFormProps {
 
 export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: ComputeFormProps): ReactElement {
   const [computationType, setComputationType] = useState<ComputationType>("cohomology")
-  const handleChange = (_event: React.SyntheticEvent, newValue: ComputationType): void => {
+  const handleChange = (_event: SyntheticEvent, newValue: ComputationType): void => {
     setComputationType(newValue)
   }
   return (
-    <React.Fragment>
+    <Fragment>
       <Tabs value={computationType} onChange={handleChange}>
         <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }}/>
         <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }}/>
@@ -255,6 +254,6 @@ export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: Com
         visible={computationType === "minimal"}
         workerInfo={workerInfo}
       />
-    </React.Fragment>
+    </Fragment>
   )
 }

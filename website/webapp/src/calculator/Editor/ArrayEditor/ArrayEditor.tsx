@@ -1,5 +1,4 @@
-import { ReactNode, ReactElement } from "react"
-import * as React from "react"
+import { ReactNode, ReactElement, FormEvent } from "react"
 
 import { ShowFieldErrors } from "@calculator/ShowFieldErrors"
 import { FormData, RowComponentProps, SortableFields } from "@calculator/SortableFields"
@@ -28,7 +27,7 @@ export interface ArrayEditorProps<TFieldValues extends FieldValues, K extends Ar
 export function ArrayEditor<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   register, errors, fields, append, remove, getValues, trigger, move, onSubmit, getGlobalErrors, getNext, RowComponent, arrayKey,
 }: ArrayEditorProps<TFieldValues, K>): ReactElement {
-  const onSubmitWithPreventDefault = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const onSubmitWithPreventDefault = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault()
     await onSubmit(event)
   }

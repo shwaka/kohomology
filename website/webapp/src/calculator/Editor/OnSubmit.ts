@@ -1,3 +1,3 @@
-import * as React from "react"
+import { BaseSyntheticEvent } from "react"
 
-export type OnSubmit = (e?: React.BaseSyntheticEvent) => Promise<void>
+export type OnSubmit = (e?: BaseSyntheticEvent) => Promise<void>

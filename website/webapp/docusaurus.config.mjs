@@ -2,7 +2,6 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 /* eslint-disable no-undef */ // 'require' is not defined
-/* eslint-disable @typescript-eslint/no-var-requires */ // Require statement not part of import statement
 
 import rehypeKatex from "rehype-katex"
 import remarkMath from "remark-math"

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750638335381,
+  "lastUpdate": 1750921769386,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11100,6 +11100,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.303,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c6fc13f1c802d91186b2d3b7fe0bc4168f6fcd1a",
+          "message": "build(website): move eslint-related packages from dependencies to devDependencies",
+          "timestamp": "2025-06-26T16:04:29+09:00",
+          "tree_id": "d938ca741dd62caa50b29c22e762579621d626f3",
+          "url": "https://github.com/shwaka/kohomology/commit/c6fc13f1c802d91186b2d3b7fe0bc4168f6fcd1a"
+        },
+        "date": 1750921768567,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.817,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.121,
             "unit": "s/op"
           }
         ]

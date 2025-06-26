@@ -3,7 +3,7 @@ import importPlugin from "eslint-plugin-import"
 import tseslint from "typescript-eslint"
 
 export default tseslint.config(
-  tseslint.configs.base,
+  ...eslintConfigShwakaOnsave,
   {
     // Due to eslint-disable, definition for react-hooks/exhaustive-deps is required:
     //   /home/shun/Git/kohomology/website/webapp/src/calculator/useScrollToBottom.ts
@@ -22,5 +22,4 @@ export default tseslint.config(
       },
     },
   },
-  ...eslintConfigShwakaOnsave,
 )

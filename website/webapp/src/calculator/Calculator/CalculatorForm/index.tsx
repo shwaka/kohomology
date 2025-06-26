@@ -106,8 +106,9 @@ export function CalculatorForm(): ReactElement {
             <Button
               variant="contained" size="small"
               onClick={openDialog}
-              sx={{ textTransform: "none" }}>
-          Edit DGA
+              sx={{ textTransform: "none" }}
+            >
+              Edit DGA
             </Button>
             <EditorDialog {...editorDialogProps}/>
             <ShareDGAButton {...shareDGAButtonProps}/>

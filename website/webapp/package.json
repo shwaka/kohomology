@@ -74,7 +74,7 @@
     "babel-jest": "^29.0.0",
     "copy-webpack-plugin": "^10.0.0",
     "eslint": "^9.29.0",
-    "eslint-config-shwaka": "github:shwaka/eslint-config-shwaka#v2.1",
+    "eslint-config-shwaka": "github:shwaka/eslint-config-shwaka#v2.2",
     "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-jest-dom": "^5.5.0",
     "eslint-plugin-react": "^7.27.1",

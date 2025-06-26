@@ -21,6 +21,9 @@ export default tseslint.config(
         }
       },
     },
+    linterOptions: {
+      reportUnusedDisableDirectives: "off",
+    },
   },
   ...eslintConfigShwakaImport,
 )

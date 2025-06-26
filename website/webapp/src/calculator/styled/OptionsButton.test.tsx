@@ -13,6 +13,7 @@ interface OptionsButtonContainerProps {
 function OptionsButtonContainer({ options }: OptionsButtonContainerProps): ReactElement {
   const { optionsButtonProps } = useOptionsButton({
     containerClass: "foo", options,
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     showAll: () => {},
   })
   return (<OptionsButton {...optionsButtonProps}/>)

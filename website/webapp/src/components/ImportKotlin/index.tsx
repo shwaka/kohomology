@@ -18,7 +18,7 @@ function normalizePath(path: string): string {
 }
 
 const files: Map<string, string> = new Map(
-  context.keys().map(path => [ normalizePath(path), context(path).default ])
+  context.keys().map((path) => [normalizePath(path), context(path).default])
 )
 
 type ImportKotlinProps = {

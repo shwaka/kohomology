@@ -18,7 +18,7 @@ function getGlobalErrors(
     return []
   }
   const keys = Object.keys(indeterminateGlobalErrorsSchema.shape) as (keyof typeof indeterminateGlobalErrorsSchema.shape)[]
-  return keys.map((key) => _global_errors[key] )
+  return keys.map((key) => _global_errors[key])
 }
 
 function getNext(indeterminateArray: Indeterminate[]): Indeterminate {

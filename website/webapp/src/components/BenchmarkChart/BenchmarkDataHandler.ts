@@ -14,6 +14,7 @@ export class BenchmarkDataHandler {
     name: string
     benchset: Map<string, BenchWithCommit[]>
   }[]
+
   commits: CommitWithDate[]
   private commitMap: Map<string, CommitWithDate>
 

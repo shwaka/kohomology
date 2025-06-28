@@ -13,7 +13,7 @@ interface ConfigureFilterCommitProps {
 export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): ReactElement {
   return (
     <Box>
-      {"Restrict commits:"}
+      Restrict commits:
       <Slider
         min={0}
         max={commits.length - 1}
@@ -21,7 +21,7 @@ export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitInde
         onChange={(_event, newValue: number | number[]) => {
           setCommitIndexRange(newValue as number[])
         }}
-        valueLabelDisplay={"auto"}
+        valueLabelDisplay="auto"
         valueLabelFormat={(commitIndex: number) => {
           const commit = commits[commitIndex]
           const commitId: string = commit.id.slice(0, 7)

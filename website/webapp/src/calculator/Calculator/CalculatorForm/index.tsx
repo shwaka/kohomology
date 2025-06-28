@@ -121,11 +121,13 @@ export function CalculatorForm(): ReactElement {
             value={targetName}
             onChange={(event) => setTargetName(event.target.value as typeof targetName)}
           >
-            {targetNames.map((targetNameForLabel) =>
+            {targetNames.map((targetNameForLabel) => (
               <FormControlLabel
                 key={targetNameForLabel} value={targetNameForLabel}
                 control={<Radio size="small" />}
-                label={<TopologicalInvariantAsTex targetName={targetNameForLabel} />} />
+                label={<TopologicalInvariantAsTex targetName={targetNameForLabel} />}
+              />
+            )
             )}
           </RadioGroup>
           <TeX math={`\\cong ${getCohomologyAsString(targetName)}`} />

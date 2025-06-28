@@ -188,7 +188,7 @@ describe("useTextEditor", () => {
     const handler = new EditorDialogHandler()
     const errorMessage = "Your text contains an error."
     const validate = jest.fn().mockReturnValue(errorMessage)
-    render(<TextEditorContainer defaultText={""} validate={validate} />)
+    render(<TextEditorContainer defaultText="" validate={validate} />)
 
     await handler.openDialog()
     await handler.apply()
@@ -201,7 +201,7 @@ describe("useTextEditor", () => {
   test("validate returning true", async () => {
     const handler = new EditorDialogHandler()
     const validate = jest.fn().mockReturnValue(true)
-    render(<TextEditorContainer defaultText={""} validate={validate} />)
+    render(<TextEditorContainer defaultText="" validate={validate} />)
 
     await handler.openDialog()
     await handler.apply()

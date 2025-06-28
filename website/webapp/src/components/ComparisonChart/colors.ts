@@ -11,7 +11,7 @@ const BORDER_COLORS = [
 ]
 
 // Border colors with 50% transparency
-const BACKGROUND_COLORS = BORDER_COLORS.map(color => color.replace("rgb(", "rgba(").replace(")", ", 0.5)"))
+const BACKGROUND_COLORS = BORDER_COLORS.map((color) => color.replace("rgb(", "rgba(").replace(")", ", 0.5)"))
 
 export function getBorderColor(i: number): string {
   return BORDER_COLORS[i % BORDER_COLORS.length]

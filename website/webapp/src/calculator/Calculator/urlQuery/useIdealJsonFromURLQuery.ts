@@ -15,7 +15,7 @@ export function useIdealJsonFromURLQuery(): URLQueryResult<string> {
   const urlSearchParams = useURLSearchParams()
   try {
     const idealJson: string | null = getIdealJsonFromURLQuery(urlSearchParams)
-    if (idealJson === null){
+    if (idealJson === null) {
       return {
         type: "unspecified",
       }

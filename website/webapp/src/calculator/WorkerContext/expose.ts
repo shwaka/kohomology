@@ -111,7 +111,7 @@ export function expose<WI, WO, WS, WF extends WFBase>(
   }
   const onmessage = (event: MessageEvent<MessageInput<WI, WF>>): void => {
     const input: MessageInput<WI, WF> = event.data
-    switch (input.type){
+    switch (input.type) {
       case "input":
         workerImpl.onWorkerInput(input.value)
         return

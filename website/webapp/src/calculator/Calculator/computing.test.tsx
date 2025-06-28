@@ -76,7 +76,7 @@ jest.mock("@calculator/WorkerContext/WorkerWrapper", () => {
   const originalOnmessage = OriginalWorkerWrapper.prototype.onmessage
 
   // TODO: copy the object OriginalWorkerWrapper with its prototype
-  OriginalWorkerWrapper.prototype.onmessage = function(workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): void {
+  OriginalWorkerWrapper.prototype.onmessage = function (workerOutput: MessageOutput<KohomologyWorkerOutput, KohomologyWorkerState, KohomologyWorkerFunc>): void {
     capturer.add(originalOnmessage.bind(this), workerOutput)
   }
 

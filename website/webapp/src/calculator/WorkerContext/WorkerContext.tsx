@@ -56,7 +56,7 @@ function createProvider<WI, WO, WS, WF extends WFBase>(
   stateContext: StateContext<WS>,
   createWorker: () => Worker,
 ): ((props: OmitIfEmpty<ProviderProps<WS>, "defaultState">) => ReactElement) {
-  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): ReactElement =>  {
+  const WorkerContextProviderCurried = (props: OmitIfEmpty<ProviderProps<WS>, "defaultState">): ReactElement => {
     // If props does not contain defaultState, then WS is empty.
     const defaultState: WS =
       "defaultState" in props ? props.defaultState : ({} as WS)

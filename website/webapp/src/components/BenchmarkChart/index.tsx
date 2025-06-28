@@ -83,12 +83,12 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
         <ConfigureFilterCommit {...configureFilterCommitProps} />
       </Box>
       <FormControlLabel
-        control={
+        control={(
           <Checkbox
             checked={showMovingAverage}
             onChange={(event) => setShowMovingAverage(event.target.checked)}
           />
-        }
+        )}
         label="Show moving average"
       />
       {dataHandler.benchsetsWithNames.map((benchsetWithName) => (

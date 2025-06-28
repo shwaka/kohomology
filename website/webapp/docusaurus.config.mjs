@@ -68,14 +68,14 @@ const config = {
             label: "Docs",
           },
           // {to: '/blog', label: 'Blog', position: 'left'},
-          {to: "calculator", label: "Calculator", position: "left"},
+          { to: "calculator", label: "Calculator", position: "left" },
           {
             href: "/dokka/index.html",
             label: "API",
             position: "left",
             target: "_blank", // これがないと React router のせいでうまくいかないっぽい
           },
-          {to: "others", label: "Others", position: "left"},
+          { to: "others", label: "Others", position: "left" },
           {
             type: "custom-playground",
             position: "right",

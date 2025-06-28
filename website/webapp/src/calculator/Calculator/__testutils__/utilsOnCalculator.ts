@@ -44,7 +44,7 @@ export async function waitForInitialState(expectedFormMessage: string | undefine
   })
 }
 
-export function getComputeCohomologyButton(): HTMLElement{
+export function getComputeCohomologyButton(): HTMLElement {
   const computeCohomologyForm = screen.getByTestId("ComputeCohomologyForm")
   expect(computeCohomologyForm).toContainHTML("Compute cohomology")
   const computeCohomologyButton = within(computeCohomologyForm).getByRole("button")

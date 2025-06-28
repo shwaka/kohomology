@@ -1,4 +1,4 @@
-export type Tool = "cargo" | "go" | "benchmarkjs" | "pytest" | "googlecpp" | "catch2" | "julia" | "jmh" | "benchmarkdotnet" |"benchmarkluau" | "customBiggerIsBetter" | "customSmallerIsBetter"
+export type Tool = "cargo" | "go" | "benchmarkjs" | "pytest" | "googlecpp" | "catch2" | "julia" | "jmh" | "benchmarkdotnet" | "benchmarkluau" | "customBiggerIsBetter" | "customSmallerIsBetter"
 
 export interface Bench {
   name: string

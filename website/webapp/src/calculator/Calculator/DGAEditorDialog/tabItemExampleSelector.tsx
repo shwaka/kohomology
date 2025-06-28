@@ -71,7 +71,7 @@ export function useTabItemExampleSelector(args: Args): TabItem {
     },
     "arkowitz-lupton": {
       json: arkowitzLupton(),
-      renderSelectItem: () => <span>{"Arkowitz-Lupton's example"}</span>
+      renderSelectItem: () => <span>Arkowitz-Lupton's example</span>
     },
   }
   const example: Example | undefined = (exampleKey === "") ? undefined : examples[exampleKey]

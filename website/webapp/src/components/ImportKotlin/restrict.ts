@@ -13,8 +13,8 @@ export function isRestricted(textRange: TextRange): textRange is RestrictedTextR
 }
 
 function getLinesBetween(lines: string[], beginRegExp: RegExp, endRegExp: RegExp): TextRange | null {
-  const beginLineNum: number = lines.findIndex(line => line.match(beginRegExp))
-  const endLineNum: number = lines.findIndex(line => line.match(endRegExp))
+  const beginLineNum: number = lines.findIndex((line) => line.match(beginRegExp))
+  const endLineNum: number = lines.findIndex((line) => line.match(endRegExp))
   if (beginLineNum === -1 || endLineNum === -1) {
     return null
   }
@@ -44,9 +44,9 @@ function getIndent(line: string): number {
 }
 
 function removeIndent(lines: string[]): string[] {
-  const indents: number[] = lines.map(line => getIndent(line))
+  const indents: number[] = lines.map((line) => getIndent(line))
   const indent: number = Math.min(...indents)
-  return lines.map(line => line.substring(indent))
+  return lines.map((line) => line.substring(indent))
 }
 
 function createRegExp(beginOrEnd: "begin" | "end", key: string | true): RegExp {

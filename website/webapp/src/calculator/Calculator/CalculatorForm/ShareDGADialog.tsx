@@ -58,7 +58,7 @@ function ShareDGADialogContent({ dgaJson, idealJson, targetName }: ShareDGADialo
   return (
     <Fragment>
       <TextField
-        label={"url"}
+        label="url"
         value={url}
         sx={{ width: 300 }} size="small"
         InputProps={{ readOnly: true }}

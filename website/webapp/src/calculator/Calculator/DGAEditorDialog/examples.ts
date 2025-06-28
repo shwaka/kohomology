@@ -8,7 +8,7 @@ export function sphere(dim: number): string {
   if (dim % 2 == 0) {
     return `[
   ["x", ${dim}, "0"],
-  ["y", ${2*dim - 1}, "x^2"]
+  ["y", ${2 * dim - 1}, "x^2"]
 ]`
   } else {
     return `[
@@ -26,7 +26,7 @@ export function complexProjective(n: number): string {
   }
   return `[
   ["c", 2, "0"],
-  ["x", ${2*n + 1}, "c^${n + 1}"]
+  ["x", ${2 * n + 1}, "c^${n + 1}"]
 ]`
 }
 

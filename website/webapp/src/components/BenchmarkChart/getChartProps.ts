@@ -44,7 +44,7 @@ export function getChartProps(
     datasets: [
       {
         label: extractMethodName(name),
-        data: filteredDataset.map(d => ({ x: d.commit.id, y: d.bench.value })),
+        data: filteredDataset.map((d) => ({ x: d.commit.id, y: d.bench.value })),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa
         fill: true,
@@ -105,7 +105,7 @@ export function getChartProps(
             }
             return label
           },
-          afterLabel: item => {
+          afterLabel: (item) => {
             const { extra } = filteredDataset[item.dataIndex].bench
             if (extra === undefined) {
               return ""

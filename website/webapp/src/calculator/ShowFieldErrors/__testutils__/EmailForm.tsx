@@ -48,7 +48,6 @@ export const errorMessages = {
 export function EmailForm(
   { criteriaModeForComponent = "firstError", register, handleSubmit, errors }: EmailFormProps
 ): ReactElement {
-
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   const onSubmit = (): void => {}
 

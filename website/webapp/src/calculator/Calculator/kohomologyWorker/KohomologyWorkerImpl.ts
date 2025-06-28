@@ -194,7 +194,7 @@ class KohomologyMessageHandler {
   public validateIdealGenerator(generator: string): true | string {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     const result: ValidationResult = validateIdealGeneratorString(this.dgaWrapper, generator)
-    switch (result.type){
+    switch (result.type) {
       case "success":
         return true
       case "error":
@@ -208,7 +208,7 @@ class KohomologyMessageHandler {
     assertNotNull(this.dgaWrapper, "dgaWrapper is null")
     const json = JSON.stringify(generatorArray)
     const result: ValidationResult = validateIdealJson(this.dgaWrapper, json)
-    switch (result.type){
+    switch (result.type) {
       case "success":
         return true
       case "error":

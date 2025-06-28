@@ -47,7 +47,8 @@ export function SortableFieldsSample(): ReactElement {
       <button onClick={async () => {
         append({ name: `person-${fields.length}`, age: 100 })
         await trigger() // for global error
-      }}>
+      }}
+      >
         Add row
       </button>
       <button

@@ -5,7 +5,7 @@ import TeX from "@matejmazur/react-katex"
 import "katex/dist/katex.min.css"
 import { StyledString } from "./message"
 
-function Text({ content }: { content: string } ): ReactElement {
+function Text({ content }: { content: string }): ReactElement {
   const lines = content.split("\n")
   return (
     <span>
@@ -14,15 +14,17 @@ function Text({ content }: { content: string } ): ReactElement {
         // the last element of lines is the empty string "".
         // Hence there is no need to write
         //   lineNumber < lines.length - 1 || content.endsWith("\n")
-        (lineNumber < lines.length - 1) ? (
-          <Fragment key={lineNumber}>
-            {line}<br />
-          </Fragment>
-        ): (
-          <Fragment key={lineNumber}>
-            {line}
-          </Fragment>
-        )
+        (lineNumber < lines.length - 1)
+          ? (
+            <Fragment key={lineNumber}>
+              {line}<br />
+            </Fragment>
+          )
+          : (
+            <Fragment key={lineNumber}>
+              {line}
+            </Fragment>
+          )
       ))}
     </span>
   )

@@ -8,7 +8,7 @@ function getErrorsByPath(
   path: (string | number)[]
 ): z.ZodIssue[] {
   return error.issues.filter(
-    issue => JSON.stringify(issue.path) === JSON.stringify(path)
+    (issue) => JSON.stringify(issue.path) === JSON.stringify(path)
   )
 }
 

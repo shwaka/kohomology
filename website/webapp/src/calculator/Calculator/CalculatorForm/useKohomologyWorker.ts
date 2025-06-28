@@ -29,7 +29,6 @@ interface UseKohomologyWorkerResult {
 export function useKohomologyWorker({
   defaultJson, defaultIdealJson, onmessage
 }: UseKohomologyWorkerArgs): UseKohomologyWorkerResult {
-
   // Worker cannot be accessed during SSR (Server Side Rendering)
   // To avoid SSR, this component should be wrapped in BrowserOnly
   //   (see https://docusaurus.io/docs/docusaurus-core#browseronly)

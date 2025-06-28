@@ -95,7 +95,7 @@ describe("useIdealEditor", () => {
     render(<TestContainer {...testContainerProps} />)
 
     await addGenerators(user, ["x"])
-    await apply(user, )
+    await apply(user)
 
     await waitFor(() => {
       expect(closeDialog).toHaveBeenCalled()

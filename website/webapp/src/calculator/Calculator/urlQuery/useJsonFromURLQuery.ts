@@ -35,7 +35,7 @@ export function useJsonFromURLQuery(): URLQueryResult<string> {
         type: "error",
         message: `[Error] Invalid JSON is given as URL parameter.\n${e.message}`
       }
-    } else if (e instanceof Error){
+    } else if (e instanceof Error) {
       return {
         type: "error",
         message: e.message,

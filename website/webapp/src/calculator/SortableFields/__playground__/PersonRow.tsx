@@ -26,7 +26,8 @@ export function PersonRow({
       <button onClick={async () => {
         remove(index)
         await trigger() // for global error
-      }}>
+      }}
+      >
         Delete
       </button>
       <span

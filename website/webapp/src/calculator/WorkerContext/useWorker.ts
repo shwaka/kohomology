@@ -10,7 +10,7 @@ function isUpdateState<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, 
 }
 
 function getPartialStateFromOutput<WO, WS, WF extends WFBase>(output: MessageOutput<WO, WS, WF>): Partial<WS> | null {
-  if (!isUpdateState(output)){
+  if (!isUpdateState(output)) {
     return null
   }
   return {

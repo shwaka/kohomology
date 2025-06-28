@@ -7,7 +7,8 @@ import { Calculator } from "../calculator/Calculator"
 export default function CalculatorPage(): ReactElement {
   return (
     <Layout
-      title="Calculator">
+      title="Calculator"
+    >
       <Calculator />
     </Layout>
   )

@@ -35,7 +35,7 @@ function getGlobalErrors(
     return []
   }
   const keys = Object.keys(globalErrorsSchema.shape) as (keyof typeof globalErrorsSchema.shape)[]
-  return keys.map((key) => _global_errors[key] )
+  return keys.map((key) => _global_errors[key])
 }
 
 function getNext(generatorArray: Generator[]): Generator {

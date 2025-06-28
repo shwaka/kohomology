@@ -72,21 +72,23 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
           value={showCohomology}
           onChange={(event) => setShowCohomology(event.target.value as ShowCohomology)}
         >
-          {showCohomologyCandidates.map((showCohomologyForLabel) =>
+          {showCohomologyCandidates.map((showCohomologyForLabel) => (
             <FormControlLabel
               key={showCohomologyForLabel} value={showCohomologyForLabel}
-              control={<Radio />} label={showCohomologyForLabel} />
+              control={<Radio />} label={showCohomologyForLabel}
+            />
+          )
           )}
         </RadioGroup>
         <ButtonWithProgress
           type="submit" variant="contained" disabled={!supported}
           computing={computing} progress={workerProgress}
         />
-        { !supported &&
+        { !supported && (
           <Alert severity="info">
             Currently, this type of computation is not supported.
           </Alert>
-        }
+        )}
       </Stack>
     </form>
   )
@@ -137,11 +139,11 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
           type="submit" variant="contained" disabled={!supported}
           computing={computing} progress={workerProgress}
         />
-        { !supported &&
+        { !supported && (
           <Alert severity="info">
             Currently, this type of computation is not supported.
           </Alert>
-        }
+        )}
       </Stack>
     </form>
   )
@@ -173,18 +175,18 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
     <form onSubmit={computeMinimalModel} data-testid="ComputeMinimalModel">
       <Stack spacing={1}>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-          {"Compute minimal model until degree"}
+          Compute minimal model until degree
           <NumberField {...isomorphismUpToFieldProps} />
         </Stack>
         <ButtonWithProgress
           type="submit" variant="contained" disabled={!supported}
           computing={computing} progress={workerProgress} message={message}
         />
-        { !supported &&
+        { !supported && (
           <Alert severity="info">
             Currently, this type of computation is not supported.
           </Alert>
-        }
+        )}
       </Stack>
     </form>
   )

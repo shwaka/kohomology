@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1750939403209,
+  "lastUpdate": 1751082943026,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11236,6 +11236,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.047,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1159b57c37faccc4c80b7c0ee5c842d5e033d388",
+          "message": "style(website): update eslint-config-shwaka to v3.3",
+          "timestamp": "2025-06-28T12:48:37+09:00",
+          "tree_id": "9576ee3862ed083724938710c25351bc0e7082ed",
+          "url": "https://github.com/shwaka/kohomology/commit/1159b57c37faccc4c80b7c0ee5c842d5e033d388"
+        },
+        "date": 1751082941818,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.79,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.042,
             "unit": "s/op"
           }
         ]

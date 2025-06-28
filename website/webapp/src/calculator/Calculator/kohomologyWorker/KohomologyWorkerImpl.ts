@@ -12,8 +12,8 @@ type KohomologyMessageHandlerLogger = {
 }
 
 type KohomologyMessageHandlerArgs =
-  CallbackData<KohomologyWorkerOutput, KohomologyWorkerState>
-    & KohomologyMessageHandlerLogger
+  CallbackData<KohomologyWorkerOutput, KohomologyWorkerState> &
+    KohomologyMessageHandlerLogger
 
 class KohomologyMessageHandler {
   private dgaWrapper: FreeDGAWrapper | null = null

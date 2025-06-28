@@ -6,7 +6,7 @@ import { useCanQuit } from ".."
 import { TabItem } from "./TabItem"
 
 interface TabEditorTitleProps<K extends string> {
-  tabItems: {[T in K]: TabItem}
+  tabItems: { [T in K]: TabItem }
   tabKeys: readonly K[]
   currentTabKey: K
   setCurrentTabKey: (newTabKey: K) => void

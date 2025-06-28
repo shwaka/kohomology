@@ -7,7 +7,7 @@ import { TabItem } from "./TabItem"
 
 
 interface UseTabEditorArgs<K extends string> {
-  tabItems: {[T in K]: TabItem}
+  tabItems: { [T in K]: TabItem }
   tabKeys: readonly K[]
   defaultTabKey: K
 }

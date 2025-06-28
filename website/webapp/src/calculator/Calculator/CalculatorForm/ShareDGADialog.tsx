@@ -108,7 +108,7 @@ interface UseShareDGAArgs {
   targetName: TargetName
 }
 
-export function useShareDGA({ dgaJson, idealJson, targetName }: UseShareDGAArgs): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps} {
+export function useShareDGA({ dgaJson, idealJson, targetName }: UseShareDGAArgs): { shareDGADialogProps: ShareDGADialogProps, shareDGAButtonProps: ShareDGAButtonProps } {
   const [open, setOpen] = useState(false)
   const shareDGADialogProps: ShareDGADialogProps = { open, setOpen, dgaJson, idealJson, targetName }
   const shareDGAButtonProps: ShareDGAButtonProps = { setOpen }

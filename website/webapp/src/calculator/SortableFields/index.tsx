@@ -72,7 +72,7 @@ export interface SortableFieldsProps<
   move: UseFieldArrayMove
   formData: FormData<TFieldValues>
   RowComponent: (props: RowComponentProps<TFieldValues, TExternalData>) => ReactElement
-  Container: (props: { children: ReactNode}) => ReactElement
+  Container: (props: { children: ReactNode }) => ReactElement
   externalData: TExternalData
 }
 export function SortableFields<

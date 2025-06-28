@@ -1,7 +1,7 @@
 import type { ReactNode } from "react"
 import { Fragment } from "react"
 
-import type {WrapperProps} from "@docusaurus/types"
+import type { WrapperProps } from "@docusaurus/types"
 import { getTitleWithDev } from "@theme/getTitleWithDev"
 import type MDXPageType from "@theme/MDXPage"
 import MDXPage from "@theme-original/MDXPage"

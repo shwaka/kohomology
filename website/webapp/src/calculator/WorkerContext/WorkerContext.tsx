@@ -4,7 +4,7 @@ import { WFBase } from "./expose"
 import { WorkerWrapper } from "./WorkerWrapper"
 
 type OmitIfEmpty<T, K extends string | number | symbol> =
-  T extends { [_ in K]: infer S}
+  T extends { [_ in K]: infer S }
     ? (Record<string, never> extends S ? Omit<T, K> : T)
     : T
 

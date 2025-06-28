@@ -33,7 +33,7 @@ function setBuildEnv(): void {
   }
 }
 
-export default function Root({children}: {children: ReactNode}): ReactElement {
+export default function Root({ children }: { children: ReactNode }): ReactElement {
   const { siteConfig } = useDocusaurusContext()
   const baseUrl = siteConfig.baseUrl // baseUrl ends with "/"
 

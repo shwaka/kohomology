@@ -3,7 +3,7 @@ import { Fragment, ReactElement } from "react"
 import { TabItem } from "./TabItem"
 
 interface EditorContentProps<K extends string> {
-  tabItems: {[T in K]: TabItem}
+  tabItems: { [T in K]: TabItem }
   tabKeys: readonly K[]
   currentTabKey: K
   closeDialog: () => void

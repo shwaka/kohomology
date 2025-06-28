@@ -49,7 +49,7 @@ function getGlobalErrors(errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>):
   return [fieldError]
 }
 
-function getFieldErrorArray({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number}): (FieldError | undefined)[] {
+function getFieldErrorArray({ errors, index }: { errors: FieldErrorsImpl<DeepRequired<IdealFormInput>>, index: number }): (FieldError | undefined)[] {
   const fieldError: FieldError | undefined = errors.generatorArray?.[index]?.text
   if (fieldError === undefined) {
     return []

@@ -31,7 +31,7 @@ function CalculatorImpl(): ReactElement {
             idealJson: "[]",
             dgaInfo: [],
             idealInfo: fromString("success", ""),
-            workerInfo: { status: "idle"},
+            workerInfo: { status: "idle" },
           }}
         >
           <CalculatorForm />

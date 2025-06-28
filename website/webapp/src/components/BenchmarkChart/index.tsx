@@ -69,7 +69,7 @@ function Benchset(
   )
 }
 
-function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): ReactElement {
+function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): ReactElement {
   const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
   const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)

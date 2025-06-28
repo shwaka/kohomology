@@ -84,12 +84,12 @@ export function getChartProps(
       tooltip: {
         callbacks: {
           title: (items) => {
-            const {dataIndex} = items[0]
+            const { dataIndex } = items[0]
             const commit = filteredDataset[dataIndex].commit
             return commit.id
           },
           afterTitle: (items) => {
-            const {dataIndex} = items[0]
+            const { dataIndex } = items[0]
             const commit = filteredDataset[dataIndex].commit
             return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
           },

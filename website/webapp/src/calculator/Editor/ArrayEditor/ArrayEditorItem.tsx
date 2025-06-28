@@ -20,7 +20,7 @@ export interface FieldOptions<TFieldValues extends FieldValues> {
 
 export type ArrayEditorRowComponentData<TFieldValues extends FieldValues> = {
   fieldOptionsList: FieldOptions<TFieldValues>[]
-  getFieldErrorArray: (args: { errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number}) => (FieldError | undefined)[]
+  getFieldErrorArray: (args: { errors: FieldErrorsImpl<DeepRequired<TFieldValues>>, index: number }) => (FieldError | undefined)[]
 }
 
 export interface ArrayEditorItemProps<TFieldValues extends FieldValues> {

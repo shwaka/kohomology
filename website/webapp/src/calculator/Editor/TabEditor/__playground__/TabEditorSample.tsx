@@ -26,7 +26,7 @@ export function TabEditorSample(): ReactElement {
   const editor = useTabEditor({
     tabItems: {
       array: { label: "Array", editor: arrayEditor },
-      json: { label: "JSON", editor: textEditor},
+      json: { label: "JSON", editor: textEditor },
     },
     tabKeys: ["array", "json"],
     defaultTabKey: "array",
@@ -72,9 +72,9 @@ function parseJson(json: string): ParseJsonResult {
     return { type: "success", value }
   } catch (e) {
     if (e instanceof Error) {
-      return { type: "error", message: e.message}
+      return { type: "error", message: e.message }
     } else {
-      return { type: "error", message: `Unknown error: ${e}`}
+      return { type: "error", message: `Unknown error: ${e}` }
     }
   }
 }

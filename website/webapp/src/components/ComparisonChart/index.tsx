@@ -60,7 +60,7 @@ function getDataForTarget(target: Target): ChartData<"scatter", Vector2[], strin
 }
 
 function getOptions(titleText: string | null = null): ChartProps<"scatter", { x: number, y: number }[], string>["options"] {
-  const title = (titleText !== null) ? { display: true, text: titleText} : { display: false }
+  const title = (titleText !== null) ? { display: true, text: titleText } : { display: false }
   return {
     plugins: {
       title

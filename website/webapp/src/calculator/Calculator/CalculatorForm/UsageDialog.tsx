@@ -47,7 +47,7 @@ export function UsageDialog({ open, setOpen }: UsageDialogProps): ReactElement {
   )
 }
 
-export function useUsage(): { usageDialogProps: UsageDialogProps, usageButtonProps: UsageButtonProps} {
+export function useUsage(): { usageDialogProps: UsageDialogProps, usageButtonProps: UsageButtonProps } {
   const [open, setOpen] = useState(false)
   const usageDialogProps: UsageDialogProps = { open, setOpen }
   const usageButtonProps: UsageButtonProps = { setOpen }

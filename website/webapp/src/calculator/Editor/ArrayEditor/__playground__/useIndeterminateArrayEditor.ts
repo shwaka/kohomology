@@ -20,7 +20,7 @@ export function useIndeterminateArrayEditor(
 }
 
 function getFieldErrorArray(
-  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<IndeterminateFormInput>>, index: number}
+  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<IndeterminateFormInput>>, index: number }
 ): (FieldError | undefined)[] {
   const error = errors.indeterminateArray?.[index]
   if (error === undefined) {

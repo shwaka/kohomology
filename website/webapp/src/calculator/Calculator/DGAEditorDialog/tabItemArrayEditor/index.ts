@@ -64,7 +64,7 @@ export function useTabItemArrayEditor(args: {
 }
 
 function getFieldErrorArray(
-  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number}
+  { errors, index }: { errors: FieldErrorsImpl<DeepRequired<GeneratorFormInput>>, index: number }
 ): (FieldError | undefined)[] {
   const error = errors.generatorArray?.[index]
   if (error === undefined) {

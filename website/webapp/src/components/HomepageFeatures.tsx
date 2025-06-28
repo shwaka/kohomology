@@ -60,7 +60,7 @@ const FeatureList: FeatureItem[] = [
   // },
 ]
 
-function Feature({title, description}: FeatureItem): ReactElement {
+function Feature({ title, description }: FeatureItem): ReactElement {
   return (
     <div className={clsx("col col--4")}>
       <div className="text--center padding-horiz--md">

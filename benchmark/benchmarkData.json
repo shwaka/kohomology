@@ -1,5 +1,5 @@
 {
-  "lastUpdate": 1751083055169,
+  "lastUpdate": 1751083821461,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -36245,6 +36245,65 @@
           {
             "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverRational",
             "value": 0.3788212999798535,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f2f003d283eeded2c03f8f6f8e4de1faeac8f7c9",
+          "message": "style(website): update eslint-config-shwaka to v3.4",
+          "timestamp": "2025-06-28T13:03:13+09:00",
+          "tree_id": "9aa9c419305720c3943f2b392cac0a980cc00083",
+          "url": "https://github.com/shwaka/kohomology/commit/f2f003d283eeded2c03f8f6f8e4de1faeac8f7c9"
+        },
+        "date": 1751083819216,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpace",
+            "value": 0.03598510471968042,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegree",
+            "value": 0.027488570239018035,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.cohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree",
+            "value": 0.0450480457995572,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.isomorphismToCohomologyOfFreePathSpace",
+            "value": 0.04571017197674585,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverF2",
+            "value": 0.09147837436227894,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverF7",
+            "value": 0.14676913003165334,
+            "unit": "s/op"
+          },
+          {
+            "name": "com.github.shwaka.kohomology.profile.KohomologyBenchmark.reducedRowEchelonFormOverRational",
+            "value": 0.37964554607264955,
             "unit": "s/op"
           }
         ]

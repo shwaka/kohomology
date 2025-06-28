@@ -59,13 +59,13 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
       <Stack spacing={1}>
         <span>
           {"Compute cohomology "}
-          <CohomologyAsTex targetName={targetName} degree="n"/>
+          <CohomologyAsTex targetName={targetName} degree="n" />
           {" for"}
         </span>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-          <NumberField {...minDegreeFieldProps}/>
-          <TeX math="\leq n \leq"/>
-          <NumberField {...maxDegreeFieldProps}/>
+          <NumberField {...minDegreeFieldProps} />
+          <TeX math="\leq n \leq" />
+          <NumberField {...maxDegreeFieldProps} />
         </Stack>
         <RadioGroup
           row
@@ -75,7 +75,7 @@ function ComputeCohomologyForm({ targetName, postMessageToWorker, visible, worke
           {showCohomologyCandidates.map((showCohomologyForLabel) =>
             <FormControlLabel
               key={showCohomologyForLabel} value={showCohomologyForLabel}
-              control={<Radio/>} label={showCohomologyForLabel}/>
+              control={<Radio />} label={showCohomologyForLabel} />
           )}
         </RadioGroup>
         <ButtonWithProgress
@@ -121,15 +121,15 @@ function ComputeClassForm({ targetName, postMessageToWorker, visible, workerInfo
       <Stack spacing={1}>
         <span>
           {"Compute cohomology class "}
-          <TeX math={`[\\omega] \\in ${getCohomologyAsString(targetName)}`}/>
+          <TeX math={`[\\omega] \\in ${getCohomologyAsString(targetName)}`} />
           {" for"}
         </span>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
-          <TeX math="\omega ="/>
-          <StringField {...cocycleStringFieldProps}/>
+          <TeX math="\omega =" />
+          <StringField {...cocycleStringFieldProps} />
         </Stack>
         <FormControlLabel
-          control={<Checkbox/>} label="Show basis"
+          control={<Checkbox />} label="Show basis"
           checked={showBasis}
           onChange={(e) => setShowBasis((e as ChangeEvent<HTMLInputElement>).target.checked)}
         />
@@ -174,7 +174,7 @@ function ComputeMinimalModelForm({ targetName, postMessageToWorker, visible, wor
       <Stack spacing={1}>
         <Stack direction="row" alignItems="center" justifyContent="center" spacing={1}>
           {"Compute minimal model until degree"}
-          <NumberField {...isomorphismUpToFieldProps}/>
+          <NumberField {...isomorphismUpToFieldProps} />
         </Stack>
         <ButtonWithProgress
           type="submit" variant="contained" disabled={!supported}
@@ -232,9 +232,9 @@ export function ComputeForm({ targetName, postMessageToWorker, workerInfo }: Com
   return (
     <Fragment>
       <Tabs value={computationType} onChange={handleChange}>
-        <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }}/>
-        <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }}/>
-        <Tab value="minimal" label="Minimal model" sx={{ textTransform: "none" }}/>
+        <Tab value="cohomology" label="Cohomology group" sx={{ textTransform: "none" }} />
+        <Tab value="class" label="Cohomology class" sx={{ textTransform: "none" }} />
+        <Tab value="minimal" label="Minimal model" sx={{ textTransform: "none" }} />
       </Tabs>
       <ComputeCohomologyForm
         targetName={targetName}

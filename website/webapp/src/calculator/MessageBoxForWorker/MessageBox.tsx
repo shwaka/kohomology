@@ -30,7 +30,7 @@ export function MessageBox({ messages }: MessageBoxProps): ReactElement {
         }
       }}
     >
-      {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index}/>)}
+      {messages.map((message, index) => <ShowStyledMessage styledMessage={message} key={index} />)}
     </Paper>
   )
 }

@@ -9,11 +9,11 @@ test("useDGAEditorDialog", async () => {
   const json = sphere(2)
   const updateDgaWrapper = (json: string): void => { console.log(json) }
   const { result } = renderHook(() => useDGAEditorDialog(json, updateDgaWrapper))
-  const { rerender } = render(<EditorDialog {...result.current.editorDialogProps}/>)
+  const { rerender } = render(<EditorDialog {...result.current.editorDialogProps} />)
   act(() => {
     result.current.openDialog()
   })
-  rerender(<EditorDialog {...result.current.editorDialogProps}/>)
+  rerender(<EditorDialog {...result.current.editorDialogProps} />)
   // check texts in dialog
   const dialog = await screen.findByRole("dialog")
   expect(dialog).toContainHTML("Array")

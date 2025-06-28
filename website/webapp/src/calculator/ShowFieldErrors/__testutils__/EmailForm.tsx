@@ -83,6 +83,6 @@ export function EmailFormContainer(
 ): ReactElement {
   const props = useEmailForm(useEmailFormOptions)
   return (
-    <EmailForm {...props} {...emailFormOptions}/>
+    <EmailForm {...props} {...emailFormOptions} />
   )
 }

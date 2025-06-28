@@ -16,7 +16,7 @@ function Text({ content }: { content: string } ): ReactElement {
         //   lineNumber < lines.length - 1 || content.endsWith("\n")
         (lineNumber < lines.length - 1) ? (
           <Fragment key={lineNumber}>
-            {line}<br/>
+            {line}<br />
           </Fragment>
         ): (
           <Fragment key={lineNumber}>
@@ -34,7 +34,7 @@ export function ShowStyledString({ styledString }: { styledString: StyledString 
   }
   switch (styledString.stringType) {
     case "text":
-      return <Text content={styledString.content}/>
+      return <Text content={styledString.content} />
     case "math":
       return <TeX math={styledString.content} settings={{ output: "html", macros: macros }} />
       // ↑{ output: "html" } is necessary to avoid strange behavior in 'overflow: scroll' (see memo.md for details)

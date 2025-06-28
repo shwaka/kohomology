@@ -66,7 +66,7 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
               onClick={async () => { remove(index); await trigger() }}
               size="small"
             >
-              <Delete fontSize="small"/>
+              <Delete fontSize="small" />
             </IconButton>
           </Tooltip>
           <IconButton
@@ -76,10 +76,10 @@ export function ArrayEditorItem<TFieldValues extends FieldValues>({
               touchAction: "none",
             }}
           >
-            <DragHandle/>
+            <DragHandle />
           </IconButton>
         </Stack>
-        <ShowFieldErrors fieldErrorArray={getFieldErrorArray({ errors, index })}/>
+        <ShowFieldErrors fieldErrorArray={getFieldErrorArray({ errors, index })} />
       </Stack>
     </div>
   )

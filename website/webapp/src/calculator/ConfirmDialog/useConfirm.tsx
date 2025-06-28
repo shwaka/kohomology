@@ -26,7 +26,7 @@ export function useConfirm({ trueText, falseText }: UseConfirmArgs): UseConfirmR
     prompt, trueText, falseText,
   }
   const confirmDialog = (
-    <ConfirmDialog {...confirmDialogProps}/>
+    <ConfirmDialog {...confirmDialogProps} />
   )
   return { confirm, confirmDialog }
 }

@@ -50,6 +50,6 @@ export function MessageBoxForWorker<WI, WO extends SendMessage, WS, WF extends W
   }, [addRestartListener, addMessages])
 
   return (
-    <MessageBox messages={messages}/>
+    <MessageBox messages={messages} />
   )
 }

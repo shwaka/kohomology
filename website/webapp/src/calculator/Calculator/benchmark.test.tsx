@@ -15,13 +15,13 @@ beforeEach(() => {
 })
 
 test("renderCalculator", async () => {
-  render(<Calculator/>)
+  render(<Calculator />)
   await waitForInitialState()
 })
 
 test("inputJson", async () => {
   const user = userEvent.setup()
-  render(<Calculator/>)
+  render(<Calculator />)
   await waitForInitialState()
   const json = `[
   ["x", 3, "zero"],

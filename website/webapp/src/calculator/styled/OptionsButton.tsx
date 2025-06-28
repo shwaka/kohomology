@@ -60,7 +60,7 @@ export function OptionsButton({ containerClass, handleClick, handleClose, open, 
         }}
         data-testid="OptionsButton"
       >
-        <MoreHorizIcon fontSize="small"/>
+        <MoreHorizIcon fontSize="small" />
       </IconButton>
       <Menu
         anchorEl={anchorEl}

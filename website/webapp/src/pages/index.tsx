@@ -45,7 +45,7 @@ export default function Home(): ReactElement {
           <ImportKotlin
             path="TopPageExample.kt"
             restrict={true}
-            className={clsx("col col--4", styles.exampleColumn)}/>
+            className={clsx("col col--4", styles.exampleColumn)} />
           <div className={clsx("col col--4", styles.exampleColumn)}>
             This code prints:
             <CodeBlock>

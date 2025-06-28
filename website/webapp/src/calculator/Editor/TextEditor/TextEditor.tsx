@@ -41,7 +41,7 @@ export function TextEditor(
         )}
         error={errors.text !== undefined}
       />
-      <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)}/>
+      <ShowFieldErrors fieldErrorArray={getFieldErrorArray(errors)} />
     </Stack>
   )
 }

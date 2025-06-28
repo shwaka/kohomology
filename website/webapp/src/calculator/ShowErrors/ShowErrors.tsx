@@ -24,7 +24,7 @@ export function ShowErrors({ messages }: ShowErrorsProps): ReactElement {
         // motion.div must be placed as a DIRECT child of AnimatePresence
         return (
           <motion.div key={`motion-${type}-${message}`} {...motionDivProps}>
-            <ShowMessage message={message}/>
+            <ShowMessage message={message} />
           </motion.div>
         )
       })}

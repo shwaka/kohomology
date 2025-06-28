@@ -12,20 +12,20 @@ describe("EmailForm with ShowFieldErrors", () => {
     // As in the other tests, using only render (for EmailFormContainer) is easier,
     // but this test is preserved for future reference.
     const { result } = renderHook(() => useEmailForm({}))
-    const { rerender } = render(<EmailForm {...result.current}/>)
+    const { rerender } = render(<EmailForm {...result.current} />)
 
     await user.click(screen.getByText("Submit"))
     await waitFor(() => {
       expect(Object.keys(result.current.errors)).not.toHaveLength(0)
     })
-    rerender(<EmailForm {...result.current}/>)
+    rerender(<EmailForm {...result.current} />)
 
     expect(await screen.findByText(errorMessages.required)).toBeInTheDocument()
   })
 
   it("displays validation error when missing '@'", async () => {
     const user = userEvent.setup()
-    render(<EmailFormContainer/>)
+    render(<EmailFormContainer />)
 
     await user.type(screen.getByPlaceholderText("Email"), "invalidemail")
     await user.click(screen.getByText("Submit"))
@@ -35,7 +35,7 @@ describe("EmailForm with ShowFieldErrors", () => {
 
   it("displays validation error when length is smaller than 3", async () => {
     const user = userEvent.setup()
-    render(<EmailFormContainer/>)
+    render(<EmailFormContainer />)
 
     await user.type(screen.getByPlaceholderText("Email"), "a@")
     await user.click(screen.getByText("Submit"))

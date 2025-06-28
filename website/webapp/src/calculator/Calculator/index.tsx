@@ -34,8 +34,8 @@ function CalculatorImpl(): ReactElement {
             workerInfo: { status: "idle"},
           }}
         >
-          <CalculatorForm/>
-          <MessageBoxForWorker context={kohomologyWorkerContext}/>
+          <CalculatorForm />
+          <MessageBoxForWorker context={kohomologyWorkerContext} />
         </kohomologyWorkerContext.Provider>
       </Box>
     </ThemeProvider>
@@ -45,7 +45,7 @@ function CalculatorImpl(): ReactElement {
 export function Calculator(): ReactElement {
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => <CalculatorImpl/>}
+      {() => <CalculatorImpl />}
     </BrowserOnly>
   )
 }

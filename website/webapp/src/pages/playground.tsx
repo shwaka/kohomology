@@ -8,7 +8,7 @@ export default function PlaygroundPage(): ReactElement {
     <Layout
       title="Playground"
     >
-      <Playground/>
+      <Playground />
     </Layout>
   )
 }

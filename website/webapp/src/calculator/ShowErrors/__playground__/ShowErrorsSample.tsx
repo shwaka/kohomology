@@ -37,7 +37,7 @@ export function ShowErrorsSample(): ReactElement {
         <button onClick={increment}>increment</button>
         <button onClick={decrement}>decrement</button>
       </div>
-      <ShowErrors messages={messages}/>
+      <ShowErrors messages={messages} />
       <div>
         Text below error
       </div>

@@ -48,6 +48,6 @@ export function useTextEditor(
   }
   return {
     preventQuit, getOnSubmit, beforeOpen, disableSubmit,
-    renderContent: (_closeDialog) => (<TextEditor {...textEditorProps}/>),
+    renderContent: (_closeDialog) => (<TextEditor {...textEditorProps} />),
   }
 }

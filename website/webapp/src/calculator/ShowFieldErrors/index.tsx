@@ -17,6 +17,6 @@ interface ShowFieldErrorsProps {
 export function ShowFieldErrors({ fieldErrorArray, criteriaMode = "firstError" }: ShowFieldErrorsProps): ReactElement {
   const messages = getMessages({ fieldErrorArray, criteriaMode })
   return (
-    <ShowErrors messages={messages}/>
+    <ShowErrors messages={messages} />
   )
 }

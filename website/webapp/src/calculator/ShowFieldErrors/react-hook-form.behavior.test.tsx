@@ -12,7 +12,7 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   test("empty string", async () => {
     const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({}))
-    render(<EmailForm {...result.current}/>)
+    render(<EmailForm {...result.current} />)
 
     await user.click(screen.getByText("Submit"))
     await waitFor(() => {
@@ -30,7 +30,7 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   test("string not containing @", async () => {
     const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({}))
-    render(<EmailForm {...result.current}/>)
+    render(<EmailForm {...result.current} />)
 
     await user.type(screen.getByPlaceholderText("Email"), "invalidemail")
     await user.click(screen.getByText("Submit"))
@@ -46,7 +46,7 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   test("empty string with criteriaModeForHook=all", async () => {
     const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
-    render(<EmailForm {...result.current}/>)
+    render(<EmailForm {...result.current} />)
 
     await user.click(screen.getByText("Submit"))
     await waitFor(() => {
@@ -68,7 +68,7 @@ describe("behavior of react-hook-form expected by ShowFieldErrors", () => {
   test("string not containing @ with criteriaModeForHook=all", async () => {
     const user = userEvent.setup()
     const { result } = renderHook(() => useEmailForm({ criteriaModeForHook: "all" }))
-    render(<EmailForm {...result.current}/>)
+    render(<EmailForm {...result.current} />)
 
     await user.type(screen.getByPlaceholderText("Email"), "invalidemail")
     await user.click(screen.getByText("Submit"))

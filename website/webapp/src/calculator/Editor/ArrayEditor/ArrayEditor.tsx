@@ -47,14 +47,14 @@ export function ArrayEditor<TFieldValues extends FieldValues, K extends ArrayPat
         <Button
           variant="outlined"
           onClick={() => append(getNext(getValues()[arrayKey]))}
-          startIcon={<Add/>}
+          startIcon={<Add />}
           sx={{ textTransform: "none" }}
         >
           Add a generator
         </Button>
-        <ShowFieldErrors fieldErrorArray={getGlobalErrors(errors)}/>
+        <ShowFieldErrors fieldErrorArray={getGlobalErrors(errors)} />
       </Stack>
-      <button hidden type="submit"/>
+      <button hidden type="submit" />
     </form>
   )
 }

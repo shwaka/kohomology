@@ -24,5 +24,5 @@ export function NavbarItemOnlyDevMode({
         {...rest}
       />
     )
-    : <Fragment/>
+    : <Fragment />
 }

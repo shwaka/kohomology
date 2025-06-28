@@ -7,7 +7,7 @@ export function ShowError({ messages }: { messages: string[] }): ReactElement {
   const [open, setOpen] = useState(true)
 
   if (messages.length === 0) {
-    return <Fragment/>
+    return <Fragment />
   }
 
   const handleClose = (_event: SyntheticEvent | Event, reason?: string): void => {

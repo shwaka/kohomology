@@ -88,7 +88,7 @@ export function ShareDGADialog({ open, setOpen, dgaJson, idealJson, targetName }
       PaperProps={{ sx: { [mobileMediaQuery]: { margin: 0, width: "calc(100% - 5pt)" } } }}
     >
       <DialogContent>
-        <ShareDGADialogContent dgaJson={dgaJson} idealJson={idealJson} targetName={targetName}/>
+        <ShareDGADialogContent dgaJson={dgaJson} idealJson={idealJson} targetName={targetName} />
       </DialogContent>
       <DialogActions>
         <Button

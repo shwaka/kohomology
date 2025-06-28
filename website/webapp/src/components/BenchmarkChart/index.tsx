@@ -25,7 +25,7 @@ function Bench(
 ): ReactElement {
   const arg = getChartProps({ name, dataset, dataHandler, filterCommit })
   return (
-    <Chart {...arg}/>
+    <Chart {...arg} />
   )
 }
 
@@ -80,7 +80,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData}): R
   return (
     <div>
       <Box sx={{ position: "sticky", top: "var(--ifm-navbar-height)", backgroundColor: stickyBackgroundColor }}>
-        <ConfigureFilterCommit {...configureFilterCommitProps}/>
+        <ConfigureFilterCommit {...configureFilterCommitProps} />
       </Box>
       <FormControlLabel
         control={
@@ -112,8 +112,8 @@ export function BenchmarkChart(): ReactElement {
 
   return (
     <div>
-      <BenchmarkChartOf benchmarkData={bd}/>
-      <BenchmarkChartOf benchmarkData={bdw}/>
+      <BenchmarkChartOf benchmarkData={bd} />
+      <BenchmarkChartOf benchmarkData={bdw} />
     </div>
   )
 }

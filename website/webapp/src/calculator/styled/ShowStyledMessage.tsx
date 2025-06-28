@@ -74,10 +74,10 @@ export function ShowStyledMessage({ styledMessage }: { styledMessage: StyledMess
       }}
     >
       {visibleStrings.map((styledString, index) => (
-        <ShowStyledString styledString={styledString} key={index}/>
+        <ShowStyledString styledString={styledString} key={index} />
       ))}
       {isTruncated && (<span>...</span>)}
-      <OptionsButton {...optionsButtonProps}/>
+      <OptionsButton {...optionsButtonProps} />
     </div>
   )
 }

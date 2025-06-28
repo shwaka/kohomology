@@ -12,7 +12,7 @@ export default function LayoutWrapper(props: Props): ReactNode {
   const title = getTitleWithDev(props.title)
   return (
     <Fragment>
-      <Layout {...props} title={title}/>
+      <Layout {...props} title={title} />
     </Fragment>
   )
 }

@@ -16,7 +16,7 @@ function OptionsButtonContainer({ options }: OptionsButtonContainerProps): React
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     showAll: () => {},
   })
-  return (<OptionsButton {...optionsButtonProps}/>)
+  return (<OptionsButton {...optionsButtonProps} />)
 }
 
 describe("useOptionsButton", () => {
@@ -37,7 +37,7 @@ describe("useOptionsButton", () => {
     const text = "Content to be copied"
     const label = "Copy this line"
     const option: MessageOption = { text, label }
-    render(<OptionsButtonContainer options={[option]}/>)
+    render(<OptionsButtonContainer options={[option]} />)
 
     // Button in OptionsButton cannot be detected by getByRole("button") (why?)
     const button = screen.getByTestId("OptionsButton")
@@ -52,7 +52,7 @@ describe("useOptionsButton", () => {
     const text = null
     const label = "Copy this line"
     const option: MessageOption = { text, label }
-    render(<OptionsButtonContainer options={[option]}/>)
+    render(<OptionsButtonContainer options={[option]} />)
 
     const button = screen.getByTestId("OptionsButton")
     await user.click(button)

@@ -33,7 +33,7 @@ export function IdealConfig({ setIdealJson, idealInfo, idealJson, validateGenera
         Edit ideal
       </Button>
 
-      <EditorDialog {...editorDialogProps}/>
+      <EditorDialog {...editorDialogProps} />
     </div>
   )
 }

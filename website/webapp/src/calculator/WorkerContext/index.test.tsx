@@ -5,7 +5,7 @@ import { MyWorkerSample } from "./__playground__/MyWorkerSample"
 
 describe("WorkerContext", () => {
   test("postMessage", async () => {
-    render(<MyWorkerSample/>)
+    render(<MyWorkerSample />)
     const divLog = screen.getByTestId("show-workerOutputLog")
     const divLogFromListener = screen.getByTestId("show-log-from-listener")
     const divStateValue = screen.getByTestId("show-state-value")
@@ -27,7 +27,7 @@ describe("WorkerContext", () => {
   })
 
   test("runAsync", async () => {
-    render(<MyWorkerSample/>)
+    render(<MyWorkerSample />)
     const divStateValue = screen.getByTestId("show-state-value")
     const divRunAsyncResult = screen.getByTestId("show-runAsyncResult")
     const runAsyncButton = screen.getByTestId("runAsync-add5")

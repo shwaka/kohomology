@@ -94,7 +94,7 @@ describe("text on the 'compute' button", () => {
 
   it("should be 'compute' after computation finished", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     const computeCohomologyButton = getComputeCohomologyButton()
     expectComputeCohomologyButtonToContain("Compute")
@@ -107,7 +107,7 @@ describe("text on the 'compute' button", () => {
     capturer.enable()
 
     // initialize
-    render(<Calculator/>)
+    render(<Calculator />)
     await capturer.waitForMessage()
     capturer.popAll()
     await waitForInitialState()
@@ -125,7 +125,7 @@ describe("text on the 'compute' button", () => {
 
   it("should be 'compute' after computation finished with an error", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
 
     // This causes an error since deg(sx) is zero.

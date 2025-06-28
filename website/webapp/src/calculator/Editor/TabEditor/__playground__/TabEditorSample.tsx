@@ -35,7 +35,7 @@ export function TabEditorSample(): ReactElement {
 
   return (
     <div>
-      <EditorDialog {...editorDialogProps}/>
+      <EditorDialog {...editorDialogProps} />
       <button onClick={openDialog}>
         Open dialog
       </button>

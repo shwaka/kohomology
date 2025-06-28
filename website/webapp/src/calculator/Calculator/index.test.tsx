@@ -18,7 +18,7 @@ beforeEach(() => {
 describe("basic features", () => {
   test("Calculator", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
     await clickComputeCohomologyButton(user)
@@ -36,7 +36,7 @@ describe("basic features", () => {
 
   test("restart", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await clickRestartButton(user)
     expectResultsToContainMessages(
@@ -60,7 +60,7 @@ describe("array editor", () => {
   for (const applyMethod of (["button", "enter"] satisfies ApplyMethod[])) {
     test("add generator with applying through '${applyMethod}'", async () => {
       const user = userEvent.setup()
-      render(<Calculator/>)
+      render(<Calculator />)
       await waitForInitialState()
       await InputArray.addGeneratorAndApply(user, applyMethod)
       await clickComputeCohomologyButton(user)
@@ -81,7 +81,7 @@ describe("array editor", () => {
 describe("input json", () => {
   test("valid json", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     // const calculator = screen.getByTestId("Calculator")
     // const results = getResultsDiv()
@@ -106,7 +106,7 @@ describe("input json", () => {
 
   test("invalid json", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     const json = "invalid json"
     await InputJson.inputInvalidJson(user, json)
@@ -119,7 +119,7 @@ describe("input json", () => {
 describe("freeLoopSpace", () => {
   test("compute cohomology of LX", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "freeLoopSpace")
     await clickComputeCohomologyButton(user)
@@ -140,7 +140,7 @@ describe("freeLoopSpace", () => {
 describe("idealQuot", () => {
   test("compute cohomology of ΛV/I", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputValidIdealGenerator(user, ["x"])
@@ -160,7 +160,7 @@ describe("idealQuot", () => {
 
   test("ideal not closed under d", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(user, ["y"])
@@ -170,7 +170,7 @@ describe("idealQuot", () => {
 
   test("empty ideal generator", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(user, [""], true)
@@ -180,7 +180,7 @@ describe("idealQuot", () => {
 
   test("invalid generator of DGA", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(user, ["a"])
@@ -191,7 +191,7 @@ describe("idealQuot", () => {
 
   test("parse failure", async () => {
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await selectComputationTarget(user, "idealQuot")
     await InputIdeal.inputInvalidIdealGenerator(user, ["+"])
@@ -207,7 +207,7 @@ describe("url query", () => {
       search: "?dgaJson=%5B%5B%22x%22%2C3%2C%22zero%22%5D%2C%5B%22y%22%2C3%2C%22zero%22%5D%2C%5B%22z%22%2C5%2C%22x+*+y%22%5D%5D"
     })
     const user = userEvent.setup()
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState("$(\\Lambda V, d) =  (\\Lambda( x,\\  y,\\  z ), d)$")
     await clickComputeCohomologyButton(user)
     await waitFor(() => {
@@ -226,7 +226,7 @@ describe("url query", () => {
     mockUseLocation.mockReturnValue({
       search: "?dgaJson=invalidJson"
     })
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await waitFor(() => {
       expectSnackbarToContainHTML(
@@ -241,7 +241,7 @@ describe("url query", () => {
     const user = userEvent.setup()
     const writeTextSpy = jest.spyOn(navigator.clipboard, "writeText") // after userEvent.setup()
 
-    render(<Calculator/>)
+    render(<Calculator />)
     await waitForInitialState()
     await clickComputeCohomologyButton(user)
 

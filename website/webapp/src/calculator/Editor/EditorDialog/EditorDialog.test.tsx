@@ -24,7 +24,7 @@ function EditorDialogTestContainer({ editor }: ContainerProps): ReactElement {
   const { editorDialogProps, openDialog } = useEditorDialog({ editor })
   return (
     <div>
-      <EditorDialog {...editorDialogProps}/>
+      <EditorDialog {...editorDialogProps} />
       <button onClick={openDialog}>
         Open dialog
       </button>
@@ -69,7 +69,7 @@ describe("EditorDialog with trivial editor", () => {
   test("submit", async () => {
     const handler = new EditorDialogHandler()
     const { editor, onSubmit, onQuit } = getEditor()
-    render(<EditorDialogTestContainer editor={editor}/>)
+    render(<EditorDialogTestContainer editor={editor} />)
 
     await handler.openDialog()
     await handler.apply()
@@ -83,7 +83,7 @@ describe("EditorDialog with trivial editor", () => {
     test(`cancel(${cancelMethod})`, async () => {
       const handler = new EditorDialogHandler()
       const { editor, onSubmit, onQuit } = getEditor()
-      render(<EditorDialogTestContainer editor={editor}/>)
+      render(<EditorDialogTestContainer editor={editor} />)
 
       await handler.openDialog()
       await handler.cancel(cancelMethod)
@@ -108,7 +108,7 @@ describe("EditorDialog with preventQuit returning string", () => {
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
       })
-      render(<EditorDialogTestContainer editor={editor}/>)
+      render(<EditorDialogTestContainer editor={editor} />)
 
       await handler.openDialog()
       await handler.cancel(cancelMethod)
@@ -129,7 +129,7 @@ describe("EditorDialog with preventQuit returning string", () => {
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
       })
-      render(<EditorDialogTestContainer editor={editor}/>)
+      render(<EditorDialogTestContainer editor={editor} />)
 
       await handler.openDialog()
       await handler.cancel(cancelMethod)
@@ -152,7 +152,7 @@ describe("EditorDialog with disableSubmit", () => {
     const handler = new EditorDialogHandler()
     const disableSubmit = jest.fn().mockReturnValue(true)
     const { editor } = getEditor({ disableSubmit })
-    render(<EditorDialogTestContainer editor={editor}/>)
+    render(<EditorDialogTestContainer editor={editor} />)
 
     await handler.openDialog()
     handler.expectApplyButtonToBeDisabled()
@@ -163,7 +163,7 @@ describe("EditorDialog with disableSubmit", () => {
     const handler = new EditorDialogHandler()
     const disableSubmit = jest.fn().mockReturnValue(false)
     const { editor, onSubmit } = getEditor({ disableSubmit })
-    render(<EditorDialogTestContainer editor={editor}/>)
+    render(<EditorDialogTestContainer editor={editor} />)
 
     await handler.openDialog()
     await handler.apply()
@@ -181,7 +181,7 @@ describe("EditorDialog with beforeOpen", () => {
     const handler = new EditorDialogHandler()
     const beforeOpen = jest.fn()
     const { editor } = getEditor({ beforeOpen })
-    render(<EditorDialogTestContainer editor={editor}/>)
+    render(<EditorDialogTestContainer editor={editor} />)
 
     expect(beforeOpen).not.toHaveBeenCalled()
     await handler.openDialog()

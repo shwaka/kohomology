@@ -44,7 +44,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
   describe("registered with { valueAsNumber: true }", () => {
     it("should show the message given as the argument if the value is empty", async () => {
       const user = userEvent.setup()
-      render(<TestForm valueAsNumber={true}/>)
+      render(<TestForm valueAsNumber={true} />)
 
       await user.click(screen.getByText("Submit"))
 
@@ -56,7 +56,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
 
     it("should not show any error if the value is a number as a string", async () => {
       const user = userEvent.setup()
-      render(<TestForm valueAsNumber={true}/>)
+      render(<TestForm valueAsNumber={true} />)
 
       await user.type(screen.getByPlaceholderText("degree"), "2")
       await user.click(screen.getByText("Submit"))
@@ -71,7 +71,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
   describe("registered with { valueAsNumber: false }", () => {
     it("should show the message from z.number() if the value is the empty string", async () => {
       const user = userEvent.setup()
-      render(<TestForm valueAsNumber={false}/>)
+      render(<TestForm valueAsNumber={false} />)
 
       await user.click(screen.getByText("Submit"))
 
@@ -84,7 +84,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
     it("should show the message from z.number() if the value is a number as a string", async () => {
       // This does NOT work since { valueAsNumber: false }
       const user = userEvent.setup()
-      render(<TestForm valueAsNumber={false}/>)
+      render(<TestForm valueAsNumber={false} />)
 
       await user.type(screen.getByPlaceholderText("degree"), "2")
       await user.click(screen.getByText("Submit"))

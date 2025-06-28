@@ -77,11 +77,11 @@ export function CalculatorForm(): ReactElement {
 
   return (
     <Fragment>
-      <ShowError messages={errorMessages}/>
+      <ShowError messages={errorMessages} />
       <Stack
         direction="column"
         spacing={2}
-        divider={<Divider orientation="horizontal"/>}
+        divider={<Divider orientation="horizontal" />}
         sx={{ width: 400, margin: 1 }}
       >
         <StackItem>
@@ -89,17 +89,17 @@ export function CalculatorForm(): ReactElement {
             direction="row"
             spacing={2}
           >
-            <UsageButton {...usageButtonProps}/>
-            <UsageDialog {...usageDialogProps}/>
-            <RestartButton {...restartButtonProps}/>
-            <RestartDialog {...restartDialogProps}/>
+            <UsageButton {...usageButtonProps} />
+            <UsageDialog {...usageDialogProps} />
+            <RestartButton {...restartButtonProps} />
+            <RestartDialog {...restartDialogProps} />
           </Stack>
         </StackItem>
         <StackItem data-testid="CalculatorForm-StackItem-DGA">
-          Input a Sullivan model of a space <TeX math="X"/>:
+          Input a Sullivan model of a space <TeX math="X" />:
           <div data-testid="CalculatorForm-dga-info" data-dga-json={json}>
             {dgaInfo.map((styledMessage, index) => (
-              <ShowStyledMessage styledMessage={styledMessage} key={index}/>
+              <ShowStyledMessage styledMessage={styledMessage} key={index} />
             ))}
           </div>
           <Stack direction="row" spacing={2} sx={{ marginTop: 0.5 }}>
@@ -110,9 +110,9 @@ export function CalculatorForm(): ReactElement {
             >
               Edit DGA
             </Button>
-            <EditorDialog {...editorDialogProps}/>
-            <ShareDGAButton {...shareDGAButtonProps}/>
-            <ShareDGADialog {...shareDGADialogProps}/>
+            <EditorDialog {...editorDialogProps} />
+            <ShareDGAButton {...shareDGAButtonProps} />
+            <ShareDGADialog {...shareDGADialogProps} />
           </Stack>
         </StackItem>
         <StackItem data-testid="CalculatorForm-StackItem-SelectTarget">
@@ -124,11 +124,11 @@ export function CalculatorForm(): ReactElement {
             {targetNames.map((targetNameForLabel) =>
               <FormControlLabel
                 key={targetNameForLabel} value={targetNameForLabel}
-                control={<Radio size="small"/>}
-                label={<TopologicalInvariantAsTex targetName={targetNameForLabel}/>}/>
+                control={<Radio size="small" />}
+                label={<TopologicalInvariantAsTex targetName={targetNameForLabel} />} />
             )}
           </RadioGroup>
-          <TeX math={`\\cong ${getCohomologyAsString(targetName)}`}/>
+          <TeX math={`\\cong ${getCohomologyAsString(targetName)}`} />
           {targetName === "idealQuot" && (
             <IdealConfig
               {...{

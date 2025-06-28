@@ -6,11 +6,11 @@ function CircularProgressFromNullable({ value }: { value: number | null }): Reac
   const size = 20
   if (value === null) {
     return (
-      <CircularProgress size={size}/>
+      <CircularProgress size={size} />
     )
   } else {
     return (
-      <CircularProgress variant="determinate" value={value} size={size}/>
+      <CircularProgress variant="determinate" value={value} size={size} />
     )
   }
 }
@@ -49,7 +49,7 @@ export function ButtonWithProgress({ computing, progress, message, ...buttonProp
         disabled={disabled || computing}
       >
         {getLabel(computing, progressPercent)}
-        {computing && <CircularProgressFromNullable value={progressPercent}/>}
+        {computing && <CircularProgressFromNullable value={progressPercent} />}
       </Button>
       {message}
     </Stack>

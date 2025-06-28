@@ -36,7 +36,7 @@ function ConfirmContainer(): ReactElement {
 describe("useConfirm", () => {
   test("confirm answering yes", async () => {
     const user = userEvent.setup()
-    render(<ConfirmContainer/>)
+    render(<ConfirmContainer />)
     const textDiv = screen.getByTestId("text-div")
 
     const setTextButton = screen.getByText("Set text")
@@ -52,7 +52,7 @@ describe("useConfirm", () => {
 
   test("confirm answering no", async () => {
     const user = userEvent.setup()
-    render(<ConfirmContainer/>)
+    render(<ConfirmContainer />)
     const textDiv = screen.getByTestId("text-div")
 
     const setTextButton = screen.getByText("Set text")
@@ -68,7 +68,7 @@ describe("useConfirm", () => {
 
   test("confirm answering no by clicking backdrop", async () => {
     const user = userEvent.setup()
-    render(<ConfirmContainer/>)
+    render(<ConfirmContainer />)
     const textDiv = screen.getByTestId("text-div")
 
     const setTextButton = screen.getByText("Set text")

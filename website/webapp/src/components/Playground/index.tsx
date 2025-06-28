@@ -19,37 +19,37 @@ const tabs = [
   {
     key: "show-errors",
     name: "ShowErrors",
-    render: () => (<ShowErrorsSample/>),
+    render: () => (<ShowErrorsSample />),
   },
   {
     key: "sortable-fields",
     name: "SortableFields",
-    render: () => (<SortableFieldsSample/>),
+    render: () => (<SortableFieldsSample />),
   },
   {
     key: "message-box",
     name: "Worker: MessageBoxForWorker",
-    render: () => (<MessageBoxForWorkerSample/>),
+    render: () => (<MessageBoxForWorkerSample />),
   },
   {
     key: "my-worker",
     name: "Worker: MyWorker",
-    render: () => (<MyWorkerSample/>),
+    render: () => (<MyWorkerSample />),
   },
   {
     key: "text-editor",
     name: "Editor: TextEditor",
-    render: () => (<TextEditorSample/>),
+    render: () => (<TextEditorSample />),
   },
   {
     key: "array-editor",
     name: "Editor: ArrayEditor",
-    render: () => (<ArrayEditorSample/>),
+    render: () => (<ArrayEditorSample />),
   },
   {
     key: "tab-editor",
     name: "Editor: TabEditor",
-    render: () => (<TabEditorSample/>),
+    render: () => (<TabEditorSample />),
   },
 ] as const satisfies SimpleTab<string>[]
 
@@ -76,7 +76,7 @@ export function Playground(): ReactElement {
   // BrowserOnly for components with WebWorker
   return (
     <BrowserOnly fallback={<div>Loading...</div>}>
-      {() => <PlaygroundImpl/>}
+      {() => <PlaygroundImpl />}
     </BrowserOnly>
   )
 }

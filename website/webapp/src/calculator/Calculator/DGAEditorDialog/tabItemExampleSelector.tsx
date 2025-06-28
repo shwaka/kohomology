@@ -60,8 +60,8 @@ interface Args {
 
 export function useTabItemExampleSelector(args: Args): TabItem {
   const [exampleKey, setExampleKey] = useState<ExampleKey | "">("")
-  const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math="S^n"/>)
-  const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math="\mathbb CP^n"/>)
+  const exampleItemSphere = useExampleParametraizedByN(sphere, () => <TeX math="S^n" />)
+  const exampleItemComplexProjective = useExampleParametraizedByN(complexProjective, () => <TeX math="\mathbb CP^n" />)
   const examples: { [K in ExampleKey]: Example } = {
     "S^n": exampleItemSphere,
     "CP^3": exampleItemComplexProjective,
@@ -121,7 +121,7 @@ export function useTabItemExampleSelector(args: Args): TabItem {
           {(example !== undefined) && (
             <Stack>
               {getDgaInfo(example.json).map((styledMessage, index) => (
-                <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`}/>
+                <ShowStyledMessage styledMessage={styledMessage} key={`${exampleKey}-${index}`} />
               ))}
             </Stack>
           )}

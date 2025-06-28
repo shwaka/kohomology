@@ -21,7 +21,7 @@ function getComplexAsString(targetName: TargetName): string {
 
 export function ComplexAsTex({ targetName }: { targetName: TargetName }): ReactElement {
   return (
-    <TeX math={getComplexAsString(targetName)} data-testid="ComplexAsTex"/>
+    <TeX math={getComplexAsString(targetName)} data-testid="ComplexAsTex" />
   )
 }
 
@@ -33,7 +33,7 @@ export function getCohomologyAsString(targetName: TargetName, degree: string | u
 
 export function CohomologyAsTex({ targetName, degree }: { targetName: TargetName, degree?: string }): ReactElement {
   return (
-    <TeX math={getCohomologyAsString(targetName, degree)}/>
+    <TeX math={getCohomologyAsString(targetName, degree)} />
   )
 }
 
@@ -54,6 +54,6 @@ function getTopologicalInvariantAsString(targetName: TargetName): string {
 
 export function TopologicalInvariantAsTex({ targetName }: { targetName: TargetName }): ReactElement {
   return (
-    <TeX math={getTopologicalInvariantAsString(targetName)}/>
+    <TeX math={getTopologicalInvariantAsString(targetName)} />
   )
 }

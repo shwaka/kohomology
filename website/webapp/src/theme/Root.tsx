@@ -49,8 +49,8 @@ export default function Root({children}: {children: ReactNode}): ReactElement {
   return (
     <Fragment>
       <Head>
-        <link rel="icon" href={`${baseUrl}img/favicon.ico`}/>
-        <link rel="apple-touch-icon" href={`${baseUrl}img/favicon.png`} sizes="300x300"/>
+        <link rel="icon" href={`${baseUrl}img/favicon.ico`} />
+        <link rel="apple-touch-icon" href={`${baseUrl}img/favicon.png`} sizes="300x300" />
       </Head>
       {children}
     </Fragment>

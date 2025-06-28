@@ -36,7 +36,7 @@ function TextEditorContainer(
 
   return (
     <div>
-      <EditorDialog {...editorDialogProps}/>
+      <EditorDialog {...editorDialogProps} />
       <button onClick={openDialog}>
         Open dialog
       </button>
@@ -71,7 +71,7 @@ describe("useTextEditor", () => {
 
   test("input text", async () => {
     const handler = new EditorDialogHandler()
-    render(<TextEditorContainer defaultText=""/>)
+    render(<TextEditorContainer defaultText="" />)
     const newText = "This is a new text."
     await handler.openDialog()
     await handler.run(async (user, dialog) => {
@@ -86,7 +86,7 @@ describe("useTextEditor", () => {
   test("default text", async () => {
     const defaultText = "This is default."
     const handler = new EditorDialogHandler()
-    render(<TextEditorContainer defaultText={defaultText}/>)
+    render(<TextEditorContainer defaultText={defaultText} />)
 
     const textDiv = screen.getByTestId("text-div")
     expect(textDiv).toContainHTML(defaultText)
@@ -112,7 +112,7 @@ describe("useTextEditor", () => {
       mockConfirm.mockResolvedValue(true)
       const defaultText = "This is default."
       const handler = new EditorDialogHandler()
-      render(<TextEditorContainer defaultText={defaultText}/>)
+      render(<TextEditorContainer defaultText={defaultText} />)
       const newText = "This is a new text."
       await handler.openDialog()
       await handler.run(async (user, dialog) => {
@@ -132,7 +132,7 @@ describe("useTextEditor", () => {
       mockConfirm.mockResolvedValue(false)
       const defaultText = "This is default."
       const handler = new EditorDialogHandler()
-      render(<TextEditorContainer defaultText={defaultText}/>)
+      render(<TextEditorContainer defaultText={defaultText} />)
       const newText = "This is a new text."
       await handler.openDialog()
       await handler.run(async (user, dialog) => {
@@ -152,7 +152,7 @@ describe("useTextEditor", () => {
   test("set text from container", async () => {
     const defaultText = "This is default."
     const handler = new EditorDialogHandler()
-    render(<TextEditorContainer defaultText={defaultText}/>)
+    render(<TextEditorContainer defaultText={defaultText} />)
 
     const textDiv = screen.getByTestId("text-div")
     expect(textDiv).toContainHTML(defaultText)
@@ -188,7 +188,7 @@ describe("useTextEditor", () => {
     const handler = new EditorDialogHandler()
     const errorMessage = "Your text contains an error."
     const validate = jest.fn().mockReturnValue(errorMessage)
-    render(<TextEditorContainer defaultText={""} validate={validate}/>)
+    render(<TextEditorContainer defaultText={""} validate={validate} />)
 
     await handler.openDialog()
     await handler.apply()
@@ -201,7 +201,7 @@ describe("useTextEditor", () => {
   test("validate returning true", async () => {
     const handler = new EditorDialogHandler()
     const validate = jest.fn().mockReturnValue(true)
-    render(<TextEditorContainer defaultText={""} validate={validate}/>)
+    render(<TextEditorContainer defaultText={""} validate={validate} />)
 
     await handler.openDialog()
     await handler.apply()

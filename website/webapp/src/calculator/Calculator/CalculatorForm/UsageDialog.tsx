@@ -33,7 +33,7 @@ export function UsageDialog({ open, setOpen }: UsageDialogProps): ReactElement {
       onClose={() => setOpen(false)}
     >
       <DialogContent>
-        <Usage/>
+        <Usage />
       </DialogContent>
       <DialogActions>
         <Button

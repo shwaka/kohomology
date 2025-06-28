@@ -8,7 +8,7 @@ export function MyWorkerSample(): ReactElement {
     <myWorkerContext.Provider
       defaultState={{ value: 0 }}
     >
-      <MyComponent/>
+      <MyComponent />
     </myWorkerContext.Provider>
   )
 }

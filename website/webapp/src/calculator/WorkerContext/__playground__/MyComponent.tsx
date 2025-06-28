@@ -77,7 +77,7 @@ export function MyComponent(): ReactElement {
         >
           Add 3
         </button>
-        <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog"/>
+        <ShowWorkerOutputLog log={workerOutputLog} testid="show-workerOutputLog" />
         <ShowWorkerOutputLogFromListener
           log={workerOutputLogFromListener}
           testid="show-log-from-listener"

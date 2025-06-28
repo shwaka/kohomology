@@ -75,7 +75,7 @@ describe("useIdealEditor", () => {
       },
       closeDialog: jest.fn(),
     }
-    render(<TestContainer {...testContainerProps}/>)
+    render(<TestContainer {...testContainerProps} />)
 
     await addGenerators(user, [""])
     await apply(user)
@@ -93,7 +93,7 @@ describe("useIdealEditor", () => {
       },
       closeDialog,
     }
-    render(<TestContainer {...testContainerProps}/>)
+    render(<TestContainer {...testContainerProps} />)
 
     await addGenerators(user, ["x"])
     await apply(user, )
@@ -115,7 +115,7 @@ describe("useIdealEditor", () => {
         },
         closeDialog,
       }
-      render(<TestContainer {...testContainerProps}/>)
+      render(<TestContainer {...testContainerProps} />)
 
       await addGenerators(user, R.range(0, count).map((n) => `x${n}`))
       await apply(user, "enter", count - 1)
@@ -137,7 +137,7 @@ describe("useIdealEditor", () => {
       },
       closeDialog: jest.fn(),
     }
-    render(<TestContainer {...testContainerProps}/>)
+    render(<TestContainer {...testContainerProps} />)
 
     await addGenerators(user, ["x"])
     await apply(user)
@@ -158,7 +158,7 @@ describe("useIdealEditor", () => {
       },
       closeDialog: jest.fn(),
     }
-    render(<TestContainer {...testContainerProps}/>)
+    render(<TestContainer {...testContainerProps} />)
 
     await addGenerators(user, ["x"])
     await apply(user)

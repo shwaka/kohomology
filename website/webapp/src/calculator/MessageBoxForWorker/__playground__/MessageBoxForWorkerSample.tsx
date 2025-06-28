@@ -12,8 +12,8 @@ export function MessageBoxForWorkerSample(): ReactElement {
         value: 0,
       }}
     >
-      <WorkerForm/>
-      <MessageBoxForWorker context={sampleWorkerContext}/>
+      <WorkerForm />
+      <MessageBoxForWorker context={sampleWorkerContext} />
     </sampleWorkerContext.Provider>
   )
 }

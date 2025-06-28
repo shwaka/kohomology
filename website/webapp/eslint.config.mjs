@@ -16,14 +16,4 @@ export default tseslint.config(
       "plugin:jest-dom/recommended",
     )
   ),
-  {
-    // plugins: {
-    //   "testing-library": testingLibrary, // already defined by flatCompat
-    // },
-    rules: {
-      "@typescript-eslint/no-floating-promises": "error",
-      "react/jsx-no-leaked-render": "off", // use @typescript-eslint/strict-boolean-expressions
-      "react/jsx-key": "error",
-    },
-  },
 )

@@ -17,9 +17,9 @@ export type ArrayEditorValues<TFieldValues extends FieldValues> = {
 }
 
 export type UseArrayEditorArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> =
-  ArrayEditorConfig<TFieldValues, K> &
-    ArrayEditorValues<TFieldValues> &
-    ArrayEditorRowComponentData<TFieldValues>
+  & ArrayEditorConfig<TFieldValues, K>
+  & ArrayEditorValues<TFieldValues>
+  & ArrayEditorRowComponentData<TFieldValues>
 
 export type UseArrayEditorPropsArgs<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> =
   ArrayEditorConfig<TFieldValues, K> & ArrayEditorValues<TFieldValues>

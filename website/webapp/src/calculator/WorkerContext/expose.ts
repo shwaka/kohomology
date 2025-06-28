@@ -20,11 +20,9 @@ export type MessageInputCallFunc<WF extends WFBase> =
     }
   }[keyof WF]
 
-/* eslint-disable @stylistic/operator-linebreak */
 export type MessageInput<WI, WF extends WFBase> =
   | MessageSendInput<WI>
   | MessageInputCallFunc<WF>
-/* eslint-enable @stylistic/operator-linebreak */
 
 export type MessageSendOutput<WO> = {
   type: "output"
@@ -50,12 +48,10 @@ export type MessageOutputFuncResult<WF extends WFBase> =
     }
   }[keyof WF]
 
-/* eslint-disable @stylistic/operator-linebreak */
 export type MessageOutput<WO, WS, WF extends WFBase> =
   | MessageSendOutput<WO>
   | MessageOutputUpdateState<WS>
   | MessageOutputFuncResult<WF>
-/* eslint-enable @stylistic/operator-linebreak */
 
 export type UpdateWorkerState<WS> = <K extends keyof WS>(...args: UpdateStateArgs<WS, K>) => void
 

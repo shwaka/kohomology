@@ -12,9 +12,7 @@ interface URLQueryResultParseError {
   message: string
 }
 
-/* eslint-disable @stylistic/operator-linebreak */
 export type URLQueryResult<T> =
   | URLQueryResultSuccess<T>
   | URLQueryResultUnspecified
   | URLQueryResultParseError
-/* eslint-enable @stylistic/operator-linebreak */

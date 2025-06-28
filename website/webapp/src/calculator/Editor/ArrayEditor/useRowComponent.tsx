@@ -5,7 +5,6 @@ import { FieldValues } from "react-hook-form"
 
 import { ArrayEditorItem, ArrayEditorRowComponentData } from "./ArrayEditorItem"
 
-
 export function useRowComponent<TFieldValues extends FieldValues>(
   {
     fieldOptionsList, getFieldErrorArray,

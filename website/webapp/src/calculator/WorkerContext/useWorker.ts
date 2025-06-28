@@ -99,7 +99,6 @@ export function useWorker<WI, WO, WS, WF extends WFBase>(
     [wrapper]
   )
 
-
   const restart = useCallback(
     (): void => wrapper.restart(),
     [wrapper]

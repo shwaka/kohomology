@@ -1,4 +1,3 @@
-
 import { ArrayPath, FieldValues } from "react-hook-form"
 
 import { Editor } from ".."

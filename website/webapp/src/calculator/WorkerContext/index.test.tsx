@@ -1,4 +1,3 @@
-
 import { render, screen, act, waitFor } from "@testing-library/react"
 
 import { MyWorkerSample } from "./__playground__/MyWorkerSample"

@@ -1,4 +1,3 @@
-
 import { useLocation } from "@docusaurus/router"
 import { render } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"

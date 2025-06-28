@@ -5,7 +5,6 @@ import { TabEditorContent } from "./TabEditorContent"
 import { TabEditorTitle } from "./TabEditorTitle"
 import { TabItem } from "./TabItem"
 
-
 interface UseTabEditorArgs<K extends string> {
   tabItems: { [T in K]: TabItem }
   tabKeys: readonly K[]

@@ -20,7 +20,6 @@ const getWorkerImpl: GetWorkerImpl<KohomologyWorkerInput, KohomologyWorkerOutput
     },
   })
 
-
 function createWorker(): Worker {
   return new MockWorker(getWorkerImpl) as unknown as Worker
 }

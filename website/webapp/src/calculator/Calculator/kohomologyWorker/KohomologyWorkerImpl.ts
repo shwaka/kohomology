@@ -77,7 +77,6 @@ class KohomologyMessageHandler {
     }
   }
 
-
   private updateJson(json: string): void {
     try {
       this.dgaWrapper = new FreeDGAWrapper(json)

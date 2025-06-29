@@ -118,20 +118,29 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
         return IntModp(-scalar.value, this.characteristic)
     }
 
+    private val invModpCache: List<IntModp> by lazy {
+        (0 until this.characteristic).map { i ->
+            IntModp(
+                this.powModp(i, this.characteristic - 2),
+                this.characteristic,
+            )
+        }
+    }
+
     private fun invModp(a: IntModp): IntModp {
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
-        return this.powModp(a, this.characteristic - 2)
+        return this.invModpCache[a.value]
     }
 
-    private fun powModp(a: IntModp, exponent: Int): IntModp {
+    private fun powModp(a: Int, exponent: Int): Int {
         return when {
-            exponent == 0 -> this.one
+            exponent == 0 -> 1
             exponent == 1 -> a
             exponent > 1 -> {
                 val half = this.powModp(a, exponent / 2)
-                val rem = if (exponent % 2 == 1) a else this.one
-                IntModp(half.value * half.value * rem.value, this.characteristic)
+                val rem = if (exponent % 2 == 1) a else 1
+                (half * half * rem).mod(this.characteristic)
             }
             exponent < 0 -> throw Exception("Negative exponent ($exponent) is not supported.")
             else -> throw Exception("This can't happen!")

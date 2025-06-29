@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1751203961499,
+  "lastUpdate": 1751213776637,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11406,6 +11406,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.186,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "5a429d5e138a3f955e79aee4c39fb69293d0288f",
+          "message": "perf(core): improve performance of Fp.invModp by using cache",
+          "timestamp": "2025-06-30T01:11:22+09:00",
+          "tree_id": "1866bdc4cfc919c86da93d15cd42b0fd3ae1c848",
+          "url": "https://github.com/shwaka/kohomology/commit/5a429d5e138a3f955e79aee4c39fb69293d0288f"
+        },
+        "date": 1751213775441,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.878,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.593,
             "unit": "s/op"
           }
         ]

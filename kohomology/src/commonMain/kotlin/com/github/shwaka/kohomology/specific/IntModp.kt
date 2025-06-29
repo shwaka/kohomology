@@ -121,11 +121,21 @@ public class Fp private constructor(override val characteristic: Int) : FiniteFi
     private fun invModp(a: IntModp): IntModp {
         if (a == IntModp(0, this.characteristic))
             throw ArithmeticException("division by zero (IntModp(0, ${this.characteristic}))")
-        var value = 1
-        repeat(this.characteristic - 2) {
-            value = (value * a.value).mod(this.characteristic)
+        return this.powModp(a, this.characteristic - 2)
+    }
+
+    private fun powModp(a: IntModp, exponent: Int): IntModp {
+        return when {
+            exponent == 0 -> this.one
+            exponent == 1 -> a
+            exponent > 1 -> {
+                val half = this.powModp(a, exponent / 2)
+                val rem = if (exponent % 2 == 1) a else this.one
+                IntModp(half.value * half.value * rem.value, this.characteristic)
+            }
+            exponent < 0 -> throw Exception("Negative exponent ($exponent) is not supported.")
+            else -> throw Exception("This can't happen!")
         }
-        return IntModp(value, this.characteristic)
     }
 
     override fun fromInt(n: Int): IntModp {

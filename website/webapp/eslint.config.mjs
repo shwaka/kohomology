@@ -8,8 +8,17 @@ import { FlatCompat } from "@eslint/eslintrc"
 const flatCompat = new FlatCompat()
 
 export default tseslint.config(
-  { ignores: ["**/prismThemes/*.mjs"] },
   ...eslintConfigShwakaReact,
+  {
+    // "ignores" must be separated from "files"
+    ignores: ["**/prismThemes/*.mjs"],
+  },
+  {
+    files: [
+      "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs",
+      "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts",
+    ],
+  },
   ...fixupConfigRules(
     flatCompat.extends(
       "plugin:testing-library/react",

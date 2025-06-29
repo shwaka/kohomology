@@ -5,6 +5,12 @@ import tseslint from "typescript-eslint"
 export default tseslint.config(
   ...eslintConfigShwakaOnsave,
   {
+    files: [
+      "**/*.js", "**/*.jsx", "**/*.mjs", "**/*.cjs",
+      "**/*.ts", "**/*.tsx", "**/*.mts", "**/*.cts",
+    ],
+  },
+  {
     // Due to eslint-disable, definition for react-hooks/exhaustive-deps is required:
     //   /home/shun/Git/kohomology/website/webapp/src/calculator/useScrollToBottom.ts
     //     29:3  error  Definition for rule 'react-hooks/exhaustive-deps' was not found

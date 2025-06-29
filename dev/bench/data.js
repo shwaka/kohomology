@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1751166167256,
+  "lastUpdate": 1751203961499,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11372,6 +11372,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.019,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f0fee0665634b74a757978612de745f41317b88b",
+          "message": "perf(core): improve performance of Fp.invModp slightly",
+          "timestamp": "2025-06-29T22:25:52+09:00",
+          "tree_id": "52e6793fdecd37eddc5167188e083b1bb68f0703",
+          "url": "https://github.com/shwaka/kohomology/commit/f0fee0665634b74a757978612de745f41317b88b"
+        },
+        "date": 1751203960690,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.813,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.186,
             "unit": "s/op"
           }
         ]

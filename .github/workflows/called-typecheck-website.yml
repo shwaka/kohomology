@@ -31,3 +31,6 @@ jobs:
         # This requires benchmark-data
         run: npm run tsc
         working-directory: website/webapp
+      - name: Validate benchmark-data
+        run: npm run validate:benchmark
+        working-directory: website/webapp

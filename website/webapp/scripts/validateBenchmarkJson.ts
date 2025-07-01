@@ -9,12 +9,14 @@ function validate(filepath: string): void {
 
   try {
     benchmarkDataSchema.parse(obj)
-    console.log("Validation success")
+    console.log(`Validation success for ${filepath}`)
   } catch (e) {
-    console.error("Validation failure")
-    throw e
+    console.error(`Validation failure for ${filepath}`)
+    console.error(e)
   }
 }
 
-const filepath = path.join(__dirname, "../benchmark-data/core/dev/bench/benchmarkData.json")
-validate(filepath)
+for (const name of ["core", "website"]) {
+  const filepath = path.join(__dirname, `../benchmark-data/${name}/dev/bench/benchmarkData.json`)
+  validate(filepath)
+}

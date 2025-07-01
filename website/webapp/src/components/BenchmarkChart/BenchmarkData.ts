@@ -1,11 +1,5 @@
 import { z } from "zod"
 
-type Equal<X, Y> =
-  (<T>() => T extends X ? 1 : 2) extends
-  (<T>() => T extends Y ? 1 : 2)
-    ? true : false
-type CheckSchema<X, S extends z.ZodType> = Equal<X, z.infer<S>>
-
 const toolSchema = z.enum(["cargo", "go", "benchmarkjs", "pytest", "googlecpp", "catch2", "julia", "jmh", "benchmarkdotnet", "benchmarkluau", "customBiggerIsBetter", "customSmallerIsBetter"])
 
 export type Tool = z.infer<typeof toolSchema>

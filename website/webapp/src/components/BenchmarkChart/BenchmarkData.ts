@@ -1,43 +1,61 @@
-export type Tool = "cargo" | "go" | "benchmarkjs" | "pytest" | "googlecpp" | "catch2" | "julia" | "jmh" | "benchmarkdotnet" | "benchmarkluau" | "customBiggerIsBetter" | "customSmallerIsBetter"
+import { z } from "zod"
 
-export interface Bench {
-  name: string
-  value: number
-  unit: string
-  range?: unknown
-  extra?: unknown
-}
+type Equal<X, Y> =
+  (<T>() => T extends X ? 1 : 2) extends
+  (<T>() => T extends Y ? 1 : 2)
+    ? true : false
+type CheckSchema<X, S extends z.ZodType> = Equal<X, z.infer<S>>
 
-export interface Commit {
-  author: {
-    email: string
-    name: string
-    username: string
-  }
-  committer: {
-    email: string
-    name: string
-    username: string
-  }
-  distinct: boolean
-  id: string
-  message: string
-  timestamp: string
-  tree_id: string
-  url: string
-}
+const toolSchema = z.enum(["cargo", "go", "benchmarkjs", "pytest", "googlecpp", "catch2", "julia", "jmh", "benchmarkdotnet", "benchmarkluau", "customBiggerIsBetter", "customSmallerIsBetter"])
 
-export interface Benchmark {
-  commit: Commit
-  date: number
-  tool: Tool
-  benches: Bench[]
-}
+export type Tool = z.infer<typeof toolSchema>
 
-export interface BenchmarkData {
-  lastUpdate: number
-  repoUrl: string
-  entries: {
-    Benchmark: Benchmark[]
-  }
-}
+const benchSchema = z.object({
+  name: z.string(),
+  value: z.number(),
+  unit: z.string(),
+  range: z.unknown().optional(),
+  extra: z.unknown().optional(),
+})
+
+export type Bench = z.infer<typeof benchSchema>
+
+const userSchema = z.object({
+  email: z.string(),
+  name: z.string(),
+  username: z.string(),
+})
+
+type User = z.infer<typeof userSchema>
+
+const commitSchema = z.object({
+  author: userSchema,
+  committer: userSchema,
+  distinct: z.boolean(),
+  id: z.string(),
+  message: z.string(),
+  timestamp: z.string(),
+  tree_id: z.string(),
+  url: z.string(),
+})
+
+export type Commit = z.infer<typeof commitSchema>
+
+const benchmarkSchema = z.object({
+  commit: commitSchema,
+  date: z.number(),
+  tool: toolSchema,
+  benches: z.array(benchSchema),
+})
+
+export type Benchmark = z.infer<typeof benchmarkSchema>
+
+export const benchmarkDataSchema = z.object({
+  lastUpdate: z.number(),
+  repoUrl: z.string(),
+  entries: z.object({
+    Benchmark: z.array(benchmarkSchema),
+  }),
+})
+
+export type BenchmarkData = z.infer<typeof benchmarkDataSchema>

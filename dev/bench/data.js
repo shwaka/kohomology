@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1751361305109,
+  "lastUpdate": 1751379849651,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11474,6 +11474,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.697,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": false,
+          "id": "28873848d70ef27e7ca510f41fb7565fd41d1a0f",
+          "message": "refactor(website): use better workaround for zodResolver",
+          "timestamp": "2025-07-01T23:18:15+09:00",
+          "tree_id": "b5773a9567b08b542f212e8b26daf3d05dc19c0a",
+          "url": "https://github.com/shwaka/kohomology/commit/28873848d70ef27e7ca510f41fb7565fd41d1a0f"
+        },
+        "date": 1751379848402,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.762,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.993,
             "unit": "s/op"
           }
         ]

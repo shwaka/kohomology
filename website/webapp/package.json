@@ -20,7 +20,8 @@
     "lc": "npm run eslint",
     "lf": "npm run eslint:fix",
     "test": "jest",
-    "test-watch": "jest --watch"
+    "test-watch": "jest --watch",
+    "validate:benchmark": "tsx scripts/validateBenchmarkJson.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",
@@ -87,6 +88,7 @@
     "jest-transform-stub": "^2.0.0",
     "ts-jest": "^29.3.2",
     "ts-loader": "^9.5.2",
+    "tsx": "^4.20.3",
     "typescript": "^5.8.1",
     "typescript-eslint": "^8.35.0"
   },

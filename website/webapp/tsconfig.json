@@ -33,6 +33,7 @@
   // - tsc: 5.7s -> 3.5s
   "include": [
     "src/**/*",
+    "scripts/**/*",
     "__mocks__/**/*",
     "plugins/**/*",
     "modules.d.ts",

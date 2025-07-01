@@ -20,7 +20,7 @@ const userSchema = z.object({
   username: z.string(),
 })
 
-type User = z.infer<typeof userSchema>
+// type User = z.infer<typeof userSchema>
 
 const commitSchema = z.object({
   author: userSchema,

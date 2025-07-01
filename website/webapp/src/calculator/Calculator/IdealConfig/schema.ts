@@ -54,6 +54,7 @@ export type IdealFormInput = z.infer<ReturnType<typeof getFormValueSchemaImpl>>
 export function getFormValueSchema(
   validateGenerator: (generator: string) => Promise<true | string>,
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>,
-): z.ZodType<IdealFormInput> {
+): z.ZodType<IdealFormInput> & { _def: { typeName: string } } {
+  // See https://github.com/react-hook-form/resolvers/issues/782 for typeName in the return type
   return getFormValueSchemaImpl(validateGenerator, validateGeneratorArray)
 }

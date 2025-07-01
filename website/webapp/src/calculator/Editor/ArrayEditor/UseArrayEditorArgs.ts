@@ -6,8 +6,7 @@ import { type ArrayEditorRowComponentData } from "./ArrayEditorItem"
 export type ArrayEditorConfig<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = {
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
   getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
-  // See https://github.com/react-hook-form/resolvers/issues/782 for typeName in schema
-  schema: z.ZodType<TFieldValues> & { _def: { typeName: string } }
+  schema: z.ZodType<TFieldValues>
   arrayKey: K
   zodResolverMode?: "sync" | "async"
 }

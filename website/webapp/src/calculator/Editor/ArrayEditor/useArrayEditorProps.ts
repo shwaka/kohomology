@@ -10,12 +10,25 @@ export interface UseArrayEditorPropsReturnValue<TFieldValues extends FieldValues
   arrayEditorPropsPartial: Omit<ArrayEditorProps<TFieldValues, K>, "onSubmit" | "RowComponent">
 }
 
+// Workaround for https://github.com/react-hook-form/resolvers/issues/782
+type HasTypeName = { _def: { typeName: string } }
+function hasTypeName(schema: object): schema is HasTypeName {
+  return ("_def" in schema) &&
+    (typeof schema._def === "object") &&
+    (schema._def !== null) &&
+    ("typeName" in schema._def) &&
+    (typeof schema._def.typeName === "string")
+}
+
 // This hook is extracted from useArrayEditor to
 // - make tests easy
 // - make this file .ts (not .tsx)
 export function useArrayEditorProps<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>>({
   defaultValues, setValues, getGlobalErrors, getNext, schema, arrayKey, zodResolverMode,
 }: UseArrayEditorPropsArgs<TFieldValues, K>): UseArrayEditorPropsReturnValue<TFieldValues, K> {
+  if (!hasTypeName(schema)) {
+    throw new Error("Invalid schema")
+  }
   const { handleSubmit, register, getValues, reset, trigger, control, formState: { errors, isValid } } = useForm({
     mode: "onBlur",
     reValidateMode: "onBlur",

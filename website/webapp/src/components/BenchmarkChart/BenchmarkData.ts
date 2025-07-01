@@ -25,11 +25,11 @@ type User = z.infer<typeof userSchema>
 const commitSchema = z.object({
   author: userSchema,
   committer: userSchema,
-  distinct: z.boolean(),
+  distinct: z.boolean().optional(),
   id: z.string(),
   message: z.string(),
   timestamp: z.string(),
-  tree_id: z.string(),
+  tree_id: z.string().optional(),
   url: z.string(),
 })
 

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1751379849651,
+  "lastUpdate": 1751605306601,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11508,6 +11508,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.993,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": false,
+          "id": "09f4e593277407594288cadff03acff0dd4c3602",
+          "message": "test(website): add waitForRender to avoid warning in useArrayEditorProps.test.ts",
+          "timestamp": "2025-07-04T13:55:49+09:00",
+          "tree_id": "5426135352027e791424a4b07292905d2c891e61",
+          "url": "https://github.com/shwaka/kohomology/commit/09f4e593277407594288cadff03acff0dd4c3602"
+        },
+        "date": 1751605305410,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.784,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.025,
             "unit": "s/op"
           }
         ]

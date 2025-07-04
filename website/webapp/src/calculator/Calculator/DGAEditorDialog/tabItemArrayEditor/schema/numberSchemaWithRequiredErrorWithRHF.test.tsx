@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { z } from "zod/v4"
 
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
@@ -76,7 +76,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
       await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
-        expect(screen.getByRole("alert")).toHaveTextContent("Expected number, received string")
+        expect(screen.getByRole("alert")).toHaveTextContent("Invalid input: expected number, received string")
       })
       expect(screen.queryByTestId("submitted")).not.toBeInTheDocument()
     })
@@ -90,7 +90,7 @@ describe("numberSchemaWithRequiredError with react-hook-form", () => {
       await user.click(screen.getByText("Submit"))
 
       await waitFor(() => {
-        expect(screen.getByRole("alert")).toHaveTextContent("Expected number, received string")
+        expect(screen.getByRole("alert")).toHaveTextContent("Invalid input: expected number, received string")
       })
       expect(screen.queryByTestId("submitted")).not.toBeInTheDocument()
     })

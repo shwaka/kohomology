@@ -93,7 +93,7 @@ describe("generatorSchema", () => {
     const result = generatorSchema.safeParse({ name: "x", degree: 0, differentialValue: "0" })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors.degree).toContain("The degree cannot be 0.")
+      expect(z.treeifyError(result.error).properties?.degree?.errors).toContain("The degree cannot be 0.")
     }
   })
 })

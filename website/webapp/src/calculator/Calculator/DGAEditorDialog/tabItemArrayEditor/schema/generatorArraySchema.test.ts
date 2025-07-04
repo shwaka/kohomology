@@ -35,8 +35,8 @@ describe("generatorArraySchema", () => {
     ])
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors[1]).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors[1]).toContain(
+      expect(z.flattenError(result.error).fieldErrors[1]).toHaveLength(1)
+      expect(z.flattenError(result.error).fieldErrors[1]).toContain(
         "The degree of d(y) is expected to be deg(y)+1=4, but the given value x has degree 2."
       )
     }
@@ -48,8 +48,8 @@ describe("generatorArraySchema", () => {
     ])
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors[0]).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors[0]).toContainEqual(
+      expect(z.flattenError(result.error).fieldErrors[0]).toHaveLength(1)
+      expect(z.flattenError(result.error).fieldErrors[0]).toContainEqual(
         expect.stringContaining("No matching token at the beginning")
       )
     }
@@ -61,8 +61,8 @@ describe("generatorArraySchema", () => {
     ])
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors[0]).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors[0]).toContainEqual(
+      expect(z.flattenError(result.error).fieldErrors[0]).toHaveLength(1)
+      expect(z.flattenError(result.error).fieldErrors[0]).toContainEqual(
         expect.stringContaining("AlternativesFailure(errors=[")
       )
     }
@@ -89,7 +89,7 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors._global_errors).toContain(
+      expect(z.flattenError(result.error).fieldErrors._global_errors).toContain(
         "Cannot mix generators of positive and negative degrees."
       )
     }
@@ -154,8 +154,8 @@ describe("formValueSchema", () => {
     })
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().fieldErrors._global_errors).toHaveLength(1)
-      expect(result.error.flatten().fieldErrors._global_errors).toContain(
+      expect(z.flattenError(result.error).fieldErrors._global_errors).toHaveLength(1)
+      expect(z.flattenError(result.error).fieldErrors._global_errors).toContain(
         "Cannot mix generators of positive and negative degrees."
       )
     }

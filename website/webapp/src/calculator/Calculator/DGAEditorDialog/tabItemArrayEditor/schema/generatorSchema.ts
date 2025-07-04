@@ -10,7 +10,7 @@ export const nameSchema = z.string().min(1, "Please enter the name.").superRefin
       return
     case "error":
       ctx.addIssue({
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: validationResult.message,
       })
       return

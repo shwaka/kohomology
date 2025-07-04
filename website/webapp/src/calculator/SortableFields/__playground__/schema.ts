@@ -30,7 +30,7 @@ function addIssueForTotalAge(val: Person[], ctx: RefinementCtx): void {
   if (totalAge < minTotalAge) {
     ctx.addIssue({
       path: ["_global_errors", "totalAge"],
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: `The sum of person.age must be at least {minTotalAge}, but was ${totalAge}`,
     })
   }

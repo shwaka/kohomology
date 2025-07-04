@@ -28,7 +28,7 @@ function addIssueForDifferentialValue(val: Generator[], ctx: RefinementCtx): voi
     if (typeof validationResult === "string") {
       ctx.addIssue({
         path: [index, "differentialValue"],
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message: validationResult,
       })
     }
@@ -40,7 +40,7 @@ function addIssueForGeneratorDegrees(val: Generator[], ctx: RefinementCtx): void
   if (typeof validateDegreesResult === "string") {
     ctx.addIssue({
       path: ["_global_errors", "generatorDegrees"],
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: validateDegreesResult,
     })
   }
@@ -51,7 +51,7 @@ function addIssueForGeneratorNames(val: Generator[], ctx: RefinementCtx): void {
   validateNamesResult.forEach((message, index) => {
     ctx.addIssue({
       path: ["generatorArray", index, "name"],
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: message,
     })
   })

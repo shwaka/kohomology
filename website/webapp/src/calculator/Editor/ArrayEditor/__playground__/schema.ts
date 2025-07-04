@@ -26,7 +26,7 @@ function addIssueForDistinctNames(val: Indeterminate[], ctx: RefinementCtx): voi
   if (hasDuplicates(val.map((indeterminate) => indeterminate.name))) {
     ctx.addIssue({
       path: ["_global_errors", "distinct"],
-      code: z.ZodIssueCode.custom,
+      code: "custom",
       message: "Indeterminates must have distinct names."
     })
   }

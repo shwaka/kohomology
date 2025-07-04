@@ -8,7 +8,7 @@ export function getIdealGeneratorTextSchema(
     if (typeof message === "string") {
       ctx.addIssue({
         path: [],
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message,
       })
     }
@@ -41,7 +41,7 @@ function getFormValueSchemaImpl(
     if (typeof message === "string") {
       ctx.addIssue({
         path: ["_global_errors", "validateGeneratorArray"],
-        code: z.ZodIssueCode.custom,
+        code: "custom",
         message,
       })
     }

@@ -25,4 +25,9 @@ export default tseslint.config(
       "plugin:jest-dom/recommended",
     )
   ),
+  {
+    rules: {
+      "@typescript-eslint/no-deprecated": "warn",
+    }
+  }
 )

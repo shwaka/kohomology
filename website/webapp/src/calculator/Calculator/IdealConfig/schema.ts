@@ -2,7 +2,7 @@ import { z } from "zod/v4"
 
 export function getIdealGeneratorTextSchema(
   validateGenerator: (generator: string) => Promise<true | string>
-): z.ZodEffects<z.ZodString, string, string> {
+): z.ZodString {
   return z.string().nonempty("Please enter the generator.").superRefine(async (val, ctx) => {
     const message: true | string = await validateGenerator(val)
     if (typeof message === "string") {

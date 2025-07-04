@@ -6,7 +6,7 @@ import { type ArrayEditorRowComponentData } from "./ArrayEditorItem"
 export type ArrayEditorConfig<TFieldValues extends FieldValues, K extends ArrayPath<TFieldValues>> = {
   getGlobalErrors: (errors: FieldErrorsImpl<DeepRequired<TFieldValues>>) => (FieldError | undefined)[]
   getNext: (valueArray: TFieldValues[K][number][]) => TFieldValues[K][number]
-  schema: z.ZodType<TFieldValues>
+  schema: z.ZodType<TFieldValues, TFieldValues>
   arrayKey: K
   zodResolverMode?: "sync" | "async"
 }

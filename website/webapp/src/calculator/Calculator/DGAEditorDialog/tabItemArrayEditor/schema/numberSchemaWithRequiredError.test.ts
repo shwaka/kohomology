@@ -1,3 +1,5 @@
+import { z } from "zod/v4"
+
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 describe("numberSchemaWithRequiredError", () => {
@@ -15,7 +17,7 @@ describe("numberSchemaWithRequiredError", () => {
     const result = numberSchemaWithRequiredError(errorMessage).safeParse(NaN)
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toContain(errorMessage)
+      expect(z.treeifyError(result.error).errors).toContain(errorMessage)
     }
   })
 
@@ -23,7 +25,7 @@ describe("numberSchemaWithRequiredError", () => {
     const result = numberSchemaWithRequiredError(errorMessage).safeParse("")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toContain(errorMessageForString)
+      expect(z.treeifyError(result.error).errors).toContain(errorMessageForString)
     }
   })
 
@@ -31,7 +33,7 @@ describe("numberSchemaWithRequiredError", () => {
     const result = numberSchemaWithRequiredError(errorMessage).safeParse("foo")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toContain(errorMessageForString)
+      expect(z.treeifyError(result.error).errors).toContain(errorMessageForString)
     }
   })
 })

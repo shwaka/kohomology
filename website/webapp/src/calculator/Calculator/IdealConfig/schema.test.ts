@@ -1,3 +1,5 @@
+import { z } from "zod/v4"
+
 import { getIdealGeneratorTextSchema } from "./schema"
 
 describe("getIdealGeneratorTextSchema", () => {
@@ -16,8 +18,8 @@ describe("getIdealGeneratorTextSchema", () => {
     const result = await idealGeneratorSchema.safeParseAsync("")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContain("Please enter the generator.")
+      expect(z.treeifyError(result.error).errors).toHaveLength(1)
+      expect(z.treeifyError(result.error).errors).toContain("Please enter the generator.")
     }
   })
 
@@ -28,8 +30,8 @@ describe("getIdealGeneratorTextSchema", () => {
     const result = await idealGeneratorSchema.safeParseAsync("x++y")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContain(errorMessage)
+      expect(z.treeifyError(result.error).errors).toHaveLength(1)
+      expect(z.treeifyError(result.error).errors).toContain(errorMessage)
     }
   })
 
@@ -40,9 +42,9 @@ describe("getIdealGeneratorTextSchema", () => {
     const result = await idealGeneratorSchema.safeParseAsync("")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(2)
-      expect(result.error.flatten().formErrors).toContain(errorMessage)
-      expect(result.error.flatten().formErrors).toContain("Please enter the generator.")
+      expect(z.treeifyError(result.error).errors).toHaveLength(2)
+      expect(z.treeifyError(result.error).errors).toContain(errorMessage)
+      expect(z.treeifyError(result.error).errors).toContain("Please enter the generator.")
     }
   })
 })

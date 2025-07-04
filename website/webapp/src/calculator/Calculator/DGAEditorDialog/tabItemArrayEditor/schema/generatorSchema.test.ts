@@ -1,3 +1,5 @@
+import { z } from "zod/v4"
+
 import { deegreeSchema, differentialValueSchema, generatorSchema, nameSchema } from "./generatorSchema"
 
 describe("nameSchema", () => {
@@ -13,9 +15,9 @@ describe("nameSchema", () => {
     expect(result.success).toBe(false)
     if (!result.success) {
       // This example has two errors. This may be a bug?
-      expect(result.error.flatten().formErrors).toHaveLength(2)
-      expect(result.error.flatten().formErrors).toContain("Please enter the name.")
-      expect(result.error.flatten().formErrors).toContain("Identifier name must be non-empty.")
+      expect(z.treeifyError(result.error).errors).toHaveLength(2)
+      expect(z.treeifyError(result.error).errors).toContain("Please enter the name.")
+      expect(z.treeifyError(result.error).errors).toContain("Identifier name must be non-empty.")
     }
   })
 
@@ -23,8 +25,8 @@ describe("nameSchema", () => {
     const result = nameSchema.safeParse("1y")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContainEqual(
+      expect(z.treeifyError(result.error).errors).toHaveLength(1)
+      expect(z.treeifyError(result.error).errors).toContainEqual(
         expect.stringContaining("must start with alphabets")
       )
     }
@@ -35,8 +37,8 @@ describe("nameSchema", () => {
       const result = nameSchema.safeParse(`y${invalidChar}`)
       expect(result.success).toBe(false)
       if (!result.success) {
-        expect(result.error.flatten().formErrors).toHaveLength(1)
-        expect(result.error.flatten().formErrors).toContainEqual(
+        expect(z.treeifyError(result.error).errors).toHaveLength(1)
+        expect(z.treeifyError(result.error).errors).toContainEqual(
           expect.stringContaining("can only contain alphabets")
         )
       }
@@ -56,8 +58,8 @@ describe("degreeSchema", () => {
     const result = deegreeSchema.safeParse(0)
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContain("The degree cannot be 0.")
+      expect(z.treeifyError(result.error).errors).toHaveLength(1)
+      expect(z.treeifyError(result.error).errors).toContain("The degree cannot be 0.")
     }
   })
 })
@@ -75,8 +77,8 @@ describe("differentialValueSchema", () => {
     const result = differentialValueSchema.safeParse("")
     expect(result.success).toBe(false)
     if (!result.success) {
-      expect(result.error.flatten().formErrors).toHaveLength(1)
-      expect(result.error.flatten().formErrors).toContain("Please enter the value of the differential.")
+      expect(z.treeifyError(result.error).errors).toHaveLength(1)
+      expect(z.treeifyError(result.error).errors).toContain("Please enter the value of the differential.")
     }
   })
 })

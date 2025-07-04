@@ -1,5 +1,5 @@
 import { validateGeneratorName } from "kohomology-js"
-import { z } from "zod"
+import { z } from "zod/v4"
 
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 

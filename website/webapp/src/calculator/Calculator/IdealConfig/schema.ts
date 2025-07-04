@@ -1,4 +1,4 @@
-import { z } from "zod"
+import { z } from "zod/v4"
 
 export function getIdealGeneratorTextSchema(
   validateGenerator: (generator: string) => Promise<true | string>

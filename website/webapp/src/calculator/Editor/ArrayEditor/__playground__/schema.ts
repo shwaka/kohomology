@@ -1,4 +1,4 @@
-import { RefinementCtx, z } from "zod"
+import { RefinementCtx, z } from "zod/v4"
 
 const indeterminateSchema = z.object({
   name: z.string().nonempty(),

@@ -1,4 +1,4 @@
-import { RefinementCtx, z } from "zod"
+import { RefinementCtx, z } from "zod/v4"
 
 import { generatorSchema, Generator } from "./generatorSchema"
 import { validateDifferentialValue, validateGeneratorDegrees, validateGeneratorNames } from "./validation"

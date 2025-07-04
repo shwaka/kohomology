@@ -1,5 +1,5 @@
 import { magicMessageToHideError } from "@calculator/ShowFieldErrors"
-import { z } from "zod"
+import { z } from "zod/v4"
 
 import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
 

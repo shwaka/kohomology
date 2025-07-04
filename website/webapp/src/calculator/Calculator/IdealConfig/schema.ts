@@ -17,7 +17,7 @@ export function getIdealGeneratorTextSchema(
 
 export function getIdealGeneratorSchema(
   validateGenerator: (generator: string) => Promise<true | string>
-): z.ZodType<{ text: string }> {
+): z.ZodType<{ text: string }, { text: string }> {
   return z.object({
     text: getIdealGeneratorTextSchema(validateGenerator)
   })
@@ -54,6 +54,6 @@ export type IdealFormInput = z.infer<ReturnType<typeof getFormValueSchemaImpl>>
 export function getFormValueSchema(
   validateGenerator: (generator: string) => Promise<true | string>,
   validateGeneratorArray: (generatorArray: string[]) => Promise<true | string>,
-): z.ZodType<IdealFormInput> {
+): z.ZodType<IdealFormInput, IdealFormInput> {
   return getFormValueSchemaImpl(validateGenerator, validateGeneratorArray)
 }

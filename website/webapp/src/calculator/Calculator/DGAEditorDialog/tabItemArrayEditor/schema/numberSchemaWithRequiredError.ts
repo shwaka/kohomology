@@ -1,6 +1,6 @@
-import { z } from "zod"
+import { z } from "zod/v4"
 
-export function numberSchemaWithRequiredError(message: string): z.ZodEffects<z.ZodNumber, number, number> {
+export function numberSchemaWithRequiredError(message: string): z.ZodPipe<z.ZodTransform, z.ZodNumber> {
   return z.preprocess(
     (val) => {
       if (Number.isNaN(val)) {
@@ -8,6 +8,8 @@ export function numberSchemaWithRequiredError(message: string): z.ZodEffects<z.Z
       }
       return val
     },
-    z.number({ required_error: message })
-  ) as z.ZodEffects<z.ZodNumber, number, number>
+    z.number({
+      error: (issue) => (issue.input === undefined) ? message : undefined
+    })
+  )
 }

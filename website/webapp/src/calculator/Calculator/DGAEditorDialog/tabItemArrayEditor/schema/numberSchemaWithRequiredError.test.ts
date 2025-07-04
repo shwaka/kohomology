@@ -2,7 +2,7 @@ import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
 describe("numberSchemaWithRequiredError", () => {
   const errorMessage = "number expected"
-  const errorMessageForString = "Expected number, received string"
+  const errorMessageForString = "Invalid input: expected number, received string"
 
   for (const value of [0, 1, 2, -1, 1.1, 0.5, -2.3]) {
     it(`should successfully parse ${value}`, () => {

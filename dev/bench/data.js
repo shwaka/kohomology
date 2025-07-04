@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1751605306601,
+  "lastUpdate": 1751632132452,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11542,6 +11542,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.025,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "adf45c83d77b91cbf0b84d1daffa916b84981479",
+          "message": "fix(website): replace z.ZodIssue (deprecated) with z.core.$ZodIssue",
+          "timestamp": "2025-07-04T21:22:39+09:00",
+          "tree_id": "0a13299afe2897b0ba2466e60d280e8e1d3cff73",
+          "url": "https://github.com/shwaka/kohomology/commit/adf45c83d77b91cbf0b84d1daffa916b84981479"
+        },
+        "date": 1751632131195,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.768,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.022,
             "unit": "s/op"
           }
         ]

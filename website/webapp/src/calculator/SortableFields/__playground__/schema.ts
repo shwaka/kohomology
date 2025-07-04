@@ -1,5 +1,5 @@
 import { sumBy } from "remeda"
-import { RefinementCtx, z } from "zod"
+import { RefinementCtx, z } from "zod/v4"
 
 const personSchema = z.object({
   name: z.string().nonempty(),

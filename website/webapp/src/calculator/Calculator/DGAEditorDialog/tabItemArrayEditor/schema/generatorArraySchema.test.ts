@@ -6,7 +6,7 @@ import { formValueSchema, generatorArraySchema } from "./generatorArraySchema"
 function getErrorsByPath(
   error: z.ZodError<unknown>,
   path: (string | number)[]
-): z.ZodIssue[] {
+): z.core.$ZodIssue[] {
   return error.issues.filter(
     (issue) => JSON.stringify(issue.path) === JSON.stringify(path)
   )

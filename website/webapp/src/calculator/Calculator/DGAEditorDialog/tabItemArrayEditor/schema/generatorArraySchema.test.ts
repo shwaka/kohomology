@@ -95,7 +95,7 @@ describe("formValueSchema", () => {
     }
   })
 
-  it("should not accept if names are duplicated", () => {
+  it("should not accept if names are duplicated [x, x]", () => {
     const result = formValueSchema.safeParse({
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },
@@ -113,7 +113,7 @@ describe("formValueSchema", () => {
     }
   })
 
-  it("should not accept if names are duplicated", () => {
+  it("should not accept if names are duplicated [x, y, x, x, z, y]", () => {
     const result = formValueSchema.safeParse({
       generatorArray: [
         { name: "x", degree: 2, differentialValue: "0" },

@@ -2,17 +2,18 @@ import fs from "fs"
 import path from "path"
 
 import { benchmarkDataSchema } from "@components/BenchmarkChart/BenchmarkData"
+import { z } from "zod/v4"
 
 function validate(filepath: string): void {
   const raw: string = fs.readFileSync(filepath, "utf-8")
   const obj = JSON.parse(raw)
 
-  try {
-    benchmarkDataSchema.parse(obj)
+  const result = benchmarkDataSchema.safeParse(obj)
+  if (result.success) {
     console.log(`Validation success for ${filepath}`)
-  } catch (e) {
+  } else {
     console.error(`Validation failure for ${filepath}`)
-    console.error(e)
+    console.error(z.prettifyError(result.error))
   }
 }
 

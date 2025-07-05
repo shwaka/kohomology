@@ -32,6 +32,8 @@ function addIssueForDifferentialValue(val: Generator[], issues: $ZodRawIssue[]):
         path: [index, "differentialValue"],
         code: "custom",
         message: validationResult,
+        // `continue: true` is necessary to run validation for formValueSchema after this
+        continue: true,
       })
     }
   })

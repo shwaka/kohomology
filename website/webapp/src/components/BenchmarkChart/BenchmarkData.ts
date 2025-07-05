@@ -4,7 +4,7 @@ const toolSchema = z.enum(["cargo", "go", "benchmarkjs", "pytest", "googlecpp", 
 
 export type Tool = z.infer<typeof toolSchema>
 
-const benchSchema = z.object({
+const benchSchema = z.strictObject({
   name: z.string(),
   value: z.number(),
   unit: z.string(),
@@ -14,7 +14,7 @@ const benchSchema = z.object({
 
 export type Bench = z.infer<typeof benchSchema>
 
-const userSchema = z.object({
+const userSchema = z.strictObject({
   email: z.string(),
   name: z.string(),
   username: z.string(),
@@ -22,7 +22,7 @@ const userSchema = z.object({
 
 // type User = z.infer<typeof userSchema>
 
-const commitSchema = z.object({
+const commitSchema = z.strictObject({
   author: userSchema,
   committer: userSchema,
   distinct: z.boolean().optional(),
@@ -35,7 +35,7 @@ const commitSchema = z.object({
 
 export type Commit = z.infer<typeof commitSchema>
 
-const benchmarkSchema = z.object({
+const benchmarkSchema = z.strictObject({
   commit: commitSchema,
   date: z.number(),
   tool: toolSchema,
@@ -44,10 +44,10 @@ const benchmarkSchema = z.object({
 
 export type Benchmark = z.infer<typeof benchmarkSchema>
 
-export const benchmarkDataSchema = z.object({
+export const benchmarkDataSchema = z.strictObject({
   lastUpdate: z.number(),
   repoUrl: z.string(),
-  entries: z.object({
+  entries: z.strictObject({
     Benchmark: z.array(benchmarkSchema),
   }),
 })

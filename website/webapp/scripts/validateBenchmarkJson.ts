@@ -14,6 +14,7 @@ function validate(filepath: string): void {
   } else {
     console.error(`Validation failure for ${filepath}`)
     console.error(z.prettifyError(result.error))
+    throw new Error(`Validation failure for ${filepath}`)
   }
 }
 

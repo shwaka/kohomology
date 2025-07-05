@@ -1,5 +1,6 @@
 import { sumBy } from "remeda"
-import { RefinementCtx, z } from "zod/v4"
+import { z } from "zod/v4"
+import { $ZodRawIssue } from "zod/v4/core"
 
 const personSchema = z.object({
   name: z.string().nonempty(),
@@ -17,18 +18,19 @@ const globalErrorsSchema = z.object({
 export const peopleFormValueSchema = z.object({
   personArray: personArraySchema,
   _global_errors: globalErrorsSchema.optional(),
-}).superRefine((val, ctx) => {
+}).check((ctx) => {
   // Need to call trigger() manually to run global validation
-  addIssueForTotalAge(val.personArray, ctx)
+  addIssueForTotalAge(ctx.value.personArray, ctx.issues)
 })
 
 export type PeopleFormInput = z.infer<typeof peopleFormValueSchema>
 
 const minTotalAge = 300
-function addIssueForTotalAge(val: Person[], ctx: RefinementCtx): void {
+function addIssueForTotalAge(val: Person[], issues: $ZodRawIssue[]): void {
   const totalAge = sumBy(val, (person) => person.age)
   if (totalAge < minTotalAge) {
-    ctx.addIssue({
+    issues.push({
+      input: val,
       path: ["_global_errors", "totalAge"],
       code: "custom",
       message: `The sum of person.age must be at least {minTotalAge}, but was ${totalAge}`,

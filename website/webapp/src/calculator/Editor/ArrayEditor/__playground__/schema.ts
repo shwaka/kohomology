@@ -1,4 +1,5 @@
-import { RefinementCtx, z } from "zod/v4"
+import { z } from "zod/v4"
+import { $ZodRawIssue } from "zod/v4/core"
 
 const indeterminateSchema = z.object({
   name: z.string().nonempty(),
@@ -16,15 +17,16 @@ export const indeterminateGlobalErrorsSchema = z.object({
 export const indeterminateFormValueSchema = z.object({
   indeterminateArray: indeterminateArraySchema,
   _global_errors: indeterminateGlobalErrorsSchema.optional(),
-}).superRefine((val, ctx) => {
-  addIssueForDistinctNames(val.indeterminateArray, ctx)
+}).check((ctx) => {
+  addIssueForDistinctNames(ctx.value.indeterminateArray, ctx.issues)
 })
 
 export type IndeterminateFormInput = z.infer<typeof indeterminateFormValueSchema>
 
-function addIssueForDistinctNames(val: Indeterminate[], ctx: RefinementCtx): void {
+function addIssueForDistinctNames(val: Indeterminate[], issues: $ZodRawIssue[]): void {
   if (hasDuplicates(val.map((indeterminate) => indeterminate.name))) {
-    ctx.addIssue({
+    issues.push({
+      input: val,
       path: ["_global_errors", "distinct"],
       code: "custom",
       message: "Indeterminates must have distinct names."

@@ -3,10 +3,11 @@ import { z } from "zod/v4"
 export function getIdealGeneratorTextSchema(
   validateGenerator: (generator: string) => Promise<true | string>
 ): z.ZodString {
-  return z.string().nonempty("Please enter the generator.").superRefine(async (val, ctx) => {
-    const message: true | string = await validateGenerator(val)
+  return z.string().nonempty("Please enter the generator.").check(async (ctx) => {
+    const message: true | string = await validateGenerator(ctx.value)
     if (typeof message === "string") {
-      ctx.addIssue({
+      ctx.issues.push({
+        input: ctx.value,
         path: [],
         code: "custom",
         message,
@@ -35,11 +36,12 @@ function getFormValueSchemaImpl(
   return z.object({
     generatorArray: getIdealGeneratorSchema(validateGenerator).array(),
     _global_errors: globalErrorsSchema.optional(),
-  }).superRefine(async (val, ctx) => {
-    const generatorTextArray = val.generatorArray.map((generator) => generator.text)
+  }).check(async (ctx) => {
+    const generatorTextArray = ctx.value.generatorArray.map((generator) => generator.text)
     const message: true | string = await validateGeneratorArray(generatorTextArray)
     if (typeof message === "string") {
-      ctx.addIssue({
+      ctx.issues.push({
+        input: ctx.value,
         path: ["_global_errors", "validateGeneratorArray"],
         code: "custom",
         message,

@@ -3,13 +3,14 @@ import { z } from "zod/v4"
 
 import { numberSchemaWithRequiredError } from "./numberSchemaWithRequiredError"
 
-export const nameSchema = z.string().min(1, "Please enter the name.").superRefine((val: string, ctx) => {
-  const validationResult = validateGeneratorName(val)
+export const nameSchema = z.string().min(1, "Please enter the name.").check((ctx) => {
+  const validationResult = validateGeneratorName(ctx.value)
   switch (validationResult.type) {
     case "success":
       return
     case "error":
-      ctx.addIssue({
+      ctx.issues.push({
+        input: ctx.value,
         code: "custom",
         message: validationResult.message,
       })

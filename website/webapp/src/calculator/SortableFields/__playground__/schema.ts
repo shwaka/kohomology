@@ -34,6 +34,7 @@ function addIssueForTotalAge(val: Person[], issues: $ZodRawIssue[]): void {
       path: ["_global_errors", "totalAge"],
       code: "custom",
       message: `The sum of person.age must be at least {minTotalAge}, but was ${totalAge}`,
+      continue: true,
     })
   }
 }

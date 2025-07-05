@@ -29,7 +29,8 @@ function addIssueForDistinctNames(val: Indeterminate[], issues: $ZodRawIssue[]):
       input: val,
       path: ["_global_errors", "distinct"],
       code: "custom",
-      message: "Indeterminates must have distinct names."
+      message: "Indeterminates must have distinct names.",
+      continue: true,
     })
   }
 }

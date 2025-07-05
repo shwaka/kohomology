@@ -47,6 +47,7 @@ function addIssueForGeneratorDegrees(val: Generator[], issues: $ZodRawIssue[]): 
       path: ["_global_errors", "generatorDegrees"],
       code: "custom",
       message: validateDegreesResult,
+      continue: true,
     })
   }
 }
@@ -59,6 +60,7 @@ function addIssueForGeneratorNames(val: Generator[], issues: $ZodRawIssue[]): vo
       path: ["generatorArray", index, "name"],
       code: "custom",
       message: message,
+      continue: true,
     })
   })
 }

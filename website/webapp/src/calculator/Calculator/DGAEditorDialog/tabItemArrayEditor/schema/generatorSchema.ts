@@ -13,6 +13,7 @@ export const nameSchema = z.string().min(1, "Please enter the name.").check((ctx
         input: ctx.value,
         code: "custom",
         message: validationResult.message,
+        continue: true,
       })
       return
     default:

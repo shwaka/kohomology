@@ -11,6 +11,7 @@ export function getIdealGeneratorTextSchema(
         path: [],
         code: "custom",
         message,
+        continue: true,
       })
     }
   })
@@ -45,6 +46,7 @@ function getFormValueSchemaImpl(
         path: ["_global_errors", "validateGeneratorArray"],
         code: "custom",
         message,
+        continue: true,
       })
     }
   })

@@ -70,4 +70,17 @@ class BarComplexTest : FreeSpec({
             }
         }
     }
+
+    "print basis of homology of Z/2" {
+        val cyclicGroup = CyclicGroup(2)
+        val dgVectorSpace = barComplex(cyclicGroup, SparseMatrixSpaceOverF2)
+        val cohomology = dgVectorSpace.cohomology
+
+        cohomology.getBasis(-1).map { it.toString() } shouldBe
+            listOf("[[t^1]]")
+        cohomology.getBasis(-2).map { it.toString() } shouldBe
+            listOf("[[t^0,t^0] + [t^1,t^1]]")
+        cohomology.getBasis(-3).map { it.toString() } shouldBe
+            listOf("[[t^0,t^0,t^1] + [t^1,t^0,t^0] + [t^1,t^1,t^1]]")
+    }
 })

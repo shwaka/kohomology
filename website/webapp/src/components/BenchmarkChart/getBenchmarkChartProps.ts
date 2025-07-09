@@ -37,7 +37,7 @@ export function getBenchmarkChartProps(
   const filteredDataset =
     dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
   const filteredCommits = dataHandler.commits.filter(filterCommit)
-  return getChartProps<BenchWithCommit, CommitWithDate>({
+  return getChartProps<BenchWithCommit>({
     datasetLabel: extractMethodName(name),
     color,
     xTitle: "commit date",
@@ -47,9 +47,7 @@ export function getBenchmarkChartProps(
       x: benchWithCommit.commit.id,
       y: benchWithCommit.bench.value,
     }),
-    keys: filteredCommits,
-    getKey: (benchWithCommit) => benchWithCommit.commit,
-    getLabel: (commitWithDate) => commitWithDate.id,
+    labels: filteredCommits.map((commitWithDate) => commitWithDate.id),
     labelToTick: (commitId) => {
       const timestamp: string = dataHandler.getCommitTimestamp(commitId)
       // 2022-01-01T11:23:45+09:00 -> 2022-01-01

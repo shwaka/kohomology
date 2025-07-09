@@ -12,24 +12,22 @@ type TooltipCallbacks<T> = {
   afterLabel: (data: T) => string
 }
 
-export function getChartProps<T, K>(
-  { datasetLabel, color, xTitle, yTitle, dataset, getValue, keys, getKey, getLabel, labelToTick, tooltipCallbacks, getOnClickUrl }: {
+export function getChartProps<T>(
+  { datasetLabel, color, xTitle, yTitle, dataset, getValue, labels, labelToTick, tooltipCallbacks, getOnClickUrl }: {
     datasetLabel: string
     color: string
     xTitle: string
     yTitle: string
     dataset: T[]
     getValue: (data: T) => Value
-    keys: K[]
-    getKey: (data: T) => K
-    getLabel: (key: K) => string
+    labels: string[]
     labelToTick: (label: string) => string
     tooltipCallbacks: TooltipCallbacks<T>
     getOnClickUrl: (data: T) => string
   }
 ): ChartProps<"line", Value[], string> {
   const data: ChartData<"line", Value[], string> = {
-    labels: keys.map(getLabel),
+    labels,
     datasets: [
       {
         label: datasetLabel,

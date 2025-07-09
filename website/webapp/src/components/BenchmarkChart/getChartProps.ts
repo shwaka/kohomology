@@ -13,7 +13,7 @@ type TooltipCallbacks<T> = {
 }
 
 export function getChartProps<T, K>(
-  { datasetLabel, color, xTitle, yTitle, dataset, getValue, keys, getKey, filterKey, getLabel, labelToTick, tooltipCallbacks, getOnClickUrl }: {
+  { datasetLabel, color, xTitle, yTitle, dataset, getValue, keys, getKey, getLabel, labelToTick, tooltipCallbacks, getOnClickUrl }: {
     datasetLabel: string
     color: string
     xTitle: string
@@ -22,20 +22,18 @@ export function getChartProps<T, K>(
     getValue: (data: T) => Value
     keys: K[]
     getKey: (data: T) => K
-    filterKey: (key: K) => boolean
     getLabel: (key: K) => string
     labelToTick: (label: string) => string
     tooltipCallbacks: TooltipCallbacks<T>
     getOnClickUrl: (data: T) => string
   }
 ): ChartProps<"line", Value[], string> {
-  const filteredDataset = dataset.filter((data) => filterKey(getKey(data)))
   const data: ChartData<"line", Value[], string> = {
-    labels: keys.filter(filterKey).map(getLabel),
+    labels: keys.map(getLabel),
     datasets: [
       {
         label: datasetLabel,
-        data: filteredDataset.map(getValue),
+        data: dataset.map(getValue),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa
         fill: true,
@@ -74,20 +72,20 @@ export function getChartProps<T, K>(
         callbacks: {
           title: (items) => {
             const item = items[0]
-            const data = filteredDataset[item.dataIndex]
+            const data = dataset[item.dataIndex]
             return tooltipCallbacks.title(data)
           },
           afterTitle: (items) => {
             const item = items[0]
-            const data = filteredDataset[item.dataIndex]
+            const data = dataset[item.dataIndex]
             return tooltipCallbacks.afterTitle(data)
           },
           label: (item) => {
-            const data = filteredDataset[item.dataIndex]
+            const data = dataset[item.dataIndex]
             return tooltipCallbacks.label(data)
           },
           afterLabel: (item) => {
-            const data = filteredDataset[item.dataIndex]
+            const data = dataset[item.dataIndex]
             return tooltipCallbacks.afterLabel(data)
           }
         }
@@ -98,7 +96,7 @@ export function getChartProps<T, K>(
         return
       }
       const index = activeElems[0].index
-      const data = filteredDataset[index]
+      const data = dataset[index]
       const url = getOnClickUrl(data)
       window.open(url, "_blank")
     },

@@ -34,19 +34,21 @@ export function getBenchmarkChartProps(
 ): ChartProps<"line", Value[], string> {
   const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"] // previously, filteredDataset.length was used for "color". Why?
+  const filteredDataset =
+    dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
+  const filteredCommits = dataHandler.commits.filter(filterCommit)
   return getChartProps<BenchWithCommit, CommitWithDate>({
     datasetLabel: extractMethodName(name),
     color,
     xTitle: "commit date",
     yTitle: benchUnit,
-    dataset,
+    dataset: filteredDataset,
     getValue: (benchWithCommit) => ({
       x: benchWithCommit.commit.id,
       y: benchWithCommit.bench.value,
     }),
-    keys: dataHandler.commits,
+    keys: filteredCommits,
     getKey: (benchWithCommit) => benchWithCommit.commit,
-    filterKey: filterCommit,
     getLabel: (commitWithDate) => commitWithDate.id,
     labelToTick: (commitId) => {
       const timestamp: string = dataHandler.getCommitTimestamp(commitId)

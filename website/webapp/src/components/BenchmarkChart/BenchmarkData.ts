@@ -26,7 +26,7 @@ const commitSchema = z.strictObject({
   author: userSchema,
   committer: userSchema,
   distinct: z.boolean().optional(),
-  id: z.string(),
+  id: z.string().regex(/^[0-9a-f]{40}$/i, "Invalid commit hash"),
   message: z.string(),
   timestamp: z.string(),
   tree_id: z.string().optional(),

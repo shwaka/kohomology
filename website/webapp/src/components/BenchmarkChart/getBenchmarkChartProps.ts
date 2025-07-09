@@ -1,7 +1,7 @@
 import { ChartProps } from "react-chartjs-2"
 
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
-import { Value, getChartProps } from "./getChartProps"
+import { Value, TooltipCallbacks, getChartProps } from "./getChartProps"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 const toolColors = {
@@ -22,6 +22,36 @@ const toolColors = {
 
 function extractMethodName(name: string): string {
   return name.replace("com.github.shwaka.kohomology.profile.KohomologyBenchmark.", "")
+}
+
+const tooltipCallbacks: TooltipCallbacks<BenchWithCommit> = {
+  title: (data) => data.commit.id,
+  afterTitle: (data) => {
+    const commit = data.commit
+    return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
+  },
+  label: (data) => {
+    const { range, unit, value } = data.bench
+    let result = value.toString() + " " + unit
+    if (typeof range === "string") {
+      result += " (" + range + ")"
+    } else if (range !== undefined) {
+      // See https://github.com/benchmark-action/github-action-benchmark
+      throw new Error("range must be a string, but was ${range}")
+    }
+    return result
+  },
+  afterLabel: (data) => {
+    const { extra } = data.bench
+    if (extra === undefined) {
+      return ""
+    }
+    if (typeof extra !== "string") {
+      // See https://github.com/benchmark-action/github-action-benchmark
+      throw new Error("extra must be a string, but was ${extra}")
+    }
+    return "\n" + extra
+  }
 }
 
 export function getBenchmarkChartProps(
@@ -53,35 +83,7 @@ export function getBenchmarkChartProps(
       // 2022-01-01T11:23:45+09:00 -> 2022-01-01
       return timestamp.slice(0, 10)
     },
-    tooltipCallbacks: {
-      title: (data) => data.commit.id,
-      afterTitle: (data) => {
-        const commit = data.commit
-        return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
-      },
-      label: (data) => {
-        const { range, unit, value } = data.bench
-        let result = value.toString() + " " + unit
-        if (typeof range === "string") {
-          result += " (" + range + ")"
-        } else if (range !== undefined) {
-          // See https://github.com/benchmark-action/github-action-benchmark
-          throw new Error("range must be a string, but was ${range}")
-        }
-        return result
-      },
-      afterLabel: (data) => {
-        const { extra } = data.bench
-        if (extra === undefined) {
-          return ""
-        }
-        if (typeof extra !== "string") {
-          // See https://github.com/benchmark-action/github-action-benchmark
-          throw new Error("extra must be a string, but was ${extra}")
-        }
-        return "\n" + extra
-      }
-    },
+    tooltipCallbacks,
     getOnClickUrl: (benchWithCommit) => benchWithCommit.commit.url,
   })
 }

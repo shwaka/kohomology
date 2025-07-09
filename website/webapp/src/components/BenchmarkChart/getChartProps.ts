@@ -5,7 +5,7 @@ import { ChartProps } from "react-chartjs-2"
 
 export type Value = { x: string, y: number }
 
-type TooltipCallbacks<T> = {
+export type TooltipCallbacks<T> = {
   title: (data: T) => string
   afterTitle: (data: T) => string
   label: (data: T) => string

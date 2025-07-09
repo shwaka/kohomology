@@ -15,7 +15,7 @@ const benchSchema = z.strictObject({
 export type Bench = z.infer<typeof benchSchema>
 
 const userSchema = z.strictObject({
-  email: z.string(),
+  email: z.email(),
   name: z.string(),
   username: z.string(),
 })

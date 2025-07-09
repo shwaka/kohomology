@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752065812342,
+  "lastUpdate": 1752074634799,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11712,6 +11712,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.331,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6c3412a83e1560eb735bebb87e910c4d66ac08e3",
+          "message": "refactor(website): move tooltipCallbacks outside of getBenchmarkChartProps",
+          "timestamp": "2025-07-10T00:17:30+09:00",
+          "tree_id": "ab30e9632a2f01ff40281e2ec03a5d96a97171d3",
+          "url": "https://github.com/shwaka/kohomology/commit/6c3412a83e1560eb735bebb87e910c4d66ac08e3"
+        },
+        "date": 1752074633524,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.787,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.443,
             "unit": "s/op"
           }
         ]

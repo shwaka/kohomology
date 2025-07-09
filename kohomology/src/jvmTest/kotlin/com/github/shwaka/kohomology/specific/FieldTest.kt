@@ -406,6 +406,14 @@ class IntModpTest : FreeSpec({
             (three + four) shouldBe two
         }
     }
+    "(n mod p).toString() should be \"n\"" {
+        F5.context.run {
+            zero.toString() shouldBe "0"
+            one.toString() shouldBe "1"
+            two.toString() shouldBe "2"
+            (-one).toString() shouldBe "4" // -1 = 4 mod 5
+        }
+    }
     "addition of different characteristic should throw ArithmeticException" {
         val twoMod7 = F7.context.run { two }
         val threeMod7 = F7.context.run { three }

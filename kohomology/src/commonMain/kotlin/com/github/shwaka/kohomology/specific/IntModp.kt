@@ -34,7 +34,8 @@ public class IntModp(value: Int, public val characteristic: Int) : Scalar {
     private fun toStringWithoutSign(): String = this.toString()
 
     override fun toString(): String {
-        return "${this.value.mod(this.characteristic)} mod ${this.characteristic}"
+        return this.value.mod(this.characteristic).toString()
+        // return "${this.value.mod(this.characteristic)} mod ${this.characteristic}"
     }
 
     override fun equals(other: Any?): Boolean {

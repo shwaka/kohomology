@@ -28,23 +28,37 @@ function extractMethodName(name: string): string {
 
 type Value = { x: string, y: number }
 
-export function getChartProps(
-  { name, dataset, dataHandler, filterCommit }: {
+type TooltipCallbacks<T> = {
+  title: (data: T) => string
+  afterTitle: (data: T) => string
+  label: (data: T) => string
+  afterLabel: (data: T) => string
+}
+
+function getChartPropsImpl<T, K>(
+  { name, color, xTitle, yTitle, dataset, getValue, keys, getKey, filterKey, getLabel, labelToTick, tooltipCallbacks, getOnClickUrl }: {
     name: string
-    dataset: BenchWithCommit[]
-    dataHandler: BenchmarkDataHandler
-    filterCommit: (commit: CommitWithDate) => boolean
+    color: string
+    xTitle: string
+    yTitle: string
+    dataset: T[]
+    getValue: (data: T) => Value
+    keys: K[]
+    getKey: (data: T) => K
+    filterKey: (key: K) => boolean
+    getLabel: (key: K) => string
+    labelToTick: (label: string) => string
+    tooltipCallbacks: TooltipCallbacks<T>
+    getOnClickUrl: (data: T) => string
   }
 ): ChartProps<"line", Value[], string> {
-  const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
-  const filteredDataset = dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
-  const color = toolColors[filteredDataset.length > 0 ? filteredDataset[0].tool : "_"]
+  const filteredDataset = dataset.filter((data) => filterKey(getKey(data)))
   const data: ChartData<"line", Value[], string> = {
-    labels: dataHandler.commits.filter(filterCommit).map((commit) => commit.id),
+    labels: keys.filter(filterKey).map(getLabel),
     datasets: [
       {
         label: extractMethodName(name),
-        data: filteredDataset.map((d) => ({ x: d.commit.id, y: d.bench.value })),
+        data: filteredDataset.map(getValue),
         borderColor: color,
         backgroundColor: color + "60", // Add alpha for #rrggbbaa
         fill: true,
@@ -58,24 +72,22 @@ export function getChartProps(
         type: "category",
         title: {
           display: true,
-          text: "commit date",
+          text: xTitle,
         },
         ticks: {
           callback: function (tickValue: string | number): string {
             if (typeof tickValue === "string") {
               throw new Error("This can't happen!")
             }
-            const commitId: string = this.getLabelForValue(tickValue)
-            const timestamp: string = dataHandler.getCommitTimestamp(commitId)
-            // 2022-01-01T11:23:45+09:00 -> 2022-01-01
-            return timestamp.slice(0, 10)
+            const label: string = this.getLabelForValue(tickValue)
+            return labelToTick(label)
           }
         }
       },
       y: {
         title: {
           display: true,
-          text: benchUnit,
+          text: yTitle,
         },
         suggestedMin: 0,
       },
@@ -84,37 +96,22 @@ export function getChartProps(
       tooltip: {
         callbacks: {
           title: (items) => {
-            const { dataIndex } = items[0]
-            const commit = filteredDataset[dataIndex].commit
-            return commit.id
+            const item = items[0]
+            const data = filteredDataset[item.dataIndex]
+            return tooltipCallbacks.title(data)
           },
           afterTitle: (items) => {
-            const { dataIndex } = items[0]
-            const commit = filteredDataset[dataIndex].commit
-            return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
+            const item = items[0]
+            const data = filteredDataset[item.dataIndex]
+            return tooltipCallbacks.afterTitle(data)
           },
           label: (item) => {
-            let label = item.label
-            const { range, unit, value } = filteredDataset[item.dataIndex].bench
-            label = value.toString() + " " + unit
-            if (typeof range === "string") {
-              label += " (" + range + ")"
-            } else if (range !== undefined) {
-              // See https://github.com/benchmark-action/github-action-benchmark
-              throw new Error("range must be a string, but was ${range}")
-            }
-            return label
+            const data = filteredDataset[item.dataIndex]
+            return tooltipCallbacks.label(data)
           },
           afterLabel: (item) => {
-            const { extra } = filteredDataset[item.dataIndex].bench
-            if (extra === undefined) {
-              return ""
-            }
-            if (typeof extra !== "string") {
-              // See https://github.com/benchmark-action/github-action-benchmark
-              throw new Error("extra must be a string, but was ${extra}")
-            }
-            return "\n" + extra
+            const data = filteredDataset[item.dataIndex]
+            return tooltipCallbacks.afterLabel(data)
           }
         }
       }
@@ -124,7 +121,8 @@ export function getChartProps(
         return
       }
       const index = activeElems[0].index
-      const url = filteredDataset[index].commit.url
+      const data = filteredDataset[index]
+      const url = getOnClickUrl(data)
       window.open(url, "_blank")
     },
   }
@@ -134,4 +132,65 @@ export function getChartProps(
     data,
     options,
   }
+}
+
+export function getChartProps(
+  { name, dataset, dataHandler, filterCommit }: {
+    name: string
+    dataset: BenchWithCommit[]
+    dataHandler: BenchmarkDataHandler
+    filterCommit: (commit: CommitWithDate) => boolean
+  }
+): ChartProps<"line", Value[], string> {
+  const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
+  const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"] // previously, filteredDataset.length was used for "color". Why?
+  return getChartPropsImpl<BenchWithCommit, CommitWithDate>({
+    name, color,
+    xTitle: "commit date",
+    yTitle: benchUnit,
+    dataset,
+    getValue: (benchWithCommit) => ({
+      x: benchWithCommit.commit.id,
+      y: benchWithCommit.bench.value,
+    }),
+    keys: dataHandler.commits,
+    getKey: (benchWithCommit) => benchWithCommit.commit,
+    filterKey: filterCommit,
+    getLabel: (commitWithDate) => commitWithDate.id,
+    labelToTick: (commitId) => {
+      const timestamp: string = dataHandler.getCommitTimestamp(commitId)
+      // 2022-01-01T11:23:45+09:00 -> 2022-01-01
+      return timestamp.slice(0, 10)
+    },
+    tooltipCallbacks: {
+      title: (data) => data.commit.id,
+      afterTitle: (data) => {
+        const commit = data.commit
+        return "\n" + commit.message + "\n\n" + commit.timestamp + " committed by @" + commit.committer.username + "\n"
+      },
+      label: (data) => {
+        const { range, unit, value } = data.bench
+        let result = value.toString() + " " + unit
+        if (typeof range === "string") {
+          result += " (" + range + ")"
+        } else if (range !== undefined) {
+          // See https://github.com/benchmark-action/github-action-benchmark
+          throw new Error("range must be a string, but was ${range}")
+        }
+        return result
+      },
+      afterLabel: (data) => {
+        const { extra } = data.bench
+        if (extra === undefined) {
+          return ""
+        }
+        if (typeof extra !== "string") {
+          // See https://github.com/benchmark-action/github-action-benchmark
+          throw new Error("extra must be a string, but was ${extra}")
+        }
+        return "\n" + extra
+      }
+    },
+    getOnClickUrl: (benchWithCommit) => benchWithCommit.commit.url,
+  })
 }

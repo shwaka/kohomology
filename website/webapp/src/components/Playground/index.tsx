@@ -1,5 +1,6 @@
 import { ReactElement } from "react"
 
+import { NumberSchemaSample } from "@calculator/Calculator/DGAEditorDialog/tabItemArrayEditor/schema/__playground__/NumberSchemaSample"
 import { useCustomTheme } from "@calculator/Calculator/useCustomTheme"
 import { ArrayEditorSample } from "@calculator/Editor/ArrayEditor/__playground__/ArrayEditorSample"
 import { TabEditorSample } from "@calculator/Editor/TabEditor/__playground__/TabEditorSample"
@@ -50,6 +51,11 @@ const tabs = [
     key: "tab-editor",
     name: "Editor: TabEditor",
     render: () => (<TabEditorSample />),
+  },
+  {
+    key: "number-schema",
+    name: "NumberSchema",
+    render: () => (<NumberSchemaSample />),
   },
 ] as const satisfies SimpleTab<string>[]
 

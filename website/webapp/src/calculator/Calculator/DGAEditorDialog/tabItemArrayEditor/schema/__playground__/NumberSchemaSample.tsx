@@ -23,6 +23,7 @@ function NumberSchemaSampleImpl(
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -41,6 +42,7 @@ function NumberSchemaSampleImpl(
               type="number"
               {...register(key, { valueAsNumber })}
             />
+            {getValues()[key]} ({typeof getValues()[key]})
             {errors[key] && (
               <span
                 style={{ color: "red" }}

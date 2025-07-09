@@ -9,7 +9,7 @@ import { Chart } from "react-chartjs-2"
 
 import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
-import { getChartProps } from "./getChartProps"
+import { getBenchmarkChartProps } from "./getBenchmarkChartProps"
 import { movingAverage } from "./movingAverage"
 import { ConfigureFilterCommit, useFilterCommit } from "./useFilterCommit"
 
@@ -23,7 +23,7 @@ function Bench(
     dataHandler: BenchmarkDataHandler
   }
 ): ReactElement {
-  const arg = getChartProps({ name, dataset, dataHandler, filterCommit })
+  const arg = getBenchmarkChartProps({ name, dataset, dataHandler, filterCommit })
   return (
     <Chart {...arg} />
   )

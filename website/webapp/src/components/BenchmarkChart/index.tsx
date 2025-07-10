@@ -16,24 +16,24 @@ import { RangeSlider, useRangeFilter } from "./useRangeFilter"
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
 function Bench(
-  { name, dataset, filterCommit, dataHandler }: {
+  { name, dataset, isSelected, dataHandler }: {
     name: string
     dataset: BenchWithCommit[]
-    filterCommit: (commit: CommitWithDate) => boolean
+    isSelected: (commit: CommitWithDate) => boolean
     dataHandler: BenchmarkDataHandler
   }
 ): ReactElement {
-  const arg = getBenchmarkChartProps({ name, dataset, dataHandler, filterCommit })
+  const arg = getBenchmarkChartProps({ name, dataset, dataHandler, isSelected })
   return (
     <Chart {...arg} />
   )
 }
 
 function Benchset(
-  { benchset, filterCommit, weightArray, dataHandler }: {
+  { benchset, isSelected, weightArray, dataHandler }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
-    filterCommit: (commit: CommitWithDate) => boolean
+    isSelected: (commit: CommitWithDate) => boolean
     weightArray: number[]
     dataHandler: BenchmarkDataHandler
   }
@@ -60,7 +60,7 @@ function Benchset(
             key={benchName}
             name={benchName}
             dataset={benchAverages}
-            filterCommit={filterCommit}
+            isSelected={isSelected}
             dataHandler={dataHandler}
           />
         )
@@ -102,7 +102,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
       {dataHandler.benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}
-          filterCommit={isSelected}
+          isSelected={isSelected}
           weightArray={weightArray}
           dataHandler={dataHandler}
           {...benchsetWithName}

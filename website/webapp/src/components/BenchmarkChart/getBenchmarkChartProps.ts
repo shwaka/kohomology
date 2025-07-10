@@ -55,18 +55,18 @@ const tooltipCallbacks: TooltipCallbacks<BenchWithCommit> = {
 }
 
 export function getBenchmarkChartProps(
-  { name, dataset, dataHandler, filterCommit }: {
+  { name, dataset, dataHandler, isSelected }: {
     name: string
     dataset: BenchWithCommit[]
     dataHandler: BenchmarkDataHandler
-    filterCommit: (commit: CommitWithDate) => boolean
+    isSelected: (commit: CommitWithDate) => boolean
   }
 ): ChartProps<"line", Value[], string> {
   const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
   const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"] // previously, filteredDataset.length was used for "color". Why?
   const filteredDataset =
-    dataset.filter((benchWithCommit) => filterCommit(benchWithCommit.commit))
-  const filteredCommits = dataHandler.commits.filter(filterCommit)
+    dataset.filter((benchWithCommit) => isSelected(benchWithCommit.commit))
+  const filteredCommits = dataHandler.commits.filter(isSelected)
   return getChartProps<BenchWithCommit>({
     datasetLabel: extractMethodName(name),
     color,

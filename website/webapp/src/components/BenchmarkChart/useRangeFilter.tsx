@@ -34,9 +34,11 @@ interface UseRangeFilterReturnValue<T> {
 }
 
 export function useRangeFilter<T>(
-  items: T[],
-  getValue: (item: T) => number,
-  getLabel: (item: T, index: number) => string,
+  { items, getValue, getLabel }: {
+    items: T[]
+    getValue: (item: T) => number
+    getLabel: (item: T, index: number) => string
+  }
 ): UseRangeFilterReturnValue<T> {
   useEffect(() => {
     if (!isSorted(items.map(getValue))) {

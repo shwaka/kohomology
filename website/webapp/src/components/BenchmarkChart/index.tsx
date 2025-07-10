@@ -73,15 +73,15 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
   const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
   const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)
-  const { isSelected, rangeSliderProps } = useRangeFilter(
-    dataHandler.commits,
-    (commit) => commit.date.valueOf(),
-    (commit, index) => {
+  const { isSelected, rangeSliderProps } = useRangeFilter({
+    items: dataHandler.commits,
+    getValue: (commit) => commit.date.valueOf(),
+    getLabel: (commit, index) => {
       const commitId: string = commit.id.slice(0, 7)
       const commitDate: string = commit.timestamp.slice(0, 10)
       return `[${index}] ${commitDate} (${commitId})`
     },
-  )
+  })
   const weightArray = showMovingAverage ? [5, 4, 3, 2, 1] : [1]
   const { colorMode } = useColorMode()
   const stickyBackgroundColor = (colorMode === "light") ? "white" : "var(--ifm-background-color)"

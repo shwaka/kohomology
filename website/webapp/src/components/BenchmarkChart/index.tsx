@@ -88,6 +88,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
   return (
     <div>
       <Box sx={{ position: "sticky", top: "var(--ifm-navbar-height)", backgroundColor: stickyBackgroundColor }}>
+        Restrict commits:
         <RangeSlider {...rangeSliderProps} />
       </Box>
       <FormControlLabel

@@ -1,6 +1,6 @@
 import { useState, ReactElement } from "react"
 
-import { Box, Slider } from "@mui/material"
+import { Slider } from "@mui/material"
 
 interface RangeSliderProps<T> {
   items: T[]
@@ -11,22 +11,19 @@ interface RangeSliderProps<T> {
 
 export function RangeSlider<T>({ items, indexRange, setIndexRange, getLabel }: RangeSliderProps<T>): ReactElement {
   return (
-    <Box>
-      Restrict commits:
-      <Slider
-        min={0}
-        max={items.length - 1}
-        value={indexRange}
-        onChange={(_event, newValue: number | number[]) => {
-          setIndexRange(newValue as number[])
-        }}
-        valueLabelDisplay="auto"
-        valueLabelFormat={(index: number) => {
-          const item = items[index]
-          return getLabel(item, index)
-        }}
-      />
-    </Box>
+    <Slider
+      min={0}
+      max={items.length - 1}
+      value={indexRange}
+      onChange={(_event, newValue: number | number[]) => {
+        setIndexRange(newValue as number[])
+      }}
+      valueLabelDisplay="auto"
+      valueLabelFormat={(index: number) => {
+        const item = items[index]
+        return getLabel(item, index)
+      }}
+    />
   )
 }
 

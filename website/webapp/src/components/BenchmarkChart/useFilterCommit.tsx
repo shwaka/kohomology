@@ -2,15 +2,14 @@ import { useState, ReactElement } from "react"
 
 import { Box, Slider } from "@mui/material"
 
-import { CommitWithDate } from "./BenchmarkDataHandler"
-
-interface ConfigureFilterCommitProps {
-  commits: CommitWithDate[]
+interface ConfigureFilterCommitProps<T> {
+  commits: T[]
   commitIndexRange: number[]
   setCommitIndexRange: (commitIndexRange: number[]) => void
+  getLabel: (commit: T, index: number) => string
 }
 
-export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitIndexRange }: ConfigureFilterCommitProps): ReactElement {
+export function ConfigureFilterCommit<T>({ commits, commitIndexRange, setCommitIndexRange, getLabel }: ConfigureFilterCommitProps<T>): ReactElement {
   return (
     <Box>
       Restrict commits:
@@ -24,26 +23,29 @@ export function ConfigureFilterCommit({ commits, commitIndexRange, setCommitInde
         valueLabelDisplay="auto"
         valueLabelFormat={(commitIndex: number) => {
           const commit = commits[commitIndex]
-          const commitId: string = commit.id.slice(0, 7)
-          const commitDate: string = commit.timestamp.slice(0, 10)
-          return `[${commitIndex}] ${commitDate} (${commitId})`
+          return getLabel(commit, commitIndex)
         }}
       />
     </Box>
   )
 }
 
-interface UseFilterCommitReturnValue {
-  filterCommit: (commit: CommitWithDate) => boolean
-  configureFilterCommitProps: ConfigureFilterCommitProps
+interface UseFilterCommitReturnValue<T> {
+  filterCommit: (commit: T) => boolean
+  configureFilterCommitProps: ConfigureFilterCommitProps<T>
 }
 
-export function useFilterCommit(commits: CommitWithDate[]): UseFilterCommitReturnValue {
+export function useFilterCommit<T>(
+  commits: T[],
+  getValue: (commit: T) => number,
+  getLabel: (commit: T, index: number) => string,
+): UseFilterCommitReturnValue<T> {
   const [commitIndexRange, setCommitIndexRange] = useState<number[]>([0, commits.length - 1])
-  const filterCommit = (commit: CommitWithDate): boolean => {
-    const startDate = commits[commitIndexRange[0]].date
-    const endDate = commits[commitIndexRange[1]].date
-    return (commit.date >= startDate) && (commit.date <= endDate)
+  const filterCommit = (commit: T): boolean => {
+    const currentDate = getValue(commit)
+    const startDate = getValue(commits[commitIndexRange[0]])
+    const endDate = getValue(commits[commitIndexRange[1]])
+    return (currentDate >= startDate) && (currentDate <= endDate)
     // benchWithCommit.date > new Date("2022.10.01").getTime()
   }
   return {
@@ -52,6 +54,7 @@ export function useFilterCommit(commits: CommitWithDate[]): UseFilterCommitRetur
       commits,
       commitIndexRange,
       setCommitIndexRange,
+      getLabel,
     }
   }
 }

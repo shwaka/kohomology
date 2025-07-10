@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752120059888,
+  "lastUpdate": 1752144393902,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11780,6 +11780,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.134,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "e2aabed20487d4b5659cf15f20d3946b5b8565cc",
+          "message": "test(website): add useRangeFilter to ChartSample",
+          "timestamp": "2025-07-10T19:08:11+09:00",
+          "tree_id": "0d9e9d472a167b5180345175264e9f929b79b830",
+          "url": "https://github.com/shwaka/kohomology/commit/e2aabed20487d4b5659cf15f20d3946b5b8565cc"
+        },
+        "date": 1752144393243,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.808,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.4,
             "unit": "s/op"
           }
         ]

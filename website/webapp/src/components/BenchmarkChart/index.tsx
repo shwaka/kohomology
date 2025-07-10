@@ -11,7 +11,7 @@ import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
 import { getBenchmarkChartProps } from "./getBenchmarkChartProps"
 import { movingAverage } from "./movingAverage"
-import { ConfigureFilterCommit, useFilterCommit } from "./useFilterCommit"
+import { RangeSlider, useRangeFilter } from "./useRangeFilter"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -73,7 +73,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
   const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
   const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)
-  const { filterCommit, configureFilterCommitProps } = useFilterCommit(
+  const { isSelected, rangeSliderProps } = useRangeFilter(
     dataHandler.commits,
     (commit) => commit.date.valueOf(),
     (commit, index) => {
@@ -88,7 +88,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
   return (
     <div>
       <Box sx={{ position: "sticky", top: "var(--ifm-navbar-height)", backgroundColor: stickyBackgroundColor }}>
-        <ConfigureFilterCommit {...configureFilterCommitProps} />
+        <RangeSlider {...rangeSliderProps} />
       </Box>
       <FormControlLabel
         control={(
@@ -102,7 +102,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
       {dataHandler.benchsetsWithNames.map((benchsetWithName) => (
         <Benchset
           key={benchsetWithName.name}
-          filterCommit={filterCommit}
+          filterCommit={isSelected}
           weightArray={weightArray}
           dataHandler={dataHandler}
           {...benchsetWithName}

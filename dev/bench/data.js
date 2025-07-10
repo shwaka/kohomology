@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752144393902,
+  "lastUpdate": 1752155713898,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11814,6 +11814,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.4,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "6ec23f90c76409cb86d45d2230ed9d34b73634ac",
+          "message": "build(website): update chart.js and react-chartjs-2",
+          "timestamp": "2025-07-10T22:47:51+09:00",
+          "tree_id": "a9a73ac2a614d416a4735afe39de47880fa64ff2",
+          "url": "https://github.com/shwaka/kohomology/commit/6ec23f90c76409cb86d45d2230ed9d34b73634ac"
+        },
+        "date": 1752155713086,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.841,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.222,
             "unit": "s/op"
           }
         ]

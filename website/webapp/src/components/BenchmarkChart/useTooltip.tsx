@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, useCallback, useState } from "react"
 
 import { Tooltip } from "@mui/material"
-import { ActiveElement, ChartOptions } from "chart.js"
+import { ActiveElement, ChartOptions, TooltipLabelStyle } from "chart.js"
 
 import { useArrayChanged } from "./useArrayChanged"
 
@@ -11,6 +11,12 @@ type TooltipData = {
   x: number
   y: number
   index: number
+  labelStyle: TooltipLabelStyle | undefined
+}
+
+export type TooltipContentProps<T> = {
+  item: T
+  renderBox: () => ReactNode
 }
 
 type UseTooltipReturnValue = {
@@ -21,7 +27,7 @@ type UseTooltipReturnValue = {
 export function useTooltip<T>(
   { dataset, TooltipContent }: {
     dataset: T[]
-    TooltipContent: (props: { item: T }) => ReactElement
+    TooltipContent: (props: TooltipContentProps<T>) => ReactElement
   }
 ): UseTooltipReturnValue {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
@@ -35,11 +41,36 @@ export function useTooltip<T>(
 
     const { index } = element
     const point = chart.getDatasetMeta(0).data[index]
+    const labelStyle: TooltipLabelStyle | undefined =
+      chart.tooltip?.labelColors?.[0]
 
     const x = chart.canvas.offsetLeft + point.x
     const y = chart.canvas.offsetTop + point.y
-    setTooltipData({ x, y, index })
+    setTooltipData({ x, y, index, labelStyle })
   }, [setTooltipData])
+  const renderBox: () => ReactNode = useCallback(() => {
+    if (tooltipData === null) {
+      return null
+    }
+    const { labelStyle } = tooltipData
+    if (labelStyle === undefined) {
+      return null
+    }
+    const { borderColor, backgroundColor } = labelStyle
+    // based on https://www.chartjs.org/docs/latest/samples/tooltip/html.html
+    return (
+      <span
+        style={{
+          borderWidth: "2px",
+          height: "10px",
+          width: "10px",
+          borderColor: borderColor.toString(),
+          background: backgroundColor.toString(),
+          display: "inline-block",
+        }}
+      />
+    )
+  }, [tooltipData])
   const renderTooltip: () => ReactNode = useCallback(() => {
     if (tooltipData === null) {
       return null
@@ -50,10 +81,10 @@ export function useTooltip<T>(
     }
     return (
       <TooltipImpl x={tooltipData.x} y={tooltipData.y}>
-        <TooltipContent item={item} />
+        <TooltipContent item={item} renderBox={renderBox} />
       </TooltipImpl>
     )
-  }, [tooltipData, dataset, TooltipContent])
+  }, [tooltipData, dataset, TooltipContent, renderBox])
   return { onClick, renderTooltip }
 }
 

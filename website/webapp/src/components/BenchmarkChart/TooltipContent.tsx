@@ -2,9 +2,10 @@ import { ReactElement } from "react"
 
 import { Bench } from "./BenchmarkData"
 import { BenchWithCommit } from "./BenchmarkDataHandler"
+import { TooltipContentProps } from "./useTooltip"
 
 export function TooltipContent(
-  { item: benchWithCommit }: { item: BenchWithCommit }
+  { item: benchWithCommit, renderBox }: TooltipContentProps<BenchWithCommit>
 ): ReactElement {
   const { commit, bench } = benchWithCommit
   return (
@@ -28,7 +29,7 @@ export function TooltipContent(
           {`${commit.timestamp} committed by @${commit.committer.username}`}
         </div>
         <div>
-          {getBenchResult(bench)}
+          {renderBox()}{getBenchResult(bench)}
         </div>
         <div>
           {getExtra(bench)}

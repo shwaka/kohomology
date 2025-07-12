@@ -62,10 +62,11 @@ export function useTooltip<T>(
       <span
         style={{
           borderWidth: "2px",
-          height: "10px",
-          width: "10px",
+          borderStyle: "solid",
           borderColor: borderColor.toString(),
           background: backgroundColor.toString(),
+          height: "10px",
+          width: "10px",
           display: "inline-block",
         }}
       />

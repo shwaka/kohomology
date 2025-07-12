@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752287668568,
+  "lastUpdate": 1752310191700,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11882,6 +11882,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.346,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "c869795c4242bc2cbca7191395dc4c865eef75e2",
+          "message": "feat(website): trying to show a box in tooltip (WIP)",
+          "timestamp": "2025-07-12T17:44:55+09:00",
+          "tree_id": "ae39a946f51323b8fb0cd289fb1e936870d9def1",
+          "url": "https://github.com/shwaka/kohomology/commit/c869795c4242bc2cbca7191395dc4c865eef75e2"
+        },
+        "date": 1752310191019,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.761,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.023,
             "unit": "s/op"
           }
         ]

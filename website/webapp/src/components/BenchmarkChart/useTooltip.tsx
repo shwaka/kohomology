@@ -3,6 +3,8 @@ import { ReactElement, ReactNode, useCallback, useState } from "react"
 import { Tooltip } from "@mui/material"
 import { ActiveElement, ChartOptions } from "chart.js"
 
+import { useArrayChanged } from "./useArrayChanged"
+
 export type OnChartClick = NonNullable<ChartOptions<"line">["onClick"]>
 
 type TooltipData = {
@@ -23,6 +25,7 @@ export function useTooltip<T>(
   }
 ): UseTooltipReturnValue {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
+  useArrayChanged(dataset, () => { setTooltipData(null) })
   const onClick: OnChartClick = useCallback((_event, elements, chart) => {
     const element: ActiveElement | undefined = elements[0]
     if (element === undefined) {
@@ -41,9 +44,13 @@ export function useTooltip<T>(
     if (tooltipData === null) {
       return null
     }
+    const item: T | undefined = dataset[tooltipData.index]
+    if (item === undefined) {
+      return null
+    }
     return (
       <TooltipImpl x={tooltipData.x} y={tooltipData.y}>
-        <TooltipContent item={dataset[tooltipData.index]} />
+        <TooltipContent item={item} />
       </TooltipImpl>
     )
   }, [tooltipData, dataset, TooltipContent])

@@ -46,7 +46,17 @@ export function useTooltip<T>(
         title={<TooltipContent item={dataset[tooltipData.index]} />}
         arrow open
         slotProps={{
+          tooltip: {
+            sx: {
+              // make tooltip clickable (overriding pointerEvents for popper)
+              pointerEvents: "auto",
+            },
+          },
           popper: {
+            sx: {
+              // make popper transparent for mouse click
+              pointerEvents: "none",
+            },
             modifiers: [
               {
                 name: "offset",

@@ -42,41 +42,55 @@ export function useTooltip<T>(
       return null
     }
     return (
-      <Tooltip
-        title={<TooltipContent item={dataset[tooltipData.index]} />}
-        arrow open
-        slotProps={{
-          tooltip: {
-            sx: {
-              // make tooltip clickable (overriding pointerEvents for popper)
-              pointerEvents: "auto",
-            },
-          },
-          popper: {
-            sx: {
-              // make popper transparent for mouse click
-              pointerEvents: "none",
-            },
-            modifiers: [
-              {
-                name: "offset",
-                options: {
-                  offset: [0, -5],
-                }
-              }
-            ]
-          }
-        }}
-      >
-        <span
-          style={{
-            position: "absolute",
-            top: tooltipData.y,
-            left: tooltipData.x,
-          }}
-        />
-      </Tooltip>
+      <TooltipImpl x={tooltipData.x} y={tooltipData.y}>
+        <TooltipContent item={dataset[tooltipData.index]} />
+      </TooltipImpl>
     )
   }, [tooltipData, dataset, TooltipContent])
   return { onClick, renderTooltip }
+}
+
+function TooltipImpl(
+  { children, x, y }: {
+    children: ReactNode
+    x: number
+    y: number
+  }
+): ReactElement {
+  return (
+    <Tooltip
+      title={children}
+      arrow open
+      slotProps={{
+        tooltip: {
+          sx: {
+            // make tooltip clickable (overriding pointerEvents for popper)
+            pointerEvents: "auto",
+          },
+        },
+        popper: {
+          sx: {
+            // make popper transparent for mouse click
+            pointerEvents: "none",
+          },
+          modifiers: [
+            {
+              name: "offset",
+              options: {
+                offset: [0, -5],
+              }
+            }
+          ]
+        }
+      }}
+    >
+      <span
+        style={{
+          position: "absolute",
+          top: y,
+          left: x,
+        }}
+      />
+    </Tooltip>
+  )
 }

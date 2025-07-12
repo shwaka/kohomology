@@ -7,11 +7,16 @@ import { useArrayChanged } from "./useArrayChanged"
 
 export type OnChartClick = NonNullable<ChartOptions<"line">["onClick"]>
 
+type LabelData = {
+  borderColor: string
+  backgroundColor: string
+}
+
 type TooltipData = {
   x: number
   y: number
   index: number
-  labelStyle: TooltipLabelStyle | undefined
+  labelData: LabelData | null
 }
 
 export type TooltipContentProps<T> = {
@@ -41,22 +46,22 @@ export function useTooltip<T>(
 
     const { index } = element
     const point = chart.getDatasetMeta(0).data[index]
-    const labelStyle: TooltipLabelStyle | undefined =
-      chart.tooltip?.labelColors?.[0]
+    const options = chart.getDatasetMeta(0)?.dataset?.options
+    const labelData: LabelData | null = getLabelData(options)
 
     const x = chart.canvas.offsetLeft + point.x
     const y = chart.canvas.offsetTop + point.y
-    setTooltipData({ x, y, index, labelStyle })
+    setTooltipData({ x, y, index, labelData })
   }, [setTooltipData])
   const renderBox: () => ReactNode = useCallback(() => {
     if (tooltipData === null) {
       return null
     }
-    const { labelStyle } = tooltipData
-    if (labelStyle === undefined) {
+    const { labelData } = tooltipData
+    if (labelData === null) {
       return null
     }
-    const { borderColor, backgroundColor } = labelStyle
+    const { borderColor, backgroundColor } = labelData
     // based on https://www.chartjs.org/docs/latest/samples/tooltip/html.html
     return (
       <span
@@ -87,6 +92,19 @@ export function useTooltip<T>(
     )
   }, [tooltipData, dataset, TooltipContent, renderBox])
   return { onClick, renderTooltip }
+}
+
+function getLabelData(options: object | undefined): LabelData | null {
+  if (options === undefined) {
+    return null
+  }
+  if (("borderColor" in options) && ("backgroundColor" in options)) {
+    const { borderColor, backgroundColor } = options
+    if ((typeof borderColor === "string") && (typeof backgroundColor === "string")) {
+      return { borderColor, backgroundColor }
+    }
+  }
+  return null
 }
 
 function TooltipImpl(

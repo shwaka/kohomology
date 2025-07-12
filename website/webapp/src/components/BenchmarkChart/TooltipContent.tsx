@@ -9,7 +9,17 @@ export function TooltipContent(
   const { commit, bench } = benchWithCommit
   return (
     <div>
-      <div>{commit.id}</div>
+      <div>
+        <a
+          href={commit.url} target="_blank" rel="noreferrer"
+          style={{
+            color: "inherit",
+            textDecoration: "underline",
+          }}
+        >
+          {commit.id}
+        </a>
+      </div>
       <div>
         <div>
           {commit.message}

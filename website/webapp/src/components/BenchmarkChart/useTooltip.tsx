@@ -35,7 +35,6 @@ export function useTooltip<T>(
 
     const x = chart.canvas.offsetLeft + point.x
     const y = chart.canvas.offsetTop + point.y
-    console.log({ x, y, index })
     setTooltipData({ x, y, index })
   }, [setTooltipData])
   const renderTooltip: () => ReactNode = useCallback(() => {
@@ -46,13 +45,24 @@ export function useTooltip<T>(
       <Tooltip
         title={<TooltipContent item={dataset[tooltipData.index]} />}
         arrow open
+        slotProps={{
+          popper: {
+            modifiers: [
+              {
+                name: "offset",
+                options: {
+                  offset: [0, -5],
+                }
+              }
+            ]
+          }
+        }}
       >
         <span
           style={{
             position: "absolute",
             top: tooltipData.y,
             left: tooltipData.x,
-            zIndex: 10,
           }}
         />
       </Tooltip>

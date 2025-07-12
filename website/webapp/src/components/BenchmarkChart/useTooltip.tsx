@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode, useCallback, useState } from "react"
 
 import { Tooltip } from "@mui/material"
-import { ActiveElement, ChartOptions, TooltipLabelStyle } from "chart.js"
+import { ActiveElement, ChartOptions } from "chart.js"
 
 import { useArrayChanged } from "./useArrayChanged"
 

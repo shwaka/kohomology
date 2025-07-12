@@ -5,6 +5,7 @@ import { Chart } from "react-chartjs-2"
 
 import { getChartProps } from "../getChartProps"
 import { RangeSlider, useRangeFilter } from "../useRangeFilter"
+import { useTooltip } from "../useTooltip"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
@@ -67,6 +68,14 @@ export function ChartSample(): ReactElement {
     getLabel: (windows, index) => `[${index}] ${windows.name}`,
   })
   const filteredDataset = dataset.filter(isSelected)
+  const { renderTooltip, onClick } = useTooltip({
+    dataset: filteredDataset,
+    TooltipContent: ({ item: windows }) => (
+      <div>
+        <span>{windows.name}</span>
+      </div>
+    )
+  })
   const props = getChartProps({
     datasetLabel: "Windows",
     color: "#4488cc",
@@ -79,18 +88,13 @@ export function ChartSample(): ReactElement {
     }),
     labels: ["Invalid name"].concat(filteredDataset.map((windows) => windows.name)),
     labelToTick: (label) => `[${label}]`,
-    tooltipCallbacks: ({
-      title: (windows) => `title for ${windows.name}`,
-      afterTitle: (windows) => `afterTitle for ${windows.name}`,
-      label: (windows) => `label for ${windows.name}`,
-      afterLabel: (windows) => `afterLabel for ${windows.name}`,
-    }),
-    getOnClickUrl: (windows) => windows.url,
+    onClick,
   })
   return (
     <div style={{ maxWidth: "800px" }}>
       <RangeSlider {...rangeSliderProps} />
       <Chart {...props} />
+      {renderTooltip()}
     </div>
   )
 }

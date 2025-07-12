@@ -3,17 +3,12 @@
 import { ChartData } from "chart.js"
 import { ChartProps } from "react-chartjs-2"
 
+import { OnChartClick } from "./useTooltip"
+
 export type Value = { x: string, y: number }
 
-export type TooltipCallbacks<T> = {
-  title: (data: T) => string
-  afterTitle: (data: T) => string
-  label: (data: T) => string
-  afterLabel: (data: T) => string
-}
-
 export function getChartProps<T>(
-  { datasetLabel, color, xTitle, yTitle, dataset, getValue, labels, labelToTick, tooltipCallbacks, getOnClickUrl }: {
+  { datasetLabel, color, xTitle, yTitle, dataset, getValue, labels, labelToTick, onClick }: {
     datasetLabel: string
     color: string
     xTitle: string
@@ -22,8 +17,7 @@ export function getChartProps<T>(
     getValue: (data: T) => Value
     labels: string[]
     labelToTick: (label: string) => string
-    tooltipCallbacks: TooltipCallbacks<T>
-    getOnClickUrl: (data: T) => string
+    onClick: OnChartClick
   }
 ): ChartProps<"line", Value[], string> {
   const data: ChartData<"line", Value[], string> = {
@@ -67,37 +61,10 @@ export function getChartProps<T>(
     },
     plugins: {
       tooltip: {
-        callbacks: {
-          title: (items) => {
-            const item = items[0]
-            const data = dataset[item.dataIndex]
-            return tooltipCallbacks.title(data)
-          },
-          afterTitle: (items) => {
-            const item = items[0]
-            const data = dataset[item.dataIndex]
-            return tooltipCallbacks.afterTitle(data)
-          },
-          label: (item) => {
-            const data = dataset[item.dataIndex]
-            return tooltipCallbacks.label(data)
-          },
-          afterLabel: (item) => {
-            const data = dataset[item.dataIndex]
-            return tooltipCallbacks.afterLabel(data)
-          }
-        }
+        enabled: false,
       }
     },
-    onClick: (_mouseEvent, activeElems) => {
-      if (activeElems.length === 0) {
-        return
-      }
-      const index = activeElems[0].index
-      const data = dataset[index]
-      const url = getOnClickUrl(data)
-      window.open(url, "_blank")
-    },
+    onClick,
   }
 
   return {

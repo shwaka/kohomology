@@ -1,4 +1,4 @@
-import { useRef, useState, ReactElement } from "react"
+import { useRef, useState, ReactElement, Fragment } from "react"
 
 import benchmarkData from "@benchmark/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
@@ -9,8 +9,8 @@ import { Chart } from "react-chartjs-2"
 
 import { BenchmarkData } from "./BenchmarkData"
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
-import { getBenchmarkChartProps } from "./getBenchmarkChartProps"
 import { movingAverage } from "./movingAverage"
+import { useBenchmarkChart } from "./useBenchmarkChart"
 import { RangeSlider, useRangeFilter } from "./useRangeFilter"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
@@ -23,9 +23,12 @@ function Bench(
     dataHandler: BenchmarkDataHandler
   }
 ): ReactElement {
-  const arg = getBenchmarkChartProps({ name, dataset, dataHandler, isSelected })
+  const { chartProps, renderTooltip } = useBenchmarkChart({ name, dataset, dataHandler, isSelected })
   return (
-    <Chart {...arg} />
+    <Fragment>
+      <Chart {...chartProps} />
+      {renderTooltip()}
+    </Fragment>
   )
 }
 

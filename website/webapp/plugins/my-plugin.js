@@ -47,8 +47,7 @@ function myPlugin(context, options) {
             "@data": path.resolve(context.siteDir, "src/data"),
             "@components": path.resolve(context.siteDir, "src/components"),
             "@calculator": path.resolve(context.siteDir, "src/calculator"),
-            "@benchmark": path.resolve(context.siteDir, "./benchmark-data/core/dev/bench"),
-            "@benchmark-website": path.resolve(context.siteDir, "./benchmark-data/website/dev/bench"),
+            "@benchmark": path.resolve(context.siteDir, "./benchmark-data"),
           }
         }
       }

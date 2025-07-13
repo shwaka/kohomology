@@ -1,7 +1,7 @@
 import { useRef, useState, ReactElement, Fragment } from "react"
 
-import benchmarkData from "@benchmark/benchmarkData.json"
-import benchmarkDataWebsite from "@benchmark-website/benchmarkData.json"
+import benchmarkData from "@benchmark/core/dev/bench/benchmarkData.json"
+import benchmarkDataWebsite from "@benchmark/website/dev/bench/benchmarkData.json"
 import { useColorMode } from "@docusaurus/theme-common"
 import { Box, Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"

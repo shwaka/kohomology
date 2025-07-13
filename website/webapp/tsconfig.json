@@ -12,8 +12,7 @@
       "@components/*": [ "src/components/*" ],
       "@calculator/*": [ "src/calculator/*" ],
       "@site/*": ["*"],
-      "@benchmark/*": ["../../benchmark-data/core/dev/bench/*"],
-      "@benchmark-website/*": ["../../benchmark-data/website/dev/bench/*"]
+      "@benchmark/*": ["../../benchmark-data/*"],
     },
     "types": [
       "webpack-env",

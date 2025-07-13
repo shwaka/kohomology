@@ -17,3 +17,5 @@ export const localCommitSchema = z.strictObject({
 })
 
 export type LocalCommit = z.infer<typeof localCommitSchema>
+
+export const localCommitArraySchema = z.array(localCommitSchema)

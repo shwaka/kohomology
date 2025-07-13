@@ -21,7 +21,8 @@
     "lf": "npm run eslint:fix",
     "test": "jest",
     "test-watch": "jest --watch",
-    "validate:benchmark": "tsx scripts/validateBenchmarkJson.ts"
+    "validate:benchmark": "tsx scripts/validateBenchmarkJson.ts",
+    "generate:localCommits": "tsx scripts/collectLocalCommits.ts"
   },
   "dependencies": {
     "@dnd-kit/core": "^6.0.8",

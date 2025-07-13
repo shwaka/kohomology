@@ -1,4 +1,4 @@
-import { Bench, Benchmark, BenchmarkData, Commit, Tool } from "./BenchmarkData"
+import { Bench, Benchmark, BenchmarkData, Commit, Tool } from "./benchmarkDataSchema"
 
 export type CommitWithDate = Commit & { date: number }
 

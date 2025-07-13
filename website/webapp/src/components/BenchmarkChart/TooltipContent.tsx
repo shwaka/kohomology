@@ -1,7 +1,7 @@
 import { ReactElement } from "react"
 
-import { Bench } from "./BenchmarkData"
 import { BenchWithCommit } from "./BenchmarkDataHandler"
+import { Bench } from "./benchmarkDataSchema"
 import { TooltipContentProps } from "./useTooltip"
 
 export function TooltipContent(

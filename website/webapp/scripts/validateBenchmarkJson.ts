@@ -1,7 +1,7 @@
 import fs from "fs"
 import path from "path"
 
-import { benchmarkDataSchema } from "@components/BenchmarkChart/BenchmarkData"
+import { benchmarkDataSchema } from "@components/BenchmarkChart/benchmarkDataSchema"
 import { z } from "zod/v4"
 
 function validate(filepath: string): void {

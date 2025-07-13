@@ -94,4 +94,4 @@ async function collectGitInfo(): Promise<void> {
   fs.writeFileSync(filepath, JSON.stringify(localCommitArray, null, 2))
 }
 
-collectGitInfo()
+void collectGitInfo()

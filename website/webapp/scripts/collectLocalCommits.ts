@@ -20,7 +20,7 @@ async function getLocalCommit(commitHash: string): Promise<LocalCommit> {
   const { stdout: timestamp } =
     await execAsync(`git log -1 ${commitHash} --pretty=format:%ad --date=iso-strict`)
   const { stdout: message } =
-    await execAsync(`git log -1 ${commitHash} --no-decorate --pretty=format:%s`)
+    await execAsync(`git log -1 ${commitHash} --no-decorate --pretty=format:%B`)
   const url = `https://github.com/shwaka/kohomology/commit/${commitHash}`
   const result = localCommitSchema.parse({
     committer: { email: committerEmail, name: committerName },

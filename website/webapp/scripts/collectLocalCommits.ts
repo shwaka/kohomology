@@ -26,10 +26,12 @@ async function gitLog(): Promise<string> {
 }
 
 function parseLogItem(logItem: string): LocalCommit[] {
-  if (logItem === "") {
+  const logItemReplaced = logItem.replace(/(\r?\n)+$/, "")
+  if (logItemReplaced === "") {
     return []
   }
-  const [commitHash, name, email, timestamp, message] = logItem.split(valueSeparator)
+  const [commitHash, name, email, timestamp, message] =
+    logItemReplaced.split(valueSeparator)
   const url = `https://github.com/shwaka/kohomology/commit/${commitHash}`
   const localCommit: LocalCommit = {
     committer: { email, name },

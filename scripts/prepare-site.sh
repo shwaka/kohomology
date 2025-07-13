@@ -15,6 +15,11 @@ declare -A BENCHMARK_DESTINATION_LIST=(
     [benchmark-data-website]="benchmark-data/website"
 )
 
+function prepare_local_commits_json() {
+    cd "$ROOT_DIR"/website/webapp
+    npm run generate:localCommits
+}
+
 function prepare_benchmark_data() {
     # exapnd benchmark data to the working tree
     cd "$ROOT_DIR"
@@ -28,6 +33,7 @@ function prepare_benchmark_data() {
         git reset HEAD "$DESTINATION"
         sed "s/window.BENCHMARK_DATA = //" < "$DESTINATION/dev/bench/data.js" > "$DESTINATION/dev/bench/benchmarkData.json"
     done
+    prepare_local_commits_json
 }
 
 function prepare_benchmark_data_mock() {
@@ -39,6 +45,7 @@ function prepare_benchmark_data_mock() {
         mkdir -p "$(dirname "$LINK_PATH")"
         ln -s "$SCRIPTS_DIR/benchmarkData.mock.json" "$LINK_PATH"
     done
+    prepare_local_commits_json
 }
 
 function prepare_dokka() {

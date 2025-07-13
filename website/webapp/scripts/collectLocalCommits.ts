@@ -25,21 +25,25 @@ async function gitLog(): Promise<string> {
   return stdout
 }
 
-function parseLine(log: string): LocalCommit {
-  const [commitHash, name, email, timestamp, message] = log.split(valueSeparator)
+function parseLogItem(logItem: string): LocalCommit[] {
+  if (logItem === "") {
+    return []
+  }
+  const [commitHash, name, email, timestamp, message] = logItem.split(valueSeparator)
   const url = `https://github.com/shwaka/kohomology/commit/${commitHash}`
-  return {
+  const localCommit: LocalCommit = {
     committer: { email, name },
     id: commitHash,
     message,
     timestamp,
     url,
   }
+  return [localCommit]
 }
 
 async function getLocalCommitArray(): Promise<LocalCommit[]> {
   const log = await gitLog()
-  const localCommitArray = log.split(commitSeparator).map(parseLine)
+  const localCommitArray = log.split(commitSeparator).flatMap(parseLogItem)
   const parseResult = localCommitArraySchema.safeParse(localCommitArray)
   if (parseResult.success) {
     return parseResult.data

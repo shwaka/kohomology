@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752413247623,
+  "lastUpdate": 1752444996525,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -11984,6 +11984,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.167,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "3343bd539ef07b47629a8ea96ffb43b5d831158b",
+          "message": "fix(website): add void operator to top-level async function",
+          "timestamp": "2025-07-14T07:07:48+09:00",
+          "tree_id": "59df882eddadb60450b8e31d5a3988bdc4016a17",
+          "url": "https://github.com/shwaka/kohomology/commit/3343bd539ef07b47629a8ea96ffb43b5d831158b"
+        },
+        "date": 1752444995584,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.847,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.086,
             "unit": "s/op"
           }
         ]

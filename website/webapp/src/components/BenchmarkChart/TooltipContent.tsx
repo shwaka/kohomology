@@ -56,7 +56,12 @@ function ShowCommits(
     throw new Error(`commit hash ${commitHash} not found`)
   }
   return (
-    <div>
+    <div
+      style={{
+        maxHeight: "150px",
+        overflowY: "auto",
+      }}
+    >
       {reverse(localCommitsToShow).map((localCommit) => (
         <ShowCommit key={localCommit.id} localCommit={localCommit} />
       ))}

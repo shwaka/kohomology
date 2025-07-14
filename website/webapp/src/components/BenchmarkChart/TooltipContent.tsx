@@ -53,6 +53,7 @@ function ShowCommit(
         style={{
           paddingLeft: "3px",
           lineHeight: 1.1,
+          whiteSpace: "pre-wrap",
         }}
       >
         {localCommit.message}

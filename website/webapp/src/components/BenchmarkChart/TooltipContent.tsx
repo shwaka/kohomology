@@ -103,8 +103,16 @@ export function TooltipContent(
   const { commit, bench } = benchWithCommit
   return (
     <div>
-      <div>
-        {renderBox()}{getBenchResult(bench)}
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: "5px",
+      }}
+      >
+        {renderBox()}
+        <span>
+          {getBenchResult(bench)}
+        </span>
       </div>
       <ShowCommits commitHash={commit.id} commitHashArray={commitHashArray} />
     </div>

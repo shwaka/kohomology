@@ -156,7 +156,6 @@ function ColorBox(
         height: "10px",
         width: "10px",
         display: "inline-block",
-        marginRight: "5px",
       }}
     />
   )

@@ -9,6 +9,24 @@ import { groupBySeparatorKeys } from "./groupBySeparatorKeys"
 import { LocalCommit } from "./localCommitSchema"
 import { TooltipContentProps } from "./useTooltip"
 
+function ShowTimestamp({ timestamp }: { timestamp: string }): ReactElement {
+  const regex = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2})([+-]\d{2}:\d{2})$/
+  const match = timestamp.match(regex)
+
+  if (match) {
+    const [, date, time, timezone] = match
+    return (
+      <span>
+        {`${date} ${time} (UTC${timezone})`}
+      </span>
+    )
+  } else {
+    return (
+      <span>{timestamp}</span>
+    )
+  }
+}
+
 function ShowCommit(
   { localCommit }: { localCommit: LocalCommit }
 ): ReactElement {
@@ -28,7 +46,7 @@ function ShowCommit(
           {commitHash}
         </a>
         <span>
-          {localCommit.timestamp}
+          <ShowTimestamp timestamp={localCommit.timestamp} />
         </span>
       </div>
       <div

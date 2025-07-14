@@ -22,7 +22,7 @@ function ShowCommit(
             color: "inherit",
             textDecoration: "underline",
             fontFamily: "monospace",
-            marginRight: "3px",
+            paddingRight: "3px",
           }}
         >
           {commitHash}
@@ -31,7 +31,12 @@ function ShowCommit(
           {localCommit.timestamp}
         </span>
       </div>
-      <div>
+      <div
+        style={{
+          paddingLeft: "3px",
+          lineHeight: 1.1,
+        }}
+      >
         {localCommit.message}
       </div>
     </div>

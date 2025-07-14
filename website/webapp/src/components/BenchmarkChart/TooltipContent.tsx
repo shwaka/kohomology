@@ -104,14 +104,14 @@ function getBenchResult(bench: Bench): string {
   return result
 }
 
-function getExtra(bench: Bench): string {
-  const { extra } = bench
-  if (extra === undefined) {
-    return ""
-  }
-  if (typeof extra !== "string") {
-    // See https://github.com/benchmark-action/github-action-benchmark
-    throw new Error("extra must be a string, but was ${extra}")
-  }
-  return "\n" + extra
-}
+// function getExtra(bench: Bench): string {
+//   const { extra } = bench
+//   if (extra === undefined) {
+//     return ""
+//   }
+//   if (typeof extra !== "string") {
+//     // See https://github.com/benchmark-action/github-action-benchmark
+//     throw new Error("extra must be a string, but was ${extra}")
+//   }
+//   return "\n" + extra
+// }

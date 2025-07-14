@@ -8,6 +8,35 @@ import { groupBySeparatorKeys } from "./groupBySeparatorKeys"
 import { LocalCommit } from "./localCommitSchema"
 import { TooltipContentProps } from "./useTooltip"
 
+function ShowCommit(
+  { localCommit }: { localCommit: LocalCommit }
+): ReactElement {
+  const commitHash = localCommit.id.slice(0, 7)
+  return (
+    <div>
+      <div>
+        <a
+          href={localCommit.url} target="_blank" rel="noreferrer"
+          style={{
+            color: "inherit",
+            textDecoration: "underline",
+            fontFamily: "monospace",
+            marginRight: "3px",
+          }}
+        >
+          {commitHash}
+        </a>
+        <span>
+          {localCommit.timestamp}
+        </span>
+      </div>
+      <div>
+        {localCommit.message}
+      </div>
+    </div>
+  )
+}
+
 function ShowCommits(
   { commitHash, commitHashArray }: {
     commitHash: string
@@ -28,9 +57,7 @@ function ShowCommits(
   return (
     <div>
       {localCommitsToShow.map((localCommit) => (
-        <div key={localCommit.id}>
-          {localCommit.id}
-        </div>
+        <ShowCommit key={localCommit.id} localCommit={localCommit} />
       ))}
     </div>
   )
@@ -46,32 +73,10 @@ export function TooltipContent(
   const { commit, bench } = benchWithCommit
   return (
     <div>
+      <div>
+        {renderBox()}{getBenchResult(bench)}
+      </div>
       <ShowCommits commitHash={commit.id} commitHashArray={commitHashArray} />
-      <div>
-        <a
-          href={commit.url} target="_blank" rel="noreferrer"
-          style={{
-            color: "inherit",
-            textDecoration: "underline",
-          }}
-        >
-          {commit.id}
-        </a>
-      </div>
-      <div>
-        <div>
-          {commit.message}
-        </div>
-        <div>
-          {`${commit.timestamp} committed by @${commit.committer.username}`}
-        </div>
-        <div>
-          {renderBox()}{getBenchResult(bench)}
-        </div>
-        <div>
-          {getExtra(bench)}
-        </div>
-      </div>
     </div>
   )
 }

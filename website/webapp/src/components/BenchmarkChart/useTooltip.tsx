@@ -129,6 +129,7 @@ function TooltipImpl(
           sx: {
             // make tooltip clickable (overriding pointerEvents for popper)
             pointerEvents: "auto",
+            maxWidth: "500px",
           },
         },
         popper: {

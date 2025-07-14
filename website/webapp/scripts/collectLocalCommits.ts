@@ -20,7 +20,7 @@ async function gitLog(): Promise<string> {
     "%B" // commit message
   ].join(valueSeparator)
   const { stdout } = await execAsync(
-    `git log --pretty=format:"${commitSeparator}${commitFormat}" --date=iso-strict`
+    `git log --reverse --pretty=format:"${commitSeparator}${commitFormat}" --date=iso-strict`
   )
   return stdout
 }

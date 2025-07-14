@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752462265102,
+  "lastUpdate": 1752498451706,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12120,6 +12120,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.082,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f1b8c85204ea69ee72f0de86780caa6a82a78a55",
+          "message": "feat(website): use flex box to align ColorBox",
+          "timestamp": "2025-07-14T22:02:25+09:00",
+          "tree_id": "81b48c2693c313786e2e83e0ae860492feaef11c",
+          "url": "https://github.com/shwaka/kohomology/commit/f1b8c85204ea69ee72f0de86780caa6a82a78a55"
+        },
+        "date": 1752498451051,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.847,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.213,
             "unit": "s/op"
           }
         ]

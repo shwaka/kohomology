@@ -1,6 +1,7 @@
 import { ReactElement, useMemo } from "react"
 
 import localCommits from "@benchmark/localCommits.json"
+import { reverse } from "remeda"
 
 import { BenchWithCommit } from "./BenchmarkDataHandler"
 import { Bench } from "./benchmarkDataSchema"
@@ -56,7 +57,7 @@ function ShowCommits(
   }
   return (
     <div>
-      {localCommitsToShow.map((localCommit) => (
+      {reverse(localCommitsToShow).map((localCommit) => (
         <ShowCommit key={localCommit.id} localCommit={localCommit} />
       ))}
     </div>

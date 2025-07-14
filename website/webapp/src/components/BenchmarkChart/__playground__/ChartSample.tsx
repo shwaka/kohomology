@@ -74,7 +74,8 @@ export function ChartSample(): ReactElement {
       <div>
         <span>{windows.name}</span>
       </div>
-    )
+    ),
+    globalData: undefined,
   })
   const props = getChartProps({
     datasetLabel: "Windows",

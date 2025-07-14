@@ -19,9 +19,10 @@ type TooltipData = {
   labelData: LabelData | null
 }
 
-export type TooltipContentProps<T> = {
+export type TooltipContentProps<T, D> = {
   item: T
   renderBox: () => ReactNode
+  globalData: D
 }
 
 type UseTooltipReturnValue = {
@@ -29,10 +30,11 @@ type UseTooltipReturnValue = {
   onClick: OnChartClick
 }
 
-export function useTooltip<T>(
-  { dataset, TooltipContent }: {
+export function useTooltip<T, D>(
+  { dataset, TooltipContent, globalData }: {
     dataset: T[]
-    TooltipContent: (props: TooltipContentProps<T>) => ReactElement
+    TooltipContent: (props: TooltipContentProps<T, D>) => ReactElement
+    globalData: D
   }
 ): UseTooltipReturnValue {
   const [tooltipData, setTooltipData] = useState<TooltipData | null>(null)
@@ -87,10 +89,14 @@ export function useTooltip<T>(
     }
     return (
       <TooltipImpl x={tooltipData.x} y={tooltipData.y}>
-        <TooltipContent item={item} renderBox={renderBox} />
+        <TooltipContent
+          item={item}
+          renderBox={renderBox}
+          globalData={globalData}
+        />
       </TooltipImpl>
     )
-  }, [tooltipData, dataset, TooltipContent, renderBox])
+  }, [tooltipData, dataset, TooltipContent, renderBox, globalData])
   return { onClick, renderTooltip }
 }
 

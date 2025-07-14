@@ -5,7 +5,10 @@ import { Bench } from "./benchmarkDataSchema"
 import { TooltipContentProps } from "./useTooltip"
 
 export function TooltipContent(
-  { item: benchWithCommit, renderBox }: TooltipContentProps<BenchWithCommit>
+  {
+    item: benchWithCommit,
+    renderBox,
+  }: TooltipContentProps<BenchWithCommit, string[]>
 ): ReactElement {
   const { commit, bench } = benchWithCommit
   return (

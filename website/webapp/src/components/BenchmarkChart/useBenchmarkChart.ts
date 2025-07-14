@@ -49,6 +49,7 @@ export function useBenchmarkChart(
   const { onClick, renderTooltip } = useTooltip({
     dataset: filteredDataset,
     TooltipContent,
+    globalData: dataHandler.commits.map((commit) => commit.id),
   })
   const chartProps = getChartProps<BenchWithCommit>({
     datasetLabel: extractMethodName(name),

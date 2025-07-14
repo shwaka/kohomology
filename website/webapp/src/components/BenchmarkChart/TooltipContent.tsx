@@ -94,7 +94,7 @@ export function TooltipContent(
 
 function getBenchResult(bench: Bench): string {
   const { range, unit, value } = bench
-  let result = value.toString() + " " + unit
+  let result = value.toFixed(3) + " " + unit
   if (typeof range === "string") {
     result += " (" + range + ")"
   } else if (range !== undefined) {

@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, useCallback, useState } from "react"
+import { Fragment, ReactElement, ReactNode, useCallback, useState } from "react"
 
 import { Tooltip } from "@mui/material"
 import { ActiveElement, ChartOptions } from "chart.js"
@@ -55,30 +55,9 @@ export function useTooltip<T, D>(
     const y = chart.canvas.offsetTop + point.y
     setTooltipData({ x, y, index, labelData })
   }, [setTooltipData])
-  const renderBox: () => ReactNode = useCallback(() => {
-    if (tooltipData === null) {
-      return null
-    }
-    const { labelData } = tooltipData
-    if (labelData === null) {
-      return null
-    }
-    const { borderColor, backgroundColor } = labelData
-    // based on https://www.chartjs.org/docs/latest/samples/tooltip/html.html
-    return (
-      <span
-        style={{
-          borderWidth: "2px",
-          borderStyle: "solid",
-          borderColor: borderColor.toString(),
-          background: backgroundColor.toString(),
-          height: "10px",
-          width: "10px",
-          display: "inline-block",
-        }}
-      />
-    )
-  }, [tooltipData])
+  const renderBox: () => ReactNode = useCallback(() => (
+    <ColorBox labelData={tooltipData?.labelData} />
+  ), [tooltipData])
   const renderTooltip: () => ReactNode = useCallback(() => {
     if (tooltipData === null) {
       return null
@@ -156,5 +135,28 @@ function TooltipImpl(
         }}
       />
     </Tooltip>
+  )
+}
+
+function ColorBox(
+  { labelData }: { labelData: LabelData | undefined | null }
+): ReactElement {
+  if ((labelData === undefined) || (labelData === null)) {
+    return <Fragment />
+  }
+  const { borderColor, backgroundColor } = labelData
+  // based on https://www.chartjs.org/docs/latest/samples/tooltip/html.html
+  return (
+    <span
+      style={{
+        borderWidth: "2px",
+        borderStyle: "solid",
+        borderColor: borderColor.toString(),
+        background: backgroundColor.toString(),
+        height: "10px",
+        width: "10px",
+        display: "inline-block",
+      }}
+    />
   )
 }

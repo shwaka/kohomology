@@ -1,5 +1,4 @@
-import { expose } from "@calculator/WorkerContext/expose"
-
+import { expose } from "../expose"
 import { getMyWorkerImpl } from "./MyWorkerImpl"
 
 const ctx = self as unknown as Worker

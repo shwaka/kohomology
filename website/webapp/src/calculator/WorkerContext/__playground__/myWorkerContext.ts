@@ -1,5 +1,4 @@
-import { createWorkerContext } from "@calculator/WorkerContext"
-
+import { createWorkerContext } from ".."
 import { MyWorkerFunc, MyWorkerInput, MyWorkerOutput, MyWorkerState } from "./MyWorkerInterface"
 
 const createWorker = (): Worker => new Worker(new URL("./my.worker.ts", import.meta.url))

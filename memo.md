@@ -194,3 +194,10 @@ npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
 ```
 せっかくだからReactはv19にしたいので，--legacy-peer-depsで無理矢理react-chartjs-2を入れることにした．
 Reactは後方互換性を大事にしてるから多分大丈夫なはず…
+
+### vitestへの移行について
+`jest` から `vitest` に移行しようとしたが，うまくいかなかった．
+色々と問題が起きてそうだったが，一番ヤバそうだったのは `kohomology-js` が動作壊れてたこと．
+`generatorArraySchema` の validation が動作しなくなっており，多分 `kohomology-js` の内部がおかしくなっていた．CommonJS/ESM あたりの事情？
+
+とりあえず Docusaurus が ESM に対応するのを待つことにする．

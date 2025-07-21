@@ -19,8 +19,8 @@
     "eslint:onsave": "eslint --config eslint-onsave.config.mjs --fix",
     "lc": "npm run eslint",
     "lf": "npm run eslint:fix",
-    "test": "jest",
-    "test-watch": "jest --watch",
+    "test": "vitest run",
+    "test-watch": "vitest",
     "validate:benchmark": "tsx scripts/validateBenchmarkJson.ts",
     "generate:localCommits": "tsx scripts/collectLocalCommits.ts"
   },
@@ -66,13 +66,14 @@
     "@eslint/compat": "^1.2.9",
     "@eslint/eslintrc": "^3.3.1",
     "@testing-library/dom": "^10.4.0",
-    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^14.6.1",
     "@tsconfig/docusaurus": "^1.0.7",
     "@types/jest": "^28.1.4",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
+    "@vitejs/plugin-react": "^4.7.0",
     "babel-jest": "^29.0.0",
     "copy-webpack-plugin": "^10.0.0",
     "eslint": "^9.29.0",
@@ -87,11 +88,13 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-extended": "^3.2.1",
     "jest-transform-stub": "^2.0.0",
+    "jsdom": "^26.1.0",
     "ts-jest": "^29.3.2",
     "ts-loader": "^9.5.2",
     "tsx": "^4.20.3",
     "typescript": "^5.8.1",
-    "typescript-eslint": "^8.35.0"
+    "typescript-eslint": "^8.35.0",
+    "vitest": "^3.2.4"
   },
   "browserslist": {
     "production": [

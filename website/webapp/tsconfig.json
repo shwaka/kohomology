@@ -38,6 +38,7 @@
     "modules.d.ts",
     "./docusaurus.config.mjs",
     "./jest-setup.ts",
+    "./vitest-setup.ts",
   ],
   // "exclude": [ "kohomology-js/build/**/*" ]
 }

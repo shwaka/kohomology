@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1752498451706,
+  "lastUpdate": 1753085796926,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12154,6 +12154,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.213,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "d546e0b22b7a0ae9fa69920301817a00a4666a99",
+          "message": "refactor(website): replace alias import with relative import in WorkerContext/__playground__/",
+          "timestamp": "2025-07-21T17:02:18+09:00",
+          "tree_id": "50a4f09c127e6ee9f6d7ff8a94e2fcb35e620b65",
+          "url": "https://github.com/shwaka/kohomology/commit/d546e0b22b7a0ae9fa69920301817a00a4666a99"
+        },
+        "date": 1753085796109,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.841,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.195,
             "unit": "s/op"
           }
         ]

@@ -7,7 +7,7 @@ import { EditorDialog, useEditorDialog } from ".."
 import { useTextEditor } from "./useTextEditor"
 import { cancelMethods, EditorDialogHandler } from "../EditorDialog/__testutils__/EditorDialogHandler"
 
-jest.mock("@calculator/ConfirmDialog/useConfirm")
+vi.mock("@calculator/ConfirmDialog/useConfirm")
 
 // The following import works for jest, but not for tsc.
 //   import { mockConfirm } from "@calculator/ConfirmDialog/useConfirm"
@@ -187,7 +187,7 @@ describe("useTextEditor", () => {
   test("validate returning string", async () => {
     const handler = new EditorDialogHandler()
     const errorMessage = "Your text contains an error."
-    const validate = jest.fn().mockReturnValue(errorMessage)
+    const validate = vi.fn().mockReturnValue(errorMessage)
     render(<TextEditorContainer defaultText="" validate={validate} />)
 
     await handler.openDialog()
@@ -200,7 +200,7 @@ describe("useTextEditor", () => {
 
   test("validate returning true", async () => {
     const handler = new EditorDialogHandler()
-    const validate = jest.fn().mockReturnValue(true)
+    const validate = vi.fn().mockReturnValue(true)
     render(<TextEditorContainer defaultText="" validate={validate} />)
 
     await handler.openDialog()

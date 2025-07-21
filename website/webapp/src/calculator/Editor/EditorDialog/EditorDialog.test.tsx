@@ -8,7 +8,7 @@ import { EditorDialog } from "./EditorDialog"
 import { OnSubmit } from "../OnSubmit"
 import { useEditorDialog } from "./useEditorDialog"
 
-jest.mock("@calculator/ConfirmDialog/useConfirm")
+vi.mock("@calculator/ConfirmDialog/useConfirm")
 
 // The following import works for jest, but not for tsc.
 //   import { mockConfirm } from "@calculator/ConfirmDialog/useConfirm"
@@ -51,8 +51,8 @@ function getEditor(
     beforeOpen = undefined,
   }: GetEditorArgs = {}
 ): GetEditorReturnValue {
-  const onSubmit = jest.fn()
-  const onQuit = jest.fn()
+  const onSubmit = vi.fn()
+  const onQuit = vi.fn()
   const editor: Editor = {
     preventQuit, disableSubmit, beforeOpen,
     renderContent: (_closeDialog) => (<div>Content of editor</div>),
@@ -104,7 +104,7 @@ describe("EditorDialog with preventQuit returning string", () => {
     test(`cancel(${cancelMethod}) with window.confirm returning true`, async () => {
       const handler = new EditorDialogHandler()
       mockConfirm.mockResolvedValue(true)
-      const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
+      const preventQuit = vi.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
       })
@@ -125,7 +125,7 @@ describe("EditorDialog with preventQuit returning string", () => {
     test(`cancel(${cancelMethod}) with window.confirm returning false`, async () => {
       const handler = new EditorDialogHandler()
       mockConfirm.mockResolvedValue(false)
-      const preventQuit = jest.fn().mockReturnValue("Do you really want to quit?")
+      const preventQuit = vi.fn().mockReturnValue("Do you really want to quit?")
       const { editor, onSubmit, onQuit } = getEditor({
         preventQuit,
       })
@@ -150,7 +150,7 @@ describe("EditorDialog with disableSubmit", () => {
 
   test("disableSubmit returning true", async () => {
     const handler = new EditorDialogHandler()
-    const disableSubmit = jest.fn().mockReturnValue(true)
+    const disableSubmit = vi.fn().mockReturnValue(true)
     const { editor } = getEditor({ disableSubmit })
     render(<EditorDialogTestContainer editor={editor} />)
 
@@ -161,7 +161,7 @@ describe("EditorDialog with disableSubmit", () => {
 
   test("disableSubmit returning false", async () => {
     const handler = new EditorDialogHandler()
-    const disableSubmit = jest.fn().mockReturnValue(false)
+    const disableSubmit = vi.fn().mockReturnValue(false)
     const { editor, onSubmit } = getEditor({ disableSubmit })
     render(<EditorDialogTestContainer editor={editor} />)
 
@@ -179,7 +179,7 @@ describe("EditorDialog with beforeOpen", () => {
 
   test("beforeOpen is called", async () => {
     const handler = new EditorDialogHandler()
-    const beforeOpen = jest.fn()
+    const beforeOpen = vi.fn()
     const { editor } = getEditor({ beforeOpen })
     render(<EditorDialogTestContainer editor={editor} />)
 

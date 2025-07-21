@@ -32,7 +32,7 @@ async function waitForRender(result: Result): Promise<void> {
 describe("useArrayEditorProps", () => {
   it("should initialize with the default values", async () => {
     const { result } = renderHook(() =>
-      useIndeterminateArrayEditorProps({ defaultValues, setValues: jest.fn() })
+      useIndeterminateArrayEditorProps({ defaultValues, setValues: vi.fn() })
     )
     await waitForRender(result)
 
@@ -46,7 +46,7 @@ describe("useArrayEditorProps", () => {
 
   it("should append a new value", async () => {
     const { result } = renderHook(() =>
-      useIndeterminateArrayEditorProps({ defaultValues, setValues: jest.fn() })
+      useIndeterminateArrayEditorProps({ defaultValues, setValues: vi.fn() })
     )
     await waitForRender(result)
 
@@ -64,14 +64,14 @@ describe("useArrayEditorProps", () => {
   })
 
   it("should call setValues on submit", async () => {
-    const setValues = jest.fn()
+    const setValues = vi.fn()
     const { result } = renderHook(() =>
       useIndeterminateArrayEditorProps({ defaultValues, setValues })
     )
     await waitForRender(result)
 
     await act(async () => {
-      const closeDialog = jest.fn()
+      const closeDialog = vi.fn()
       const onSubmit = result.current.editorWithoutRender.getOnSubmit(closeDialog)
       await onSubmit()
     })
@@ -81,7 +81,7 @@ describe("useArrayEditorProps", () => {
 
   it("should detect unsaved changes in preventQuit", async () => {
     const { result } = renderHook(() =>
-      useIndeterminateArrayEditorProps({ defaultValues, setValues: jest.fn() })
+      useIndeterminateArrayEditorProps({ defaultValues, setValues: vi.fn() })
     )
     await waitForRender(result)
 

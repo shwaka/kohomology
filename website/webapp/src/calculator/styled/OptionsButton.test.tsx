@@ -26,7 +26,7 @@ describe("useOptionsButton", () => {
   beforeEach(() => {
     user = userEvent.setup()
     // writeText is defined in userEvent.setup()
-    writeTextSpy = jest.spyOn(navigator.clipboard, "writeText")
+    writeTextSpy = vi.spyOn(navigator.clipboard, "writeText")
   })
 
   afterEach(() => {

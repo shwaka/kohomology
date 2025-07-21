@@ -238,7 +238,7 @@ describe("url query", () => {
 
   test("copy to clipboard", async () => {
     const user = userEvent.setup()
-    const writeTextSpy = jest.spyOn(navigator.clipboard, "writeText") // after userEvent.setup()
+    const writeTextSpy = vi.spyOn(navigator.clipboard, "writeText") // after userEvent.setup()
 
     render(<Calculator />)
     await waitForInitialState()

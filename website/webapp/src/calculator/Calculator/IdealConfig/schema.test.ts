@@ -4,7 +4,7 @@ import { getIdealGeneratorTextSchema } from "./schema"
 
 describe("getIdealGeneratorTextSchema", () => {
   it("should accept non-empty string if validateGenerator returns true", async () => {
-    const validateGenerator = jest.fn().mockResolvedValue(true)
+    const validateGenerator = vi.fn().mockResolvedValue(true)
     const idealGeneratorSchema = getIdealGeneratorTextSchema(validateGenerator)
     for (const text of ["x", "y", "x+y", "x * y", "0"]) {
       const result = await idealGeneratorSchema.safeParseAsync(text)
@@ -13,7 +13,7 @@ describe("getIdealGeneratorTextSchema", () => {
   })
 
   it("should not accept empty string even if validateGenerator returns true", async () => {
-    const validateGenerator = jest.fn().mockResolvedValue(true)
+    const validateGenerator = vi.fn().mockResolvedValue(true)
     const idealGeneratorSchema = getIdealGeneratorTextSchema(validateGenerator)
     const result = await idealGeneratorSchema.safeParseAsync("")
     expect(result.success).toBe(false)
@@ -25,7 +25,7 @@ describe("getIdealGeneratorTextSchema", () => {
 
   it("should not accept non-empty string if validateGenerator returns error message", async () => {
     const errorMessage = "This is an error message."
-    const validateGenerator = jest.fn().mockResolvedValue(errorMessage)
+    const validateGenerator = vi.fn().mockResolvedValue(errorMessage)
     const idealGeneratorSchema = getIdealGeneratorTextSchema(validateGenerator)
     const result = await idealGeneratorSchema.safeParseAsync("x++y")
     expect(result.success).toBe(false)
@@ -37,7 +37,7 @@ describe("getIdealGeneratorTextSchema", () => {
 
   it("should not accept empty string if validateGenerator returns error message", async () => {
     const errorMessage = "This is an error message."
-    const validateGenerator = jest.fn().mockResolvedValue(errorMessage)
+    const validateGenerator = vi.fn().mockResolvedValue(errorMessage)
     const idealGeneratorSchema = getIdealGeneratorTextSchema(validateGenerator)
     const result = await idealGeneratorSchema.safeParseAsync("")
     expect(result.success).toBe(false)

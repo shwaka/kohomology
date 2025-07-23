@@ -9,7 +9,7 @@ import { MessageBoxForWorkerSample } from "@calculator/MessageBoxForWorker/__pla
 import { ShowErrorsSample } from "@calculator/ShowErrors/__playground__/ShowErrorsSample"
 import { SortableFieldsSample } from "@calculator/SortableFields/__playground__/SortableFieldsSample"
 import { MyWorkerSample } from "@calculator/WorkerContext/__playground__/MyWorkerSample"
-import { ChartSample } from "@components/BenchmarkChart/__playground__/ChartSample"
+import { ChartSample } from "@components/ChartUtil/__playground__/ChartSample"
 import BrowserOnly from "@docusaurus/BrowserOnly"
 import { ThemeProvider } from "@mui/material"
 

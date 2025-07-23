@@ -1,11 +1,11 @@
 import { ReactNode } from "react"
 
+import { Value, getChartProps } from "@components/ChartUtil/getChartProps"
+import { useTooltip } from "@components/ChartUtil/useTooltip"
 import { ChartProps } from "react-chartjs-2"
 
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
-import { Value, getChartProps } from "./getChartProps"
 import { TooltipContent } from "./TooltipContent"
-import { useTooltip } from "./useTooltip"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
 const toolColors = {

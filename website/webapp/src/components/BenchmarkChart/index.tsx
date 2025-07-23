@@ -2,6 +2,7 @@ import { useRef, useState, ReactElement, Fragment } from "react"
 
 import benchmarkData from "@benchmark/core/dev/bench/benchmarkData.json"
 import benchmarkDataWebsite from "@benchmark/website/dev/bench/benchmarkData.json"
+import { RangeSlider, useRangeFilter } from "@components/ChartUtil/useRangeFilter"
 import { useColorMode } from "@docusaurus/theme-common"
 import { Box, Checkbox, FormControlLabel } from "@mui/material"
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler } from "chart.js"
@@ -11,7 +12,6 @@ import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./Benchma
 import { BenchmarkData } from "./benchmarkDataSchema"
 import { movingAverage } from "./movingAverage"
 import { useBenchmarkChart } from "./useBenchmarkChart"
-import { RangeSlider, useRangeFilter } from "./useRangeFilter"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 

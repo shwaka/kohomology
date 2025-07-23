@@ -1,13 +1,13 @@
 import { ReactElement, useMemo } from "react"
 
 import localCommits from "@benchmark/localCommits.json"
+import { TooltipContentProps } from "@components/ChartUtil/useTooltip"
 import { reverse } from "remeda"
 
 import { BenchWithCommit } from "./BenchmarkDataHandler"
 import { Bench } from "./benchmarkDataSchema"
 import { groupBySeparatorKeys } from "./groupBySeparatorKeys"
 import { LocalCommit } from "./localCommitSchema"
-import { TooltipContentProps } from "./useTooltip"
 
 function ShowTimestamp({ timestamp }: { timestamp: string }): ReactElement {
   const regex = /^(\d{4}-\d{2}-\d{2})T(\d{2}:\d{2}:\d{2})([+-]\d{2}:\d{2})$/

@@ -10,7 +10,7 @@ export type Value = { x: string, y: number }
 export function getChartProps<T>(
   { datasetLabel, color, xTitle, yTitle, dataset, getValue, labels, labelToTick, onClick }: {
     datasetLabel: string
-    color: string
+    color: `#${string}`
     xTitle: string
     yTitle: string
     dataset: T[]

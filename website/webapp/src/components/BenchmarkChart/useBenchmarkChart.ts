@@ -22,7 +22,7 @@ const toolColors = {
   customBiggerIsBetter: "#38ff38",
   customSmallerIsBetter: "#ff3838",
   _: "#333333",
-}
+} as const satisfies Record<string, `#${string}`>
 
 function extractMethodName(name: string): string {
   return name.replace("com.github.shwaka.kohomology.profile.KohomologyBenchmark.", "")

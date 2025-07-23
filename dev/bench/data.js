@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1753085796926,
+  "lastUpdate": 1753247715955,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12188,6 +12188,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.195,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "4d4b2d5e88dc45824daf4ab02e8467717e9a32e1",
+          "message": "refactor(website): use string template literal type in color in getChartProps",
+          "timestamp": "2025-07-23T14:09:55+09:00",
+          "tree_id": "da46716ff42a083e70b62a52cc316fa843de1f5e",
+          "url": "https://github.com/shwaka/kohomology/commit/4d4b2d5e88dc45824daf4ab02e8467717e9a32e1"
+        },
+        "date": 1753247715200,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.784,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.387,
             "unit": "s/op"
           }
         ]

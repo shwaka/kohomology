@@ -16,14 +16,15 @@ import { useBenchmarkChart } from "./useBenchmarkChart"
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)
 
 function Bench(
-  { name, dataset, isSelected, dataHandler }: {
+  { name, dataset, isSelected, dataHandler, color }: {
     name: string
     dataset: BenchWithCommit[]
     isSelected: (commit: CommitWithDate) => boolean
     dataHandler: BenchmarkDataHandler
+    color: `#${string}`
   }
 ): ReactElement {
-  const { chartProps, renderTooltip } = useBenchmarkChart({ name, dataset, dataHandler, isSelected })
+  const { chartProps, renderTooltip } = useBenchmarkChart({ name, dataset, dataHandler, isSelected, color })
   return (
     <Fragment>
       <Chart {...chartProps} />
@@ -33,12 +34,13 @@ function Bench(
 }
 
 function Benchset(
-  { benchset, isSelected, weightArray, dataHandler }: {
+  { benchset, isSelected, weightArray, dataHandler, color }: {
     name: string
     benchset: Map<string, BenchWithCommit[]>
     isSelected: (commit: CommitWithDate) => boolean
     weightArray: number[]
     dataHandler: BenchmarkDataHandler
+    color: `#${string}`
   }
 ): ReactElement {
   const getValue = (bench: BenchWithCommit): number => bench.bench.value
@@ -65,6 +67,7 @@ function Benchset(
             dataset={benchAverages}
             isSelected={isSelected}
             dataHandler={dataHandler}
+            color={color}
           />
         )
       })}
@@ -72,7 +75,11 @@ function Benchset(
   )
 }
 
-function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): ReactElement {
+function BenchmarkChartOf(
+  { benchmarkData, color }: {
+    benchmarkData: BenchmarkData
+    color: `#${string}`
+  }): ReactElement {
   const dataHandlerRef = useRef(new BenchmarkDataHandler(benchmarkData))
   const dataHandler = dataHandlerRef.current
   const [showMovingAverage, setShowMovingAverage] = useState(false)
@@ -109,6 +116,7 @@ function BenchmarkChartOf({ benchmarkData }: { benchmarkData: BenchmarkData }): 
           isSelected={isSelected}
           weightArray={weightArray}
           dataHandler={dataHandler}
+          color={color}
           {...benchsetWithName}
         />
       ))}
@@ -124,8 +132,8 @@ export function BenchmarkChart(): ReactElement {
 
   return (
     <div>
-      <BenchmarkChartOf benchmarkData={bd} />
-      <BenchmarkChartOf benchmarkData={bdw} />
+      <BenchmarkChartOf benchmarkData={bd} color="#ff3838" />
+      <BenchmarkChartOf benchmarkData={bdw} color="#00add8" />
     </div>
   )
 }

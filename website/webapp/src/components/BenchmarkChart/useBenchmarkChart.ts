@@ -8,21 +8,21 @@ import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./Benchma
 import { TooltipContent } from "./TooltipContent"
 
 // Colors from https://github.com/github/linguist/blob/master/lib/linguist/languages.yml
-const toolColors = {
-  cargo: "#dea584",
-  go: "#00add8",
-  benchmarkjs: "#f1e05a",
-  benchmarkluau: "#000080",
-  pytest: "#3572a5",
-  googlecpp: "#f34b7d",
-  catch2: "#f34b7d",
-  julia: "#a270ba",
-  jmh: "#b07219",
-  benchmarkdotnet: "#178600",
-  customBiggerIsBetter: "#38ff38",
-  customSmallerIsBetter: "#ff3838",
-  _: "#333333",
-} as const satisfies Record<string, `#${string}`>
+// const toolColors = {
+//   cargo: "#dea584",
+//   go: "#00add8",
+//   benchmarkjs: "#f1e05a",
+//   benchmarkluau: "#000080",
+//   pytest: "#3572a5",
+//   googlecpp: "#f34b7d",
+//   catch2: "#f34b7d",
+//   julia: "#a270ba",
+//   jmh: "#b07219",
+//   benchmarkdotnet: "#178600",
+//   customBiggerIsBetter: "#38ff38",
+//   customSmallerIsBetter: "#ff3838",
+//   _: "#333333",
+// } as const satisfies Record<string, `#${string}`>
 
 function extractMethodName(name: string): string {
   return name.replace("com.github.shwaka.kohomology.profile.KohomologyBenchmark.", "")
@@ -34,15 +34,15 @@ type UseBenchmarkChartReturnValue = {
 }
 
 export function useBenchmarkChart(
-  { name, dataset, dataHandler, isSelected }: {
+  { name, dataset, dataHandler, isSelected, color }: {
     name: string
     dataset: BenchWithCommit[]
     dataHandler: BenchmarkDataHandler
     isSelected: (commit: CommitWithDate) => boolean
+    color: `#${string}`
   }
 ): UseBenchmarkChartReturnValue {
   const benchUnit: string = dataset.length > 0 ? dataset[0].bench.unit : ""
-  const color = toolColors[dataset.length > 0 ? dataset[0].tool : "_"] // previously, filteredDataset.length was used for "color". Why?
   const filteredDataset =
     dataset.filter((benchWithCommit) => isSelected(benchWithCommit.commit))
   const filteredCommits = dataHandler.commits.filter(isSelected)

@@ -2,6 +2,7 @@ import { ReactElement, useMemo } from "react"
 
 import localCommits from "@benchmark/localCommits.json"
 import { TooltipContentProps } from "@components/ChartUtil/useTooltip"
+import { Divider, Stack } from "@mui/material"
 import { reverse } from "remeda"
 
 import { BenchWithCommit } from "./BenchmarkDataHandler"
@@ -80,7 +81,9 @@ function ShowCommits(
     throw new Error(`commit hash ${commitHash} not found`)
   }
   return (
-    <div
+    <Stack
+      spacing={0.5}
+      divider={<Divider orientation="horizontal" flexItem />}
       style={{
         maxHeight: "150px",
         overflowY: "auto",
@@ -89,7 +92,7 @@ function ShowCommits(
       {reverse(localCommitsToShow).map((localCommit) => (
         <ShowCommit key={localCommit.id} localCommit={localCommit} />
       ))}
-    </div>
+    </Stack>
   )
 }
 

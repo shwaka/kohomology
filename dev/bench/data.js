@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1753352831877,
+  "lastUpdate": 1753523746106,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12256,6 +12256,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.09,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "214416763459a5abd5faeb65c6e134899c9ad762",
+          "message": "feat(website): use MUI Stack in ShowCommits in TooltipContent.tsx",
+          "timestamp": "2025-07-26T18:49:44+09:00",
+          "tree_id": "8bec4a4e3ff95983c684c7fd0f94de6defd29b3a",
+          "url": "https://github.com/shwaka/kohomology/commit/214416763459a5abd5faeb65c6e134899c9ad762"
+        },
+        "date": 1753523745165,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.832,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.035,
             "unit": "s/op"
           }
         ]

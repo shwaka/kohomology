@@ -53,7 +53,11 @@ function ShowMessage({ message }: { message: string }): ReactElement {
   const lines = message.split("\n")
   return (
     <Stack
-      style={{ paddingLeft: "3px", lineHeight: 1.1 }}
+      style={{
+        paddingLeft: "3px",
+        paddingRight: "3px",
+        lineHeight: 1.1,
+      }}
     >
       {lines.map((line, index) => (
         <div

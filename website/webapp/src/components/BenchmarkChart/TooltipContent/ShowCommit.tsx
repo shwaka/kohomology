@@ -1,5 +1,7 @@
 import { ReactElement } from "react"
 
+import { Stack } from "@mui/material"
+
 import { LocalCommit } from "../schema/localCommitSchema"
 
 function ShowTimestamp({ timestamp }: { timestamp: string }): ReactElement {
@@ -48,16 +50,20 @@ function ShowCommitHeader(
 }
 
 function ShowMessage({ message }: { message: string }): ReactElement {
+  const lines = message.split("\n")
   return (
-    <div
-      style={{
-        paddingLeft: "3px",
-        lineHeight: 1.1,
-        whiteSpace: "pre-wrap",
-      }}
+    <Stack
+      style={{ paddingLeft: "3px", lineHeight: 1.1 }}
     >
-      {message}
-    </div>
+      {lines.map((line, index) => (
+        <div
+          key={index}
+          style={{ minHeight: "0.5em" }}
+        >
+          {line}
+        </div>
+      ))}
+    </Stack>
   )
 }
 

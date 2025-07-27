@@ -3,7 +3,7 @@ import fs from "fs"
 import path from "path"
 import util from "util"
 
-import { LocalCommit, localCommitArraySchema } from "@components/BenchmarkChart/localCommitSchema"
+import { LocalCommit, localCommitArraySchema } from "@components/BenchmarkChart/schema/localCommitSchema"
 import { z } from "zod/v4"
 
 const execAsync = util.promisify(exec)

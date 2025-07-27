@@ -9,8 +9,8 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 import { Chart } from "react-chartjs-2"
 
 import { BenchmarkDataHandler, BenchWithCommit, CommitWithDate } from "./BenchmarkDataHandler"
-import { BenchmarkData } from "./benchmarkDataSchema"
 import { movingAverage } from "./movingAverage"
+import { BenchmarkData } from "./schema/benchmarkDataSchema"
 import { useBenchmarkChart } from "./useBenchmarkChart"
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, Title, LineController, ScatterController, Filler)

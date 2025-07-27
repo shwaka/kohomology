@@ -28,37 +28,59 @@ function ShowTimestamp({ timestamp }: { timestamp: string }): ReactElement {
   }
 }
 
+function ShowCommitHeader(
+  { url, commitHash, timestamp }: {
+    url: string
+    commitHash: string
+    timestamp: string
+  }
+): ReactElement {
+  return (
+    <div>
+      <a
+        href={url} target="_blank" rel="noreferrer"
+        style={{
+          color: "inherit",
+          textDecoration: "underline",
+          fontFamily: "monospace",
+          paddingRight: "3px",
+        }}
+      >
+        {commitHash}
+      </a>
+      <span>
+        <ShowTimestamp timestamp={timestamp} />
+      </span>
+    </div>
+  )
+}
+
+function ShowMessage({ message }: { message: string }): ReactElement {
+  return (
+    <div
+      style={{
+        paddingLeft: "3px",
+        lineHeight: 1.1,
+        whiteSpace: "pre-wrap",
+      }}
+    >
+      {message}
+    </div>
+  )
+}
+
 function ShowCommit(
   { localCommit }: { localCommit: LocalCommit }
 ): ReactElement {
   const commitHash = localCommit.id.slice(0, 7)
   return (
     <div>
-      <div>
-        <a
-          href={localCommit.url} target="_blank" rel="noreferrer"
-          style={{
-            color: "inherit",
-            textDecoration: "underline",
-            fontFamily: "monospace",
-            paddingRight: "3px",
-          }}
-        >
-          {commitHash}
-        </a>
-        <span>
-          <ShowTimestamp timestamp={localCommit.timestamp} />
-        </span>
-      </div>
-      <div
-        style={{
-          paddingLeft: "3px",
-          lineHeight: 1.1,
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        {localCommit.message}
-      </div>
+      <ShowCommitHeader
+        url={localCommit.url}
+        timestamp={localCommit.timestamp}
+        commitHash={commitHash}
+      />
+      <ShowMessage message={localCommit.message} />
     </div>
   )
 }

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1753579348297,
+  "lastUpdate": 1753580439890,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12324,6 +12324,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.008,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "1b3a3530a2579baa52ca122565b18a512a13870c",
+          "message": "feat(website): improve spacing in ShowMessage",
+          "timestamp": "2025-07-27T10:21:15+09:00",
+          "tree_id": "03f9f1bb593537bf97ed6c862a25239708050658",
+          "url": "https://github.com/shwaka/kohomology/commit/1b3a3530a2579baa52ca122565b18a512a13870c"
+        },
+        "date": 1753580438647,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.871,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.245,
             "unit": "s/op"
           }
         ]

@@ -1,6 +1,6 @@
 import { z } from "zod/v4"
 
-import { commitHashSchema } from "./benchmarkDataSchema"
+import { commitHashSchema } from "./commitHashSchema"
 
 const localUserSchema = z.strictObject({
   email: z.email(),

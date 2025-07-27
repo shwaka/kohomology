@@ -1,5 +1,7 @@
 import { z } from "zod/v4"
 
+import { commitHashSchema } from "./commitHashSchema"
+
 const toolSchema = z.enum(["cargo", "go", "benchmarkjs", "pytest", "googlecpp", "catch2", "julia", "jmh", "benchmarkdotnet", "benchmarkluau", "customBiggerIsBetter", "customSmallerIsBetter"])
 
 export type Tool = z.infer<typeof toolSchema>
@@ -21,8 +23,6 @@ const userSchema = z.strictObject({
 })
 
 // type User = z.infer<typeof userSchema>
-
-export const commitHashSchema = z.string().regex(/^[0-9a-f]{40}$/i, "Invalid commit hash")
 
 const commitSchema = z.strictObject({
   author: userSchema,

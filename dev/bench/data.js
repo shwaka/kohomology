@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1753523746106,
+  "lastUpdate": 1753579348297,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12290,6 +12290,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.035,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "4b0eebab96b9467cf5699ced678f98995729b757",
+          "message": "feat(website): improve height of empty line in commit message",
+          "timestamp": "2025-07-27T10:17:08+09:00",
+          "tree_id": "26430527d1e979b70dc77847f52c7e7ca258c8ed",
+          "url": "https://github.com/shwaka/kohomology/commit/4b0eebab96b9467cf5699ced678f98995729b757"
+        },
+        "date": 1753579347514,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.763,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.008,
             "unit": "s/op"
           }
         ]

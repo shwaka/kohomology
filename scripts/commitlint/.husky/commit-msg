@@ -1,6 +1,3 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
-
 BLUE="\e[34m"
 END="\e[m"
 

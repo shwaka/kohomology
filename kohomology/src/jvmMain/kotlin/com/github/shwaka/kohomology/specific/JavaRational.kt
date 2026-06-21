@@ -198,29 +198,58 @@ public object JavaRationalField : Field<JavaRational> {
     }
 
     override fun add(a: JavaRational, b: JavaRational): JavaRational {
-        val numerator = a.numerator * b.denominator + b.numerator * a.denominator
-        val denominator = a.denominator * b.denominator
-        return JavaRational(numerator, denominator)
+        if (a.isZero()) return b
+        if (b.isZero()) return a
+        return if (a.denominator == b.denominator) {
+            val numerator = a.numerator + b.numerator
+            if (a.denominator == BigInteger.ONE)
+                JavaRational.fromReduced(numerator, BigInteger.ONE)
+            else
+                JavaRational(numerator, a.denominator)
+        } else {
+            val numerator = a.numerator * b.denominator + b.numerator * a.denominator
+            val denominator = a.denominator * b.denominator
+            JavaRational(numerator, denominator)
+        }
     }
 
     override fun subtract(a: JavaRational, b: JavaRational): JavaRational {
-        val numerator = a.numerator * b.denominator - b.numerator * a.denominator
-        val denominator = a.denominator * b.denominator
-        return JavaRational(numerator, denominator)
+        if (b.isZero()) return a
+        if (a.isZero()) return this.unaryMinusOf(b)
+        return if (a.denominator == b.denominator) {
+            val numerator = a.numerator - b.numerator
+            if (a.denominator == BigInteger.ONE)
+                JavaRational.fromReduced(numerator, BigInteger.ONE)
+            else
+                JavaRational(numerator, a.denominator)
+        } else {
+            val numerator = a.numerator * b.denominator - b.numerator * a.denominator
+            val denominator = a.denominator * b.denominator
+            JavaRational(numerator, denominator)
+        }
     }
 
     override fun multiply(a: JavaRational, b: JavaRational): JavaRational {
+        if (a.isZero() || b.isZero()) return zero
+        if (a.isOne()) return b
+        if (b.isOne()) return a
+        if (a.denominator == BigInteger.ONE && b.denominator == BigInteger.ONE) {
+            return JavaRational.fromReduced(a.numerator * b.numerator, BigInteger.ONE)
+        }
         return JavaRational(a.numerator * b.numerator, a.denominator * b.denominator)
     }
 
     override fun divide(a: JavaRational, b: JavaRational): JavaRational {
-        if (b == JavaRational(0, 1)) {
+        if (b.isZero()) {
             throw ArithmeticException("division by zero (Rational(0, 1))")
         }
+        if (a.isZero()) return zero
+        if (b.isOne()) return a
         return JavaRational(a.numerator * b.denominator, a.denominator * b.numerator)
     }
 
     override fun unaryMinusOf(scalar: JavaRational): JavaRational {
+        if (scalar.isZero()) return zero
         return JavaRational.fromReduced(-scalar.numerator, scalar.denominator)
     }
 

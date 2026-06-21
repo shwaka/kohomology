@@ -150,11 +150,12 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
                 currentColInd++
                 continue
             } else {
-                currentMatrix.eliminateOtherRows(rowInd, currentColInd)
-                if (rowInd != pivots.size) {
-                    currentMatrix.exchange(rowInd, pivots.size)
+                val pivotRowInd = pivots.size
+                if (rowInd != pivotRowInd) {
+                    currentMatrix.exchange(rowInd, pivotRowInd)
                     exchangeCount++
                 }
+                currentMatrix.eliminateRowsBelow(pivotRowInd, currentColInd)
                 pivots.add(currentColInd)
                 currentColInd++
             }
@@ -250,6 +251,29 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
         }
     }
 
+    private fun MutableMap<Int, MutableMap<Int, S>>.eliminateRowsBelow(rowInd: Int, colInd: Int) {
+        val mainRow = this[rowInd]
+            ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
+        val elm: S? = mainRow[colInd]
+        if (elm == null || elm.isZero())
+            throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
+        this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+            val mapIterator = this@eliminateRowsBelow.iterator()
+            while (mapIterator.hasNext()) {
+                val mapEntry = mapIterator.next()
+                val (i, row) = mapEntry
+                if (i > rowInd) {
+                    val coeff: S? = row[colInd]
+                    if (coeff != null) {
+                        row.subtract(mainRow, coeff / elm)
+                        if (row.isEmpty())
+                            mapIterator.remove()
+                    }
+                }
+            }
+        }
+    }
+
     private fun MutableMap<Int, MutableMap<Int, S>>.eliminateOtherRows(rowInd: Int, colInd: Int) {
         val mainRow = this[rowInd]
             ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
@@ -280,9 +304,8 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
     }
 
     private fun Map<Int, Map<Int, S>>.findNonZero(colInd: Int, rowIndFrom: Int): Int? {
-        // same as in SparseRowEchelonFormCalculator
-        for (i in this.keys.filter { it >= rowIndFrom }) {
-            this[i]?.let { row ->
+        for ((i, row) in this) {
+            if (i >= rowIndFrom) {
                 row[colInd]?.let { elm ->
                     if (elm.isNotZero())
                         return i

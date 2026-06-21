@@ -155,6 +155,8 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
                     currentMatrix.exchange(rowInd, pivotRowInd)
                     exchangeCount++
                 }
+                // Row echelon form only needs zeros below each pivot.
+                // Clearing entries above pivots is deferred to reduce(), which computes the reduced form.
                 currentMatrix.eliminateRowsBelow(pivotRowInd, currentColInd)
                 pivots.add(currentColInd)
                 currentColInd++

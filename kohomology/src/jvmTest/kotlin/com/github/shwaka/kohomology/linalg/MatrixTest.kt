@@ -635,6 +635,39 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> rowEchelonFormGenTest(
         val field = matrixSpace.field
         val scalarArb = field.arb(Arb.int(-max..max))
         val matrixArb = matrixSpace.arb(scalarArb, rowCount, colCount)
+        "multiplying transformation should give the row echelon form" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    (rowEchelonForm.transformation * mat) shouldBe rowEchelonForm.matrix
+                }
+            }
+        }
+        "rowEchelonForm.matrix should be in row echelon form" {
+            checkAll(matrixArb) { mat ->
+                matrixSpace.context.run {
+                    val rowEchelonForm = mat.rowEchelonForm
+                    val rowEchelonMatrix = rowEchelonForm.matrix
+                    val pivots = rowEchelonForm.pivots
+                    pivots.zipWithNext().all { (previous, next) -> previous < next } shouldBe true
+                    for (i in 0 until mat.rowCount) {
+                        val firstNonZeroIndex = (0 until mat.colCount).firstOrNull { j ->
+                            rowEchelonMatrix[i, j].isNotZero()
+                        }
+                        if (i < pivots.size) {
+                            firstNonZeroIndex shouldBe pivots[i]
+                        } else {
+                            firstNonZeroIndex shouldBe null
+                        }
+                    }
+                    for ((i, pivot) in pivots.withIndex()) {
+                        for (j in (i + 1) until mat.rowCount) {
+                            rowEchelonMatrix[j, pivot] shouldBe zero
+                        }
+                    }
+                }
+            }
+        }
         "multiplying reducedTransformation should give the reduced row echelon form" {
             checkAll(matrixArb) { mat ->
                 matrixSpace.context.run {

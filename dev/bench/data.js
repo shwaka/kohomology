@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1753580439890,
+  "lastUpdate": 1782053767015,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12358,6 +12358,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.245,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a127e5a48c15e1f533d296314179f6675e5f558b",
+          "message": "perf(core): add eliminateRowsAboveWithNormalizedPivot to InPlaceSparseRowEchelonFormCalculator",
+          "timestamp": "2026-06-21T23:42:03+09:00",
+          "tree_id": "7f2108bc99eb5211fc39ac193574b86c8c9ebc50",
+          "url": "https://github.com/shwaka/kohomology/commit/a127e5a48c15e1f533d296314179f6675e5f558b"
+        },
+        "date": 1782053765767,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.787,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.09,
             "unit": "s/op"
           }
         ]

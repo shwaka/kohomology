@@ -176,7 +176,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
             row.multiply(elmInv)
         }
         for (i in 0 until rank) {
-            reducedRowMap.eliminateOtherRows(i, pivots[i])
+            reducedRowMap.eliminateRowsAboveWithNormalizedPivot(i, pivots[i])
         }
         return reducedRowMap
     }
@@ -226,12 +226,12 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
 
     private fun MutableMap<Int, S>.subtract(other: Map<Int, S>, scalar: S) {
         this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
-            // use this@subtract.replaceNotNull()?
             for ((i, value) in other) {
+                val scaledValue = value * scalar
                 when (val valueFromThis: S? = this@subtract[i]) {
-                    null -> this@subtract[i] = -value * scalar
+                    null -> this@subtract[i] = -scaledValue
                     else -> {
-                        val newValue = valueFromThis - value * scalar
+                        val newValue = valueFromThis - scaledValue
                         if (newValue.isZero()) {
                             this@subtract.remove(i)
                         } else {
@@ -268,6 +268,30 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
                     val coeff: S? = row[colInd]
                     if (coeff != null) {
                         row.subtract(mainRow, coeff / elm)
+                        if (row.isEmpty())
+                            mapIterator.remove()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun MutableMap<Int, MutableMap<Int, S>>.eliminateRowsAboveWithNormalizedPivot(rowInd: Int, colInd: Int) {
+        val mainRow = this[rowInd]
+            ?: throw IllegalArgumentException("Cannot eliminate since the row $rowInd is zero")
+        val elm: S? = mainRow[colInd]
+        if (elm == null || elm.isZero())
+            throw IllegalArgumentException("Cannot eliminate since the element at ($rowInd, $colInd) is zero")
+        this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
+            // Called from reduce() after pivot rows are normalized, so coeff / elm is just coeff.
+            val mapIterator = this@eliminateRowsAboveWithNormalizedPivot.iterator()
+            while (mapIterator.hasNext()) {
+                val mapEntry = mapIterator.next()
+                val (i, row) = mapEntry
+                if (i < rowInd) {
+                    val coeff: S? = row[colInd]
+                    if (coeff != null) {
+                        row.subtract(mainRow, coeff)
                         if (row.isEmpty())
                             mapIterator.remove()
                     }

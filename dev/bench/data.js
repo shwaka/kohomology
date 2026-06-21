@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782053767015,
+  "lastUpdate": 1782056506865,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12392,6 +12392,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.09,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f22c7127e9d86255a42fefc8ae33c082b60f6775",
+          "message": "perf(core): improve performance of JavaRational",
+          "timestamp": "2026-06-22T00:24:49+09:00",
+          "tree_id": "795d67e747f63c9f5142889d291394d11414c944",
+          "url": "https://github.com/shwaka/kohomology/commit/f22c7127e9d86255a42fefc8ae33c082b60f6775"
+        },
+        "date": 1782056506274,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.786,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.298,
             "unit": "s/op"
           }
         ]

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782056506865,
+  "lastUpdate": 1782112230461,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12426,6 +12426,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.298,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "f3041ae0e359f8473efced9bea1522ca1ee40131",
+          "message": "perf(core): cache generatorList in FreeGAlgebraImpl",
+          "timestamp": "2026-06-22T16:05:10+09:00",
+          "tree_id": "32758a1508d3f69dd7dd042cf8487cae6ec196d6",
+          "url": "https://github.com/shwaka/kohomology/commit/f3041ae0e359f8473efced9bea1522ca1ee40131"
+        },
+        "date": 1782112229202,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.823,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.162,
             "unit": "s/op"
           }
         ]

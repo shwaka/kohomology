@@ -291,6 +291,12 @@ private class FreeGAlgebraImpl<D : Degree, I : IndeterminateName, S : Scalar, V 
     }
     override val context: FreeGAlgebraContext<D, I, S, V, M> = FreeGAlgebraContext(this)
     override val underlyingGAlgebra: FreeGAlgebra<D, I, S, V, M> = this
+    override val generatorList: List<GVector<D, Monomial<D, I>, S, V>> by lazy {
+        this.indeterminateList.map { indeterminate ->
+            val monomial = Monomial.fromIndeterminate(this.degreeGroup, this.indeterminateList, indeterminate)
+            this.fromBasisName(monomial, indeterminate.degree)
+        }
+    }
 
     override fun toString(printConfig: PrintConfig): String {
         val indeterminateString = this.indeterminateList.joinToString(", ") { it.toString(printConfig) }

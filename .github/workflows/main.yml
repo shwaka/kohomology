@@ -2,8 +2,8 @@ name: Build # This will be shown in the badge in README.md
 # name: Test, benchmark, and generate site
 
 env:
-  JAVA_DISTRIBUTION: zulu # default value in actions/setup-java@v1
-  JAVA_VERSION: 8
+  JAVA_DISTRIBUTION: zulu # default Java distribution
+  JAVA_VERSION: 17
   # NODE_VERSION: 16.x # node version is specified in package.json by using volta
   # 'env' cannot be used in 'runs-on'(?)
 

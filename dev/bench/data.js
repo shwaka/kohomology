@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782112230461,
+  "lastUpdate": 1782218973513,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12460,6 +12460,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.162,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "48ff34fa5c2399330022dafe8242e48a350e15c1",
+          "message": "refactor(core): add files to echeloncalc",
+          "timestamp": "2026-06-23T21:31:54+09:00",
+          "tree_id": "3408f27c76410d81148bc759b79755df59958c86",
+          "url": "https://github.com/shwaka/kohomology/commit/48ff34fa5c2399330022dafe8242e48a350e15c1"
+        },
+        "date": 1782218972319,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.766,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.996,
             "unit": "s/op"
           }
         ]

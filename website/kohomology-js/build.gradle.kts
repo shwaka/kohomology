@@ -8,12 +8,14 @@ plugins {
 group = "me.shun"
 version = "1.0-SNAPSHOT"
 
-val kotlinVersion = "1.9.10"
+// bignum 0.3.10 pulls Kotlin/JS 2.x runtime artifacts, but this project is compiled with Kotlin 1.9.x.
+// Keep bignum on a Kotlin 1.x-compatible release to avoid missing Kotlin runtime symbols in webapp tests.
+val bignumVersion = "0.3.0"
 
 configurations.all {
     resolutionStrategy.eachDependency {
-        if (requested.group == "org.jetbrains.kotlin") {
-            useVersion(kotlinVersion)
+        if (requested.group == "com.ionspin.kotlin" && requested.name.startsWith("bignum")) {
+            useVersion(bignumVersion)
         }
     }
 }

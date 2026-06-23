@@ -8,6 +8,16 @@ plugins {
 group = "me.shun"
 version = "1.0-SNAPSHOT"
 
+val kotlinVersion = "1.9.10"
+
+configurations.all {
+    resolutionStrategy.eachDependency {
+        if (requested.group == "org.jetbrains.kotlin") {
+            useVersion(kotlinVersion)
+        }
+    }
+}
+
 repositories {
     mavenLocal() // install kohomology from mavenLocal
     mavenCentral()
@@ -45,7 +55,7 @@ kotlin {
         val jsMain by getting {
             dependencies {
                 // testImplementation(kotlin("test-js"))
-                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
+                implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
                 implementation("com.github.shwaka.kohomology:kohomology:0.14-SNAPSHOT")
             }
         }

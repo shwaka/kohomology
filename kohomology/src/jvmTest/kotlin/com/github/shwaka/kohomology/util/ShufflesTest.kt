@@ -6,18 +6,18 @@ import io.kotest.inspectors.forAll
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
 
-private fun BigInteger.factorial(): BigInteger {
+private fun BigInteger.factorialForTest(): BigInteger {
     require(this >= 0)
     return if (this.isZero()) {
         BigInteger.ONE
     } else {
-        this * (this - 1).factorial()
+        this * (this - 1).factorialForTest()
     }
 }
 
 private fun numOfShuffles(counts: List<Int>): Int {
-    val numerator = BigInteger(counts.sum()).factorial()
-    val denominator = counts.map { i -> BigInteger(i).factorial() }.fold(BigInteger.ONE) { a, b -> a * b }
+    val numerator = BigInteger(counts.sum()).factorialForTest()
+    val denominator = counts.map { i -> BigInteger(i).factorialForTest() }.fold(BigInteger.ONE) { a, b -> a * b }
     return (numerator / denominator).intValue(exactRequired = true)
 }
 

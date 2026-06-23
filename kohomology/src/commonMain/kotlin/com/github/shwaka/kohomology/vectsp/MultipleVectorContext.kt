@@ -17,8 +17,8 @@ public open class MultipleVectorContext<S : Scalar, V : NumVector<S>>(
             throw IllegalContextException("Cannot add vectors in different vector spaces")
         for (vectorSpace in this@MultipleVectorContext.vectorSpaceList) {
             if (vectorSpace == this.vectorSpace) {
-                vectorSpace as VectorSpace<B, S, V>
-                return vectorSpace.add(this, other)
+                val typedVectorSpace = vectorSpace as VectorSpace<B, S, V>
+                return typedVectorSpace.add(this, other)
             }
         }
         throw IllegalContextException("Does not match any of the vector spaces")
@@ -30,8 +30,8 @@ public open class MultipleVectorContext<S : Scalar, V : NumVector<S>>(
             throw IllegalContextException("Cannot subtract vectors in different vector spaces")
         for (vectorSpace in this@MultipleVectorContext.vectorSpaceList) {
             if (vectorSpace == this.vectorSpace) {
-                vectorSpace as VectorSpace<B, S, V>
-                return vectorSpace.subtract(this, other)
+                val typedVectorSpace = vectorSpace as VectorSpace<B, S, V>
+                return typedVectorSpace.subtract(this, other)
             }
         }
         throw IllegalContextException("Does not match any of the vector spaces")
@@ -41,8 +41,8 @@ public open class MultipleVectorContext<S : Scalar, V : NumVector<S>>(
     public operator fun <B : BasisName> Vector<B, S, V>.times(scalar: S): Vector<B, S, V> {
         for (vectorSpace in this@MultipleVectorContext.vectorSpaceList) {
             if (vectorSpace == this.vectorSpace) {
-                vectorSpace as VectorSpace<B, S, V>
-                return vectorSpace.multiply(scalar, this)
+                val typedVectorSpace = vectorSpace as VectorSpace<B, S, V>
+                return typedVectorSpace.multiply(scalar, this)
             }
         }
         throw IllegalContextException("Does not match any of the vector spaces")

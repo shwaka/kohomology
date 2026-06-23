@@ -9,6 +9,10 @@ plugins {
 group = "me.shun"
 version = "1.0-SNAPSHOT"
 
+kotlin {
+    jvmToolchain(17)
+}
+
 repositories {
     mavenCentral()
     maven(url = "https://shwaka.github.io/maven/")
@@ -25,7 +29,7 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile>() {
-    kotlinOptions.jvmTarget = "1.8"
+    kotlinOptions.jvmTarget = "17"
 }
 
 // aliases

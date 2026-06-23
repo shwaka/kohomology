@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.linalg
 
+import com.github.shwaka.kohomology.linalg.echelon.SparseRowEchelonFormData
 import com.github.shwaka.kohomology.util.Sign
 import com.github.shwaka.kohomology.util.UnionFind
 import com.github.shwaka.kohomology.util.list.hasNonEmptyIntersection

@@ -1,5 +1,7 @@
-package com.github.shwaka.kohomology.linalg
+package com.github.shwaka.kohomology.linalg.echelon
 
+import com.github.shwaka.kohomology.linalg.Field
+import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.util.exchange
 
 internal data class SparseRowEchelonFormData<S : Scalar>(

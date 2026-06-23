@@ -2,8 +2,8 @@ package com.github.shwaka.kohomology.linalg
 
 import com.github.shwaka.kohomology.exception.IllegalContextException
 import com.github.shwaka.kohomology.exception.InvalidSizeException
-import com.github.shwaka.kohomology.linalg.echelon.InPlaceSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echelon.SparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.util.StringTable
 
 public class SparseMatrix<S : Scalar>(

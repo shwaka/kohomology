@@ -5,8 +5,8 @@ import com.github.shwaka.kohomology.forAll
 import com.github.shwaka.kohomology.intModpTag
 import com.github.shwaka.kohomology.intRationalTag
 import com.github.shwaka.kohomology.jvmOnlyTag
-import com.github.shwaka.kohomology.linalg.echelon.InPlaceSparseRowEchelonFormCalculator
-import com.github.shwaka.kohomology.linalg.echelon.NonInPlaceSparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
+import com.github.shwaka.kohomology.linalg.echeloncalc.NonInPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.longRationalTag
 import com.github.shwaka.kohomology.rationalTag
 import com.github.shwaka.kohomology.specific.DenseMatrixSpaceOverF2

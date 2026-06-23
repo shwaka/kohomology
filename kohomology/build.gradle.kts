@@ -34,12 +34,13 @@ repositories {
 
 kotlin {
     explicitApiWarning()
+    jvmToolchain(17)
     dependencies {
         detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:1.22.0")
     }
     jvm {
         compilations.all {
-            kotlinOptions.jvmTarget = "1.8"
+            kotlinOptions.jvmTarget = "17"
         }
         testRuns["test"].executionTask.configure {
             useJUnit()
@@ -74,10 +75,10 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                // Use the Kotlin JDK 8 standard library.
-                implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+                // Use the Kotlin standard library.
+                implementation(kotlin("stdlib"))
 
-                implementation("com.ionspin.kotlin:bignum:0.2.8")
+                implementation("com.ionspin.kotlin:bignum:0.3.10")
 
                 implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.1.0")
 
@@ -141,7 +142,7 @@ kotlin {
 
 tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
         // kotest で "test name".config(tags = setOf(someTag)) と書くと "This declaration is experimental" と言われた。
         // kotlin 1.5.32 に上げたタイミングで出るようになった気がする。
         freeCompilerArgs += "-opt-in=kotlin.time.ExperimentalTime"

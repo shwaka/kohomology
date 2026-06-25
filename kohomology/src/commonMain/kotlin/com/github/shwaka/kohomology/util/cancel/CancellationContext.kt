@@ -18,4 +18,12 @@ public interface CancellationContext {
         timeout: Duration,
         block: () -> T,
     ): CancellationResult<T>
+
+    public companion object {
+        public fun getDefault(): CancellationContext {
+            return getDefaultCancellationContext()
+        }
+    }
 }
+
+internal expect fun getDefaultCancellationContext(): CancellationContext

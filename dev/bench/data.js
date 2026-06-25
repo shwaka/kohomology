@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782360737853,
+  "lastUpdate": 1782361463959,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12562,6 +12562,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.153,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a9cc910e1a24efa5034c807d93beecb6390fc9f9",
+          "message": "test(core): add FreeScope.testAll in CancellationTestUtil",
+          "timestamp": "2026-06-25T13:18:50+09:00",
+          "tree_id": "9dac87ec8c402daba69b823171897a022cd9bf33",
+          "url": "https://github.com/shwaka/kohomology/commit/a9cc910e1a24efa5034c807d93beecb6390fc9f9"
+        },
+        "date": 1782361462663,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.847,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.364,
             "unit": "s/op"
           }
         ]

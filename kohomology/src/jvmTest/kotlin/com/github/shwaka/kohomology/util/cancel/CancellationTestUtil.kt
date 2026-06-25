@@ -1,5 +1,6 @@
 package com.github.shwaka.kohomology.util.cancel
 
+import io.kotest.core.spec.style.scopes.FreeScope
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.time.Duration
@@ -18,6 +19,37 @@ internal object CancellationTestUtil {
             cancellationContext.check()
         }
         return resultString
+    }
+
+    suspend inline fun FreeScope.testAll(
+        crossinline getContext: () -> CancellationContext,
+    ) {
+        val longer = 10
+        val shorter = 5
+        "timeout" {
+            val cancellationContext = getContext()
+            CancellationTestUtil.test(
+                cancellationContext,
+                sleepCount = longer,
+                timeoutCount = shorter,
+            )
+        }
+        "success" {
+            val cancellationContext = getContext()
+            CancellationTestUtil.test(
+                cancellationContext,
+                sleepCount = shorter,
+                timeoutCount = longer,
+            )
+        }
+        "no context" {
+            val cancellationContext = getContext()
+            val result = CancellationTestUtil.cancellableSleep(
+                sleepCount = shorter,
+                cancellationContext = cancellationContext,
+            )
+            result shouldBe CancellationTestUtil.resultString
+        }
     }
 
     fun test(

@@ -2020,6 +2020,9 @@ $dokka.location:com.github.shwaka.kohomology.specific//SparseNumVectorSpaceOverF
 $dokka.location:com.github.shwaka.kohomology.specific//SparseNumVectorSpaceOverIntRational/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-sparse-num-vector-space-over-int-rational.html
 $dokka.location:com.github.shwaka.kohomology.specific//SparseNumVectorSpaceOverLongRational/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-sparse-num-vector-space-over-long-rational.html
 $dokka.location:com.github.shwaka.kohomology.specific//SparseNumVectorSpaceOverRational/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-sparse-num-vector-space-over-rational.html
+$dokka.location:com.github.shwaka.kohomology.specific//getCancellableMatrixSpace/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/get-cancellable-matrix-space.html
+$dokka.location:com.github.shwaka.kohomology.specific//getMatrixSpace/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/get-matrix-space.html
+$dokka.location:com.github.shwaka.kohomology.specific//getNumVectorSpace/#kotlin.Int/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/get-num-vector-space.html
 $dokka.location:com.github.shwaka.kohomology.specific//getSparseMatrixSpaceOverRationalWithCancellation/#/PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/get-sparse-matrix-space-over-rational-with-cancellation.html
 $dokka.location:com.github.shwaka.kohomology.specific/BigRational///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-big-rational/index.html
 $dokka.location:com.github.shwaka.kohomology.specific/BigRationalField///PointingToDeclaration/kohomology/com.github.shwaka.kohomology.specific/-big-rational-field/index.html

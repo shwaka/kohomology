@@ -93,7 +93,7 @@ kotlin {
                 }
 
                 implementation("com.github.shwaka.counter:simple-counter:0.2")
-                // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.3")
                 implementation("com.github.h0tk3y.betterParse:better-parse:0.4.2")
 
                 // parautil

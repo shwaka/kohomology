@@ -7,6 +7,7 @@ import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
+import com.github.shwaka.kohomology.util.cancel.CancellationContext
 
 public expect class Rational : Scalar
 public expect object RationalField : Field<Rational>
@@ -22,6 +23,13 @@ public val SparseMatrixSpaceOverRational: SparseMatrixSpace<Rational> =
     SparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
 public val DecomposedSparseMatrixSpaceOverRational: DecomposedSparseMatrixSpace<Rational> =
     DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
+public fun getSparseMatrixSpaceOverRationalWithCancellation():
+    Pair<SparseMatrixSpace<Rational>, CancellationContext>
+{
+    val cancellationContext = CancellationContext.getDefault()
+    val matrixSpace = SparseMatrixSpace.from(SparseNumVectorSpaceOverRational, cancellationContext)
+    return Pair(matrixSpace, cancellationContext)
+}
 
 // aliases for old names
 @Deprecated("Use Rational", ReplaceWith("Rational"))

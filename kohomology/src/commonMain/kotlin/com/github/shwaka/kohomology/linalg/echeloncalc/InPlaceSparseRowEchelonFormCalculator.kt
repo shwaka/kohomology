@@ -2,10 +2,12 @@ package com.github.shwaka.kohomology.linalg.echeloncalc
 
 import com.github.shwaka.kohomology.linalg.Field
 import com.github.shwaka.kohomology.linalg.Scalar
+import com.github.shwaka.kohomology.util.cancel.CancellationContext
 import com.github.shwaka.kohomology.util.exchange
 
 internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
-    private val field: Field<S>
+    private val field: Field<S>,
+    private val cancellationContext: CancellationContext?,
 ) : SparseRowEchelonFormCalculator<S> {
     override fun rowEchelonForm(matrix: Map<Int, Map<Int, S>>, colCount: Int): SparseRowEchelonFormData<S> {
         var currentColInd: Int = 0
@@ -13,6 +15,7 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
         var exchangeCount: Int = 0
         val currentMatrix: MutableMap<Int, MutableMap<Int, S>> = matrix.toMutableMapDeeply()
         while (currentColInd < colCount) {
+            this.cancellationContext?.check()
             val rowInd: Int? = currentMatrix.findNonZero(currentColInd, pivots.size)
             if (rowInd == null) {
                 currentColInd++

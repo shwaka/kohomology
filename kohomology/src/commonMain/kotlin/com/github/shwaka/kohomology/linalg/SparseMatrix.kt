@@ -5,6 +5,7 @@ import com.github.shwaka.kohomology.exception.InvalidSizeException
 import com.github.shwaka.kohomology.linalg.echeloncalc.InPlaceSparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.linalg.echeloncalc.SparseRowEchelonFormCalculator
 import com.github.shwaka.kohomology.util.StringTable
+import com.github.shwaka.kohomology.util.cancel.CancellationContext
 
 public class SparseMatrix<S : Scalar>(
     override val numVectorSpace: SparseNumVectorSpace<S>,
@@ -296,19 +297,23 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
 // The constructor is internal for test
 public class SparseMatrixSpace<S : Scalar> internal constructor(
     numVectorSpace: SparseNumVectorSpace<S>,
+    cancellationContext: CancellationContext?,
     override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S> =
-        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),
+        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field, cancellationContext),
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
-        public fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): SparseMatrixSpace<S> {
-            if (this.cache.containsKey(numVectorSpace)) {
+        public fun <S : Scalar> from(
+            numVectorSpace: SparseNumVectorSpace<S>,
+            cancellationContext: CancellationContext? = null,
+        ): SparseMatrixSpace<S> {
+            if (cancellationContext == null && this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as SparseMatrixSpace<S>
             } else {
-                val matrixSpace = SparseMatrixSpace(numVectorSpace)
+                val matrixSpace = SparseMatrixSpace(numVectorSpace, cancellationContext)
                 this.cache[numVectorSpace] = matrixSpace
                 return matrixSpace
             }
@@ -329,19 +334,23 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
 
 public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
     numVectorSpace: SparseNumVectorSpace<S>,
+    cancellationContext: CancellationContext?,
     override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S> =
-        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field),
+        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field, cancellationContext),
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい
         // generic type に対する cache ってどうすれば良いだろう？
         private val cache: MutableMap<SparseNumVectorSpace<*>, DecomposedSparseMatrixSpace<*>> = mutableMapOf()
-        public fun <S : Scalar> from(numVectorSpace: SparseNumVectorSpace<S>): DecomposedSparseMatrixSpace<S> {
-            if (this.cache.containsKey(numVectorSpace)) {
+        public fun <S : Scalar> from(
+            numVectorSpace: SparseNumVectorSpace<S>,
+            cancellationContext: CancellationContext? = null,
+        ): DecomposedSparseMatrixSpace<S> {
+            if (cancellationContext == null && this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DecomposedSparseMatrixSpace<S>
             } else {
-                val matrixSpace = DecomposedSparseMatrixSpace(numVectorSpace)
+                val matrixSpace = DecomposedSparseMatrixSpace(numVectorSpace, cancellationContext)
                 this.cache[numVectorSpace] = matrixSpace
                 return matrixSpace
             }

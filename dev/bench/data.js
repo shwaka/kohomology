@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782361463959,
+  "lastUpdate": 1782368660550,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -12596,6 +12596,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.364,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "518871aababaf9aad7bc60614ee6815b1587f780",
+          "message": "fix(core): update kotlinx-coroutines-core",
+          "timestamp": "2026-06-25T15:15:21+09:00",
+          "tree_id": "5f1b78440cea5cca5b4bac5b30319cc89a633329",
+          "url": "https://github.com/shwaka/kohomology/commit/518871aababaf9aad7bc60614ee6815b1587f780"
+        },
+        "date": 1782368659494,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.802,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.144,
             "unit": "s/op"
           }
         ]

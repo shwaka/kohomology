@@ -24,8 +24,7 @@ public val SparseMatrixSpaceOverRational: SparseMatrixSpace<Rational> =
 public val DecomposedSparseMatrixSpaceOverRational: DecomposedSparseMatrixSpace<Rational> =
     DecomposedSparseMatrixSpace.from(SparseNumVectorSpaceOverRational)
 public fun getSparseMatrixSpaceOverRationalWithCancellation():
-    Pair<SparseMatrixSpace<Rational>, CancellationContext>
-{
+    Pair<SparseMatrixSpace<Rational>, CancellationContext> {
     val cancellationContext = CancellationContext.getDefault()
     val matrixSpace = SparseMatrixSpace.from(SparseNumVectorSpaceOverRational, cancellationContext)
     return Pair(matrixSpace, cancellationContext)

@@ -297,9 +297,7 @@ public abstract class AbstractSparseMatrixSpace<S : Scalar>(
 // The constructor is internal for test
 public class SparseMatrixSpace<S : Scalar> internal constructor(
     numVectorSpace: SparseNumVectorSpace<S>,
-    cancellationContext: CancellationContext?,
-    override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S> =
-        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field, cancellationContext),
+    override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S>,
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい
@@ -307,16 +305,31 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
         private val cache: MutableMap<SparseNumVectorSpace<*>, SparseMatrixSpace<*>> = mutableMapOf()
         public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
-            cancellationContext: CancellationContext? = null,
         ): SparseMatrixSpace<S> {
-            if (cancellationContext == null && this.cache.containsKey(numVectorSpace)) {
+            if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as SparseMatrixSpace<S>
             } else {
-                val matrixSpace = SparseMatrixSpace(numVectorSpace, cancellationContext)
+                val calculator = InPlaceSparseRowEchelonFormCalculator(
+                    numVectorSpace.field,
+                    cancellationContext = null,
+                )
+                val matrixSpace = SparseMatrixSpace(numVectorSpace, calculator)
                 this.cache[numVectorSpace] = matrixSpace
                 return matrixSpace
             }
+        }
+
+        public fun <S : Scalar> from(
+            numVectorSpace: SparseNumVectorSpace<S>,
+            cancellationContext: CancellationContext?,
+        ): SparseMatrixSpace<S> {
+            // Do not save to cache
+            val calculator = InPlaceSparseRowEchelonFormCalculator(
+                numVectorSpace.field,
+                cancellationContext = cancellationContext,
+            )
+            return SparseMatrixSpace(numVectorSpace, calculator)
         }
     }
 
@@ -334,9 +347,7 @@ public class SparseMatrixSpace<S : Scalar> internal constructor(
 
 public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
     numVectorSpace: SparseNumVectorSpace<S>,
-    cancellationContext: CancellationContext?,
-    override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S> =
-        InPlaceSparseRowEchelonFormCalculator(numVectorSpace.field, cancellationContext),
+    override val sparseRowEchelonFormCalculator: SparseRowEchelonFormCalculator<S>,
 ) : AbstractSparseMatrixSpace<S>(numVectorSpace) {
     public companion object {
         // TODO: cache まわりの型が割とやばい
@@ -344,16 +355,31 @@ public class DecomposedSparseMatrixSpace<S : Scalar> private constructor(
         private val cache: MutableMap<SparseNumVectorSpace<*>, DecomposedSparseMatrixSpace<*>> = mutableMapOf()
         public fun <S : Scalar> from(
             numVectorSpace: SparseNumVectorSpace<S>,
-            cancellationContext: CancellationContext? = null,
         ): DecomposedSparseMatrixSpace<S> {
-            if (cancellationContext == null && this.cache.containsKey(numVectorSpace)) {
+            if (this.cache.containsKey(numVectorSpace)) {
                 @Suppress("UNCHECKED_CAST")
                 return this.cache[numVectorSpace] as DecomposedSparseMatrixSpace<S>
             } else {
-                val matrixSpace = DecomposedSparseMatrixSpace(numVectorSpace, cancellationContext)
+                val calculator = InPlaceSparseRowEchelonFormCalculator(
+                    numVectorSpace.field,
+                    cancellationContext = null,
+                )
+                val matrixSpace = DecomposedSparseMatrixSpace(numVectorSpace, calculator)
                 this.cache[numVectorSpace] = matrixSpace
                 return matrixSpace
             }
+        }
+
+        public fun <S : Scalar> from(
+            numVectorSpace: SparseNumVectorSpace<S>,
+            cancellationContext: CancellationContext?,
+        ): DecomposedSparseMatrixSpace<S> {
+            // Do not save to cache
+            val calculator = InPlaceSparseRowEchelonFormCalculator(
+                numVectorSpace.field,
+                cancellationContext = cancellationContext,
+            )
+            return DecomposedSparseMatrixSpace(numVectorSpace, calculator)
         }
     }
 

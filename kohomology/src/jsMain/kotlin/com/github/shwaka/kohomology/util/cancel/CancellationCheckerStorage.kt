@@ -1,3 +1,5 @@
 package com.github.shwaka.kohomology.util.cancel
 
-internal actual typealias CancellationCheckerStorage = SingleThreadCancellationCheckerStorage
+internal actual fun getDefaultStorage(): CancellationCheckerStorage {
+    return SingleThreadCancellationCheckerStorage()
+}

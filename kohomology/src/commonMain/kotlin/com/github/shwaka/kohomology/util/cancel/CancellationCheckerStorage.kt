@@ -1,21 +1,29 @@
 package com.github.shwaka.kohomology.util.cancel
 
-internal expect class CancellationCheckerStorage() {
-    fun currentChecker(): CancellationChecker?
+public interface CancellationCheckerStorage {
+    public fun currentChecker(): CancellationChecker?
 
-    fun <T> withChecker(
+    public fun <T> withChecker(
         checker: CancellationChecker,
         block: () -> T,
     ): T
+
+    public companion object {
+        public fun getDefault(): CancellationCheckerStorage {
+            return getDefaultStorage()
+        }
+    }
 }
 
-internal class SingleThreadCancellationCheckerStorage {
+internal expect fun getDefaultStorage(): CancellationCheckerStorage
+
+public class SingleThreadCancellationCheckerStorage : CancellationCheckerStorage {
     private var checker: CancellationChecker? = null
 
-    fun currentChecker(): CancellationChecker? =
+    public override fun currentChecker(): CancellationChecker? =
         checker
 
-    fun <T> withChecker(
+    public override fun <T> withChecker(
         checker: CancellationChecker,
         block: () -> T,
     ): T {

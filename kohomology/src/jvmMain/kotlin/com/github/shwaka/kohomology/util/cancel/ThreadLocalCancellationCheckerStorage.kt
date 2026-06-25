@@ -1,12 +1,12 @@
 package com.github.shwaka.kohomology.util.cancel
 
-internal actual class CancellationCheckerStorage {
+public class ThreadLocalCancellationCheckerStorage : CancellationCheckerStorage {
     private val threadLocal = ThreadLocal<CancellationChecker?>()
 
-    actual fun currentChecker(): CancellationChecker? =
+    public override fun currentChecker(): CancellationChecker? =
         threadLocal.get()
 
-    actual fun <T> withChecker(
+    public override fun <T> withChecker(
         checker: CancellationChecker,
         block: () -> T,
     ): T {
@@ -23,4 +23,8 @@ internal actual class CancellationCheckerStorage {
             }
         }
     }
+}
+
+internal actual fun getDefaultStorage(): CancellationCheckerStorage {
+    return ThreadLocalCancellationCheckerStorage()
 }

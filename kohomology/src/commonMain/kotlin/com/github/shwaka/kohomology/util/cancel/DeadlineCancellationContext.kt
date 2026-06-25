@@ -22,8 +22,9 @@ public class DeadlineCancellationChecker(
 
 public class DeadlineCancellationContext(
     private val timeSource: TimeSource = TimeSource.Monotonic,
+    private val storage: CancellationCheckerStorage =
+        CancellationCheckerStorage.getDefault(),
 ) : CancellationContext {
-    private val storage: CancellationCheckerStorage = CancellationCheckerStorage()
 
     override fun check() {
         storage.currentChecker()?.check()

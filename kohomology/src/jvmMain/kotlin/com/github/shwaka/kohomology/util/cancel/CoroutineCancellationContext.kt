@@ -9,14 +9,9 @@ import kotlinx.coroutines.withContext
 import kotlinx.coroutines.withTimeout
 import kotlin.time.Duration
 
-public class CoroutineCancellationContext : CancellationContext {
-    private val storage: CancellationCheckerStorage =
-        ThreadLocalCancellationCheckerStorage()
-
-    override fun check() {
-        storage.currentChecker()?.check()
-    }
-
+public class CoroutineCancellationContext : CancellationContextBase(
+    ThreadLocalCancellationCheckerStorage()
+) {
     public suspend fun <T> runWithTimeoutCoroutine(
         timeout: Duration,
         block: () -> T,
@@ -37,7 +32,7 @@ public class CoroutineCancellationContext : CancellationContext {
         CancellationResult.Cancelled
     }
 
-    override fun <T> runWithTimeout(
+    public override fun <T> runWithTimeoutImpl(
         timeout: Duration,
         block: () -> T,
     ): CancellationResult<T> = runBlocking {

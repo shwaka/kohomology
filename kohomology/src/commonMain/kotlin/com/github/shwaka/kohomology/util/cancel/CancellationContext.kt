@@ -15,7 +15,7 @@ public interface CancellationContext {
     public fun check()
 
     public fun <T> runWithTimeout(
-        timeout: Duration,
+        timeout: Duration?,
         block: () -> T,
     ): CancellationResult<T>
 
@@ -27,3 +27,27 @@ public interface CancellationContext {
 }
 
 internal expect fun getDefaultCancellationContext(): CancellationContext
+
+public abstract class CancellationContextBase(
+    internal val storage: CancellationCheckerStorage,
+) : CancellationContext {
+    override fun check() {
+        this.storage.currentChecker()?.check()
+    }
+
+    override fun <T> runWithTimeout(
+        timeout: Duration?,
+        block: () -> T,
+    ): CancellationResult<T> {
+        return if (timeout == null) {
+            CancellationResult.Success(block())
+        } else {
+            this.runWithTimeoutImpl(timeout, block)
+        }
+    }
+
+    internal abstract fun <T> runWithTimeoutImpl(
+        timeout: Duration,
+        block: () -> T,
+    ): CancellationResult<T>
+}

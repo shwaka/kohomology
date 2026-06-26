@@ -22,15 +22,10 @@ public class DeadlineCancellationChecker(
 
 public class DeadlineCancellationContext(
     private val timeSource: TimeSource = TimeSource.Monotonic,
-    private val storage: CancellationCheckerStorage =
+    storage: CancellationCheckerStorage =
         CancellationCheckerStorage.getDefault(),
-) : CancellationContext {
-
-    override fun check() {
-        storage.currentChecker()?.check()
-    }
-
-    override fun <T> runWithTimeout(
+) : CancellationContextBase(storage) {
+    override fun <T> runWithTimeoutImpl(
         timeout: Duration,
         block: () -> T,
     ): CancellationResult<T> {
@@ -40,7 +35,7 @@ public class DeadlineCancellationContext(
         )
 
         return try {
-            storage.withChecker(checker) {
+            this.storage.withChecker(checker) {
                 CancellationResult.Success(block())
             }
         } catch (_: CancellationTimeoutException) {

@@ -1,7 +1,6 @@
 package com.github.shwaka.kohomology.util.cancel
 
 import io.kotest.core.spec.style.scopes.FreeScope
-import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 import kotlin.time.Duration

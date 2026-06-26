@@ -1,7 +1,5 @@
 package com.github.shwaka.kohomology.specific
 
-import com.github.shwaka.kohomology.linalg.MatrixSpace
-import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.SparseMatrixSpace
 import com.github.shwaka.kohomology.linalg.SparseNumVectorSpace
 import com.github.shwaka.kohomology.util.cancel.CancellationContext

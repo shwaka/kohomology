@@ -29,7 +29,7 @@ public class CoroutineCancellationContext : CancellationContextBase(
             }
         }
     } catch (_: TimeoutCancellationException) {
-        CancellationResult.Cancelled
+        CancellationResult.Cancelled(timeout)
     }
 
     public override fun <T> runWithTimeoutImpl(

@@ -3,7 +3,7 @@ package com.github.shwaka.kohomology.util.cancel
 import kotlin.time.Duration
 
 public sealed interface CancellationResult<out T> {
-    public data object Cancelled : CancellationResult<Nothing>
+    public data class Cancelled(val timeout: Duration) : CancellationResult<Nothing>
     public data class Success<T>(val value: T) : CancellationResult<T>
 }
 

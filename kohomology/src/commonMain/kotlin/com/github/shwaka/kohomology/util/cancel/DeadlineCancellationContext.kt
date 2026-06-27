@@ -39,7 +39,7 @@ public class DeadlineCancellationContext(
                 CancellationResult.Success(block())
             }
         } catch (_: CancellationTimeoutException) {
-            CancellationResult.Cancelled
+            CancellationResult.Cancelled(timeout)
         }
     }
 }

@@ -98,6 +98,6 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
 }
 
 public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>
-    MatrixSpace<S, V, M>.withLog(): MatrixSpaceWithLog<S, V, M> {
+MatrixSpace<S, V, M>.withLog(): MatrixSpaceWithLog<S, V, M> {
     return MatrixSpaceWithLog(this)
 }

@@ -95,6 +95,10 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
         return this.originalMatrixSpace.fromRowMap(rowMap, rowCount, colCount)
     }
+
+    override fun toString(): String {
+        return "MatrixSpaceWithLog(${this.originalMatrixSpace})"
+    }
 }
 
 public fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>>

@@ -26,6 +26,6 @@ class MatrixSpaceWithLogTest : FreeSpec({
     include(findPreimageGenTest(matrixSpace, 4, 3))
 
     "test toString()" {
-        matrixSpace.toString() shouldBe "SparseMatrixSpace(RationalField)"
+        matrixSpace.toString() shouldBe "MatrixSpaceWithLog(SparseMatrixSpace(RationalField))"
     }
 })

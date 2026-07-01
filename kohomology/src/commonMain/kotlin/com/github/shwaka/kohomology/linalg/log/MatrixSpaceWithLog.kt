@@ -32,7 +32,7 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun getIdentity(dim: Int): M {
-        return this.originalMatrixSpace.getZero(dim)
+        return this.originalMatrixSpace.getIdentity(dim)
     }
 
     override fun contains(matrix: M): Boolean {

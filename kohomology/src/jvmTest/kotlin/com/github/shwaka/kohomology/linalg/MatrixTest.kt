@@ -147,6 +147,27 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixTest(matrixSpace: Mat
                 shouldThrow<IndexOutOfBoundsException> { m[0, -1] }
                 shouldThrow<IndexOutOfBoundsException> { m[-1, -1] }
             }
+            "getZero(2) should return the zero matrix" {
+                val expected = listOf(
+                    listOf(zero, zero),
+                    listOf(zero, zero),
+                ).toMatrix()
+                matrixSpace.getZero(2) shouldBe expected
+            }
+            "getZero(2, 3) should return the zero matrix" {
+                val expected = listOf(
+                    listOf(zero, zero, zero),
+                    listOf(zero, zero, zero),
+                ).toMatrix()
+                matrixSpace.getZero(2, 3) shouldBe expected
+            }
+            "getIdentity(2) should return the identity matrix" {
+                val expected = listOf(
+                    listOf(one, zero),
+                    listOf(zero, one),
+                ).toMatrix()
+                matrixSpace.getIdentity(2) shouldBe expected
+            }
             "((2, 1), (0, -1)) + ((1, 1), (-2, 3)) should be ((3, 2), (-2, 2))" {
                 val expected = listOf(
                     listOf(three, two),

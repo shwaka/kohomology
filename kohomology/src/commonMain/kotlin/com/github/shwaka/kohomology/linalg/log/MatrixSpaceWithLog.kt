@@ -40,11 +40,27 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun add(first: M, second: M): M {
-        return this.originalMatrixSpace.add(first, second)
+        val (value, duration) = measureTimedValue {
+            this.originalMatrixSpace.add(first, second)
+        }
+        val data = MatrixLogData.Add(
+            rowCount = first.rowCount,
+            colCount = first.colCount,
+        )
+        this.logger.addEntry(MatrixLogEntry(duration, data))
+        return value
     }
 
     override fun subtract(first: M, second: M): M {
-        return this.originalMatrixSpace.subtract(first, second)
+        val (value, duration) = measureTimedValue {
+            this.originalMatrixSpace.subtract(first, second)
+        }
+        val data = MatrixLogData.Subtract(
+            rowCount = first.rowCount,
+            colCount = first.colCount,
+        )
+        this.logger.addEntry(MatrixLogEntry(duration, data))
+        return value
     }
 
     override fun multiply(first: M, second: M): M {

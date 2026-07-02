@@ -16,6 +16,7 @@ import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldHaveSize
 import io.kotest.matchers.shouldBe
+import io.kotest.matchers.types.shouldBeInstanceOf
 
 fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
     matrixSpace: MatrixSpaceWithLog<S, V, M>
@@ -32,7 +33,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 val matrix2 = matrixSpace.getZero(3, 4)
                 matrix1 * matrix2
                 logger.entries.shouldHaveSize(1)
-                logger.entries[0].data shouldBe MultiplyMatrixLog(
+                val data = logger.entries[0].data
+                data.shouldBeInstanceOf<MultiplyMatrixLog>()
+                data::class.simpleName shouldBe "MultiplyMatrixLog"
+                data shouldBe MultiplyMatrixLog(
                     firstRowCount = 2,
                     firstColCount = 3,
                     secondColCount = 4,

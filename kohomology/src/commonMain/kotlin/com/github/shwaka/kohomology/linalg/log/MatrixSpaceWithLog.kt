@@ -51,7 +51,7 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
         val (value, duration) = measureTimedValue {
             this.originalMatrixSpace.multiply(first, second)
         }
-        val data = MultiplyMatrixLog(
+        val data = MatrixLogData.MultiplyMatrix(
             firstRowCount = first.rowCount,
             firstColCount = first.colCount,
             secondColCount = second.colCount,

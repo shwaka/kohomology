@@ -34,9 +34,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 matrix1 * matrix2
                 logger.entries.shouldHaveSize(1)
                 val data = logger.entries[0].data
-                data.shouldBeInstanceOf<MultiplyMatrixLog>()
-                data::class.simpleName shouldBe "MultiplyMatrixLog"
-                data shouldBe MultiplyMatrixLog(
+                data.shouldBeInstanceOf<MatrixLogData.MultiplyMatrix>()
+                data::class.simpleName shouldBe "MultiplyMatrix"
+                data shouldBe MatrixLogData.MultiplyMatrix(
                     firstRowCount = 2,
                     firstColCount = 3,
                     secondColCount = 4,

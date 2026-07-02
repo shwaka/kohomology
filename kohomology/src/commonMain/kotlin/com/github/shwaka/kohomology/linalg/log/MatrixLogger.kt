@@ -1,5 +1,7 @@
 package com.github.shwaka.kohomology.linalg.log
 
+import kotlin.time.measureTimedValue
+
 public class MatrixLogger {
     private val _entries: MutableList<MatrixLogEntry<*>> = mutableListOf()
     public val entries: List<MatrixLogEntry<*>>
@@ -7,6 +9,12 @@ public class MatrixLogger {
 
     public fun addEntry(entry: MatrixLogEntry<*>) {
         this._entries.add(entry)
+    }
+
+    public fun <T> runLogging(data: MatrixLogData, block: () -> T): T {
+        val (value, duration) = measureTimedValue(block)
+        this.addEntry(MatrixLogEntry(duration, data))
+        return value
     }
 
     public fun clearEntries() {

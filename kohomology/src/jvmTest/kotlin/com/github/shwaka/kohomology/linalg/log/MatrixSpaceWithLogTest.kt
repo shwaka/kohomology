@@ -15,6 +15,7 @@ import com.github.shwaka.kohomology.specific.SparseMatrixSpaceOverRational
 import io.kotest.core.spec.style.FreeSpec
 import io.kotest.core.spec.style.freeSpec
 import io.kotest.matchers.collections.shouldHaveSize
+import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
 
@@ -41,6 +42,24 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                     firstColCount = 3,
                     secondColCount = 4,
                 )
+            }
+
+            "stats" {
+                logger.entries.shouldHaveSize(0)
+                val matrix = matrixSpace.getZero(2)
+                matrix + matrix
+                matrix + matrix
+                matrix * matrix
+                logger.entries.shouldHaveSize(3)
+                val statsMap = logger.getStats()
+                statsMap[MatrixLogData.Add::class.simpleName].let {
+                    it.shouldNotBeNull()
+                    it.count shouldBe 2
+                }
+                statsMap[MatrixLogData.MultiplyMatrix::class.simpleName].let {
+                    it.shouldNotBeNull()
+                    it.count shouldBe 1
+                }
             }
         }
     }

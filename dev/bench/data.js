@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1782987165410,
+  "lastUpdate": 1783075832523,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13038,6 +13038,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.03,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "2678404173b2129a4ccc9da0f4cdb1407ab2c5df",
+          "message": "test(core): improve test for MatrixLogger",
+          "timestamp": "2026-07-03T19:43:54+09:00",
+          "tree_id": "07ce57e3f1152daa90622fe1215a1fb7e93437ca",
+          "url": "https://github.com/shwaka/kohomology/commit/2678404173b2129a4ccc9da0f4cdb1407ab2c5df"
+        },
+        "date": 1783075831717,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.872,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.155,
             "unit": "s/op"
           }
         ]

@@ -42,18 +42,55 @@ public sealed interface MatrixOperationMetrics {
     public data class Add(
         public val maxRowCount: Int,
         public val maxColCount: Int,
-    ) : MatrixOperationMetrics
+    ) : MatrixOperationMetrics {
+        public companion object {
+            public fun fromInputs(
+                inputs: List<MatrixOperationInput.Add>,
+            ): Add {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return Add(
+                    maxRowCount = inputs.maxOf { it.rowCount },
+                    maxColCount = inputs.maxOf { it.colCount },
+                )
+            }
+        }
+    }
 
     public data class Subtract(
         public val maxRowCount: Int,
         public val maxColCount: Int,
-    ) : MatrixOperationMetrics
+    ) : MatrixOperationMetrics {
+        public companion object {
+            public fun fromInputs(
+                inputs: List<MatrixOperationInput.Subtract>,
+            ): Subtract {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return Subtract(
+                    maxRowCount = inputs.maxOf { it.rowCount },
+                    maxColCount = inputs.maxOf { it.colCount },
+                )
+            }
+        }
+    }
 
     public data class MultiplyMatrix(
         public val maxFirstRowCount: Int,
         public val maxFirstColCount: Int,
         public val maxSecondColCount: Int,
-    ) : MatrixOperationMetrics
+    ) : MatrixOperationMetrics {
+        public companion object {
+            public fun fromInputs(
+                inputs: List<MatrixOperationInput.MultiplyMatrix>,
+            ): MultiplyMatrix {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return MultiplyMatrix(
+                    maxFirstRowCount = inputs.maxOf { it.firstRowCount },
+                    maxFirstColCount = inputs.maxOf { it.firstColCount },
+                    maxSecondColCount = inputs.maxOf { it.secondColCount },
+                )
+            }
+        }
+    }
 }
 
 public data class MatrixOperationSummary(
@@ -82,42 +119,6 @@ public object MatrixOperationSummaryFactory :
             "All measurements must have the specified operation."
         }
 
-        val metrics = when (operation) {
-            MatrixOperation.ADD -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.Add
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.Add(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-
-            MatrixOperation.SUBTRACT -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.Subtract
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.Subtract(
-                    maxRowCount = inputs.maxOf { it.rowCount },
-                    maxColCount = inputs.maxOf { it.colCount },
-                )
-            }
-
-            MatrixOperation.MULTIPLY_MATRIX -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.MultiplyMatrix
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.MultiplyMatrix(
-                    maxFirstRowCount = inputs.maxOf { it.firstRowCount },
-                    maxFirstColCount = inputs.maxOf { it.firstColCount },
-                    maxSecondColCount = inputs.maxOf { it.secondColCount },
-                )
-            }
-        }
-
         return MatrixOperationSummary(
             operation = operation,
             invocationCount = measurements.size,
@@ -125,8 +126,37 @@ public object MatrixOperationSummaryFactory :
             totalDuration = measurements.fold(Duration.ZERO) { acc, measurement ->
                 acc + measurement.duration
             },
-            metrics = metrics,
+            metrics = this.createMetrics(operation, measurements),
         )
+    }
+
+    private fun createMetrics(
+        operation: MatrixOperation,
+        measurements: List<OperationMeasurement<MatrixOperation, MatrixOperationInput>>,
+    ): MatrixOperationMetrics {
+        return when (operation) {
+            MatrixOperation.ADD -> {
+                val inputs = measurements.map { measurement ->
+                    measurement.input as? MatrixOperationInput.Add
+                        ?: error("Unexpected MatrixOperationInput type.")
+                }
+                MatrixOperationMetrics.Add.fromInputs(inputs)
+            }
+            MatrixOperation.SUBTRACT -> {
+                val inputs = measurements.map { measurement ->
+                    measurement.input as? MatrixOperationInput.Subtract
+                        ?: error("Unexpected MatrixOperationInput type.")
+                }
+                MatrixOperationMetrics.Subtract.fromInputs(inputs)
+            }
+            MatrixOperation.MULTIPLY_MATRIX -> {
+                val inputs = measurements.map { measurement ->
+                    measurement.input as? MatrixOperationInput.MultiplyMatrix
+                        ?: error("Unexpected MatrixOperationInput type.")
+                }
+                MatrixOperationMetrics.MultiplyMatrix.fromInputs(inputs)
+            }
+        }
     }
 }
 

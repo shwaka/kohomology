@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783075832523,
+  "lastUpdate": 1783079122191,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13072,6 +13072,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.155,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "8dc9801872a04765644e197f80878a53ba299b07",
+          "message": "refactor(core): add MatrixOperationMetrics.{Add,Subtract,...}.fromInputs",
+          "timestamp": "2026-07-03T20:01:20+09:00",
+          "tree_id": "a6376bab920715a1a92473795c5a0c16fb1ee5ee",
+          "url": "https://github.com/shwaka/kohomology/commit/8dc9801872a04765644e197f80878a53ba299b07"
+        },
+        "date": 1783079120815,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.836,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.126,
             "unit": "s/op"
           }
         ]

@@ -1,6 +1,7 @@
 package com.github.shwaka.kohomology.linalg.log
 
 import kotlin.time.Duration
+import kotlin.time.DurationUnit
 import kotlin.time.measureTimedValue
 
 public interface OperationKind {
@@ -61,6 +62,32 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
             .mapValues { (operation, measurements) ->
                 this.summaryFactory.create(operation, measurements)
             }
+    }
+
+    public fun getSummariesString(): String {
+        val summaryList: List<OperationSummary<K>> = this.summaries()
+            .map { (_, summary) -> summary }
+            .sortedBy { summary -> summary.totalDuration }
+        val header = listOf(
+            "name",
+            "total",
+            "max",
+            "count",
+            "metrics",
+        )
+        val stringTable: List<List<String>> = summaryList.map { summary ->
+            listOf(
+                summary.operation.displayName,
+                summary.totalDuration.toString(DurationUnit.MILLISECONDS, 0),
+                summary.maxDuration.toString(DurationUnit.MILLISECONDS, 0),
+                summary.invocationCount.toString(),
+                summary.metricsText,
+            )
+        }
+        return TextTable(
+            data = listOf(header) + stringTable,
+            sameWidth = false,
+        ).toPrettyString()
     }
 }
 

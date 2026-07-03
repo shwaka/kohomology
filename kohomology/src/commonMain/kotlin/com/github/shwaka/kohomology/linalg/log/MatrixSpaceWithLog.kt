@@ -70,39 +70,96 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun multiply(matrix: M, numVector: V): V {
-        return this.originalMatrixSpace.multiply(matrix, numVector)
+        val input = MatrixOperationInput.MultiplyNumVector(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.multiply(matrix, numVector)
+        }
     }
 
     override fun multiply(matrix: M, scalar: S): M {
-        return this.originalMatrixSpace.multiply(matrix, scalar)
+        val input = MatrixOperationInput.MultiplyScalar(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.multiply(matrix, scalar)
+        }
     }
 
     override fun computeRowEchelonForm(matrix: M): RowEchelonForm<S, V, M> {
-        return this.originalMatrixSpace.computeRowEchelonForm(matrix)
+        val input = MatrixOperationInput.ComputeRowEchelonForm(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.computeRowEchelonForm(matrix)
+        }
     }
 
     override fun computeTranspose(matrix: M): M {
-        return this.originalMatrixSpace.computeTranspose(matrix)
+        val input = MatrixOperationInput.ComputeTranspose(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.computeTranspose(matrix)
+        }
     }
 
     override fun joinMatrices(matrix1: M, matrix2: M): M {
-        return this.originalMatrixSpace.joinMatrices(matrix1, matrix2)
+        val input = MatrixOperationInput.JoinMatrices(
+            rowCount = matrix1.rowCount,
+            firstColCount = matrix1.colCount,
+            secondColCount = matrix2.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.joinMatrices(matrix1, matrix2)
+        }
     }
 
     override fun computeRowSlice(matrix: M, rowRange: IntRange): M {
-        return this.originalMatrixSpace.computeRowSlice(matrix, rowRange)
+        val input = MatrixOperationInput.ComputeRowSlice(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+            rangeSize = rowRange.toList().size,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.computeRowSlice(matrix, rowRange)
+        }
     }
 
     override fun computeColSlice(matrix: M, colRange: IntRange): M {
-        return this.originalMatrixSpace.computeColSlice(matrix, colRange)
+        val input = MatrixOperationInput.ComputeColSlice(
+            rowCount = matrix.rowCount,
+            colCount = matrix.colCount,
+            rangeSize = colRange.toList().size,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.computeColSlice(matrix, colRange)
+        }
     }
 
     override fun fromRowList(rowList: List<List<S>>, colCount: Int?): M {
-        return this.originalMatrixSpace.fromRowList(rowList, colCount)
+        val input = MatrixOperationInput.FromRowList(
+            rowCount = rowList.size,
+            colCount = colCount ?: rowList[0].size,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.fromRowList(rowList, colCount)
+        }
     }
 
     override fun fromRowMap(rowMap: Map<Int, Map<Int, S>>, rowCount: Int, colCount: Int): M {
-        return this.originalMatrixSpace.fromRowMap(rowMap, rowCount, colCount)
+        val input = MatrixOperationInput.FromRowMap(
+            rowCount = rowCount,
+            colCount = colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalMatrixSpace.fromRowMap(rowMap, rowCount, colCount)
+        }
     }
 
     override fun toString(): String {

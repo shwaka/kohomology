@@ -21,6 +21,7 @@ public interface OperationSummary<K : OperationKind> {
     public val invocationCount: Int
     public val maxDuration: Duration
     public val totalDuration: Duration
+    public val metricsText: String
 }
 
 public fun interface OperationSummaryFactory<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>> {

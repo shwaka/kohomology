@@ -39,10 +39,15 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
 }
 
 public sealed interface MatrixOperationMetrics {
+    public fun toPrettyString(): String
+
     public data class Add(
         public val maxRowCount: Int,
         public val maxColCount: Int,
     ) : MatrixOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow=$maxRowCount, maxCol=$maxColCount"
+
         public companion object {
             public fun fromInputs(
                 inputs: List<MatrixOperationInput.Add>,
@@ -60,6 +65,9 @@ public sealed interface MatrixOperationMetrics {
         public val maxRowCount: Int,
         public val maxColCount: Int,
     ) : MatrixOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow=$maxRowCount, maxCol=$maxColCount"
+
         public companion object {
             public fun fromInputs(
                 inputs: List<MatrixOperationInput.Subtract>,
@@ -78,6 +86,9 @@ public sealed interface MatrixOperationMetrics {
         public val maxFirstColCount: Int,
         public val maxSecondColCount: Int,
     ) : MatrixOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow1=$maxFirstRowCount, maxCol1=$maxFirstColCount, maxCol2=$maxSecondColCount"
+
         public companion object {
             public fun fromInputs(
                 inputs: List<MatrixOperationInput.MultiplyMatrix>,
@@ -99,7 +110,10 @@ public data class MatrixOperationSummary(
     override val maxDuration: Duration,
     override val totalDuration: Duration,
     public val metrics: MatrixOperationMetrics,
-) : OperationSummary<MatrixOperation>
+) : OperationSummary<MatrixOperation> {
+    override val metricsText: String
+        get() = metrics.toPrettyString()
+}
 
 public object MatrixOperationSummaryFactory :
     OperationSummaryFactory<

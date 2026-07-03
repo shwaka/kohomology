@@ -1,18 +1,10 @@
 package com.github.shwaka.kohomology.linalg.log
 
-private fun <T> Collection<T>.allElementsAreSame(): Boolean {
-    if (this.isEmpty()) {
-        return true
-    }
-    val value: T = this.first()
-    return this.all { it == value }
-}
-
 private fun <T> Collection<Collection<T>>.assertRectangle(): Boolean {
     if (this.isEmpty()) {
         return true
     }
-    return this.map { row -> row.size }.allElementsAreSame()
+    return this.map { row -> row.size }.distinct().size <= 1
 }
 
 internal class RawTextTable(
@@ -24,14 +16,14 @@ internal class RawTextTable(
         require(this.data.assertRectangle()) { "Non-rectangle" }
     }
 
-    private val colLengthList: List<Int> = if (data.isEmpty()) {
+    private val colLengthList: List<Int> = if (this.data.isEmpty()) {
         emptyList()
     } else if (sameWidth) {
-        val length = data.flatMap { row -> row.map { it.length } }.max()
+        val length = this.data.flatMap { row -> row.map { it.length } }.max()
         List(data[0].size) { length }
     } else {
-        data[0].indices.map { j ->
-            data.map { row -> row[j] }.maxOf { it.length }
+        this.data[0].indices.map { j ->
+            this.data.map { row -> row[j] }.maxOf { it.length }
         }
     }
 

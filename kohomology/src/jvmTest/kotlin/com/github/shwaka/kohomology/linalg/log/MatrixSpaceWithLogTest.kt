@@ -34,10 +34,10 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 val matrix2 = matrixSpace.getZero(3, 4)
                 matrix1 * matrix2
                 logger.measurement.shouldHaveSize(1)
-                val data = logger.measurement[0].input
-                data.shouldBeInstanceOf<MatrixOperationInput.MultiplyMatrix>()
-                data::class.simpleName shouldBe "MultiplyMatrix"
-                data shouldBe MatrixOperationInput.MultiplyMatrix(
+                val input = logger.measurement[0].input
+                input.shouldBeInstanceOf<MatrixOperationInput.MultiplyMatrix>()
+                input.operation shouldBe MatrixOperation.MULTIPLY_MATRIX
+                input shouldBe MatrixOperationInput.MultiplyMatrix(
                     firstRowCount = 2,
                     firstColCount = 3,
                     secondColCount = 4,
@@ -55,6 +55,9 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 summaries[MatrixOperation.ADD].let {
                     it.shouldNotBeNull()
                     it.invocationCount shouldBe 2
+                    val metrics = it.metrics
+                    metrics.shouldBeInstanceOf<MatrixOperationMetrics.Add>()
+                    metrics.maxRowCount shouldBe 2
                 }
                 summaries[MatrixOperation.MULTIPLY_MATRIX].let {
                     it.shouldNotBeNull()

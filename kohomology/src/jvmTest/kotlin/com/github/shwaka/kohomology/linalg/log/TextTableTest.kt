@@ -9,7 +9,7 @@ class TextTableTest : FreeSpec({
             listOf(1, 2, 3).map { it.toString() },
             listOf(4, 5, 6).map { it.toString() },
         )
-        val table = RawTextTable(data, separator = ",")
+        val table = TextTable(data, separator = ",")
         val expected = """
             |1,2,3
             |4,5,6
@@ -22,7 +22,7 @@ class TextTableTest : FreeSpec({
             listOf(1, 22, 333).map { it.toString() },
             listOf(44, 5, 6).map { it.toString() },
         )
-        val table = RawTextTable(data, separator = ",", sameWidth = true)
+        val table = TextTable(data, separator = ",", sameWidth = true)
         val expected = """
             |  1, 22,333
             | 44,  5,  6
@@ -35,7 +35,7 @@ class TextTableTest : FreeSpec({
             listOf(1, 22, 333).map { it.toString() },
             listOf(44, 5, 6).map { it.toString() },
         )
-        val table = RawTextTable(data, separator = ",", sameWidth = false)
+        val table = TextTable(data, separator = ",", sameWidth = false)
         val expected = """
             | 1,22,333
             |44, 5,  6

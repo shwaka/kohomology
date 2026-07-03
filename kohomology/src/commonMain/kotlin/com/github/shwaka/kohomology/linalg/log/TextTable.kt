@@ -7,7 +7,7 @@ private fun <T> Collection<Collection<T>>.assertRectangle(): Boolean {
     return this.map { row -> row.size }.distinct().size <= 1
 }
 
-internal class RawTextTable(
+internal class TextTable(
     val data: List<List<String>>,
     val separator: String = " ",
     sameWidth: Boolean = true,
@@ -38,33 +38,5 @@ internal class RawTextTable(
             }
         }
         return rowStringList.joinToString("\n")
-    }
-}
-
-internal class TextTable(
-    val data: List<List<String>>,
-    val rowLabel: String,
-    val colLabel: String,
-    val sameWidth: Boolean,
-) {
-    init {
-        require(this.data.assertRectangle()) { "Non-rectangle" }
-    }
-    val rowCount: Int = data.size
-    val colCount: Int = if (data.isEmpty()) {
-        0
-    } else {
-        data[0].size
-    }
-
-    fun toPrettyString(): String {
-        val dataWithLabel: List<List<String>> =
-            listOf(
-                listOf("") + (0 until this.colCount).map { j -> "${this.colLabel}=$j" }
-            ) + (0 until this.rowCount).map { i ->
-                listOf("${this.rowLabel}=$i") + this.data[i]
-            }
-        val rawTextTable = RawTextTable(dataWithLabel, sameWidth = this.sameWidth)
-        return rawTextTable.toPrettyString()
     }
 }

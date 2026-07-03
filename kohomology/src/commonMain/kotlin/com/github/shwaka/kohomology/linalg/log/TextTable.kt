@@ -16,13 +16,13 @@ internal class RawTextTable(
         require(this.data.assertRectangle()) { "Non-rectangle" }
     }
 
-    private val colLengthList: List<Int> = if (this.data.isEmpty()) {
-        emptyList()
-    } else if (sameWidth) {
-        val length = this.data.flatMap { row -> row.map { it.length } }.max()
-        List(data[0].size) { length }
-    } else {
-        this.data[0].indices.map { j ->
+    private val colLengthList: List<Int> = when {
+        this.data.isEmpty() -> emptyList()
+        sameWidth -> {
+            val length = this.data.flatMap { row -> row.map { it.length } }.max()
+            List(data[0].size) { length }
+        }
+        else -> this.data[0].indices.map { j ->
             this.data.map { row -> row[j] }.maxOf { it.length }
         }
     }
@@ -64,7 +64,7 @@ internal class TextTable(
             ) + (0 until this.rowCount).map { i ->
                 listOf("${this.rowLabel}=$i") + this.data[i]
             }
-        val rawTextTable = RawTextTable(dataWithLabel, sameWidth = sameWidth)
+        val rawTextTable = RawTextTable(dataWithLabel, sameWidth = this.sameWidth)
         return rawTextTable.toPrettyString()
     }
 }

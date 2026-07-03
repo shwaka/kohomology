@@ -92,7 +92,7 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
 }
 
 public inline fun <K : OperationKind, I : OperationInput<K>, reified J : I>
-    List<OperationMeasurement<K, I>>.castedInputs(): List<J> {
+List<OperationMeasurement<K, I>>.castedInputs(): List<J> {
     return this.map { measurement ->
         measurement.input as? J
             ?: error(

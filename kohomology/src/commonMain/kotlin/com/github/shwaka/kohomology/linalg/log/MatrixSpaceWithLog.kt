@@ -39,32 +39,32 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun add(first: M, second: M): M {
-        val data = MatrixOperationInput.Add(
+        val input = MatrixOperationInput.Add(
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
-        return this.logger.measureOperation(data) {
+        return this.logger.measureOperation(input) {
             this.originalMatrixSpace.add(first, second)
         }
     }
 
     override fun subtract(first: M, second: M): M {
-        val data = MatrixOperationInput.Subtract(
+        val input = MatrixOperationInput.Subtract(
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
-        return this.logger.measureOperation(data) {
+        return this.logger.measureOperation(input) {
             this.originalMatrixSpace.subtract(first, second)
         }
     }
 
     override fun multiply(first: M, second: M): M {
-        val data = MatrixOperationInput.MultiplyMatrix(
+        val input = MatrixOperationInput.MultiplyMatrix(
             firstRowCount = first.rowCount,
             firstColCount = first.colCount,
             secondColCount = second.colCount,
         )
-        return this.logger.measureOperation(data) {
+        return this.logger.measureOperation(input) {
             this.originalMatrixSpace.multiply(first, second)
         }
     }

@@ -8,7 +8,6 @@ import com.github.shwaka.kohomology.linalg.NumVector
 import com.github.shwaka.kohomology.linalg.NumVectorSpace
 import com.github.shwaka.kohomology.linalg.RowEchelonForm
 import com.github.shwaka.kohomology.linalg.Scalar
-import kotlin.time.measureTimedValue
 
 public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val originalMatrixSpace: MatrixSpace<S, V, M>,
@@ -40,32 +39,32 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     }
 
     override fun add(first: M, second: M): M {
-        val data = MatrixLogData.Add(
+        val data = MatrixOperationInput.Add(
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
-        return this.logger.runLogging(data) {
+        return this.logger.measureOperation(data) {
             this.originalMatrixSpace.add(first, second)
         }
     }
 
     override fun subtract(first: M, second: M): M {
-        val data = MatrixLogData.Subtract(
+        val data = MatrixOperationInput.Subtract(
             rowCount = first.rowCount,
             colCount = first.colCount,
         )
-        return this.logger.runLogging(data) {
+        return this.logger.measureOperation(data) {
             this.originalMatrixSpace.subtract(first, second)
         }
     }
 
     override fun multiply(first: M, second: M): M {
-        val data = MatrixLogData.MultiplyMatrix(
+        val data = MatrixOperationInput.MultiplyMatrix(
             firstRowCount = first.rowCount,
             firstColCount = first.colCount,
             secondColCount = second.colCount,
         )
-        return this.logger.runLogging(data) {
+        return this.logger.measureOperation(data) {
             this.originalMatrixSpace.multiply(first, second)
         }
     }

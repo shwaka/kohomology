@@ -1,0 +1,64 @@
+package com.github.shwaka.kohomology.linalg.log
+
+import kotlin.time.Duration
+import kotlin.time.measureTimedValue
+
+public interface OperationKind {
+    public val displayName: String
+}
+
+public interface OperationInput<K : OperationKind> {
+    public val operation: K
+}
+
+public data class OperationMeasurement<K : OperationKind, I : OperationInput<K>>(
+    val duration: Duration,
+    val input: I,
+)
+
+public interface OperationSummary<K : OperationKind> {
+    public val operation: K
+    public val invocationCount: Int
+    public val maxDuration: Duration
+    public val totalDuration: Duration
+}
+
+public fun interface OperationSummaryFactory<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>> {
+    public fun create(operation: K, measurements: List<OperationMeasurement<K, I>>): S
+}
+
+public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>>(
+    private val summaryFactory: OperationSummaryFactory<K, I, S>
+) {
+    private val _measurements: MutableList<OperationMeasurement<K, I>> = mutableListOf()
+
+    public val measurement: List<OperationMeasurement<K, I>>
+        get() = this._measurements.toList()
+
+    public fun add(measurement: OperationMeasurement<K, I>) {
+        this._measurements.add(measurement)
+    }
+
+    public fun <T> measureOperation(input: I, block: () -> T): T {
+        val (value, duration) = measureTimedValue(block)
+        this.add(
+            OperationMeasurement(
+                duration = duration,
+                input = input,
+            ),
+        )
+        return value
+    }
+
+    public fun clear() {
+        this._measurements.clear()
+    }
+
+    public fun summaries(): Map<K, S> {
+        return this._measurements
+            .groupBy { it.input.operation }
+            .mapValues { (operation, measurements) ->
+                this.summaryFactory.create(operation, measurements)
+            }
+    }
+}

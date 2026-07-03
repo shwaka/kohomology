@@ -24,41 +24,41 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
 ) = freeSpec {
     val logger = matrixSpace.logger
     beforeEach {
-        logger.clearEntries()
+        logger.clear()
     }
     "test logger" - {
         matrixSpace.context.run {
             "add entry" {
-                logger.entries.shouldHaveSize(0)
+                logger.measurement.shouldHaveSize(0)
                 val matrix1 = matrixSpace.getZero(2, 3)
                 val matrix2 = matrixSpace.getZero(3, 4)
                 matrix1 * matrix2
-                logger.entries.shouldHaveSize(1)
-                val data = logger.entries[0].data
-                data.shouldBeInstanceOf<MatrixLogData.MultiplyMatrix>()
+                logger.measurement.shouldHaveSize(1)
+                val data = logger.measurement[0].input
+                data.shouldBeInstanceOf<MatrixOperationInput.MultiplyMatrix>()
                 data::class.simpleName shouldBe "MultiplyMatrix"
-                data shouldBe MatrixLogData.MultiplyMatrix(
+                data shouldBe MatrixOperationInput.MultiplyMatrix(
                     firstRowCount = 2,
                     firstColCount = 3,
                     secondColCount = 4,
                 )
             }
 
-            "stats" {
-                logger.entries.shouldHaveSize(0)
+            "measurement" {
+                logger.measurement.shouldHaveSize(0)
                 val matrix = matrixSpace.getZero(2)
                 matrix + matrix
                 matrix + matrix
                 matrix * matrix
-                logger.entries.shouldHaveSize(3)
-                val statsMap = logger.getStats()
-                statsMap[MatrixLogData.Add::class.simpleName].let {
+                logger.measurement.shouldHaveSize(3)
+                val summaries = logger.summaries()
+                summaries[MatrixOperation.ADD].let {
                     it.shouldNotBeNull()
-                    it.count shouldBe 2
+                    it.invocationCount shouldBe 2
                 }
-                statsMap[MatrixLogData.MultiplyMatrix::class.simpleName].let {
+                summaries[MatrixOperation.MULTIPLY_MATRIX].let {
                     it.shouldNotBeNull()
-                    it.count shouldBe 1
+                    it.invocationCount shouldBe 1
                 }
             }
         }

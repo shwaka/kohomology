@@ -135,27 +135,12 @@ public object MatrixOperationSummaryFactory :
         measurements: List<OperationMeasurement<MatrixOperation, MatrixOperationInput>>,
     ): MatrixOperationMetrics {
         return when (operation) {
-            MatrixOperation.ADD -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.Add
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.Add.fromInputs(inputs)
-            }
-            MatrixOperation.SUBTRACT -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.Subtract
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.Subtract.fromInputs(inputs)
-            }
-            MatrixOperation.MULTIPLY_MATRIX -> {
-                val inputs = measurements.map { measurement ->
-                    measurement.input as? MatrixOperationInput.MultiplyMatrix
-                        ?: error("Unexpected MatrixOperationInput type.")
-                }
-                MatrixOperationMetrics.MultiplyMatrix.fromInputs(inputs)
-            }
+            MatrixOperation.ADD ->
+                MatrixOperationMetrics.Add.fromInputs(measurements.castedInputs())
+            MatrixOperation.SUBTRACT ->
+                MatrixOperationMetrics.Subtract.fromInputs(measurements.castedInputs())
+            MatrixOperation.MULTIPLY_MATRIX ->
+                MatrixOperationMetrics.MultiplyMatrix.fromInputs(measurements.castedInputs())
         }
     }
 }

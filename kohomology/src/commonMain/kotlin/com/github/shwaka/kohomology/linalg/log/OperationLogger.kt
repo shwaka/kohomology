@@ -67,7 +67,7 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
     public fun getSummariesString(): String {
         val summaryList: List<OperationSummary<K>> = this.summaries()
             .map { (_, summary) -> summary }
-            .sortedBy { summary -> summary.totalDuration }
+            .sortedByDescending { summary -> summary.totalDuration }
         val header = listOf(
             "name",
             "total",

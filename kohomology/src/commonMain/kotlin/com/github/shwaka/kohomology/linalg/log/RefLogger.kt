@@ -9,7 +9,6 @@ public enum class RefOperation(
     REDUCED("REF_Reduced"),
     PIVOTS("REF_Pivots"),
     SIGN("REF_Sign"),
-    RANK("REF_Rank"),
 }
 
 public sealed interface RefOperationInput : OperationInput<RefOperation> {
@@ -92,3 +91,7 @@ public object RefOperationSummaryFactory :
         }
     }
 }
+
+public class RefLogger : OperationLogger<RefOperation, RefOperationInput, RefOperationSummary>(
+    RefOperationSummaryFactory
+)

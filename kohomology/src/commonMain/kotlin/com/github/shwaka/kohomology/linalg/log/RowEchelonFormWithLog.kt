@@ -21,14 +21,32 @@ public class RowEchelonFormWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V
     }
 
     override fun computeReducedRowEchelonForm(): M {
-        TODO("Not yet implemented")
+        val input = RefOperationInput.Reduced(
+            rowCount = this.originalMatrix.rowCount,
+            colCount = this.originalMatrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalRowEchelonForm.reducedMatrix
+        }
     }
 
     override fun computePivots(): List<Int> {
-        TODO("Not yet implemented")
+        val input = RefOperationInput.Pivots(
+            rowCount = this.originalMatrix.rowCount,
+            colCount = this.originalMatrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalRowEchelonForm.pivots
+        }
     }
 
     override fun computeSign(): Sign {
-        TODO("Not yet implemented")
+        val input = RefOperationInput.Sign(
+            rowCount = this.originalMatrix.rowCount,
+            colCount = this.originalMatrix.colCount,
+        )
+        return this.logger.measureOperation(input) {
+            this.originalRowEchelonForm.sign
+        }
     }
 }

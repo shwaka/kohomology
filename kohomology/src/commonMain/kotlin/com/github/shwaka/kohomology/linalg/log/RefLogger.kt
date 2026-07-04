@@ -18,6 +18,27 @@ public sealed interface RefOperationInput : OperationInput<RefOperation> {
     ) : RefOperationInput {
         override val operation: RefOperation = RefOperation.UNREDUCED
     }
+
+    public data class Reduced(
+        public val rowCount: Int,
+        public val colCount: Int,
+    ) : RefOperationInput {
+        override val operation: RefOperation = RefOperation.REDUCED
+    }
+
+    public data class Pivots(
+        public val rowCount: Int,
+        public val colCount: Int,
+    ) : RefOperationInput {
+        override val operation: RefOperation = RefOperation.PIVOTS
+    }
+
+    public data class Sign(
+        public val rowCount: Int,
+        public val colCount: Int,
+    ) : RefOperationInput {
+        override val operation: RefOperation = RefOperation.SIGN
+    }
 }
 
 public sealed interface RefOperationMetrics {
@@ -36,6 +57,66 @@ public sealed interface RefOperationMetrics {
             ): Unreduced {
                 require(inputs.isNotEmpty()) { "inputs must not be empty." }
                 return Unreduced(
+                    maxRowCount = inputs.maxOf { it.rowCount },
+                    maxColCount = inputs.maxOf { it.colCount },
+                )
+            }
+        }
+    }
+
+    public data class Reduced(
+        public val maxRowCount: Int,
+        public val maxColCount: Int,
+    ) : RefOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow=$maxRowCount, maxCol=$maxColCount"
+
+        public companion object {
+            public fun fromInputs(
+                inputs: List<RefOperationInput.Reduced>,
+            ): Reduced {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return Reduced(
+                    maxRowCount = inputs.maxOf { it.rowCount },
+                    maxColCount = inputs.maxOf { it.colCount },
+                )
+            }
+        }
+    }
+
+    public data class Pivots(
+        public val maxRowCount: Int,
+        public val maxColCount: Int,
+    ) : RefOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow=$maxRowCount, maxCol=$maxColCount"
+
+        public companion object {
+            public fun fromInputs(
+                inputs: List<RefOperationInput.Pivots>,
+            ): Pivots {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return Pivots(
+                    maxRowCount = inputs.maxOf { it.rowCount },
+                    maxColCount = inputs.maxOf { it.colCount },
+                )
+            }
+        }
+    }
+
+    public data class Sign(
+        public val maxRowCount: Int,
+        public val maxColCount: Int,
+    ) : RefOperationMetrics {
+        override fun toPrettyString(): String =
+            "maxRow=$maxRowCount, maxCol=$maxColCount"
+
+        public companion object {
+            public fun fromInputs(
+                inputs: List<RefOperationInput.Sign>,
+            ): Sign {
+                require(inputs.isNotEmpty()) { "inputs must not be empty." }
+                return Sign(
                     maxRowCount = inputs.maxOf { it.rowCount },
                     maxColCount = inputs.maxOf { it.colCount },
                 )
@@ -87,7 +168,12 @@ public object RefOperationSummaryFactory :
         return when (operation) {
             RefOperation.UNREDUCED ->
                 RefOperationMetrics.Unreduced.fromInputs(measurements.castedInputs())
-            else -> TODO()
+            RefOperation.REDUCED ->
+                RefOperationMetrics.Reduced.fromInputs(measurements.castedInputs())
+            RefOperation.PIVOTS ->
+                RefOperationMetrics.Pivots.fromInputs(measurements.castedInputs())
+            RefOperation.SIGN ->
+                RefOperationMetrics.Sign.fromInputs(measurements.castedInputs())
         }
     }
 }

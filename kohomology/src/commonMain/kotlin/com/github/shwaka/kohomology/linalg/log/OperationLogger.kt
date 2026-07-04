@@ -8,21 +8,47 @@ public interface OperationKind {
     public val displayName: String
 }
 
-public interface OperationInput<K : OperationKind> {
+public interface OperationInput<out K : OperationKind> {
     public val operation: K
 }
 
-public data class OperationMeasurement<K : OperationKind, I : OperationInput<K>>(
+public data class OperationMeasurement<out K : OperationKind, out I : OperationInput<K>>(
     val duration: Duration,
     val input: I,
 )
 
-public interface OperationSummary<K : OperationKind> {
+public interface OperationSummary<out K : OperationKind> {
     public val operation: K
     public val invocationCount: Int
     public val maxDuration: Duration
     public val totalDuration: Duration
     public val metricsText: String
+}
+
+public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummary<K>>): String {
+    val summaryList: List<OperationSummary<K>> = summaries
+        .map { (_, summary) -> summary }
+        .sortedByDescending { summary -> summary.totalDuration }
+    val header = listOf(
+        "name",
+        "total",
+        "max",
+        "count",
+        "metrics",
+    )
+    val stringTable: List<List<String>> = summaryList.map { summary ->
+        listOf(
+            summary.operation.displayName,
+            summary.totalDuration.toString(DurationUnit.MILLISECONDS, 0),
+            summary.maxDuration.toString(DurationUnit.MILLISECONDS, 0),
+            summary.invocationCount.toString(),
+            summary.metricsText,
+        )
+    }
+    return TextTable(
+        data = listOf(header) + stringTable,
+        sameWidth = false,
+    ).toPrettyString()
 }
 
 public fun interface OperationSummaryFactory<K : OperationKind, I : OperationInput<K>, S : OperationSummary<K>> {
@@ -64,30 +90,8 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
             }
     }
 
-    public fun getSummariesString(): String {
-        val summaryList: List<OperationSummary<K>> = this.summaries()
-            .map { (_, summary) -> summary }
-            .sortedByDescending { summary -> summary.totalDuration }
-        val header = listOf(
-            "name",
-            "total",
-            "max",
-            "count",
-            "metrics",
-        )
-        val stringTable: List<List<String>> = summaryList.map { summary ->
-            listOf(
-                summary.operation.displayName,
-                summary.totalDuration.toString(DurationUnit.MILLISECONDS, 0),
-                summary.maxDuration.toString(DurationUnit.MILLISECONDS, 0),
-                summary.invocationCount.toString(),
-                summary.metricsText,
-            )
-        }
-        return TextTable(
-            data = listOf(header) + stringTable,
-            sameWidth = false,
-        ).toPrettyString()
+    public fun getFormattedSummaries(): String {
+        return formatSummaries(this.summaries())
     }
 }
 

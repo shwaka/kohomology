@@ -13,6 +13,15 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
     public val originalMatrixSpace: MatrixSpace<S, V, M>,
 ) : MatrixSpace<S, V, M> {
     public val logger: MatrixLogger = MatrixLogger()
+    public val refLogger: RefLogger = RefLogger()
+
+    public fun getSummaries(): Map<OperationKind, OperationSummary<OperationKind>> {
+        return this.logger.summaries() + this.refLogger.summaries()
+    }
+
+    public fun getFormattedSummaries(): String {
+        return formatSummaries(this.getSummaries())
+    }
 
     override val context: MatrixContext<S, V, M> by lazy {
         MatrixContext(this)
@@ -94,9 +103,13 @@ public class MatrixSpaceWithLog<S : Scalar, V : NumVector<S>, M : Matrix<S, V>>(
             rowCount = matrix.rowCount,
             colCount = matrix.colCount,
         )
-        return this.logger.measureOperation(input) {
+        val rowEchelonForm = this.logger.measureOperation(input) {
             this.originalMatrixSpace.computeRowEchelonForm(matrix)
         }
+        return RowEchelonFormWithLog(
+            rowEchelonForm,
+            this.refLogger,
+        )
     }
 
     override fun computeTranspose(matrix: M): M {

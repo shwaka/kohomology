@@ -264,6 +264,92 @@ public object JavaRationalField : Field<JavaRational> {
         return JavaRational(numerator, denominator)
     }
 
+    override fun subtractProduct(a: JavaRational, b: JavaRational, c: JavaRational): JavaRational {
+        if (b.isZero() || c.isZero()) {
+            return a
+        }
+
+        if (
+            a.denominator == BigInteger.ONE &&
+            b.denominator == BigInteger.ONE &&
+            c.denominator == BigInteger.ONE
+        ) {
+            return JavaRational.fromReduced(
+                a.numerator - b.numerator * c.numerator,
+                BigInteger.ONE,
+            )
+        }
+
+        /*
+         * First compute b * c = productNumerator / productDenominator
+         * without constructing an intermediate JavaRational.
+         *
+         * Cross-cancellation makes this product already reduced.
+         */
+        val bNumeratorCancellation = if (c.denominator == BigInteger.ONE) {
+            BigInteger.ONE
+        } else {
+            javaGcd(b.numerator, c.denominator)
+        }
+        val cNumeratorCancellation = if (b.denominator == BigInteger.ONE) {
+            BigInteger.ONE
+        } else {
+            javaGcd(c.numerator, b.denominator)
+        }
+
+        val productNumerator =
+            (b.numerator / bNumeratorCancellation) *
+                (c.numerator / cNumeratorCancellation)
+        val productDenominator =
+            (b.denominator / cNumeratorCancellation) *
+                (c.denominator / bNumeratorCancellation)
+
+        /*
+         * Compute
+         *
+         *   a - productNumerator / productDenominator
+         *
+         * using the least common denominator.  Since both fractions are
+         * reduced, the resulting numerator can share a factor only with
+         * commonDenominatorGcd.
+         */
+        val commonDenominatorGcd = if (
+            a.denominator == BigInteger.ONE ||
+            productDenominator == BigInteger.ONE
+        ) {
+            BigInteger.ONE
+        } else {
+            javaGcd(a.denominator, productDenominator)
+        }
+
+        val aDenominatorWithoutGcd = a.denominator / commonDenominatorGcd
+        val productDenominatorWithoutGcd =
+            productDenominator / commonDenominatorGcd
+
+        val numerator =
+            a.numerator * productDenominatorWithoutGcd -
+                productNumerator * aDenominatorWithoutGcd
+
+        if (numerator.isZero()) {
+            return this.zero
+        }
+
+        if (commonDenominatorGcd == BigInteger.ONE) {
+            return JavaRational.fromReduced(
+                numerator,
+                aDenominatorWithoutGcd * productDenominator,
+            )
+        }
+
+        val numeratorCancellation = javaGcd(numerator, commonDenominatorGcd)
+
+        return JavaRational.fromReduced(
+            numerator / numeratorCancellation,
+            aDenominatorWithoutGcd *
+                (productDenominator / numeratorCancellation),
+        )
+    }
+
     override val zero: JavaRational = this.fromInt(0)
     override val one: JavaRational = this.fromInt(1)
     override val two: JavaRational = this.fromInt(2)

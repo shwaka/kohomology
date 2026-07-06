@@ -98,11 +98,13 @@ internal class InPlaceSparseRowEchelonFormCalculator<S : Scalar>(
     private fun MutableMap<Int, S>.subtract(other: Map<Int, S>, scalar: S) {
         this@InPlaceSparseRowEchelonFormCalculator.field.context.run {
             for ((i, value) in other) {
-                val scaledValue = value * scalar
                 when (val valueFromThis: S? = this@subtract[i]) {
-                    null -> this@subtract[i] = -scaledValue
+                    null -> this@subtract[i] = -value * scalar
                     else -> {
-                        val newValue = valueFromThis - scaledValue
+                        val newValue =
+                            this@InPlaceSparseRowEchelonFormCalculator
+                                .field
+                                .subtractProduct(valueFromThis, value, scalar)
                         if (newValue.isZero()) {
                             this@subtract.remove(i)
                         } else {

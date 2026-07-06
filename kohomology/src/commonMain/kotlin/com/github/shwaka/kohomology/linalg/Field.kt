@@ -89,6 +89,11 @@ public interface Field<S : Scalar> {
     public fun fromInt(n: Int): S
     public fun fromIntPair(numerator: Int, denominator: Int): S = this.divide(this.fromInt(numerator), this.fromInt(denominator))
 
+    // Optimization of computation of row echelon form
+    public fun subtractProduct(a: S, b: S, c: S): S {
+        return this.subtract(a, this.multiply(b, c))
+    }
+
     // Scalar values zero, one,..., five should be defined in classes that implement Field
     // since it should be stored in a property for performance reason.
     public val zero: S

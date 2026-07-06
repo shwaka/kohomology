@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783147701598,
+  "lastUpdate": 1783340147990,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13174,6 +13174,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.071,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "ac1caa7d92156f08b28f79ff36df4e03819b6a53",
+          "message": "test(core): add test for Field.subtractProduct",
+          "timestamp": "2026-07-06T21:09:29+09:00",
+          "tree_id": "7a8f05f394d4093e395fd212fcf3dc0701f3dd4c",
+          "url": "https://github.com/shwaka/kohomology/commit/ac1caa7d92156f08b28f79ff36df4e03819b6a53"
+        },
+        "date": 1783340147058,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.734,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.993,
             "unit": "s/op"
           }
         ]

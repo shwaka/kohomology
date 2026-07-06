@@ -177,6 +177,11 @@ fun <S : Scalar> fieldTest(field: Field<S>, intMax: Int = Int.MAX_VALUE) = freeS
             "emptyList().product() should be 1" {
                 emptyList<S>().product() shouldBe one
             }
+            "subtractProduct(a, b, c) should be (a - b * c)" {
+                checkAll(arb, arb, arb) { a, b, c ->
+                    field.subtractProduct(a, b, c) shouldBe (a - b * c)
+                }
+            }
         }
     }
 }

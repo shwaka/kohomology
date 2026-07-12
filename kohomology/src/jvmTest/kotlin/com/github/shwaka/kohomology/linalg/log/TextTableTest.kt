@@ -17,25 +17,12 @@ class TextTableTest : FreeSpec({
         table.toPrettyString() shouldBe expected
     }
 
-    "table of different digit integers, sameWidth=true" {
+    "table of different digit integers" {
         val data = listOf(
             listOf(1, 22, 333).map { it.toString() },
             listOf(44, 5, 6).map { it.toString() },
         )
-        val table = TextTable(data, separator = ",", sameWidth = true)
-        val expected = """
-            |  1, 22,333
-            | 44,  5,  6
-        """.trimMargin()
-        table.toPrettyString() shouldBe expected
-    }
-
-    "table of different digit integers, sameWidth=false" {
-        val data = listOf(
-            listOf(1, 22, 333).map { it.toString() },
-            listOf(44, 5, 6).map { it.toString() },
-        )
-        val table = TextTable(data, separator = ",", sameWidth = false)
+        val table = TextTable(data, separator = ",")
         val expected = """
             | 1,22,333
             |44, 5,  6

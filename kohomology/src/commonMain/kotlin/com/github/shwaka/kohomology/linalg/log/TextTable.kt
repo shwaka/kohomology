@@ -1,42 +1,14 @@
 package com.github.shwaka.kohomology.linalg.log
 
-private fun <T> Collection<Collection<T>>.assertRectangle(): Boolean {
-    if (this.isEmpty()) {
-        return true
-    }
-    return this.map { row -> row.size }.distinct().size <= 1
-}
+import com.github.shwaka.kohomology.util.TableFormatter
 
 internal class TextTable(
-    val data: List<List<String>>,
-    val separator: String = " ",
-    sameWidth: Boolean = true,
+    data: List<List<String>>,
+    separator: String = " ",
 ) {
-    init {
-        require(this.data.assertRectangle()) { "Non-rectangle" }
-    }
-
-    private val colLengthList: List<Int> = when {
-        this.data.isEmpty() -> emptyList()
-        sameWidth -> {
-            val length = this.data.flatMap { row -> row.map { it.length } }.max()
-            List(data[0].size) { length }
-        }
-        else -> this.data[0].indices.map { j ->
-            this.data.map { row -> row[j] }.maxOf { it.length }
-        }
-    }
+    private val formatter: TableFormatter = TableFormatter(data, separator = separator)
 
     fun toPrettyString(): String {
-        if (this.data.isEmpty()) {
-            // 下で this.data[0] とするので、ここの分岐は必要
-            return ""
-        }
-        val rowStringList: List<String> = this.data.map { row ->
-            row.zip(this.colLengthList).joinToString(this.separator) { (elm, length) ->
-                elm.padStart(length)
-            }
-        }
-        return rowStringList.joinToString("\n")
+        return this.formatter.formatPlain()
     }
 }

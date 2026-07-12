@@ -47,7 +47,6 @@ public fun <K : OperationKind> formatSummaries(summaries: Map<K, OperationSummar
     }
     return TextTable(
         data = listOf(header) + stringTable,
-        sameWidth = false,
     ).toPrettyString()
 }
 

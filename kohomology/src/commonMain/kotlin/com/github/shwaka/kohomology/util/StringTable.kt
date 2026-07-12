@@ -22,17 +22,8 @@ private val PrettyParen = Paren(
     lowerRight = "⎦"
 )
 
-private fun <T> Collection<Collection<T>>.assertRectangle(): Boolean {
-    if (this.isEmpty()) {
-        return true
-    }
-    return this.map { row -> row.size }.distinct().size <= 1
-}
-
 public class StringTable(private val data: List<List<String>>, private val paren: Paren = PrettyParen) {
-    init {
-        require(this.data.assertRectangle()) { "Non-rectangle" }
-    }
+    private val formatter: TableFormatter = TableFormatter(this.data, separator = this.paren.separator)
 
     override fun toString(): String {
         val rowStringList = this.data.map { row -> row.toString() }
@@ -45,13 +36,7 @@ public class StringTable(private val data: List<List<String>>, private val paren
             // 下で this.data[0] とするので、ここの分岐は必要
             return "${this.paren.leftOneRow} ${this.paren.rightOneRow}"
         }
-        val colLengthList: List<Int> = (this.data[0].indices).map { j ->
-            this.data.map { row -> row[j] }.maxOf { it.length }
-        }
-        val rowStringList = this.data.map { row ->
-            row.zip(colLengthList).joinToString(this.paren.separator) { (elm, length) -> elm.padStart(length) }
-        }
-        return this.joinRows(rowStringList)
+        return this.joinRows(this.formatter.formatRows())
     }
 
     private fun joinRows(rows: List<String>): String {

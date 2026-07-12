@@ -7,6 +7,8 @@ import com.github.shwaka.kohomology.linalg.Scalar
 import com.github.shwaka.kohomology.linalg.log.MatrixSpaceWithLog
 import com.github.shwaka.kohomology.linalg.log.withLog
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpace
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLupton
+import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegree
 import com.github.shwaka.kohomology.profile.executable.CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree
 import com.github.shwaka.kohomology.profile.executable.ComputeReducedRowEchelonFormOfJordanMatrix
@@ -64,6 +66,12 @@ private fun measurementTargetList(): List<MeasurementTarget> {
         },
         measurementTarget(SetMatrixSpaceOverF2Boolean) { matrixSpace ->
             ComputeReducedRowEchelonFormOfJordanMatrix(matrixSpace, 5000)
+        },
+        measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
+            CohomologyOfFreeLoopSpaceOfArkowitzLupton(matrixSpace, 250)
+        },
+        measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
+            CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree(matrixSpace, 800)
         },
     )
 }

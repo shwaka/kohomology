@@ -36,7 +36,7 @@ public class SetMatrix<S : Scalar>(
             }
     }
 
-    private fun toStringTable(): MatrixFormatter {
+    private fun toMatrixFormatter(): MatrixFormatter {
         val valueList = (0 until this.rowCount).map { rowInd ->
             (0 until this.colCount).map { colInd ->
                 this[rowInd, colInd].toString()
@@ -46,11 +46,11 @@ public class SetMatrix<S : Scalar>(
     }
 
     override fun toPrettyString(): String {
-        return this.toStringTable().toPrettyString()
+        return this.toMatrixFormatter().toPrettyString()
     }
 
     override fun toString(): String {
-        return this.toStringTable().toString()
+        return this.toMatrixFormatter().toString()
     }
 
     override fun get(rowInd: Int, colInd: Int): S {

@@ -21,16 +21,16 @@ public data class DenseMatrix<S : Scalar>(
         if (this.rowList.any { row -> row.size != this.colCount })
             throw InvalidSizeException("The length of each row must be equal to colCount")
     }
-    private fun toStringTable(): MatrixFormatter {
+    private fun toMatrixFormatter(): MatrixFormatter {
         return MatrixFormatter(this.rowList.map { row -> row.map { it.toString() } })
     }
 
     override fun toPrettyString(): String {
-        return this.toStringTable().toPrettyString()
+        return this.toMatrixFormatter().toPrettyString()
     }
 
     override fun toString(): String {
-        return this.toStringTable().toString()
+        return this.toMatrixFormatter().toString()
     }
 
     override operator fun get(rowInd: Int, colInd: Int): S {

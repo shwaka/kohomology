@@ -53,7 +53,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Plot operation measurements exported by OperationLogger.getMeasurementsCSV().",
     )
-    parser.add_argument("csv_file", type=Path, nargs="+")
+    csv_file_action = parser.add_argument("csv_file", type=Path, nargs="+")
     parser.add_argument("-o", "--output", type=Path, default=None)
     parser.add_argument("--x-column", default="size")
     parser.add_argument("--y-column", default="duration_ms")
@@ -69,8 +69,10 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--show", action="store_true")
     try:
         import argcomplete
+        from argcomplete.completers import FilesCompleter
 
-        argcomplete.autocomplete(parser)
+        csv_file_action.completer = FilesCompleter(["csv"])
+        argcomplete.autocomplete(parser, always_complete_options=False)
     except ImportError:
         pass
     return parser.parse_args()

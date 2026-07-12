@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783862814224,
+  "lastUpdate": 1783868096099,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13378,6 +13378,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 2.099,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a414fa733b360f5ab3282da4ac251b48dfd387f4",
+          "message": "feat(profile): improve outputs from plot-operation-measurements.py",
+          "timestamp": "2026-07-12T23:49:52+09:00",
+          "tree_id": "6e2f7b5dbc6d04a565993835823ce686f73c97b2",
+          "url": "https://github.com/shwaka/kohomology/commit/a414fa733b360f5ab3282da4ac251b48dfd387f4"
+        },
+        "date": 1783868094830,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.644,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 1.596,
             "unit": "s/op"
           }
         ]

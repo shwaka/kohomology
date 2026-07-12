@@ -88,7 +88,7 @@ task("formatBenchmarkResult", JavaExec::class) {
 }
 
 tasks.register("exportOperationMeasurementsCSV", JavaExec::class) {
-    mainClass.set("com.github.shwaka.kohomology.profile.measurement.ExportOperationMeasurementsCSVKt")
+    mainClass.set("com.github.shwaka.kohomology.profile.ExportOperationMeasurementsCSVKt")
     classpath = sourceSets["main"].runtimeClasspath
     standardInput = System.`in`
     listOf("measurementTarget", "measurementOutputDir").forEach { key ->

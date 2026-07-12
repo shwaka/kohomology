@@ -1,4 +1,4 @@
-package com.github.shwaka.kohomology.profile.measurement
+package com.github.shwaka.kohomology.profile
 
 import com.github.shwaka.kohomology.linalg.Matrix
 import com.github.shwaka.kohomology.linalg.MatrixSpace

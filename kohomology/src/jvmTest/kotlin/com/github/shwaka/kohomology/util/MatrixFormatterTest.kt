@@ -50,6 +50,22 @@ class MatrixFormatterTest : FreeSpec({
         table.toPrettyString() shouldBe expected
     }
 
+    "toPrettyString for multiple empty rows" {
+        val data = listOf(
+            emptyList<String>(),
+            emptyList(),
+            emptyList(),
+        )
+        val table = MatrixFormatter(data)
+        val expected = """
+            |⎡  ⎤
+            |⎥  ⎥
+            |⎣  ⎦
+        """.trimMargin()
+
+        table.toPrettyString() shouldBe expected
+    }
+
     "toPrettyString with custom separator and paren" {
         val data = listOf(
             listOf("1", "22", "333"),

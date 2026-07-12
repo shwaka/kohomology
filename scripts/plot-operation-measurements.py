@@ -84,6 +84,24 @@ def get_default_output_path(
     return first_csv_file.with_name(f"{stem}-{suffix}.png")
 
 
+def format_arg_value(value: object) -> str:
+    if isinstance(value, list):
+        return "[" + ", ".join(format_arg_value(item) for item in value) + "]"
+    return str(value)
+
+
+def print_arguments(args: argparse.Namespace, output: Path) -> None:
+    print("Arguments:")
+    for key, value in vars(args).items():
+        if key == "csv_file" and isinstance(value, list):
+            print(f"  {key}:")
+            for item in value:
+                print(f"    - {format_arg_value(item)}")
+        else:
+            print(f"  {key}: {format_arg_value(value)}")
+    print(f"  resolved_output: {output}")
+
+
 def require_column(data: pd.DataFrame, column: str) -> None:
     if column not in data.columns:
         available_columns = ", ".join(data.columns)
@@ -251,6 +269,7 @@ def main() -> None:
         args.y_column,
         args.aggregate_stat,
     )
+    print_arguments(args, output)
     data = prepare_data(
         csv_files=args.csv_file,
         x_column=args.x_column,

@@ -54,19 +54,50 @@ def parse_args() -> argparse.Namespace:
         description="Plot operation measurements exported by OperationLogger.getMeasurementsCSV().",
     )
     csv_file_action = parser.add_argument("csv_file", type=Path, nargs="+")
-    parser.add_argument("-o", "--output", type=Path, default=None)
-    parser.add_argument("--x-column", default="size")
-    parser.add_argument("--y-column", default="duration_ms")
+    parser.add_argument(
+        "-o",
+        "--output",
+        type=Path,
+        default=None,
+        help="Output PNG file path. Defaults to a name based on the first CSV file.",
+    )
+    parser.add_argument(
+        "--x-column",
+        default="size",
+        help="Column used as the x-axis.",
+    )
+    parser.add_argument(
+        "--y-column",
+        default="duration_ms",
+        help="Column used as the y-axis.",
+    )
     parser.add_argument(
         "--aggregate-stat",
         choices=["median", "mean", "min", "max", "p90", "p95"],
         default="median",
         help="Statistic used when multiple CSV files are passed.",
     )
-    parser.add_argument("--operation", action="append", default=None)
-    parser.add_argument("--log-x", action="store_true")
-    parser.add_argument("--log-y", action="store_true")
-    parser.add_argument("--show", action="store_true")
+    parser.add_argument(
+        "--operation",
+        action="append",
+        default=None,
+        help="Operation name to include. Can be specified multiple times.",
+    )
+    parser.add_argument(
+        "--log-x",
+        action="store_true",
+        help="Use a logarithmic scale for the x-axis.",
+    )
+    parser.add_argument(
+        "--log-y",
+        action="store_true",
+        help="Use a logarithmic scale for the y-axis.",
+    )
+    parser.add_argument(
+        "--show",
+        action="store_true",
+        help="Show the plot window after saving the PNG.",
+    )
     try:
         import argcomplete
         from argcomplete.completers import FilesCompleter

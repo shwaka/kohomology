@@ -41,7 +41,7 @@ class CohomologyOfFreeLoopSpaceOfArkowitzLupton<S : Scalar, V : NumVector<S>, M 
     private val degreeLimit: Int,
 ) : Executable() {
     override val description = "H^*(L(Arkowitz-Lupton)) for *<$degreeLimit"
-    override val filename: String = "cohom-L(AL)-$degreeLimit"
+    override val filename: String = "cohom-LAL-$degreeLimit"
     override fun mainFun(): String {
         val freeDGAlgebra = arkowitzLupton(this.matrixSpace)
         val freeLoopSpace = FreeLoopSpace(freeDGAlgebra)
@@ -59,7 +59,7 @@ class CohomologyOfFreeLoopSpaceOfArkowitzLuptonWithShiftDegree<S : Scalar, V : N
     private val degreeLimit: Int,
 ) : Executable() {
     override val description = "H^*(L(Arkowitz-Lupton)) for *<$degreeLimit (with FreeLoopSpace.withShiftDegree)"
-    override val filename: String = "cohom-L(AL)-$degreeLimit"
+    override val filename: String = "cohom-LAL-$degreeLimit-shift"
     override fun mainFun(): String {
         val freeDGAlgebra = arkowitzLupton(this.matrixSpace)
         val freeLoopSpace = FreeLoopSpace.withShiftDegree(freeDGAlgebra)

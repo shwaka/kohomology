@@ -42,6 +42,7 @@
 from __future__ import annotations
 
 import argparse
+import re
 from pathlib import Path
 from typing import Optional
 
@@ -76,9 +77,11 @@ def get_default_output_path(
     first_csv_file = csv_files[0]
     if len(csv_files) == 1:
         suffix = f"{x_column}-{y_column}"
+        stem = first_csv_file.stem
     else:
         suffix = f"{x_column}-{y_column}-{aggregate_stat}-{len(csv_files)}runs"
-    return first_csv_file.with_name(f"{first_csv_file.stem}-{suffix}.png")
+        stem = re.sub(r"_\d{8}-\d{6}$", "", first_csv_file.stem)
+    return first_csv_file.with_name(f"{stem}-{suffix}.png")
 
 
 def require_column(data: pd.DataFrame, column: str) -> None:

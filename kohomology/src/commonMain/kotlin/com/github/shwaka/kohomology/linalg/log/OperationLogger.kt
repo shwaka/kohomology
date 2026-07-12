@@ -12,12 +12,41 @@ public interface OperationKind {
 
 public interface OperationInput<out K : OperationKind> {
     public val operation: K
+    public val numericValues: Map<String, Double>
+        get() = emptyMap()
 }
 
 public data class OperationMeasurement<out K : OperationKind, out I : OperationInput<K>>(
     val duration: Duration,
     val input: I,
 )
+
+private fun String.escapeCSV(): String {
+    val shouldQuote = this.any { it == ',' || it == '"' || it == '\n' || it == '\r' }
+    return if (shouldQuote) {
+        "\"${this.replace("\"", "\"\"")}\""
+    } else {
+        this
+    }
+}
+
+public fun <K : OperationKind, I : OperationInput<K>> List<OperationMeasurement<K, I>>.toCSV(): String {
+    val numericValueKeys: List<String> = this.flatMap { measurement ->
+        measurement.input.numericValues.keys
+    }.distinct().sorted()
+    val header = listOf("operation", "duration_ms") + numericValueKeys
+    val rows = this.map { measurement ->
+        val numericValues = measurement.input.numericValues
+        listOf(
+            measurement.input.operation.displayName,
+            measurement.duration.toDouble(DurationUnit.MILLISECONDS).toString(),
+        ) + numericValueKeys.map { key ->
+            numericValues[key]?.toString() ?: ""
+        }
+    }
+    return (listOf(header) + rows)
+        .joinToString("\n") { row -> row.joinToString(",") { it.escapeCSV() } }
+}
 
 public interface OperationSummary<out K : OperationKind> {
     public val operation: K
@@ -102,6 +131,10 @@ public open class OperationLogger<K : OperationKind, I : OperationInput<K>, S : 
 
     public fun getFormattedSummaries(): String {
         return formatSummaries(this.summaries())
+    }
+
+    public fun getMeasurementsCSV(): String {
+        return this.measurement.toCSV()
     }
 }
 

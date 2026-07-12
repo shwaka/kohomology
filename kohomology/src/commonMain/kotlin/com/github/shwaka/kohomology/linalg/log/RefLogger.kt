@@ -17,6 +17,8 @@ public sealed interface RefOperationInput : OperationInput<RefOperation> {
         public val colCount: Int,
     ) : RefOperationInput {
         override val operation: RefOperation = RefOperation.UNREDUCED
+        override val numericValues: Map<String, Double>
+            get() = refNumericValues(this.rowCount, this.colCount)
     }
 
     public data class Reduced(
@@ -24,6 +26,8 @@ public sealed interface RefOperationInput : OperationInput<RefOperation> {
         public val colCount: Int,
     ) : RefOperationInput {
         override val operation: RefOperation = RefOperation.REDUCED
+        override val numericValues: Map<String, Double>
+            get() = refNumericValues(this.rowCount, this.colCount)
     }
 
     public data class Pivots(
@@ -31,6 +35,8 @@ public sealed interface RefOperationInput : OperationInput<RefOperation> {
         public val colCount: Int,
     ) : RefOperationInput {
         override val operation: RefOperation = RefOperation.PIVOTS
+        override val numericValues: Map<String, Double>
+            get() = refNumericValues(this.rowCount, this.colCount)
     }
 
     public data class Sign(
@@ -38,7 +44,19 @@ public sealed interface RefOperationInput : OperationInput<RefOperation> {
         public val colCount: Int,
     ) : RefOperationInput {
         override val operation: RefOperation = RefOperation.SIGN
+        override val numericValues: Map<String, Double>
+            get() = refNumericValues(this.rowCount, this.colCount)
     }
+}
+
+private fun refNumericValues(rowCount: Int, colCount: Int): Map<String, Double> {
+    val size = rowCount.toDouble() * colCount.toDouble()
+    return mapOf(
+        "col_count" to colCount.toDouble(),
+        "row_count" to rowCount.toDouble(),
+        "size" to size,
+        "work_size" to size * minOf(rowCount, colCount).toDouble(),
+    )
 }
 
 public sealed interface RefOperationMetrics {

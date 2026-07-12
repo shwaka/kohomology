@@ -25,6 +25,22 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
         public val rowCount: Int,
         public val colCount: Int,
     ) : MatrixOperationInput {
+        override val numericValues: Map<String, Double>
+            get() {
+                val size = this.rowCount.toDouble() * this.colCount.toDouble()
+                val workSize = when (this.operation) {
+                    MatrixOperation.COMPUTE_ROW_ECHELON_FORM ->
+                        size * minOf(this.rowCount, this.colCount).toDouble()
+                    else -> size
+                }
+                return mapOf(
+                    "col_count" to this.colCount.toDouble(),
+                    "row_count" to this.rowCount.toDouble(),
+                    "size" to size,
+                    "work_size" to workSize,
+                )
+            }
+
         init {
             require(
                 operation in setOf(
@@ -53,6 +69,20 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
 
         public val secondRowCount: Int
             get() = this.firstColCount
+
+        override val numericValues: Map<String, Double>
+            get() {
+                val size = this.firstRowCount.toDouble() * this.secondColCount.toDouble()
+                val workSize = size * this.firstColCount.toDouble()
+                return mapOf(
+                    "first_col_count" to this.firstColCount.toDouble(),
+                    "first_row_count" to this.firstRowCount.toDouble(),
+                    "second_col_count" to this.secondColCount.toDouble(),
+                    "second_row_count" to this.secondRowCount.toDouble(),
+                    "size" to size,
+                    "work_size" to workSize,
+                )
+            }
     }
 
     public data class JoinMatrices(
@@ -61,6 +91,20 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
         public val secondColCount: Int,
     ) : MatrixOperationInput {
         override val operation: MatrixOperation = MatrixOperation.JOIN_MATRICES
+
+        override val numericValues: Map<String, Double>
+            get() {
+                val colCountSum = this.firstColCount + this.secondColCount
+                val size = this.rowCount.toDouble() * colCountSum.toDouble()
+                return mapOf(
+                    "col_count_sum" to colCountSum.toDouble(),
+                    "first_col_count" to this.firstColCount.toDouble(),
+                    "row_count" to this.rowCount.toDouble(),
+                    "second_col_count" to this.secondColCount.toDouble(),
+                    "size" to size,
+                    "work_size" to size,
+                )
+            }
     }
 
     public data class Slice(
@@ -69,6 +113,25 @@ public sealed interface MatrixOperationInput : OperationInput<MatrixOperation> {
         public val colCount: Int,
         public val rangeSize: Int,
     ) : MatrixOperationInput {
+        override val numericValues: Map<String, Double>
+            get() {
+                val size = when (this.operation) {
+                    MatrixOperation.COMPUTE_ROW_SLICE ->
+                        this.rangeSize.toDouble() * this.colCount.toDouble()
+                    MatrixOperation.COMPUTE_COL_SLICE ->
+                        this.rowCount.toDouble() * this.rangeSize.toDouble()
+                    else -> error("Unsupported operation for Slice: ${this.operation}")
+                }
+                val workSize = this.rowCount.toDouble() * this.colCount.toDouble()
+                return mapOf(
+                    "col_count" to this.colCount.toDouble(),
+                    "range_size" to this.rangeSize.toDouble(),
+                    "row_count" to this.rowCount.toDouble(),
+                    "size" to size,
+                    "work_size" to workSize,
+                )
+            }
+
         init {
             require(
                 operation in setOf(

@@ -20,12 +20,21 @@ private sealed interface TestInput : OperationInput<TestOperation> {
         public val size: Int,
     ) : TestInput {
         override val operation: TestOperation = TestOperation.FAST
+        override val numericValues: Map<String, Double>
+            get() = mapOf(
+                "size" to this.size.toDouble(),
+            )
     }
 
     public data class Slow(
         public val size: Int,
     ) : TestInput {
         override val operation: TestOperation = TestOperation.SLOW
+        override val numericValues: Map<String, Double>
+            get() = mapOf(
+                "size" to this.size.toDouble(),
+                "work_size" to (this.size * this.size).toDouble(),
+            )
     }
 }
 
@@ -154,6 +163,35 @@ class OperationLoggerTest : FreeSpec({
         result shouldBe "result"
         logger.measurement.shouldHaveSize(1)
         logger.measurement[0].input shouldBe input
+    }
+
+    "getMeasurementsCSV should format measurements as CSV" {
+        val logger = OperationLogger(TestSummaryFactory)
+        logger.add(
+            OperationMeasurement(
+                duration = 1.milliseconds,
+                input = TestInput.Fast(size = 2),
+            ),
+        )
+        logger.add(
+            OperationMeasurement(
+                duration = 3.milliseconds,
+                input = TestInput.Slow(size = 5),
+            ),
+        )
+        val expected = """
+            |operation,duration_ms,size,work_size
+            |Fast,1.0,2.0,
+            |Slow,3.0,5.0,25.0
+        """.trimMargin()
+
+        logger.getMeasurementsCSV() shouldBe expected
+    }
+
+    "toCSV should return header for empty measurements" {
+        val measurements = emptyList<OperationMeasurement<TestOperation, TestInput>>()
+
+        measurements.toCSV() shouldBe "operation,duration_ms"
     }
 
     "castedInputs should cast inputs to the expected type" {

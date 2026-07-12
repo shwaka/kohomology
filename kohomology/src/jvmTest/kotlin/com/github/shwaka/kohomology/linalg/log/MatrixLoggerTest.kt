@@ -324,6 +324,55 @@ class MatrixLoggerTest : FreeSpec({
         }
     }
 
+    "MatrixOperationInput should expose numeric values" {
+        matrixSizeInput(
+            MatrixOperation.ADD,
+            rowCount = 2,
+            colCount = 3,
+        ).numericValues shouldBe mapOf(
+            "col_count" to 3.0,
+            "row_count" to 2.0,
+            "size" to 6.0,
+            "work_size" to 6.0,
+        )
+        MatrixOperationInput.MultiplyMatrix(
+            firstRowCount = 2,
+            firstColCount = 3,
+            secondColCount = 4,
+        ).numericValues shouldBe mapOf(
+            "first_col_count" to 3.0,
+            "first_row_count" to 2.0,
+            "second_col_count" to 4.0,
+            "second_row_count" to 3.0,
+            "size" to 8.0,
+            "work_size" to 24.0,
+        )
+        MatrixOperationInput.JoinMatrices(
+            rowCount = 2,
+            firstColCount = 3,
+            secondColCount = 4,
+        ).numericValues shouldBe mapOf(
+            "col_count_sum" to 7.0,
+            "first_col_count" to 3.0,
+            "row_count" to 2.0,
+            "second_col_count" to 4.0,
+            "size" to 14.0,
+            "work_size" to 14.0,
+        )
+        sliceInput(
+            MatrixOperation.COMPUTE_COL_SLICE,
+            rowCount = 2,
+            colCount = 3,
+            rangeSize = 1,
+        ).numericValues shouldBe mapOf(
+            "col_count" to 3.0,
+            "range_size" to 1.0,
+            "row_count" to 2.0,
+            "size" to 2.0,
+            "work_size" to 6.0,
+        )
+    }
+
     "formatSummaries should format matrix operation summaries" {
         val summaries: Map<MatrixOperation, MatrixOperationSummary> = listOf(
             MatrixOperationSummary(
@@ -378,6 +427,28 @@ class MatrixLoggerTest : FreeSpec({
         """.trimMargin()
 
         logger.getFormattedSummaries().trimLineEnds() shouldBe expected
+    }
+
+    "MatrixLogger should format measurements as CSV" {
+        val logger = MatrixLogger()
+        logger.add(measurement(1, matrixSizeInput(MatrixOperation.ADD, rowCount = 2, colCount = 3)))
+        logger.add(
+            measurement(
+                10,
+                MatrixOperationInput.MultiplyMatrix(
+                    firstRowCount = 2,
+                    firstColCount = 3,
+                    secondColCount = 4,
+                ),
+            ),
+        )
+        val expected = """
+            |operation,duration_ms,col_count,first_col_count,first_row_count,row_count,second_col_count,second_row_count,size,work_size
+            |Add,1.0,3.0,,,2.0,,,6.0,6.0
+            |MultiplyMatrix,10.0,,3.0,2.0,,4.0,3.0,8.0,24.0
+        """.trimMargin()
+
+        logger.getMeasurementsCSV() shouldBe expected
     }
 
     "MatrixOperationSummaryFactory should throw for empty measurements" {

@@ -1,5 +1,5 @@
 window.BENCHMARK_DATA = {
-  "lastUpdate": 1783868096099,
+  "lastUpdate": 1783874405402,
   "repoUrl": "https://github.com/shwaka/kohomology",
   "entries": {
     "Benchmark": [
@@ -13412,6 +13412,40 @@ window.BENCHMARK_DATA = {
           {
             "name": "inputJson",
             "value": 1.596,
+            "unit": "s/op"
+          }
+        ]
+      },
+      {
+        "commit": {
+          "author": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "committer": {
+            "email": "shun.wakatsuki@gmail.com",
+            "name": "Shun Wakatsuki",
+            "username": "shwaka"
+          },
+          "distinct": true,
+          "id": "a01a8ed9b8197086ede130d453fb5c785503a178",
+          "message": "fix(profile): change filename in CohomologyOfFreeLoopSpaceOfArkowitzLupton",
+          "timestamp": "2026-07-13T00:53:37+09:00",
+          "tree_id": "36765df32759a7f66a6416aff62b211b69b69d8e",
+          "url": "https://github.com/shwaka/kohomology/commit/a01a8ed9b8197086ede130d453fb5c785503a178"
+        },
+        "date": 1783874404116,
+        "tool": "customSmallerIsBetter",
+        "benches": [
+          {
+            "name": "renderCalculator",
+            "value": 0.867,
+            "unit": "s/op"
+          },
+          {
+            "name": "inputJson",
+            "value": 2.495,
             "unit": "s/op"
           }
         ]

@@ -43,16 +43,16 @@ private fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> measurementTarget(
 private fun measurementTargetList(): List<MeasurementTarget> {
     return listOf(
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
-            CohomologyOfFreeLoopSpace(matrixSpace, 150)
+            CohomologyOfFreeLoopSpace(matrixSpace, 200)
         },
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
-            CohomologyOfFreeLoopSpaceWithMultiDegree(matrixSpace, 150)
+            CohomologyOfFreeLoopSpaceWithMultiDegree(matrixSpace, 400)
         },
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
-            CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(matrixSpace, 100)
+            CohomologyOfFreeLoopSpaceWithMultiDegreeWithShiftDegree(matrixSpace, 400)
         },
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
-            IsomorphismToCohomologyOfFreePathSpace(matrixSpace, n = 5, degreeLimit = 70)
+            IsomorphismToCohomologyOfFreePathSpace(matrixSpace, n = 5, degreeLimit = 90)
         },
         measurementTarget(SparseMatrixSpaceOverRational) { matrixSpace ->
             ComputeRowEchelonFormOfDifferential(matrixSpace)

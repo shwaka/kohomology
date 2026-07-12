@@ -2,6 +2,7 @@ package com.github.shwaka.kohomology.profile.executable
 
 abstract class Executable {
     abstract val description: String
+    abstract val filename: String
     protected open fun setupFun() {}
     private var setupFinished = false
     fun setup() {

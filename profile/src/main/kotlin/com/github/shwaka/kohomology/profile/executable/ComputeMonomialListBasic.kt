@@ -15,6 +15,7 @@ class ComputeMonomialList(
     getMonomialListGenerator: GetMonomialListGenerator<MultiDegree, StringIndeterminateName>,
 ) : Executable() {
     override val description: String = "Compute monomial list"
+    override val filename: String = "monomial-$n"
 
     private val degreeGroup: MultiDegreeGroup = MultiDegreeGroup(
         listOf(

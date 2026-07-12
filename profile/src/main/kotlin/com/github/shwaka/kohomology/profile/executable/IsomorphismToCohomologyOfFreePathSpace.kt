@@ -14,6 +14,7 @@ class IsomorphismToCohomologyOfFreePathSpace<S : Scalar, V : NumVector<S>, M : M
     val degreeLimit: Int,
 ) : Executable() {
     override val description: String = "H^*(CP^$n) -> H^*(Path(CP^$n)) for *<$degreeLimit"
+    override val filename: String = "isom-path-CP$n-$degreeLimit"
     override fun mainFun(): String {
         val indeterminateList = listOf(
             Indeterminate("c", 2),

@@ -107,7 +107,8 @@ fun main() {
     }
 
     val outputDir = outputDir()
-    File(outputDir, "matrix-operations.csv").writeCSV(target.matrixSpaceWithLog.logger.getMeasurementsCSV())
-    File(outputDir, "ref-operations.csv").writeCSV(target.matrixSpaceWithLog.refLogger.getMeasurementsCSV())
-    File(outputDir, "summaries.txt").writeText(target.matrixSpaceWithLog.getFormattedSummaries())
+    val filenamePrefix = target.executable.filename
+    File(outputDir, "${filenamePrefix}_matrix-operations.csv").writeCSV(target.matrixSpaceWithLog.logger.getMeasurementsCSV())
+    File(outputDir, "${filenamePrefix}_ref-operations.csv").writeCSV(target.matrixSpaceWithLog.refLogger.getMeasurementsCSV())
+    File(outputDir, "${filenamePrefix}_summaries.txt").writeText(target.matrixSpaceWithLog.getFormattedSummaries())
 }

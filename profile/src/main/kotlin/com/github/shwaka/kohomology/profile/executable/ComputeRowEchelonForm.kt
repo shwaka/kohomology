@@ -11,6 +11,7 @@ class ComputeRowEchelonFormOfDifferential<S : Scalar, V : NumVector<S>, M : Matr
     private val matrixSpace: MatrixSpace<S, V, M>
 ) : Executable() {
     override val description: String = "compute row echelon form of a differential of a DGA with $matrixSpace"
+    override val filename: String = "row-echelon-of-diff"
 
     private var matrix: M? = null
 
@@ -37,6 +38,7 @@ class ComputeReducedRowEchelonFormOfJordanMatrix<S : Scalar, V : NumVector<S>, M
     private val dim: Int,
 ) : Executable() {
     override val description = "compute reduced row echelon form of a Jordan matrix with $matrixSpace"
+    override val filename: String = "row-echelon-of-jordan-$dim"
     private var matrix: M? = null
 
     override fun setupFun() {

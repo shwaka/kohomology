@@ -44,6 +44,109 @@ fun <S : Scalar, V : NumVector<S>, M : Matrix<S, V>> matrixLogTest(
                 )
             }
 
+            "record inputs for same-shape operations" {
+                val matrix1 = matrixSpace.getZero(2, 3)
+                val matrix2 = matrixSpace.getZero(2, 3)
+
+                matrix1 + matrix2
+                matrix1 - matrix2
+                matrix1 * one
+                matrix1.transpose()
+                matrix1.rowEchelonForm
+
+                logger.measurement.map { it.input } shouldBe listOf(
+                    MatrixOperationInput.Add(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                    MatrixOperationInput.Subtract(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                    MatrixOperationInput.MultiplyScalar(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                    MatrixOperationInput.ComputeTranspose(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                    MatrixOperationInput.ComputeRowEchelonForm(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                )
+            }
+
+            "record inputs for multiplication operations" {
+                val matrix1 = matrixSpace.getZero(2, 3)
+                val matrix2 = matrixSpace.getZero(3, 4)
+                val vector = listOf(zero, zero, zero).toNumVector()
+
+                matrix1 * matrix2
+                matrix1 * vector
+
+                logger.measurement.map { it.input } shouldBe listOf(
+                    MatrixOperationInput.MultiplyMatrix(
+                        firstRowCount = 2,
+                        firstColCount = 3,
+                        secondColCount = 4,
+                    ),
+                    MatrixOperationInput.MultiplyNumVector(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                )
+            }
+
+            "record inputs for join and slice operations" {
+                val matrix1 = matrixSpace.getZero(4, 5)
+                val matrix2 = matrixSpace.getZero(4, 2)
+
+                listOf(matrix1, matrix2).join()
+                matrix1.rowSlice(1..2)
+                matrix1.colSlice(2..4)
+
+                logger.measurement.map { it.input } shouldBe listOf(
+                    MatrixOperationInput.JoinMatrices(
+                        rowCount = 4,
+                        firstColCount = 5,
+                        secondColCount = 2,
+                    ),
+                    MatrixOperationInput.ComputeRowSlice(
+                        rowCount = 4,
+                        colCount = 5,
+                        rangeSize = 2,
+                    ),
+                    MatrixOperationInput.ComputeColSlice(
+                        rowCount = 4,
+                        colCount = 5,
+                        rangeSize = 3,
+                    ),
+                )
+            }
+
+            "record inputs for construction operations" {
+                listOf(
+                    listOf(zero, one, zero),
+                    listOf(one, zero, one),
+                ).toMatrix()
+                mapOf(
+                    1 to mapOf(2 to one),
+                ).toMatrix(rowCount = 3, colCount = 4)
+
+                logger.measurement.map { it.input } shouldBe listOf(
+                    MatrixOperationInput.FromRowList(
+                        rowCount = 2,
+                        colCount = 3,
+                    ),
+                    MatrixOperationInput.FromRowMap(
+                        rowCount = 3,
+                        colCount = 4,
+                    ),
+                )
+            }
+
             "measurement" {
                 logger.measurement.shouldHaveSize(0)
                 val matrix = matrixSpace.getZero(2)
